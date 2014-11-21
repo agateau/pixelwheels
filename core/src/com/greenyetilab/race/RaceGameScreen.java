@@ -39,19 +39,19 @@ public class RaceGameScreen extends ScreenAdapter {
     private Label mTimeLabel;
     private float mTime = 0;
 
-    public RaceGameScreen(RaceGame game, String mapName) {
+    public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mViewport = new ScreenViewport();
         mBatch = new SpriteBatch();
         mStage = new Stage(mViewport, mBatch);
         Gdx.input.setInputProcessor(mStage);
-        setupMap(mapName);
+        setupMap(mapInfo);
         setupCar();
         setupHud();
     }
 
-    void setupMap(String mapName) {
-        mMap = new TmxMapLoader().load(mapName);
+    void setupMap(MapInfo mapInfo) {
+        mMap = mapInfo.getMap();
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();

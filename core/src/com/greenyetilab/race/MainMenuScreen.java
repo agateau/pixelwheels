@@ -26,8 +26,8 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         Group vGroup = new Group();
         float w = 0;
         float y = 0;
-        for(String name: game.getAssets().mapNameList) {
-            TextButton button = createStartButton(name);
+        for(MapInfo mapInfo: game.getAssets().mapInfoList) {
+            TextButton button = createStartButton(mapInfo);
             vGroup.addActor(button);
             button.setY(y);
             y += button.getHeight() + 10;
@@ -39,14 +39,14 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(group);
     }
 
-    private TextButton createStartButton(final String name) {
+    private TextButton createStartButton(final MapInfo mapInfo) {
         Skin skin = mGame.getAssets().skin;
-        TextButton button = new TextButton("Start " + name, skin, "default");
+        TextButton button = new TextButton("Start " + mapInfo.getTitle(), skin, "default");
         button.setSize(200, 40);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.start(name);
+                mGame.start(mapInfo);
             }
         });
         return button;

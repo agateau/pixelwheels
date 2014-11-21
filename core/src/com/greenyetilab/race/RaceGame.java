@@ -27,9 +27,9 @@ public class RaceGame extends Game {
         setScreenAndDispose(screen);
     }
 
-    public void start(String mapName) {
-        NLog.i("mapName=%s", mapName);
-        Screen screen = new RaceGameScreen(this, mapName);
+    public void start(MapInfo mapInfo) {
+        NLog.i("mapName=%s", mapInfo.getTitle());
+        Screen screen = new RaceGameScreen(this, mapInfo);
         setScreenAndDispose(screen);
     }
 

@@ -12,20 +12,22 @@ public class Assets {
     public final Skin skin;
     public final Texture car;
     public final Texture wheel;
-    public Array<String> mapNameList = new Array<String>();
+    public Array<MapInfo> mapInfoList = new Array<MapInfo>();
 
     Assets() {
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         this.car = new Texture("car.png");
         this.wheel = new Texture("wheel.png");
 
-        mapNameList.addAll(
+        for (String name: new String[]{
                 "race.tmx",
                 "round.tmx",
                 "roads.tmx",
                 "clara.tmx",
                 "antonin.tmx",
                 "experiment.tmx"
-        );
+        }) {
+            mapInfoList.add(new MapInfo(name));
+        }
     }
 }
