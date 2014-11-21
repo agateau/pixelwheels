@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * Created by aurelien on 21/11/14.
@@ -21,8 +23,7 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         final TextButton button = new TextButton("Start", skin, "default");
 
         button.setWidth(200f);
-        button.setHeight(20f);
-        button.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight()/2 - 10f);
+        button.setHeight(40f);
 
         button.addListener(new ClickListener() {
             @Override
@@ -31,7 +32,10 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
 
-        getStage().addActor(button);
+        AnchorGroup group = new AnchorGroup();
+        group.setFillParent(true);
+        group.addRule(button, Anchor.CENTER, group, Anchor.CENTER);
+        getStage().addActor(group);
     }
 
 }
