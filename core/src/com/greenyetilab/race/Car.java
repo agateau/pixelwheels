@@ -13,7 +13,7 @@ import com.greenyetilab.utils.log.NLog;
 class Car extends Group {
     private static final float STEER_SPEED = 10;
 
-    private static final float MAX_SPEED = 800;
+    public static final float MAX_SPEED = 800;
     private static final float MIN_SPEED = -50;
     private static final float GROUND_MAX_SPEED = 50;
     private static final float OVERSPEED_DECAY = 10;
@@ -80,6 +80,14 @@ class Car extends Group {
 
     public float getY() {
         return mY;
+    }
+
+    public float getSpeed() {
+        return mSpeed;
+    }
+
+    public float getAngle() {
+        return mAngle;
     }
 
     @Override

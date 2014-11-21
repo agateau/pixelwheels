@@ -91,14 +91,17 @@ public class RaceGame extends ApplicationAdapter {
         float maxX = mMapWidth - screenWidth / 2;
         float maxY = mMapHeight - screenHeight / 2;
 
+        float advance = (mCar.getSpeed() / Car.MAX_SPEED) * Math.min(screenWidth, screenHeight) / 3;
+        float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
+        float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
         Camera camera = mViewport.getCamera();
         if (screenWidth <= mMapWidth) {
-            camera.position.x = MathUtils.clamp(mCar.getX(), minX, maxX);
+            camera.position.x = MathUtils.clamp(x, minX, maxX);
         } else {
             camera.position.x = mMapWidth / 2;
         }
         if (screenHeight <= mMapHeight) {
-            camera.position.y = MathUtils.clamp(mCar.getY(), minY, maxY);
+            camera.position.y = MathUtils.clamp(y, minY, maxY);
         } else {
             camera.position.y = mMapHeight / 2;
         }
