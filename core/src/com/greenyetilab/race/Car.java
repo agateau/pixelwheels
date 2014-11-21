@@ -19,9 +19,6 @@ class Car extends Group {
     private static final float REAR_WHEEL_Y = 7;
     private static final float WHEEL_BASE = 48;
 
-    private static final Vector2 CAR_SIZE = new Vector2(41, 75);
-    private static final Vector2 WHEEL_SIZE = new Vector2(8, 13);
-
     private final Image mMainImage;
     private final Image[] mWheels = new Image[4];
     private float mX, mY;
@@ -54,7 +51,7 @@ class Car extends Group {
         }
 
         float leftX = -centerX - 1;
-        float rightX = centerX - WHEEL_SIZE.x + 2;
+        float rightX = centerX - assets.wheel.getWidth() + 2;
         float rearY = -centerY + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
         mWheels[WHEEL_FL].setPosition(leftX, frontY);
