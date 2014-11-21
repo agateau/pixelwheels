@@ -18,16 +18,15 @@ public class MainMenuScreen extends ScreenAdapter {
     private final RaceGame mGame;
     private Stage mStage;
     private Viewport mViewport;
-    private Skin mSkin;
 
     public MainMenuScreen(RaceGame game) {
         mGame = game;
         mViewport = new ScreenViewport();
         mStage = new Stage(mViewport);
 
-        mSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        Skin skin = game.getAssets().skin;
 
-        final TextButton button = new TextButton("Start", mSkin, "default");
+        final TextButton button = new TextButton("Start", skin, "default");
 
         button.setWidth(200f);
         button.setHeight(20f);

@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -23,7 +22,6 @@ class Car extends Group {
     private static final Vector2 CAR_SIZE = new Vector2(41, 75);
     private static final Vector2 WHEEL_SIZE = new Vector2(8, 13);
 
-    private final RaceGameScreen mGame;
     private final Image mMainImage;
     private final Image[] mWheels = new Image[4];
     private float mX, mY;
@@ -39,19 +37,17 @@ class Car extends Group {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGameScreen game) {
+    public Car(RaceGame game) {
+        Assets assets = game.getAssets();
         mX = 0;
         mY = 0;
-        mGame = game;
-        Texture texture = new Texture("car.png");
-        Texture wheelTexture = new Texture("wheel.png");
 
-        float centerX = texture.getWidth() / 2;
-        float centerY = texture.getHeight() / 2;
+        float centerX = assets.car.getWidth() / 2;
+        float centerY = assets.car.getHeight() / 2;
 
         // Wheels
         for (int i=0; i < mWheels.length; ++i) {
-            Image wheel = new Image(wheelTexture);
+            Image wheel = new Image(assets.wheel);
             wheel.setOrigin(wheel.getWidth() / 2, wheel.getHeight() / 2);
             mWheels[i] = wheel;
             addActor(wheel);
@@ -67,7 +63,7 @@ class Car extends Group {
         mWheels[WHEEL_RR].setPosition(rightX, rearY);
 
         // Main
-        mMainImage = new Image(texture);
+        mMainImage = new Image(assets.car);
         mMainImage.setOrigin(centerX, centerY);
         mMainImage.setPosition(-centerX, -centerY);
         addActor(mMainImage);

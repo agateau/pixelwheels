@@ -30,7 +30,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer mRenderer;
     private Car mCar;
 
-    public RaceGameScreen(String mapName) {
+    public RaceGameScreen(RaceGame game, String mapName) {
         mViewport = new ScreenViewport();
         mBatch = new SpriteBatch();
         mStage = new Stage(mViewport, mBatch);
@@ -40,7 +40,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();
         mRenderer = new OrthogonalTiledMapRenderer(mMap, 1, mBatch);
-        mCar = new Car(this);
+        mCar = new Car(game);
         mStage.addActor(mCar);
     }
 
