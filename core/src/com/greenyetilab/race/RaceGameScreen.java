@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
     private static final float MAX_AZIMUTH = 40;
@@ -40,8 +41,23 @@ public class RaceGameScreen extends ScreenAdapter {
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();
         mRenderer = new OrthogonalTiledMapRenderer(mMap, 1, mBatch);
-        mCar = new Car(game);
+        mCar = new Car(game, layer);
+        moveCarToStartTile(mCar, layer);
         mStage.addActor(mCar);
+    }
+
+    private void moveCarToStartTile(Car car, TiledMapTileLayer layer) {
+        for (int ty=0; ty < layer.getHeight(); ++ty) {
+            for (int tx=0; tx < layer.getWidth(); ++tx) {
+                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+                TiledMapTile tile = cell.getTile();
+                if (tile.getProperties().containsKey("start")) {
+                    car.setPosition(tx * layer.getTileWidth(), ty * layer.getTileHeight());
+                    return;
+                }
+            }
+        }
+        NLog.e("No Tile with 'start' property found");
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.greenyetilab.utils.log.NLog;
 
 /**
 * Created by aurelien on 21/11/14.
@@ -13,7 +16,6 @@ class Car extends Group {
 
     public static final float MAX_SPEED = 800;
     private static final float MIN_SPEED = -100;
-    private static final float GROUND_MAX_SPEED = 50;
     private static final float OVERSPEED_DECAY = 10;
 
     private static final float REAR_WHEEL_Y = 7;
@@ -21,8 +23,9 @@ class Car extends Group {
 
     private final Image mMainImage;
     private final Image[] mWheels = new Image[4];
-    private float mX, mY;
+    private final TiledMapTileLayer mLayer;
     private float mSpeed = 200;
+    private float mMaxSpeed;
     private float mAngle = 80;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
@@ -34,10 +37,9 @@ class Car extends Group {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game) {
+    public Car(RaceGame game, TiledMapTileLayer layer) {
         Assets assets = game.getAssets();
-        mX = 0;
-        mY = 0;
+        mLayer = layer;
 
         float centerX = assets.car.getWidth() / 2;
         float centerY = assets.car.getHeight() / 2;
@@ -66,14 +68,6 @@ class Car extends Group {
         addActor(mMainImage);
     }
 
-    public float getX() {
-        return mX;
-    }
-
-    public float getY() {
-        return mY;
-    }
-
     public float getSpeed() {
         return mSpeed;
     }
@@ -93,15 +87,44 @@ class Car extends Group {
                 mSpeed = Math.max(mSpeed - 2, 0);
             }
         }
-        /*
         if (mSpeed > mMaxSpeed) {
             mSpeed -= OVERSPEED_DECAY;
         }
-         */
+        checkCollisions();
 
         updatePosAndAngle(dt);
-        updateActors();
-}
+    }
+
+    private static Vector2 mTmp = new Vector2();
+    private void checkCollisions() {
+        int maxSpeed0 = 0;
+        float tileSpeed = 0;
+        for(Image wheel: mWheels) {
+            mTmp.x = wheel.getX();
+            mTmp.y = wheel.getY();
+            mTmp = wheel.localToStageCoordinates(mTmp);
+            int tx = MathUtils.floor(mTmp.x / mLayer.getTileWidth());
+            int ty = MathUtils.floor(mTmp.y / mLayer.getTileHeight());
+            TiledMapTileLayer.Cell cell = mLayer.getCell(tx, ty);
+            if (cell == null) {
+                continue;
+            }
+            MapProperties properties = cell.getTile().getProperties();
+            String txt = properties.get("max_speed", String.class);
+            float tileMaxSpeed = txt == null ? 1.0f : Float.valueOf(txt);
+            tileSpeed += tileMaxSpeed;
+            if (tileMaxSpeed == 0) {
+                ++maxSpeed0;
+            }
+            if (properties.containsKey("finish")) {
+                NLog.i("Finish!");
+            }
+        }
+        mMaxSpeed = MAX_SPEED * tileSpeed / mWheels.length;
+        if (maxSpeed0 >= 2) {
+            NLog.i("Broken!");
+        }
+    }
 
     public void setAccelerating(boolean value) {
         mAccelerating = value;
@@ -122,11 +145,11 @@ class Car extends Group {
         double angle = MathUtils.degreesToRadians * mAngle;
         double steerAngle = MathUtils.degreesToRadians * mSteerAngle;
 
-        double fWheelX = mX + WHEEL_BASE / 2 * Math.cos(angle);
-        double fWheelY = mY + WHEEL_BASE / 2 * Math.sin(angle);
+        double fWheelX = getX() + WHEEL_BASE / 2 * Math.cos(angle);
+        double fWheelY = getY() + WHEEL_BASE / 2 * Math.sin(angle);
 
-        double rWheelX = mX - WHEEL_BASE / 2 * Math.cos(angle);
-        double rWheelY = mY - WHEEL_BASE / 2 * Math.sin(angle);
+        double rWheelX = getX() - WHEEL_BASE / 2 * Math.cos(angle);
+        double rWheelY = getY() - WHEEL_BASE / 2 * Math.sin(angle);
 
         rWheelX += mSpeed * dt * Math.cos(angle);
         rWheelY += mSpeed * dt * Math.sin(angle);
@@ -134,13 +157,11 @@ class Car extends Group {
         fWheelX += mSpeed * dt * Math.cos(angle + steerAngle);
         fWheelY += mSpeed * dt * Math.sin(angle + steerAngle);
 
-        mX = (float) ((rWheelX + fWheelX) / 2);
-        mY = (float) ((rWheelY + fWheelY) / 2);
+        setPosition(
+                (float) ((rWheelX + fWheelX) / 2),
+                (float) ((rWheelY + fWheelY) / 2)
+        );
         mAngle = (float) (MathUtils.radiansToDegrees * Math.atan2(fWheelY - rWheelY, fWheelX - rWheelX));
-    }
-
-    private void updateActors() {
-        setPosition(mX, mY);
         setRotation(mAngle - 90);
         mWheels[WHEEL_FL].setRotation(mSteerAngle);
         mWheels[WHEEL_FR].setRotation(mSteerAngle);
