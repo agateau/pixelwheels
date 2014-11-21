@@ -1,5 +1,8 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -13,6 +16,8 @@ public class MapInfo {
 
     MapInfo(String filename) {
         mFileName = filename;
+        Preferences prefs = Gdx.app.getPreferences("com.greenyetilab.race");
+        mBestTime = prefs.getFloat("best/" + mFileName, 0);
     }
 
     public String getTitle() {
@@ -32,5 +37,8 @@ public class MapInfo {
 
     public void setBestTime(float value) {
         mBestTime = value;
+        Preferences prefs = Gdx.app.getPreferences("com.greenyetilab.race");
+        prefs.putFloat("best/" + mFileName, mBestTime);
+        prefs.flush();
     }
 }
