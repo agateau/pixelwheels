@@ -104,7 +104,7 @@ public class RaceGameScreen extends ScreenAdapter {
         case RUNNING:
             break;
         case BROKEN:
-            mGame.showGameOverOverlay();
+            mGame.showGameOverOverlay(mMapInfo);
             return;
         case FINISHED:
             mGame.showFinishedOverlay(mMapInfo, mTime);

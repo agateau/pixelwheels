@@ -41,8 +41,8 @@ public class RaceGame extends Game {
         setScreen(screen);
     }
 
-    public void showGameOverOverlay() {
-        showOverlay("Game Over");
+    public void showGameOverOverlay(MapInfo mapInfo) {
+        showOverlay(mapInfo, "Game Over");
     }
 
     public void showFinishedOverlay(MapInfo mapInfo, float time) {
@@ -57,11 +57,11 @@ public class RaceGame extends Game {
         } else if (best != 0) {
             text += "\n\nRecord is " + StringUtils.formatRaceTime(best);
         }
-        showOverlay(text);
+        showOverlay(mapInfo, text);
     }
 
-    private void showOverlay(String text) {
+    private void showOverlay(MapInfo mapInfo, String text) {
         TextureRegion bg = ScreenUtils.getFrameBufferTexture();
-        setScreenAndDispose(new OverlayScreen(this, bg, text));
+        setScreenAndDispose(new OverlayScreen(this, mapInfo, bg, text));
     }
 }

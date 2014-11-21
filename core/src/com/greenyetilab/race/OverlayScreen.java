@@ -20,7 +20,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class OverlayScreen extends StageScreen {
     private final RaceGame mGame;
 
-    public OverlayScreen(RaceGame game, TextureRegion bg, String text) {
+    public OverlayScreen(RaceGame game, final MapInfo mapInfo, TextureRegion bg, String text) {
         mGame = game;
 
         Image image = new Image(bg);
@@ -31,9 +31,13 @@ public class OverlayScreen extends StageScreen {
         Label label = new Label(text, skin);
         label.setAlignment(Align.center);
 
-        TextButton button = new TextButton("Menu", skin);
-        button.setSize(200, 40);
-        button.addListener(new ClickListener() {
+        TextButton tryAgainButton = createButton("Try Again", new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mGame.start(mapInfo);
+            }
+        });
+        TextButton menuButton = createButton("Menu", new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.showMainMenu();
@@ -41,9 +45,19 @@ public class OverlayScreen extends StageScreen {
         });
 
         AnchorGroup group = new AnchorGroup();
+        group.setSpacing(20);
         group.setFillParent(true);
-        group.addRule(label, Anchor.BOTTOM_CENTER, group, Anchor.CENTER);
-        group.addRule(button, Anchor.TOP_CENTER, label, Anchor.BOTTOM_CENTER, 0, -20);
+        group.addRule(label, Anchor.BOTTOM_CENTER, group, Anchor.CENTER, 0, 1);
+        group.addRule(tryAgainButton, Anchor.TOP_CENTER, label, Anchor.BOTTOM_CENTER, 0, -2);
+        group.addRule(menuButton, Anchor.TOP_CENTER, tryAgainButton, Anchor.BOTTOM_CENTER, 0, -1);
         getStage().addActor(group);
+    }
+
+    private TextButton createButton(String text, ClickListener listener) {
+        Skin skin = mGame.getAssets().skin;
+        TextButton button = new TextButton(text, skin);
+        button.setSize(200, 40);
+        button.addListener(listener);
+        return button;
     }
 }
