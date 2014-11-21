@@ -29,6 +29,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private Viewport mViewport;
     private Batch mBatch;
 
+    private MapInfo mMapInfo;
     private TiledMap mMap;
     private float mMapWidth;
     private float mMapHeight;
@@ -51,6 +52,7 @@ public class RaceGameScreen extends ScreenAdapter {
     }
 
     void setupMap(MapInfo mapInfo) {
+        mMapInfo = mapInfo;
         mMap = mapInfo.getMap();
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = layer.getWidth() * layer.getTileWidth();
@@ -105,7 +107,7 @@ public class RaceGameScreen extends ScreenAdapter {
             mGame.showGameOverOverlay();
             return;
         case FINISHED:
-            mGame.showFinishedOverlay(mTime);
+            mGame.showFinishedOverlay(mMapInfo, mTime);
             return;
         }
 

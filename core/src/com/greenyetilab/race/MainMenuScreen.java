@@ -41,7 +41,12 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
 
     private TextButton createStartButton(final MapInfo mapInfo) {
         Skin skin = mGame.getAssets().skin;
-        TextButton button = new TextButton("Start " + mapInfo.getTitle(), skin, "default");
+        String text = "Start " + mapInfo.getTitle();
+        float best = mapInfo.getBestTime();
+        if (best > 0) {
+            text += " (" + StringUtils.formatRaceTime(best) + ")";
+        }
+        TextButton button = new TextButton(text, skin, "default");
         button.setSize(200, 40);
         button.addListener(new ClickListener() {
             @Override

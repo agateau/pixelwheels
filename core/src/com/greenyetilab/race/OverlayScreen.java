@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.StageScreen;
 import com.greenyetilab.utils.anchor.Anchor;
@@ -28,6 +29,7 @@ public class OverlayScreen extends StageScreen {
 
         Skin skin = game.getAssets().skin;
         Label label = new Label(text, skin);
+        label.setAlignment(Align.center);
 
         TextButton button = new TextButton("Menu", skin);
         button.setSize(200, 40);

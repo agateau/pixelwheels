@@ -45,8 +45,19 @@ public class RaceGame extends Game {
         showOverlay("Game Over");
     }
 
-    public void showFinishedOverlay(float time) {
-        showOverlay("Finished in " + StringUtils.formatRaceTime(time));
+    public void showFinishedOverlay(MapInfo mapInfo, float time) {
+        float best = mapInfo.getBestTime();
+        String text = "Finished in " + StringUtils.formatRaceTime(time);
+        if (best == 0 || time < best) {
+            text += "\n\nNew record!";
+            if (best != 0) {
+                text += "\n\nOld record was " + StringUtils.formatRaceTime(best);
+            }
+            mapInfo.setBestTime(time);
+        } else if (best != 0) {
+            text += "\n\nRecord is " + StringUtils.formatRaceTime(best);
+        }
+        showOverlay(text);
     }
 
     private void showOverlay(String text) {
