@@ -96,9 +96,6 @@ public class RaceGameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         mTime += delta;
         mStage.act(delta);
         switch (mCar.getState()) {
@@ -116,16 +113,15 @@ public class RaceGameScreen extends ScreenAdapter {
         updateCamera();
         updateHud();
 
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mRenderer.setView((OrthographicCamera) mViewport.getCamera());
         mRenderer.render();
         mStage.draw();
     }
 
     private void updateHud() {
-        int minutes = (int)(mTime / 60);
-        int seconds = (int)(mTime) % 60;
-        int tens = (int)(mTime * 10) % 10;
-        String text = String.format("%d:%02d.%d", minutes, seconds, tens);
+        String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
 
         float x = mViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2;

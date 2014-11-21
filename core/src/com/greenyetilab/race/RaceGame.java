@@ -2,6 +2,8 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.greenyetilab.utils.log.NLog;
 
 /**
@@ -17,8 +19,12 @@ public class RaceGame extends Game {
     @Override
     public void create() {
         mAssets = new Assets();
+        showMainMenu();
+    }
+
+    public void showMainMenu() {
         Screen screen = new MainMenuScreen(this);
-        setScreen(screen);
+        setScreenAndDispose(screen);
     }
 
     public void start(String mapName) {
@@ -36,10 +42,15 @@ public class RaceGame extends Game {
     }
 
     public void showGameOverOverlay() {
-
+        showOverlay("Game Over");
     }
 
-    public void showFinishedOverlay(float duration) {
+    public void showFinishedOverlay(float time) {
+        showOverlay("Finished in " + StringUtils.formatRaceTime(time));
+    }
 
+    private void showOverlay(String text) {
+        TextureRegion bg = ScreenUtils.getFrameBufferTexture();
+        setScreenAndDispose(new OverlayScreen(this, bg, text));
     }
 }
