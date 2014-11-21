@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="ground" tilewidth="64" tileheight="64">
+  <image source="tileset.png" width="384" height="320"/>
+  <tile id="9">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="finish" value="True"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="start" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque de Tile 1" width="60" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2dsOgjAMBuB5VlAjnjX6/q/pLiBZmm5rx5ACvfjvNPLxd4pbaYwpNRqNRqPRiMvL5onkHXnf0mbByEqI9WBTILlFfCebHSNVz/6QtfG6Rq6P4+/aHrMWtTW3sQ97zNp06rNebGYJOTPtudz3BKdr3CZ+7oZ5D3K4fd36Zrdxpho598BnrxLNKdaunCE75uaapVspbo4ZW7MxK/z97cMNzfMW3nXAij1v9BF4jZSOsVn2dTt3XiPBm9Ix7DY2x5K83I6xbrE5ht1K8nI6pq5byV6s47ZeOMvSvb6Zpq5d2K00L3WmoZc6y9K81JlWr3rVq14J6cJ7tHnU+Qgwdu3dm/i+85i8Us3Yc1LO9SvNDK/bt/8yhu8rardj8GLW0N7aUL2hvfDQ/gbV2/y/wrxXwzsHzJHQ2UZo35TqxTp2vb73/DOUPeKxeKn74UP3cs9zcnlTzgNzhHvGkcM7pKh3ut7vxLxT61e9w/f+ANqJeq0=
+  </data>
+ </layer>
+</map>

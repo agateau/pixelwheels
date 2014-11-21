@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="80" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="ground" tilewidth="64" tileheight="64">
+  <image source="tileset.png" width="384" height="320"/>
+  <tile id="9">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="finish" value="True"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="start" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="31" source="ground.tsx"/>
+ <layer name="Calque de Tile 1" width="16" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztyzEOQFAURcFPgQjl09n/Nl2JQkSh0U1xmpNMtda2NKT5Y32qyxXP8zzP8zzP8zzP8zzP87/5Ja1pTN2j/eWdTTd3AP62PEY=
+  </data>
+ </layer>
+</map>
