@@ -11,7 +11,7 @@ import com.greenyetilab.utils.log.NLog;
 * Created by aurelien on 21/11/14.
 */
 class Car extends Group {
-    private static final float STEER_SPEED = 20;
+    private static final float STEER_SPEED = 10;
 
     private static final float MAX_SPEED = 800;
     private static final float MIN_SPEED = -50;
@@ -118,25 +118,25 @@ class Car extends Group {
     private void updatePosAndAngle(float dt) {
         mSteerAngle = STEER_SPEED * mDirection;
 
-        float angle = MathUtils.degreesToRadians * mAngle;
-        float steerAngle = MathUtils.degreesToRadians * mSteerAngle;
+        // We must use double and not float here otherwise the car does not turn when driving slowly
+        double angle = MathUtils.degreesToRadians * mAngle;
+        double steerAngle = MathUtils.degreesToRadians * mSteerAngle;
 
-        float fWheelX = mX + WHEEL_BASE / 2 * MathUtils.cos(angle);
-        float fWheelY = mY + WHEEL_BASE / 2 * MathUtils.sin(angle);
+        double fWheelX = mX + WHEEL_BASE / 2 * Math.cos(angle);
+        double fWheelY = mY + WHEEL_BASE / 2 * Math.sin(angle);
 
-        float rWheelX = mX - WHEEL_BASE / 2 * MathUtils.cos(angle);
-        float rWheelY = mY - WHEEL_BASE / 2 * MathUtils.sin(angle);
+        double rWheelX = mX - WHEEL_BASE / 2 * Math.cos(angle);
+        double rWheelY = mY - WHEEL_BASE / 2 * Math.sin(angle);
 
-        rWheelX += mSpeed * dt * MathUtils.cos(angle);
-        rWheelY += mSpeed * dt * MathUtils.sin(angle);
+        rWheelX += mSpeed * dt * Math.cos(angle);
+        rWheelY += mSpeed * dt * Math.sin(angle);
 
-        fWheelX += mSpeed * dt * MathUtils.cos(angle + steerAngle);
-        fWheelY += mSpeed * dt * MathUtils.sin(angle + steerAngle);
+        fWheelX += mSpeed * dt * Math.cos(angle + steerAngle);
+        fWheelY += mSpeed * dt * Math.sin(angle + steerAngle);
 
-        mX = (rWheelX + fWheelX) / 2;
-        mY = (rWheelY + fWheelY) / 2;
-        mAngle = MathUtils.radiansToDegrees * MathUtils.atan2(fWheelY - rWheelY, fWheelX - rWheelX);
-        NLog.i("mAngle=%.2f mSpeed * dt=%.6f", mAngle, mSpeed * dt);
+        mX = (float) ((rWheelX + fWheelX) / 2);
+        mY = (float) ((rWheelY + fWheelY) / 2);
+        mAngle = (float) (MathUtils.radiansToDegrees * Math.atan2(fWheelY - rWheelY, fWheelX - rWheelX));
     }
 
     private void updateActors() {
