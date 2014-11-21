@@ -20,12 +20,12 @@ public class Assets {
         this.wheel = new Texture("wheel.png");
 
         for (String name: new String[]{
-                "race.tmx",
-                "round.tmx",
-                "roads.tmx",
                 "clara.tmx",
-                "antonin.tmx",
-                "experiment.tmx"
+                "roads.tmx",
+                "round.tmx",
+                "race.tmx",
+                //"antonin.tmx",
+                //"experiment.tmx",
         }) {
             mapInfoList.add(new MapInfo(name));
         }
