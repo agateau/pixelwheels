@@ -52,7 +52,9 @@ public class RaceGameScreen extends ScreenAdapter {
                 TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
                 TiledMapTile tile = cell.getTile();
                 if (tile.getProperties().containsKey("start")) {
-                    car.setPosition(tx * layer.getTileWidth(), ty * layer.getTileHeight());
+                    float tw = layer.getTileWidth();
+                    float th = layer.getTileHeight();
+                    car.setPosition(tx * tw + tw / 2, ty * th + th / 2);
                     return;
                 }
             }

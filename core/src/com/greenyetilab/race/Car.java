@@ -24,9 +24,9 @@ class Car extends Group {
     private final Image mMainImage;
     private final Image[] mWheels = new Image[4];
     private final TiledMapTileLayer mLayer;
-    private float mSpeed = 200;
+    private float mSpeed = 0;
     private float mMaxSpeed;
-    private float mAngle = 80;
+    private float mAngle = 90;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
