@@ -15,12 +15,16 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
     private static final float MAX_AZIMUTH = 40;
+    private final RaceGame mGame;
     private Stage mStage;
     private Viewport mViewport;
     private Batch mBatch;
@@ -31,19 +35,47 @@ public class RaceGameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer mRenderer;
     private Car mCar;
 
+    private WidgetGroup mHud;
+    private Label mTimeLabel;
+    private float mTime = 0;
+
     public RaceGameScreen(RaceGame game, String mapName) {
+        mGame = game;
         mViewport = new ScreenViewport();
         mBatch = new SpriteBatch();
         mStage = new Stage(mViewport, mBatch);
+        Gdx.input.setInputProcessor(mStage);
+        setupMap(mapName);
+        setupCar();
+        setupHud();
+    }
 
+    void setupMap(String mapName) {
         mMap = new TmxMapLoader().load(mapName);
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();
         mRenderer = new OrthogonalTiledMapRenderer(mMap, 1, mBatch);
-        mCar = new Car(game, layer);
+    }
+
+    void setupCar() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        mCar = new Car(mGame, layer);
         moveCarToStartTile(mCar, layer);
         mStage.addActor(mCar);
+    }
+
+    void setupHud() {
+        Skin skin = mGame.getAssets().skin;
+        mHud = new WidgetGroup();
+
+        mTimeLabel = new Label("0:00.0", skin);
+        mTimeLabel.invalidate();
+        mHud.addActor(mTimeLabel);
+        mHud.setHeight(mTimeLabel.getHeight());
+
+        mStage.addActor(mHud);
+        updateHud();
     }
 
     private void moveCarToStartTile(Car car, TiledMapTileLayer layer) {
@@ -67,13 +99,38 @@ public class RaceGameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        handleInput();
+        mTime += delta;
         mStage.act(delta);
+        switch (mCar.getState()) {
+        case RUNNING:
+            break;
+        case BROKEN:
+            mGame.showGameOverOverlay();
+            return;
+        case FINISHED:
+            mGame.showFinishedOverlay(mTime);
+            return;
+        }
+
+        handleInput();
         updateCamera();
+        updateHud();
 
         mRenderer.setView((OrthographicCamera) mViewport.getCamera());
         mRenderer.render();
         mStage.draw();
+    }
+
+    private void updateHud() {
+        int minutes = (int)(mTime / 60);
+        int seconds = (int)(mTime) % 60;
+        int tens = (int)(mTime * 10) % 10;
+        String text = String.format("%d:%02d.%d", minutes, seconds, tens);
+        mTimeLabel.setText(text);
+
+        float x = mViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2;
+        float y = mViewport.getCamera().position.y + Gdx.graphics.getHeight() / 2;
+        mHud.setPosition(x, y - mHud.getHeight());
     }
 
     @Override

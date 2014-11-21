@@ -12,6 +12,11 @@ import com.greenyetilab.utils.log.NLog;
 * Created by aurelien on 21/11/14.
 */
 class Car extends Group {
+    public enum State {
+        RUNNING,
+        BROKEN,
+        FINISHED
+    }
     private static final float STEER_SPEED = 10;
 
     public static final float MAX_SPEED = 800;
@@ -31,6 +36,7 @@ class Car extends Group {
     private boolean mBraking = false;
     private float mDirection = 0;
     private float mSteerAngle;
+    private State mState = State.RUNNING;
 
     private static final int WHEEL_FL = 0;
     private static final int WHEEL_FR = 1;
@@ -68,6 +74,10 @@ class Car extends Group {
         addActor(mMainImage);
     }
 
+    public State getState() {
+        return mState;
+    }
+
     public float getSpeed() {
         return mSpeed;
     }
@@ -78,6 +88,9 @@ class Car extends Group {
 
     @Override
     public void act(float dt) {
+        if (mState != State.RUNNING) {
+            return;
+        }
         if (mBraking) {
             mSpeed = Math.max(mSpeed - 4, MIN_SPEED);
         } else {
@@ -91,7 +104,6 @@ class Car extends Group {
             mSpeed -= OVERSPEED_DECAY;
         }
         checkCollisions();
-
         updatePosAndAngle(dt);
     }
 
@@ -118,11 +130,13 @@ class Car extends Group {
             }
             if (properties.containsKey("finish")) {
                 NLog.i("Finish!");
+                mState = State.FINISHED;
             }
         }
         mMaxSpeed = MAX_SPEED * tileSpeed / mWheels.length;
         if (maxSpeed0 >= 2) {
             NLog.i("Broken!");
+            mState = State.BROKEN;
         }
     }
 

@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.greenyetilab.utils.log.NLog;
 
 /**
  * Created by aurelien on 21/11/14.
@@ -21,6 +22,7 @@ public class RaceGame extends Game {
     }
 
     public void start(String mapName) {
+        NLog.i("mapName=%s", mapName);
         Screen screen = new RaceGameScreen(this, mapName);
         setScreenAndDispose(screen);
     }
@@ -31,5 +33,13 @@ public class RaceGame extends Game {
             oldScreen.dispose();
         }
         setScreen(screen);
+    }
+
+    public void showGameOverOverlay() {
+
+    }
+
+    public void showFinishedOverlay(float duration) {
+
     }
 }
