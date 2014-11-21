@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class RaceGame extends ApplicationAdapter {
+    private static final float MAX_AZIMUTH = 40;
     private Stage mStage;
     private Viewport mViewport;
     private Batch mBatch;
@@ -65,15 +66,21 @@ public class RaceGame extends ApplicationAdapter {
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            mCar.setDirection(1);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            mCar.setDirection(-1);
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+            float angle = Gdx.input.getPitch();
+            float direction = MathUtils.clamp(angle, -MAX_AZIMUTH, MAX_AZIMUTH) / MAX_AZIMUTH;
+            mCar.setDirection(direction);
         } else {
-            mCar.setDirection(0);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                mCar.setDirection(1);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                mCar.setDirection(-1);
+            } else {
+                mCar.setDirection(0);
+            }
         }
-        mCar.setAccelerating(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT));
-        mCar.setBraking(Gdx.input.isKeyPressed(Input.Keys.SPACE));
+        mCar.setAccelerating(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || touchAt(0.5f, 1));
+        mCar.setBraking(Gdx.input.isKeyPressed(Input.Keys.SPACE) || touchAt(0, 0.5f));
     }
 
     private void updateCamera() {
@@ -98,5 +105,17 @@ public class RaceGame extends ApplicationAdapter {
         camera.position.x = MathUtils.floor(camera.position.x);
         camera.position.y = MathUtils.floor(camera.position.y);
         camera.update();
+    }
+
+    private boolean touchAt(float startX, float endX) {
+        // check if any finger is touching the area between startX and endX
+        // startX/endX are given between 0 (left edge of the screen) and 1 (right edge of the screen)
+        for (int i = 0; i < 2; i++) {
+            float x = Gdx.input.getX() / (float)Gdx.graphics.getWidth();
+            if (Gdx.input.isTouched(i) && (x >= startX && x <= endX)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

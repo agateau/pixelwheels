@@ -32,7 +32,7 @@ class Car extends Group {
     private float mAngle = 80;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
-    private int mDirection = 0;
+    private float mDirection = 0;
     private float mSteerAngle;
 
     private static final int WHEEL_FL = 0;
@@ -111,7 +111,7 @@ class Car extends Group {
         mBraking = value;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(float direction) {
         mDirection = direction;
     }
 
