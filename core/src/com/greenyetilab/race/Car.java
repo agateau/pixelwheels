@@ -14,7 +14,7 @@ class Car extends Group {
     private static final float STEER_SPEED = 10;
 
     public static final float MAX_SPEED = 800;
-    private static final float MIN_SPEED = -50;
+    private static final float MIN_SPEED = -100;
     private static final float GROUND_MAX_SPEED = 50;
     private static final float OVERSPEED_DECAY = 10;
 
