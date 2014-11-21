@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
-    private static final float MAX_AZIMUTH = 40;
+    private static final float MAX_AZIMUTH = 30;
     private final RaceGame mGame;
     private Stage mStage;
     private Viewport mViewport;
