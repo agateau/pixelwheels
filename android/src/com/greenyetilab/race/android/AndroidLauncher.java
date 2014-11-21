@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.greenyetilab.race.RaceGame;
+import com.greenyetilab.race.RaceGameScreen;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

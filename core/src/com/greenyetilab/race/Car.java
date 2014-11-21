@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.greenyetilab.utils.log.NLog;
 
 /**
 * Created by aurelien on 21/11/14.
@@ -24,7 +23,7 @@ class Car extends Group {
     private static final Vector2 CAR_SIZE = new Vector2(41, 75);
     private static final Vector2 WHEEL_SIZE = new Vector2(8, 13);
 
-    private final RaceGame mGame;
+    private final RaceGameScreen mGame;
     private final Image mMainImage;
     private final Image[] mWheels = new Image[4];
     private float mX, mY;
@@ -40,7 +39,7 @@ class Car extends Group {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game) {
+    public Car(RaceGameScreen game) {
         mX = 0;
         mY = 0;
         mGame = game;
