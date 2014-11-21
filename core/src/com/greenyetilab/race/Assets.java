@@ -23,7 +23,7 @@ public class Assets {
                 "clara.tmx",
                 "roads.tmx",
                 "round.tmx",
-                "race.tmx",
+                "tutorial.tmx",
                 //"antonin.tmx",
                 //"experiment.tmx",
         }) {
