@@ -31,4 +31,10 @@ public class StageScreen extends ScreenAdapter {
         mStage.act(delta);
         mStage.draw();
     }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        mViewport.update(width, height, false);
+    }
 }
