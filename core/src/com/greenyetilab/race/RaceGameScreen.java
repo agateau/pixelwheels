@@ -30,12 +30,12 @@ public class RaceGameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer mRenderer;
     private Car mCar;
 
-    public RaceGameScreen() {
+    public RaceGameScreen(String mapName) {
         mViewport = new ScreenViewport();
         mBatch = new SpriteBatch();
         mStage = new Stage(mViewport, mBatch);
 
-        mMap = new TmxMapLoader().load("race.tmx");
+        mMap = new TmxMapLoader().load(mapName);
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();
