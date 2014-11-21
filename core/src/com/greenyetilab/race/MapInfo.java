@@ -21,7 +21,11 @@ public class MapInfo {
     }
 
     public String getTitle() {
-        return mFileName;
+        String title = mFileName.replace(".tmx", "");
+        String first = title.substring(0, 1);
+        first = first.toUpperCase();
+        title = first + title.substring(1);
+        return title;
     }
 
     public TiledMap getMap() {
