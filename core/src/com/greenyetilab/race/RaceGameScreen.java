@@ -23,7 +23,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
-    private static final float MAX_AZIMUTH = 30;
+    private static final float MAX_PITCH = 30;
+    private static final float MAX_ACCEL = 7;
     private final RaceGame mGame;
     private Stage mStage;
     private Viewport mViewport;
@@ -139,9 +140,13 @@ public class RaceGameScreen extends ScreenAdapter {
     }
 
     private void handleInput() {
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass)) {
             float angle = Gdx.input.getPitch();
-            float direction = MathUtils.clamp(angle, -MAX_AZIMUTH, MAX_AZIMUTH) / MAX_AZIMUTH;
+            float direction = MathUtils.clamp(angle, -MAX_PITCH, MAX_PITCH) / MAX_PITCH;
+            mCar.setDirection(direction);
+        } else if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+            float angle = -Gdx.input.getAccelerometerY();
+            float direction = MathUtils.clamp(angle, -MAX_ACCEL, MAX_ACCEL) / MAX_ACCEL;
             mCar.setDirection(direction);
         } else {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
