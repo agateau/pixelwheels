@@ -128,7 +128,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
         float x = mViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2;
         float y = mViewport.getCamera().position.y + Gdx.graphics.getHeight() / 2;
-        mHud.setPosition(x, y - mHud.getHeight());
+        mHud.setPosition(x + 5, y - mHud.getHeight() - 15);
     }
 
     @Override

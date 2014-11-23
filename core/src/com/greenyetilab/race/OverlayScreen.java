@@ -47,16 +47,16 @@ public class OverlayScreen extends StageScreen {
         AnchorGroup group = new AnchorGroup();
         group.setSpacing(20);
         group.setFillParent(true);
-        group.addRule(label, Anchor.BOTTOM_CENTER, group, Anchor.CENTER, 0, 1);
-        group.addRule(tryAgainButton, Anchor.TOP_CENTER, label, Anchor.BOTTOM_CENTER, 0, -2);
+        group.addRule(tryAgainButton, Anchor.CENTER, group, Anchor.CENTER, 0, 0);
         group.addRule(menuButton, Anchor.TOP_CENTER, tryAgainButton, Anchor.BOTTOM_CENTER, 0, -1);
+        group.addRule(label, Anchor.BOTTOM_CENTER, tryAgainButton, Anchor.TOP_CENTER, 0, 3);
         getStage().addActor(group);
     }
 
     private TextButton createButton(String text, ClickListener listener) {
         Skin skin = mGame.getAssets().skin;
         TextButton button = new TextButton(text, skin);
-        button.setSize(200, 40);
+        button.setSize(300, 60);
         button.addListener(listener);
         return button;
     }

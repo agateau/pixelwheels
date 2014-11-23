@@ -50,7 +50,7 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
             text += " (" + StringUtils.formatRaceTime(best) + ")";
         }
         TextButton button = new TextButton(text, skin, "default");
-        button.setSize(200, 60);
+        button.setSize(300, 60);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
