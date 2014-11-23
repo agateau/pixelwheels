@@ -25,6 +25,7 @@ import com.greenyetilab.utils.log.NLog;
 public class RaceGameScreen extends ScreenAdapter {
     private static final float MAX_PITCH = 30;
     private static final float MAX_ACCEL = 7;
+    public static final float WORLD_SCALE = 1.5f;
     private final RaceGame mGame;
     private Stage mStage;
     private Viewport mViewport;
@@ -58,7 +59,7 @@ public class RaceGameScreen extends ScreenAdapter {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = layer.getWidth() * layer.getTileWidth();
         mMapHeight = layer.getHeight() * layer.getTileHeight();
-        mRenderer = new OrthogonalTiledMapRenderer(mMap, 1, mBatch);
+        mRenderer = new OrthogonalTiledMapRenderer(mMap, WORLD_SCALE, mBatch);
     }
 
     void setupCar() {
@@ -89,7 +90,7 @@ public class RaceGameScreen extends ScreenAdapter {
                 if (tile.getProperties().containsKey("start")) {
                     float tw = layer.getTileWidth();
                     float th = layer.getTileHeight();
-                    car.setPosition(tx * tw + tw / 2, ty * th + th / 2);
+                    car.setPosition((tx * tw + tw / 2) * WORLD_SCALE, (ty * th + th / 2) * WORLD_SCALE);
                     return;
                 }
             }
@@ -166,22 +167,22 @@ public class RaceGameScreen extends ScreenAdapter {
         float screenHeight = Gdx.graphics.getHeight();
         float minX = screenWidth / 2;
         float minY = screenHeight / 2;
-        float maxX = mMapWidth - screenWidth / 2;
-        float maxY = mMapHeight - screenHeight / 2;
+        float maxX = mMapWidth * WORLD_SCALE - screenWidth / 2;
+        float maxY = mMapHeight * WORLD_SCALE - screenHeight / 2;
 
         float advance = (mCar.getSpeed() / Car.MAX_SPEED) * Math.min(screenWidth, screenHeight) / 3;
         float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
         float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
         Camera camera = mViewport.getCamera();
-        if (screenWidth <= mMapWidth) {
+        if (screenWidth <= mMapWidth * WORLD_SCALE) {
             camera.position.x = MathUtils.clamp(x, minX, maxX);
         } else {
-            camera.position.x = mMapWidth / 2;
+            camera.position.x = mMapWidth * WORLD_SCALE / 2;
         }
-        if (screenHeight <= mMapHeight) {
+        if (screenHeight <= mMapHeight * WORLD_SCALE) {
             camera.position.y = MathUtils.clamp(y, minY, maxY);
         } else {
-            camera.position.y = mMapHeight / 2;
+            camera.position.y = mMapHeight * WORLD_SCALE / 2;
         }
         camera.position.x = MathUtils.floor(camera.position.x);
         camera.position.y = MathUtils.floor(camera.position.y);

@@ -119,8 +119,8 @@ class Car extends Group {
             mTmp.x = wheel.getX();
             mTmp.y = wheel.getY();
             mTmp = wheel.localToStageCoordinates(mTmp);
-            int tx = MathUtils.floor(mTmp.x / mLayer.getTileWidth());
-            int ty = MathUtils.floor(mTmp.y / mLayer.getTileHeight());
+            int tx = MathUtils.floor(mTmp.x / RaceGameScreen.WORLD_SCALE / mLayer.getTileWidth());
+            int ty = MathUtils.floor(mTmp.y / RaceGameScreen.WORLD_SCALE / mLayer.getTileHeight());
             TiledMapTileLayer.Cell cell = mLayer.getCell(tx, ty);
             if (cell == null) {
                 continue;
