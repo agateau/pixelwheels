@@ -96,8 +96,12 @@ class Car extends Group {
         } else {
             if (mAccelerating) {
                 mSpeed = Math.min(mSpeed + 4, MAX_SPEED);
-            } else {
+            } else if (mSpeed > 0) {
+                // Freewheel
                 mSpeed = Math.max(mSpeed - 2, 0);
+            } else {
+                // Reverse freewheel
+                mSpeed = Math.min(mSpeed + 2, 0);
             }
         }
         if (mSpeed > mMaxSpeed) {
