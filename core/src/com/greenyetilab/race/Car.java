@@ -17,11 +17,11 @@ class Car extends Group {
         BROKEN,
         FINISHED
     }
-    private static final float STEER_SPEED = 10;
+    private static final float STEER_SPEED = 15;
 
     public static final float MAX_SPEED = 800;
     private static final float MIN_SPEED = -100;
-    private static final float OVERSPEED_DECAY = 10;
+    private static final float OVERSPEED_DECAY = 20;
 
     private static final float REAR_WHEEL_Y = 7;
     private static final float WHEEL_BASE = 48;
