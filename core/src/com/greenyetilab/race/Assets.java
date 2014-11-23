@@ -21,6 +21,7 @@ public class Assets {
 
         for (String name: new String[]{
                 "clara.tmx",
+                "big.tmx",
                 "roads.tmx",
                 "round.tmx",
                 "tutorial.tmx",

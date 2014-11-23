@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="256" tileheight="256">
+ <tileset firstgid="1" name="ground" tilewidth="256" tileheight="256">
+  <image source="tileset-big.png" width="768" height="1024"/>
+  <tile id="2">
+   <properties>
+    <property name="max_speed" value="0.2"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="start" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="finish" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque de Tile 1" width="10" height="8">
+  <data encoding="base64" compression="zlib">
+   eJx1jlsKACAIBLWHRd3/vhkUxGAfg7jMwqqI9IfkZDCdhmz/Cr89np1bnIo+PYN/t7AX+Rm9hF326XDXz7uMINss7VgBbw==
+  </data>
+ </layer>
+</map>
