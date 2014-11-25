@@ -3,7 +3,6 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,11 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
+    private static final boolean DEBUG_RENDERER = false;
+
+    private static final float VIEWPORT_WIDTH = 40;
     private static final float MAX_PITCH = 30;
     private static final float MAX_ACCEL = 7;
     private static final float TIME_STEP = 1f/60f;
@@ -34,7 +34,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private final World mWorld;
     private final Box2DDebugRenderer mDebugRenderer;
     private Stage mStage;
-    private Viewport mViewport;
+    private OrthographicCamera mCamera;
     private Batch mBatch;
 
     private MapInfo mMapInfo;
@@ -43,7 +43,6 @@ public class RaceGameScreen extends ScreenAdapter {
     private float mMapHeight;
     private OrthogonalTiledMapRenderer mRenderer;
     private Car mCar;
-    private Wheel mWheel;
 
     private WidgetGroup mHud;
     private Label mTimeLabel;
@@ -51,9 +50,9 @@ public class RaceGameScreen extends ScreenAdapter {
 
     public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
-        mViewport = new ScreenViewport();
+        mCamera = new OrthographicCamera();
         mBatch = new SpriteBatch();
-        mStage = new Stage(mViewport, mBatch);
+        mStage = new Stage();
         mWorld = new World(new Vector2(0, 0), true);
         Gdx.input.setInputProcessor(mStage);
         setupMap(mapInfo);
@@ -66,17 +65,15 @@ public class RaceGameScreen extends ScreenAdapter {
         mMapInfo = mapInfo;
         mMap = mapInfo.getMap();
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        mMapWidth = layer.getWidth() * layer.getTileWidth();
-        mMapHeight = layer.getHeight() * layer.getTileHeight();
-        mRenderer = new OrthogonalTiledMapRenderer(mMap, 1, mBatch);
+        mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
+        mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+        mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
     }
 
     void setupCar() {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mCar = new Car(mGame, mWorld, layer);
-        mWheel = new Wheel(mGame, mWorld);
         //moveCarToStartTile(mCar, layer);
-        //mStage.addActor(mCar);
     }
 
     void setupHud() {
@@ -127,7 +124,6 @@ public class RaceGameScreen extends ScreenAdapter {
 
         mStage.act(delta);
         mCar.act(delta);
-        mWheel.act(delta);
         doPhysicsStep(delta);
         switch (mCar.getState()) {
         case RUNNING:
@@ -146,29 +142,30 @@ public class RaceGameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mRenderer.setView((OrthographicCamera) mViewport.getCamera());
+        mRenderer.setView(mCamera);
         mRenderer.render();
+        mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.begin();
         mCar.draw(mBatch);
-        mWheel.draw(mBatch);
         mBatch.end();
         mStage.draw();
-        mDebugRenderer.render(mWorld, mViewport.getCamera().combined);
+        if (DEBUG_RENDERER) {
+            mDebugRenderer.render(mWorld, mCamera.combined);
+        }
     }
 
     private void updateHud() {
         String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
 
-        float x = mViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2;
-        float y = mViewport.getCamera().position.y + Gdx.graphics.getHeight() / 2;
+        float x = mCamera.position.x - Gdx.graphics.getWidth() / 2;
+        float y = mCamera.position.y + Gdx.graphics.getHeight() / 2;
         mHud.setPosition(x + 5, y - mHud.getHeight() - 15);
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        mViewport.update(width, height, false);
         updateCamera();
     }
 
@@ -188,44 +185,41 @@ public class RaceGameScreen extends ScreenAdapter {
                 direction = -1;
             }
         }
-        //mCar.setDirection(direction);
-        mWheel.setDirection(direction);
+        mCar.setDirection(direction);
         boolean accelerating = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || touchAt(0.5f, 1);
         boolean braking = Gdx.input.isKeyPressed(Input.Keys.SPACE) || touchAt(0, 0.5f);
-        /*
-        mCar.setAccelerating(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || touchAt(0.5f, 1));
-        mCar.setBraking(Gdx.input.isKeyPressed(Input.Keys.SPACE) || touchAt(0, 0.5f));
-        */
-        if (accelerating || braking) {
-            mWheel.adjustSpeed(accelerating ? 1f : -1f);
-        }
+        mCar.setAccelerating(accelerating);
+        mCar.setBraking(braking);
     }
 
     private void updateCamera() {
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
-        float minX = screenWidth / 2;
-        float minY = screenHeight / 2;
-        float maxX = mMapWidth - screenWidth / 2;
-        float maxY = mMapHeight - screenHeight / 2;
+        float screenW = Gdx.graphics.getWidth();
+        float screenH = Gdx.graphics.getHeight();
+        mCamera.viewportWidth = VIEWPORT_WIDTH;
+        mCamera.viewportHeight = VIEWPORT_WIDTH * screenH / screenW;
 
-        float advance = (mCar.getSpeed() / Car.MAX_SPEED) * Math.min(screenWidth, screenHeight) / 3;
-        float x = /*mCar*/ mWheel.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
-        float y = /*mCar*/ mWheel.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
-        Camera camera = mViewport.getCamera();
-        if (screenWidth <= mMapWidth) {
-            camera.position.x = MathUtils.clamp(x, minX, maxX);
+        // Compute pos
+        float advance = (mCar.getSpeed() / Car.MAX_SPEED) * Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
+        float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
+        float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
+
+        // Make sure we correctly handle boundaries
+        float minX = mCamera.viewportWidth / 2;
+        float minY = mCamera.viewportHeight / 2;
+        float maxX = mMapWidth - mCamera.viewportWidth / 2;
+        float maxY = mMapHeight - mCamera.viewportHeight / 2;
+
+        if (mCamera.viewportWidth <= mMapWidth) {
+            mCamera.position.x = MathUtils.clamp(x, minX, maxX);
         } else {
-            camera.position.x = mMapWidth / 2;
+            mCamera.position.x = mMapWidth / 2;
         }
-        if (screenHeight <= mMapHeight) {
-            camera.position.y = MathUtils.clamp(y, minY, maxY);
+        if (mCamera.viewportHeight <= mMapHeight) {
+            mCamera.position.y = MathUtils.clamp(y, minY, maxY);
         } else {
-            camera.position.y = mMapHeight / 2;
+            mCamera.position.y = mMapHeight / 2;
         }
-        camera.position.x = MathUtils.floor(camera.position.x);
-        camera.position.y = MathUtils.floor(camera.position.y);
-        camera.update();
+        mCamera.update();
     }
 
     private boolean touchAt(float startX, float endX) {
