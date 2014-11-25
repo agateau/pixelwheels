@@ -27,9 +27,8 @@ public class Wheel {
         Texture texture = game.getAssets().wheel;
         mSprite = new Sprite(texture);
 
-        float hfw = texture.getHeight() / (float)texture.getWidth();
         float w = Constants.UNIT_FOR_PIXEL * texture.getWidth();
-        float h = w * hfw;
+        float h = Constants.UNIT_FOR_PIXEL * texture.getHeight();
         mSprite.setSize(w, h);
         mSprite.setOriginCenter();
 
@@ -39,7 +38,7 @@ public class Wheel {
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(w / 2, h / 2);
-        mBody.createFixture(polygonShape, 1f);//shape, density
+        mBody.createFixture(polygonShape, 1f);
     }
 
     public void act(float delta) {
