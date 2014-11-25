@@ -1,17 +1,23 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.greenyetilab.utils.log.NLog;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
 * Created by aurelien on 21/11/14.
 */
-class Car extends Group {
+class Car {
+    private final Body mBody;
+
     public enum State {
         RUNNING,
         BROKEN,
@@ -19,19 +25,18 @@ class Car extends Group {
     }
     private static final float STEER_SPEED = 15;
 
-    public static final float MAX_SPEED = 800;
+    public static final float MAX_SPEED = 8000;
     private static final float MIN_SPEED = -100;
     private static final float OVERSPEED_DECAY = 20;
 
     private static final float REAR_WHEEL_Y = 7;
     private static final float WHEEL_BASE = 48;
 
-    private final Image mMainImage;
-    private final Image[] mWheels = new Image[4];
+    private final Texture mMainImage;
+    //private final Image[] mWheels = new Image[4];
     private final TiledMapTileLayer mLayer;
     private float mSpeed = 0;
     private float mMaxSpeed;
-    private float mAngle = 90;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
@@ -43,14 +48,37 @@ class Car extends Group {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game, TiledMapTileLayer layer) {
+    public Car(RaceGame game, World world, TiledMapTileLayer layer) {
         Assets assets = game.getAssets();
         mLayer = layer;
 
         float centerX = assets.car.getWidth() / 2;
         float centerY = assets.car.getHeight() / 2;
 
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        // Set our mBody's starting position in the world
+        bodyDef.position.set(100, 300);
+
+        // Create our mBody in the world using our mBody definition
+        mBody = world.createBody(bodyDef);
+
+        // Create shape
+        PolygonShape shape = new PolygonShape();
+        // Image is vertical!
+        shape.setAsBox(assets.car.getHeight() / 2, assets.car.getWidth() / 2);
+
+        // Create fixture
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.4f;
+        fixtureDef.restitution = 0.6f;
+        Fixture fixture = mBody.createFixture(fixtureDef);
+
+
         // Wheels
+        /*
         for (int i=0; i < mWheels.length; ++i) {
             Image wheel = new Image(assets.wheel);
             wheel.setOrigin(wheel.getWidth() / 2, wheel.getHeight() / 2);
@@ -66,12 +94,14 @@ class Car extends Group {
         mWheels[WHEEL_FR].setPosition(rightX, frontY);
         mWheels[WHEEL_RL].setPosition(leftX, rearY);
         mWheels[WHEEL_RR].setPosition(rightX, rearY);
+        */
 
         // Main
-        mMainImage = new Image(assets.car);
-        mMainImage.setOrigin(centerX, centerY);
+        mMainImage = assets.car;
+        /*mMainImage.setOrigin(centerX, centerY);
         mMainImage.setPosition(-centerX, -centerY);
         addActor(mMainImage);
+        */
     }
 
     public State getState() {
@@ -83,14 +113,15 @@ class Car extends Group {
     }
 
     public float getAngle() {
-        return mAngle;
+        return mBody.getAngle() * MathUtils.radiansToDegrees;
     }
 
-    @Override
+    //@Override
     public void act(float dt) {
         if (mState != State.RUNNING) {
             return;
         }
+        /*
         if (mBraking) {
             mSpeed = Math.max(mSpeed - 4, MIN_SPEED);
         } else {
@@ -107,10 +138,38 @@ class Car extends Group {
         if (mSpeed > mMaxSpeed) {
             mSpeed -= OVERSPEED_DECAY;
         }
+        */
+        float angle = mBody.getAngle();
+        Vector2 velocity = mBody.getLinearVelocity();
+        float speed = velocity.len();
+        if (mAccelerating && speed < MAX_SPEED) {
+            //mSpeed = Math.min(mSpeed + 100, MAX_SPEED);
+            //mBody.applyForceToCenter(mSpeed * MathUtils.cos(angle), mSpeed * MathUtils.sin(angle), true);
+            float impulse = 1000;
+            mBody.applyLinearImpulse(impulse * MathUtils.cos(angle), impulse * MathUtils.sin(angle), mBody.getPosition().x, mBody.getPosition().y, true);
+        }
+        if (mBraking && speed > MIN_SPEED) {
+            float impulse = -1000;
+            mBody.applyLinearImpulse(impulse * MathUtils.cos(angle), impulse * MathUtils.sin(angle), mBody.getPosition().x, mBody.getPosition().y, true);
+        }
+        mBody.setAngularVelocity(STEER_SPEED * mDirection);//, true);
+        /*
         checkCollisions();
         updatePosAndAngle(dt);
+        */
     }
 
+    public void draw(Batch batch) {
+        Vector2 center = mBody.getPosition();
+        float w2 = mMainImage.getWidth() / 2;
+        float h2 = mMainImage.getHeight() / 2;
+        float angle = mBody.getAngle() - MathUtils.PI / 2;
+        batch.draw(mMainImage, center.x - w2, center.y - h2, w2, h2, mMainImage.getWidth(), mMainImage.getHeight(), 1f, 1f,
+                angle * MathUtils.radiansToDegrees,
+                0, 0, mMainImage.getWidth(), mMainImage.getHeight(), false, false);
+    }
+
+    /*
     private static Vector2 mTmp = new Vector2();
     private void checkCollisions() {
         int maxSpeed0 = 0;
@@ -143,6 +202,7 @@ class Car extends Group {
             mState = State.BROKEN;
         }
     }
+    */
 
     public void setAccelerating(boolean value) {
         mAccelerating = value;
@@ -156,6 +216,7 @@ class Car extends Group {
         mDirection = direction;
     }
 
+    /*
     private void updatePosAndAngle(float dt) {
         mSteerAngle = STEER_SPEED * mDirection;
 
@@ -183,5 +244,16 @@ class Car extends Group {
         setRotation(mAngle - 90);
         mWheels[WHEEL_FL].setRotation(mSteerAngle);
         mWheels[WHEEL_FR].setRotation(mSteerAngle);
+    }
+    */
+    public void setPosition(float mapX, float mapY) {
+
+    }
+    public float getX() {
+        return mBody.getPosition().x;
+    }
+
+    public float getY() {
+        return mBody.getPosition().y;
     }
 }
