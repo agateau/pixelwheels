@@ -15,8 +15,8 @@ import com.greenyetilab.utils.log.NLog;
  * Created by aurelien on 25/11/14.
  */
 public class Wheel {
-    private static final float MAX_LATERAL_IMPULSE = 3;
-    private static final float DRAG_FACTOR = 2;
+    private static final float MAX_LATERAL_IMPULSE = 2f;
+    private static final float DRAG_FACTOR = 1;
     private final World mWorld;
     private final Sprite mSprite;
     private final Body mBody;
@@ -58,7 +58,7 @@ public class Wheel {
         if (amount == 0) {
             return;
         }
-        float force = 100 * amount;
+        float force = 40 * amount;
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
@@ -82,9 +82,7 @@ public class Wheel {
         if (impulse.len() > MAX_LATERAL_IMPULSE) {
             // Skidding
             NLog.i("Skidding");
-            impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
-        } else {
-            NLog.i("!Skidding");
+            //impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 

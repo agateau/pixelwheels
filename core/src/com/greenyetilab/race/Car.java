@@ -76,7 +76,7 @@ class Car {
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 10f;
+        fixtureDef.density = 1f;
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
