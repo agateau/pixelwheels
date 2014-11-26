@@ -95,7 +95,7 @@ public class Wheel {
         Vector2 currentForwardNormal = getForwardVelocity();
         float currentForwardSpeed = currentForwardNormal.len();
         float dragForceMagnitude = -DRAG_FACTOR * currentForwardSpeed;
-        float angle = mBody.getAngle();
+        float angle = mBody.getAngle() + MathUtils.PI / 2;
         mBody.applyForce(dragForceMagnitude * MathUtils.cos(angle), dragForceMagnitude * MathUtils.sin(angle),
                 mBody.getWorldCenter().x, mBody.getWorldCenter().y, true);
     }
