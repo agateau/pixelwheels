@@ -21,7 +21,7 @@ public class Wheel {
     private final Sprite mSprite;
     private final Body mBody;
 
-    public Wheel(RaceGame game, World world) {
+    public Wheel(RaceGame game, World world, float posX, float posY) {
         mWorld = world;
 
         Texture texture = game.getAssets().wheel;
@@ -34,6 +34,7 @@ public class Wheel {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(posX, posY);
         mBody = mWorld.createBody(bodyDef);
 
         PolygonShape polygonShape = new PolygonShape();

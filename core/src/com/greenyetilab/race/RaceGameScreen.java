@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -42,6 +43,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private float mMapWidth;
     private float mMapHeight;
     private OrthogonalTiledMapRenderer mRenderer;
+    private ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private Car mCar;
 
     private WidgetGroup mHud;
@@ -72,8 +74,9 @@ public class RaceGameScreen extends ScreenAdapter {
 
     void setupCar() {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        mCar = new Car(mGame, mWorld, layer);
-        //moveCarToStartTile(mCar, layer);
+        Vector2 position = findStartTilePosition(layer);
+        assert(position != null);
+        mCar = new Car(mGame, mWorld, layer, position);
     }
 
     void setupHud() {
@@ -89,20 +92,20 @@ public class RaceGameScreen extends ScreenAdapter {
         updateHud();
     }
 
-    private void moveCarToStartTile(Car car, TiledMapTileLayer layer) {
+    private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
         for (int ty=0; ty < layer.getHeight(); ++ty) {
             for (int tx=0; tx < layer.getWidth(); ++tx) {
                 TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
                 TiledMapTile tile = cell.getTile();
                 if (tile.getProperties().containsKey("start")) {
-                    float tw = layer.getTileWidth();
-                    float th = layer.getTileHeight();
-                    car.setPosition((tx * tw + tw / 2), (ty * th + th / 2));
-                    return;
+                    float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+                    float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+                    return new Vector2(tx * tw + tw / 2, ty * th + th / 2);
                 }
             }
         }
         NLog.e("No Tile with 'start' property found");
+        return null;
     }
     
     private float mTimeAccumulator = 0;
@@ -149,7 +152,23 @@ public class RaceGameScreen extends ScreenAdapter {
         mCar.draw(mBatch);
         mBatch.end();
         mStage.draw();
+
         if (DEBUG_RENDERER) {
+            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            mShapeRenderer.setColor(1, 1, 1, 1);
+            mShapeRenderer.setProjectionMatrix(mCamera.combined);
+            float ts = 64 * Constants.UNIT_FOR_PIXEL;
+            for (float y = 0; y < mMapHeight; y += ts) {
+                for (float x = 0; x < mMapWidth; x += ts) {
+                    mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+                }
+            }
+            mShapeRenderer.setColor(0, 0, 1, 1);
+            mShapeRenderer.rect(mCar.getX(), mCar.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+            mShapeRenderer.setColor(0, 1, 0, 1);
+            mShapeRenderer.rect(ts, ts, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+            mShapeRenderer.end();
+
             mDebugRenderer.render(mWorld, mCamera.combined);
         }
     }

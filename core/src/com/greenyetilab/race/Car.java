@@ -51,7 +51,7 @@ class Car {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game, World world, TiledMapTileLayer layer) {
+    public Car(RaceGame game, World world, TiledMapTileLayer layer, Vector2 startPosition) {
         mWorld = world;
         Assets assets = game.getAssets();
         mLayer = layer;
@@ -67,7 +67,7 @@ class Car {
         // Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(0, 0);
+        bodyDef.position.set(startPosition.x, startPosition.y);
         mBody = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
@@ -82,28 +82,29 @@ class Car {
         mBody.createFixture(fixtureDef);
 
         // Wheels
-        for (int i=0; i < mWheels.length; ++i) {
-            Wheel wheel = new Wheel(game, world);
-            mWheels[i] = wheel;
-        }
-
         float wheelW = Constants.UNIT_FOR_PIXEL * assets.wheel.getWidth();
-        float leftX = -carW / 2 + wheelW / 2 - 0.05f;
-        float rightX = -leftX;
-        float rearY = -carH / 2 + REAR_WHEEL_Y;
+        float deltaX = carW / 2 - wheelW / 2 + 0.05f;
+        float leftX = startPosition.x - deltaX;
+        float rightX = startPosition.x + deltaX;
+        float rearY = startPosition.y - carH / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
-        mJointFL = joinWheel(mWheels[WHEEL_FL], leftX, frontY);
-        mJointFR = joinWheel(mWheels[WHEEL_FR], rightX, frontY);
-        joinWheel(mWheels[WHEEL_RL], leftX, rearY);
-        joinWheel(mWheels[WHEEL_RR], rightX, rearY);
+
+        mWheels[WHEEL_FL] = new Wheel(game, world, leftX, frontY);
+        mWheels[WHEEL_FR] = new Wheel(game, world, rightX, frontY);
+        mWheels[WHEEL_RL] = new Wheel(game, world, leftX, rearY);
+        mWheels[WHEEL_RR] = new Wheel(game, world, rightX, rearY);
+
+        mJointFL = joinWheel(mWheels[WHEEL_FL]);
+        mJointFR = joinWheel(mWheels[WHEEL_FR]);
+        joinWheel(mWheels[WHEEL_RL]);
+        joinWheel(mWheels[WHEEL_RR]);
     }
 
-    private RevoluteJoint joinWheel(Wheel wheel, float x, float y) {
+    private RevoluteJoint joinWheel(Wheel wheel) {
         RevoluteJointDef jointDef = new RevoluteJointDef();
-        jointDef.bodyA = mBody;
-        jointDef.bodyB = wheel.getBody();
-        jointDef.localAnchorA.set(x, y);
-        jointDef.localAnchorB.setZero();
+        // Call initialize() instead of defining bodies and anchors manually as this causes the
+        // world to move the car a bit as it solve the constraints defined by the joints
+        jointDef.initialize(mBody, wheel.getBody(), wheel.getBody().getPosition());
         jointDef.lowerAngle = 0;
         jointDef.upperAngle = 0;
         jointDef.enableLimit = true;
@@ -201,10 +202,6 @@ class Car {
 
     public void setDirection(float direction) {
         mDirection = direction;
-    }
-
-    public void setPosition(float mapX, float mapY) {
-
     }
 
     public float getX() {
