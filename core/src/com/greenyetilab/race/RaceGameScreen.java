@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
@@ -34,7 +35,6 @@ public class RaceGameScreen extends ScreenAdapter {
     private final RaceGame mGame;
     private final World mWorld;
     private final Box2DDebugRenderer mDebugRenderer;
-    private Stage mStage;
     private OrthographicCamera mCamera;
     private Batch mBatch;
 
@@ -46,6 +46,8 @@ public class RaceGameScreen extends ScreenAdapter {
     private ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private Car mCar;
 
+    private Stage mHudStage;
+    private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
     private Label mTimeLabel;
     private float mTime = 0;
@@ -54,9 +56,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mGame = game;
         mCamera = new OrthographicCamera();
         mBatch = new SpriteBatch();
-        mStage = new Stage();
         mWorld = new World(new Vector2(0, 0), true);
-        Gdx.input.setInputProcessor(mStage);
         setupMap(mapInfo);
         setupCar();
         setupHud();
@@ -80,6 +80,10 @@ public class RaceGameScreen extends ScreenAdapter {
     }
 
     void setupHud() {
+        mHudViewport = new ScreenViewport();
+        mHudStage = new Stage(mHudViewport);
+        Gdx.input.setInputProcessor(mHudStage);
+
         Skin skin = mGame.getAssets().skin;
         mHud = new WidgetGroup();
 
@@ -88,7 +92,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mHud.addActor(mTimeLabel);
         mHud.setHeight(mTimeLabel.getHeight());
 
-        mStage.addActor(mHud);
+        mHudStage.addActor(mHud);
         updateHud();
     }
 
@@ -126,7 +130,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mTime += delta;
 
         doPhysicsStep(delta);
-        mStage.act(delta);
+        mHudStage.act(delta);
         mCar.act(delta);
         switch (mCar.getState()) {
         case RUNNING:
@@ -146,7 +150,7 @@ public class RaceGameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderWorld();
-        mStage.draw();
+        mHudStage.draw();
     }
 
     private void renderWorld() {
@@ -181,15 +185,13 @@ public class RaceGameScreen extends ScreenAdapter {
     private void updateHud() {
         String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
-
-        float x = mCamera.position.x - Gdx.graphics.getWidth() / 2;
-        float y = mCamera.position.y + Gdx.graphics.getHeight() / 2;
-        mHud.setPosition(x + 5, y - mHud.getHeight() - 15);
+        mHud.setPosition(5, mHudViewport.getScreenHeight() - mHud.getHeight() - 15);
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
+        mHudViewport.update(width, height, true);
         updateCamera();
     }
 
