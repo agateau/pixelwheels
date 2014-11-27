@@ -121,8 +121,11 @@ class Car {
         return mSpeed;
     }
 
+    /**
+     * Returns the angle the car is facing, not the internal mBody angle
+     */
     public float getAngle() {
-        return mBody.getAngle() * MathUtils.radiansToDegrees;
+        return mBody.getAngle() * MathUtils.radiansToDegrees + 90;
     }
 
     public void act(float dt) {

@@ -225,7 +225,8 @@ public class RaceGameScreen extends ScreenAdapter {
         mCamera.viewportHeight = VIEWPORT_WIDTH * screenH / screenW;
 
         // Compute pos
-        float advance = (mCar.getSpeed() / Car.MAX_SPEED) * Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
+        // FIXME: Take car speed into account when computing advance
+        float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
         float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
         float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
 
