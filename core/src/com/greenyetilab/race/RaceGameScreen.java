@@ -145,28 +145,33 @@ public class RaceGameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        renderWorld();
+        mStage.draw();
+    }
+
+    private void renderWorld() {
         mRenderer.setView(mCamera);
         mRenderer.render();
+
         mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.begin();
         mCar.draw(mBatch);
         mBatch.end();
-        mStage.draw();
 
         if (DEBUG_RENDERER) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setColor(1, 1, 1, 1);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
-            float ts = 64 * Constants.UNIT_FOR_PIXEL;
-            for (float y = 0; y < mMapHeight; y += ts) {
-                for (float x = 0; x < mMapWidth; x += ts) {
+            TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+            float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+            float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+            for (float y = 0; y < mMapHeight; y += tileH) {
+                for (float x = 0; x < mMapWidth; x += tileW) {
                     mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
                 }
             }
             mShapeRenderer.setColor(0, 0, 1, 1);
             mShapeRenderer.rect(mCar.getX(), mCar.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
-            mShapeRenderer.setColor(0, 1, 0, 1);
-            mShapeRenderer.rect(ts, ts, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld, mCamera.combined);
