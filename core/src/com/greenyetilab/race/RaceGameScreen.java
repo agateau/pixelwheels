@@ -125,9 +125,9 @@ public class RaceGameScreen extends ScreenAdapter {
     public void render(float delta) {
         mTime += delta;
 
+        doPhysicsStep(delta);
         mStage.act(delta);
         mCar.act(delta);
-        doPhysicsStep(delta);
         switch (mCar.getState()) {
         case RUNNING:
             break;

@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.greenyetilab.utils.log.NLog;
 
 /**
 * Created by aurelien on 21/11/14.
@@ -140,9 +142,7 @@ class Car {
         float steerAngle = mDirection * STEER_SPEED * MathUtils.degreesToRadians;
         mJointFL.setLimits(steerAngle, steerAngle);
         mJointFR.setLimits(steerAngle, steerAngle);
-        /*
         checkCollisions();
-        */
     }
 
     public void draw(Batch batch) {
@@ -157,17 +157,15 @@ class Car {
         mSprite.draw(batch);
     }
 
-    /*
-    private static Vector2 mTmp = new Vector2();
     private void checkCollisions() {
         int maxSpeed0 = 0;
         float tileSpeed = 0;
-        for(Image wheel: mWheels) {
-            mTmp.x = wheel.getX();
-            mTmp.y = wheel.getY();
-            mTmp = wheel.localToStageCoordinates(mTmp);
-            int tx = MathUtils.floor(mTmp.x / RaceGameScreen.WORLD_SCALE / mLayer.getTileWidth());
-            int ty = MathUtils.floor(mTmp.y / RaceGameScreen.WORLD_SCALE / mLayer.getTileHeight());
+        float tileW = Constants.UNIT_FOR_PIXEL * mLayer.getTileWidth();
+        float tileH = Constants.UNIT_FOR_PIXEL * mLayer.getTileHeight();
+        for(Wheel wheel: mWheels) {
+            Vector2 pos = wheel.getBody().getWorldCenter();
+            int tx = MathUtils.floor(pos.x / tileW);
+            int ty = MathUtils.floor(pos.y / tileH);
             TiledMapTileLayer.Cell cell = mLayer.getCell(tx, ty);
             if (cell == null) {
                 continue;
@@ -190,7 +188,6 @@ class Car {
             mState = State.BROKEN;
         }
     }
-    */
 
     public void setAccelerating(boolean value) {
         mAccelerating = value;
