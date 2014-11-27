@@ -149,12 +149,7 @@ class Car {
         for(Wheel wheel: mWheels) {
             wheel.draw(batch);
         }
-        Vector2 center = mBody.getPosition();
-        float x = center.x;
-        float y = center.y;
-        mSprite.setPosition(x - mSprite.getWidth() / 2, y - mSprite.getHeight() / 2);
-        mSprite.setRotation(mBody.getAngle() * MathUtils.radiansToDegrees);
-        mSprite.draw(batch);
+        DrawUtils.drawBodySprite(batch, mBody, mSprite);
     }
 
     private void checkCollisions() {
