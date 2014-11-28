@@ -4,6 +4,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenyetilab.utils.log.NLog;
 
@@ -15,6 +18,7 @@ public class GameWorld {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
     private final MapInfo mMapInfo;
+    private final TiledMap mMap;
     private final World mBox2DWorld;
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
@@ -25,7 +29,9 @@ public class GameWorld {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mMapInfo = mapInfo;
+        mMap = mMapInfo.getMap();
         setupCar();
+        setupWorldWalls();
     }
 
     public TiledMap getMap() {
@@ -58,7 +64,7 @@ public class GameWorld {
     }
 
     private void setupCar() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMapInfo.getMap().getLayers().get(0);
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         Vector2 position = findStartTilePosition(layer);
         assert(position != null);
         mCar = new Car(mGame, mBox2DWorld, layer, position);
@@ -78,5 +84,32 @@ public class GameWorld {
         }
         NLog.e("No Tile with 'start' property found");
         return null;
+    }
+
+    private void setupWorldWalls() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        float mapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
+        float mapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+        float wallSize = 1;
+        // bottom
+        createWall(0, -wallSize, mapWidth, wallSize);
+        // top
+        createWall(0, mapHeight, mapWidth, wallSize);
+        // left
+        createWall(-wallSize, 0, wallSize, mapHeight);
+        // right
+        createWall(mapWidth, 0, wallSize, mapHeight);
+    }
+
+    private void createWall(float x, float y, float width, float height) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(x + width / 2, y + height / 2);
+        Body body = mBox2DWorld.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2, height / 2);
+
+        body.createFixture(shape, 1);
     }
 }
