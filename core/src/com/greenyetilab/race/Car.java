@@ -104,8 +104,8 @@ class Car {
 
     private RevoluteJoint joinWheel(Wheel wheel) {
         RevoluteJointDef jointDef = new RevoluteJointDef();
-        // Call initialize() instead of defining bodies and anchors manually as this causes the
-        // world to move the car a bit as it solve the constraints defined by the joints
+        // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
+        // causes Box2D to move the car a bit while it solves the constraints defined by the joints
         jointDef.initialize(mBody, wheel.getBody(), wheel.getBody().getPosition());
         jointDef.lowerAngle = 0;
         jointDef.upperAngle = 0;
