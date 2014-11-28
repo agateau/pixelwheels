@@ -77,7 +77,6 @@ public class Wheel {
         Vector2 impulse = getLateralVelocity().scl(-mBody.getMass());
         if (impulse.len() > MAX_LATERAL_IMPULSE) {
             // Skidding
-            NLog.i("Skidding");
             NMessageBus.post("skid", this);
             //impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
