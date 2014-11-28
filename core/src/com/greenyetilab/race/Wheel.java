@@ -78,6 +78,7 @@ public class Wheel {
         if (impulse.len() > MAX_LATERAL_IMPULSE) {
             // Skidding
             NLog.i("Skidding");
+            NMessageBus.post("skid", this);
             //impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);

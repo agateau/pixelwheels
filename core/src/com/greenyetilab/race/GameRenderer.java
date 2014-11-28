@@ -33,7 +33,8 @@ public class GameRenderer {
     private final float mMapWidth;
     private final float mMapHeight;
 
-
+    private Vector2[] mSkidmarks = new Vector2[4000];
+    private int mSkidmarksIndex = 0;
     private Car mCar;
 
     public GameRenderer(RaceGame game, World world, TiledMap map, Batch batch) {
@@ -51,6 +52,17 @@ public class GameRenderer {
         mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
 
         setupCar();
+        setupSkidmarks();
+    }
+
+    private void setupSkidmarks() {
+        NMessageBus.register("skid", new NMessageBus.Handler() {
+            @Override
+            public void handle(String channel, Object data) {
+                Wheel wheel = (Wheel) data;
+                addSkidmarkAt(wheel.getBody().getWorldCenter());
+            }
+        });
     }
 
     public void render() {
@@ -58,6 +70,8 @@ public class GameRenderer {
 
         mRenderer.setView(mCamera);
         mRenderer.render();
+
+        renderSkidmarks();
 
         mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.begin();
@@ -86,6 +100,29 @@ public class GameRenderer {
 
     public Car getCar() {
         return mCar;
+    }
+
+    private void renderSkidmarks() {
+        mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        mShapeRenderer.setColor(0, 0, 0, 0.2f);
+        mShapeRenderer.setProjectionMatrix(mCamera.combined);
+        for (Vector2 pos: mSkidmarks) {
+            if (pos != null) {
+                mShapeRenderer.circle(pos.x, pos.y, 4 * Constants.UNIT_FOR_PIXEL, 8);
+            }
+        }
+        mShapeRenderer.end();
+    }
+
+    private void addSkidmarkAt(Vector2 position) {
+        Vector2 pos = mSkidmarks[mSkidmarksIndex];
+        if (pos == null) {
+            pos = new Vector2();
+            mSkidmarks[mSkidmarksIndex] = pos;
+        }
+        pos.x = position.x;
+        pos.y = position.y;
+        mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
     }
 
     private void setupCar() {
