@@ -16,7 +16,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
  */
 public class GameRenderer {
     private static final float VIEWPORT_WIDTH = 40;
-    private static final boolean DEBUG_RENDERER = false;
+    private static final boolean DEBUG_RENDERER = true;
+    private static final boolean DEBUG_RENDERER_VELOCITIES = false;
 
     private final TiledMap mMap;
     private final OrthogonalTiledMapRenderer mRenderer;
@@ -34,7 +35,7 @@ public class GameRenderer {
     private Car mCar;
 
     public GameRenderer(RaceGame game, GameWorld world, Batch batch) {
-        mDebugRenderer = new Box2DDebugRenderer();
+        mDebugRenderer = new Box2DDebugRenderer(true, true, false, true, DEBUG_RENDERER_VELOCITIES, false);
         mGame = game;
         mWorld = world;
 
