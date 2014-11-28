@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * A wheel
@@ -17,13 +16,10 @@ import com.greenyetilab.utils.log.NLog;
 public class Wheel {
     private static final float MAX_LATERAL_IMPULSE = 2f;
     private static final float DRAG_FACTOR = 1;
-    private final World mWorld;
     private final Sprite mSprite;
     private final Body mBody;
 
     public Wheel(RaceGame game, World world, float posX, float posY) {
-        mWorld = world;
-
         Texture texture = game.getAssets().wheel;
         mSprite = new Sprite(texture);
 
@@ -35,7 +31,7 @@ public class Wheel {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(posX, posY);
-        mBody = mWorld.createBody(bodyDef);
+        mBody = world.createBody(bodyDef);
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(w / 2, h / 2);
