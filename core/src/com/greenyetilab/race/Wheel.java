@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.greenyetilab.utils.log.NLog;
 
 /**
- * Created by aurelien on 25/11/14.
+ * A wheel
  */
 public class Wheel {
     private static final float MAX_LATERAL_IMPULSE = 2f;
@@ -60,21 +60,9 @@ public class Wheel {
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }
 
-    Vector2 getLateralVelocity() {
-        Vector2 currentRightNormal = mBody.getWorldVector(new Vector2(1, 0));
-        float v = currentRightNormal.dot(mBody.getLinearVelocity());
-        return currentRightNormal.scl(v);
-    }
-
-    Vector2 getForwardVelocity() {
-        Vector2 currentRightNormal = mBody.getWorldVector(new Vector2(0, 1));
-        float v = currentRightNormal.dot(mBody.getLinearVelocity());
-        return currentRightNormal.scl(v);
-    }
-
     void updateFriction() {
         // Kill lateral velocity
-        Vector2 impulse = getLateralVelocity().scl(-mBody.getMass());
+        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         if (impulse.len() > MAX_LATERAL_IMPULSE) {
             // Skidding
             NMessageBus.post("skid", this);
@@ -86,12 +74,7 @@ public class Wheel {
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
 
         // Drag
-        Vector2 currentForwardNormal = getForwardVelocity();
-        float currentForwardSpeed = currentForwardNormal.len();
-        float dragForceMagnitude = -DRAG_FACTOR * currentForwardSpeed;
-        float angle = mBody.getAngle() + MathUtils.PI / 2;
-        mBody.applyForce(dragForceMagnitude * MathUtils.cos(angle), dragForceMagnitude * MathUtils.sin(angle),
-                mBody.getWorldCenter().x, mBody.getWorldCenter().y, true);
+        Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
     }
 
     public Body getBody() {
