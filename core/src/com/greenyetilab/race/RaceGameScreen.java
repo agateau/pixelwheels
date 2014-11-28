@@ -86,7 +86,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private void updateHud() {
         String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
-        mHud.setPosition(5, mHudViewport.getScreenHeight() - mHud.getHeight() - 15);
+        mHud.setPosition(5, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
     }
 
     @Override
