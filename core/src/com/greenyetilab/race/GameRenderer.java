@@ -28,7 +28,7 @@ public class GameRenderer {
     private final Batch mBatch;
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
-    private final World mWorld;
+    private final GameWorld mWorld;
     private final RaceGame mGame;
     private final float mMapWidth;
     private final float mMapHeight;
@@ -37,12 +37,12 @@ public class GameRenderer {
     private int mSkidmarksIndex = 0;
     private Car mCar;
 
-    public GameRenderer(RaceGame game, World world, TiledMap map, Batch batch) {
+    public GameRenderer(RaceGame game, GameWorld world, Batch batch) {
         mDebugRenderer = new Box2DDebugRenderer();
         mGame = game;
         mWorld = world;
 
-        mMap = map;
+        mMap = mWorld.getMap();
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
         mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
@@ -51,7 +51,7 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
 
-        setupCar();
+        mCar = mWorld.getCar();
         setupSkidmarks();
     }
 
@@ -94,12 +94,8 @@ public class GameRenderer {
             mShapeRenderer.rect(mCar.getX(), mCar.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
             mShapeRenderer.end();
 
-            mDebugRenderer.render(mWorld, mCamera.combined);
+            mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
         }
-    }
-
-    public Car getCar() {
-        return mCar;
     }
 
     private void renderSkidmarks() {
@@ -123,29 +119,6 @@ public class GameRenderer {
         pos.x = position.x;
         pos.y = position.y;
         mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
-    }
-
-    private void setupCar() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        Vector2 position = findStartTilePosition(layer);
-        assert(position != null);
-        mCar = new Car(mGame, mWorld, layer, position);
-    }
-
-    private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
-        for (int ty=0; ty < layer.getHeight(); ++ty) {
-            for (int tx=0; tx < layer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                TiledMapTile tile = cell.getTile();
-                if (tile.getProperties().containsKey("start")) {
-                    float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-                    float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-                    return new Vector2(tx * tw + tw / 2, ty * th + th / 2);
-                }
-            }
-        }
-        NLog.e("No Tile with 'start' property found");
-        return null;
     }
 
     private void updateCamera() {

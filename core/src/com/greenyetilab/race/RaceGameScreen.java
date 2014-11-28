@@ -6,10 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,15 +16,10 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class RaceGameScreen extends ScreenAdapter {
     private static final float MAX_PITCH = 30;
     private static final float MAX_ACCEL = 7;
-    private static final float TIME_STEP = 1f/60f;
-    private static final int VELOCITY_ITERATIONS = 6;
-    private static final int POSITION_ITERATIONS = 2;
     private final RaceGame mGame;
-    private final World mWorld;
+    private final GameWorld mGameWorld;
     private Batch mBatch;
 
-    private MapInfo mMapInfo;
-    private TiledMap mMap;
     private Car mCar;
 
     private GameRenderer mGameRenderer;
@@ -41,16 +33,10 @@ public class RaceGameScreen extends ScreenAdapter {
     public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
-        mWorld = new World(new Vector2(0, 0), true);
-        setupMap(mapInfo);
         setupHud();
-        mGameRenderer = new GameRenderer(game, mWorld, mMap, mBatch);
-        mCar = mGameRenderer.getCar();
-    }
-
-    void setupMap(MapInfo mapInfo) {
-        mMapInfo = mapInfo;
-        mMap = mapInfo.getMap();
+        mGameWorld = new GameWorld(game, mapInfo);
+        mGameRenderer = new GameRenderer(game, mGameWorld, mBatch);
+        mCar = mGameWorld.getCar();
     }
 
     void setupHud() {
@@ -70,44 +56,30 @@ public class RaceGameScreen extends ScreenAdapter {
         updateHud();
     }
 
-    private float mTimeAccumulator = 0;
-
-    private void doPhysicsStep(float deltaTime) {
-        // fixed time step
-        // max frame time to avoid spiral of death (on slow devices)
-        float frameTime = Math.min(deltaTime, 0.25f);
-        mTimeAccumulator += frameTime;
-        while (mTimeAccumulator >= TIME_STEP) {
-            mWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            mTimeAccumulator -= TIME_STEP;
-        }
-    }
-
     @Override
     public void render(float delta) {
         mTime += delta;
 
-        doPhysicsStep(delta);
+        mGameWorld.act(delta);
         mHudStage.act(delta);
-        mCar.act(delta);
         switch (mCar.getState()) {
         case RUNNING:
             break;
         case BROKEN:
-            mGame.showGameOverOverlay(mMapInfo);
+            mGame.showGameOverOverlay(mGameWorld.getMapInfo());
             return;
         case FINISHED:
-            mGame.showFinishedOverlay(mMapInfo, mTime);
+            mGame.showFinishedOverlay(mGameWorld.getMapInfo(), mTime);
             return;
         }
 
         handleInput();
+        updateHud();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mGameRenderer.render();
 
-        updateHud();
         mHudStage.draw();
     }
 

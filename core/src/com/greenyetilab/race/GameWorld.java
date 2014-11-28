@@ -1,0 +1,82 @@
+package com.greenyetilab.race;
+
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.greenyetilab.utils.log.NLog;
+
+/**
+ * Contains all the information and objects running in the world
+ */
+public class GameWorld {
+    private static final float TIME_STEP = 1f/60f;
+    private static final int VELOCITY_ITERATIONS = 6;
+    private static final int POSITION_ITERATIONS = 2;
+    private final MapInfo mMapInfo;
+    private final World mBox2DWorld;
+    private final RaceGame mGame;
+    private float mTimeAccumulator = 0;
+
+    private Car mCar;
+
+    public GameWorld(RaceGame game, MapInfo mapInfo) {
+        mGame = game;
+        mBox2DWorld = new World(new Vector2(0, 0), true);
+        mMapInfo = mapInfo;
+        setupCar();
+    }
+
+    public TiledMap getMap() {
+        return mMapInfo.getMap();
+    }
+
+    public MapInfo getMapInfo() {
+        return mMapInfo;
+    }
+
+    public World getBox2DWorld() {
+        return mBox2DWorld;
+    }
+
+    public Car getCar() {
+        return mCar;
+    }
+
+    public void act(float delta) {
+        // fixed time step
+        // max frame time to avoid spiral of death (on slow devices)
+        float frameTime = Math.min(delta, 0.25f);
+        mTimeAccumulator += frameTime;
+        while (mTimeAccumulator >= TIME_STEP) {
+            mBox2DWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+            mTimeAccumulator -= TIME_STEP;
+        }
+
+        mCar.act(delta);
+    }
+
+    private void setupCar() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMapInfo.getMap().getLayers().get(0);
+        Vector2 position = findStartTilePosition(layer);
+        assert(position != null);
+        mCar = new Car(mGame, mBox2DWorld, layer, position);
+    }
+
+    private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
+        for (int ty=0; ty < layer.getHeight(); ++ty) {
+            for (int tx=0; tx < layer.getWidth(); ++tx) {
+                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+                TiledMapTile tile = cell.getTile();
+                if (tile.getProperties().containsKey("start")) {
+                    float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+                    float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+                    return new Vector2(tx * tw + tw / 2, ty * th + th / 2);
+                }
+            }
+        }
+        NLog.e("No Tile with 'start' property found");
+        return null;
+    }
+}
