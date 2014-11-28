@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -21,12 +20,8 @@ public class Box2DUtils {
     }
 
     public static void applyDrag(Body body, float factor) {
-        Vector2 currentForwardNormal = getForwardVelocity(body);
-        float currentForwardSpeed = currentForwardNormal.len();
-        float dragForceMagnitude = -factor * currentForwardSpeed;
-        float angle = body.getAngle() + MathUtils.PI / 2;
-        body.applyForce(dragForceMagnitude * MathUtils.cos(angle), dragForceMagnitude * MathUtils.sin(angle),
-                body.getWorldCenter().x, body.getWorldCenter().y, true);
+        Vector2 dragForce = body.getLinearVelocity().scl(-factor);
+        body.applyForce(dragForce, body.getWorldCenter(), true);
     }
 
 }
