@@ -4,29 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.greenyetilab.utils.log.NLog;
 
 public class RaceGameScreen extends ScreenAdapter {
-    private static final boolean DEBUG_RENDERER = false;
-
-    private static final float VIEWPORT_WIDTH = 40;
     private static final float MAX_PITCH = 30;
     private static final float MAX_ACCEL = 7;
     private static final float TIME_STEP = 1f/60f;
@@ -34,17 +24,13 @@ public class RaceGameScreen extends ScreenAdapter {
     private static final int POSITION_ITERATIONS = 2;
     private final RaceGame mGame;
     private final World mWorld;
-    private final Box2DDebugRenderer mDebugRenderer;
-    private OrthographicCamera mCamera;
     private Batch mBatch;
 
     private MapInfo mMapInfo;
     private TiledMap mMap;
-    private float mMapWidth;
-    private float mMapHeight;
-    private OrthogonalTiledMapRenderer mRenderer;
-    private ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private Car mCar;
+
+    private GameRenderer mGameRenderer;
 
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
@@ -54,34 +40,22 @@ public class RaceGameScreen extends ScreenAdapter {
 
     public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
-        mCamera = new OrthographicCamera();
         mBatch = new SpriteBatch();
         mWorld = new World(new Vector2(0, 0), true);
         setupMap(mapInfo);
-        setupCar();
         setupHud();
-        mDebugRenderer = new Box2DDebugRenderer();
+        mGameRenderer = new GameRenderer(game, mWorld, mMap, mBatch);
+        mCar = mGameRenderer.getCar();
     }
 
     void setupMap(MapInfo mapInfo) {
         mMapInfo = mapInfo;
         mMap = mapInfo.getMap();
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
-        mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
-        mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
-    }
-
-    void setupCar() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        Vector2 position = findStartTilePosition(layer);
-        assert(position != null);
-        mCar = new Car(mGame, mWorld, layer, position);
     }
 
     void setupHud() {
         mHudViewport = new ScreenViewport();
-        mHudStage = new Stage(mHudViewport);
+        mHudStage = new Stage(mHudViewport, mBatch);
         Gdx.input.setInputProcessor(mHudStage);
 
         Skin skin = mGame.getAssets().skin;
@@ -96,22 +70,6 @@ public class RaceGameScreen extends ScreenAdapter {
         updateHud();
     }
 
-    private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
-        for (int ty=0; ty < layer.getHeight(); ++ty) {
-            for (int tx=0; tx < layer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                TiledMapTile tile = cell.getTile();
-                if (tile.getProperties().containsKey("start")) {
-                    float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-                    float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-                    return new Vector2(tx * tw + tw / 2, ty * th + th / 2);
-                }
-            }
-        }
-        NLog.e("No Tile with 'start' property found");
-        return null;
-    }
-    
     private float mTimeAccumulator = 0;
 
     private void doPhysicsStep(float deltaTime) {
@@ -144,42 +102,13 @@ public class RaceGameScreen extends ScreenAdapter {
         }
 
         handleInput();
-        updateCamera();
-        updateHud();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderWorld();
+        mGameRenderer.render();
+
+        updateHud();
         mHudStage.draw();
-    }
-
-    private void renderWorld() {
-        mRenderer.setView(mCamera);
-        mRenderer.render();
-
-        mBatch.setProjectionMatrix(mCamera.combined);
-        mBatch.begin();
-        mCar.draw(mBatch);
-        mBatch.end();
-
-        if (DEBUG_RENDERER) {
-            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            mShapeRenderer.setColor(1, 1, 1, 1);
-            mShapeRenderer.setProjectionMatrix(mCamera.combined);
-            TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-            float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-            float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-            for (float y = 0; y < mMapHeight; y += tileH) {
-                for (float x = 0; x < mMapWidth; x += tileW) {
-                    mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
-                }
-            }
-            mShapeRenderer.setColor(0, 0, 1, 1);
-            mShapeRenderer.rect(mCar.getX(), mCar.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
-            mShapeRenderer.end();
-
-            mDebugRenderer.render(mWorld, mCamera.combined);
-        }
     }
 
     private void updateHud() {
@@ -192,7 +121,7 @@ public class RaceGameScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         mHudViewport.update(width, height, true);
-        updateCamera();
+        mGameRenderer.onScreenResized();
     }
 
     private void handleInput() {
@@ -216,37 +145,6 @@ public class RaceGameScreen extends ScreenAdapter {
         boolean braking = Gdx.input.isKeyPressed(Input.Keys.SPACE) || touchAt(0, 0.5f);
         mCar.setAccelerating(accelerating);
         mCar.setBraking(braking);
-    }
-
-    private void updateCamera() {
-        float screenW = Gdx.graphics.getWidth();
-        float screenH = Gdx.graphics.getHeight();
-        mCamera.viewportWidth = VIEWPORT_WIDTH;
-        mCamera.viewportHeight = VIEWPORT_WIDTH * screenH / screenW;
-
-        // Compute pos
-        // FIXME: Take car speed into account when computing advance
-        float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
-        float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
-        float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
-
-        // Make sure we correctly handle boundaries
-        float minX = mCamera.viewportWidth / 2;
-        float minY = mCamera.viewportHeight / 2;
-        float maxX = mMapWidth - mCamera.viewportWidth / 2;
-        float maxY = mMapHeight - mCamera.viewportHeight / 2;
-
-        if (mCamera.viewportWidth <= mMapWidth) {
-            mCamera.position.x = MathUtils.clamp(x, minX, maxX);
-        } else {
-            mCamera.position.x = mMapWidth / 2;
-        }
-        if (mCamera.viewportHeight <= mMapHeight) {
-            mCamera.position.y = MathUtils.clamp(y, minY, maxY);
-        } else {
-            mCamera.position.y = mMapHeight / 2;
-        }
-        mCamera.update();
     }
 
     private boolean touchAt(float startX, float endX) {
