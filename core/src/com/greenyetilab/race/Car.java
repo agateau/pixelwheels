@@ -1,41 +1,50 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.greenyetilab.utils.log.NLog;
 
 /**
 * Created by aurelien on 21/11/14.
 */
-class Car extends Group {
+class Car {
+    private final Body mBody;
+    private final GameWorld mGameWorld;
+    private final RevoluteJoint mJointFL;
+    private final RevoluteJoint mJointFR;
+
     public enum State {
         RUNNING,
         BROKEN,
         FINISHED
     }
-    private static final float STEER_SPEED = 15;
+    private static final float STEER_SPEED = 30;
 
-    public static final float MAX_SPEED = 800;
+    public static final float MAX_SPEED = 8000;
     private static final float MIN_SPEED = -100;
     private static final float OVERSPEED_DECAY = 20;
 
-    private static final float REAR_WHEEL_Y = 7;
-    private static final float WHEEL_BASE = 48;
+    private static final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
+    private static final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
 
-    private final Image mMainImage;
-    private final Image[] mWheels = new Image[4];
-    private final TiledMapTileLayer mLayer;
+    private final Sprite mSprite;
+    private final Wheel[] mWheels = new Wheel[4];
     private float mSpeed = 0;
     private float mMaxSpeed;
-    private float mAngle = 90;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
-    private float mSteerAngle;
     private State mState = State.RUNNING;
 
     private static final int WHEEL_FL = 0;
@@ -43,35 +52,63 @@ class Car extends Group {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game, TiledMapTileLayer layer) {
+    public Car(RaceGame game, GameWorld gameWorld, Vector2 startPosition) {
+        mGameWorld = gameWorld;
         Assets assets = game.getAssets();
-        mLayer = layer;
 
-        float centerX = assets.car.getWidth() / 2;
-        float centerY = assets.car.getHeight() / 2;
-
-        // Wheels
-        for (int i=0; i < mWheels.length; ++i) {
-            Image wheel = new Image(assets.wheel);
-            wheel.setOrigin(wheel.getWidth() / 2, wheel.getHeight() / 2);
-            mWheels[i] = wheel;
-            addActor(wheel);
-        }
-
-        float leftX = -centerX - 1;
-        float rightX = centerX - assets.wheel.getWidth() + 2;
-        float rearY = -centerY + REAR_WHEEL_Y;
-        float frontY = rearY + WHEEL_BASE;
-        mWheels[WHEEL_FL].setPosition(leftX, frontY);
-        mWheels[WHEEL_FR].setPosition(rightX, frontY);
-        mWheels[WHEEL_RL].setPosition(leftX, rearY);
-        mWheels[WHEEL_RR].setPosition(rightX, rearY);
+        float carW = Constants.UNIT_FOR_PIXEL * assets.car.getRegionWidth();
+        float carH = Constants.UNIT_FOR_PIXEL * assets.car.getRegionHeight();
 
         // Main
-        mMainImage = new Image(assets.car);
-        mMainImage.setOrigin(centerX, centerY);
-        mMainImage.setPosition(-centerX, -centerY);
-        addActor(mMainImage);
+        mSprite = new Sprite(assets.car);
+        mSprite.setSize(carW, carH);
+        mSprite.setOriginCenter();
+
+        // Body
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(startPosition.x, startPosition.y);
+        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(carW / 2, carH / 2);
+
+        // Body fixture
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.restitution = 0.4f;
+        mBody.createFixture(fixtureDef);
+
+        // Wheels
+        float wheelW = Constants.UNIT_FOR_PIXEL * assets.wheel.getRegionWidth();
+        float deltaX = carW / 2 - wheelW / 2 + 0.05f;
+        float leftX = startPosition.x - deltaX;
+        float rightX = startPosition.x + deltaX;
+        float rearY = startPosition.y - carH / 2 + REAR_WHEEL_Y;
+        float frontY = rearY + WHEEL_BASE;
+
+        mWheels[WHEEL_FL] = new Wheel(game, mGameWorld, leftX, frontY);
+        mWheels[WHEEL_FR] = new Wheel(game, mGameWorld, rightX, frontY);
+        mWheels[WHEEL_RL] = new Wheel(game, mGameWorld, leftX, rearY);
+        mWheels[WHEEL_RR] = new Wheel(game, mGameWorld, rightX, rearY);
+
+        mJointFL = joinWheel(mWheels[WHEEL_FL]);
+        mJointFR = joinWheel(mWheels[WHEEL_FR]);
+        joinWheel(mWheels[WHEEL_RL]);
+        joinWheel(mWheels[WHEEL_RR]);
+    }
+
+    private RevoluteJoint joinWheel(Wheel wheel) {
+        RevoluteJointDef jointDef = new RevoluteJointDef();
+        // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
+        // causes Box2D to move the car a bit while it solves the constraints defined by the joints
+        jointDef.initialize(mBody, wheel.getBody(), wheel.getBody().getPosition());
+        jointDef.lowerAngle = 0;
+        jointDef.upperAngle = 0;
+        jointDef.enableLimit = true;
+        return (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
     }
 
     public State getState() {
@@ -82,66 +119,47 @@ class Car extends Group {
         return mSpeed;
     }
 
+    /**
+     * Returns the angle the car is facing, not the internal mBody angle
+     */
     public float getAngle() {
-        return mAngle;
+        return mBody.getAngle() * MathUtils.radiansToDegrees + 90;
     }
 
-    @Override
     public void act(float dt) {
         if (mState != State.RUNNING) {
             return;
         }
-        if (mBraking) {
-            mSpeed = Math.max(mSpeed - 4, MIN_SPEED);
-        } else {
-            if (mAccelerating) {
-                mSpeed = Math.min(mSpeed + 4, MAX_SPEED);
-            } else if (mSpeed > 0) {
-                // Freewheel
-                mSpeed = Math.max(mSpeed - 2, 0);
-            } else {
-                // Reverse freewheel
-                mSpeed = Math.min(mSpeed + 2, 0);
-            }
-        }
-        if (mSpeed > mMaxSpeed) {
-            mSpeed -= OVERSPEED_DECAY;
-        }
-        checkCollisions();
-        updatePosAndAngle(dt);
-    }
 
-    private static Vector2 mTmp = new Vector2();
-    private void checkCollisions() {
-        int maxSpeed0 = 0;
-        float tileSpeed = 0;
-        for(Image wheel: mWheels) {
-            mTmp.x = wheel.getX();
-            mTmp.y = wheel.getY();
-            mTmp = wheel.localToStageCoordinates(mTmp);
-            int tx = MathUtils.floor(mTmp.x / RaceGameScreen.WORLD_SCALE / mLayer.getTileWidth());
-            int ty = MathUtils.floor(mTmp.y / RaceGameScreen.WORLD_SCALE / mLayer.getTileHeight());
-            TiledMapTileLayer.Cell cell = mLayer.getCell(tx, ty);
-            if (cell == null) {
-                continue;
+        int wheelsOnFatalGround = 0;
+        for(Wheel wheel: mWheels) {
+            wheel.act(dt);
+            if (wheel.isOnFatalGround()) {
+                ++wheelsOnFatalGround;
             }
-            MapProperties properties = cell.getTile().getProperties();
-            String txt = properties.get("max_speed", String.class);
-            float tileMaxSpeed = txt == null ? 1.0f : Float.valueOf(txt);
-            tileSpeed += tileMaxSpeed;
-            if (tileMaxSpeed == 0) {
-                ++maxSpeed0;
-            }
-            if (properties.containsKey("finish")) {
-                NLog.i("Finish!");
+            if (wheel.isOnFinished()) {
                 mState = State.FINISHED;
             }
         }
-        mMaxSpeed = MAX_SPEED * tileSpeed / mWheels.length;
-        if (maxSpeed0 >= 2) {
-            NLog.i("Broken!");
+        if (wheelsOnFatalGround >= 2) {
             mState = State.BROKEN;
         }
+        if (mBraking || mAccelerating) {
+            float amount = mAccelerating ? 1 : -1;
+            for (Wheel wheel: mWheels) {
+                wheel.adjustSpeed(amount);
+            }
+        }
+        float steerAngle = mDirection * STEER_SPEED * MathUtils.degreesToRadians;
+        mJointFL.setLimits(steerAngle, steerAngle);
+        mJointFR.setLimits(steerAngle, steerAngle);
+    }
+
+    public void draw(Batch batch) {
+        for(Wheel wheel: mWheels) {
+            wheel.draw(batch);
+        }
+        DrawUtils.drawBodySprite(batch, mBody, mSprite);
     }
 
     public void setAccelerating(boolean value) {
@@ -156,32 +174,11 @@ class Car extends Group {
         mDirection = direction;
     }
 
-    private void updatePosAndAngle(float dt) {
-        mSteerAngle = STEER_SPEED * mDirection;
+    public float getX() {
+        return mBody.getPosition().x;
+    }
 
-        // We must use double and not float here otherwise the car does not turn when driving slowly
-        double angle = MathUtils.degreesToRadians * mAngle;
-        double steerAngle = MathUtils.degreesToRadians * mSteerAngle;
-
-        double fWheelX = getX() + WHEEL_BASE / 2 * Math.cos(angle);
-        double fWheelY = getY() + WHEEL_BASE / 2 * Math.sin(angle);
-
-        double rWheelX = getX() - WHEEL_BASE / 2 * Math.cos(angle);
-        double rWheelY = getY() - WHEEL_BASE / 2 * Math.sin(angle);
-
-        rWheelX += mSpeed * dt * Math.cos(angle);
-        rWheelY += mSpeed * dt * Math.sin(angle);
-
-        fWheelX += mSpeed * dt * Math.cos(angle + steerAngle);
-        fWheelY += mSpeed * dt * Math.sin(angle + steerAngle);
-
-        setPosition(
-                (float) ((rWheelX + fWheelX) / 2),
-                (float) ((rWheelY + fWheelY) / 2)
-        );
-        mAngle = (float) (MathUtils.radiansToDegrees * Math.atan2(fWheelY - rWheelY, fWheelX - rWheelX));
-        setRotation(mAngle - 90);
-        mWheels[WHEEL_FL].setRotation(mSteerAngle);
-        mWheels[WHEEL_FR].setRotation(mSteerAngle);
+    public float getY() {
+        return mBody.getPosition().y;
     }
 }

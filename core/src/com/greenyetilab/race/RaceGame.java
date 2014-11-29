@@ -3,6 +3,7 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.greenyetilab.utils.log.NLog;
 
@@ -19,6 +20,7 @@ public class RaceGame extends Game {
     @Override
     public void create() {
         mAssets = new Assets();
+        Box2D.init();
         showMainMenu();
     }
 
