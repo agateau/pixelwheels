@@ -2,8 +2,8 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 /**
  * Created by aurelien on 21/11/14.
@@ -29,7 +29,7 @@ public class MapInfo {
 
     public TiledMap getMap() {
         if (mMap == null) {
-            mMap = new TmxMapLoader().load(mFileName);
+            mMap = new AtlasTmxMapLoader().load("maps/" + mFileName);
         }
         return mMap;
     }
