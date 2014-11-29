@@ -23,7 +23,7 @@ public class Assets {
         this.wheel = this.atlas.findRegion("wheel");
 
         for (String name: new String[]{
-                "clara.tmx",
+                "chloe.tmx",
                 "big.tmx",
                 "roads.tmx",
                 "round.tmx",
