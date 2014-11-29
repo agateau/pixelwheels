@@ -56,8 +56,8 @@ class Car {
         mGameWorld = gameWorld;
         Assets assets = game.getAssets();
 
-        float carW = Constants.UNIT_FOR_PIXEL * assets.car.getWidth();
-        float carH = Constants.UNIT_FOR_PIXEL * assets.car.getHeight();
+        float carW = Constants.UNIT_FOR_PIXEL * assets.car.getRegionWidth();
+        float carH = Constants.UNIT_FOR_PIXEL * assets.car.getRegionHeight();
 
         // Main
         mSprite = new Sprite(assets.car);
@@ -82,7 +82,7 @@ class Car {
         mBody.createFixture(fixtureDef);
 
         // Wheels
-        float wheelW = Constants.UNIT_FOR_PIXEL * assets.wheel.getWidth();
+        float wheelW = Constants.UNIT_FOR_PIXEL * assets.wheel.getRegionWidth();
         float deltaX = carW / 2 - wheelW / 2 + 0.05f;
         float leftX = startPosition.x - deltaX;
         float rightX = startPosition.x + deltaX;

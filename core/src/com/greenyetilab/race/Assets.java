@@ -1,23 +1,26 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Created by aurelien on 21/11/14.
+ * Stores all assets
  */
 public class Assets {
     public final Skin skin;
-    public final Texture car;
-    public final Texture wheel;
+    public final TextureRegion car;
+    public final TextureRegion wheel;
+    private final TextureAtlas atlas;
     public Array<MapInfo> mapInfoList = new Array<MapInfo>();
 
     Assets() {
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
-        this.car = new Texture("car.png");
-        this.wheel = new Texture("wheel.png");
+        this.atlas = new TextureAtlas(Gdx.files.internal("race.atlas"));
+        this.car = this.atlas.findRegion("car");
+        this.wheel = this.atlas.findRegion("wheel");
 
         for (String name: new String[]{
                 "clara.tmx",

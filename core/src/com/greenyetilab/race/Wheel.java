@@ -1,17 +1,15 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * A wheel
@@ -27,11 +25,11 @@ public class Wheel {
 
     public Wheel(RaceGame game, GameWorld gameWorld, float posX, float posY) {
         mGameWorld = gameWorld;
-        Texture texture = game.getAssets().wheel;
+        TextureRegion texture = game.getAssets().wheel;
         mSprite = new Sprite(texture);
 
-        float w = Constants.UNIT_FOR_PIXEL * texture.getWidth();
-        float h = Constants.UNIT_FOR_PIXEL * texture.getHeight();
+        float w = Constants.UNIT_FOR_PIXEL * texture.getRegionWidth();
+        float h = Constants.UNIT_FOR_PIXEL * texture.getRegionHeight();
         mSprite.setSize(w, h);
         mSprite.setOriginCenter();
 
