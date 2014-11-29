@@ -20,7 +20,7 @@ import com.greenyetilab.utils.log.NLog;
 */
 class Car {
     private final Body mBody;
-    private final World mWorld;
+    private final GameWorld mGameWorld;
     private final RevoluteJoint mJointFL;
     private final RevoluteJoint mJointFR;
 
@@ -40,7 +40,6 @@ class Car {
 
     private final Sprite mSprite;
     private final Wheel[] mWheels = new Wheel[4];
-    private final TiledMapTileLayer mLayer;
     private float mSpeed = 0;
     private float mMaxSpeed;
     private boolean mAccelerating = false;
@@ -53,10 +52,9 @@ class Car {
     private static final int WHEEL_RL = 2;
     private static final int WHEEL_RR = 3;
 
-    public Car(RaceGame game, World world, TiledMapTileLayer layer, Vector2 startPosition) {
-        mWorld = world;
+    public Car(RaceGame game, GameWorld gameWorld, Vector2 startPosition) {
+        mGameWorld = gameWorld;
         Assets assets = game.getAssets();
-        mLayer = layer;
 
         float carW = Constants.UNIT_FOR_PIXEL * assets.car.getWidth();
         float carH = Constants.UNIT_FOR_PIXEL * assets.car.getHeight();
@@ -70,7 +68,7 @@ class Car {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(startPosition.x, startPosition.y);
-        mBody = world.createBody(bodyDef);
+        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(carW / 2, carH / 2);
@@ -91,10 +89,10 @@ class Car {
         float rearY = startPosition.y - carH / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
 
-        mWheels[WHEEL_FL] = new Wheel(game, world, leftX, frontY);
-        mWheels[WHEEL_FR] = new Wheel(game, world, rightX, frontY);
-        mWheels[WHEEL_RL] = new Wheel(game, world, leftX, rearY);
-        mWheels[WHEEL_RR] = new Wheel(game, world, rightX, rearY);
+        mWheels[WHEEL_FL] = new Wheel(game, mGameWorld, leftX, frontY);
+        mWheels[WHEEL_FR] = new Wheel(game, mGameWorld, rightX, frontY);
+        mWheels[WHEEL_RL] = new Wheel(game, mGameWorld, leftX, rearY);
+        mWheels[WHEEL_RR] = new Wheel(game, mGameWorld, rightX, rearY);
 
         mJointFL = joinWheel(mWheels[WHEEL_FL]);
         mJointFR = joinWheel(mWheels[WHEEL_FR]);
@@ -110,7 +108,7 @@ class Car {
         jointDef.lowerAngle = 0;
         jointDef.upperAngle = 0;
         jointDef.enableLimit = true;
-        return (RevoluteJoint)mWorld.createJoint(jointDef);
+        return (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
     }
 
     public State getState() {
@@ -133,8 +131,18 @@ class Car {
             return;
         }
 
+        int wheelsOnFatalGround = 0;
         for(Wheel wheel: mWheels) {
             wheel.act(dt);
+            if (wheel.isOnFatalGround()) {
+                ++wheelsOnFatalGround;
+            }
+            if (wheel.isOnFinished()) {
+                mState = State.FINISHED;
+            }
+        }
+        if (wheelsOnFatalGround >= 2) {
+            mState = State.BROKEN;
         }
         if (mBraking || mAccelerating) {
             float amount = mAccelerating ? 1 : -1;
@@ -145,7 +153,6 @@ class Car {
         float steerAngle = mDirection * STEER_SPEED * MathUtils.degreesToRadians;
         mJointFL.setLimits(steerAngle, steerAngle);
         mJointFR.setLimits(steerAngle, steerAngle);
-        checkCollisions();
     }
 
     public void draw(Batch batch) {
@@ -153,38 +160,6 @@ class Car {
             wheel.draw(batch);
         }
         DrawUtils.drawBodySprite(batch, mBody, mSprite);
-    }
-
-    private void checkCollisions() {
-        int maxSpeed0 = 0;
-        float tileSpeed = 0;
-        float tileW = Constants.UNIT_FOR_PIXEL * mLayer.getTileWidth();
-        float tileH = Constants.UNIT_FOR_PIXEL * mLayer.getTileHeight();
-        for(Wheel wheel: mWheels) {
-            Vector2 pos = wheel.getBody().getWorldCenter();
-            int tx = MathUtils.floor(pos.x / tileW);
-            int ty = MathUtils.floor(pos.y / tileH);
-            TiledMapTileLayer.Cell cell = mLayer.getCell(tx, ty);
-            if (cell == null) {
-                continue;
-            }
-            MapProperties properties = cell.getTile().getProperties();
-            String txt = properties.get("max_speed", String.class);
-            float tileMaxSpeed = txt == null ? 1.0f : Float.valueOf(txt);
-            tileSpeed += tileMaxSpeed;
-            if (tileMaxSpeed == 0) {
-                ++maxSpeed0;
-            }
-            if (properties.containsKey("finish")) {
-                NLog.i("Finish!");
-                mState = State.FINISHED;
-            }
-        }
-        mMaxSpeed = MAX_SPEED * tileSpeed / mWheels.length;
-        if (maxSpeed0 >= 2) {
-            NLog.i("Broken!");
-            mState = State.BROKEN;
-        }
     }
 
     public void setAccelerating(boolean value) {

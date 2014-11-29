@@ -3,6 +3,9 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -18,8 +21,12 @@ public class Wheel {
     private static final float DRAG_FACTOR = 1;
     private final Sprite mSprite;
     private final Body mBody;
+    private final GameWorld mGameWorld;
+    private boolean mOnFinished = false;
+    private boolean mOnFatalGround = false;
 
-    public Wheel(RaceGame game, World world, float posX, float posY) {
+    public Wheel(RaceGame game, GameWorld gameWorld, float posX, float posY) {
+        mGameWorld = gameWorld;
         Texture texture = game.getAssets().wheel;
         mSprite = new Sprite(texture);
 
@@ -31,7 +38,7 @@ public class Wheel {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(posX, posY);
-        mBody = world.createBody(bodyDef);
+        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(w / 2, h / 2);
@@ -39,11 +46,24 @@ public class Wheel {
     }
 
     public void act(float delta) {
+        checkCollisions();
         updateFriction();
     }
 
     public void draw(Batch batch) {
         DrawUtils.drawBodySprite(batch, mBody, mSprite);
+    }
+
+    public Body getBody() {
+        return mBody;
+    }
+
+    public boolean isOnFinished() {
+        return mOnFinished;
+    }
+
+    public boolean isOnFatalGround() {
+        return mOnFatalGround;
     }
 
     public void adjustSpeed(float amount) {
@@ -56,7 +76,7 @@ public class Wheel {
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }
 
-    void updateFriction() {
+    private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         if (impulse.len() > MAX_LATERAL_IMPULSE) {
@@ -73,7 +93,19 @@ public class Wheel {
         Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
     }
 
-    public Body getBody() {
-        return mBody;
+    private void checkCollisions() {
+        TiledMapTile tile = mGameWorld.getTileAt(mBody.getWorldCenter());
+        if (tile == null) {
+            return;
+        }
+        MapProperties properties = tile.getProperties();
+        String txt = properties.get("max_speed", String.class);
+        mOnFatalGround = false;
+        if (txt != null) {
+            float maxSpeed = Float.valueOf(txt);
+            mOnFatalGround = maxSpeed == 0;
+            Box2DUtils.applyDrag(mBody, (1 - maxSpeed) * DRAG_FACTOR * 4);
+        }
+        mOnFinished = properties.containsKey("finish");
     }
 }

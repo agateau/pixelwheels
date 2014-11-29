@@ -3,6 +3,7 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -67,7 +68,7 @@ public class GameWorld {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         Vector2 position = findStartTilePosition(layer);
         assert(position != null);
-        mCar = new Car(mGame, mBox2DWorld, layer, position);
+        mCar = new Car(mGame, this, position);
     }
 
     private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
@@ -111,5 +112,16 @@ public class GameWorld {
         shape.setAsBox(width / 2, height / 2);
 
         body.createFixture(shape, 1);
+    }
+
+    public TiledMapTile getTileAt(Vector2 pos) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+        float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+
+        int tx = MathUtils.floor(pos.x / tileW);
+        int ty = MathUtils.floor(pos.y / tileH);
+        TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+        return cell == null ? null : cell.getTile();
     }
 }
