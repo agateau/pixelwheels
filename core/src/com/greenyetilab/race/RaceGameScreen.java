@@ -35,7 +35,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mBatch = new SpriteBatch();
         setupHud();
         mGameWorld = new GameWorld(game, mapInfo);
-        mGameRenderer = new GameRenderer(game, mGameWorld, mBatch);
+        mGameRenderer = new GameRenderer(mGameWorld, mBatch);
         mCar = mGameWorld.getCar();
     }
 

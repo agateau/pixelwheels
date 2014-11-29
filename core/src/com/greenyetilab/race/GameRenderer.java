@@ -26,7 +26,6 @@ public class GameRenderer {
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
-    private final RaceGame mGame;
     private final float mMapWidth;
     private final float mMapHeight;
 
@@ -34,9 +33,8 @@ public class GameRenderer {
     private int mSkidmarksIndex = 0;
     private Car mCar;
 
-    public GameRenderer(RaceGame game, GameWorld world, Batch batch) {
+    public GameRenderer(GameWorld world, Batch batch) {
         mDebugRenderer = new Box2DDebugRenderer(true, true, false, true, DEBUG_RENDERER_VELOCITIES, false);
-        mGame = game;
         mWorld = world;
 
         mMap = mWorld.getMap();
