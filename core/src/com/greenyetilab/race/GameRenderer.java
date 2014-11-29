@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
  */
 public class GameRenderer {
     private static final float VIEWPORT_WIDTH = 40;
-    private static final boolean DEBUG_RENDERER = true;
+    private static final boolean DEBUG_RENDERER = false;
     private static final boolean DEBUG_RENDERER_VELOCITIES = false;
 
     private final TiledMap mMap;
