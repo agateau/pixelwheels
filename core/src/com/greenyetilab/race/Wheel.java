@@ -15,13 +15,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  * A wheel
  */
 public class Wheel {
-    private static final float MAX_LATERAL_IMPULSE = 2f;
+    private static final float MAX_LATERAL_IMPULSE = 1f;
     private static final float DRAG_FACTOR = 1;
     private final Sprite mSprite;
     private final Body mBody;
     private final GameWorld mGameWorld;
     private boolean mOnFinished = false;
     private boolean mOnFatalGround = false;
+    private boolean mBraking = false;
 
     public Wheel(RaceGame game, GameWorld gameWorld, float posX, float posY) {
         mGameWorld = gameWorld;
@@ -74,13 +75,17 @@ public class Wheel {
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }
 
+    public void setBraking(boolean braking) {
+        mBraking = braking;
+    }
+
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        if (impulse.len() > MAX_LATERAL_IMPULSE) {
+        if (mBraking && impulse.len() > MAX_LATERAL_IMPULSE) {
             // Skidding
             NMessageBus.post("skid", this);
-            //impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
+            impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 

@@ -141,11 +141,15 @@ class Car {
             mState = State.BROKEN;
         }
         if (mBraking || mAccelerating) {
-            float amount = mAccelerating ? 1 : -1;
+            float amount = mAccelerating ? 1 : -0.5f;
             for (Wheel wheel: mWheels) {
                 wheel.adjustSpeed(amount);
             }
         }
+        for (Wheel wheel: mWheels) {
+            wheel.setBraking(mBraking);
+        }
+
         float steerAngle = mDirection * STEER_SPEED * MathUtils.degreesToRadians;
         mJointFL.setLimits(steerAngle, steerAngle);
         mJointFR.setLimits(steerAngle, steerAngle);
