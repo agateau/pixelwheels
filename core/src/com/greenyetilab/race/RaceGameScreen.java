@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceGameScreen extends ScreenAdapter {
-    private static final float MAX_ACCEL = 7;
+    private static final float MAX_ACCELEROMETER = 12;
     private final RaceGame mGame;
     private final GameWorld mGameWorld;
     private Batch mBatch;
@@ -99,7 +99,7 @@ public class RaceGameScreen extends ScreenAdapter {
         float direction = 0;
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             float angle = -Gdx.input.getAccelerometerY();
-            direction = MathUtils.clamp(angle, -MAX_ACCEL, MAX_ACCEL) / MAX_ACCEL;
+            direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
         } else {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 direction = 1;
