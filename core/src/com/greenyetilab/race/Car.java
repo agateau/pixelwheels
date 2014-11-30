@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.greenyetilab.utils.log.NLog;
 
 /**
 * Created by aurelien on 21/11/14.
@@ -25,7 +26,8 @@ class Car {
         BROKEN,
         FINISHED
     }
-    private static final float STEER_SPEED = 30;
+    private static final float LOW_SPEED_MAX_STEER = 40;
+    private static final float HIGH_SPEED_MAX_STEER = 10;
 
     public static final float MAX_SPEED = 8000;
     private static final float MIN_SPEED = -100;
@@ -150,7 +152,10 @@ class Car {
             wheel.setBraking(mBraking);
         }
 
-        float steerAngle = mDirection * STEER_SPEED * MathUtils.degreesToRadians;
+        float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
+        float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
+        NLog.i("steerFactor=%f steer=%f", steerFactor, steer);
+        float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
         mJointFL.setLimits(steerAngle, steerAngle);
         mJointFR.setLimits(steerAngle, steerAngle);
     }
