@@ -27,15 +27,16 @@ public class RaceGameScreen extends ScreenAdapter {
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
     private Label mTimeLabel;
+    private Label mSpeedLabel;
     private float mTime = 0;
 
     public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
-        setupHud();
         mGameWorld = new GameWorld(game, mapInfo);
         mGameRenderer = new GameRenderer(mGameWorld, mBatch);
         mCar = mGameWorld.getCar();
+        setupHud();
     }
 
     void setupHud() {
@@ -47,8 +48,9 @@ public class RaceGameScreen extends ScreenAdapter {
         mHud = new WidgetGroup();
 
         mTimeLabel = new Label("0:00.0", skin);
-        mTimeLabel.invalidate();
+        mSpeedLabel = new Label("0", skin);
         mHud.addActor(mTimeLabel);
+        mHud.addActor(mSpeedLabel);
         mHud.setHeight(mTimeLabel.getHeight());
 
         mHudStage.addActor(mHud);
@@ -85,7 +87,12 @@ public class RaceGameScreen extends ScreenAdapter {
     private void updateHud() {
         String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
-        mHud.setPosition(5, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
+        mTimeLabel.setPosition(5, 0);
+
+        mSpeedLabel.setText(StringUtils.formatSpeed(mCar.getSpeed()));
+        mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
+
+        mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
     }
 
     @Override

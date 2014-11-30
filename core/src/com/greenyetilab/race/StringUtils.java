@@ -10,4 +10,9 @@ public class StringUtils {
         int tens = (int)(time * 10) % 10;
         return String.format("%d:%02d.%d", minutes, seconds, tens);
     }
+
+    public  static String formatSpeed(float speedMPS) {
+        int kmh = (int)(speedMPS * 3.6f);
+        return String.valueOf(kmh) + " km/h";
+    }
 }

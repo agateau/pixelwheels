@@ -13,8 +13,8 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.greenyetilab.utils.log.NLog;
 
 /**
-* Created by aurelien on 21/11/14.
-*/
+ * Represents a car on the world
+ */
 class Car {
     private final Body mBody;
     private final GameWorld mGameWorld;
@@ -29,17 +29,11 @@ class Car {
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
-    public static final float MAX_SPEED = 8000;
-    private static final float MIN_SPEED = -100;
-    private static final float OVERSPEED_DECAY = 20;
-
     private static final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
     private static final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
 
     private final Sprite mSprite;
     private final Wheel[] mWheels = new Wheel[4];
-    private float mSpeed = 0;
-    private float mMaxSpeed;
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
@@ -114,7 +108,7 @@ class Car {
     }
 
     public float getSpeed() {
-        return mSpeed;
+        return mBody.getLinearVelocity().len();
     }
 
     /**
