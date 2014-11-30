@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float VIEWPORT_WIDTH = 40;
+    private static final float VIEWPORT_WIDTH = 60;
     private static final boolean DEBUG_RENDERER = false;
     private static final boolean DEBUG_RENDERER_VELOCITIES = false;
 
