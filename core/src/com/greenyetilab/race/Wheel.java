@@ -68,7 +68,7 @@ public class Wheel {
         if (amount == 0) {
             return;
         }
-        float force = 40 * amount;
+        float force = 50 * amount;
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
