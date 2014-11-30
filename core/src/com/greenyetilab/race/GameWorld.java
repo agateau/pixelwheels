@@ -33,6 +33,15 @@ public class GameWorld {
         mMap = mMapInfo.getMap();
         setupCar();
         setupWorldWalls();
+        /*
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+        float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+        setupRock(tileWidth * 9, tileHeight * 4, tileWidth * 2, tileHeight);
+        setupRock(tileWidth * 11, tileHeight * 4, tileWidth, tileHeight);
+        setupRock(tileWidth * 10, tileHeight * 5, tileWidth, tileHeight);
+        setupRock(tileWidth * 11, tileHeight * 5, tileWidth, tileHeight);
+        */
     }
 
     public TiledMap getMap() {
@@ -112,6 +121,18 @@ public class GameWorld {
         shape.setAsBox(width / 2, height / 2);
 
         body.createFixture(shape, 1);
+    }
+
+    private void setupRock(float x, float y, float width, float height) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x + width / 2, y + height / 2);
+        Body body = mBox2DWorld.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2, height / 2);
+
+        body.createFixture(shape, 3);
     }
 
     public TiledMapTile getTileAt(Vector2 pos) {
