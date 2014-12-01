@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -35,8 +36,18 @@ public class RaceGameScreen extends ScreenAdapter {
         mBatch = new SpriteBatch();
         mGameWorld = new GameWorld(game, mapInfo);
         mGameRenderer = new GameRenderer(mGameWorld, mBatch);
+        setupGameRenderer();
         mCar = mGameWorld.getCar();
         setupHud();
+    }
+
+    private void setupGameRenderer() {
+        GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
+        Preferences prefs = mGame.getPreferences();
+        config.enabled = prefs.getBoolean("debug/enabled", false);
+        config.drawTileCorners = prefs.getBoolean("debug/drawTileCorners", false);
+        config.drawVelocities = prefs.getBoolean("debug/drawVelocities", false);
+        mGameRenderer.setDebugConfig(config);
     }
 
     void setupHud() {

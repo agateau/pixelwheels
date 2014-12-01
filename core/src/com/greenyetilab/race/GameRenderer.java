@@ -16,8 +16,13 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
  */
 public class GameRenderer {
     private static final float VIEWPORT_WIDTH = 60;
-    private static final boolean DEBUG_RENDERER = false;
-    private static final boolean DEBUG_RENDERER_VELOCITIES = false;
+
+    public static class DebugConfig {
+        public boolean enabled = false;
+        public boolean drawVelocities = false;
+        public boolean drawTileCorners = false;
+    }
+    private DebugConfig mDebugConfig = new DebugConfig();
 
     private final TiledMap mMap;
     private final OrthogonalTiledMapRenderer mRenderer;
@@ -34,7 +39,7 @@ public class GameRenderer {
     private Car mCar;
 
     public GameRenderer(GameWorld world, Batch batch) {
-        mDebugRenderer = new Box2DDebugRenderer(true, true, false, true, DEBUG_RENDERER_VELOCITIES, false);
+        mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
         mMap = mWorld.getMap();
@@ -48,6 +53,11 @@ public class GameRenderer {
 
         mCar = mWorld.getCar();
         setupSkidmarks();
+    }
+
+    public void setDebugConfig(DebugConfig config) {
+        mDebugConfig = config;
+        mDebugRenderer.setDrawVelocities(mDebugConfig.drawVelocities);
     }
 
     private void setupSkidmarks() {
@@ -73,16 +83,18 @@ public class GameRenderer {
         mCar.draw(mBatch);
         mBatch.end();
 
-        if (DEBUG_RENDERER) {
+        if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            mShapeRenderer.setColor(1, 1, 1, 1);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
-            TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-            float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-            float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-            for (float y = 0; y < mMapHeight; y += tileH) {
-                for (float x = 0; x < mMapWidth; x += tileW) {
-                    mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+            if (mDebugConfig.drawTileCorners) {
+                mShapeRenderer.setColor(1, 1, 1, 1);
+                TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+                float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+                float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+                for (float y = 0; y < mMapHeight; y += tileH) {
+                    for (float x = 0; x < mMapWidth; x += tileW) {
+                        mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+                    }
                 }
             }
             mShapeRenderer.setColor(0, 0, 1, 1);
