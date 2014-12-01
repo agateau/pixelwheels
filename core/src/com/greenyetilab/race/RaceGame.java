@@ -1,6 +1,8 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -65,5 +67,9 @@ public class RaceGame extends Game {
     private void showOverlay(MapInfo mapInfo, String text) {
         TextureRegion bg = ScreenUtils.getFrameBufferTexture();
         setScreenAndDispose(new OverlayScreen(this, mapInfo, bg, text));
+    }
+
+    public static Preferences getPreferences() {
+        return Gdx.app.getPreferences("com.greenyetilab.race");
     }
 }

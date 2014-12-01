@@ -40,7 +40,7 @@ public class MapInfo {
 
     public void setBestTime(float value) {
         mBestTime = value;
-        Preferences prefs = Gdx.app.getPreferences("com.greenyetilab.race");
+        Preferences prefs = RaceGame.getPreferences();
         prefs.putFloat("best/" + mFileName, mBestTime);
         prefs.flush();
     }
