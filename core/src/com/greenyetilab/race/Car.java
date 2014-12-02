@@ -148,7 +148,6 @@ class Car {
 
         float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
         float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
-        NLog.i("steerFactor=%f steer=%f", steerFactor, steer);
         float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
         mJointFL.setLimits(steerAngle, steerAngle);
         mJointFR.setLimits(steerAngle, steerAngle);
