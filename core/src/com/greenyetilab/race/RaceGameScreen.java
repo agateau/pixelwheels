@@ -43,7 +43,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
     private void setupGameRenderer() {
         GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
-        Preferences prefs = mGame.getPreferences();
+        Preferences prefs = RaceGame.getPreferences();
         config.enabled = prefs.getBoolean("debug/enabled", false);
         config.drawTileCorners = prefs.getBoolean("debug/drawTileCorners", false);
         config.drawVelocities = prefs.getBoolean("debug/drawVelocities", false);
