@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="80" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="80" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="ground" tilewidth="64" tileheight="64">
   <image source="tileset.png" width="384" height="320"/>
   <terraintypes>
@@ -101,9 +101,45 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Calque de Tile 1" width="16" height="80">
+ <tileset firstgid="31" name="walls" tilewidth="64" tileheight="64">
+  <image source="walls.png" width="192" height="128"/>
+  <tile id="1">
+   <objectgroup draworder="index">
+    <object x="0" y="63.6364">
+     <polygon points="0,0 64,-63.6364 -0.181818,-63.4545"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="2">
+   <objectgroup draworder="index">
+    <object x="63.8182" y="63.8182">
+     <polygon points="0,0 0.545455,-63.6364 -64,-63.6364"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="4">
+   <objectgroup draworder="index">
+    <object x="-0.181818" y="-0.181818">
+     <polygon points="0,0 64.0909,64.0909 0.181818,64"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="5">
+   <objectgroup draworder="index">
+    <object x="0.181818" y="64">
+     <polygon points="0,0 63.6364,0 63.8182,-64.1818"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Ground" width="16" height="80">
   <data encoding="base64" compression="zlib">
    eJzNmNlSwzAMRZ0GCt0oa1so/P9vYs2gmduLLMkTCDzcp+YosrWm61LKOqlnUpZTLatWX1r8An9XdXTE/JG496qNI+Y3Sc7jWa9Vp4aYPxnMrvP+ImbO+Hm6qrrv4OX5EYRsxPO7LHn8MmCfqm47eHl+AHks8/ourI19Z5yExRw/dPIv5TLHz4EPER/ZyPBqYwq/SfLb0q7p/1ZnGR5zKcsjg7mU5VsxmIuXGL5N4NXGiexE/EPVNf2OvmT6R8tGK/9uqh4TNjyJjYHs9NqwfIny2epz0X0ia/W5rA9en8vUlLVHHJK8ld+yF8hsz8xOzCndJyzWm13bcrlP9LCsv2L5rpnV/MrML4vVGLfmF/rOceIYW3PYyxPkNTc8nmsF51hrZ+RamaPmoxiKD7oHZn1p7XBoa0zwuLtxT10l+EVgc2zIyiHLpren8nktm4Mj67w9tcgzpLeOvXNP5aWWoz3a46WWdk78rFhy7o2J+EXKxI+/P1A/ee/cW3t47K08Mzlu3L+Rxb5o8dpDz+X7Pss9tRV33gFx3mbvD3t5a5ZkeWuW4Byyeng0S7h/erMommMRb53f461di33weGvX6uH5W4Lvz/r/gWOgPnh5I/pwfBD2Ezv5NTE=
+  </data>
+ </layer>
+ <layer name="Walls" width="16" height="80">
+  <data encoding="base64" compression="zlib">
+   eJzt1EEKgCAQBVBvUmL3P2MudCNFsxAseg/+RvkIDkxKAAAAvMXWsqoPfMdRsw9nuaYE+3e7IrpD/ty/+vsuMoOnN2bfn1e6Az8=
   </data>
  </layer>
 </map>

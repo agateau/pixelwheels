@@ -32,7 +32,8 @@ public class GameWorld {
         mMapInfo = mapInfo;
         mMap = mMapInfo.getMap();
         setupCar();
-        setupWorldWalls();
+        setupOutsideWalls();
+        setupWallsLayer();
         /*
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
@@ -96,7 +97,7 @@ public class GameWorld {
         return null;
     }
 
-    private void setupWorldWalls() {
+    private void setupOutsideWalls() {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         float mapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
         float mapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
@@ -109,6 +110,25 @@ public class GameWorld {
         createWall(-wallSize, 0, wallSize, mapHeight);
         // right
         createWall(mapWidth, 0, wallSize, mapHeight);
+    }
+
+    private void setupWallsLayer() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Walls");
+        if (layer == null) {
+            return;
+        }
+
+        final float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+        final float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+        for (int ty = 0; ty < layer.getHeight(); ++ty) {
+            for (int tx = 0; tx < layer.getWidth(); ++tx) {
+                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+                if (cell == null) {
+                    continue;
+                }
+                createWall(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight);
+            }
+        }
     }
 
     private void createWall(float x, float y, float width, float height) {
