@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
@@ -43,5 +44,9 @@ public class MapInfo {
         Preferences prefs = RaceGame.getPreferences();
         prefs.putFloat("best/" + mFileName, mBestTime);
         prefs.flush();
+    }
+
+    public FileHandle getFile() {
+        return Gdx.files.internal("maps/" + mFileName);
     }
 }

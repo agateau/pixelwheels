@@ -9,7 +9,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenyetilab.utils.TilePolygons;
 import com.greenyetilab.utils.log.NLog;
+
+import java.util.Map;
 
 /**
  * Contains all the information and objects running in the world
@@ -23,6 +26,7 @@ public class GameWorld {
     private final World mBox2DWorld;
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
+    private Map<Integer, TilePolygons> mPolygonsForTile;
 
     private Car mCar;
 
@@ -118,6 +122,8 @@ public class GameWorld {
             return;
         }
 
+        mPolygonsForTile = TilePolygons.readTiledMap(mMapInfo.getFile());
+
         final float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
         final float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
         for (int ty = 0; ty < layer.getHeight(); ++ty) {
@@ -126,7 +132,13 @@ public class GameWorld {
                 if (cell == null) {
                     continue;
                 }
-                createWall(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight);
+                int id = cell.getTile().getId();
+                TilePolygons polygons = mPolygonsForTile.get(id);
+                if (polygons == null) {
+                    createWall(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight);
+                } else {
+                    createPolygonBody(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight, polygons);
+                }
             }
         }
     }
@@ -141,6 +153,15 @@ public class GameWorld {
         shape.setAsBox(width / 2, height / 2);
 
         body.createFixture(shape, 1);
+    }
+
+    private void createPolygonBody(float x, float y, float width, float height, TilePolygons polygons) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(x, y);
+        Body body = mBox2DWorld.createBody(bodyDef);
+
+        polygons.createBodyShapes(body, width, height);
     }
 
     private void setupRock(float x, float y, float width, float height) {
