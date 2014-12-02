@@ -147,8 +147,7 @@ public class MapPacker {
                         + tileWidth, (int)tileLocation.y + tileHeight, null);
 
                 if (isBlended(tile)) setBlended(gid);
-                System.out.println("Adding " + tileWidth + "x" + tileHeight + " (" + (int)tileLocation.x + ", " + (int)tileLocation.y
-                        + ")");
+                NLog.d("Adding %d, %d (%d %d), gid=%d", (int)tileLocation.x, (int)tileLocation.y, tileWidth, tileHeight, gid);
                 packer.addImage(tile, atlasName + "_" + (gid - 1));
             }
         }
