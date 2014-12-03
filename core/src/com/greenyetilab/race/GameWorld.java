@@ -26,7 +26,6 @@ public class GameWorld {
     private final World mBox2DWorld;
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
-    private Map<Integer, TilePolygons> mPolygonsForTile;
 
     private Car mCar;
 
@@ -129,7 +128,7 @@ public class GameWorld {
             return;
         }
 
-        mPolygonsForTile = TilePolygons.readTiledMap(mMapInfo.getFile());
+        Map<Integer, TilePolygons> polygonsForTile = TilePolygons.readTiledMap(mMapInfo.getFile());
 
         final float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
         final float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
@@ -140,7 +139,7 @@ public class GameWorld {
                     continue;
                 }
                 int id = cell.getTile().getId();
-                TilePolygons polygons = mPolygonsForTile.get(id);
+                TilePolygons polygons = polygonsForTile.get(id);
                 if (polygons == null) {
                     createWall(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight);
                 } else {
