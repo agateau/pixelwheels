@@ -7,7 +7,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceGameScreen extends ScreenAdapter {
-    private static final float MAX_ACCELEROMETER = 12;
     private final RaceGame mGame;
     private final GameWorld mGameWorld;
     private Batch mBatch;
@@ -23,6 +21,9 @@ public class RaceGameScreen extends ScreenAdapter {
     private Car mCar;
 
     private GameRenderer mGameRenderer;
+
+    private GameInput mInput = new GameInput();
+    private GameInputHandler mInputHandler;
 
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
@@ -39,6 +40,13 @@ public class RaceGameScreen extends ScreenAdapter {
         setupGameRenderer();
         mCar = mGameWorld.getCar();
         setupHud();
+        //if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+            //mInputHandler = new AccelerometerInputHandler();
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+            mInputHandler = new TouchInputHandler();
+        } else {
+            mInputHandler = new KeyboardInputHandler();
+        }
     }
 
     private void setupGameRenderer() {
@@ -114,33 +122,12 @@ public class RaceGameScreen extends ScreenAdapter {
     }
 
     private void handleInput() {
-        float direction = 0;
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
-            float angle = -Gdx.input.getAccelerometerY();
-            direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
-        } else {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                direction = 1;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                direction = -1;
-            }
-        }
-        mCar.setDirection(direction);
-        boolean accelerating = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || touchAt(0.5f, 1);
-        boolean braking = Gdx.input.isKeyPressed(Input.Keys.SPACE) || touchAt(0, 0.5f);
-        mCar.setAccelerating(accelerating);
-        mCar.setBraking(braking);
-    }
-
-    private boolean touchAt(float startX, float endX) {
-        // check if any finger is touching the area between startX and endX
-        // startX/endX are given between 0 (left edge of the screen) and 1 (right edge of the screen)
-        for (int i = 0; i < 2; i++) {
-            float x = Gdx.input.getX() / (float)Gdx.graphics.getWidth();
-            if (Gdx.input.isTouched(i) && (x >= startX && x <= endX)) {
-                return true;
-            }
-        }
-        return false;
+        mInput.braking = false;
+        mInput.accelerating = false;
+        mInput.direction = 0;
+        mInputHandler.updateGameInput(mInput);
+        mCar.setDirection(mInput.direction);
+        mCar.setAccelerating(mInput.accelerating);
+        mCar.setBraking(mInput.braking);
     }
 }
