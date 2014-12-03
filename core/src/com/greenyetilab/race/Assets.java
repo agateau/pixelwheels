@@ -27,7 +27,7 @@ public class Assets {
                 "experiment.tmx",
                 "big.tmx",
                 "roads.tmx",
-                "round.tmx",
+                "indy.tmx",
                 "tutorial.tmx",
                 //"antonin.tmx",
         }) {
