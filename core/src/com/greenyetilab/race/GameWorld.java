@@ -30,6 +30,9 @@ public class GameWorld {
 
     private Car mCar;
 
+    private Vector2[] mSkidmarks = new Vector2[4000];
+    private int mSkidmarksIndex = 0;
+
     public GameWorld(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
@@ -63,6 +66,10 @@ public class GameWorld {
 
     public Car getCar() {
         return mCar;
+    }
+
+    public Vector2[] getSkidmarks() {
+        return mSkidmarks;
     }
 
     public void act(float delta) {
@@ -186,4 +193,16 @@ public class GameWorld {
         TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
         return cell == null ? null : cell.getTile();
     }
+
+    public void addSkidmarkAt(Vector2 position) {
+        Vector2 pos = mSkidmarks[mSkidmarksIndex];
+        if (pos == null) {
+            pos = new Vector2();
+            mSkidmarks[mSkidmarksIndex] = pos;
+        }
+        pos.x = position.x;
+        pos.y = position.y;
+        mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
+    }
+
 }
