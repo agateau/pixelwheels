@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  * A wheel
  */
 public class Wheel {
-    private static final float MAX_LATERAL_IMPULSE = 1f;
+    private static final float MAX_LATERAL_IMPULSE = 3f;
     private static final float DRAG_FACTOR = 1;
     private final Sprite mSprite;
     private final Body mBody;
@@ -82,9 +82,9 @@ public class Wheel {
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        if (mBraking && impulse.len() > MAX_LATERAL_IMPULSE) {
-            // Skidding
-            NMessageBus.post("skid", this);
+        float maxInpulse = MAX_LATERAL_IMPULSE / (mBraking ? 2 : 1);
+        if (impulse.len() > maxInpulse) {
+            mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
