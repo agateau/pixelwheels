@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  * A wheel
  */
 public class Wheel {
-    private static final float MAX_LATERAL_IMPULSE = 3f;
+    private static final float MAX_LATERAL_IMPULSE = 3.5f;
     private static final float DRAG_FACTOR = 1;
     private final Sprite mSprite;
     private final Body mBody;
