@@ -140,9 +140,7 @@ public class GameWorld {
                 }
                 int id = cell.getTile().getId();
                 TilePolygons polygons = polygonsForTile.get(id);
-                if (polygons == null) {
-                    createWall(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight);
-                } else {
+                if (polygons != null) {
                     createPolygonBody(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight, polygons);
                 }
             }

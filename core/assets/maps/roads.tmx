@@ -103,6 +103,11 @@
  </tileset>
  <tileset firstgid="61" name="walls" tilewidth="64" tileheight="64">
   <image source="walls.png" width="384" height="576"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
   <tile id="1">
    <objectgroup draworder="index">
     <object x="0" y="63.6364">
