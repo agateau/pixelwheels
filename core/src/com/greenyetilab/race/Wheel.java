@@ -86,7 +86,7 @@ public class Wheel {
         float maxInpulse = MAX_LATERAL_IMPULSE / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxInpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
-            impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
+            impulse.limit(maxInpulse);
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 
