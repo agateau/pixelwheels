@@ -23,6 +23,7 @@ public class Wheel {
     private boolean mOnFinished = false;
     private boolean mOnFatalGround = false;
     private boolean mBraking = false;
+    private boolean mCanDrift;
 
     public Wheel(RaceGame game, GameWorld gameWorld, float posX, float posY) {
         mGameWorld = gameWorld;
@@ -83,7 +84,7 @@ public class Wheel {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxInpulse = MAX_LATERAL_IMPULSE / (mBraking ? 2 : 1);
-        if (impulse.len() > maxInpulse) {
+        if (mCanDrift && impulse.len() > maxInpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             impulse.scl(MAX_LATERAL_IMPULSE / impulse.len());
         }
@@ -110,5 +111,10 @@ public class Wheel {
             Box2DUtils.applyDrag(mBody, (1 - maxSpeed) * DRAG_FACTOR * 4);
         }
         mOnFinished = properties.containsKey("finish");
+    }
+
+
+    public void setCanDrift(boolean canDrift) {
+        mCanDrift = canDrift;
     }
 }

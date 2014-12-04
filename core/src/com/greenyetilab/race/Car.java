@@ -90,6 +90,9 @@ class Car {
         mJointFR = joinWheel(mWheels[WHEEL_FR]);
         joinWheel(mWheels[WHEEL_RL]);
         joinWheel(mWheels[WHEEL_RR]);
+
+        mWheels[WHEEL_RL].setCanDrift(true);
+        mWheels[WHEEL_RR].setCanDrift(true);
     }
 
     private RevoluteJoint joinWheel(Wheel wheel) {
