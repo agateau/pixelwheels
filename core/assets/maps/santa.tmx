@@ -1,56 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="120" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
-  <image source="snow.png" width="384" height="832"/>
+  <image source="snow.png" width="512" height="896"/>
+  <tile id="4">
+   <properties>
+    <property name="finish" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="start" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <objectgroup draworder="index">
+    <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="17">
+   <objectgroup draworder="index">
+    <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
+   </objectgroup>
+  </tile>
   <tile id="19">
    <properties>
     <property name="finish" value="true"/>
    </properties>
+   <objectgroup draworder="index">
+    <object x="63.6364" y="42.5455">
+     <polygon points="0.363636,-4.90909 -13.0909,-12.9091 -21.8182,20.9091 0,21.2727"/>
+    </object>
+    <object x="46.7273" y="43.6364">
+     <polygon points="0,0 -14.7273,2.54545 -10.9091,20.3636 -4.72727,20"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="20">
+   <objectgroup draworder="index">
+    <object x="28.3636" y="63.6364">
+     <polygon points="0,0 3.81818,-16 -29.0909,-18.3636 -28.3636,0.363636"/>
+    </object>
+    <object x="18.7273" y="46.3636">
+     <polygon points="0,0 -4.18182,-15.6364 -20.1818,-8.72727 -19.4545,-0.545455"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="21">
+   <objectgroup draworder="index">
+    <object x="25.2727" y="8.72727">
+     <polygon points="0,0 -13.2727,9.81818 -17.6364,24.5455 -10.3636,40.9091 2.36364,47.0909 19.8182,44.7273"/>
+    </object>
+    <object x="45.2727" y="53.4545">
+     <polygon points="0,0 9.63636,-15.0909 8.54545,-31.0909 -1.63636,-44 -20.1818,-44.5455"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="24">
+   <objectgroup draworder="index">
+    <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="25">
+   <objectgroup draworder="index">
+    <object x="-0.545455" y="0" width="56" height="64"/>
+   </objectgroup>
+  </tile>
+  <tile id="27">
+   <objectgroup draworder="index">
+    <object x="62.9091" y="36.1818">
+     <polygon points="0,0 1.27273,-4 0.909091,-36.3636 -17.4545,-36.3636"/>
+    </object>
+    <object x="39.8182" y="27.6364">
+     <polygon points="0,0 17.2727,-3.45455 5.27273,-28 -1.09091,-27.6364"/>
+    </object>
+    <object x="39.2727" y="12.3636">
+     <polygon points="0,0 -0.727273,-12.3636 -10.7273,-12.1818 -13.6364,-6.90909"/>
+    </object>
+   </objectgroup>
   </tile>
   <tile id="28">
    <properties>
     <property name="start" value="true"/>
    </properties>
+   <objectgroup draworder="index">
+    <object x="0" y="33.0909">
+     <polygon points="0,0 0.363636,1.81818 32.9091,-27.2727 29.8182,-33.0909 0,-33.0909"/>
+    </object>
+    <object x="10.3636" y="26.1818">
+     <polygon points="0,0 10.9091,2.90909 10.7273,-10"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="32">
+   <objectgroup draworder="index">
+    <object x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="33">
+   <objectgroup draworder="index">
+    <object x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
+   </objectgroup>
+  </tile>
+  <tile id="35">
+   <objectgroup draworder="index">
+    <object x="0" y="24" width="64" height="15.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="36">
+   <objectgroup draworder="index">
+    <object x="0" y="24.7273" width="24.7273" height="14.3636"/>
+    <object x="24.7273" y="38.9091">
+     <polygon points="0,0 10.5455,0 14.1818,-3.63636 14.3636,-39.0909 -0.363636,-38.9091"/>
+    </object>
+   </objectgroup>
   </tile>
   <tile id="54">
-   <objectgroup draworder="index">
-    <object x="8.18182" y="7.81818" width="55.6364" height="56.1818"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="55">
-   <objectgroup draworder="index">
-    <object x="0" y="8" width="58" height="55.8182"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="60">
-   <objectgroup draworder="index">
-    <object x="5.27273" y="0.181818" width="58.5455" height="64"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="61">
-   <objectgroup draworder="index">
-    <object x="0" y="-0.181818" width="57.6364" height="64"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="66">
-   <objectgroup draworder="index">
-    <object x="6" y="0" width="58" height="56.1818"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="67">
-   <objectgroup draworder="index">
-    <object x="0" y="0" width="57.6364" height="55.8182"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="24" height="24">
+ <layer name="Ground" width="24" height="120">
   <data encoding="base64" compression="zlib">
-   eJzNlU0PgjAMhickCDtzNUQx4SMYxaj//6fRJR6WBrqX2SUenlv7FJa+mzXG2C8FUSlSe+4t/0gcBAahJ+S/ES9Ww5mJt9fzEXoKsE7qyxTqOEfvvMoEfhTf/yAuCf2OTnnG2n5qztjK15XIA5yB70DytZYn9F+RfLk8PYVZPehH8uVmTcyvnS9+P6TIb8z9gOarIe4RfnQv28jzj2Wvn+9/KAt7/KH35Zf9RN+Xf93PlP6Ton8BlBUa4Q==
+   eJztmX2a4iAMxhnrrtM6OlfkaByFoy21pA1pgPDRXd3xj/epVfyRQkgIvSilLpvsL3elmr+/hO1qZSelzIe7gty9buRbdLXjMXz7wvygnze/ia8Z9eYboib+3TGnpR9WI9HZtf/in4vlfyz3gU7u+9Pym3LSVNfEuI0Mr5Q/JvjXcv5OU4Lvxs64MTR3z7ovzxRo8vJtivhexsdRM/E+8/Cn6TX59iB+4McH8tWb/1/yNdLKPzEq4CsUqyhf9+BD/Kdxflxyg/Uxs3Z88P92cZhobZ+Kz6Db0gfEyBy7mH8J89nRfOqDSf45z07ycc6ZkOZ7l//mHNXEJ3sWw6y/HvxS3rPx7cH8t/1v+1kmVmf7S/jd7Hc5T2M12q/RFXJswB8L6zsXT+01nWMtHh+UP4yEfw7rLE0+6whfbP+450n44nEnNV2Or8/bXFXxuZoLhPKflL/z8cj8wWfsv618zKhZTyX8WgX8Ybk/jF/jf/+Ybyg/dybDnc+kzmWYMxN18mL2nlTrGoycyzzsH8IYVMLP5QV93cbnED6cycRiQky+9oD4HTtr1EgGxixxBUHcyvGrVXvWfkv4421jVJ/lx+ryYcmXmubOQcj/dtzvsPalc6mwvVSl9qM8C3PJ9Un50nkDvsUxBOd27qw3ESdK+Tv/gXlInd9iPjOXAf8a+oF4HqYtHu2E+eQsNsr/JH3R50bPH9gP60CyjsE3kX9StkH2K8wvXWdwdsLptm9fvY6FCviD6lafFY1/C//g8amO01I1jo/JCeyf5zbFhzpJuvcBoRoqaT+pk2Zpcs9JnAcgrvnn7MrHeYvkRCXoI+grlmcwf1jiIhsjqO4b//FfCR+1y/mPeH1F+Dl/7c3fxYifxB8EflBjF+f/PfnSdm4vYKj8GVH2/UuL/QX8NY9K60j0nuchof/onFCNtn43yP2zio/s340P2k9m2YRvGP7OfthPSmImEz+BL/YLqaT+84x8bj/cwoc16+/nOYzFtx72N/Mle6LI/kfEZ/ZE7J6hlo/WtBnSfWmocWr5Ga3rV/j+lOM/YlNqX1Tw/jTK77l+uD3jmx/nD33X/1+z36+tlx7/309o/x8vouqL
   </data>
  </layer>
- <layer name="Walls" width="24" height="24">
+ <layer name="Walls" width="24" height="120">
   <data encoding="base64" compression="zlib">
-   eJzdlMEKgDAMQ/dXuoPuoDuo//8/9lKQYm3WWRAfBAqDpSxhKf2fgTSSctD9E2kmlZ/cL9+r9/0W0kqqip/lb7GRdtKh+Fn+rUg/y/9tpF8EnEEUnAG6R05tveAM0D2KmC0vzgDdoz7MPVy7oM13fCVfL2i+XtB8o9H6b/UTzVfrv/VHovl6+4/m6+0/n5/KRSU/
+   eJztl2sKwjAQhHMFH/VdxReiXsqjeVS3aCAsrWbTXUjsfDA/imU6SXez1TkAAAAAAAAAAAAAAAAAYDhMSZWh/4ZUG/pLGJHGpImR/5K0Iq2N/PekA+lo5H8l3Uj3jt9nRs/VqMEq8OF+GjVYBz4WNT1n2in7tzzvoenHe2uh7M97y+fXOr94b3l/rXfNe0s7v/fYvr3d5XOtld97NLlPzj2154av+yb32eU1N4ZA6bPx32cvp2vW/bo/Fumsi70v/IaQrkGKZA3S+pdml9andP9j6pNnlux7TH3yzJIzfEj/Q4ANKTUk6fuUGrKYS+EZmttc4pTc17lnzz3fNzSzt3lpZu/jFbPOPnsRky01f8n11VB6fk1edK0XlQ==
   </data>
  </layer>
 </map>
