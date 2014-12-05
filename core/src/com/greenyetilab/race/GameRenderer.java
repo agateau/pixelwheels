@@ -36,7 +36,7 @@ public class GameRenderer {
 
     private int[] mBackgroundLayerIndexes = { 0 };
     private int[] mForegroundLayerIndexes;
-    private Car mCar;
+    private Vehicle mVehicle;
 
     public GameRenderer(GameWorld world, Batch batch) {
         mDebugRenderer = new Box2DDebugRenderer();
@@ -55,7 +55,7 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
 
-        mCar = mWorld.getCar();
+        mVehicle = mWorld.getVehicle();
     }
 
     public void setDebugConfig(DebugConfig config) {
@@ -73,7 +73,7 @@ public class GameRenderer {
 
         mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.begin();
-        mCar.draw(mBatch);
+        mVehicle.draw(mBatch);
         mBatch.end();
 
         if (mForegroundLayerIndexes != null) {
@@ -95,7 +95,7 @@ public class GameRenderer {
                 }
             }
             mShapeRenderer.setColor(0, 0, 1, 1);
-            mShapeRenderer.rect(mCar.getX(), mCar.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+            mShapeRenderer.rect(mVehicle.getX(), mVehicle.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
@@ -123,8 +123,8 @@ public class GameRenderer {
         // Compute pos
         // FIXME: Take car speed into account when computing advance
         float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
-        float x = mCar.getX() + advance * MathUtils.cosDeg(mCar.getAngle());
-        float y = mCar.getY() + advance * MathUtils.sinDeg(mCar.getAngle());
+        float x = mVehicle.getX() + advance * MathUtils.cosDeg(mVehicle.getAngle());
+        float y = mVehicle.getY() + advance * MathUtils.sinDeg(mVehicle.getAngle());
 
         // Make sure we correctly handle boundaries
         float minX = mCamera.viewportWidth / 2;

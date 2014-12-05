@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Represents a car on the world
  */
-class Car {
+class Vehicle {
     private final Body mBody;
     private final GameWorld mGameWorld;
 
@@ -42,7 +42,7 @@ class Car {
     private float mDirection = 0;
     private State mState = State.RUNNING;
 
-    public Car(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
+    public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         mGameWorld = gameWorld;
 
         float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();

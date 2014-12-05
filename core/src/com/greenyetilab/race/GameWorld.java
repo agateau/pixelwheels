@@ -28,7 +28,7 @@ public class GameWorld {
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
 
-    private Car mCar;
+    private Vehicle mVehicle;
 
     private Vector2[] mSkidmarks = new Vector2[4000];
     private int mSkidmarksIndex = 0;
@@ -64,8 +64,8 @@ public class GameWorld {
         return mBox2DWorld;
     }
 
-    public Car getCar() {
-        return mCar;
+    public Vehicle getVehicle() {
+        return mVehicle;
     }
 
     public Vector2[] getSkidmarks() {
@@ -82,7 +82,7 @@ public class GameWorld {
             mTimeAccumulator -= TIME_STEP;
         }
 
-        mCar.act(delta);
+        mVehicle.act(delta);
     }
 
     private void setupCar() {
@@ -93,7 +93,7 @@ public class GameWorld {
         // Car
         TextureRegion carRegion = mGame.getAssets().car;
         TextureRegion wheelRegion = mGame.getAssets().wheel;
-        mCar = new Car(carRegion, this, position);
+        mVehicle = new Vehicle(carRegion, this, position);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -105,14 +105,14 @@ public class GameWorld {
         float rearY = Constants.UNIT_FOR_PIXEL * -carRegion.getRegionHeight() / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
 
-        Car.WheelInfo info;
-        info = mCar.addWheel(wheelRegion, leftX, frontY);
+        Vehicle.WheelInfo info;
+        info = mVehicle.addWheel(wheelRegion, leftX, frontY);
         info.steeringFactor = 1;
-        info = mCar.addWheel(wheelRegion, rightX, frontY);
+        info = mVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
-        info = mCar.addWheel(wheelRegion, leftX, rearY);
+        info = mVehicle.addWheel(wheelRegion, leftX, rearY);
         info.wheel.setCanDrift(true);
-        info = mCar.addWheel(wheelRegion, rightX, rearY);
+        info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
     }
 

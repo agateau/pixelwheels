@@ -18,7 +18,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private final GameWorld mGameWorld;
     private Batch mBatch;
 
-    private Car mCar;
+    private Vehicle mVehicle;
 
     private GameRenderer mGameRenderer;
 
@@ -38,7 +38,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameWorld = new GameWorld(game, mapInfo);
         mGameRenderer = new GameRenderer(mGameWorld, mBatch);
         setupGameRenderer();
-        mCar = mGameWorld.getCar();
+        mVehicle = mGameWorld.getVehicle();
         setupHud();
         //if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             //mInputHandler = new AccelerometerInputHandler();
@@ -82,7 +82,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
         mGameWorld.act(delta);
         mHudStage.act(delta);
-        switch (mCar.getState()) {
+        switch (mVehicle.getState()) {
         case RUNNING:
             break;
         case BROKEN:
@@ -108,7 +108,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mTimeLabel.setText(text);
         mTimeLabel.setPosition(5, 0);
 
-        mSpeedLabel.setText(StringUtils.formatSpeed(mCar.getSpeed()));
+        mSpeedLabel.setText(StringUtils.formatSpeed(mVehicle.getSpeed()));
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
 
         mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
@@ -126,8 +126,8 @@ public class RaceGameScreen extends ScreenAdapter {
         mInput.accelerating = false;
         mInput.direction = 0;
         mInputHandler.updateGameInput(mInput);
-        mCar.setDirection(mInput.direction);
-        mCar.setAccelerating(mInput.accelerating);
-        mCar.setBraking(mInput.braking);
+        mVehicle.setDirection(mInput.direction);
+        mVehicle.setAccelerating(mInput.accelerating);
+        mVehicle.setBraking(mInput.braking);
     }
 }
