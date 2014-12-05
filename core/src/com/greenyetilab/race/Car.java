@@ -147,21 +147,20 @@ class Car {
         if (wheelsOnFatalGround >= 2) {
             mState = State.BROKEN;
         }
+
+        float speedDelta = 0;
         if (mBraking || mAccelerating) {
-            float amount = mAccelerating ? 1 : -0.5f;
-            for(WheelInfo info: mWheels) {
-                info.wheel.adjustSpeed(amount);
-            }
-        }
-        for(WheelInfo info: mWheels) {
-            info.wheel.setBraking(mBraking);
+            speedDelta = mAccelerating ? 1 : -0.5f;
         }
 
         float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
         float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
         float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
+
         for(WheelInfo info: mWheels) {
             float angle = info.steeringFactor * steerAngle;
+            info.wheel.setBraking(mBraking);
+            info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
         }
     }
