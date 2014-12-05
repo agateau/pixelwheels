@@ -18,6 +18,9 @@
    </objectgroup>
   </tile>
   <tile id="17">
+   <properties>
+    <property name="chimney" value="true"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
    </objectgroup>

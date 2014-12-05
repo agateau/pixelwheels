@@ -168,4 +168,8 @@ class Vehicle {
     public float getY() {
         return mBody.getPosition().y;
     }
+
+    public Vector2 getPosition() {
+        return mBody.getPosition();
+    }
 }
