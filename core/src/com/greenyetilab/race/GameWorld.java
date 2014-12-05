@@ -124,7 +124,7 @@ public class GameWorld {
                 if (tile.getProperties().containsKey("start")) {
                     float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
                     float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-                    return new Vector2(tx * tw + tw / 2, ty * th + th / 2);
+                    return new Vector2(tx * tw + tw / 2, ty * th);
                 }
             }
         }
