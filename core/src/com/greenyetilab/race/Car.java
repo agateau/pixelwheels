@@ -23,6 +23,7 @@ class Car {
     private static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
+        public float steeringFactor;
     }
 
     public enum State {
@@ -43,11 +44,6 @@ class Car {
     private boolean mBraking = false;
     private float mDirection = 0;
     private State mState = State.RUNNING;
-
-    private static final int WHEEL_FL = 0;
-    private static final int WHEEL_FR = 1;
-    private static final int WHEEL_RL = 2;
-    private static final int WHEEL_RR = 3;
 
     public Car(RaceGame game, GameWorld gameWorld, Vector2 startPosition) {
         mGameWorld = gameWorld;
@@ -87,16 +83,18 @@ class Car {
         float frontY = rearY + WHEEL_BASE;
 
         TextureRegion wheelRegion = game.getAssets().wheel;
-        addWheel(wheelRegion, leftX, frontY);
-        addWheel(wheelRegion, rightX, frontY);
-        addWheel(wheelRegion, leftX, rearY);
-        addWheel(wheelRegion, rightX, rearY);
-
-        mWheels.get(WHEEL_RL).wheel.setCanDrift(true);
-        mWheels.get(WHEEL_RR).wheel.setCanDrift(true);
+        WheelInfo info;
+        info = addWheel(wheelRegion, leftX, frontY);
+        info.steeringFactor = 1;
+        info = addWheel(wheelRegion, rightX, frontY);
+        info.steeringFactor = 1;
+        info = addWheel(wheelRegion, leftX, rearY);
+        info.wheel.setCanDrift(true);
+        info = addWheel(wheelRegion, rightX, rearY);
+        info.wheel.setCanDrift(true);
     }
 
-    private void addWheel(TextureRegion region, float x, float y) {
+    private WheelInfo addWheel(TextureRegion region, float x, float y) {
         WheelInfo info = new WheelInfo();
         info.wheel = new Wheel(region, mGameWorld, x, y);
         mWheels.add(info);
@@ -111,6 +109,8 @@ class Car {
         jointDef.upperAngle = 0;
         jointDef.enableLimit = true;
         info.joint = (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
+
+        return info;
     }
 
     public State getState() {
@@ -160,8 +160,10 @@ class Car {
         float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
         float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
         float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
-        mWheels.get(WHEEL_FL).joint.setLimits(steerAngle, steerAngle);
-        mWheels.get(WHEEL_FR).joint.setLimits(steerAngle, steerAngle);
+        for(WheelInfo info: mWheels) {
+            float angle = info.steeringFactor * steerAngle;
+            info.joint.setLimits(angle, angle);
+        }
     }
 
     public void draw(Batch batch) {
