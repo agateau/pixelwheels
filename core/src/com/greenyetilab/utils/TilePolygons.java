@@ -49,6 +49,10 @@ public class TilePolygons {
         TilePolygons polygons = null;
         for (XmlReader.Element objectGroupElement : element.getChildrenByName("objectgroup")) {
             XmlReader.Element objectElement = objectGroupElement.getChildByName("object");
+            if (objectElement == null) {
+                // Can happen if collision objects have been created, then removed
+                continue;
+            }
             if (polygons == null) {
                 polygons = new TilePolygons();
             }
