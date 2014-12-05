@@ -20,7 +20,7 @@ class Car {
     private final Body mBody;
     private final GameWorld mGameWorld;
 
-    private static class WheelInfo {
+    public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
         public float steeringFactor;
@@ -34,9 +34,6 @@ class Car {
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
-    private static final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-    private static final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
-
     private final Sprite mSprite;
     private final Array<WheelInfo> mWheels = new Array<WheelInfo>();
 
@@ -45,15 +42,14 @@ class Car {
     private float mDirection = 0;
     private State mState = State.RUNNING;
 
-    public Car(RaceGame game, GameWorld gameWorld, Vector2 startPosition) {
+    public Car(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         mGameWorld = gameWorld;
-        Assets assets = game.getAssets();
 
-        float carW = Constants.UNIT_FOR_PIXEL * assets.car.getRegionWidth();
-        float carH = Constants.UNIT_FOR_PIXEL * assets.car.getRegionHeight();
+        float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+        float carH = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
 
         // Main
-        mSprite = new Sprite(assets.car);
+        mSprite = new Sprite(region);
         mSprite.setSize(carW, carH);
         mSprite.setOriginCenter();
 
@@ -73,30 +69,11 @@ class Car {
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
-
-        // Wheels
-        float wheelW = Constants.UNIT_FOR_PIXEL * assets.wheel.getRegionWidth();
-        float deltaX = carW / 2 - wheelW / 2 + 0.05f;
-        float leftX = startPosition.x - deltaX;
-        float rightX = startPosition.x + deltaX;
-        float rearY = startPosition.y - carH / 2 + REAR_WHEEL_Y;
-        float frontY = rearY + WHEEL_BASE;
-
-        TextureRegion wheelRegion = game.getAssets().wheel;
-        WheelInfo info;
-        info = addWheel(wheelRegion, leftX, frontY);
-        info.steeringFactor = 1;
-        info = addWheel(wheelRegion, rightX, frontY);
-        info.steeringFactor = 1;
-        info = addWheel(wheelRegion, leftX, rearY);
-        info.wheel.setCanDrift(true);
-        info = addWheel(wheelRegion, rightX, rearY);
-        info.wheel.setCanDrift(true);
     }
 
-    private WheelInfo addWheel(TextureRegion region, float x, float y) {
+    public WheelInfo addWheel(TextureRegion region, float x, float y) {
         WheelInfo info = new WheelInfo();
-        info.wheel = new Wheel(region, mGameWorld, x, y);
+        info.wheel = new Wheel(region, mGameWorld, getX() + x, getY() + y);
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
