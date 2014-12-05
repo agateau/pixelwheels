@@ -94,13 +94,12 @@ public class TilePolygons {
         float y = objectElement.getFloat("y");
         float w = objectElement.getFloat("width");
         float h = objectElement.getFloat("height");
-        float[] vertices = {
+        return new float[]{
             x, y,
             x + w, y,
             x + w, y + h,
             x, y + h
         };
-        return vertices;
     }
 
     public void createBodyShapes(Body body, float width, float height) {
