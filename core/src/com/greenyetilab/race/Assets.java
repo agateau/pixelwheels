@@ -25,10 +25,10 @@ public class Assets {
         for (String name: new String[]{
                 //"chloe.tmx",
                 "experiment.tmx",
+                "santa.tmx",
                 "big.tmx",
                 "roads.tmx",
                 "indy.tmx",
-                "tutorial.tmx",
                 //"antonin.tmx",
         }) {
             mapInfoList.add(new MapInfo(name));

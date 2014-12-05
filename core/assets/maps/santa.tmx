@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
+  <image source="snow.png" width="384" height="832"/>
+  <tile id="19">
+   <properties>
+    <property name="finish" value="true"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="start" value="true"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <objectgroup draworder="index">
+    <object x="8.18182" y="7.81818" width="55.6364" height="56.1818"/>
+   </objectgroup>
+  </tile>
+  <tile id="55">
+   <objectgroup draworder="index">
+    <object x="0" y="8" width="58" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="60">
+   <objectgroup draworder="index">
+    <object x="5.27273" y="0.181818" width="58.5455" height="64"/>
+   </objectgroup>
+  </tile>
+  <tile id="61">
+   <objectgroup draworder="index">
+    <object x="0" y="-0.181818" width="57.6364" height="64"/>
+   </objectgroup>
+  </tile>
+  <tile id="66">
+   <objectgroup draworder="index">
+    <object x="6" y="0" width="58" height="56.1818"/>
+   </objectgroup>
+  </tile>
+  <tile id="67">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="57.6364" height="55.8182"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Ground" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzNlU0PgjAMhickCDtzNUQx4SMYxaj//6fRJR6WBrqX2SUenlv7FJa+mzXG2C8FUSlSe+4t/0gcBAahJ+S/ES9Ww5mJt9fzEXoKsE7qyxTqOEfvvMoEfhTf/yAuCf2OTnnG2n5qztjK15XIA5yB70DytZYn9F+RfLk8PYVZPehH8uVmTcyvnS9+P6TIb8z9gOarIe4RfnQv28jzj2Wvn+9/KAt7/KH35Zf9RN+Xf93PlP6Ton8BlBUa4Q==
+  </data>
+ </layer>
+ <layer name="Walls" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzdlMEKgDAMQ/dXuoPuoDuo//8/9lKQYm3WWRAfBAqDpSxhKf2fgTSSctD9E2kmlZ/cL9+r9/0W0kqqip/lb7GRdtKh+Fn+rUg/y/9tpF8EnEEUnAG6R05tveAM0D2KmC0vzgDdoz7MPVy7oM13fCVfL2i+XtB8o9H6b/UTzVfrv/VHovl6+4/m6+0/n5/KRSU/
+  </data>
+ </layer>
+</map>

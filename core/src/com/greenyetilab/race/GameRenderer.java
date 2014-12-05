@@ -34,6 +34,8 @@ public class GameRenderer {
     private final float mMapWidth;
     private final float mMapHeight;
 
+    private int[] mBackgroundLayerIndexes = { 0 };
+    private int[] mForegroundLayerIndexes;
     private Car mCar;
 
     public GameRenderer(GameWorld world, Batch batch) {
@@ -44,6 +46,10 @@ public class GameRenderer {
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
         mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+
+        if (mMap.getLayers().get("Walls") != null) {
+            mForegroundLayerIndexes = new int[]{ 1 };
+        }
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
@@ -61,7 +67,7 @@ public class GameRenderer {
         updateCamera();
 
         mRenderer.setView(mCamera);
-        mRenderer.render();
+        mRenderer.render(mBackgroundLayerIndexes);
 
         renderSkidmarks();
 
@@ -69,6 +75,10 @@ public class GameRenderer {
         mBatch.begin();
         mCar.draw(mBatch);
         mBatch.end();
+
+        if (mForegroundLayerIndexes != null) {
+            mRenderer.render(mForegroundLayerIndexes);
+        }
 
         if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
