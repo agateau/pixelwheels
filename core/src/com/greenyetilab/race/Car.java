@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.greenyetilab.utils.log.NLog;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Represents a car on the world
@@ -19,8 +19,11 @@ import com.greenyetilab.utils.log.NLog;
 class Car {
     private final Body mBody;
     private final GameWorld mGameWorld;
-    private final RevoluteJoint mJointFL;
-    private final RevoluteJoint mJointFR;
+
+    private static class WheelInfo {
+        public Wheel wheel;
+        public RevoluteJoint joint;
+    }
 
     public enum State {
         RUNNING,
@@ -34,7 +37,8 @@ class Car {
     private static final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
 
     private final Sprite mSprite;
-    private final Wheel[] mWheels = new Wheel[4];
+    private final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
@@ -83,29 +87,30 @@ class Car {
         float frontY = rearY + WHEEL_BASE;
 
         TextureRegion wheelRegion = game.getAssets().wheel;
-        mWheels[WHEEL_FL] = new Wheel(wheelRegion, mGameWorld, leftX, frontY);
-        mWheels[WHEEL_FR] = new Wheel(wheelRegion, mGameWorld, rightX, frontY);
-        mWheels[WHEEL_RL] = new Wheel(wheelRegion, mGameWorld, leftX, rearY);
-        mWheels[WHEEL_RR] = new Wheel(wheelRegion, mGameWorld, rightX, rearY);
+        addWheel(wheelRegion, leftX, frontY);
+        addWheel(wheelRegion, rightX, frontY);
+        addWheel(wheelRegion, leftX, rearY);
+        addWheel(wheelRegion, rightX, rearY);
 
-        mJointFL = joinWheel(mWheels[WHEEL_FL]);
-        mJointFR = joinWheel(mWheels[WHEEL_FR]);
-        joinWheel(mWheels[WHEEL_RL]);
-        joinWheel(mWheels[WHEEL_RR]);
-
-        mWheels[WHEEL_RL].setCanDrift(true);
-        mWheels[WHEEL_RR].setCanDrift(true);
+        mWheels.get(WHEEL_RL).wheel.setCanDrift(true);
+        mWheels.get(WHEEL_RR).wheel.setCanDrift(true);
     }
 
-    private RevoluteJoint joinWheel(Wheel wheel) {
+    private void addWheel(TextureRegion region, float x, float y) {
+        WheelInfo info = new WheelInfo();
+        info.wheel = new Wheel(region, mGameWorld, x, y);
+        mWheels.add(info);
+
+        Body body = info.wheel.getBody();
+
         RevoluteJointDef jointDef = new RevoluteJointDef();
         // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
         // causes Box2D to move the car a bit while it solves the constraints defined by the joints
-        jointDef.initialize(mBody, wheel.getBody(), wheel.getBody().getPosition());
+        jointDef.initialize(mBody, body, body.getPosition());
         jointDef.lowerAngle = 0;
         jointDef.upperAngle = 0;
         jointDef.enableLimit = true;
-        return (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
+        info.joint = (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
     }
 
     public State getState() {
@@ -129,7 +134,8 @@ class Car {
         }
 
         int wheelsOnFatalGround = 0;
-        for(Wheel wheel: mWheels) {
+        for(WheelInfo info: mWheels) {
+            Wheel wheel = info.wheel;
             wheel.act(dt);
             if (wheel.isOnFatalGround()) {
                 ++wheelsOnFatalGround;
@@ -143,24 +149,24 @@ class Car {
         }
         if (mBraking || mAccelerating) {
             float amount = mAccelerating ? 1 : -0.5f;
-            for (Wheel wheel: mWheels) {
-                wheel.adjustSpeed(amount);
+            for(WheelInfo info: mWheels) {
+                info.wheel.adjustSpeed(amount);
             }
         }
-        for (Wheel wheel: mWheels) {
-            wheel.setBraking(mBraking);
+        for(WheelInfo info: mWheels) {
+            info.wheel.setBraking(mBraking);
         }
 
         float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
         float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
         float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
-        mJointFL.setLimits(steerAngle, steerAngle);
-        mJointFR.setLimits(steerAngle, steerAngle);
+        mWheels.get(WHEEL_FL).joint.setLimits(steerAngle, steerAngle);
+        mWheels.get(WHEEL_FR).joint.setLimits(steerAngle, steerAngle);
     }
 
     public void draw(Batch batch) {
-        for(Wheel wheel: mWheels) {
-            wheel.draw(batch);
+        for(WheelInfo info: mWheels) {
+            info.wheel.draw(batch);
         }
         DrawUtils.drawBodySprite(batch, mBody, mSprite);
     }
