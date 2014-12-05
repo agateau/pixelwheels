@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -81,10 +82,11 @@ class Car {
         float rearY = startPosition.y - carH / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
 
-        mWheels[WHEEL_FL] = new Wheel(game, mGameWorld, leftX, frontY);
-        mWheels[WHEEL_FR] = new Wheel(game, mGameWorld, rightX, frontY);
-        mWheels[WHEEL_RL] = new Wheel(game, mGameWorld, leftX, rearY);
-        mWheels[WHEEL_RR] = new Wheel(game, mGameWorld, rightX, rearY);
+        TextureRegion wheelRegion = game.getAssets().wheel;
+        mWheels[WHEEL_FL] = new Wheel(wheelRegion, mGameWorld, leftX, frontY);
+        mWheels[WHEEL_FR] = new Wheel(wheelRegion, mGameWorld, rightX, frontY);
+        mWheels[WHEEL_RL] = new Wheel(wheelRegion, mGameWorld, leftX, rearY);
+        mWheels[WHEEL_RR] = new Wheel(wheelRegion, mGameWorld, rightX, rearY);
 
         mJointFL = joinWheel(mWheels[WHEEL_FL]);
         mJointFR = joinWheel(mWheels[WHEEL_FR]);

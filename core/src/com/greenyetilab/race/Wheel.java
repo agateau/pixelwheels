@@ -25,13 +25,12 @@ public class Wheel {
     private boolean mBraking = false;
     private boolean mCanDrift;
 
-    public Wheel(RaceGame game, GameWorld gameWorld, float posX, float posY) {
+    public Wheel(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         mGameWorld = gameWorld;
-        TextureRegion texture = game.getAssets().wheel;
-        mSprite = new Sprite(texture);
+        mSprite = new Sprite(region);
 
-        float w = Constants.UNIT_FOR_PIXEL * texture.getRegionWidth();
-        float h = Constants.UNIT_FOR_PIXEL * texture.getRegionHeight();
+        float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+        float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         mSprite.setSize(w, h);
         mSprite.setOriginCenter();
 
