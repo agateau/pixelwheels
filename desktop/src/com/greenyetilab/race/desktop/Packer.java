@@ -15,7 +15,7 @@ public class Packer {
         settings.pot = false;
         settings.combineSubdirectories = true;
 
-        String inputDir = baseDir + "/core/assets";
+        String inputDir = baseDir + "/core/assets/sprites";
         String outputDir = baseDir + "/android/assets";
         String packName = "race";
         TexturePacker.process(settings, inputDir, outputDir, packName);

@@ -13,14 +13,14 @@ public class Assets {
     public final Skin skin;
     public final TextureRegion car;
     public final TextureRegion wheel;
-    private final TextureAtlas atlas;
+    public final TextureAtlas atlas;
     public Array<MapInfo> mapInfoList = new Array<MapInfo>();
 
     Assets() {
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         this.atlas = new TextureAtlas(Gdx.files.internal("race.atlas"));
-        this.car = this.atlas.findRegion("car");
-        this.wheel = this.atlas.findRegion("wheel");
+        this.car = this.atlas.findRegion("car/car");
+        this.wheel = this.atlas.findRegion("car/wheel");
 
         for (String name: new String[]{
                 //"chloe.tmx",

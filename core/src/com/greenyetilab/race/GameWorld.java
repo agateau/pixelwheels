@@ -38,7 +38,8 @@ public class GameWorld {
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mMapInfo = mapInfo;
         mMap = mMapInfo.getMap();
-        setupCar();
+        //setupCar();
+        setupSled();
         setupOutsideWalls();
         setupWallsLayer();
         /*
@@ -109,6 +110,35 @@ public class GameWorld {
         info = mVehicle.addWheel(wheelRegion, leftX, frontY);
         info.steeringFactor = 1;
         info = mVehicle.addWheel(wheelRegion, rightX, frontY);
+        info.steeringFactor = 1;
+        info = mVehicle.addWheel(wheelRegion, leftX, rearY);
+        info.wheel.setCanDrift(true);
+        info = mVehicle.addWheel(wheelRegion, rightX, rearY);
+        info.wheel.setCanDrift(true);
+    }
+
+    private void setupSled() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        Vector2 position = findStartTilePosition(layer);
+        assert(position != null);
+
+        // Car
+        TextureRegion carRegion = mGame.getAssets().atlas.findRegion("sled/sled");
+        TextureRegion wheelRegion = mGame.getAssets().atlas.findRegion("sled/sled-ski");
+        mVehicle = new Vehicle(carRegion, this, position);
+
+        // Wheels
+        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
+        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
+
+        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
+        float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;
+        float leftX = -rightX;
+        float rearY = Constants.UNIT_FOR_PIXEL * -carRegion.getRegionHeight() / 2 + REAR_WHEEL_Y;
+        float frontY = rearY + WHEEL_BASE + 0.2f;
+
+        Vehicle.WheelInfo info;
+        info = mVehicle.addWheel(wheelRegion, 0, frontY);
         info.steeringFactor = 1;
         info = mVehicle.addWheel(wheelRegion, leftX, rearY);
         info.wheel.setCanDrift(true);
