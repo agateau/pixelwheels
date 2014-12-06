@@ -80,6 +80,12 @@ public class GameRenderer {
             mRenderer.render(mForegroundLayerIndexes);
         }
 
+        mBatch.begin();
+        for (GameObject object : mWorld.getActiveGameObjects()) {
+            object.draw(mBatch);
+        }
+        mBatch.end();
+
         if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);

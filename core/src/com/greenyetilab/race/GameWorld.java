@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.ReflectionPool;
 import com.greenyetilab.utils.TilePolygons;
 import com.greenyetilab.utils.log.NLog;
 
@@ -24,6 +26,7 @@ public class GameWorld {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
     private static final float CHIMNEY_MAX_RADIUS2 = (float)Math.pow(15, 2);
+    private static final float GIFT_INTERVAL = 0.2f;
     private final MapInfo mMapInfo;
     private final TiledMap mMap;
     private final World mBox2DWorld;
@@ -35,6 +38,8 @@ public class GameWorld {
     private Vector2[] mSkidmarks = new Vector2[4000];
     private int mSkidmarksIndex = 0;
     private Array<Vector2> mChimneys = new Array<Vector2>();
+    private Pool<Gift> mGiftPool = new ReflectionPool<Gift>(Gift.class);
+    private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
     public GameWorld(RaceGame game, MapInfo mapInfo) {
         mGame = game;
@@ -77,6 +82,10 @@ public class GameWorld {
         return mSkidmarks;
     }
 
+    public Array<GameObject> getActiveGameObjects() {
+        return  mActiveGameObjects;
+    }
+
     public void act(float delta) {
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -89,6 +98,13 @@ public class GameWorld {
 
         mVehicle.act(delta);
         checkChimneys();
+        // FIXME: Use SnapshotArray if game objects ever gain access to removing items from mActiveGameObjects
+        for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
+            GameObject obj = mActiveGameObjects.get(idx);
+            if (!obj.act(delta)) {
+                mActiveGameObjects.removeIndex(idx);
+            }
+        }
     }
 
     private void setupCar() {
@@ -256,7 +272,6 @@ public class GameWorld {
                 TiledMapTile tile = cell.getTile();
                 if (tile.getProperties().containsKey("chimney")) {
                     Vector2 pos = new Vector2(tx * tw + tw / 2, ty * th + th / 2);
-                    NLog.i("Chimney at %s", pos);
                     mChimneys.add(pos);
                 }
             }
@@ -269,8 +284,13 @@ public class GameWorld {
             Vector2 pos = mChimneys.get(idx);
             float distance2 = pos.dst2(vehiclePos);
             if (distance2 < CHIMNEY_MAX_RADIUS2) {
-                NLog.i("LAUNCH!");
                 mChimneys.removeIndex(idx);
+                int count = MathUtils.random(1, 4);
+                for (int i = 0; i < count; ++i) {
+                    Gift gift = mGiftPool.obtain();
+                    gift.init(mGame, mVehicle, pos, i * GIFT_INTERVAL);
+                    mActiveGameObjects.add(gift);
+                }
             }
         }
     }
