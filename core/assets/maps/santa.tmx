@@ -58,6 +58,18 @@
     </object>
    </objectgroup>
   </tile>
+  <tile id="22">
+   <objectgroup draworder="index">
+    <object x="0" y="24.1818" width="64" height="15.0909"/>
+   </objectgroup>
+  </tile>
+  <tile id="23">
+   <objectgroup draworder="index">
+    <object x="1.09091" y="24" width="10" height="16"/>
+    <object x="53.2727" y="24.1818" width="9.81818" height="15.6364"/>
+    <object x="10.9091" y="28.9091" width="42.1818" height="5.63636"/>
+   </objectgroup>
+  </tile>
   <tile id="24">
    <objectgroup draworder="index">
     <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
@@ -94,6 +106,22 @@
     </object>
    </objectgroup>
   </tile>
+  <tile id="29">
+   <objectgroup draworder="index">
+    <object x="38.3636" y="63.2727">
+     <polygon points="0,0.545455 0,-39.4545 -9.81818,-38 -13.4545,-32.9091 -13.8182,0.363636"/>
+    </object>
+    <object x="38.3636" y="23.6364" width="25.2727" height="15.4545"/>
+   </objectgroup>
+  </tile>
+  <tile id="30">
+   <objectgroup draworder="index">
+    <object x="0" y="24.9091" width="25.2727" height="14.1818"/>
+    <object x="38.7273" y="63.2727">
+     <polygon points="0,0.727273 -0.181818,-33.4545 -3.81818,-38.1818 -13.6364,-38.3636 -13.6364,0.727273"/>
+    </object>
+   </objectgroup>
+  </tile>
   <tile id="32">
    <objectgroup draworder="index">
     <object x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
@@ -105,16 +133,25 @@
    </objectgroup>
   </tile>
   <tile id="35">
-   <objectgroup draworder="index">
-    <object x="0" y="24" width="64" height="15.6364"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="36">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="37">
    <objectgroup draworder="index">
-    <object x="0" y="24.7273" width="24.7273" height="14.3636"/>
-    <object x="24.7273" y="38.9091">
-     <polygon points="0,0 10.5455,0 14.1818,-3.63636 14.3636,-39.0909 -0.363636,-38.9091"/>
+    <object x="24.1818" y="0" width="15.2727" height="25.2727"/>
+    <object x="63.8182" y="37.4545">
+     <polygon points="0,0 0,-12.1818 -39.6364,-12 -37.8182,-2 -31.4545,-0.363636"/>
     </object>
+   </objectgroup>
+  </tile>
+  <tile id="38">
+   <objectgroup draworder="index">
+    <object x="0.181818" y="37.4545">
+     <polygon points="0,0 32.9091,0.181818 37.2727,-6 37.8182,-13.8182 0,-12.9091"/>
+    </object>
+    <object x="24.5455" y="0" width="13.2727" height="23.8182"/>
    </objectgroup>
   </tile>
   <tile id="54">
@@ -143,7 +180,7 @@
  </layer>
  <layer name="Walls" width="24" height="120">
   <data encoding="base64" compression="zlib">
-   eJztl2sKwjAQhHMFH/VdxReiXsqjeVS3aCAsrWbTXUjsfDA/imU6SXez1TkAAAAAAAAAAAAAAAAAYDhMSZWh/4ZUG/pLGJHGpImR/5K0Iq2N/PekA+lo5H8l3Uj3jt9nRs/VqMEq8OF+GjVYBz4WNT1n2in7tzzvoenHe2uh7M97y+fXOr94b3l/rXfNe0s7v/fYvr3d5XOtld97NLlPzj2154av+yb32eU1N4ZA6bPx32cvp2vW/bo/Fumsi70v/IaQrkGKZA3S+pdml9andP9j6pNnlux7TH3yzJIzfEj/Q4ANKTUk6fuUGrKYS+EZmttc4pTc17lnzz3fNzSzt3lpZu/jFbPOPnsRky01f8n11VB6fk1edK0XlQ==
+   eJztl2sOgjAQhLmCD3yjUX8Y9VLe/xSu0SbNBrRbZhMq8yXzg0iGadntYlURQgghhBBCCCGEEEIIIeNhLqod/XeixtHfwkQ0Fc2c/NeijWjr5H8UnURnJ/+r6Ca6d/y+cHouogbryEf7IWqwiXw8anqpdAD7tzzvgfTTvbUC++veCvlR55fureCPete6t9D5g8f+7V1dPteo/MEDnTsQ6h6dm6RR+mz899mr6Zp1v+5PxTrrUu+LvyGsa7BiWYO1/q3ZrfVp3f+U+tSZLfueUp86s+UMH9P/EOJDTg1Z+j6nhjzmUnyGDm0uaUru66FnH3q+byCzt3khs/fxSllnn71IyZabv+T6elF6fiRPOMcWrA==
   </data>
  </layer>
 </map>
