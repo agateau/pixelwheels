@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Array;
  */
 class Vehicle {
     private final Body mBody;
-    private final GameWorld mGameWorld;
+    protected final GameWorld mGameWorld;
     private boolean mLimitAngle;
     private boolean mCorrectAngle;
 
@@ -28,21 +28,15 @@ class Vehicle {
         public float steeringFactor;
     }
 
-    public enum State {
-        RUNNING,
-        BROKEN,
-        FINISHED
-    }
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
     private final Sprite mSprite;
-    private final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
 
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
-    private State mState = State.RUNNING;
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         mGameWorld = gameWorld;
@@ -92,10 +86,6 @@ class Vehicle {
         return info;
     }
 
-    public State getState() {
-        return mState;
-    }
-
     public float getSpeed() {
         return mBody.getLinearVelocity().len();
     }
@@ -124,25 +114,6 @@ class Vehicle {
     }
 
     public void act(float dt) {
-        if (mState != State.RUNNING) {
-            return;
-        }
-
-        int wheelsOnFatalGround = 0;
-        for(WheelInfo info: mWheels) {
-            Wheel wheel = info.wheel;
-            wheel.act(dt);
-            if (wheel.isOnFatalGround()) {
-                ++wheelsOnFatalGround;
-            }
-            if (wheel.isOnFinished()) {
-                mState = State.FINISHED;
-            }
-        }
-        if (wheelsOnFatalGround >= 2) {
-            mState = State.BROKEN;
-        }
-
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;

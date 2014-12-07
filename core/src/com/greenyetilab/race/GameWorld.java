@@ -20,6 +20,12 @@ import com.greenyetilab.utils.log.NLog;
  * Contains all the information and objects running in the world
  */
 public class GameWorld {
+    public enum State {
+        RUNNING,
+        BROKEN,
+        FINISHED
+    }
+
     private static final float TIME_STEP = 1f/60f;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
@@ -31,7 +37,8 @@ public class GameWorld {
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
 
-    private Vehicle mVehicle;
+    private PlayerVehicle mVehicle;
+    private State mState = State.RUNNING;
 
     private Vector2[] mSkidmarks = new Vector2[4000];
     private int mSkidmarksIndex = 0;
@@ -113,7 +120,7 @@ public class GameWorld {
         // Car
         TextureRegion carRegion = mGame.getAssets().car;
         TextureRegion wheelRegion = mGame.getAssets().wheel;
-        mVehicle = new Vehicle(carRegion, this, position);
+        mVehicle = new PlayerVehicle(carRegion, this, position);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -144,7 +151,7 @@ public class GameWorld {
         // Car
         TextureRegion carRegion = mGame.getAssets().atlas.findRegion("sled/sled");
         TextureRegion wheelRegion = mGame.getAssets().atlas.findRegion("sled/sled-ski");
-        mVehicle = new Vehicle(carRegion, this, position);
+        mVehicle = new PlayerVehicle(carRegion, this, position);
         mVehicle.setLimitAngle(true);
         mVehicle.setCorrectAngle(true);
 
@@ -280,4 +287,11 @@ public class GameWorld {
         mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
     }
 
+    public State getState() {
+        return mState;
+    }
+
+    public void setState(State state) {
+        mState = state;
+    }
 }

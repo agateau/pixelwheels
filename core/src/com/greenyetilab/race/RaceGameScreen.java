@@ -82,7 +82,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
         mGameWorld.act(delta);
         mHudStage.act(delta);
-        switch (mVehicle.getState()) {
+        switch (mGameWorld.getState()) {
         case RUNNING:
             break;
         case BROKEN:
