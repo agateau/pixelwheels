@@ -13,10 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
-import com.greenyetilab.utils.TilePolygons;
+import com.greenyetilab.utils.TileCollisionBodyCreator;
 import com.greenyetilab.utils.log.NLog;
-
-import java.util.Map;
 
 /**
  * Contains all the information and objects running in the world
@@ -203,33 +201,8 @@ public class GameWorld {
         if (layer == null) {
             return;
         }
-
-        Map<Integer, TilePolygons> polygonsForTile = TilePolygons.readTiledMap(mMapInfo.getFile());
-
-        final float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-        final float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-        for (int ty = 0; ty < layer.getHeight(); ++ty) {
-            for (int tx = 0; tx < layer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                if (cell == null) {
-                    continue;
-                }
-                int id = cell.getTile().getId();
-                TilePolygons polygons = polygonsForTile.get(id);
-                if (polygons != null) {
-                    createPolygonBody(tx * tileWidth, ty * tileHeight, tileWidth, tileHeight, polygons);
-                }
-            }
-        }
-    }
-
-    private void createPolygonBody(float x, float y, float width, float height, TilePolygons polygons) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(x, y);
-        Body body = mBox2DWorld.createBody(bodyDef);
-
-        polygons.createBodyShapes(body, width, height);
+        TileCollisionBodyCreator creator = TileCollisionBodyCreator.fromFileHandle(mMapInfo.getFile());
+        creator.createCollisionBodies(mBox2DWorld, Constants.UNIT_FOR_PIXEL, layer);
     }
 
     private void setupRock(float x, float y, float width, float height) {
