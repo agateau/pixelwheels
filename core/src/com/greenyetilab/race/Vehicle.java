@@ -19,6 +19,8 @@ import com.badlogic.gdx.utils.Array;
 class Vehicle {
     private final Body mBody;
     private final GameWorld mGameWorld;
+    private boolean mLimitAngle;
+    private boolean mCorrectAngle;
 
     public static class WheelInfo {
         public Wheel wheel;
@@ -105,6 +107,22 @@ class Vehicle {
         return mBody.getAngle() * MathUtils.radiansToDegrees + 90;
     }
 
+    public boolean getLimitAngle() {
+        return mLimitAngle;
+    }
+
+    public void setLimitAngle(boolean limitAngle) {
+        mLimitAngle = limitAngle;
+    }
+
+    public boolean getCorrectAngle() {
+        return mCorrectAngle;
+    }
+
+    public void setCorrectAngle(boolean correctAngle) {
+        mCorrectAngle = correctAngle;
+    }
+
     public void act(float dt) {
         if (mState != State.RUNNING) {
             return;
@@ -130,9 +148,23 @@ class Vehicle {
             speedDelta = mAccelerating ? 1 : -0.5f;
         }
 
-        float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
-        float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
-        float steerAngle = mDirection * steer * MathUtils.degreesToRadians;
+        float steerAngle = 0;
+        if (mDirection == 0) {
+            if (mCorrectAngle) {
+                steerAngle = computeCorrectedAngle();
+            }
+        } else {
+            float direction = mDirection;
+            if (mLimitAngle) {
+                float currentAngle = mBody.getLinearVelocity().angle();
+                if ((direction > 0 && currentAngle >= 135) || (direction < 0 && currentAngle <= 45)) {
+                    direction = 0;
+                }
+            }
+            float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
+            float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
+            steerAngle = direction * steer * MathUtils.degreesToRadians;
+        }
 
         for(WheelInfo info: mWheels) {
             float angle = info.steeringFactor * steerAngle;
@@ -171,5 +203,16 @@ class Vehicle {
 
     public Vector2 getPosition() {
         return mBody.getPosition();
+    }
+
+    private float computeCorrectedAngle() {
+        float currentAngle = mBody.getLinearVelocity().angle();
+        float roundedAngle;
+        if (mLimitAngle) {
+            roundedAngle = 90;
+        } else {
+            roundedAngle = MathUtils.round(currentAngle / 90) * 90;
+        }
+        return MathUtils.degreesToRadians * (roundedAngle - currentAngle) / 3;
     }
 }
