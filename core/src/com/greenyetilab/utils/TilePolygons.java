@@ -46,11 +46,33 @@ public class TilePolygons {
                 vertices[idx] = vertices[idx] / tileWidth;
                 vertices[idx + 1] = 1 - vertices[idx + 1] / tileHeight;
             }
-            Polygon polygon = new Polygon(vertices);
-            polygon.setOrigin(0.5f, 0.5f);
-            polygons.mPolygons.add(polygon);
+            polygons.addPolygons(vertices);
         }
         return polygons;
+    }
+
+    private void addPolygons(float[] vertices) {
+        final int MAX_VERTICES = 8;
+        int verticeCount = vertices.length / 2;
+        if (verticeCount > MAX_VERTICES) {
+            int splitIndex = verticeCount / 2;
+            float[] sub1 = new float[2 * (splitIndex + 1)];
+            float[] sub2 = new float[2 * (verticeCount - splitIndex + 1)];
+            for (int idx = 0; idx < sub1.length; ++idx) {
+                sub1[idx] = vertices[idx];
+            }
+            sub2[0] = vertices[0];
+            sub2[1] = vertices[1];
+            for (int idx = 0; idx < sub2.length - 2; ++idx) {
+                sub2[idx + 2] = vertices[splitIndex * 2 + idx];
+            }
+            addPolygons(sub1);
+            addPolygons(sub2);
+        } else {
+            Polygon polygon = new Polygon(vertices);
+            polygon.setOrigin(0.5f, 0.5f);
+            mPolygons.add(polygon);
+        }
     }
 
     private static float[] readPolygonVertices(XmlReader.Element objectElement, XmlReader.Element polygonElement) {
