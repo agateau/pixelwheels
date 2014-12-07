@@ -145,6 +145,8 @@ public class GameWorld {
         TextureRegion carRegion = mGame.getAssets().atlas.findRegion("sled/sled");
         TextureRegion wheelRegion = mGame.getAssets().atlas.findRegion("sled/sled-ski");
         mVehicle = new Vehicle(carRegion, this, position);
+        mVehicle.setLimitAngle(true);
+        mVehicle.setCorrectAngle(true);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
