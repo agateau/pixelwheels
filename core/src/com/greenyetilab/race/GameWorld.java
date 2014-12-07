@@ -189,13 +189,13 @@ public class GameWorld {
         float mapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
         float wallSize = 1;
         // bottom
-        createWall(0, -wallSize, mapWidth, wallSize);
+        Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
         // top
-        createWall(0, mapHeight, mapWidth, wallSize);
+        Box2DUtils.createStaticBox(mBox2DWorld, 0, mapHeight, mapWidth, wallSize);
         // left
-        createWall(-wallSize, 0, wallSize, mapHeight);
+        Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
         // right
-        createWall(mapWidth, 0, wallSize, mapHeight);
+        Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
     }
 
     private void setupWallsLayer() {
@@ -221,18 +221,6 @@ public class GameWorld {
                 }
             }
         }
-    }
-
-    private void createWall(float x, float y, float width, float height) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(x + width / 2, y + height / 2);
-        Body body = mBox2DWorld.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
-
-        body.createFixture(shape, 1);
     }
 
     private void createPolygonBody(float x, float y, float width, float height, TilePolygons polygons) {
