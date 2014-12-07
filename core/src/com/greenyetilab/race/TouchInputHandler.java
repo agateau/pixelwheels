@@ -8,17 +8,19 @@ import com.badlogic.gdx.Gdx;
 public class TouchInputHandler implements GameInputHandler {
     @Override
     public void updateGameInput(GameInput input) {
-        input.accelerating = true;
         for (int i = 0; i < 5; i++) {
             if (!Gdx.input.isTouched(i)) {
                 continue;
             }
             float x = Gdx.input.getX(i) / (float)Gdx.graphics.getWidth();
-            if (x < 0.5f) {
+            if (x < 0.3f) {
                 input.direction = 1;
+            } else if (x < 0.7f) {
+                input.braking = true;
             } else {
                 input.direction = -1;
             }
         }
+        input.accelerating = !input.braking;
     }
 }
