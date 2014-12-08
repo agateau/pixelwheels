@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
  * Represents a Gift flying to the chimney
  */
 public class Gift implements Pool.Poolable, GameObject {
-    private static final float ANIMATION_DURATION = 1f;
+    private static final float ANIMATION_DURATION = 0.5f;
     private Sprite mSprite;
     private Vector2 mSrcPos = new Vector2();
     private Vector2 mDstPos = new Vector2();
