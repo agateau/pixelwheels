@@ -123,8 +123,8 @@ class Vehicle {
 
         float steerAngle = 0;
         if (mDirection == 0) {
-            if (mCorrectAngle) {
-                steerAngle = computeCorrectedAngle();
+            if (mCorrectAngle || mLimitAngle) {
+                steerAngle = computeAutoSteerAngle();
             }
         } else {
             float direction = mDirection;
@@ -136,9 +136,10 @@ class Vehicle {
             }
             float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
             float steer = LOW_SPEED_MAX_STEER + (HIGH_SPEED_MAX_STEER - LOW_SPEED_MAX_STEER) * steerFactor;
-            steerAngle = direction * steer * MathUtils.degreesToRadians;
+            steerAngle = direction * steer;
         }
 
+        steerAngle *= MathUtils.degreesToRadians;
         for(WheelInfo info: mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
@@ -178,14 +179,37 @@ class Vehicle {
         return mBody.getPosition();
     }
 
-    private float computeCorrectedAngle() {
-        float currentAngle = mBody.getLinearVelocity().angle();
-        float roundedAngle;
-        if (mLimitAngle) {
-            roundedAngle = 90;
-        } else {
-            roundedAngle = MathUtils.round(currentAngle / 90) * 90;
+    private static float normAngle(float angle) {
+        while (angle < 0) {
+            angle += 360;
         }
-        return MathUtils.degreesToRadians * (roundedAngle - currentAngle) / 3;
+        return angle % 360;
+    }
+
+    private static float computeAngleDelta(float a1, float a2) {
+        float delta = Math.abs(a2 - a1);
+        if (delta > 180) {
+            delta = 360 - delta;
+        }
+        return delta;
+    }
+
+    private float computeAutoSteerAngle() {
+        float angle = normAngle(getAngle());
+        float velocityAngle = normAngle(mBody.getLinearVelocity().angle());
+        float angleDelta = computeAngleDelta(angle, velocityAngle);
+        boolean reverse = angleDelta > 90;
+
+        float targetAngle;
+        if (mLimitAngle) {
+            targetAngle = 90;
+        } else {
+            targetAngle = MathUtils.round(angle / 45) * 45;
+        }
+        if (reverse) {
+            targetAngle = (targetAngle + 180) % 360;
+        }
+        float correctedAngle = (targetAngle - velocityAngle) / 3;
+        return reverse ? -correctedAngle : correctedAngle;
     }
 }
