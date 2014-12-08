@@ -65,6 +65,7 @@ class Vehicle {
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
+        mBody.setUserData(this);
     }
 
     public WheelInfo addWheel(TextureRegion region, float x, float y) {
@@ -73,6 +74,7 @@ class Vehicle {
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
+        body.setUserData(this);
 
         RevoluteJointDef jointDef = new RevoluteJointDef();
         // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually

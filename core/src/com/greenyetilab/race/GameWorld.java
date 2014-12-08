@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -19,7 +23,7 @@ import com.greenyetilab.utils.log.NLog;
 /**
  * Contains all the information and objects running in the world
  */
-public class GameWorld {
+public class GameWorld implements ContactListener {
     public enum State {
         RUNNING,
         BROKEN,
@@ -49,6 +53,7 @@ public class GameWorld {
     public GameWorld(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
+        mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
         mMap = mMapInfo.getMap();
         //setupCar();
@@ -285,6 +290,32 @@ public class GameWorld {
         pos.x = position.x;
         pos.y = position.y;
         mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
+    }
+
+    @Override
+    public void beginContact(Contact contact) {
+        Object userA = contact.getFixtureA().getBody().getUserData();
+        Object userB = contact.getFixtureB().getBody().getUserData();
+        if (userA == mVehicle/* && userB != null*/) {
+            mVehicle.onContact(userB);
+        } else if (userB == mVehicle /*&& userA != null*/) {
+            mVehicle.onContact(userA);
+        }
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
     }
 
     public State getState() {

@@ -29,4 +29,8 @@ public class PlayerVehicle extends Vehicle {
             mGameWorld.setState(GameWorld.State.BROKEN);
         }
     }
+
+    public void onContact(Object object) {
+        mGameWorld.setState(GameWorld.State.BROKEN);
+    }
 }
