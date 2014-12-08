@@ -30,7 +30,9 @@ public class MapInfo {
 
     public TiledMap getMap() {
         if (mMap == null) {
-            mMap = new AtlasTmxMapLoader().load("maps/" + mFileName);
+            MapCreator creator = new MapCreator();
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/" + mFileName));
+            mMap = creator.run();
         }
         return mMap;
     }
