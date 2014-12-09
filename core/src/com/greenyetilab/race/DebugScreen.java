@@ -27,13 +27,8 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(root);
 
         VerticalGroup vGroup = new VerticalGroup();
-        CheckBox cb;
-        cb = new CheckBox("Box2D Debug", skin);
-        connectCheckBox(cb, "debug/enabled");
-        vGroup.addActor(cb);
-        cb = new CheckBox("Box2D Debug: Draw Velocities", skin);
-        connectCheckBox(cb, "debug/drawVelocities");
-        vGroup.addActor(cb);
+        vGroup.addActor(addCheckBox("Box2D Debug", "debug/enabled"));
+        vGroup.addActor(addCheckBox("Box2D Draw Velocities", "debug/drawVelocities"));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("Back", skin, "default");
@@ -48,7 +43,8 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         root.addPositionRule(backButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
     }
 
-    private void connectCheckBox(final CheckBox checkBox, final String key) {
+    private CheckBox addCheckBox(String text, final String key) {
+        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
         final Preferences prefs = RaceGame.getPreferences();
         checkBox.setChecked(prefs.getBoolean(key, false));
         checkBox.addListener(new ChangeListener() {
@@ -58,5 +54,6 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
                 prefs.flush();
             }
         });
+        return checkBox;
     }
 }
