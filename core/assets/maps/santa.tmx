@@ -177,7 +177,11 @@
  </layer>
  <layer name="Walls" width="24" height="120">
   <data encoding="base64" compression="zlib">
-   eJztmQsKwjAMhncF3/hGBUW9lPc/hRkYHMW2aZrOTv8PAqJd/BOaNNWmAf/GiGxMNinkf0m2Ilv/qP8p2SzD/4HsSHbyfL4h22b4v5LdyO4ZPgAAwJqhnz2x3p0Lenc/5J7hMXLPcABKgR4cBj0YAGBJjT13R7Z42f713tyzVtNzye+D56z2dWitpue2PnnOivnXcG7e+blE1vryBr6LdsaX3g+0M770fsA6rO4rbh9iHVb3FbcPdbVbxOD2oa52ixjcPiTRnlL77tqQdt93puQxlH9fvlLyqM2/NAbt3pFomTb2+9/VYL3/GfZlvf8Z9lVCO9N3/iWkzmmp2nE3BqA8Nd63QrhzQayOOT4tsTrm+ErB8ZWC4wPg39HMbin9UzO7lZiDuj209jloyP8/1q69dn0tn+qr3b9W2n31laI99LtGbn3F4uzWlyYn0vv/TLj203MWGiyfkzKE+uiLJ7kLH58=
+   eJztmgsKwjAMhncFdSq+UUFRL+X9T2EGBkexrzSZVf8PAqIl+xObNEWbBvwbI7Ix2cTI/4JsSbb6Uf8t2bTA/57sQHb0fL4m2xT4v5BdyW4FPgAAQJtvP3tivbsU9O5hKD3DY5Se4QBYgR4cBj0YAKBJjT13SzZ/2u753syzVtJzye+d56zudWitpOd2PnnOivmXcGpe+TlH1vryBj6LdMZPvR9IZ/zU+wHr0LqvuH2IdWjdV9w+1NeuEYPbh/raNWJw+1CK9pzad9eGtPuemZPHUP59+crJozT/qTFI906KlrbR3/+uBu39z7Av7f3PsC8L7czQ+U8hd07L1Y67MQD21HjfCuHOBbE65vikxOqY47OC47OC4wPg35HMbjn9UzK7WcxB/R5a+xz0zb8/1q69dn0d7+qr279a2n31pbUvhqwvq++T/VrVCv4DUD8PrQ0eYw==
   </data>
  </layer>
+ <objectgroup name="Obstacles">
+  <object name="forest" x="284" y="7134" width="210" height="512"/>
+  <object name="forest" x="318" y="6416" width="542" height="130"/>
+ </objectgroup>
 </map>

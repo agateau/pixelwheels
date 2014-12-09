@@ -1,6 +1,8 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -60,6 +62,7 @@ public class GameWorld implements ContactListener {
         setupSled();
         setupOutsideWalls();
         setupWallsLayer();
+        setupObjects();
         findChimneys();
         /*
         TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
@@ -225,6 +228,17 @@ public class GameWorld implements ContactListener {
         }
         TileCollisionBodyCreator creator = TileCollisionBodyCreator.fromFileHandle(mMapInfo.getFile());
         creator.createCollisionBodies(mBox2DWorld, Constants.UNIT_FOR_PIXEL, layer);
+    }
+
+    private void setupObjects() {
+        MapLayer layer = mMap.getLayers().get("Obstacles");
+        if (layer == null) {
+            return;
+        }
+        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets());
+        for (MapObject object : layer.getObjects()) {
+            creator.create(object);
+        }
     }
 
     private void setupRock(float x, float y, float width, float height) {
