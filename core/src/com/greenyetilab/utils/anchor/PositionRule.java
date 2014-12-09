@@ -26,7 +26,7 @@ public class PositionRule implements AnchorRule {
             reference.getWidth() * referenceAnchor.hPercent,
             reference.getHeight() * referenceAnchor.vPercent);
 
-        Vector2 stagePos = localToStageCoordinates(reference, referencePos);
+        Vector2 stagePos = reference.localToStageCoordinates(referencePos);
 
         // Apply space
         stagePos.add(hSpace, vSpace);
@@ -38,21 +38,12 @@ public class PositionRule implements AnchorRule {
         }
         Vector2 targetPos = targetParent.stageToLocalCoordinates(stagePos);
 
-        // Apply target offset
+        // Apply target offset (If right-aligned, hPercent is 100% => -width * scale.
+        // If centered, hPercent is 50% => -width * scale / 2)
         targetPos.add(
             -target.getWidth() * target.getScaleX() * targetAnchor.hPercent,
             -target.getHeight() * target.getScaleY() * targetAnchor.vPercent);
 
         target.setPosition(targetPos.x, targetPos.y);
-    }
-
-    // A version of Actor.localToStageCoordinates which works with scaled actors
-    private static Vector2 localToStageCoordinates(Actor actor, Vector2 pos) {
-        while (actor != null) {
-            pos.x = actor.getX() + pos.x * actor.getScaleX();
-            pos.y = actor.getY() + pos.y * actor.getScaleY();
-            actor = actor.getParent();
-        }
-        return pos;
     }
 }
