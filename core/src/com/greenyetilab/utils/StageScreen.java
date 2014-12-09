@@ -17,11 +17,16 @@ public class StageScreen extends ScreenAdapter {
     public StageScreen() {
         mViewport = new ScreenViewport();
         mStage = new Stage(mViewport);
-        Gdx.input.setInputProcessor(mStage);
     }
 
     public Stage getStage() {
         return mStage;
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        Gdx.input.setInputProcessor(mStage);
     }
 
     @Override
