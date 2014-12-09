@@ -9,11 +9,14 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.greenyetilab.utils.log.NLog;
 
+import java.util.Stack;
+
 /**
  * Created by aurelien on 21/11/14.
  */
 public class RaceGame extends Game {
     private Assets mAssets;
+    private Stack<Screen> mScreenStack = new Stack<Screen>();
 
     public Assets getAssets() {
         return mAssets;
@@ -38,11 +41,11 @@ public class RaceGame extends Game {
     }
 
     private void setScreenAndDispose(Screen screen) {
-        Screen oldScreen = getScreen();
-        if (oldScreen != null) {
-            oldScreen.dispose();
+        if (!mScreenStack.isEmpty()) {
+            Screen old = mScreenStack.pop();
+            old.dispose();
         }
-        setScreen(screen);
+        pushScreen(screen);
     }
 
     public void showGameOverOverlay(MapInfo mapInfo) {
@@ -71,5 +74,16 @@ public class RaceGame extends Game {
 
     public static Preferences getPreferences() {
         return Gdx.app.getPreferences("com.greenyetilab.race");
+    }
+
+    public void pushScreen(Screen screen) {
+        mScreenStack.push(screen);
+        setScreen(screen);
+    }
+
+    public void popScreen() {
+        Screen old = mScreenStack.pop();
+        setScreen(mScreenStack.peek());
+        old.dispose();
     }
 }
