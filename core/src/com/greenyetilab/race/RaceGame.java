@@ -42,8 +42,7 @@ public class RaceGame extends Game {
 
     private void setScreenAndDispose(Screen screen) {
         if (!mScreenStack.isEmpty()) {
-            Screen old = mScreenStack.pop();
-            old.dispose();
+            mScreenStack.pop().dispose();
         }
         pushScreen(screen);
     }
@@ -82,8 +81,9 @@ public class RaceGame extends Game {
     }
 
     public void popScreen() {
-        Screen old = mScreenStack.pop();
+        assert(!mScreenStack.isEmpty());
+        mScreenStack.pop().dispose();
+        assert(!mScreenStack.isEmpty());
         setScreen(mScreenStack.peek());
-        old.dispose();
     }
 }
