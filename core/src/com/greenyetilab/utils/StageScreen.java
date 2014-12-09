@@ -35,6 +35,6 @@ public class StageScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        mViewport.update(width, height, false);
+        mViewport.update(width, height, true);
     }
 }
