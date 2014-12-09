@@ -35,8 +35,18 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         }
         vGroup.setSize(w, y - PADDING);
 
+        TextButton debugButton = new TextButton("Debug", skin, "default");
+        debugButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mGame.pushScreen(new DebugScreen(mGame));
+            }
+        });
+
         group.addPositionRule(vGroup, Anchor.CENTER, group, Anchor.CENTER);
         group.addPositionRule(new Label("Select Race", skin), Anchor.BOTTOM_CENTER, vGroup, Anchor.TOP_CENTER, 0, PADDING);
+        group.addPositionRule(debugButton, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
+
         getStage().addActor(group);
     }
 
