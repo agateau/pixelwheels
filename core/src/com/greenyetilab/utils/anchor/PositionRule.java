@@ -1,5 +1,6 @@
 package com.greenyetilab.utils.anchor;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -44,6 +45,6 @@ public class PositionRule implements AnchorRule {
             -target.getWidth() * target.getScaleX() * targetAnchor.hPercent,
             -target.getHeight() * target.getScaleY() * targetAnchor.vPercent);
 
-        target.setPosition(targetPos.x, targetPos.y);
+        target.setPosition(MathUtils.floor(targetPos.x), MathUtils.floor(targetPos.y));
     }
 }
