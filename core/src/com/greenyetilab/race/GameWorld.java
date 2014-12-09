@@ -96,6 +96,14 @@ public class GameWorld implements ContactListener {
         return  mActiveGameObjects;
     }
 
+    public void addGameObject(GameObject object) {
+        mActiveGameObjects.add(object);
+    }
+
+    public void removeGameObject(GameObject object) {
+        mActiveGameObjects.removeValue(object, true);
+    }
+
     public void act(float delta) {
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -264,7 +272,7 @@ public class GameWorld implements ContactListener {
                 for (int i = 0; i < count; ++i) {
                     Gift gift = mGiftPool.obtain();
                     gift.init(mGame, mVehicle, pos, i * GIFT_INTERVAL);
-                    mActiveGameObjects.add(gift);
+                    addGameObject(gift);
                 }
             }
         }
