@@ -35,8 +35,8 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         }
         vGroup.setSize(w, y - PADDING);
 
-        group.addRule(vGroup, Anchor.CENTER, group, Anchor.CENTER);
-        group.addRule(new Label("Select Race", skin), Anchor.BOTTOM_CENTER, vGroup, Anchor.TOP_CENTER, 0, PADDING);
+        group.addPositionRule(vGroup, Anchor.CENTER, group, Anchor.CENTER);
+        group.addPositionRule(new Label("Select Race", skin), Anchor.BOTTOM_CENTER, vGroup, Anchor.TOP_CENTER, 0, PADDING);
         getStage().addActor(group);
     }
 

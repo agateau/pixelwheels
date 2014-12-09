@@ -45,9 +45,9 @@ public class OverlayScreen extends StageScreen {
         AnchorGroup group = new AnchorGroup();
         group.setSpacing(20);
         group.setFillParent(true);
-        group.addRule(tryAgainButton, Anchor.CENTER, group, Anchor.CENTER, 0, 0);
-        group.addRule(menuButton, Anchor.TOP_CENTER, tryAgainButton, Anchor.BOTTOM_CENTER, 0, -1);
-        group.addRule(label, Anchor.BOTTOM_CENTER, tryAgainButton, Anchor.TOP_CENTER, 0, 3);
+        group.addPositionRule(tryAgainButton, Anchor.CENTER, group, Anchor.CENTER, 0, 0);
+        group.addPositionRule(menuButton, Anchor.TOP_CENTER, tryAgainButton, Anchor.BOTTOM_CENTER, 0, -1);
+        group.addPositionRule(label, Anchor.BOTTOM_CENTER, tryAgainButton, Anchor.TOP_CENTER, 0, 3);
         getStage().addActor(group);
     }
 
