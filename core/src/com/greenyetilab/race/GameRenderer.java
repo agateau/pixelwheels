@@ -81,8 +81,10 @@ public class GameRenderer {
         }
 
         mBatch.begin();
-        for (GameObject object : mWorld.getActiveGameObjects()) {
-            object.draw(mBatch);
+        for (int z = 0; z < Constants.Z_COUNT; ++z) {
+            for (GameObject object : mWorld.getActiveGameObjects()) {
+                object.draw(mBatch, z);
+            }
         }
         mBatch.end();
 

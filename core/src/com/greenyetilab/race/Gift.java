@@ -32,7 +32,10 @@ public class Gift implements Pool.Poolable, GameObject {
     }
 
     @Override
-    public void draw(Batch batch) {
+    public void draw(Batch batch, int z) {
+        if (z != Constants.Z_FLYING) {
+            return;
+        }
         if (mTime >= 0) {
             mSprite.draw(batch);
         }
