@@ -304,16 +304,24 @@ public class GameWorld implements ContactListener {
     public void beginContact(Contact contact) {
         Object userA = contact.getFixtureA().getBody().getUserData();
         Object userB = contact.getFixtureB().getBody().getUserData();
-        if (userA == mVehicle/* && userB != null*/) {
-            mVehicle.onContact(userB);
-        } else if (userB == mVehicle /*&& userA != null*/) {
-            mVehicle.onContact(userA);
+        if (userA instanceof Collidable) {
+            ((Collidable) userA).beginContact(contact, contact.getFixtureB());
+        }
+        if (userB instanceof Collidable) {
+            ((Collidable) userB).beginContact(contact, contact.getFixtureA());
         }
     }
 
     @Override
     public void endContact(Contact contact) {
-
+        Object userA = contact.getFixtureA().getBody().getUserData();
+        Object userB = contact.getFixtureB().getBody().getUserData();
+        if (userA instanceof Collidable) {
+            ((Collidable) userA).endContact(contact, contact.getFixtureB());
+        }
+        if (userB instanceof Collidable) {
+            ((Collidable) userB).endContact(contact, contact.getFixtureA());
+        }
     }
 
     @Override
