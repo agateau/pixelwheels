@@ -23,17 +23,7 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         AnchorGroup group = new AnchorGroup();
         group.setFillParent(true);
 
-        Group vGroup = new Group();
-        float w = 0;
-        float y = 0;
-        for(MapInfo mapInfo: game.getAssets().mapInfoList) {
-            TextButton button = createStartButton(mapInfo);
-            vGroup.addActor(button);
-            button.setY(y);
-            y += button.getHeight() + PADDING;
-            w = Math.max(button.getWidth(), w);
-        }
-        vGroup.setSize(w, y - PADDING);
+        TextButton startButton = createStartButton();
 
         TextButton debugButton = new TextButton("Debug", skin, "default");
         debugButton.addListener(new ClickListener() {
@@ -43,26 +33,22 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
 
-        group.addPositionRule(vGroup, Anchor.CENTER, group, Anchor.CENTER);
-        group.addPositionRule(new Label("Select Race", skin), Anchor.BOTTOM_CENTER, vGroup, Anchor.TOP_CENTER, 0, PADDING);
+        group.addPositionRule(new Label("Santa Claus Racer", skin), Anchor.TOP_CENTER, group, Anchor.TOP_CENTER, 0, -PADDING);
+        group.addPositionRule(startButton, Anchor.CENTER, group, Anchor.CENTER);
         group.addPositionRule(debugButton, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
 
         getStage().addActor(group);
     }
 
-    private TextButton createStartButton(final MapInfo mapInfo) {
+    private TextButton createStartButton() {
         Skin skin = mGame.getAssets().skin;
-        String text = mapInfo.getTitle();
-        float best = mapInfo.getBestTime();
-        if (best > 0) {
-            text += " (" + StringUtils.formatRaceTime(best) + ")";
-        }
+        String text = "Start";
         TextButton button = new TextButton(text, skin, "default");
         button.setSize(300, 60);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.start(mapInfo);
+                mGame.start();
             }
         });
         return button;
