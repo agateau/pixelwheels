@@ -123,7 +123,7 @@ class Vehicle {
 
         float steerAngle = 0;
         if (mDirection == 0) {
-            if (mCorrectAngle || mLimitAngle) {
+            if (mCorrectAngle) {
                 steerAngle = computeAutoSteerAngle();
             }
         } else {
