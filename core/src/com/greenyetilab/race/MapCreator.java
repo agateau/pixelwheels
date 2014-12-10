@@ -131,7 +131,13 @@ public class MapCreator {
                 MapLayer srcLayer = chunk.map.getLayers().get(layerIdx);
                 MapLayer dstLayer = dstMap.getLayers().get(layerIdx);
                 if (srcLayer instanceof TiledMapTileLayer) {
-                    copyTileLayer(dstMap, (TiledMapTileLayer) dstLayer, (TiledMapTileLayer) srcLayer, startTX, startTY);
+                    TiledMapTileLayer tsrcLayer = (TiledMapTileLayer) srcLayer;
+                    TiledMapTileLayer tdstLayer = (TiledMapTileLayer) dstLayer;
+                    copyTileLayer(dstMap, tdstLayer, tsrcLayer, startTX, startTY);
+                    if (layerIdx == 0) {
+                        copyColumns(dstMap, tdstLayer, 0, startTX, startTY, tsrcLayer, 0);
+                        copyColumns(dstMap, tdstLayer, startTX + chunk.width, mapWidth, startTY, tsrcLayer, chunk.width - 1);
+                    }
                 } else {
                     copyLayer(dstLayer, srcLayer, startTX * tileWidth, startTY * tileHeight);
                 }
@@ -150,13 +156,36 @@ public class MapCreator {
                 if (srcCell == null) {
                     continue;
                 }
-                int tileId = srcCell.getTile().getId();
-                TiledMapTileLayer.Cell dstCell = new TiledMapTileLayer.Cell();
-                dstCell.setTile(dstTileSets.getTile(tileId));
-                dstCell.setFlipHorizontally(srcCell.getFlipHorizontally());
-                dstCell.setFlipVertically(srcCell.getFlipVertically());
-                dstCell.setRotation(srcCell.getRotation());
+                TiledMapTileLayer.Cell dstCell = copyCell(dstTileSets, srcCell);
                 dstLayer.setCell(startTX + tx, startTY + ty, dstCell);
+            }
+        }
+    }
+
+    private static TiledMapTileLayer.Cell copyCell(TiledMapTileSets tileSets, TiledMapTileLayer.Cell srcCell) {
+        int tileId = srcCell.getTile().getId();
+        TiledMapTileLayer.Cell dstCell = new TiledMapTileLayer.Cell();
+        dstCell.setTile(tileSets.getTile(tileId));
+        dstCell.setFlipHorizontally(srcCell.getFlipHorizontally());
+        dstCell.setFlipVertically(srcCell.getFlipVertically());
+        dstCell.setRotation(srcCell.getRotation());
+        return dstCell;
+    }
+
+    private static void copyColumns(TiledMap dstMap, TiledMapTileLayer dstLayer, int startTX, int endTX, int startTY, TiledMapTileLayer srcLayer, int srcTX) {
+        TiledMapTileSets dstTileSets = dstMap.getTileSets();
+        if (startTX >= endTX) {
+            return;
+        }
+        for (int ty = 0; ty < srcLayer.getHeight(); ++ty) {
+            TiledMapTileLayer.Cell srcCell = srcLayer.getCell(srcTX, ty);
+            if (srcCell == null) {
+                continue;
+            }
+            int tileId = srcCell.getTile().getId();
+            TiledMapTileLayer.Cell dstCell = copyCell(dstTileSets, srcCell);
+            for (int dstTX = startTX; dstTX < endTX; ++dstTX) {
+                dstLayer.setCell(dstTX, startTY + ty, dstCell);
             }
         }
     }
