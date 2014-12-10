@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
+  <tile id="3">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
   <tile id="4">
    <properties>
     <property name="finish" value="true"/>
@@ -12,6 +17,46 @@
     <property name="start" value="true"/>
    </properties>
   </tile>
+  <tile id="6">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
   <tile id="16">
    <objectgroup draworder="index">
     <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
@@ -19,7 +64,7 @@
   </tile>
   <tile id="17">
    <properties>
-    <property name="chimney" value="true"/>
+    <property name="max_speed" value="0.75"/>
    </properties>
    <objectgroup draworder="index">
     <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
@@ -68,11 +113,17 @@
    </objectgroup>
   </tile>
   <tile id="24">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
    </objectgroup>
   </tile>
   <tile id="25">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
