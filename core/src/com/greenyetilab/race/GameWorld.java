@@ -59,7 +59,6 @@ public class GameWorld implements ContactListener {
         setupOutsideWalls();
         setupWallsLayer();
         setupObjects();
-        findChimneys();
     }
 
     public TiledMap getMap() {
@@ -214,26 +213,8 @@ public class GameWorld implements ContactListener {
         }
     }
 
-    private void findChimneys() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Walls");
-        if (layer == null) {
-            return;
-        }
-        float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-        float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-        for (int ty=0; ty < layer.getHeight(); ++ty) {
-            for (int tx=0; tx < layer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                if (cell == null) {
-                    continue;
-                }
-                TiledMapTile tile = cell.getTile();
-                if (tile.getProperties().containsKey("chimney")) {
-                    Vector2 pos = new Vector2(tx * tw + tw / 2, ty * th + th / 2);
-                    mChimneys.add(pos);
-                }
-            }
-        }
+    public void addChimneyPos(float x, float y) {
+        mChimneys.add(new Vector2(x, y));
     }
 
     private void checkChimneys() {

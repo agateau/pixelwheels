@@ -177,11 +177,15 @@
  </layer>
  <layer name="Walls" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYKA/EARiISAWppH5kkAsBcTSNDJfEYiVgFiZRuZrArEWEGvTyPxRMApgYDQv4gejeXEUjILhCwAcXwLR
+   eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
   </data>
  </layer>
  <objectgroup name="Obstacles">
   <object name="forest" x="62" y="530" width="394" height="514"/>
   <object name="forest" x="1054" y="82" width="424" height="372"/>
+  <object name="house" x="320" y="128" width="128" height="128"/>
+  <object name="house" x="1088" y="512" width="128" height="192"/>
+  <object name="house" x="1088" y="896" width="128" height="192"/>
+  <object name="house" x="320" y="1216" width="128" height="128"/>
  </objectgroup>
 </map>

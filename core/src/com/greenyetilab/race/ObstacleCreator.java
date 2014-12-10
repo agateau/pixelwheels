@@ -21,8 +21,11 @@ public class ObstacleCreator {
     }
 
     public void create(MapObject object) {
-        if (object.getName().equals("forest")) {
+        String name = object.getName();
+        if (name.equals("forest")) {
             createForest(object);
+        } else if (name.equals("house")) {
+            createHouse(object);
         }
     }
 
@@ -53,5 +56,18 @@ public class ObstacleCreator {
                 mWorld.addGameObject(new TreeObject(mWorld, mAssets, treeX, treeY));
             }
         }
+    }
+
+    private void createHouse(MapObject object) {
+        RectangleMapObject rectObject = (RectangleMapObject)object;
+        assert rectObject != null;
+
+        Rectangle rect = rectObject.getRectangle();
+        float originX = Constants.UNIT_FOR_PIXEL * rect.getX();
+        float originY = Constants.UNIT_FOR_PIXEL * rect.getY();
+        float width = Constants.UNIT_FOR_PIXEL * rect.getWidth();
+        float height = Constants.UNIT_FOR_PIXEL * rect.getHeight();
+
+        mWorld.addGameObject(new HouseObject(mWorld, mAssets, originX, originY, width, height));
     }
 }
