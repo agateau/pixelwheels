@@ -145,7 +145,7 @@ public class GameWorld implements ContactListener {
         TextureRegion wheelRegion = mGame.getAssets().atlas.findRegion("sled/sled-ski");
         mVehicle = new PlayerVehicle(carRegion, this, position);
         mVehicle.setLimitAngle(true);
-        mVehicle.setCorrectAngle(true);
+        //mVehicle.setCorrectAngle(true);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -161,9 +161,9 @@ public class GameWorld implements ContactListener {
         info = mVehicle.addWheel(wheelRegion, 0, frontY);
         info.steeringFactor = 1;
         info = mVehicle.addWheel(wheelRegion, leftX, rearY);
-        info.wheel.setCanDrift(true);
+        //info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
-        info.wheel.setCanDrift(true);
+        //info.wheel.setCanDrift(true);
     }
 
     private Vector2 findStartTilePosition() {
