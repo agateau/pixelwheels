@@ -36,7 +36,7 @@ public class RaceGame extends Game {
 
     public void start() {
         MapInfo mapInfo = mAssets.mapInfoList.first();
-        Screen screen = new RaceGameScreen(this, mapInfo);
+        Screen screen = new RaceGameScreen(this, mapInfo.getMap());
         setScreenAndDispose(screen);
     }
 

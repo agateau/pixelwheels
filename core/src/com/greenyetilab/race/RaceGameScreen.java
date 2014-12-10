@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -32,10 +33,10 @@ public class RaceGameScreen extends ScreenAdapter {
     private Label mSpeedLabel;
     private float mTime = 0;
 
-    public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
+    public RaceGameScreen(RaceGame game, TiledMap map) {
         mGame = game;
         mBatch = new SpriteBatch();
-        mGameWorld = new GameWorld(game, mapInfo);
+        mGameWorld = new GameWorld(game, map);
         mGameRenderer = new GameRenderer(mGameWorld, mBatch);
         setupGameRenderer();
         mVehicle = mGameWorld.getVehicle();

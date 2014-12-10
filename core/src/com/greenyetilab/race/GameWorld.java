@@ -33,7 +33,6 @@ public class GameWorld implements ContactListener {
     private static final int POSITION_ITERATIONS = 2;
     private static final float CHIMNEY_MAX_RADIUS2 = (float)Math.pow(15, 2);
     private static final float GIFT_INTERVAL = 0.2f;
-    private final MapInfo mMapInfo;
     private final TiledMap mMap;
     private final World mBox2DWorld;
     private final RaceGame mGame;
@@ -48,21 +47,19 @@ public class GameWorld implements ContactListener {
     private Pool<Gift> mGiftPool = new ReflectionPool<Gift>(Gift.class);
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
-    public GameWorld(RaceGame game, MapInfo mapInfo) {
+    public GameWorld(RaceGame game, TiledMap map) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mMapInfo = mapInfo;
-        mMap = mMapInfo.getMap();
+        mMap = map;
         //setupCar();
         setupSled();
         setupOutsideWalls();
-        setupWallsLayer();
         setupObjects();
     }
 
     public TiledMap getMap() {
-        return mMapInfo.getMap();
+        return mMap;
     }
 
     public World getBox2DWorld() {
@@ -191,15 +188,6 @@ public class GameWorld implements ContactListener {
         Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
         // right
         Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
-    }
-
-    private void setupWallsLayer() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Walls");
-        if (layer == null) {
-            return;
-        }
-        TileCollisionBodyCreator creator = TileCollisionBodyCreator.fromFileHandle(mMapInfo.getFile());
-        creator.createCollisionBodies(mBox2DWorld, Constants.UNIT_FOR_PIXEL, layer);
     }
 
     private void setupObjects() {
