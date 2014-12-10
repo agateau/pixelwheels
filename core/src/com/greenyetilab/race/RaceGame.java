@@ -66,9 +66,9 @@ public class RaceGame extends Game {
     }
 
     public void popScreen() {
-        assert(!mScreenStack.isEmpty());
+        assert !mScreenStack.isEmpty();
         mScreenStack.pop().dispose();
-        assert(!mScreenStack.isEmpty());
+        assert !mScreenStack.isEmpty();
         setScreen(mScreenStack.peek());
     }
 }
