@@ -33,6 +33,7 @@ public class MapInfo {
             MapCreator creator = new MapCreator();
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
             mMap = creator.run(4);
         }
         return mMap;

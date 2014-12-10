@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
   <tile id="4">
@@ -170,22 +170,27 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="24" height="24">
+ <layer name="Ground" width="25" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjZ2BgYMeDuRgYFjAyMCRgwSC5BHx6icF0Mh+GDyDjUfPh5h/AhqlpPjMkTunhfnh4DSHzsWIqm4/uB2rmLwY6mI8ePrQoH2hlPtj9zKjpZyiFDwM2PBTNh8bBkHM/sruHovsHq/kAWIVcuQ==
+   eJxjZ2BgYMeDuRgYFjAyMCRgwQyMEPkEfPqJwXS0A4YPoONROzDswDCbFnYwQ+KZXv5ADrsFQ8wOnJjKdqD7hdp5kIFOdqCHE63KElraAfYHM2q6GophxYALD1U7oHEyZP2B7v6h6o/BbgcAtPhicQ==
   </data>
  </layer>
- <layer name="Walls" width="24" height="24">
+ <layer name="Walls" width="25" height="24">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
  <objectgroup name="Obstacles">
-  <object name="forest" x="62" y="530" width="394" height="514"/>
-  <object name="forest" x="1054" y="82" width="424" height="372"/>
+  <object name="forest" x="64" y="512" width="384" height="512"/>
+  <object name="forest" x="1152" y="64" width="384" height="384"/>
   <object name="house" x="320" y="128" width="128" height="128"/>
-  <object name="house" x="1088" y="512" width="128" height="192"/>
-  <object name="house" x="1088" y="896" width="128" height="192"/>
+  <object name="house" x="1152" y="576" width="128" height="192"/>
+  <object name="house" x="1152" y="896" width="128" height="192"/>
   <object name="house" x="320" y="1216" width="128" height="128"/>
  </objectgroup>
+ <layer name="Centers" width="25" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
+  </data>
+ </layer>
 </map>

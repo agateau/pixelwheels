@@ -108,8 +108,7 @@ public class GameWorld implements ContactListener {
     }
 
     private void setupCar() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        Vector2 position = findStartTilePosition(layer);
+        Vector2 position = findStartTilePosition();
         assert(position != null);
 
         // Car
@@ -139,8 +138,7 @@ public class GameWorld implements ContactListener {
     }
 
     private void setupSled() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        Vector2 position = findStartTilePosition(layer);
+        Vector2 position = findStartTilePosition();
         assert(position != null);
 
         // Car
@@ -169,10 +167,18 @@ public class GameWorld implements ContactListener {
         info.wheel.setCanDrift(true);
     }
 
-    private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
+    private Vector2 findStartTilePosition() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Centers");
+        int tx = 0;
+        for (; tx < layer.getWidth(); ++tx) {
+            TiledMapTileLayer.Cell cell = layer.getCell(tx, 0);
+            if (cell != null) {
+                break;
+            }
+        }
         float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
         float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-        return new Vector2(layer.getWidth() * tw / 2 + tw / 2, th);
+        return new Vector2(tx * tw + tw / 2, th);
     }
 
     private void setupOutsideWalls() {

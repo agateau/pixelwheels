@@ -14,34 +14,62 @@ import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.log.NLog;
 
 /**
- * Create a large tiled map from several maps
+ * Combines several maps into a single long map
+ *
+ * Current limits:
+ * - Maps must use the same tilesets
+ * - Maps must contain the same number of layers, with the same names
+ * - Object layers must only contain RectangleMapObjects
+ * - There must be one tile layer named "Centers" with a tile at the top center and a tile at
+ *   the bottom center
+ *
  */
 public class MapCreator {
-    Array<TiledMap> mMaps = new Array<TiledMap>();
+    private static class MapChunk {
+        public final TiledMap map;
+        public final int width;
+        public final int height;
+        public final int bottomX;
+        public final int topX;
+
+        public MapChunk(TiledMap map) {
+            this.map = map;
+            TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
+            this.width = layer.getWidth();
+            this.height = layer.getHeight();
+
+            TiledMapTileLayer centersLayer = (TiledMapTileLayer)map.getLayers().get("Centers");
+            assert centersLayer != null;
+            this.bottomX = findX(centersLayer, 0);
+            this.topX = findX(centersLayer, this.height - 1);
+        }
+
+        private int findX(TiledMapTileLayer layer, int ty) {
+            for (int x = 0; x < this.width; ++x) {
+                TiledMapTileLayer.Cell cell = layer.getCell(x, ty);
+                if (cell != null) {
+                    return x;
+                }
+            }
+            return this.width / 2;
+        }
+    }
+    Array<MapChunk> mMapChunks = new Array<MapChunk>();
 
     public void addSourceMap(TiledMap map) {
-        mMaps.add(map);
+        mMapChunks.add(new MapChunk(map));
     }
 
     /**
-     * Combines several maps into a single long map
-     *
-     * Current limits:
-     * - Maps must be the same width
-     * - Maps must use the same tilesets
-     * - Maps must contain the same number of layers, with the same names
-     * - Object layers must only contain RectangleMapObjects
+     * Generate a map made of mapLength map chunks
      *
      * @return a new TiledMap
      */
     public TiledMap run(int mapLength) {
-        TiledMap referenceMap = mMaps.get(0);
+        TiledMap referenceMap = mMapChunks.get(0).map;
+        int layerCount = referenceMap.getLayers().getCount();
 
-        // Compute sizes
-        Array<TiledMap> mapSequence = new Array<TiledMap>();
-        int mapWidth = 0;
-        int mapHeight = 0;
-        int layerCount = 1;
+        Array<MapChunk> mapSequence = new Array<MapChunk>();
         float tileWidth, tileHeight;
         {
             TiledMapTileLayer layer = (TiledMapTileLayer) referenceMap.getLayers().get(0);
@@ -49,14 +77,28 @@ public class MapCreator {
             tileHeight = layer.getTileHeight();
         }
 
-        for (int i = 0; i < mapLength; ++i) {
-            int mapIndex = MathUtils.random(mMaps.size - 1);
-            TiledMap map = mMaps.get(mapIndex);
-            layerCount = Math.max(map.getLayers().getCount(), layerCount);
-            TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
-            mapWidth = Math.max(layer.getWidth(), mapWidth);
-            mapHeight += layer.getHeight();
-            mapSequence.add(map);
+        // Compute map size
+        int mapWidth;
+        int mapHeight = 0;
+        int centerTX = 0;
+        {
+            int left = 0;
+            int right = 0;
+            for (int i = 0; i < mapLength; ++i) {
+                int mapIndex = MathUtils.random(mMapChunks.size - 1);
+                MapChunk chunk = mMapChunks.get(mapIndex);
+                int chunkLeft = centerTX - chunk.bottomX;
+                int chunkRight = chunkLeft + chunk.width;
+                left = Math.min(chunkLeft, left);
+                right = Math.max(chunkRight, right);
+                centerTX += chunk.topX - chunk.bottomX;
+                mapHeight += chunk.height;
+                mapSequence.add(chunk);
+            }
+            mapWidth = right - left;
+
+            // position centerTX so that the map fits in the boundaries
+            centerTX = -left;
         }
 
         TiledMap dstMap = new TiledMap();
@@ -83,22 +125,24 @@ public class MapCreator {
 
         // Fill layers
         int startTY = 0;
-        for (TiledMap srcMap : mapSequence) {
+        for (MapChunk chunk : mapSequence) {
+            int startTX = centerTX - chunk.bottomX;
             for (int layerIdx = 0; layerIdx < layerCount; ++layerIdx) {
-                MapLayer srcLayer = srcMap.getLayers().get(layerIdx);
+                MapLayer srcLayer = chunk.map.getLayers().get(layerIdx);
                 MapLayer dstLayer = dstMap.getLayers().get(layerIdx);
                 if (srcLayer instanceof TiledMapTileLayer) {
-                    copyTileLayer(dstMap, (TiledMapTileLayer) dstLayer, (TiledMapTileLayer) srcLayer, startTY);
+                    copyTileLayer(dstMap, (TiledMapTileLayer) dstLayer, (TiledMapTileLayer) srcLayer, startTX, startTY);
                 } else {
-                    copyLayer(dstLayer, srcLayer, startTY * tileHeight);
+                    copyLayer(dstLayer, srcLayer, startTX * tileWidth, startTY * tileHeight);
                 }
             }
-            startTY += ((TiledMapTileLayer)srcMap.getLayers().get(0)).getHeight();
+            centerTX += chunk.topX - chunk.bottomX;
+            startTY += chunk.height;
         }
         return dstMap;
     }
 
-    private static void copyTileLayer(TiledMap dstMap, TiledMapTileLayer dstLayer, TiledMapTileLayer srcLayer, int startTY) {
+    private static void copyTileLayer(TiledMap dstMap, TiledMapTileLayer dstLayer, TiledMapTileLayer srcLayer, int startTX, int startTY) {
         TiledMapTileSets dstTileSets = dstMap.getTileSets();
         for (int ty = 0; ty < srcLayer.getHeight(); ++ty) {
             for (int tx = 0; tx < srcLayer.getWidth(); ++tx) {
@@ -112,17 +156,17 @@ public class MapCreator {
                 dstCell.setFlipHorizontally(srcCell.getFlipHorizontally());
                 dstCell.setFlipVertically(srcCell.getFlipVertically());
                 dstCell.setRotation(srcCell.getRotation());
-                dstLayer.setCell(tx, startTY + ty, dstCell);
+                dstLayer.setCell(startTX + tx, startTY + ty, dstCell);
             }
         }
     }
 
-    private static void copyLayer(MapLayer dstLayer, MapLayer srcLayer, float startY) {
+    private static void copyLayer(MapLayer dstLayer, MapLayer srcLayer, float startX, float startY) {
         for (MapObject srcObject : srcLayer.getObjects()) {
             MapObject dstObject = null;
             if (srcObject instanceof RectangleMapObject) {
                 Rectangle rect = ((RectangleMapObject) srcObject).getRectangle();
-                dstObject = new RectangleMapObject(rect.x, startY + rect.y, rect.width, rect.height);
+                dstObject = new RectangleMapObject(startX + rect.x, startY + rect.y, rect.width, rect.height);
             } else {
                 NLog.e("Map objects of type %s are not supported yet", srcObject.getClass());
             }

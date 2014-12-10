@@ -172,7 +172,7 @@
  </tileset>
  <layer name="Ground" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlEsOhSAQBBvewsSFZ+RoHIWjaTLKIyPTsFCiiYvaQE+Fz8AEYCLMQHRAqAAn84HVtxjkP0iaz4/oCR3+yOj0s/rEWOQcoiKfzzYfWL3K5/7b1gYvPXiMVXNO9pH8f9zKtfzV3J4t/VZuhD9T+PVedY+WfpZr+Vm29Hdxof/Uc4a/mlP9c8rN8kZNFtL7Tvqf1t/9fgf8Pz3/Jyze4v/Jfb52/U/1r72nxnE=
+   eJztlFsKgCAQRW8kCBWu0aW1lJZWMiZiY6jZQ+jjfOkchzuDEoBMZADmDtARzLlOdb3o91l8fv/ReZe/p5k+0b/LKsc/bfdHqnEoPpciv6AM/HqOYr/NAsye1PYj4kf43gU/l00t/1n2zm9mJfJ3EXtt6Fd0xzHSzhX5mVxq/ZWI0ZrfzqC5/sO+W+v/6/4VZc541w==
   </data>
  </layer>
  <layer name="Walls" width="24" height="24">
@@ -181,15 +181,15 @@
   </data>
  </layer>
  <objectgroup name="Obstacles">
-  <object name="forest" x="64" y="1088" width="390" height="412"/>
-  <object name="forest" x="1152" y="64" width="384" height="320"/>
-  <object name="house" x="1152" y="1088" width="128" height="256"/>
-  <object name="house" x="320" y="256" width="128" height="128"/>
-  <object name="house" x="320" y="64" width="128" height="128"/>
+  <object name="forest" x="0" y="640" width="320" height="512"/>
+  <object name="forest" x="1344" y="64" width="192" height="704"/>
+  <object name="house" x="512" y="320" width="128" height="128"/>
+  <object name="house" x="1024" y="1024" width="128" height="192"/>
+  <object name="house" x="192" y="1344" width="128" height="128"/>
  </objectgroup>
  <layer name="Centers" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYCANsJKofhSMglEwCkbBKBgFo4DWgNT2CQA2AAAL
+   eJxjYCAfsFKgdxSMglEwCkbBKBgFo4BSQG5bBAA17AAL
   </data>
  </layer>
 </map>
