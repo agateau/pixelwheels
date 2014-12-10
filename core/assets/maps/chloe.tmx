@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="120" height="80" tilewidth="64" tileheight="64">
- <tileset firstgid="1" source="ground.tsx"/>
- <layer name="Calque de Tile 1" width="120" height="80">
-  <data encoding="base64" compression="zlib">
-   eJztneluUzEQhUPZSlgKBQIh5f1fk3ulWLKMx+uZxb7+cSQUtdTjzzPeZpzz6XQ6G9PPTR8bddv00vH7MV0M2U3ZF/v8ZoBlqC8MfEbh+2nTH3DbtXkifXd0vhz2a/NcfHl9WJvn4svbB9o8F19eH9bmyWkbQtdNnwfuB22e1n1Y2nfR/aDN0jJfLd91QviwNksuu0Zni+oL7fan7PqtwPl6/7sW2CIYa7fdGmfN+ZaDsXa7azlT6uF/9f4fS36LYKzdZin+KVlmStlZylm7vUt9nHPxS7udS3jePmv/Z95sen3XWwNtXupn7X/+btOHu74t1tPJ5+vrwUDblnj4ft/0aKBtS33a596vEb7Ld+dQje/uOVK/Nj0ZaPdSXrW+6+53bouxeVFsQ77OZ3f5+Y2LsW1Ra+aQb+pOVupM3t+fS2rk/SHluyFf6nxE4p7UcU21lVPuLMAqZ2rc/yiwK2aT82VuttpcKc5I1oiYRPVPji/F2PkyB1vfXitcOXxaYuyW8JWKTz327vu4Vw16VuAsGZNK+Ya2oFj3+KrPtPV87X2Gf80YyHHWmGtq+VKs0fNGCdeeM1N/r5fSvu9zY6CGc8g4tQe1yldKYexFnIWX5t/eGjmHYz/FtnVuKZFFvhw8Q9+trT8NOSPm7VQcKo0vJfHnrwGmOXuR6q0dRzDO3cmh8vsvB+KK6rtexiX3rUi+rfuJ2nmD6gvJ+0fU2wCOcepst5Utmm9NLPftqeVCjXdJvsi6pkvCph626HbW2NPD93yKj/dR+db4cG0OzOKrzzfWJwi2VvhSdw8pxeLZzHxbc9cs8EX58Kx8e/IStfiG/jcaX3RdMcW3N+dUg29sPdESozX5ovuO4ttjk+b7bjF7au/HYr8vmReB8mGX24Dmq/k2RWrPV3qfZCHHGsF47wt0zrj224yo81dtvo5xT304x9xr4V0ZDsYWaiRqeHPEZm3fpRgj8l0s8M3xDuv9Y7F5dN8NGVO5DrX3DBb55jTTuqqFd8kdxah8Z1tXocSxX7TiuzPF5iPz5aijXXztiOONg9n5Sp9hofmOeN7MxddCHkeruN44mIVvKufBeo0e5bu9fGdZO/s+nLoTt/ouE+W7Kzb/z7f0bNOST3O9HTUb35bc0vBuSpJ3qi4M8XbUbHydD9fmDmv4da4uDLEmXHzL/RqtXM3f4lvP16+LQN4xo4WIzbOtnX2+qX3wbnd4H2WN9fJdWqkcgYe73f59FEfOyFH4or/LoJZxLJ8yzI+K5RNoska9uSrBN/Z3pb5/KBan3Vl0aHvMn7nq3nPjB3WWqsVXinHKh1O2l+QS9Na9c9QlWOIrxZiqe9HOA5Z46zxm4xXc57k29OaRtvLV/I46Tb4X7/OrAF+KN6rvqZqI2Bx8BL773PPi/VuaLzp2U3thzRityRetnvYhGNfsk7T5or+LwjpfFGNrMVoqT2wEvoh2pvpTmi9XXWCpb0ivn6X4WpmDOeoCa/rOX19prJ85+Fqag6XWViV9p7l+zsUZhA9rzMHSfLnHr8Q47PXhmfki+k6CL/X9G719ewS+nD5saTwelS8n43/j/4tf
-  </data>
- </layer>
-</map>
