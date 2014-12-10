@@ -31,8 +31,9 @@ public class MapInfo {
     public TiledMap getMap() {
         if (mMap == null) {
             MapCreator creator = new MapCreator();
-            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/" + mFileName));
-            mMap = creator.run();
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
+            mMap = creator.run(4);
         }
         return mMap;
     }

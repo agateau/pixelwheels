@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.log.NLog;
@@ -29,11 +30,11 @@ public class MapCreator {
      * - Maps must be the same width
      * - Maps must use the same tilesets
      * - Maps must contain the same number of layers, with the same names
-     * - Maps must contain only tile layers
+     * - Object layers must only contain RectangleMapObjects
      *
      * @return a new TiledMap
      */
-    public TiledMap run() {
+    public TiledMap run(int mapLength) {
         TiledMap referenceMap = mMaps.get(0);
 
         // Compute sizes
@@ -48,13 +49,14 @@ public class MapCreator {
             tileHeight = layer.getTileHeight();
         }
 
-        for (int i = 0; i < 3; ++i) {
-            TiledMap map = mMaps.get(0);
+        for (int i = 0; i < mapLength; ++i) {
+            int mapIndex = MathUtils.random(mMaps.size - 1);
+            TiledMap map = mMaps.get(mapIndex);
             layerCount = Math.max(map.getLayers().getCount(), layerCount);
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
             mapWidth = Math.max(layer.getWidth(), mapWidth);
             mapHeight += layer.getHeight();
-            mapSequence.add(mMaps.get(0));
+            mapSequence.add(map);
         }
 
         TiledMap dstMap = new TiledMap();

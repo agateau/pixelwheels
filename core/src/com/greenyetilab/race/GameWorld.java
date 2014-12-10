@@ -191,19 +191,9 @@ public class GameWorld implements ContactListener {
     }
 
     private Vector2 findStartTilePosition(TiledMapTileLayer layer) {
-        for (int ty=0; ty < layer.getHeight(); ++ty) {
-            for (int tx=0; tx < layer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                TiledMapTile tile = cell.getTile();
-                if (tile.getProperties().containsKey("start")) {
-                    float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-                    float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-                    return new Vector2(tx * tw + tw / 2, ty * th);
-                }
-            }
-        }
-        NLog.e("No Tile with 'start' property found");
-        return null;
+        float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
+        float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+        return new Vector2(layer.getWidth() * tw / 2 + tw / 2, th);
     }
 
     private void setupOutsideWalls() {
