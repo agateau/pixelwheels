@@ -68,7 +68,7 @@ public class Gift implements Pool.Poolable, GameObject {
         float bell = 1f - (float)Math.pow(2 * t - 1, 2);
         mSprite.setScale(0.5f + 2 * bell);
         mSprite.setRotation(180 * t);
-        mSprite.setX(MathUtils.lerp(mSrcPos.x, mDstPos.x, t));
-        mSprite.setY(MathUtils.lerp(mSrcPos.y, mDstPos.y, t));
+        mSprite.setX(MathUtils.lerp(mSrcPos.x, mDstPos.x - mSprite.getWidth() / 2, t));
+        mSprite.setY(MathUtils.lerp(mSrcPos.y, mDstPos.y - mSprite.getHeight() / 2, t));
     }
 }
