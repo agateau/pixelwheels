@@ -27,7 +27,7 @@ public class Box2DUtils {
         body.applyForce(dragForce, body.getWorldCenter(), true);
     }
 
-    static void createStaticBox(World world, float x, float y, float width, float height) {
+    public static Body createStaticBox(World world, float x, float y, float width, float height) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x + width / 2, y + height / 2);
@@ -37,5 +37,6 @@ public class Box2DUtils {
         shape.setAsBox(width / 2, height / 2);
 
         body.createFixture(shape, 1);
+        return body;
     }
 }
