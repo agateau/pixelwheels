@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
-import com.greenyetilab.utils.TileCollisionBodyCreator;
 
 /**
  * Contains all the information and objects running in the world
