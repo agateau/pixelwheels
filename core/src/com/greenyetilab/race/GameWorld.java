@@ -8,19 +8,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 import com.greenyetilab.utils.TileCollisionBodyCreator;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * Contains all the information and objects running in the world
@@ -64,23 +60,10 @@ public class GameWorld implements ContactListener {
         setupWallsLayer();
         setupObjects();
         findChimneys();
-        /*
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        float tileWidth = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-        float tileHeight = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-        setupRock(tileWidth * 9, tileHeight * 4, tileWidth * 2, tileHeight);
-        setupRock(tileWidth * 11, tileHeight * 4, tileWidth, tileHeight);
-        setupRock(tileWidth * 10, tileHeight * 5, tileWidth, tileHeight);
-        setupRock(tileWidth * 11, tileHeight * 5, tileWidth, tileHeight);
-        */
     }
 
     public TiledMap getMap() {
         return mMapInfo.getMap();
-    }
-
-    public MapInfo getMapInfo() {
-        return mMapInfo;
     }
 
     public World getBox2DWorld() {
@@ -229,18 +212,6 @@ public class GameWorld implements ContactListener {
         for (MapObject object : layer.getObjects()) {
             creator.create(object);
         }
-    }
-
-    private void setupRock(float x, float y, float width, float height) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x + width / 2, y + height / 2);
-        Body body = mBox2DWorld.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
-
-        body.createFixture(shape, 3);
     }
 
     private void findChimneys() {
