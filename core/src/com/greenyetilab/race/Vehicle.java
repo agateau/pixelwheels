@@ -39,6 +39,10 @@ class Vehicle {
     private float mDirection = 0;
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
+        this(region, gameWorld, startPosition.x, startPosition.y);
+    }
+
+    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
 
         float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
@@ -52,7 +56,7 @@ class Vehicle {
         // Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(startPosition.x, startPosition.y);
+        bodyDef.position.set(originX, originY);
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
