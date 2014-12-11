@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="24" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
-  <tile id="3">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
   <tile id="4">
    <properties>
     <property name="finish" value="true"/>
@@ -17,46 +12,6 @@
     <property name="start" value="true"/>
    </properties>
   </tile>
-  <tile id="6">
-   <properties>
-    <property name="max_speed" value="0"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="max_speed" value="0"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="11">
-   <properties>
-    <property name="max_speed" value="0.5"/>
-   </properties>
-  </tile>
-  <tile id="12">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="14">
-   <properties>
-    <property name="max_speed" value="0"/>
-   </properties>
-  </tile>
   <tile id="16">
    <objectgroup draworder="index">
     <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
@@ -64,7 +19,7 @@
   </tile>
   <tile id="17">
    <properties>
-    <property name="max_speed" value="0.75"/>
+    <property name="chimney" value="true"/>
    </properties>
    <objectgroup draworder="index">
     <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
@@ -113,17 +68,11 @@
    </objectgroup>
   </tile>
   <tile id="24">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
    <objectgroup draworder="index">
     <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
    </objectgroup>
   </tile>
   <tile id="25">
-   <properties>
-    <property name="max_speed" value="0.5"/>
-   </properties>
    <objectgroup draworder="index">
     <object x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
@@ -221,27 +170,26 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="25" height="24">
+ <layer name="Ground" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJzVlEsKwCAMREdcCD2lR8tRPFqhSgl+QhcJdBYPBAnPSdQCoBhcgCSgDkSB1PerVf8FwyHODk3Ta2KHBDmaQmdxdeQ+81DHNIcXMscRZ8cuh+cbxOZuRTiWDIF/SZTjyZGnPhH2CidYHWMmtDnm87Pm+LvjBp6fY5E=
+   eJzV1GEKgCAMBtAJQajRGXe0jrKjJc1AchTOGfjjIxN5DpmuALAq4gEOB4A54Pj/DoU0r3FffMqx9EnICL8a9/phcP0W/pbWRV5LPn/v8S7bTf7C6/HRe1JUftGDLT4pfPzYp/J9v1/OVf7SdkfFmnfuoyu+SOTe6PYN35jZfWmPmeqf2aef/Oc9tj6f0X715hieD2rrPwHq9aEL
   </data>
  </layer>
- <layer name="Walls" width="25" height="24">
+ <layer name="Walls" width="24" height="24" visible="0">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
+   eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
   </data>
  </layer>
  <objectgroup name="Obstacles">
-  <object name="forest" x="64" y="512" width="384" height="512"/>
-  <object name="forest" x="1152" y="64" width="384" height="384"/>
-  <object name="house" x="320" y="128" width="128" height="128"/>
-  <object name="house" x="1152" y="576" width="128" height="192"/>
-  <object name="house" x="1152" y="896" width="128" height="192"/>
-  <object name="house" x="320" y="1216" width="128" height="128"/>
+  <object name="forest" x="64" y="64" width="256" height="448"/>
+  <object name="forest" x="1152" y="1152" width="320" height="320"/>
+  <object name="house" x="640" y="64" width="128" height="128"/>
+  <object name="house" x="192" y="768" width="128" height="192"/>
+  <object name="house" x="1088" y="832" width="128" height="128"/>
  </objectgroup>
- <layer name="Centers" width="25" height="24">
+ <layer name="Centers" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
+   eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAWkAHLaIAA1nAAL
   </data>
  </layer>
 </map>

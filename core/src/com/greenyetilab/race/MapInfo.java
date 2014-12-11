@@ -34,7 +34,9 @@ public class MapInfo {
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
-            mMap = creator.run(4);
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
+            mMap = creator.run(20);
         }
         return mMap;
     }
