@@ -4,8 +4,6 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * Create obstacles from tiled map objects
@@ -41,10 +39,16 @@ public class ObstacleCreator {
         float delta = (float) (1 / Math.sqrt(density));
         float variation = 0.3f;
         for (float y = originY; y < originY + height; y += delta) {
+            boolean horizontalEdge = y == originY || y + delta >= originY + height;
             for (float x = originX; x < originX + width; x += delta) {
+                boolean verticalEdge = x == originX || x + delta >= originX + width;
                 float treeX = x + MathUtils.random(-variation, variation);
                 float treeY = y + MathUtils.random(-variation, variation);
-                mWorld.addGameObject(new TreeObject(mWorld, mAssets, treeX, treeY));
+                TreeObject tree = new TreeObject(mWorld, mAssets, treeX, treeY);
+                if (horizontalEdge || verticalEdge) {
+                    tree.createBody();
+                }
+                mWorld.addGameObject(tree);
             }
         }
     }
