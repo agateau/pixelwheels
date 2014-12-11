@@ -35,6 +35,7 @@ public class HouseObject implements GameObject {
                 mHeight - mHousePads.top - mHousePads.bottom);
 
         mBody.setUserData(this);
+        mBody.setAwake(false);
 
         world.addChimneyPos(mX + mWidth + CHIMNEY_X_OFFSET, mY + mHeight + CHIMNEY_Y_OFFSET);
     }
