@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Represents a car on the world
  */
-class Vehicle {
+class Vehicle implements GameObject {
     private final Body mBody;
     protected final GameWorld mGameWorld;
     private boolean mLimitAngle;
@@ -119,7 +119,8 @@ class Vehicle {
         mCorrectAngle = correctAngle;
     }
 
-    public void act(float dt) {
+    @Override
+    public boolean act(float dt) {
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;
@@ -150,9 +151,14 @@ class Vehicle {
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
         }
+        return true;
     }
 
-    public void draw(Batch batch) {
+    @Override
+    public void draw(Batch batch, int zIndex) {
+        if (zIndex != Constants.Z_VEHICLES) {
+            return;
+        }
         for(WheelInfo info: mWheels) {
             info.wheel.draw(batch);
         }

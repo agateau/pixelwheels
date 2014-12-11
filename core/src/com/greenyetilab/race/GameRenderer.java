@@ -72,18 +72,17 @@ public class GameRenderer {
         renderSkidmarks();
 
         mBatch.setProjectionMatrix(mCamera.combined);
-        mBatch.begin();
-        mVehicle.draw(mBatch);
-        mBatch.end();
-
-        if (mForegroundLayerIndexes != null) {
-            mRenderer.render(mForegroundLayerIndexes);
-        }
 
         mBatch.begin();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z);
+            }
+
+            if (z == Constants.Z_OBSTACLES && mForegroundLayerIndexes != null) {
+                mBatch.end();
+                mRenderer.render(mForegroundLayerIndexes);
+                mBatch.begin();
             }
         }
         mBatch.end();

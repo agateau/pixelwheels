@@ -51,7 +51,6 @@ public class GameWorld implements ContactListener {
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMap = map;
-        //setupCar();
         setupSled();
         setupOutsideWalls();
         setupObjects();
@@ -95,8 +94,6 @@ public class GameWorld implements ContactListener {
             mTimeAccumulator -= TIME_STEP;
         }
 
-        mVehicle.act(delta);
-        checkChimneys();
         // FIXME: Use SnapshotArray if game objects ever gain access to removing items from mActiveGameObjects
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
@@ -104,36 +101,7 @@ public class GameWorld implements ContactListener {
                 mActiveGameObjects.removeIndex(idx);
             }
         }
-    }
-
-    private void setupCar() {
-        Vector2 position = findStartTilePosition();
-        assert(position != null);
-
-        // Car
-        TextureRegion carRegion = mGame.getAssets().car;
-        TextureRegion wheelRegion = mGame.getAssets().wheel;
-        mVehicle = new PlayerVehicle(carRegion, this, position);
-
-        // Wheels
-        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
-
-        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
-        float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;
-        float leftX = -rightX;
-        float rearY = Constants.UNIT_FOR_PIXEL * -carRegion.getRegionHeight() / 2 + REAR_WHEEL_Y;
-        float frontY = rearY + WHEEL_BASE;
-
-        Vehicle.WheelInfo info;
-        info = mVehicle.addWheel(wheelRegion, leftX, frontY);
-        info.steeringFactor = 1;
-        info = mVehicle.addWheel(wheelRegion, rightX, frontY);
-        info.steeringFactor = 1;
-        info = mVehicle.addWheel(wheelRegion, leftX, rearY);
-        info.wheel.setCanDrift(true);
-        info = mVehicle.addWheel(wheelRegion, rightX, rearY);
-        info.wheel.setCanDrift(true);
+        checkChimneys();
     }
 
     private void setupSled() {
@@ -164,6 +132,8 @@ public class GameWorld implements ContactListener {
         //info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         //info.wheel.setCanDrift(true);
+
+        addGameObject(mVehicle);
     }
 
     private Vector2 findStartTilePosition() {

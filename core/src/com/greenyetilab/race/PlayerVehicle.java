@@ -12,7 +12,7 @@ public class PlayerVehicle extends Vehicle {
     }
 
     @Override
-    public void act(float dt) {
+    public boolean act(float dt) {
         super.act(dt);
         int wheelsOnFatalGround = 0;
         for(WheelInfo info: mWheels) {
@@ -28,5 +28,6 @@ public class PlayerVehicle extends Vehicle {
         if (wheelsOnFatalGround >= 2) {
             mGameWorld.setState(GameWorld.State.BROKEN);
         }
+        return true;
     }
 }
