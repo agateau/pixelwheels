@@ -15,8 +15,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float VIEWPORT_WIDTH = 60;
-
     public static class DebugConfig {
         public boolean enabled = false;
         public boolean drawVelocities = false;
@@ -124,8 +122,8 @@ public class GameRenderer {
     private void updateCamera() {
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
-        mCamera.viewportWidth = VIEWPORT_WIDTH;
-        mCamera.viewportHeight = VIEWPORT_WIDTH * screenH / screenW;
+        mCamera.viewportWidth = Constants.VIEWPORT_WIDTH;
+        mCamera.viewportHeight = Constants.VIEWPORT_WIDTH * screenH / screenW;
 
         // Compute pos
         // FIXME: Take car speed into account when computing advance
