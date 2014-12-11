@@ -1,7 +1,6 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,18 +28,10 @@ public class ObstacleCreator {
         }
     }
 
-    private static float getFloatProperty(MapProperties properties, String key, float defaultValue) {
-        Object value = properties.get(key);
-        if (value == null) {
-            return defaultValue;
-        }
-        return Float.valueOf(value.toString());
-    }
-
     private void createForest(MapObject object) {
         RectangleMapObject rectObject = (RectangleMapObject)object;
         assert rectObject != null;
-        float density = getFloatProperty(rectObject.getProperties(), "density", 0.075f);
+        float density = MapUtils.getFloatProperty(rectObject.getProperties(), "density", 0.075f);
         Rectangle rect = rectObject.getRectangle();
         float originX = Constants.UNIT_FOR_PIXEL * rect.getX();
         float originY = Constants.UNIT_FOR_PIXEL * rect.getY();
