@@ -84,6 +84,11 @@ public class GameWorld implements ContactListener {
         mActiveGameObjects.removeValue(object, true);
     }
 
+    public boolean isVisible(float x, float y) {
+        float dy = Math.abs(y - mVehicle.getY());
+        return dy < Constants.VIEWPORT_WIDTH * 1.2;
+    }
+
     public void act(float delta) {
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)

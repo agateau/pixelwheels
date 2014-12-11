@@ -238,6 +238,11 @@
   <object name="house" x="1152" y="576" width="128" height="192"/>
   <object name="house" x="1152" y="896" width="128" height="192"/>
   <object name="house" x="320" y="1216" width="128" height="128"/>
+  <object name="car" x="576" y="64" width="192" height="192">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Centers" width="25" height="24">
   <data encoding="base64" compression="zlib">

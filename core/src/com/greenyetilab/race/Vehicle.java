@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Array;
  * Represents a car on the world
  */
 class Vehicle implements GameObject {
-    private final Body mBody;
+    protected final Body mBody;
     protected final GameWorld mGameWorld;
     private boolean mLimitAngle;
     private boolean mCorrectAngle;
@@ -117,6 +117,14 @@ class Vehicle implements GameObject {
 
     public void setCorrectAngle(boolean correctAngle) {
         mCorrectAngle = correctAngle;
+    }
+
+    public float getWidth() {
+        return mSprite.getWidth();
+    }
+
+    public float getHeight() {
+        return mSprite.getHeight();
     }
 
     @Override

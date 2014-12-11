@@ -186,6 +186,26 @@
   <object name="house" x="1152" y="1088" width="128" height="256"/>
   <object name="house" x="320" y="256" width="128" height="128"/>
   <object name="house" x="320" y="64" width="128" height="128"/>
+  <object name="car" x="1280" y="512" width="64" height="192">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object name="car" x="64" y="768" width="64" height="192">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object name="car" x="1408" y="576" width="64" height="192">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object name="car" x="576" y="64" width="192" height="64">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Centers" width="24" height="24">
   <data encoding="base64" compression="zlib">

@@ -23,6 +23,8 @@ public class ObstacleCreator {
             createForest(object);
         } else if (name.equals("house")) {
             createHouse(object);
+        } else if (name.equals("car")) {
+            createCar(object);
         }
     }
 
@@ -64,5 +66,19 @@ public class ObstacleCreator {
         float height = Constants.UNIT_FOR_PIXEL * rect.getHeight();
 
         mWorld.addGameObject(new HouseObject(mWorld, mAssets, originX, originY, width, height));
+    }
+
+    private void createCar(MapObject object) {
+        RectangleMapObject rectObject = (RectangleMapObject)object;
+        assert rectObject != null;
+
+        Rectangle rect = rectObject.getRectangle();
+        float originX = Constants.UNIT_FOR_PIXEL * (rect.getX() + MathUtils.random(rect.getWidth()));
+        float originY = Constants.UNIT_FOR_PIXEL * (rect.getY() + MathUtils.random(rect.getHeight()));
+        float angle = MapUtils.getFloatProperty(rectObject.getProperties(), "angle", 270f);
+
+        EnemyCar car = new EnemyCar(mWorld, mAssets, originX, originY);
+        car.setDrivingAngle(angle);
+        mWorld.addGameObject(car);
     }
 }

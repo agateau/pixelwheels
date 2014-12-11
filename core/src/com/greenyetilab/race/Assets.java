@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public class Assets {
     public final Skin skin;
-    public final TextureRegion car;
+    public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
     public final TextureAtlas atlas;
     public Array<MapInfo> mapInfoList = new Array<MapInfo>();
@@ -32,8 +32,11 @@ public class Assets {
     Assets() {
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         this.atlas = new TextureAtlas(Gdx.files.internal("race.atlas"));
-        this.car = this.atlas.findRegion("car/car");
         this.wheel = this.atlas.findRegion("car/wheel");
+        for (int idx = 1; idx <= 6; ++idx) {
+            String name = String.format("car/car%d", idx);
+            this.cars.add(this.atlas.findRegion(name));
+        }
 
         for (String name: new String[]{
                 "santa.tmx",
