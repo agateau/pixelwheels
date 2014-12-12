@@ -106,6 +106,10 @@ public class ObstacleCreator {
     }
 
     private void createHouse(MapObject object) {
+        if (MathUtils.random() >= HOUSE_PROBABILITY) {
+            return;
+        }
+
         RectangleMapObject rectObject = (RectangleMapObject)object;
         assert rectObject != null;
         Rectangle rect = rectObject.getRectangle();
@@ -114,9 +118,6 @@ public class ObstacleCreator {
         int width = 3;
         int height = (int)(rect.getHeight() / mTileHeight) + 1; // + 1 for the bottom-right shadow
 
-        if (MathUtils.random() >= HOUSE_PROBABILITY) {
-            return;
-        }
         addNineTile(startX, startY, width, height, HOUSE_NINE_TILE);
 
         final float unitForTx = Constants.UNIT_FOR_PIXEL * mTileWidth;
