@@ -183,7 +183,7 @@
  <objectgroup name="Obstacles">
   <object name="forest" x="64" y="64" width="256" height="448"/>
   <object name="forest" x="1088" y="1088" width="384" height="384"/>
-  <object name="house" x="640" y="64" width="128" height="128"/>
+  <object name="house" x="576" y="0" width="128" height="128"/>
   <object name="house" x="192" y="768" width="128" height="192"/>
   <object name="house" x="896" y="1344" width="128" height="128"/>
  </objectgroup>

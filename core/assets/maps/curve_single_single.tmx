@@ -183,9 +183,14 @@
  <objectgroup name="Obstacles">
   <object name="forest" x="64" y="64" width="256" height="448"/>
   <object name="forest" x="1152" y="1152" width="320" height="320"/>
-  <object name="house" x="640" y="64" width="128" height="128"/>
+  <object name="house" x="640" y="128" width="128" height="128"/>
   <object name="house" x="192" y="768" width="128" height="192"/>
   <object name="house" x="1088" y="832" width="128" height="128"/>
+  <object name="car" x="576" y="1408" width="64" height="64">
+   <properties>
+    <property name="angle" value="60"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Centers" width="24" height="24">
   <data encoding="base64" compression="zlib">
