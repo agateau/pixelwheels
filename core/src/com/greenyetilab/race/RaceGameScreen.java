@@ -39,10 +39,12 @@ public class RaceGameScreen extends ScreenAdapter {
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
     private PerformanceCounter mGameWorldPerformanceCounter;
     private PerformanceCounter mRendererPerformanceCounter;
+    private PerformanceCounter mOverallPerformanceCounter;
 
     public RaceGameScreen(RaceGame game, TiledMap map) {
         mGame = game;
         mBatch = new SpriteBatch();
+        mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, map, mPerformanceCounters);
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
@@ -92,6 +94,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        mOverallPerformanceCounter.start();
         mGameWorldPerformanceCounter.start();
         mGameWorld.act(delta);
         mGameWorldPerformanceCounter.stop();
@@ -110,14 +113,15 @@ public class RaceGameScreen extends ScreenAdapter {
         handleInput();
         updateHud();
 
+        mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mRendererPerformanceCounter.start();
         mGameRenderer.render();
+        mHudStage.draw();
         mRendererPerformanceCounter.stop();
 
+        mOverallPerformanceCounter.stop();
         mPerformanceCounters.tick(delta);
-        mHudStage.draw();
     }
 
     private static StringBuilder sDebugSB = new StringBuilder();
