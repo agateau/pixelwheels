@@ -97,19 +97,11 @@ public class Wheel {
     }
 
     private void checkCollisions() {
-        TiledMapTile tile = mGameWorld.getTileAt(mBody.getWorldCenter());
-        if (tile == null) {
-            return;
-        }
-        MapProperties properties = tile.getProperties();
-        String txt = properties.get("max_speed", String.class);
-        mOnFatalGround = false;
-        if (txt != null) {
-            float maxSpeed = Float.valueOf(txt);
-            mOnFatalGround = maxSpeed == 0;
+        float maxSpeed = mGameWorld.getMaxSpeedAt(mBody.getWorldCenter());
+        mOnFatalGround = maxSpeed == 0f;
+        if (maxSpeed < 1f) {
             Box2DUtils.applyDrag(mBody, (1 - maxSpeed) * DRAG_FACTOR * 4);
         }
-        mOnFinished = properties.containsKey("finish");
     }
 
 

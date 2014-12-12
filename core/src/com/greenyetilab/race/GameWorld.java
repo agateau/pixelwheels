@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -33,6 +34,7 @@ public class GameWorld implements ContactListener {
     private static final float CHIMNEY_MAX_RADIUS2 = (float)Math.pow(15, 2);
     private static final float GIFT_INTERVAL = 0.2f;
     private final TiledMap mMap;
+    private final float[] mMaxSpeedForTileId;
     private final World mBox2DWorld;
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
@@ -51,9 +53,24 @@ public class GameWorld implements ContactListener {
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMap = map;
+        mMaxSpeedForTileId = computeMaxSpeedForTileId();
         setupSled();
         setupOutsideWalls();
         setupObjects();
+    }
+
+    private float[] computeMaxSpeedForTileId() {
+        TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
+        int maxId = 0;
+        for (TiledMapTile tile : tileSet) {
+            maxId = Math.max(maxId, tile.getId());
+        }
+        float[] array = new float[maxId + 1];
+        for (int id = 0; id < array.length; ++id) {
+            TiledMapTile tile = tileSet.getTile(id);
+            array[id] = tile == null ? 1f : MapUtils.getFloatProperty(tile.getProperties(), "max_speed", 1f);
+        }
+        return array;
     }
 
     public TiledMap getMap() {
@@ -211,6 +228,14 @@ public class GameWorld implements ContactListener {
         int ty = MathUtils.floor(pos.y / tileH);
         TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
         return cell == null ? null : cell.getTile();
+    }
+
+    public float getMaxSpeedAt(Vector2 pos) {
+        TiledMapTile tile = getTileAt(pos);
+        if (tile == null) {
+            return 1.0f;
+        }
+        return mMaxSpeedForTileId[tile.getId()];
     }
 
     public void addSkidmarkAt(Vector2 position) {
