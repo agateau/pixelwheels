@@ -32,8 +32,13 @@ public class GameWorld implements ContactListener {
     private static final float TIME_STEP = 1f/60f;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
+
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
+    private final TiledMapTileLayer mGroundLayer;
+    private final float mTileWidth;
+    private final float mTileHeight;
+
     private final World mBox2DWorld;
     private final RaceGame mGame;
     private float mTimeAccumulator = 0;
@@ -55,6 +60,10 @@ public class GameWorld implements ContactListener {
         mBox2DWorld.setContactListener(this);
         mMap = map;
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
+        mGroundLayer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
+        mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
+
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupSled();
@@ -222,13 +231,9 @@ public class GameWorld implements ContactListener {
     }
 
     public TiledMapTile getTileAt(Vector2 pos) {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-        float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-
-        int tx = MathUtils.floor(pos.x / tileW);
-        int ty = MathUtils.floor(pos.y / tileH);
-        TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+        int tx = MathUtils.floor(pos.x / mTileWidth);
+        int ty = MathUtils.floor(pos.y / mTileHeight);
+        TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
         return cell == null ? null : cell.getTile();
     }
 
