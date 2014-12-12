@@ -27,8 +27,10 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(root);
 
         VerticalGroup vGroup = new VerticalGroup();
-        vGroup.addActor(addCheckBox("Box2D Debug", "debug/enabled"));
-        vGroup.addActor(addCheckBox("Box2D Draw Velocities", "debug/drawVelocities"));
+        vGroup.addActor(addCheckBox("Show Debug Hud", "debug/showDebugHud"));
+        vGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
+        vGroup.addActor(addCheckBox("Box2D: Draw Velocities", "debug/box2d/drawVelocities"));
+        vGroup.addActor(addCheckBox("Tiles: Draw Corners", "debug/tiles/drawCorners"));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("Back", skin, "default");

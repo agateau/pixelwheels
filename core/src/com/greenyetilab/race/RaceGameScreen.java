@@ -31,6 +31,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private WidgetGroup mHud;
     private Label mTimeLabel;
     private Label mSpeedLabel;
+    private Label mDebugLabel;
     private float mTime = 0;
 
     public RaceGameScreen(RaceGame game, TiledMap map) {
@@ -53,9 +54,9 @@ public class RaceGameScreen extends ScreenAdapter {
     private void setupGameRenderer() {
         GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
         Preferences prefs = RaceGame.getPreferences();
-        config.enabled = prefs.getBoolean("debug/enabled", false);
-        config.drawTileCorners = prefs.getBoolean("debug/drawTileCorners", false);
-        config.drawVelocities = prefs.getBoolean("debug/drawVelocities", false);
+        config.enabled = prefs.getBoolean("debug/box2d", false);
+        config.drawTileCorners = prefs.getBoolean("debug/tiles/drawCorners", false);
+        config.drawVelocities = prefs.getBoolean("debug/box2d/drawVelocities", false);
         mGameRenderer.setDebugConfig(config);
     }
 
@@ -73,6 +74,10 @@ public class RaceGameScreen extends ScreenAdapter {
         mHud.addActor(mSpeedLabel);
         mHud.setHeight(mTimeLabel.getHeight());
 
+        if (RaceGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
+            mDebugLabel = new Label("D", skin, "small");
+            mHudStage.addActor(mDebugLabel);
+        }
         mHudStage.addActor(mHud);
         updateHud();
     }
@@ -112,6 +117,12 @@ public class RaceGameScreen extends ScreenAdapter {
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
 
         mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
+
+        if (mDebugLabel != null) {
+            String debugText = "objcount: " + mGameWorld.getActiveGameObjects().size + " FPS: " + Gdx.graphics.getFramesPerSecond();
+            mDebugLabel.setText(debugText);
+            mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getHeight());
+        }
     }
 
     @Override
