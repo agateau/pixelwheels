@@ -28,14 +28,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.9999999"
-     inkscape:cx="142.84799"
-     inkscape:cy="772.48465"
+     inkscape:zoom="3.9999998"
+     inkscape:cx="192.30235"
+     inkscape:cy="399.42406"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1571"
-     inkscape:window-height="880"
+     inkscape:window-width="1891"
+     inkscape:window-height="1060"
      inkscape:window-x="26"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
@@ -72,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,7 +81,7 @@
      id="layer5"
      inkscape:label="bg"
      sodipodi:insensitive="true"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,64)">
     <rect
        style="color:#000000;fill:#d6e3e8;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
@@ -386,7 +386,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-filename="../sprites/snowman.png"
        id="g4554"
-       transform="translate(544,-257)">
+       transform="translate(-194.23837,-2.4349368)">
       <path
          inkscape:transform-center-y="0.70619967"
          inkscape:transform-center-x="0.40529376"
@@ -1202,7 +1202,7 @@
          sodipodi:nodetypes="ccccc" />
     </g>
     <g
-       transform="translate(288,-833.00002)"
+       transform="translate(-64,-576)"
        id="g4291">
       <g
          id="g4403">
@@ -2487,7 +2487,7 @@
     </g>
     <g
        id="g4446"
-       transform="translate(480,-128)"
+       transform="translate(-255.125,129.47782)"
        inkscape:export-filename="../sprites/tree.png"
        inkscape:export-xdpi="89.854698"
        inkscape:export-ydpi="89.854698">

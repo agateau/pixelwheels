@@ -17,8 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.ReflectionPool;
+import com.greenyetilab.utils.log.NLog;
 
 /**
  * Contains all the information and objects running in the world
@@ -33,8 +32,6 @@ public class GameWorld implements ContactListener {
     private static final float TIME_STEP = 1f/60f;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
-    private static final float CHIMNEY_MAX_RADIUS2 = (float)Math.pow(15, 2);
-    private static final float GIFT_INTERVAL = 0.2f;
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
     private final World mBox2DWorld;
@@ -46,13 +43,10 @@ public class GameWorld implements ContactListener {
 
     private Vector2[] mSkidmarks = new Vector2[4000];
     private int mSkidmarksIndex = 0;
-    private Array<Vector2> mChimneys = new Array<Vector2>();
-    private Pool<Gift> mGiftPool = new ReflectionPool<Gift>(Gift.class);
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
-    private final PerformanceCounter mCheckChimneysPerformanceCounter;
 
     public GameWorld(RaceGame game, TiledMap map, PerformanceCounters performanceCounters) {
         mGame = game;
@@ -62,7 +56,6 @@ public class GameWorld implements ContactListener {
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        mCheckChimneysPerformanceCounter = performanceCounters.add("- chimneys");
         setupSled();
         setupOutsideWalls();
         setupObjects();
@@ -136,10 +129,6 @@ public class GameWorld implements ContactListener {
             }
         }
         mGameObjectPerformanceCounter.stop();
-
-        mCheckChimneysPerformanceCounter.start();
-        checkChimneys();
-        mCheckChimneysPerformanceCounter.stop();
     }
 
     private void setupSled() {
@@ -204,34 +193,19 @@ public class GameWorld implements ContactListener {
     }
 
     private void setupObjects() {
-        MapLayer layer = mMap.getLayers().get("Obstacles");
-        if (layer == null) {
+        MapLayer obstacleLayer = mMap.getLayers().get("Obstacles");
+        if (obstacleLayer == null) {
+            NLog.e("No Obstacles layer");
             return;
         }
-        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets());
-        for (MapObject object : layer.getObjects()) {
-            creator.create(object);
+        TiledMapTileLayer wallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
+        if (wallsLayer == null) {
+            NLog.e("No Walls layer");
+            return;
         }
-    }
-
-    public void addChimneyPos(float x, float y) {
-        mChimneys.add(new Vector2(x, y));
-    }
-
-    private void checkChimneys() {
-        Vector2 vehiclePos = mVehicle.getPosition();
-        for (int idx = mChimneys.size - 1; idx >= 0; --idx) {
-            Vector2 pos = mChimneys.get(idx);
-            float distance2 = pos.dst2(vehiclePos);
-            if (distance2 < CHIMNEY_MAX_RADIUS2) {
-                mChimneys.removeIndex(idx);
-                int count = MathUtils.random(1, 4);
-                for (int i = 0; i < count; ++i) {
-                    Gift gift = mGiftPool.obtain();
-                    gift.init(mGame, mVehicle, pos, i * GIFT_INTERVAL);
-                    addGameObject(gift);
-                }
-            }
+        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets(), mMap.getTileSets(), wallsLayer);
+        for (MapObject object : obstacleLayer.getObjects()) {
+            creator.create(object);
         }
     }
 
