@@ -15,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.PerformanceCounter;
+import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
@@ -48,12 +50,19 @@ public class GameWorld implements ContactListener {
     private Pool<Gift> mGiftPool = new ReflectionPool<Gift>(Gift.class);
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
-    public GameWorld(RaceGame game, TiledMap map) {
+    private final PerformanceCounter mBox2DPerformanceCounter;
+    private final PerformanceCounter mGameObjectPerformanceCounter;
+    private final PerformanceCounter mCheckChimneysPerformanceCounter;
+
+    public GameWorld(RaceGame game, TiledMap map, PerformanceCounters performanceCounters) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMap = map;
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
+        mBox2DPerformanceCounter = performanceCounters.add("- box2d");
+        mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
+        mCheckChimneysPerformanceCounter = performanceCounters.add("- chimneys");
         setupSled();
         setupOutsideWalls();
         setupObjects();
@@ -107,6 +116,7 @@ public class GameWorld implements ContactListener {
     }
 
     public void act(float delta) {
+        mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
         float frameTime = Math.min(delta, 0.25f);
@@ -115,7 +125,9 @@ public class GameWorld implements ContactListener {
             mBox2DWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
             mTimeAccumulator -= TIME_STEP;
         }
+        mBox2DPerformanceCounter.stop();
 
+        mGameObjectPerformanceCounter.start();
         // FIXME: Use SnapshotArray if game objects ever gain access to removing items from mActiveGameObjects
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
@@ -123,7 +135,11 @@ public class GameWorld implements ContactListener {
                 mActiveGameObjects.removeIndex(idx);
             }
         }
+        mGameObjectPerformanceCounter.stop();
+
+        mCheckChimneysPerformanceCounter.start();
         checkChimneys();
+        mCheckChimneysPerformanceCounter.stop();
     }
 
     private void setupSled() {

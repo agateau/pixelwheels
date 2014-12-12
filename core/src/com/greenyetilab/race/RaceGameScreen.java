@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.utils.PerformanceCounter;
+import com.badlogic.gdx.utils.PerformanceCounters;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceGameScreen extends ScreenAdapter {
@@ -34,11 +37,17 @@ public class RaceGameScreen extends ScreenAdapter {
     private Label mDebugLabel;
     private float mTime = 0;
 
+    private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
+    private PerformanceCounter mGameWorldPerformanceCounter;
+    private PerformanceCounter mRendererPerformanceCounter;
+
     public RaceGameScreen(RaceGame game, TiledMap map) {
         mGame = game;
         mBatch = new SpriteBatch();
-        mGameWorld = new GameWorld(game, map);
-        mGameRenderer = new GameRenderer(mGameWorld, mBatch);
+        mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
+        mGameWorld = new GameWorld(game, map, mPerformanceCounters);
+        mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
+        mGameRenderer = new GameRenderer(mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
         mVehicle = mGameWorld.getVehicle();
         setupHud();
@@ -86,7 +95,10 @@ public class RaceGameScreen extends ScreenAdapter {
     public void render(float delta) {
         mTime += delta;
 
+        mGameWorldPerformanceCounter.start();
         mGameWorld.act(delta);
+        mGameWorldPerformanceCounter.stop();
+
         mHudStage.act(delta);
         switch (mGameWorld.getState()) {
         case RUNNING:
@@ -103,11 +115,15 @@ public class RaceGameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        mRendererPerformanceCounter.start();
         mGameRenderer.render();
+        mRendererPerformanceCounter.stop();
 
+        mPerformanceCounters.tick(delta);
         mHudStage.draw();
     }
 
+    private static StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
         String text = StringUtils.formatRaceTime(mTime);
         mTimeLabel.setText(text);
@@ -119,9 +135,19 @@ public class RaceGameScreen extends ScreenAdapter {
         mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
 
         if (mDebugLabel != null) {
-            String debugText = "objcount: " + mGameWorld.getActiveGameObjects().size + " FPS: " + Gdx.graphics.getFramesPerSecond();
-            mDebugLabel.setText(debugText);
-            mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getHeight());
+            sDebugSB.setLength(0);
+            sDebugSB.append("objCount: ").append(mGameWorld.getActiveGameObjects().size).append('\n');
+            sDebugSB.append("FPS: ").append(Gdx.graphics.getFramesPerSecond()).append('\n');
+            for (PerformanceCounter counter : mPerformanceCounters.counters) {
+                sDebugSB.append(counter.name).append(": ")
+                        .append(String.valueOf((int)(counter.time.value * 1000)))
+                        .append(" | ")
+                        .append(String.valueOf((int)(counter.load.value * 100)))
+                        .append("%\n")
+                        ;
+            }
+            mDebugLabel.setText(sDebugSB);
+            mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getPrefHeight());
         }
     }
 

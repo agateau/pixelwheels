@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.PerformanceCounter;
+import com.badlogic.gdx.utils.PerformanceCounters;
 
 /**
  * Responsible for rendering the game world
@@ -36,7 +38,10 @@ public class GameRenderer {
     private int[] mForegroundLayerIndexes;
     private Vehicle mVehicle;
 
-    public GameRenderer(GameWorld world, Batch batch) {
+    private PerformanceCounter mTilePerformanceCounter;
+    private PerformanceCounter mGameObjectPerformanceCounter;
+
+    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -54,6 +59,9 @@ public class GameRenderer {
         mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
 
         mVehicle = mWorld.getVehicle();
+
+        mTilePerformanceCounter = counters.add("- tiles");
+        mGameObjectPerformanceCounter = counters.add("- g.o.");
     }
 
     public void setDebugConfig(DebugConfig config) {
@@ -64,13 +72,15 @@ public class GameRenderer {
     public void render() {
         updateCamera();
 
+        mTilePerformanceCounter.start();
         mRenderer.setView(mCamera);
         mRenderer.render(mBackgroundLayerIndexes);
+        mTilePerformanceCounter.stop();
 
         renderSkidmarks();
 
+        mGameObjectPerformanceCounter.start();
         mBatch.setProjectionMatrix(mCamera.combined);
-
         mBatch.begin();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
@@ -84,6 +94,7 @@ public class GameRenderer {
             }
         }
         mBatch.end();
+        mGameObjectPerformanceCounter.stop();
 
         if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
