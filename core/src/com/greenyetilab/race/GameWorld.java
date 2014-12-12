@@ -103,7 +103,7 @@ public class GameWorld implements ContactListener {
 
     public boolean isVisible(float x, float y) {
         float dy = Math.abs(y - mVehicle.getY());
-        return dy < Constants.VIEWPORT_WIDTH * 1.2;
+        return dy < Constants.VIEWPORT_WIDTH * 1.2f;
     }
 
     public void act(float delta) {
