@@ -30,8 +30,10 @@ public class EnemyCar extends Vehicle implements Collidable {
         info.steeringFactor = 1;
         info = addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
-        addWheel(wheelRegion, leftX, rearY);
-        addWheel(wheelRegion, rightX, rearY);
+        info = addWheel(wheelRegion, leftX, rearY);
+        info.wheel.setCanDrift(true);
+        info = addWheel(wheelRegion, rightX, rearY);
+        info.wheel.setCanDrift(true);
 
         mBody.setAwake(false);
     }
