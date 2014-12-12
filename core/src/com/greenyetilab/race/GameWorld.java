@@ -101,6 +101,11 @@ public class GameWorld implements ContactListener {
         return (int)mScore;
     }
 
+    public void increaseScore(int delta) {
+        NLog.i("+%d", delta);
+        mScore += delta;
+    }
+
     public Vector2[] getSkidmarks() {
         return mSkidmarks;
     }

@@ -107,4 +107,8 @@ public class EnemyCar extends Vehicle implements Collidable {
     public void endContact(Contact contact, Fixture otherFixture) {
 
     }
+
+    public boolean isAlive() {
+        return !mHasCollided;
+    }
 }
