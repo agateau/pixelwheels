@@ -231,14 +231,22 @@ public class GameWorld implements ContactListener {
     }
 
     public TiledMapTile getTileAt(Vector2 pos) {
-        int tx = MathUtils.floor(pos.x / mTileWidth);
-        int ty = MathUtils.floor(pos.y / mTileHeight);
+        return  getTileAt(pos.x, pos.y);
+    }
+
+    public TiledMapTile getTileAt(float x, float y) {
+        int tx = MathUtils.floor(x / mTileWidth);
+        int ty = MathUtils.floor(y / mTileHeight);
         TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
         return cell == null ? null : cell.getTile();
     }
 
     public float getMaxSpeedAt(Vector2 pos) {
-        TiledMapTile tile = getTileAt(pos);
+        return getMaxSpeedAt(pos.x, pos.y);
+    }
+
+    public float getMaxSpeedAt(float x, float y) {
+        TiledMapTile tile = getTileAt(x, y);
         if (tile == null) {
             return 1.0f;
         }
