@@ -32,10 +32,9 @@ public class RaceGameScreen extends ScreenAdapter {
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
-    private Label mTimeLabel;
+    private Label mScoreLabel;
     private Label mSpeedLabel;
     private Label mDebugLabel;
-    private float mTime = 0;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
     private PerformanceCounter mGameWorldPerformanceCounter;
@@ -77,11 +76,11 @@ public class RaceGameScreen extends ScreenAdapter {
         Skin skin = mGame.getAssets().skin;
         mHud = new WidgetGroup();
 
-        mTimeLabel = new Label("0:00.0", skin);
+        mScoreLabel = new Label("0:00.0", skin);
         mSpeedLabel = new Label("0", skin);
-        mHud.addActor(mTimeLabel);
+        mHud.addActor(mScoreLabel);
         mHud.addActor(mSpeedLabel);
-        mHud.setHeight(mTimeLabel.getHeight());
+        mHud.setHeight(mScoreLabel.getHeight());
 
         if (RaceGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
             mDebugLabel = new Label("D", skin, "small");
@@ -93,8 +92,6 @@ public class RaceGameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        mTime += delta;
-
         mGameWorldPerformanceCounter.start();
         mGameWorld.act(delta);
         mGameWorldPerformanceCounter.stop();
@@ -125,9 +122,8 @@ public class RaceGameScreen extends ScreenAdapter {
 
     private static StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
-        String text = StringUtils.formatRaceTime(mTime);
-        mTimeLabel.setText(text);
-        mTimeLabel.setPosition(5, 0);
+        mScoreLabel.setText(String.format("%06d", mGameWorld.getScore()));
+        mScoreLabel.setPosition(5, 0);
 
         mSpeedLabel.setText(StringUtils.formatSpeed(mVehicle.getSpeed()));
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);

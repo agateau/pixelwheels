@@ -44,6 +44,7 @@ public class GameWorld implements ContactListener {
     private Vector2[] mSkidmarks = new Vector2[4000];
     private int mSkidmarksIndex = 0;
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
+    private float mScore = 0;
 
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
@@ -87,6 +88,10 @@ public class GameWorld implements ContactListener {
         return mVehicle;
     }
 
+    public int getScore() {
+        return (int)mScore;
+    }
+
     public Vector2[] getSkidmarks() {
         return mSkidmarks;
     }
@@ -109,6 +114,8 @@ public class GameWorld implements ContactListener {
     }
 
     public void act(float delta) {
+        float oldY = mVehicle.getY();
+
         mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -119,6 +126,11 @@ public class GameWorld implements ContactListener {
             mTimeAccumulator -= TIME_STEP;
         }
         mBox2DPerformanceCounter.stop();
+
+        float deltaY = mVehicle.getY() - oldY;
+        if (delta > 0) {
+            mScore += deltaY * Constants.SCORE_PER_METER;
+        }
 
         mGameObjectPerformanceCounter.start();
         // FIXME: Use SnapshotArray if game objects ever gain access to removing items from mActiveGameObjects

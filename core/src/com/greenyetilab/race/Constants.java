@@ -13,4 +13,5 @@ public class Constants {
 
     public static final int Z_COUNT = Z_FLYING + 1;
     static final float VIEWPORT_WIDTH = 60;
+    public static final float SCORE_PER_METER = 1;
 }
