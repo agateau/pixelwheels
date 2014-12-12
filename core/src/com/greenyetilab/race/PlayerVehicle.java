@@ -17,7 +17,6 @@ public class PlayerVehicle extends Vehicle {
         int wheelsOnFatalGround = 0;
         for(WheelInfo info: mWheels) {
             Wheel wheel = info.wheel;
-            wheel.act(dt);
             if (wheel.isOnFatalGround()) {
                 ++wheelsOnFatalGround;
             }

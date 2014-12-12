@@ -158,6 +158,7 @@ class Vehicle implements GameObject {
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
+            info.wheel.act(dt);
         }
         return true;
     }
