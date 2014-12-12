@@ -19,8 +19,8 @@ public class DrawUtils {
         Vector2 center = body.getPosition();
         float x = center.x;
         float y = center.y;
-        sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
         sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+        sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
         sprite.draw(batch);
     }
 
@@ -28,8 +28,8 @@ public class DrawUtils {
         Vector2 center = body.getPosition();
         float x = center.x + SHADOW_OFFSET_X;
         float y = center.y + SHADOW_OFFSET_Y;
-        sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
         sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+        sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
 
         Color old = sprite.getColor();
         sprite.setColor(0, 0, 0, SHADOW_ALPHA);
