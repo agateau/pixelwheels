@@ -36,6 +36,7 @@ public class MapInfo {
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
             creator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
+            creator.addSourceMap(new AtlasTmxMapLoader().load("maps/split_single_single.tmx"));
             mMap = creator.run(20);
         }
         return mMap;
