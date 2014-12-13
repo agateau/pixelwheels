@@ -5,9 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.greenyetilab.utils.log.NLog;
 
 import java.util.Stack;
 
@@ -17,6 +18,7 @@ import java.util.Stack;
 public class RaceGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private MapCreator mMapCreator = new MapCreator();
 
     public Assets getAssets() {
         return mAssets;
@@ -26,6 +28,12 @@ public class RaceGame extends Game {
     public void create() {
         mAssets = new Assets();
         Box2D.init();
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/split_single_single.tmx"));
         showMainMenu();
     }
 
@@ -35,8 +43,8 @@ public class RaceGame extends Game {
     }
 
     public void start() {
-        MapInfo mapInfo = mAssets.mapInfoList.first();
-        Screen screen = new RaceGameScreen(this, mapInfo.getMap());
+        TiledMap map = mMapCreator.run(20);
+        Screen screen = new RaceGameScreen(this, map);
         setScreenAndDispose(screen);
     }
 

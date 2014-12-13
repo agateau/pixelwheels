@@ -15,7 +15,6 @@ public class Assets {
     public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
     public final TextureAtlas atlas;
-    public Array<MapInfo> mapInfoList = new Array<MapInfo>();
 
     /**
      * This structure is used to store scaled pad values for NinePatches. After a NinePatch has
@@ -36,12 +35,6 @@ public class Assets {
         for (int idx = 1; idx <= 6; ++idx) {
             String name = String.format("car/car%d", idx);
             this.cars.add(this.atlas.findRegion(name));
-        }
-
-        for (String name: new String[]{
-                "santa.tmx",
-        }) {
-            mapInfoList.add(new MapInfo(name));
         }
     }
 
