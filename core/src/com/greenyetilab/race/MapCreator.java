@@ -3,12 +3,14 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.log.NLog;
@@ -196,6 +198,11 @@ public class MapCreator {
             if (srcObject instanceof RectangleMapObject) {
                 Rectangle rect = ((RectangleMapObject) srcObject).getRectangle();
                 dstObject = new RectangleMapObject(startX + rect.x, startY + rect.y, rect.width, rect.height);
+            } else if (srcObject instanceof PolygonMapObject) {
+                Polygon srcPolygon = ((PolygonMapObject) srcObject).getPolygon();
+                Polygon dstPolygon = new Polygon(srcPolygon.getTransformedVertices());
+                dstPolygon.translate(startX, startY);
+                dstObject = new PolygonMapObject(dstPolygon.getTransformedVertices());
             } else {
                 NLog.e("Map objects of type %s are not supported yet", srcObject.getClass());
             }

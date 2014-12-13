@@ -192,4 +192,11 @@
    eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAW4ALXaGwA2AAAL
   </data>
  </layer>
+ <objectgroup name="Directions" visible="0">
+  <object x="0" y="0" width="1536" height="1536">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

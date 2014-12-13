@@ -180,7 +180,7 @@
    eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object name="forest" x="64" y="64" width="256" height="448"/>
   <object name="forest" x="1152" y="1152" width="320" height="320"/>
   <object name="house" x="640" y="128" width="128" height="128"/>
@@ -188,7 +188,7 @@
   <object name="house" x="1088" y="832" width="128" height="128"/>
   <object name="car" x="576" y="1408" width="64" height="64">
    <properties>
-    <property name="angle" value="60"/>
+    <property name="angle" value="90"/>
    </properties>
   </object>
  </objectgroup>
@@ -197,4 +197,34 @@
    eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAWkAHLaIAA1nAAL
   </data>
  </layer>
+ <objectgroup name="Directions">
+  <object x="896" y="0" width="576" height="256">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="448" y="896" width="576" height="640">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="1024" y="768">
+   <properties>
+    <property name="direction" value="45"/>
+   </properties>
+   <polygon points="0,0 448,0 448,-192 -128,-384 -576,-384 -576,-192"/>
+  </object>
+  <object x="1024" y="896">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+   <polygon points="0,0 0,-128 -576,-320 -576,0"/>
+  </object>
+  <object x="1472" y="576">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+   <polygon points="0,0 0,-320 -576,-320 -576,-192"/>
+  </object>
+ </objectgroup>
 </map>

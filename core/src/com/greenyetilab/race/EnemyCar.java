@@ -2,7 +2,6 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
@@ -60,38 +59,22 @@ public class EnemyCar extends Vehicle implements Collidable {
         return true;
     }
 
-    private final Vector2 mTmpPos = new Vector2();
-    private static final float FORWARD_ANGLE = 20;
-    private static final float FORWARD_TIME = 0.5f;
     private void drive() {
         setAccelerating(true);
-        setDirection(0);
 
-        moveTmpPos(0);
-        float front = mGameWorld.getMaxSpeedAt(mTmpPos);
-        if (front == 1.0f) {
+        float directionAngle = mGameWorld.getDirectionAt(getX(), getY());
+        float angle = getAngle();
+        float delta = Math.abs(angle - directionAngle);
+        if (delta < 2) {
+            setDirection(0);
             return;
         }
-
-        moveTmpPos(FORWARD_ANGLE);
-        float left = mGameWorld.getMaxSpeedAt(mTmpPos);
-
-        moveTmpPos(-FORWARD_ANGLE);
-        float right = mGameWorld.getMaxSpeedAt(mTmpPos);
-
-        if (left > right) {
-            setDirection(0.5f);
+        float correctionIntensity = Math.min(1, delta / 45f);
+        if (directionAngle > angle) {
+            setDirection(correctionIntensity);
         } else {
-            setDirection(-0.5f);
+            setDirection(-correctionIntensity);
         }
-    }
-
-    private void moveTmpPos(float deltaAngle) {
-        Vector2 vel = mBody.getLinearVelocity();
-        float length = vel.len() * FORWARD_TIME;
-        float angle = vel.angle() + deltaAngle;
-        Vector2 pos = mBody.getWorldCenter();
-        mTmpPos.set(pos.x + length * MathUtils.cosDeg(angle), pos.y + length * MathUtils.sinDeg(angle));
     }
 
     private static TextureRegion selectCarTextureRegion(Assets assets) {
