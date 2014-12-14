@@ -2,7 +2,6 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,14 +20,15 @@ public class Mine implements GameObject, Collidable {
     private Animation mAnimation;
     private Body mBody;
 
-    private float mTime = 0;
-    private boolean mExploded = false;
+    private float mTime;
+    private boolean mExploded;
 
     public void init(GameWorld gameWorld, Assets assets, float originX, float originY) {
         if (mAnimation == null) {
             firstInit(assets);
         }
         mTime = 0;
+        mExploded = false;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -82,5 +82,4 @@ public class Mine implements GameObject, Collidable {
     public void endContact(Contact contact, Fixture otherFixture) {
 
     }
-
 }
