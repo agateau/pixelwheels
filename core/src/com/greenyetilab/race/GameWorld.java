@@ -73,6 +73,10 @@ public class GameWorld implements ContactListener {
         setupSled();
         setupOutsideWalls();
         setupObjects();
+
+        Mine mine = new Mine();
+        mine.init(this, game.getAssets(), mTileHeight * 10, mTileWidth * 10);
+        addGameObject(mine);
     }
 
     private float[] computeMaxSpeedForTileId() {

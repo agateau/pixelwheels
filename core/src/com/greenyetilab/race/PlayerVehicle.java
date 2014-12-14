@@ -34,9 +34,14 @@ public class PlayerVehicle extends Vehicle implements Collidable {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        EnemyCar enemy = (EnemyCar)otherFixture.getBody().getUserData();
-        if (enemy != null && enemy.isAlive()) {
-            mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
+        Object other = otherFixture.getBody().getUserData();
+        if (other instanceof EnemyCar) {
+            if (((EnemyCar) other).isAlive()) {
+                mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
+            }
+        }
+        if (other instanceof Mine) {
+            mGameWorld.setState(GameWorld.State.BROKEN);
         }
     }
 
