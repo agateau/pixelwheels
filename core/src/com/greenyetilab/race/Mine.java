@@ -18,15 +18,13 @@ public class Mine implements GameObject, Collidable {
     private static final float FRAME_DURATION = 0.2f;
     private static final float MINE_RADIUS = 0.8f;
 
-    private GameWorld mGameWorld;
     private Animation mAnimation;
     private Body mBody;
 
     private float mTime = 0;
     private boolean mExploded = false;
 
-    public void init(GameWorld world, Assets assets, float originX, float originY) {
-        mGameWorld = world;
+    public void init(GameWorld gameWorld, Assets assets, float originX, float originY) {
         if (mAnimation == null) {
             firstInit(assets);
         }
@@ -35,7 +33,7 @@ public class Mine implements GameObject, Collidable {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(originX, originY);
-        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
+        mBody = gameWorld.getBox2DWorld().createBody(bodyDef);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(MINE_RADIUS);
@@ -55,6 +53,9 @@ public class Mine implements GameObject, Collidable {
     @Override
     public boolean act(float delta) {
         mTime += delta;
+        if (mExploded) {
+            mBody.getWorld().destroyBody(mBody);
+        }
         return !mExploded;
     }
 
