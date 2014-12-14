@@ -251,6 +251,8 @@ class Vehicle implements GameObject {
 
     protected void kill() {
         mDead = true;
+        mSprite.setColor(0.5f, 0.5f, 0.5f, 1);
+
     }
 
     public boolean isDead() {
