@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -28,7 +26,7 @@ public class GameRenderer {
     }
     private DebugConfig mDebugConfig = new DebugConfig();
 
-    private final TiledMap mMap;
+    private final MapInfo mMapInfo;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
     private final Batch mBatch;
@@ -49,18 +47,15 @@ public class GameRenderer {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
-        mMap = mWorld.getMap();
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
-        mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+        mMapInfo = mWorld.getMapInfo();
+        mMapWidth = mMapInfo.getMapWidth();
+        mMapHeight = mMapInfo.getMapHeight();
 
-        if (mMap.getLayers().get("Walls") != null) {
-            mForegroundLayerIndexes = new int[]{ 1 };
-        }
+        mForegroundLayerIndexes = new int[]{ 1 };
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
-        mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
+        mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mVehicle = mWorld.getVehicle();
 
@@ -105,9 +100,8 @@ public class GameRenderer {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (mDebugConfig.drawTileCorners) {
                 mShapeRenderer.setColor(1, 1, 1, 1);
-                TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-                float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-                float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+                float tileW = mMapInfo.getTileWidth();
+                float tileH = mMapInfo.getTileHeight();
                 for (float y = 0; y < mMapHeight; y += tileH) {
                     for (float x = 0; x < mMapWidth; x += tileW) {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);

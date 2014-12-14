@@ -32,7 +32,6 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int POSITION_ITERATIONS = 2;
 
     private final MapInfo mMapInfo;
-    private final TiledMap mMap;
 
     private final World mBox2DWorld;
     private final RaceGame mGame;
@@ -54,7 +53,6 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
-        mMap = mapInfo.getMap();
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
@@ -65,10 +63,6 @@ public class GameWorld implements ContactListener, Disposable {
         Mine mine = new Mine();
         mine.init(this, game.getAssets(), mMapInfo.getTileWidth() * 10, mMapInfo.getTileHeight() * 10);
         addGameObject(mine);
-    }
-
-    public TiledMap getMap() {
-        return mMap;
     }
 
     public MapInfo getMapInfo() {
@@ -192,7 +186,7 @@ public class GameWorld implements ContactListener, Disposable {
     private void setupObjects() {
         MapLayer obstacleLayer = mMapInfo.getObstaclesLayer();
         TiledMapTileLayer wallsLayer = mMapInfo.getWallsLayer();
-        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets(), mMap.getTileSets(), wallsLayer);
+        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets(), mMapInfo.getMap().getTileSets(), wallsLayer);
         for (MapObject object : obstacleLayer.getObjects()) {
             creator.create(object);
         }
