@@ -20,6 +20,8 @@ public class MapInfo implements Disposable {
     private final float[] mMaxSpeedForTileId;
     private final TiledMapTileLayer mGroundLayer;
     private final MapLayer mDirectionsLayer;
+    private final MapLayer mObstaclesLayer;
+    private final TiledMapTileLayer mWallsLayer;
     private final float mTileWidth;
     private final float mTileHeight;
 
@@ -27,8 +29,13 @@ public class MapInfo implements Disposable {
         mMap = map;
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
 
+        mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
         mDirectionsLayer = mMap.getLayers().get("Directions");
-        mGroundLayer = (TiledMapTileLayer) mMap.getLayers().get(0);
+        assert mDirectionsLayer != null;
+        mObstaclesLayer = mMap.getLayers().get("Obstacles");
+        assert mObstaclesLayer != null;
+        mWallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
+
         mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
     }
@@ -43,6 +50,18 @@ public class MapInfo implements Disposable {
 
     public float getTileHeight() {
         return mTileHeight;
+    }
+
+    public MapLayer getDirectionsLayer() {
+        return mDirectionsLayer;
+    }
+
+    public MapLayer getObstaclesLayer() {
+        return mObstaclesLayer;
+    }
+
+    public TiledMapTileLayer getWallsLayer() {
+        return mWallsLayer;
     }
 
     private float[] computeMaxSpeedForTileId() {
@@ -98,11 +117,6 @@ public class MapInfo implements Disposable {
         }
         return 90;
     }
-
-    public MapLayer getDirectionsLayer() {
-        return mDirectionsLayer;
-    }
-
     @Override
     public void dispose() {
         mMap.dispose();

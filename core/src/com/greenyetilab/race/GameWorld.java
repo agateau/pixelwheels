@@ -205,16 +205,8 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupObjects() {
-        MapLayer obstacleLayer = mMap.getLayers().get("Obstacles");
-        if (obstacleLayer == null) {
-            NLog.e("No Obstacles layer");
-            return;
-        }
-        TiledMapTileLayer wallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
-        if (wallsLayer == null) {
-            NLog.e("No Walls layer");
-            return;
-        }
+        MapLayer obstacleLayer = mMapInfo.getObstaclesLayer();
+        TiledMapTileLayer wallsLayer = mMapInfo.getWallsLayer();
         ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets(), mMap.getTileSets(), wallsLayer);
         for (MapObject object : obstacleLayer.getObjects()) {
             creator.create(object);
