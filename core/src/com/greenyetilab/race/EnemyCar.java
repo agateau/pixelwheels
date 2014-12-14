@@ -62,7 +62,7 @@ public class EnemyCar extends Vehicle implements Collidable {
     private void drive() {
         setAccelerating(true);
 
-        float directionAngle = mGameWorld.getDirectionAt(getX(), getY());
+        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(getX(), getY());
         float angle = getAngle();
         float delta = Math.abs(angle - directionAngle);
         if (delta < 2) {

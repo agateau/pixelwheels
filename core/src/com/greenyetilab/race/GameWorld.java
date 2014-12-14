@@ -3,8 +3,6 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -35,7 +33,6 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final MapInfo mMapInfo;
     private final TiledMap mMap;
-    private final MapLayer mDirectionsLayer;
 
     private final World mBox2DWorld;
     private final RaceGame mGame;
@@ -58,7 +55,6 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
         mMap = mapInfo.getMap();
-        mDirectionsLayer = mMap.getLayers().get("Directions");
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
@@ -98,14 +94,6 @@ public class GameWorld implements ContactListener, Disposable {
 
     public Vector2[] getSkidmarks() {
         return mSkidmarks;
-    }
-
-    public MapLayer getDirectionsLayer() {
-        return mDirectionsLayer;
-    }
-
-    public MapInfo getMapInfo() {
-        return mMapInfo;
     }
 
     public Array<GameObject> getActiveGameObjects() {
@@ -231,23 +219,6 @@ public class GameWorld implements ContactListener, Disposable {
         for (MapObject object : obstacleLayer.getObjects()) {
             creator.create(object);
         }
-    }
-
-    public float getDirectionAt(float x, float y) {
-        x /= Constants.UNIT_FOR_PIXEL;
-        y /= Constants.UNIT_FOR_PIXEL;
-        for (MapObject object : mDirectionsLayer.getObjects()) {
-            if (object instanceof RectangleMapObject) {
-                if (((RectangleMapObject)object).getRectangle().contains(x, y)) {
-                    return MapUtils.getFloatProperty(object.getProperties(), "direction", 90);
-                }
-            } else if (object instanceof PolygonMapObject) {
-                if (((PolygonMapObject)object).getPolygon().contains(x, y)) {
-                    return MapUtils.getFloatProperty(object.getProperties(), "direction", 90);
-                }
-            }
-        }
-        return 90;
     }
 
     public void addSkidmarkAt(Vector2 position) {

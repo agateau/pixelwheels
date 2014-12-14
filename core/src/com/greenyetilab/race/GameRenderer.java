@@ -122,7 +122,7 @@ public class GameRenderer {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.setColor(1, 0, 0, 1);
             final float U = Constants.UNIT_FOR_PIXEL;
-            for (MapObject object : mWorld.getDirectionsLayer().getObjects()) {
+            for (MapObject object : mWorld.getMapInfo().getDirectionsLayer().getObjects()) {
                 if (object instanceof PolygonMapObject) {
                     float[] vertices = ((PolygonMapObject)object).getPolygon().getTransformedVertices();
                     for (int idx = 2; idx < vertices.length; idx += 2) {
