@@ -1,6 +1,7 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,10 +12,13 @@ import com.badlogic.gdx.utils.Array;
  * Stores all assets
  */
 public class Assets {
+    private static final float EXPLOSION_FRAME_DURATION = 0.1f;
+
     public final Skin skin;
     public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
     public final TextureAtlas atlas;
+    public final Animation explosion;
 
     /**
      * This structure is used to store scaled pad values for NinePatches. After a NinePatch has
@@ -36,6 +40,7 @@ public class Assets {
             String name = String.format("car/car%d", idx);
             this.cars.add(this.atlas.findRegion(name));
         }
+        this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
     }
 
     public NinePatch createScaledPatch(String name) {

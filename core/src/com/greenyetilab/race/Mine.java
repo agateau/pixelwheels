@@ -17,16 +17,20 @@ public class Mine implements GameObject, Collidable {
     private static final float FRAME_DURATION = 0.2f;
     private static final float MINE_RADIUS = 0.8f;
 
+    private GameWorld mGameWorld;
     private Animation mAnimation;
     private Body mBody;
 
     private float mTime;
     private boolean mExploded;
+    private Assets mAssets;
 
     public void init(GameWorld gameWorld, Assets assets, float originX, float originY) {
         if (mAnimation == null) {
             firstInit(assets);
         }
+        mGameWorld = gameWorld;
+        mAssets = assets;
         mTime = 0;
         mExploded = false;
 
@@ -75,6 +79,8 @@ public class Mine implements GameObject, Collidable {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Vehicle) {
             mExploded = true;
+            Vector2 pos = mBody.getPosition();
+            mGameWorld.addGameObject(Explosion.create(mAssets, pos.x, pos.y));
         }
     }
 
