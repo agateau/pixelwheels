@@ -97,7 +97,7 @@ public class Wheel {
     }
 
     private void checkCollisions() {
-        float maxSpeed = mGameWorld.getMaxSpeedAt(mBody.getWorldCenter());
+        float maxSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
         mOnFatalGround = maxSpeed == 0f;
         if (maxSpeed < 1f) {
             Box2DUtils.applyDrag(mBody, (1 - maxSpeed) * DRAG_FACTOR * 4);

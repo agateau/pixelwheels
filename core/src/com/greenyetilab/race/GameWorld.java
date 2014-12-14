@@ -6,10 +6,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -38,11 +35,7 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final MapInfo mMapInfo;
     private final TiledMap mMap;
-    private final float[] mMaxSpeedForTileId;
-    private final TiledMapTileLayer mGroundLayer;
     private final MapLayer mDirectionsLayer;
-    private final float mTileWidth;
-    private final float mTileHeight;
 
     private final World mBox2DWorld;
     private final RaceGame mGame;
@@ -65,11 +58,7 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
         mMap = mapInfo.getMap();
-        mMaxSpeedForTileId = computeMaxSpeedForTileId();
-        mGroundLayer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mDirectionsLayer = mMap.getLayers().get("Directions");
-        mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
-        mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
@@ -78,26 +67,16 @@ public class GameWorld implements ContactListener, Disposable {
         setupObjects();
 
         Mine mine = new Mine();
-        mine.init(this, game.getAssets(), mTileHeight * 10, mTileWidth * 10);
+        mine.init(this, game.getAssets(), mMapInfo.getTileWidth() * 10, mMapInfo.getTileHeight() * 10);
         addGameObject(mine);
-    }
-
-    private float[] computeMaxSpeedForTileId() {
-        TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
-        int maxId = 0;
-        for (TiledMapTile tile : tileSet) {
-            maxId = Math.max(maxId, tile.getId());
-        }
-        float[] array = new float[maxId + 1];
-        for (int id = 0; id < array.length; ++id) {
-            TiledMapTile tile = tileSet.getTile(id);
-            array[id] = tile == null ? 1f : MapUtils.getFloatProperty(tile.getProperties(), "max_speed", 1f);
-        }
-        return array;
     }
 
     public TiledMap getMap() {
         return mMap;
+    }
+
+    public MapInfo getMapInfo() {
+        return mMapInfo;
     }
 
     public World getBox2DWorld() {
@@ -123,6 +102,10 @@ public class GameWorld implements ContactListener, Disposable {
 
     public MapLayer getDirectionsLayer() {
         return mDirectionsLayer;
+    }
+
+    public MapInfo getMapInfo() {
+        return mMapInfo;
     }
 
     public Array<GameObject> getActiveGameObjects() {
@@ -248,29 +231,6 @@ public class GameWorld implements ContactListener, Disposable {
         for (MapObject object : obstacleLayer.getObjects()) {
             creator.create(object);
         }
-    }
-
-    public TiledMapTile getTileAt(Vector2 pos) {
-        return  getTileAt(pos.x, pos.y);
-    }
-
-    public TiledMapTile getTileAt(float x, float y) {
-        int tx = MathUtils.floor(x / mTileWidth);
-        int ty = MathUtils.floor(y / mTileHeight);
-        TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
-        return cell == null ? null : cell.getTile();
-    }
-
-    public float getMaxSpeedAt(Vector2 pos) {
-        return getMaxSpeedAt(pos.x, pos.y);
-    }
-
-    public float getMaxSpeedAt(float x, float y) {
-        TiledMapTile tile = getTileAt(x, y);
-        if (tile == null) {
-            return 1.0f;
-        }
-        return mMaxSpeedForTileId[tile.getId()];
     }
 
     public float getDirectionAt(float x, float y) {
