@@ -52,6 +52,10 @@ public class MapInfo implements Disposable {
         return mTileHeight;
     }
 
+    public TiledMapTileLayer getGroundLayer() {
+        return mGroundLayer;
+    }
+
     public MapLayer getDirectionsLayer() {
         return mDirectionsLayer;
     }

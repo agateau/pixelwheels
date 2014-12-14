@@ -190,9 +190,9 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupOutsideWalls() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        float mapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
-        float mapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+        TiledMapTileLayer layer = mMapInfo.getGroundLayer();
+        float mapWidth = layer.getWidth() * mMapInfo.getTileWidth();
+        float mapHeight = layer.getHeight() * mMapInfo.getTileHeight();
         float wallSize = 1;
         // bottom
         Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
