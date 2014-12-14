@@ -38,6 +38,8 @@ class Vehicle implements GameObject {
     private boolean mBraking = false;
     private float mDirection = 0;
 
+    private boolean mDead = false;
+
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         this(region, gameWorld, startPosition.x, startPosition.y);
     }
@@ -153,14 +155,29 @@ class Vehicle implements GameObject {
         }
 
         steerAngle *= MathUtils.degreesToRadians;
-        for(WheelInfo info: mWheels) {
+        for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
         }
+
+        checkGroundCollisions();
         return true;
+    }
+
+    private void checkGroundCollisions() {
+        int wheelsOnFatalGround = 0;
+        for(WheelInfo info: mWheels) {
+            Wheel wheel = info.wheel;
+            if (wheel.isOnFatalGround()) {
+                ++wheelsOnFatalGround;
+            }
+        }
+        if (wheelsOnFatalGround >= 2) {
+            kill();
+        }
     }
 
     @Override
@@ -230,5 +247,13 @@ class Vehicle implements GameObject {
         }
         float correctedAngle = (targetAngle - velocityAngle) / 3;
         return reverse ? -correctedAngle : correctedAngle;
+    }
+
+    protected void kill() {
+        mDead = true;
+    }
+
+    public boolean isDead() {
+        return mDead;
     }
 }

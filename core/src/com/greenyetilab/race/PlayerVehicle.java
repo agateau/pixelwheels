@@ -16,17 +16,7 @@ public class PlayerVehicle extends Vehicle implements Collidable {
     @Override
     public boolean act(float dt) {
         super.act(dt);
-        int wheelsOnFatalGround = 0;
-        for(WheelInfo info: mWheels) {
-            Wheel wheel = info.wheel;
-            if (wheel.isOnFatalGround()) {
-                ++wheelsOnFatalGround;
-            }
-            if (wheel.isOnFinished()) {
-                mGameWorld.setState(GameWorld.State.FINISHED);
-            }
-        }
-        if (wheelsOnFatalGround >= 2) {
+        if (isDead()) {
             mGameWorld.setState(GameWorld.State.BROKEN);
         }
         return true;
@@ -36,7 +26,7 @@ public class PlayerVehicle extends Vehicle implements Collidable {
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof EnemyCar) {
-            if (((EnemyCar) other).isAlive()) {
+            if (!((EnemyCar) other).isDead()) {
                 mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
             }
         }

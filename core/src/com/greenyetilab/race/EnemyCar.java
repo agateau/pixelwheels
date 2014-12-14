@@ -9,8 +9,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  * An enemy car
  */
 public class EnemyCar extends Vehicle implements Collidable {
-    private boolean mHasCollided = false;
-
     public EnemyCar(GameWorld world, Assets assets, float originX, float originY) {
         super(selectCarTextureRegion(assets), world, originX, originY);
 
@@ -48,7 +46,7 @@ public class EnemyCar extends Vehicle implements Collidable {
         super.act(dt);
         boolean isVisible = mGameWorld.isVisible(getX(), getY());
         if (isVisible) {
-            if (mHasCollided) {
+            if (isDead()) {
                 setAccelerating(false);
             } else {
                 drive();
@@ -83,15 +81,14 @@ public class EnemyCar extends Vehicle implements Collidable {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        mHasCollided = true;
+        Object other = otherFixture.getBody().getUserData();
+        if (other instanceof Mine) {
+            kill();
+        }
     }
 
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
 
-    }
-
-    public boolean isAlive() {
-        return !mHasCollided;
     }
 }
