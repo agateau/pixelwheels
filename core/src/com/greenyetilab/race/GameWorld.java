@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.greenyetilab.utils.log.NLog;
@@ -24,7 +25,7 @@ import com.greenyetilab.utils.log.NLog;
 /**
  * Contains all the information and objects running in the world
  */
-public class GameWorld implements ContactListener {
+public class GameWorld implements ContactListener, Disposable {
     public enum State {
         RUNNING,
         BROKEN,
@@ -35,6 +36,7 @@ public class GameWorld implements ContactListener {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
 
+    private final MapInfo mMapInfo;
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
     private final TiledMapTileLayer mGroundLayer;
@@ -57,11 +59,12 @@ public class GameWorld implements ContactListener {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(RaceGame game, TiledMap map, PerformanceCounters performanceCounters) {
+    public GameWorld(RaceGame game, MapInfo mapInfo, PerformanceCounters performanceCounters) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mMap = map;
+        mMapInfo = mapInfo;
+        mMap = mapInfo.getMap();
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         mGroundLayer = (TiledMapTileLayer) mMap.getLayers().get(0);
         mDirectionsLayer = mMap.getLayers().get("Directions");
@@ -339,4 +342,10 @@ public class GameWorld implements ContactListener {
     public void setState(State state) {
         mState = state;
     }
+
+    @Override
+    public void dispose() {
+        mMapInfo.dispose();
+    }
+
 }

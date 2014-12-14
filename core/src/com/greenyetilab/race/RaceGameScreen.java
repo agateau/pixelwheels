@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -40,20 +41,20 @@ public class RaceGameScreen extends ScreenAdapter {
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
 
-    public RaceGameScreen(RaceGame game, TiledMap map) {
+    public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, map, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, mPerformanceCounters);
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         mGameRenderer = new GameRenderer(mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
         mVehicle = mGameWorld.getVehicle();
         setupHud();
-        //if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
-            //mInputHandler = new AccelerometerInputHandler();
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+        /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+            mInputHandler = new AccelerometerInputHandler();
+        } else*/ if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
             mInputHandler = new TouchInputHandler();
         } else {
             mInputHandler = new KeyboardInputHandler();
@@ -163,5 +164,11 @@ public class RaceGameScreen extends ScreenAdapter {
         mVehicle.setDirection(mInput.direction);
         mVehicle.setAccelerating(mInput.accelerating);
         mVehicle.setBraking(mInput.braking);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        mGameWorld.dispose();
     }
 }

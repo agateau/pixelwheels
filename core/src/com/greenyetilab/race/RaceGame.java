@@ -44,7 +44,8 @@ public class RaceGame extends Game {
 
     public void start() {
         TiledMap map = mMapCreator.run(20);
-        Screen screen = new RaceGameScreen(this, map);
+        MapInfo mapInfo = new MapInfo(map);
+        Screen screen = new RaceGameScreen(this, mapInfo);
         setScreenAndDispose(screen);
     }
 
