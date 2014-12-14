@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.IntArray;
 
 /**
  * The map of the current game
@@ -18,6 +19,7 @@ import com.badlogic.gdx.utils.Disposable;
 public class MapInfo implements Disposable {
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
+    private final IntArray mRoadTileIds;
     private final TiledMapTileLayer mGroundLayer;
     private final MapLayer mDirectionsLayer;
     private final MapLayer mObstaclesLayer;
@@ -28,6 +30,7 @@ public class MapInfo implements Disposable {
     public MapInfo(TiledMap map) {
         mMap = map;
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
+        mRoadTileIds = findRoadTileIds();
 
         mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
         mDirectionsLayer = mMap.getLayers().get("Directions");
@@ -60,6 +63,14 @@ public class MapInfo implements Disposable {
         return mTileHeight * mGroundLayer.getHeight();
     }
 
+    public int getMapTWidth() {
+        return mGroundLayer.getWidth();
+    }
+
+    public int getMapTHeight() {
+        return  mGroundLayer.getHeight();
+    }
+
     public TiledMapTileLayer getGroundLayer() {
         return mGroundLayer;
     }
@@ -86,6 +97,17 @@ public class MapInfo implements Disposable {
         for (int id = 0; id < array.length; ++id) {
             TiledMapTile tile = tileSet.getTile(id);
             array[id] = tile == null ? 1f : MapUtils.getFloatProperty(tile.getProperties(), "max_speed", 1f);
+        }
+        return array;
+    }
+
+    private IntArray findRoadTileIds() {
+        IntArray array = new IntArray();
+        TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
+        for (TiledMapTile tile : tileSet) {
+            if (MapUtils.getBooleanProperty(tile.getProperties(), "is_road", false)) {
+                array.add(tile.getId());
+            }
         }
         return array;
     }
@@ -144,5 +166,9 @@ public class MapInfo implements Disposable {
             }
         }
         return new Vector2(tx * mTileWidth + mTileWidth / 2, mTileHeight);
+    }
+
+    public boolean isRoadTile(int tileId) {
+        return mRoadTileIds.indexOf(tileId) != -1;
     }
 }

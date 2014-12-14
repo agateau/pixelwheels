@@ -2,6 +2,21 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
+  <tile id="0">
+   <properties>
+    <property name="is_road" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="is_road" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="is_road" value="true"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="max_speed" value="0.75"/>
@@ -10,10 +25,12 @@
   <tile id="4">
    <properties>
     <property name="finish" value="true"/>
+    <property name="is_road" value="true"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
+    <property name="is_road" value="true"/>
     <property name="start" value="true"/>
    </properties>
   </tile>
@@ -58,6 +75,9 @@
    </properties>
   </tile>
   <tile id="16">
+   <properties>
+    <property name="is_road" value="true"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
    </objectgroup>

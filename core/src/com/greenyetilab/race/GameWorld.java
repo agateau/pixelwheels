@@ -3,7 +3,6 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -35,6 +34,7 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final World mBox2DWorld;
     private final RaceGame mGame;
+    private final EnemySpawner mEnemySpawner;
     private float mTimeAccumulator = 0;
 
     private PlayerVehicle mVehicle;
@@ -53,16 +53,13 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
+        mEnemySpawner = new EnemySpawner(this, game.getAssets());
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupSled();
         setupOutsideWalls();
         setupObjects();
-
-        Mine mine = new Mine();
-        mine.init(this, game.getAssets(), mMapInfo.getTileWidth() * 10, mMapInfo.getTileHeight() * 10);
-        addGameObject(mine);
     }
 
     public MapInfo getMapInfo() {
@@ -120,6 +117,7 @@ public class GameWorld implements ContactListener, Disposable {
         float deltaY = mVehicle.getY() - oldY;
         if (delta > 0) {
             mScore += deltaY * Constants.SCORE_PER_METER;
+            mEnemySpawner.setTopY(mVehicle.getY() + Constants.VIEWPORT_WIDTH);
         }
 
         mGameObjectPerformanceCounter.start();
