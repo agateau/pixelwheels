@@ -312,6 +312,12 @@ public class MapPacker {
         }
         }
 
+        NLog.i("Clearing output dir");
+        boolean ok = clearOutputDir(outputDir);
+        if (!ok) {
+            System.exit(1);
+        }
+
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.forceExit = false;
         config.width = 100;
@@ -356,5 +362,35 @@ public class MapPacker {
                 Gdx.app.exit();
             }
         }, config);
+    }
+
+    private static boolean clearOutputDir(File dir) {
+        FilenameFilter filter = new FilenameFilter() {
+            private final String[] EXTENSIONS = new String[]{"tmx", "atlas", "png"};
+            @Override
+            public boolean accept(File file, String name) {
+                int dotPos = name.lastIndexOf('.');
+                if (dotPos < 0) {
+                    NLog.i("No extensions in %s", name);
+                    return false;
+                }
+                String extension = name.substring(dotPos + 1);
+                for (String ext : EXTENSIONS) {
+                    if (ext.equals(extension)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+        File[] files = dir.listFiles(filter);
+        for (File file : files) {
+            boolean ok = file.delete();
+            if (!ok) {
+                NLog.e("Failed to delete %s", file.getAbsolutePath());
+                return false;
+            }
+        }
+        return true;
     }
 }

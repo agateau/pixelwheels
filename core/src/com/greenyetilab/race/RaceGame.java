@@ -5,9 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.greenyetilab.utils.log.NLog;
 
 import java.util.Stack;
 
@@ -17,6 +18,7 @@ import java.util.Stack;
 public class RaceGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private MapCreator mMapCreator = new MapCreator();
 
     public Assets getAssets() {
         return mAssets;
@@ -26,6 +28,12 @@ public class RaceGame extends Game {
     public void create() {
         mAssets = new Assets();
         Box2D.init();
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
+        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/split_single_single.tmx"));
         showMainMenu();
     }
 
@@ -34,8 +42,9 @@ public class RaceGame extends Game {
         setScreenAndDispose(screen);
     }
 
-    public void start(MapInfo mapInfo) {
-        NLog.i("mapName=%s", mapInfo.getTitle());
+    public void start() {
+        TiledMap map = mMapCreator.run(20);
+        MapInfo mapInfo = new MapInfo(map);
         Screen screen = new RaceGameScreen(this, mapInfo);
         setScreenAndDispose(screen);
     }
@@ -47,28 +56,13 @@ public class RaceGame extends Game {
         pushScreen(screen);
     }
 
-    public void showGameOverOverlay(MapInfo mapInfo) {
-        showOverlay(mapInfo, "Game Over");
+    public void showGameOverOverlay() {
+        showOverlay("Game Over");
     }
 
-    public void showFinishedOverlay(MapInfo mapInfo, float time) {
-        float best = mapInfo.getBestTime();
-        String text = "Finished in " + StringUtils.formatRaceTime(time);
-        if (best == 0 || time < best) {
-            text += "\n\nNew record!";
-            if (best != 0) {
-                text += "\n\nOld record was " + StringUtils.formatRaceTime(best);
-            }
-            mapInfo.setBestTime(time);
-        } else if (best != 0) {
-            text += "\n\nRecord is " + StringUtils.formatRaceTime(best);
-        }
-        showOverlay(mapInfo, text);
-    }
-
-    private void showOverlay(MapInfo mapInfo, String text) {
+    private void showOverlay(String text) {
         TextureRegion bg = ScreenUtils.getFrameBufferTexture();
-        setScreenAndDispose(new OverlayScreen(this, mapInfo, bg, text));
+        setScreenAndDispose(new OverlayScreen(this, bg, text));
     }
 
     public static Preferences getPreferences() {
@@ -81,9 +75,9 @@ public class RaceGame extends Game {
     }
 
     public void popScreen() {
-        assert(!mScreenStack.isEmpty());
+        assert !mScreenStack.isEmpty();
         mScreenStack.pop().dispose();
-        assert(!mScreenStack.isEmpty());
+        assert !mScreenStack.isEmpty();
         setScreen(mScreenStack.peek());
     }
 }

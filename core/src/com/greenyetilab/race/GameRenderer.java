@@ -4,19 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.PerformanceCounter;
+import com.badlogic.gdx.utils.PerformanceCounters;
 
 /**
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float VIEWPORT_WIDTH = 60;
-
     public static class DebugConfig {
         public boolean enabled = false;
         public boolean drawVelocities = false;
@@ -24,7 +26,7 @@ public class GameRenderer {
     }
     private DebugConfig mDebugConfig = new DebugConfig();
 
-    private final TiledMap mMap;
+    private final MapInfo mMapInfo;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
     private final Batch mBatch;
@@ -38,24 +40,27 @@ public class GameRenderer {
     private int[] mForegroundLayerIndexes;
     private Vehicle mVehicle;
 
-    public GameRenderer(GameWorld world, Batch batch) {
+    private PerformanceCounter mTilePerformanceCounter;
+    private PerformanceCounter mGameObjectPerformanceCounter;
+
+    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
-        mMap = mWorld.getMap();
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-        mMapWidth = Constants.UNIT_FOR_PIXEL * layer.getWidth() * layer.getTileWidth();
-        mMapHeight = Constants.UNIT_FOR_PIXEL * layer.getHeight() * layer.getTileHeight();
+        mMapInfo = mWorld.getMapInfo();
+        mMapWidth = mMapInfo.getMapWidth();
+        mMapHeight = mMapInfo.getMapHeight();
 
-        if (mMap.getLayers().get("Walls") != null) {
-            mForegroundLayerIndexes = new int[]{ 1 };
-        }
+        mForegroundLayerIndexes = new int[]{ 1 };
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
-        mRenderer = new OrthogonalTiledMapRenderer(mMap, Constants.UNIT_FOR_PIXEL, mBatch);
+        mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mVehicle = mWorld.getVehicle();
+
+        mTilePerformanceCounter = counters.add("- tiles");
+        mGameObjectPerformanceCounter = counters.add("- g.o.");
     }
 
     public void setDebugConfig(DebugConfig config) {
@@ -66,36 +71,37 @@ public class GameRenderer {
     public void render() {
         updateCamera();
 
+        mTilePerformanceCounter.start();
         mRenderer.setView(mCamera);
         mRenderer.render(mBackgroundLayerIndexes);
+        mTilePerformanceCounter.stop();
 
         renderSkidmarks();
 
+        mGameObjectPerformanceCounter.start();
         mBatch.setProjectionMatrix(mCamera.combined);
-        mBatch.begin();
-        mVehicle.draw(mBatch);
-        mBatch.end();
-
-        if (mForegroundLayerIndexes != null) {
-            mRenderer.render(mForegroundLayerIndexes);
-        }
-
         mBatch.begin();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z);
             }
+
+            if (z == Constants.Z_OBSTACLES && mForegroundLayerIndexes != null) {
+                mBatch.end();
+                mRenderer.render(mForegroundLayerIndexes);
+                mBatch.begin();
+            }
         }
         mBatch.end();
+        mGameObjectPerformanceCounter.stop();
 
         if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (mDebugConfig.drawTileCorners) {
                 mShapeRenderer.setColor(1, 1, 1, 1);
-                TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get(0);
-                float tileW = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-                float tileH = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
+                float tileW = mMapInfo.getTileWidth();
+                float tileH = mMapInfo.getTileHeight();
                 for (float y = 0; y < mMapHeight; y += tileH) {
                     for (float x = 0; x < mMapWidth; x += tileW) {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
@@ -104,6 +110,23 @@ public class GameRenderer {
             }
             mShapeRenderer.setColor(0, 0, 1, 1);
             mShapeRenderer.rect(mVehicle.getX(), mVehicle.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+            mShapeRenderer.end();
+
+            mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            mShapeRenderer.setProjectionMatrix(mCamera.combined);
+            mShapeRenderer.setColor(1, 0, 0, 1);
+            final float U = Constants.UNIT_FOR_PIXEL;
+            for (MapObject object : mWorld.getMapInfo().getDirectionsLayer().getObjects()) {
+                if (object instanceof PolygonMapObject) {
+                    float[] vertices = ((PolygonMapObject)object).getPolygon().getTransformedVertices();
+                    for (int idx = 2; idx < vertices.length; idx += 2) {
+                        mShapeRenderer.line(vertices[idx - 2] * U, vertices[idx - 1] * U, vertices[idx] * U, vertices[idx + 1] * U);
+                    }
+                } else if (object instanceof RectangleMapObject) {
+                    Rectangle rect = ((RectangleMapObject)object).getRectangle();
+                    mShapeRenderer.rect(rect.x * U, rect.y * U, rect.width * U, rect.height * U);
+                }
+            }
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
@@ -125,8 +148,8 @@ public class GameRenderer {
     private void updateCamera() {
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
-        mCamera.viewportWidth = VIEWPORT_WIDTH;
-        mCamera.viewportHeight = VIEWPORT_WIDTH * screenH / screenW;
+        mCamera.viewportWidth = Constants.VIEWPORT_WIDTH;
+        mCamera.viewportHeight = Constants.VIEWPORT_WIDTH * screenH / screenW;
 
         // Compute pos
         // FIXME: Take car speed into account when computing advance

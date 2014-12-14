@@ -18,7 +18,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class OverlayScreen extends StageScreen {
     private final RaceGame mGame;
 
-    public OverlayScreen(RaceGame game, final MapInfo mapInfo, TextureRegion bg, String text) {
+    public OverlayScreen(RaceGame game, TextureRegion bg, String text) {
         mGame = game;
 
         Image image = new Image(bg);
@@ -32,7 +32,7 @@ public class OverlayScreen extends StageScreen {
         TextButton tryAgainButton = createButton("Try Again", new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.start(mapInfo);
+                mGame.start();
             }
         });
         TextButton menuButton = createButton("Menu", new ClickListener() {

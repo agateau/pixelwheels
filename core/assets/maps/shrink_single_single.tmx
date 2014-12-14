@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="120" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
+  <tile id="3">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
   <tile id="4">
    <properties>
     <property name="finish" value="true"/>
@@ -12,6 +17,46 @@
     <property name="start" value="true"/>
    </properties>
   </tile>
+  <tile id="6">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="max_speed" value="0"/>
+   </properties>
+  </tile>
   <tile id="16">
    <objectgroup draworder="index">
     <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
@@ -19,7 +64,7 @@
   </tile>
   <tile id="17">
    <properties>
-    <property name="chimney" value="true"/>
+    <property name="max_speed" value="0.75"/>
    </properties>
    <objectgroup draworder="index">
     <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
@@ -68,11 +113,17 @@
    </objectgroup>
   </tile>
   <tile id="24">
+   <properties>
+    <property name="max_speed" value="0.75"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
    </objectgroup>
   </tile>
   <tile id="25">
+   <properties>
+    <property name="max_speed" value="0.5"/>
+   </properties>
    <objectgroup draworder="index">
     <object x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
@@ -170,18 +221,80 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="24" height="120">
+ <layer name="Ground" width="25" height="24">
   <data encoding="base64" compression="zlib">
-   eJztmVuW2yAMhkmcdmpnkmyhS2MpXQpLYWnFF3kUIYHAZMY+Jw//cZyQz7KsC+APY8yHLP8rHKnG7xP/KZEfjHGncASFc1vI9+gYqW/DF3UAfvI6r+Q/AvvI9v8w3y1qyr8H/jBfZ1JPdAm/f842aPiG5u9pPnfn+bMJslRXnr/qhuy5IyZWit9n+JLNAj/SsCN+8I/pGYUx5j6P28RfxjpGMK6WP4nh09hqxadx/Cq+efN/nv+Yf2vJt0ir/WdGSv5kC6pVlG9b8KHe0zqPaqut9A/1a1SHibh7ZnWb7xHXsBy7iI/rQP89fI2v1nGXPDvJxz1hQBrPQ+81nxv5ZA7kmPxrwS/l7Y3vX8zfvf1o/n9I+w/of0/V2P4SfjP7Q8+zWBvtt+gIPfaJ3z/34iw31FN/TfdYj/2D+ofT8C/PawhLPluBr7a/j3kavtrviK+x3+I1amI9muJrBH3YZ9ajXIxr+Rp/Rfxw/3/Dd/8EReu6Uj4az+VoanyW383naj6MH3vFg8+HTfbsYHzUA+keDBWal1vIh9S+DIn/6VrnRbQ2M1pzUMiDyf7uuQaV8FcJfWHcDwL/vIQf/OYu832weyWSljzzIImPBPGbOoKgbuX41ardW78lYvP2xajeu5fW5d0c+5b2zq6Sj9dBqGZ6SUO6DkV81GfhWXLXpP7RPjfge1xDcG8X4qcVX4ofNZ95lpzPPDwXwhef8/BVjyIV2L/y/5BrMfu3EIcl/knaz7Adsj+Vv1k+3j+huqFxmfjJ5pkyDg7Lf/tnkkOazh9LzSjlwzopNfdh5kGryDwo4pN10ihLzjlFeX4V+FDXxjqwhS/1Ma4vomtplKzTmD/Wm7vhawTVHc3LTkbeP6D2o73zlNTzCIGfitdX8J+E3jO8hN/KftrjavmdEAcJvvq+K+1vxg9yVPA/zfuX0ucL91TIn57RWBdy60hpPamMH5sTWqOt33X6+KziI/sj/6B1ZJZN+I7hR/bDOlJTM5n6CXxt3quljZ898hP1s4qH83Z5hlJ9a2H/Zr5mTkTnQSV8Zk7Ezhlq+SinXZe+loU1Ti0/ozV/le9POf5Um1LzooL3pyK/Zf5wc8Y3X+Z3bfP/2+xfcuvQ/v+9Q/v/Ay/E/ns=
+   eJzdlkEKwyAQRX9wEegu3cWVR/NoHsWjeJR+sZYwWCk4HWgXnxBNfHmMTNwB7JPcgLQBcRBsbT7O3v8kBox8knE0TpbheOB8qM+tMDzXvw8YjvMcD16B8c5FOCwzri6u1SELhxWGrP3LQ2M/TRj1mn6ckYwY+csMGDH+oR4WHlYMtf+GNYO9r7AHlrq2a3u39vXoFTns4eV4Mnp4H08lRnfo33+NlsvIQdtF1lpG8VyyxHgAK3JaQQ==
   </data>
  </layer>
- <layer name="Walls" width="24" height="120">
+ <layer name="Walls" width="25" height="24">
   <data encoding="base64" compression="zlib">
-   eJztmgsKwjAMhncFdSq+UUFRL+X9T2EGBkexrzSZVf8PAqIl+xObNEWbBvwbI7Ix2cTI/4JsSbb6Uf8t2bTA/57sQHb0fL4m2xT4v5BdyW4FPgAAQJtvP3tivbsU9O5hKD3DY5Se4QBYgR4cBj0YAKBJjT13SzZ/2u753syzVtJzye+d56zudWitpOd2PnnOivmXcGpe+TlH1vryBj6LdMZPvR9IZ/zU+wHr0LqvuH2IdWjdV9w+1NeuEYPbh/raNWJw+1CK9pzad9eGtPuemZPHUP59+crJozT/qTFI906KlrbR3/+uBu39z7Av7f3PsC8L7czQ+U8hd07L1Y67MQD21HjfCuHOBbE65vikxOqY47OC47OC4wPg35HMbjn9UzK7WcxB/R5a+xz0zb8/1q69dn0d7+qr279a2n31pbUvhqwvq++T/VrVCv4DUD8PrQ0eYw==
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
  <objectgroup name="Obstacles">
-  <object name="forest" x="284" y="7134" width="210" height="512"/>
-  <object name="forest" x="318" y="6416" width="542" height="130"/>
+  <object name="forest" x="64" y="320" width="256" height="832"/>
+  <object name="forest" x="1152" y="64" width="384" height="384"/>
+  <object name="house" x="960" y="960" width="128" height="128"/>
+  <object name="house" x="512" y="640" width="128" height="192"/>
+  <object name="house" x="960" y="448" width="128" height="192"/>
+  <object name="house" x="320" y="1344" width="128" height="128"/>
+  <object name="forest" x="1280" y="1088" width="256" height="384"/>
+  <object name="car" x="832" y="1408" width="128" height="64">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Centers" width="25" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
+  </data>
+ </layer>
+ <objectgroup name="Directions" visible="0">
+  <object x="576" y="384" width="448" height="768">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="768" y="192" width="64" height="192">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="768" y="1152" width="64" height="192">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="512" y="192" width="256" height="192">
+   <properties>
+    <property name="direction" value="120"/>
+   </properties>
+  </object>
+  <object x="832" y="192" width="256" height="192">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+  </object>
+  <object x="512" y="1152" width="256" height="192">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+  </object>
+  <object x="832" y="1152" width="256" height="192">
+   <properties>
+    <property name="direction" value="120"/>
+   </properties>
+  </object>
+  <object x="512" y="0" width="576" height="192">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
+  <object x="512" y="1344" width="576" height="192">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
