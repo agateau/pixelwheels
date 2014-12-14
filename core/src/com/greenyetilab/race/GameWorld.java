@@ -98,10 +98,6 @@ public class GameWorld implements ContactListener, Disposable {
         mActiveGameObjects.add(object);
     }
 
-    public void removeGameObject(GameObject object) {
-        mActiveGameObjects.removeValue(object, true);
-    }
-
     public boolean isVisible(float x, float y) {
         float dy = Math.abs(y - mVehicle.getY());
         return dy < Constants.VIEWPORT_WIDTH * 1.2f;
