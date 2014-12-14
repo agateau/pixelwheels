@@ -52,6 +52,14 @@ public class MapInfo implements Disposable {
         return mTileHeight;
     }
 
+    public float getMapWidth() {
+        return mTileWidth * mGroundLayer.getWidth();
+    }
+
+    public float getMapHeight() {
+        return mTileHeight * mGroundLayer.getHeight();
+    }
+
     public TiledMapTileLayer getGroundLayer() {
         return mGroundLayer;
     }
@@ -124,5 +132,17 @@ public class MapInfo implements Disposable {
     @Override
     public void dispose() {
         mMap.dispose();
+    }
+
+    public Vector2 findStartTilePosition() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Centers");
+        int tx = 0;
+        for (; tx < layer.getWidth(); ++tx) {
+            TiledMapTileLayer.Cell cell = layer.getCell(tx, 0);
+            if (cell != null) {
+                break;
+            }
+        }
+        return new Vector2(tx * mTileWidth + mTileWidth / 2, mTileHeight);
     }
 }

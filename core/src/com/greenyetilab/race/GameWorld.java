@@ -144,7 +144,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupSled() {
-        Vector2 position = findStartTilePosition();
+        Vector2 position = mMapInfo.findStartTilePosition();
         assert(position != null);
 
         // Car
@@ -175,24 +175,9 @@ public class GameWorld implements ContactListener, Disposable {
         addGameObject(mVehicle);
     }
 
-    private Vector2 findStartTilePosition() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Centers");
-        int tx = 0;
-        for (; tx < layer.getWidth(); ++tx) {
-            TiledMapTileLayer.Cell cell = layer.getCell(tx, 0);
-            if (cell != null) {
-                break;
-            }
-        }
-        float tw = Constants.UNIT_FOR_PIXEL * layer.getTileWidth();
-        float th = Constants.UNIT_FOR_PIXEL * layer.getTileHeight();
-        return new Vector2(tx * tw + tw / 2, th);
-    }
-
     private void setupOutsideWalls() {
-        TiledMapTileLayer layer = mMapInfo.getGroundLayer();
-        float mapWidth = layer.getWidth() * mMapInfo.getTileWidth();
-        float mapHeight = layer.getHeight() * mMapInfo.getTileHeight();
+        float mapWidth = mMapInfo.getMapWidth();
+        float mapHeight = mMapInfo.getMapHeight();
         float wallSize = 1;
         // bottom
         Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
