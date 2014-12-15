@@ -269,10 +269,20 @@
    eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
   </data>
  </layer>
- <objectgroup name="Directions" visible="0">
+ <objectgroup name="Directions">
   <properties>
    <property name="direction" value="90"/>
   </properties>
-  <object x="448" y="0" width="704" height="1536"/>
+  <object x="576" y="0" width="448" height="1536"/>
+  <object x="512" y="0" width="64" height="1536">
+   <properties>
+    <property name="direction" value="60"/>
+   </properties>
+  </object>
+  <object x="1024" y="0" width="64" height="1536">
+   <properties>
+    <property name="direction" value="120"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

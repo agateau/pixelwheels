@@ -172,7 +172,7 @@
  </tileset>
  <layer name="Ground" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJzV1GEKgCAMBtAJQajRGXe0jrKjJc1AchTOGfjjIxN5DpmuALAq4gEOB4A54Pj/DoU0r3FffMqx9EnICL8a9/phcP0W/pbWRV5LPn/v8S7bTf7C6/HRe1JUftGDLT4pfPzYp/J9v1/OVf7SdkfFmnfuoyu+SOTe6PYN35jZfWmPmeqf2aef/Oc9tj6f0X715hieD2rrPwHq9aEL
+   eJzV1GEKgCAMBtAJgljRGT1aR9nRkmYgTgrXFvXjIwt5LnEGAAiCRIDNAaQScPR+Bqf8XeJe+Fii6WMnFj4bP/Un4/o1/CXPm2kuxvI8x2vfHvI9zU/N2etF5FdncMRHgZ9u1mF+/JY/vD8Kfv1PzPdjd0y35pX64EisMtPZfuwr35GWvnX9f/bxJb/tY+39sfZZzyruT5LWvwMNwqp1
   </data>
  </layer>
  <layer name="Walls" width="24" height="24" visible="0">
@@ -203,7 +203,7 @@
     <property name="direction" value="90"/>
    </properties>
   </object>
-  <object x="448" y="896" width="576" height="640">
+  <object x="448" y="1024" width="576" height="512">
    <properties>
     <property name="direction" value="90"/>
    </properties>
@@ -212,9 +212,9 @@
    <properties>
     <property name="direction" value="45"/>
    </properties>
-   <polygon points="0,0 448,0 448,-192 -128,-384 -576,-384 -576,-192"/>
+   <polygon points="0,128 448,128 448,-192 -128,-384 -576,-384 -576,-64"/>
   </object>
-  <object x="1024" y="896">
+  <object x="1024" y="1024">
    <properties>
     <property name="direction" value="60"/>
    </properties>

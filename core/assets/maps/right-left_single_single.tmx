@@ -192,11 +192,24 @@
    eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAW4ALXaGwA2AAAL
   </data>
  </layer>
- <objectgroup name="Directions" visible="0">
-  <object x="0" y="0" width="1536" height="1536">
+ <objectgroup name="Directions">
+  <object x="640" y="1536">
    <properties>
     <property name="direction" value="60"/>
    </properties>
+   <polygon points="0,0 768,-1536 320,-1536 -448,0"/>
+  </object>
+  <object x="704" y="1536">
+   <properties>
+    <property name="direction" value="90"/>
+   </properties>
+   <polygon points="0,0 768,-1536 704,-1536 -64,0"/>
+  </object>
+  <object x="192" y="1536">
+   <properties>
+    <property name="direction" value="30"/>
+   </properties>
+   <polygon points="0,0 768,-1536 704,-1536 -64,0"/>
   </object>
  </objectgroup>
 </map>
