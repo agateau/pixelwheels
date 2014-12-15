@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.Array;
  * Represents a car on the world
  */
 class Vehicle implements GameObject {
+    private static final float DYING_DURATION = 0.5f;
+
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
@@ -43,6 +45,7 @@ class Vehicle implements GameObject {
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
+    private float mKilledTime;
 
     private State mState = State.ALIVE;
 
@@ -137,6 +140,14 @@ class Vehicle implements GameObject {
 
     @Override
     public boolean act(float dt) {
+        if (mState != State.ALIVE) {
+            mBraking = false;
+            mAccelerating = false;
+        }
+        if (mState == State.DYING) {
+            actDying(dt);
+        }
+
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;
@@ -169,7 +180,9 @@ class Vehicle implements GameObject {
             info.wheel.act(dt);
         }
 
-        checkGroundCollisions();
+        if (mState == State.ALIVE) {
+            checkGroundCollisions();
+        }
         return true;
     }
 
@@ -183,6 +196,15 @@ class Vehicle implements GameObject {
         }
         if (wheelsOnFatalGround >= 2) {
             kill();
+        }
+    }
+
+    private void actDying(float dt) {
+        mKilledTime += dt;
+        float k = MathUtils.lerp(1, 0.3f, mKilledTime / DYING_DURATION);
+        mSprite.setColor(k, k, k, 1);
+        if (mKilledTime >= DYING_DURATION) {
+            mState = State.DEAD;
         }
     }
 
@@ -256,9 +278,10 @@ class Vehicle implements GameObject {
     }
 
     protected void kill() {
-        mState = State.DEAD;
-        mSprite.setColor(0.5f, 0.5f, 0.5f, 1);
-
+        if (mState == State.ALIVE) {
+            mState = State.DYING;
+            mKilledTime = 0;
+        }
     }
 
     public boolean isDead() {
