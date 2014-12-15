@@ -17,16 +17,22 @@ import com.badlogic.gdx.utils.Array;
  * Represents a car on the world
  */
 class Vehicle implements GameObject {
-    protected final Body mBody;
-    protected final GameWorld mGameWorld;
-    private boolean mLimitAngle;
-    private boolean mCorrectAngle;
-
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
         public float steeringFactor;
     }
+
+    private static enum State {
+        ALIVE,
+        DYING,
+        DEAD
+    }
+
+    protected final Body mBody;
+    protected final GameWorld mGameWorld;
+    private boolean mLimitAngle;
+    private boolean mCorrectAngle;
 
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
@@ -38,7 +44,7 @@ class Vehicle implements GameObject {
     private boolean mBraking = false;
     private float mDirection = 0;
 
-    private boolean mDead = false;
+    private State mState = State.ALIVE;
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         this(region, gameWorld, startPosition.x, startPosition.y);
@@ -250,12 +256,12 @@ class Vehicle implements GameObject {
     }
 
     protected void kill() {
-        mDead = true;
+        mState = State.DEAD;
         mSprite.setColor(0.5f, 0.5f, 0.5f, 1);
 
     }
 
     public boolean isDead() {
-        return mDead;
+        return mState == State.DEAD;
     }
 }
