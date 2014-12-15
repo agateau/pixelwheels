@@ -153,7 +153,9 @@ public class GameWorld implements ContactListener, Disposable {
         float frontY = rearY + WHEEL_BASE + 0.2f;
 
         Vehicle.WheelInfo info;
-        info = mVehicle.addWheel(wheelRegion, 0, frontY);
+        info = mVehicle.addWheel(wheelRegion, leftX, frontY);
+        info.steeringFactor = 1;
+        info = mVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
         info = mVehicle.addWheel(wheelRegion, leftX, rearY);
         //info.wheel.setCanDrift(true);
