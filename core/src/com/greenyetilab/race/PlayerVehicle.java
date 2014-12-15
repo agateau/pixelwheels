@@ -31,7 +31,7 @@ public class PlayerVehicle extends Vehicle implements Collidable {
             }
         }
         if (other instanceof Mine) {
-            mGameWorld.setState(GameWorld.State.BROKEN);
+            kill();
         }
     }
 
