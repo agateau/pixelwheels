@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  * An enemy car
  */
 public class EnemyCar extends Vehicle implements Collidable {
+    private static final float ACTIVE_EXTRA_HEIGHT = Constants.VIEWPORT_WIDTH / 2;
+
     public EnemyCar(GameWorld world, Assets assets, float originX, float originY) {
         super(selectCarTextureRegion(assets), world, originX, originY);
 
@@ -44,8 +46,10 @@ public class EnemyCar extends Vehicle implements Collidable {
     @Override
     public boolean act(float dt) {
         super.act(dt);
-        boolean isVisible = mGameWorld.isVisible(getX(), getY());
-        if (isVisible) {
+        float bottomY = mGameWorld.getBottomVisibleY() - ACTIVE_EXTRA_HEIGHT;
+        float topY = mGameWorld.getTopVisibleY() + ACTIVE_EXTRA_HEIGHT;
+        boolean isActive = bottomY <= getY() && getY() <= topY;
+        if (isActive) {
             if (isDead()) {
                 setAccelerating(false);
             } else {

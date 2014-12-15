@@ -148,32 +148,35 @@ public class GameRenderer {
     private void updateCamera() {
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
-        mCamera.viewportWidth = Constants.VIEWPORT_WIDTH;
-        mCamera.viewportHeight = Constants.VIEWPORT_WIDTH * screenH / screenW;
+        float viewportWidth = Constants.VIEWPORT_WIDTH;
+        float viewportHeight = Constants.VIEWPORT_WIDTH * screenH / screenW;
+        mCamera.viewportWidth = viewportWidth;
+        mCamera.viewportHeight = viewportHeight;
 
         // Compute pos
         // FIXME: Take car speed into account when computing advance
-        float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(mCamera.viewportWidth, mCamera.viewportHeight) / 3;
+        float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(viewportWidth, viewportHeight) / 3;
         float x = mVehicle.getX() + advance * MathUtils.cosDeg(mVehicle.getAngle());
         float y = mVehicle.getY() + advance * MathUtils.sinDeg(mVehicle.getAngle());
 
         // Make sure we correctly handle boundaries
-        float minX = mCamera.viewportWidth / 2;
-        float minY = mCamera.viewportHeight / 2;
-        float maxX = mMapWidth - mCamera.viewportWidth / 2;
-        float maxY = mMapHeight - mCamera.viewportHeight / 2;
+        float minX = viewportWidth / 2;
+        float minY = viewportHeight / 2;
+        float maxX = mMapWidth - viewportWidth / 2;
+        float maxY = mMapHeight - viewportHeight / 2;
 
-        if (mCamera.viewportWidth <= mMapWidth) {
+        if (viewportWidth <= mMapWidth) {
             mCamera.position.x = MathUtils.clamp(x, minX, maxX);
         } else {
             mCamera.position.x = mMapWidth / 2;
         }
-        if (mCamera.viewportHeight <= mMapHeight) {
+        if (viewportHeight <= mMapHeight) {
             mCamera.position.y = MathUtils.clamp(y, minY, maxY);
         } else {
             mCamera.position.y = mMapHeight / 2;
         }
         mCamera.update();
+        mWorld.setVisibleSection(mCamera.position.y - viewportHeight / 2, mCamera.position.y + viewportHeight / 2);
     }
 
     public void onScreenResized() {

@@ -44,6 +44,8 @@ public class GameWorld implements ContactListener, Disposable {
     private int mSkidmarksIndex = 0;
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
     private float mScore = 0;
+    private float mBottomVisibleY = 0;
+    private float mTopVisibleY = 0;
 
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
@@ -95,9 +97,17 @@ public class GameWorld implements ContactListener, Disposable {
         mActiveGameObjects.add(object);
     }
 
-    public boolean isVisible(float x, float y) {
-        float dy = Math.abs(y - mVehicle.getY());
-        return dy < Constants.VIEWPORT_WIDTH * 1.2f;
+    public void setVisibleSection(float bottom, float top) {
+        mBottomVisibleY = bottom;
+        mTopVisibleY = top;
+    }
+
+    public float getTopVisibleY() {
+        return mTopVisibleY;
+    }
+
+    public float getBottomVisibleY() {
+        return mBottomVisibleY;
     }
 
     public void act(float delta) {
@@ -117,7 +127,7 @@ public class GameWorld implements ContactListener, Disposable {
         float deltaY = mVehicle.getY() - oldY;
         if (delta > 0) {
             mScore += deltaY * Constants.SCORE_PER_METER;
-            mEnemySpawner.setTopY(mVehicle.getY() + Constants.VIEWPORT_WIDTH);
+            mEnemySpawner.setTopY(mTopVisibleY);
         }
 
         mGameObjectPerformanceCounter.start();
