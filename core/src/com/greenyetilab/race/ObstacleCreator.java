@@ -159,6 +159,8 @@ public class ObstacleCreator {
         }
     }
 
+    // This is only used for special places like cross sections where we want to generate several cars
+    // coming from the left and right sides
     private void createCar(MapObject object) {
         RectangleMapObject rectObject = (RectangleMapObject)object;
         assert rectObject != null;

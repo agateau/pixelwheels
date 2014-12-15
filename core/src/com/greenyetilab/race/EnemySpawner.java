@@ -56,8 +56,21 @@ public class EnemySpawner {
 
     private void spawnEnemyAt(int tx, int ty) {
         MapInfo mapInfo = mGameWorld.getMapInfo();
-        Mine mine = new Mine();
-        mine.init(mGameWorld, mAssets, mapInfo.getTileWidth() * tx, mapInfo.getTileHeight() * ty);
-        mGameWorld.addGameObject(mine);
+        float posX = mapInfo.getTileWidth() * tx;
+        float posY = mapInfo.getTileHeight() * ty;
+
+        GameObject object;
+        int choice = MathUtils.random(0, 1);
+        if (choice == 0) {
+            EnemyCar car = new EnemyCar(mGameWorld, mAssets, posX, posY);
+            float angle = mapInfo.getDirectionAt(posX, posY);
+            car.setDrivingAngle(angle);
+            object = car;
+        } else {
+            Mine mine = new Mine();
+            mine.init(mGameWorld, mAssets, posX, posY);
+            object = mine;
+        }
+        mGameWorld.addGameObject(object);
     }
 }

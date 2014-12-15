@@ -192,7 +192,7 @@
    eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAW4ALXaGwA2AAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="640" y="1536">
    <properties>
     <property name="direction" value="60"/>

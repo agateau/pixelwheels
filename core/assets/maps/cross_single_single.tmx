@@ -180,7 +180,7 @@
    eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
   </data>
  </layer>
- <objectgroup name="Obstacles" visible="0">
+ <objectgroup name="Obstacles">
   <object name="forest" x="64" y="1088" width="390" height="412"/>
   <object name="forest" x="1152" y="64" width="384" height="320"/>
   <object name="house" x="1152" y="1088" width="128" height="256"/>
@@ -201,9 +201,9 @@
     <property name="angle" value="180"/>
    </properties>
   </object>
-  <object name="car" x="832" y="1408" width="192" height="64">
+  <object name="car" x="192" y="704" width="64" height="192">
    <properties>
-    <property name="angle" value="90"/>
+    <property name="angle" value="0"/>
    </properties>
   </object>
  </objectgroup>
@@ -212,7 +212,7 @@
    eJxjYCANsJKofhSMglEwCkbBKBgFo4DWgNT2CQA2AAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="512" y="448" width="576" height="576">
    <properties>
     <property name="direction" value="90"/>

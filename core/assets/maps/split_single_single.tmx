@@ -231,25 +231,20 @@
    eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
- <objectgroup name="Obstacles" visible="0">
+ <objectgroup name="Obstacles">
   <object name="forest" x="0" y="384" width="256" height="704"/>
   <object name="forest" x="1216" y="64" width="320" height="192"/>
   <object name="house" x="320" y="1408" width="128" height="128"/>
   <object name="house" x="1344" y="384" width="128" height="192"/>
   <object name="house" x="1344" y="640" width="128" height="192"/>
   <object name="house" x="192" y="1216" width="128" height="128"/>
-  <object name="car" x="832" y="1280" width="192" height="192">
-   <properties>
-    <property name="angle" value="120"/>
-   </properties>
-  </object>
  </objectgroup>
  <layer name="Centers" width="25" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
   </data>
  </layer>
- <objectgroup name="Direction">
+ <objectgroup name="Direction" visible="0">
   <object x="576" y="0" width="448" height="64">
    <properties>
     <property name="direction" value="90"/>

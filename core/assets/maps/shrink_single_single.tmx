@@ -231,7 +231,7 @@
    eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
- <objectgroup name="Obstacles" visible="0">
+ <objectgroup name="Obstacles">
   <object name="forest" x="64" y="320" width="256" height="832"/>
   <object name="forest" x="1152" y="64" width="384" height="384"/>
   <object name="house" x="960" y="960" width="128" height="128"/>
@@ -239,18 +239,13 @@
   <object name="house" x="960" y="448" width="128" height="192"/>
   <object name="house" x="320" y="1344" width="128" height="128"/>
   <object name="forest" x="1280" y="1088" width="256" height="384"/>
-  <object name="car" x="832" y="1408" width="128" height="64">
-   <properties>
-    <property name="angle" value="90"/>
-   </properties>
-  </object>
  </objectgroup>
  <layer name="Centers" width="25" height="24">
   <data encoding="base64" compression="zlib">
    eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="704" y="384" width="192" height="768">
    <properties>
     <property name="direction" value="90"/>
