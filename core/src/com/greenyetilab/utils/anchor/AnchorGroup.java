@@ -36,7 +36,10 @@ public class AnchorGroup extends WidgetGroup {
 
     public void addRule(AnchorRule rule) {
         mRules.add(rule);
-        addActor(rule.getTarget());
+        Actor target = rule.getTarget();
+        if (target.getParent() == null) {
+            addActor(target);
+        }
     }
 
     public void removeRulesForActor(Actor actor) {
