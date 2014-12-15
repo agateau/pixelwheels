@@ -3,7 +3,6 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.IntArray;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * Generates enemies as the player advances through the map
