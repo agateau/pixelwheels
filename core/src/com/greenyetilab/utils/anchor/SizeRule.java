@@ -7,12 +7,27 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class SizeRule implements AnchorRule {
     public static final float KEEP_RATIO = -1;
+    public static final float IGNORE = -2;
+
+    private Actor mTarget;
+    private Actor mReference;
+    private float mWidthPercent;
+    private float mHeightPercent;
+
+    private float mWidthPadding = 0;
+    private float mHeightPadding = 0;
 
     public SizeRule(Actor target, Actor reference, float widthPercent, float heightPercent) {
         mTarget = target;
         mReference = reference;
         mWidthPercent = widthPercent;
         mHeightPercent = heightPercent;
+    }
+
+    public SizeRule setPadding(float width, float height) {
+        mWidthPadding = width;
+        mHeightPadding = height;
+        return this;
     }
 
     @Override
@@ -27,21 +42,16 @@ public class SizeRule implements AnchorRule {
         }
         float hfw = mTarget.getHeight() / mTarget.getWidth();
         if (mWidthPercent > 0) {
-            mTarget.setWidth(mReference.getWidth() * mWidthPercent);
+            mTarget.setWidth(mReference.getWidth() * mWidthPercent + mWidthPadding);
         }
         if (mHeightPercent > 0) {
-            mTarget.setHeight(mReference.getHeight() * mHeightPercent);
+            mTarget.setHeight(mReference.getHeight() * mHeightPercent + mHeightPadding);
         }
         if (mWidthPercent == KEEP_RATIO) {
-            mTarget.setWidth(mTarget.getHeight() / hfw);
+            mTarget.setWidth(mTarget.getHeight() / hfw + mWidthPadding);
         }
         if (mHeightPercent == KEEP_RATIO) {
-            mTarget.setHeight(mTarget.getWidth() * hfw);
+            mTarget.setHeight(mTarget.getWidth() * hfw + mHeightPadding);
         }
     }
-
-    private Actor mTarget;
-    private Actor mReference;
-    private float mWidthPercent;
-    private float mHeightPercent;
 }
