@@ -7,12 +7,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
-import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -97,21 +95,21 @@ public class RaceGameScreen extends ScreenAdapter {
     public void render(float delta) {
         mOverallPerformanceCounter.start();
         mGameWorldPerformanceCounter.start();
+        GameWorld.State oldState = mGameWorld.getState();
         mGameWorld.act(delta);
+        GameWorld.State newState = mGameWorld.getState();
         mGameWorldPerformanceCounter.stop();
 
-        mHudStage.act(delta);
-        switch (mGameWorld.getState()) {
-        case RUNNING:
-            break;
-        case BROKEN:
-            mGame.showGameOverOverlay();
-            return;
-        case FINISHED:
-            return;
+        if (oldState != newState) {
+            if (newState == GameWorld.State.BROKEN) {
+                showGameOverOverlay();
+            }
+        }
+        if (newState == GameWorld.State.RUNNING) {
+            handleInput();
         }
 
-        handleInput();
+        mHudStage.act(delta);
         updateHud();
 
         mRendererPerformanceCounter.start();
@@ -167,6 +165,10 @@ public class RaceGameScreen extends ScreenAdapter {
         mVehicle.setDirection(mInput.direction);
         mVehicle.setAccelerating(mInput.accelerating);
         mVehicle.setBraking(mInput.braking);
+    }
+
+    private void showGameOverOverlay() {
+        mHudStage.addActor(new GameOverOverlay(mGame, mGameWorld));
     }
 
     @Override

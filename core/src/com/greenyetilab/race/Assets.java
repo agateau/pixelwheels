@@ -17,6 +17,7 @@ public class Assets {
     public final Skin skin;
     public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
+    public final TextureRegion dot;
     public final TextureAtlas atlas;
     public final Animation explosion;
 
@@ -41,6 +42,14 @@ public class Assets {
             this.cars.add(this.atlas.findRegion(name));
         }
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
+
+        // Fix white-pixel to avoid fading borders
+        this.dot = this.atlas.findRegion("white-pixel");
+        this.dot.setRegionX(this.dot.getRegionX() + 2);
+        this.dot.setRegionY(this.dot.getRegionY() + 2);
+        this.dot.setRegionWidth(this.dot.getRegionWidth() - 4);
+        this.dot.setRegionHeight(this.dot.getRegionHeight() - 4);
+
     }
 
     public NinePatch createScaledPatch(String name) {

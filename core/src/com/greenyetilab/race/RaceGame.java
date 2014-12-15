@@ -56,15 +56,6 @@ public class RaceGame extends Game {
         pushScreen(screen);
     }
 
-    public void showGameOverOverlay() {
-        showOverlay("Game Over");
-    }
-
-    private void showOverlay(String text) {
-        TextureRegion bg = ScreenUtils.getFrameBufferTexture();
-        setScreenAndDispose(new OverlayScreen(this, bg, text));
-    }
-
     public static Preferences getPreferences() {
         return Gdx.app.getPreferences("com.greenyetilab.race");
     }
