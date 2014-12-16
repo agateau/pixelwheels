@@ -12,7 +12,7 @@ public class Constants {
     public static final int Z_FLYING = 4;
 
     public static final int Z_COUNT = Z_FLYING + 1;
-    static final float VIEWPORT_WIDTH = 60;
+    public static final float VIEWPORT_WIDTH = 60;
     public static final float SCORE_PER_METER = 1;
     public static final int SCORE_CAR_HIT = 500;
 }
