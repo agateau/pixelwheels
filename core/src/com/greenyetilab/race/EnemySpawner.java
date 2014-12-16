@@ -66,9 +66,7 @@ public class EnemySpawner {
             car.setDrivingAngle(angle);
             object = car;
         } else {
-            Mine mine = new Mine();
-            mine.init(mGameWorld, mAssets, posX, posY);
-            object = mine;
+            object = Mine.create(mGameWorld, mAssets, posX, posY);
         }
         mGameWorld.addGameObject(object);
     }

@@ -9,58 +9,72 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A mine on the road
  */
-public class Mine implements GameObject, Collidable {
+public class Mine implements GameObject, Collidable, Pool.Poolable {
+    private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
+
     private static final float FRAME_DURATION = 0.2f;
     private static final float MINE_RADIUS = 0.8f;
 
     private GameWorld mGameWorld;
+    private Assets mAssets;
     private Animation mAnimation;
-    private Body mBody;
+    private BodyDef mBodyDef;
+    private CircleShape mShape;
 
+    private Body mBody;
     private float mTime;
     private boolean mExploded;
-    private Assets mAssets;
 
-    public void init(GameWorld gameWorld, Assets assets, float originX, float originY) {
-        if (mAnimation == null) {
-            firstInit(assets);
+    public static Mine create(GameWorld gameWorld, Assets assets, float originX, float originY) {
+        Mine mine = sPool.obtain();
+        if (mine.mBodyDef == null) {
+            mine.firstInit(assets);
         }
-        mGameWorld = gameWorld;
-        mAssets = assets;
-        mTime = 0;
-        mExploded = false;
+        mine.mGameWorld = gameWorld;
+        mine.mTime = 0;
+        mine.mExploded = false;
+        mine.mBodyDef.position.set(originX, originY);
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(originX, originY);
-        mBody = gameWorld.getBox2DWorld().createBody(bodyDef);
-
-        CircleShape shape = new CircleShape();
-        shape.setRadius(MINE_RADIUS);
-        mBody.createFixture(shape, 1f);
-
-        mBody.setAwake(false);
-        mBody.setUserData(this);
+        mine.mBody = gameWorld.getBox2DWorld().createBody(mine.mBodyDef);
+        mine.mBody.createFixture(mine.mShape, 1f);
+        mine.mBody.setUserData(mine);
+        return mine;
     }
 
     private void firstInit(Assets assets) {
+        mAssets = assets;
         mAnimation = new Animation(FRAME_DURATION,
             assets.atlas.findRegion("mine-1"),
             assets.atlas.findRegion("mine-2"));
         mAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        mBodyDef = new BodyDef();
+        mBodyDef.type = BodyDef.BodyType.StaticBody;
+
+        mShape = new CircleShape();
+        mShape.setRadius(MINE_RADIUS);
+    }
+
+    @Override
+    public void reset() {
+        mGameWorld.getBox2DWorld().destroyBody(mBody);
+        mBody = null;
     }
 
     @Override
     public boolean act(float delta) {
         mTime += delta;
-        if (mExploded) {
-            mBody.getWorld().destroyBody(mBody);
+        if (mExploded || mBody.getPosition().y < mGameWorld.getBottomVisibleY() - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT) {
+            sPool.free(this);
+            return false;
         }
-        return !mExploded;
+        return true;
     }
 
     @Override

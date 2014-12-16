@@ -15,4 +15,5 @@ public class Constants {
     public static final float VIEWPORT_WIDTH = 60;
     public static final float SCORE_PER_METER = 1;
     public static final int SCORE_CAR_HIT = 500;
+    public static final float VIEWPORT_POOL_RECYCLE_HEIGHT = 10;
 }
