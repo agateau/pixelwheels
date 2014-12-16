@@ -1,10 +1,7 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class Wheel {
     private static final float MAX_LATERAL_IMPULSE = 3.5f;
     private static final float DRAG_FACTOR = 1;
-    private final Sprite mSprite;
+    private final TextureRegion mRegion;
     private final Body mBody;
     private final GameWorld mGameWorld;
     private boolean mOnFinished = false;
@@ -27,12 +24,10 @@ public class Wheel {
 
     public Wheel(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         mGameWorld = gameWorld;
-        mSprite = new Sprite(region);
+        mRegion = region;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-        mSprite.setSize(w, h);
-        mSprite.setOriginCenter();
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -50,7 +45,7 @@ public class Wheel {
     }
 
     public void draw(Batch batch) {
-        DrawUtils.drawBodySprite(batch, mBody, mSprite);
+        DrawUtils.drawBodyRegion(batch, mBody, mRegion);
     }
 
     public Body getBody() {

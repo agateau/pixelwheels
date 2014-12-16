@@ -1,7 +1,7 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -39,7 +39,7 @@ class Vehicle implements GameObject {
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
-    private final Sprite mSprite;
+    private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
 
     private boolean mAccelerating = false;
@@ -60,9 +60,7 @@ class Vehicle implements GameObject {
         float carH = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
 
         // Main
-        mSprite = new Sprite(region);
-        mSprite.setSize(carW, carH);
-        mSprite.setOriginCenter();
+        mRegion = region;
 
         // Body
         BodyDef bodyDef = new BodyDef();
@@ -131,11 +129,11 @@ class Vehicle implements GameObject {
     }
 
     public float getWidth() {
-        return mSprite.getWidth();
+        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionWidth();
     }
 
     public float getHeight() {
-        return mSprite.getHeight();
+        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
     @Override
@@ -201,8 +199,6 @@ class Vehicle implements GameObject {
 
     private void actDying(float dt) {
         mKilledTime += dt;
-        float k = MathUtils.lerp(1, 0.3f, mKilledTime / DYING_DURATION);
-        mSprite.setColor(k, k, k, 1);
         if (mKilledTime >= DYING_DURATION) {
             mState = State.DEAD;
         }
@@ -216,7 +212,16 @@ class Vehicle implements GameObject {
         for(WheelInfo info: mWheels) {
             info.wheel.draw(batch);
         }
-        DrawUtils.drawBodySprite(batch, mBody, mSprite);
+        Color oldColor = batch.getColor();
+        if (mState != State.ALIVE) {
+            float k = mState == State.DEAD ? 1 : (mKilledTime / DYING_DURATION);
+            float rgb = MathUtils.lerp(1, 0.3f, k);
+            batch.setColor(rgb, rgb, rgb, 1);
+        }
+        DrawUtils.drawBodyRegion(batch, mBody, mRegion);
+        if (mState != State.ALIVE) {
+            batch.setColor(oldColor);
+        }
     }
 
     public void setAccelerating(boolean value) {
