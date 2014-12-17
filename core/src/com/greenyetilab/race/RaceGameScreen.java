@@ -25,9 +25,6 @@ public class RaceGameScreen extends ScreenAdapter {
 
     private GameRenderer mGameRenderer;
 
-    private GameInput mInput = new GameInput();
-    private GameInputHandler mInputHandler;
-
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
@@ -51,13 +48,6 @@ public class RaceGameScreen extends ScreenAdapter {
         setupGameRenderer();
         mVehicle = mGameWorld.getPlayerVehicle();
         setupHud();
-        /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
-            mInputHandler = new AccelerometerInputHandler();
-        } else*/ if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
-            mInputHandler = new TouchInputHandler();
-        } else {
-            mInputHandler = new KeyboardInputHandler();
-        }
     }
 
     private void setupGameRenderer() {
@@ -104,9 +94,6 @@ public class RaceGameScreen extends ScreenAdapter {
             if (newState == GameWorld.State.BROKEN) {
                 showGameOverOverlay();
             }
-        }
-        if (newState == GameWorld.State.RUNNING) {
-            handleInput();
         }
 
         mHudStage.act(delta);
@@ -155,16 +142,6 @@ public class RaceGameScreen extends ScreenAdapter {
         super.resize(width, height);
         mHudViewport.update(width, height, true);
         mGameRenderer.onScreenResized();
-    }
-
-    private void handleInput() {
-        mInput.braking = false;
-        mInput.accelerating = false;
-        mInput.direction = 0;
-        mInputHandler.updateGameInput(mInput);
-        mVehicle.setDirection(mInput.direction);
-        mVehicle.setAccelerating(mInput.accelerating);
-        mVehicle.setBraking(mInput.braking);
     }
 
     private void showGameOverOverlay() {
