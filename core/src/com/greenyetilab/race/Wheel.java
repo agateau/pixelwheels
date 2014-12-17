@@ -7,24 +7,35 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A wheel
  */
-public class Wheel {
+public class Wheel implements Pool.Poolable, Disposable {
     private static final float MAX_LATERAL_IMPULSE = 3.5f;
     private static final float DRAG_FACTOR = 1;
-    private final TextureRegion mRegion;
-    private final Body mBody;
-    private final GameWorld mGameWorld;
-    private boolean mOnFinished = false;
-    private boolean mOnFatalGround = false;
-    private boolean mBraking = false;
+
+    private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
+
+    private Body mBody;
+    private TextureRegion mRegion;
+    private GameWorld mGameWorld;
+    private boolean mOnFinished;
+    private boolean mOnFatalGround;
+    private boolean mBraking;
     private boolean mCanDrift;
 
-    public Wheel(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
-        mGameWorld = gameWorld;
-        mRegion = region;
+    public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
+        Wheel obj = sPool.obtain();
+        obj.mGameWorld = gameWorld;
+        obj.mRegion = region;
+        obj.mOnFinished = false;
+        obj.mOnFatalGround = false;
+        obj.mBraking = false;
+        obj.mCanDrift = false;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -32,11 +43,24 @@ public class Wheel {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(posX, posY);
-        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
+        obj.mBody = obj.mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(w / 2, h / 2);
-        mBody.createFixture(polygonShape, 1f);
+        obj.mBody.createFixture(polygonShape, 1f);
+        polygonShape.dispose();
+
+        return obj;
+    }
+
+    @Override
+    public void dispose() {
+        sPool.free(this);
+    }
+
+    @Override
+    public void reset() {
+        mGameWorld.getBox2DWorld().destroyBody(mBody);
     }
 
     public void act(float delta) {

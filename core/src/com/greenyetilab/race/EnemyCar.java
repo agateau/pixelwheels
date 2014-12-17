@@ -58,7 +58,11 @@ public class EnemyCar extends Vehicle implements Collidable {
         } else {
             mBody.setAwake(false);
         }
-        return true;
+        boolean keep = getY() >= bottomY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
+        if (!keep) {
+            dispose();
+        }
+        return keep;
     }
 
     private void drive() {

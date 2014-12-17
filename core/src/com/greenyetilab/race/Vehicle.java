@@ -12,11 +12,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Represents a car on the world
  */
-class Vehicle implements GameObject {
+class Vehicle implements GameObject, Disposable {
     private static final float DYING_DURATION = 0.5f;
 
     public static class WheelInfo {
@@ -78,12 +79,21 @@ class Vehicle implements GameObject {
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
+        shape.dispose();
+
         mBody.setUserData(this);
+    }
+
+    @Override
+    public void dispose() {
+        for (WheelInfo info : mWheels) {
+            info.wheel.dispose();
+        }
     }
 
     public WheelInfo addWheel(TextureRegion region, float x, float y) {
         WheelInfo info = new WheelInfo();
-        info.wheel = new Wheel(region, mGameWorld, getX() + x, getY() + y);
+        info.wheel = Wheel.create(region, mGameWorld, getX() + x, getY() + y);
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
