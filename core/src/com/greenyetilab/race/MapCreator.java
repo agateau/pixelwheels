@@ -87,7 +87,13 @@ public class MapCreator {
             int left = 0;
             int right = 0;
             for (int i = 0; i < mapLength; ++i) {
-                int mapIndex = MathUtils.random(mMapChunks.size - 1);
+                int mapIndex;
+                if (i == 0) {
+                    // Always start with a straight road
+                    mapIndex = 0;
+                } else {
+                    mapIndex = MathUtils.random(mMapChunks.size - 1);
+                }
                 MapChunk chunk = mMapChunks.get(mapIndex);
                 int chunkLeft = centerTX - chunk.bottomX;
                 int chunkRight = chunkLeft + chunk.width;
