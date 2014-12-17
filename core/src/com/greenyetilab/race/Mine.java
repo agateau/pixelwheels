@@ -18,12 +18,10 @@ import com.badlogic.gdx.utils.ReflectionPool;
 public class Mine implements GameObject, Collidable, Pool.Poolable {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
 
-    private static final float FRAME_DURATION = 0.2f;
     private static final float MINE_RADIUS = 0.8f;
 
     private GameWorld mGameWorld;
     private Assets mAssets;
-    private Animation mAnimation;
     private BodyDef mBodyDef;
     private CircleShape mShape;
 
@@ -49,11 +47,6 @@ public class Mine implements GameObject, Collidable, Pool.Poolable {
 
     private void firstInit(Assets assets) {
         mAssets = assets;
-        mAnimation = new Animation(FRAME_DURATION,
-            assets.atlas.findRegion("mine-1"),
-            assets.atlas.findRegion("mine-2"));
-        mAnimation.setPlayMode(Animation.PlayMode.LOOP);
-
         mBodyDef = new BodyDef();
         mBodyDef.type = BodyDef.BodyType.StaticBody;
 
@@ -81,7 +74,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable {
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
             Vector2 pos = mBody.getPosition();
-            TextureRegion region = mAnimation.getKeyFrame(mTime);
+            TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
             batch.draw(region, pos.x - w / 2, pos.y - h / 2 , w, h);

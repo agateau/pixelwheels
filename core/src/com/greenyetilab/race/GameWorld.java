@@ -146,8 +146,8 @@ public class GameWorld implements ContactListener, Disposable {
         assert(position != null);
 
         // Car
-        TextureRegion carRegion = mGame.getAssets().atlas.findRegion("sled/sled");
-        TextureRegion wheelRegion = mGame.getAssets().atlas.findRegion("sled/sled-ski");
+        TextureRegion carRegion = mGame.getAssets().findRegion("sled/sled");
+        TextureRegion wheelRegion = mGame.getAssets().findRegion("sled/sled-ski");
         mVehicle = new PlayerVehicle(carRegion, this, position);
         mVehicle.setLimitAngle(true);
         //mVehicle.setCorrectAngle(true);
