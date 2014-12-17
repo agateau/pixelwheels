@@ -37,7 +37,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final EnemySpawner mEnemySpawner;
     private float mTimeAccumulator = 0;
 
-    private PlayerVehicle mVehicle;
+    private Vehicle mPlayerVehicle;
     private State mState = State.RUNNING;
 
     private Vector2[] mSkidmarks = new Vector2[4000];
@@ -72,8 +72,8 @@ public class GameWorld implements ContactListener, Disposable {
         return mBox2DWorld;
     }
 
-    public Vehicle getVehicle() {
-        return mVehicle;
+    public Vehicle getPlayerVehicle() {
+        return mPlayerVehicle;
     }
 
     public int getScore() {
@@ -111,7 +111,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public void act(float delta) {
-        float oldY = mVehicle.getY();
+        float oldY = mPlayerVehicle.getY();
 
         mBox2DPerformanceCounter.start();
         // fixed time step
@@ -124,7 +124,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mBox2DPerformanceCounter.stop();
 
-        float deltaY = mVehicle.getY() - oldY;
+        float deltaY = mPlayerVehicle.getY() - oldY;
         if (delta > 0) {
             mScore += deltaY * Constants.SCORE_PER_METER;
             mEnemySpawner.setTopY(mTopVisibleY);
@@ -148,9 +148,10 @@ public class GameWorld implements ContactListener, Disposable {
         // Car
         TextureRegion carRegion = mGame.getAssets().findRegion("sled/sled");
         TextureRegion wheelRegion = mGame.getAssets().findRegion("sled/sled-ski");
-        mVehicle = new PlayerVehicle(carRegion, this, position);
-        mVehicle.setLimitAngle(true);
-        //mVehicle.setCorrectAngle(true);
+        mPlayerVehicle = new Vehicle(carRegion, this, position);
+        mPlayerVehicle.setPilot(new PlayerPilot(this, mPlayerVehicle));
+        mPlayerVehicle.setLimitAngle(true);
+        //mPlayerVehicle.setCorrectAngle(true);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -163,16 +164,16 @@ public class GameWorld implements ContactListener, Disposable {
         float frontY = rearY + WHEEL_BASE + 0.2f;
 
         Vehicle.WheelInfo info;
-        info = mVehicle.addWheel(wheelRegion, leftX, frontY);
+        info = mPlayerVehicle.addWheel(wheelRegion, leftX, frontY);
         info.steeringFactor = 1;
-        info = mVehicle.addWheel(wheelRegion, rightX, frontY);
+        info = mPlayerVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
-        info = mVehicle.addWheel(wheelRegion, leftX, rearY);
+        info = mPlayerVehicle.addWheel(wheelRegion, leftX, rearY);
         //info.wheel.setCanDrift(true);
-        info = mVehicle.addWheel(wheelRegion, rightX, rearY);
+        info = mPlayerVehicle.addWheel(wheelRegion, rightX, rearY);
         //info.wheel.setCanDrift(true);
 
-        addGameObject(mVehicle);
+        addGameObject(mPlayerVehicle);
     }
 
     private void setupOutsideWalls() {

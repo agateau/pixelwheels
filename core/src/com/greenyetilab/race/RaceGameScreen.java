@@ -49,7 +49,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         mGameRenderer = new GameRenderer(mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
-        mVehicle = mGameWorld.getVehicle();
+        mVehicle = mGameWorld.getPlayerVehicle();
         setupHud();
         /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             mInputHandler = new AccelerometerInputHandler();

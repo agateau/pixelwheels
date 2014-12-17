@@ -64,6 +64,7 @@ public class EnemySpawner {
             EnemyCar car = new EnemyCar(mGameWorld, mAssets, posX, posY);
             float angle = mapInfo.getDirectionAt(posX, posY);
             car.setDrivingAngle(angle);
+            car.setPilot(new BasicPilot(mGameWorld.getMapInfo(), car));
             object = car;
         } else {
             object = Mine.create(mGameWorld, mAssets, posX, posY);

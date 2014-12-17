@@ -57,7 +57,7 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
-        mVehicle = mWorld.getVehicle();
+        mVehicle = mWorld.getPlayerVehicle();
 
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");

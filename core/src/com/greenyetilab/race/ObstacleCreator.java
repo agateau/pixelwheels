@@ -172,6 +172,7 @@ public class ObstacleCreator {
 
         EnemyCar car = new EnemyCar(mWorld, mAssets, originX, originY);
         car.setDrivingAngle(angle);
+        car.setPilot(new BasicPilot(mWorld.getMapInfo(), car));
         mWorld.addGameObject(car);
     }
 

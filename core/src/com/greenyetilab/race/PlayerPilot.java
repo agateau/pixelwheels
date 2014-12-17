@@ -1,22 +1,23 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
- * The player vehicle
+ * A pilot controlled by the player
  */
-public class PlayerVehicle extends Vehicle implements Collidable {
-    public PlayerVehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
-        super(region, gameWorld, startPosition);
+public class PlayerPilot implements Pilot {
+    private final GameWorld mGameWorld;
+    private final Vehicle mVehicle;
+
+    public PlayerPilot(GameWorld gameWorld, Vehicle vehicle) {
+        mGameWorld = gameWorld;
+        mVehicle = vehicle;
     }
 
     @Override
     public boolean act(float dt) {
-        super.act(dt);
-        if (isDead()) {
+        if (mVehicle.isDead()) {
             mGameWorld.setState(GameWorld.State.BROKEN);
         }
         return true;
@@ -31,7 +32,7 @@ public class PlayerVehicle extends Vehicle implements Collidable {
             }
         }
         if (other instanceof Mine) {
-            kill();
+            mVehicle.kill();
         }
     }
 

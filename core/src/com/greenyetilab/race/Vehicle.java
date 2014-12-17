@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
@@ -17,8 +19,9 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements GameObject, Disposable {
+class Vehicle implements GameObject, Disposable, Collidable {
     private static final float DYING_DURATION = 0.5f;
+    private Pilot mPilot;
 
     public static class WheelInfo {
         public Wheel wheel;
@@ -146,6 +149,10 @@ class Vehicle implements GameObject, Disposable {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
+    public void setPilot(Pilot pilot) {
+        mPilot = pilot;
+    }
+
     @Override
     public boolean act(float dt) {
         if (mState != State.ALIVE) {
@@ -191,7 +198,7 @@ class Vehicle implements GameObject, Disposable {
         if (mState == State.ALIVE) {
             checkGroundCollisions();
         }
-        return true;
+        return mPilot.act(dt);
     }
 
     private void checkGroundCollisions() {
@@ -301,5 +308,15 @@ class Vehicle implements GameObject, Disposable {
 
     public boolean isDead() {
         return mState == State.DEAD;
+    }
+
+    @Override
+    public void beginContact(Contact contact, Fixture otherFixture) {
+        mPilot.beginContact(contact, otherFixture);
+    }
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {
+        mPilot.endContact(contact, otherFixture);
     }
 }

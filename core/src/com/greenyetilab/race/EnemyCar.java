@@ -2,13 +2,11 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
  * An enemy car
  */
-public class EnemyCar extends Vehicle implements Collidable {
+public class EnemyCar extends Vehicle {
     private static final float ACTIVE_EXTRA_HEIGHT = Constants.VIEWPORT_WIDTH / 2;
 
     public EnemyCar(GameWorld world, Assets assets, float originX, float originY) {
@@ -45,58 +43,23 @@ public class EnemyCar extends Vehicle implements Collidable {
 
     @Override
     public boolean act(float dt) {
-        super.act(dt);
         float bottomY = mGameWorld.getBottomVisibleY() - ACTIVE_EXTRA_HEIGHT;
         float topY = mGameWorld.getTopVisibleY() + ACTIVE_EXTRA_HEIGHT;
         boolean isActive = bottomY <= getY() && getY() <= topY;
         if (isActive) {
-            if (isDead()) {
-                setAccelerating(false);
-            } else {
-                drive();
-            }
+            mBody.setAwake(true);
         } else {
             mBody.setAwake(false);
         }
-        boolean keep = getY() >= bottomY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
+        boolean keep = super.act(dt);
+        keep = keep && getY() >= bottomY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
         if (!keep) {
             dispose();
         }
         return keep;
     }
 
-    private void drive() {
-        setAccelerating(true);
-
-        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(getX(), getY());
-        float angle = getAngle();
-        float delta = Math.abs(angle - directionAngle);
-        if (delta < 2) {
-            setDirection(0);
-            return;
-        }
-        float correctionIntensity = Math.min(1, delta / 45f);
-        if (directionAngle > angle) {
-            setDirection(correctionIntensity);
-        } else {
-            setDirection(-correctionIntensity);
-        }
-    }
-
     private static TextureRegion selectCarTextureRegion(Assets assets) {
         return assets.cars.get(MathUtils.random(assets.cars.size - 1));
-    }
-
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Mine) {
-            kill();
-        }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
     }
 }
