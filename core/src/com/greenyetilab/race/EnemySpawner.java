@@ -62,9 +62,9 @@ public class EnemySpawner {
         GameObject object;
         int choice = MathUtils.random(0, 2);
         if (choice == 0) {
-            EnemyCar car = generateEnemyCar(mAssets, mGameWorld, posX, posY);
+            PendingVehicle car = generateEnemyCar(mAssets, mGameWorld, posX, posY);
             float angle = mapInfo.getDirectionAt(posX, posY);
-            car.setDrivingAngle(angle);
+            car.setInitialAngle(angle);
             car.setPilot(new BasicPilot(mGameWorld.getMapInfo(), car));
             object = car;
         } else if (choice == 1) {
@@ -72,15 +72,15 @@ public class EnemySpawner {
         } else {
             EnemyTruck truck = new EnemyTruck(mAssets, mGameWorld, posX, posY);
             float angle = mapInfo.getDirectionAt(posX, posY);
-            truck.setDrivingAngle(angle);
+            truck.setInitialAngle(angle);
             object = truck;
         }
         mGameWorld.addGameObject(object);
     }
 
-    public static EnemyCar generateEnemyCar(Assets assets, GameWorld gameWorld, float originX, float originY) {
+    public static PendingVehicle generateEnemyCar(Assets assets, GameWorld gameWorld, float originX, float originY) {
         TextureRegion region = assets.cars.get(MathUtils.random(assets.cars.size - 1));
-        EnemyCar car = new EnemyCar(region, gameWorld, originX, originY);
+        PendingVehicle car = new PendingVehicle(region, gameWorld, originX, originY);
 
         // Wheels
         TextureRegion wheelRegion = assets.wheel;

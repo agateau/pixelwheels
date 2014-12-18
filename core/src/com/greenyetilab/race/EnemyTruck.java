@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * A truck which drops gifts when destroyed
  */
-public class EnemyTruck extends EnemyCar {
+public class EnemyTruck extends PendingVehicle {
     private static final int GIFT_COUNT = 2;
     private final Assets mAssets;
     public EnemyTruck(Assets assets, GameWorld world, float originX, float originY) {

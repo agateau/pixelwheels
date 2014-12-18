@@ -49,8 +49,8 @@ public class PlayerPilot implements Pilot {
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
-        if (other instanceof EnemyCar) {
-            if (!((EnemyCar) other).isDead()) {
+        if (other instanceof PendingVehicle) {
+            if (!((PendingVehicle) other).isDead()) {
                 mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
             }
         }

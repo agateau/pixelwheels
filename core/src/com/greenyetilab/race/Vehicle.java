@@ -153,6 +153,11 @@ class Vehicle implements GameObject, Disposable, Collidable {
         mPilot = pilot;
     }
 
+    public void setInitialAngle(float angle) {
+        angle = (angle - 90) * MathUtils.degreesToRadians;
+        mBody.setTransform(mBody.getPosition(), angle);
+    }
+
     @Override
     public boolean act(float dt) {
         if (mState != State.ALIVE) {
