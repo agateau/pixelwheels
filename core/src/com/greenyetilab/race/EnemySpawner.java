@@ -1,5 +1,6 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.IntArray;
@@ -61,7 +62,7 @@ public class EnemySpawner {
         GameObject object;
         int choice = MathUtils.random(0, 1);
         if (choice == 0) {
-            EnemyCar car = new EnemyCar(mGameWorld, mAssets, posX, posY);
+            EnemyCar car = generateEnemyCar(mAssets, mGameWorld, posX, posY);
             float angle = mapInfo.getDirectionAt(posX, posY);
             car.setDrivingAngle(angle);
             car.setPilot(new BasicPilot(mGameWorld.getMapInfo(), car));
@@ -70,5 +71,33 @@ public class EnemySpawner {
             object = Mine.create(mGameWorld, mAssets, posX, posY);
         }
         mGameWorld.addGameObject(object);
+    }
+
+    public static EnemyCar generateEnemyCar(Assets assets, GameWorld gameWorld, float originX, float originY) {
+        TextureRegion region = assets.cars.get(MathUtils.random(assets.cars.size - 1));
+        EnemyCar car = new EnemyCar(region, gameWorld, originX, originY);
+
+        // Wheels
+        TextureRegion wheelRegion = assets.wheel;
+        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
+        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
+
+        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
+        float rightX = car.getWidth() / 2 - wheelW / 2 + 0.05f;
+        float leftX = -rightX;
+        float rearY = -car.getHeight() / 2 + REAR_WHEEL_Y;
+        float frontY = rearY + WHEEL_BASE;
+
+        Vehicle.WheelInfo info;
+        info = car.addWheel(wheelRegion, leftX, frontY);
+        info.steeringFactor = 1;
+        info = car.addWheel(wheelRegion, rightX, frontY);
+        info.steeringFactor = 1;
+        info = car.addWheel(wheelRegion, leftX, rearY);
+        info.wheel.setCanDrift(true);
+        info = car.addWheel(wheelRegion, rightX, rearY);
+        info.wheel.setCanDrift(true);
+
+        return car;
     }
 }
