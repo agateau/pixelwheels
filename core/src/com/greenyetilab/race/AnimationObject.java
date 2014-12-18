@@ -7,10 +7,10 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
- * Created by aurelien on 14/12/14.
+ * A generic short-animation game object
  */
-public class Explosion implements GameObject, Pool.Poolable, DisposableWhenOutOfSight {
-    private static ReflectionPool<Explosion> sPool = new ReflectionPool<Explosion>(Explosion.class);
+public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhenOutOfSight {
+    private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
     private float mTime;
     private Animation mAnimation;
     private float mPosX;
@@ -55,16 +55,12 @@ public class Explosion implements GameObject, Pool.Poolable, DisposableWhenOutOf
         return mPosY;
     }
 
-    public static Explosion create(Assets assets, float posX, float posY) {
-        Explosion explosion = sPool.obtain();
-        explosion.init(assets, posX, posY);
-        return explosion;
-    }
-
-    private void init(Assets assets, float posX, float posY) {
-        mTime = 0;
-        mAnimation = assets.explosion;
-        mPosX = posX;
-        mPosY = posY;
+    public static AnimationObject create(Animation animation, float posX, float posY) {
+        AnimationObject obj = sPool.obtain();
+        obj.mTime = 0;
+        obj.mAnimation = animation;
+        obj.mPosX = posX;
+        obj.mPosY = posY;
+        return obj;
     }
 }

@@ -101,7 +101,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
         if (other instanceof Vehicle) {
             mExploded = true;
             Vector2 pos = mBody.getPosition();
-            mGameWorld.addGameObject(Explosion.create(mAssets, pos.x, pos.y));
+            mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
         }
     }
 
