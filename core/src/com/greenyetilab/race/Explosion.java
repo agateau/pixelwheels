@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * Created by aurelien on 14/12/14.
  */
-public class Explosion implements GameObject, Pool.Poolable {
+public class Explosion implements GameObject, Pool.Poolable, DisposableWhenOutOfSight {
     private static ReflectionPool<Explosion> sPool = new ReflectionPool<Explosion>(Explosion.class);
     private float mTime;
     private Animation mAnimation;
@@ -17,11 +17,20 @@ public class Explosion implements GameObject, Pool.Poolable {
     private float mPosY;
 
     @Override
+    public void reset() {
+    }
+
+    @Override
+    public void dispose() {
+        sPool.free(this);
+    }
+
+    @Override
     public boolean act(float delta) {
         mTime += delta;
         boolean finished = mAnimation.isAnimationFinished(mTime);
         if (finished) {
-            sPool.free(this);
+            dispose();
         }
         return !finished;
     }
@@ -37,8 +46,13 @@ public class Explosion implements GameObject, Pool.Poolable {
     }
 
     @Override
-    public void reset() {
+    public float getX() {
+        return mPosX;
+    }
 
+    @Override
+    public float getY() {
+        return mPosY;
     }
 
     public static Explosion create(Assets assets, float posX, float posY) {

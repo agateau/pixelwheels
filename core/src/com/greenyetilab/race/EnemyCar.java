@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * An enemy car
  */
-public class EnemyCar extends Vehicle {
+public class EnemyCar extends Vehicle implements DisposableWhenOutOfSight {
     private static final float ACTIVE_EXTRA_HEIGHT = Constants.VIEWPORT_WIDTH / 2;
 
     public EnemyCar(GameWorld world, Assets assets, float originX, float originY) {
@@ -51,12 +51,7 @@ public class EnemyCar extends Vehicle {
         } else {
             mBody.setAwake(false);
         }
-        boolean keep = super.act(dt);
-        keep = keep && getY() >= bottomY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
-        if (!keep) {
-            dispose();
-        }
-        return keep;
+        return super.act(dt);
     }
 
     private static TextureRegion selectCarTextureRegion(Assets assets) {

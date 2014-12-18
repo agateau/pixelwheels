@@ -130,11 +130,16 @@ public class GameWorld implements ContactListener, Disposable {
             mEnemySpawner.setTopY(mTopVisibleY);
         }
 
+        float outOfSightLimit = mBottomVisibleY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
         mGameObjectPerformanceCounter.start();
-        // FIXME: Use SnapshotArray if game objects ever gain access to removing items from mActiveGameObjects
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
             if (!obj.act(delta)) {
+                mActiveGameObjects.removeIndex(idx);
+                continue;
+            }
+            if (obj.getY() < outOfSightLimit && obj instanceof DisposableWhenOutOfSight) {
+                ((DisposableWhenOutOfSight)obj).dispose();
                 mActiveGameObjects.removeIndex(idx);
             }
         }

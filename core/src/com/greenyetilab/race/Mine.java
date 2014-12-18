@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +14,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A mine on the road
  */
-public class Mine implements GameObject, Collidable, Pool.Poolable {
+public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWhenOutOfSight {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;
@@ -61,10 +60,15 @@ public class Mine implements GameObject, Collidable, Pool.Poolable {
     }
 
     @Override
+    public void dispose() {
+        sPool.free(this);
+    }
+
+    @Override
     public boolean act(float delta) {
         mTime += delta;
-        if (mExploded || mBody.getPosition().y < mGameWorld.getBottomVisibleY() - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT) {
-            sPool.free(this);
+        if (mExploded) {
+            dispose();
             return false;
         }
         return true;
@@ -79,6 +83,16 @@ public class Mine implements GameObject, Collidable, Pool.Poolable {
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
             batch.draw(region, pos.x - w / 2, pos.y - h / 2 , w, h);
         }
+    }
+
+    @Override
+    public float getX() {
+        return mBody.getPosition().x;
+    }
+
+    @Override
+    public float getY() {
+        return mBody.getPosition().y;
     }
 
     @Override
