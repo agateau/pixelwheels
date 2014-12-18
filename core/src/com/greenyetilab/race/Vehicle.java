@@ -215,10 +215,17 @@ class Vehicle implements GameObject, Disposable, Collidable {
     }
 
     private void actDying(float dt) {
+        if (mKilledTime == 0) {
+            onJustDied();
+        }
         mKilledTime += dt;
         if (mKilledTime >= DYING_DURATION) {
             mState = State.DEAD;
         }
+    }
+
+    protected void onJustDied() {
+
     }
 
     @Override

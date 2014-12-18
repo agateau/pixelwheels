@@ -1,13 +1,17 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
- * A truck which drops gift when destroyed
+ * A truck which drops gifts when destroyed
  */
 public class EnemyTruck extends EnemyCar {
+    private static final int GIFT_COUNT = 2;
+    private final Assets mAssets;
     public EnemyTruck(Assets assets, GameWorld world, float originX, float originY) {
         super(assets.findRegion("truck"), world, originX, originY);
+        mAssets = assets;
         setPilot(new BasicPilot(mGameWorld.getMapInfo(), this));
 
         // Wheels
@@ -30,5 +34,12 @@ public class EnemyTruck extends EnemyCar {
         info.wheel.setCanDrift(true);
         info = addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
+    }
+
+    @Override
+    protected void onJustDied() {
+        for (int idx = 0; idx < GIFT_COUNT; ++idx) {
+            Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
+        }
     }
 }

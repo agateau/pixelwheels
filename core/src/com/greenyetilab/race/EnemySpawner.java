@@ -60,7 +60,7 @@ public class EnemySpawner {
         float posY = mapInfo.getTileHeight() * ty;
 
         GameObject object;
-        int choice = MathUtils.random(0, 1);
+        int choice = MathUtils.random(0, 2);
         if (choice == 0) {
             EnemyCar car = generateEnemyCar(mAssets, mGameWorld, posX, posY);
             float angle = mapInfo.getDirectionAt(posX, posY);

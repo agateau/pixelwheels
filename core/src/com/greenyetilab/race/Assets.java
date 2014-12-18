@@ -24,6 +24,7 @@ public class Assets {
     public final TextureAtlas atlas;
     public final Animation explosion;
     public final Animation mine;
+    public final TextureRegion gift;
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
@@ -50,6 +51,7 @@ public class Assets {
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
+        this.gift = findRegion("gift");
 
         // Fix white-pixel to avoid fading borders
         this.dot = findRegion("white-pixel");

@@ -57,6 +57,11 @@ public class PlayerPilot implements Pilot {
         if (other instanceof Mine) {
             mVehicle.kill();
         }
+        if (other instanceof Gift) {
+            Gift gift = (Gift)other;
+            gift.pick();
+            mGameWorld.increaseScore(Constants.SCORE_GIFT_PICK);
+        }
     }
 
     @Override
