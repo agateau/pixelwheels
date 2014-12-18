@@ -261,10 +261,6 @@ class Vehicle implements GameObject, Disposable, Collidable {
         return mBody.getPosition().y;
     }
 
-    public Vector2 getPosition() {
-        return mBody.getPosition();
-    }
-
     private static float normAngle(float angle) {
         while (angle < 0) {
             angle += 360;
