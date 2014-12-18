@@ -67,8 +67,13 @@ public class EnemySpawner {
             car.setDrivingAngle(angle);
             car.setPilot(new BasicPilot(mGameWorld.getMapInfo(), car));
             object = car;
-        } else {
+        } else if (choice == 1) {
             object = Mine.create(mGameWorld, mAssets, posX, posY);
+        } else {
+            EnemyTruck truck = new EnemyTruck(mAssets, mGameWorld, posX, posY);
+            float angle = mapInfo.getDirectionAt(posX, posY);
+            truck.setDrivingAngle(angle);
+            object = truck;
         }
         mGameWorld.addGameObject(object);
     }
