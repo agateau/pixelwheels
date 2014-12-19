@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 public class Assets {
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
+    private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
 
     public final Skin skin;
@@ -23,6 +24,7 @@ public class Assets {
     public final TextureRegion dot;
     public final TextureAtlas atlas;
     public final Animation explosion;
+    public final Animation impact;
     public final Animation mine;
     public final TextureRegion gift;
 
@@ -49,6 +51,7 @@ public class Assets {
             this.cars.add(findRegion(name));
         }
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
+        this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
         this.gift = findRegion("gift");
