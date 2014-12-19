@@ -98,9 +98,18 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
     }
 
     @Override
+    public HealthComponent getHealthComponent() {
+        return null;
+    }
+
+    @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Vehicle) {
+        if (!(other instanceof GameObject)) {
+            return;
+        }
+        if (((GameObject)other).getHealthComponent() != null) {
+            // This object can take damage, let's explode
             mExploded = true;
             Vector2 pos = mBody.getPosition();
             mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));

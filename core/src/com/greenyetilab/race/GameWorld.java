@@ -37,7 +37,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final EnemySpawner mEnemySpawner;
     private float mTimeAccumulator = 0;
 
-    private Vehicle mPlayerVehicle;
+    private PlayerVehicle mPlayerVehicle;
     private State mState = State.RUNNING;
 
     private Vector2[] mSkidmarks = new Vector2[4000];
@@ -73,7 +73,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public Vehicle getPlayerVehicle() {
-        return mPlayerVehicle;
+        return mPlayerVehicle.getVehicle();
     }
 
     public int getScore() {
@@ -150,34 +150,7 @@ public class GameWorld implements ContactListener, Disposable {
         Vector2 position = mMapInfo.findStartTilePosition();
         assert(position != null);
 
-        // Car
-        TextureRegion carRegion = mGame.getAssets().findRegion("sled/sled");
-        TextureRegion wheelRegion = mGame.getAssets().findRegion("sled/sled-ski");
-        mPlayerVehicle = new Vehicle(carRegion, this, position);
-        mPlayerVehicle.setPilot(new PlayerPilot(mGame.getAssets(), this, mPlayerVehicle));
-        mPlayerVehicle.setLimitAngle(true);
-        //mPlayerVehicle.setCorrectAngle(true);
-
-        // Wheels
-        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
-
-        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
-        float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;
-        float leftX = -rightX;
-        float rearY = Constants.UNIT_FOR_PIXEL * -carRegion.getRegionHeight() / 2 + REAR_WHEEL_Y;
-        float frontY = rearY + WHEEL_BASE + 0.2f;
-
-        Vehicle.WheelInfo info;
-        info = mPlayerVehicle.addWheel(wheelRegion, leftX, frontY);
-        info.steeringFactor = 1;
-        info = mPlayerVehicle.addWheel(wheelRegion, rightX, frontY);
-        info.steeringFactor = 1;
-        info = mPlayerVehicle.addWheel(wheelRegion, leftX, rearY);
-        //info.wheel.setCanDrift(true);
-        info = mPlayerVehicle.addWheel(wheelRegion, rightX, rearY);
-        //info.wheel.setCanDrift(true);
-
+        mPlayerVehicle = new PlayerVehicle(mGame.getAssets(), this, position.x, position.y);
         addGameObject(mPlayerVehicle);
     }
 

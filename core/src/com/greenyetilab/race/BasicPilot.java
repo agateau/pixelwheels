@@ -11,15 +11,18 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 class BasicPilot implements Pilot {
     private final Vehicle mVehicle;
     private final MapInfo mMapInfo;
+    private final HealthComponent mHealthComponent;
 
-    public BasicPilot(MapInfo mapInfo, Vehicle vehicle) {
+    public BasicPilot(MapInfo mapInfo, Vehicle vehicle, HealthComponent healthComponent) {
         mMapInfo = mapInfo;
         mVehicle = vehicle;
+        mHealthComponent = healthComponent;
     }
     public boolean act(float dt) {
-        if (mVehicle.getHealth() == 0) {
+        if (mHealthComponent.getHealth() == 0) {
+            mVehicle.setBraking(false);
             mVehicle.setAccelerating(false);
-            return !mVehicle.isDead();
+            return mHealthComponent.getState() != HealthComponent.State.DEAD;
         }
         mVehicle.setAccelerating(true);
 
@@ -43,7 +46,7 @@ class BasicPilot implements Pilot {
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Mine) {
-            mVehicle.kill();
+            mHealthComponent.kill();
         }
     }
 

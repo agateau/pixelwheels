@@ -2,47 +2,39 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
- * A truck which drops gifts when destroyed
+ * A basic enemy car
  */
-public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSight {
-    private final Assets mAssets;
+public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSight {
     private final GameWorld mGameWorld;
     private final PendingVehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
-    private final HealthComponent mHealthComponent = new HealthComponent() {
-        @Override
-        protected void onHealthDecreased() {
-            Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
-        }
-    };
+    private final HealthComponent mHealthComponent = new HealthComponent();
     private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
-    public EnemyTruck(Assets assets, GameWorld gameWorld, float originX, float originY) {
-        mAssets = assets;
+    public EnemyCar(Assets assets, TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
-        mVehicle = new PendingVehicle(assets.findRegion("truck"), gameWorld, originX, originY);
+        mVehicle = new PendingVehicle(region, gameWorld, originX, originY);
         mVehicle.setUserData(this);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
         mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
 
         mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle, mHealthComponent);
-        mHealthComponent.setInitialHealth(4);
+        mHealthComponent.setInitialHealth(1);
 
         // Wheels
         TextureRegion wheelRegion = assets.wheel;
-        final float U = Constants.UNIT_FOR_PIXEL;
-        final float REAR_WHEEL_Y = U * 19f;
-        final float WHEEL_BASE = U * 63f;
+        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
+        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
 
-        float rightX = U * 19f;
+        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
+        float rightX = mVehicle.getWidth() / 2 - wheelW / 2 + 0.05f;
         float leftX = -rightX;
         float rearY = -mVehicle.getHeight() / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
@@ -56,9 +48,8 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
-    }
 
-    public void setInitialAngle(float angle) {
+        // Set angle *after* adding the wheels!
         mVehicle.setInitialAngle(angle);
     }
 
@@ -89,10 +80,9 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
 
     @Override
     public boolean act(float delta) {
-        boolean keep = true;
-        keep = keep && mVehicle.act(delta);
+        boolean keep = mVehicle.act(delta);
         if (keep) {
-            keep = keep && mPilot.act(delta);
+            keep = mPilot.act(delta);
         }
         if (keep) {
             keep = mCollisionHandlerComponent.act(delta);

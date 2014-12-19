@@ -55,6 +55,11 @@ public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhe
         return mPosY;
     }
 
+    @Override
+    public HealthComponent getHealthComponent() {
+        return null;
+    }
+
     public static AnimationObject create(Animation animation, float posX, float posY) {
         AnimationObject obj = sPool.obtain();
         obj.mTime = 0;

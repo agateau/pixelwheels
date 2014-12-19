@@ -108,4 +108,9 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
     public float getY() {
         return mBody.getPosition().y;
     }
+
+    @Override
+    public HealthComponent getHealthComponent() {
+        return null;
+    }
 }

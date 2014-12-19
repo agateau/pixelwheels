@@ -1,17 +1,11 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
@@ -21,21 +15,13 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements GameObject, Disposable, Collidable {
-    private static final float DYING_DURATION = 0.5f;
-    private static final float INVULNERABILITY_INTERVAL = 0.5f;
-    private Pilot mPilot;
+class Vehicle implements Disposable {
+    public static final float DYING_DURATION = 0.5f;
 
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
         public float steeringFactor;
-    }
-
-    private static enum State {
-        ALIVE,
-        DYING,
-        DEAD
     }
 
     protected final Body mBody;
@@ -52,14 +38,6 @@ class Vehicle implements GameObject, Disposable, Collidable {
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
-    private float mKilledTime;
-
-    private float mInvulnerabilityTimer;
-    private int mOldHealth = 1; // Used to detect health decrease in act()
-    private int mHealth = 1;
-    private int mMaxHealth = 1;
-
-    private State mState = State.ALIVE;
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         this(region, gameWorld, startPosition.x, startPosition.y);
@@ -91,8 +69,6 @@ class Vehicle implements GameObject, Disposable, Collidable {
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
         shape.dispose();
-
-        mBody.setUserData(this);
     }
 
     @Override
@@ -109,7 +85,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
-        body.setUserData(this);
+        body.setUserData(mBody.getUserData());
 
         RevoluteJointDef jointDef = new RevoluteJointDef();
         // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
@@ -121,6 +97,25 @@ class Vehicle implements GameObject, Disposable, Collidable {
         info.joint = (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
 
         return info;
+    }
+
+    public void setUserData(Object userData) {
+        mBody.setUserData(userData);
+        for (WheelInfo info : mWheels) {
+            info.wheel.getBody().setUserData(userData);
+        }
+    }
+
+    public Array<WheelInfo> getWheelInfos() {
+        return mWheels;
+    }
+
+    public Body getBody() {
+        return mBody;
+    }
+
+    public TextureRegion getRegion() {
+        return mRegion;
     }
 
     public float getSpeed() {
@@ -158,32 +153,12 @@ class Vehicle implements GameObject, Disposable, Collidable {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
-    public void setPilot(Pilot pilot) {
-        mPilot = pilot;
-    }
-
     public void setInitialAngle(float angle) {
         angle = (angle - 90) * MathUtils.degreesToRadians;
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
-    @Override
     public boolean act(float dt) {
-        if (mState != State.ALIVE) {
-            mBraking = false;
-            mAccelerating = false;
-        }
-        if (mState == State.DYING) {
-            actDying(dt);
-        }
-        if (mInvulnerabilityTimer > 0) {
-            mInvulnerabilityTimer -= dt;
-        }
-        if (mOldHealth > mHealth) {
-            mOldHealth = mHealth;
-            onHealthDecreased();
-        }
-
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;
@@ -215,64 +190,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
         }
-
-        if (mState == State.ALIVE) {
-            checkGroundCollisions();
-        }
-        boolean keep = mPilot.act(dt);
-        if (!keep) {
-            dispose();
-        }
-        return keep;
-    }
-
-    private void checkGroundCollisions() {
-        int wheelsOnFatalGround = 0;
-        for(WheelInfo info: mWheels) {
-            Wheel wheel = info.wheel;
-            if (wheel.isOnFatalGround()) {
-                ++wheelsOnFatalGround;
-            }
-        }
-        if (wheelsOnFatalGround >= 2) {
-            kill();
-        }
-    }
-
-    protected void actDying(float dt) {
-        if (mKilledTime == 0) {
-            onJustDied();
-        }
-        mKilledTime += dt;
-        if (mKilledTime >= DYING_DURATION) {
-            mState = State.DEAD;
-        }
-    }
-
-    protected void onJustDied() {
-    }
-
-    protected void onHealthDecreased() {
-    }
-
-    @Override
-    public void draw(Batch batch, int zIndex) {
-        if (zIndex != Constants.Z_VEHICLES) {
-            return;
-        }
-        for(WheelInfo info: mWheels) {
-            info.wheel.draw(batch);
-        }
-        Color oldColor = batch.getColor();
-        if (mState != State.ALIVE) {
-            float k = mState == State.DEAD ? 1 : (mKilledTime / DYING_DURATION);
-            float rgb = MathUtils.lerp(1, 0.3f, k);
-            batch.setColor(rgb, rgb, rgb, 1);
-        }
-        DrawUtils.drawBodyRegion(batch, mBody, mRegion);
-        if (mState != State.ALIVE) {
-            batch.setColor(oldColor);
-        }
+        return true;
     }
 
     public void setAccelerating(boolean value) {
@@ -327,62 +245,5 @@ class Vehicle implements GameObject, Disposable, Collidable {
         }
         float correctedAngle = (targetAngle - velocityAngle) / 3;
         return reverse ? -correctedAngle : correctedAngle;
-    }
-
-    public int getHealth() {
-        return mHealth;
-    }
-
-    public int getMaxHealth() {
-        return mMaxHealth;
-    }
-
-    public void setInitialHealth(int health) {
-        mOldHealth = health;
-        mHealth = health;
-        mMaxHealth = health;
-    }
-
-    public void decreaseHealth() {
-        if (mInvulnerabilityTimer > 0) {
-            return;
-        }
-        mInvulnerabilityTimer = INVULNERABILITY_INTERVAL;
-        mHealth--;
-        if (mHealth == 0) {
-            kill();
-        }
-    }
-
-    protected void kill() {
-        if (mState == State.ALIVE) {
-            mState = State.DYING;
-            mHealth = 0;
-            mKilledTime = 0;
-        }
-    }
-
-    public boolean isDead() {
-        return mState == State.DEAD;
-    }
-
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        mPilot.beginContact(contact, otherFixture);
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-        mPilot.endContact(contact, otherFixture);
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        mPilot.preSolve(contact, otherFixture, oldManifold);
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-        mPilot.postSolve(contact, otherFixture, impulse);
     }
 }
