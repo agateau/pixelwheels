@@ -170,9 +170,7 @@ public class ObstacleCreator {
         float originY = Constants.UNIT_FOR_PIXEL * (rect.getY() + MathUtils.random(rect.getHeight()));
         float angle = MapUtils.getFloatProperty(rectObject.getProperties(), "angle", 270f);
 
-        PendingVehicle car = EnemySpawner.generateEnemyCar(mAssets, mWorld, originX, originY);
-        car.setInitialAngle(angle);
-        car.setPilot(new BasicPilot(mWorld.getMapInfo(), car));
+        GameObject car = EnemySpawner.generateEnemyCar(mAssets, mWorld, originX, originY, angle);
         mWorld.addGameObject(car);
     }
 
