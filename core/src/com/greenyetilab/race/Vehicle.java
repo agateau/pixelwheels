@@ -7,11 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
@@ -21,9 +17,8 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements GameObject, Disposable, Collidable {
+class Vehicle implements GameObject, Disposable {
     public static final float DYING_DURATION = 0.5f;
-    private Pilot mPilot;
 
     public static class WheelInfo {
         public Wheel wheel;
@@ -162,10 +157,6 @@ class Vehicle implements GameObject, Disposable, Collidable {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
-    public void setPilot(Pilot pilot) {
-        mPilot = pilot;
-    }
-
     public void setInitialAngle(float angle) {
         angle = (angle - 90) * MathUtils.degreesToRadians;
         mBody.setTransform(mBody.getPosition(), angle);
@@ -220,14 +211,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
         if (mHealthComponent != null && mHealthComponent.getState() == HealthComponent.State.ALIVE) {
             checkGroundCollisions();
         }
-        if (mPilot == null) {
-            return true;
-        }
-        boolean keep = mPilot.act(dt);
-        if (!keep) {
-            dispose();
-        }
-        return keep;
+        return true;
     }
 
     private void checkGroundCollisions() {
@@ -316,33 +300,5 @@ class Vehicle implements GameObject, Disposable, Collidable {
         }
         float correctedAngle = (targetAngle - velocityAngle) / 3;
         return reverse ? -correctedAngle : correctedAngle;
-    }
-
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        if (mPilot != null) {
-            mPilot.beginContact(contact, otherFixture);
-        }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-        if (mPilot != null) {
-            mPilot.endContact(contact, otherFixture);
-        }
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        if (mPilot != null) {
-            mPilot.preSolve(contact, otherFixture, oldManifold);
-        }
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-        if (mPilot != null) {
-            mPilot.postSolve(contact, otherFixture, impulse);
-        }
     }
 }
