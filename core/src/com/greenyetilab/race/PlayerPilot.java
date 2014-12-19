@@ -29,9 +29,9 @@ public class PlayerPilot implements Pilot {
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
 
-        /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             mInputHandler = new AccelerometerInputHandler();
-        } else*/ if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+        } else if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
             mInputHandler = new TouchInputHandler();
         } else {
             mInputHandler = new KeyboardInputHandler();
