@@ -78,10 +78,9 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
 
     @Override
     public boolean act(float delta) {
-        boolean keep = true;
-        keep = keep && mVehicle.act(delta);
+        boolean keep = mVehicle.act(delta);
         if (keep) {
-            keep = keep && mPilot.act(delta);
+            keep = mPilot.act(delta);
         }
         if (!keep) {
             dispose();

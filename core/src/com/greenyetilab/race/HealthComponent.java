@@ -7,7 +7,7 @@ public class HealthComponent {
     public static final float DYING_DURATION = 0.5f;
     private static final float INVULNERABILITY_INTERVAL = 0.5f;
 
-    private float mInvulnerabilityTimer;
+    private float mInvulnerabilityTimer = 0;
     private int mOldHealth = 1; // Used to detect health decrease in act()
     private int mHealth = 1;
     private int mMaxHealth = 1;
