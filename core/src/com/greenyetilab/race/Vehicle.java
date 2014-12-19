@@ -1,7 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +15,7 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements GameObject, Disposable {
+class Vehicle implements Disposable {
     public static final float DYING_DURATION = 0.5f;
 
     public static class WheelInfo {
@@ -170,7 +168,6 @@ class Vehicle implements GameObject, Disposable {
         return mHealthComponent;
     }
 
-    @Override
     public boolean act(float dt) {
         if (mHealthComponent != null) {
             mHealthComponent.act(dt);
@@ -224,27 +221,6 @@ class Vehicle implements GameObject, Disposable {
         }
         if (wheelsOnFatalGround >= 2) {
             mHealthComponent.kill();
-        }
-    }
-
-    @Override
-    public void draw(Batch batch, int zIndex) {
-        if (zIndex != Constants.Z_VEHICLES) {
-            return;
-        }
-        for(WheelInfo info: mWheels) {
-            info.wheel.draw(batch);
-        }
-        Color oldColor = batch.getColor();
-        HealthComponent.State state = mHealthComponent.getState();
-        if (state != HealthComponent.State.ALIVE) {
-            float k = state == HealthComponent.State.DEAD ? 1 : (mHealthComponent.getKilledTime() / DYING_DURATION);
-            float rgb = MathUtils.lerp(1, 0.3f, k);
-            batch.setColor(rgb, rgb, rgb, 1);
-        }
-        DrawUtils.drawBodyRegion(batch, mBody, mRegion);
-        if (state != HealthComponent.State.ALIVE) {
-            batch.setColor(oldColor);
         }
     }
 
