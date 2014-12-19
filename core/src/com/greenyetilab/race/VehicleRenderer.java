@@ -20,17 +20,18 @@ public class VehicleRenderer {
         if (zIndex != Constants.Z_VEHICLES) {
             return;
         }
-        for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
-            info.wheel.draw(batch);
-        }
         Color oldColor = batch.getColor();
-
         HealthComponent.State state = mHealthComponent.getState();
         if (state != HealthComponent.State.ALIVE) {
             float k = state == HealthComponent.State.DEAD ? 1 : (mHealthComponent.getKilledTime() / Vehicle.DYING_DURATION);
             float rgb = MathUtils.lerp(1, 0.3f, k);
             batch.setColor(rgb, rgb, rgb, 1);
         }
+
+        for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+            info.wheel.draw(batch);
+        }
+
         DrawUtils.drawBodyRegion(batch, mVehicle.getBody(), mVehicle.getRegion());
         if (state != HealthComponent.State.ALIVE) {
             batch.setColor(oldColor);
