@@ -20,6 +20,7 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
     public EnemyCar(Assets assets, TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
         mVehicle = new PendingVehicle(region, gameWorld, originX, originY);
+        mVehicle.setUserData(this);
         mVehicle.setHealthComponent(mHealthComponent);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
 

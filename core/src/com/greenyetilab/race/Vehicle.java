@@ -78,8 +78,6 @@ class Vehicle implements GameObject, Disposable, Collidable {
         fixtureDef.restitution = 0.4f;
         mBody.createFixture(fixtureDef);
         shape.dispose();
-
-        mBody.setUserData(this);
     }
 
     @Override
@@ -96,7 +94,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
-        body.setUserData(this);
+        body.setUserData(mBody.getUserData());
 
         RevoluteJointDef jointDef = new RevoluteJointDef();
         // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
@@ -108,6 +106,13 @@ class Vehicle implements GameObject, Disposable, Collidable {
         info.joint = (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
 
         return info;
+    }
+
+    public void setUserData(Object userData) {
+        mBody.setUserData(userData);
+        for (WheelInfo info : mWheels) {
+            info.wheel.getBody().setUserData(userData);
+        }
     }
 
     public Array<WheelInfo> getWheelInfos() {

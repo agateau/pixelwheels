@@ -28,6 +28,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         mAssets = assets;
         mGameWorld = gameWorld;
         mVehicle = new PendingVehicle(assets.findRegion("truck"), gameWorld, originX, originY);
+        mVehicle.setUserData(this);
         mVehicle.setHealthComponent(mHealthComponent);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
 
