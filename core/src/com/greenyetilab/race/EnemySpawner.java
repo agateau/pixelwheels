@@ -77,31 +77,6 @@ public class EnemySpawner {
 
     public static GameObject generateEnemyCar(Assets assets, GameWorld gameWorld, float originX, float originY, float angle) {
         TextureRegion region = assets.cars.get(MathUtils.random(assets.cars.size - 1));
-        PendingVehicle car = new PendingVehicle(region, gameWorld, originX, originY);
-        car.setPilot(new BasicPilot(gameWorld.getMapInfo(), car));
-
-        // Wheels
-        TextureRegion wheelRegion = assets.wheel;
-        final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
-
-        float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
-        float rightX = car.getWidth() / 2 - wheelW / 2 + 0.05f;
-        float leftX = -rightX;
-        float rearY = -car.getHeight() / 2 + REAR_WHEEL_Y;
-        float frontY = rearY + WHEEL_BASE;
-
-        Vehicle.WheelInfo info;
-        info = car.addWheel(wheelRegion, leftX, frontY);
-        info.steeringFactor = 1;
-        info = car.addWheel(wheelRegion, rightX, frontY);
-        info.steeringFactor = 1;
-        info = car.addWheel(wheelRegion, leftX, rearY);
-        info.wheel.setCanDrift(true);
-        info = car.addWheel(wheelRegion, rightX, rearY);
-        info.wheel.setCanDrift(true);
-
-        car.setInitialAngle(angle);
-        return car;
+        return new EnemyCar(assets, region, gameWorld, originX, originY, angle);
     }
 }
