@@ -1,18 +1,38 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  * A truck which drops gifts when destroyed
  */
-public class EnemyTruck extends PendingVehicle {
+public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSight {
     private final Assets mAssets;
-    public EnemyTruck(Assets assets, GameWorld world, float originX, float originY) {
-        super(assets.findRegion("truck"), world, originX, originY);
+    private final GameWorld mGameWorld;
+    private final PendingVehicle mVehicle;
+    private final VehicleRenderer mVehicleRenderer;
+    private final HealthComponent mHealthComponent = new HealthComponent() {
+        @Override
+        protected void onHealthDecreased() {
+            Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
+        }
+    };
+    private final Pilot mPilot;
+
+    public EnemyTruck(Assets assets, GameWorld gameWorld, float originX, float originY) {
         mAssets = assets;
-        setPilot(new BasicPilot(mGameWorld.getMapInfo(), this));
-        setInitialHealth(4);
+        mGameWorld = gameWorld;
+        mVehicle = new PendingVehicle(assets.findRegion("truck"), gameWorld, originX, originY);
+        mVehicle.setHealthComponent(mHealthComponent);
+        mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
+
+        mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle);
+        mHealthComponent.setInitialHealth(4);
 
         // Wheels
         TextureRegion wheelRegion = assets.wheel;
@@ -22,22 +42,79 @@ public class EnemyTruck extends PendingVehicle {
 
         float rightX = U * 19f;
         float leftX = -rightX;
-        float rearY = -getHeight() / 2 + REAR_WHEEL_Y;
+        float rearY = -mVehicle.getHeight() / 2 + REAR_WHEEL_Y;
         float frontY = rearY + WHEEL_BASE;
 
         Vehicle.WheelInfo info;
-        info = addWheel(wheelRegion, leftX, frontY);
+        info = mVehicle.addWheel(wheelRegion, leftX, frontY);
         info.steeringFactor = 1;
-        info = addWheel(wheelRegion, rightX, frontY);
+        info = mVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
-        info = addWheel(wheelRegion, leftX, rearY);
+        info = mVehicle.addWheel(wheelRegion, leftX, rearY);
         info.wheel.setCanDrift(true);
-        info = addWheel(wheelRegion, rightX, rearY);
+        info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
     }
 
+    public void setInitialAngle(float angle) {
+        mVehicle.setInitialAngle(angle);
+    }
+
     @Override
-    protected void onHealthDecreased() {
-        Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
+    public void beginContact(Contact contact, Fixture otherFixture) {
+        mPilot.beginContact(contact, otherFixture);
+    }
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {
+        mPilot.endContact(contact, otherFixture);
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+        mPilot.preSolve(contact, otherFixture, oldManifold);
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
+        mPilot.postSolve(contact, otherFixture, impulse);
+    }
+
+    @Override
+    public void dispose() {
+        mVehicle.dispose();
+    }
+
+    @Override
+    public boolean act(float delta) {
+        boolean keep = true;
+        keep = keep && mVehicle.act(delta);
+        if (keep) {
+            keep = keep && mPilot.act(delta);
+        }
+        if (!keep) {
+            dispose();
+        }
+        return keep;
+    }
+
+    @Override
+    public void draw(Batch batch, int zIndex) {
+        mVehicleRenderer.draw(batch, zIndex);
+    }
+
+    @Override
+    public float getX() {
+        return mVehicle.getX();
+    }
+
+    @Override
+    public float getY() {
+        return mVehicle.getY();
+    }
+
+    @Override
+    public HealthComponent getHealthComponent() {
+        return mVehicle.getHealthComponent();
     }
 }

@@ -17,9 +17,10 @@ class BasicPilot implements Pilot {
         mVehicle = vehicle;
     }
     public boolean act(float dt) {
-        if (mVehicle.getHealth() == 0) {
+        if (mVehicle.getHealthComponent().getHealth() == 0) {
+            mVehicle.setBraking(false);
             mVehicle.setAccelerating(false);
-            return !mVehicle.isDead();
+            return mVehicle.getHealthComponent().getState() != HealthComponent.State.DEAD;
         }
         mVehicle.setAccelerating(true);
 
@@ -43,7 +44,7 @@ class BasicPilot implements Pilot {
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Mine) {
-            mVehicle.kill();
+            mVehicle.getHealthComponent().kill();
         }
     }
 

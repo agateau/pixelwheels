@@ -38,8 +38,13 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public boolean act(float dt) {
-        if (mVehicle.isDead()) {
-            mGameWorld.setState(GameWorld.State.BROKEN);
+        if (mVehicle.getHealthComponent().getHealth() == 0) {
+            mVehicle.setBraking(false);
+            mVehicle.setAccelerating(false);
+            if (mVehicle.getHealthComponent().getState() == HealthComponent.State.DEAD) {
+                mGameWorld.setState(GameWorld.State.BROKEN);
+            }
+            return true;
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
@@ -59,7 +64,7 @@ public class PlayerPilot implements Pilot {
         mStrongHitHandled = false;
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Mine) {
-            mVehicle.kill();
+            mVehicle.getHealthComponent().kill();
         }
         if (other instanceof Gift) {
             Gift gift = (Gift)other;
@@ -79,11 +84,12 @@ public class PlayerPilot implements Pilot {
     @Override
     public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
         Object other = otherFixture.getBody().getUserData();
-        if (!(other instanceof Vehicle)) {
+        if (!(other instanceof GameObject)) {
             return;
         }
-        Vehicle vehicle = (Vehicle)other;
-        if (vehicle.getHealth() == 0) {
+        GameObject go = (GameObject)other;
+        HealthComponent healthComponent = go.getHealthComponent();
+        if (healthComponent == null || healthComponent.getHealth() == 0) {
             return;
         }
         float value = impulse.getNormalImpulses()[0];
@@ -91,7 +97,7 @@ public class PlayerPilot implements Pilot {
             return;
         }
         mStrongHitHandled = true;
-        vehicle.decreaseHealth();
+        healthComponent.decreaseHealth();
         mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
         Vector2 point = contact.getWorldManifold().getPoints()[0];
         mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, point.x, point.y));

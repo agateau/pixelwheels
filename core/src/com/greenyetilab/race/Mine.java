@@ -98,6 +98,11 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
     }
 
     @Override
+    public HealthComponent getHealthComponent() {
+        return null;
+    }
+
+    @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Vehicle) {
