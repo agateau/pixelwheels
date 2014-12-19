@@ -16,6 +16,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
+    private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
     public PlayerVehicle(Assets assets, GameWorld gameWorld, float originX, float originY) {
@@ -27,12 +28,12 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         TextureRegion wheelRegion = assets.findRegion("sled/sled-ski");
         mVehicle = new Vehicle(carRegion, mGameWorld, originX, originY);
         mVehicle.setUserData(this);
-        mVehicle.setHealthComponent(mHealthComponent);
         mVehicle.setLimitAngle(true);
         //mVehicle.setCorrectAngle(true);
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
-        mPilot = new PlayerPilot(assets, gameWorld, mVehicle);
+        mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
+        mPilot = new PlayerPilot(assets, gameWorld, mVehicle, mHealthComponent);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -91,6 +92,12 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         if (keep) {
             keep = mPilot.act(delta);
         }
+        if (keep) {
+            keep = mCollisionHandlerComponent.act(delta);
+        }
+        if (keep) {
+            keep = mHealthComponent.act(delta);
+        }
         if (!keep) {
             dispose();
         }
@@ -114,6 +121,6 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
     @Override
     public HealthComponent getHealthComponent() {
-        return mVehicle.getHealthComponent();
+        return mHealthComponent;
     }
 }

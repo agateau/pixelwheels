@@ -16,16 +16,18 @@ public class PlayerPilot implements Pilot {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
+    private final HealthComponent mHealthComponent;
 
     private GameInput mInput = new GameInput();
     private GameInputHandler mInputHandler;
 
     private boolean mStrongHitHandled = false;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle, HealthComponent healthComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mVehicle = vehicle;
+        mHealthComponent = healthComponent;
 
         /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             mInputHandler = new AccelerometerInputHandler();
@@ -38,10 +40,10 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public boolean act(float dt) {
-        if (mVehicle.getHealthComponent().getHealth() == 0) {
+        if (mHealthComponent.getHealth() == 0) {
             mVehicle.setBraking(false);
             mVehicle.setAccelerating(false);
-            if (mVehicle.getHealthComponent().getState() == HealthComponent.State.DEAD) {
+            if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
                 mGameWorld.setState(GameWorld.State.BROKEN);
             }
             return true;
@@ -64,7 +66,7 @@ public class PlayerPilot implements Pilot {
         mStrongHitHandled = false;
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Mine) {
-            mVehicle.getHealthComponent().kill();
+            mHealthComponent.kill();
         }
         if (other instanceof Gift) {
             Gift gift = (Gift)other;

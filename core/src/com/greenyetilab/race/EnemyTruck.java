@@ -22,6 +22,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
             Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
         }
     };
+    private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
     public EnemyTruck(Assets assets, GameWorld gameWorld, float originX, float originY) {
@@ -29,10 +30,10 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         mGameWorld = gameWorld;
         mVehicle = new PendingVehicle(assets.findRegion("truck"), gameWorld, originX, originY);
         mVehicle.setUserData(this);
-        mVehicle.setHealthComponent(mHealthComponent);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
+        mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
 
-        mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle);
+        mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle, mHealthComponent);
         mHealthComponent.setInitialHealth(4);
 
         // Wheels
@@ -93,6 +94,12 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         if (keep) {
             keep = keep && mPilot.act(delta);
         }
+        if (keep) {
+            keep = mCollisionHandlerComponent.act(delta);
+        }
+        if (keep) {
+            keep = mHealthComponent.act(delta);
+        }
         if (!keep) {
             dispose();
         }
@@ -116,6 +123,6 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
 
     @Override
     public HealthComponent getHealthComponent() {
-        return mVehicle.getHealthComponent();
+        return mHealthComponent;
     }
 }

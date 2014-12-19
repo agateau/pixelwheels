@@ -15,16 +15,17 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
     private final PendingVehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
+    private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
     public EnemyCar(Assets assets, TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
         mVehicle = new PendingVehicle(region, gameWorld, originX, originY);
         mVehicle.setUserData(this);
-        mVehicle.setHealthComponent(mHealthComponent);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
+        mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
 
-        mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle);
+        mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle, mHealthComponent);
         mHealthComponent.setInitialHealth(1);
 
         // Wheels
@@ -83,6 +84,12 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
         if (keep) {
             keep = mPilot.act(delta);
         }
+        if (keep) {
+            keep = mCollisionHandlerComponent.act(delta);
+        }
+        if (keep) {
+            keep = mHealthComponent.act(delta);
+        }
         if (!keep) {
             dispose();
         }
@@ -106,6 +113,6 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
 
     @Override
     public HealthComponent getHealthComponent() {
-        return mVehicle.getHealthComponent();
+        return mHealthComponent;
     }
 }

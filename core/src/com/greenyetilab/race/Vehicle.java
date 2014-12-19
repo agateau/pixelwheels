@@ -39,8 +39,6 @@ class Vehicle implements Disposable {
     private boolean mBraking = false;
     private float mDirection = 0;
 
-    private HealthComponent mHealthComponent = new HealthComponent();
-
     public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
         this(region, gameWorld, startPosition.x, startPosition.y);
     }
@@ -160,19 +158,7 @@ class Vehicle implements Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
-    public void setHealthComponent(HealthComponent healthComponent) {
-        mHealthComponent = healthComponent;
-    }
-
-    public HealthComponent getHealthComponent() {
-        return mHealthComponent;
-    }
-
     public boolean act(float dt) {
-        if (mHealthComponent != null) {
-            mHealthComponent.act(dt);
-        }
-
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;
@@ -204,24 +190,7 @@ class Vehicle implements Disposable {
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
         }
-
-        if (mHealthComponent != null && mHealthComponent.getState() == HealthComponent.State.ALIVE) {
-            checkGroundCollisions();
-        }
         return true;
-    }
-
-    private void checkGroundCollisions() {
-        int wheelsOnFatalGround = 0;
-        for(WheelInfo info: mWheels) {
-            Wheel wheel = info.wheel;
-            if (wheel.isOnFatalGround()) {
-                ++wheelsOnFatalGround;
-            }
-        }
-        if (wheelsOnFatalGround >= 2) {
-            mHealthComponent.kill();
-        }
     }
 
     public void setAccelerating(boolean value) {
