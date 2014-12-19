@@ -7,12 +7,12 @@ import com.badlogic.gdx.math.MathUtils;
  * A truck which drops gifts when destroyed
  */
 public class EnemyTruck extends PendingVehicle {
-    private static final int GIFT_COUNT = 2;
     private final Assets mAssets;
     public EnemyTruck(Assets assets, GameWorld world, float originX, float originY) {
         super(assets.findRegion("truck"), world, originX, originY);
         mAssets = assets;
         setPilot(new BasicPilot(mGameWorld.getMapInfo(), this));
+        setInitialHealth(4);
 
         // Wheels
         TextureRegion wheelRegion = assets.wheel;
@@ -37,9 +37,7 @@ public class EnemyTruck extends PendingVehicle {
     }
 
     @Override
-    protected void onJustDied() {
-        for (int idx = 0; idx < GIFT_COUNT; ++idx) {
-            Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
-        }
+    protected void onHealthDecreased() {
+        Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
     }
 }

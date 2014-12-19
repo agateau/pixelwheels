@@ -2,20 +2,28 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  * A pilot controlled by the player
  */
 public class PlayerPilot implements Pilot {
+    private static final float MINIMUM_HIT_IMPULSE = 10;
+    private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
 
     private GameInput mInput = new GameInput();
     private GameInputHandler mInputHandler;
 
-    public PlayerPilot(GameWorld gameWorld, Vehicle vehicle) {
+    private boolean mStrongHitHandled = false;
+
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+        mAssets = assets;
         mGameWorld = gameWorld;
         mVehicle = vehicle;
 
@@ -48,12 +56,8 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
+        mStrongHitHandled = false;
         Object other = otherFixture.getBody().getUserData();
-        if (other instanceof PendingVehicle) {
-            if (!((PendingVehicle) other).isDead()) {
-                mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
-            }
-        }
         if (other instanceof Mine) {
             mVehicle.kill();
         }
@@ -66,6 +70,30 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
+    }
 
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
+        Object other = otherFixture.getBody().getUserData();
+        if (!(other instanceof Vehicle)) {
+            return;
+        }
+        Vehicle vehicle = (Vehicle)other;
+        if (vehicle.getHealth() == 0) {
+            return;
+        }
+        float value = impulse.getNormalImpulses()[0];
+        if (value < MINIMUM_HIT_IMPULSE || mStrongHitHandled) {
+            return;
+        }
+        mStrongHitHandled = true;
+        vehicle.decreaseHealth();
+        mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
+        Vector2 point = contact.getWorldManifold().getPoints()[0];
+        mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, point.x, point.y));
     }
 }

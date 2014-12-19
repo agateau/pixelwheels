@@ -7,7 +7,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
@@ -107,6 +109,16 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
 
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
 
     }
 }

@@ -8,8 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.utils.Disposable;
  */
 class Vehicle implements GameObject, Disposable, Collidable {
     private static final float DYING_DURATION = 0.5f;
+    private static final float INVULNERABILITY_INTERVAL = 0.5f;
     private Pilot mPilot;
 
     public static class WheelInfo {
@@ -50,6 +53,11 @@ class Vehicle implements GameObject, Disposable, Collidable {
     private boolean mBraking = false;
     private float mDirection = 0;
     private float mKilledTime;
+
+    private float mInvulnerabilityTimer;
+    private int mOldHealth = 1; // Used to detect health decrease in act()
+    private int mHealth = 1;
+    private int mMaxHealth = 1;
 
     private State mState = State.ALIVE;
 
@@ -92,6 +100,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
         for (WheelInfo info : mWheels) {
             info.wheel.dispose();
         }
+        mGameWorld.getBox2DWorld().destroyBody(mBody);
     }
 
     public WheelInfo addWheel(TextureRegion region, float x, float y) {
@@ -167,6 +176,13 @@ class Vehicle implements GameObject, Disposable, Collidable {
         if (mState == State.DYING) {
             actDying(dt);
         }
+        if (mInvulnerabilityTimer > 0) {
+            mInvulnerabilityTimer -= dt;
+        }
+        if (mOldHealth > mHealth) {
+            mOldHealth = mHealth;
+            onHealthDecreased();
+        }
 
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
@@ -203,7 +219,11 @@ class Vehicle implements GameObject, Disposable, Collidable {
         if (mState == State.ALIVE) {
             checkGroundCollisions();
         }
-        return mPilot.act(dt);
+        boolean keep = mPilot.act(dt);
+        if (!keep) {
+            dispose();
+        }
+        return keep;
     }
 
     private void checkGroundCollisions() {
@@ -219,7 +239,7 @@ class Vehicle implements GameObject, Disposable, Collidable {
         }
     }
 
-    private void actDying(float dt) {
+    protected void actDying(float dt) {
         if (mKilledTime == 0) {
             onJustDied();
         }
@@ -230,7 +250,9 @@ class Vehicle implements GameObject, Disposable, Collidable {
     }
 
     protected void onJustDied() {
+    }
 
+    protected void onHealthDecreased() {
     }
 
     @Override
@@ -307,9 +329,35 @@ class Vehicle implements GameObject, Disposable, Collidable {
         return reverse ? -correctedAngle : correctedAngle;
     }
 
+    public int getHealth() {
+        return mHealth;
+    }
+
+    public int getMaxHealth() {
+        return mMaxHealth;
+    }
+
+    public void setInitialHealth(int health) {
+        mOldHealth = health;
+        mHealth = health;
+        mMaxHealth = health;
+    }
+
+    public void decreaseHealth() {
+        if (mInvulnerabilityTimer > 0) {
+            return;
+        }
+        mInvulnerabilityTimer = INVULNERABILITY_INTERVAL;
+        mHealth--;
+        if (mHealth == 0) {
+            kill();
+        }
+    }
+
     protected void kill() {
         if (mState == State.ALIVE) {
             mState = State.DYING;
+            mHealth = 0;
             mKilledTime = 0;
         }
     }
@@ -326,5 +374,15 @@ class Vehicle implements GameObject, Disposable, Collidable {
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
         mPilot.endContact(contact, otherFixture);
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+        mPilot.preSolve(contact, otherFixture, oldManifold);
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
+        mPilot.postSolve(contact, otherFixture, impulse);
     }
 }

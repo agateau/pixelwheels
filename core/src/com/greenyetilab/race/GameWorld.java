@@ -154,7 +154,7 @@ public class GameWorld implements ContactListener, Disposable {
         TextureRegion carRegion = mGame.getAssets().findRegion("sled/sled");
         TextureRegion wheelRegion = mGame.getAssets().findRegion("sled/sled-ski");
         mPlayerVehicle = new Vehicle(carRegion, this, position);
-        mPlayerVehicle.setPilot(new PlayerPilot(this, mPlayerVehicle));
+        mPlayerVehicle.setPilot(new PlayerPilot(mGame.getAssets(), this, mPlayerVehicle));
         mPlayerVehicle.setLimitAngle(true);
         //mPlayerVehicle.setCorrectAngle(true);
 
@@ -241,12 +241,26 @@ public class GameWorld implements ContactListener, Disposable {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
+        Object userA = contact.getFixtureA().getBody().getUserData();
+        Object userB = contact.getFixtureB().getBody().getUserData();
+        if (userA instanceof Collidable) {
+            ((Collidable) userA).preSolve(contact, contact.getFixtureB(), oldManifold);
+        }
+        if (userB instanceof Collidable) {
+            ((Collidable) userB).preSolve(contact, contact.getFixtureA(), oldManifold);
+        }
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
+        Object userA = contact.getFixtureA().getBody().getUserData();
+        Object userB = contact.getFixtureB().getBody().getUserData();
+        if (userA instanceof Collidable) {
+            ((Collidable) userA).postSolve(contact, contact.getFixtureB(), impulse);
+        }
+        if (userB instanceof Collidable) {
+            ((Collidable) userB).postSolve(contact, contact.getFixtureA(), impulse);
+        }
     }
 
     public State getState() {
