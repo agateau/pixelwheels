@@ -13,8 +13,14 @@ public class AccelerometerInputHandler implements GameInputHandler {
     public void updateGameInput(GameInput input) {
         input.braking = false;
         input.accelerating = true;
+        input.shooting = false;
         float angle = -Gdx.input.getAccelerometerY();
         input.direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
+        for (int i = 0; i < 5; i++) {
+            if (Gdx.input.isTouched(i)) {
+                input.shooting = true;
+                break;
+            }
         }
     }
 }

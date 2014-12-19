@@ -33,7 +33,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
         mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
-        mPilot = new PlayerPilot(assets, gameWorld, mVehicle, mHealthComponent);
+        mPilot = new PlayerPilot(assets, gameWorld, this, mVehicle, mHealthComponent);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;

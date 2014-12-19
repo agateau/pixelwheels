@@ -15,6 +15,7 @@ public class PlayerPilot implements Pilot {
     private static final float MINIMUM_HIT_IMPULSE = 10;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
+    private final GameObject mPlayerGameObject;
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
 
@@ -23,9 +24,10 @@ public class PlayerPilot implements Pilot {
 
     private boolean mStrongHitHandled = false;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle, HealthComponent healthComponent) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, GameObject playerGameObject, Vehicle vehicle, HealthComponent healthComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
+        mPlayerGameObject = playerGameObject;
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
 
@@ -57,6 +59,9 @@ public class PlayerPilot implements Pilot {
             mVehicle.setDirection(mInput.direction);
             mVehicle.setAccelerating(mInput.accelerating);
             mVehicle.setBraking(mInput.braking);
+            if (mInput.shooting) {
+                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mPlayerGameObject, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
+            }
         }
         return true;
     }

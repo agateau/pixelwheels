@@ -6,5 +6,6 @@ package com.greenyetilab.race;
 public class GameInput {
     boolean braking;
     boolean accelerating;
+    boolean shooting;
     float direction;
 }
