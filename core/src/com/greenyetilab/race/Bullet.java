@@ -123,7 +123,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
             // This object can take damage, let's hit it and explode
             mExploded = true;
             Vector2 pos = mBody.getPosition();
-            mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
+            mGameWorld.addGameObject(AnimationObject.create(mAssets.iceExplosion, pos.x, pos.y));
         }
     }
 
