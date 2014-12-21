@@ -100,6 +100,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         }
         if (!keep) {
             dispose();
+            mGameWorld.setState(GameWorld.State.BROKEN);
         }
         return keep;
     }

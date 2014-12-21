@@ -47,15 +47,13 @@ public class PlayerPilot implements Pilot {
         if (mHealthComponent.getHealth() == 0) {
             mVehicle.setBraking(true);
             mVehicle.setAccelerating(false);
-            if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
-                mGameWorld.setState(GameWorld.State.BROKEN);
-            }
             return true;
         }
 
         if (mShootRecoilTime > 0) {
             mShootRecoilTime -= dt;
         }
+
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             mInput.braking = false;
             mInput.accelerating = false;

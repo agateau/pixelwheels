@@ -22,7 +22,7 @@ class BasicPilot implements Pilot {
         if (mHealthComponent.getHealth() == 0) {
             mVehicle.setBraking(true);
             mVehicle.setAccelerating(false);
-            return mHealthComponent.getState() != HealthComponent.State.DEAD;
+            return true;
         }
         mVehicle.setAccelerating(true);
 
