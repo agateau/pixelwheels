@@ -3,6 +3,7 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
@@ -10,6 +11,8 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A generic short-animation game object
  */
 public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhenOutOfSight {
+    private static float MULTI_DELAY = 0.25f;
+    private static float MULTI_DENSITY = 2;
     private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
     private float mTime;
     private Animation mAnimation;
@@ -28,6 +31,9 @@ public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhe
     @Override
     public boolean act(float delta) {
         mTime += delta;
+        if (mTime < 0) {
+            return true;
+        }
         boolean finished = mAnimation.isAnimationFinished(mTime);
         if (finished) {
             dispose();
@@ -37,6 +43,9 @@ public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhe
 
     @Override
     public void draw(Batch batch, int zIndex) {
+        if (mTime < 0) {
+            return;
+        }
         if (zIndex == Constants.Z_OBSTACLES) {
             TextureRegion region = mAnimation.getKeyFrame(mTime);
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
@@ -61,11 +70,25 @@ public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhe
     }
 
     public static AnimationObject create(Animation animation, float posX, float posY) {
+        return create(animation, posX, posY, 0);
+    }
+    public static AnimationObject create(Animation animation, float posX, float posY, float delay) {
         AnimationObject obj = sPool.obtain();
-        obj.mTime = 0;
+        obj.mTime = -delay;
         obj.mAnimation = animation;
         obj.mPosX = posX;
         obj.mPosY = posY;
         return obj;
+    }
+
+    public static void createMulti(GameWorld gameWorld, Animation animation, float posX, float posY, float width, float height) {
+        int count = (int)(height * width / MULTI_DENSITY);
+        float delay = 0;
+        for (int i = 0; i < count; ++i, delay += MULTI_DELAY) {
+            float dx = MathUtils.random(-width / 2, width / 2);
+            float dy = MathUtils.random(-height / 2, height / 2);
+            GameObject obj = AnimationObject.create(animation, posX + dx, posY + dy, delay);
+            gameWorld.addGameObject(obj);
+        }
     }
 }

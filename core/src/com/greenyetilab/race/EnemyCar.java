@@ -1,7 +1,9 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -14,14 +16,24 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
     private final GameWorld mGameWorld;
     private final PendingVehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
-    private final HealthComponent mHealthComponent = new HealthComponent();
+    private final HealthComponent mHealthComponent;
     private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
-    public EnemyCar(Assets assets, TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
+    public EnemyCar(final Assets assets, final TextureRegion region, final GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
         mVehicle = new PendingVehicle(region, gameWorld, originX, originY);
         mVehicle.setUserData(this);
+        mHealthComponent = new HealthComponent() {
+            @Override
+            protected void onFullyDead() {
+                final float U = Constants.UNIT_FOR_PIXEL;
+                AnimationObject.createMulti(gameWorld, assets.iceExplosion,
+                        mVehicle.getX(), mVehicle.getY(),
+                        U * region.getRegionWidth(), U * region.getRegionHeight());
+            }
+
+        };
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
         mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
 

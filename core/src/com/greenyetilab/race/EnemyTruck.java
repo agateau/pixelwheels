@@ -21,6 +21,14 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         protected void onHealthDecreased() {
             Gift.drop(mAssets, mGameWorld, getX(), getY(), MathUtils.random(60f, 120f));
         }
+        @Override
+        protected void onFullyDead() {
+            final float U = Constants.UNIT_FOR_PIXEL;
+            TextureRegion region = mVehicle.getRegion();
+            AnimationObject.createMulti(mGameWorld, mAssets.iceExplosion,
+                    mVehicle.getX(), mVehicle.getY(),
+                    U * region.getRegionWidth(), U * region.getRegionHeight());
+        }
     };
     private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
