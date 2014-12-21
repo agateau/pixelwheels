@@ -31,9 +31,9 @@ public class PlayerPilot implements Pilot {
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
 
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+        /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             mInputHandler = new AccelerometerInputHandler();
-        } else if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+        } else*/ if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
             mInputHandler = new TouchInputHandler();
         } else {
             mInputHandler = new KeyboardInputHandler();
@@ -54,6 +54,7 @@ public class PlayerPilot implements Pilot {
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             mInput.braking = false;
             mInput.accelerating = false;
+            mInput.shooting = false;
             mInput.direction = 0;
             mInputHandler.updateGameInput(mInput);
             mVehicle.setDirection(mInput.direction);

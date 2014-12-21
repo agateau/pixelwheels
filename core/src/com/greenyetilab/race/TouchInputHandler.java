@@ -16,11 +16,11 @@ public class TouchInputHandler implements GameInputHandler {
             if (x < 0.3f) {
                 input.direction = 1;
             } else if (x < 0.7f) {
-                input.braking = true;
+                input.shooting = true;
             } else {
                 input.direction = -1;
             }
         }
-        input.accelerating = !input.braking;
+        input.accelerating = true;
     }
 }
