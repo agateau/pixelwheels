@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
  */
 public class PlayerPilot implements Pilot {
     private static final float MINIMUM_HIT_IMPULSE = 10;
+    private static final float SHOOT_RECOIL = 0.1f;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final GameObject mPlayerGameObject;
@@ -23,6 +24,7 @@ public class PlayerPilot implements Pilot {
     private GameInputHandler mInputHandler;
 
     private boolean mStrongHitHandled = false;
+    private float mShootRecoilTime = 0;
 
     public PlayerPilot(Assets assets, GameWorld gameWorld, GameObject playerGameObject, Vehicle vehicle, HealthComponent healthComponent) {
         mAssets = assets;
@@ -51,6 +53,9 @@ public class PlayerPilot implements Pilot {
             return true;
         }
 
+        if (mShootRecoilTime > 0) {
+            mShootRecoilTime -= dt;
+        }
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             mInput.braking = false;
             mInput.accelerating = false;
@@ -60,8 +65,9 @@ public class PlayerPilot implements Pilot {
             mVehicle.setDirection(mInput.direction);
             mVehicle.setAccelerating(mInput.accelerating);
             mVehicle.setBraking(mInput.braking);
-            if (mInput.shooting) {
+            if (mInput.shooting && mShootRecoilTime <= 0) {
                 mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mPlayerGameObject, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
+                mShootRecoilTime = SHOOT_RECOIL;
             }
         }
         return true;
