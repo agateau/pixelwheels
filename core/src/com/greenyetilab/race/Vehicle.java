@@ -16,8 +16,6 @@ import com.badlogic.gdx.utils.Disposable;
  * Represents a car on the world
  */
 class Vehicle implements Disposable {
-    public static final float DYING_DURATION = 0.5f;
-
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;

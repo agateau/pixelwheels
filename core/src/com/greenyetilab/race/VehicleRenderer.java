@@ -22,19 +22,24 @@ public class VehicleRenderer {
         }
         Color oldColor = batch.getColor();
         HealthComponent.State state = mHealthComponent.getState();
-        if (state != HealthComponent.State.ALIVE) {
-            float k = state == HealthComponent.State.DEAD ? 1 : (mHealthComponent.getKilledTime() / Vehicle.DYING_DURATION);
-            float rgb = MathUtils.lerp(1, 0.3f, k);
-            batch.setColor(rgb, rgb, rgb, 1);
+        float rgb;
+        float alpha;
+        if (state == HealthComponent.State.ALIVE) {
+            float k = mHealthComponent.getHealth() / (float)mHealthComponent.getMaxHealth();
+            rgb = MathUtils.lerp(0.3f, 1, k);
+            alpha = 1;
+        } else {
+            float k = state == HealthComponent.State.DEAD ? 1 : (mHealthComponent.getKilledTime() / HealthComponent.DYING_DURATION);
+            rgb = MathUtils.lerp(0.3f, 0, k);
+            alpha = MathUtils.cos(k / (MathUtils.PI / 2));
         }
+        batch.setColor(rgb, rgb, rgb, alpha);
 
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
             info.wheel.draw(batch);
         }
 
         DrawUtils.drawBodyRegion(batch, mVehicle.getBody(), mVehicle.getRegion());
-        if (state != HealthComponent.State.ALIVE) {
-            batch.setColor(oldColor);
-        }
+        batch.setColor(oldColor);
     }
 }
