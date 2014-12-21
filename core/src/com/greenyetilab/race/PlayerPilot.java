@@ -43,7 +43,7 @@ public class PlayerPilot implements Pilot {
     @Override
     public boolean act(float dt) {
         if (mHealthComponent.getHealth() == 0) {
-            mVehicle.setBraking(false);
+            mVehicle.setBraking(true);
             mVehicle.setAccelerating(false);
             if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
                 mGameWorld.setState(GameWorld.State.BROKEN);

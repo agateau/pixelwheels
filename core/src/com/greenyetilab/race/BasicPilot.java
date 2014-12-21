@@ -20,7 +20,7 @@ class BasicPilot implements Pilot {
     }
     public boolean act(float dt) {
         if (mHealthComponent.getHealth() == 0) {
-            mVehicle.setBraking(false);
+            mVehicle.setBraking(true);
             mVehicle.setAccelerating(false);
             return mHealthComponent.getState() != HealthComponent.State.DEAD;
         }
