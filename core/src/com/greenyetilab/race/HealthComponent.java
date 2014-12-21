@@ -4,19 +4,14 @@ package com.greenyetilab.race;
  * Created by aurelien on 19/12/14.
  */
 public class HealthComponent {
-    public static final float DYING_DURATION = 0.5f;
-    private static final float INVULNERABILITY_INTERVAL = 0.5f;
+    public static final float DYING_DURATION = 0.3f;
 
-    private float mInvulnerabilityTimer = 0;
     private int mOldHealth = 1; // Used to detect health decrease in act()
     private int mHealth = 1;
     private int mMaxHealth = 1;
     private float mKilledTime = 0;
 
     boolean act(float dt) {
-        if (mInvulnerabilityTimer > 0) {
-            mInvulnerabilityTimer -= dt;
-        }
         if (mOldHealth > mHealth) {
             mOldHealth = mHealth;
             onHealthDecreased();
@@ -26,6 +21,10 @@ public class HealthComponent {
                 onJustDied();
             }
             mKilledTime += dt;
+            if (mKilledTime >= DYING_DURATION) {
+                onFullyDead();
+                return false;
+            }
         }
         return true;
     }
@@ -56,17 +55,13 @@ public class HealthComponent {
     }
 
     public void decreaseHealth() {
-        if (mInvulnerabilityTimer > 0) {
+        if (mHealth == 0) {
             return;
         }
-        mInvulnerabilityTimer = INVULNERABILITY_INTERVAL;
         mHealth--;
     }
 
     public void kill() {
-        if (mInvulnerabilityTimer > 0) {
-            return;
-        }
         mHealth = 0;
     }
 
@@ -74,6 +69,9 @@ public class HealthComponent {
     }
 
     protected void onJustDied() {
+    }
+
+    protected void onFullyDead() {
     }
 
     public static enum State {
