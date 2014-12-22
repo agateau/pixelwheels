@@ -1,5 +1,7 @@
 package com.greenyetilab.utils;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +29,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.XmlReader;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 import com.greenyetilab.utils.anchor.PositionRule;
+import com.greenyetilab.utils.log.NLog;
 
 public class UiBuilder {
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
+    private Map<String, Constructor<? extends Actor>> mConstructorForName = new HashMap<String, Constructor<? extends Actor>>();
     private TextureAtlas mAtlas;
     private Skin mSkin;
 
@@ -140,6 +144,15 @@ public class UiBuilder {
             return createVerticalGroup(element);
         } else if (name.equals("HorizontalGroup")) {
             return createHorizontalGroup(element);
+        }
+        Constructor<? extends Actor> ctor = mConstructorForName.get(name);
+        if (ctor != null) {
+            try {
+                return ctor.newInstance(element);
+            } catch (Exception e) {
+                NLog.e("Creating a '%s' actor failed. Error: %s", name, e);
+                e.printStackTrace();
+            }
         }
         throw new RuntimeException("Unknown UI element type: " + name);
     }
@@ -330,5 +343,15 @@ public class UiBuilder {
             rule.vSpace = Float.parseFloat(tokens[2]) * spacing;
         }
         return rule;
+    }
+
+    public void registerActorClass(Class<? extends Actor> actorClass) {
+        String name = actorClass.getSimpleName();
+        try {
+            Constructor<? extends Actor> ctor = actorClass.getConstructor(XmlReader.Element.class);
+            mConstructorForName.put(name, ctor);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -26,16 +26,8 @@ public class GameOverOverlay extends Overlay {
     }
 
     private Actor createContent(int newHighScoreIndex) {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin) {
-            @Override
-            protected Actor createActorForElement(XmlReader.Element element) {
-                if (element.getName().equals("HighScorePane")) {
-                    return new HighScorePane();
-                } else {
-                    return super.createActorForElement(element);
-                }
-            }
-        };
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        builder.registerActorClass(HighScorePane.class);
         Actor content = builder.build(FileUtils.assets("screens/gameoveroverlay.gdxui"));
         builder.getActor("restartButton").addListener(new ChangeListener() {
             @Override

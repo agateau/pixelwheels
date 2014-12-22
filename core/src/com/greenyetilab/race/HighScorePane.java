@@ -5,14 +5,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.XmlReader;
 
 /**
  * Display the high score table
  */
-class HighScorePane extends ScrollPane {
+public class HighScorePane extends ScrollPane {
     private Cell mNewHighScoreCell = null;
 
     public HighScorePane() {
+        super(null);
+    }
+
+    public HighScorePane(XmlReader.Element root) {
         super(null);
     }
 
