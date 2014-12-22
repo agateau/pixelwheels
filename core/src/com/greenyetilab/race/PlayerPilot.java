@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class PlayerPilot implements Pilot {
     private static final float MINIMUM_HIT_IMPULSE = 10;
     private static final float SHOOT_RECOIL = 0.1f;
+    private static final float DIRECTION_CORRECTION_STRENGTH = 0.008f;
+
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final GameObject mPlayerGameObject;
@@ -60,6 +62,9 @@ public class PlayerPilot implements Pilot {
             mInput.shooting = false;
             mInput.direction = 0;
             mInputHandler.updateGameInput(mInput);
+            if (mInput.direction == 0) {
+                mInput.direction = computeCorrectedDirection();
+            }
             mVehicle.setDirection(mInput.direction);
             mVehicle.setAccelerating(mInput.accelerating);
             mVehicle.setBraking(mInput.braking);
@@ -113,5 +118,20 @@ public class PlayerPilot implements Pilot {
         mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
         Vector2 point = contact.getWorldManifold().getPoints()[0];
         mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, point.x, point.y));
+    }
+
+    private float computeCorrectedDirection() {
+        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(mVehicle.getX(), mVehicle.getY());
+        float angle = mVehicle.getAngle();
+        float delta = Math.abs(angle - directionAngle);
+        if (delta < 2) {
+            return 0;
+        }
+        float correctionIntensity = Math.min(1, delta * DIRECTION_CORRECTION_STRENGTH);
+        if (directionAngle > angle) {
+            return correctionIntensity;
+        } else {
+            return -correctionIntensity;
+        }
     }
 }
