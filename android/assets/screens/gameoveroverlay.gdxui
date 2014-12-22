@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+
+        <ScrollPane id="scoreScrollPane"
+            center="root.center 0 0.5"
+            width="400"
+            height="290">
+        </ScrollPane>
+
+        <Label id="mainLabel"
+            bottomCenter="scoreScrollPane.topCenter 0 1">Game Over</Label>
+
+        <TextButton id="restartButton"
+            width="200"
+            height="60"
+            topRight="scoreScrollPane.bottomCenter -1 -1"
+            >Try Again</TextButton>
+
+        <TextButton id="menuButton"
+            width="200"
+            height="60"
+            topLeft="scoreScrollPane.bottomCenter 1 -1"
+            >Menu</TextButton>
+    </AnchorGroup>
+</gdxui>

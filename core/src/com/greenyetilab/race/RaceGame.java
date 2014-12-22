@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.greenyetilab.utils.FileUtils;
 
 import java.util.Stack;
 
@@ -17,6 +18,7 @@ public class RaceGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
     private MapCreator mMapCreator = new MapCreator();
+    private HighScoreTable mHighScoreTable = new HighScoreTable();
 
     public Assets getAssets() {
         return mAssets;
@@ -32,6 +34,8 @@ public class RaceGame extends Game {
         mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
         mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
         mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/split_single_single.tmx"));
+
+        mHighScoreTable.init(FileUtils.getUserWritableFile("highscore.xml"));
         showMainMenu();
     }
 
@@ -68,5 +72,9 @@ public class RaceGame extends Game {
         mScreenStack.pop().dispose();
         assert !mScreenStack.isEmpty();
         setScreen(mScreenStack.peek());
+    }
+
+    public HighScoreTable getHighScoreTable() {
+        return mHighScoreTable;
     }
 }

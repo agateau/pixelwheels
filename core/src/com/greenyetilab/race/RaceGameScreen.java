@@ -1,7 +1,6 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -145,7 +144,9 @@ public class RaceGameScreen extends ScreenAdapter {
     }
 
     private void showGameOverOverlay() {
-        mHudStage.addActor(new GameOverOverlay(mGame, mGameWorld));
+        int score = mGameWorld.getScore();
+        int index = mGame.getHighScoreTable().insert(score);
+        mHudStage.addActor(new GameOverOverlay(mGame, index));
     }
 
     @Override

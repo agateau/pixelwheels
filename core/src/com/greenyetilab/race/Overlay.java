@@ -10,9 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 /**
  * A generic overlay display
  */
-public abstract class Overlay extends WidgetGroup {
+public class Overlay extends WidgetGroup {
     protected static final float IN_DURATION = 0.5f;
-    protected final Actor mContent;
+    private Actor mContent;
 
     public Overlay(TextureRegion dot) {
         setFillParent(true);
@@ -21,16 +21,19 @@ public abstract class Overlay extends WidgetGroup {
         bg.setFillParent(true);
         addActor(bg);
         bg.addAction(Actions.alpha(0.6f, IN_DURATION));
-
-        mContent = createContent();
     }
 
-    protected abstract Actor createContent();
+    public void setContent(Actor actor) {
+        if (mContent != null && mContent.getParent() != null) {
+            mContent.getParent().removeActor(mContent);
+        }
+        mContent = actor;
+    }
 
     @Override
     public void layout() {
         super.layout();
-        if (mContent.getParent() == null) {
+        if (mContent != null && mContent.getParent() == null) {
             mContent.setSize(this.getWidth(), this.getHeight());
             mContent.setPosition(0, this.getHeight());
             mContent.addAction(Actions.moveTo(0, 0, IN_DURATION, Interpolation.swingOut));
