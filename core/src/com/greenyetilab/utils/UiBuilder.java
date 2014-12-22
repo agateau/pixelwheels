@@ -1,12 +1,5 @@
 package com.greenyetilab.utils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.greenyetilab.utils.anchor.Anchor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -14,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -27,15 +21,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.XmlReader;
+import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 import com.greenyetilab.utils.anchor.PositionRule;
-import com.greenyetilab.utils.log.NLog;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UiBuilder {
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
-    private Map<String, Constructor<? extends Actor>> mConstructorForName = new HashMap<String, Constructor<? extends Actor>>();
+    private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
     private TextureAtlas mAtlas;
     private Skin mSkin;
+
+    public static interface ActorFactory {
+        Actor createActor(XmlReader.Element element);
+    }
 
     private static final String[] ANCHOR_NAMES = {
         "topLeft",
@@ -145,14 +146,9 @@ public class UiBuilder {
         } else if (name.equals("HorizontalGroup")) {
             return createHorizontalGroup(element);
         }
-        Constructor<? extends Actor> ctor = mConstructorForName.get(name);
-        if (ctor != null) {
-            try {
-                return ctor.newInstance(element);
-            } catch (Exception e) {
-                NLog.e("Creating a '%s' actor failed. Error: %s", name, e);
-                e.printStackTrace();
-            }
+        ActorFactory factory = mFactoryForName.get(name);
+        if (factory != null) {
+            return factory.createActor(element);
         }
         throw new RuntimeException("Unknown UI element type: " + name);
     }
@@ -345,13 +341,7 @@ public class UiBuilder {
         return rule;
     }
 
-    public void registerActorClass(Class<? extends Actor> actorClass) {
-        String name = actorClass.getSimpleName();
-        try {
-            Constructor<? extends Actor> ctor = actorClass.getConstructor(XmlReader.Element.class);
-            mConstructorForName.put(name, ctor);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+    public void registerActorFactory(String name, ActorFactory factory) {
+        mFactoryForName.put(name, factory);
     }
 }

@@ -26,7 +26,7 @@ public class HighScoreScreen extends com.greenyetilab.utils.StageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
-        builder.registerActorClass(HighScorePane.class);
+        HighScorePane.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/highscore.gdxui"));
         root.setFillParent(true);
