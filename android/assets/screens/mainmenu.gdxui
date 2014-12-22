@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label id="mainLabel"
+               topCenter="root.topCenter 0 -2">Santa Claus Racer</Label>
+
+        <TextButton id="startButton"
+                    width="300"
+                    height="60"
+                    center="root.center"
+            >Start</TextButton>
+
+        <TextButton id="settingsButton"
+                    width="160"
+                    height="40"
+                    bottomLeft="root.bottomLeft 1 1"
+            >Settings</TextButton>
+    </AnchorGroup>
+</gdxui>

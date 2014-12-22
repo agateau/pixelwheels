@@ -1,12 +1,10 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.FileUtils;
+import com.greenyetilab.utils.RefreshHelper;
+import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
@@ -14,43 +12,35 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
     private final RaceGame mGame;
-    private static final float PADDING = 20;
 
     public MainMenuScreen(RaceGame game) {
         mGame = game;
-        Skin skin = mGame.getAssets().skin;
-
-        AnchorGroup group = new AnchorGroup();
-        group.setFillParent(true);
-
-        TextButton startButton = createStartButton();
-
-        TextButton debugButton = new TextButton("Debug", skin, "default");
-        debugButton.addListener(new ClickListener() {
+        setupUi();
+        new RefreshHelper(getStage()) {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mGame.pushScreen(new DebugScreen(mGame));
+            protected void refresh() {
+                mGame.showMainMenu();
             }
-        });
-
-        group.addPositionRule(new Label("Santa Claus Racer", skin), Anchor.TOP_CENTER, group, Anchor.TOP_CENTER, 0, -PADDING);
-        group.addPositionRule(startButton, Anchor.CENTER, group, Anchor.CENTER);
-        group.addPositionRule(debugButton, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
-
-        getStage().addActor(group);
+        };
     }
 
-    private TextButton createStartButton() {
-        Skin skin = mGame.getAssets().skin;
-        String text = "Start";
-        TextButton button = new TextButton(text, skin, "default");
-        button.setSize(300, 60);
-        button.addListener(new ClickListener() {
+    private void setupUi() {
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/mainmenu.gdxui"));
+        root.setFillParent(true);
+        getStage().addActor(root);
+        builder.getActor("startButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.start();
             }
         });
-        return button;
+        builder.getActor("settingsButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mGame.pushScreen(new DebugScreen(mGame));
+            }
+        });
     }
 }
