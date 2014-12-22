@@ -15,5 +15,11 @@
                     height="40"
                     bottomLeft="root.bottomLeft 1 1"
             >Settings</TextButton>
+
+        <TextButton id="highScoreButton"
+                    width="210"
+                    height="40"
+                    bottomRight="root.bottomRight -1 1"
+            >High Scores</TextButton>
     </AnchorGroup>
 </gdxui>

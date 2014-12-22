@@ -41,17 +41,17 @@ public class RaceGame extends Game {
 
     public void showMainMenu() {
         Screen screen = new MainMenuScreen(this);
-        setScreenAndDispose(screen);
+        replaceScreen(screen);
     }
 
     public void start() {
         TiledMap map = mMapCreator.run(20);
         MapInfo mapInfo = new MapInfo(map);
         Screen screen = new RaceGameScreen(this, mapInfo);
-        setScreenAndDispose(screen);
+        replaceScreen(screen);
     }
 
-    private void setScreenAndDispose(Screen screen) {
+    public void replaceScreen(Screen screen) {
         if (!mScreenStack.isEmpty()) {
             mScreenStack.pop().dispose();
         }
