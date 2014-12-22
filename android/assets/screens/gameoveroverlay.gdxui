@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-
-        <ScrollPane id="scoreScrollPane"
+        <HighScorePane id="scoreScrollPane"
             center="root.center 0 0.5"
             width="400"
-            height="290">
-        </ScrollPane>
+            height="290"/>
 
         <Label id="mainLabel"
             bottomCenter="scoreScrollPane.topCenter 0 1">Game Over</Label>
