@@ -4,16 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Stack;
 
 /**
- * Created by aurelien on 21/11/14.
+ * The game
  */
 public class RaceGame extends Game {
     private Assets mAssets;
