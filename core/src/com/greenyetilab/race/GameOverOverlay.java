@@ -1,14 +1,10 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.anchor.Anchor;
@@ -17,24 +13,16 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 /**
  * Appears on top of RaceGameScreen when player has lost
  */
-public class GameOverOverlay extends WidgetGroup {
-    private static final float IN_DURATION = 0.5f;
+public class GameOverOverlay extends Overlay {
     private final RaceGame mGame;
-    private final Actor mContent;
 
     public GameOverOverlay(RaceGame game, GameWorld gameWorld) {
+        super(game.getAssets().dot);
         mGame = game;
-        setFillParent(true);
-        Image bg = new Image(mGame.getAssets().dot);
-        bg.setColor(0, 0, 0, 0);
-        bg.setFillParent(true);
-        addActor(bg);
-        bg.addAction(Actions.alpha(0.6f, IN_DURATION));
-
-        mContent = createContent();
     }
 
-    private Actor createContent() {
+    @Override
+    protected Actor createContent() {
         Skin skin = mGame.getAssets().skin;
         Label label = new Label("Game Over", skin);
         label.setAlignment(Align.center);
@@ -59,17 +47,6 @@ public class GameOverOverlay extends WidgetGroup {
         mContent.addPositionRule(label, Anchor.BOTTOM_CENTER, tryAgainButton, Anchor.TOP_CENTER, 0, 3);
 
         return mContent;
-    }
-
-    @Override
-    public void layout() {
-        super.layout();
-        if (mContent.getParent() == null) {
-            mContent.setSize(this.getWidth(), this.getHeight());
-            mContent.setPosition(0, this.getHeight());
-            mContent.addAction(Actions.moveTo(0, 0, IN_DURATION, Interpolation.swingOut));
-            addActor(mContent);
-        }
     }
 
     private TextButton createButton(String text, ClickListener listener) {
