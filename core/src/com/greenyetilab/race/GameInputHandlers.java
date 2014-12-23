@@ -38,6 +38,7 @@ public class GameInputHandlers {
         }
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
             mHandlers.add(new TouchInputHandler());
+            mHandlers.add(new GestureInputHandler());
         }
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             mHandlers.add(new AccelerometerInputHandler());
