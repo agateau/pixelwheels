@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label id="mainLabel"
+               topCenter="root.topCenter 0 -2">Configuration</Label>
+
+        <TextButton id="backButton"
+                    width="160"
+                    height="40"
+                    bottomLeft="root.bottomLeft 1 1"
+            >Back</TextButton>
+
+            <Label topLeft="root.topLeft 6 -6">Input:</Label>
+            <GameInputHandlerSelector id="gameInputHandlerSelector"
+                                      width="160"
+                                      height="40"
+                                      topLeft="$prev.bottomLeft 1 0"
+                                      />
+            <CheckBox id="autoCorrectCheckBox" topLeft="$prev.bottomLeft -1 -1">Auto Correct</CheckBox>
+
+        <TextButton id="debugButton"
+                    width="210"
+                    height="40"
+                    bottomRight="root.bottomRight -1 1"
+            >Debug</TextButton>
+    </AnchorGroup>
+</gdxui>

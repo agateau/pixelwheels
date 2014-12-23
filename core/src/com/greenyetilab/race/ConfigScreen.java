@@ -3,10 +3,12 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
@@ -115,6 +117,17 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.popScreen();
+            }
+        });
+
+        final Preferences prefs = RaceGame.getPreferences();
+        CheckBox checkBox = builder.getActor("autoCorrectCheckBox");
+        checkBox.setChecked(prefs.getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT));
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                prefs.putBoolean(PrefConstants.AUTO_CORRECT, ((CheckBox)actor).isChecked());
+                prefs.flush();
             }
         });
     }
