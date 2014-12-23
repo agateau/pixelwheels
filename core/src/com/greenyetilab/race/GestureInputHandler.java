@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class GestureInputHandler implements GameInputHandler {
     private static final int NO_POINTER = -1;
     private static final float PANNING_AREA = 0.5f;
-    private static final float PANNING_SENSITIVITY = 3f;
+    private static final float PANNING_SENSITIVITY = 2.5f;
 
     private GameInput mInput = new GameInput();
     private int mPanPointer = NO_POINTER;
