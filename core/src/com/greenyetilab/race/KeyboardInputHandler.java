@@ -8,6 +8,11 @@ import com.badlogic.gdx.Input;
  */
 public class KeyboardInputHandler implements GameInputHandler {
     @Override
+    public String toString() {
+        return "Keyboard";
+    }
+
+    @Override
     public void updateGameInput(GameInput input) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             input.direction = 1;

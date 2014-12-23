@@ -10,6 +10,11 @@ public class AccelerometerInputHandler implements GameInputHandler {
     private static final float MAX_ACCELEROMETER = 10;
 
     @Override
+    public String toString() {
+        return "Accelerometer";
+    }
+
+    @Override
     public void updateGameInput(GameInput input) {
         input.braking = false;
         input.accelerating = true;

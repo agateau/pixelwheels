@@ -1,7 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -35,13 +33,8 @@ public class PlayerPilot implements Pilot {
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
 
-        /*if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
-            mInputHandler = new AccelerometerInputHandler();
-        } else*/ if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
-            mInputHandler = new TouchInputHandler();
-        } else {
-            mInputHandler = new KeyboardInputHandler();
-        }
+        String inputHandlerName = RaceGame.getPreferences().getString("input", "");
+        mInputHandler = GameInputHandlers.getHandlerByName(inputHandlerName);
     }
 
     @Override

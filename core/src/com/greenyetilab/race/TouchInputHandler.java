@@ -7,6 +7,11 @@ import com.badlogic.gdx.Gdx;
  */
 public class TouchInputHandler implements GameInputHandler {
     @Override
+    public String toString() {
+        return "Touch";
+    }
+
+    @Override
     public void updateGameInput(GameInput input) {
         for (int i = 0; i < 5; i++) {
             if (!Gdx.input.isTouched(i)) {
