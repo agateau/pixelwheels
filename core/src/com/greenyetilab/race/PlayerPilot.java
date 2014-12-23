@@ -20,8 +20,8 @@ public class PlayerPilot implements Pilot {
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
 
-    private GameInput mInput = new GameInput();
     private GameInputHandler mInputHandler;
+    private boolean mAutoCorrectDirection = false;
 
     private boolean mStrongHitHandled = false;
     private float mShootRecoilTime = 0;
@@ -50,18 +50,14 @@ public class PlayerPilot implements Pilot {
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
-            mInput.braking = false;
-            mInput.accelerating = false;
-            mInput.shooting = false;
-            mInput.direction = 0;
-            mInputHandler.updateGameInput(mInput);
-            if (mInput.direction == 0) {
-                mInput.direction = computeCorrectedDirection();
+            GameInput input = mInputHandler.getGameInput();
+            if (mAutoCorrectDirection && input.direction == 0) {
+                input.direction = computeCorrectedDirection();
             }
-            mVehicle.setDirection(mInput.direction);
-            mVehicle.setAccelerating(mInput.accelerating);
-            mVehicle.setBraking(mInput.braking);
-            if (mInput.shooting && mShootRecoilTime <= 0) {
+            mVehicle.setDirection(input.direction);
+            mVehicle.setAccelerating(input.accelerating);
+            mVehicle.setBraking(input.braking);
+            if (input.shooting && mShootRecoilTime <= 0) {
                 mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mPlayerGameObject, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
                 mShootRecoilTime = SHOOT_RECOIL;
             }

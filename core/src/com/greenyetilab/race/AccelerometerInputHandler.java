@@ -9,23 +9,27 @@ import com.badlogic.gdx.math.MathUtils;
 public class AccelerometerInputHandler implements GameInputHandler {
     private static final float MAX_ACCELEROMETER = 10;
 
+    private GameInput mInput = new GameInput();
+
     @Override
     public String toString() {
         return "Accelerometer";
     }
 
     @Override
-    public void updateGameInput(GameInput input) {
-        input.braking = false;
-        input.accelerating = true;
-        input.shooting = false;
+    public GameInput getGameInput() {
+        mInput.braking = false;
+        mInput.accelerating = true;
+        mInput.shooting = false;
+
         float angle = -Gdx.input.getAccelerometerY();
-        input.direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
+        mInput.direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
         for (int i = 0; i < 5; i++) {
             if (Gdx.input.isTouched(i)) {
-                input.shooting = true;
+                mInput.shooting = true;
                 break;
             }
         }
+        return mInput;
     }
 }
