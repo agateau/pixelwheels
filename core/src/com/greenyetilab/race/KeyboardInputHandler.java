@@ -16,6 +16,7 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public GameInput getGameInput() {
+        mInput.direction = 0;
         mInput.braking = false;
         mInput.accelerating = true;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
