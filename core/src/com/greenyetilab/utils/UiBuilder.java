@@ -30,10 +30,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UiBuilder {
+    private static final String PREVIOUS_ACTOR_ID = "$prev";
+
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
     private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
     private TextureAtlas mAtlas;
     private Skin mSkin;
+    private Actor mLastAddedActor;
 
     public static interface ActorFactory {
         Actor createActor(XmlReader.Element element);
@@ -112,12 +115,18 @@ public class UiBuilder {
             if (actor instanceof Group && !(actor instanceof ScrollPane)) {
                 doBuild(element, (Group)actor);
             }
+            mLastAddedActor = actor;
         }
         return firstActor;
     }
 
     public <T extends Actor> T getActor(String id) {
-        Actor actor = mActorForId.get(id);
+        Actor actor;
+        if (id.equals(PREVIOUS_ACTOR_ID)) {
+            actor = mLastAddedActor;
+        } else {
+            actor = mActorForId.get(id);
+        }
         if (actor == null) {
             throw new RuntimeException("No actor with id '" + id + "'");
         }
