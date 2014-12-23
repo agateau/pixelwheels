@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -145,6 +146,8 @@ public class UiBuilder {
             return createVerticalGroup(element);
         } else if (name.equals("HorizontalGroup")) {
             return createHorizontalGroup(element);
+        } else if (name.equals("CheckBox")) {
+            return createCheckBox(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -261,6 +264,13 @@ public class UiBuilder {
         HorizontalGroup group = new HorizontalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         return group;
+    }
+
+    protected CheckBox createCheckBox(XmlReader.Element element) {
+        String styleName = element.getAttribute("style", "default");
+        String text = element.getText();
+        CheckBox checkBox = new CheckBox(text, mSkin, styleName);
+        return checkBox;
     }
 
     protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {
