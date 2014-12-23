@@ -7,7 +7,7 @@
             height="290"/>
 
         <Label id="mainLabel"
-            bottomCenter="scoreScrollPane.topCenter 0 1">Game Over</Label>
+            bottomCenter="scoreScrollPane.topCenter 0 1"/>
 
         <ImageButton id="menuButton"
                      imageName="icon-back"

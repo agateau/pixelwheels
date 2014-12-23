@@ -51,6 +51,11 @@ public class PlayerPilot implements Pilot {
             mShootRecoilTime -= dt;
         }
 
+        if (mVehicle.getY() > mGameWorld.getTopVisibleY()) {
+            mGameWorld.setState(GameWorld.State.FINISHED);
+            mVehicle.setAccelerating(false);
+        }
+
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             GameInput input = mInputHandler.getGameInput();
             if (mAutoCorrectDirection && input.direction == 0) {

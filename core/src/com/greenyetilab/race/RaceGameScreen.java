@@ -93,7 +93,9 @@ public class RaceGameScreen extends ScreenAdapter {
 
         if (oldState != newState) {
             if (newState == GameWorld.State.BROKEN) {
-                showGameOverOverlay();
+                showGameOverOverlay("Game Over");
+            } else {
+                showGameOverOverlay("Thank you for playing this preview!");
             }
         }
 
@@ -151,10 +153,10 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameRenderer.onScreenResized();
     }
 
-    private void showGameOverOverlay() {
+    private void showGameOverOverlay(String message) {
         int score = mGameWorld.getScore();
         int index = mGame.getHighScoreTable().insert(score);
-        mHudStage.addActor(new GameOverOverlay(mGame, index));
+        mHudStage.addActor(new GameOverOverlay(mGame, index, message));
     }
 
     @Override

@@ -124,10 +124,12 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mBox2DPerformanceCounter.stop();
 
-        float deltaY = mPlayerVehicle.getY() - oldY;
-        if (delta > 0) {
-            mScore += deltaY * Constants.SCORE_PER_METER;
-            mEnemySpawner.setTopY(mTopVisibleY);
+        if (mState == State.RUNNING) {
+            float deltaY = mPlayerVehicle.getY() - oldY;
+            if (delta > 0) {
+                mScore += deltaY * Constants.SCORE_PER_METER;
+                mEnemySpawner.setTopY(mTopVisibleY);
+            }
         }
 
         float outOfSightLimit = mBottomVisibleY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
@@ -160,8 +162,6 @@ public class GameWorld implements ContactListener, Disposable {
         float wallSize = 1;
         // bottom
         Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
-        // top
-        Box2DUtils.createStaticBox(mBox2DWorld, 0, mapHeight, mapWidth, wallSize);
         // left
         Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
         // right
