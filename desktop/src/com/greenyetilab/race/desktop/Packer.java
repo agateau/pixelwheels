@@ -19,6 +19,11 @@ public class Packer {
         String outputDir = baseDir + "/android/assets";
         String packName = "race";
         TexturePacker.process(settings, inputDir, outputDir, packName);
+
+        inputDir = baseDir + "/core/assets/ui";
+        outputDir = baseDir + "/android/assets/ui";
+        packName = "uiskin";
+        TexturePacker.process(settings, inputDir, outputDir, packName);
         System.out.println("Done");
     }
 }
