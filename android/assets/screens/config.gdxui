@@ -10,11 +10,9 @@
 
             <Label topLeft="root.topLeft 6 -6">Input:</Label>
             <GameInputHandlerSelector id="gameInputHandlerSelector"
-                                      width="160"
-                                      height="40"
-                                      topLeft="$prev.bottomLeft 1 0"
+                                      topLeft="$prev.bottomLeft"
                                       />
-            <CheckBox id="autoCorrectCheckBox" topLeft="$prev.bottomLeft -1 -1">Auto Correct</CheckBox>
+            <CheckBox id="autoCorrectCheckBox" topLeft="$prev.bottomLeft 0 -1">Auto Correct</CheckBox>
 
         <TextButton id="debugButton"
                     width="210"

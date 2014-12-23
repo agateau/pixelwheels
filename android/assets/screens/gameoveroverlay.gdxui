@@ -9,16 +9,13 @@
         <Label id="mainLabel"
             bottomCenter="scoreScrollPane.topCenter 0 1">Game Over</Label>
 
-        <TextButton id="restartButton"
-            width="200"
-            height="60"
-            topRight="scoreScrollPane.bottomCenter -1 -1"
-            >Try Again</TextButton>
-
-        <TextButton id="menuButton"
-            width="200"
-            height="60"
-            topLeft="scoreScrollPane.bottomCenter 1 -1"
-            >Menu</TextButton>
+        <ImageButton id="menuButton"
+                     imageName="icon-back"
+                     topRight="scoreScrollPane.bottomCenter -0.5 -1"
+                     />
+        <ImageButton id="restartButton"
+                     imageName="icon-restart"
+                     topLeft="scoreScrollPane.bottomCenter 0.5 -1"
+                     />
     </AnchorGroup>
 </gdxui>

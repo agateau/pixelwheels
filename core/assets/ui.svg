@@ -23,10 +23,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284272"
-     inkscape:cx="832.33586"
-     inkscape:cy="801.31628"
-     inkscape:current-layer="layer1"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="246.25661"
+     inkscape:cy="711.07284"
+     inkscape:current-layer="layer3"
      inkscape:document-units="px"
      showgrid="true"
      inkscape:window-width="1891"
@@ -10387,14 +10387,14 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="opacity:0.35864982;fill:#90cf00;fill-opacity:1;fill-rule:nonzero;stroke:#595652;display:inline"
+       style="opacity:0.35864982;fill:#90cf00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
        id="rect5808"
        width="40"
        height="40"
        x="12"
        y="524"
        ry="3.2638393e-17"
-       inkscape:export-filename="icon-sound-on.png"
+       inkscape:export-filename="ui/icon-restart.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -10493,6 +10493,28 @@
        width="40"
        id="rect5374"
        style="fill:#90cf00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       ry="4.8957588e-17"
+       y="410"
+       x="796"
+       height="60"
+       width="72"
+       id="rect11732"
+       style="opacity:0.35864982;fill:#90cf00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       inkscape:export-filename="ui/checkbox-on.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="ui/checkbox-off.png"
+       style="opacity:0.35864982;fill:#90cf00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect11734"
+       width="72"
+       height="60"
+       x="716"
+       y="410"
+       ry="4.8957588e-17" />
   </g>
   <g
      style="display:inline"
@@ -12418,7 +12440,10 @@
        height="1200" />
     <g
        id="g11623"
-       transform="translate(142,-826)">
+       transform="translate(142,-826)"
+       inkscape:export-filename="ui/checkbox-off.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          ry="14"
          y="1237"
@@ -12437,7 +12462,10 @@
     <g
        style="fill:#ffffff"
        id="g11673"
-       transform="matrix(0.81785703,0,0,0.81785703,422.42505,-1138.1819)">
+       transform="matrix(0.81785703,0,0,0.81785703,422.42505,-1138.1819)"
+       inkscape:export-filename="ui/checkbox-on.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <g
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"

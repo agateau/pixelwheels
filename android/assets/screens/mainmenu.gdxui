@@ -5,8 +5,8 @@
                topCenter="root.topCenter 0 -2">Santa Claus Racer</Label>
 
         <TextButton id="startButton"
-                    width="300"
-                    height="60"
+                    width="200"
+                    height="120"
                     center="root.center"
             >Start</TextButton>
 

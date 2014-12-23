@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -42,7 +43,7 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
         public GameInputHandlerSelector(Skin skin) {
             space(20);
             mHandlers = GameInputHandlers.getAvailableHandlers();
-            addButton(" { ", skin, new ClickListener() {
+            addButton("icon-left", skin, new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     setIndex(mIndex - 1);
@@ -53,7 +54,7 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
             mLabel.setWidth(150);
             addActor(mLabel);
 
-            addButton(" } ", skin, new ClickListener() {
+            addButton("icon-right", skin, new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     setIndex(mIndex + 1);
@@ -62,6 +63,7 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
 
             String inputHandlerName = RaceGame.getPreferences().getString("input", "");
             setIndex(findHandler(inputHandlerName));
+            setHeight(getPrefHeight());
         }
 
         public int findHandler(String name) {
@@ -73,9 +75,10 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
             return 0;
         }
 
-        private void addButton(String text, Skin skin, ClickListener listener) {
-            TextButton button = new TextButton(text, skin);
-            button.setWidth(60);
+        private void addButton(String imageName, Skin skin, ClickListener listener) {
+            ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get("default", ImageButton.ImageButtonStyle.class));
+            style.imageUp = skin.getDrawable(imageName);
+            ImageButton button = new ImageButton(style);
             button.addListener(listener);
             addActor(button);
         }

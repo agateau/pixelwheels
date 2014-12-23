@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.anchor.Anchor;
@@ -27,6 +28,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(root);
 
         VerticalGroup vGroup = new VerticalGroup();
+        vGroup.align(Align.left).space(20);
         vGroup.addActor(addCheckBox("Show Debug Hud", "debug/showDebugHud"));
         vGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
         vGroup.addActor(addCheckBox("Box2D: Draw Velocities", "debug/box2d/drawVelocities"));

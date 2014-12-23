@@ -22,7 +22,9 @@
     com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
         default: {
             up: roundbutton,
-            down: roundbutton-down
+            down: roundbutton-down,
+            unpressedOffsetY: 2,
+            pressedOffsetY: -2
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
@@ -47,8 +49,6 @@
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
         default: {
-            up: rectbutton,
-            down: rectbutton-down,
             checkboxOn: checkbox-on,
             checkboxOff: checkbox-off,
             font: default-font,
