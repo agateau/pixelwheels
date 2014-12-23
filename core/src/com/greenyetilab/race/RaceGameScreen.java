@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.Map;
+
 public class RaceGameScreen extends ScreenAdapter {
     private final RaceGame mGame;
     private final GameWorld mGameWorld;
@@ -130,6 +132,12 @@ public class RaceGameScreen extends ScreenAdapter {
                         .append(String.valueOf((int)(counter.load.value * 100)))
                         .append("%\n")
                         ;
+            }
+            for (Map.Entry<String, String> entry : DebugStringMap.getMap().entrySet()) {
+                sDebugSB.append(entry.getKey())
+                        .append(": ")
+                        .append(entry.getValue())
+                        .append("\n");
             }
             mDebugLabel.setText(sDebugSB);
             mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getPrefHeight());
