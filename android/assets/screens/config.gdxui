@@ -4,11 +4,9 @@
         <Label id="mainLabel"
                topCenter="root.topCenter 0 -2">Configuration</Label>
 
-        <TextButton id="backButton"
-                    width="160"
-                    height="40"
+        <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"
-            >Back</TextButton>
+                    imageName="icon-back"/>
 
             <Label topLeft="root.topLeft 6 -6">Input:</Label>
             <GameInputHandlerSelector id="gameInputHandlerSelector"

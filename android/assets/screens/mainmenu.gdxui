@@ -10,16 +10,12 @@
                     center="root.center"
             >Start</TextButton>
 
-        <TextButton id="settingsButton"
-                    width="160"
-                    height="40"
+        <ImageButton id="settingsButton"
                     bottomLeft="root.bottomLeft 1 1"
-            >Settings</TextButton>
+                    imageName="icon-config"/>
 
-        <TextButton id="highScoreButton"
-                    width="210"
-                    height="40"
+        <ImageButton id="highScoreButton"
                     bottomRight="root.bottomRight -1 1"
-            >High Scores</TextButton>
+                    imageName="icon-highscores"/>
     </AnchorGroup>
 </gdxui>

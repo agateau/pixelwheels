@@ -1,86 +1,58 @@
 
 uiskin.png
-size: 212,162
+size: 188,164
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-checkbox-off
-  rotate: false
-  xy: 2, 2
-  size: 48, 38
-  orig: 48, 38
-  offset: 0, 0
-  index: -1
-checkbox-on
-  rotate: false
-  xy: 52, 2
-  size: 48, 38
-  orig: 48, 38
-  offset: 0, 0
-  index: -1
 icon-back
   rotate: false
-  xy: 80, 50
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-icon-config
-  rotate: false
-  xy: 122, 50
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-icon-highscores
-  rotate: false
-  xy: 164, 54
+  xy: 2, 2
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-left
   rotate: false
-  xy: 102, 8
+  xy: 44, 2
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-right
   rotate: false
-  xy: 144, 8
+  xy: 146, 122
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 rectbutton
   rotate: false
-  xy: 2, 42
+  xy: 2, 44
   size: 76, 58
   split: 15, 15, 17, 19
-  pad: 10, 10, 10, 14
+  pad: 10, 10, 12, 14
   orig: 76, 58
   offset: 0, 0
   index: -1
 rectbutton-down
   rotate: false
-  xy: 2, 102
+  xy: 2, 104
   size: 76, 58
-  split: 15, 15, 18, 14
-  pad: 10, 10, 16, 8
+  split: 15, 15, 22, 14
+  pad: 10, 10, 17, 9
   orig: 76, 58
   offset: 0, 0
   index: -1
 roundbutton
   rotate: false
-  xy: 80, 92
+  xy: 80, 94
   size: 64, 68
   orig: 64, 68
   offset: 0, 0
   index: -1
 roundbutton-down
   rotate: false
-  xy: 146, 96
+  xy: 86, 28
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
