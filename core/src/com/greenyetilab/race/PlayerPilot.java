@@ -35,6 +35,8 @@ public class PlayerPilot implements Pilot {
 
         String inputHandlerName = RaceGame.getPreferences().getString("input", "");
         mInputHandler = GameInputHandlers.getHandlerByName(inputHandlerName);
+
+        mAutoCorrectDirection = RaceGame.getPreferences().getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT);
     }
 
     @Override
