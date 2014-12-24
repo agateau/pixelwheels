@@ -17,6 +17,10 @@ public class VehicleRenderer {
     }
 
     public void draw(Batch batch, int zIndex) {
+        if (zIndex == Constants.Z_GROUND) {
+            DrawUtils.drawBodyRegionShadow(batch, mVehicle.getBody(), mVehicle.getRegion());
+            return;
+        }
         if (zIndex != Constants.Z_VEHICLES) {
             return;
         }
@@ -36,9 +40,8 @@ public class VehicleRenderer {
         batch.setColor(rgb, rgb, rgb, alpha);
 
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
-            info.wheel.draw(batch);
+            DrawUtils.drawBodyRegion(batch, info.wheel.getBody(), info.wheel.getRegion());
         }
-
         DrawUtils.drawBodyRegion(batch, mVehicle.getBody(), mVehicle.getRegion());
         batch.setColor(oldColor);
     }

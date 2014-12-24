@@ -53,6 +53,10 @@ public class Wheel implements Pool.Poolable, Disposable {
         return obj;
     }
 
+    public TextureRegion getRegion() {
+        return mRegion;
+    }
+
     @Override
     public void dispose() {
         sPool.free(this);
@@ -66,10 +70,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     public void act(float delta) {
         checkCollisions();
         updateFriction();
-    }
-
-    public void draw(Batch batch) {
-        DrawUtils.drawBodyRegion(batch, mBody, mRegion);
     }
 
     public Body getBody() {
