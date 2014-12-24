@@ -65,7 +65,7 @@ public class PlayerPilot implements Pilot {
             mVehicle.setAccelerating(input.accelerating);
             mVehicle.setBraking(input.braking);
             if (input.shooting && mShootRecoilTime <= 0) {
-                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mPlayerGameObject, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
+                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
                 mShootRecoilTime = SHOOT_RECOIL;
             }
         }

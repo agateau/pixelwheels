@@ -20,7 +20,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
 
     private static final float BULLET_RADIUS = 0.8f;
-    private static final float OFFSET = 5;
     private static final float IMPULSE = 80;
 
     private GameWorld mGameWorld;
@@ -28,27 +27,23 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private BodyDef mBodyDef;
     private CircleShape mShape;
 
-    private GameObject mShooter;
     private Body mBody;
     private boolean mExploded;
 
-    public static Bullet create(Assets assets, GameWorld gameWorld, GameObject shooter, float originX, float originY, float angle) {
+    public static Bullet create(Assets assets, GameWorld gameWorld, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
             object.firstInit(assets);
         }
-        object.mShooter = shooter;
-        float posX = originX + OFFSET * MathUtils.cosDeg(angle);
-        float posY = originY + OFFSET * MathUtils.sinDeg(angle);
         object.mGameWorld = gameWorld;
         object.mExploded = false;
-        object.mBodyDef.position.set(posX, posY);
+        object.mBodyDef.position.set(originX, originY);
         object.mBodyDef.angle = angle * MathUtils.degreesToRadians;
 
         object.mBody = gameWorld.getBox2DWorld().createBody(object.mBodyDef);
         object.mBody.createFixture(object.mShape, 0f);
         object.mBody.setUserData(object);
-        object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), posX, posY, true);
+        object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.PLAYER_BULLET,
                 CollisionCategories.WALL | CollisionCategories.ENEMY);
@@ -107,26 +102,24 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         return null;
     }
 
+    private void explode() {
+        Vector2 pos = mBody.getPosition();
+        mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, pos.x, pos.y));
+        mExploded = true;
+    }
+
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
+        explode();
         Object other = otherFixture.getBody().getUserData();
         if (!(other instanceof GameObject)) {
-            mExploded = true;
             return;
         }
         GameObject gameObject = (GameObject)other;
-        if (gameObject == mShooter) {
-            // Do not shoot ourselves
-            contact.setEnabled(false);
-            return;
-        }
         HealthComponent healthComponent = gameObject.getHealthComponent();
         if (healthComponent != null) {
+            // This object can take damage, let's hit it
             healthComponent.decreaseHealth();
-            // This object can take damage, let's hit it and explode
-            mExploded = true;
-            Vector2 pos = mBody.getPosition();
-            mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, pos.x, pos.y));
         }
     }
 
@@ -137,15 +130,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        Object other = otherFixture.getBody().getUserData();
-        if (!(other instanceof GameObject)) {
-            return;
-        }
-        GameObject gameObject = (GameObject)other;
-        // Do not shoot ourselves, do not collide with other bullets
-        if (gameObject == mShooter || gameObject instanceof Bullet) {
-            contact.setEnabled(false);
-        }
     }
 
     @Override
