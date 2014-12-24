@@ -121,7 +121,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         }
         GameObject gameObject = (GameObject)other;
         HealthComponent healthComponent = gameObject.getHealthComponent();
-        if (healthComponent != null) {
+        if (healthComponent != null && healthComponent.getHealth() > 0) {
             // This object can take damage, let's hit it
             healthComponent.decreaseHealth();
             adjustScore(gameObject instanceof CivilianCar ? Constants.SCORE_CIVIL_HIT : Constants.SCORE_ENEMY_HIT);
