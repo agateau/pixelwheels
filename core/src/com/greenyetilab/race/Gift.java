@@ -41,6 +41,11 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
         obj.mBody = gameWorld.getBox2DWorld().createBody(obj.mBodyDef);
         obj.mBody.createFixture(obj.mShape, 1f);
         obj.mBody.setUserData(obj);
+
+        Box2DUtils.setCollisionInfo(obj.mBody, CollisionCategories.GIFT,
+                CollisionCategories.WALL | CollisionCategories.PLAYER
+                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.GIFT);
         return obj;
     }
 

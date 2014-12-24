@@ -3,6 +3,8 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -41,5 +43,14 @@ public class Box2DUtils {
 
         body.createFixture(shape, 1);
         return body;
+    }
+
+    public static void setCollisionInfo(Body body, int categoryBits, int maskBits) {
+        for (Fixture fixture : body.getFixtureList()) {
+            Filter filter = fixture.getFilterData();
+            filter.categoryBits = (short)categoryBits;
+            filter.maskBits = (short)maskBits;
+            fixture.setFilterData(filter);
+        }
     }
 }

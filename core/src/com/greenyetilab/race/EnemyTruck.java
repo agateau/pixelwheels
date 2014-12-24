@@ -64,6 +64,12 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
+
+        Box2DUtils.setCollisionInfo(mVehicle.getBody(), CollisionCategories.ENEMY,
+                CollisionCategories.WALL
+                | CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
+                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.GIFT);
     }
 
     public void setInitialAngle(float angle) {

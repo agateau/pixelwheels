@@ -55,6 +55,10 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         //info.wheel.setCanDrift(true);
 
+        Box2DUtils.setCollisionInfo(mVehicle.getBody(), CollisionCategories.PLAYER,
+                CollisionCategories.WALL
+                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.GIFT);
     }
 
     public Vehicle getVehicle() {

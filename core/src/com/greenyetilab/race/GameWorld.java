@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -160,12 +161,19 @@ public class GameWorld implements ContactListener, Disposable {
         float mapWidth = mMapInfo.getMapWidth();
         float mapHeight = mMapInfo.getMapHeight();
         float wallSize = 1;
+        Body body;
+        int mask = CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
+                        | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                        | CollisionCategories.GIFT;
         // bottom
-        Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
+        body = Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
+        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
         // left
-        Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
+        body = Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
+        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
         // right
-        Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
+        body = Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
+        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
     }
 
     private void setupObjects() {
