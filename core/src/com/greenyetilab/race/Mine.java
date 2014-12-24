@@ -107,17 +107,22 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
         return null;
     }
 
+    private void explode() {
+        mExploded = true;
+        Vector2 pos = mBody.getPosition();
+        mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
+    }
+
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (!(other instanceof GameObject)) {
             return;
         }
-        if (((GameObject)other).getHealthComponent() != null) {
-            // This object can take damage, let's explode
-            mExploded = true;
-            Vector2 pos = mBody.getPosition();
-            mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
+        HealthComponent healthComponent = ((GameObject)other).getHealthComponent();
+        if (healthComponent != null) {
+            explode();
+            healthComponent.kill();
         }
     }
 

@@ -76,9 +76,6 @@ public class PlayerPilot implements Pilot {
     public void beginContact(Contact contact, Fixture otherFixture) {
         mStrongHitHandled = false;
         Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Mine) {
-            mHealthComponent.kill();
-        }
         if (other instanceof Gift) {
             Gift gift = (Gift)other;
             gift.pick();

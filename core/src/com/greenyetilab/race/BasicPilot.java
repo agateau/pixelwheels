@@ -44,10 +44,6 @@ class BasicPilot implements Pilot {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Mine) {
-            mHealthComponent.kill();
-        }
     }
 
     @Override
