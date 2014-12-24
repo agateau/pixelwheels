@@ -37,10 +37,6 @@ class Vehicle implements Disposable {
     private boolean mBraking = false;
     private float mDirection = 0;
 
-    public Vehicle(TextureRegion region, GameWorld gameWorld, Vector2 startPosition) {
-        this(region, gameWorld, startPosition.x, startPosition.y);
-    }
-
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
 
