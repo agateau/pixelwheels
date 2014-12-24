@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -43,7 +42,8 @@ public class GameWorld implements ContactListener, Disposable {
 
     private Vector2[] mSkidmarks = new Vector2[20];
     private int mSkidmarksIndex = 0;
-    private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
+    private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
+
     private float mScore = 0;
     private float mBottomVisibleY = 0;
     private float mTopVisibleY = 0;
