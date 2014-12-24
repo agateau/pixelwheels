@@ -24,10 +24,13 @@ public class TouchInputHandler implements GameInputHandler {
                 continue;
             }
             float x = Gdx.input.getX(i) / (float)Gdx.graphics.getWidth();
-            if (x < 0.25f) {
-                mInput.direction = 1;
-            } else if (x < 0.5f) {
-                mInput.direction = -1;
+            float y = 1f - Gdx.input.getY(i) / (float)Gdx.graphics.getHeight();
+            if (y < 0.5f) {
+                if (x < 0.5f) {
+                    mInput.direction = 1;
+                } else {
+                    mInput.direction = -1;
+                }
             } else {
                 mInput.shooting = true;
             }

@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.XmlReader;
 import com.greenyetilab.utils.FileUtils;
@@ -31,8 +32,10 @@ public class GameOverOverlay extends Overlay {
         HighScorePane.register(builder);
         Actor content = builder.build(FileUtils.assets("screens/gameoveroverlay.gdxui"));
         Label mainLabel = builder.getActor("mainLabel");
+        mainLabel.setAlignment(Align.center, Align.center);
         mainLabel.setText(message);
         mainLabel.setWidth(mainLabel.getPrefWidth());
+        mainLabel.setHeight(mainLabel.getPrefHeight());
         builder.getActor("restartButton").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

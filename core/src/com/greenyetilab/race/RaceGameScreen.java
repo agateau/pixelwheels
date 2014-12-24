@@ -95,7 +95,7 @@ public class RaceGameScreen extends ScreenAdapter {
             if (newState == GameWorld.State.BROKEN) {
                 showGameOverOverlay("Game Over");
             } else {
-                showGameOverOverlay("Thank you for playing this preview!");
+                showGameOverOverlay("Thank you for\nplaying this preview!");
             }
         }
 

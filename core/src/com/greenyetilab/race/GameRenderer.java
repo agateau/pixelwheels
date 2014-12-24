@@ -154,10 +154,9 @@ public class GameRenderer {
         mCamera.viewportHeight = viewportHeight;
 
         // Compute pos
-        // FIXME: Take car speed into account when computing advance
-        float advance = /*(mCar.getSpeed() / Car.MAX_SPEED) **/ Math.min(viewportWidth, viewportHeight) / 3;
-        float x = mVehicle.getX() + advance * MathUtils.cosDeg(mVehicle.getAngle());
-        float y = mVehicle.getY() + advance * MathUtils.sinDeg(mVehicle.getAngle());
+        float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
+        float x = mVehicle.getX();
+        float y = mVehicle.getY() + advance;
 
         // Make sure we correctly handle boundaries
         float minX = viewportWidth / 2;
