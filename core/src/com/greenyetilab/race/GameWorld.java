@@ -81,9 +81,13 @@ public class GameWorld implements ContactListener, Disposable {
         return (int)mScore;
     }
 
-    public void increaseScore(int delta) {
-        NLog.i("+%d", delta);
-        mScore += delta;
+    public void adjustScore(int delta, float posX, float posY) {
+        NLog.i("score += %d", delta);
+        mScore = Math.max(0, mScore + delta);
+        addBonusIndicator(delta, posX, posY);
+    }
+
+    protected void addBonusIndicator(int delta, float posX, float posY) {
     }
 
     public Vector2[] getSkidmarks() {

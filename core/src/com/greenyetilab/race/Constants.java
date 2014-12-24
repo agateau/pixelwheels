@@ -19,6 +19,7 @@ public class Constants {
     public static final float SCORE_PER_METER = 1;
     public static final float VIEWPORT_POOL_RECYCLE_HEIGHT = 10;
 
-    public static final int SCORE_CAR_HIT = 100;
+    public static final int SCORE_CIVIL_HIT = -50;
+    public static final int SCORE_ENEMY_HIT = 100;
     public static final int SCORE_GIFT_PICK = 400;
 }

@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Manifold;
  * A pilot controlled by the player
  */
 public class PlayerPilot implements Pilot {
-    private static final float MINIMUM_HIT_IMPULSE = 10;
     private static final float SHOOT_RECOIL = 0.1f;
     private static final float DIRECTION_CORRECTION_STRENGTH = 0.008f;
 
@@ -23,7 +21,6 @@ public class PlayerPilot implements Pilot {
     private GameInputHandler mInputHandler;
     private boolean mAutoCorrectDirection = false;
 
-    private boolean mStrongHitHandled = false;
     private float mShootRecoilTime = 0;
 
     public PlayerPilot(Assets assets, GameWorld gameWorld, GameObject playerGameObject, Vehicle vehicle, HealthComponent healthComponent) {
@@ -74,12 +71,11 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        mStrongHitHandled = false;
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof Gift) {
             Gift gift = (Gift)other;
             gift.pick();
-            mGameWorld.increaseScore(Constants.SCORE_GIFT_PICK);
+            mGameWorld.adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
         }
     }
 
@@ -93,24 +89,6 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-        Object other = otherFixture.getBody().getUserData();
-        if (!(other instanceof GameObject)) {
-            return;
-        }
-        GameObject go = (GameObject)other;
-        HealthComponent healthComponent = go.getHealthComponent();
-        if (healthComponent == null || healthComponent.getHealth() == 0) {
-            return;
-        }
-        float value = impulse.getNormalImpulses()[0];
-        if (value < MINIMUM_HIT_IMPULSE || mStrongHitHandled) {
-            return;
-        }
-        mStrongHitHandled = true;
-        healthComponent.decreaseHealth();
-        mGameWorld.increaseScore(Constants.SCORE_CAR_HIT);
-        Vector2 point = contact.getWorldManifold().getPoints()[0];
-        mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, point.x, point.y));
     }
 
     private float computeCorrectedDirection() {

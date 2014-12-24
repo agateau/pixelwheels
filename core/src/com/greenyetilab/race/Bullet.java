@@ -108,6 +108,10 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         mExploded = true;
     }
 
+    private void adjustScore(int delta) {
+        mGameWorld.adjustScore(delta, getX(), getY());
+    }
+
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         explode();
@@ -120,6 +124,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         if (healthComponent != null) {
             // This object can take damage, let's hit it
             healthComponent.decreaseHealth();
+            adjustScore(gameObject instanceof CivilianCar ? Constants.SCORE_CIVIL_HIT : Constants.SCORE_ENEMY_HIT);
         }
     }
 
