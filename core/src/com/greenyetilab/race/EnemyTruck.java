@@ -65,7 +65,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
         info.wheel.setCanDrift(true);
 
-        Box2DUtils.setCollisionInfo(mVehicle.getBody(), CollisionCategories.ENEMY,
+        mVehicle.setCollisionInfo(CollisionCategories.ENEMY,
                 CollisionCategories.WALL
                 | CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
                 | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY

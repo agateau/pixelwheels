@@ -100,6 +100,13 @@ class Vehicle implements Disposable {
         }
     }
 
+    public void setCollisionInfo(int categoryBits, int maskBits) {
+        Box2DUtils.setCollisionInfo(mBody, categoryBits, maskBits);
+        for (WheelInfo info : mWheels) {
+            Box2DUtils.setCollisionInfo(info.wheel.getBody(), categoryBits, maskBits);
+        }
+    }
+
     public Array<WheelInfo> getWheelInfos() {
         return mWheels;
     }
