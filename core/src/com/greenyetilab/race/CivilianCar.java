@@ -1,27 +1,23 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
- * A basic enemy car
+ * An AI-controlled car
  */
-public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSight {
-    private final GameWorld mGameWorld;
+public class CivilianCar implements GameObject, Collidable, DisposableWhenOutOfSight {
     private final PendingVehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent;
     private final CollisionHandlerComponent mCollisionHandlerComponent;
     private final Pilot mPilot;
 
-    public EnemyCar(final Assets assets, final TextureRegion region, final GameWorld gameWorld, float originX, float originY, float angle) {
-        mGameWorld = gameWorld;
+    public CivilianCar(final Assets assets, final TextureRegion region, final GameWorld gameWorld, float originX, float originY, float angle) {
         mVehicle = new PendingVehicle(region, gameWorld, originX, originY);
         mVehicle.setUserData(this);
         mHealthComponent = new HealthComponent() {
@@ -63,10 +59,10 @@ public class EnemyCar implements GameObject, Collidable, DisposableWhenOutOfSigh
 
         // Set angle *after* adding the wheels!
         mVehicle.setInitialAngle(angle);
-        mVehicle.setCollisionInfo(CollisionCategories.ENEMY,
+        mVehicle.setCollisionInfo(CollisionCategories.AI_VEHICLE,
                 CollisionCategories.WALL
                 | CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
-                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
     }
 

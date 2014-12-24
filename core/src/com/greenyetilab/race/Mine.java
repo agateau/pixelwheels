@@ -44,9 +44,9 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
         mine.mBody.createFixture(mine.mShape, 1f);
         mine.mBody.setUserData(mine);
 
-        Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_ENEMY,
+        Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_AI_VEHICLE,
                 CollisionCategories.WALL | CollisionCategories.PLAYER
-                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
         return mine;
     }

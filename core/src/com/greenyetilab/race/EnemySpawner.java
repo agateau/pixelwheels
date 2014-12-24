@@ -77,6 +77,6 @@ public class EnemySpawner {
 
     public static GameObject generateEnemyCar(Assets assets, GameWorld gameWorld, float originX, float originY, float angle) {
         TextureRegion region = assets.cars.get(MathUtils.random(assets.cars.size - 1));
-        return new EnemyCar(assets, region, gameWorld, originX, originY, angle);
+        return new CivilianCar(assets, region, gameWorld, originX, originY, angle);
     }
 }

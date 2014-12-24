@@ -57,7 +57,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
         mVehicle.setCollisionInfo(CollisionCategories.PLAYER,
                 CollisionCategories.WALL
-                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
     }
 

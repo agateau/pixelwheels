@@ -45,7 +45,7 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
 
         Box2DUtils.setCollisionInfo(obj.mBody, CollisionCategories.GIFT,
                 CollisionCategories.WALL | CollisionCategories.PLAYER
-                | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
         return obj;
     }

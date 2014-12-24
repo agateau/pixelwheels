@@ -46,7 +46,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.PLAYER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.ENEMY);
+                CollisionCategories.WALL | CollisionCategories.AI_VEHICLE);
         return object;
     }
 

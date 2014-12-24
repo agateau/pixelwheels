@@ -163,7 +163,7 @@ public class GameWorld implements ContactListener, Disposable {
         float wallSize = 1;
         Body body;
         int mask = CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
-                        | CollisionCategories.ENEMY | CollisionCategories.FLAT_ENEMY
+                        | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                         | CollisionCategories.GIFT;
         // bottom
         body = Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
