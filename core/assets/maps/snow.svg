@@ -59,9 +59,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="368.54727"
-     inkscape:cy="-250.85988"
+     inkscape:zoom="16"
+     inkscape:cx="971.05638"
+     inkscape:cy="342.69092"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -6912,7 +6912,7 @@
        sodipodi:nodetypes="ccccccccc"
        inkscape:connector-curvature="0"
        id="rect5189-6"
-       d="m 471,1324.3622 18,0 7,7 0,17 -7,8 -18,0 -7,-7 0,-17 z"
+       d="m 467,1324.3622 26,0 3,3 0,26 -3,3 -26,0 -3,-3 0,-26 z"
        style="color:#000000;fill:#d95763;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        inkscape:export-filename="../sprites/gift-2.png"
        inkscape:export-xdpi="90"
@@ -6921,11 +6921,11 @@
        sodipodi:nodetypes="ccccccccc"
        inkscape:connector-curvature="0"
        id="path5191-8"
-       d="m 489,1324.3622 -1,1 -16,0 -7,8 0,15 -1,1 0,-17 7,-8 z"
+       d="m 493,1324.3622 -1,1 -24,0 -3,3 0,24 -1,1 0,-26 3,-3 z"
        style="color:#000000;fill:#d77bba;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
        style="color:#000000;fill:#ac3232;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 471,1356.3622 -7,-7 1,-1 7,7 16,0 7,-8 0,-15 -7,-7 1,-1 7,7 0,17 -7,8 z"
+       d="m 467,1356.3622 -3,-3 1,-1 3,3 24,0 3,-3 0,-24 -3,-3 1,-1 3,3 0,26 -3,3 z"
        id="path5193-5"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccccc" />
@@ -7033,6 +7033,19 @@
        id="rect5227-2"
        d="m 477,1355.3622 6,0 0,1 -6,0 z"
        style="color:#000000;fill:#df7126;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       sodipodi:type="arc"
+       style="color:#000000;fill:#222034;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path5375"
+       sodipodi:cx="979"
+       sodipodi:cy="546"
+       sodipodi:rx="3"
+       sodipodi:ry="3"
+       d="m 982,546 a 3,3 0 1 1 -6,0 3,3 0 1 1 6,0 z"
+       transform="translate(-3,154.36218)"
+       inkscape:export-filename="../sprites/skidmark.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
   <g
      inkscape:groupmode="layer"

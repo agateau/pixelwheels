@@ -29,6 +29,7 @@ public class Assets {
     public final Animation mine;
     public final Array<TextureRegion> gifts = new Array<TextureRegion>();
     public final TextureRegion bullet;
+    public final TextureRegion skidmark;
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
@@ -70,6 +71,7 @@ public class Assets {
         this.dot.setRegionWidth(this.dot.getRegionWidth() - 4);
         this.dot.setRegionHeight(this.dot.getRegionHeight() - 4);
 
+        this.skidmark = findRegion("skidmark");
     }
 
     public TextureAtlas.AtlasRegion findRegion(String name) {

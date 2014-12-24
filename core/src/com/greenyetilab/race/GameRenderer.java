@@ -32,6 +32,7 @@ public class GameRenderer {
     private final Batch mBatch;
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
+    private final Assets mAssets;
     private final GameWorld mWorld;
     private final float mMapWidth;
     private final float mMapHeight;
@@ -43,7 +44,8 @@ public class GameRenderer {
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(Assets assets, GameWorld world, Batch batch, PerformanceCounters counters) {
+        mAssets = assets;
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -76,11 +78,11 @@ public class GameRenderer {
         mRenderer.render(mBackgroundLayerIndexes);
         mTilePerformanceCounter.stop();
 
+        mBatch.setProjectionMatrix(mCamera.combined);
+        mBatch.begin();
         renderSkidmarks();
 
         mGameObjectPerformanceCounter.start();
-        mBatch.setProjectionMatrix(mCamera.combined);
-        mBatch.begin();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z);
@@ -134,15 +136,14 @@ public class GameRenderer {
     }
 
     private void renderSkidmarks() {
-        mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        mShapeRenderer.setColor(0, 0, 0, 0.2f);
-        mShapeRenderer.setProjectionMatrix(mCamera.combined);
+        final float U = Constants.UNIT_FOR_PIXEL;
+        final float width = mAssets.skidmark.getRegionWidth() * U;
+        final float height = mAssets.skidmark.getRegionHeight() * U;
         for (Vector2 pos: mWorld.getSkidmarks()) {
             if (pos != null) {
-                mShapeRenderer.circle(pos.x, pos.y, 4 * Constants.UNIT_FOR_PIXEL, 8);
+                mBatch.draw(mAssets.skidmark, pos.x, pos.y, width, height);
             }
         }
-        mShapeRenderer.end();
     }
 
     private void updateCamera() {

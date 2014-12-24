@@ -45,7 +45,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, mapInfo, mPerformanceCounters);
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
-        mGameRenderer = new GameRenderer(mGameWorld, mBatch, mPerformanceCounters);
+        mGameRenderer = new GameRenderer(game.getAssets(), mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
         mVehicle = mGameWorld.getPlayerVehicle();
         setupHud();
