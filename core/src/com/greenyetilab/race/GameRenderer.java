@@ -72,6 +72,10 @@ public class GameRenderer {
         mDebugRenderer.setDrawVelocities(mDebugConfig.drawVelocities);
     }
 
+    public OrthographicCamera getCamera() {
+        return mCamera;
+    }
+
     public void render() {
         updateCamera();
 

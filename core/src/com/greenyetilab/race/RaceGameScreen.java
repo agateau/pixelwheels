@@ -6,6 +6,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -43,7 +45,12 @@ public class RaceGameScreen extends ScreenAdapter {
         mBatch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, mPerformanceCounters) {
+            @Override
+            protected void addBonusIndicator(int delta, float posX, float posY) {
+                doAddBonusIndicator(delta, posX, posY);
+            }
+        };
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         mGameRenderer = new GameRenderer(game.getAssets(), mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
@@ -80,6 +87,16 @@ public class RaceGameScreen extends ScreenAdapter {
         }
         mHudStage.addActor(mHud);
         updateHud();
+    }
+
+    private final Vector3 mWorldVector = new Vector3();
+    private void doAddBonusIndicator(int delta, float posX, float posY) {
+        mWorldVector.x = posX;
+        mWorldVector.y = posY;
+        mWorldVector.z = 0;
+        Vector3 vector = mGameRenderer.getCamera().project(mWorldVector);
+        Actor indicator = ScoreIndicator.create(mGame.getAssets(), delta, vector.x, vector.y);
+        mHudStage.addActor(indicator);
     }
 
     @Override
