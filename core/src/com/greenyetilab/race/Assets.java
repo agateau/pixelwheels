@@ -27,7 +27,7 @@ public class Assets {
     public final Animation iceExplosion;
     public final Animation impact;
     public final Animation mine;
-    public final TextureRegion gift;
+    public final Array<TextureRegion> gifts = new Array<TextureRegion>();
     public final TextureRegion bullet;
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
@@ -57,7 +57,10 @@ public class Assets {
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
-        this.gift = findRegion("gift");
+        for (int idx = 0; idx <= 2; ++idx) {
+            String name = String.format("gift-%d", idx);
+            this.gifts.add(findRegion(name));
+        }
         this.bullet = findRegion("bullet");
 
         // Fix white-pixel to avoid fading borders

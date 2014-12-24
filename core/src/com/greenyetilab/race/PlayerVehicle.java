@@ -24,8 +24,8 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         mHealthComponent.setInitialHealth(1);
 
         // Car
-        TextureRegion carRegion = assets.findRegion("sled/sled");
-        TextureRegion wheelRegion = assets.findRegion("sled/sled-ski");
+        TextureRegion carRegion = assets.findRegion("car/player");
+        TextureRegion wheelRegion = assets.wheel;
         mVehicle = new Vehicle(carRegion, mGameWorld, originX, originY);
         mVehicle.setUserData(this);
         mVehicle.setLimitAngle(true);
@@ -37,7 +37,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
+        final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 42f;
 
         float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
         float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;

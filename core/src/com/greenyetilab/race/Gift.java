@@ -24,7 +24,6 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
     private BodyDef mBodyDef;
     private PolygonShape mShape;
 
-    private float mTime;
     private Body mBody;
     private boolean mPicked;
 
@@ -33,8 +32,10 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
         if (obj.mBodyDef == null) {
             obj.firstInit(assets);
         }
+        final float U = Constants.UNIT_FOR_PIXEL;
+        obj.mRegion = assets.gifts.random();
+        obj.mShape.setAsBox(U * obj.mRegion.getRegionWidth() / 2, U * obj.mRegion.getRegionHeight() / 2);
         obj.mGameWorld = gameWorld;
-        obj.mTime = 0;
         obj.mPicked = false;
         obj.mBodyDef.position.set(originX, originY);
 
@@ -62,13 +63,10 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
     }
 
     private void firstInit(Assets assets) {
-        mRegion = assets.gift;
         mBodyDef = new BodyDef();
         mBodyDef.type = BodyDef.BodyType.DynamicBody;
 
-        final float U = Constants.UNIT_FOR_PIXEL;
         mShape = new PolygonShape();
-        mShape.setAsBox(U * mRegion.getRegionWidth() / 2, U * mRegion.getRegionHeight() / 2);
     }
 
     public void pick() {
@@ -88,7 +86,6 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
 
     @Override
     public boolean act(float delta) {
-        mTime += delta;
         if (mPicked) {
             dispose();
             return false;
@@ -100,6 +97,8 @@ public class Gift implements GameObject, Pool.Poolable, DisposableWhenOutOfSight
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
+            DrawUtils.drawBodyRegionShadow(batch, mBody, mRegion);
+        } else if (zIndex == Constants.Z_OBSTACLES) {
             DrawUtils.drawBodyRegion(batch, mBody, mRegion);
         }
     }
