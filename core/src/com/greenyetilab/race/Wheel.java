@@ -47,7 +47,7 @@ public class Wheel implements Pool.Poolable, Disposable {
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(w / 2, h / 2);
-        obj.mBody.createFixture(polygonShape, 1f);
+        obj.mBody.createFixture(polygonShape, 2f);
         polygonShape.dispose();
 
         return obj;
