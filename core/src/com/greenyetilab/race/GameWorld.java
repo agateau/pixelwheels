@@ -41,7 +41,7 @@ public class GameWorld implements ContactListener, Disposable {
     private PlayerVehicle mPlayerVehicle;
     private State mState = State.RUNNING;
 
-    private Vector2[] mSkidmarks = new Vector2[4000];
+    private Vector2[] mSkidmarks = new Vector2[20];
     private int mSkidmarksIndex = 0;
     private Array<GameObject> mActiveGameObjects = new Array<GameObject>();
     private float mScore = 0;
