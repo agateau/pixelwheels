@@ -42,6 +42,7 @@ public class GameRenderer {
     private Vehicle mVehicle;
 
     private PerformanceCounter mTilePerformanceCounter;
+    private PerformanceCounter mSkidmarksPerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameRenderer(Assets assets, GameWorld world, Batch batch, PerformanceCounters counters) {
@@ -62,6 +63,7 @@ public class GameRenderer {
         mVehicle = mWorld.getPlayerVehicle();
 
         mTilePerformanceCounter = counters.add("- tiles");
+        mSkidmarksPerformanceCounter = counters.add("- skidmarks");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
     }
 
@@ -82,7 +84,9 @@ public class GameRenderer {
         mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.enableBlending();
         mBatch.begin();
+        mSkidmarksPerformanceCounter.start();
         renderSkidmarks();
+        mSkidmarksPerformanceCounter.stop();
 
         mGameObjectPerformanceCounter.start();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
@@ -96,8 +100,8 @@ public class GameRenderer {
                 mBatch.begin();
             }
         }
-        mBatch.end();
         mGameObjectPerformanceCounter.stop();
+        mBatch.end();
 
         if (mDebugConfig.enabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
