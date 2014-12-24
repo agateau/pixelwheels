@@ -75,10 +75,12 @@ public class GameRenderer {
 
         mTilePerformanceCounter.start();
         mRenderer.setView(mCamera);
+        mBatch.disableBlending();
         mRenderer.render(mBackgroundLayerIndexes);
         mTilePerformanceCounter.stop();
 
         mBatch.setProjectionMatrix(mCamera.combined);
+        mBatch.enableBlending();
         mBatch.begin();
         renderSkidmarks();
 
