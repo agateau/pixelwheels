@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
@@ -30,10 +31,11 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
 
+    private final RaceGame mGame;
     private final MapInfo mMapInfo;
+    private final HudBridge mHudBridge;
 
     private final World mBox2DWorld;
-    private final RaceGame mGame;
     private final EnemySpawner mEnemySpawner;
     private float mTimeAccumulator = 0;
 
@@ -51,11 +53,12 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(RaceGame game, MapInfo mapInfo, PerformanceCounters performanceCounters) {
+    public GameWorld(RaceGame game, MapInfo mapInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
+        mHudBridge = hudBridge;
         mEnemySpawner = new EnemySpawner(this, game.getAssets());
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
@@ -81,13 +84,12 @@ public class GameWorld implements ContactListener, Disposable {
         return (int)mScore;
     }
 
-    public void adjustScore(int delta, float posX, float posY) {
+    public void adjustScore(int delta, float worldX, float worldY) {
         NLog.i("score += %d", delta);
         mScore = Math.max(0, mScore + delta);
-        addBonusIndicator(delta, posX, posY);
-    }
-
-    protected void addBonusIndicator(int delta, float posX, float posY) {
+        Vector2 pos = mHudBridge.toHudCoordinate(worldX, worldY);
+        Actor indicator = ScoreIndicator.create(mGame.getAssets(), delta, pos.x, pos.y);
+        mHudBridge.getStage().addActor(indicator);
     }
 
     public Vector2[] getSkidmarks() {
