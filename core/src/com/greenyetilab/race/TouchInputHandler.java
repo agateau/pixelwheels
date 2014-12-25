@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
  * Handle inputs with touch screen only
  */
 public class TouchInputHandler implements GameInputHandler {
+    private static final float LEFT_PERCENT = 0.3f;
+    private static final float RIGHT_PERCENT = 0.6f;
     private GameInput mInput = new GameInput();
 
     @Override
@@ -24,13 +26,10 @@ public class TouchInputHandler implements GameInputHandler {
                 continue;
             }
             float x = Gdx.input.getX(i) / (float)Gdx.graphics.getWidth();
-            float y = 1f - Gdx.input.getY(i) / (float)Gdx.graphics.getHeight();
-            if (y < 0.5f) {
-                if (x < 0.5f) {
-                    mInput.direction = 1;
-                } else {
-                    mInput.direction = -1;
-                }
+            if (x < LEFT_PERCENT) {
+                mInput.direction = 1;
+            } else if (x < RIGHT_PERCENT) {
+                mInput.direction = -1;
             } else {
                 mInput.shooting = true;
             }
