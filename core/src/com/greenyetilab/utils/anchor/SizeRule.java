@@ -37,10 +37,6 @@ public class SizeRule implements AnchorRule {
 
     @Override
     public void apply() {
-        if (mTarget.getWidth() == 0) {
-            return;
-        }
-        float hfw = mTarget.getHeight() / mTarget.getWidth();
         if (mWidthPercent > 0) {
             mTarget.setWidth(mReference.getWidth() * mWidthPercent + mWidthPadding);
         }
@@ -48,9 +44,17 @@ public class SizeRule implements AnchorRule {
             mTarget.setHeight(mReference.getHeight() * mHeightPercent + mHeightPadding);
         }
         if (mWidthPercent == KEEP_RATIO) {
-            mTarget.setWidth(mTarget.getHeight() / hfw + mWidthPadding);
+            if (mTarget.getHeight() == 0) {
+                return;
+            }
+            float wfh = mTarget.getWidth() / mTarget.getHeight();
+            mTarget.setWidth(mTarget.getHeight() * wfh + mWidthPadding);
         }
         if (mHeightPercent == KEEP_RATIO) {
+            if (mTarget.getWidth() == 0) {
+                return;
+            }
+            float hfw = mTarget.getHeight() / mTarget.getWidth();
             mTarget.setHeight(mTarget.getWidth() * hfw + mHeightPadding);
         }
     }
