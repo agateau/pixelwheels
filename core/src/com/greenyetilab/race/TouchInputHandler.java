@@ -1,6 +1,11 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.anchor.AnchorGroup;
+import com.greenyetilab.utils.anchor.PositionRule;
+import com.greenyetilab.utils.anchor.SizeRule;
 
 /**
  * Handle inputs with touch screen only
@@ -35,5 +40,29 @@ public class TouchInputHandler implements GameInputHandler {
             }
         }
         return mInput;
+    }
+
+    @Override
+    public void createHud(Assets assets, HudBridge hudBridge) {
+        AnchorGroup group = new AnchorGroup();
+        group.setFillParent(true);
+        hudBridge.getStage().addActor(group);
+
+        TextureRegion bg = assets.hudBackground;
+        createHudIndicator(bg, assets.findRegion("hud-left"), true, group, 0, LEFT_PERCENT);
+        createHudIndicator(bg, assets.findRegion("hud-right"), false, group, LEFT_PERCENT, RIGHT_PERCENT);
+        createHudIndicator(bg, assets.findRegion("hud-fire"), true, group, RIGHT_PERCENT, 1);
+    }
+
+    private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
+        InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
+        PositionRule rule = new PositionRule();
+        rule.reference = group;
+        rule.referenceAnchor = new Anchor(start, 0);
+        rule.target = indicator;
+        rule.targetAnchor = Anchor.BOTTOM_LEFT;
+        group.addRule(rule);
+        SizeRule sizeRule = new SizeRule(indicator, group, stop - start, SizeRule.IGNORE);
+        group.addRule(sizeRule);
     }
 }

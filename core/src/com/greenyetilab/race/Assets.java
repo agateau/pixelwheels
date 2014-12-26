@@ -22,6 +22,7 @@ public class Assets {
     public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
     public final TextureRegion dot;
+    public final TextureRegion hudBackground;
     public final TextureAtlas atlas;
     public final Animation explosion;
     public final Animation iceExplosion;
@@ -66,12 +67,19 @@ public class Assets {
 
         // Fix white-pixel to avoid fading borders
         this.dot = findRegion("white-pixel");
-        this.dot.setRegionX(this.dot.getRegionX() + 2);
-        this.dot.setRegionY(this.dot.getRegionY() + 2);
-        this.dot.setRegionWidth(this.dot.getRegionWidth() - 4);
-        this.dot.setRegionHeight(this.dot.getRegionHeight() - 4);
+        removeBorders(this.dot);
+
+        this.hudBackground = findRegion("hud-bg");
+        removeBorders(this.hudBackground);
 
         this.skidmark = findRegion("skidmark");
+    }
+
+    private static void removeBorders(TextureRegion region) {
+        region.setRegionX(region.getRegionX() + 2);
+        region.setRegionY(region.getRegionY() + 2);
+        region.setRegionWidth(region.getRegionWidth() - 4);
+        region.setRegionHeight(region.getRegionHeight() - 4);
     }
 
     public TextureAtlas.AtlasRegion findRegion(String name) {

@@ -84,6 +84,10 @@ public class GameWorld implements ContactListener, Disposable {
         return (int)mScore;
     }
 
+    public HudBridge getHudBridge() {
+        return mHudBridge;
+    }
+
     public void adjustScore(int delta, float worldX, float worldY) {
         NLog.i("score += %d", delta);
         mScore = Math.max(0, mScore + delta);

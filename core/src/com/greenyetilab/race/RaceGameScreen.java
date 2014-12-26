@@ -64,6 +64,7 @@ public class RaceGameScreen extends ScreenAdapter {
     public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
+        setupHud();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, mapInfo, mHudBridge, mPerformanceCounters);
@@ -71,7 +72,6 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameRenderer = new GameRenderer(game.getAssets(), mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
         mVehicle = mGameWorld.getPlayerVehicle();
-        setupHud();
     }
 
     private void setupGameRenderer() {
@@ -102,7 +102,6 @@ public class RaceGameScreen extends ScreenAdapter {
             mHudStage.addActor(mDebugLabel);
         }
         mHudStage.addActor(mHud);
-        updateHud();
     }
 
     @Override

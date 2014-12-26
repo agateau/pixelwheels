@@ -32,4 +32,9 @@ public class AccelerometerInputHandler implements GameInputHandler {
         }
         return mInput;
     }
+
+    @Override
+    public void createHud(Assets assets, HudBridge hudBridge) {
+
+    }
 }
