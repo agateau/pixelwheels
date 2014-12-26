@@ -34,6 +34,16 @@ public class AnchorGroup extends WidgetGroup {
         addRule(rule);
     }
 
+    public void addSizeRule(Actor target, Actor reference, float hPercent, float vPercent) {
+        addSizeRule(target, reference, hPercent, vPercent, 0, 0);
+    }
+
+    public void addSizeRule(Actor target, Actor reference, float hPercent, float vPercent, float hSpace, float vSpace) {
+        SizeRule rule = new SizeRule(target, reference, hPercent, vPercent);
+        rule.setPadding(hSpace * mSpacing, vSpace * mSpacing);
+        addRule(rule);
+    }
+
     public void addRule(AnchorRule rule) {
         mRules.add(rule);
         Actor target = rule.getTarget();
