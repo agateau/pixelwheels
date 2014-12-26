@@ -10,7 +10,7 @@ public class KeyboardInputHandler implements GameInputHandler {
     private GameInput mInput = new GameInput();
 
     @Override
-    public String toString() {
+    public String getName() {
         return "Keyboard";
     }
 

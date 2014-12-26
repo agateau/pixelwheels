@@ -6,5 +6,6 @@ package com.greenyetilab.race;
 public interface GameInputHandler {
     GameInput getGameInput();
 
+    String getName();
     void createHud(Assets assets, HudBridge hudBridge);
 }

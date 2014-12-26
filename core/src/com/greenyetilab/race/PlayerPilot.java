@@ -31,7 +31,7 @@ public class PlayerPilot implements Pilot {
         mHealthComponent = healthComponent;
 
         String inputHandlerName = RaceGame.getPreferences().getString("input", "");
-        mInputHandler = GameInputHandlers.getHandlerByName(inputHandlerName);
+        mInputHandler = GameInputHandlers.getHandlerByClassName(inputHandlerName);
         mInputHandler.createHud(assets, mGameWorld.getHudBridge());
 
         mAutoCorrectDirection = RaceGame.getPreferences().getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT);

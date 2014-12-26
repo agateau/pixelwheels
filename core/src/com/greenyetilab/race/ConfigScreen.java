@@ -68,7 +68,7 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
 
         public int findHandler(String name) {
             for (int i = 0; i < mHandlers.size; ++i) {
-                if (mHandlers.get(i).toString().equals(name)) {
+                if (mHandlers.get(i).getClass().getSimpleName().equals(name)) {
                     return i;
                 }
             }
@@ -90,10 +90,10 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
             } else if (mIndex >= mHandlers.size) {
                 mIndex = 0;
             }
-            String name = mHandlers.get(mIndex).toString();
-            mLabel.setText(name);
+            GameInputHandler handler = mHandlers.get(mIndex);
+            mLabel.setText(handler.getName());
             Preferences prefs = RaceGame.getPreferences();
-            prefs.putString("input", name);
+            prefs.putString("input", handler.getClass().getSimpleName());
             prefs.flush();
         }
     }

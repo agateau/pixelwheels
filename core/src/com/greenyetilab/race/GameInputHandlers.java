@@ -17,10 +17,10 @@ public class GameInputHandlers {
         return mHandlers;
     }
 
-    public static GameInputHandler getHandlerByName(String name) {
+    public static GameInputHandler getHandlerByClassName(String name) {
         init();
         for (GameInputHandler handler : mHandlers) {
-            if (handler.toString().equals(name)) {
+            if (handler.getClass().getSimpleName().equals(name)) {
                 return handler;
             }
         }

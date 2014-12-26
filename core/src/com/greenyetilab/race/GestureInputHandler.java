@@ -21,7 +21,7 @@ public class GestureInputHandler implements GameInputHandler {
     private float mPanStart = 0; // mPanStart goes from 0 to 1
 
     @Override
-    public String toString() {
+    public String getName() {
         return "Gesture";
     }
 

@@ -14,7 +14,7 @@ public class LandscapeTouchInputHandler implements GameInputHandler {
     private GameInput mInput = new GameInput();
 
     @Override
-    public String toString() {
+    public String getName() {
         return "Landscape Touch";
     }
 
