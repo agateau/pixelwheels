@@ -56,7 +56,6 @@ public class LandscapeTouchInputHandler implements GameInputHandler {
 
     private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
         InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
-        indicator.setHeight(indicator.getHeight() * 2);
         PositionRule rule = new PositionRule();
         rule.reference = group;
         rule.referenceAnchor = new Anchor(start, 1);

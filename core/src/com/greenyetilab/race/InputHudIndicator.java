@@ -19,7 +19,7 @@ public class InputHudIndicator extends Actor {
         mIcon = icon;
         mColor = new Color(0.9f, 0.9f, 1, even ? 0.5f : 0.7f);
         setWidth(20);
-        setHeight(60);
+        setHeight(120);
     }
     @Override
     public void draw(Batch batch, float alpha) {
