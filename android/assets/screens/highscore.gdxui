@@ -2,17 +2,15 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="mainLabel"
-               topCenter="root.topCenter 0 -1">High Scores</Label>
+               topCenter="root.topCenter 0 -2">High Scores</Label>
 
         <HighScorePane id="scoreScrollPane"
                        center="root.center 0 0.5"
                        width="400"
                        height="320"/>
 
-        <TextButton id="backButton"
-                    width="120"
-                    height="40"
-                    bottomLeft="root.bottomLeft 1 1"
-            >Back</TextButton>
+        <ImageButton id="backButton"
+                     bottomLeft="root.bottomLeft 1 1"
+                     imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>
