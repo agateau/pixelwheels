@@ -11,6 +11,7 @@ import com.greenyetilab.utils.FileUtils;
 import com.greenyetilab.utils.RefreshHelper;
 import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
+import com.greenyetilab.utils.anchor.SizeRule;
 
 /**
  * The config screen
@@ -53,6 +54,7 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
                 mGame.popScreen();
             }
         });
+        root.addSizeRule(builder.getActor("gameInputHandlerSelector"), root, 1, SizeRule.IGNORE, -2, 0);
 
         final Preferences prefs = RaceGame.getPreferences();
         CheckBox checkBox = builder.getActor("autoCorrectCheckBox");

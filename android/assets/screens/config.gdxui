@@ -8,9 +8,9 @@
                     bottomLeft="root.bottomLeft 1 1"
                     imageName="icon-back"/>
 
-            <Label topLeft="root.topLeft 6 -6">Input:</Label>
+            <Label topLeft="root.topLeft 1 -6">Input:</Label>
             <GameInputHandlerSelector id="gameInputHandlerSelector"
-                                      topLeft="$prev.bottomLeft"
+                                      topLeft="$prev.bottomLeft 0 -1"
                                       />
             <CheckBox id="autoCorrectCheckBox" topLeft="$prev.bottomLeft 0 -1">Auto Correct</CheckBox>
 

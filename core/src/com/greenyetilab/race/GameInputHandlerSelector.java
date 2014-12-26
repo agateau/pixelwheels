@@ -2,45 +2,61 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.anchor.AnchorGroup;
+import com.greenyetilab.utils.anchor.SizeRule;
 
 /**
  * An actor to select the input handler
  */
-public class GameInputHandlerSelector extends HorizontalGroup {
-    private final Label mLabel;
+public class GameInputHandlerSelector extends AnchorGroup {
+    private final Label mNameLabel;
+    private final Label mDescriptionLabel;
     private Array<GameInputHandler> mHandlers;
     private int mIndex = 0;
 
     public GameInputHandlerSelector(Skin skin) {
-        space(20);
+        setSpacing(20);
         mHandlers = GameInputHandlers.getAvailableHandlers();
-        addButton("icon-left", skin, new ClickListener() {
+        ImageButton leftButton = addButton("icon-left", skin, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setIndex(mIndex - 1);
             }
         });
 
-        mLabel = new Label("", skin);
-        mLabel.setWidth(150);
-        addActor(mLabel);
+        mNameLabel = new Label("", skin);
 
-        addButton("icon-right", skin, new ClickListener() {
+        mDescriptionLabel = new Label("", skin);
+        mDescriptionLabel.setWrap(true);
+
+        ImageButton rightButton = addButton("icon-right", skin, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setIndex(mIndex + 1);
             }
         });
 
+        mNameLabel.setHeight(rightButton.getHeight());
+        mDescriptionLabel.setHeight(rightButton.getHeight() * 2.5f);
+        mDescriptionLabel.setAlignment(Align.topLeft, Align.left);
+
+        addPositionRule(leftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
+        addPositionRule(mNameLabel, Anchor.TOP_LEFT, leftButton, Anchor.TOP_RIGHT, 1, 0);
+        addPositionRule(rightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT);
+        addPositionRule(mDescriptionLabel, Anchor.TOP_LEFT, leftButton, Anchor.BOTTOM_LEFT, 0, -0.5f);
+        addSizeRule(mDescriptionLabel, this, 1, SizeRule.IGNORE);
+
         String inputHandlerName = RaceGame.getPreferences().getString("input", "");
         setIndex(findHandler(inputHandlerName));
-        setHeight(getPrefHeight());
+
+        setHeight(mNameLabel.getHeight() + mDescriptionLabel.getHeight());
     }
 
     public int findHandler(String name) {
@@ -52,12 +68,12 @@ public class GameInputHandlerSelector extends HorizontalGroup {
         return 0;
     }
 
-    private void addButton(String imageName, Skin skin, ClickListener listener) {
+    private ImageButton addButton(String imageName, Skin skin, ClickListener listener) {
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get("default", ImageButton.ImageButtonStyle.class));
         style.imageUp = skin.getDrawable(imageName);
         ImageButton button = new ImageButton(style);
         button.addListener(listener);
-        addActor(button);
+        return button;
     }
 
     private void setIndex(int value) {
@@ -68,7 +84,10 @@ public class GameInputHandlerSelector extends HorizontalGroup {
             mIndex = 0;
         }
         GameInputHandler handler = mHandlers.get(mIndex);
-        mLabel.setText(handler.getName());
+        mNameLabel.setText(handler.getName());
+
+        mDescriptionLabel.setText(handler.getDescription());
+
         Preferences prefs = RaceGame.getPreferences();
         prefs.putString("input", handler.getClass().getSimpleName());
         prefs.flush();
