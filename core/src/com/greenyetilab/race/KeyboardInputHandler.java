@@ -15,6 +15,11 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getDescription() {
+        return "Left and Right keys: Drive.\nLeft-Ctrl: Fire.";
+    }
+
+    @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
         mInput.braking = false;

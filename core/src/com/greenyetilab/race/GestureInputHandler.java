@@ -26,6 +26,11 @@ public class GestureInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getDescription() {
+        return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
+    }
+
+    @Override
     public GameInput getGameInput() {
         mInput.braking = false;
         mInput.accelerating = true;

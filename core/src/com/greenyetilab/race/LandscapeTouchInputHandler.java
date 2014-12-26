@@ -19,6 +19,14 @@ public class LandscapeTouchInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getDescription() {
+        return
+            "Hold the device in landscape mode.\n"
+            + "Touch left side to fire, top-right corner to go up, bottom-right corner to go down."
+            ;
+    }
+
+    @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
         mInput.shooting = false;

@@ -17,6 +17,11 @@ public class AccelerometerInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getDescription() {
+        return "Tilt the phone to go left or right, touch anywhere to fire.";
+    }
+
+    @Override
     public GameInput getGameInput() {
         mInput.braking = false;
         mInput.accelerating = true;

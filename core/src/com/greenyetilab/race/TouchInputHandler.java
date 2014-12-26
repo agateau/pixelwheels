@@ -21,6 +21,11 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getDescription() {
+        return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to fire.";
+    }
+
+    @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
         mInput.shooting = false;
