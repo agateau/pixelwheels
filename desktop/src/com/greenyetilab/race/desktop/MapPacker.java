@@ -312,7 +312,7 @@ public class MapPacker {
         }
         }
 
-        NLog.i("Clearing output dir");
+        NLog.i("Clearing output dir " + outputDir);
         boolean ok = clearOutputDir(outputDir);
         if (!ok) {
             System.exit(1);
