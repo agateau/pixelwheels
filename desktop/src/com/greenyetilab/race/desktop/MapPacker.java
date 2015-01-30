@@ -384,11 +384,13 @@ public class MapPacker {
             }
         };
         File[] files = dir.listFiles(filter);
-        for (File file : files) {
-            boolean ok = file.delete();
-            if (!ok) {
-                NLog.e("Failed to delete %s", file.getAbsolutePath());
-                return false;
+        if (files != null) {
+            for (File file : files) {
+                boolean ok = file.delete();
+                if (!ok) {
+                    NLog.e("Failed to delete %s", file.getAbsolutePath());
+                    return false;
+                }
             }
         }
         return true;
