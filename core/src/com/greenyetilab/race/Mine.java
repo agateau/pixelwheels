@@ -122,7 +122,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
         HealthComponent healthComponent = ((GameObject)other).getHealthComponent();
         if (healthComponent != null) {
             explode();
-            healthComponent.kill();
+            healthComponent.decreaseHealth();
         }
     }
 

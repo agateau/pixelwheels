@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * Created by aurelien on 19/12/14.
+ * The player character
  */
 public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private final GameWorld mGameWorld;
@@ -21,7 +21,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
     public PlayerVehicle(Assets assets, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
-        mHealthComponent.setInitialHealth(1);
+        mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
 
         // Car
         TextureRegion carRegion = assets.findRegion("car/player");

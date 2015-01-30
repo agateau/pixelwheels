@@ -22,4 +22,6 @@ public class Constants {
     public static final int SCORE_CIVIL_HIT = -50;
     public static final int SCORE_ENEMY_HIT = 100;
     public static final int SCORE_GIFT_PICK = 400;
+
+    public static final int PLAYER_HEALTH = 3;
 }
