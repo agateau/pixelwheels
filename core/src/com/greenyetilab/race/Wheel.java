@@ -88,7 +88,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         if (amount == 0) {
             return;
         }
-        float force = 50 * amount;
+        float force = 100 * amount;
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);

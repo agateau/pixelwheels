@@ -20,7 +20,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
 
     private static final float BULLET_RADIUS = 0.8f;
-    private static final float IMPULSE = 80;
+    private static final float IMPULSE = 160;
 
     private GameWorld mGameWorld;
     private Assets mAssets;
