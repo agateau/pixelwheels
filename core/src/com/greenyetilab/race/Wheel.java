@@ -1,6 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +14,8 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A wheel
  */
 public class Wheel implements Pool.Poolable, Disposable {
-    private static final float MAX_LATERAL_IMPULSE = 3.5f;
+    private static final float MAX_LATERAL_IMPULSE = 8;
+    private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
     private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
@@ -104,6 +104,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         float maxInpulse = MAX_LATERAL_IMPULSE / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxInpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
+            maxInpulse = Math.max(maxInpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxInpulse);
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
