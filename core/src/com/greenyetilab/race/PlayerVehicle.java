@@ -28,7 +28,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         TextureRegion wheelRegion = assets.wheel;
         mVehicle = new Vehicle(carRegion, mGameWorld, originX, originY);
         mVehicle.setUserData(this);
-        mVehicle.setLimitAngle(true);
+        //mVehicle.setLimitAngle(true);
         //mVehicle.setCorrectAngle(true);
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
@@ -51,9 +51,9 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         info = mVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
         info = mVehicle.addWheel(wheelRegion, leftX, rearY);
-        //info.wheel.setCanDrift(true);
+        info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
-        //info.wheel.setCanDrift(true);
+        info.wheel.setCanDrift(true);
 
         mVehicle.setCollisionInfo(CollisionCategories.PLAYER,
                 CollisionCategories.WALL
