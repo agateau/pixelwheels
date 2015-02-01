@@ -180,7 +180,7 @@
    eJztwQEBAAAAgiD/r25IQAEAfBkJAAAB
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object name="forest" x="64" y="1088" width="256" height="384"/>
   <object name="forest" x="1280" y="64" width="256" height="320"/>
   <object name="house" x="1280" y="1088" width="128" height="256"/>
@@ -207,12 +207,12 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Centers" width="24" height="24">
+ <layer name="Centers" width="24" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYCANsJKofhSMglEwCkbBKBgFo4DWgNT2CQA2AAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="384" y="448" width="832" height="576">
    <properties>
     <property name="direction" value="90"/>
@@ -258,5 +258,11 @@
     <property name="direction" value="120"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Borders">
+  <object x="1216" y="0" width="320" height="448"/>
+  <object x="0" y="0" width="384" height="448"/>
+  <object x="1216" y="1024" width="320" height="512"/>
+  <object x="0" y="1024" width="384" height="512"/>
  </objectgroup>
 </map>

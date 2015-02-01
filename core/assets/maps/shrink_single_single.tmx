@@ -226,12 +226,12 @@
    eJzdlEEOhCAQBNtwMNmbe5MTT+NpPoWn8JRtw5pscEBAQuIeOnOgnaIdMjOAWdAL2CbAFghT8FupT04DGG4lYwkcdyX6DP1m/66Godn/XcBQ9NNndAOjNEuUoZrxm0WF/36qUYYaRjz7ZI6W95RhbJIexkiqM8NJtSMDgxj/MI8ROUYxRD2BwV3nufP83kuFt3qqPLf6Boc72y9fRko8t2sj48hw3Den1iwlGe5muZp1j9n3ZHwAClaBCQ==
   </data>
  </layer>
- <layer name="Walls" width="25" height="24">
+ <layer name="Walls" width="25" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object name="forest" x="64" y="320" width="192" height="832"/>
   <object name="forest" x="1280" y="64" width="256" height="384"/>
   <object name="house" x="1280" y="896" width="128" height="128"/>
@@ -240,12 +240,12 @@
   <object name="house" x="128" y="1344" width="128" height="128"/>
   <object name="forest" x="1280" y="1088" width="256" height="384"/>
  </objectgroup>
- <layer name="Centers" width="25" height="24">
+ <layer name="Centers" width="25" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYCANsJKofhSMglEwCkbBKBgFo2AoA3LaPgA4VAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="576" y="384" width="448" height="768">
    <properties>
     <property name="direction" value="90"/>
@@ -320,6 +320,16 @@
    <properties>
     <property name="direction" value="120"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Borders">
+  <object x="1216" y="0" width="384" height="1536"/>
+  <object x="0" y="0" width="384" height="1536"/>
+  <object x="1216" y="128">
+   <polygon points="0,0 -128,256 -128,1024 0,1280"/>
+  </object>
+  <object x="512" y="384">
+   <polygon points="0,0 -128,-256 -128,1024 0,768"/>
   </object>
  </objectgroup>
 </map>

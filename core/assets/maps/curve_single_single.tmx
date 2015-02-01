@@ -180,19 +180,19 @@
    eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object name="forest" x="64" y="64" width="192" height="512"/>
   <object name="forest" x="1216" y="1152" width="256" height="320"/>
   <object name="house" x="512" y="64" width="128" height="128"/>
   <object name="house" x="64" y="768" width="128" height="192"/>
   <object name="house" x="1216" y="960" width="128" height="128"/>
  </objectgroup>
- <layer name="Centers" width="25" height="24">
+ <layer name="Centers" width="25" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYKAcsFLBjFEwCkbBKBgFo2AUjILBBsht4wAAOAQACw==
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="768" y="0" width="704" height="256">
    <properties>
     <property name="direction" value="90"/>
@@ -226,6 +226,18 @@
     <property name="direction" value="0"/>
    </properties>
    <polygon points="0,0 384,-320 0,-320"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Borders">
+  <object x="1600" y="832">
+   <polygon points="0,0 -64,0 -128,64 0,64"/>
+  </object>
+  <object x="1536" y="0" width="64" height="832"/>
+  <object x="1152" y="896" width="448" height="640"/>
+  <object x="0" y="320" width="320" height="1216"/>
+  <object x="0" y="0" width="704" height="256"/>
+  <object x="384" y="256">
+   <polygon points="0,0 -384,0 -384,64 -64,64"/>
   </object>
  </objectgroup>
 </map>

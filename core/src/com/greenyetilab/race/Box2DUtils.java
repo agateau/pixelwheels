@@ -1,5 +1,10 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -51,6 +56,39 @@ public class Box2DUtils {
             filter.categoryBits = (short)categoryBits;
             filter.maskBits = (short)maskBits;
             fixture.setFilterData(filter);
+        }
+    }
+
+    public static Body createStaticBodyForMapObject(World world, MapObject object) {
+        final float u = Constants.UNIT_FOR_PIXEL;
+        if (object instanceof RectangleMapObject) {
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            return createStaticBox(world, u * rect.getX(), u * rect.getY(), u * rect.getWidth(), u * rect.getHeight());
+        } else if (object instanceof PolygonMapObject) {
+            Polygon polygon = ((PolygonMapObject)object).getPolygon();
+            float[] vertices = polygon.getVertices().clone();
+            for (int idx = 0; idx < vertices.length; idx += 2) {
+                vertices[idx] *= u;
+                vertices[idx + 1] *= u;
+            }
+
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(polygon.getX(), polygon.getY());
+            Body body = world.createBody(bodyDef);
+
+            PolygonShape shape = new PolygonShape();
+            shape.set(vertices);
+
+            body.createFixture(shape, 1);
+            return body;
+        }
+        throw new RuntimeException("Unsupported MapObject type: " + object);
+    }
+
+    public static void setBodyRestitution(Body body, float restitution) {
+        for (Fixture fixture : body.getFixtureList()) {
+            fixture.setRestitution(restitution);
         }
     }
 }

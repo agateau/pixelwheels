@@ -24,6 +24,7 @@ public class MapInfo implements Disposable {
     private final MapLayer mDirectionsLayer;
     private final MapLayer mObstaclesLayer;
     private final TiledMapTileLayer mWallsLayer;
+    private final MapLayer mBordersLayer;
     private final float mTileWidth;
     private final float mTileHeight;
 
@@ -38,6 +39,8 @@ public class MapInfo implements Disposable {
         mObstaclesLayer = mMap.getLayers().get("Obstacles");
         assert mObstaclesLayer != null;
         mWallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
+        mBordersLayer = mMap.getLayers().get("Borders");
+        assert mBordersLayer != null;
 
         mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
@@ -85,6 +88,10 @@ public class MapInfo implements Disposable {
 
     public TiledMapTileLayer getWallsLayer() {
         return mWallsLayer;
+    }
+
+    public MapLayer getBordersLayer() {
+        return mBordersLayer;
     }
 
     private float[] computeMaxSpeedForTileId() {

@@ -65,6 +65,7 @@ public class GameWorld implements ContactListener, Disposable {
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupSled();
         setupOutsideWalls();
+        setupRoadBorders();
         setupObjects();
     }
 
@@ -184,6 +185,14 @@ public class GameWorld implements ContactListener, Disposable {
         // right
         body = Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
         Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
+    }
+
+    private void setupRoadBorders() {
+        for (MapObject object : mMapInfo.getBordersLayer().getObjects()) {
+            Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
+            Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
+                    CollisionCategories.PLAYER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
+        }
     }
 
     private void setupObjects() {
