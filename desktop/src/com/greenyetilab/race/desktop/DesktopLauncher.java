@@ -8,8 +8,8 @@ import com.greenyetilab.utils.FileUtils;
 public class DesktopLauncher {
     public static void main (String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 480;
-        config.height = 800;
+        config.width = 800;
+        config.height = 480;
         FileUtils.appName = "race";
         new LwjglApplication(new RaceGame(), config);
     }
