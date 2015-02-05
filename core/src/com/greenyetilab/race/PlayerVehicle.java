@@ -48,8 +48,10 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         Vehicle.WheelInfo info;
         info = mVehicle.addWheel(wheelRegion, leftX, frontY);
         info.steeringFactor = 1;
+        info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, frontY);
         info.steeringFactor = 1;
+        info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, leftX, rearY);
         info.wheel.setCanDrift(true);
         info = mVehicle.addWheel(wheelRegion, rightX, rearY);
