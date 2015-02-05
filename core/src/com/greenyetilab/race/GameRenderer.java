@@ -4,12 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
@@ -127,18 +123,7 @@ public class GameRenderer {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.setColor(1, 0, 0, 1);
-            final float U = Constants.UNIT_FOR_PIXEL;
-            for (MapObject object : mWorld.getMapInfo().getDirectionsLayer().getObjects()) {
-                if (object instanceof PolygonMapObject) {
-                    float[] vertices = ((PolygonMapObject)object).getPolygon().getTransformedVertices();
-                    for (int idx = 2; idx < vertices.length; idx += 2) {
-                        mShapeRenderer.line(vertices[idx - 2] * U, vertices[idx - 1] * U, vertices[idx] * U, vertices[idx + 1] * U);
-                    }
-                } else if (object instanceof RectangleMapObject) {
-                    Rectangle rect = ((RectangleMapObject)object).getRectangle();
-                    mShapeRenderer.rect(rect.x * U, rect.y * U, rect.width * U, rect.height * U);
-                }
-            }
+            MapUtils.renderObjectLayer(mShapeRenderer, mWorld.getMapInfo().getBordersLayer());
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
