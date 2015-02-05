@@ -2,6 +2,7 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,8 +11,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.IntArray;
+import com.greenyetilab.utils.Assert;
 
 /**
  * The map of the current game
@@ -19,10 +22,10 @@ import com.badlogic.gdx.utils.IntArray;
 public class MapInfo implements Disposable {
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
-    private final IntArray mRoadTileIds;
+    private final IntArray mRoadTileIds = new IntArray();
+    private int mStartTileId = -1;
     private final TiledMapTileLayer mGroundLayer;
     private final MapLayer mDirectionsLayer;
-    private final MapLayer mObstaclesLayer;
     private final TiledMapTileLayer mWallsLayer;
     private final MapLayer mBordersLayer;
     private final float mTileWidth;
@@ -31,13 +34,11 @@ public class MapInfo implements Disposable {
     public MapInfo(TiledMap map) {
         mMap = map;
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
-        mRoadTileIds = findRoadTileIds();
+        findSpecialTileIds();
 
         mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
         mDirectionsLayer = mMap.getLayers().get("Directions");
         assert mDirectionsLayer != null;
-        mObstaclesLayer = mMap.getLayers().get("Obstacles");
-        assert mObstaclesLayer != null;
         mWallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
         mBordersLayer = mMap.getLayers().get("Borders");
         assert mBordersLayer != null;
@@ -82,10 +83,6 @@ public class MapInfo implements Disposable {
         return mDirectionsLayer;
     }
 
-    public MapLayer getObstaclesLayer() {
-        return mObstaclesLayer;
-    }
-
     public TiledMapTileLayer getWallsLayer() {
         return mWallsLayer;
     }
@@ -108,15 +105,19 @@ public class MapInfo implements Disposable {
         return array;
     }
 
-    private IntArray findRoadTileIds() {
-        IntArray array = new IntArray();
+    private void findSpecialTileIds() {
         TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
         for (TiledMapTile tile : tileSet) {
-            if (MapUtils.getBooleanProperty(tile.getProperties(), "is_road", false)) {
-                array.add(tile.getId());
+            MapProperties properties = tile.getProperties();
+            if (MapUtils.getBooleanProperty(properties, "is_road", false)) {
+                mRoadTileIds.add(tile.getId());
+            }
+            if (MapUtils.getBooleanProperty(properties, "start", false)) {
+                mStartTileId = tile.getId();
             }
         }
-        return array;
+        Assert.check(mRoadTileIds.size > 0, "No road tile ids");
+        Assert.check(mStartTileId != -1, "No start id");
     }
 
     public TiledMapTile getTileAt(Vector2 pos) {
@@ -163,16 +164,22 @@ public class MapInfo implements Disposable {
         mMap.dispose();
     }
 
-    public Vector2 findStartTilePosition() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mMap.getLayers().get("Centers");
-        int tx = 0;
-        for (; tx < layer.getWidth(); ++tx) {
-            TiledMapTileLayer.Cell cell = layer.getCell(tx, 0);
-            if (cell != null) {
-                break;
+    public Array<Vector2> findStartTilePositions() {
+        Array<Vector2> lst = new Array<Vector2>();
+        for (int ty = 0; ty < mGroundLayer.getHeight(); ++ty) {
+            for (int tx = 0; tx < mGroundLayer.getWidth(); ++tx) {
+                TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
+                if (cell == null) {
+                    continue;
+                }
+                int tileId = cell.getTile().getId();
+                if (tileId == mStartTileId) {
+                    Vector2 pos = new Vector2(tx * mTileWidth + mTileWidth / 2, ty * mTileHeight);
+                    lst.add(pos);
+                }
             }
         }
-        return new Vector2(tx * mTileWidth + mTileWidth / 2, mTileHeight);
+        return lst;
     }
 
     public boolean isRoadTile(int tileId) {
