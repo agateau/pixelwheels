@@ -1,10 +1,5 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-
 /**
  * A pilot controlled by the player
  */
@@ -14,7 +9,6 @@ public class PlayerPilot implements Pilot {
 
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final GameObject mPlayerGameObject;
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
 
@@ -23,10 +17,9 @@ public class PlayerPilot implements Pilot {
 
     private float mShootRecoilTime = 0;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, GameObject playerGameObject, Vehicle vehicle, HealthComponent healthComponent) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle, HealthComponent healthComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
-        mPlayerGameObject = playerGameObject;
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
 
@@ -68,28 +61,6 @@ public class PlayerPilot implements Pilot {
             }
         }
         return true;
-    }
-
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Gift) {
-            Gift gift = (Gift)other;
-            gift.pick();
-            mGameWorld.adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
-        }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
     }
 
     private float computeCorrectedDirection() {

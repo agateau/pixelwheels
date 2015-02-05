@@ -3,15 +3,11 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  * A truck which drops gifts when destroyed
  */
-public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSight {
+public class EnemyTruck implements GameObject, DisposableWhenOutOfSight {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final PendingVehicle mVehicle;
@@ -30,7 +26,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
                     U * region.getRegionWidth(), U * region.getRegionHeight());
         }
     };
-    private final CollisionHandlerComponent mCollisionHandlerComponent;
+    private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final Pilot mPilot;
 
     public EnemyTruck(Assets assets, GameWorld gameWorld, float originX, float originY) {
@@ -39,7 +35,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
         mVehicle = new PendingVehicle(assets.findRegion("truck"), gameWorld, originX, originY);
         mVehicle.setUserData(this);
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
-        mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
+        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
 
         mPilot = new BasicPilot(gameWorld.getMapInfo(), mVehicle, mHealthComponent);
         mHealthComponent.setInitialHealth(4);
@@ -77,26 +73,6 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
     }
 
     @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        mPilot.beginContact(contact, otherFixture);
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-        mPilot.endContact(contact, otherFixture);
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        mPilot.preSolve(contact, otherFixture, oldManifold);
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-        mPilot.postSolve(contact, otherFixture, impulse);
-    }
-
-    @Override
     public void dispose() {
         mVehicle.dispose();
     }
@@ -109,7 +85,7 @@ public class EnemyTruck implements GameObject, Collidable, DisposableWhenOutOfSi
             keep = keep && mPilot.act(delta);
         }
         if (keep) {
-            keep = mCollisionHandlerComponent.act(delta);
+            keep = mGroundCollisionHandlerComponent.act(delta);
         }
         if (keep) {
             keep = mHealthComponent.act(delta);

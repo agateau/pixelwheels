@@ -16,7 +16,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
-    private final CollisionHandlerComponent mCollisionHandlerComponent;
+    private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final Pilot mPilot;
 
     public PlayerVehicle(Assets assets, GameWorld gameWorld, float originX, float originY) {
@@ -32,8 +32,8 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         //mVehicle.setCorrectAngle(true);
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
-        mCollisionHandlerComponent = new CollisionHandlerComponent(mVehicle, mHealthComponent);
-        mPilot = new PlayerPilot(assets, gameWorld, this, mVehicle, mHealthComponent);
+        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
+        mPilot = new PlayerPilot(assets, gameWorld, mVehicle, mHealthComponent);
 
         // Wheels
         final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
@@ -69,22 +69,24 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        mPilot.beginContact(contact, otherFixture);
+        Object other = otherFixture.getBody().getUserData();
+        if (other instanceof Gift) {
+            Gift gift = (Gift)other;
+            gift.pick();
+            mGameWorld.adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
+        }
     }
 
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
-        mPilot.endContact(contact, otherFixture);
     }
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        mPilot.preSolve(contact, otherFixture, oldManifold);
     }
 
     @Override
     public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-        mPilot.postSolve(contact, otherFixture, impulse);
     }
 
     @Override
@@ -99,7 +101,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
             keep = mPilot.act(delta);
         }
         if (keep) {
-            keep = mCollisionHandlerComponent.act(delta);
+            keep = mGroundCollisionHandlerComponent.act(delta);
         }
         if (keep) {
             keep = mHealthComponent.act(delta);
