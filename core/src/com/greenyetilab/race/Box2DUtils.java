@@ -74,7 +74,7 @@ public class Box2DUtils {
 
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyDef.BodyType.StaticBody;
-            bodyDef.position.set(polygon.getX(), polygon.getY());
+            bodyDef.position.set(polygon.getX() * u, polygon.getY() * u);
             Body body = world.createBody(bodyDef);
 
             PolygonShape shape = new PolygonShape();
