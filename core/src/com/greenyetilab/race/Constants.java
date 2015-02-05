@@ -24,4 +24,6 @@ public class Constants {
     public static final int SCORE_GIFT_PICK = 400;
 
     public static final int PLAYER_HEALTH = 3;
+    public static final boolean CLAMP_CAMERA = false;
+    public static final boolean ROTATE_CAMERA = false;
 }

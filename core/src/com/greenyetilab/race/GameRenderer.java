@@ -36,6 +36,7 @@ public class GameRenderer {
     private int[] mBackgroundLayerIndexes = { 0 };
     private int[] mForegroundLayerIndexes;
     private Vehicle mVehicle;
+    private float mCameraAngle = 90;
 
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mSkidmarksPerformanceCounter;
@@ -151,25 +152,36 @@ public class GameRenderer {
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        float x = mVehicle.getX();
-        float y = mVehicle.getY() + advance;
+        float x = mVehicle.getX() + advance * MathUtils.cosDeg(mVehicle.getAngle());
+        float y = mVehicle.getY() + advance * MathUtils.sinDeg(mVehicle.getAngle());
 
-        // Make sure we correctly handle boundaries
-        float minX = viewportWidth / 2;
-        float minY = viewportHeight / 2;
-        float maxX = mMapWidth - viewportWidth / 2;
-        float maxY = mMapHeight - viewportHeight / 2;
+        if (Constants.CLAMP_CAMERA) {
+            // Make sure we correctly handle boundaries
+            float minX = viewportWidth / 2;
+            float minY = viewportHeight / 2;
+            float maxX = mMapWidth - viewportWidth / 2;
+            float maxY = mMapHeight - viewportHeight / 2;
 
-        if (viewportWidth <= mMapWidth) {
-            mCamera.position.x = MathUtils.clamp(x, minX, maxX);
+            if (viewportWidth <= mMapWidth) {
+                mCamera.position.x = MathUtils.clamp(x, minX, maxX);
+            } else {
+                mCamera.position.x = mMapWidth / 2;
+            }
+            if (viewportHeight <= mMapHeight) {
+                mCamera.position.y = MathUtils.clamp(y, minY, maxY);
+            } else {
+                mCamera.position.y = mMapHeight / 2;
+            }
         } else {
-            mCamera.position.x = mMapWidth / 2;
+            mCamera.position.x = x;
+            mCamera.position.y = y;
         }
-        if (viewportHeight <= mMapHeight) {
-            mCamera.position.y = MathUtils.clamp(y, minY, maxY);
-        } else {
-            mCamera.position.y = mMapHeight / 2;
+        if (Constants.ROTATE_CAMERA) {
+            float targetAngle = 180 - mVehicle.getAngle();
+            mCamera.rotate(targetAngle - mCameraAngle);
+            mCameraAngle = targetAngle;
         }
+
         mCamera.update();
         mWorld.setVisibleSection(mCamera.position.y - viewportHeight / 2, mCamera.position.y + viewportHeight / 2);
     }
