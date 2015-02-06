@@ -158,10 +158,11 @@ public class GameWorld implements ContactListener, Disposable {
         final int PLAYER_RANK = 4;
         int rank = 1;
         Array<Vector2> positions = mMapInfo.findStartTilePositions();
+        VehicleFactory factory = new VehicleFactory(mGame.getAssets(), this);
         for (Vector2 position : positions) {
             GameObject racer;
             if (PLAYER_RANK == rank) {
-                mPlayerVehicle = new PlayerVehicle(mGame.getAssets(), this, position.x, position.y);
+                mPlayerVehicle = new PlayerVehicle(mGame.getAssets(), this, factory.create("player", position.x, position.y));
                 racer = mPlayerVehicle;
             } else {
                 racer = EnemySpawner.generateEnemyCar(mGame.getAssets(), this, position.x, position.y, 90);
