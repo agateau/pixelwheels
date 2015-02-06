@@ -43,7 +43,6 @@ public class GameWorld implements ContactListener, Disposable {
     private int mSkidmarksIndex = 0;
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
-    private float mScore = 0;
     private float mBottomVisibleY = 0;
     private float mTopVisibleY = 0;
 
@@ -77,16 +76,14 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public int getScore() {
-        return (int)mScore;
+        return mPlayerVehicle.getScore();
     }
 
     public HudBridge getHudBridge() {
         return mHudBridge;
     }
 
-    public void adjustScore(int delta, float worldX, float worldY) {
-        NLog.i("score += %d", delta);
-        mScore = Math.max(0, mScore + delta);
+    public void showScoreIndicator(int delta, float worldX, float worldY) {
         Vector2 pos = mHudBridge.toHudCoordinate(worldX, worldY);
         Actor indicator = ScoreIndicator.create(mGame.getAssets(), delta, pos.x, pos.y);
         mHudBridge.getStage().addActor(indicator);
@@ -130,13 +127,6 @@ public class GameWorld implements ContactListener, Disposable {
             mTimeAccumulator -= TIME_STEP;
         }
         mBox2DPerformanceCounter.stop();
-
-        if (mState == State.RUNNING) {
-            float deltaY = mPlayerVehicle.getY() - oldY;
-            if (delta > 0) {
-                mScore += deltaY * Constants.SCORE_PER_METER;
-            }
-        }
 
         float outOfSightLimit = mBottomVisibleY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
         mGameObjectPerformanceCounter.start();

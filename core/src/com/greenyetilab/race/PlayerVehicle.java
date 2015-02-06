@@ -17,6 +17,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final Pilot mPilot;
+    private int mScore;
 
     public PlayerVehicle(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
@@ -30,11 +31,16 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
-        mPilot = new PlayerPilot(assets, gameWorld, mVehicle, mHealthComponent);
+        mPilot = new PlayerPilot(assets, gameWorld, this, mHealthComponent);
     }
 
     public Vehicle getVehicle() {
         return mVehicle;
+    }
+
+    public void adjustScore(int delta, float x, float y) {
+        mScore += Constants.SCORE_GIFT_PICK;
+        mGameWorld.showScoreIndicator(Constants.SCORE_GIFT_PICK, x, y);
     }
 
     @Override
@@ -43,7 +49,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
         if (other instanceof Gift) {
             Gift gift = (Gift)other;
             gift.pick();
-            mGameWorld.adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
+            adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
         }
     }
 
@@ -101,5 +107,9 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     @Override
     public HealthComponent getHealthComponent() {
         return mHealthComponent;
+    }
+
+    public int getScore() {
+        return mScore;
     }
 }

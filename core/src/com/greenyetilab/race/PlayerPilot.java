@@ -9,7 +9,7 @@ public class PlayerPilot implements Pilot {
 
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final Vehicle mVehicle;
+    private final PlayerVehicle mRacer;
     private final HealthComponent mHealthComponent;
 
     private GameInputHandler mInputHandler;
@@ -17,10 +17,10 @@ public class PlayerPilot implements Pilot {
 
     private float mShootRecoilTime = 0;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Vehicle vehicle, HealthComponent healthComponent) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, PlayerVehicle racer, HealthComponent healthComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
-        mVehicle = vehicle;
+        mRacer = racer;
         mHealthComponent = healthComponent;
 
         String inputHandlerName = RaceGame.getPreferences().getString("input", "");
@@ -32,9 +32,10 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public boolean act(float dt) {
+        Vehicle vehicle = mRacer.getVehicle();
         if (mHealthComponent.getHealth() == 0) {
-            mVehicle.setBraking(true);
-            mVehicle.setAccelerating(false);
+            vehicle.setBraking(true);
+            vehicle.setAccelerating(false);
             return true;
         }
 
@@ -42,9 +43,9 @@ public class PlayerPilot implements Pilot {
             mShootRecoilTime -= dt;
         }
 
-        if (mVehicle.getY() > mGameWorld.getTopVisibleY()) {
+        if (vehicle.getY() > mGameWorld.getTopVisibleY()) {
             mGameWorld.setState(GameWorld.State.FINISHED);
-            mVehicle.setAccelerating(false);
+            vehicle.setAccelerating(false);
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
@@ -52,11 +53,11 @@ public class PlayerPilot implements Pilot {
             if (mAutoCorrectDirection && input.direction == 0) {
                 input.direction = computeCorrectedDirection();
             }
-            mVehicle.setDirection(input.direction);
-            mVehicle.setAccelerating(input.accelerating);
-            mVehicle.setBraking(input.braking);
+            vehicle.setDirection(input.direction);
+            vehicle.setAccelerating(input.accelerating);
+            vehicle.setBraking(input.braking);
             if (input.shooting && mShootRecoilTime <= 0) {
-                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
+                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
                 mShootRecoilTime = SHOOT_RECOIL;
             }
         }
@@ -64,8 +65,9 @@ public class PlayerPilot implements Pilot {
     }
 
     private float computeCorrectedDirection() {
-        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(mVehicle.getX(), mVehicle.getY());
-        float angle = mVehicle.getAngle();
+        Vehicle vehicle = mRacer.getVehicle();
+        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(vehicle.getX(), vehicle.getY());
+        float angle = vehicle.getAngle();
         float delta = Math.abs(angle - directionAngle);
         if (delta < 2) {
             return 0;
