@@ -133,6 +133,9 @@ public class GameWorld implements ContactListener, Disposable {
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
             if (!obj.act(delta)) {
+                if (obj == mPlayerVehicle) {
+                    setState(GameWorld.State.BROKEN);
+                }
                 mActiveGameObjects.removeIndex(idx);
                 continue;
             }
