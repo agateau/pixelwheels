@@ -45,7 +45,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWh
         mine.mBody.setUserData(mine);
 
         Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_AI_VEHICLE,
-                CollisionCategories.WALL | CollisionCategories.PLAYER
+                CollisionCategories.WALL | CollisionCategories.RACER
                 | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
         return mine;

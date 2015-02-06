@@ -57,7 +57,7 @@ public class CivilianCar implements GameObject, DisposableWhenOutOfSight {
         mVehicle.setInitialAngle(angle);
         mVehicle.setCollisionInfo(CollisionCategories.AI_VEHICLE,
                 CollisionCategories.WALL
-                | CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
+                | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                 | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
     }

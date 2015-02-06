@@ -24,8 +24,10 @@ public class Racer implements GameObject, Collidable, Disposable {
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
 
         mVehicle = vehicle;
-        mVehicle.setCollisionInfo(CollisionCategories.PLAYER,
+        mVehicle.setUserData(this);
+        mVehicle.setCollisionInfo(CollisionCategories.RACER,
                 CollisionCategories.WALL
+                | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                 | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
 

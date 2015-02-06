@@ -149,17 +149,19 @@ public class GameWorld implements ContactListener, Disposable {
         Assets assets = mGame.getAssets();
 
         final int PLAYER_RANK = 4;
+        final float startAngle = 90;
         int rank = 1;
         Array<Vector2> positions = mMapInfo.findStartTilePositions();
 
         for (Vector2 position : positions) {
-            GameObject racer;
+            Racer racer;
             if (PLAYER_RANK == rank) {
-                mPlayerRacer = new Racer(assets, this, factory.create("player", position.x, position.y));
+                mPlayerRacer = new Racer(assets, this, factory.create("player", position.x, position.y, startAngle));
                 mPlayerRacer.setPilot(new PlayerPilot(assets, this, mPlayerRacer));
                 racer = mPlayerRacer;
             } else {
-                racer = EnemySpawner.generateEnemyCar(assets, this, position.x, position.y, 90);
+                racer = new Racer(assets, this, factory.create("enemy", position.x, position.y, startAngle));
+                racer.setPilot(new BasicPilot(mMapInfo, racer.getVehicle(), racer.getHealthComponent()));
             }
             addGameObject(racer);
             ++rank;
@@ -171,7 +173,7 @@ public class GameWorld implements ContactListener, Disposable {
         float mapHeight = mMapInfo.getMapHeight();
         float wallSize = 1;
         Body body;
-        int mask = CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
+        int mask = CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                         | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                         | CollisionCategories.GIFT;
         // bottom
@@ -189,7 +191,7 @@ public class GameWorld implements ContactListener, Disposable {
         for (MapObject object : mMapInfo.getBordersLayer().getObjects()) {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
-                    CollisionCategories.PLAYER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
+                    CollisionCategories.RACER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
         }
     }
 

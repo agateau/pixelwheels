@@ -47,8 +47,8 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         object.mBody.setUserData(object);
         object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
-        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.PLAYER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.AI_VEHICLE);
+        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
+                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.AI_VEHICLE);
         return object;
     }
 
@@ -116,8 +116,24 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        explode();
+    }
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+        if (mExploded) {
+            return;
+        }
         Object other = otherFixture.getBody().getUserData();
+        if (other == mShooter) {
+            contact.setEnabled(false);
+            return;
+        }
+
+        explode();
         if (!(other instanceof GameObject)) {
             return;
         }
@@ -128,15 +144,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
             healthComponent.decreaseHealth();
             adjustScore(gameObject instanceof CivilianCar ? Constants.SCORE_CIVIL_HIT : Constants.SCORE_ENEMY_HIT);
         }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
     }
 
     @Override
