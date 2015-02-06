@@ -17,11 +17,11 @@ public class PlayerPilot implements Pilot {
 
     private float mShootRecoilTime = 0;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, PlayerVehicle racer, HealthComponent healthComponent) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, PlayerVehicle racer) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
-        mHealthComponent = healthComponent;
+        mHealthComponent = mRacer.getHealthComponent();
 
         String inputHandlerName = RaceGame.getPreferences().getString("input", "");
         mInputHandler = GameInputHandlers.getHandlerByClassName(inputHandlerName);

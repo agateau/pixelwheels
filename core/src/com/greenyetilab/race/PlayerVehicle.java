@@ -16,7 +16,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
-    private final Pilot mPilot;
+    private Pilot mPilot;
     private int mScore;
 
     public PlayerVehicle(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
@@ -31,7 +31,10 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
-        mPilot = new PlayerPilot(assets, gameWorld, this, mHealthComponent);
+    }
+
+    public void setPilot(Pilot pilot) {
+        mPilot = pilot;
     }
 
     public Vehicle getVehicle() {
