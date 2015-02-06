@@ -9,7 +9,7 @@ public class PlayerPilot implements Pilot {
 
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final PlayerVehicle mRacer;
+    private final Racer mRacer;
     private final HealthComponent mHealthComponent;
 
     private GameInputHandler mInputHandler;
@@ -17,7 +17,7 @@ public class PlayerPilot implements Pilot {
 
     private float mShootRecoilTime = 0;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, PlayerVehicle racer) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;

@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * Contains all the information and objects running in the world
@@ -36,7 +35,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
-    private PlayerVehicle mPlayerVehicle;
+    private Racer mPlayerRacer;
     private State mState = State.RUNNING;
 
     private Vector2[] mSkidmarks = new Vector2[20];
@@ -72,11 +71,11 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public Vehicle getPlayerVehicle() {
-        return mPlayerVehicle.getVehicle();
+        return mPlayerRacer.getVehicle();
     }
 
     public int getScore() {
-        return mPlayerVehicle.getScore();
+        return mPlayerRacer.getScore();
     }
 
     public HudBridge getHudBridge() {
@@ -115,8 +114,6 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public void act(float delta) {
-        float oldY = mPlayerVehicle.getY();
-
         mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -133,7 +130,7 @@ public class GameWorld implements ContactListener, Disposable {
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
             if (!obj.act(delta)) {
-                if (obj == mPlayerVehicle) {
+                if (obj == mPlayerRacer) {
                     setState(GameWorld.State.BROKEN);
                 }
                 mActiveGameObjects.removeIndex(idx);
@@ -158,9 +155,9 @@ public class GameWorld implements ContactListener, Disposable {
         for (Vector2 position : positions) {
             GameObject racer;
             if (PLAYER_RANK == rank) {
-                mPlayerVehicle = new PlayerVehicle(assets, this, factory.create("player", position.x, position.y));
-                mPlayerVehicle.setPilot(new PlayerPilot(assets, this, mPlayerVehicle));
-                racer = mPlayerVehicle;
+                mPlayerRacer = new Racer(assets, this, factory.create("player", position.x, position.y));
+                mPlayerRacer.setPilot(new PlayerPilot(assets, this, mPlayerRacer));
+                racer = mPlayerRacer;
             } else {
                 racer = EnemySpawner.generateEnemyCar(assets, this, position.x, position.y, 90);
             }

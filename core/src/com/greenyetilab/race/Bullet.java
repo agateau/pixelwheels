@@ -22,7 +22,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private static final float BULLET_RADIUS = 0.8f;
     private static final float IMPULSE = 160;
 
-    private PlayerVehicle mShooter;
+    private Racer mShooter;
     private GameWorld mGameWorld;
     private Assets mAssets;
     private BodyDef mBodyDef;
@@ -31,7 +31,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private Body mBody;
     private boolean mExploded;
 
-    public static Bullet create(Assets assets, GameWorld gameWorld, PlayerVehicle shooter, float originX, float originY, float angle) {
+    public static Bullet create(Assets assets, GameWorld gameWorld, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
             object.firstInit(assets);

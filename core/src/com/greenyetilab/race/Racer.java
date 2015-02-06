@@ -8,9 +8,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * The player character
+ * A racer
  */
-public class PlayerVehicle implements GameObject, Collidable, Disposable {
+public class Racer implements GameObject, Collidable, Disposable {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
@@ -19,7 +19,7 @@ public class PlayerVehicle implements GameObject, Collidable, Disposable {
     private Pilot mPilot;
     private int mScore;
 
-    public PlayerVehicle(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
 
