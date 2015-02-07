@@ -194,6 +194,10 @@ class Vehicle implements Disposable {
         return true;
     }
 
+    public boolean isAccelerating() {
+        return mAccelerating;
+    }
+
     public void setAccelerating(boolean value) {
         mAccelerating = value;
     }

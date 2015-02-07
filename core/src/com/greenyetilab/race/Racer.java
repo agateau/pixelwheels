@@ -19,7 +19,7 @@ public class Racer implements GameObject, Collidable, Disposable {
     private Pilot mPilot;
     private int mScore;
 
-    public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
 
