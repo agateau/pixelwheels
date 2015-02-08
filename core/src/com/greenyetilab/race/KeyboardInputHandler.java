@@ -22,8 +22,12 @@ public class KeyboardInputHandler implements GameInputHandler {
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        mInput.braking = Gdx.input.isKeyPressed(Input.Keys.SPACE);
-        mInput.accelerating = !mInput.braking;
+        /*
+        mInput.braking = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        mInput.accelerating = Gdx.input.isKeyPressed(Input.Keys.UP);
+        */
+        mInput.braking = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        mInput.accelerating = !mInput.braking; //Gdx.input.isKeyPressed(Input.Keys.UP);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             mInput.direction = 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {

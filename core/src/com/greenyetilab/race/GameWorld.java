@@ -157,18 +157,12 @@ public class GameWorld implements ContactListener, Disposable {
         for (Vector2 position : positions) {
             Racer racer;
             if (PLAYER_RANK == rank) {
-                mPlayerRacer = new Racer(this, factory.create("player", position.x, position.y, startAngle));
-                mPlayerRacer.setPilot(new PlayerPilot(assets, this, mPlayerRacer));
-                racer = mPlayerRacer;
+                racer = new Racer(this, factory.create("player", position.x, position.y, startAngle));
+                racer.setPilot(new PlayerPilot(assets, this, racer));
+                mPlayerRacer = racer;
             } else {
                 racer = new Racer(this, factory.create("enemy", position.x, position.y, startAngle));
-                Pilot pilot;
-                if (mPlayerRacer == null) {
-                    pilot = new BasicPilot(mMapInfo, racer.getVehicle(), racer.getHealthComponent());
-                } else {
-                    pilot = new TrackingPilot(racer, mPlayerRacer);
-                }
-                racer.setPilot(pilot);
+                racer.setPilot(new AIPilot(mMapInfo, racer));
             }
             addGameObject(racer);
             ++rank;
