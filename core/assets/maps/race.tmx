@@ -240,7 +240,7 @@
  </tileset>
  <layer name="Ground" width="40" height="25">
   <data encoding="base64" compression="zlib">
-   eJzVllGugyAQRcc820ZeY2L/2i+W0qV0KSzFpbgUl/Km4tRhgopCee3HjVEEDpfh6gkATl+sG0B3RVUA91z6RZ1RIVwXVIMq8FlOlTN8M1wa1TLpNwsUwEOyPdsYlx7Z7ozv3VyzfOhbj2w9f0fwdRm4ZvlwT/tmmS+nHD7hHYx7SXxDH2SHi+2XVLW/bhw+4Z3DR1xXu47k+VUF8Cn3HeIb7iUXnW8VIZ5ve/kay6YXcieqxspIPuTQt5Hv+VxwdcWUhbJel/RioPlD+Q545aJ2dnZonLbYl9NRfNI/ahdnZy9bNN9x6v/iE7kzcP2w2gvJHJYfSfw7Mj7mXcvqTG/JnCoRn88/Ne2l4eNvycJUfD7/1MRmRt+czMnJJ/3DunnUttYM9eOZE8tX2/V3tT9LV/1jZ8LINafgWzvra/59Gt8n+1daBj6Ojw/wu76p9sTYm/j4XPgvYfDeLOUszqPPO/hCxk4113/oDw2CuKA=
+   eJzVlmGOgjAQhYcsaugaEt1fun96FI/iUXoUjsJROMq+CJXppEChtbo/XghCp19fpw8PRHT4x7oStReoIrrl0jd0hEK4ztAJKvBbTpUTfBNcGmqY9ItFiugu2X5dLj2w3Rjfq7km+eBbB7aOvyP42gxck3zY0+40z5dTDp/wjoa9tHyPMWCncz8uqWp/3zh8wjuHz3Jd+nUkz68qgE+571g+/ePhsudbRYjn21Y++KbBoWdyJ6rHykg+cOjrwOfJnbYYs1D265yeDHb+UL4drlz2OTs7tk5TbMvpKD7pn30uzs5Wtmi+/Tj+ySdy58H1xXovJHNYfiTxb8/4mHcN6zO9JnOqRHw+/9S4l8bW92VODj6ff2pkM4NvTubk5JP+oW/udd9rxo7jmRPLV/frb2t/li76x86EkWtOwbd01pf8+zS+T/av7Bl4HR8f4bu+qvdE7VV8fC78lzC4N3M5i3n0cQNfSO1Uc71Df/acufg=
   </data>
  </layer>
  <layer name="Obstacles" width="40" height="25">
@@ -297,7 +297,7 @@
   </object>
   <object x="442" y="961" width="12" height="190"/>
  </objectgroup>
- <objectgroup name="Zones">
+ <objectgroup name="Zones" visible="0">
   <object name="0" x="64" y="640" width="448" height="192"/>
   <object name="1" x="512" y="640">
    <polygon points="0,0 -320,-384 -448,-192 -448,0"/>
@@ -329,7 +329,7 @@
    <polygon points="0,0 0,-128 -192,-512 -384,-192 -384,-64"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints">
+ <objectgroup name="Waypoints" visible="0">
   <properties>
    <property name="direction" value="90"/>
   </properties>
