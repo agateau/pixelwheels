@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="25" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
   <image source="snow.png" width="512" height="896"/>
   <tile id="0">
@@ -238,147 +238,147 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="40" height="25">
+ <layer name="Ground" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJzVlmGOgjAQhYcsaugaEt1fun96FI/iUXoUjsJROMq+CJXppEChtbo/XghCp19fpw8PRHT4x7oStReoIrrl0jd0hEK4ztAJKvBbTpUTfBNcGmqY9ItFiugu2X5dLj2w3Rjfq7km+eBbB7aOvyP42gxck3zY0+40z5dTDp/wjoa9tHyPMWCncz8uqWp/3zh8wjuHz3Jd+nUkz68qgE+571g+/ePhsudbRYjn21Y++KbBoWdyJ6rHykg+cOjrwOfJnbYYs1D265yeDHb+UL4drlz2OTs7tk5TbMvpKD7pn30uzs5Wtmi+/Tj+ySdy58H1xXovJHNYfiTxb8/4mHcN6zO9JnOqRHw+/9S4l8bW92VODj6ff2pkM4NvTubk5JP+oW/udd9rxo7jmRPLV/frb2t/li76x86EkWtOwbd01pf8+zS+T/av7Bl4HR8f4bu+qvdE7VV8fC78lzC4N3M5i3n0cQNfSO1Uc71Df/acufg=
+   eJztllFugzAQRBeVJsKNkJJ+Jf3xUXKUHMVH4SgchaN0FHBYVi4JtrFo5I9RpEis5zH2mD0R7bOysrLeVBei9gxVRNdU+oIOUEz/J+gIFfgvpcpAjj/8a6hh0iuLFNHNl+Fn6l8PDFfGsbb/YA7k0IGh47MER5vAfzAH9lJ3nOdIKS8OkQUNe8hy3GeDkU79/Kiq3fvVi0NkMeGw/s89b/ReryJyqOksy6G/Hf5tn6kA8fthbQ7koOFXz/Rx0BkoE3HAr74MHI4+bovxLpHnaU4Pr9ZnbI5P/HLZOawD7HpN4XcfJuGQedg5ogN8GZJx7MZ1Hhyij+/+P9jZeKWLWa8mzWPHOFgWDTsHekkXV4k5XHmocQ8Z68PVxVvicOWhRgYz5DDp4i1yyDywr291fxaMnc+7OJSj7t9TW7vvomh5sLNt5DuMwfGs22Ll8V853iGPsvfK13NxEL7vFp0NMXsRh89a+PY0eM7M3Wfwow8rzY61VlZWVtbW9At4vc56
   </data>
  </layer>
- <layer name="Obstacles" width="40" height="25">
+ <layer name="Obstacles" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztlksKgDAMRHslv6CoK3VVe//jdDbZRXHRkinkwVsFwhDS0BDaoYO9dQgFybXA1TiLBmsux2mJkvenRq+S75y1l+M43LD+04S/92ioHeQFhvmNcIKzUmO45xvc4aHUGOZ3wgveSo1hfhE+MBnnsIJhR76QHcmfQgrG
+   eJztl0sOwjAMRHMlKCBRAStgVbj/cZhNpKoqhCj+jCFPml2UTGPXdlLq/BMbaCu4zosjNKayz7yOnSg+2WHP2xLZP2M+1Nwto/8Ms7daoud75hdiUorFYGWkEY1YSOapR85r1GWJvXbQHjoYnqnBCTpDF28jjVyhG3T3NtLIBD2gp7eRTki8el30eai2z7DOFN++z5lY66XM77F3rPVSjXhox/ZTL9WYw7S+x6qXRszVOUv/lrVD8qylf8t4SJ01v4+WPb3rv9R9RP2nOj68AO79G5g=
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
-  <object x="2496" y="0" width="64" height="1600"/>
-  <object x="0" y="0" width="64" height="1600"/>
-  <object x="768" y="512" width="1280" height="64"/>
-  <object x="1984" y="576" width="64" height="576"/>
-  <object x="64" y="1536" width="2432" height="64"/>
-  <object x="1088" y="960" width="448" height="576"/>
-  <object x="64" y="0" width="2432" height="64"/>
-  <object x="1088" y="960">
+ <objectgroup name="Borders">
+  <object x="2816" y="320" width="64" height="1600"/>
+  <object x="320" y="320" width="64" height="1600"/>
+  <object x="1088" y="832" width="1280" height="64"/>
+  <object x="2304" y="896" width="64" height="576"/>
+  <object x="384" y="1856" width="2432" height="64"/>
+  <object x="1408" y="1280" width="448" height="576"/>
+  <object x="384" y="320" width="2432" height="64"/>
+  <object x="1408" y="1280">
    <polygon points="0,0 -256,128 -320,256 -320,576 0,576"/>
   </object>
-  <object x="1600" y="1536">
+  <object x="1920" y="1856">
    <polygon points="0,0 -64,-64 -64,0"/>
   </object>
-  <object x="2496" y="1472">
+  <object x="2816" y="1792">
    <polygon points="0,0 -64,64 0,64"/>
   </object>
-  <object x="2496" y="64">
+  <object x="2816" y="384">
    <polygon points="0,0 -64,0 0,64"/>
   </object>
-  <object x="768" y="1472">
+  <object x="1088" y="1792">
    <polygon points="0,0 -64,64 0,64"/>
   </object>
-  <object x="64" y="1472">
+  <object x="384" y="1792">
    <polygon points="0,0 0,64 64,64"/>
   </object>
-  <object x="768" y="512">
+  <object x="1088" y="832">
    <polygon points="0,0 -256,128 -128,192 128,64"/>
   </object>
-  <object x="512" y="640">
+  <object x="832" y="960">
    <polygon points="0,0 -70,129 -70,385.5 64,128"/>
   </object>
-  <object x="256" y="256">
+  <object x="576" y="576">
    <polygon points="0,0 -192,-192 -64,64"/>
   </object>
-  <object x="1984" y="576">
+  <object x="2304" y="896">
    <polygon points="0,0 -64,0 0,64"/>
   </object>
-  <object x="640" y="64">
+  <object x="960" y="384">
    <polygon points="0,0 -576,0 -384,192"/>
   </object>
-  <object x="64" y="64">
+  <object x="384" y="384">
    <polygon points="0,0 0,512 128,256"/>
   </object>
-  <object x="640" y="704">
+  <object x="960" y="1024">
    <polygon points="0,0 -128,-64 -64,64"/>
   </object>
-  <object x="442" y="961" width="12" height="190"/>
+  <object x="762" y="1281" width="12" height="190"/>
  </objectgroup>
- <objectgroup name="Zones" visible="0">
-  <object name="0" x="64" y="640" width="448" height="192"/>
-  <object name="1" x="512" y="640">
+ <objectgroup name="Zones">
+  <object name="0" x="384" y="960" width="448" height="192"/>
+  <object name="1" x="832" y="960">
    <polygon points="0,0 -320,-384 -448,-192 -448,0"/>
   </object>
-  <object name="2" x="512" y="640">
+  <object name="2" x="832" y="960">
    <polygon points="0,0 256,-128 128,-576 -320,-384"/>
   </object>
-  <object name="3" x="768" y="512">
+  <object name="3" x="1088" y="832">
    <polygon points="0,0 512,0 512,-448 -128,-448"/>
   </object>
-  <object name="4" x="1280" y="64" width="832" height="448"/>
-  <object name="6" x="1984" y="512" width="512" height="704"/>
-  <object name="7" x="1984" y="1216" width="512" height="384"/>
-  <object name="9" x="1536" y="576" width="448" height="320"/>
-  <object name="10" x="1088" y="576" width="448" height="384"/>
-  <object name="11" x="1088" y="960">
+  <object name="4" x="1600" y="384" width="832" height="448"/>
+  <object name="6" x="2304" y="832" width="512" height="704"/>
+  <object name="7" x="2304" y="1536" width="512" height="384"/>
+  <object name="9" x="1856" y="896" width="448" height="320"/>
+  <object name="10" x="1408" y="896" width="448" height="384"/>
+  <object name="11" x="1408" y="1280">
    <polygon points="0,0 0,-384 -192,-384 -448,-256 -256,128"/>
   </object>
-  <object name="14" x="832" y="1536">
+  <object name="14" x="1152" y="1856">
    <polygon points="-384,0 -384,-512 -768,-512 -768,0"/>
   </object>
-  <object name="15" x="64" y="832" width="384" height="192"/>
-  <object name="5" x="2112" y="64" width="384" height="448"/>
-  <object name="13" x="448" y="1536">
+  <object name="15" x="384" y="1152" width="384" height="192"/>
+  <object name="5" x="2432" y="384" width="384" height="448"/>
+  <object name="13" x="768" y="1856">
    <polygon points="0,0 384,0 384,-320 0,-384"/>
   </object>
-  <object name="8" x="1536.03" y="895.981" width="448" height="704" rotation="0.00477929"/>
-  <object name="12" x="832" y="1216">
+  <object name="8" x="1856.03" y="1215.98" width="448" height="704" rotation="0.00477929"/>
+  <object name="12" x="1152" y="1536">
    <polygon points="0,0 0,-128 -192,-512 -384,-192 -384,-64"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints" visible="0">
+ <objectgroup name="Waypoints">
   <properties>
    <property name="direction" value="90"/>
   </properties>
-  <object x="1474" y="210" width="64" height="64">
+  <object x="1794" y="530" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="864" y="200" width="64" height="64">
+  <object x="1184" y="520" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="536" y="406" width="64" height="64">
+  <object x="856" y="726" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="360" y="536" width="64" height="64">
+  <object x="680" y="856" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="290" y="716" width="64" height="64">
+  <object x="610" y="1036" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2168" y="292" width="64" height="64">
+  <object x="2488" y="612" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2166" y="598" width="64" height="64">
+  <object x="2486" y="918" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2168" y="1248" width="64" height="64">
+  <object x="2488" y="1568" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1556" y="788" width="64" height="64">
+  <object x="1876" y="1108" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1282" y="790" width="64" height="64">
+  <object x="1602" y="1110" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="960" y="832" width="64" height="64">
+  <object x="1280" y="1152" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="684" y="1006" width="64" height="64">
+  <object x="1004" y="1326" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="618" y="1220" width="64" height="64">
+  <object x="938" y="1540" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="290" y="1124" width="64" height="64">
+  <object x="610" y="1444" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="256" y="896" width="64" height="64">
+  <object x="576" y="1216" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1792" y="1216" width="64" height="64">
+  <object x="2112" y="1536" width="64" height="64">
    <ellipse/>
   </object>
  </objectgroup>
