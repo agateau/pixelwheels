@@ -240,7 +240,7 @@
  </tileset>
  <layer name="Ground" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztllFugzAQRBeVJsKNkJJ+Jf3xUXKUHMVH4SgchaN0FHBYVi4JtrFo5I9RpEis5zH2mD0R7bOysrLeVBei9gxVRNdU+oIOUEz/J+gIFfgvpcpAjj/8a6hh0iuLFNHNl+Fn6l8PDFfGsbb/YA7k0IGh47MER5vAfzAH9lJ3nOdIKS8OkQUNe8hy3GeDkU79/Kiq3fvVi0NkMeGw/s89b/ReryJyqOksy6G/Hf5tn6kA8fthbQ7koOFXz/Rx0BkoE3HAr74MHI4+bovxLpHnaU4Pr9ZnbI5P/HLZOawD7HpN4XcfJuGQedg5ogN8GZJx7MZ1Hhyij+/+P9jZeKWLWa8mzWPHOFgWDTsHekkXV4k5XHmocQ8Z68PVxVvicOWhRgYz5DDp4i1yyDywr291fxaMnc+7OJSj7t9TW7vvomh5sLNt5DuMwfGs22Ll8V853iGPsvfK13NxEL7vFp0NMXsRh89a+PY0eM7M3Wfwow8rzY61VlZWVtbW9At4vc56
+   eJztl1FugzAQRBeVJoJGkZJ+Jf3xUXKUHMVH4SgchaN0UnBYtriAbSwa+WMUKVLW8zL2GPZEtE9KSkp6UV2J6gtUEN1i6QM6QCH9n6ETlOG7mMo9OSz+FVQxqZVFJdHdleFr6F91DDfGsbZ/bw7k0ICh4bMERx3BvzcH9lJz+psjppw4RBbU7SHD8TMbjHRu5wfVcXy/OnGILAYcxv+l5Q3e60VAjnI4y3CoT4t/02mlo/j9sDYHclDwqiY62fkM5JE44FVdGcdIJ9dZf5/IM2XT06vxGZrjHZ9cfA7rgSpzvw+jcMg8+BzRAy4M0Th2/ToDjpH7sXpjZ2Oqj1mvRs1jJzhYFoP9NLePi8gctjzK3rs2Xmx9vAUOWx5lz6C7HH718ZY4ZB7Y1/fHnXVsz4I2a8g+duUQ81fLg3WTHvsffTmmui1UHv+V4xXyyFuvfD0bB+EZb/bZELMXcSxd5yE8e2r8Tk+9K8CTOiycP3e27zpJSUlJW9Q3KOHOOg==
   </data>
  </layer>
  <layer name="Obstacles" width="50" height="35">
@@ -297,10 +297,9 @@
   </object>
   <object x="762" y="1281" width="12" height="190"/>
  </objectgroup>
- <objectgroup name="Zones" visible="0">
-  <object name="0" x="384" y="960" width="448" height="192"/>
+ <objectgroup name="Zones">
   <object name="1" x="832" y="960">
-   <polygon points="0,0 -320,-384 -448,-192 -448,0"/>
+   <polygon points="0,0 -320,-384 -448,-64 -64,128"/>
   </object>
   <object name="2" x="832" y="960">
    <polygon points="0,0 256,-128 128,-576 -320,-384"/>
@@ -308,28 +307,50 @@
   <object name="3" x="1088" y="832">
    <polygon points="0,0 512,0 512,-448 -128,-448"/>
   </object>
-  <object name="4" x="1600" y="384" width="832" height="448"/>
-  <object name="6" x="2304" y="832" width="512" height="704"/>
-  <object name="7" x="2304" y="1536" width="512" height="384"/>
-  <object name="9" x="1856" y="896" width="448" height="320"/>
-  <object name="10" x="1408" y="896" width="448" height="384"/>
-  <object name="11" x="1408" y="1280">
-   <polygon points="0,0 0,-384 -192,-384 -448,-256 -256,128"/>
+  <object name="12" x="1408" y="1280">
+   <polygon points="64,0 -128,-384 -448,-256 -192,128"/>
   </object>
-  <object name="14" x="1152" y="1856">
-   <polygon points="-384,0 -384,-512 -768,-512 -768,0"/>
+  <object name="14" x="832" y="1856">
+   <polygon points="0,-384 320,0 320,-320 0,-512"/>
   </object>
-  <object name="15" x="384" y="1152" width="384" height="192"/>
-  <object name="5" x="2432" y="384" width="384" height="448"/>
-  <object name="13" x="768" y="1856">
-   <polygon points="0,0 384,0 384,-320 0,-384"/>
+  <object name="13" x="1152" y="1536">
+   <polygon points="0,0 64,-128 -192,-512 -320,-192"/>
   </object>
-  <object name="8" x="1856.03" y="1215.98" width="448" height="704" rotation="0.00477929"/>
-  <object name="12" x="1152" y="1536">
-   <polygon points="0,0 0,-128 -192,-512 -384,-192 -384,-64"/>
+  <object name="0" x="768" y="1152">
+   <polygon points="0,0 0,-64 -384,-256 -384,0"/>
+  </object>
+  <object name="5" x="2304" y="832">
+   <polygon points="0,0 64,0 512,-448 0,-448"/>
+  </object>
+  <object name="6" x="2368" y="832">
+   <polygon points="0,0 0,64 448,64 448,-448"/>
+  </object>
+  <object name="8" x="2368" y="1408">
+   <polygon points="0,0 0,64 448,448 448,0"/>
+  </object>
+  <object name="9" x="2368" y="1472">
+   <polygon points="0,0 -64,0 -512,384 448,384"/>
+  </object>
+  <object name="10" x="2112" y="1280">
+   <polygon points="192,192 192,-384 -256,0 -256,576"/>
+  </object>
+  <object name="11" x="2304" y="896">
+   <polygon points="0,0 -1024,0 -832,384 -448,384"/>
+  </object>
+  <object name="15" x="832" y="1472">
+   <polygon points="0,0 -64,0 -448,384 320,384"/>
+  </object>
+  <object name="16" x="768" y="1472">
+   <polygon points="0,0 0,-320 -384,-320 -384,384"/>
+  </object>
+  <object name="4" x="1600" y="832">
+   <polygon points="0,0 704,0 704,-448 0,-448"/>
+  </object>
+  <object name="7" x="2368" y="896">
+   <polygon points="0,0 0,512 448,512 448,0"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints" visible="0">
+ <objectgroup name="Waypoints">
   <properties>
    <property name="direction" value="90"/>
   </properties>
@@ -348,43 +369,41 @@
   <object x="610" y="1036" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2488" y="612" width="64" height="64">
+  <object x="2432" y="576" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2486" y="918" width="64" height="64">
+  <object x="2537.52" y="778.606" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2488" y="1568" width="64" height="64">
+  <object x="2539.52" y="1271.03" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1876" y="1108" width="64" height="64">
+  <object x="2285.09" y="1635.27" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1602" y="1110" width="64" height="64">
+  <object x="2077.76" y="1255.45" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1280" y="1152" width="64" height="64">
+  <object x="1722.42" y="1064.12" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1004" y="1326" width="64" height="64">
+  <object x="1207.03" y="1159.33" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="938" y="1540" width="64" height="64">
+  <object x="998.606" y="1288.48" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="610" y="1444" width="64" height="64">
+  <object x="961.515" y="1528.85" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="576" y="1216" width="64" height="64">
+  <object x="766.909" y="1612.97" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2112" y="1536" width="64" height="64">
+  <object x="2490.79" y="1478.42" width="64" height="64">
    <ellipse/>
   </object>
- </objectgroup>
- <objectgroup name="Lap" opacity="0.99">
-  <object x="569.697" y="1087.88">
-   <polyline points="0,0 112.121,-300 457.576,-475.758 1857.58,-509.091 2036.36,-381.818 2036.36,409.091 1887.88,600 1530.3,600 1536.36,209.091 1406.06,0 730.303,-6.06061 457.576,121.212 366.667,312.121 366.667,448.485 293.939,539.394 121.212,542.424 6.06061,460.606 5.33333,257.697"/>
+  <object x="590.667" y="1288" width="64" height="64">
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

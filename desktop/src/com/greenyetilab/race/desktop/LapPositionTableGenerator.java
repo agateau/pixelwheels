@@ -2,14 +2,18 @@ package com.greenyetilab.race.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolylineMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Polyline;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.greenyetilab.race.LapPosition;
 import com.greenyetilab.race.LapPositionTable;
 import com.greenyetilab.utils.Assert;
 import com.greenyetilab.utils.log.NLog;
@@ -17,23 +21,37 @@ import com.greenyetilab.utils.log.NLog;
 /**
  * Create a lap position table from a .tmx file
  *
- * The .tmx file must contains a "Lap" object layer with a single polyline element
+ * The .tmx file must contains a "Zones" object layer with concave quadrilaterals
  */
 public class LapPositionTableGenerator {
-    private static class LapSection {
-        public final Vector2 v1;
-        public final Vector2 v2;
-        public final Vector2 intersection = null;
-        public final float length;
+    private static class LapZone {
+        private int mSection;
+        private Polygon mPolygon;
+        private final Warper mWarper = new Warper();
 
-        public LapSection(Vector2 v1, Vector2 v2) {
-            this.v1 = v1;
-            this.v2 = v2;
-            this.length = (float)Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2));
+        public LapZone(int section, Polygon polygon) {
+            mSection = section;
+            mPolygon = polygon;
+            float[] vertices = mPolygon.getTransformedVertices();
+            int verticeCount = vertices.length / 2;
+            Assert.check(verticeCount == 4, "Polygon " + section + " must have 4 vertices, not " + verticeCount);
+            mWarper.setSource(
+                    vertices[0], vertices[1],
+                    vertices[2], vertices[3],
+                    vertices[4], vertices[5],
+                    vertices[6], vertices[7]
+            );
+            mWarper.setDestination(
+                    0, 0,
+                    1, 0,
+                    1, 1,
+                    0, 1
+            );
         }
 
-        public String toString() {
-            return String.format("<v1=%s v2=%s i=%s l=%f>", v1, v2, intersection, length);
+        public LapPosition computePosition(float x, float y) {
+            Vector2 out = mWarper.warp(x, y);
+            return new LapPosition(mSection, out.x);
         }
     }
 
@@ -51,41 +69,69 @@ public class LapPositionTableGenerator {
 
     public static void generateTable(FileHandle tmxFile, FileHandle tableFile) {
         TiledMap map = new TmxMapLoader().load(tmxFile.path());
-        Vector2[] vertices = loadLapVertices(map);
+        Array<LapZone> zones = loadLapZones(map);
 
         TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
         int width = layer.getWidth() * ((int)layer.getTileWidth());
         int height = layer.getHeight() * ((int)layer.getTileHeight());
         LapPositionTable table = new LapPositionTable(width, height);
-        fillTable(table, vertices);
+        for (int y = 0; y < height; ++y) {
+            NLog.i("Analyzing %d/%d", y, height);
+            for (int x = 0; x < width; ++x) {
+                LapZone zone = findLapZone(zones, x, y);
+                if (zone != null) {
+                    LapPosition position = zone.computePosition(x, y);
+                    table.set(x, y, position);
+                }
+            }
+        }
 
         saveTable(table, tableFile);
     }
 
-    private static void fillTable(LapPositionTable table, Vector2[] vertices) {
-        LapSection[] sections = new LapSection[vertices.length];
-        for (int idx = 0; idx < sections.length; idx++) {
-            sections[idx] = new LapSection(vertices[idx], vertices[(idx + 1) % sections.length]);
-        }
-    }
-
     private static void saveTable(LapPositionTable table, FileHandle tableFile) {
+        NLog.i("Saving");
+        int width = table.getWidth();
+        int height = table.getHeight();
+        Pixmap pixmap = new Pixmap(table.getWidth(), table.getHeight(), Pixmap.Format.RGBA8888);
+        for (int y = 0; y < height; ++y) {
+            NLog.i("Saving %d/%d", y, height);
+            for (int x = 0; x < width; ++x) {
+                LapPosition pos = table.get(x, y);
+                int color;
+                if (pos == null) {
+                    color = 0;
+                } else {
+                    color = ((int)(pos.distance * 255) << 8) + 255;
+                }
+                pixmap.drawPixel(x, y, color);
+            }
+        }
+        PixmapIO.writePNG(tableFile, pixmap);
     }
 
-    private static Vector2[] loadLapVertices(TiledMap map) {
-        MapLayer layer = map.getLayers().get("Lap");
-        Assert.check(layer != null, "No 'Lap' layer found");
+    private static Array<LapZone> loadLapZones(TiledMap map) {
+        MapLayer layer = map.getLayers().get("Zones");
+        Assert.check(layer != null, "No 'Zones' layer found");
 
-        MapObject obj = layer.getObjects().get(0);
-        Assert.check(obj instanceof PolylineMapObject, "'Lap' layer does not contain a PolylineMapObject");
+        Array<LapZone> zones = new Array<LapZone>();
+        for (MapObject obj : layer.getObjects()) {
+            int section = Integer.parseInt(obj.getName());
+            NLog.i("Section %d", section);
+            Assert.check(obj instanceof PolygonMapObject, "'Zones' layer should only contain PolygonMapObjects");
+            Polygon polygon = ((PolygonMapObject)obj).getPolygon();
+            zones.add(new LapZone(section, polygon));
 
-        Polyline polyline = ((PolylineMapObject)obj).getPolyline();
-        float[] coords = polyline.getTransformedVertices();
-        Vector2[] vertices = new Vector2[coords.length / 2];
-        for (int idx = 0; idx < vertices.length; ++idx) {
-            vertices[idx] = new Vector2(coords[2 * idx], coords[2 * idx + 1]);
         }
-        Assert.check(vertices.length > 1, "Need more than one vertice in 'Lap' polyline");
-        return vertices;
+        return zones;
+    }
+
+    private static LapZone findLapZone(Array<LapZone> zones, int x, int y) {
+        for (LapZone zone : zones) {
+            if (zone.mPolygon.contains(x, y)) {
+                return zone;
+            }
+        }
+        return null;
     }
 }

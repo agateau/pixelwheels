@@ -7,8 +7,8 @@ public class LapPosition {
     public final float distance;
     public final int section;
 
-    public LapPosition(float distance, int section) {
-        this.distance = distance;
+    public LapPosition(int section, float distance) {
         this.section = section;
+        this.distance = distance;
     }
 }
