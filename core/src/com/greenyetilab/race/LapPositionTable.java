@@ -21,4 +21,12 @@ public class LapPositionTable {
     public LapPosition get(int x, int y) {
         return  mPositions[y * mWidth + x];
     }
+
+    public int getWidth() {
+        return mWidth;
+    }
+
+    public int getHeight() {
+        return mHeight;
+    }
 }
