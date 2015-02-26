@@ -15,10 +15,10 @@ public class LapPositionTable {
     }
 
     public void set(int x, int y, LapPosition position) {
-        mPositions[y * mHeight + x] = position;
+        mPositions[y * mWidth + x] = position;
     }
 
     public LapPosition get(int x, int y) {
-        return  mPositions[y * mHeight + x];
+        return  mPositions[y * mWidth + x];
     }
 }
