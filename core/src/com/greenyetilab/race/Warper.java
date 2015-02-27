@@ -1,4 +1,4 @@
-package com.greenyetilab.race.desktop;
+package com.greenyetilab.race;
 
 import com.badlogic.gdx.math.Vector2;
 

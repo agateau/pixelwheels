@@ -11,8 +11,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.race.LapPositionTable;
 import com.greenyetilab.utils.Assert;
 import com.greenyetilab.utils.log.NLog;
@@ -23,37 +21,6 @@ import com.greenyetilab.utils.log.NLog;
  * The .tmx file must contains a "Zones" object layer with concave quadrilaterals
  */
 public class LapPositionTableGenerator {
-    private static class LapZone {
-        private int mSection;
-        private Polygon mPolygon;
-        private final Warper mWarper = new Warper();
-
-        public LapZone(int section, Polygon polygon) {
-            mSection = section;
-            mPolygon = polygon;
-            float[] vertices = mPolygon.getTransformedVertices();
-            int verticeCount = vertices.length / 2;
-            Assert.check(verticeCount == 4, "Polygon " + section + " must have 4 vertices, not " + verticeCount);
-            mWarper.setSource(
-                    vertices[0], vertices[1],
-                    vertices[2], vertices[3],
-                    vertices[4], vertices[5],
-                    vertices[6], vertices[7]
-            );
-            mWarper.setDestination(
-                    0, 0,
-                    1, 0,
-                    1, 1,
-                    0, 1
-            );
-        }
-
-        public int computePosition(float x, float y) {
-            Vector2 out = mWarper.warp(x, y);
-            return LapPositionTable.createPosition(mSection, out.x);
-        }
-    }
-
     public static void main(String[] args) {
         new CommandLineApplication("LapPositionTableGenerator", args) {
             @Override
@@ -68,21 +35,21 @@ public class LapPositionTableGenerator {
 
     public static void generateTable(FileHandle tmxFile, FileHandle tableFile) {
         TiledMap map = new TmxMapLoader().load(tmxFile.path());
-        Array<LapZone> zones = loadLapZones(map);
 
         TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
         int width = layer.getWidth() * ((int)layer.getTileWidth());
         int height = layer.getHeight() * ((int)layer.getTileHeight());
         LapPositionTable table = new LapPositionTable(width, height);
-        for (int y = 0; y < height; ++y) {
-            NLog.i("Analyzing %d/%d", y, height);
-            for (int x = 0; x < width; ++x) {
-                LapZone zone = findLapZone(zones, x, y);
-                if (zone != null) {
-                    int position = zone.computePosition(x, y);
-                    table.set(x, y, position);
-                }
-            }
+
+        MapLayer zonesLayer = map.getLayers().get("Zones");
+        Assert.check(zonesLayer != null, "No 'Zones' layer found");
+
+        for (MapObject obj : zonesLayer.getObjects()) {
+            int section = Integer.parseInt(obj.getName());
+            NLog.i("Section %d", section);
+            Assert.check(obj instanceof PolygonMapObject, "'Zones' layer should only contain PolygonMapObjects");
+            Polygon polygon = ((PolygonMapObject)obj).getPolygon();
+            table.addZone(section, polygon);
         }
 
         saveTable(table, tableFile);
@@ -97,34 +64,9 @@ public class LapPositionTableGenerator {
             NLog.i("Saving %d/%d", y, height);
             for (int x = 0; x < width; ++x) {
                 int pos = table.get(x, y);
-                pixmap.drawPixel(x, y, pos);
+                pixmap.drawPixel(x, height - 1 - y, pos);
             }
         }
         PixmapIO.writePNG(tableFile, pixmap);
-    }
-
-    private static Array<LapZone> loadLapZones(TiledMap map) {
-        MapLayer layer = map.getLayers().get("Zones");
-        Assert.check(layer != null, "No 'Zones' layer found");
-
-        Array<LapZone> zones = new Array<LapZone>();
-        for (MapObject obj : layer.getObjects()) {
-            int section = Integer.parseInt(obj.getName());
-            NLog.i("Section %d", section);
-            Assert.check(obj instanceof PolygonMapObject, "'Zones' layer should only contain PolygonMapObjects");
-            Polygon polygon = ((PolygonMapObject)obj).getPolygon();
-            zones.add(new LapZone(section, polygon));
-
-        }
-        return zones;
-    }
-
-    private static LapZone findLapZone(Array<LapZone> zones, int x, int y) {
-        for (LapZone zone : zones) {
-            if (zone.mPolygon.contains(x, y)) {
-                return zone;
-            }
-        }
-        return null;
     }
 }
