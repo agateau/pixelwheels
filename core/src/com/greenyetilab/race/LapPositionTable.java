@@ -6,19 +6,19 @@ package com.greenyetilab.race;
 public class LapPositionTable {
     private final int mWidth;
     private final int mHeight;
-    private final LapPosition[] mPositions;
+    private final int[] mPositions;
 
     public LapPositionTable(int width, int height) {
         mWidth = width;
         mHeight = height;
-        mPositions = new LapPosition[width * height];
+        mPositions = new int[width * height];
     }
 
-    public void set(int x, int y, LapPosition position) {
+    public void set(int x, int y, int position) {
         mPositions[y * mWidth + x] = position;
     }
 
-    public LapPosition get(int x, int y) {
+    public int get(int x, int y) {
         return  mPositions[y * mWidth + x];
     }
 
@@ -28,5 +28,17 @@ public class LapPositionTable {
 
     public int getHeight() {
         return mHeight;
+    }
+
+    public static float distanceFromPosition(int value) {
+        return (float)(value & 0xff00) / 255;
+    }
+
+    public static int sectionFromPosition(int value) {
+        return (value & 0xff0000) >> 16;
+    }
+
+    public static int createPosition(int section, float distance) {
+        return (section << 16) | ((int)(distance * 255) << 8) | 0xff;
     }
 }

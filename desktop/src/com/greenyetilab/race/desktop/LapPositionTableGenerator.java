@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.greenyetilab.race.LapPosition;
 import com.greenyetilab.race.LapPositionTable;
 import com.greenyetilab.utils.Assert;
 import com.greenyetilab.utils.log.NLog;
@@ -49,9 +48,9 @@ public class LapPositionTableGenerator {
             );
         }
 
-        public LapPosition computePosition(float x, float y) {
+        public int computePosition(float x, float y) {
             Vector2 out = mWarper.warp(x, y);
-            return new LapPosition(mSection, out.x);
+            return LapPositionTable.createPosition(mSection, out.x);
         }
     }
 
@@ -80,7 +79,7 @@ public class LapPositionTableGenerator {
             for (int x = 0; x < width; ++x) {
                 LapZone zone = findLapZone(zones, x, y);
                 if (zone != null) {
-                    LapPosition position = zone.computePosition(x, y);
+                    int position = zone.computePosition(x, y);
                     table.set(x, y, position);
                 }
             }
@@ -97,14 +96,8 @@ public class LapPositionTableGenerator {
         for (int y = 0; y < height; ++y) {
             NLog.i("Saving %d/%d", y, height);
             for (int x = 0; x < width; ++x) {
-                LapPosition pos = table.get(x, y);
-                int color;
-                if (pos == null) {
-                    color = 0;
-                } else {
-                    color = ((int)(pos.distance * 255) << 8) + 255;
-                }
-                pixmap.drawPixel(x, y, color);
+                int pos = table.get(x, y);
+                pixmap.drawPixel(x, y, pos);
             }
         }
         PixmapIO.writePNG(tableFile, pixmap);
