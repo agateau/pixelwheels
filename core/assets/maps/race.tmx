@@ -316,9 +316,6 @@
   <object name="13" x="1152" y="1536">
    <polygon points="0,0 64,-128 -192,-512 -320,-192"/>
   </object>
-  <object name="0" x="768" y="1152">
-   <polygon points="0,0 0,-64 -384,-256 -384,0"/>
-  </object>
   <object name="5" x="2304" y="832">
    <polygon points="0,0 64,0 512,-448 0,-448"/>
   </object>
@@ -348,6 +345,9 @@
   </object>
   <object name="7" x="2368" y="896">
    <polygon points="0,0 0,512 448,512 448,0"/>
+  </object>
+  <object name="0" x="768" y="1152">
+   <polygon points="0,0 0,-64 -384,-256 -384,0"/>
   </object>
  </objectgroup>
  <objectgroup name="Waypoints">
