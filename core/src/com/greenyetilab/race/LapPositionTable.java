@@ -9,8 +9,6 @@ import com.greenyetilab.utils.Assert;
  * Can provide the position within a lap based on x, y (in tile pixels)
  */
 public class LapPositionTable {
-    private final int mWidth;
-    private final int mHeight;
     private final Array<LapZone> mZones = new Array<LapZone>();
 
     private static class LapZone {
@@ -48,11 +46,6 @@ public class LapPositionTable {
         }
     }
 
-    public LapPositionTable(int width, int height) {
-        mWidth = width;
-        mHeight = height;
-    }
-
     public void addZone(int section, Polygon polygon) {
         mZones.add(new LapZone(section, polygon));
     }
@@ -64,14 +57,6 @@ public class LapPositionTable {
             }
         }
         return 0;
-    }
-
-    public int getWidth() {
-        return mWidth;
-    }
-
-    public int getHeight() {
-        return mHeight;
     }
 
     public static float distanceFromPosition(int value) {
