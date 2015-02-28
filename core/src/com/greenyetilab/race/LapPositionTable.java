@@ -41,7 +41,6 @@ public class LapPositionTable {
             Vector2 out = mWarper.warp(x, y);
             mLapPosition.sectionId = mSectionId;
             mLapPosition.sectionDistance = out.x;
-            mLapPosition.lapDistance = mSectionId + out.x;
             return mLapPosition;
         }
     }
