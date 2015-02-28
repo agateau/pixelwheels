@@ -248,15 +248,15 @@
    eJztl0sOwjAMRHMlKCBRAStgVbj/cZhNpKoqhCj+jCFPml2UTGPXdlLq/BMbaCu4zosjNKayz7yOnSg+2WHP2xLZP2M+1Nwto/8Ms7daoud75hdiUorFYGWkEY1YSOapR85r1GWJvXbQHjoYnqnBCTpDF28jjVyhG3T3NtLIBD2gp7eRTki8el30eai2z7DOFN++z5lY66XM77F3rPVSjXhox/ZTL9WYw7S+x6qXRszVOUv/lrVD8qylf8t4SJ01v4+WPb3rv9R9RP2nOj68AO79G5g=
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
+ <objectgroup name="Borders">
   <object x="2816" y="320" width="64" height="1600"/>
   <object x="320" y="320" width="64" height="1600"/>
   <object x="1088" y="832" width="1280" height="64"/>
   <object x="2304" y="896" width="64" height="576"/>
   <object x="384" y="1856" width="2432" height="64"/>
-  <object x="1408" y="1280" width="448" height="576"/>
+  <object x="1472" y="1280" width="384" height="576"/>
   <object x="384" y="320" width="2432" height="64"/>
-  <object x="1408" y="1280">
+  <object x="1472" y="1280">
    <polygon points="0,0 -256,128 -320,256 -320,576 0,576"/>
   </object>
   <object x="1920" y="1856">
@@ -268,17 +268,14 @@
   <object x="2816" y="384">
    <polygon points="0,0 -64,0 0,64"/>
   </object>
-  <object x="1088" y="1792">
+  <object x="1152" y="1792">
    <polygon points="0,0 -64,64 0,64"/>
   </object>
   <object x="384" y="1792">
    <polygon points="0,0 0,64 64,64"/>
   </object>
   <object x="1088" y="832">
-   <polygon points="0,0 -256,128 -128,192 128,64"/>
-  </object>
-  <object x="832" y="960">
-   <polygon points="0,0 -70,129 -70,385.5 64,128"/>
+   <polygon points="0,0 -256,128 -64,192 192,64"/>
   </object>
   <object x="576" y="576">
    <polygon points="0,0 -192,-192 -64,64"/>
@@ -293,11 +290,14 @@
    <polygon points="0,0 0,512 128,256"/>
   </object>
   <object x="960" y="1024">
-   <polygon points="0,0 -128,-64 -64,64"/>
+   <polygon points="64,0 -128,-64 0,64"/>
   </object>
-  <object x="762" y="1281" width="12" height="190"/>
+  <object x="768" y="1280" width="64" height="192"/>
+  <object x="832" y="1344">
+   <polygon points="0,0 128,-256 0,-384 -64,-256 -64,-64"/>
+  </object>
  </objectgroup>
- <objectgroup name="Zones">
+ <objectgroup name="Zones" visible="0">
   <object name="1" x="832" y="960">
    <polygon points="0,0 -320,-384 -448,-64 -64,128"/>
   </object>
