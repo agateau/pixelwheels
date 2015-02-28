@@ -70,6 +70,10 @@ public class GameWorld implements ContactListener, Disposable {
         return mBox2DWorld;
     }
 
+    public Racer getPlayerRacer() {
+        return mPlayerRacer;
+    }
+
     public Vehicle getPlayerVehicle() {
         return mPlayerRacer.getVehicle();
     }
