@@ -9,19 +9,19 @@ import com.greenyetilab.utils.Assert;
  * Can provide the position within a lap based on x, y (in tile pixels)
  */
 public class LapPositionTable {
-    private final Array<LapZone> mZones = new Array<LapZone>();
+    private final Array<LapSection> mZones = new Array<LapSection>();
 
-    private static class LapZone {
-        private int mSection;
+    private static class LapSection {
+        private int mSectionId;
         private Polygon mPolygon;
         private final Warper mWarper = new Warper();
 
-        public LapZone(int section, Polygon polygon) {
-            mSection = section;
+        public LapSection(int sectionId, Polygon polygon) {
+            mSectionId = sectionId;
             mPolygon = polygon;
             float[] vertices = mPolygon.getTransformedVertices();
             int verticeCount = vertices.length / 2;
-            Assert.check(verticeCount == 4, "Polygon " + section + " must have 4 vertices, not " + verticeCount);
+            Assert.check(verticeCount == 4, "Polygon " + sectionId + " must have 4 vertices, not " + verticeCount);
             mWarper.setSource(
                     vertices[0], vertices[1],
                     vertices[2], vertices[3],
@@ -36,29 +36,30 @@ public class LapPositionTable {
             );
         }
 
-        public int computePosition(float x, float y) {
+        private final LapPosition mLapPosition = new LapPosition();
+        public LapPosition computePosition(float x, float y) {
             Vector2 out = mWarper.warp(x, y);
-            return createPosition(mSection, out.x);
-        }
-
-        private static int createPosition(int section, float distance) {
-            return (section << 16) | ((int)(distance * 255) << 8) | 0xff;
+            mLapPosition.sectionId = mSectionId;
+            mLapPosition.sectionDistance = out.x;
+            mLapPosition.lapDistance = mSectionId + out.x;
+            return mLapPosition;
         }
     }
 
-    public void addZone(int section, Polygon polygon) {
-        mZones.add(new LapZone(section, polygon));
+    public void addSection(int section, Polygon polygon) {
+        mZones.add(new LapSection(section, polygon));
     }
 
-    public int get(int x, int y) {
-        for (LapZone zone : mZones) {
+    public LapPosition get(int x, int y) {
+        for (LapSection zone : mZones) {
             if (zone.mPolygon.contains(x, y)) {
                 return zone.computePosition(x, y);
             }
         }
-        return 0;
+        return null;
     }
 
+    /*
     public static float distanceFromPosition(int value) {
         return (float)(value & 0xff00) / 255;
     }
@@ -66,4 +67,5 @@ public class LapPositionTable {
     public static int sectionFromPosition(int value) {
         return (value & 0xff0000) >> 16;
     }
+    */
 }

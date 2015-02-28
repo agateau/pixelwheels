@@ -74,6 +74,7 @@ public class MapInfo implements Disposable {
     private final float mTileWidth;
     private final float mTileHeight;
     private final Array<Zone> mZones = new Array<Zone>();
+    private final LapPositionTable mLapPositionTable;
 
     public MapInfo(TiledMap map) {
         mMap = map;
@@ -91,6 +92,7 @@ public class MapInfo implements Disposable {
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
 
         readZones();
+        mLapPositionTable = LapPositionTableIO.load(map);
     }
 
     public TiledMap getMap() {
@@ -135,6 +137,10 @@ public class MapInfo implements Disposable {
 
     public MapLayer getBordersLayer() {
         return mBordersLayer;
+    }
+
+    public LapPositionTable getLapPositionTable() {
+        return mLapPositionTable;
     }
 
     private float[] computeMaxSpeedForTileId() {

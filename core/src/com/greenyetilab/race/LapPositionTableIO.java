@@ -25,7 +25,7 @@ public class LapPositionTableIO {
             int section = Integer.parseInt(obj.getName());
             Assert.check(obj instanceof PolygonMapObject, "'Zones' layer should only contain PolygonMapObjects");
             Polygon polygon = ((PolygonMapObject)obj).getPolygon();
-            table.addZone(section, polygon);
+            table.addSection(section, polygon);
         }
 
         return table;
@@ -37,8 +37,14 @@ public class LapPositionTableIO {
         for (int y = 0; y < height; ++y) {
             NLog.i("Saving %d/%d", y, height);
             for (int x = 0; x < width; ++x) {
-                int pos = table.get(x, y);
-                pixmap.drawPixel(x, height - 1 - y, pos);
+                LapPosition pos = table.get(x, y);
+                int color;
+                if (pos == null) {
+                    color = 0;
+                } else {
+                    color = (pos.sectionId << 16) | ((int)(pos.sectionDistance * 255) << 8) | 0xff;
+                }
+                pixmap.drawPixel(x, height - 1 - y, color);
             }
         }
         return pixmap;
