@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
+import com.badlogic.gdx.utils.Sort;
 
 import java.util.Comparator;
 
@@ -186,7 +187,15 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mGameObjectPerformanceCounter.stop();
 
-        mRacers.sort(sRacerComparator);
+        // Skip finished racers so that they keep the position they had when they crossed the finish
+        // line, even if they continue a bit after it
+        int fromIndex;
+        for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
+            if (!mRacers.get(fromIndex).isFinished()) {
+                break;
+            }
+        }
+        Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
         if (mPlayerRacer.isFinished()) {
             setState(State.FINISHED);
