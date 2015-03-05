@@ -96,8 +96,12 @@ public class Racer implements GameObject, Collidable, Disposable {
             updatePosition();
         }
         boolean keep = mVehicle.act(delta);
-        if (keep && !mFinished) {
-            keep = mPilot.act(delta);
+        if (keep) {
+            if (mFinished) {
+                mVehicle.setAccelerating(false);
+            } else {
+                keep = mPilot.act(delta);
+            }
         }
         if (keep) {
             keep = mGroundCollisionHandlerComponent.act(delta);
