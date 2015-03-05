@@ -41,7 +41,8 @@ public class TouchInputHandler implements GameInputHandler {
             } else if (x < RIGHT_PERCENT) {
                 mInput.direction = -1;
             } else {
-                mInput.shooting = true;
+                mInput.accelerating = false;
+                mInput.braking = true;
             }
         }
         return mInput;
