@@ -92,7 +92,9 @@ public class Racer implements GameObject, Collidable, Disposable {
 
     @Override
     public boolean act(float delta) {
-        updatePosition();
+        if (!mFinished) {
+            updatePosition();
+        }
         boolean keep = mVehicle.act(delta);
         if (keep && !mFinished) {
             keep = mPilot.act(delta);
