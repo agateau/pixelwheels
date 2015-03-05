@@ -129,6 +129,33 @@ public class GameWorld implements ContactListener, Disposable {
         return -1;
     }
 
+    private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
+        @Override
+        public int compare(Racer racer1, Racer racer2) {
+            if (!racer1.isFinished() && racer2.isFinished()) {
+                return 1;
+            }
+            if (racer1.isFinished() && !racer2.isFinished()) {
+                return -1;
+            }
+            if (racer1.getLapCount() < racer2.getLapCount()) {
+                return 1;
+            }
+            if (racer1.getLapCount() > racer2.getLapCount()) {
+                return -1;
+            }
+            float d1 = racer1.getLapDistance();
+            float d2 = racer2.getLapDistance();
+            if (d1 < d2) {
+                return 1;
+            }
+            if (d1 > d2) {
+                return -1;
+            }
+            return 0;
+        }
+    };
+
     public void act(float delta) {
         mBox2DPerformanceCounter.start();
         // fixed time step
@@ -159,32 +186,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mGameObjectPerformanceCounter.stop();
 
-        mRacers.sort(new Comparator<Racer>() {
-            @Override
-            public int compare(Racer racer1, Racer racer2) {
-                if (!racer1.isFinished() && racer2.isFinished()) {
-                    return 1;
-                }
-                if (racer1.isFinished() && !racer2.isFinished()) {
-                    return -1;
-                }
-                if (racer1.getLapCount() < racer2.getLapCount()) {
-                    return 1;
-                }
-                if (racer1.getLapCount() > racer2.getLapCount()) {
-                    return -1;
-                }
-                float d1 = racer1.getLapDistance();
-                float d2 = racer2.getLapDistance();
-                if (d1 < d2) {
-                    return 1;
-                }
-                if (d1 > d2) {
-                    return -1;
-                }
-                return 0;
-            }
-        });
+        mRacers.sort(sRacerComparator);
 
         if (mPlayerRacer.isFinished()) {
             setState(State.FINISHED);
