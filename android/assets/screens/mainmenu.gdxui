@@ -13,9 +13,5 @@
         <ImageButton id="settingsButton"
                     bottomLeft="root.bottomLeft 1 1"
                     imageName="icon-config"/>
-
-        <ImageButton id="highScoreButton"
-                    bottomRight="root.bottomRight -1 1"
-                    imageName="icon-highscores"/>
     </AnchorGroup>
 </gdxui>

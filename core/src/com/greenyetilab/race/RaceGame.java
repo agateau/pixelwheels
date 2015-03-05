@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.greenyetilab.utils.Assert;
-import com.greenyetilab.utils.FileUtils;
 
 import java.util.Stack;
 
@@ -18,7 +17,6 @@ import java.util.Stack;
 public class RaceGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
-    private HighScoreTable mHighScoreTable = new HighScoreTable();
 
     public Assets getAssets() {
         return mAssets;
@@ -28,7 +26,6 @@ public class RaceGame extends Game {
     public void create() {
         mAssets = new Assets();
         Box2D.init();
-        mHighScoreTable.init(FileUtils.getUserWritableFile("highscore.xml"));
         showMainMenu();
     }
 
@@ -65,9 +62,5 @@ public class RaceGame extends Game {
         mScreenStack.pop().dispose();
         Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
         setScreen(mScreenStack.peek());
-    }
-
-    public HighScoreTable getHighScoreTable() {
-        return mHighScoreTable;
     }
 }

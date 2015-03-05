@@ -78,6 +78,10 @@ public class GameWorld implements ContactListener, Disposable {
         return mPlayerRacer;
     }
 
+    public Array<Racer> getRacers() {
+        return mRacers;
+    }
+
     public Vehicle getPlayerVehicle() {
         return mPlayerRacer.getVehicle();
     }

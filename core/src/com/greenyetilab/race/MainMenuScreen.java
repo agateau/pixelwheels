@@ -42,11 +42,5 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
                 mGame.pushScreen(new ConfigScreen(mGame));
             }
         });
-        builder.getActor("highScoreButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mGame.pushScreen(new HighScoreScreen(mGame));
-            }
-        });
     }
 }

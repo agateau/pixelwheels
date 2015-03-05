@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.FileUtils;
 import com.greenyetilab.utils.RefreshHelper;
 import com.greenyetilab.utils.UiBuilder;
@@ -12,28 +12,27 @@ import com.greenyetilab.utils.UiBuilder;
 /**
  * Appears on top of RaceGameScreen when player has lost
  */
-public class GameOverOverlay extends Overlay {
+public class FinishedOverlay extends Overlay {
     private final RaceGame mGame;
 
-    public GameOverOverlay(RaceGame game, final int newHighScoreIndex, final String message) {
+    public FinishedOverlay(RaceGame game, final Array<Racer> racers, final Racer playerRacer) {
         super(game.getAssets().dot);
         mGame = game;
         new RefreshHelper(this) {
             @Override
             protected void refresh() {
-                setContent(createContent(newHighScoreIndex, message));
+                setContent(createContent(racers, playerRacer));
             }
         };
-        setContent(createContent(newHighScoreIndex, message));
+        setContent(createContent(racers, playerRacer));
     }
 
-    private Actor createContent(int newHighScoreIndex, String message) {
+    private Actor createContent(Array<Racer> racers, Racer playerRacer) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
-        HighScorePane.register(builder);
-        Actor content = builder.build(FileUtils.assets("screens/gameoveroverlay.gdxui"));
+        RacerListPane.register(builder);
+        Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         Label mainLabel = builder.getActor("mainLabel");
         mainLabel.setAlignment(Align.center, Align.center);
-        mainLabel.setText(message);
         mainLabel.setWidth(mainLabel.getPrefWidth());
         mainLabel.setHeight(mainLabel.getPrefHeight());
         builder.getActor("restartButton").addListener(new ChangeListener() {
@@ -48,8 +47,8 @@ public class GameOverOverlay extends Overlay {
                 mGame.showMainMenu();
             }
         });
-        HighScorePane scorePane = builder.getActor("scoreScrollPane");
-        scorePane.init(mGame.getAssets().skin, mGame.getHighScoreTable(), newHighScoreIndex);
+        RacerListPane racerListPane = builder.getActor("racerListPane");
+        racerListPane.init(mGame.getAssets().skin, racers, playerRacer);
         return content;
     }
 }
