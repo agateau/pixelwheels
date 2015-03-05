@@ -16,9 +16,10 @@ public class Racer implements GameObject, Collidable, Disposable {
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
+    private Pilot mPilot;
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
-    private Pilot mPilot;
+    private boolean mFinished = false;
     private int mScore;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
@@ -47,6 +48,14 @@ public class Racer implements GameObject, Collidable, Disposable {
 
     public int getLapCount() {
         return mLapCount;
+    }
+
+    public float getLapDistance() {
+        return mLapPosition.getLapDistance();
+    }
+
+    public boolean isFinished() {
+        return mFinished;
     }
 
     public void adjustScore(int delta, float x, float y) {
@@ -85,7 +94,7 @@ public class Racer implements GameObject, Collidable, Disposable {
     public boolean act(float delta) {
         updatePosition();
         boolean keep = mVehicle.act(delta);
-        if (keep) {
+        if (keep && !mFinished) {
             keep = mPilot.act(delta);
         }
         if (keep) {
@@ -102,10 +111,15 @@ public class Racer implements GameObject, Collidable, Disposable {
 
     private void updatePosition() {
         int oldSectionId = mLapPosition.sectionId;
+        MapInfo mapInfo = mGameWorld.getMapInfo();
         final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
-        mLapPosition.copy(mGameWorld.getMapInfo().getLapPositionTable().get((int)(PFU * mVehicle.getX()), (int)(PFU * mVehicle.getY())));
+        mLapPosition.copy(mapInfo.getLapPositionTable().get((int)(PFU * mVehicle.getX()), (int)(PFU * mVehicle.getY())));
         if (mLapPosition.sectionId == 0 && oldSectionId > 1) {
             ++mLapCount;
+            if (mLapCount > mapInfo.getTotalLapCount()) {
+                --mLapCount;
+                mFinished = true;
+            }
         } else if (mLapPosition.sectionId > 1 && oldSectionId == 0) {
             --mLapCount;
         }

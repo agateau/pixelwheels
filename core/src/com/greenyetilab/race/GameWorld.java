@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 
+import java.util.Comparator;
+
 /**
  * Contains all the information and objects running in the world
  */
@@ -35,6 +37,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
+    private final Array<Racer> mRacers = new Array<Racer>();
     private Racer mPlayerRacer;
     private State mState = State.RUNNING;
 
@@ -117,6 +120,15 @@ public class GameWorld implements ContactListener, Disposable {
         return mBottomVisibleY;
     }
 
+    public int getPlayerRank() {
+        for (int idx = mRacers.size - 1; idx >= 0; --idx) {
+            if (mRacers.get(idx) == mPlayerRacer) {
+                return idx + 1;
+            }
+        }
+        return -1;
+    }
+
     public void act(float delta) {
         mBox2DPerformanceCounter.start();
         // fixed time step
@@ -146,6 +158,37 @@ public class GameWorld implements ContactListener, Disposable {
             }
         }
         mGameObjectPerformanceCounter.stop();
+
+        mRacers.sort(new Comparator<Racer>() {
+            @Override
+            public int compare(Racer racer1, Racer racer2) {
+                if (!racer1.isFinished() && racer2.isFinished()) {
+                    return 1;
+                }
+                if (racer1.isFinished() && !racer2.isFinished()) {
+                    return -1;
+                }
+                if (racer1.getLapCount() < racer2.getLapCount()) {
+                    return 1;
+                }
+                if (racer1.getLapCount() > racer2.getLapCount()) {
+                    return -1;
+                }
+                float d1 = racer1.getLapDistance();
+                float d2 = racer2.getLapDistance();
+                if (d1 < d2) {
+                    return 1;
+                }
+                if (d1 > d2) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
+        if (mPlayerRacer.isFinished()) {
+            setState(State.FINISHED);
+        }
     }
 
     private void setupRacers() {
@@ -169,6 +212,7 @@ public class GameWorld implements ContactListener, Disposable {
                 racer.setPilot(new AIPilot(mMapInfo, racer));
             }
             addGameObject(racer);
+            mRacers.add(racer);
             ++rank;
         }
     }

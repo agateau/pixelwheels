@@ -137,7 +137,9 @@ public class RaceGameScreen extends ScreenAdapter {
     private static StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
         int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapCount(), 1);
-        mLapLabel.setText(String.format("%d", lapCount));
+        int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
+        int rank = mGameWorld.getPlayerRank();
+        mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
         mLapLabel.setPosition(5, 0);
 
         mSpeedLabel.setText(StringUtils.formatSpeed(mVehicle.getSpeed()));

@@ -95,6 +95,10 @@ public class MapInfo implements Disposable {
         mLapPositionTable = LapPositionTableIO.load(map);
     }
 
+    public int getTotalLapCount() {
+        return 3;
+    }
+
     public TiledMap getMap() {
         return mMap;
     }
