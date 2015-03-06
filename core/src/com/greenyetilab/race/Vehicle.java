@@ -2,7 +2,6 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -27,6 +26,7 @@ class Vehicle implements Disposable {
     private boolean mLimitAngle;
     private boolean mCorrectAngle;
 
+    private static final float CORNER_SIZE = 0.5f;
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
@@ -53,7 +53,7 @@ class Vehicle implements Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(carW / 2, carH / 2);
+        shape.set(Box2DUtils.createOctogon(carW, carH, CORNER_SIZE));
 
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();

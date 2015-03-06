@@ -91,4 +91,20 @@ public class Box2DUtils {
             fixture.setRestitution(restitution);
         }
     }
+
+    /**
+     * Returns vertices for a rectangle of size width x height with truncated corners of cornerSize
+     */
+    static float[] createOctogon(float width, float height, float cornerSize) {
+        return new float[]{
+                width / 2 - cornerSize, -height / 2,
+                width / 2, -height / 2 + cornerSize,
+                width / 2, height / 2 - cornerSize,
+                width / 2 - cornerSize, height / 2,
+                -width / 2 + cornerSize, height / 2,
+                -width / 2, height / 2 - cornerSize,
+                -width / 2, -height / 2 + cornerSize,
+                -width / 2 + cornerSize, -height / 2
+        };
+    }
 }
