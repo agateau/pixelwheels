@@ -44,7 +44,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
         });
 
         mNameLabel.setHeight(rightButton.getHeight());
-        mDescriptionLabel.setHeight(rightButton.getHeight() * 2.5f);
+        mDescriptionLabel.setHeight(rightButton.getHeight() * 1.5f);
         mDescriptionLabel.setAlignment(Align.topLeft, Align.left);
 
         addPositionRule(leftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
