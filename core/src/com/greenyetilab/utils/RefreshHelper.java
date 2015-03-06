@@ -32,8 +32,8 @@ public abstract class RefreshHelper {
         stage.addListener(new InputListener() {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                NLog.i("Refreshing");
                 if (keycode == Input.Keys.F5) {
+                    NLog.i("Refreshing");
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
