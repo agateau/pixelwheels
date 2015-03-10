@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  */
 public class Wheel implements Pool.Poolable, Disposable {
     private static final float MAX_LATERAL_IMPULSE = 8;
-    private static final float MAX_DRIVING_FORCE = 75;
+    private static final float MAX_DRIVING_FORCE = 100;
     private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
