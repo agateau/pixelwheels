@@ -51,7 +51,8 @@ public class GestureInputHandler implements GameInputHandler {
                 mPanPointer = pointer;
                 mPanStart = x / PANNING_AREA;
             } else {
-                mInput.shooting = true;
+                mInput.accelerating = false;
+                mInput.braking = true;
             }
         }
         return mInput;
