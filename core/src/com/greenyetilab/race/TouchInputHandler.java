@@ -11,8 +11,8 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * Handle inputs with touch screen only
  */
 public class TouchInputHandler implements GameInputHandler {
-    private static final float LEFT_PERCENT = 0.3f;
-    private static final float RIGHT_PERCENT = 0.6f;
+    private static final float LEFT_PERCENT = 0.25f;
+    private static final float RIGHT_PERCENT = 0.5f;
     private GameInput mInput = new GameInput();
 
     @Override
@@ -22,7 +22,7 @@ public class TouchInputHandler implements GameInputHandler {
 
     @Override
     public String getDescription() {
-        return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to fire.";
+        return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to brake.";
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TouchInputHandler implements GameInputHandler {
         TextureRegion bg = assets.hudBackground;
         createHudIndicator(bg, assets.findRegion("hud-left"), true, group, 0, LEFT_PERCENT);
         createHudIndicator(bg, assets.findRegion("hud-right"), false, group, LEFT_PERCENT, RIGHT_PERCENT);
-        createHudIndicator(bg, assets.findRegion("hud-fire"), true, group, RIGHT_PERCENT, 1);
+        createHudIndicator(bg, assets.findRegion("hud-back"), true, group, RIGHT_PERCENT, 1);
     }
 
     private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {

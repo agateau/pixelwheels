@@ -25,11 +25,11 @@ public class InputHudIndicator extends Actor {
     public void draw(Batch batch, float alpha) {
         batch.setColor(mColor);
         batch.draw(mBg, getX(), getY(), getWidth(), getHeight());
+        batch.setColor(Color.WHITE);
         batch.draw(
                 mIcon,
                 MathUtils.round(getX() + (getWidth() - mIcon.getRegionWidth()) / 2),
                 MathUtils.round(getY() + (getHeight() - mIcon.getRegionHeight()) / 2)
         );
-        batch.setColor(Color.WHITE);
     }
 }
