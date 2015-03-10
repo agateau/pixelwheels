@@ -74,13 +74,12 @@ public class GestureInputHandler implements GameInputHandler {
         group.setFillParent(true);
         hudBridge.getStage().addActor(group);
 
-        TextureRegion bg = assets.hudBackground;
-        createHudIndicator(bg, assets.findRegion("hud-swipe"), true, group, 0, PANNING_AREA);
-        createHudIndicator(bg, assets.findRegion("hud-fire"), false, group, PANNING_AREA, 1);
+        createHudIndicator(assets.findRegion("hud-swipe"), group, 0, PANNING_AREA);
+        createHudIndicator(assets.findRegion("hud-back"), group, PANNING_AREA, 1);
     }
 
-    private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
-        InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
+    private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
+        InputHudIndicator indicator = new InputHudIndicator(icon);
         PositionRule rule = new PositionRule();
         rule.reference = group;
         rule.referenceAnchor = new Anchor(start, 0);

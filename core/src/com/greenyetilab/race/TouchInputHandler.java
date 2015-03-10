@@ -54,14 +54,13 @@ public class TouchInputHandler implements GameInputHandler {
         group.setFillParent(true);
         hudBridge.getStage().addActor(group);
 
-        TextureRegion bg = assets.hudBackground;
-        createHudIndicator(bg, assets.findRegion("hud-left"), true, group, 0, LEFT_PERCENT);
-        createHudIndicator(bg, assets.findRegion("hud-right"), false, group, LEFT_PERCENT, RIGHT_PERCENT);
-        createHudIndicator(bg, assets.findRegion("hud-back"), true, group, RIGHT_PERCENT, 1);
+        createHudIndicator(assets.findRegion("hud-left"), group, 0, LEFT_PERCENT);
+        createHudIndicator(assets.findRegion("hud-right"), group, LEFT_PERCENT, RIGHT_PERCENT);
+        createHudIndicator(assets.findRegion("hud-back"), group, RIGHT_PERCENT, 1);
     }
 
-    private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
-        InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
+    private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
+        InputHudIndicator indicator = new InputHudIndicator(icon);
         PositionRule rule = new PositionRule();
         rule.reference = group;
         rule.referenceAnchor = new Anchor(start, 0);
