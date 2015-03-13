@@ -116,17 +116,17 @@ public class Racer implements GameObject, Collidable, Disposable {
     }
 
     private void updatePosition() {
-        int oldSectionId = mLapPosition.sectionId;
+        int oldSectionId = mLapPosition.getSectionId();
         MapInfo mapInfo = mGameWorld.getMapInfo();
         final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
         mLapPosition.copy(mapInfo.getLapPositionTable().get((int)(PFU * mVehicle.getX()), (int)(PFU * mVehicle.getY())));
-        if (mLapPosition.sectionId == 0 && oldSectionId > 1) {
+        if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
             ++mLapCount;
             if (mLapCount > mapInfo.getTotalLapCount()) {
                 --mLapCount;
                 mFinished = true;
             }
-        } else if (mLapPosition.sectionId > 1 && oldSectionId == 0) {
+        } else if (mLapPosition.getSectionId() > 1 && oldSectionId == 0) {
             --mLapCount;
         }
     }

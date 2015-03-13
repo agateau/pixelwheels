@@ -39,9 +39,7 @@ public class LapPositionTable {
         private final LapPosition mLapPosition = new LapPosition();
         public LapPosition computePosition(float x, float y) {
             Vector2 out = mWarper.warp(x, y);
-            mLapPosition.sectionId = mSectionId;
-            mLapPosition.sectionPolygon = mPolygon;
-            mLapPosition.sectionDistance = out.x;
+            mLapPosition.init(mSectionId, mPolygon, x, y, out.x);
             return mLapPosition;
         }
     }

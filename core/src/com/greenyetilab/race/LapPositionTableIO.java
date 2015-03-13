@@ -42,9 +42,9 @@ public class LapPositionTableIO {
                 if (pos == null) {
                     color = 0;
                 } else {
-                    int r = (int)((1 - Math.abs(pos.computeCenterDistance(x, y))) * 255);
-                    int g = pos.sectionId * 255 / table.getSectionCount();
-                    int b = (int)(pos.sectionDistance * 255);
+                    int r = (int)((1 - Math.abs(pos.getCenterDistance())) * 255);
+                    int g = pos.getSectionId() * 255 / table.getSectionCount();
+                    int b = (int)(pos.getSectionDistance() * 255);
                     color = (r << 24) | (g << 16) | (b << 8) | 0xff;
                 }
                 pixmap.drawPixel(x, height - 1 - y, color);
