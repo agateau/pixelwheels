@@ -29,8 +29,8 @@ public class LapPositionTable {
                     vertices[6], vertices[7]
             );
             mWarper.setDestination(
-                    0, 0,
-                    1, 0,
+                    0, -1,
+                    1, -1,
                     1, 1,
                     0, 1
             );
@@ -40,6 +40,7 @@ public class LapPositionTable {
         public LapPosition computePosition(float x, float y) {
             Vector2 out = mWarper.warp(x, y);
             mLapPosition.sectionId = mSectionId;
+            mLapPosition.sectionPolygon = mPolygon;
             mLapPosition.sectionDistance = out.x;
             return mLapPosition;
         }
@@ -58,13 +59,7 @@ public class LapPositionTable {
         return null;
     }
 
-    /*
-    public static float distanceFromPosition(int value) {
-        return (float)(value & 0xff00) / 255;
+    public int getSectionCount() {
+        return mZones.size;
     }
-
-    public static int sectionFromPosition(int value) {
-        return (value & 0xff0000) >> 16;
-    }
-    */
 }
