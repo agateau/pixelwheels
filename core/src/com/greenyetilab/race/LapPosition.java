@@ -8,41 +8,41 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class LapPosition {
     private static final float UNINITIALIZED = -2;
-    private int sectionId = -1;
-    private Polygon sectionPolygon;
+    private int mSectionId = -1;
+    private Polygon mSectionPolygon;
     private float mX;
     private float mY;
-    private float sectionDistance;
+    private float mSectionDistance;
     private float mCenterDistance = UNINITIALIZED;
 
     public void init(int sectionId, Polygon sectionPolygon, float x, float y, float sectionDistance) {
-        this.sectionId = sectionId;
-        this.sectionPolygon = sectionPolygon;
-        this.mX = x;
-        this.mY = y;
-        this.sectionDistance = sectionDistance;
-        this.mCenterDistance = UNINITIALIZED;
+        mSectionId = sectionId;
+        mSectionPolygon = sectionPolygon;
+        mX = x;
+        mY = y;
+        mSectionDistance = sectionDistance;
+        mCenterDistance = UNINITIALIZED;
     }
 
     public void copy(LapPosition other) {
-        sectionId = other.sectionId;
-        sectionPolygon = other.sectionPolygon;
+        mSectionId = other.mSectionId;
+        mSectionPolygon = other.mSectionPolygon;
         mX = other.mX;
         mY = other.mY;
-        sectionDistance = other.sectionDistance;
+        mSectionDistance = other.mSectionDistance;
         mCenterDistance = other.mCenterDistance;
     }
 
     public int getSectionId() {
-        return this.sectionId;
+        return mSectionId;
     }
 
     public float getSectionDistance() {
-        return this.sectionDistance;
+        return mSectionDistance;
     }
 
     public float getLapDistance() {
-        return this.sectionId + this.sectionDistance;
+        return mSectionId + mSectionDistance;
     }
 
     public float getCenterDistance() {
@@ -67,11 +67,11 @@ public class LapPosition {
                M coordinates are (x, y)
 
              */
-        float[] vertices = sectionPolygon.getTransformedVertices();
-        float nx = MathUtils.lerp(vertices[0], vertices[2], sectionDistance);
-        float ny = MathUtils.lerp(vertices[1], vertices[3], sectionDistance);
-        float lx = MathUtils.lerp(vertices[6], vertices[4], sectionDistance);
-        float ly = MathUtils.lerp(vertices[7], vertices[5], sectionDistance);
+        float[] vertices = mSectionPolygon.getTransformedVertices();
+        float nx = MathUtils.lerp(vertices[0], vertices[2], mSectionDistance);
+        float ny = MathUtils.lerp(vertices[1], vertices[3], mSectionDistance);
+        float lx = MathUtils.lerp(vertices[6], vertices[4], mSectionDistance);
+        float ly = MathUtils.lerp(vertices[7], vertices[5], mSectionDistance);
         float nlLength = computeLength2(nx, ny, lx, ly);
         float nmLength = computeLength2(nx, ny, mX, mY);
         mCenterDistance = (float)Math.sqrt(nmLength / nlLength) * 2 - 1;
