@@ -248,7 +248,7 @@
    eJztl0sOwjAMRHMlKCBRAStgVbj/cZhNpKoqhCj+jCFPml2UTGPXdlLq/BMbaCu4zosjNKayz7yOnSg+2WHP2xLZP2M+1Nwto/8Ms7daoud75hdiUorFYGWkEY1YSOapR85r1GWJvXbQHjoYnqnBCTpDF28jjVyhG3T3NtLIBD2gp7eRTki8el30eai2z7DOFN++z5lY66XM77F3rPVSjXhox/ZTL9WYw7S+x6qXRszVOUv/lrVD8qylf8t4SJ01v4+WPb3rv9R9RP2nOj68AO79G5g=
   </data>
  </layer>
- <objectgroup name="Borders">
+ <objectgroup name="Borders" visible="0">
   <object x="2816" y="320" width="64" height="1600"/>
   <object x="320" y="320" width="64" height="1600"/>
   <object x="1088" y="832" width="1280" height="64"/>
@@ -298,23 +298,11 @@
   </object>
  </objectgroup>
  <objectgroup name="Zones" visible="0">
-  <object name="1" x="832" y="960">
-   <polygon points="0,0 -320,-384 -448,-64 -64,128"/>
-  </object>
   <object name="2" x="832" y="960">
    <polygon points="0,0 256,-128 128,-576 -320,-384"/>
   </object>
   <object name="3" x="1088" y="832">
    <polygon points="0,0 512,0 512,-448 -128,-448"/>
-  </object>
-  <object name="12" x="1408" y="1280">
-   <polygon points="64,0 -128,-384 -448,-256 -192,128"/>
-  </object>
-  <object name="14" x="832" y="1856">
-   <polygon points="0,-384 320,0 320,-320 0,-512"/>
-  </object>
-  <object name="13" x="1152" y="1536">
-   <polygon points="0,0 64,-128 -192,-512 -320,-192"/>
   </object>
   <object name="5" x="2304" y="832">
    <polygon points="0,0 64,0 512,-448 0,-448"/>
@@ -349,8 +337,20 @@
   <object name="0" x="768" y="1152">
    <polygon points="0,0 0,-64 -384,-256 -384,0"/>
   </object>
+  <object name="1" x="768" y="1088">
+   <polygon points="0,0 64,-128 -256,-512 -384,-192"/>
+  </object>
+  <object name="12" x="1280" y="896">
+   <polygon points="0,0 -320,128 -64,512 192,384"/>
+  </object>
+  <object name="14" x="832" y="1344">
+   <polygon points="0,0 0,128 320,512 320,192"/>
+  </object>
+  <object name="13" x="960" y="1024">
+   <polygon points="0,0 -128,320 192,512 256,384"/>
+  </object>
  </objectgroup>
- <objectgroup name="Waypoints">
+ <objectgroup name="Waypoints" visible="0">
   <properties>
    <property name="direction" value="90"/>
   </properties>
