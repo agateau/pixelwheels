@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  */
 public class Wheel implements Pool.Poolable, Disposable {
     private static final float MAX_LATERAL_IMPULSE = 8;
-    private static final float MAX_DRIVING_FORCE = 100;
+    public static final float MAX_DRIVING_FORCE = 100;
     private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
@@ -28,6 +28,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mOnFatalGround;
     private boolean mBraking;
     private boolean mCanDrift;
+    private float mMaxDrivingForce = MAX_DRIVING_FORCE;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -89,7 +90,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         if (amount == 0) {
             return;
         }
-        float force = MAX_DRIVING_FORCE * amount;
+        float force = mMaxDrivingForce * amount;
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
@@ -125,8 +126,15 @@ public class Wheel implements Pool.Poolable, Disposable {
         }
     }
 
-
     public void setCanDrift(boolean canDrift) {
         mCanDrift = canDrift;
+    }
+
+    public float getMaxDrivingForce() {
+        return mMaxDrivingForce;
+    }
+
+    public void setMaxDrivingForce(float maxDrivingForce) {
+        mMaxDrivingForce = maxDrivingForce;
     }
 }

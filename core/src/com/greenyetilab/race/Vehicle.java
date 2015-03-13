@@ -32,6 +32,7 @@ class Vehicle implements Disposable {
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    private String mName;
 
     private boolean mAccelerating = false;
     private boolean mBraking = false;
@@ -216,6 +217,14 @@ class Vehicle implements Disposable {
 
     public float getY() {
         return mBody.getPosition().y;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public String getName() {
+        return mName;
     }
 
     private static float normAngle(float angle) {

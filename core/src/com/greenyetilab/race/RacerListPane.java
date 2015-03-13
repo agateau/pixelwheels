@@ -1,7 +1,6 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -22,7 +21,7 @@ public class RacerListPane extends ScrollPane {
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
             String style = racer == playerRacer ? "newHighScore" : "highScore";
-            String name = racer == playerRacer ? "You" : "CPU";
+            String name = racer.getVehicle().getName();
             table.add(String.format("%d.", idx + 1), style).right();
             table.add(name, style).expandX().right();
             table.row();
