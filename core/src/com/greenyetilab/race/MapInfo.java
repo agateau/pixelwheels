@@ -238,6 +238,23 @@ public class MapInfo implements Disposable {
         return lst;
     }
 
+    public Array<Vector2> findBonusSpotPositions() {
+        final float U = Constants.UNIT_FOR_PIXEL;
+        MapLayer layer = mMap.getLayers().get("BonusSpots");
+        Assert.check(layer != null, "No BonusSpots layer");
+        Array<Vector2> lst = new Array<Vector2>();
+
+        for (MapObject object : layer.getObjects()) {
+            if (!(object instanceof EllipseMapObject)) {
+                throw new RuntimeException("BonusSpots layer should contains only ellipses. " + object + " is not an ellipse.");
+            }
+            Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
+            Vector2 pos = new Vector2(ellipse.x * U, ellipse.y * U);
+            lst.add(pos);
+        }
+        return lst;
+    }
+
     private void readZones() {
         final float U = Constants.UNIT_FOR_PIXEL;
         MapLayer zoneLayer = mMap.getLayers().get("Zones");

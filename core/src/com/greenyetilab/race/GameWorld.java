@@ -64,6 +64,7 @@ public class GameWorld implements ContactListener, Disposable {
         setupRacers();
         setupOutsideWalls();
         setupRoadBorders();
+        setupBonusSpots();
     }
 
     public MapInfo getMapInfo() {
@@ -256,6 +257,13 @@ public class GameWorld implements ContactListener, Disposable {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
+        }
+    }
+
+    private void setupBonusSpots() {
+        for (Vector2 pos : mMapInfo.findBonusSpotPositions()) {
+            BonusSpot spot = new BonusSpot(mGame.getAssets(), this, pos.x, pos.y);
+            addGameObject(spot);
         }
     }
 

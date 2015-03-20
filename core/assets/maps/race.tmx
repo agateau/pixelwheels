@@ -406,4 +406,24 @@
    <ellipse/>
   </object>
  </objectgroup>
+ <objectgroup name="BonusSpots">
+  <object x="2176" y="448" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="2176" y="576" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="2304" y="1600" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="2304" y="1728" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="1152" y="1088" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="1216" y="1216" width="64" height="64">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

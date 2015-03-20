@@ -66,10 +66,9 @@ public class Racer implements GameObject, Collidable, Disposable {
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Gift) {
-            Gift gift = (Gift)other;
-            gift.pick();
-            adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
+        if (other instanceof BonusSpot) {
+            BonusSpot spot = (BonusSpot)other;
+            spot.pickBonus();
         }
     }
 
