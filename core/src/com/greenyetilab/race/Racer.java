@@ -1,10 +1,12 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -69,6 +71,7 @@ public class Racer implements GameObject, Collidable, Disposable {
         if (other instanceof BonusSpot) {
             BonusSpot spot = (BonusSpot)other;
             spot.pickBonus();
+            selectBonus();
         }
     }
 
@@ -112,6 +115,13 @@ public class Racer implements GameObject, Collidable, Disposable {
             dispose();
         }
         return keep;
+    }
+
+    private void selectBonus() {
+        Array<BonusPool> pools = mGameWorld.getBonusPools();
+        int idx = MathUtils.random(pools.size - 1);
+        BonusPool pool = pools.get(idx);
+        Bonus bonus = pool.obtain();
     }
 
     private void updatePosition() {

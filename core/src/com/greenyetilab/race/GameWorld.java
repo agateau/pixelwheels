@@ -38,6 +38,8 @@ public class GameWorld implements ContactListener, Disposable {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
+    private Array<BonusPool> mBonusPools = new Array<BonusPool>();
+
     private final Array<Racer> mRacers = new Array<Racer>();
     private Racer mPlayerRacer;
     private State mState = State.RUNNING;
@@ -65,6 +67,7 @@ public class GameWorld implements ContactListener, Disposable {
         setupOutsideWalls();
         setupRoadBorders();
         setupBonusSpots();
+        setupBonusPools();
     }
 
     public MapInfo getMapInfo() {
@@ -81,6 +84,10 @@ public class GameWorld implements ContactListener, Disposable {
 
     public Array<Racer> getRacers() {
         return mRacers;
+    }
+
+    public Array<BonusPool> getBonusPools() {
+        return mBonusPools;
     }
 
     public Vehicle getPlayerVehicle() {
@@ -230,6 +237,7 @@ public class GameWorld implements ContactListener, Disposable {
             addGameObject(racer);
             mRacers.add(racer);
             ++rank;
+            return;
         }
     }
 
@@ -265,6 +273,10 @@ public class GameWorld implements ContactListener, Disposable {
             BonusSpot spot = new BonusSpot(mGame.getAssets(), this, pos.x, pos.y);
             addGameObject(spot);
         }
+    }
+
+    private void setupBonusPools() {
+        mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this));
     }
 
     public void addSkidmarkAt(Vector2 position) {
@@ -338,5 +350,4 @@ public class GameWorld implements ContactListener, Disposable {
     public void dispose() {
         mMapInfo.dispose();
     }
-
 }
