@@ -28,7 +28,7 @@ public class TouchInputHandler implements GameInputHandler {
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        mInput.shooting = false;
+        mInput.triggeringBonus = false;
         mInput.braking = false;
         mInput.accelerating = true;
         for (int i = 0; i < 5; i++) {

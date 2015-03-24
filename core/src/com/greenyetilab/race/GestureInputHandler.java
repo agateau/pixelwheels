@@ -34,7 +34,7 @@ public class GestureInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = false;
         mInput.accelerating = true;
-        mInput.shooting = false;
+        mInput.triggeringBonus = false;
         mInput.direction = 0;
         if (mPanPointer != NO_POINTER) {
             updatePanning();

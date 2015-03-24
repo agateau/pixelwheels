@@ -16,7 +16,7 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public String getDescription() {
-        return "Left and Right keys: Drive.\nLeft-Ctrl: Fire.";
+        return "Left and Right keys: Drive.\nLeft-Ctrl: Activate bonus.";
     }
 
     @Override
@@ -33,7 +33,7 @@ public class KeyboardInputHandler implements GameInputHandler {
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             mInput.direction = -1;
         }
-        mInput.shooting = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
+        mInput.triggeringBonus = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
 
         return mInput;
     }
