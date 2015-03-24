@@ -18,8 +18,10 @@ public class GunBonus implements Bonus, Pool.Poolable {
         }
     }
 
-    public GunBonus(Assets assets, GameWorld gameWorld) {
+    private final Assets mAssets;
 
+    public GunBonus(Assets assets, GameWorld gameWorld) {
+        mAssets = assets;
     }
 
     @Override
@@ -29,6 +31,6 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return null;
+        return mAssets.findRegion("hud-fire");
     }
 }
