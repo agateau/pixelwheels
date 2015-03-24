@@ -8,13 +8,13 @@ import java.util.HashMap;
  * Super simple message bus system
  */
 public class NMessageBus {
-    private static final HashMap<String, Array<Handler>> mHandlerForChannel = new HashMap<String, Array<Handler>>();
+    private final HashMap<String, Array<Handler>> mHandlerForChannel = new HashMap<String, Array<Handler>>();
 
     public interface Handler {
         public void handle(String channel, Object data);
     }
 
-    public static void register(String channel, Handler handler) {
+    public void register(String channel, Handler handler) {
         Array<Handler> array = mHandlerForChannel.get(channel);
         if (array == null) {
             array = new Array<Handler>();
@@ -23,7 +23,11 @@ public class NMessageBus {
         array.add(handler);
     }
 
-    public static void post(String channel, Object data) {
+    public void post(String channel) {
+        post(channel, null);
+    }
+
+    public void post(String channel, Object data) {
         Array<Handler> array = mHandlerForChannel.get(channel);
         if (array == null) {
             return;
