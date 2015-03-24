@@ -12,6 +12,28 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * Handle inputs using gestures
  */
 public class GestureInputHandler implements GameInputHandler {
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "gesture";
+        }
+
+        @Override
+        public String getName() {
+            return "Gesture";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new GestureInputHandler();
+        }
+    }
+
     private static final int NO_POINTER = -1;
     private static final float PANNING_AREA = 0.7f;
     private static final float PANNING_SENSITIVITY = 2.5f;
@@ -19,16 +41,6 @@ public class GestureInputHandler implements GameInputHandler {
     private GameInput mInput = new GameInput();
     private int mPanPointer = NO_POINTER;
     private float mPanStart = 0; // mPanStart goes from 0 to 1
-
-    @Override
-    public String getName() {
-        return "Gesture";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
-    }
 
     @Override
     public GameInput getGameInput() {

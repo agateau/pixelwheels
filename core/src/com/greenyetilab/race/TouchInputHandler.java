@@ -11,19 +11,31 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * Handle inputs with touch screen only
  */
 public class TouchInputHandler implements GameInputHandler {
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "touch";
+        }
+
+        @Override
+        public String getName() {
+            return "Touch";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to brake.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new TouchInputHandler();
+        }
+    }
+
     private static final float LEFT_PERCENT = 0.25f;
     private static final float RIGHT_PERCENT = 0.5f;
     private GameInput mInput = new GameInput();
-
-    @Override
-    public String getName() {
-        return "Touch";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to brake.";
-    }
 
     @Override
     public GameInput getGameInput() {

@@ -7,19 +7,31 @@ import com.badlogic.gdx.math.MathUtils;
  * Handles game input using the accelerometer
  */
 public class AccelerometerInputHandler implements GameInputHandler {
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "accelerometer";
+        }
+
+        @Override
+        public String getName() {
+            return "Accelerometer";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Tilt the phone to go left or right, touch anywhere to fire.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new AccelerometerInputHandler();
+        }
+    }
+
     private static final float MAX_ACCELEROMETER = 10;
 
     private GameInput mInput = new GameInput();
-
-    @Override
-    public String getName() {
-        return "Accelerometer";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Tilt the phone to go left or right, touch anywhere to fire.";
-    }
 
     @Override
     public GameInput getGameInput() {

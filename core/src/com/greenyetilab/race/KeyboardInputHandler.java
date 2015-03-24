@@ -7,17 +7,30 @@ import com.badlogic.gdx.Input;
  * Handle keyboard input, for desktop mode
  */
 public class KeyboardInputHandler implements GameInputHandler {
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "keyboard";
+        }
+
+        @Override
+        public String getName() {
+            return "Keyboard";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Left and Right keys: Drive.\nLeft-Ctrl: Activate bonus.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new KeyboardInputHandler();
+        }
+
+    }
+
     private GameInput mInput = new GameInput();
-
-    @Override
-    public String getName() {
-        return "Keyboard";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Left and Right keys: Drive.\nLeft-Ctrl: Activate bonus.";
-    }
 
     @Override
     public GameInput getGameInput() {
