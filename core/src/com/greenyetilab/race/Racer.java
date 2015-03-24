@@ -13,16 +13,22 @@ import com.badlogic.gdx.utils.Disposable;
  * A racer
  */
 public class Racer implements GameObject, Collidable, Disposable {
+    public final NMessageBus messageBus = new NMessageBus();
+
+    public static final String BONUS_CHANGED = "bonusChanged";
+
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
+
     private Pilot mPilot;
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mFinished = false;
     private int mScore;
+    private Bonus mBonus;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
@@ -58,6 +64,10 @@ public class Racer implements GameObject, Collidable, Disposable {
 
     public boolean isFinished() {
         return mFinished;
+    }
+
+    public Bonus getBonus() {
+        return mBonus;
     }
 
     public void adjustScore(int delta, float x, float y) {
@@ -121,7 +131,8 @@ public class Racer implements GameObject, Collidable, Disposable {
         Array<BonusPool> pools = mGameWorld.getBonusPools();
         int idx = MathUtils.random(pools.size - 1);
         BonusPool pool = pools.get(idx);
-        Bonus bonus = pool.obtain();
+        mBonus = pool.obtain();
+        messageBus.post("bonusChanged");
     }
 
     private void updatePosition() {
