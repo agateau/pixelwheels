@@ -35,6 +35,8 @@ public class TouchInputHandler implements GameInputHandler {
 
     private static final float LEFT_PERCENT = 0.25f;
     private static final float RIGHT_PERCENT = 0.5f;
+
+    private final BonusIndicator mBonusIndicator = new BonusIndicator();
     private GameInput mInput = new GameInput();
 
     @Override
@@ -47,14 +49,20 @@ public class TouchInputHandler implements GameInputHandler {
             if (!Gdx.input.isTouched(i)) {
                 continue;
             }
-            float x = Gdx.input.getX(i) / (float)Gdx.graphics.getWidth();
-            if (x < LEFT_PERCENT) {
-                mInput.direction = 1;
-            } else if (x < RIGHT_PERCENT) {
-                mInput.direction = -1;
+            float x = Gdx.input.getX(i);
+            float y = Gdx.graphics.getHeight() - Gdx.input.getY(i);
+            if (mBonusIndicator.hit(x - mBonusIndicator.getX(), y - mBonusIndicator.getY(), false) != null) {
+                mInput.triggeringBonus = true;
             } else {
-                mInput.accelerating = false;
-                mInput.braking = true;
+                float normalizedX = x / (float) Gdx.graphics.getWidth();
+                if (normalizedX < LEFT_PERCENT) {
+                    mInput.direction = 1;
+                } else if (normalizedX < RIGHT_PERCENT) {
+                    mInput.direction = -1;
+                } else {
+                    mInput.accelerating = false;
+                    mInput.braking = true;
+                }
             }
         }
         return mInput;
@@ -69,11 +77,12 @@ public class TouchInputHandler implements GameInputHandler {
         createHudIndicator(assets.findRegion("hud-left"), group, 0, LEFT_PERCENT);
         createHudIndicator(assets.findRegion("hud-right"), group, LEFT_PERCENT, RIGHT_PERCENT);
         createHudIndicator(assets.findRegion("hud-back"), group, RIGHT_PERCENT, 1);
+        group.addPositionRule(mBonusIndicator, Anchor.TOP_RIGHT, group, Anchor.CENTER_RIGHT, 0, 0);
     }
 
     @Override
     public BonusIndicator getBonusIndicator() {
-        return null;
+        return mBonusIndicator;
     }
 
     private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
