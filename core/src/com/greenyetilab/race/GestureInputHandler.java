@@ -25,7 +25,7 @@ public class GestureInputHandler implements GameInputHandler {
 
         @Override
         public String getDescription() {
-            return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
+            return "Swipe on the left part of the screen to go left or right.";
         }
 
         @Override
@@ -38,6 +38,7 @@ public class GestureInputHandler implements GameInputHandler {
     private static final float PANNING_AREA = 0.7f;
     private static final float PANNING_SENSITIVITY = 2.5f;
 
+    private final BonusIndicator mBonusIndicator = new BonusIndicator();
     private GameInput mInput = new GameInput();
     private int mPanPointer = NO_POINTER;
     private float mPanStart = 0; // mPanStart goes from 0 to 1
@@ -58,13 +59,19 @@ public class GestureInputHandler implements GameInputHandler {
             if (!Gdx.input.isTouched(pointer)) {
                 continue;
             }
-            float x = Gdx.input.getX(pointer) / (float)Gdx.graphics.getWidth();
-            if (x <= PANNING_AREA) {
-                mPanPointer = pointer;
-                mPanStart = x / PANNING_AREA;
+            float x = Gdx.input.getX(pointer);
+            float y = Gdx.graphics.getHeight() - Gdx.input.getY(pointer);
+            if (mBonusIndicator.hit(x - mBonusIndicator.getX(), y - mBonusIndicator.getY(), false) != null) {
+                mInput.triggeringBonus = true;
             } else {
-                mInput.accelerating = false;
-                mInput.braking = true;
+                float normalizedX = x / (float) Gdx.graphics.getWidth();
+                if (normalizedX <= PANNING_AREA) {
+                    mPanPointer = pointer;
+                    mPanStart = normalizedX / PANNING_AREA;
+                } else {
+                    mInput.accelerating = false;
+                    mInput.braking = true;
+                }
             }
         }
         return mInput;
@@ -88,11 +95,12 @@ public class GestureInputHandler implements GameInputHandler {
 
         createHudIndicator(assets.findRegion("hud-swipe"), group, 0, PANNING_AREA);
         createHudIndicator(assets.findRegion("hud-back"), group, PANNING_AREA, 1);
+        group.addPositionRule(mBonusIndicator, Anchor.TOP_RIGHT, group, Anchor.CENTER_RIGHT, 0, 0);
     }
 
     @Override
     public BonusIndicator getBonusIndicator() {
-        return null;
+        return mBonusIndicator;
     }
 
     private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
