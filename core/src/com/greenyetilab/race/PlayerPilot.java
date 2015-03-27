@@ -4,7 +4,6 @@ package com.greenyetilab.race;
  * A pilot controlled by the player
  */
 public class PlayerPilot implements Pilot {
-    private static final float SHOOT_RECOIL = 0.1f;
     private static final float DIRECTION_CORRECTION_STRENGTH = 0.008f;
 
     private final Assets mAssets;
@@ -14,8 +13,6 @@ public class PlayerPilot implements Pilot {
 
     private GameInputHandler mInputHandler;
     private boolean mAutoCorrectDirection = false;
-
-    private float mShootRecoilTime = 0;
 
     public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer) {
         mAssets = assets;
@@ -40,10 +37,6 @@ public class PlayerPilot implements Pilot {
             return true;
         }
 
-        if (mShootRecoilTime > 0) {
-            mShootRecoilTime -= dt;
-        }
-
         if (vehicle.getY() > mGameWorld.getTopVisibleY()) {
             mGameWorld.setState(GameWorld.State.FINISHED);
             vehicle.setAccelerating(false);
@@ -62,9 +55,8 @@ public class PlayerPilot implements Pilot {
             vehicle.setDirection(input.direction);
             vehicle.setAccelerating(input.accelerating);
             vehicle.setBraking(input.braking);
-            if (input.triggeringBonus && mShootRecoilTime <= 0) {
-                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
-                mShootRecoilTime = SHOOT_RECOIL;
+            if (input.triggeringBonus) {
+                mRacer.triggerBonus();
             }
         }
         return true;

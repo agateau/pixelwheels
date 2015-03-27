@@ -19,9 +19,11 @@ public class GunBonus implements Bonus, Pool.Poolable {
     }
 
     private final Assets mAssets;
+    private final GameWorld mGameWorld;
 
     public GunBonus(Assets assets, GameWorld gameWorld) {
         mAssets = assets;
+        mGameWorld = gameWorld;
     }
 
     @Override
@@ -32,5 +34,11 @@ public class GunBonus implements Bonus, Pool.Poolable {
     @Override
     public TextureRegion getIconRegion() {
         return mAssets.findRegion("hud-fire");
+    }
+
+    @Override
+    public void trigger(Racer racer) {
+        Vehicle vehicle = racer.getVehicle();
+        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, racer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
     }
 }

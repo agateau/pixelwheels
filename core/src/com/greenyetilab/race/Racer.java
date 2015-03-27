@@ -169,4 +169,12 @@ public class Racer implements GameObject, Collidable, Disposable {
     public int getScore() {
         return mScore;
     }
+
+    public void triggerBonus() {
+        if (mBonus == null) {
+            return;
+        }
+        mBonus.trigger(this);
+        mBonus = null;
+    }
 }

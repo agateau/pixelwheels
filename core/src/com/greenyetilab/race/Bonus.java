@@ -7,4 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public interface Bonus {
     TextureRegion getIconRegion();
+
+    void trigger(Racer racer);
 }
