@@ -2,11 +2,15 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * A gun bonus
  */
 public class GunBonus implements Bonus, Pool.Poolable {
+    private static final float SHOOT_INTERVAL = 0.1f;
+    private static final int SHOOT_COUNT = 10;
+
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
             super(assets, gameWorld);
@@ -14,14 +18,28 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new GunBonus(mAssets, mGameWorld);
+            return new GunBonus(this, mAssets, mGameWorld);
         }
     }
 
+    private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
+    private Racer mRacer;
 
-    public GunBonus(Assets assets, GameWorld gameWorld) {
+    private final Timer.Task mTask = new Timer.Task() {
+        @Override
+        public void run() {
+            Vehicle vehicle = mRacer.getVehicle();
+            mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
+            if (!isScheduled()) {
+                mPool.free(GunBonus.this);
+            }
+        }
+    };
+
+    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld) {
+        mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
     }
@@ -38,7 +56,7 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void trigger(Racer racer) {
-        Vehicle vehicle = racer.getVehicle();
-        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, racer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
+        mRacer = racer;
+        Timer.schedule(mTask, 0, SHOOT_INTERVAL, SHOOT_COUNT);
     }
 }
