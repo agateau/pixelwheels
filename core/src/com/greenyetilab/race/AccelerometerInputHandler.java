@@ -39,7 +39,7 @@ public class AccelerometerInputHandler implements GameInputHandler {
         mInput.accelerating = true;
         mInput.triggeringBonus = false;
 
-        float angle = Gdx.input.getAccelerometerX();
+        float angle = Gdx.input.getAccelerometerY();
         mInput.direction = MathUtils.clamp(angle, -MAX_ACCELEROMETER, MAX_ACCELEROMETER) / MAX_ACCELEROMETER;
         for (int i = 0; i < 5; i++) {
             if (Gdx.input.isTouched(i)) {
