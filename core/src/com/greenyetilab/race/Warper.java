@@ -184,15 +184,20 @@ public class Warper {
     }
 
     private static void warp(float[] mat, float srcX, float srcY, Vector2 output) {
+        /*
         float[] result = new float[4];
         float z = 0;
-        result[0] = srcX * mat[0] + srcY*mat[4] + z*mat[8] + 1*mat[12];
-        result[1] = srcX * mat[1] + srcY*mat[5] + z*mat[9] + 1*mat[13];
-        result[2] = srcX * mat[2] + srcY*mat[6] + z*mat[10] + 1*mat[14];
-        result[3] = srcX * mat[3] + srcY*mat[7] + z*mat[11] + 1*mat[15];
+        result[0] = srcX * mat[0] + srcY * mat[4] + z * mat[8] + 1 * mat[12];
+        result[1] = srcX * mat[1] + srcY * mat[5] + z * mat[9] + 1 * mat[13];
+        result[2] = srcX * mat[2] + srcY * mat[6] + z * mat[10] + 1 * mat[14];
+        result[3] = srcX * mat[3] + srcY * mat[7] + z * mat[11] + 1 * mat[15];
+        */
+        final float result0 = srcX * mat[0] + srcY * mat[4] + mat[12];
+        final float result1 = srcX * mat[1] + srcY * mat[5] + mat[13];
+        final float result3 = srcX * mat[3] + srcY * mat[7] + mat[15];
         output.set(
-            result[0]/result[3],
-            result[1]/result[3]
+            result0 / result3,
+            result1 / result3
         );
     }
 
