@@ -1,6 +1,7 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -11,8 +12,8 @@ public class BonusIndicator extends Actor {
     private Bonus mBonus;
 
     public BonusIndicator() {
-        setWidth(40);
-        setHeight(40);
+        setWidth(50);
+        setHeight(50);
     }
 
     public Bonus getBonus() {
@@ -28,6 +29,9 @@ public class BonusIndicator extends Actor {
         if (mBonus == null) {
             return;
         }
-        batch.draw(mBonus.getIconRegion(), MathUtils.round(getX()), MathUtils.round(getY()));
+        TextureRegion region = mBonus.getIconRegion();
+        float x = getX() + (getWidth() - region.getRegionWidth()) / 2;
+        float y = getY() + (getHeight() - region.getRegionHeight()) / 2;
+        batch.draw(mBonus.getIconRegion(), MathUtils.round(x), MathUtils.round(y));
     }
 }
