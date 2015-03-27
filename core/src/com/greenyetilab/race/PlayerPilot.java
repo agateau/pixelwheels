@@ -50,6 +50,11 @@ public class PlayerPilot implements Pilot {
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
+            BonusIndicator bonusIndicator = mInputHandler.getBonusIndicator();
+            if (mRacer.getBonus() != bonusIndicator.getBonus()) {
+                bonusIndicator.setBonus(mRacer.getBonus());
+            }
+
             GameInput input = mInputHandler.getGameInput();
             if (mAutoCorrectDirection && input.direction == 0) {
                 input.direction = computeCorrectedDirection();

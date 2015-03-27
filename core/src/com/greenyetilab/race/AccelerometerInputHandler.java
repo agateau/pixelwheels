@@ -54,4 +54,9 @@ public class AccelerometerInputHandler implements GameInputHandler {
     public void createHud(Assets assets, HudBridge hudBridge) {
 
     }
+
+    @Override
+    public BonusIndicator getBonusIndicator() {
+        return null;
+    }
 }

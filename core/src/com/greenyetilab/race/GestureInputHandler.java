@@ -90,6 +90,11 @@ public class GestureInputHandler implements GameInputHandler {
         createHudIndicator(assets.findRegion("hud-back"), group, PANNING_AREA, 1);
     }
 
+    @Override
+    public BonusIndicator getBonusIndicator() {
+        return null;
+    }
+
     private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
         InputHudIndicator indicator = new InputHudIndicator(icon);
         PositionRule rule = new PositionRule();

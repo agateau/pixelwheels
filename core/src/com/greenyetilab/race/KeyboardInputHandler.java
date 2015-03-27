@@ -2,6 +2,8 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * Handle keyboard input, for desktop mode
@@ -30,7 +32,13 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     }
 
+    private final BonusIndicator mBonusIndicator = new BonusIndicator();
     private GameInput mInput = new GameInput();
+
+    @Override
+    public BonusIndicator getBonusIndicator() {
+        return mBonusIndicator;
+    }
 
     @Override
     public GameInput getGameInput() {
@@ -53,5 +61,9 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public void createHud(Assets assets, HudBridge hudBridge) {
+        AnchorGroup group = new AnchorGroup();
+        group.setFillParent(true);
+        hudBridge.getStage().addActor(group);
+        group.addPositionRule(mBonusIndicator, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT, 16, -48);
     }
 }

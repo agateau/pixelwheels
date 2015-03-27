@@ -13,10 +13,6 @@ import com.badlogic.gdx.utils.Disposable;
  * A racer
  */
 public class Racer implements GameObject, Collidable, Disposable {
-    public final NMessageBus messageBus = new NMessageBus();
-
-    public static final String BONUS_CHANGED = "bonusChanged";
-
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
@@ -132,7 +128,6 @@ public class Racer implements GameObject, Collidable, Disposable {
         int idx = MathUtils.random(pools.size - 1);
         BonusPool pool = pools.get(idx);
         mBonus = pool.obtain();
-        messageBus.post("bonusChanged");
     }
 
     private void updatePosition() {
