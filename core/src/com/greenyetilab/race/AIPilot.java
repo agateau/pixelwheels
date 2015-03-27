@@ -31,6 +31,10 @@ public class AIPilot implements Pilot {
         Vector2 waypoint = mMapInfo.getWaypoint(mRacer.getX(), mRacer.getY());
         mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
 
+        // Dumb behavior: use bonus as soon as we get it
+        if (mRacer.getBonus() != null) {
+            mRacer.triggerBonus();
+        }
 
         float targetAngle = normAngle(mTargetVector.angle());
         float vehicleAngle = normAngle(vehicle.getAngle());
