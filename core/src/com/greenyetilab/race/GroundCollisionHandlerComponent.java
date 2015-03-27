@@ -3,14 +3,15 @@ package com.greenyetilab.race;
 /**
  * Handles collisions
  */
-public class CollisionHandlerComponent {
+public class GroundCollisionHandlerComponent {
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
 
-    public CollisionHandlerComponent(Vehicle vehicle, HealthComponent healthComponent) {
+    public GroundCollisionHandlerComponent(Vehicle vehicle, HealthComponent healthComponent) {
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
     }
+
     public boolean act(float dt) {
         if (mHealthComponent.getState() == HealthComponent.State.ALIVE) {
             checkGroundCollisions();

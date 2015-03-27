@@ -1,37 +1,28 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-
 /**
  * A pilot controlled by the player
  */
 public class PlayerPilot implements Pilot {
-    private static final float SHOOT_RECOIL = 0.1f;
     private static final float DIRECTION_CORRECTION_STRENGTH = 0.008f;
 
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final GameObject mPlayerGameObject;
-    private final Vehicle mVehicle;
+    private final Racer mRacer;
     private final HealthComponent mHealthComponent;
 
     private GameInputHandler mInputHandler;
     private boolean mAutoCorrectDirection = false;
 
-    private float mShootRecoilTime = 0;
-
-    public PlayerPilot(Assets assets, GameWorld gameWorld, GameObject playerGameObject, Vehicle vehicle, HealthComponent healthComponent) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer) {
         mAssets = assets;
         mGameWorld = gameWorld;
-        mPlayerGameObject = playerGameObject;
-        mVehicle = vehicle;
-        mHealthComponent = healthComponent;
+        mRacer = racer;
+        mHealthComponent = mRacer.getHealthComponent();
 
-        String inputHandlerName = RaceGame.getPreferences().getString("input", "");
-        mInputHandler = GameInputHandlers.getHandlerByClassName(inputHandlerName);
+        String inputHandlerId = RaceGame.getPreferences().getString("input", "");
+        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
+        mInputHandler = factory.create();
         mInputHandler.createHud(assets, mGameWorld.getHudBridge());
 
         mAutoCorrectDirection = RaceGame.getPreferences().getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT);
@@ -39,62 +30,42 @@ public class PlayerPilot implements Pilot {
 
     @Override
     public boolean act(float dt) {
+        Vehicle vehicle = mRacer.getVehicle();
         if (mHealthComponent.getHealth() == 0) {
-            mVehicle.setBraking(true);
-            mVehicle.setAccelerating(false);
+            vehicle.setBraking(true);
+            vehicle.setAccelerating(false);
             return true;
         }
 
-        if (mShootRecoilTime > 0) {
-            mShootRecoilTime -= dt;
-        }
-
-        if (mVehicle.getY() > mGameWorld.getTopVisibleY()) {
+        if (vehicle.getY() > mGameWorld.getTopVisibleY()) {
             mGameWorld.setState(GameWorld.State.FINISHED);
-            mVehicle.setAccelerating(false);
+            vehicle.setAccelerating(false);
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
+            BonusIndicator bonusIndicator = mInputHandler.getBonusIndicator();
+            if (mRacer.getBonus() != bonusIndicator.getBonus()) {
+                bonusIndicator.setBonus(mRacer.getBonus());
+            }
+
             GameInput input = mInputHandler.getGameInput();
             if (mAutoCorrectDirection && input.direction == 0) {
                 input.direction = computeCorrectedDirection();
             }
-            mVehicle.setDirection(input.direction);
-            mVehicle.setAccelerating(input.accelerating);
-            mVehicle.setBraking(input.braking);
-            if (input.shooting && mShootRecoilTime <= 0) {
-                mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mVehicle.getX(), mVehicle.getY(), mVehicle.getAngle()));
-                mShootRecoilTime = SHOOT_RECOIL;
+            vehicle.setDirection(input.direction);
+            vehicle.setAccelerating(input.accelerating);
+            vehicle.setBraking(input.braking);
+            if (input.triggeringBonus) {
+                mRacer.triggerBonus();
             }
         }
         return true;
     }
 
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-        Object other = otherFixture.getBody().getUserData();
-        if (other instanceof Gift) {
-            Gift gift = (Gift)other;
-            gift.pick();
-            mGameWorld.adjustScore(Constants.SCORE_GIFT_PICK, gift.getX(), gift.getY());
-        }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-    }
-
     private float computeCorrectedDirection() {
-        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(mVehicle.getX(), mVehicle.getY());
-        float angle = mVehicle.getAngle();
+        Vehicle vehicle = mRacer.getVehicle();
+        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(vehicle.getX(), vehicle.getY());
+        float angle = vehicle.getAngle();
         float delta = Math.abs(angle - directionAngle);
         if (delta < 2) {
             return 0;

@@ -7,7 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.greenyetilab.utils.FileUtils;
+import com.greenyetilab.utils.Assert;
 
 import java.util.Stack;
 
@@ -17,8 +17,6 @@ import java.util.Stack;
 public class RaceGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
-    private MapCreator mMapCreator = new MapCreator();
-    private HighScoreTable mHighScoreTable = new HighScoreTable();
 
     public Assets getAssets() {
         return mAssets;
@@ -28,14 +26,6 @@ public class RaceGame extends Game {
     public void create() {
         mAssets = new Assets();
         Box2D.init();
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/straight_single_single.tmx"));
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/cross_single_single.tmx"));
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/right-left_single_single.tmx"));
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/curve_single_single.tmx"));
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/shrink_single_single.tmx"));
-        mMapCreator.addSourceMap(new AtlasTmxMapLoader().load("maps/split_single_single.tmx"));
-
-        mHighScoreTable.init(FileUtils.getUserWritableFile("highscore.xml"));
         showMainMenu();
     }
 
@@ -45,7 +35,7 @@ public class RaceGame extends Game {
     }
 
     public void start() {
-        TiledMap map = mMapCreator.run(20);
+        TiledMap map = new AtlasTmxMapLoader().load("maps/race.tmx");
         MapInfo mapInfo = new MapInfo(map);
         Screen screen = new RaceGameScreen(this, mapInfo);
         replaceScreen(screen);
@@ -68,13 +58,9 @@ public class RaceGame extends Game {
     }
 
     public void popScreen() {
-        assert !mScreenStack.isEmpty();
+        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
         mScreenStack.pop().dispose();
-        assert !mScreenStack.isEmpty();
+        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
         setScreen(mScreenStack.peek());
-    }
-
-    public HighScoreTable getHighScoreTable() {
-        return mHighScoreTable;
     }
 }

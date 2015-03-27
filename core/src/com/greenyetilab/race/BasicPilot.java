@@ -41,23 +41,4 @@ class BasicPilot implements Pilot {
         }
         return true;
     }
-
-    @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-
-    }
-
-    @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
 }

@@ -13,8 +13,8 @@ public class Constants {
 
     public static final int Z_COUNT = Z_FLYING + 1;
 
-    public static final float VIEWPORT_WIDTH = 40;
-    public static final float CAMERA_ADVANCE_PERCENT = 0.7f;
+    public static final float VIEWPORT_WIDTH = 45;
+    public static final float CAMERA_ADVANCE_PERCENT = 0.2f;
 
     public static final float SCORE_PER_METER = 1;
     public static final float VIEWPORT_POOL_RECYCLE_HEIGHT = 10;
@@ -24,4 +24,6 @@ public class Constants {
     public static final int SCORE_GIFT_PICK = 400;
 
     public static final int PLAYER_HEALTH = 3;
+    public static final boolean CLAMP_CAMERA = true;
+    public static final boolean ROTATE_CAMERA = false;
 }

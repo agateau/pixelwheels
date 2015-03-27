@@ -12,6 +12,28 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * Handle inputs using gestures
  */
 public class GestureInputHandler implements GameInputHandler {
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "gesture";
+        }
+
+        @Override
+        public String getName() {
+            return "Gesture";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new GestureInputHandler();
+        }
+    }
+
     private static final int NO_POINTER = -1;
     private static final float PANNING_AREA = 0.7f;
     private static final float PANNING_SENSITIVITY = 2.5f;
@@ -21,20 +43,10 @@ public class GestureInputHandler implements GameInputHandler {
     private float mPanStart = 0; // mPanStart goes from 0 to 1
 
     @Override
-    public String getName() {
-        return "Gesture";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Swipe on the left part of the screen to go left or right, touch right part of the screen to fire.";
-    }
-
-    @Override
     public GameInput getGameInput() {
         mInput.braking = false;
         mInput.accelerating = true;
-        mInput.shooting = false;
+        mInput.triggeringBonus = false;
         mInput.direction = 0;
         if (mPanPointer != NO_POINTER) {
             updatePanning();
@@ -51,7 +63,8 @@ public class GestureInputHandler implements GameInputHandler {
                 mPanPointer = pointer;
                 mPanStart = x / PANNING_AREA;
             } else {
-                mInput.shooting = true;
+                mInput.accelerating = false;
+                mInput.braking = true;
             }
         }
         return mInput;
@@ -73,13 +86,17 @@ public class GestureInputHandler implements GameInputHandler {
         group.setFillParent(true);
         hudBridge.getStage().addActor(group);
 
-        TextureRegion bg = assets.hudBackground;
-        createHudIndicator(bg, assets.findRegion("hud-swipe"), true, group, 0, PANNING_AREA);
-        createHudIndicator(bg, assets.findRegion("hud-fire"), false, group, PANNING_AREA, 1);
+        createHudIndicator(assets.findRegion("hud-swipe"), group, 0, PANNING_AREA);
+        createHudIndicator(assets.findRegion("hud-back"), group, PANNING_AREA, 1);
     }
 
-    private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
-        InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
+    @Override
+    public BonusIndicator getBonusIndicator() {
+        return null;
+    }
+
+    private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
+        InputHudIndicator indicator = new InputHudIndicator(icon);
         PositionRule rule = new PositionRule();
         rule.reference = group;
         rule.referenceAnchor = new Anchor(start, 0);

@@ -180,7 +180,7 @@
    eJxjYBgFo2AUjIJRMApGwSgY3gAACPAAAQ==
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object name="forest" x="128" y="128" width="256" height="448"/>
   <object name="forest" x="1280" y="960" width="256" height="384"/>
   <object name="house" x="448" y="0" width="128" height="128"/>
@@ -192,7 +192,7 @@
    eJxjYKAOYKWSOaNgFIyCUTAKRsEoGAUgQM22BQA1tAAL
   </data>
  </layer>
- <objectgroup name="Directions">
+ <objectgroup name="Directions" visible="0">
   <object x="576" y="1408">
    <properties>
     <property name="direction" value="60"/>
@@ -210,6 +210,14 @@
     <property name="direction" value="30"/>
    </properties>
    <polygon points="0,0 704,-1408 640,-1408 -64,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Borders">
+  <object x="768" y="0">
+   <polygon points="0,0 -768,0 -768,1408 -704,1408"/>
+  </object>
+  <object x="1664" y="0">
+   <polygon points="0,0 -64,0 -768,1408 0,1408"/>
   </object>
  </objectgroup>
 </map>

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -32,7 +31,7 @@ public class RaceGameScreen extends ScreenAdapter {
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
-    private Label mScoreLabel;
+    private Label mLapLabel;
     private Label mSpeedLabel;
     private Label mDebugLabel;
 
@@ -91,11 +90,11 @@ public class RaceGameScreen extends ScreenAdapter {
         Skin skin = mGame.getAssets().skin;
         mHud = new WidgetGroup();
 
-        mScoreLabel = new Label("0:00.0", skin);
+        mLapLabel = new Label("0:00.0", skin);
         mSpeedLabel = new Label("0", skin);
-        mHud.addActor(mScoreLabel);
+        mHud.addActor(mLapLabel);
         mHud.addActor(mSpeedLabel);
-        mHud.setHeight(mScoreLabel.getHeight());
+        mHud.setHeight(mLapLabel.getHeight());
 
         if (RaceGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
             mDebugLabel = new Label("D", skin, "small");
@@ -114,11 +113,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameWorldPerformanceCounter.stop();
 
         if (oldState != newState) {
-            if (newState == GameWorld.State.BROKEN) {
-                showGameOverOverlay("Game Over");
-            } else {
-                showGameOverOverlay("Thank you for\nplaying this preview!");
-            }
+            showFinishedOverlay();
         }
 
         mHudStage.act(delta);
@@ -137,8 +132,11 @@ public class RaceGameScreen extends ScreenAdapter {
 
     private static StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
-        mScoreLabel.setText(String.format("%06d", mGameWorld.getScore()));
-        mScoreLabel.setPosition(5, 0);
+        int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapCount(), 1);
+        int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
+        int rank = mGameWorld.getPlayerRank();
+        mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
+        mLapLabel.setPosition(5, 0);
 
         mSpeedLabel.setText(StringUtils.formatSpeed(mVehicle.getSpeed()));
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
@@ -175,10 +173,8 @@ public class RaceGameScreen extends ScreenAdapter {
         mGameRenderer.onScreenResized();
     }
 
-    private void showGameOverOverlay(String message) {
-        int score = mGameWorld.getScore();
-        int index = mGame.getHighScoreTable().insert(score);
-        mHudStage.addActor(new GameOverOverlay(mGame, index, message));
+    private void showFinishedOverlay() {
+        mHudStage.addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer()));
     }
 
     @Override

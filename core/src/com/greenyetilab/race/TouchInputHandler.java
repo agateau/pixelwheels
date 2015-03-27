@@ -11,24 +11,36 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * Handle inputs with touch screen only
  */
 public class TouchInputHandler implements GameInputHandler {
-    private static final float LEFT_PERCENT = 0.3f;
-    private static final float RIGHT_PERCENT = 0.6f;
+    public static class Factory implements GameInputHandlerFactory {
+        @Override
+        public String getId() {
+            return "touch";
+        }
+
+        @Override
+        public String getName() {
+            return "Touch";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to brake.";
+        }
+
+        @Override
+        public GameInputHandler create() {
+            return new TouchInputHandler();
+        }
+    }
+
+    private static final float LEFT_PERCENT = 0.25f;
+    private static final float RIGHT_PERCENT = 0.5f;
     private GameInput mInput = new GameInput();
-
-    @Override
-    public String getName() {
-        return "Touch";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to fire.";
-    }
 
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        mInput.shooting = false;
+        mInput.triggeringBonus = false;
         mInput.braking = false;
         mInput.accelerating = true;
         for (int i = 0; i < 5; i++) {
@@ -41,7 +53,8 @@ public class TouchInputHandler implements GameInputHandler {
             } else if (x < RIGHT_PERCENT) {
                 mInput.direction = -1;
             } else {
-                mInput.shooting = true;
+                mInput.accelerating = false;
+                mInput.braking = true;
             }
         }
         return mInput;
@@ -53,14 +66,18 @@ public class TouchInputHandler implements GameInputHandler {
         group.setFillParent(true);
         hudBridge.getStage().addActor(group);
 
-        TextureRegion bg = assets.hudBackground;
-        createHudIndicator(bg, assets.findRegion("hud-left"), true, group, 0, LEFT_PERCENT);
-        createHudIndicator(bg, assets.findRegion("hud-right"), false, group, LEFT_PERCENT, RIGHT_PERCENT);
-        createHudIndicator(bg, assets.findRegion("hud-fire"), true, group, RIGHT_PERCENT, 1);
+        createHudIndicator(assets.findRegion("hud-left"), group, 0, LEFT_PERCENT);
+        createHudIndicator(assets.findRegion("hud-right"), group, LEFT_PERCENT, RIGHT_PERCENT);
+        createHudIndicator(assets.findRegion("hud-back"), group, RIGHT_PERCENT, 1);
     }
 
-    private void createHudIndicator(TextureRegion dot, TextureRegion icon, boolean even, AnchorGroup group, float start, float stop) {
-        InputHudIndicator indicator = new InputHudIndicator(dot, icon, even);
+    @Override
+    public BonusIndicator getBonusIndicator() {
+        return null;
+    }
+
+    private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
+        InputHudIndicator indicator = new InputHudIndicator(icon);
         PositionRule rule = new PositionRule();
         rule.reference = group;
         rule.referenceAnchor = new Anchor(start, 0);

@@ -13,11 +13,7 @@
 
 package com.greenyetilab.race.desktop;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -318,35 +314,9 @@ public class MapPacker {
             System.exit(1);
         }
 
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.forceExit = false;
-        config.width = 100;
-        config.height = 50;
-        config.title = "TiledMapPacker";
-        new LwjglApplication(new ApplicationListener() {
-
+        new CommandLineApplication("TiledMapPacker", args) {
             @Override
-            public void resume () {
-            }
-
-            @Override
-            public void resize (int width, int height) {
-            }
-
-            @Override
-            public void render () {
-            }
-
-            @Override
-            public void pause () {
-            }
-
-            @Override
-            public void dispose () {
-            }
-
-            @Override
-            public void create () {
+            int run(String[] arguments) {
                 MapPacker packer = new MapPacker();
 
                 if (!inputDir.exists()) {
@@ -358,10 +328,9 @@ public class MapPacker {
                 } catch (IOException e) {
                     throw new RuntimeException("Error processing map: " + e.getMessage());
                 }
-
-                Gdx.app.exit();
+                return 0;
             }
-        }, config);
+        };
     }
 
     private static boolean clearOutputDir(File dir) {

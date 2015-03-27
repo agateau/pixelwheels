@@ -1,8 +1,6 @@
 package com.greenyetilab.race;
 
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -15,7 +13,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-import com.greenyetilab.utils.log.NLog;
+import com.badlogic.gdx.utils.Sort;
+
+import java.util.Comparator;
 
 /**
  * Contains all the information and objects running in the world
@@ -36,17 +36,18 @@ public class GameWorld implements ContactListener, Disposable {
     private final HudBridge mHudBridge;
 
     private final World mBox2DWorld;
-    private final EnemySpawner mEnemySpawner;
     private float mTimeAccumulator = 0;
 
-    private PlayerVehicle mPlayerVehicle;
+    private Array<BonusPool> mBonusPools = new Array<BonusPool>();
+
+    private final Array<Racer> mRacers = new Array<Racer>();
+    private Racer mPlayerRacer;
     private State mState = State.RUNNING;
 
     private Vector2[] mSkidmarks = new Vector2[20];
     private int mSkidmarksIndex = 0;
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
-    private float mScore = 0;
     private float mBottomVisibleY = 0;
     private float mTopVisibleY = 0;
 
@@ -59,13 +60,14 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
         mHudBridge = hudBridge;
-        mEnemySpawner = new EnemySpawner(this, game.getAssets());
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupSled();
+        setupRacers();
         setupOutsideWalls();
-        setupObjects();
+        setupRoadBorders();
+        setupBonusSpots();
+        setupBonusPools();
     }
 
     public MapInfo getMapInfo() {
@@ -76,21 +78,31 @@ public class GameWorld implements ContactListener, Disposable {
         return mBox2DWorld;
     }
 
+    public Racer getPlayerRacer() {
+        return mPlayerRacer;
+    }
+
+    public Array<Racer> getRacers() {
+        return mRacers;
+    }
+
+    public Array<BonusPool> getBonusPools() {
+        return mBonusPools;
+    }
+
     public Vehicle getPlayerVehicle() {
-        return mPlayerVehicle.getVehicle();
+        return mPlayerRacer.getVehicle();
     }
 
     public int getScore() {
-        return (int)mScore;
+        return mPlayerRacer.getScore();
     }
 
     public HudBridge getHudBridge() {
         return mHudBridge;
     }
 
-    public void adjustScore(int delta, float worldX, float worldY) {
-        NLog.i("score += %d", delta);
-        mScore = Math.max(0, mScore + delta);
+    public void showScoreIndicator(int delta, float worldX, float worldY) {
         Vector2 pos = mHudBridge.toHudCoordinate(worldX, worldY);
         Actor indicator = ScoreIndicator.create(mGame.getAssets(), delta, pos.x, pos.y);
         mHudBridge.getStage().addActor(indicator);
@@ -121,9 +133,43 @@ public class GameWorld implements ContactListener, Disposable {
         return mBottomVisibleY;
     }
 
-    public void act(float delta) {
-        float oldY = mPlayerVehicle.getY();
+    public int getPlayerRank() {
+        for (int idx = mRacers.size - 1; idx >= 0; --idx) {
+            if (mRacers.get(idx) == mPlayerRacer) {
+                return idx + 1;
+            }
+        }
+        return -1;
+    }
 
+    private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
+        @Override
+        public int compare(Racer racer1, Racer racer2) {
+            if (!racer1.isFinished() && racer2.isFinished()) {
+                return 1;
+            }
+            if (racer1.isFinished() && !racer2.isFinished()) {
+                return -1;
+            }
+            if (racer1.getLapCount() < racer2.getLapCount()) {
+                return 1;
+            }
+            if (racer1.getLapCount() > racer2.getLapCount()) {
+                return -1;
+            }
+            float d1 = racer1.getLapDistance();
+            float d2 = racer2.getLapDistance();
+            if (d1 < d2) {
+                return 1;
+            }
+            if (d1 > d2) {
+                return -1;
+            }
+            return 0;
+        }
+    };
+
+    public void act(float delta) {
         mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -135,19 +181,14 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mBox2DPerformanceCounter.stop();
 
-        if (mState == State.RUNNING) {
-            float deltaY = mPlayerVehicle.getY() - oldY;
-            if (delta > 0) {
-                mScore += deltaY * Constants.SCORE_PER_METER;
-                mEnemySpawner.setTopY(mTopVisibleY);
-            }
-        }
-
         float outOfSightLimit = mBottomVisibleY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
         mGameObjectPerformanceCounter.start();
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
             if (!obj.act(delta)) {
+                if (obj == mPlayerRacer) {
+                    setState(GameWorld.State.BROKEN);
+                }
                 mActiveGameObjects.removeIndex(idx);
                 continue;
             }
@@ -157,14 +198,47 @@ public class GameWorld implements ContactListener, Disposable {
             }
         }
         mGameObjectPerformanceCounter.stop();
+
+        // Skip finished racers so that they keep the position they had when they crossed the finish
+        // line, even if they continue a bit after it
+        int fromIndex;
+        for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
+            if (!mRacers.get(fromIndex).isFinished()) {
+                break;
+            }
+        }
+        Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
+
+        if (mPlayerRacer.isFinished()) {
+            setState(State.FINISHED);
+        }
     }
 
-    private void setupSled() {
-        Vector2 position = mMapInfo.findStartTilePosition();
-        assert(position != null);
+    private void setupRacers() {
+        VehicleFactory factory = new VehicleFactory(mGame.getAssets(), this);
+        Assets assets = mGame.getAssets();
 
-        mPlayerVehicle = new PlayerVehicle(mGame.getAssets(), this, position.x, position.y);
-        addGameObject(mPlayerVehicle);
+        final int PLAYER_RANK = 1;
+        final float startAngle = 90;
+        int rank = 1;
+        Array<Vector2> positions = mMapInfo.findStartTilePositions();
+        positions.reverse();
+
+        for (Vector2 position : positions) {
+            Racer racer;
+            if (PLAYER_RANK == rank) {
+                racer = new Racer(this, factory.create("player", position.x, position.y, startAngle));
+                racer.setPilot(new PlayerPilot(assets, this, racer));
+                mPlayerRacer = racer;
+            } else {
+                racer = new Racer(this, factory.create("enemy", position.x, position.y, startAngle));
+                racer.setPilot(new AIPilot(mMapInfo, racer));
+            }
+            addGameObject(racer);
+            mRacers.add(racer);
+            ++rank;
+            return;
+        }
     }
 
     private void setupOutsideWalls() {
@@ -172,7 +246,7 @@ public class GameWorld implements ContactListener, Disposable {
         float mapHeight = mMapInfo.getMapHeight();
         float wallSize = 1;
         Body body;
-        int mask = CollisionCategories.PLAYER | CollisionCategories.PLAYER_BULLET
+        int mask = CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                         | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
                         | CollisionCategories.GIFT;
         // bottom
@@ -186,13 +260,23 @@ public class GameWorld implements ContactListener, Disposable {
         Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
     }
 
-    private void setupObjects() {
-        MapLayer obstacleLayer = mMapInfo.getObstaclesLayer();
-        TiledMapTileLayer wallsLayer = mMapInfo.getWallsLayer();
-        ObstacleCreator creator = new ObstacleCreator(this, mGame.getAssets(), mMapInfo.getMap().getTileSets(), wallsLayer);
-        for (MapObject object : obstacleLayer.getObjects()) {
-            creator.create(object);
+    private void setupRoadBorders() {
+        for (MapObject object : mMapInfo.getBordersLayer().getObjects()) {
+            Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
+            Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
+                    CollisionCategories.RACER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
         }
+    }
+
+    private void setupBonusSpots() {
+        for (Vector2 pos : mMapInfo.findBonusSpotPositions()) {
+            BonusSpot spot = new BonusSpot(mGame.getAssets(), this, pos.x, pos.y);
+            addGameObject(spot);
+        }
+    }
+
+    private void setupBonusPools() {
+        mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this));
     }
 
     public void addSkidmarkAt(Vector2 position) {
@@ -266,5 +350,4 @@ public class GameWorld implements ContactListener, Disposable {
     public void dispose() {
         mMapInfo.dispose();
     }
-
 }

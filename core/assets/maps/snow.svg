@@ -22,22 +22,21 @@
   <defs
      id="defs4">
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient4889">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#ffffff;stop-opacity:1"
          offset="0"
          id="stop4891" />
       <stop
          id="stop4899"
          offset="0.125"
-         style="stop-color:#ffffff;stop-opacity:0.47058824;" />
+         style="stop-color:#ffffff;stop-opacity:0.66666669;" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0.26666667;"
+         style="stop-color:#ffffff;stop-opacity:0.33333334;"
          offset="0.375"
          id="stop4901" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0;"
+         style="stop-color:#ffffff;stop-opacity:0"
          offset="1"
          id="stop4893" />
     </linearGradient>
@@ -89,15 +88,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="1091.8094"
-     inkscape:cy="-10.386406"
+     inkscape:zoom="4"
+     inkscape:cx="1018.9217"
+     inkscape:cy="-18.943593"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1571"
-     inkscape:window-height="880"
-     inkscape:window-x="26"
+     inkscape:window-width="1883"
+     inkscape:window-height="1060"
+     inkscape:window-x="34"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
      showguides="true"
@@ -6650,7 +6649,7 @@
          inkscape:connector-curvature="0"
          id="path4823"
          d="m 1188,798.36218 2,-4 0,7 -2,2 z"
-         style="display:inline;color:#000000;fill:#222034;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#222034;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          transform="translate(-218,0)" />
       <path
          sodipodi:nodetypes="cccccccccccccccccc"
@@ -6683,7 +6682,7 @@
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="ccccccccc" />
         <path
-           style="color:#000000;fill:#ffffff;fill-opacity:0.3764706;fill-rule:nonzero;stroke:none;stroke-width:0.10000000000000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           style="color:#000000;fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
            d="m 304.65625,1302.3934 0.70702,4.3008 0.75693,-0.6298 0.8798,5.2978 -1,1 -1.16105,-3.5478 -0.75693,0.6298 -1.80077,-5.0195 z"
            id="path3991"
            inkscape:connector-curvature="0"
@@ -6702,7 +6701,7 @@
          id="path4817"
          inkscape:connector-curvature="0" />
       <path
-         style="display:inline;color:#000000;fill:#222034;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#222034;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="m 1232,798.36218 -2,-4 0,7 2,2 z"
          id="path4825"
          inkscape:connector-curvature="0"
@@ -6712,7 +6711,7 @@
          inkscape:connector-curvature="0"
          id="path4821"
          d="m 1188,803.36216 0,-5 22,-2 22,2 0,5 z"
-         style="display:inline;color:#000000;fill:#ac3232;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#ac3232;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          transform="translate(-218,0)" />
       <path
          style="color:#000000;fill:#ac3232;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
@@ -6788,9 +6787,9 @@
          height="13"
          width="1"
          id="rect5038"
-         style="color:#000000;fill:#595652;fill-opacity:0.3764706;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="color:#000000;fill:#595652;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <rect
-         style="color:#000000;fill:#595652;fill-opacity:0.3764706;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#595652;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect5040"
          width="1"
          height="13"
@@ -6802,9 +6801,9 @@
          height="13"
          width="1"
          id="rect5042"
-         style="color:#000000;fill:#595652;fill-opacity:0.3764706;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="color:#000000;fill:#595652;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <rect
-         style="color:#000000;fill:#595652;fill-opacity:0.3764706;fill-rule:nonzero;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#595652;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect5044"
          width="1"
          height="13"
@@ -7077,7 +7076,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 1040,1004.3622 -16,16 16,16 z"
        id="path4831"
        inkscape:connector-curvature="0"
@@ -7090,7 +7089,7 @@
        inkscape:connector-curvature="0"
        id="path4834"
        d="m 1056,1004.3622 16,16 -16,16 z"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
        inkscape:export-filename="../sprites/hud-right.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -7099,7 +7098,7 @@
        inkscape:connector-curvature="0"
        id="path3891-6"
        d="m 1088,1009.3622 1,-2 3,-2 4,-1 4,1 3,2 1,2 0,7 -1,-1 0,8 -2,-2 0,7 -2,-2 -1,6 -2,2 -2,-2 -1,-6 -2,2 0,-7 -2,2 0,-8 -1,1 z"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
        inkscape:export-filename="../sprites/hud-fire.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -7117,38 +7116,75 @@
        id="g4909"
        inkscape:export-filename="../sprites/hud-swipe.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">
       <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4061"
-         d="m 1037,1080.3622 0,-8 48,0 0,8 z"
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 1040 904 L 1024 920 L 1040 936 L 1040 924 L 1085 924 L 1085 916 L 1040 916 L 1040 904 z "
+         transform="translate(0,156.36218)"
+         id="path4061" />
       <path
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="m 1040,1060.3622 -16,16 16,16 z"
-         id="path4903"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccc"
-         inkscape:export-filename="../sprites/hud-left.png"
-         inkscape:export-xdpi="90"
-         inkscape:export-ydpi="90" />
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 1092 920 L 1092 932 L 1048 932 L 1048 940 L 1092 940 L 1092 952 L 1108 936 L 1092 920 z "
+         transform="translate(0,156.36218)"
+         id="path4905" />
+    </g>
+    <g
+       id="g5250"
+       transform="translate(192,-64)">
+      <rect
+         style="color:#000000;fill:#696a6a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         id="rect5244"
+         width="64"
+         height="64"
+         x="-64"
+         y="348.36218" />
       <path
-         sodipodi:nodetypes="cccc"
-         inkscape:connector-curvature="0"
-         id="path4905"
-         d="m 1092,1076.3622 16,16 -16,16 z"
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         inkscape:export-filename="../sprites/hud-right.png"
-         inkscape:export-xdpi="90"
-         inkscape:export-ydpi="90" />
+         sodipodi:nodetypes="cccccc"
+         style="color:#000000;fill:#9badb7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 0,412.36218 -40,0 10,-15 17,-16 13,-9 z"
+         id="path5246"
+         inkscape:connector-curvature="0" />
       <path
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="m 1048,1096.3622 0,-8 44,0 0,8 z"
-         id="path4907"
+         transform="translate(0,156.36218)"
          inkscape:connector-curvature="0"
+         id="path5248"
+         d="m 0,256 -8,0 5,-4 3,-4 z"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          sodipodi:nodetypes="ccccc" />
     </g>
+    <g
+       id="g5255"
+       transform="translate(0,64)">
+      <rect
+         y="284.36218"
+         x="128"
+         height="64"
+         width="64"
+         id="rect5240"
+         style="color:#000000;fill:#696a6a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5221"
+         d="m 128,308.36218 14,-11 10,-13 40,0 0,64 -64,0 z"
+         style="color:#000000;fill:#9badb7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path5242"
+         d="m 128,348.36218 64,0 0,-64 -8,0 -3,7 -6,8 -6,9 -8,7 -7,8 -11,8 -7,6 -8,3 z"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="../sprites/hud-back.png"
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path8542"
+       d="m 976,1012.3622 16,16 16,-16 z"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
   </g>
   <g
      inkscape:groupmode="layer"

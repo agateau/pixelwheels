@@ -20,8 +20,9 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
 
     private static final float BULLET_RADIUS = 0.8f;
-    private static final float IMPULSE = 80;
+    private static final float IMPULSE = 160;
 
+    private Racer mShooter;
     private GameWorld mGameWorld;
     private Assets mAssets;
     private BodyDef mBodyDef;
@@ -30,11 +31,12 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private Body mBody;
     private boolean mExploded;
 
-    public static Bullet create(Assets assets, GameWorld gameWorld, float originX, float originY, float angle) {
+    public static Bullet create(Assets assets, GameWorld gameWorld, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
             object.firstInit(assets);
         }
+        object.mShooter = shooter;
         object.mGameWorld = gameWorld;
         object.mExploded = false;
         object.mBodyDef.position.set(originX, originY);
@@ -45,8 +47,8 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         object.mBody.setUserData(object);
         object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
-        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.PLAYER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.AI_VEHICLE);
+        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
+                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.AI_VEHICLE);
         return object;
     }
 
@@ -109,13 +111,29 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     }
 
     private void adjustScore(int delta) {
-        mGameWorld.adjustScore(delta, getX(), getY());
+        mShooter.adjustScore(delta, getX(), getY());
     }
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        explode();
+    }
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+        if (mExploded) {
+            return;
+        }
         Object other = otherFixture.getBody().getUserData();
+        if (other == mShooter) {
+            contact.setEnabled(false);
+            return;
+        }
+
+        explode();
         if (!(other instanceof GameObject)) {
             return;
         }
@@ -126,15 +144,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
             healthComponent.decreaseHealth();
             adjustScore(gameObject instanceof CivilianCar ? Constants.SCORE_CIVIL_HIT : Constants.SCORE_ENEMY_HIT);
         }
-    }
-
-    @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
-
-    @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
     }
 
     @Override

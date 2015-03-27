@@ -2,7 +2,6 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -27,11 +26,13 @@ class Vehicle implements Disposable {
     private boolean mLimitAngle;
     private boolean mCorrectAngle;
 
+    private static final float CORNER_SIZE = 0.5f;
     private static final float LOW_SPEED_MAX_STEER = 40;
     private static final float HIGH_SPEED_MAX_STEER = 10;
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    private String mName;
 
     private boolean mAccelerating = false;
     private boolean mBraking = false;
@@ -53,14 +54,14 @@ class Vehicle implements Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(carW / 2, carH / 2);
+        shape.set(Box2DUtils.createOctogon(carW, carH, CORNER_SIZE));
 
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 1.4f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = 0.4f;
+        fixtureDef.restitution = 0.2f;
         mBody.createFixture(fixtureDef);
         shape.dispose();
     }
@@ -194,6 +195,10 @@ class Vehicle implements Disposable {
         return true;
     }
 
+    public boolean isAccelerating() {
+        return mAccelerating;
+    }
+
     public void setAccelerating(boolean value) {
         mAccelerating = value;
     }
@@ -212,6 +217,14 @@ class Vehicle implements Disposable {
 
     public float getY() {
         return mBody.getPosition().y;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public String getName() {
+        return mName;
     }
 
     private static float normAngle(float angle) {

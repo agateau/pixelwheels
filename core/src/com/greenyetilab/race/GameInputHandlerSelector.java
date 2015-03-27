@@ -18,12 +18,12 @@ import com.greenyetilab.utils.anchor.SizeRule;
 public class GameInputHandlerSelector extends AnchorGroup {
     private final Label mNameLabel;
     private final Label mDescriptionLabel;
-    private Array<GameInputHandler> mHandlers;
+    private Array<GameInputHandlerFactory> mFactories;
     private int mIndex = 0;
 
     public GameInputHandlerSelector(Skin skin) {
         setSpacing(20);
-        mHandlers = GameInputHandlers.getAvailableHandlers();
+        mFactories = GameInputHandlerFactories.getAvailableFactories();
         ImageButton leftButton = addButton("icon-left", skin, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -44,7 +44,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
         });
 
         mNameLabel.setHeight(rightButton.getHeight());
-        mDescriptionLabel.setHeight(rightButton.getHeight() * 2.5f);
+        mDescriptionLabel.setHeight(rightButton.getHeight() * 1.5f);
         mDescriptionLabel.setAlignment(Align.topLeft, Align.left);
 
         addPositionRule(leftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
@@ -53,15 +53,15 @@ public class GameInputHandlerSelector extends AnchorGroup {
         addPositionRule(mDescriptionLabel, Anchor.TOP_LEFT, leftButton, Anchor.BOTTOM_LEFT, 0, -0.5f);
         addSizeRule(mDescriptionLabel, this, 1, SizeRule.IGNORE);
 
-        String inputHandlerName = RaceGame.getPreferences().getString("input", "");
-        setIndex(findHandler(inputHandlerName));
+        String inputHandlerId = RaceGame.getPreferences().getString("input", "");
+        setIndex(findHandler(inputHandlerId));
 
         setHeight(mNameLabel.getHeight() + mDescriptionLabel.getHeight());
     }
 
-    public int findHandler(String name) {
-        for (int i = 0; i < mHandlers.size; ++i) {
-            if (mHandlers.get(i).getClass().getSimpleName().equals(name)) {
+    public int findHandler(String id) {
+        for (int i = 0; i < mFactories.size; ++i) {
+            if (mFactories.get(i).getId().equals(id)) {
                 return i;
             }
         }
@@ -79,17 +79,17 @@ public class GameInputHandlerSelector extends AnchorGroup {
     private void setIndex(int value) {
         mIndex = value;
         if (mIndex < 0) {
-            mIndex = mHandlers.size - 1;
-        } else if (mIndex >= mHandlers.size) {
+            mIndex = mFactories.size - 1;
+        } else if (mIndex >= mFactories.size) {
             mIndex = 0;
         }
-        GameInputHandler handler = mHandlers.get(mIndex);
-        mNameLabel.setText(handler.getName());
+        GameInputHandlerFactory factory = mFactories.get(mIndex);
+        mNameLabel.setText(factory.getName());
 
-        mDescriptionLabel.setText(handler.getDescription());
+        mDescriptionLabel.setText(factory.getDescription());
 
         Preferences prefs = RaceGame.getPreferences();
-        prefs.putString("input", handler.getClass().getSimpleName());
+        prefs.putString("input", factory.getId());
         prefs.flush();
     }
 }
