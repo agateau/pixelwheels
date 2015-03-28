@@ -92,7 +92,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         });
 
         final HorizontalGroup group = new HorizontalGroup();
-        group.addActor(new Label(text, skin));
+        group.addActor(new Label(text + " ", skin));
         group.addActor(spinBox);
         return group;
     }
