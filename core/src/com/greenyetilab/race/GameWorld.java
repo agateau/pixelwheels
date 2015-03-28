@@ -44,7 +44,7 @@ public class GameWorld implements ContactListener, Disposable {
     private Racer mPlayerRacer;
     private State mState = State.RUNNING;
 
-    private Vector2[] mSkidmarks = new Vector2[20];
+    private Vector2[] mSkidmarks;
     private int mSkidmarksIndex = 0;
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
@@ -55,6 +55,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameWorld(RaceGame game, MapInfo mapInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
+        mSkidmarks = new Vector2[GamePlay.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);

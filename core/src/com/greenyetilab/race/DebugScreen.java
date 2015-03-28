@@ -33,12 +33,14 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
 
         VerticalGroup vGroup = new VerticalGroup();
         vGroup.align(Align.left).space(20);
-        vGroup.addActor(addCheckBox("Show Debug Hud", "debug/showDebugHud"));
+        vGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
         vGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
-        vGroup.addActor(addCheckBox("Box2D: Draw Velocities", "debug/box2d/drawVelocities"));
-        vGroup.addActor(addCheckBox("Tiles: Draw Corners", "debug/tiles/drawCorners"));
-        vGroup.addActor(addRange("Racer Count:", "racerCount", 1, 8));
-        vGroup.addActor(addRange("Max Driving Force:", "maxDrivingForce", 10, 200, 10));
+        vGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
+        vGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
+        vGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
+        vGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
+        vGroup.addActor(addRange("Drift if impulse is more than:", "maxLateralImpulse", 1, 20));
+        vGroup.addActor(addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("[", skin, "default");
@@ -53,7 +55,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         ScrollPane pane = new ScrollPane(vGroup);
 
         root.addPositionRule(pane, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT, 100, 0);
-        root.addSizeRule(pane, root, 1, 1);
+        root.addSizeRule(pane, root, 1, 1, -100, 0);
         root.addPositionRule(backButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
     }
 

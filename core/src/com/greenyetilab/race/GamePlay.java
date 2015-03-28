@@ -10,6 +10,8 @@ import com.greenyetilab.utils.Introspector;
 public class GamePlay {
     public static int racerCount = 4;
     public static int maxDrivingForce = 100;
+    public static int maxLateralImpulse = 8;
+    public static int maxSkidmarks = 20;
 
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());

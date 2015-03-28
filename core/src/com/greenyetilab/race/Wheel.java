@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A wheel
  */
 public class Wheel implements Pool.Poolable, Disposable {
-    private static final float MAX_LATERAL_IMPULSE = 8;
     private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
@@ -103,7 +102,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxInpulse = MAX_LATERAL_IMPULSE / (mBraking ? 2 : 1);
+        float maxInpulse = (float)GamePlay.maxLateralImpulse / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxInpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             maxInpulse = Math.max(maxInpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
