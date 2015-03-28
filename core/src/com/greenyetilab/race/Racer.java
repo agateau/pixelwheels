@@ -77,7 +77,9 @@ public class Racer implements GameObject, Collidable, Disposable {
         if (other instanceof BonusSpot) {
             BonusSpot spot = (BonusSpot)other;
             spot.pickBonus();
-            selectBonus();
+            if (mBonus == null) {
+                selectBonus();
+            }
         }
     }
 
