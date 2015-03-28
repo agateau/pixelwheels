@@ -25,7 +25,7 @@ public class BonusSpot implements GameObject {
         mX = x;
         mY = y;
 
-        mRegion = assets.gifts.first();
+        mRegion = assets.gifts.get(1);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(U * mRegion.getRegionWidth() / 2, U * mRegion.getRegionHeight() / 2);
