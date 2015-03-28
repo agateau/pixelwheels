@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -40,7 +41,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         vGroup.addActor(addRange("Max Driving Force:", "maxDrivingForce", 10, 200, 10));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
-        TextButton backButton = new TextButton("Back", skin, "default");
+        TextButton backButton = new TextButton("[", skin, "default");
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -49,7 +50,10 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
 
-        root.addPositionRule(vGroup, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
+        ScrollPane pane = new ScrollPane(vGroup);
+
+        root.addPositionRule(pane, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT, 100, 0);
+        root.addSizeRule(pane, root, 1, 1);
         root.addPositionRule(backButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
     }
 
