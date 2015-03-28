@@ -84,7 +84,7 @@ public class VehicleFactory {
             float rearY = -vehicle.getHeight() / 2 + REAR_WHEEL_Y;
             float frontY = rearY + WHEEL_BASE;
 
-            float maxDrivingForce = Wheel.MAX_DRIVING_FORCE * enemyInfo.speed;
+            float maxDrivingForce = GamePlay.maxDrivingForce * enemyInfo.speed;
             Vehicle.WheelInfo info;
             info = vehicle.addWheel(wheelRegion, leftX, frontY);
             info.wheel.setMaxDrivingForce(maxDrivingForce);

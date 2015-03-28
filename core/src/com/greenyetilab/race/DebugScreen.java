@@ -4,12 +4,15 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.greenyetilab.utils.Introspector;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -33,12 +36,15 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         vGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
         vGroup.addActor(addCheckBox("Box2D: Draw Velocities", "debug/box2d/drawVelocities"));
         vGroup.addActor(addCheckBox("Tiles: Draw Corners", "debug/tiles/drawCorners"));
+        vGroup.addActor(addRange("Racer Count:", "racerCount", 1, 8));
+        vGroup.addActor(addRange("Max Driving Force:", "maxDrivingForce", 10, 200, 10));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("Back", skin, "default");
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GamePlay.save();
                 mGame.popScreen();
             }
         });
@@ -59,5 +65,29 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
         return checkBox;
+    }
+
+    private Actor addRange(String text, final String keyName, int min, int max) {
+        return addRange(text, keyName, min, max, 1);
+    }
+
+    private Actor addRange(String text, final String keyName, int min, int max, int stepSize) {
+        final Skin skin = mGame.getAssets().skin;
+
+        final SpinBox spinBox = new SpinBox(min, max, skin);
+        spinBox.setStepSize(stepSize);
+        spinBox.setValue(Introspector.getInt(GamePlay.class, keyName));
+        spinBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                int value = spinBox.getValue();
+                Introspector.setInt(GamePlay.class, keyName, value);
+            }
+        });
+
+        final HorizontalGroup group = new HorizontalGroup();
+        group.addActor(new Label(text, skin));
+        group.addActor(spinBox);
+        return group;
     }
 }

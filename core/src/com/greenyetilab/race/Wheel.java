@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.ReflectionPool;
  */
 public class Wheel implements Pool.Poolable, Disposable {
     private static final float MAX_LATERAL_IMPULSE = 8;
-    public static final float MAX_DRIVING_FORCE = 100;
     private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
@@ -28,7 +27,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mOnFatalGround;
     private boolean mBraking;
     private boolean mCanDrift;
-    private float mMaxDrivingForce = MAX_DRIVING_FORCE;
+    private float mMaxDrivingForce;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -38,6 +37,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         obj.mOnFatalGround = false;
         obj.mBraking = false;
         obj.mCanDrift = false;
+        obj.mMaxDrivingForce = GamePlay.maxDrivingForce;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();

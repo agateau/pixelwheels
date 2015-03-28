@@ -236,6 +236,9 @@ public class GameWorld implements ContactListener, Disposable {
             }
             addGameObject(racer);
             mRacers.add(racer);
+            if (rank == GamePlay.racerCount) {
+                break;
+            }
             ++rank;
         }
     }
