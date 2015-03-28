@@ -40,7 +40,9 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         vGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         vGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
         vGroup.addActor(addRange("Drift if impulse is more than:", "maxLateralImpulse", 1, 20));
-        vGroup.addActor(addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10));
+        vGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
+        vGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
+        vGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
         vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("[", skin, "default");

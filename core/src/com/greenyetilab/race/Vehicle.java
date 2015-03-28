@@ -27,8 +27,6 @@ class Vehicle implements Disposable {
     private boolean mCorrectAngle;
 
     private static final float CORNER_SIZE = 0.5f;
-    private static final float LOW_SPEED_MAX_STEER = 40;
-    private static final float HIGH_SPEED_MAX_STEER = 10;
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
@@ -180,7 +178,7 @@ class Vehicle implements Disposable {
                 }
             }
             float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
-            float steer = MathUtils.lerp(LOW_SPEED_MAX_STEER, HIGH_SPEED_MAX_STEER, steerFactor);
+            float steer = MathUtils.lerp(GamePlay.lowSpeedMaxSteer, GamePlay.highSpeedMaxSteer, steerFactor);
             steerAngle = direction * steer;
         }
 
