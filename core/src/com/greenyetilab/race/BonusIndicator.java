@@ -12,8 +12,8 @@ public class BonusIndicator extends Actor {
     private Bonus mBonus;
 
     public BonusIndicator() {
-        setWidth(50);
-        setHeight(50);
+        setWidth(100);
+        setHeight(100);
     }
 
     public Bonus getBonus() {
