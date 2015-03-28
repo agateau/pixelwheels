@@ -130,6 +130,15 @@ public class Racer implements GameObject, Collidable, Disposable {
         int idx = MathUtils.random(pools.size - 1);
         BonusPool pool = pools.get(idx);
         mBonus = pool.obtain();
+        mBonus.onPicked(this);
+    }
+
+    public void triggerBonus() {
+        if (mBonus == null) {
+            return;
+        }
+        mBonus.trigger();
+        mBonus = null;
     }
 
     private void updatePosition() {
@@ -172,11 +181,7 @@ public class Racer implements GameObject, Collidable, Disposable {
         return mScore;
     }
 
-    public void triggerBonus() {
-        if (mBonus == null) {
-            return;
-        }
-        mBonus.trigger(this);
-        mBonus = null;
+    public VehicleRenderer getVehicleRenderer() {
+        return mVehicleRenderer;
     }
 }

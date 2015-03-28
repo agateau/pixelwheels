@@ -3,17 +3,27 @@ package com.greenyetilab.race;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Renders a vehicle
  */
-public class VehicleRenderer {
+public class VehicleRenderer implements Renderer {
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
+    private final Array<Renderer> mRenderers = new Array<Renderer>();
 
     public VehicleRenderer(Vehicle vehicle, HealthComponent healthComponent) {
         mVehicle = vehicle;
         mHealthComponent = healthComponent;
+    }
+
+    public void addRenderer(Renderer renderer) {
+        mRenderers.add(renderer);
+    }
+
+    public void removeRenderer(Renderer renderer) {
+        mRenderers.removeValue(renderer, true);
     }
 
     public void draw(Batch batch, int zIndex) {
@@ -43,6 +53,10 @@ public class VehicleRenderer {
             DrawUtils.drawBodyRegion(batch, info.wheel.getBody(), info.wheel.getRegion());
         }
         DrawUtils.drawBodyRegion(batch, mVehicle.getBody(), mVehicle.getRegion());
+
+        for (Renderer renderer : mRenderers) {
+            renderer.draw(batch, zIndex);
+        }
         batch.setColor(oldColor);
     }
 }
