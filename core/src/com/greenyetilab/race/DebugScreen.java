@@ -22,6 +22,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class DebugScreen extends com.greenyetilab.utils.StageScreen {
     private final RaceGame mGame;
+    private final VerticalGroup mGroup;
 
     public DebugScreen(RaceGame game) {
         mGame = game;
@@ -31,19 +32,23 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        VerticalGroup vGroup = new VerticalGroup();
-        vGroup.align(Align.left).space(20);
-        vGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
-        vGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
-        vGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
-        vGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
-        vGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
-        vGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
-        vGroup.addActor(addRange("Drift if impulse is more than:", "maxLateralImpulse", 1, 20));
-        vGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
-        vGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
-        vGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
-        vGroup.setSize(vGroup.getPrefWidth(), vGroup.getPrefHeight());
+        mGroup = new VerticalGroup();
+        mGroup.align(Align.left).space(20);
+        mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
+        mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
+        mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
+        mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
+        mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
+        mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
+        addTitle("Wheel");
+        mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
+        mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 20));
+        mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
+        mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
+        addTitle("Vehicle");
+        mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
+        mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
+        mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
 
         TextButton backButton = new TextButton("[", skin, "default");
         backButton.addListener(new ClickListener() {
@@ -54,7 +59,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
 
-        ScrollPane pane = new ScrollPane(vGroup);
+        ScrollPane pane = new ScrollPane(mGroup);
 
         root.addPositionRule(pane, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT, 100, 0);
         root.addSizeRule(pane, root, 1, 1, -100, 0);
@@ -97,5 +102,9 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         group.addActor(new Label(text + " ", skin));
         group.addActor(spinBox);
         return group;
+    }
+
+    private void addTitle(String title) {
+        mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().skin));
     }
 }

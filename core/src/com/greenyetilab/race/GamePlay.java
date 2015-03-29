@@ -14,6 +14,8 @@ public class GamePlay {
     public static int maxSkidmarks = 20;
     public static int lowSpeedMaxSteer = 40;
     public static int highSpeedMaxSteer = 10;
+    public static int vehicleDensity = 14;
+    public static int vehicleRestitution = 2;
 
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());

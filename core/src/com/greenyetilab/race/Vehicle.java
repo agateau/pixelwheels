@@ -57,9 +57,9 @@ class Vehicle implements Disposable {
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1.4f;
+        fixtureDef.density = GamePlay.vehicleDensity / 10.0f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = 0.2f;
+        fixtureDef.restitution = GamePlay.vehicleRestitution / 10.0f;
         mBody.createFixture(fixtureDef);
         shape.dispose();
     }
