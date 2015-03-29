@@ -35,6 +35,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         mGroup = new VerticalGroup();
         mGroup.align(Align.left).space(20);
         addTitle("Race");
+        mGroup.addActor(addRange("Viewport width:", "viewportWidth", 20, 80));
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
