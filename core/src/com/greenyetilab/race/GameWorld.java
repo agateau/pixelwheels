@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -268,6 +269,8 @@ public class GameWorld implements ContactListener, Disposable {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER | CollisionCategories.AI_VEHICLE | CollisionCategories.GIFT);
+            Fixture fixture = body.getFixtureList().get(0);
+            fixture.setRestitution(GamePlay.borderRestitution / 10.0f);
         }
     }
 

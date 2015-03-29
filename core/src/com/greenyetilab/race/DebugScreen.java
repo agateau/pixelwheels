@@ -34,12 +34,10 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
 
         mGroup = new VerticalGroup();
         mGroup.align(Align.left).space(20);
-        mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
-        mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
-        mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
-        mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
+        addTitle("Race");
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
+        mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
         addTitle("Wheel");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
         mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 20));
@@ -49,6 +47,11 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
         mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
         mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
+        addTitle("Debug");
+        mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
+        mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
+        mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
+        mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
 
         TextButton backButton = new TextButton("[", skin, "default");
         backButton.addListener(new ClickListener() {
