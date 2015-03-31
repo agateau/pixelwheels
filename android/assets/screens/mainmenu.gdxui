@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="mainLabel"
-               topCenter="root.topCenter 0 -2">Santa Claus Racer</Label>
+               topCenter="root.topCenter 0 -2">Race</Label>
 
         <TextButton id="startButton"
                     width="200"
