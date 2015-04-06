@@ -1,13 +1,16 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -79,6 +82,22 @@ public class Box2DUtils {
 
             PolygonShape shape = new PolygonShape();
             shape.set(vertices);
+
+            body.createFixture(shape, 1);
+            return body;
+        } else if (object instanceof EllipseMapObject) {
+            Ellipse ellipse = ((EllipseMapObject)object).getEllipse();
+            float radius = ellipse.width * u / 2;
+            float x = ellipse.x * u + radius;
+            float y = ellipse.y * u + radius;
+
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(x, y);
+            Body body = world.createBody(bodyDef);
+
+            CircleShape shape = new CircleShape();
+            shape.setRadius(radius);
 
             body.createFixture(shape, 1);
             return body;
