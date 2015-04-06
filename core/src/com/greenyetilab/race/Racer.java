@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.greenyetilab.utils.log.NLog;
 
 /**
  * A racer
@@ -142,10 +143,17 @@ public class Racer implements GameObject, Collidable, Disposable {
     }
 
     private void updatePosition() {
-        int oldSectionId = mLapPosition.getSectionId();
-        MapInfo mapInfo = mGameWorld.getMapInfo();
+        final int oldSectionId = mLapPosition.getSectionId();
+        final MapInfo mapInfo = mGameWorld.getMapInfo();
         final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
-        mLapPosition.copy(mapInfo.getLapPositionTable().get((int)(PFU * mVehicle.getX()), (int)(PFU * mVehicle.getY())));
+        final int pixelX = (int)(PFU * mVehicle.getX());
+        final int pixelY = (int)(PFU * mVehicle.getY());
+        final LapPosition pos = mapInfo.getLapPositionTable().get(pixelX, pixelY);
+        if (pos == null) {
+            NLog.e("No LapPosition at pixel " + pixelX + " x " + pixelY);
+            return;
+        }
+        mLapPosition.copy(pos);
         if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
             ++mLapCount;
             if (mLapCount > mapInfo.getTotalLapCount()) {
