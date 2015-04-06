@@ -8,16 +8,16 @@ import com.greenyetilab.utils.Introspector;
  * Customization of the gameplay
  */
 public class GamePlay {
-    public static int racerCount = 4;
-    public static int maxDrivingForce = 100;
+    public static int racerCount = 8;
+    public static int maxDrivingForce = 120;
     public static int maxLateralImpulse = 8;
     public static int maxSkidmarks = 20;
     public static int lowSpeedMaxSteer = 40;
     public static int highSpeedMaxSteer = 10;
     public static int vehicleDensity = 14;
-    public static int vehicleRestitution = 2;
-    public static int borderRestitution = 10;
-    public static int viewportWidth = 40;
+    public static int vehicleRestitution = 1;
+    public static int borderRestitution = 1;
+    public static int viewportWidth = 60;
 
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());
