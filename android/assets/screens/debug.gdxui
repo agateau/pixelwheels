@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <ScrollPane id="scrollPane"
+                    bottomLeft="root.bottomLeft 5 0"
+                    />
+        <ImageButton id="backButton"
+                     bottomLeft="root.bottomLeft 1 1"
+                     imageName="icon-back"/>
+    </AnchorGroup>
+</gdxui>

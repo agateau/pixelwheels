@@ -8,13 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.greenyetilab.utils.FileUtils;
 import com.greenyetilab.utils.Introspector;
-import com.greenyetilab.utils.anchor.Anchor;
+import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
@@ -22,13 +22,17 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class DebugScreen extends com.greenyetilab.utils.StageScreen {
     private final RaceGame mGame;
-    private final VerticalGroup mGroup;
+    private VerticalGroup mGroup;
 
     public DebugScreen(RaceGame game) {
         mGame = game;
-        Skin skin = mGame.getAssets().skin;
+        setupUi();
+    }
 
-        AnchorGroup root = new AnchorGroup();
+    private void setupUi() {
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/debug.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -54,8 +58,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
         mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
 
-        TextButton backButton = new TextButton("[", skin, "default");
-        backButton.addListener(new ClickListener() {
+        builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GamePlay.save();
@@ -63,11 +66,9 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
 
-        ScrollPane pane = new ScrollPane(mGroup);
-
-        root.addPositionRule(pane, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT, 100, 0);
-        root.addSizeRule(pane, root, 1, 1, -100, 0);
-        root.addPositionRule(backButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
+        ScrollPane pane = builder.getActor("scrollPane");
+        pane.setWidget(mGroup);
+        root.addSizeRule(pane, root, 1, 1, -5, 0);
     }
 
     private CheckBox addCheckBox(String text, final String key) {
