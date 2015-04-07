@@ -55,16 +55,5 @@ public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
         root.addSizeRule(builder.getActor("gameInputHandlerSelector"), root, 1, SizeRule.IGNORE, -2, 0);
-
-        final Preferences prefs = RaceGame.getPreferences();
-        CheckBox checkBox = builder.getActor("autoCorrectCheckBox");
-        checkBox.setChecked(prefs.getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT));
-        checkBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                prefs.putBoolean(PrefConstants.AUTO_CORRECT, ((CheckBox)actor).isChecked());
-                prefs.flush();
-            }
-        });
     }
 }

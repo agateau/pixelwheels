@@ -8,7 +8,6 @@
         <GameInputHandlerSelector id="gameInputHandlerSelector"
                                   topLeft="$prev.bottomLeft 0 -1"
                                   />
-        <CheckBox id="autoCorrectCheckBox" topLeft="$prev.bottomLeft 0 -1">Auto Correct</CheckBox>
 
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"

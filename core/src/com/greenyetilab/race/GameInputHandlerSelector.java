@@ -53,7 +53,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
         addPositionRule(mDescriptionLabel, Anchor.TOP_LEFT, leftButton, Anchor.BOTTOM_LEFT, 0, -0.5f);
         addSizeRule(mDescriptionLabel, this, 1, SizeRule.IGNORE);
 
-        String inputHandlerId = RaceGame.getPreferences().getString("input", "");
+        String inputHandlerId = RaceGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         setIndex(findHandler(inputHandlerId));
 
         setHeight(mNameLabel.getHeight() + mDescriptionLabel.getHeight());
@@ -89,7 +89,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
         mDescriptionLabel.setText(factory.getDescription());
 
         Preferences prefs = RaceGame.getPreferences();
-        prefs.putString("input", factory.getId());
+        prefs.putString(PrefConstants.INPUT, factory.getId());
         prefs.flush();
     }
 }

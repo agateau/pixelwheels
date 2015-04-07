@@ -4,15 +4,12 @@ package com.greenyetilab.race;
  * A pilot controlled by the player
  */
 public class PlayerPilot implements Pilot {
-    private static final float DIRECTION_CORRECTION_STRENGTH = 0.008f;
-
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Racer mRacer;
     private final HealthComponent mHealthComponent;
 
     private GameInputHandler mInputHandler;
-    private boolean mAutoCorrectDirection = false;
 
     public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer) {
         mAssets = assets;
@@ -20,12 +17,10 @@ public class PlayerPilot implements Pilot {
         mRacer = racer;
         mHealthComponent = mRacer.getHealthComponent();
 
-        String inputHandlerId = RaceGame.getPreferences().getString("input", "");
+        String inputHandlerId = RaceGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         mInputHandler = factory.create();
         mInputHandler.createHud(assets, mGameWorld.getHudBridge());
-
-        mAutoCorrectDirection = RaceGame.getPreferences().getBoolean(PrefConstants.AUTO_CORRECT, PrefConstants.AUTO_CORRECT_DEFAULT);
     }
 
     @Override
@@ -49,9 +44,6 @@ public class PlayerPilot implements Pilot {
             }
 
             GameInput input = mInputHandler.getGameInput();
-            if (mAutoCorrectDirection && input.direction == 0) {
-                input.direction = computeCorrectedDirection();
-            }
             vehicle.setDirection(input.direction);
             vehicle.setAccelerating(input.accelerating);
             vehicle.setBraking(input.braking);
@@ -60,21 +52,5 @@ public class PlayerPilot implements Pilot {
             }
         }
         return true;
-    }
-
-    private float computeCorrectedDirection() {
-        Vehicle vehicle = mRacer.getVehicle();
-        float directionAngle = mGameWorld.getMapInfo().getDirectionAt(vehicle.getX(), vehicle.getY());
-        float angle = vehicle.getAngle();
-        float delta = Math.abs(angle - directionAngle);
-        if (delta < 2) {
-            return 0;
-        }
-        float correctionIntensity = Math.min(1, delta * DIRECTION_CORRECTION_STRENGTH);
-        if (directionAngle > angle) {
-            return correctionIntensity;
-        } else {
-            return -correctionIntensity;
-        }
     }
 }
