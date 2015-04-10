@@ -10,13 +10,14 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A mine on the road
  */
-public class Mine implements GameObject, Collidable, Pool.Poolable, DisposableWhenOutOfSight {
+public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;

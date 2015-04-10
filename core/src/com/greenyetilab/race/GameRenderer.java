@@ -183,7 +183,6 @@ public class GameRenderer {
         }
 
         mCamera.update();
-        mWorld.setVisibleSection(mCamera.position.y - viewportHeight / 2, mCamera.position.y + viewportHeight / 2);
     }
 
     public void onScreenResized() {

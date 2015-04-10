@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A generic short-animation game object
  */
-public class AnimationObject implements GameObject, Pool.Poolable, DisposableWhenOutOfSight {
+public class AnimationObject implements GameObject, Pool.Poolable, Disposable {
     private static float MULTI_DELAY = 0.25f;
     private static float MULTI_DENSITY = 2;
     private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);

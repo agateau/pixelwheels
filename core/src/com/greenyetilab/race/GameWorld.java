@@ -49,9 +49,6 @@ public class GameWorld implements ContactListener, Disposable {
     private int mSkidmarksIndex = 0;
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
-    private float mBottomVisibleY = 0;
-    private float mTopVisibleY = 0;
-
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
@@ -122,19 +119,6 @@ public class GameWorld implements ContactListener, Disposable {
         mActiveGameObjects.add(object);
     }
 
-    public void setVisibleSection(float bottom, float top) {
-        mBottomVisibleY = bottom;
-        mTopVisibleY = top;
-    }
-
-    public float getTopVisibleY() {
-        return mTopVisibleY;
-    }
-
-    public float getBottomVisibleY() {
-        return mBottomVisibleY;
-    }
-
     public int getPlayerRank() {
         for (int idx = mRacers.size - 1; idx >= 0; --idx) {
             if (mRacers.get(idx) == mPlayerRacer) {
@@ -183,7 +167,6 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mBox2DPerformanceCounter.stop();
 
-        float outOfSightLimit = mBottomVisibleY - Constants.VIEWPORT_POOL_RECYCLE_HEIGHT;
         mGameObjectPerformanceCounter.start();
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
@@ -191,11 +174,6 @@ public class GameWorld implements ContactListener, Disposable {
                 if (obj == mPlayerRacer) {
                     setState(GameWorld.State.BROKEN);
                 }
-                mActiveGameObjects.removeIndex(idx);
-                continue;
-            }
-            if (obj.getY() < outOfSightLimit && obj instanceof DisposableWhenOutOfSight) {
-                ((DisposableWhenOutOfSight)obj).dispose();
                 mActiveGameObjects.removeIndex(idx);
             }
         }

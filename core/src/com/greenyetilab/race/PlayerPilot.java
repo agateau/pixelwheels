@@ -32,11 +32,6 @@ public class PlayerPilot implements Pilot {
             return true;
         }
 
-        if (vehicle.getY() > mGameWorld.getTopVisibleY()) {
-            mGameWorld.setState(GameWorld.State.FINISHED);
-            vehicle.setAccelerating(false);
-        }
-
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             BonusIndicator bonusIndicator = mInputHandler.getBonusIndicator();
             if (mRacer.getBonus() != bonusIndicator.getBonus()) {
