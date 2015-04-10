@@ -88,14 +88,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="323.59213"
-     inkscape:cy="81.145922"
+     inkscape:zoom="2"
+     inkscape:cx="1112.4364"
+     inkscape:cy="-87.366796"
      inkscape:document-units="px"
      inkscape:current-layer="g8005"
      showgrid="true"
-     inkscape:window-width="1571"
-     inkscape:window-height="880"
+     inkscape:window-width="1891"
+     inkscape:window-height="1060"
      inkscape:window-x="26"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
@@ -132,7 +132,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -7104,62 +7104,6 @@
        inkscape:export-filename="../sprites/skidmark.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <path
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 1040,1004.3622 -16,16 16,16 z"
-       id="path4831"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc"
-       inkscape:export-filename="../sprites/hud-left.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
-       sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0"
-       id="path4834"
-       d="m 1056,1004.3622 16,16 -16,16 z"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       inkscape:export-filename="../sprites/hud-right.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
-       sodipodi:nodetypes="ccccccccccccccccccccccc"
-       inkscape:connector-curvature="0"
-       id="path3891-6"
-       d="m 1088,1009.3622 1,-2 3,-2 4,-1 4,1 3,2 1,2 0,7 -1,-1 0,8 -2,-2 0,7 -2,-2 -1,6 -2,2 -2,-2 -1,-6 -2,2 0,-7 -2,2 0,-8 -1,1 z"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       inkscape:export-filename="../sprites/hud-fire.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="color:#000000;fill:url(#linearGradient4897);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect4887"
-       width="16"
-       height="64"
-       x="1120"
-       y="988.36218"
-       inkscape:export-filename="../sprites/hud-bg.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <g
-       id="g4909"
-       inkscape:export-filename="../sprites/hud-swipe.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       style="stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="m 1040,904 -16,16 16,16 0,-12 45,0 0,-8 -45,0 0,-12 z"
-         transform="translate(0,156.36218)"
-         id="path4061"
-         inkscape:connector-curvature="0" />
-      <path
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="m 1092,920 0,12 -44,0 0,8 44,0 0,12 16,-16 -16,-16 z"
-         transform="translate(0,156.36218)"
-         id="path4905"
-         inkscape:connector-curvature="0" />
-    </g>
     <g
        id="g5250"
        transform="translate(192,-64)">
@@ -7207,15 +7151,6 @@
          d="m 128,348.36218 64,0 0,-64 -8,0 -3,7 -6,8 -6,9 -8,7 -7,8 -11,8 -7,6 -8,3 z"
          style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="../sprites/hud-back.png"
-       sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0"
-       id="path8542"
-       d="m 976,1012.3622 16,16 16,-16 z"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <use
        x="0"
        y="0"
