@@ -314,7 +314,7 @@ public class GameWorld implements ContactListener, Disposable {
         return mState;
     }
 
-    public void setState(State state) {
+    private void setState(State state) {
         mState = state;
     }
 
