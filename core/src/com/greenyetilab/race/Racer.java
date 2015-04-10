@@ -24,7 +24,6 @@ public class Racer implements GameObject, Collidable, Disposable {
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mFinished = false;
-    private int mScore;
     private Bonus mBonus;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
@@ -65,11 +64,6 @@ public class Racer implements GameObject, Collidable, Disposable {
 
     public Bonus getBonus() {
         return mBonus;
-    }
-
-    public void adjustScore(int delta, float x, float y) {
-        mScore += Constants.SCORE_GIFT_PICK;
-        mGameWorld.showScoreIndicator(Constants.SCORE_GIFT_PICK, x, y);
     }
 
     @Override
@@ -183,10 +177,6 @@ public class Racer implements GameObject, Collidable, Disposable {
     @Override
     public HealthComponent getHealthComponent() {
         return mHealthComponent;
-    }
-
-    public int getScore() {
-        return mScore;
     }
 
     public VehicleRenderer getVehicleRenderer() {

@@ -16,12 +16,6 @@ public class Constants {
     public static final float VIEWPORT_WIDTH = 45;
     public static final float CAMERA_ADVANCE_PERCENT = 0.2f;
 
-    public static final float SCORE_PER_METER = 1;
-
-    public static final int SCORE_CIVIL_HIT = -50;
-    public static final int SCORE_ENEMY_HIT = 100;
-    public static final int SCORE_GIFT_PICK = 400;
-
     public static final int PLAYER_HEALTH = 3;
     public static final boolean CLAMP_CAMERA = true;
     public static final boolean ROTATE_CAMERA = false;
