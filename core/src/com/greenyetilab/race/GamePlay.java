@@ -22,6 +22,8 @@ public class GamePlay {
     public static int spinImpulse = 80;
     public static int spinDuration = 2;
 
+    public static int hudButtonSize = 120;
+
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());
     }

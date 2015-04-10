@@ -9,15 +9,27 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Indicate an input zone on the hud
  */
 public class InputHudIndicator extends Actor {
-    private final TextureRegion mIcon;
+    private TextureRegion mIcon;
+
+    public InputHudIndicator() {
+        this(null);
+    }
 
     public InputHudIndicator(TextureRegion icon) {
         mIcon = icon;
-        setWidth(20);
-        setHeight(120);
+        setWidth(GamePlay.hudButtonSize);
+        setHeight(GamePlay.hudButtonSize);
     }
+
+    void setIcon(TextureRegion region) {
+        mIcon = region;
+    }
+
     @Override
     public void draw(Batch batch, float alpha) {
+        if (mIcon == null) {
+            return;
+        }
         batch.draw(
                 mIcon,
                 MathUtils.round(getX() + (getWidth() - mIcon.getRegionWidth()) / 2),

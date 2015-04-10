@@ -54,6 +54,8 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         addTitle("Spin");
         mGroup.addActor(addRange("Impulse:", "spinImpulse", 1, 200));
         mGroup.addActor(addRange("Duration:", "spinDuration", 1, 20));
+        addTitle("Hud");
+        mGroup.addActor(addRange("Button Size:", "hudButtonSize", 10, 200, 10));
         addTitle("Debug");
         mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
         mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
