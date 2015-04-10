@@ -27,6 +27,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mBraking;
     private boolean mCanDrift;
     private float mMaxDrivingForce;
+    private float mDisabledGripDelay = 0;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -70,7 +71,12 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void act(float delta) {
         checkCollisions();
-        updateFriction();
+        if (mDisabledGripDelay > 0) {
+            mDisabledGripDelay -= delta;
+        } else {
+            updateFriction();
+        }
+        Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
     }
 
     public Body getBody() {
@@ -83,6 +89,10 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public boolean isOnFatalGround() {
         return mOnFatalGround;
+    }
+
+    public void disableGripFor(float seconds) {
+        mDisabledGripDelay = seconds;
     }
 
     public void adjustSpeed(float amount) {
@@ -112,9 +122,6 @@ public class Wheel implements Pool.Poolable, Disposable {
 
         // Kill angular velocity
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
-
-        // Drag
-        Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
     }
 
     private void checkCollisions() {

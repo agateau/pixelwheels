@@ -51,12 +51,16 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         addTitle("Vehicle");
         mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
         mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
-        mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
+        addTitle("Spin");
+        mGroup.addActor(addRange("Impulse:", "spinImpulse", 1, 200));
+        mGroup.addActor(addRange("Duration:", "spinDuration", 1, 20));
         addTitle("Debug");
         mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
         mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
         mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
         mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
+
+        mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override

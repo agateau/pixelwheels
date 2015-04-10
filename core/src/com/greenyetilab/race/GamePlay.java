@@ -19,6 +19,9 @@ public class GamePlay {
     public static int borderRestitution = 1;
     public static int viewportWidth = 60;
 
+    public static int spinImpulse = 80;
+    public static int spinDuration = 2;
+
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());
     }

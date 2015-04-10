@@ -125,14 +125,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         }
 
         explode();
-        if (!(other instanceof GameObject)) {
-            return;
-        }
-        GameObject gameObject = (GameObject)other;
-        HealthComponent healthComponent = gameObject.getHealthComponent();
-        if (healthComponent != null && healthComponent.getHealth() > 0) {
-            // This object can take damage, let's hit it
-            healthComponent.decreaseHealth();
+        if (other instanceof Racer) {
+            ((Racer)other).spin();
         }
     }
 
