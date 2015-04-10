@@ -110,10 +110,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         mExploded = true;
     }
 
-    private void adjustScore(int delta) {
-        mShooter.adjustScore(delta, getX(), getY());
-    }
-
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
     }
