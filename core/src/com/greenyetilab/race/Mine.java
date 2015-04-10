@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A mine on the road
  */
-public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
+public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;
@@ -29,7 +29,6 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
 
     private Body mBody;
     private float mTime;
-    private boolean mExploded;
 
     public static Mine create(GameWorld gameWorld, Assets assets, float originX, float originY) {
         Mine mine = sPool.obtain();
@@ -38,7 +37,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
         }
         mine.mGameWorld = gameWorld;
         mine.mTime = 0;
-        mine.mExploded = false;
+        mine.setFinished(false);
         mine.mBodyDef.position.set(originX, originY);
 
         mine.mBody = gameWorld.getBox2DWorld().createBody(mine.mBodyDef);
@@ -73,13 +72,8 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
     }
 
     @Override
-    public boolean act(float delta) {
+    public void act(float delta) {
         mTime += delta;
-        if (mExploded) {
-            dispose();
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -109,7 +103,7 @@ public class Mine implements GameObject, Collidable, Pool.Poolable, Disposable {
     }
 
     private void explode() {
-        mExploded = true;
+        setFinished(true);
         Vector2 pos = mBody.getPosition();
         mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
     }

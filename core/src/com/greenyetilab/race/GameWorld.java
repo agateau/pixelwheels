@@ -119,10 +119,10 @@ public class GameWorld implements ContactListener, Disposable {
     private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
         @Override
         public int compare(Racer racer1, Racer racer2) {
-            if (!racer1.isFinished() && racer2.isFinished()) {
+            if (!racer1.hasFinishedRace() && racer2.hasFinishedRace()) {
                 return 1;
             }
-            if (racer1.isFinished() && !racer2.isFinished()) {
+            if (racer1.hasFinishedRace() && !racer2.hasFinishedRace()) {
                 return -1;
             }
             if (racer1.getLapCount() < racer2.getLapCount()) {
@@ -158,11 +158,15 @@ public class GameWorld implements ContactListener, Disposable {
         mGameObjectPerformanceCounter.start();
         for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
             GameObject obj = mActiveGameObjects.get(idx);
-            if (!obj.act(delta)) {
+            obj.act(delta);
+            if (obj.isFinished()) {
                 if (obj == mPlayerRacer) {
                     setState(GameWorld.State.BROKEN);
                 }
                 mActiveGameObjects.removeIndex(idx);
+                if (obj instanceof Disposable) {
+                    ((Disposable) obj).dispose();
+                }
             }
         }
         mGameObjectPerformanceCounter.stop();
@@ -171,13 +175,13 @@ public class GameWorld implements ContactListener, Disposable {
         // line, even if they continue a bit after it
         int fromIndex;
         for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
-            if (!mRacers.get(fromIndex).isFinished()) {
+            if (!mRacers.get(fromIndex).hasFinishedRace()) {
                 break;
             }
         }
         Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
-        if (mPlayerRacer.isFinished()) {
+        if (mPlayerRacer.hasFinishedRace()) {
             setState(State.FINISHED);
         }
     }

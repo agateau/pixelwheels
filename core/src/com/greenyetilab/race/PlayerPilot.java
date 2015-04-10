@@ -24,12 +24,12 @@ public class PlayerPilot implements Pilot {
     }
 
     @Override
-    public boolean act(float dt) {
+    public void act(float dt) {
         Vehicle vehicle = mRacer.getVehicle();
         if (mHealthComponent.getHealth() == 0) {
             vehicle.setBraking(true);
             vehicle.setAccelerating(false);
-            return true;
+            return;
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
@@ -46,6 +46,5 @@ public class PlayerPilot implements Pilot {
                 mRacer.triggerBonus();
             }
         }
-        return true;
     }
 }

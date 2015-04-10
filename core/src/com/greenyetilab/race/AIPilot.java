@@ -24,7 +24,7 @@ public class AIPilot implements Pilot {
 
     private final Vector2 mTargetVector = new Vector2();
     @Override
-    public boolean act(float dt) {
+    public void act(float dt) {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
 
@@ -46,6 +46,5 @@ public class AIPilot implements Pilot {
         }
         float direction = MathUtils.clamp(deltaAngle / 4, -10, 10) / 10f;
         vehicle.setDirection(direction);
-        return true;
     }
 }

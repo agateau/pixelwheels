@@ -12,11 +12,10 @@ public class GroundCollisionHandlerComponent {
         mHealthComponent = healthComponent;
     }
 
-    public boolean act(float dt) {
+    public void act(float dt) {
         if (mHealthComponent.getState() == HealthComponent.State.ALIVE) {
             checkGroundCollisions();
         }
-        return true;
     }
 
     private void checkGroundCollisions() {

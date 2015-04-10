@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A player bullet
  */
-public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable {
+public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
 
     private static final float BULLET_RADIUS = 0.8f;
@@ -30,7 +30,6 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private CircleShape mShape;
 
     private Body mBody;
-    private boolean mExploded;
 
     public static Bullet create(Assets assets, GameWorld gameWorld, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
@@ -39,7 +38,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
         }
         object.mShooter = shooter;
         object.mGameWorld = gameWorld;
-        object.mExploded = false;
+        object.setFinished(false);
         object.mBodyDef.position.set(originX, originY);
         object.mBodyDef.angle = angle * MathUtils.degreesToRadians;
 
@@ -75,12 +74,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     }
 
     @Override
-    public boolean act(float delta) {
-        if (mExploded) {
-            dispose();
-            return false;
-        }
-        return true;
+    public void act(float delta) {
     }
 
     @Override
@@ -108,7 +102,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
     private void explode() {
         Vector2 pos = mBody.getPosition();
         mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, pos.x, pos.y));
-        mExploded = true;
+        setFinished(true);
     }
 
     @Override
@@ -121,7 +115,7 @@ public class Bullet implements GameObject, Collidable, Pool.Poolable, Disposable
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        if (mExploded) {
+        if (isFinished()) {
             return;
         }
         Object other = otherFixture.getBody().getUserData();

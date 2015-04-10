@@ -158,7 +158,7 @@ class Vehicle implements Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
-    public boolean act(float dt) {
+    public void act(float dt) {
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.5f;
@@ -190,7 +190,6 @@ class Vehicle implements Disposable {
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
         }
-        return true;
     }
 
     public boolean isAccelerating() {

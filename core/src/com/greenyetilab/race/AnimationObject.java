@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A generic short-animation game object
  */
-public class AnimationObject implements GameObject, Pool.Poolable, Disposable {
+public class AnimationObject extends GameObjectAdapter implements Pool.Poolable, Disposable {
     private static float MULTI_DELAY = 0.25f;
     private static float MULTI_DENSITY = 2;
     private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
@@ -30,16 +30,14 @@ public class AnimationObject implements GameObject, Pool.Poolable, Disposable {
     }
 
     @Override
-    public boolean act(float delta) {
+    public void act(float delta) {
         mTime += delta;
         if (mTime < 0) {
-            return true;
+            return;
         }
-        boolean finished = mAnimation.isAnimationFinished(mTime);
-        if (finished) {
-            dispose();
+        if (mAnimation.isAnimationFinished(mTime)) {
+            setFinished(true);
         }
-        return !finished;
     }
 
     @Override

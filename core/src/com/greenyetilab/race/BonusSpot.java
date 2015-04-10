@@ -7,12 +7,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * The bonus waiting to be hit by a the player
  */
-public class BonusSpot implements GameObject {
+public class BonusSpot extends GameObjectAdapter {
     private static final float DISABLED_TIMEOUT = 5;
     private final TextureRegion mRegion;
     private final float mX;
@@ -45,7 +44,7 @@ public class BonusSpot implements GameObject {
     }
 
     @Override
-    public boolean act(float delta) {
+    public void act(float delta) {
         if (mDisabledTimeout > 0) {
             // mBody is still active on the first call of act() after pickBonus()
             mBody.setActive(false);
@@ -55,7 +54,6 @@ public class BonusSpot implements GameObject {
                 mBody.setActive(true);
             }
         }
-        return true;
     }
 
     @Override

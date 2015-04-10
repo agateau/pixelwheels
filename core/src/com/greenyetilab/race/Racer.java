@@ -13,7 +13,7 @@ import com.greenyetilab.utils.log.NLog;
 /**
  * A racer
  */
-public class Racer implements GameObject, Collidable, Disposable {
+public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
@@ -23,7 +23,7 @@ public class Racer implements GameObject, Collidable, Disposable {
     private Pilot mPilot;
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
-    private boolean mFinished = false;
+    private boolean mHasFinishedRace = false;
     private Bonus mBonus;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
@@ -58,8 +58,8 @@ public class Racer implements GameObject, Collidable, Disposable {
         return mLapPosition.getLapDistance();
     }
 
-    public boolean isFinished() {
-        return mFinished;
+    public boolean hasFinishedRace() {
+        return mHasFinishedRace;
     }
 
     public Bonus getBonus() {
@@ -96,28 +96,20 @@ public class Racer implements GameObject, Collidable, Disposable {
     }
 
     @Override
-    public boolean act(float delta) {
-        if (!mFinished) {
+    public void act(float delta) {
+        if (!mHasFinishedRace) {
             updatePosition();
         }
-        boolean keep = mVehicle.act(delta);
-        if (keep) {
-            if (mFinished) {
-                mVehicle.setAccelerating(false);
-            } else {
-                keep = mPilot.act(delta);
-            }
+        mVehicle.act(delta);
+        if (mHasFinishedRace) {
+            mVehicle.setAccelerating(false);
+        } else {
+            mPilot.act(delta);
         }
-        if (keep) {
-            keep = mGroundCollisionHandlerComponent.act(delta);
+        mGroundCollisionHandlerComponent.act(delta);
+        if (!mHealthComponent.act(delta)) {
+            setFinished(true);
         }
-        if (keep) {
-            keep = mHealthComponent.act(delta);
-        }
-        if (!keep) {
-            dispose();
-        }
-        return keep;
     }
 
     private void selectBonus() {
@@ -152,7 +144,7 @@ public class Racer implements GameObject, Collidable, Disposable {
             ++mLapCount;
             if (mLapCount > mapInfo.getTotalLapCount()) {
                 --mLapCount;
-                mFinished = true;
+                mHasFinishedRace = true;
             }
         } else if (mLapPosition.getSectionId() > 1 && oldSectionId == 0) {
             --mLapCount;
