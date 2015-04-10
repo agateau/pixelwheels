@@ -73,7 +73,6 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void reset() {
-
     }
 
     @Override
@@ -89,6 +88,10 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void trigger() {
+        if (mTask.isScheduled()) {
+            NLog.e("Task already scheduled, should not happen!");
+            return;
+        }
         Timer.schedule(mTask, 0, SHOOT_INTERVAL, SHOOT_COUNT);
     }
 
