@@ -1,11 +1,9 @@
 package com.greenyetilab.race;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
-import com.greenyetilab.utils.anchor.PositionRule;
-import com.greenyetilab.utils.anchor.SizeRule;
 
 /**
  * Handle inputs with touch screen only
@@ -33,11 +31,9 @@ public class TouchInputHandler implements GameInputHandler {
         }
     }
 
-    private static final float LEFT_PERCENT = 0.25f;
-    private static final float RIGHT_PERCENT = 0.5f;
-
-    private final BonusIndicator mBonusIndicator = new BonusIndicator();
     private GameInput mInput = new GameInput();
+    private final BonusIndicator mBonusIndicator = new BonusIndicator();
+    private InputHudIndicator mLeftIndicator, mRightIndicator, mBrakeIndicator;
 
     @Override
     public GameInput getGameInput() {
@@ -51,15 +47,14 @@ public class TouchInputHandler implements GameInputHandler {
             }
             float x = Gdx.input.getX(i);
             float y = Gdx.graphics.getHeight() - Gdx.input.getY(i);
-            if (mBonusIndicator.hit(x - mBonusIndicator.getX(), y - mBonusIndicator.getY(), false) != null) {
+            if (isActorHit(mBonusIndicator, x, y)) {
                 mInput.triggeringBonus = true;
             } else {
-                float normalizedX = x / (float) Gdx.graphics.getWidth();
-                if (normalizedX < LEFT_PERCENT) {
+                if (isActorHit(mLeftIndicator, x, 0)) {
                     mInput.direction = 1;
-                } else if (normalizedX < RIGHT_PERCENT) {
+                } else if (isActorHit(mRightIndicator, x, 0)) {
                     mInput.direction = -1;
-                } else {
+                } else if (isActorHit(mBrakeIndicator, x, 0)) {
                     mInput.accelerating = false;
                     mInput.braking = true;
                 }
@@ -74,10 +69,14 @@ public class TouchInputHandler implements GameInputHandler {
         group.setFillParent(true);
         hudBridge.getStage().addActor(group);
 
-        createHudIndicator(assets.findRegion("hud-left"), group, 0, LEFT_PERCENT);
-        createHudIndicator(assets.findRegion("hud-right"), group, LEFT_PERCENT, RIGHT_PERCENT);
-        createHudIndicator(assets.findRegion("hud-back"), group, RIGHT_PERCENT, 1);
-        group.addPositionRule(mBonusIndicator, Anchor.TOP_RIGHT, group, Anchor.CENTER_RIGHT, 0, 0);
+        mLeftIndicator = new InputHudIndicator(assets.findRegion("hud-left"));
+        mRightIndicator = new InputHudIndicator(assets.findRegion("hud-right"));
+        mBrakeIndicator = new InputHudIndicator(assets.findRegion("hud-back"));
+
+        group.addPositionRule(mLeftIndicator, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
+        group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mRightIndicator, Anchor.BOTTOM_RIGHT);
+        group.addPositionRule(mBrakeIndicator, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
+        group.addPositionRule(mBonusIndicator, Anchor.BOTTOM_RIGHT, mBrakeIndicator, Anchor.TOP_RIGHT);
     }
 
     @Override
@@ -85,15 +84,7 @@ public class TouchInputHandler implements GameInputHandler {
         return mBonusIndicator;
     }
 
-    private void createHudIndicator(TextureRegion icon, AnchorGroup group, float start, float stop) {
-        InputHudIndicator indicator = new InputHudIndicator(icon);
-        PositionRule rule = new PositionRule();
-        rule.reference = group;
-        rule.referenceAnchor = new Anchor(start, 0);
-        rule.target = indicator;
-        rule.targetAnchor = Anchor.BOTTOM_LEFT;
-        group.addRule(rule);
-        SizeRule sizeRule = new SizeRule(indicator, group, stop - start, SizeRule.IGNORE);
-        group.addRule(sizeRule);
+    private static boolean isActorHit(Actor actor, float x, float y) {
+        return actor.hit(x - actor.getX(), y - actor.getY(), false) != null;
     }
 }
