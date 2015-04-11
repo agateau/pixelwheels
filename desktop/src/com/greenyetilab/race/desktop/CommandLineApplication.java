@@ -27,6 +27,8 @@ public abstract class CommandLineApplication extends LwjglApplication {
 
     private static LwjglApplicationConfiguration createConfig(String title) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        LwjglApplicationConfiguration.disableAudio = true;
+        config.allowSoftwareMode = true;
         config.forceExit = false;
         config.width = 100;
         config.height = 50;
