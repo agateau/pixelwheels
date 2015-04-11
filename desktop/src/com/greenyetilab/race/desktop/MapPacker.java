@@ -13,10 +13,9 @@
 
 package com.greenyetilab.race.desktop;
 
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -24,6 +23,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.XmlReader;
+import com.greenyetilab.utils.FileUtils;
 import com.greenyetilab.utils.log.NLog;
 
 import org.w3c.dom.Attr;
@@ -74,13 +75,6 @@ public class MapPacker {
         }
     }
 
-    private static class PackerFileHandleResolver implements FileHandleResolver {
-        @Override
-        public FileHandle resolve (String fileName) {
-            return new FileHandle(fileName);
-        }
-    }
-
     /** You can either run the {@link MapPacker#main(String[])} method or reference this class in your own project and call
      * this method.
      *
@@ -102,16 +96,40 @@ public class MapPacker {
      */
     public void processMaps (File inputDir, File outputDir, Settings texturePackerSettings) throws IOException {
         outputDir.mkdirs();
-        TmxMapLoader mapLoader = new TmxMapLoader(new PackerFileHandleResolver());
 
         for (File file : inputDir.listFiles(new TmxFilter())) {
             String atlasName = file.getName().replace(".tmx", "");
             NLog.i("# Processing %s atlasName=%s", file.getAbsolutePath(), atlasName);
-            TiledMap map = mapLoader.load(file.getAbsolutePath());
             FileHandle tmxFile = new FileHandle(file.getAbsolutePath());
             writeUpdatedTMX(outputDir, tmxFile, atlasName);
-            packTileSets(map.getTileSets(), inputDir, outputDir, atlasName, texturePackerSettings);
+            TiledMapTileSets sets = loadTileSets(tmxFile);
+            packTileSets(sets, inputDir, outputDir, atlasName, texturePackerSettings);
         }
+    }
+
+    private static TiledMapTileSets loadTileSets(FileHandle handle) {
+        TiledMapTileSets sets = new TiledMapTileSets();
+        XmlReader.Element root = FileUtils.parseXml(handle);
+        for (XmlReader.Element element : root.getChildrenByName("tileset")) {
+            TiledMapTileSet set = new TiledMapTileSet();
+            set.setName(element.get("name", null));
+
+            MapProperties props = set.getProperties();
+            props.put("firstgid", element.getIntAttribute("firstgid", 1));
+            props.put("tilewidth", element.getIntAttribute("tilewidth", 0));
+            props.put("tileheight", element.getIntAttribute("tileheight", 0));
+            props.put("spacing", element.getIntAttribute("spacing", 0));
+            props.put("margin", element.getIntAttribute("margin", 0));
+
+            String source = element.getAttribute("source", null);
+            if (source != null) {
+                throw new RuntimeException("FIXME: tsx support");
+            } else {
+                props.put("imagesource", element.getChildByName("image").getAttribute("source"));
+            }
+            sets.addTileSet(set);
+        }
+        return sets;
     }
 
     /** Traverse the specified tilesets, optionally lookup the used ids and pass every tile image to the {@link TexturePacker},
@@ -124,12 +142,12 @@ public class MapPacker {
 
         for (TiledMapTileSet set : sets) {
             System.out.println("Processing tileset " + set.getName());
+            MapProperties props = set.getProperties();
 
-            int tileWidth = set.getProperties().get("tilewidth", Integer.class);
-            int tileHeight = set.getProperties().get("tileheight", Integer.class);
-            int firstGid = set.getProperties().get("firstgid", Integer.class);
+            int tileWidth = props.get("tilewidth", Integer.class);
+            int tileHeight = props.get("tileheight", Integer.class);
 
-            TileSetLayout layout = new TileSetLayout(firstGid, set, inputDirHandle);
+            TileSetLayout layout = new TileSetLayout(props, inputDirHandle);
 
             for (int gid = layout.firstgid, i = 0; i < layout.numTiles; gid++, i++) {
                 Vector2 tileLocation = layout.getLocation(gid);
@@ -313,23 +331,16 @@ public class MapPacker {
             System.exit(1);
         }
 
-        new CommandLineApplication("TiledMapPacker", args) {
-            @Override
-            int run(String[] arguments) {
-                MapPacker packer = new MapPacker();
+        if (!inputDir.exists()) {
+            throw new RuntimeException("Input directory does not exist: " + inputDir);
+        }
 
-                if (!inputDir.exists()) {
-                    throw new RuntimeException("Input directory does not exist: " + inputDir);
-                }
-
-                try {
-                    packer.processMaps(inputDir, outputDir, texturePackerSettings);
-                } catch (IOException e) {
-                    throw new RuntimeException("Error processing map: " + e.getMessage());
-                }
-                return 0;
-            }
-        };
+        try {
+            MapPacker packer = new MapPacker();
+            packer.processMaps(inputDir, outputDir, texturePackerSettings);
+        } catch (IOException e) {
+            throw new RuntimeException("Error processing map: " + e.getMessage());
+        }
     }
 
     private static boolean clearOutputDir(File dir) {

@@ -1,7 +1,7 @@
 package com.greenyetilab.race.desktop;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntMap;
 
@@ -22,18 +22,18 @@ public class TileSetLayout {
     public final int firstgid;
 
     /** Constructs a Tile Set layout. The tile set image contained in the baseDir should be the original tile set images before
-     * being processed by {@link TiledMapPacker} (the ones actually read by Tiled).
-     * @param tileset the tile set to process
+     * being processed by TiledMapPacker (the ones actually read by Tiled).
+     * @param props the properties of the tileset to process
      * @param baseDir the directory in which the tile set image is stored */
-    protected TileSetLayout (int firstgid, TiledMapTileSet tileset, FileHandle baseDir) throws IOException {
-        int tileWidth = tileset.getProperties().get("tilewidth", Integer.class);
-        int tileHeight = tileset.getProperties().get("tileheight", Integer.class);
-        int margin = tileset.getProperties().get("margin", Integer.class);
-        int spacing = tileset.getProperties().get("spacing", Integer.class);
+    protected TileSetLayout (MapProperties props, FileHandle baseDir) throws IOException {
+        int tileWidth = props.get("tilewidth", Integer.class);
+        int tileHeight = props.get("tileheight", Integer.class);
+        int margin = props.get("margin", Integer.class);
+        int spacing = props.get("spacing", Integer.class);
 
-        this.firstgid = firstgid;
+        this.firstgid = props.get("firstgid", Integer.class);
 
-        image = ImageIO.read(baseDir.child(tileset.getProperties().get("imagesource", String.class)).read());
+        image = ImageIO.read(baseDir.child(props.get("imagesource", String.class)).read());
 
         imageTilePositions = new IntMap<Vector2>();
 
