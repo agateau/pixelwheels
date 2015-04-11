@@ -119,9 +119,6 @@ public class MapPacker {
     private void packTileSets(TiledMapTileSets sets, File inputDir, File outputDir,
                               String atlasName, Settings texturePackerSettings) throws IOException {
         FileHandle inputDirHandle = new FileHandle(inputDir.getAbsolutePath());
-        BufferedImage tile;
-        Vector2 tileLocation;
-        Graphics g;
 
         TexturePacker packer = new TexturePacker(texturePackerSettings);
 
@@ -135,12 +132,14 @@ public class MapPacker {
             TileSetLayout layout = new TileSetLayout(firstGid, set, inputDirHandle);
 
             for (int gid = layout.firstgid, i = 0; i < layout.numTiles; gid++, i++) {
-                tileLocation = layout.getLocation(gid);
-                tile = new BufferedImage(tileWidth, tileHeight, BufferedImage.TYPE_4BYTE_ABGR);
+                Vector2 tileLocation = layout.getLocation(gid);
+                BufferedImage tile = new BufferedImage(tileWidth, tileHeight, BufferedImage.TYPE_4BYTE_ABGR);
 
-                g = tile.createGraphics();
-                g.drawImage(layout.image, 0, 0, tileWidth, tileHeight, (int)tileLocation.x, (int)tileLocation.y, (int)tileLocation.x
-                        + tileWidth, (int)tileLocation.y + tileHeight, null);
+                Graphics g = tile.createGraphics();
+                g.drawImage(layout.image,
+                        0, 0, tileWidth, tileHeight,
+                        (int)tileLocation.x, (int)tileLocation.y, (int)tileLocation.x + tileWidth, (int)tileLocation.y + tileHeight,
+                        null);
 
                 if (isBlended(tile)) setBlended(gid);
                 NLog.d("Adding %d, %d (%d %d), gid=%d", (int)tileLocation.x, (int)tileLocation.y, tileWidth, tileHeight, gid);
