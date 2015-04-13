@@ -121,6 +121,10 @@ public class GameRenderer {
             mShapeRenderer.rect(mVehicle.getX(), mVehicle.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
             mShapeRenderer.end();
 
+            for (DebugShapeMap.Shape shape : DebugShapeMap.getMap().values()) {
+                shape.draw(mShapeRenderer);
+            }
+
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.setColor(1, 0, 0, 1);
