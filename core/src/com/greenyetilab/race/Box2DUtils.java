@@ -115,15 +115,19 @@ public class Box2DUtils {
      * Returns vertices for a rectangle of size width x height with truncated corners of cornerSize
      */
     static float[] createOctogon(float width, float height, float cornerSize) {
+        return createOctogon(width, height, cornerSize, cornerSize);
+    }
+
+    static float[] createOctogon(float width, float height, float cornerWidth, float cornerHeight) {
         return new float[]{
-                width / 2 - cornerSize, -height / 2,
-                width / 2, -height / 2 + cornerSize,
-                width / 2, height / 2 - cornerSize,
-                width / 2 - cornerSize, height / 2,
-                -width / 2 + cornerSize, height / 2,
-                -width / 2, height / 2 - cornerSize,
-                -width / 2, -height / 2 + cornerSize,
-                -width / 2 + cornerSize, -height / 2
+                width / 2 - cornerWidth, -height / 2,
+                width / 2, -height / 2 + cornerHeight,
+                width / 2, height / 2 - cornerHeight,
+                width / 2 - cornerWidth, height / 2,
+                -width / 2 + cornerWidth, height / 2,
+                -width / 2, height / 2 - cornerHeight,
+                -width / 2, -height / 2 + cornerHeight,
+                -width / 2 + cornerWidth, -height / 2
         };
     }
 }
