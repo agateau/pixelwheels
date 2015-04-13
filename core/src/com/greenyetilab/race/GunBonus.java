@@ -95,6 +95,11 @@ public class GunBonus implements Bonus, Pool.Poolable {
         Timer.schedule(mTask, 0, SHOOT_INTERVAL, SHOOT_COUNT);
     }
 
+    @Override
+    public void aiAct(float delta) {
+        mRacer.triggerBonus();
+    }
+
     private void remove() {
         mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
         mPool.free(this);
