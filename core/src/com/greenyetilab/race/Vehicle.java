@@ -26,8 +26,6 @@ class Vehicle implements Disposable {
     private boolean mLimitAngle;
     private boolean mCorrectAngle;
 
-    private static final float CORNER_SIZE = 0.5f;
-
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
     private String mName;
@@ -52,7 +50,7 @@ class Vehicle implements Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.set(Box2DUtils.createOctogon(carW, carH, CORNER_SIZE));
+        shape.set(Box2DUtils.createOctogon(carW, carH, carW / 2, carH / 4));
 
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
