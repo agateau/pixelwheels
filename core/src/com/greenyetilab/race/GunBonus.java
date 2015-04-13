@@ -2,9 +2,11 @@ package com.greenyetilab.race;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.greenyetilab.utils.log.NLog;
@@ -15,6 +17,7 @@ import com.greenyetilab.utils.log.NLog;
 public class GunBonus implements Bonus, Pool.Poolable {
     private static final float SHOOT_INTERVAL = 0.1f;
     private static final int SHOOT_COUNT = 10;
+    private static final float AI_RAYCAST_LENGTH = 20;
 
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
@@ -44,6 +47,8 @@ public class GunBonus implements Bonus, Pool.Poolable {
         }
     };
 
+    private final ClosestFixtureFinder mClosestFixtureFinder = new ClosestFixtureFinder();
+
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, int zIndex) {
@@ -61,6 +66,19 @@ public class GunBonus implements Bonus, Pool.Poolable {
                     w, h, // size
                     1, 1, // scale
                     angle);
+        }
+    };
+
+    private final Vector2 mRayCastV1 = new Vector2();
+    private final Vector2 mRayCastV2 = new Vector2();
+
+    private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
+        @Override
+        public void draw(ShapeRenderer renderer) {
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(1, 0, 0, 1);
+            renderer.line(mRayCastV1, mRayCastV2);
+            renderer.end();
         }
     };
 
@@ -84,6 +102,8 @@ public class GunBonus implements Bonus, Pool.Poolable {
     public void onPicked(Racer racer) {
         mRacer = racer;
         mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
+        mClosestFixtureFinder.setIgnoredBody(mRacer.getVehicle().getBody());
+        DebugShapeMap.put(this, mDebugShape);
     }
 
     @Override
@@ -93,11 +113,21 @@ public class GunBonus implements Bonus, Pool.Poolable {
             return;
         }
         Timer.schedule(mTask, 0, SHOOT_INTERVAL, SHOOT_COUNT);
+        DebugShapeMap.remove(this);
     }
 
     @Override
     public void aiAct(float delta) {
-        mRacer.triggerBonus();
+        mRayCastV1.set(mRacer.getX(), mRacer.getY());
+        mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
+        Fixture fixture = mClosestFixtureFinder.run(mGameWorld.getBox2DWorld(), mRayCastV1, mRayCastV2);
+        if (fixture == null) {
+            return;
+        }
+        Object userData = fixture.getBody().getUserData();
+        if (userData instanceof Racer) {
+            mRacer.triggerBonus();
+        }
     }
 
     private void remove() {
