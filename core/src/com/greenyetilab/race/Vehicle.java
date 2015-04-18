@@ -159,7 +159,7 @@ class Vehicle implements Disposable {
     public void act(float dt) {
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
-            speedDelta = mAccelerating ? 1 : -0.5f;
+            speedDelta = mAccelerating ? 1 : -0.8f;
         }
 
         float steerAngle = 0;
