@@ -112,11 +112,11 @@ public class Wheel implements Pool.Poolable, Disposable {
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxInpulse = (float)GamePlay.maxLateralImpulse / (mBraking ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxInpulse) {
+        float maxImpulse = (float)GamePlay.maxLateralImpulse / (mBraking ? 2 : 1);
+        if (mCanDrift && impulse.len() > maxImpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
-            maxInpulse = Math.max(maxInpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
-            impulse.limit(maxInpulse);
+            maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
+            impulse.limit(maxImpulse);
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 
