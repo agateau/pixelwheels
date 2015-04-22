@@ -25,6 +25,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mHasFinishedRace = false;
     private Bonus mBonus;
+    private boolean mMustSelectBonus = false;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
@@ -80,7 +81,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             BonusSpot spot = (BonusSpot)other;
             spot.pickBonus();
             if (mBonus == null) {
-                selectBonus();
+                // Do not call selectBonus() from here: it would make it harder for bonus code to
+                // create Box2D bodies: since we are in the collision handling code, the physic
+                // engine is locked so they would have to delay such creations.
+                mMustSelectBonus = true;
             }
         }
     }
@@ -104,6 +108,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     @Override
     public void act(float delta) {
+        if (mMustSelectBonus) {
+            mMustSelectBonus = false;
+            selectBonus();
+        }
         if (!mHasFinishedRace) {
             updatePosition();
         }
