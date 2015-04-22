@@ -111,14 +111,11 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
-        if (!(other instanceof GameObject)) {
+        if (!(other instanceof Racer)) {
             return;
         }
-        HealthComponent healthComponent = ((GameObject)other).getHealthComponent();
-        if (healthComponent != null) {
-            explode();
-            healthComponent.decreaseHealth();
-        }
+        explode();
+        ((Racer)other).spin();
     }
 
     @Override
