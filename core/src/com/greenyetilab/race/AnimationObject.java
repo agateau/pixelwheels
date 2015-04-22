@@ -77,6 +77,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         obj.mAnimation = animation;
         obj.mPosX = posX;
         obj.mPosY = posY;
+        obj.setFinished(false);
         return obj;
     }
 
