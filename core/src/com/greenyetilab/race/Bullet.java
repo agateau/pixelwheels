@@ -48,7 +48,7 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.AI_VEHICLE);
+                CollisionCategories.WALL | CollisionCategories.RACER);
         return object;
     }
 

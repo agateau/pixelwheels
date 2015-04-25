@@ -36,7 +36,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mVehicle.setCollisionInfo(CollisionCategories.RACER,
                 CollisionCategories.WALL
                 | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
-                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
+                | CollisionCategories.FLAT_AI_VEHICLE
                 | CollisionCategories.GIFT);
 
         mVehicleRenderer = new VehicleRenderer(mVehicle, mHealthComponent);

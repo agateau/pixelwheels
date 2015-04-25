@@ -221,7 +221,7 @@ public class GameWorld implements ContactListener, Disposable {
         float wallSize = 1;
         Body body;
         int mask = CollisionCategories.RACER | CollisionCategories.RACER_BULLET
-                        | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
+                        | CollisionCategories.FLAT_AI_VEHICLE
                         | CollisionCategories.GIFT;
         // bottom
         body = Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
@@ -238,7 +238,7 @@ public class GameWorld implements ContactListener, Disposable {
         for (MapObject object : mMapInfo.getBordersLayer().getObjects()) {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
-                    CollisionCategories.RACER | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
+                    CollisionCategories.RACER |  CollisionCategories.FLAT_AI_VEHICLE
                             | CollisionCategories.GIFT | CollisionCategories.RACER_BULLET);
             Box2DUtils.setBodyRestitution(body, GamePlay.borderRestitution / 10.0f);
         }

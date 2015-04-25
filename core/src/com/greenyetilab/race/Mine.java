@@ -59,7 +59,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
 
         Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_AI_VEHICLE,
                 CollisionCategories.WALL | CollisionCategories.RACER
-                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE);
+                | CollisionCategories.FLAT_AI_VEHICLE);
 
         gameWorld.addGameObject(mine);
 
