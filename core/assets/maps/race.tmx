@@ -245,10 +245,10 @@
  </layer>
  <layer name="Obstacles" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztWMFqwzAM9af0F9ZuhZV2p66nbvfGpt1l22n7/2NliECEYUnISsXog0fAcewnP8VKnNIdGjwAl7cWYQDqfwZuBP2igtOv7afBCTiMzCMLac/kiu2ZtNO24jCeIo6FOviZoNE2BI5Doy0HjqNqk+4J0f2Q7gnR/ahXiSclcByoTeJJ9P2K82I1XqPnVe/34wy8pHnrnGaNJfvVJ/AL+C0dVAgupzltj8An4Drx73n1ocbwqxEoBKeT07YF7oAvqb0mXj4gOJ2cX3vgK/CQ2jn4k3x8QFjz6gh8A76n9pp478mwhh/MffH8La3e3yzc+Jr5W329az03PvqxanWa9O0JrMHWvNSsY8/cmf6fW9dIsw49/UD9GI81LzXaLHPRelox9cOaV732Kw60nlZM/bDm7KD4H7TkFa2nFL3ej0K+d7l4LHPRevoXrH7Q/w/u+92z1ln9yAo/PGuddeyi8MN6buj1HD5rOUONfo4shcc58h3/F1edPV6J
+   eJztWMtqAzEM9KfkF5q0gYakpzSntPesTdJL21P7/8fIsAKxFEtC1kaUDAwLjmOPHpZ2ndIdGjwAl7cWYQDqfwZuBPOigtOvnafBCTiMzCMLGc/kieOZjNOx4rCewo6F2viZoNE2BLZDoy0HtqNqk9aE6PGQ1oTo8ahPSUxKYDtQmyQm0esVF4vV+IyeV73Pxxl4SfP2OY2PJfXqE/gF/JYuKgSX05y2R+ATcJ34c442/GoECsHp5LRtgTvgS+J98pN8bKjgdHLa9sBX4CG1c9C7llnz6gh8A76ntk+8axms/8H8Lt6/5RPvdxZufc3+rbnevZ5bH+Oxak2azO0J7MHW86XxY8/cmX6fW32k8UPPeKB+tMealxptlr1oP62YxsOaV73qFQfaTyum8bDm7KD4HrTkFe2nFL3ORyHvu5w9lr1oP/0L1njQ7w/u/d2z11njkRXx8Ox11rWLIh7We0Ov/+F/LXeo0e+RpfC4R77j/+IK2Pdd2Q==
   </data>
  </layer>
- <objectgroup name="Borders">
+ <objectgroup name="Borders" visible="0">
   <object x="2832" y="304" width="64" height="1632"/>
   <object x="320" y="304" width="48" height="1632"/>
   <object x="1099.5" y="849" width="1258.5" height="30.5"/>
@@ -257,9 +257,9 @@
   <object x="1808" y="1352" width="32" height="592"/>
   <object x="320" y="240" width="2560" height="64"/>
   <object x="1088" y="832">
-   <polygon points="-27.5,4.75 -315.75,294.5 -290.667,315.333 -5,26.8333"/>
+   <polygon points="-27.5,4.75 -250.333,226.667 -228,250.333 -5,26.8333"/>
   </object>
-  <object x="784" y="1162" width="31.5" height="170.5"/>
+  <object x="784" y="1099" width="32.1667" height="234.167"/>
   <object x="1568" y="1440" width="64" height="64">
    <ellipse/>
   </object>
@@ -277,7 +277,7 @@
   </object>
   <object x="1290" y="1545.33" width="108" height="173.333"/>
  </objectgroup>
- <objectgroup name="Zones">
+ <objectgroup name="Zones" visible="0">
   <object name="2" x="832" y="960">
    <polygon points="64,64 256,-112 128,-656 -464,-656"/>
   </object>
