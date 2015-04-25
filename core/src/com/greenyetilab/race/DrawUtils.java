@@ -11,15 +11,19 @@ import com.badlogic.gdx.physics.box2d.Body;
  * Created by aurelien on 27/11/14.
  */
 public class DrawUtils {
-    public static final float SHADOW_OFFSET_X = Constants.UNIT_FOR_PIXEL * 5;
+    public static final float SHADOW_OFFSET_X = Constants.UNIT_FOR_PIXEL * 6;
     public static final float SHADOW_OFFSET_Y = -SHADOW_OFFSET_X;
     public static final float SHADOW_ALPHA = 0.35f;
 
     public static void drawBodyRegionShadow(Batch batch, Body body, TextureRegion region) {
+        drawBodyRegionShadow(batch, body, region, 1f);
+    }
+
+    public static void drawBodyRegionShadow(Batch batch, Body body, TextureRegion region, float shadowPercent) {
         Vector2 center = body.getPosition();
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
-        float x = center.x + SHADOW_OFFSET_X;
-        float y = center.y + SHADOW_OFFSET_Y;
+        float x = center.x + SHADOW_OFFSET_X * shadowPercent;
+        float y = center.y + SHADOW_OFFSET_Y * shadowPercent;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         Color old = batch.getColor();

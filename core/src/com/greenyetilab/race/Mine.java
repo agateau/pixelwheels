@@ -104,11 +104,14 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
-            Vector2 pos = mBody.getPosition();
+            // Bigger shadow if the mine has not been dropped
+            float shadowPercent = mJoint == null ? 0.5f : 1f;
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
-            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            batch.draw(region, pos.x - w / 2, pos.y - h / 2 , w, h);
+            DrawUtils.drawBodyRegionShadow(batch, mBody, region, shadowPercent);
+        }
+        if (zIndex == Constants.Z_VEHICLES) {
+            TextureRegion region = mAssets.mine.getKeyFrame(mTime);
+            DrawUtils.drawBodyRegion(batch, mBody, region);
         }
     }
 

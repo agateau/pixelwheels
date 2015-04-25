@@ -89,8 +89,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="1014.6267"
-     inkscape:cy="164.62217"
+     inkscape:cx="665.82766"
+     inkscape:cy="-352.57234"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -140,7 +140,7 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="bg"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,64)"
      sodipodi:insensitive="true">
     <rect
@@ -4362,14 +4362,8 @@
     <g
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="../sprites/mine-1.png"
+       inkscape:export-filename="../sprites/mine_0.png"
        id="g4722">
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4619"
-         d="m 672,1380.3622 2,3 0,15 -8,8 -15,0 -3,-2 z"
-         style="color:#000000;fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none;stroke-width:0.1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <path
          inkscape:connector-curvature="0"
          id="path4598"
@@ -4457,7 +4451,7 @@
     <use
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="../sprites/mine-2.png"
+       inkscape:export-filename="../sprites/mine_1.png"
        height="896"
        width="512"
        transform="translate(64,0)"
