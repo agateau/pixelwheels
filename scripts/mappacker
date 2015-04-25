@@ -1,7 +1,0 @@
-#!/bin/sh
-set -e
-
-cd $(dirname $0)/..
-./gradlew --offline desktop:dist
-
-java -cp desktop/build/libs/desktop-1.0.jar com.greenyetilab.race.desktop.MapPacker core/assets/maps android/assets/maps
