@@ -61,7 +61,6 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupRacers();
-        setupOutsideWalls();
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -213,25 +212,6 @@ public class GameWorld implements ContactListener, Disposable {
             }
             ++rank;
         }
-    }
-
-    private void setupOutsideWalls() {
-        float mapWidth = mMapInfo.getMapWidth();
-        float mapHeight = mMapInfo.getMapHeight();
-        float wallSize = 1;
-        Body body;
-        int mask = CollisionCategories.RACER | CollisionCategories.RACER_BULLET
-                        | CollisionCategories.FLAT_AI_VEHICLE
-                        | CollisionCategories.GIFT;
-        // bottom
-        body = Box2DUtils.createStaticBox(mBox2DWorld, 0, -wallSize, mapWidth, wallSize);
-        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
-        // left
-        body = Box2DUtils.createStaticBox(mBox2DWorld, -wallSize, 0, wallSize, mapHeight);
-        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
-        // right
-        body = Box2DUtils.createStaticBox(mBox2DWorld, mapWidth, 0, wallSize, mapHeight);
-        Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL, mask);
     }
 
     private void setupRoadBorders() {
