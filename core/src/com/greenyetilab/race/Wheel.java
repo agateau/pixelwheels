@@ -22,7 +22,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     private Body mBody;
     private TextureRegion mRegion;
     private GameWorld mGameWorld;
-    private boolean mOnFatalGround;
     private boolean mBraking;
     private boolean mCanDrift;
     private float mMaxDrivingForce;
@@ -32,7 +31,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         Wheel obj = sPool.obtain();
         obj.mGameWorld = gameWorld;
         obj.mRegion = region;
-        obj.mOnFatalGround = false;
         obj.mBraking = false;
         obj.mCanDrift = false;
         obj.mMaxDrivingForce = GamePlay.maxDrivingForce;
@@ -81,8 +79,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mBody;
     }
 
-    public boolean isOnFatalGround() {
-        return mOnFatalGround;
     }
 
     public void disableGripFor(float seconds) {

@@ -22,7 +22,7 @@ public class GroundCollisionHandlerComponent {
         int wheelsOnFatalGround = 0;
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
             Wheel wheel = info.wheel;
-            if (wheel.isOnFatalGround()) {
+            if (wheel.getGroundSpeed() == 0) {
                 ++wheelsOnFatalGround;
             }
         }
