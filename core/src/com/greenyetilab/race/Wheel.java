@@ -22,7 +22,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     private Body mBody;
     private TextureRegion mRegion;
     private GameWorld mGameWorld;
-    private boolean mOnFinished;
     private boolean mOnFatalGround;
     private boolean mBraking;
     private boolean mCanDrift;
@@ -33,7 +32,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         Wheel obj = sPool.obtain();
         obj.mGameWorld = gameWorld;
         obj.mRegion = region;
-        obj.mOnFinished = false;
         obj.mOnFatalGround = false;
         obj.mBraking = false;
         obj.mCanDrift = false;
@@ -81,10 +79,6 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public Body getBody() {
         return mBody;
-    }
-
-    public boolean isOnFinished() {
-        return mOnFinished;
     }
 
     public boolean isOnFatalGround() {
