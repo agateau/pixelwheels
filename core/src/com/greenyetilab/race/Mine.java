@@ -9,7 +9,9 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
@@ -24,40 +26,63 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
 
     private GameWorld mGameWorld;
     private Assets mAssets;
+    private Racer mOwner;
     private BodyDef mBodyDef;
+    private WeldJointDef mJointDef = new WeldJointDef();
     private CircleShape mShape;
 
     private Body mBody;
     private float mTime;
+    private Joint mJoint;
 
-    public static Mine create(GameWorld gameWorld, Assets assets, float originX, float originY) {
+    private static final Vector2 sTmp = new Vector2();
+    public static Mine create(GameWorld gameWorld, Assets assets, Racer owner) {
         Mine mine = sPool.obtain();
         if (mine.mBodyDef == null) {
             mine.firstInit(assets);
         }
+
         mine.mGameWorld = gameWorld;
+        mine.mOwner = owner;
         mine.mTime = 0;
         mine.setFinished(false);
-        mine.mBodyDef.position.set(originX, originY);
+
+        Vehicle vehicle = owner.getVehicle();
+        sTmp.set(-vehicle.getHeight() * 2, 0);
+        sTmp.rotate(vehicle.getAngle()).add(vehicle.getX(), vehicle.getY());
+        mine.mBodyDef.position.set(sTmp.x, sTmp.y);
 
         mine.mBody = gameWorld.getBox2DWorld().createBody(mine.mBodyDef);
-        mine.mBody.createFixture(mine.mShape, 1f);
+        mine.mBody.createFixture(mine.mShape, 0.1f);
         mine.mBody.setUserData(mine);
+        mine.mBody.setType(BodyDef.BodyType.DynamicBody);
 
         Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_AI_VEHICLE,
                 CollisionCategories.WALL | CollisionCategories.RACER
-                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE
-                | CollisionCategories.GIFT);
+                | CollisionCategories.AI_VEHICLE | CollisionCategories.FLAT_AI_VEHICLE);
+
+        gameWorld.addGameObject(mine);
+
+        mine.initJoint();
         return mine;
     }
 
     private void firstInit(Assets assets) {
         mAssets = assets;
         mBodyDef = new BodyDef();
-        mBodyDef.type = BodyDef.BodyType.StaticBody;
+        mBodyDef.type = BodyDef.BodyType.DynamicBody;
 
         mShape = new CircleShape();
         mShape.setRadius(MINE_RADIUS);
+    }
+
+    private void initJoint() {
+        Body vehicleBody = mOwner.getVehicle().getBody();
+        mJointDef.bodyA = mOwner.getVehicle().getBody();
+        mJointDef.bodyB = mBody;
+        mJointDef.localAnchorA.set(vehicleBody.getLocalCenter().add(0, -mOwner.getVehicle().getHeight()));
+        mJointDef.localAnchorB.set(mBody.getLocalCenter());
+        mJoint = mGameWorld.getBox2DWorld().createJoint(mJointDef);
     }
 
     @Override
@@ -103,6 +128,9 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     }
 
     private void explode() {
+        if (mJoint != null) {
+            mOwner.resetBonus();
+        }
         setFinished(true);
         Vector2 pos = mBody.getPosition();
         mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
@@ -112,6 +140,9 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (!(other instanceof Racer)) {
+            return;
+        }
+        if (mJoint != null && other == mOwner) {
             return;
         }
         explode();
@@ -131,5 +162,11 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     @Override
     public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
 
+    }
+
+    public void drop() {
+        mGameWorld.getBox2DWorld().destroyJoint(mJoint);
+        mJoint = null;
+        mBody.setType(BodyDef.BodyType.StaticBody);
     }
 }

@@ -143,6 +143,13 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mBonus = null;
     }
 
+    /**
+     * Can be called by a bonus when some event caused it to trigger itself
+     */
+    public void resetBonus() {
+        mBonus = null;
+    }
+
     private void updatePosition() {
         final int oldSectionId = mLapPosition.getSectionId();
         final MapInfo mapInfo = mGameWorld.getMapInfo();
