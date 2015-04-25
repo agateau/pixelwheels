@@ -26,11 +26,13 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mCanDrift;
     private float mMaxDrivingForce;
     private float mDisabledGripDelay = 0;
+    private float mGroundSpeed;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
         obj.mGameWorld = gameWorld;
         obj.mRegion = region;
+        obj.mGroundSpeed = 1;
         obj.mBraking = false;
         obj.mCanDrift = false;
         obj.mMaxDrivingForce = GamePlay.maxDrivingForce;
@@ -66,7 +68,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public void act(float delta) {
-        checkCollisions();
+        updateGroundSpeed();
         if (mDisabledGripDelay > 0) {
             mDisabledGripDelay -= delta;
         } else {
@@ -79,6 +81,8 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mBody;
     }
 
+    public float getGroundSpeed() {
+        return mGroundSpeed;
     }
 
     public void disableGripFor(float seconds) {
@@ -114,12 +118,8 @@ public class Wheel implements Pool.Poolable, Disposable {
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
     }
 
-    private void checkCollisions() {
-        float maxSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
-        mOnFatalGround = maxSpeed == 0f;
-        if (maxSpeed < 1f) {
-            Box2DUtils.applyDrag(mBody, (1 - maxSpeed) * DRAG_FACTOR * 4);
-        }
+    private void updateGroundSpeed() {
+        mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
     }
 
     public void setCanDrift(boolean canDrift) {

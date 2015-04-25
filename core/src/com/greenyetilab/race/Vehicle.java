@@ -181,12 +181,18 @@ class Vehicle implements Disposable {
         }
 
         steerAngle *= MathUtils.degreesToRadians;
+        float groundSpeed = 1;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
+            groundSpeed *= info.wheel.getGroundSpeed();
+        }
+
+        if (groundSpeed < 1f) {
+            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.groundDragFactor);
         }
     }
 

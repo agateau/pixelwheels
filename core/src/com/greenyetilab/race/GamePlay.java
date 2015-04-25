@@ -16,6 +16,7 @@ public class GamePlay {
     public static int highSpeedMaxSteer = 10;
     public static int vehicleDensity = 9;
     public static int vehicleRestitution = 1;
+    public static int groundDragFactor = 8;
     public static int borderRestitution = 1;
     public static int viewportWidth = 60;
 
