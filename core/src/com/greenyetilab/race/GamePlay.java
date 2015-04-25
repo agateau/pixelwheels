@@ -9,8 +9,8 @@ import com.greenyetilab.utils.Introspector;
  */
 public class GamePlay {
     public static int racerCount = 8;
-    public static int maxDrivingForce = 100;
-    public static int maxLateralImpulse = 10;
+    public static int maxDrivingForce = 110;
+    public static int maxLateralImpulse = 9;
     public static int maxSkidmarks = 200;
     public static int lowSpeedMaxSteer = 40;
     public static int highSpeedMaxSteer = 10;
