@@ -50,7 +50,7 @@ class Vehicle implements Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.set(Box2DUtils.createOctogon(carW, carH, carW / 2, carH / 4));
+        shape.set(Box2DUtils.createOctogon(carW, carH, 0.5f, 0.5f));
 
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
