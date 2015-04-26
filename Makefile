@@ -6,10 +6,10 @@ EXECUTABLE=race
 PACKR=tools/packr.jar
 PACKR_OUT_DIR=packr-out
 
-TIMESTAMP=`date +%y%m%d-%H%M`
+VERSION=`date +%y%m%d-%H%M`
 
 DIST_OUT_BASE_DIR=dist-out
-DIST_NAME=race-$(TIMESTAMP)
+DIST_NAME=race-$(VERSION)
 DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
 
 JDK_LINUX64_URL=https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u60-unofficial-linux-amd64-image.zip
@@ -56,16 +56,31 @@ clean-packr:
 
 # Dist
 dist: $(DESKTOP_JAR)
-	rm -rf $(DIST_OUT_DIR)
-	mkdir -p $(DIST_OUT_DIR)
-	cd android/assets && cp -r maps screens ui race.atlas race.png uiskin.atlas $(CURDIR)/$(DIST_OUT_DIR)/
-	cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/race.jar
-	cp install/race.sh $(DIST_OUT_DIR)/
-	chmod +x $(DIST_OUT_DIR)/race.sh
-	cd $(DIST_OUT_BASE_DIR) && tar cf $(DIST_NAME).tar $(DIST_NAME)
-	bzip2 -9 $(DIST_OUT_DIR).tar
-	rm -rf $(DIST_OUT_DIR)
+	@rm -rf $(DIST_OUT_DIR)
+	@mkdir -p $(DIST_OUT_DIR)
+
+	@echo Copying files
+	@cd android/assets && cp -r maps screens ui race.atlas race.png uiskin.atlas $(CURDIR)/$(DIST_OUT_DIR)/
+	@cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/race.jar
+	@cp install/race.sh $(DIST_OUT_DIR)/
+	@chmod +x $(DIST_OUT_DIR)/race.sh
+
+	@echo Creating tarball
+	@cd $(DIST_OUT_BASE_DIR) && tar cf $(DIST_NAME).tar $(DIST_NAME)
+	@bzip2 -9 $(DIST_OUT_DIR).tar
+	@rm -rf $(DIST_OUT_DIR)
+
+	@echo Moving tarball
+	@mkdir -p tmp
+	@mv $(DIST_OUT_DIR).tar.bz2 tmp
 
 # apk
 apk:
-	$(GRADLEW) android:assembleRelease
+	@echo Creating .apk
+	@$(GRADLEW) android:assembleRelease
+	@echo Moving .apk
+	@mkdir -p tmp
+	@mv android/build/outputs/apk/android-release.apk tmp/$(EXECUTABLE)-$(VERSION).apk
+
+release: dist apk
+	git tag -f -m "Release Race $(VERSION)" $(VERSION)
