@@ -8,7 +8,7 @@ import com.greenyetilab.utils.Introspector;
  * Customization of the gameplay
  */
 public class GamePlay {
-    public static int racerCount = 8;
+    public static int racerCount = 6;
     public static int maxDrivingForce = 110;
     public static int maxLateralImpulse = 10;
     public static int maxSkidmarks = 200;
