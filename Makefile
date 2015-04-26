@@ -60,7 +60,6 @@ dist: $(DESKTOP_JAR)
 	@mkdir -p $(DIST_OUT_DIR)
 
 	@echo Copying files
-	@cd android/assets && cp -r maps screens ui race.atlas race.png uiskin.atlas $(CURDIR)/$(DIST_OUT_DIR)/
 	@cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/race.jar
 	@cp install/race.sh $(DIST_OUT_DIR)/
 	@chmod +x $(DIST_OUT_DIR)/race.sh
