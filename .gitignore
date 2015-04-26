@@ -66,3 +66,7 @@ build/
 
 ## OS Specific
 .DS_Store
+
+## Archives
+packr-out
+dist-out
