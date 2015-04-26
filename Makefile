@@ -8,6 +8,10 @@ PACKR_OUT_DIR=packr-out
 
 TIMESTAMP=`date +%y%m%d-%H%M`
 
+DIST_OUT_BASE_DIR=dist-out
+DIST_NAME=race-$(TIMESTAMP)
+DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
+
 JDK_LINUX64_URL=https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u60-unofficial-linux-amd64-image.zip
 JDK_LINUX64_ZIP=openjdk-linux64.zip
 
@@ -49,3 +53,14 @@ packr: $(PACKR_OUT_DIR)/$(EXECUTABLE)
 
 clean-packr:
 	rm -rf $(PACKR_OUT_DIR)
+
+dist: $(DESKTOP_JAR)
+	rm -rf $(DIST_OUT_DIR)
+	mkdir -p $(DIST_OUT_DIR)
+	cd android/assets && cp -r maps screens ui race.atlas race.png uiskin.atlas $(CURDIR)/$(DIST_OUT_DIR)/
+	cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/race.jar
+	cp install/race.sh $(DIST_OUT_DIR)/
+	chmod +x $(DIST_OUT_DIR)/race.sh
+	cd $(DIST_OUT_BASE_DIR) && tar cf $(DIST_NAME).tar $(DIST_NAME)
+	bzip2 -9 $(DIST_OUT_DIR).tar
+	rm -rf $(DIST_OUT_DIR)
