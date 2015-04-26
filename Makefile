@@ -54,6 +54,7 @@ packr: $(PACKR_OUT_DIR)/$(EXECUTABLE)
 clean-packr:
 	rm -rf $(PACKR_OUT_DIR)
 
+# Dist
 dist: $(DESKTOP_JAR)
 	rm -rf $(DIST_OUT_DIR)
 	mkdir -p $(DIST_OUT_DIR)
@@ -64,3 +65,7 @@ dist: $(DESKTOP_JAR)
 	cd $(DIST_OUT_BASE_DIR) && tar cf $(DIST_NAME).tar $(DIST_NAME)
 	bzip2 -9 $(DIST_OUT_DIR).tar
 	rm -rf $(DIST_OUT_DIR)
+
+# apk
+apk:
+	$(GRADLEW) android:assembleRelease

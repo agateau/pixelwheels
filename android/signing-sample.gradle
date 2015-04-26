@@ -1,0 +1,4 @@
+storeFile new File('/path/to/example.com.keystore')
+storePassword 'secret'
+keyAlias 'example.com'
+keyPassword 'moresecret'
