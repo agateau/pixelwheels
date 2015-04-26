@@ -37,9 +37,11 @@ public class FileUtils {
 
     public static FileHandle assets(String path) {
         FileHandle handle = Gdx.files.internal(path);
+        /* // Disabled for now: does not work for desktop releases
         if (Gdx.app.getType() == ApplicationType.Desktop) {
             handle = new FileHandle(new File(handle.path()));
         }
+        */
         return handle;
     }
 
