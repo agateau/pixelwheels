@@ -10,11 +10,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * A set of static methods to read/write the fields of an all-static class
+ * This class can read and write public fields of a class and serialize the changes to an xml file
  */
 public class Introspector {
-    private Class mClass;
-    private Object mObject;
+    private final Class mClass;
+    private final Object mObject;
 
     public Introspector(Class cls, Object object) {
         mClass = cls;
@@ -51,7 +51,7 @@ public class Introspector {
         }
     }
 
-    public void save(FileHandle handle) {
+    public void save(FileHandle handle, Object reference) {
         XmlWriter writer = new XmlWriter(handle.writer(false));
         try {
             XmlWriter root = writer.element("gameplay");
@@ -62,10 +62,14 @@ public class Introspector {
                 if (Modifier.isStatic(field.getModifiers())) {
                     continue;
                 }
+                Object value = field.get(mObject);
+                if (value.equals(field.get(reference))) {
+                    continue;
+                }
                 root.element("key")
                         .attribute("name", field.getName())
                         .attribute("type", field.getType().toString())
-                        .text(field.get(mObject).toString())
+                        .text(value.toString())
                         .pop();
             }
             root.close();

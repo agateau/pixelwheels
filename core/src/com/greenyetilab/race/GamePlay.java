@@ -25,26 +25,21 @@ public class GamePlay {
 
     public int hudButtonSize = 120;
 
-    public static GamePlay instance = new GamePlay(getFileHandle());
+    public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);
-
-    private FileHandle mFileHandle;
-
-    public GamePlay(FileHandle handle) {
-        mFileHandle = handle;
-    }
 
     public Introspector getIntrospector() {
         return mIntrospector;
     }
 
     public void load() {
-        mIntrospector.load(mFileHandle);
+        mIntrospector.load(getFileHandle());
     }
 
+    private static final GamePlay sReference = new GamePlay();
     public void save() {
-        mIntrospector.save(mFileHandle);
+        mIntrospector.save(getFileHandle(), sReference);
     }
 
     private static FileHandle getFileHandle() {
