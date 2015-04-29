@@ -100,12 +100,12 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
 
         final SpinBox spinBox = new SpinBox(min, max, skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(Introspector.getInt(GamePlay.class, keyName));
+        spinBox.setValue(GamePlay.instance.getIntrospector().getInt(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 int value = spinBox.getValue();
-                Introspector.setInt(GamePlay.class, keyName, value);
+                GamePlay.instance.getIntrospector().setInt(keyName, value);
             }
         });
 
