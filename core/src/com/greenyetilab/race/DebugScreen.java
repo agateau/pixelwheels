@@ -67,7 +67,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GamePlay.save();
+                GamePlay.instance.save();
                 mGame.popScreen();
             }
         });

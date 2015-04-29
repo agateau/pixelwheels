@@ -25,6 +25,8 @@ public class GamePlay {
 
     public static int hudButtonSize = 120;
 
+    public static GamePlay instance = new GamePlay();
+
     public static void load() {
         Introspector.load(GamePlay.class, getFileHandle());
     }

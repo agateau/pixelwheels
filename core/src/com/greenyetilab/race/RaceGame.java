@@ -24,7 +24,7 @@ public class RaceGame extends Game {
 
     @Override
     public void create() {
-        GamePlay.load();
+        GamePlay.instance.load();
         mAssets = new Assets();
         Box2D.init();
         showMainMenu();

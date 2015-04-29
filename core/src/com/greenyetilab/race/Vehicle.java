@@ -55,9 +55,9 @@ class Vehicle implements Disposable {
         // Body fixture
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = GamePlay.vehicleDensity / 10.0f;
+        fixtureDef.density = GamePlay.instance.vehicleDensity / 10.0f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = GamePlay.vehicleRestitution / 10.0f;
+        fixtureDef.restitution = GamePlay.instance.vehicleRestitution / 10.0f;
         mBody.createFixture(fixtureDef);
         shape.dispose();
     }
@@ -176,7 +176,7 @@ class Vehicle implements Disposable {
                 }
             }
             float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
-            float steer = MathUtils.lerp(GamePlay.lowSpeedMaxSteer, GamePlay.highSpeedMaxSteer, steerFactor);
+            float steer = MathUtils.lerp(GamePlay.instance.lowSpeedMaxSteer, GamePlay.instance.highSpeedMaxSteer, steerFactor);
             steerAngle = direction * steer;
         }
 
@@ -192,7 +192,7 @@ class Vehicle implements Disposable {
         }
 
         if (groundSpeed < 1f) {
-            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.groundDragFactor);
+            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.instance.groundDragFactor);
         }
     }
 

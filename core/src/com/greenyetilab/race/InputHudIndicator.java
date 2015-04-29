@@ -17,8 +17,8 @@ public class InputHudIndicator extends Actor {
 
     public InputHudIndicator(TextureRegion icon) {
         mIcon = icon;
-        setWidth(GamePlay.hudButtonSize);
-        setHeight(GamePlay.hudButtonSize);
+        setWidth(GamePlay.instance.hudButtonSize);
+        setHeight(GamePlay.instance.hudButtonSize);
     }
 
     void setIcon(TextureRegion region) {

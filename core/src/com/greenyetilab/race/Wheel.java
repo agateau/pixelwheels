@@ -35,7 +35,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         obj.mGroundSpeed = 1;
         obj.mBraking = false;
         obj.mCanDrift = false;
-        obj.mMaxDrivingForce = GamePlay.maxDrivingForce;
+        obj.mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -106,7 +106,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxImpulse = (float)GamePlay.maxLateralImpulse / (mBraking ? 2 : 1);
+        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse) {
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
