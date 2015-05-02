@@ -10,8 +10,8 @@ public class Packer {
 
     private static void packTextures(String baseDir) {
         TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.filterMin = Texture.TextureFilter.Linear;
-        settings.filterMag = Texture.TextureFilter.Linear;
+        settings.filterMin = Texture.TextureFilter.Nearest;
+        settings.filterMag = Texture.TextureFilter.Nearest;
         settings.pot = false;
         settings.combineSubdirectories = true;
 

@@ -38,15 +38,15 @@ public class VehicleFactory {
         Vehicle vehicle;
         if (name.equals("player")) {
             // Car
-            TextureRegion carRegion = mAssets.findRegion("car/player");
+            TextureRegion carRegion = mAssets.findRegion("car/police-car");
             TextureRegion wheelRegion = mAssets.wheel;
             vehicle = new Vehicle(carRegion, mGameWorld, originX, originY);
             //mVehicle.setLimitAngle(true);
             //mVehicle.setCorrectAngle(true);
 
             // Wheels
-            final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 42f;
+            final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 12f;
+            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 26f;
 
             float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
             float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;
@@ -70,13 +70,13 @@ public class VehicleFactory {
         } else {
             int carId = MathUtils.random(mAssets.cars.size - 1);
             EnemyInfo enemyInfo = mEnemyInfos[carId];
-            TextureRegion region = mAssets.cars.get(carId);
+            TextureRegion region = mAssets.findRegion("car/car-xl"); //mAssets.cars.get(carId);
             vehicle = new Vehicle(region, mGameWorld, originX, originY);
 
             // Wheels
             TextureRegion wheelRegion = mAssets.wheel;
             final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 46f;
+            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 26f;
 
             float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
             float rightX = vehicle.getWidth() / 2 - wheelW / 2 + 0.05f;
