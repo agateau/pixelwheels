@@ -67,9 +67,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     public void spin() {
-        mVehicle.getBody().applyAngularImpulse(GamePlay.spinImpulse, true);
+        mVehicle.getBody().applyAngularImpulse(GamePlay.instance.spinImpulse, true);
         for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
-            info.wheel.disableGripFor(GamePlay.spinDuration / 10f);
+            info.wheel.disableGripFor(GamePlay.instance.spinDuration / 10f);
         }
     }
 

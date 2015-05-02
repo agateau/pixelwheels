@@ -51,7 +51,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameWorld(RaceGame game, MapInfo mapInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
-        mSkidmarks = new Vector2[GamePlay.maxSkidmarks];
+        mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
@@ -207,7 +207,7 @@ public class GameWorld implements ContactListener, Disposable {
             }
             addGameObject(racer);
             mRacers.add(racer);
-            if (rank == GamePlay.racerCount) {
+            if (rank == GamePlay.instance.racerCount) {
                 break;
             }
             ++rank;
@@ -221,7 +221,7 @@ public class GameWorld implements ContactListener, Disposable {
                     CollisionCategories.RACER
                     | CollisionCategories.FLAT_OBJECT
                     | CollisionCategories.RACER_BULLET);
-            Box2DUtils.setBodyRestitution(body, GamePlay.borderRestitution / 10.0f);
+            Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
         }
     }
 

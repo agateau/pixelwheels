@@ -149,8 +149,8 @@ public class GameRenderer {
     private void updateCamera() {
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
-        float viewportWidth = GamePlay.viewportWidth;
-        float viewportHeight = GamePlay.viewportWidth * screenH / screenW;
+        float viewportWidth = GamePlay.instance.viewportWidth;
+        float viewportHeight = GamePlay.instance.viewportWidth * screenH / screenW;
         mCamera.viewportWidth = viewportWidth;
         mCamera.viewportHeight = viewportHeight;
 

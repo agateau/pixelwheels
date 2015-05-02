@@ -8,29 +8,38 @@ import com.greenyetilab.utils.Introspector;
  * Customization of the gameplay
  */
 public class GamePlay {
-    public static int racerCount = 6;
-    public static int maxDrivingForce = 110;
-    public static int maxLateralImpulse = 10;
-    public static int maxSkidmarks = 200;
-    public static int lowSpeedMaxSteer = 40;
-    public static int highSpeedMaxSteer = 10;
-    public static int vehicleDensity = 14;
-    public static int vehicleRestitution = 1;
-    public static int groundDragFactor = 8;
-    public static int borderRestitution = 1;
-    public static int viewportWidth = 60;
+    public int racerCount = 6;
+    public int maxDrivingForce = 110;
+    public int maxLateralImpulse = 10;
+    public int maxSkidmarks = 200;
+    public int lowSpeedMaxSteer = 40;
+    public int highSpeedMaxSteer = 10;
+    public int vehicleDensity = 14;
+    public int vehicleRestitution = 1;
+    public int groundDragFactor = 8;
+    public int borderRestitution = 1;
+    public int viewportWidth = 60;
 
-    public static int spinImpulse = 80;
-    public static int spinDuration = 2;
+    public int spinImpulse = 80;
+    public int spinDuration = 2;
 
-    public static int hudButtonSize = 120;
+    public int hudButtonSize = 120;
 
-    public static void load() {
-        Introspector.load(GamePlay.class, getFileHandle());
+    public static final GamePlay instance = new GamePlay();
+
+    private final Introspector mIntrospector = new Introspector(GamePlay.class, this);
+
+    public Introspector getIntrospector() {
+        return mIntrospector;
     }
 
-    public static void save() {
-        Introspector.save(GamePlay.class, getFileHandle());
+    public void load() {
+        mIntrospector.load(getFileHandle());
+    }
+
+    private static final GamePlay sReference = new GamePlay();
+    public void save() {
+        mIntrospector.save(getFileHandle(), sReference);
     }
 
     private static FileHandle getFileHandle() {

@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
-import com.greenyetilab.utils.Introspector;
 import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -23,6 +22,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class DebugScreen extends com.greenyetilab.utils.StageScreen {
     private final RaceGame mGame;
     private VerticalGroup mGroup;
+    private GamePlay mReference = new GamePlay();
 
     public DebugScreen(RaceGame game) {
         mGame = game;
@@ -67,7 +67,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GamePlay.save();
+                GamePlay.instance.save();
                 mGame.popScreen();
             }
         });
@@ -98,24 +98,51 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
     private Actor addRange(String text, final String keyName, int min, int max, int stepSize) {
         final Skin skin = mGame.getAssets().skin;
 
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+
         final SpinBox spinBox = new SpinBox(min, max, skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(Introspector.getInt(GamePlay.class, keyName));
+        spinBox.setValue(GamePlay.instance.getIntrospector().getInt(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 int value = spinBox.getValue();
-                Introspector.setInt(GamePlay.class, keyName, value);
+                GamePlay.instance.getIntrospector().setInt(keyName, value);
+                defaultLabel.update();
             }
         });
 
         final HorizontalGroup group = new HorizontalGroup();
         group.addActor(new Label(text + " ", skin));
         group.addActor(spinBox);
+        group.addActor(defaultLabel);
         return group;
     }
 
     private void addTitle(String title) {
         mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().skin));
+    }
+
+    private class DefaultLabel extends Label {
+        private final String mKeyName;
+
+        public DefaultLabel(String keyName) {
+            super("", mGame.getAssets().skin);
+            mKeyName = keyName;
+            update();
+        }
+
+        public void update() {
+            Object ref = mReference.getIntrospector().get(mKeyName);
+            Object current = GamePlay.instance.getIntrospector().get(mKeyName);
+
+            if (ref.equals(current)) {
+                setVisible(false);
+                return;
+            }
+            setVisible(true);
+            String text = " (" + ref.toString() + ")";
+            setText(text);
+        }
     }
 }

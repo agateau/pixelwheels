@@ -3,17 +3,25 @@ package com.greenyetilab.utils;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlWriter;
-import com.greenyetilab.race.GamePlay;
 import com.greenyetilab.utils.log.NLog;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 /**
- * A set of static methods to read/write the fields of an all-static class
+ * This class can read and write public fields of a class and serialize the changes to an xml file
  */
 public class Introspector {
-    public static void load(Class cls, FileHandle handle) {
+    private final Class mClass;
+    private final Object mObject;
+
+    public Introspector(Class cls, Object object) {
+        mClass = cls;
+        mObject = object;
+    }
+
+    public void load(FileHandle handle) {
         if (!handle.exists()) {
             return;
         }
@@ -27,7 +35,7 @@ public class Introspector {
             String value = keyElement.getText();
             Field field;
             try {
-                field = cls.getField(name);
+                field = mClass.getField(name);
             } catch (NoSuchFieldException e) {
                 NLog.e("No field named '%s', skipping", name);
                 continue;
@@ -38,20 +46,30 @@ public class Introspector {
                 continue;
             }
             if (type.equals("int")) {
-                setInt(cls, name, Integer.valueOf(value));
+                setInt(name, Integer.valueOf(value));
             }
         }
     }
 
-    public static void save(Class cls, FileHandle handle) {
+    public void save(FileHandle handle, Object reference) {
         XmlWriter writer = new XmlWriter(handle.writer(false));
         try {
             XmlWriter root = writer.element("gameplay");
-            for (Field field : cls.getDeclaredFields()) {
+            for (Field field : mClass.getDeclaredFields()) {
+                if (!Modifier.isPublic(field.getModifiers())) {
+                    continue;
+                }
+                if (Modifier.isStatic(field.getModifiers())) {
+                    continue;
+                }
+                Object value = field.get(mObject);
+                if (value.equals(field.get(reference))) {
+                    continue;
+                }
                 root.element("key")
                         .attribute("name", field.getName())
                         .attribute("type", field.getType().toString())
-                        .text(field.get(null).toString())
+                        .text(value.toString())
                         .pop();
             }
             root.close();
@@ -63,10 +81,23 @@ public class Introspector {
         }
     }
 
-    public static int getInt(Class cls, String key) {
+    public Object get(String key) {
         try {
-            Field field = GamePlay.class.getField(key);
-            return field.getInt(null);
+            Field field = mClass.getField(key);
+            return field.get(mObject);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException("get(" + key + ") failed. " + e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("get(" + key + ") failed. " + e);
+        }
+    }
+
+    public int getInt(String key) {
+        try {
+            Field field = mClass.getField(key);
+            return field.getInt(mObject);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException("getInt(" + key + ") failed. " + e);
@@ -76,10 +107,10 @@ public class Introspector {
         }
     }
 
-    public static void setInt(Class cls, String key, int value) {
+    public void setInt(String key, int value) {
         try {
-            Field field = cls.getField(key);
-            field.setInt(null, value);
+            Field field = mClass.getField(key);
+            field.setInt(mObject, value);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException("setInt(" + key + ") failed. " + e);
