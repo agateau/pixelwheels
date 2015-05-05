@@ -68,9 +68,9 @@ public class VehicleFactory {
 
             vehicle.setName("You");
         } else {
-            int carId = MathUtils.random(mAssets.cars.size - 1);
+            int carId = MathUtils.random(/*mAssets.cars.size*/3 - 1);
             EnemyInfo enemyInfo = mEnemyInfos[carId];
-            TextureRegion region = mAssets.findRegion("car/car-xl"); //mAssets.cars.get(carId);
+            TextureRegion region = mAssets.cars.get(carId);
             vehicle = new Vehicle(region, mGameWorld, originX, originY);
 
             // Wheels
