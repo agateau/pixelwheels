@@ -1,7 +1,10 @@
 package com.greenyetilab.race;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.XmlReader;
+import com.greenyetilab.utils.FileUtils;
 
 /**
  * Generate Vehicles
@@ -35,75 +38,46 @@ public class VehicleFactory {
     }
 
     public Vehicle create(String name, float originX, float originY, float angle) {
-        Vehicle vehicle;
-        if (name.equals("player")) {
-            // Car
-            TextureRegion carRegion = mAssets.findRegion("car/police-car");
-            TextureRegion wheelRegion = mAssets.wheel;
-            vehicle = new Vehicle(carRegion, mGameWorld, originX, originY);
-            //mVehicle.setLimitAngle(true);
-            //mVehicle.setCorrectAngle(true);
-
-            // Wheels
-            final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 12f;
-            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 26f;
-
-            float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
-            float rightX = Constants.UNIT_FOR_PIXEL * carRegion.getRegionWidth() / 2 - wheelW / 2 + 0.05f;
-            float leftX = -rightX;
-            float rearY = Constants.UNIT_FOR_PIXEL * -carRegion.getRegionHeight() / 2 + REAR_WHEEL_Y;
-            float frontY = rearY + WHEEL_BASE + 0.2f;
-
-            Vehicle.WheelInfo info;
-            info = vehicle.addWheel(wheelRegion, leftX, frontY);
-            info.steeringFactor = 1;
-            info.wheel.setCanDrift(true);
-            info = vehicle.addWheel(wheelRegion, rightX, frontY);
-            info.steeringFactor = 1;
-            info.wheel.setCanDrift(true);
-            info = vehicle.addWheel(wheelRegion, leftX, rearY);
-            info.wheel.setCanDrift(true);
-            info = vehicle.addWheel(wheelRegion, rightX, rearY);
-            info.wheel.setCanDrift(true);
-
-            vehicle.setName("You");
-        } else {
-            int carId = MathUtils.random(/*mAssets.cars.size*/3 - 1);
-            EnemyInfo enemyInfo = mEnemyInfos[carId];
-            TextureRegion region = mAssets.cars.get(carId);
-            vehicle = new Vehicle(region, mGameWorld, originX, originY);
-
-            // Wheels
-            TextureRegion wheelRegion = mAssets.wheel;
-            final float REAR_WHEEL_Y = Constants.UNIT_FOR_PIXEL * 16f;
-            final float WHEEL_BASE = Constants.UNIT_FOR_PIXEL * 26f;
-
-            float wheelW = Constants.UNIT_FOR_PIXEL * wheelRegion.getRegionWidth();
-            float rightX = vehicle.getWidth() / 2 - wheelW / 2 + 0.05f;
-            float leftX = -rightX;
-            float rearY = -vehicle.getHeight() / 2 + REAR_WHEEL_Y;
-            float frontY = rearY + WHEEL_BASE;
-
-            float maxDrivingForce = GamePlay.instance.maxDrivingForce * enemyInfo.speed;
-            Vehicle.WheelInfo info;
-            info = vehicle.addWheel(wheelRegion, leftX, frontY);
-            info.wheel.setMaxDrivingForce(maxDrivingForce);
-            info.steeringFactor = 1;
-            info = vehicle.addWheel(wheelRegion, rightX, frontY);
-            info.wheel.setMaxDrivingForce(maxDrivingForce);
-            info.steeringFactor = 1;
-            info = vehicle.addWheel(wheelRegion, leftX, rearY);
-            info.wheel.setMaxDrivingForce(maxDrivingForce);
-            info.wheel.setCanDrift(true);
-            info = vehicle.addWheel(wheelRegion, rightX, rearY);
-            info.wheel.setMaxDrivingForce(maxDrivingForce);
-            info.wheel.setCanDrift(true);
-
-            vehicle.setName(enemyInfo.name);
+        String fileName = "vehicles/" + name + ".xml";
+        FileHandle handle = FileUtils.assets(fileName);
+        if (!handle.exists()) {
+            throw new RuntimeException("No such file " + fileName);
         }
+        XmlReader.Element root = FileUtils.parseXml(handle);
+        return create(root, originX, originY, angle);
+    }
+
+    public Vehicle create(XmlReader.Element root, float originX, float originY, float angle) {
+        final float U = Constants.UNIT_FOR_PIXEL;
+        float maxDrivingForce = GamePlay.instance.maxDrivingForce * root.getFloatAttribute("speed");
+
+        XmlReader.Element mainElement = root.getChildByName("main");
+        TextureRegion mainRegion = mAssets.findRegion("vehicles/" + mainElement.getAttribute("image"));
+        TextureRegion wheelRegion = mAssets.wheel;
+
+        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, originX, originY);
+        vehicle.setName(root.getAttribute("name"));
+
+        for (XmlReader.Element element : root.getChildrenByName("axle")) {
+            float width = element.getFloatAttribute("width") * U;
+            float y = (element.getFloatAttribute("y") - mainRegion.getRegionHeight() / 2) * U;
+            float steer = element.getFloatAttribute("steer", 0);
+            float drive = maxDrivingForce * element.getFloatAttribute("drive", 1);
+
+            createWheel(vehicle, wheelRegion, width / 2, y, steer, drive);
+            createWheel(vehicle, wheelRegion, -width / 2, y, steer, drive);
+        }
+
         // Set angle *after* adding the wheels!
         vehicle.setInitialAngle(angle);
 
         return vehicle;
+    }
+
+    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, float steer, float drive) {
+        Vehicle.WheelInfo info = vehicle.addWheel(region, x, y);
+        info.steeringFactor = steer;
+        info.wheel.setCanDrift(true);
+        info.wheel.setMaxDrivingForce(drive);
     }
 }

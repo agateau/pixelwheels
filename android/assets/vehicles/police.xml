@@ -1,0 +1,5 @@
+<vehicle speed="1" name="Police">
+    <main image="police"/>
+    <axle y="42" width="24" steer="1"/>
+    <axle y="12" width="24"/>
+</vehicle>

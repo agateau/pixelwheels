@@ -19,7 +19,6 @@ public class Assets {
     private static final float MINE_FRAME_DURATION = 0.2f;
 
     public final Skin skin;
-    public final Array<TextureRegion> cars = new Array<TextureRegion>();
     public final TextureRegion wheel;
     public final TextureRegion dot;
     public final TextureRegion hudBackground;
@@ -50,11 +49,7 @@ public class Assets {
     Assets() {
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         this.atlas = new TextureAtlas(Gdx.files.internal("race.atlas"));
-        this.wheel = findRegion("car/wheel");
-        for (int idx = 1; idx <= 6; ++idx) {
-            String name = String.format("car/car%d", idx);
-            this.cars.add(findRegion(name));
-        }
+        this.wheel = findRegion("vehicles/wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
         this.iceExplosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("ice-explosion"));
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
