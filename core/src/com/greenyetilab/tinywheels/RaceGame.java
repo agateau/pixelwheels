@@ -50,7 +50,7 @@ public class RaceGame extends Game {
     }
 
     public static Preferences getPreferences() {
-        return Gdx.app.getPreferences("com.greenyetilab.race");
+        return Gdx.app.getPreferences("com.greenyetilab.tinywheels");
     }
 
     public void pushScreen(Screen screen) {

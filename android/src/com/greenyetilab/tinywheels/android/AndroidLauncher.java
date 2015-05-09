@@ -12,7 +12,7 @@ public class AndroidLauncher extends AndroidApplication {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        FileUtils.appName = "race";
+        FileUtils.appName = "tinywheels";
         initialize(new RaceGame(), config);
     }
 }

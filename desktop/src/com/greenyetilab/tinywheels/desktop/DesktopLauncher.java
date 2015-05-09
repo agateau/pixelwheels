@@ -11,7 +11,7 @@ public class DesktopLauncher {
         config.width = 800;
         config.height = 480;
         config.title = "Tiny Wheels";
-        FileUtils.appName = "race";
+        FileUtils.appName = "tinywheels";
         new LwjglApplication(new RaceGame(), config);
     }
 }
