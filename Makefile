@@ -82,4 +82,4 @@ apk:
 	@mv android/build/outputs/apk/android-release.apk tmp/$(EXECUTABLE)-$(VERSION).apk
 
 release: dist apk
-	git tag -f -m "Release Race $(VERSION)" $(VERSION)
+	git tag -f -m "Release Tiny Wheels $(VERSION)" $(VERSION)
