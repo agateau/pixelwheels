@@ -47,7 +47,7 @@ $(PACKR_OUT_DIR)/$(EXECUTABLE): $(JDK_LINUX64_ZIP) $(DESKTOP_JAR)
 		-mainclass com/greenyetilab/tinywheels/desktop/DesktopLauncher \
 		-outdir $(PACKR_OUT_DIR) \
 		-minimizejre soft
-	cd android/assets && cp -r maps screens ui race.atlas race.png uiskin.atlas $(PACKR_OUT_DIR)
+	cd android/assets && cp -r maps screens ui sprites.atlas sprites.png uiskin.atlas $(PACKR_OUT_DIR)
 
 packr: $(PACKR_OUT_DIR)/$(EXECUTABLE)
 

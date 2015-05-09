@@ -17,7 +17,7 @@ public class Packer {
 
         String inputDir = baseDir + "/core/assets/sprites";
         String outputDir = baseDir + "/android/assets";
-        String packName = "race";
+        String packName = "sprites";
         TexturePacker.process(settings, inputDir, outputDir, packName);
 
         inputDir = baseDir + "/core/assets/ui";
