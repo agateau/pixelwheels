@@ -1,4 +1,4 @@
-package com.greenyetilab.tinywheels.desktop;
+package com.greenyetilab.tinywheels.tools;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;

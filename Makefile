@@ -1,4 +1,5 @@
 DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
+TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
 GRADLEW=./gradlew --offline
 GAME_CP=com.greenyetilab.tinywheels
 EXECUTABLE=tinywheels
@@ -18,21 +19,26 @@ JDK_LINUX64_ZIP=openjdk-linux64.zip
 all: build
 
 clean: clean-packr
-	rm -f $(DESKTOP_JAR)
+	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
 $(DESKTOP_JAR):
 	${GRADLEW} desktop:dist
 
+$(TOOLS_JAR):
+	${GRADLEW} tools:dist
+
 build: $(DESKTOP_JAR)
+
+tools: $(TOOLS_JAR)
 
 run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
-packer: build
-	java -cp $(DESKTOP_JAR) $(GAME_CP).desktop.Packer $(CURDIR)
+packer: tools
+	java -cp $(TOOLS_JAR) $(GAME_CP).tools.Packer $(CURDIR)
 
-mappacker: build
-	java -cp $(DESKTOP_JAR) $(GAME_CP).desktop.MapPacker core/assets/maps android/assets/maps
+mappacker: tools
+	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapPacker core/assets/maps android/assets/maps
 
 # Packr
 $(JDK_LINUX64_ZIP):
@@ -83,3 +89,5 @@ apk:
 
 release: dist apk
 	git tag -f -m "Release Tiny Wheels $(VERSION)" $(VERSION)
+
+.PHONY: tools
