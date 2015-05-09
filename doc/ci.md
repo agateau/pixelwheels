@@ -12,6 +12,6 @@
 
 - Build
 
-    git clone race
-    cd race
+    git clone tinywheels
+    cd tinywheels
     ./gradlew build
