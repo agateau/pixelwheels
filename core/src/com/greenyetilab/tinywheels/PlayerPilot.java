@@ -17,7 +17,7 @@ public class PlayerPilot implements Pilot {
         mRacer = racer;
         mHealthComponent = mRacer.getHealthComponent();
 
-        String inputHandlerId = RaceGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
+        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         mInputHandler = factory.create();
         mInputHandler.createHud(assets, mGameWorld.getHudBridge());

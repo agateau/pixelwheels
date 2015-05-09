@@ -2,7 +2,7 @@ package com.greenyetilab.tinywheels.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.greenyetilab.tinywheels.RaceGame;
+import com.greenyetilab.tinywheels.TheGame;
 import com.greenyetilab.utils.FileUtils;
 
 public class DesktopLauncher {
@@ -12,6 +12,6 @@ public class DesktopLauncher {
         config.height = 480;
         config.title = "Tiny Wheels";
         FileUtils.appName = "tinywheels";
-        new LwjglApplication(new RaceGame(), config);
+        new LwjglApplication(new TheGame(), config);
     }
 }

@@ -19,8 +19,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.Map;
 
-public class RaceGameScreen extends ScreenAdapter {
-    private final RaceGame mGame;
+public class RaceScreen extends ScreenAdapter {
+    private final TheGame mGame;
     private final GameWorld mGameWorld;
     private Batch mBatch;
 
@@ -60,7 +60,7 @@ public class RaceGameScreen extends ScreenAdapter {
         }
     };
 
-    public RaceGameScreen(RaceGame game, MapInfo mapInfo) {
+    public RaceScreen(TheGame game, MapInfo mapInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
         setupHud();
@@ -75,7 +75,7 @@ public class RaceGameScreen extends ScreenAdapter {
 
     private void setupGameRenderer() {
         GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
-        Preferences prefs = RaceGame.getPreferences();
+        Preferences prefs = TheGame.getPreferences();
         config.enabled = prefs.getBoolean("debug/box2d", false);
         config.drawTileCorners = prefs.getBoolean("debug/tiles/drawCorners", false);
         config.drawVelocities = prefs.getBoolean("debug/box2d/drawVelocities", false);
@@ -96,7 +96,7 @@ public class RaceGameScreen extends ScreenAdapter {
         mHud.addActor(mSpeedLabel);
         mHud.setHeight(mLapLabel.getHeight());
 
-        if (RaceGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
+        if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
             mDebugLabel = new Label("D", skin, "small");
             mHudStage.addActor(mDebugLabel);
         }

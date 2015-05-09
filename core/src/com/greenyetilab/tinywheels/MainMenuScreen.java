@@ -11,9 +11,9 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * Created by aurelien on 21/11/14.
  */
 public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
-    private final RaceGame mGame;
+    private final TheGame mGame;
 
-    public MainMenuScreen(RaceGame game) {
+    public MainMenuScreen(TheGame game) {
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {

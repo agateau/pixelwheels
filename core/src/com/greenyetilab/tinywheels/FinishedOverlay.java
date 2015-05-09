@@ -10,12 +10,12 @@ import com.greenyetilab.utils.RefreshHelper;
 import com.greenyetilab.utils.UiBuilder;
 
 /**
- * Appears on top of RaceGameScreen when player has lost
+ * Appears on top of RaceScreen at the end of the race
  */
 public class FinishedOverlay extends Overlay {
-    private final RaceGame mGame;
+    private final TheGame mGame;
 
-    public FinishedOverlay(RaceGame game, final Array<Racer> racers, final Racer playerRacer) {
+    public FinishedOverlay(TheGame game, final Array<Racer> racers, final Racer playerRacer) {
         super(game.getAssets().dot);
         mGame = game;
         new RefreshHelper(this) {

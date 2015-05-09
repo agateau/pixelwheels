@@ -14,7 +14,7 @@ import java.util.Stack;
 /**
  * The game
  */
-public class RaceGame extends Game {
+public class TheGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
 
@@ -38,7 +38,7 @@ public class RaceGame extends Game {
     public void start() {
         TiledMap map = new AtlasTmxMapLoader().load("maps/race.tmx");
         MapInfo mapInfo = new MapInfo(map);
-        Screen screen = new RaceGameScreen(this, mapInfo);
+        Screen screen = new RaceScreen(this, mapInfo);
         replaceScreen(screen);
     }
 

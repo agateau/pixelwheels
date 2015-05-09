@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.greenyetilab.tinywheels.RaceGame;
+import com.greenyetilab.tinywheels.TheGame;
 import com.greenyetilab.utils.FileUtils;
 
 public class AndroidLauncher extends AndroidApplication {
@@ -13,6 +13,6 @@ public class AndroidLauncher extends AndroidApplication {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         FileUtils.appName = "tinywheels";
-        initialize(new RaceGame(), config);
+        initialize(new TheGame(), config);
     }
 }

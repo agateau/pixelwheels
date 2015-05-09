@@ -20,11 +20,11 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * The debug screen
  */
 public class DebugScreen extends com.greenyetilab.utils.StageScreen {
-    private final RaceGame mGame;
+    private final TheGame mGame;
     private VerticalGroup mGroup;
     private GamePlay mReference = new GamePlay();
 
-    public DebugScreen(RaceGame game) {
+    public DebugScreen(TheGame game) {
         mGame = game;
         setupUi();
     }
@@ -79,7 +79,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
 
     private CheckBox addCheckBox(String text, final String key) {
         final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
-        final Preferences prefs = RaceGame.getPreferences();
+        final Preferences prefs = TheGame.getPreferences();
         checkBox.setChecked(prefs.getBoolean(key, false));
         checkBox.addListener(new ChangeListener() {
             @Override
