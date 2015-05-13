@@ -6,12 +6,11 @@ import com.badlogic.gdx.utils.Pool;
 /**
  * A mine which can be dropped behind the racer
  */
-public class MineBonus implements Bonus, Pool.Poolable {
+public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private Racer mRacer;
     private Mine mMine;
 
     public static class Pool extends BonusPool {
@@ -43,13 +42,14 @@ public class MineBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void onPicked(Racer racer) {
-        mRacer = racer;
+        super.onPicked(racer);
         mMine = Mine.create(mGameWorld, mAssets, mRacer);
     }
 
     @Override
     public void trigger() {
         mMine.drop();
+        mRacer.resetBonus();
         mPool.free(this);
     }
 

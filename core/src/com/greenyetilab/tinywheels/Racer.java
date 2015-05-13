@@ -124,6 +124,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         if (!mHealthComponent.act(delta)) {
             setFinished(true);
         }
+        if (mBonus != null) {
+            mBonus.act(delta);
+        }
     }
 
     private void selectBonus() {
@@ -139,11 +142,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             return;
         }
         mBonus.trigger();
-        mBonus = null;
     }
 
     /**
-     * Can be called by a bonus when some event caused it to trigger itself
+     * Called by bonuses when they are done
      */
     public void resetBonus() {
         mBonus = null;

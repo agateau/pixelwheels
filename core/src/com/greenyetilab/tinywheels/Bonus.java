@@ -3,7 +3,7 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * A bonus
+ * A bonus. When the bonus is done, it must call Racer.resetBonus().
  */
 public interface Bonus {
     TextureRegion getIconRegion();
@@ -14,6 +14,11 @@ public interface Bonus {
      */
     void onPicked(Racer racer);
     void trigger();
+
+    /**
+     * Called by the racer as long as it owns the bonus.
+     */
+    void act(float delta);
 
     /**
      * Implements behavior of the AI when it owns this bonus

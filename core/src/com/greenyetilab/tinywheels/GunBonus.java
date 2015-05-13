@@ -8,13 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Timer;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * A gun bonus
  */
-public class GunBonus implements Bonus, Pool.Poolable {
+public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private static final float SHOOT_INTERVAL = 0.1f;
     private static final int SHOOT_COUNT = 10;
     private static final float AI_RAYCAST_LENGTH = 20;
@@ -34,18 +32,10 @@ public class GunBonus implements Bonus, Pool.Poolable {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final TextureRegion mGunRegion;
-    private Racer mRacer;
 
-    private final Timer.Task mTask = new Timer.Task() {
-        @Override
-        public void run() {
-            Vehicle vehicle = mRacer.getVehicle();
-            mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
-            if (!isScheduled()) {
-                GunBonus.this.remove();
-            }
-        }
-    };
+    private boolean mTriggered;
+    private float mDelayForNextShot;
+    private float mRemainingShots;
 
     private final ClosestFixtureFinder mClosestFixtureFinder = new ClosestFixtureFinder();
 
@@ -87,10 +77,14 @@ public class GunBonus implements Bonus, Pool.Poolable {
         mAssets = assets;
         mGameWorld = gameWorld;
         mGunRegion = assets.gun;
+        reset();
     }
 
     @Override
     public void reset() {
+        mTriggered = false;
+        mDelayForNextShot = 0;
+        mRemainingShots = SHOOT_COUNT;
     }
 
     @Override
@@ -100,7 +94,7 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void onPicked(Racer racer) {
-        mRacer = racer;
+        super.onPicked(racer);
         mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
         mClosestFixtureFinder.setIgnoredBody(mRacer.getVehicle().getBody());
         DebugShapeMap.put(this, mDebugShape);
@@ -108,12 +102,34 @@ public class GunBonus implements Bonus, Pool.Poolable {
 
     @Override
     public void trigger() {
-        if (mTask.isScheduled()) {
-            NLog.e("Task already scheduled, should not happen!");
+        mTriggered = true;
+        mDelayForNextShot = 0;
+        DebugShapeMap.remove(this);
+    }
+
+    @Override
+    public void act(float delta) {
+        if (!mTriggered) {
             return;
         }
-        Timer.schedule(mTask, 0, SHOOT_INTERVAL, SHOOT_COUNT);
-        DebugShapeMap.remove(this);
+        mDelayForNextShot -= delta;
+        if (mDelayForNextShot > 0) {
+            // Not time to shoot yet
+            return;
+        }
+
+        // Shoot
+        Vehicle vehicle = mRacer.getVehicle();
+        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
+
+        mRemainingShots--;
+        if (mRemainingShots == 0) {
+            mRacer.resetBonus();
+            mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
+            mPool.free(this);
+        } else {
+            mDelayForNextShot = SHOOT_INTERVAL;
+        }
     }
 
     @Override
@@ -128,10 +144,5 @@ public class GunBonus implements Bonus, Pool.Poolable {
         if (userData instanceof Racer) {
             mRacer.triggerBonus();
         }
-    }
-
-    private void remove() {
-        mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
-        mPool.free(this);
     }
 }
