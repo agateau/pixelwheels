@@ -31,26 +31,27 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final TextureRegion mGunRegion;
 
     private boolean mTriggered;
+    private float mAnimationTime;
     private float mDelayForNextShot;
-    private float mRemainingShots;
+    private int mRemainingShots;
 
     private final ClosestFixtureFinder mClosestFixtureFinder = new ClosestFixtureFinder();
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, int zIndex) {
+            TextureRegion region = mAssets.gunAnimation.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();
             Vector2 center = body.getPosition();
             float angle = body.getAngle() * MathUtils.radiansToDegrees;
             float x = center.x;
             float y = center.y;
-            float w = Constants.UNIT_FOR_PIXEL * mGunRegion.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * mGunRegion.getRegionHeight();
-            batch.draw(mGunRegion,
+            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+            batch.draw(region,
                     x - w / 2, y - h / 2, // pos
                     w / 2, h / 2, // origin
                     w, h, // size
@@ -76,13 +77,13 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
-        mGunRegion = assets.gun;
         reset();
     }
 
     @Override
     public void reset() {
         mTriggered = false;
+        mAnimationTime = 0;
         mDelayForNextShot = 0;
         mRemainingShots = SHOOT_COUNT;
     }
@@ -112,6 +113,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         if (!mTriggered) {
             return;
         }
+        mAnimationTime += delta;
         mDelayForNextShot -= delta;
         if (mDelayForNextShot > 0) {
             // Not time to shoot yet

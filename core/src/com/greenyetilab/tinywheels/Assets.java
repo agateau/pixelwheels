@@ -28,7 +28,7 @@ public class Assets {
     public final Animation impact;
     public final Animation mine;
     public final Array<TextureRegion> gifts = new Array<TextureRegion>();
-    public final TextureRegion gun;
+    public final Animation gunAnimation;
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
 
@@ -59,7 +59,7 @@ public class Assets {
             String name = String.format("gift-%d", idx);
             this.gifts.add(findRegion(name));
         }
-        this.gun = findRegion("bonus-gun");
+        this.gunAnimation = new Animation(0.1f / 3, this.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");
 
         // Fix white-pixel to avoid fading borders
