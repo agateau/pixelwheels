@@ -53,7 +53,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mine.mBodyDef.position.set(sTmp.x, sTmp.y);
 
         mine.mBody = gameWorld.getBox2DWorld().createBody(mine.mBodyDef);
-        mine.mBody.createFixture(mine.mShape, 0.1f);
+        mine.mBody.createFixture(mine.mShape, 0.00001f);
         mine.mBody.setUserData(mine);
         mine.mBody.setType(BodyDef.BodyType.DynamicBody);
 
