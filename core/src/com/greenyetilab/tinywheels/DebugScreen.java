@@ -45,7 +45,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
         addTitle("Wheel");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
-        mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 20));
+        mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
         mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
         mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
         addTitle("Vehicle");
