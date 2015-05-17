@@ -94,7 +94,7 @@
    <properties>
     <property name="finish" value="true"/>
     <property name="is_road" value="true"/>
-    <property name="max_speed" value="2"/>
+    <property name="max_speed" value="4"/>
    </properties>
    <objectgroup draworder="index">
     <object x="63.6364" y="42.5455">

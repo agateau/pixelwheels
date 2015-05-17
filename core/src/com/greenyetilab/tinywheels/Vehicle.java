@@ -188,8 +188,9 @@ class Vehicle implements Disposable {
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
-            groundSpeed *= info.wheel.getGroundSpeed();
+            groundSpeed += info.wheel.getGroundSpeed();
         }
+        groundSpeed /= mWheels.size;
 
         if (groundSpeed != 1f) {
             Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.instance.groundDragFactor);
