@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.IntArray;
 import com.greenyetilab.utils.Assert;
 
 /**
@@ -26,9 +25,6 @@ import com.greenyetilab.utils.Assert;
 public class MapInfo implements Disposable {
     private static abstract class Zone {
         private Vector2 mWaypoint = null;
-
-        public Zone() {
-        }
 
         abstract boolean contains(float x, float y);
 
@@ -65,11 +61,8 @@ public class MapInfo implements Disposable {
 
     private final TiledMap mMap;
     private final float[] mMaxSpeedForTileId;
-    private final IntArray mRoadTileIds = new IntArray();
     private int mStartTileId = -1;
     private final TiledMapTileLayer mGroundLayer;
-    private final MapLayer mDirectionsLayer;
-    private final TiledMapTileLayer mWallsLayer;
     private final MapLayer mBordersLayer;
     private final float mTileWidth;
     private final float mTileHeight;
@@ -82,9 +75,6 @@ public class MapInfo implements Disposable {
         findSpecialTileIds();
 
         mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
-        mDirectionsLayer = mMap.getLayers().get("Directions");
-        assert mDirectionsLayer != null;
-        mWallsLayer = (TiledMapTileLayer)mMap.getLayers().get("Walls");
         mBordersLayer = mMap.getLayers().get("Borders");
         assert mBordersLayer != null;
 
@@ -131,14 +121,6 @@ public class MapInfo implements Disposable {
         return mGroundLayer;
     }
 
-    public MapLayer getDirectionsLayer() {
-        return mDirectionsLayer;
-    }
-
-    public TiledMapTileLayer getWallsLayer() {
-        return mWallsLayer;
-    }
-
     public MapLayer getBordersLayer() {
         return mBordersLayer;
     }
@@ -165,19 +147,11 @@ public class MapInfo implements Disposable {
         TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
         for (TiledMapTile tile : tileSet) {
             MapProperties properties = tile.getProperties();
-            if (MapUtils.getBooleanProperty(properties, "is_road", false)) {
-                mRoadTileIds.add(tile.getId());
-            }
             if (MapUtils.getBooleanProperty(properties, "start", false)) {
                 mStartTileId = tile.getId();
             }
         }
-        Assert.check(mRoadTileIds.size > 0, "No road tile ids");
         Assert.check(mStartTileId != -1, "No start id");
-    }
-
-    public TiledMapTile getTileAt(Vector2 pos) {
-        return  getTileAt(pos.x, pos.y);
     }
 
     public TiledMapTile getTileAt(float x, float y) {
@@ -199,22 +173,6 @@ public class MapInfo implements Disposable {
         return mMaxSpeedForTileId[tile.getId()];
     }
 
-    public float getDirectionAt(float x, float y) {
-        x /= Constants.UNIT_FOR_PIXEL;
-        y /= Constants.UNIT_FOR_PIXEL;
-        for (MapObject object : mDirectionsLayer.getObjects()) {
-            if (object instanceof RectangleMapObject) {
-                if (((RectangleMapObject)object).getRectangle().contains(x, y)) {
-                    return MapUtils.getFloatProperty(object.getProperties(), "direction", 90);
-                }
-            } else if (object instanceof PolygonMapObject) {
-                if (((PolygonMapObject)object).getPolygon().contains(x, y)) {
-                    return MapUtils.getFloatProperty(object.getProperties(), "direction", 90);
-                }
-            }
-        }
-        return 90;
-    }
     @Override
     public void dispose() {
         mMap.dispose();
@@ -311,20 +269,16 @@ public class MapInfo implements Disposable {
             if (zoneIdx == -1) {
                 zoneIdx = zoneCount - 1;
             }
-            mZones.get(zoneIdx).mWaypoint = waypoint;
+            mZones.get(zoneIdx).setWaypoint(waypoint);
         }
 
         // Sanity check
         for (int zoneIdx = 0; zoneIdx < zoneCount; ++zoneIdx) {
             Zone zone = mZones.get(zoneIdx);
-            if (zone.mWaypoint == null) {
+            if (zone.getWaypoint() == null) {
                 throw new RuntimeException("Zone " + zoneIdx + " has no waypoints");
             }
         }
-    }
-
-    public boolean isRoadTile(int tileId) {
-        return mRoadTileIds.indexOf(tileId) != -1;
     }
 
     public Vector2 getWaypoint(float x, float y) {
