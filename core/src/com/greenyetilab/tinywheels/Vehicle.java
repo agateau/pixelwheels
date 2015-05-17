@@ -191,7 +191,7 @@ class Vehicle implements Disposable {
             groundSpeed *= info.wheel.getGroundSpeed();
         }
 
-        if (groundSpeed < 1f) {
+        if (groundSpeed != 1f) {
             Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.instance.groundDragFactor);
         }
     }

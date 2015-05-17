@@ -93,6 +93,8 @@
   <tile id="19">
    <properties>
     <property name="finish" value="true"/>
+    <property name="is_road" value="true"/>
+    <property name="max_speed" value="2"/>
    </properties>
    <objectgroup draworder="index">
     <object x="63.6364" y="42.5455">
@@ -240,15 +242,15 @@
  </tileset>
  <layer name="Ground" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztl9uNwjAQRSdLFpQsQgK+gB+XQimU4lJSSkpJKXsh8WbsteM8TAjIH0dICI/vYZwxbIhoE4lEIh/Kmag8gYzoOhc/YAtC5j+APUjwXgi+GnyfSyd6OPILUDCEB2LrNJhH5/qc6DbW4aLnV3muzMOX/+Ue6EMFh8qSRXmU7+CBs1Ttuz2G8BIPoxfUnCEtCxzpUNcPys5+Xkd5GL3QPFT+U+0bfK5nAT1yvZbyEEdHfjXT8pHw++HZHuiDQFbhmcljzv6DdCYPZBVn5mGZyWXS3iePNT3uuL+sKmdoj2+8cngdNgeKpOM+9PRjFg+zH7yOMQesDkvxWLf7aB6W+7FYsWfDN4/ZXJ21H2vDg/VCO09953E2s4erH3mbXaosrnm8BA9XP/LWQTZ9+DePl+Rh9gPn+na/s3b1syDVHuY8Huth1H9aP9hskrbvcaqHh2D9eFePT+hHWmfl+7k8CL/xej8bRu1BHkP3uYPfnhLrpO+/AjKJ7cD6fWtP3ScSiUSWyC8IRcuM
+   eJztl1FygjAQhpeW6kgdZrS+aF9yFI/iUXIUjsJROEpXIWUTNk2AgKmTh390UDb/57/Z4BYAtklJSUkvqgtAfUbtAK5r6RO1R4X0f0QdUBleM3Virrn01sn1vXwmh8W/QFVEQolhEcZ7TYRj8BkRFAC3qQzfun/l50o42DUZ30/jwBwaZGgYL4qj5tY8RcaBvdQc/ubwZXgah5EFdD2keUFGOLb1g6rk+3USh5GFxqH8n1ve4HN9F5Cj0GspDvFl8a9mWjFR9HxYmgNzEOhVOGbylN5/KB9ywBIc6FVcCAczk+usP08e93iccb8cymfoPD7wlYrWIXOgyiznoUceq3CYedA6xhxgGWLh2PTraBzM+Vi9k73hmscl3/+L57ExOEgWWj/5zmPLPl49j6L3LpUX2zyOgcOWR9EzyC6HwTyOicPMA/v6dj+zynYvSLWGOY+nchj1F8uDzCbJ/Y5zORwKlsd/5XiFPPLWK13PxgH4jOe9N4zaozjGrnMXPntKvE+6/iugJ7EfWd+39tx1kpKSkmLUDyRJyhg=
   </data>
  </layer>
  <layer name="Obstacles" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztWMtqAzEM9KfkF5q0gYakpzSntPesTdJL21P7/8fIsAKxFEtC1kaUDAwLjmOPHpZ2ndIdGjwAl7cWYQDqfwZuBPOigtOvnafBCTiMzCMLGc/kieOZjNOx4rCewo6F2viZoNE2BLZDoy0HtqNqk9aE6PGQ1oTo8ahPSUxKYDtQmyQm0esVF4vV+IyeV73Pxxl4SfP2OY2PJfXqE/gF/JYuKgSX05y2R+ATcJ34c442/GoECsHp5LRtgTvgS+J98pN8bKjgdHLa9sBX4CG1c9C7llnz6gh8A76ntk+8axms/8H8Lt6/5RPvdxZufc3+rbnevZ5bH+Oxak2azO0J7MHW86XxY8/cmX6fW32k8UPPeKB+tMealxptlr1oP62YxsOaV73qFQfaTyum8bDm7KD4HrTkFe2nFL3ORyHvu5w9lr1oP/0L1njQ7w/u/d2z11njkRXx8Ox11rWLIh7We0Ov/+F/LXeo0e+RpfC4R77j/+IK2Pdd2Q==
+   eJztWMFqwzAM9af0F9ZuhZV2p66nbvfGpt1l22n7/2NliECEYUnISsXog0fAcWxJT7Fsp3SHBg/A5a2NMADtfwZuBP2igrNf20+DE3AYmUcW0p7JE9szaadtxWE8hR8LtfMzQWPbENgPjW05sB/VNumaEF0P6ZoQXY/6lGhSAvuBtkk0ib5ecVqsxmf0vOr9f5yBlzRvndPEWLJefQK/gN/SQYXgcpqz7RH4BFwn/j9HH341BgrB2cnZtgXugC+pHZP67if5+FDB2cnptQe+Ag+pnYPea4A1r47AN+B7asfE2w8Y/4N5L56/FRPvPQs3vmb+Vl/vWs+Nj3qsWp0mfXsCa7B1r6CJY8/cmZ7PrTHSxKGnHmg/+mPNS41tlrloPa2Y6mHNq17rFQdaTyumelhzdlCcBy15RespRa//o5D9LuePZS5aT/+CVQ96/uD27561zqpHVujhWeusYxeFHtZ7Q6/v8FvLHWr0e2QpPO6R7/i/uALiKF5U
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
+ <objectgroup name="Borders">
   <object x="2832" y="304" width="64" height="1632"/>
   <object x="320" y="304" width="48" height="1632"/>
   <object x="1099.5" y="849" width="1258.5" height="30.5"/>
@@ -259,7 +261,7 @@
   <object x="1088" y="832">
    <polygon points="-27.5,4.75 -250.333,226.667 -228,250.333 -5,26.8333"/>
   </object>
-  <object x="784" y="1099" width="32.1667" height="234.167"/>
+  <object x="783" y="1033" width="31.1667" height="300.167"/>
   <object x="1568" y="1440" width="64" height="64">
    <ellipse/>
   </object>
