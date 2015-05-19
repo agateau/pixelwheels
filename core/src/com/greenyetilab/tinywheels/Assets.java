@@ -18,6 +18,7 @@ public class Assets {
     private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
 
+    public final String[] vehicleNames = { "red", "police", "pickup", "roadster" };
     public final Skin skin;
     public final TextureRegion wheel;
     public final TextureRegion dot;
