@@ -18,7 +18,7 @@ public class Assets {
     private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
 
-    public final String[] vehicleNames = { "red", "police", "pickup", "roadster" };
+    public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Skin skin;
     public final TextureRegion wheel;
     public final TextureRegion dot;
@@ -71,6 +71,8 @@ public class Assets {
         removeBorders(this.hudBackground);
 
         this.skidmark = findRegion("skidmark");
+
+        loadVehicleDefinitions();
     }
 
     private static void removeBorders(TextureRegion region) {
@@ -121,5 +123,12 @@ public class Assets {
             pads.bottom *= Constants.UNIT_FOR_PIXEL;
         }
         return  patch;
+    }
+
+    private void loadVehicleDefinitions() {
+        final String[] vehicleIds = { "red", "police", "pickup", "roadster" };
+        for (String id : vehicleIds) {
+            this.vehicleDefs.add(VehicleIO.get(id));
+        }
     }
 }

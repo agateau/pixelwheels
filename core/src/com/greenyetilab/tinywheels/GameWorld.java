@@ -195,10 +195,10 @@ public class GameWorld implements ContactListener, Disposable {
         Array<Vector2> positions = mMapInfo.findStartTilePositions();
         positions.reverse();
 
+        Array<VehicleDef> vehicleDefs = assets.vehicleDefs;
         for (Vector2 position : positions) {
-            String name = assets.vehicleNames[(rank - 1) % assets.vehicleNames.length];
-            VehicleIO.Data data = VehicleIO.get(name);
-            Vehicle vehicle = creator.create(data, position, startAngle);
+            VehicleDef vehicleDef = vehicleDefs.get((rank - 1) % vehicleDefs.size);
+            Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
             Racer racer = new Racer(this, vehicle);
             if (PLAYER_RANK == rank) {
                 racer.setPilot(new PlayerPilot(assets, this, racer));

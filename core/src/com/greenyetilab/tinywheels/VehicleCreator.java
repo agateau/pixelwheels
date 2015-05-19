@@ -15,17 +15,17 @@ public class VehicleCreator {
         mAssets = assets;
     }
 
-    public Vehicle create(VehicleIO.Data data, Vector2 position, float startAngle) {
+    public Vehicle create(VehicleDef vehicleDef, Vector2 position, float startAngle) {
         final float U = Constants.UNIT_FOR_PIXEL;
-        float maxDrivingForce = GamePlay.instance.maxDrivingForce * data.speed;
+        float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
 
-        TextureRegion mainRegion = mAssets.findRegion("vehicles/" + data.mainImage);
+        TextureRegion mainRegion = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
         TextureRegion wheelRegion = mAssets.wheel;
 
         Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y);
-        vehicle.setName(data.name);
+        vehicle.setName(vehicleDef.name);
 
-        for (VehicleIO.AxleData axle : data.axles) {
+        for (AxleDef axle : vehicleDef.axles) {
             float width = axle.width * U;
             float y = (axle.y - mainRegion.getRegionHeight() / 2) * U;
             float steer = axle.steer;
