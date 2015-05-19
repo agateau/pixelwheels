@@ -186,7 +186,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupRacers() {
-        VehicleFactory factory = new VehicleFactory(mGame.getAssets(), this);
+        VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
         final int PLAYER_RANK = 1;
@@ -197,7 +197,8 @@ public class GameWorld implements ContactListener, Disposable {
 
         String[] vehicleNames = {"red", "police", "pickup", "roadster"};
         for (Vector2 position : positions) {
-            Vehicle vehicle = factory.create(vehicleNames[(rank - 1) % vehicleNames.length], position.x, position.y, startAngle);
+            VehicleIO.Data data = VehicleIO.get(vehicleNames[(rank - 1) % vehicleNames.length]);
+            Vehicle vehicle = creator.create(data, position, startAngle);
             Racer racer = new Racer(this, vehicle);
             if (PLAYER_RANK == rank) {
                 racer.setPilot(new PlayerPilot(assets, this, racer));
