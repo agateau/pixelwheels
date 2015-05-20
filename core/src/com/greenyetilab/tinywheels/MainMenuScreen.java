@@ -33,7 +33,7 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("startButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.start();
+                mGame.showSelectVehicle();
             }
         });
         builder.getActor("settingsButton").addListener(new ClickListener() {

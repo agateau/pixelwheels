@@ -24,6 +24,7 @@ public class VehicleCreator {
 
         Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y);
         vehicle.setName(vehicleDef.name);
+        vehicle.setId(vehicleDef.id);
 
         for (AxleDef axle : vehicleDef.axles) {
             float width = axle.width * U;

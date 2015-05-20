@@ -31,6 +31,7 @@
         default: {
             up: rectbutton,
             down: rectbutton-down,
+            checked: rectbutton-down,
             font: default-font,
             fontColor: white
         }

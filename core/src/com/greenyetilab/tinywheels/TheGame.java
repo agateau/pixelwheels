@@ -35,10 +35,14 @@ public class TheGame extends Game {
         replaceScreen(screen);
     }
 
-    public void start() {
+    public void showSelectVehicle() {
+        replaceScreen(new SelectVehicleScreen(this));
+    }
+
+    public void start(String playerVehicleId) {
         TiledMap map = new AtlasTmxMapLoader().load("maps/race.tmx");
         MapInfo mapInfo = new MapInfo(map);
-        Screen screen = new RaceScreen(this, mapInfo);
+        Screen screen = new RaceScreen(this, mapInfo, playerVehicleId);
         replaceScreen(screen);
     }
 

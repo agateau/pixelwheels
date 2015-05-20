@@ -50,7 +50,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TheGame game, MapInfo mapInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
+    public GameWorld(TheGame game, MapInfo mapInfo, String playerVehicleId, HudBridge hudBridge, PerformanceCounters performanceCounters) {
         mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
@@ -60,7 +60,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers();
+        setupRacers(playerVehicleId);
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -185,7 +185,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void setupRacers() {
+    private void setupRacers(String playerVehicleId) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
@@ -197,13 +197,17 @@ public class GameWorld implements ContactListener, Disposable {
 
         Array<VehicleDef> vehicleDefs = assets.vehicleDefs;
         for (Vector2 position : positions) {
-            VehicleDef vehicleDef = vehicleDefs.get((rank - 1) % vehicleDefs.size);
-            Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-            Racer racer = new Racer(this, vehicle);
-            if (PLAYER_RANK == rank) {
+            Racer racer;
+            if (rank == PLAYER_RANK) {
+                VehicleDef vehicleDef = assets.getVehicleById(playerVehicleId);
+                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
+                racer = new Racer(this, vehicle);
                 racer.setPilot(new PlayerPilot(assets, this, racer));
                 mPlayerRacer = racer;
             } else {
+                VehicleDef vehicleDef = vehicleDefs.get((rank - 1) % vehicleDefs.size);
+                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
+                racer = new Racer(this, vehicle);
                 racer.setPilot(new AIPilot(mMapInfo, racer));
             }
             addGameObject(racer);

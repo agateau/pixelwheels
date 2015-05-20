@@ -28,6 +28,7 @@ class Vehicle implements Disposable {
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    private String mId;
     private String mName;
 
     private boolean mAccelerating = false;
@@ -106,6 +107,14 @@ class Vehicle implements Disposable {
 
     public Array<WheelInfo> getWheelInfos() {
         return mWheels;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public Body getBody() {

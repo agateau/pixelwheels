@@ -60,13 +60,13 @@ public class RaceScreen extends ScreenAdapter {
         }
     };
 
-    public RaceScreen(TheGame game, MapInfo mapInfo) {
+    public RaceScreen(TheGame game, MapInfo mapInfo, String playerVehicleId) {
         mGame = game;
         mBatch = new SpriteBatch();
         setupHud();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, mHudBridge, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, playerVehicleId, mHudBridge, mPerformanceCounters);
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         mGameRenderer = new GameRenderer(game.getAssets(), mGameWorld, mBatch, mPerformanceCounters);
         setupGameRenderer();
