@@ -1,0 +1,46 @@
+digraph {
+    MainMenu[color=blue];
+
+    Credits;
+    Config[color=blue];
+    SelectChampionship;
+    SelectTrack;
+
+    MainMenu -> Credits [dir=both];
+
+    MainMenu -> Config [dir=both color=blue];
+
+    MainMenu -> SelectChampionship [dir=both];
+
+    MainMenu -> SelectTrack [dir=both, label="Quick race"];
+
+    SelectVehicle[color=blue];
+    SelectChampionship -> SelectVehicle [dir=both];
+    SelectTrack -> SelectVehicle [dir=both];
+
+    Race[color=blue];
+    SelectVehicle -> Race [color=blue];
+
+    PauseOverlay;
+    Race -> PauseOverlay [dir=both label="Pause / Unpause"];
+    PauseOverlay -> Race [label="Restart"];
+    PauseOverlay -> MainMenu [label="Quit"];
+
+    ConfigOverlay;
+    PauseOverlay -> ConfigOverlay [dir=both];
+
+    FinishedOverlay[color=blue];
+    Race -> FinishedOverlay [color=blue label="Race finished"];
+    FinishedOverlay -> Race [color=blue label="Restart"];
+    FinishedOverlay -> Race [label="Next race"];
+    FinishedOverlay -> MainMenu [color=blue label="Quit"];
+
+    ChampionshipFinished;
+    FinishedOverlay -> ChampionshipFinished;
+
+    ChampionshipFinished -> MainMenu;
+
+    UnlockedPart;
+    ChampionshipFinished -> UnlockedPart[label="if unlocked part"];
+    UnlockedPart -> MainMenu;
+}
