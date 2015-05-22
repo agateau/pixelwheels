@@ -21,7 +21,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
 
+    private final StopWatchComponent mStopWatchComponent = new StopWatchComponent();
+
     private Pilot mPilot;
+
+    // State
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mHasFinishedRace = false;
@@ -65,6 +69,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     public Bonus getBonus() {
         return mBonus;
+    }
+
+    public StopWatchComponent getStopWatchComponent() {
+        return mStopWatchComponent;
     }
 
     public void spin() {
@@ -127,6 +135,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             selectBonus();
         }
         if (!mHasFinishedRace) {
+            mStopWatchComponent.act(delta);
             updatePosition();
         }
         mVehicle.act(delta);
@@ -179,6 +188,12 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
         mLapPosition.copy(pos);
         if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
+            if (mLapCount >= 1) {
+                // Check lap count before calling onLapCompleted() because we get there when we
+                // first cross the line at start time and we don't want to count this as a
+                // completed lap.
+                mStopWatchComponent.onLapCompleted();
+            }
             ++mLapCount;
             if (mLapCount > mapInfo.getTotalLapCount()) {
                 --mLapCount;

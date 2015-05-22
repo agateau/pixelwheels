@@ -7,8 +7,8 @@ public class StringUtils {
     public static String formatRaceTime(float time) {
         int minutes = (int)(time / 60);
         int seconds = (int)(time) % 60;
-        int tens = (int)(time * 10) % 10;
-        return String.format("%d:%02d.%d", minutes, seconds, tens);
+        int fracs = (int)(time * 100) % 100;
+        return String.format("%d:%02d.%02d", minutes, seconds, fracs);
     }
 
     public  static String formatSpeed(float speedMPS) {

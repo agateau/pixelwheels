@@ -3,11 +3,8 @@
     <AnchorGroup id="root" spacing="20">
         <RacerListPane id="racerListPane"
             center="root.center 0 0.5"
-            width="400"
-            height="290"/>
-
-        <Label id="mainLabel"
-            bottomCenter="racerListPane.topCenter 0 1"/>
+            width="650"
+            height="320"/>
 
         <ImageButton id="menuButton"
                      imageName="icon-back"
