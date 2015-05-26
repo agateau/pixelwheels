@@ -17,6 +17,5 @@ public class Constants {
     public static final float CAMERA_ADVANCE_PERCENT = 0.2f;
 
     public static final int PLAYER_HEALTH = 3;
-    public static final boolean CLAMP_CAMERA = true;
     public static final boolean ROTATE_CAMERA = false;
 }
