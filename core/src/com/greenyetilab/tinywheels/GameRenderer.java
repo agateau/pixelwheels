@@ -81,9 +81,9 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         updateCamera();
+        updateMapRendererCamera();
 
         mTilePerformanceCounter.start();
-        mRenderer.setView(mCamera);
         mBatch.disableBlending();
         mRenderer.render(mBackgroundLayerIndexes);
         mTilePerformanceCounter.stop();
@@ -193,6 +193,17 @@ public class GameRenderer {
         }
 
         mCamera.update();
+    }
+
+    private void updateMapRendererCamera() {
+        if (Constants.ROTATE_CAMERA) {
+            // Increase size of render view to make sure corners are correctly drawn
+            float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
+            mRenderer.setView(mCamera.combined,
+                    mCamera.position.x - radius, mCamera.position.y - radius, radius * 2, radius * 2);
+        } else {
+            mRenderer.setView(mCamera);
+        }
     }
 
     public void onScreenResized() {
