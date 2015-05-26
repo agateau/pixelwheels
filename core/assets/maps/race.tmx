@@ -19,7 +19,7 @@
   </tile>
   <tile id="3">
    <properties>
-    <property name="max_speed" value="0.75"/>
+    <property name="max_speed" value="0.8"/>
    </properties>
   </tile>
   <tile id="4">
@@ -36,7 +36,7 @@
   </tile>
   <tile id="6">
    <properties>
-    <property name="max_speed" value="0.25"/>
+    <property name="max_speed" value="0.5"/>
    </properties>
   </tile>
   <tile id="7">
@@ -51,17 +51,17 @@
   </tile>
   <tile id="9">
    <properties>
-    <property name="max_speed" value="0.75"/>
+    <property name="max_speed" value="0.8"/>
    </properties>
   </tile>
   <tile id="10">
    <properties>
-    <property name="max_speed" value="0.75"/>
+    <property name="max_speed" value="0.8"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
-    <property name="max_speed" value="0.5"/>
+    <property name="max_speed" value="0.7"/>
    </properties>
   </tile>
   <tile id="12">
@@ -242,7 +242,7 @@
  </tileset>
  <layer name="Ground" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztl1FygjAQhpeW6kgdZrS+aF9yFI/iUXIUjsJROEpXIWUTNk2AgKmTh390UDb/57/Z4BYAtklJSUkvqgtAfUbtAK5r6RO1R4X0f0QdUBleM3Virrn01sn1vXwmh8W/QFVEQolhEcZ7TYRj8BkRFAC3qQzfun/l50o42DUZ30/jwBwaZGgYL4qj5tY8RcaBvdQc/ubwZXgah5EFdD2keUFGOLb1g6rk+3USh5GFxqH8n1ve4HN9F5Cj0GspDvFl8a9mWjFR9HxYmgNzEOhVOGbylN5/KB9ywBIc6FVcCAczk+usP08e93iccb8cymfoPD7wlYrWIXOgyiznoUceq3CYedA6xhxgGWLh2PTraBzM+Vi9k73hmscl3/+L57ExOEgWWj/5zmPLPl49j6L3LpUX2zyOgcOWR9EzyC6HwTyOicPMA/v6dj+zynYvSLWGOY+nchj1F8uDzCbJ/Y5zORwKlsd/5XiFPPLWK13PxgH4jOe9N4zaozjGrnMXPntKvE+6/iugJ7EfWd+39tx1kpKSkmLUDyRJyhg=
+   eJztl1FygjAQhpdCdaQOM2pftC85ikfxKDkKR+EoHKWrkLLZJAVCQHTy8I2OSPJ/brLBLQBsI5FI5E25AFRnZAdwXYovZI+EzH9EDkiCn3G+CbbrNj5a+r6XTfRw5BdISRCK1Mwg2HsN4mFcI0AOcPN1+NHzqzxX4mHMmZoOT/XAOtToUFuyKI/qFTxwLdWH/z0M2P4Qz/ZgtYB2DWlZ0BGOzfhBKezr1cuD1ULzUPnPjW/wvr4L6JHrYykPcXLkVz0t94SeD3N7YB0EZhU9Pdln7T/ITA+YwwOzigvxsPTkKunOk8c9A864Pw+VM3Q9PvGVQschfaBMHOfhgHos4sHrQcdhfcDqsBaPTTeP5mE5H8uU7I2+flzY1//s9dgwD1ILbT0N7ceOfbx4PfIuu1RZXP14DR6ueuSdg2zrYPTjNXnweuC6vt3PrKLZC1LNwfuxrwcbf7Z6kN4kbb/jVI8egtXjVT3eoR5Zk5XO5/IAfMYbvDfY2KM8xs5zB589Jd4n+/4rYCaxHzn+0LGnzhOJRCJr5BeTLspE
   </data>
  </layer>
  <layer name="Obstacles" width="50" height="35">
