@@ -75,12 +75,12 @@ public class GameRenderer {
         return mCamera;
     }
 
-    public void render() {
+    public void render(float delta) {
         Color bg = mMapInfo.getBackgroundColor();
         Gdx.gl.glClearColor(bg.r, bg.g, bg.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        updateCamera();
+        updateCamera(delta);
         updateMapRendererCamera();
 
         mTilePerformanceCounter.start();
@@ -152,7 +152,7 @@ public class GameRenderer {
         }
     }
 
-    private void updateCamera() {
+    private void updateCamera(float delta) {
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
         float viewportWidth = GamePlay.instance.viewportWidth;
@@ -161,18 +161,25 @@ public class GameRenderer {
         mCamera.viewportHeight = viewportHeight;
 
         // Compute pos
-        float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        float x = mVehicle.getX() + advance * MathUtils.cosDeg(mVehicle.getAngle());
-        float y = mVehicle.getY() + advance * MathUtils.sinDeg(mVehicle.getAngle());
-
-        mCamera.position.x = x;
-        mCamera.position.y = y;
-
+        float advanceAngle;
         if (Constants.ROTATE_CAMERA) {
             float targetAngle = 180 - mVehicle.getAngle();
-            mCamera.rotate(targetAngle - mCameraAngle);
-            mCameraAngle = targetAngle;
+            float deltaAngle = targetAngle - mCameraAngle;
+            float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
+            float progress = Math.min(Math.abs(deltaAngle), K) / K;
+            float maxRotationSpeed = MathUtils.lerp(1, Constants.MAX_CAMERA_ROTATION_SPEED, progress);
+            float maxDeltaAngle = maxRotationSpeed * delta;
+            deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+            mCamera.rotate(deltaAngle);
+            mCameraAngle += deltaAngle;
+
+            advanceAngle = 180 - mCameraAngle;
+        } else {
+            advanceAngle = mVehicle.getAngle();
         }
+        float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
+        mCamera.position.x = mVehicle.getX() + advance * MathUtils.cosDeg(advanceAngle);
+        mCamera.position.y = mVehicle.getY() + advance * MathUtils.sinDeg(advanceAngle);
 
         mCamera.update();
     }
@@ -186,9 +193,5 @@ public class GameRenderer {
         } else {
             mRenderer.setView(mCamera);
         }
-    }
-
-    public void onScreenResized() {
-        updateCamera();
     }
 }

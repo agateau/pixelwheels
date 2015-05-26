@@ -119,7 +119,7 @@ public class RaceScreen extends ScreenAdapter {
         updateHud();
 
         mRendererPerformanceCounter.start();
-        mGameRenderer.render();
+        mGameRenderer.render(delta);
         mHudStage.draw();
         mRendererPerformanceCounter.stop();
 
@@ -167,7 +167,6 @@ public class RaceScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         mHudViewport.update(width, height, true);
-        mGameRenderer.onScreenResized();
     }
 
     private void showFinishedOverlay() {
