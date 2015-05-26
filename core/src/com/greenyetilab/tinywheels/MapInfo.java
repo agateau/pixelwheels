@@ -1,5 +1,6 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -68,6 +69,7 @@ public class MapInfo implements Disposable {
     private final float mTileHeight;
     private final Array<Zone> mZones = new Array<Zone>();
     private final LapPositionTable mLapPositionTable;
+    private final Color mBackgroundColor;
 
     public MapInfo(TiledMap map) {
         mMap = map;
@@ -83,6 +85,14 @@ public class MapInfo implements Disposable {
 
         readZones();
         mLapPositionTable = LapPositionTableIO.load(map);
+
+        String bgColorText = map.getProperties().get("backgroundcolor", "#808080", String.class);
+        bgColorText = bgColorText.substring(1); // Skip leading '#'
+        mBackgroundColor = Color.valueOf(bgColorText);
+    }
+
+    public Color getBackgroundColor() {
+        return mBackgroundColor;
     }
 
     public int getTotalLapCount() {
