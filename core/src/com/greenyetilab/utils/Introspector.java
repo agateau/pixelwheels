@@ -81,16 +81,29 @@ public class Introspector {
         }
     }
 
-    public Object get(String key) {
+    public <T> T get(String key) {
         try {
             Field field = mClass.getField(key);
-            return field.get(mObject);
+            return (T)field.get(mObject);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException("get(" + key + ") failed. " + e);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("get(" + key + ") failed. " + e);
+        }
+    }
+
+    public <T> void set(String key, T value) {
+        try {
+            Field field = mClass.getField(key);
+            field.set(mObject, value);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException("set(" + key + ") failed. " + e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("set(" + key + ") failed. " + e);
         }
     }
 
