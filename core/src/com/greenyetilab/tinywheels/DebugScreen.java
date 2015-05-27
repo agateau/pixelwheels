@@ -40,6 +40,7 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
         mGroup.align(Align.left).space(20);
         addTitle("Race");
         mGroup.addActor(addRange("Viewport width:", "viewportWidth", 20, 80));
+        mGroup.addActor(addGamePlayCheckBox("Rotate viewport", "rotateCamera"));
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
@@ -89,6 +90,27 @@ public class DebugScreen extends com.greenyetilab.utils.StageScreen {
             }
         });
         return checkBox;
+    }
+
+    private Actor addGamePlayCheckBox(String text, final String keyName) {
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+
+        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
+        boolean checked = GamePlay.instance.getIntrospector().get(keyName);
+        checkBox.setChecked(checked);
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                boolean value = checkBox.isChecked();
+                GamePlay.instance.getIntrospector().set(keyName, value);
+                defaultLabel.update();
+            }
+        });
+
+        final HorizontalGroup group = new HorizontalGroup();
+        group.addActor(checkBox);
+        group.addActor(defaultLabel);
+        return group;
     }
 
     private Actor addRange(String text, final String keyName, int min, int max) {

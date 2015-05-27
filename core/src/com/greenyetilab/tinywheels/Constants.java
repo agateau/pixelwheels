@@ -17,7 +17,6 @@ public class Constants {
     public static final float CAMERA_ADVANCE_PERCENT = 0.25f;
 
     public static final int PLAYER_HEALTH = 3;
-    public static final boolean ROTATE_CAMERA = false;
 
     // In degrees per second
     public static final float MAX_CAMERA_ROTATION_SPEED = 180;

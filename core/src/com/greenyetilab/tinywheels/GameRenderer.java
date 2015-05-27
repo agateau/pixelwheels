@@ -162,7 +162,7 @@ public class GameRenderer {
 
         // Compute pos
         float advanceAngle;
-        if (Constants.ROTATE_CAMERA) {
+        if (GamePlay.instance.rotateCamera) {
             float targetAngle = 180 - mVehicle.getAngle();
             float deltaAngle = targetAngle - mCameraAngle;
             float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
@@ -185,7 +185,7 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        if (Constants.ROTATE_CAMERA) {
+        if (GamePlay.instance.rotateCamera) {
             // Increase size of render view to make sure corners are correctly drawn
             float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
             mRenderer.setView(mCamera.combined,
