@@ -14,7 +14,8 @@ import com.badlogic.gdx.utils.Pool;
  */
 public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private static final float SHOOT_INTERVAL = 0.1f;
-    private static final int SHOOT_COUNT = 10;
+    private static final int SHOOT_COUNT = 20;
+    private static final float SPREAD_ANGLE = 5;
     private static final float AI_RAYCAST_LENGTH = 20;
 
     public static class Pool extends BonusPool {
@@ -128,7 +129,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
         // Shoot
         Vehicle vehicle = mRacer.getVehicle();
-        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), vehicle.getAngle()));
+        float angle = vehicle.getAngle() + MathUtils.random(-SPREAD_ANGLE, SPREAD_ANGLE);
+        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), angle));
 
         mRemainingShots--;
         if (mRemainingShots == 0) {
