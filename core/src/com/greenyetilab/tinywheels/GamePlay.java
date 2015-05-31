@@ -9,11 +9,11 @@ import com.greenyetilab.utils.Introspector;
  */
 public class GamePlay {
     public int racerCount = 6;
-    public int maxDrivingForce = 70;
+    public int maxDrivingForce = 50;
     public int maxLateralImpulse = 10;
     public int maxSkidmarks = 200;
-    public int lowSpeedMaxSteer = 40;
-    public int highSpeedMaxSteer = 10;
+    public int lowSpeedMaxSteer = 36;
+    public int highSpeedMaxSteer = 8;
     public int vehicleDensity = 16;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
