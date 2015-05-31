@@ -13,6 +13,12 @@ public interface Bonus {
      * as when aiAct() is called.
      */
     void onPicked(Racer racer);
+
+    /**
+     * Called when a Racer is hit while carrying a bonus.
+     */
+    void onDropped();
+
     void trigger();
 
     /**

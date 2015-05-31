@@ -12,6 +12,10 @@ public abstract class BonusAdapter implements Bonus {
     }
 
     @Override
+    public void onDropped() {
+    }
+
+    @Override
     public void trigger() {
 
     }

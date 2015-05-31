@@ -102,6 +102,12 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     @Override
+    public void onDropped() {
+        mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
+        mPool.free(this);
+    }
+
+    @Override
     public void trigger() {
         mTriggered = true;
         mDelayForNextShot = 0;
@@ -127,8 +133,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         mRemainingShots--;
         if (mRemainingShots == 0) {
             mRacer.resetBonus();
-            mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
-            mPool.free(this);
+            onDropped();
         } else {
             mDelayForNextShot = SHOOT_INTERVAL;
         }
