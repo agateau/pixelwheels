@@ -21,13 +21,11 @@ all: build
 clean: clean-packr
 	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
-$(DESKTOP_JAR):
-	${GRADLEW} desktop:dist
-
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build: $(DESKTOP_JAR)
+build:
+	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
 
@@ -44,7 +42,7 @@ mappacker: tools
 $(JDK_LINUX64_ZIP):
 	wget $(JDK_LINUX64_URL) -O $(JDK_LINUX64_ZIP)
 
-$(PACKR_OUT_DIR)/$(EXECUTABLE): $(JDK_LINUX64_ZIP) $(DESKTOP_JAR)
+$(PACKR_OUT_DIR)/$(EXECUTABLE): $(JDK_LINUX64_ZIP) build
 	java -jar $(PACKR) \
 		-platform linux64 \
 		-jdk $(JDK_LINUX64_ZIP) \
@@ -61,7 +59,7 @@ clean-packr:
 	rm -rf $(PACKR_OUT_DIR)
 
 # Dist
-dist: $(DESKTOP_JAR)
+dist: build
 	@rm -rf $(DIST_OUT_DIR)
 	@mkdir -p $(DIST_OUT_DIR)
 
