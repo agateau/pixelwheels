@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+import com.greenyetilab.utils.GylMathUtils;
+
 /**
  * Represents a car on the world
  */
@@ -238,13 +240,6 @@ class Vehicle implements Disposable {
         return mName;
     }
 
-    private static float normAngle(float angle) {
-        while (angle < 0) {
-            angle += 360;
-        }
-        return angle % 360;
-    }
-
     private static float computeAngleDelta(float a1, float a2) {
         float delta = Math.abs(a2 - a1);
         if (delta > 180) {
@@ -254,8 +249,8 @@ class Vehicle implements Disposable {
     }
 
     private float computeAutoSteerAngle() {
-        float angle = normAngle(getAngle());
-        float velocityAngle = normAngle(mBody.getLinearVelocity().angle());
+        float angle = GylMathUtils.normalizeAngle(getAngle());
+        float velocityAngle = GylMathUtils.normalizeAngle(mBody.getLinearVelocity().angle());
         float angleDelta = computeAngleDelta(angle, velocityAngle);
         boolean reverse = angleDelta > 90;
 
