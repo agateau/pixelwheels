@@ -118,20 +118,22 @@ public class GameWorld implements ContactListener, Disposable {
     private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
         @Override
         public int compare(Racer racer1, Racer racer2) {
-            if (!racer1.hasFinishedRace() && racer2.hasFinishedRace()) {
+            StopWatchComponent c1 = racer1.getStopWatchComponent();
+            StopWatchComponent c2 = racer2.getStopWatchComponent();
+            if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
                 return 1;
             }
-            if (racer1.hasFinishedRace() && !racer2.hasFinishedRace()) {
+            if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
                 return -1;
             }
-            if (racer1.getLapCount() < racer2.getLapCount()) {
+            if (c1.getLapCount() < c2.getLapCount()) {
                 return 1;
             }
-            if (racer1.getLapCount() > racer2.getLapCount()) {
+            if (c1.getLapCount() > c2.getLapCount()) {
                 return -1;
             }
-            float d1 = racer1.getLapDistance();
-            float d2 = racer2.getLapDistance();
+            float d1 = c1.getLapDistance();
+            float d2 = c2.getLapDistance();
             if (d1 < d2) {
                 return 1;
             }
@@ -174,13 +176,13 @@ public class GameWorld implements ContactListener, Disposable {
         // line, even if they continue a bit after it
         int fromIndex;
         for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
-            if (!mRacers.get(fromIndex).hasFinishedRace()) {
+            if (!mRacers.get(fromIndex).getStopWatchComponent().hasFinishedRace()) {
                 break;
             }
         }
         Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
-        if (mPlayerRacer.hasFinishedRace()) {
+        if (mPlayerRacer.getStopWatchComponent().hasFinishedRace()) {
             setState(State.FINISHED);
         }
     }

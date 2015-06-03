@@ -53,18 +53,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         return mVehicle;
     }
 
-    public int getLapCount() {
-        return mStopWatchComponent.getLapCount();
-    }
-
-    public float getLapDistance() {
-        return mStopWatchComponent.getLapDistance();
-    }
-
-    public boolean hasFinishedRace() {
-        return mStopWatchComponent.hasFinishedRace();
-    }
-
     public Bonus getBonus() {
         return mBonus;
     }
