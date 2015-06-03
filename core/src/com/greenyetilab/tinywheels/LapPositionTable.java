@@ -9,7 +9,7 @@ import com.greenyetilab.utils.Assert;
  * Can provide the position within a lap based on x, y (in tile pixels)
  */
 public class LapPositionTable {
-    private final Array<LapSection> mZones = new Array<LapSection>();
+    private final Array<LapSection> mSections = new Array<LapSection>();
 
     private static class LapSection {
         private int mSectionId;
@@ -45,11 +45,11 @@ public class LapPositionTable {
     }
 
     public void addSection(int section, Polygon polygon) {
-        mZones.add(new LapSection(section, polygon));
+        mSections.add(new LapSection(section, polygon));
     }
 
     public LapPosition get(int x, int y) {
-        for (LapSection zone : mZones) {
+        for (LapSection zone : mSections) {
             if (zone.mPolygon.contains(x, y)) {
                 return zone.computePosition(x, y);
             }
@@ -58,6 +58,6 @@ public class LapPositionTable {
     }
 
     public int getSectionCount() {
-        return mZones.size;
+        return mSections.size;
     }
 }
