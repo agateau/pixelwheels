@@ -21,20 +21,18 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
 
-    private final StopWatchComponent mStopWatchComponent = new StopWatchComponent();
+    private final StopWatchComponent mStopWatchComponent;
 
     private Pilot mPilot;
 
     // State
-    private int mLapCount = 0;
-    private final LapPosition mLapPosition = new LapPosition();
-    private boolean mHasFinishedRace = false;
     private Bonus mBonus;
     private boolean mMustSelectBonus = false;
 
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
+        mStopWatchComponent = new StopWatchComponent(gameWorld.getMapInfo(), vehicle);
 
         mVehicle = vehicle;
         mVehicle.setUserData(this);
@@ -56,15 +54,15 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     public int getLapCount() {
-        return mLapCount;
+        return mStopWatchComponent.getLapCount();
     }
 
     public float getLapDistance() {
-        return mLapPosition.getLapDistance();
+        return mStopWatchComponent.getLapDistance();
     }
 
     public boolean hasFinishedRace() {
-        return mHasFinishedRace;
+        return mStopWatchComponent.hasFinishedRace();
     }
 
     public Bonus getBonus() {
@@ -138,12 +136,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             mMustSelectBonus = false;
             selectBonus();
         }
-        if (!mHasFinishedRace) {
-            mStopWatchComponent.act(delta);
-            updatePosition();
-        }
+        mStopWatchComponent.act(delta);
         mVehicle.act(delta);
-        if (mHasFinishedRace) {
+        if (mStopWatchComponent.hasFinishedRace()) {
             mVehicle.setAccelerating(false);
         } else {
             mPilot.act(delta);
@@ -177,35 +172,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
      */
     public void resetBonus() {
         mBonus = null;
-    }
-
-    private void updatePosition() {
-        final int oldSectionId = mLapPosition.getSectionId();
-        final MapInfo mapInfo = mGameWorld.getMapInfo();
-        final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
-        final int pixelX = (int)(PFU * mVehicle.getX());
-        final int pixelY = (int)(PFU * mVehicle.getY());
-        final LapPosition pos = mapInfo.getLapPositionTable().get(pixelX, pixelY);
-        if (pos == null) {
-            NLog.e("No LapPosition at pixel " + pixelX + " x " + pixelY);
-            return;
-        }
-        mLapPosition.copy(pos);
-        if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
-            if (mLapCount >= 1) {
-                // Check lap count before calling onLapCompleted() because we get there when we
-                // first cross the line at start time and we don't want to count this as a
-                // completed lap.
-                mStopWatchComponent.onLapCompleted();
-            }
-            ++mLapCount;
-            if (mLapCount > mapInfo.getTotalLapCount()) {
-                --mLapCount;
-                mHasFinishedRace = true;
-            }
-        } else if (mLapPosition.getSectionId() > 1 && oldSectionId == 0) {
-            --mLapCount;
-        }
     }
 
     @Override
