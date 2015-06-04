@@ -5,16 +5,12 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -24,39 +20,20 @@ import com.greenyetilab.utils.Assert;
  * The map of the current game
  */
 public class MapInfo implements Disposable {
-    private static abstract class Zone {
-        private Vector2 mWaypoint = null;
+    private static class WaypointInfo implements Comparable {
+        float lapDistance;
+        Vector2 waypoint;
 
-        abstract boolean contains(float x, float y);
-
-        void setWaypoint(Vector2 waypoint) {
-            mWaypoint = waypoint;
-        }
-
-        Vector2 getWaypoint() {
-            return mWaypoint;
-        }
-    }
-
-    private static class RectangleZone extends Zone {
-        private Rectangle mRectangle;
-        public RectangleZone(Rectangle rectangle) {
-            mRectangle = rectangle;
-        }
         @Override
-        public boolean contains(float x, float y) {
-            return mRectangle.contains(x, y);
-        }
-    }
-
-    private static class PolygonZone extends Zone {
-        private Polygon mPolygon;
-        public PolygonZone(Polygon polygon) {
-            mPolygon = polygon;
-        }
-        @Override
-        public boolean contains(float x, float y) {
-            return mPolygon.contains(x, y);
+        public int compareTo(Object o) {
+            WaypointInfo other = (WaypointInfo)o;
+            if (lapDistance < other.lapDistance) {
+                return -1;
+            } else if (lapDistance == other.lapDistance) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
     }
 
@@ -67,7 +44,7 @@ public class MapInfo implements Disposable {
     private final MapLayer mBordersLayer;
     private final float mTileWidth;
     private final float mTileHeight;
-    private final Array<Zone> mZones = new Array<Zone>();
+    private final Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
     private final LapPositionTable mLapPositionTable;
     private final Color mBackgroundColor;
 
@@ -83,8 +60,8 @@ public class MapInfo implements Disposable {
         mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
 
-        readZones();
         mLapPositionTable = LapPositionTableIO.load(map);
+        readWaypoints();
 
         String bgColorText = map.getProperties().get("backgroundcolor", "#808080", String.class);
         bgColorText = bgColorText.substring(1); // Skip leading '#'
@@ -223,80 +200,33 @@ public class MapInfo implements Disposable {
         return lst;
     }
 
-    private void readZones() {
+    private void readWaypoints() {
         final float U = Constants.UNIT_FOR_PIXEL;
-        MapLayer zoneLayer = mMap.getLayers().get("Zones");
-        Assert.check(zoneLayer != null, "No Zones layer");
-        MapLayer waypointsLayer = mMap.getLayers().get("Waypoints");
-        Assert.check(waypointsLayer != null, "No Waypoints layer");
+        MapLayer layer = mMap.getLayers().get("Waypoints");
+        Assert.check(layer != null, "No Waypoints layer");
 
-        int zoneCount = zoneLayer.getObjects().getCount();
-        int waypointCount = waypointsLayer.getObjects().getCount();
-        Assert.check(waypointCount == zoneCount, "zoneCount != waypointCount (" + zoneCount + " != " + waypointCount + ")");
-
-        for (int pos = 0;; ++pos) {
-            String name = String.valueOf(pos);
-            MapObject object = zoneLayer.getObjects().get(name);
-            if (object == null) {
-                break;
-            }
-            Zone zone;
-            if (object instanceof RectangleMapObject) {
-                Rectangle rectangle = ((RectangleMapObject)object).getRectangle();
-                rectangle.x *= U;
-                rectangle.y *= U;
-                rectangle.width *= U;
-                rectangle.height *= U;
-                zone = new RectangleZone(rectangle);
-            } else if (object instanceof PolygonMapObject) {
-                Polygon polygon = ((PolygonMapObject)object).getPolygon();
-                float[] vertices = polygon.getTransformedVertices().clone();
-                for (int i =0; i < vertices.length; ++i) {
-                    vertices[i] *= U;
-                }
-                zone = new PolygonZone(new Polygon(vertices));
-            } else {
-                throw new RuntimeException("Unsupported object type " + object.getClass().getSimpleName());
-            }
-            mZones.add(zone);
+        for (MapObject object : layer.getObjects()) {
+            Assert.check(object instanceof EllipseMapObject, "Waypoints layer should contains only ellipses. " + object + " is not an ellipse.");
+            Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
+            final LapPosition pos = mLapPositionTable.get((int) ellipse.x, (int) ellipse.y);
+            WaypointInfo info = new WaypointInfo();
+            info.waypoint = new Vector2(ellipse.x * U, ellipse.y * U);
+            info.lapDistance = pos.getLapDistance();
+            mWaypointInfos.add(info);
         }
-        Assert.check(mZones.size == zoneCount, "zoneCount != mZones.size (" + zoneCount + " != " + mZones.size + ")");
-
-        for (MapObject object : waypointsLayer.getObjects()) {
-            if (!(object instanceof EllipseMapObject)) {
-                throw new RuntimeException("Waypoints layer should contains only ellipses. " + object + " is not an ellipse.");
-            }
-            Ellipse ellipse = ((EllipseMapObject)object).getEllipse();
-            Vector2 waypoint = new Vector2(ellipse.x * U, ellipse.y * U);
-            int zoneIdx;
-            for (zoneIdx = 0; zoneIdx < zoneCount; ++zoneIdx) {
-                if (mZones.get(zoneIdx).contains(waypoint.x, waypoint.y)) {
-                    break;
-                }
-            }
-            Assert.check(zoneIdx != zoneCount, "Could not find a zone containing waypoint " + waypoint);
-            --zoneIdx;
-            if (zoneIdx == -1) {
-                zoneIdx = zoneCount - 1;
-            }
-            mZones.get(zoneIdx).setWaypoint(waypoint);
-        }
-
-        // Sanity check
-        for (int zoneIdx = 0; zoneIdx < zoneCount; ++zoneIdx) {
-            Zone zone = mZones.get(zoneIdx);
-            if (zone.getWaypoint() == null) {
-                throw new RuntimeException("Zone " + zoneIdx + " has no waypoints");
-            }
-        }
+        mWaypointInfos.sort();
     }
 
-    public Vector2 getWaypoint(float x, float y) {
-        for(Zone zone : mZones) {
-            if (zone.contains(x, y)) {
-                return zone.getWaypoint();
+    public Vector2 getWaypoint(float lapDistance) {
+        int nextIdx = 0;
+        for (int idx = 0; idx < mWaypointInfos.size; ++idx) {
+            if (lapDistance < mWaypointInfos.get(idx).lapDistance) {
+                nextIdx = idx;
+                break;
             }
         }
-        throw new RuntimeException("No waypoint at " + x + "x" + y);
+        // Target the waypoint after the next one to produce smoother moves
+        nextIdx = (nextIdx + 1) % mWaypointInfos.size;
+        return mWaypointInfos.get(nextIdx).waypoint;
     }
 }
