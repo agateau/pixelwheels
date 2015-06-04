@@ -25,7 +25,6 @@ public class AIPilot implements Pilot {
         Vector2 waypoint = mMapInfo.getWaypoint(mRacer.getX(), mRacer.getY());
         mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
 
-        // Dumb behavior: use bonus as soon as we get it
         Bonus bonus = mRacer.getBonus();
         if (bonus != null) {
             bonus.aiAct(dt);
