@@ -5,7 +5,7 @@ import com.greenyetilab.utils.log.NLog;
 /**
  * A component to track the racer time
  */
-class StopWatchComponent {
+class LapPositionComponent {
     private final MapInfo mMapInfo;
     private final Vehicle mVehicle;
 
@@ -16,7 +16,7 @@ class StopWatchComponent {
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mHasFinishedRace = false;
 
-    public StopWatchComponent(MapInfo mapInfo, Vehicle vehicle) {
+    public LapPositionComponent(MapInfo mapInfo, Vehicle vehicle) {
         mMapInfo = mapInfo;
         mVehicle = vehicle;
     }

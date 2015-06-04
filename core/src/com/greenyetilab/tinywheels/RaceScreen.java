@@ -129,7 +129,7 @@ public class RaceScreen extends ScreenAdapter {
 
     private static StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
-        int lapCount = Math.max(mGameWorld.getPlayerRacer().getStopWatchComponent().getLapCount(), 1);
+        int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank();
         mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));

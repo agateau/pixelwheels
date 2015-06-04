@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.greenyetilab.utils.log.NLog;
 
 /**
  * A racer
@@ -21,7 +20,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
 
-    private final StopWatchComponent mStopWatchComponent;
+    private final LapPositionComponent mLapPositionComponent;
 
     private Pilot mPilot;
 
@@ -32,7 +31,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public Racer(GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
-        mStopWatchComponent = new StopWatchComponent(gameWorld.getMapInfo(), vehicle);
+        mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
 
         mVehicle = vehicle;
         mVehicle.setUserData(this);
@@ -57,8 +56,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         return mBonus;
     }
 
-    public StopWatchComponent getStopWatchComponent() {
-        return mStopWatchComponent;
+    public LapPositionComponent getLapPositionComponent() {
+        return mLapPositionComponent;
     }
 
     public void spin() {
@@ -124,9 +123,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             mMustSelectBonus = false;
             selectBonus();
         }
-        mStopWatchComponent.act(delta);
+        mLapPositionComponent.act(delta);
         mVehicle.act(delta);
-        if (mStopWatchComponent.hasFinishedRace()) {
+        if (mLapPositionComponent.hasFinishedRace()) {
             mVehicle.setAccelerating(false);
         } else {
             mPilot.act(delta);

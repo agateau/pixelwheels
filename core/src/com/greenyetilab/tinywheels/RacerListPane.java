@@ -21,13 +21,13 @@ public class RacerListPane extends ScrollPane {
         addRow(table, "highScore", "#", "Racer", "Best Lap", "Total");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
-            StopWatchComponent stopWatchComponent = racer.getStopWatchComponent();
+            LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
             String style = racer == playerRacer ? "newHighScore" : "highScore";
             addRow(table, style,
                     String.format("%d.", idx + 1),
                     racer.getVehicle().getName(),
-                    StringUtils.formatRaceTime(stopWatchComponent.getBestLapTime()),
-                    StringUtils.formatRaceTime(stopWatchComponent.getTotalTime())
+                    StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),
+                    StringUtils.formatRaceTime(lapPositionComponent.getTotalTime())
             );
         }
         setWidget(table);

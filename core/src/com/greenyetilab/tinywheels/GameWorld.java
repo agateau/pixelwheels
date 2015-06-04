@@ -118,8 +118,8 @@ public class GameWorld implements ContactListener, Disposable {
     private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
         @Override
         public int compare(Racer racer1, Racer racer2) {
-            StopWatchComponent c1 = racer1.getStopWatchComponent();
-            StopWatchComponent c2 = racer2.getStopWatchComponent();
+            LapPositionComponent c1 = racer1.getLapPositionComponent();
+            LapPositionComponent c2 = racer2.getLapPositionComponent();
             if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
                 return 1;
             }
@@ -176,13 +176,13 @@ public class GameWorld implements ContactListener, Disposable {
         // line, even if they continue a bit after it
         int fromIndex;
         for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
-            if (!mRacers.get(fromIndex).getStopWatchComponent().hasFinishedRace()) {
+            if (!mRacers.get(fromIndex).getLapPositionComponent().hasFinishedRace()) {
                 break;
             }
         }
         Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
-        if (mPlayerRacer.getStopWatchComponent().hasFinishedRace()) {
+        if (mPlayerRacer.getLapPositionComponent().hasFinishedRace()) {
             setState(State.FINISHED);
         }
     }
