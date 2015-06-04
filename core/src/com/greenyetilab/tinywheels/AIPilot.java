@@ -2,6 +2,7 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.greenyetilab.utils.GylMathUtils;
 
 /**
  * An AI pilot
@@ -13,13 +14,6 @@ public class AIPilot implements Pilot {
     public AIPilot(MapInfo mapInfo, Racer racer) {
         mMapInfo = mapInfo;
         mRacer = racer;
-    }
-
-    private static float normAngle(float angle) {
-        while (angle < 0) {
-            angle += 360;
-        }
-        return angle % 360;
     }
 
     private final Vector2 mTargetVector = new Vector2();
@@ -37,8 +31,8 @@ public class AIPilot implements Pilot {
             bonus.aiAct(dt);
         }
 
-        float targetAngle = normAngle(mTargetVector.angle());
-        float vehicleAngle = normAngle(vehicle.getAngle());
+        float targetAngle = GylMathUtils.normalizeAngle(mTargetVector.angle());
+        float vehicleAngle = GylMathUtils.normalizeAngle(vehicle.getAngle());
         float deltaAngle = targetAngle - vehicleAngle;
         if (deltaAngle > 180) {
             deltaAngle -= 360;
