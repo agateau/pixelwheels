@@ -3,9 +3,11 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Polyline;
 import com.greenyetilab.utils.Assert;
 import com.greenyetilab.utils.log.NLog;
 
@@ -15,19 +17,56 @@ import com.greenyetilab.utils.log.NLog;
  *
  */
 public class LapPositionTableIO {
+    private static class Line {
+        float x1, y1;
+        float x2, y2;
+
+        void reverse() {
+            float tmp = x1;
+            x1 = x2;
+            x2 = tmp;
+            tmp = y1;
+            y1 = y2;
+            y2 = tmp;
+        }
+    }
+
     public static LapPositionTable load(TiledMap map) {
-        MapLayer zonesLayer = map.getLayers().get("Zones");
-        Assert.check(zonesLayer != null, "No 'Zones' layer found");
+        MapLayer layer = map.getLayers().get("Sections");
+        Assert.check(layer != null, "No 'Sections' layer found");
+        MapObjects objects = layer.getObjects();
 
-        LapPositionTable table = new LapPositionTable();
-
-        for (MapObject obj : zonesLayer.getObjects()) {
+        Line[] lines = new Line[objects.getCount()];
+        for (MapObject obj : objects) {
             int section = Integer.parseInt(obj.getName());
-            Assert.check(obj instanceof PolygonMapObject, "'Zones' layer should only contain PolygonMapObjects");
-            Polygon polygon = ((PolygonMapObject)obj).getPolygon();
-            table.addSection(section, polygon);
+            Assert.check(section >= 0 && section < lines.length, "Invalid ID " + section);
+            Assert.check(obj instanceof PolylineMapObject, "'Sections' layer should only contain PolylineMapObjects");
+            Polyline polyline = ((PolylineMapObject)obj).getPolyline();
+            float[] vertices = polyline.getTransformedVertices();
+            Assert.check(vertices.length == 4, "Polyline with ID " + section + "should have 2 points, not " + (vertices.length / 2));
+            Line line = new Line();
+            line.x1 = vertices[0];
+            line.y1 = vertices[1];
+            line.x2 = vertices[2];
+            line.y2 = vertices[3];
+            Assert.check(lines[section] == null, "Duplicate ID " + section);
+            lines[section] = line;
         }
 
+        LapPositionTable table = new LapPositionTable();
+        for (int idx = 0; idx < lines.length; ++idx) {
+            Line line1 = lines[idx];
+            Line line2 = lines[(idx + 1) % lines.length];
+            Assert.check(line2 != null, "'Sections' layer is missing a line with ID " + idx);
+            float[] vertices = {
+                line1.x1, line1.y1,
+                line2.x1, line2.y1,
+                line2.x2, line2.y2,
+                line1.x2, line1.y2
+            };
+            Polygon polygon = new Polygon(vertices);
+            table.addSection(idx, polygon);
+        }
         return table;
     }
 
