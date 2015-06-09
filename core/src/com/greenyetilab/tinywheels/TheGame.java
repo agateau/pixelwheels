@@ -40,7 +40,7 @@ public class TheGame extends Game {
     }
 
     public void start(String playerVehicleId) {
-        TiledMap map = new AtlasTmxMapLoader().load("maps/race.tmx");
+        TiledMap map = new AtlasTmxMapLoader().load("maps/be.tmx");
         MapInfo mapInfo = new MapInfo(map);
         Screen screen = new RaceScreen(this, mapInfo, playerVehicleId);
         replaceScreen(screen);
