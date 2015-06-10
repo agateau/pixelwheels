@@ -212,7 +212,7 @@ public class UiBuilder {
 
     protected TextButton createTextButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
-        String text = element.getText();
+        String text = processText(element.getText());
         return new TextButton(text, mSkin, styleName);
     }
 
@@ -362,5 +362,9 @@ public class UiBuilder {
 
     public void registerActorFactory(String name, ActorFactory factory) {
         mFactoryForName.put(name, factory);
+    }
+
+    public static String processText(String text) {
+        return text.replace("\\n", "\n");
     }
 }
