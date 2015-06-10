@@ -17,16 +17,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
-    private final ButtonGroup mVehicleButtonGroup = new ButtonGroup();
-
-    private class VehicleButton extends TextButton {
-        private final VehicleDef mVehicleDef;
-
-        public VehicleButton(VehicleDef vehicleDef) {
-            super(vehicleDef.name, mGame.getAssets().skin);
-            mVehicleDef = vehicleDef;
-        }
-    }
+    private VehicleSelector mVehicleSelector;
 
     public SelectVehicleScreen(TheGame game) {
         mGame = game;
@@ -41,13 +32,15 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        VehicleSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        HorizontalGroup group = builder.getActor("vehicleGroup");
-        createVehicleButtons(group);
+        mVehicleSelector = builder.getActor("vehicleSelector");
+        mVehicleSelector.init(mGame.getAssets());
+
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -62,22 +55,8 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
         });
     }
 
-    private void createVehicleButtons(HorizontalGroup group) {
-        group.space(12);
-        for(VehicleDef vehicleDef : mGame.getAssets().vehicleDefs) {
-            VehicleButton button = new VehicleButton(vehicleDef);
-            group.addActor(button);
-            mVehicleButtonGroup.add(button);
-        }
-        Array<Button> buttons = mVehicleButtonGroup.getButtons();
-        buttons.get(0).setChecked(true);
-        group.layout();
-        group.setWidth(buttons.get(buttons.size - 1).getRight());
-        group.setHeight(buttons.get(0).getHeight());
-    }
-
     private void startRace() {
-        VehicleButton button = (VehicleButton)mVehicleButtonGroup.getChecked();
-        mGame.start(button.mVehicleDef.id);
+        String id = mVehicleSelector.getSelectedId();
+        mGame.start(id);
     }
 }

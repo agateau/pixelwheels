@@ -4,13 +4,11 @@
         <Label id="mainLabel"
                topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
 
-        <HorizontalGroup id="vehicleGroup"
-                         topCenter="mainLabel.bottomCenter 0 -2"
-            />
+        <VehicleSelector id="vehicleSelector" center="root.center"/>
 
         <TextButton id="goButton"
                     width="200"
-                    height="120"
+                    height="60"
                     bottomCenter="root.bottomCenter 0 1"
             >GO!</TextButton>
 
