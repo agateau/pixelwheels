@@ -17,6 +17,7 @@ import java.util.Stack;
 public class TheGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private GameInfo mGameInfo;
 
     public Assets getAssets() {
         return mAssets;
@@ -39,10 +40,15 @@ public class TheGame extends Game {
         replaceScreen(new SelectVehicleScreen(this));
     }
 
-    public void start(String playerVehicleId) {
-        TiledMap map = new AtlasTmxMapLoader().load("maps/be.tmx");
+    public void start(GameInfo gameInfo) {
+        mGameInfo = gameInfo;
+        restart();
+    }
+
+    public void restart() {
+        TiledMap map = new AtlasTmxMapLoader().load("maps/" + mGameInfo.mapName + ".tmx");
         MapInfo mapInfo = new MapInfo(map);
-        Screen screen = new RaceScreen(this, mapInfo, playerVehicleId);
+        Screen screen = new RaceScreen(this, mapInfo, mGameInfo.playerVehicleIds.get(0));
         replaceScreen(screen);
     }
 

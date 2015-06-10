@@ -57,6 +57,9 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
 
     private void startRace() {
         String id = mVehicleSelector.getSelectedId();
-        mGame.start(id);
+        GameInfo info = new GameInfo();
+        info.mapName = "be";
+        info.playerVehicleIds.add(id);
+        mGame.start(info);
     }
 }

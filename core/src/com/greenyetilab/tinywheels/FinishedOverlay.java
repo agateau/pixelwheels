@@ -32,7 +32,7 @@ public class FinishedOverlay extends Overlay {
         builder.getActor("restartButton").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mGame.start(playerRacer.getVehicle().getId());
+                mGame.restart();
             }
         });
         builder.getActor("menuButton").addListener(new ChangeListener() {
