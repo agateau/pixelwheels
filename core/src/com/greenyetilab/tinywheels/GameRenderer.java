@@ -42,14 +42,19 @@ public class GameRenderer {
     private Vehicle mVehicle;
     private float mCameraAngle = 90;
 
+    private int mScreenX;
+    private int mScreenY;
+    private int mScreenWidth;
+    private int mScreenHeight;
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mSkidmarksPerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameRenderer(Assets assets, GameWorld world, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(Assets assets, GameWorld world, Vehicle vehicle, Batch batch, PerformanceCounters counters) {
         mAssets = assets;
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
+        mVehicle = vehicle;
 
         mMapInfo = mWorld.getMapInfo();
         mMapWidth = mMapInfo.getMapWidth();
@@ -61,11 +66,16 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
-        mVehicle = mWorld.getPlayerVehicle();
-
         mTilePerformanceCounter = counters.add("- tiles");
         mSkidmarksPerformanceCounter = counters.add("- skidmarks");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
+    }
+
+    public void setScreenRect(int x, int y, int width, int height) {
+        mScreenX = x;
+        mScreenY = y;
+        mScreenWidth = width;
+        mScreenHeight = height;
     }
 
     public void setDebugConfig(DebugConfig config) {
@@ -78,10 +88,7 @@ public class GameRenderer {
     }
 
     public void render(float delta) {
-        Color bg = mMapInfo.getBackgroundColor();
-        Gdx.gl.glClearColor(bg.r, bg.g, bg.b, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        Gdx.gl.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
 
@@ -155,10 +162,8 @@ public class GameRenderer {
     }
 
     private void updateCamera(float delta) {
-        float screenW = Gdx.graphics.getWidth();
-        float screenH = Gdx.graphics.getHeight();
         float viewportWidth = GamePlay.instance.viewportWidth;
-        float viewportHeight = GamePlay.instance.viewportWidth * screenH / screenW;
+        float viewportHeight = GamePlay.instance.viewportWidth * mScreenHeight / mScreenWidth;
         mCamera.viewportWidth = viewportWidth;
         mCamera.viewportHeight = viewportHeight;
 

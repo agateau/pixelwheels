@@ -3,6 +3,8 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -21,11 +24,12 @@ import java.util.Map;
 public class RaceScreen extends ScreenAdapter {
     private final TheGame mGame;
     private final GameWorld mGameWorld;
+    private final Color mBackgroundColor;
     private Batch mBatch;
 
     private Vehicle mVehicle;
 
-    private GameRenderer mGameRenderer;
+    private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
@@ -47,7 +51,7 @@ public class RaceScreen extends ScreenAdapter {
             mWorldVector.x = x;
             mWorldVector.y = y;
             mWorldVector.z = 0;
-            Vector3 vector = mGameRenderer.getCamera().project(mWorldVector);
+            Vector3 vector = mGameRenderers.first().getCamera().project(mWorldVector); // FIXME
             mHudVector.x = vector.x;
             mHudVector.y = vector.y;
             return mHudVector;
@@ -59,26 +63,33 @@ public class RaceScreen extends ScreenAdapter {
         }
     };
 
-    public RaceScreen(TheGame game, MapInfo mapInfo, String playerVehicleId) {
+    public RaceScreen(TheGame game, MapInfo mapInfo, Array<String> playerVehicleIds) {
         mGame = game;
         mBatch = new SpriteBatch();
         setupHud();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, playerVehicleId, mHudBridge, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, playerVehicleIds, mHudBridge, mPerformanceCounters);
+        mBackgroundColor = mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
-        mGameRenderer = new GameRenderer(game.getAssets(), mGameWorld, mBatch, mPerformanceCounters);
-        setupGameRenderer();
-        mVehicle = mGameWorld.getPlayerVehicle();
+        int idx = 0;
+        for (String playerVehicleId : playerVehicleIds) {
+            Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
+            GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, mBatch, mPerformanceCounters);
+            setupGameRenderer(gameRenderer);
+            mGameRenderers.add(gameRenderer);
+            idx++;
+        }
+        mVehicle = mGameWorld.getPlayerVehicle(0); // FIXME
     }
 
-    private void setupGameRenderer() {
+    private void setupGameRenderer(GameRenderer gameRenderer) {
         GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
         Preferences prefs = TheGame.getPreferences();
         config.enabled = prefs.getBoolean("debug/box2d", false);
         config.drawTileCorners = prefs.getBoolean("debug/tiles/drawCorners", false);
         config.drawVelocities = prefs.getBoolean("debug/box2d/drawVelocities", false);
-        mGameRenderer.setDebugConfig(config);
+        gameRenderer.setDebugConfig(config);
     }
 
     void setupHud() {
@@ -119,7 +130,12 @@ public class RaceScreen extends ScreenAdapter {
         updateHud();
 
         mRendererPerformanceCounter.start();
-        mGameRenderer.render(delta);
+        Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        for (GameRenderer gameRenderer : mGameRenderers) {
+            gameRenderer.render(delta);
+        }
+        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         mHudStage.draw();
         mRendererPerformanceCounter.stop();
 
@@ -167,6 +183,12 @@ public class RaceScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         mHudViewport.update(width, height, true);
+        int viewportWidth = width / mGameRenderers.size;
+        int x = 0;
+        for (GameRenderer gameRenderer : mGameRenderers) {
+            gameRenderer.setScreenRect(x, 0, viewportWidth, height);
+            x += viewportWidth;
+        }
     }
 
     private void showFinishedOverlay() {
