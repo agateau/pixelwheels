@@ -40,6 +40,10 @@ public class TheGame extends Game {
         replaceScreen(new SelectVehicleScreen(this));
     }
 
+    public void showMultiPlayer() {
+        replaceScreen(new MultiPlayerScreen(this));
+    }
+
     public void start(GameInfo gameInfo) {
         mGameInfo = gameInfo;
         restart();

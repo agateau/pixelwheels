@@ -4,11 +4,17 @@
         <Label id="mainLabel"
                topCenter="root.topCenter 0 -2">Tiny Wheels</Label>
 
-        <TextButton id="startButton"
+        <TextButton id="onePlayerButton"
                     width="200"
                     height="120"
-                    center="root.center"
-            >Start</TextButton>
+                    centerRight="root.center -1 0"
+            >One Player</TextButton>
+
+        <TextButton id="multiPlayerButton"
+                    width="200"
+                    height="120"
+                    centerLeft="root.center 1 0"
+            >Multi\nPlayer</TextButton>
 
         <ImageButton id="settingsButton"
                     bottomLeft="root.bottomLeft 1 1"

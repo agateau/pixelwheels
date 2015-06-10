@@ -30,10 +30,16 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/mainmenu.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
-        builder.getActor("startButton").addListener(new ClickListener() {
+        builder.getActor("onePlayerButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.showSelectVehicle();
+            }
+        });
+        builder.getActor("multiPlayerButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mGame.showMultiPlayer();
             }
         });
         builder.getActor("settingsButton").addListener(new ClickListener() {
