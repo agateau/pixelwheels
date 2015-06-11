@@ -135,7 +135,7 @@ public class Assets {
     }
 
     private void loadVehicleDefinitions() {
-        final String[] vehicleIds = { "red", "police", "pickup", "roadster" };
+        final String[] vehicleIds = { "red", "police", "pickup", "roadster", "antonin" };
         for (String id : vehicleIds) {
             this.vehicleDefs.add(VehicleIO.get(id));
         }
