@@ -13,12 +13,10 @@ public class GameInfo {
     public String mapName;
     public final Array<PlayerInfo> playerInfos = new Array<PlayerInfo>();
 
-    public void addPlayerInfo(String vehicleId) {
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
+    public void addPlayerInfo(String vehicleId, GameInputHandler inputHandler) {
         PlayerInfo playerInfo = new PlayerInfo();
         playerInfo.vehicleId = vehicleId;
-        playerInfo.inputHandler = factory.create();
+        playerInfo.inputHandler = inputHandler;
         playerInfos.add(playerInfo);
     }
 }

@@ -1,5 +1,7 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
@@ -56,8 +58,17 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     private void startRace() {
         GameInfo info = new GameInfo();
         info.mapName = "be";
-        info.addPlayerInfo(mVehicleSelector1.getSelectedId());
-        info.addPlayerInfo(mVehicleSelector2.getSelectedId());
+
+        KeyboardInputHandler inputHandler = new KeyboardInputHandler();
+        info.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);
+
+        inputHandler = new KeyboardInputHandler();
+        inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.RIGHT, Input.Keys.V);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.BRAKE, Input.Keys.C);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_LEFT);
+        info.addPlayerInfo(mVehicleSelector2.getSelectedId(), inputHandler);
+
         mGame.start(info);
     }
 }
