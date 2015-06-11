@@ -11,15 +11,12 @@ public class PlayerPilot implements Pilot {
 
     private GameInputHandler mInputHandler;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer, GameInputHandler inputHandler) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
         mHealthComponent = mRacer.getHealthComponent();
-
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        mInputHandler = factory.create();
+        mInputHandler = inputHandler;
         mInputHandler.createHud(assets, mGameWorld.getHudBridge());
     }
 
