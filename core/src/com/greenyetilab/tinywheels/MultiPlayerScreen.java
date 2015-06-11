@@ -56,8 +56,8 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     private void startRace() {
         GameInfo info = new GameInfo();
         info.mapName = "be";
-        info.playerVehicleIds.add(mVehicleSelector1.getSelectedId());
-        info.playerVehicleIds.add(mVehicleSelector2.getSelectedId());
+        info.addPlayerInfo(mVehicleSelector1.getSelectedId());
+        info.addPlayerInfo(mVehicleSelector2.getSelectedId());
         mGame.start(info);
     }
 }

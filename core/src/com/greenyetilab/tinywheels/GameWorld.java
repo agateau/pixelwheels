@@ -50,7 +50,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TheGame game, MapInfo mapInfo, Array<String> playerVehicleIds, HudBridge hudBridge, PerformanceCounters performanceCounters) {
+    public GameWorld(TheGame game, MapInfo mapInfo, GameInfo gameInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
         mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
@@ -60,7 +60,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers(playerVehicleIds);
+        setupRacers(gameInfo.playerInfos);
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -191,7 +191,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void setupRacers(Array<String> playerVehicleIds) {
+    private void setupRacers(Array<GameInfo.PlayerInfo> playerInfos) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
@@ -203,8 +203,8 @@ public class GameWorld implements ContactListener, Disposable {
         Array<VehicleDef> vehicleDefs = assets.vehicleDefs;
         for (Vector2 position : positions) {
             Racer racer;
-            if (rank <= playerVehicleIds.size) {
-                String playerVehicleId = playerVehicleIds.get(rank - 1);
+            if (rank <= playerInfos.size) {
+                String playerVehicleId = playerInfos.get(rank - 1).vehicleId;
                 VehicleDef vehicleDef = assets.getVehicleById(playerVehicleId);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
                 racer = new Racer(this, vehicle);

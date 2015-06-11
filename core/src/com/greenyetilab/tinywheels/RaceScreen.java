@@ -63,22 +63,20 @@ public class RaceScreen extends ScreenAdapter {
         }
     };
 
-    public RaceScreen(TheGame game, MapInfo mapInfo, Array<String> playerVehicleIds) {
+    public RaceScreen(TheGame game, MapInfo mapInfo, GameInfo gameInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
         setupHud();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, playerVehicleIds, mHudBridge, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, gameInfo, mHudBridge, mPerformanceCounters);
         mBackgroundColor = mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
-        int idx = 0;
-        for (String playerVehicleId : playerVehicleIds) {
+        for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
             GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, mBatch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
             mGameRenderers.add(gameRenderer);
-            idx++;
         }
         mVehicle = mGameWorld.getPlayerVehicle(0); // FIXME
     }
