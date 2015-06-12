@@ -32,7 +32,6 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final TheGame mGame;
     private final MapInfo mMapInfo;
-    private final HudBridge mHudBridge;
 
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
@@ -50,16 +49,16 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TheGame game, MapInfo mapInfo, HudBridge hudBridge, PerformanceCounters performanceCounters) {
+    public GameWorld(TheGame game, MapInfo mapInfo, GameInfo gameInfo, PerformanceCounters performanceCounters) {
         mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
         mMapInfo = mapInfo;
-        mHudBridge = hudBridge;
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
+        setupRacers(gameInfo.playerInfos);
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -73,8 +72,8 @@ public class GameWorld implements ContactListener, Disposable {
         return mBox2DWorld;
     }
 
-    public Racer getPlayerRacer() {
-        return mPlayerRacers.first(); // FIXME
+    public Racer getPlayerRacer(int playerId) {
+        return mPlayerRacers.get(playerId);
     }
 
     public Array<Racer> getRacers() {
@@ -87,10 +86,6 @@ public class GameWorld implements ContactListener, Disposable {
 
     public Vehicle getPlayerVehicle(int id) {
         return mPlayerRacers.get(id).getVehicle();
-    }
-
-    public HudBridge getHudBridge() {
-        return mHudBridge;
     }
 
     public Vector2[] getSkidmarks() {
@@ -190,7 +185,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    public void setupRacers(Array<GameInfo.PlayerInfo> playerInfos) {
+    private void setupRacers(Array<GameInfo.PlayerInfo> playerInfos) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 

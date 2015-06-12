@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -29,34 +26,12 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
 
-    HudBridge mHudBridge = new HudBridge() {
-        private final Vector3 mWorldVector = new Vector3();
-        private final Vector2 mHudVector = new Vector2();
-        @Override
-        public Vector2 toHudCoordinate(float x, float y) {
-            mWorldVector.x = x;
-            mWorldVector.y = y;
-            mWorldVector.z = 0;
-            Vector3 vector = mGameRenderers.first().getCamera().project(mWorldVector); // FIXME
-            mHudVector.x = vector.x;
-            mHudVector.y = vector.y;
-            return mHudVector;
-        }
-
-        @Override
-        public Stage getStage() {
-            return mHud.getStage();
-        }
-    };
-
     public RaceScreen(TheGame game, MapInfo mapInfo, GameInfo gameInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, mHudBridge, mPerformanceCounters);
-        mHud = new Hud(game.getAssets(), mGameWorld, mBatch, 0, mPerformanceCounters);
-        mGameWorld.setupRacers(gameInfo.playerInfos);
+        mGameWorld = new GameWorld(game, mapInfo, gameInfo, mPerformanceCounters);
         mBackgroundColor = mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
@@ -64,6 +39,13 @@ public class RaceScreen extends ScreenAdapter {
             GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, mBatch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
             mGameRenderers.add(gameRenderer);
+        }
+        mHud = new Hud(game.getAssets(), mGameWorld, mBatch, 0, mGameRenderers.first().getCamera(), mPerformanceCounters);
+        Racer racer = mGameWorld.getPlayerRacer(0);
+        Pilot pilot = racer.getPilot();
+        if (pilot instanceof PlayerPilot) {
+            HudBridge hudBridge = mHud.getHudBridge();
+            ((PlayerPilot) pilot).createHudActors(hudBridge);
         }
     }
 
@@ -118,7 +100,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void showFinishedOverlay() {
-        mHud.getStage().addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer()));
+        mHud.getStage().addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer(0))); // FIXME
     }
 
     @Override

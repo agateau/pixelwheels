@@ -17,7 +17,10 @@ public class PlayerPilot implements Pilot {
         mRacer = racer;
         mHealthComponent = mRacer.getHealthComponent();
         mInputHandler = inputHandler;
-        mInputHandler.createHud(assets, mGameWorld.getHudBridge());
+    }
+
+    public void createHudActors(HudBridge hudBridge) {
+        mInputHandler.createHud(mAssets, hudBridge);
     }
 
     @Override

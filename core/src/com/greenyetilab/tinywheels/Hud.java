@@ -1,7 +1,10 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,6 +22,7 @@ class Hud {
     private final PerformanceCounters mPerformanceCounters;
     private final GameWorld mGameWorld;
     private final int mPlayerId;
+    private final Camera mCamera;
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
@@ -26,9 +30,30 @@ class Hud {
     private Label mSpeedLabel;
     private Label mDebugLabel;
 
-    public Hud(Assets assets, GameWorld gameWorld, Batch batch, int playerId, PerformanceCounters performanceCounters) {
+    HudBridge mHudBridge = new HudBridge() {
+        private final Vector3 mWorldVector = new Vector3();
+        private final Vector2 mHudVector = new Vector2();
+        @Override
+        public Vector2 toHudCoordinate(float x, float y) {
+            mWorldVector.x = x;
+            mWorldVector.y = y;
+            mWorldVector.z = 0;
+            Vector3 vector = mCamera.project(mWorldVector);
+            mHudVector.x = vector.x;
+            mHudVector.y = vector.y;
+            return mHudVector;
+        }
+
+        @Override
+        public Stage getStage() {
+            return mHud.getStage();
+        }
+    };
+
+    public Hud(Assets assets, GameWorld gameWorld, Batch batch, int playerId, Camera camera, PerformanceCounters performanceCounters) {
         mGameWorld = gameWorld;
         mPlayerId = playerId;
+        mCamera = camera;
         mPerformanceCounters = performanceCounters;
         mHudViewport = new ScreenViewport();
         mHudStage = new Stage(mHudViewport, batch);
@@ -55,6 +80,10 @@ class Hud {
         return mHudStage;
     }
 
+    public HudBridge getHudBridge() {
+        return mHudBridge;
+    }
+
     public void act(float delta) {
         mHudStage.act(delta);
         updateHud();
@@ -71,14 +100,14 @@ class Hud {
     private static com.badlogic.gdx.utils.StringBuilder sDebugSB = new StringBuilder();
 
     private void updateHud() {
-        int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
+        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
+        int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank();
         mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
         mLapLabel.setPosition(5, 0);
 
-        Vehicle vehicle = mGameWorld.getPlayerVehicle(mPlayerId);
-        mSpeedLabel.setText(StringUtils.formatSpeed(vehicle.getSpeed()));
+        mSpeedLabel.setText(StringUtils.formatSpeed(racer.getVehicle().getSpeed()));
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
 
         mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
