@@ -27,16 +27,91 @@ public class RaceScreen extends ScreenAdapter {
     private final Color mBackgroundColor;
     private Batch mBatch;
 
-    private Vehicle mVehicle;
-
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
-    private Stage mHudStage;
-    private ScreenViewport mHudViewport;
-    private WidgetGroup mHud;
-    private Label mLapLabel;
-    private Label mSpeedLabel;
-    private Label mDebugLabel;
+    private static class Hud {
+        private final PerformanceCounters mPerformanceCounters;
+        private Stage mHudStage;
+        private ScreenViewport mHudViewport;
+        private WidgetGroup mHud;
+        private Label mLapLabel;
+        private Label mSpeedLabel;
+        private Label mDebugLabel;
+
+        public Hud(Assets assets, Batch batch, PerformanceCounters performanceCounters) {
+            mPerformanceCounters = performanceCounters;
+            mHudViewport = new ScreenViewport();
+            mHudStage = new Stage(mHudViewport, batch);
+            Gdx.input.setInputProcessor(mHudStage);
+
+            Skin skin = assets.skin;
+            mHud = new WidgetGroup();
+
+            mLapLabel = new Label("0:00.0", skin);
+            mSpeedLabel = new Label("0", skin);
+            mHud.addActor(mLapLabel);
+            mHud.addActor(mSpeedLabel);
+            mHud.setHeight(mLapLabel.getHeight());
+
+            if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)
+                    && mPerformanceCounters != null) {
+                mDebugLabel = new Label("D", skin, "small");
+                mHudStage.addActor(mDebugLabel);
+            }
+            mHudStage.addActor(mHud);
+        }
+
+        public void act(float delta) {
+            mHudStage.act(delta);
+        }
+
+        public void draw() {
+            mHudStage.draw();
+        }
+
+        public void resize(int width, int height) {
+            mHudViewport.update(width, height, true);
+        }
+
+        private static StringBuilder sDebugSB = new StringBuilder();
+        private void updateHud(GameWorld gameWorld, int playerId) {
+            int lapCount = Math.max(gameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
+            int totalLapCount = gameWorld.getMapInfo().getTotalLapCount();
+            int rank = gameWorld.getPlayerRank();
+            mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
+            mLapLabel.setPosition(5, 0);
+
+            Vehicle vehicle = gameWorld.getPlayerVehicle(playerId);
+            mSpeedLabel.setText(StringUtils.formatSpeed(vehicle.getSpeed()));
+            mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
+
+            mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
+
+            if (mDebugLabel != null) {
+                sDebugSB.setLength(0);
+                sDebugSB.append("objCount: ").append(gameWorld.getActiveGameObjects().size).append('\n');
+                sDebugSB.append("FPS: ").append(Gdx.graphics.getFramesPerSecond()).append('\n');
+                for (PerformanceCounter counter : mPerformanceCounters.counters) {
+                    sDebugSB.append(counter.name).append(": ")
+                            .append(String.valueOf((int)(counter.time.value * 1000)))
+                            .append(" | ")
+                            .append(String.valueOf((int)(counter.load.value * 100)))
+                            .append("%\n")
+                    ;
+                }
+                for (Map.Entry<String, String> entry : DebugStringMap.getMap().entrySet()) {
+                    sDebugSB.append(entry.getKey())
+                            .append(": ")
+                            .append(entry.getValue())
+                            .append("\n");
+                }
+                mDebugLabel.setText(sDebugSB);
+                mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getPrefHeight());
+            }
+        }
+
+    }
+    private Hud mHud;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
     private PerformanceCounter mGameWorldPerformanceCounter;
@@ -59,14 +134,14 @@ public class RaceScreen extends ScreenAdapter {
 
         @Override
         public Stage getStage() {
-            return mHudStage;
+            return mHud.mHudStage;
         }
     };
 
     public RaceScreen(TheGame game, MapInfo mapInfo, GameInfo gameInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
-        setupHud();
+        mHud = new Hud(game.getAssets(), mBatch, mPerformanceCounters);
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, mapInfo, gameInfo, mHudBridge, mPerformanceCounters);
@@ -78,7 +153,6 @@ public class RaceScreen extends ScreenAdapter {
             setupGameRenderer(gameRenderer);
             mGameRenderers.add(gameRenderer);
         }
-        mVehicle = mGameWorld.getPlayerVehicle(0); // FIXME
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {
@@ -88,27 +162,6 @@ public class RaceScreen extends ScreenAdapter {
         config.drawTileCorners = prefs.getBoolean("debug/tiles/drawCorners", false);
         config.drawVelocities = prefs.getBoolean("debug/box2d/drawVelocities", false);
         gameRenderer.setDebugConfig(config);
-    }
-
-    void setupHud() {
-        mHudViewport = new ScreenViewport();
-        mHudStage = new Stage(mHudViewport, mBatch);
-        Gdx.input.setInputProcessor(mHudStage);
-
-        Skin skin = mGame.getAssets().skin;
-        mHud = new WidgetGroup();
-
-        mLapLabel = new Label("0:00.0", skin);
-        mSpeedLabel = new Label("0", skin);
-        mHud.addActor(mLapLabel);
-        mHud.addActor(mSpeedLabel);
-        mHud.setHeight(mLapLabel.getHeight());
-
-        if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
-            mDebugLabel = new Label("D", skin, "small");
-            mHudStage.addActor(mDebugLabel);
-        }
-        mHudStage.addActor(mHud);
     }
 
     @Override
@@ -124,8 +177,8 @@ public class RaceScreen extends ScreenAdapter {
             showFinishedOverlay();
         }
 
-        mHudStage.act(delta);
-        updateHud();
+        mHud.act(delta);
+        mHud.updateHud(mGameWorld, 0); // FIXME
 
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
@@ -134,53 +187,17 @@ public class RaceScreen extends ScreenAdapter {
             gameRenderer.render(delta);
         }
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        mHudStage.draw();
+        mHud.draw();
         mRendererPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
         mPerformanceCounters.tick(delta);
     }
 
-    private static StringBuilder sDebugSB = new StringBuilder();
-    private void updateHud() {
-        int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
-        int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
-        int rank = mGameWorld.getPlayerRank();
-        mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
-        mLapLabel.setPosition(5, 0);
-
-        mSpeedLabel.setText(StringUtils.formatSpeed(mVehicle.getSpeed()));
-        mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
-
-        mHud.setPosition(0, mHudViewport.getScreenHeight() - mHud.getHeight() - 5);
-
-        if (mDebugLabel != null) {
-            sDebugSB.setLength(0);
-            sDebugSB.append("objCount: ").append(mGameWorld.getActiveGameObjects().size).append('\n');
-            sDebugSB.append("FPS: ").append(Gdx.graphics.getFramesPerSecond()).append('\n');
-            for (PerformanceCounter counter : mPerformanceCounters.counters) {
-                sDebugSB.append(counter.name).append(": ")
-                        .append(String.valueOf((int)(counter.time.value * 1000)))
-                        .append(" | ")
-                        .append(String.valueOf((int)(counter.load.value * 100)))
-                        .append("%\n")
-                        ;
-            }
-            for (Map.Entry<String, String> entry : DebugStringMap.getMap().entrySet()) {
-                sDebugSB.append(entry.getKey())
-                        .append(": ")
-                        .append(entry.getValue())
-                        .append("\n");
-            }
-            mDebugLabel.setText(sDebugSB);
-            mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getPrefHeight());
-        }
-    }
-
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        mHudViewport.update(width, height, true);
+        mHud.resize(width, height);
         int viewportWidth = width / mGameRenderers.size;
         int x = 0;
         for (GameRenderer gameRenderer : mGameRenderers) {
@@ -190,7 +207,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void showFinishedOverlay() {
-        mHudStage.addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer()));
+        mHud.mHudStage.addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer()));
     }
 
     @Override
