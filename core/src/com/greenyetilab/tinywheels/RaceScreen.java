@@ -52,10 +52,11 @@ public class RaceScreen extends ScreenAdapter {
     public RaceScreen(TheGame game, MapInfo mapInfo, GameInfo gameInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
-        mHud = new Hud(game.getAssets(), mBatch, mPerformanceCounters);
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, gameInfo, mHudBridge, mPerformanceCounters);
+        mGameWorld = new GameWorld(game, mapInfo, mHudBridge, mPerformanceCounters);
+        mHud = new Hud(game.getAssets(), mGameWorld, mBatch, 0, mPerformanceCounters);
+        mGameWorld.setupRacers(gameInfo.playerInfos);
         mBackgroundColor = mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
@@ -89,7 +90,6 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         mHud.act(delta);
-        mHud.updateHud(mGameWorld, 0); // FIXME
 
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);

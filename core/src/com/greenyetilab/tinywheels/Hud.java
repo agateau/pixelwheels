@@ -17,6 +17,8 @@ import java.util.Map;
  */
 class Hud {
     private final PerformanceCounters mPerformanceCounters;
+    private final GameWorld mGameWorld;
+    private final int mPlayerId;
     private Stage mHudStage;
     private ScreenViewport mHudViewport;
     private WidgetGroup mHud;
@@ -24,7 +26,9 @@ class Hud {
     private Label mSpeedLabel;
     private Label mDebugLabel;
 
-    public Hud(Assets assets, Batch batch, PerformanceCounters performanceCounters) {
+    public Hud(Assets assets, GameWorld gameWorld, Batch batch, int playerId, PerformanceCounters performanceCounters) {
+        mGameWorld = gameWorld;
+        mPlayerId = playerId;
         mPerformanceCounters = performanceCounters;
         mHudViewport = new ScreenViewport();
         mHudStage = new Stage(mHudViewport, batch);
@@ -53,6 +57,7 @@ class Hud {
 
     public void act(float delta) {
         mHudStage.act(delta);
+        updateHud();
     }
 
     public void draw() {
@@ -65,14 +70,14 @@ class Hud {
 
     private static com.badlogic.gdx.utils.StringBuilder sDebugSB = new StringBuilder();
 
-    public void updateHud(GameWorld gameWorld, int playerId) { // FIXME Make gameWorld and playerId members and call this from act()
-        int lapCount = Math.max(gameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
-        int totalLapCount = gameWorld.getMapInfo().getTotalLapCount();
-        int rank = gameWorld.getPlayerRank();
+    private void updateHud() {
+        int lapCount = Math.max(mGameWorld.getPlayerRacer().getLapPositionComponent().getLapCount(), 1);
+        int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
+        int rank = mGameWorld.getPlayerRank();
         mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
         mLapLabel.setPosition(5, 0);
 
-        Vehicle vehicle = gameWorld.getPlayerVehicle(playerId);
+        Vehicle vehicle = mGameWorld.getPlayerVehicle(mPlayerId);
         mSpeedLabel.setText(StringUtils.formatSpeed(vehicle.getSpeed()));
         mSpeedLabel.setPosition(mHudViewport.getScreenWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
 
@@ -80,7 +85,7 @@ class Hud {
 
         if (mDebugLabel != null) {
             sDebugSB.setLength(0);
-            sDebugSB.append("objCount: ").append(gameWorld.getActiveGameObjects().size).append('\n');
+            sDebugSB.append("objCount: ").append(mGameWorld.getActiveGameObjects().size).append('\n');
             sDebugSB.append("FPS: ").append(Gdx.graphics.getFramesPerSecond()).append('\n');
             for (PerformanceCounter counter : mPerformanceCounters.counters) {
                 sDebugSB.append(counter.name).append(": ")
