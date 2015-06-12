@@ -19,7 +19,7 @@ public class RaceScreen extends ScreenAdapter {
 
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
-    private Hud mHud;
+    private Array<Hud> mHuds = new Array<Hud>();
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
     private PerformanceCounter mGameWorldPerformanceCounter;
@@ -38,14 +38,17 @@ public class RaceScreen extends ScreenAdapter {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
             GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, mBatch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
+
+            Hud hud = new Hud(game.getAssets(), mGameWorld, mBatch, idx, gameRenderer.getCamera(), mPerformanceCounters);
+            Racer racer = mGameWorld.getPlayerRacer(idx);
+            Pilot pilot = racer.getPilot();
+            if (pilot instanceof PlayerPilot) {
+                HudBridge hudBridge = hud.getHudBridge();
+                ((PlayerPilot) pilot).createHudActors(hudBridge);
+            }
+
             mGameRenderers.add(gameRenderer);
-        }
-        mHud = new Hud(game.getAssets(), mGameWorld, mBatch, 0, mGameRenderers.first().getCamera(), mPerformanceCounters);
-        Racer racer = mGameWorld.getPlayerRacer(0);
-        Pilot pilot = racer.getPilot();
-        if (pilot instanceof PlayerPilot) {
-            HudBridge hudBridge = mHud.getHudBridge();
-            ((PlayerPilot) pilot).createHudActors(hudBridge);
+            mHuds.add(hud);
         }
     }
 
@@ -71,7 +74,9 @@ public class RaceScreen extends ScreenAdapter {
             showFinishedOverlay();
         }
 
-        mHud.act(delta);
+        for (Hud hud : mHuds) {
+            hud.act(delta);
+        }
 
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
@@ -79,8 +84,9 @@ public class RaceScreen extends ScreenAdapter {
         for (GameRenderer gameRenderer : mGameRenderers) {
             gameRenderer.render(delta);
         }
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        mHud.draw();
+        for (Hud hud : mHuds) {
+            hud.draw();
+        }
         mRendererPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
@@ -90,17 +96,18 @@ public class RaceScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        mHud.resize(width, height);
         int viewportWidth = width / mGameRenderers.size;
         int x = 0;
-        for (GameRenderer gameRenderer : mGameRenderers) {
-            gameRenderer.setScreenRect(x, 0, viewportWidth, height);
+        for (int idx = 0; idx < mGameRenderers.size; ++idx) {
+            mGameRenderers.get(idx).setScreenRect(x, 0, viewportWidth, height);
+            mHuds.get(idx).setScreenRect(x, 0, viewportWidth, height);
             x += viewportWidth;
         }
     }
 
     private void showFinishedOverlay() {
-        mHud.getStage().addActor(new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer(0))); // FIXME
+        FinishedOverlay overlay= new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer(0)); // FIXME
+        mHuds.first().getStage().addActor(overlay);
     }
 
     @Override

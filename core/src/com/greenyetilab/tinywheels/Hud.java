@@ -90,11 +90,13 @@ class Hud {
     }
 
     public void draw() {
+        mHudViewport.apply();
         mHudStage.draw();
     }
 
-    public void resize(int width, int height) {
-        mHudViewport.update(width, height, true);
+    public void setScreenRect(int x, int y, int width, int height) {
+        mHudViewport.setScreenBounds(x, y, width, height);
+        mHudViewport.setWorldSize(width, height);
     }
 
     private static com.badlogic.gdx.utils.StringBuilder sDebugSB = new StringBuilder();
