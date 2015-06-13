@@ -90,7 +90,7 @@ class Hud {
     }
 
     public void draw() {
-        mHudViewport.apply();
+        mHudViewport.apply(true);
         mHudStage.draw();
     }
 
