@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.gameinput;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
 
@@ -51,27 +52,27 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     }
 
-    private KeyMapper mKeyMapper = new KeyMapper();
+    private InputMapper mInputMapper = new KeyMapper();
     private GameInput mInput = new GameInput();
 
     public KeyboardInputHandler() {
     }
 
-    public void setKeyMapper(KeyMapper keyMapper) {
-        mKeyMapper = keyMapper;
+    public void setInputMapper(InputMapper inputMapper) {
+        mInputMapper = inputMapper;
     }
 
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        mInput.braking = mKeyMapper.isKeyPressed(VirtualKey.DOWN);
+        mInput.braking = mInputMapper.isKeyPressed(VirtualKey.DOWN);
         mInput.accelerating = !mInput.braking;
-        if (mKeyMapper.isKeyPressed(VirtualKey.LEFT)) {
+        if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
             mInput.direction = 1;
-        } else if (mKeyMapper.isKeyPressed(VirtualKey.RIGHT)) {
+        } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
             mInput.direction = -1;
         }
-        mInput.triggeringBonus = mKeyMapper.isKeyPressed(VirtualKey.TRIGGER);
+        mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
     }

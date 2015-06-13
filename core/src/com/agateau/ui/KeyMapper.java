@@ -24,9 +24,9 @@ import com.badlogic.gdx.Input;
 import java.util.HashMap;
 
 /**
- * Provide mapping between real and virtual keys
+ * Implementation of InputMapper for keyboards
  */
-public class KeyMapper {
+public class KeyMapper implements InputMapper {
     private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<VirtualKey, Integer[]>();
 
     private static final KeyMapper sDefaultInstance = new KeyMapper();
@@ -64,6 +64,7 @@ public class KeyMapper {
         setKeys(vkey, newKeys);
     }
 
+    @Override
     public boolean isKeyPressed(VirtualKey vkey) {
         Integer[] keys = mKeyForVirtualKey.get(vkey);
         for (Integer key : keys) {
@@ -74,6 +75,7 @@ public class KeyMapper {
         return false;
     }
 
+    @Override
     public boolean isKeyJustPressed(VirtualKey vkey) {
         Integer[] keys = mKeyForVirtualKey.get(vkey);
         for (Integer key : keys) {

@@ -136,7 +136,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         for (int idx = 0; idx < 2; ++idx) {
             KeyboardInputHandler inputHandler;
             inputHandler = new KeyboardInputHandler();
-            inputHandler.setKeyMapper(mKeyMappers[idx]);
+            inputHandler.setInputMapper(mKeyMappers[idx]);
 
             String id = mVehicleSelectors[idx].getSelectedId();
 
