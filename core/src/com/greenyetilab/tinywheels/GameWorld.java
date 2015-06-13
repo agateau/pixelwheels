@@ -100,9 +100,10 @@ public class GameWorld implements ContactListener, Disposable {
         mActiveGameObjects.add(object);
     }
 
-    public int getPlayerRank() {
+    public int getPlayerRank(int playerId) {
+        Racer racer = mPlayerRacers.get(playerId);
         for (int idx = mRacers.size - 1; idx >= 0; --idx) {
-            if (mRacers.get(idx) == mPlayerRacers.first()) { // FIXME
+            if (mRacers.get(idx) == racer) {
                 return idx + 1;
             }
         }

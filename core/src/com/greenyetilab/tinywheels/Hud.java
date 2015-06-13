@@ -105,7 +105,7 @@ class Hud {
         Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
-        int rank = mGameWorld.getPlayerRank();
+        int rank = mGameWorld.getPlayerRank(mPlayerId);
         mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
         mLapLabel.setPosition(5, 0);
 
