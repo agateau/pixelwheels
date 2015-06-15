@@ -106,8 +106,8 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void showFinishedOverlay() {
-        FinishedOverlay overlay= new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacer(0)); // FIXME
-        mHuds.first().getStage().addActor(overlay);
+        FinishedOverlay overlay = new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
+        mHuds.first().getStage().addActor(overlay); // FIXME: Show on the whole screen
     }
 
     @Override

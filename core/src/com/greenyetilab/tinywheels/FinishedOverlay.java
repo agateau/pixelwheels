@@ -13,19 +13,19 @@ import com.greenyetilab.utils.UiBuilder;
 public class FinishedOverlay extends Overlay {
     private final TheGame mGame;
 
-    public FinishedOverlay(TheGame game, final Array<Racer> racers, final Racer playerRacer) {
+    public FinishedOverlay(TheGame game, final Array<Racer> racers, final Array<Racer> playerRacers) {
         super(game.getAssets().dot);
         mGame = game;
         new RefreshHelper(this) {
             @Override
             protected void refresh() {
-                setContent(createContent(racers, playerRacer));
+                setContent(createContent(racers, playerRacers));
             }
         };
-        setContent(createContent(racers, playerRacer));
+        setContent(createContent(racers, playerRacers));
     }
 
-    private Actor createContent(Array<Racer> racers, final Racer playerRacer) {
+    private Actor createContent(Array<Racer> racers, final Array<Racer> playerRacers) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
         RacerListPane.register(builder);
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
@@ -42,7 +42,7 @@ public class FinishedOverlay extends Overlay {
             }
         });
         RacerListPane racerListPane = builder.getActor("racerListPane");
-        racerListPane.init(mGame.getAssets().skin, racers, playerRacer);
+        racerListPane.init(mGame.getAssets().skin, racers, playerRacers);
         return content;
     }
 }
