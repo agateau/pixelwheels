@@ -30,26 +30,6 @@ class Hud {
     private Label mSpeedLabel;
     private Label mDebugLabel;
 
-    HudBridge mHudBridge = new HudBridge() {
-        private final Vector3 mWorldVector = new Vector3();
-        private final Vector2 mHudVector = new Vector2();
-        @Override
-        public Vector2 toHudCoordinate(float x, float y) {
-            mWorldVector.x = x;
-            mWorldVector.y = y;
-            mWorldVector.z = 0;
-            Vector3 vector = mCamera.project(mWorldVector);
-            mHudVector.x = vector.x;
-            mHudVector.y = vector.y;
-            return mHudVector;
-        }
-
-        @Override
-        public Stage getStage() {
-            return mHud.getStage();
-        }
-    };
-
     public Hud(Assets assets, GameWorld gameWorld, Batch batch, int playerId, Camera camera, PerformanceCounters performanceCounters) {
         mGameWorld = gameWorld;
         mPlayerId = playerId;
@@ -78,10 +58,6 @@ class Hud {
 
     public Stage getStage() {
         return mHudStage;
-    }
-
-    public HudBridge getHudBridge() {
-        return mHudBridge;
     }
 
     public void act(float delta) {

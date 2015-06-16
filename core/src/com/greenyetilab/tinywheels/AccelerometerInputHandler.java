@@ -2,6 +2,7 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -62,10 +63,10 @@ public class AccelerometerInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, HudBridge hudBridge) {
+    public void createHud(Assets assets, Group root) {
         AnchorGroup group = new AnchorGroup();
         group.setFillParent(true);
-        hudBridge.getStage().addActor(group);
+        root.addActor(group);
         group.addPositionRule(mBonusIndicator, Anchor.TOP_RIGHT, group, Anchor.CENTER_RIGHT, 0, 0);
     }
 

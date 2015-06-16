@@ -3,6 +3,7 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 import com.greenyetilab.utils.anchor.PositionRule;
@@ -88,10 +89,10 @@ public class GestureInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, HudBridge hudBridge) {
+    public void createHud(Assets assets, Group root) {
         AnchorGroup group = new AnchorGroup();
         group.setFillParent(true);
-        hudBridge.getStage().addActor(group);
+        root.addActor(group);
 
         createHudIndicator(assets.findRegion("hud-swipe"), group, 0, PANNING_AREA);
         createHudIndicator(assets.findRegion("hud-back"), group, PANNING_AREA, 1);

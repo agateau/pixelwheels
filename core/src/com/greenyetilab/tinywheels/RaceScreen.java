@@ -47,8 +47,7 @@ public class RaceScreen extends ScreenAdapter {
             Racer racer = mGameWorld.getPlayerRacer(idx);
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
-                HudBridge hudBridge = hud.getHudBridge();
-                ((PlayerPilot) pilot).createHudActors(hudBridge);
+                ((PlayerPilot) pilot).createHudActors(hud.getStage().getRoot());
             }
 
             mGameRenderers.add(gameRenderer);
