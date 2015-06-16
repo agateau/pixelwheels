@@ -23,7 +23,7 @@ class Hud {
     private final GameWorld mGameWorld;
     private final int mPlayerId;
     private AnchorGroup mRoot;
-    private WidgetGroup mHud;
+    private WidgetGroup mTopRow;
     private Label mLapLabel;
     private Label mSpeedLabel;
     private Label mDebugLabel;
@@ -36,16 +36,16 @@ class Hud {
         mRoot = new AnchorGroup();
 
         Skin skin = assets.skin;
-        mHud = new WidgetGroup();
+        mTopRow = new WidgetGroup();
 
         mLapLabel = new Label("0:00.0", skin);
         mSpeedLabel = new Label("0", skin);
-        mHud.addActor(mLapLabel);
-        mHud.addActor(mSpeedLabel);
-        mHud.setHeight(mLapLabel.getHeight());
+        mTopRow.addActor(mLapLabel);
+        mTopRow.addActor(mSpeedLabel);
+        mTopRow.setHeight(mLapLabel.getHeight());
 
-        mRoot.addPositionRule(mHud, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT, 0, -5);
-        mRoot.addSizeRule(mHud, mRoot, 1, SizeRule.IGNORE);
+        mRoot.addPositionRule(mTopRow, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT, 0, -5);
+        mRoot.addSizeRule(mTopRow, mRoot, 1, SizeRule.IGNORE);
 
         if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)
                 && mPerformanceCounters != null) {
@@ -78,7 +78,7 @@ class Hud {
         mLapLabel.setPosition(5, 0);
 
         mSpeedLabel.setText(StringUtils.formatSpeed(racer.getVehicle().getSpeed()));
-        mSpeedLabel.setPosition(mHud.getWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
+        mSpeedLabel.setPosition(mTopRow.getWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
 
         if (mDebugLabel != null) {
             sDebugSB.setLength(0);
@@ -99,7 +99,7 @@ class Hud {
                         .append("\n");
             }
             mDebugLabel.setText(sDebugSB);
-            mDebugLabel.setPosition(0, mHud.getY() - mDebugLabel.getPrefHeight());
+            mDebugLabel.setPosition(0, mTopRow.getY() - mDebugLabel.getPrefHeight());
         }
     }
 
