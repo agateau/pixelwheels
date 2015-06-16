@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
     private final TheGame mGame;
@@ -20,6 +22,8 @@ public class RaceScreen extends ScreenAdapter {
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
     private Array<Hud> mHuds = new Array<Hud>();
+    private ScreenViewport mFullScreenViewport = new ScreenViewport();
+    private final Stage mFullScreenStage;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
     private PerformanceCounter mGameWorldPerformanceCounter;
@@ -50,6 +54,8 @@ public class RaceScreen extends ScreenAdapter {
             mGameRenderers.add(gameRenderer);
             mHuds.add(hud);
         }
+
+        mFullScreenStage = new Stage(mFullScreenViewport, mBatch);
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {
@@ -77,6 +83,7 @@ public class RaceScreen extends ScreenAdapter {
         for (Hud hud : mHuds) {
             hud.act(delta);
         }
+        mFullScreenStage.act(delta);
 
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
@@ -87,6 +94,10 @@ public class RaceScreen extends ScreenAdapter {
         for (Hud hud : mHuds) {
             hud.draw();
         }
+
+        mFullScreenViewport.apply(true);
+        mFullScreenStage.draw();
+
         mRendererPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
@@ -103,11 +114,13 @@ public class RaceScreen extends ScreenAdapter {
             mHuds.get(idx).setScreenRect(x, 0, viewportWidth, height);
             x += viewportWidth;
         }
+        mFullScreenViewport.update(width, height, true);
     }
 
     private void showFinishedOverlay() {
+        Gdx.input.setInputProcessor(mFullScreenStage);
         FinishedOverlay overlay = new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
-        mHuds.first().getStage().addActor(overlay); // FIXME: Show on the whole screen
+        mFullScreenStage.addActor(overlay);
     }
 
     @Override
