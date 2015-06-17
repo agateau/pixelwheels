@@ -10,17 +10,17 @@ import com.greenyetilab.utils.Introspector;
 public class GamePlay {
     public int racerCount = 6;
     public int maxDrivingForce = 50;
-    public int maxLateralImpulse = 10;
+    public int maxLateralImpulse = 4;
     public int maxSkidmarks = 200;
-    public int lowSpeedMaxSteer = 36;
-    public int highSpeedMaxSteer = 8;
-    public int vehicleDensity = 16;
+    public int lowSpeedMaxSteer = 30;
+    public int highSpeedMaxSteer = 6;
+    public int vehicleDensity = 20;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
     public int borderRestitution = 1;
 
-    public boolean rotateCamera = false;
-    public int viewportWidth = 50;
+    public boolean rotateCamera = true;
+    public int viewportWidth = 70;
 
     public int spinImpulse = 80;
     public int spinDuration = 2;
