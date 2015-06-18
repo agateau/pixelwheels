@@ -4,7 +4,8 @@
         <Label id="mainLabel"
                topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
 
-        <VehicleSelector id="vehicleSelector" center="root.center"/>
+        <VehicleSelector id="vehicleSelector" center="root.center"
+                         width="400" height="300"/>
 
         <TextButton id="goButton"
                     width="200"

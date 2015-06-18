@@ -1,41 +1,47 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
+import com.greenyetilab.utils.GridSelector;
 import com.greenyetilab.utils.UiBuilder;
 
 /**
  * An actor to select a vehicle
  */
-public class VehicleSelector extends VerticalGroup {
-    private final ButtonGroup mVehicleButtonGroup = new ButtonGroup();
+public class VehicleSelector extends GridSelector<VehicleDef> {
     private Assets mAssets;
 
-    private class VehicleButton extends TextButton {
-        private final VehicleDef mVehicleDef;
-
-        public VehicleButton(VehicleDef vehicleDef) {
-            super(vehicleDef.name, mAssets.skin);
-            mVehicleDef = vehicleDef;
+    private class Renderer implements GridSelector.ItemRenderer<VehicleDef> {
+        @Override
+        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef, boolean selected) {
+            TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
+            float oldAlpha = batch.getColor().a;
+            if (selected) {
+                Color color = batch.getColor();
+                color.a /= 2;
+                batch.setColor(color);
+            }
+            batch.draw(region, x + (width - region.getRegionWidth()) / 2, y + (height - region.getRegionHeight()) / 2);
+            if (selected) {
+                Color color = batch.getColor();
+                color.a = oldAlpha;
+                batch.setColor(color);
+            }
         }
-    }
-
-    public VehicleSelector() {
     }
 
     public void init(Assets assets) {
         mAssets = assets;
-        createVehicleButtons();
+        setItemSize(80, 80);
+        setItemRenderer(new Renderer());
+        setItems(mAssets.vehicleDefs);
     }
 
     public String getSelectedId() {
-        VehicleButton button = (VehicleButton)mVehicleButtonGroup.getChecked();
-        return button.mVehicleDef.id;
+        return getSelected().id;
     }
 
     public static void register(UiBuilder builder) {
@@ -45,20 +51,5 @@ public class VehicleSelector extends VerticalGroup {
                 return new VehicleSelector();
             }
         });
-    }
-
-    private void createVehicleButtons() {
-        space(12);
-        for(VehicleDef vehicleDef : mAssets.vehicleDefs) {
-            VehicleButton button = new VehicleButton(vehicleDef);
-            addActor(button);
-            mVehicleButtonGroup.add(button);
-        }
-        Array<Button> buttons = mVehicleButtonGroup.getButtons();
-        buttons.get(0).setChecked(true);
-        layout();
-        int count = buttons.size;
-        setWidth(buttons.get(0).getWidth());
-        setHeight(buttons.get(0).getHeight() * count + 12 * (count - 1));
     }
 }
