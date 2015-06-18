@@ -27,10 +27,14 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 import com.greenyetilab.utils.anchor.PositionRule;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
+
+    private final Set<String> mVariables = new HashSet<String>();
 
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
     private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
@@ -70,6 +74,10 @@ public class UiBuilder {
         mSkin = skin;
     }
 
+    public void defineVariable(String name) {
+        mVariables.add(name);
+    }
+
     public Actor build(FileHandle handle) {
         return build(handle, null);
     }
@@ -94,6 +102,24 @@ public class UiBuilder {
         for (int idx=0, size = parentElement.getChildCount(); idx < size; ++idx) {
             XmlReader.Element element = parentElement.getChild(idx);
             if (element.getName().equals("Action")) {
+                continue;
+            }
+            if (element.getName().equals("Ifdef")) {
+                XmlReader.Element elseElement = null;
+                if (idx + 1 < size) {
+                    elseElement = parentElement.getChild(idx + 1);
+                    if (elseElement.getName().equals("Else")) {
+                        // It's an else, swallow it
+                        ++idx;
+                    } else {
+                        elseElement = null;
+                    }
+                }
+                if (evaluateIfdef(element)) {
+                    doBuild(element, parentActor);
+                } else if (elseElement != null) {
+                    doBuild(elseElement, parentActor);
+                }
                 continue;
             }
             Actor actor = createActorForElement(element);
@@ -176,6 +202,11 @@ public class UiBuilder {
             }
         }
         return image;
+    }
+
+    private boolean evaluateIfdef(XmlReader.Element element) {
+        String condition = element.getAttribute("var").trim();
+        return mVariables.contains(condition);
     }
 
     private void initImageFromNinePatchName(Image image, String name) {
