@@ -23,7 +23,7 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.showSelectVehicle();
+                mGame.showMultiPlayer();
             }
         };
     }
