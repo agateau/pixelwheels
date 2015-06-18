@@ -44,6 +44,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
     }
 
+    public Pilot getPilot() {
+        return mPilot;
+    }
+
     public void setPilot(Pilot pilot) {
         mPilot = pilot;
     }

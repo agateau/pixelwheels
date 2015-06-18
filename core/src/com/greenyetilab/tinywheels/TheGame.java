@@ -40,6 +40,10 @@ public class TheGame extends Game {
         replaceScreen(new SelectVehicleScreen(this));
     }
 
+    public void showMultiPlayer() {
+        replaceScreen(new MultiPlayerScreen(this));
+    }
+
     public void start(GameInfo gameInfo) {
         mGameInfo = gameInfo;
         restart();
@@ -48,7 +52,7 @@ public class TheGame extends Game {
     public void restart() {
         TiledMap map = new AtlasTmxMapLoader().load("maps/" + mGameInfo.mapName + ".tmx");
         MapInfo mapInfo = new MapInfo(map);
-        Screen screen = new RaceScreen(this, mapInfo, mGameInfo.playerVehicleIds.get(0));
+        Screen screen = new RaceScreen(this, mapInfo, mGameInfo);
         replaceScreen(screen);
     }
 

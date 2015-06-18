@@ -1,25 +1,23 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.FileUtils;
 import com.greenyetilab.utils.RefreshHelper;
 import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
- * Select your vehicle
+ * Select player vehicles
  */
-public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
+public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
-    private VehicleSelector mVehicleSelector;
+    private VehicleSelector mVehicleSelector1;
+    private VehicleSelector mVehicleSelector2;
 
-    public SelectVehicleScreen(TheGame game) {
+    public MultiPlayerScreen(TheGame game) {
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {
@@ -34,12 +32,14 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
         VehicleSelector.register(builder);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector = builder.getActor("vehicleSelector");
-        mVehicleSelector.init(mGame.getAssets());
+        mVehicleSelector1 = builder.getActor("vehicleSelector1");
+        mVehicleSelector1.init(mGame.getAssets());
+        mVehicleSelector2 = builder.getActor("vehicleSelector2");
+        mVehicleSelector2.init(mGame.getAssets());
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -56,12 +56,19 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
     }
 
     private void startRace() {
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        String id = mVehicleSelector.getSelectedId();
         GameInfo info = new GameInfo();
         info.mapName = "be";
-        info.addPlayerInfo(id, factory.create());
+
+        KeyboardInputHandler inputHandler = new KeyboardInputHandler();
+        info.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);
+
+        inputHandler = new KeyboardInputHandler();
+        inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.RIGHT, Input.Keys.V);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.BRAKE, Input.Keys.C);
+        inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_LEFT);
+        info.addPlayerInfo(mVehicleSelector2.getSelectedId(), inputHandler);
+
         mGame.start(info);
     }
 }

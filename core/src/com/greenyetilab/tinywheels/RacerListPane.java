@@ -8,6 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.greenyetilab.utils.UiBuilder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Display the high score table
  */
@@ -16,13 +19,17 @@ public class RacerListPane extends ScrollPane {
         super(null);
     }
 
-    public void init(Skin skin, Array<Racer> racers, Racer playerRacer) {
+    public void init(Skin skin, Array<Racer> racers, Array<Racer> playerRacers) {
         Table table = new Table(skin);
+        Set<Racer> playerSet = new HashSet<Racer>();
+        for (Racer racer : playerRacers) {
+            playerSet.add(racer);
+        }
         addRow(table, "highScore", "#", "Racer", "Best Lap", "Total");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            String style = racer == playerRacer ? "newHighScore" : "highScore";
+            String style = playerSet.contains(racer) ? "newHighScore" : "highScore";
             addRow(table, style,
                     String.format("%d.", idx + 1),
                     racer.getVehicle().getName(),
