@@ -26,6 +26,7 @@ class Hud {
     private WidgetGroup mTopRow;
     private Label mLapLabel;
     private Label mSpeedLabel;
+    private Label mFinishedLabel;
     private Label mDebugLabel;
 
     public Hud(Assets assets, GameWorld gameWorld, Stage stage, int playerId, PerformanceCounters performanceCounters) {
@@ -40,12 +41,15 @@ class Hud {
 
         mLapLabel = new Label("0:00.0", skin);
         mSpeedLabel = new Label("0", skin);
+        mFinishedLabel = new Label("Finished!", skin);
+        mFinishedLabel.setVisible(false);
         mTopRow.addActor(mLapLabel);
         mTopRow.addActor(mSpeedLabel);
         mTopRow.setHeight(mLapLabel.getHeight());
 
         mRoot.addPositionRule(mTopRow, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT, 0, -5);
         mRoot.addSizeRule(mTopRow, mRoot, 1, SizeRule.IGNORE);
+        mRoot.addPositionRule(mFinishedLabel, Anchor.CENTER, mRoot, Anchor.CENTER);
 
         if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)
                 && mPerformanceCounters != null) {
@@ -60,6 +64,7 @@ class Hud {
     }
 
     public void act(float delta) {
+        checkFinished();
         updateHud();
     }
 
@@ -67,8 +72,35 @@ class Hud {
         mRoot.setBounds(x, y, width, height);
     }
 
-    private static com.badlogic.gdx.utils.StringBuilder sDebugSB = new StringBuilder();
+    private void checkFinished() {
+        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
+        if (racer.getLapPositionComponent().hasFinishedRace() && !mFinishedLabel.isVisible() && mGameWorld.getPlayerRacers().size > 1) {
+            showFinishedLabel();
+        }
+    }
 
+    private void showFinishedLabel() {
+        int rank = mGameWorld.getPlayerRank(mPlayerId);
+        String text;
+        switch (rank) {
+        case 1:
+            text = "1st place!";
+            break;
+        case 2:
+            text = "2nd place!";
+            break;
+        case 3:
+            text = "3nd place!";
+            break;
+        default:
+            text = rank + "th place";
+            break;
+        }
+        mFinishedLabel.setText(text);
+        mFinishedLabel.setVisible(true);
+    }
+
+    private static com.badlogic.gdx.utils.StringBuilder sDebugSB = new StringBuilder();
     private void updateHud() {
         Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
