@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -37,19 +38,31 @@ public class MapInfo implements Disposable {
         }
     }
 
-    private final TiledMap mMap;
-    private final float[] mMaxSpeedForTileId;
-    private int mStartTileId = -1;
-    private final TiledMapTileLayer mGroundLayer;
-    private final MapLayer mBordersLayer;
-    private final float mTileWidth;
-    private final float mTileHeight;
-    private final Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
-    private final LapPositionTable mLapPositionTable;
-    private final Color mBackgroundColor;
+    private final String mMapId;
+    private final String mMapName;
 
-    public MapInfo(TiledMap map) {
-        mMap = map;
+    private TiledMap mMap;
+    private float[] mMaxSpeedForTileId;
+    private int mStartTileId = -1;
+    private TiledMapTileLayer mGroundLayer;
+    private MapLayer mBordersLayer;
+    private float mTileWidth;
+    private float mTileHeight;
+    private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
+    private LapPositionTable mLapPositionTable;
+    private Color mBackgroundColor;
+
+    public MapInfo(String id, String name) {
+        mMapId = id;
+        mMapName = name;
+    }
+
+    public void init() {
+        if (mMap != null) {
+            return;
+        }
+        AtlasTmxMapLoader loader = new AtlasTmxMapLoader();
+        mMap = loader.load("maps/" + mMapId + ".tmx");
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         findSpecialTileIds();
 
@@ -60,10 +73,10 @@ public class MapInfo implements Disposable {
         mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
 
-        mLapPositionTable = LapPositionTableIO.load(map);
+        mLapPositionTable = LapPositionTableIO.load(mMap);
         readWaypoints();
 
-        String bgColorText = map.getProperties().get("backgroundcolor", "#808080", String.class);
+        String bgColorText = mMap.getProperties().get("backgroundcolor", "#808080", String.class);
         bgColorText = bgColorText.substring(1); // Skip leading '#'
         mBackgroundColor = Color.valueOf(bgColorText);
     }
@@ -73,7 +86,7 @@ public class MapInfo implements Disposable {
     }
 
     public int getTotalLapCount() {
-        return 3;
+        return 1;
     }
 
     public TiledMap getMap() {

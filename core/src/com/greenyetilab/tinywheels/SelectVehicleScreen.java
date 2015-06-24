@@ -60,7 +60,7 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         String id = mVehicleSelector.getSelectedId();
         GameInfo info = new GameInfo();
-        info.mapName = "be";
+        info.mapInfo = mGame.getAssets().mapInfos.get(0);
         info.addPlayerInfo(id, factory.create());
         mGame.start(info);
     }

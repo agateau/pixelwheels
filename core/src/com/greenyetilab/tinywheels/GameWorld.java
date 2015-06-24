@@ -49,12 +49,13 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TheGame game, MapInfo mapInfo, GameInfo gameInfo, PerformanceCounters performanceCounters) {
+    public GameWorld(TheGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
         mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mMapInfo = mapInfo;
+        mMapInfo = gameInfo.mapInfo;
+        mMapInfo.init();
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");

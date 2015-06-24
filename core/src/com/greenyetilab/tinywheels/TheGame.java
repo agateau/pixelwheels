@@ -50,9 +50,7 @@ public class TheGame extends Game {
     }
 
     public void restart() {
-        TiledMap map = new AtlasTmxMapLoader().load("maps/" + mGameInfo.mapName + ".tmx");
-        MapInfo mapInfo = new MapInfo(map);
-        Screen screen = new RaceScreen(this, mapInfo, mGameInfo);
+        Screen screen = new RaceScreen(this, mGameInfo);
         replaceScreen(screen);
     }
 

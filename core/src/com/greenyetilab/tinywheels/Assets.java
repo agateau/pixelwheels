@@ -19,8 +19,10 @@ public class Assets {
     private static final float MINE_FRAME_DURATION = 0.2f;
 
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin" };
+    private static final String[] MAP_IDS = { "be", "snow" };
 
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
+    public final Array<MapInfo> mapInfos = new Array<MapInfo>();
     public final Skin skin;
     public final TextureRegion wheel;
     public final TextureRegion dot;
@@ -75,6 +77,7 @@ public class Assets {
         this.skidmark = findRegion("skidmark");
 
         loadVehicleDefinitions();
+        loadMapInfos();
     }
 
     public VehicleDef getVehicleById(String id) {
@@ -139,6 +142,12 @@ public class Assets {
     private void loadVehicleDefinitions() {
         for (String id : VEHICLE_IDS) {
             this.vehicleDefs.add(VehicleIO.get(id));
+        }
+    }
+
+    private void loadMapInfos() {
+        for (String id : MAP_IDS) {
+            this.mapInfos.add(new MapInfo(id, id));
         }
     }
 }

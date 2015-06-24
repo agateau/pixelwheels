@@ -57,7 +57,7 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
 
     private void startRace() {
         GameInfo info = new GameInfo();
-        info.mapName = "be";
+        info.mapInfo = mGame.getAssets().mapInfos.get(0);
 
         KeyboardInputHandler inputHandler = new KeyboardInputHandler();
         info.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);

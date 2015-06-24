@@ -10,7 +10,7 @@ public class GameInfo {
         String vehicleId;
         GameInputHandler inputHandler;
     }
-    public String mapName;
+    public MapInfo mapInfo;
     public final Array<PlayerInfo> playerInfos = new Array<PlayerInfo>();
 
     public void addPlayerInfo(String vehicleId, GameInputHandler inputHandler) {

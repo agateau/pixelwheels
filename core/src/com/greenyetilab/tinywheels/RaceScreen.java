@@ -30,13 +30,13 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
 
-    public RaceScreen(TheGame game, MapInfo mapInfo, GameInfo gameInfo) {
+    public RaceScreen(TheGame game, GameInfo gameInfo) {
         mGame = game;
         mBatch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, mapInfo, gameInfo, mPerformanceCounters);
-        mBackgroundColor = mapInfo.getBackgroundColor();
+        mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
+        mBackgroundColor = gameInfo.mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, mBatch);
