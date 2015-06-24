@@ -18,6 +18,8 @@ public class Assets {
     private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
 
+    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin" };
+
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Skin skin;
     public final TextureRegion wheel;
@@ -135,8 +137,7 @@ public class Assets {
     }
 
     private void loadVehicleDefinitions() {
-        final String[] vehicleIds = { "red", "police", "pickup", "roadster", "antonin" };
-        for (String id : vehicleIds) {
+        for (String id : VEHICLE_IDS) {
             this.vehicleDefs.add(VehicleIO.get(id));
         }
     }
