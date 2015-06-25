@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.greenyetilab.utils.log.NLog;
 
 /**
- * Loads a .tmx file and creates a screenshot of it as a PNG file
+ * Loads a TMX file and creates a screenshot of it as a PNG file
  */
 public class MapScreenshotGenerator {
     private static final int SHOT_SIZE = 220;
