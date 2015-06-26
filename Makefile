@@ -33,10 +33,14 @@ run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
 packer: tools
-	java -cp $(TOOLS_JAR) $(GAME_CP).tools.Packer $(CURDIR)
+	java -cp $(TOOLS_JAR) $(GAME_CP).tools.Packer
+
+mapscreenshotgenerator: tools
+	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapScreenshotGenerator
 
 mappacker: tools
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapPacker core/assets/maps android/assets/maps
+
 
 # Packr
 $(JDK_LINUX64_ZIP):
