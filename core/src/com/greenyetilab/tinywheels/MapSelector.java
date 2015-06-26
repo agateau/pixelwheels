@@ -23,9 +23,6 @@ public class MapSelector extends GridSelector<MapInfo> {
         @Override
         public void render(Batch batch, float x, float y, float width, float height, MapInfo mapInfo, boolean selected) {
             TextureRegion region = mAssets.uiAtlas.findRegion("map-screenshots/" + mapInfo.getId());
-            batch.draw(region, x + (width - region.getRegionWidth()) / 2, y + (height - region.getRegionHeight()) / 2);
-            /*
-            TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
             float oldAlpha = batch.getColor().a;
             if (selected) {
                 Color color = batch.getColor();
@@ -38,13 +35,12 @@ public class MapSelector extends GridSelector<MapInfo> {
                 color.a = oldAlpha;
                 batch.setColor(color);
             }
-            */
         }
     }
 
     public void init(Assets assets) {
         mAssets = assets;
-        setItemSize(240, 240);
+        setItemSize(160, 160);
         setItemRenderer(new Renderer());
         setItems(mAssets.mapInfos);
     }

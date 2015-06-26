@@ -17,7 +17,7 @@ import com.greenyetilab.utils.log.NLog;
  * Loads a TMX file and creates a screenshot of it as a PNG file
  */
 public class MapScreenshotGenerator {
-    private static final int SHOT_SIZE = 220;
+    private static final int SHOT_SIZE = 150;
 
     public static void main(String[] args) {
         new CommandLineApplication("MapScreenshotGenerator", args) {
