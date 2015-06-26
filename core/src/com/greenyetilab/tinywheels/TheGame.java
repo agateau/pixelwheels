@@ -4,8 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.greenyetilab.utils.Assert;
 
@@ -38,6 +36,10 @@ public class TheGame extends Game {
 
     public void showSelectVehicle() {
         replaceScreen(new SelectVehicleScreen(this));
+    }
+
+    public void showSelectMap(GameInfo gameInfo) {
+        replaceScreen(new SelectMapScreen(this, gameInfo));
     }
 
     public void showMultiPlayer() {

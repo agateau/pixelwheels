@@ -8,33 +8,35 @@ import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
- * Select your vehicle
+ * Select your map
  */
-public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
+public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
-    private VehicleSelector mVehicleSelector;
+    private final GameInfo mGameInfo;
+    private MapSelector mMapSelector;
 
-    public SelectVehicleScreen(TheGame game) {
+    public SelectMapScreen(TheGame game, GameInfo gameInfo) {
         mGame = game;
+        mGameInfo = gameInfo;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.showSelectVehicle();
+                mGame.showSelectMap(mGameInfo);
             }
         };
     }
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
-        VehicleSelector.register(builder);
+        MapSelector.register(builder);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectmap.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector = builder.getActor("vehicleSelector");
-        mVehicleSelector.init(mGame.getAssets());
+        mMapSelector = builder.getActor("mapSelector");
+        mMapSelector.init(mGame.getAssets());
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -45,17 +47,13 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.showMainMenu();
+                mGame.showSelectVehicle();
             }
         });
     }
 
     private void startRace() {
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        String id = mVehicleSelector.getSelectedId();
-        GameInfo info = new GameInfo();
-        info.addPlayerInfo(id, factory.create());
-        mGame.showSelectMap(info);
+        mGameInfo.mapInfo = mMapSelector.getSelected();
+        mGame.start(mGameInfo);
     }
 }

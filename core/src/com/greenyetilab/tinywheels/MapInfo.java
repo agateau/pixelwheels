@@ -38,7 +38,7 @@ public class MapInfo implements Disposable {
         }
     }
 
-    private final String mMapId;
+    private final String mId;
     private final String mMapName;
 
     private TiledMap mMap;
@@ -53,7 +53,7 @@ public class MapInfo implements Disposable {
     private Color mBackgroundColor;
 
     public MapInfo(String id, String name) {
-        mMapId = id;
+        mId = id;
         mMapName = name;
     }
 
@@ -62,7 +62,7 @@ public class MapInfo implements Disposable {
             return;
         }
         AtlasTmxMapLoader loader = new AtlasTmxMapLoader();
-        mMap = loader.load("maps/" + mMapId + ".tmx");
+        mMap = loader.load("maps/" + mId + ".tmx");
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         findSpecialTileIds();
 
@@ -79,6 +79,10 @@ public class MapInfo implements Disposable {
         String bgColorText = mMap.getProperties().get("backgroundcolor", "#808080", String.class);
         bgColorText = bgColorText.substring(1); // Skip leading '#'
         mBackgroundColor = Color.valueOf(bgColorText);
+    }
+
+    public String getId() {
+        return mId;
     }
 
     public Color getBackgroundColor() {

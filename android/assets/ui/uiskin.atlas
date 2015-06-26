@@ -1,75 +1,96 @@
 
 uiskin.png
-size: 274,164
+size: 686,224
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 checkbox-off
   rotate: false
-  xy: 212, 102
+  xy: 624, 162
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 checkbox-on
   rotate: false
-  xy: 164, 36
+  xy: 624, 100
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 icon-back
   rotate: false
-  xy: 2, 2
+  xy: 558, 112
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-config
   rotate: false
-  xy: 44, 2
+  xy: 558, 70
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-debug
   rotate: false
-  xy: 80, 52
+  xy: 600, 58
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-highscores
   rotate: false
-  xy: 86, 10
+  xy: 558, 28
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-left
   rotate: false
-  xy: 122, 52
+  xy: 642, 58
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-restart
   rotate: false
-  xy: 226, 60
+  xy: 600, 16
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-right
   rotate: false
-  xy: 226, 18
+  xy: 642, 16
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
+map-screenshots/antonin
+  rotate: false
+  xy: 2, 2
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+map-screenshots/be
+  rotate: false
+  xy: 446, 2
+  size: 110, 220
+  orig: 110, 220
+  offset: 0, 0
+  index: -1
+map-screenshots/race
+  rotate: false
+  xy: 224, 68
+  size: 220, 154
+  orig: 220, 154
+  offset: 0, 0
+  index: -1
 rectbutton
   rotate: false
-  xy: 2, 44
+  xy: 302, 8
   size: 76, 58
   split: 15, 15, 17, 19
   pad: 10, 10, 10, 14
@@ -78,7 +99,7 @@ rectbutton
   index: -1
 rectbutton-down
   rotate: false
-  xy: 2, 104
+  xy: 224, 8
   size: 76, 58
   split: 15, 15, 18, 14
   pad: 10, 10, 16, 8
@@ -87,14 +108,14 @@ rectbutton-down
   index: -1
 roundbutton
   rotate: false
-  xy: 80, 94
+  xy: 558, 154
   size: 64, 68
   orig: 64, 68
   offset: 0, 0
   index: -1
 roundbutton-down
   rotate: false
-  xy: 146, 98
+  xy: 380, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

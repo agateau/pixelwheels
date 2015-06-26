@@ -29,6 +29,7 @@ public class Assets {
     public final TextureRegion wheel;
     public final TextureRegion dot;
     public final TextureRegion hudBackground;
+    public final TextureAtlas uiAtlas;
     public final TextureAtlas atlas;
     public final Animation explosion;
     public final Animation iceExplosion;
@@ -54,7 +55,8 @@ public class Assets {
     }
 
     Assets() {
-        this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        this.uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
+        this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.uiAtlas);
         this.atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
         this.wheel = findRegion("vehicles/wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));

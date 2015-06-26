@@ -2,16 +2,16 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="mainLabel"
-               topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
+               topCenter="root.topCenter 0 -2">Select Map</Label>
 
-        <VehicleSelector id="vehicleSelector" center="root.center"
-                         width="400" height="300"/>
+        <MapSelector id="mapSelector" center="root.center"
+                         width="600" height="400"/>
 
         <TextButton id="goButton"
                     width="200"
                     height="60"
                     bottomCenter="root.bottomCenter 0 1"
-            >Next</TextButton>
+            >GO!</TextButton>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

@@ -22,6 +22,8 @@ public class MapSelector extends GridSelector<MapInfo> {
     private class Renderer implements GridSelector.ItemRenderer<MapInfo> {
         @Override
         public void render(Batch batch, float x, float y, float width, float height, MapInfo mapInfo, boolean selected) {
+            TextureRegion region = mAssets.uiAtlas.findRegion("map-screenshots/" + mapInfo.getId());
+            batch.draw(region, x + (width - region.getRegionWidth()) / 2, y + (height - region.getRegionHeight()) / 2);
             /*
             TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
             float oldAlpha = batch.getColor().a;
@@ -42,7 +44,7 @@ public class MapSelector extends GridSelector<MapInfo> {
 
     public void init(Assets assets) {
         mAssets = assets;
-        setItemSize(80, 80);
+        setItemSize(240, 240);
         setItemRenderer(new Renderer());
         setItems(mAssets.mapInfos);
     }
@@ -51,7 +53,7 @@ public class MapSelector extends GridSelector<MapInfo> {
         builder.registerActorFactory("MapSelector", new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(XmlReader.Element element) {
-                return new VehicleSelector();
+                return new MapSelector();
             }
         });
     }
