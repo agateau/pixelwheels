@@ -23,14 +23,16 @@ public class MapScreenshotGenerator {
         new CommandLineApplication("MapScreenshotGenerator", args) {
             @Override
             int run(String[] arguments) {
-                if (arguments.length > 0) {
-                    for (String name : arguments) {
-                        processFile(name);
-                    }
+                if (arguments.length == 2) {
+                    String shotFileName = arguments[0];
+                    String tmxFileName = arguments[1];
+                    processFile(shotFileName, tmxFileName);
                 } else {
-                    FileHandle mapDir = Gdx.files.absolute(".");
-                    for (FileHandle file : mapDir.list(".tmx")) {
-                        processFile(file.path());
+                    FileHandle tmxDir = Gdx.files.absolute("core/assets/maps");
+                    FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
+                    for (FileHandle tmxFile : tmxDir.list(".tmx")) {
+                        String shotFileName = shotDir.path() + "/" + tmxFile.nameWithoutExtension() + ".png";
+                        processFile(shotFileName, tmxFile.path());
                     }
                 }
                 return 0;
@@ -38,8 +40,7 @@ public class MapScreenshotGenerator {
         };
     }
 
-    private static void processFile(String tmxFileName) {
-        String shotFileName = tmxFileName.replace(".tmx", "-screenshot.png");
+    private static void processFile(String shotFileName, String tmxFileName) {
         FileHandle tmxFile = Gdx.files.absolute(tmxFileName);
         FileHandle shotFile = Gdx.files.absolute(shotFileName);
         if (isOutdated(shotFile, tmxFile)) {
