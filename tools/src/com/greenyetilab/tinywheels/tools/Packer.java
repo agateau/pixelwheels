@@ -5,7 +5,13 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 public class Packer {
     public static void main(String[] args) {
-        packTextures(args[0]);
+        String baseDir;
+        if (args.length > 0) {
+            baseDir = args[0];
+        } else {
+            baseDir = ".";
+        }
+        packTextures(baseDir);
     }
 
     private static void packTextures(String baseDir) {
@@ -24,6 +30,7 @@ public class Packer {
         outputDir = baseDir + "/android/assets/ui";
         packName = "uiskin";
         TexturePacker.process(settings, inputDir, outputDir, packName);
+
         System.out.println("Done");
     }
 }
