@@ -12,10 +12,12 @@ import com.greenyetilab.utils.UiBuilder;
  */
 public class FinishedOverlay extends Overlay {
     private final TheGame mGame;
+    private final Maestro mMaestro;
 
-    public FinishedOverlay(TheGame game, final Array<Racer> racers, final Array<Racer> playerRacers) {
+    public FinishedOverlay(TheGame game, Maestro maestro, final Array<Racer> racers, final Array<Racer> playerRacers) {
         super(game.getAssets().dot);
         mGame = game;
+        mMaestro = maestro;
         new RefreshHelper(this) {
             @Override
             protected void refresh() {
@@ -32,13 +34,13 @@ public class FinishedOverlay extends Overlay {
         builder.getActor("restartButton").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mGame.restart();
+                mMaestro.actionTriggered("restart");
             }
         });
         builder.getActor("menuButton").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mGame.showMainMenu();
+                mMaestro.actionTriggered("quit");
             }
         });
         RacerListPane racerListPane = builder.getActor("racerListPane");

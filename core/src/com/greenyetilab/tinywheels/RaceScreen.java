@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
     private final TheGame mGame;
+    private final Maestro mMaestro;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
     private Batch mBatch;
@@ -30,8 +31,9 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
 
-    public RaceScreen(TheGame game, GameInfo gameInfo) {
+    public RaceScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
+        mMaestro = maestro;
         mBatch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
@@ -116,7 +118,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void showFinishedOverlay() {
-        FinishedOverlay overlay = new FinishedOverlay(mGame, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
+        FinishedOverlay overlay = new FinishedOverlay(mGame, mMaestro, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
         mHudStage.addActor(overlay);
     }
 

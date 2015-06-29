@@ -39,7 +39,7 @@ public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("onePlayerButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.showSelectVehicle();
+                mGame.showOnePlayer();
             }
         });
         if (desktop) {

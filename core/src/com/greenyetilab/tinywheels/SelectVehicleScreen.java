@@ -12,15 +12,19 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
+    private final Maestro mMaestro;
+    private final GameInfo mGameInfo;
     private VehicleSelector mVehicleSelector;
 
-    public SelectVehicleScreen(TheGame game) {
+    public SelectVehicleScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
+        mMaestro = maestro;
+        mGameInfo = gameInfo;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.showSelectVehicle();
+                mGame.replaceScreen(new SelectVehicleScreen(mGame, mMaestro, mGameInfo));
             }
         };
     }
@@ -39,23 +43,22 @@ public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                startRace();
+                next();
             }
         });
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.showMainMenu();
+                mMaestro.actionTriggered("back");
             }
         });
     }
 
-    private void startRace() {
+    private void next() {
         String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         String id = mVehicleSelector.getSelectedId();
-        GameInfo info = new GameInfo();
-        info.addPlayerInfo(id, factory.create());
-        mGame.showSelectMap(info);
+        mGameInfo.addPlayerInfo(id, factory.create());
+        mMaestro.actionTriggered("next");
     }
 }

@@ -13,16 +13,18 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
     private final GameInfo mGameInfo;
+    private final Maestro mMaestro;
     private MapSelector mMapSelector;
 
-    public SelectMapScreen(TheGame game, GameInfo gameInfo) {
+    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
+        mMaestro = maestro;
         mGameInfo = gameInfo;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.showSelectMap(mGameInfo);
+                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo));
             }
         };
     }
@@ -41,19 +43,19 @@ public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                startRace();
+                next();
             }
         });
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.showSelectVehicle();
+                mMaestro.actionTriggered("back");
             }
         });
     }
 
-    private void startRace() {
+    private void next() {
         mGameInfo.mapInfo = mMapSelector.getSelected();
-        mGame.start(mGameInfo);
+        mMaestro.actionTriggered("next");
     }
 }

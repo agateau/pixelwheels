@@ -14,16 +14,20 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  */
 public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
+    private final Maestro mMaestro;
+    private final GameInfo mGameInfo;
     private VehicleSelector mVehicleSelector1;
     private VehicleSelector mVehicleSelector2;
 
-    public MultiPlayerScreen(TheGame game) {
+    public MultiPlayerScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
+        mMaestro = maestro;
+        mGameInfo = gameInfo;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.showMultiPlayer();
+                mGame.replaceScreen(new MultiPlayerScreen(mGame, mMaestro, mGameInfo));
             }
         };
     }
@@ -44,31 +48,28 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                startRace();
+                next();
             }
         });
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.showMainMenu();
+                mMaestro.actionTriggered("back");
             }
         });
     }
 
-    private void startRace() {
-        GameInfo info = new GameInfo();
-        info.mapInfo = mGame.getAssets().mapInfos.get(0);
-
+    private void next() {
         KeyboardInputHandler inputHandler = new KeyboardInputHandler();
-        info.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);
+        mGameInfo.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);
 
         inputHandler = new KeyboardInputHandler();
         inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);
         inputHandler.setActionKey(KeyboardInputHandler.Action.RIGHT, Input.Keys.V);
         inputHandler.setActionKey(KeyboardInputHandler.Action.BRAKE, Input.Keys.C);
         inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_LEFT);
-        info.addPlayerInfo(mVehicleSelector2.getSelectedId(), inputHandler);
+        mGameInfo.addPlayerInfo(mVehicleSelector2.getSelectedId(), inputHandler);
 
-        mGame.start(info);
+        mMaestro.actionTriggered("next");
     }
 }

@@ -15,7 +15,7 @@ import java.util.Stack;
 public class TheGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
-    private GameInfo mGameInfo;
+    private Maestro mMaestro;
 
     public Assets getAssets() {
         return mAssets;
@@ -34,26 +34,14 @@ public class TheGame extends Game {
         replaceScreen(screen);
     }
 
-    public void showSelectVehicle() {
-        replaceScreen(new SelectVehicleScreen(this));
-    }
-
-    public void showSelectMap(GameInfo gameInfo) {
-        replaceScreen(new SelectMapScreen(this, gameInfo));
+    public void showOnePlayer() {
+        mMaestro = new OnePlayerMaestro(this);
+        mMaestro.start();
     }
 
     public void showMultiPlayer() {
-        replaceScreen(new MultiPlayerScreen(this));
-    }
-
-    public void start(GameInfo gameInfo) {
-        mGameInfo = gameInfo;
-        restart();
-    }
-
-    public void restart() {
-        Screen screen = new RaceScreen(this, mGameInfo);
-        replaceScreen(screen);
+        mMaestro = new MultiPlayerMaestro(this);
+        mMaestro.start();
     }
 
     public void replaceScreen(Screen screen) {
