@@ -127,4 +127,29 @@ public class RaceScreen extends ScreenAdapter {
         super.dispose();
         mGameWorld.dispose();
     }
+
+    public void forgetMapInfo() {
+        // HACK
+        // This is a hack to work around a dispose() issue.
+        // When the player restarts a race, the following events happen:
+        //
+        // 1. New RaceScreen is created,
+        // 2. The new RaceScreen creates a GameWorld
+        // 3. The new GameWorld calls MapInfo.init()
+        // 4. RaceScreen is set to replace the current screen
+        // 5. TheGame.replaceScreen() calls dispose() on the old screen
+        // 6. The old screen calls dispose() on its GameWorld
+        // 7. The old GameWorld  calls dispose() on its MapInfo
+        // 8. Since the MapInfo of the old GameWorld is the same as the
+        //    MapInfo of the new GameWorld, the MapInfo of the new
+        //    GameWorld has now been disposed.
+        //
+        // Asking GameWorld to "forget" its MapINfo causes it to reset its
+        // MapInfo pointer, so it won't dispose it on step #7
+        //
+        // This is only necessary when restarting a race because it is the
+        // only case where MapInfo.dispose() is called *after* the same
+        // MapInfo instance has been inited.
+        mGameWorld.forgetMapInfo();
+    }
 }

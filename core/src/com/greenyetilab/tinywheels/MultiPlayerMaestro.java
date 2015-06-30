@@ -1,7 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Screen;
-
 /**
  * Handle a multi player game
  */
@@ -30,6 +28,7 @@ public class MultiPlayerMaestro implements Maestro {
             }
         } else if (current.equals("RaceScreen")) {
             if (action.equals("restart")) {
+                ((RaceScreen)mGame.getScreen()).forgetMapInfo();
                 mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
             } else if (action.equals("quit")) {
                 mGame.showMainMenu();

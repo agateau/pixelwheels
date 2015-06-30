@@ -31,7 +31,7 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int POSITION_ITERATIONS = 2;
 
     private final TheGame mGame;
-    private final MapInfo mMapInfo;
+    private MapInfo mMapInfo;
 
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
@@ -317,6 +317,13 @@ public class GameWorld implements ContactListener, Disposable {
 
     @Override
     public void dispose() {
-        mMapInfo.dispose();
+        if (mMapInfo != null) {
+            mMapInfo.dispose();
+        }
     }
+
+    public void forgetMapInfo() {
+        mMapInfo = null;
+    }
+
 }

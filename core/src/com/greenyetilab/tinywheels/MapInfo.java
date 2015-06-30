@@ -180,6 +180,7 @@ public class MapInfo implements Disposable {
     @Override
     public void dispose() {
         mMap.dispose();
+        mMap = null;
     }
 
     public Array<Vector2> findStartTilePositions() {
