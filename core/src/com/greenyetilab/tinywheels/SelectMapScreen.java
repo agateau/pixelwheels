@@ -1,5 +1,6 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
@@ -14,23 +15,26 @@ public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;
     private final GameInfo mGameInfo;
     private final Maestro mMaestro;
+    private final String mPreferenceKey;
     private MapSelector mMapSelector;
 
-    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
+    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo, String preferenceKey) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
+        mPreferenceKey = preferenceKey;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo));
+                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo, mPreferenceKey));
             }
         };
     }
 
     private void setupUi() {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        Assets assets = mGame.getAssets();
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
         MapSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectmap.gdxui"));
@@ -38,7 +42,9 @@ public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(root);
 
         mMapSelector = builder.getActor("mapSelector");
-        mMapSelector.init(mGame.getAssets());
+        mMapSelector.init(assets);
+        String id = TheGame.getPreferences().getString(mPreferenceKey);
+        mMapSelector.setSelected(assets.findMapInfoByID(id));
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -49,12 +55,20 @@ public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                saveSelectedMap();
                 mMaestro.actionTriggered("back");
             }
         });
     }
 
+    private void saveSelectedMap() {
+        Preferences prefs = TheGame.getPreferences();
+        prefs.putString(mPreferenceKey, mMapSelector.getSelected().getId());
+        prefs.flush();
+    }
+
     private void next() {
+        saveSelectedMap();
         mGameInfo.mapInfo = mMapSelector.getSelected();
         mMaestro.actionTriggered("next");
     }

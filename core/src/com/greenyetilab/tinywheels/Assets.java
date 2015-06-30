@@ -129,6 +129,15 @@ public class Assets {
         return null;
     }
 
+    public MapInfo findMapInfoByID(String id) {
+        for (MapInfo info : mapInfos) {
+            if (info.getId().equals(id)) {
+                return info;
+            }
+        }
+        return null;
+    }
+
     public NinePatch createScaledPatch(String name) {
         return createScaledPatch(name, null);
     }

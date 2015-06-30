@@ -16,7 +16,7 @@ public class MultiPlayerMaestro implements Maestro {
         String current = mGame.getScreen().getClass().getSimpleName();
         if (current.equals("MultiPlayerScreen")) {
             if (action.equals("next")) {
-                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo));
+                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo, PrefConstants.MULTIPLAYER_MAP_ID));
             } else if (action.equals("back")) {
                 mGame.showMainMenu();
             }
