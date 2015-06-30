@@ -11,7 +11,7 @@
                     width="200"
                     height="60"
                     bottomCenter="root.bottomCenter 0 1"
-            >GO!</TextButton>
+            >Next</TextButton>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"
