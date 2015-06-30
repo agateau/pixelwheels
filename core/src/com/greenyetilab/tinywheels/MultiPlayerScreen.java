@@ -68,6 +68,10 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     }
 
     private void next() {
+        // If we go back and forth between screens, there might already be some PlayerInfo instances
+        // remove them
+        mGameInfo.playerInfos.clear();
+
         Preferences prefs = TheGame.getPreferences();
         KeyboardInputHandler inputHandler = new KeyboardInputHandler();
         String id = mVehicleSelector1.getSelectedId();
