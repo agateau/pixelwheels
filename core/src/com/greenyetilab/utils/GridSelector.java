@@ -36,6 +36,10 @@ public class GridSelector<T> extends Widget {
     }
 
     public void setSelected(T item) {
+        if (item == null) {
+            mSelectedItem = mItems.size > 0 ? mItems.first() : null;
+            return;
+        }
         if (mItems.indexOf(item, true) < 0) {
             NLog.e("Item is not in the item list");
             return;

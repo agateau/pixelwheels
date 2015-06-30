@@ -120,6 +120,15 @@ public class Assets {
         return lst;
     }
 
+    public VehicleDef findVehicleDefByID(String id) {
+        for (VehicleDef def : vehicleDefs) {
+            if (def.id.equals(id)) {
+                return def;
+            }
+        }
+        return null;
+    }
+
     public NinePatch createScaledPatch(String name) {
         return createScaledPatch(name, null);
     }

@@ -2,6 +2,7 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
@@ -33,7 +34,9 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     }
 
     private void setupUi() {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        Assets assets = mGame.getAssets();
+        Preferences prefs = TheGame.getPreferences();
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
         VehicleSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
@@ -41,9 +44,14 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
         getStage().addActor(root);
 
         mVehicleSelector1 = builder.getActor("vehicleSelector1");
-        mVehicleSelector1.init(mGame.getAssets());
+        mVehicleSelector1.init(assets);
+        String id = prefs.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID1);
+        mVehicleSelector1.setSelected(assets.findVehicleDefByID(id));
+
         mVehicleSelector2 = builder.getActor("vehicleSelector2");
-        mVehicleSelector2.init(mGame.getAssets());
+        mVehicleSelector2.init(assets);
+        id = prefs.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID2);
+        mVehicleSelector2.setSelected(assets.findVehicleDefByID(id));
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -60,16 +68,23 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
     }
 
     private void next() {
+        Preferences prefs = TheGame.getPreferences();
         KeyboardInputHandler inputHandler = new KeyboardInputHandler();
-        mGameInfo.addPlayerInfo(mVehicleSelector1.getSelectedId(), inputHandler);
+        String id = mVehicleSelector1.getSelectedId();
+        mGameInfo.addPlayerInfo(id, inputHandler);
+        prefs.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID1, id);
 
         inputHandler = new KeyboardInputHandler();
         inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);
         inputHandler.setActionKey(KeyboardInputHandler.Action.RIGHT, Input.Keys.V);
         inputHandler.setActionKey(KeyboardInputHandler.Action.BRAKE, Input.Keys.C);
         inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_LEFT);
-        mGameInfo.addPlayerInfo(mVehicleSelector2.getSelectedId(), inputHandler);
 
+        id = mVehicleSelector2.getSelectedId();
+        mGameInfo.addPlayerInfo(id, inputHandler);
+        prefs.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID2, id);
+
+        prefs.flush();
         mMaestro.actionTriggered("next");
     }
 }
