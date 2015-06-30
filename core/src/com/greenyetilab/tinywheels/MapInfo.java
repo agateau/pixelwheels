@@ -90,7 +90,7 @@ public class MapInfo implements Disposable {
     }
 
     public int getTotalLapCount() {
-        return 1;
+        return 3;
     }
 
     public TiledMap getMap() {
