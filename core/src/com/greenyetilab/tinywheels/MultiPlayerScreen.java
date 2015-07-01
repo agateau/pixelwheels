@@ -73,16 +73,18 @@ public class MultiPlayerScreen extends com.greenyetilab.utils.StageScreen {
         mGameInfo.playerInfos.clear();
 
         Preferences prefs = TheGame.getPreferences();
-        KeyboardInputHandler inputHandler = new KeyboardInputHandler();
-        String id = mVehicleSelector1.getSelectedId();
-        mGameInfo.addPlayerInfo(id, inputHandler);
-        prefs.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID1, id);
-
+        KeyboardInputHandler inputHandler;
         inputHandler = new KeyboardInputHandler();
         inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);
         inputHandler.setActionKey(KeyboardInputHandler.Action.RIGHT, Input.Keys.V);
         inputHandler.setActionKey(KeyboardInputHandler.Action.BRAKE, Input.Keys.C);
         inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_LEFT);
+        String id = mVehicleSelector1.getSelectedId();
+        mGameInfo.addPlayerInfo(id, inputHandler);
+        prefs.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID1, id);
+
+        inputHandler = new KeyboardInputHandler();
+        inputHandler.setActionKey(KeyboardInputHandler.Action.TRIGGER, Input.Keys.CONTROL_RIGHT);
 
         id = mVehicleSelector2.getSelectedId();
         mGameInfo.addPlayerInfo(id, inputHandler);

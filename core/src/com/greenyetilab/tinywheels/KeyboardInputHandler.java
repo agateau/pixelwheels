@@ -54,7 +54,7 @@ public class KeyboardInputHandler implements GameInputHandler {
         mKeyForAction[Action.LEFT.id] = Input.Keys.LEFT;
         mKeyForAction[Action.RIGHT.id] = Input.Keys.RIGHT;
         mKeyForAction[Action.BRAKE.id] = Input.Keys.DOWN;
-        mKeyForAction[Action.TRIGGER.id] = Input.Keys.CONTROL_RIGHT;
+        mKeyForAction[Action.TRIGGER.id] = Input.Keys.CONTROL_LEFT;
     }
 
     public void setActionKey(Action action, int key) {
