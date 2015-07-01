@@ -260,7 +260,7 @@ public class UiBuilder {
 
     protected Label createLabel(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
-        String text = element.getText();
+        String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
         String alignText = element.getAttribute("align", "");
         if (!alignText.isEmpty()) {
