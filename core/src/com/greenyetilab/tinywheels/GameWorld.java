@@ -22,7 +22,6 @@ import java.util.Comparator;
 public class GameWorld implements ContactListener, Disposable {
     public enum State {
         RUNNING,
-        BROKEN,
         FINISHED
     }
 

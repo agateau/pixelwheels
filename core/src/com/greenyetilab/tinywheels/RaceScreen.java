@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -18,7 +17,6 @@ public class RaceScreen extends ScreenAdapter {
     private final Maestro mMaestro;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
-    private Batch mBatch;
 
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
@@ -34,19 +32,19 @@ public class RaceScreen extends ScreenAdapter {
     public RaceScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
-        mBatch = new SpriteBatch();
+        SpriteBatch batch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
         mBackgroundColor = gameInfo.mapInfo.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
-        mHudStage = new Stage(mHudViewport, mBatch);
+        mHudStage = new Stage(mHudViewport, batch);
         Gdx.input.setInputProcessor(mHudStage);
 
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
-            GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, mBatch, mPerformanceCounters);
+            GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, batch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
 
             Hud hud = new Hud(game.getAssets(), mGameWorld, mHudStage, idx, mPerformanceCounters);

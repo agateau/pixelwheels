@@ -10,7 +10,7 @@ import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
- * Created by aurelien on 21/11/14.
+ * Main menu, shown at startup
  */
 public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
     private final TheGame mGame;

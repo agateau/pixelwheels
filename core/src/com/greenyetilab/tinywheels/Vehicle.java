@@ -11,8 +11,6 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
-import com.greenyetilab.utils.GylMathUtils;
-
 /**
  * Represents a car on the world
  */
@@ -25,8 +23,6 @@ class Vehicle implements Disposable {
 
     protected final Body mBody;
     protected final GameWorld mGameWorld;
-    private boolean mLimitAngle;
-    private boolean mCorrectAngle;
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
@@ -138,22 +134,6 @@ class Vehicle implements Disposable {
         return mBody.getAngle() * MathUtils.radiansToDegrees + 90;
     }
 
-    public boolean getLimitAngle() {
-        return mLimitAngle;
-    }
-
-    public void setLimitAngle(boolean limitAngle) {
-        mLimitAngle = limitAngle;
-    }
-
-    public boolean getCorrectAngle() {
-        return mCorrectAngle;
-    }
-
-    public void setCorrectAngle(boolean correctAngle) {
-        mCorrectAngle = correctAngle;
-    }
-
     public float getWidth() {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionWidth();
     }
@@ -174,18 +154,8 @@ class Vehicle implements Disposable {
         }
 
         float steerAngle = 0;
-        if (mDirection == 0) {
-            if (mCorrectAngle) {
-                steerAngle = computeAutoSteerAngle();
-            }
-        } else {
+        if (mDirection != 0) {
             float direction = mDirection;
-            if (mLimitAngle) {
-                float currentAngle = mBody.getLinearVelocity().angle();
-                if ((direction > 0 && currentAngle >= 135) || (direction < 0 && currentAngle <= 45)) {
-                    direction = 0;
-                }
-            }
             float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
             float steer = MathUtils.lerp(GamePlay.instance.lowSpeedMaxSteer, GamePlay.instance.highSpeedMaxSteer, steerFactor);
             steerAngle = direction * steer;
@@ -238,32 +208,5 @@ class Vehicle implements Disposable {
 
     public String getName() {
         return mName;
-    }
-
-    private static float computeAngleDelta(float a1, float a2) {
-        float delta = Math.abs(a2 - a1);
-        if (delta > 180) {
-            delta = 360 - delta;
-        }
-        return delta;
-    }
-
-    private float computeAutoSteerAngle() {
-        float angle = GylMathUtils.normalizeAngle(getAngle());
-        float velocityAngle = GylMathUtils.normalizeAngle(mBody.getLinearVelocity().angle());
-        float angleDelta = computeAngleDelta(angle, velocityAngle);
-        boolean reverse = angleDelta > 90;
-
-        float targetAngle;
-        if (mLimitAngle) {
-            targetAngle = 90;
-        } else {
-            targetAngle = MathUtils.round(angle / 45) * 45;
-        }
-        if (reverse) {
-            targetAngle = (targetAngle + 180) % 360;
-        }
-        float correctedAngle = (targetAngle - velocityAngle) / 3;
-        return reverse ? -correctedAngle : correctedAngle;
     }
 }
