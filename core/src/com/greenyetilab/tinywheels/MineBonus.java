@@ -12,6 +12,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private Mine mMine;
+    private boolean mTriggered;
 
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
@@ -32,7 +33,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void reset() {
-
+        mTriggered = false;
     }
 
     @Override
@@ -48,9 +49,21 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void trigger() {
-        mMine.drop();
-        mRacer.resetBonus();
-        mPool.free(this);
+        mTriggered = true;
+    }
+
+    @Override
+    public void onOwnerHit() {
+        mTriggered = true;
+    }
+
+    @Override
+    public void act(float delta) {
+        if (mTriggered) {
+            mRacer.resetBonus();
+            mMine.drop();
+            mPool.free(this);
+        }
     }
 
     @Override

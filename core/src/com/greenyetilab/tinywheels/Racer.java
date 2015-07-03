@@ -71,7 +71,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
         if (mBonus != null) {
             mBonus.onOwnerHit();
-            resetBonus();
         }
     }
 
