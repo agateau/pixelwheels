@@ -93,6 +93,16 @@ public class Wheel implements Pool.Poolable, Disposable {
         if (amount == 0) {
             return;
         }
+        final float currentSpeed = mBody.getLinearVelocity().len() * 3.6f;
+
+        // When currentSpeed is between midSpeed and maxSpeed linearly limit the force applied to
+        // the wheel so that vehicles accelerate strongly at start then less when they are driving
+        // faster
+        final float midSpeed = GamePlay.instance.midSpeed;
+        final float maxSpeed = GamePlay.instance.maxSpeed;
+        final float limit = MathUtils.clamp(1f - (currentSpeed - midSpeed) / (maxSpeed - midSpeed), 0f, 1f);
+        amount *= limit;
+
         float force = mMaxDrivingForce * amount;
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
