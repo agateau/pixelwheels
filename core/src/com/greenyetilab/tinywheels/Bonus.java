@@ -17,7 +17,7 @@ public interface Bonus {
     /**
      * Called when a Racer is hit while carrying a bonus.
      */
-    void onDropped();
+    void onOwnerHit();
 
     void trigger();
 

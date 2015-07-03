@@ -70,7 +70,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             info.wheel.disableGripFor(GamePlay.instance.spinDuration / 10f);
         }
         if (mBonus != null) {
-            mBonus.onDropped();
+            mBonus.onOwnerHit();
             resetBonus();
         }
     }

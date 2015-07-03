@@ -103,7 +103,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     @Override
-    public void onDropped() {
+    public void onOwnerHit() {
         mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
         mPool.free(this);
     }

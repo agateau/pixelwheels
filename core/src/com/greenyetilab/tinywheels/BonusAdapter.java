@@ -12,7 +12,7 @@ public abstract class BonusAdapter implements Bonus {
     }
 
     @Override
-    public void onDropped() {
+    public void onOwnerHit() {
     }
 
     @Override
