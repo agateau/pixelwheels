@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -18,18 +17,7 @@ public class VehicleSelector extends GridSelector<VehicleDef> {
         @Override
         public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef, boolean selected) {
             TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
-            float oldAlpha = batch.getColor().a;
-            if (selected) {
-                Color color = batch.getColor();
-                color.a /= 2;
-                batch.setColor(color);
-            }
-            batch.draw(region, x + (width - region.getRegionWidth()) / 2, y + (height - region.getRegionHeight()) / 2);
-            if (selected) {
-                Color color = batch.getColor();
-                color.a = oldAlpha;
-                batch.setColor(color);
-            }
+            mAssets.renderGridSelectorItem(batch, x, y, width, height, region, selected);
         }
     }
 

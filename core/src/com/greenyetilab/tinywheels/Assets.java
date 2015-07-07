@@ -2,9 +2,11 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
@@ -39,6 +41,7 @@ public class Assets {
     public final Animation gunAnimation;
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
+    public final NinePatch selection;
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
@@ -79,6 +82,8 @@ public class Assets {
         removeBorders(this.hudBackground);
 
         this.skidmark = findRegion("skidmark");
+
+        this.selection = uiAtlas.createPatch("selection");
 
         loadVehicleDefinitions();
     }
@@ -164,5 +169,15 @@ public class Assets {
         for (String id : VEHICLE_IDS) {
             this.vehicleDefs.add(VehicleIO.get(id));
         }
+    }
+
+    public void renderGridSelectorItem(Batch batch, float x, float y, float width, float height, TextureRegion region, boolean selected) {
+        float regionW = region.getRegionWidth();
+        float regionH = region.getRegionHeight();
+        if (selected) {
+            final float pad = 8;
+            this.selection.draw(batch, x + MathUtils.round((width - regionW) / 2) - pad, y + MathUtils.round((height - regionH) / 2) - pad, regionW + 2 * pad, regionH + 2 * pad);
+        }
+        batch.draw(region, x + (width - regionW) / 2, y + (height - regionH) / 2);
     }
 }

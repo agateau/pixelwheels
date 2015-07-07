@@ -20,49 +20,49 @@ checkbox-on
   index: -1
 icon-back
   rotate: false
-  xy: 297, 108
+  xy: 232, 96
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-config
   rotate: false
-  xy: 232, 96
+  xy: 274, 60
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-debug
   rotate: false
-  xy: 274, 66
+  xy: 232, 54
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-highscores
   rotate: false
-  xy: 232, 54
+  xy: 316, 60
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-left
   rotate: false
-  xy: 316, 66
+  xy: 274, 18
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-restart
   rotate: false
-  xy: 274, 24
+  xy: 232, 12
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-right
   rotate: false
-  xy: 232, 12
+  xy: 316, 18
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -118,5 +118,14 @@ roundbutton-down
   xy: 231, 138
   size: 64, 64
   orig: 64, 64
+  offset: 0, 0
+  index: -1
+selection
+  rotate: false
+  xy: 297, 102
+  size: 46, 46
+  split: 15, 15, 15, 15
+  pad: 6, 6, 6, 6
+  orig: 46, 46
   offset: 0, 0
   index: -1
