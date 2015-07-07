@@ -353,19 +353,22 @@
   <object x="1727.42" y="1023.12" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1046.67" y="1221.33" width="64" height="64">
+  <object x="1131.52" y="1188" width="64" height="64">
    <ellipse/>
   </object>
   <object x="976" y="1456" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="766.909" y="1612.97" width="64" height="64">
+  <object x="727.515" y="1549.33" width="64" height="64">
    <ellipse/>
   </object>
   <object x="2560" y="1408" width="64" height="64">
    <ellipse/>
   </object>
   <object x="590.667" y="1288" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object x="1940.73" y="1061.94" width="64" height="64">
    <ellipse/>
   </object>
  </objectgroup>

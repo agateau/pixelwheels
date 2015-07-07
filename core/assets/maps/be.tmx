@@ -58,41 +58,47 @@
    <polyline points="0,0 -788,784"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints" visible="0">
-  <object x="400" y="488">
+ <objectgroup name="Waypoints">
+  <object x="465" y="574" width="32" height="46">
    <ellipse/>
   </object>
-  <object x="854.667" y="408">
+  <object x="718.667" y="390" width="44" height="38">
    <ellipse/>
   </object>
-  <object x="2101.33" y="471.333">
+  <object x="1965.33" y="471.333" width="64" height="46">
    <ellipse/>
   </object>
-  <object x="1214" y="2080">
+  <object x="1262" y="2038" width="46" height="50">
    <ellipse/>
   </object>
-  <object x="1209" y="4154">
+  <object x="1257" y="3380" width="52" height="56">
    <ellipse/>
   </object>
-  <object x="483" y="4112">
+  <object x="477" y="4022" width="48" height="46">
    <ellipse/>
   </object>
   <object x="408" y="1912">
    <ellipse/>
   </object>
-  <object x="827.273" y="4215.15">
+  <object x="903.273" y="4167.15" width="58" height="54">
    <ellipse/>
   </object>
-  <object x="2069.7" y="1678.79" width="69.697" height="60.6061">
+  <object x="1881.7" y="1616.79" width="69.697" height="60.6061">
    <ellipse/>
   </object>
-  <object x="2135.88" y="1042.79" width="63.6364" height="60.6061">
+  <object x="2087.88" y="666.79" width="63.6364" height="60.6061">
    <ellipse/>
   </object>
-  <object x="1484.85" y="372.364" width="51.5152" height="60.6061">
+  <object x="1390.85" y="394.364" width="51.5152" height="60.6061">
    <ellipse/>
   </object>
-  <object x="1522.42" y="1745.45" width="72.7273" height="54.5455">
+  <object x="1450.42" y="1791.45" width="72.7273" height="54.5455">
+   <ellipse/>
+  </object>
+  <object x="1176" y="3990" width="52" height="56">
+   <ellipse/>
+  </object>
+  <object x="2051.15" y="1433.7" width="69.697" height="60.6061">
    <ellipse/>
   </object>
  </objectgroup>
