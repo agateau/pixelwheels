@@ -2,9 +2,11 @@ package com.greenyetilab.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.FloatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.log.NLog;
@@ -13,19 +15,28 @@ import com.greenyetilab.utils.log.NLog;
  * An actor to select items in a grid
  */
 public class GridSelector<T> extends Widget {
+    private static final float ANIMATION_DURATION = 0.2f;
     private Array<T> mItems;
     private T mSelectedItem = null;
     private ItemRenderer<T> mRenderer;
     private float mItemWidth = 0;
     private float mItemHeight = 0;
 
+    private FloatAction mXAction = new FloatAction();
+    private FloatAction mYAction = new FloatAction();
+
     public interface ItemRenderer<T> {
-        void render(Batch batch, float x, float y, float width, float height, T item, boolean selected);
+        void renderSelectionIndicator(Batch batch, float x, float y, float width, float height, T item);
+        void render(Batch batch, float x, float y, float width, float height, T item);
     }
 
     public GridSelector() {
+        mXAction.setDuration(ANIMATION_DURATION);
+        mYAction.setDuration(ANIMATION_DURATION);
+        mXAction.setInterpolation(Interpolation.pow2Out);
+        mYAction.setInterpolation(Interpolation.pow2Out);
         addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (pointer == 0 && button != 0) {
                     return false;
                 }
@@ -37,14 +48,32 @@ public class GridSelector<T> extends Widget {
 
     public void setSelected(T item) {
         if (item == null) {
-            mSelectedItem = mItems.size > 0 ? mItems.first() : null;
+            setSelectedIndex(mItems.size > 0 ? 0 : -1);
             return;
         }
-        if (mItems.indexOf(item, true) < 0) {
+        int index = mItems.indexOf(item, true);
+        if (index < 0) {
             NLog.e("Item is not in the item list");
             return;
         }
-        mSelectedItem = item;
+        setSelectedIndex(index);
+    }
+
+    private void setSelectedIndex(int index) {
+        if (index < 0) {
+            mSelectedItem = null;
+            return;
+        }
+        assert(index < mItems.size);
+        mSelectedItem = mItems.get(index);
+
+        final int columnCount = Math.min(MathUtils.floor(getWidth() / mItemWidth), mItems.size);
+        int column = index % columnCount;
+        int row = index / columnCount;
+        updateActionEnds(column, row);
+        mXAction.finish();
+        mYAction.finish();
+
     }
 
     public T getSelected() {
@@ -70,6 +99,12 @@ public class GridSelector<T> extends Widget {
     }
 
     @Override
+    public void act(float delta) {
+        mXAction.act(delta);
+        mYAction.act(delta);
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         if (mRenderer == null) {
             NLog.e("No renderer");
@@ -87,14 +122,18 @@ public class GridSelector<T> extends Widget {
         final float gutterWidth = (getWidth() - mItemWidth * columnCount) / 2;
         float x = gutterWidth;
         float y = getHeight() - mItemHeight;
+
         for (T item : mItems) {
-            boolean selected = item == mSelectedItem;
-            mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item, selected);
+            mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
             x += mItemWidth;
             if (x + mItemWidth > getWidth()) {
                 x = gutterWidth;
                 y -= mItemHeight;
             }
+        }
+
+        if (mSelectedItem != null) {
+            mRenderer.renderSelectionIndicator(batch, getX() + gutterWidth + mXAction.getValue(), getY() + mYAction.getValue(), mItemWidth, mItemHeight, mSelectedItem);
         }
     }
 
@@ -113,6 +152,16 @@ public class GridSelector<T> extends Widget {
         int idx = row * columnCount + column;
         if (idx >=0 && idx < mItems.size) {
             mSelectedItem = mItems.get(idx);
+            mXAction.setStart(mXAction.getValue());
+            mYAction.setStart(mYAction.getValue());
+            updateActionEnds(column, row);
+            mXAction.restart();
+            mYAction.restart();
         }
+    }
+
+    private void updateActionEnds(int column, int row) {
+        mXAction.setEnd(column * mItemWidth);
+        mYAction.setEnd(getHeight() - (row + 1) * mItemHeight);
     }
 }

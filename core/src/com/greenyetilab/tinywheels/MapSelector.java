@@ -15,9 +15,14 @@ public class MapSelector extends GridSelector<MapInfo> {
 
     private class Renderer implements GridSelector.ItemRenderer<MapInfo> {
         @Override
-        public void render(Batch batch, float x, float y, float width, float height, MapInfo mapInfo, boolean selected) {
+        public void renderSelectionIndicator(Batch batch, float x, float y, float width, float height, MapInfo mapInfo) {
             TextureRegion region = mAssets.uiAtlas.findRegion("map-screenshots/" + mapInfo.getId());
-            mAssets.renderGridSelectorItem(batch, x, y, width, height, region, selected);
+            mAssets.renderGridSelectionIndicator(batch, x, y, width, height, region);
+        }
+        @Override
+        public void render(Batch batch, float x, float y, float width, float height, MapInfo mapInfo) {
+            TextureRegion region = mAssets.uiAtlas.findRegion("map-screenshots/" + mapInfo.getId());
+            mAssets.renderGridItem(batch, x, y, width, height, region);
         }
     }
 

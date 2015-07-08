@@ -15,9 +15,15 @@ public class VehicleSelector extends GridSelector<VehicleDef> {
 
     private class Renderer implements GridSelector.ItemRenderer<VehicleDef> {
         @Override
-        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef, boolean selected) {
+        public void renderSelectionIndicator(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
             TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
-            mAssets.renderGridSelectorItem(batch, x, y, width, height, region, selected);
+            mAssets.renderGridSelectionIndicator(batch, x, y, width, height, region);
+        }
+
+        @Override
+        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
+            TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
+            mAssets.renderGridItem(batch, x, y, width, height, region);
         }
     }
 

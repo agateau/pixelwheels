@@ -171,13 +171,16 @@ public class Assets {
         }
     }
 
-    public void renderGridSelectorItem(Batch batch, float x, float y, float width, float height, TextureRegion region, boolean selected) {
+    public void renderGridSelectionIndicator(Batch batch, float x, float y, float width, float height, TextureRegion region) {
         float regionW = region.getRegionWidth();
         float regionH = region.getRegionHeight();
-        if (selected) {
-            final float pad = 8;
-            this.selection.draw(batch, x + MathUtils.round((width - regionW) / 2) - pad, y + MathUtils.round((height - regionH) / 2) - pad, regionW + 2 * pad, regionH + 2 * pad);
-        }
+        final float pad = 8;
+        this.selection.draw(batch, x + MathUtils.round((width - regionW) / 2) - pad, y + MathUtils.round((height - regionH) / 2) - pad, regionW + 2 * pad, regionH + 2 * pad);
+    }
+
+    public void renderGridItem(Batch batch, float x, float y, float width, float height, TextureRegion region) {
+        float regionW = region.getRegionWidth();
+        float regionH = region.getRegionHeight();
         batch.draw(region, x + (width - regionW) / 2, y + (height - regionH) / 2);
     }
 }
