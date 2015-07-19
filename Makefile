@@ -7,7 +7,7 @@ EXECUTABLE=tinywheels
 PACKR=tools/packr.jar
 PACKR_OUT_DIR=packr-out
 
-VERSION=`date +%y%m%d-%H%M`
+VERSION=0.1
 
 DIST_OUT_BASE_DIR=dist-out
 DIST_NAME=$(EXECUTABLE)-$(VERSION)
@@ -15,6 +15,10 @@ DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
 
 JDK_LINUX64_URL=https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u60-unofficial-linux-amd64-image.zip
 JDK_LINUX64_ZIP=openjdk-linux64.zip
+
+ifdef SNAPSHOT
+	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
+endif
 
 all: build
 
