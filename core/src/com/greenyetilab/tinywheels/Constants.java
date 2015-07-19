@@ -13,7 +13,6 @@ public class Constants {
 
     public static final int Z_COUNT = Z_FLYING + 1;
 
-    public static final float VIEWPORT_WIDTH = 45;
     public static final float CAMERA_ADVANCE_PERCENT = 0.25f;
 
     public static final int PLAYER_HEALTH = 3;
