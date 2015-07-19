@@ -16,6 +16,8 @@ DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
 JDK_LINUX64_URL=https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u60-unofficial-linux-amd64-image.zip
 JDK_LINUX64_ZIP=openjdk-linux64.zip
 
+ARCHIVE_DIR=$(CURDIR)/archives
+
 ifdef SNAPSHOT
 	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
 endif
@@ -82,18 +84,22 @@ dist: build
 	@rm -rf $(DIST_OUT_DIR)
 
 	@echo Moving tarball
-	@mkdir -p tmp
-	@mv $(DIST_OUT_DIR).tar.bz2 tmp
+	@mkdir -p $(ARCHIVE_DIR)
+	@mv $(DIST_OUT_DIR).tar.bz2 $(ARCHIVE_DIR)
 
 # apk
 apk:
 	@echo Creating .apk
 	@$(GRADLEW) android:assembleRelease
 	@echo Moving .apk
-	@mkdir -p tmp
-	@mv android/build/outputs/apk/android-release.apk tmp/$(EXECUTABLE)-$(VERSION).apk
+	@mkdir -p $(ARCHIVE_DIR)
+	@mv android/build/outputs/apk/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
 
-release: dist apk
+tag:
 	git tag -f -m "Release Tiny Wheels $(VERSION)" $(VERSION)
+
+tagpush: tag
+	git push
+	git push --tags
 
 .PHONY: tools build
