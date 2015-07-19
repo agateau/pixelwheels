@@ -1,5 +1,7 @@
 # Create archives
 
+- Edit Makefile to bump version number
+
 - Build archives on CI
 
     git pull
@@ -7,14 +9,14 @@
     git checkout master
     git status
 
-    make clean tools packer mappacker release
+    make clean packer mappacker dist apk
 
 - Test on computer
 - Test on device
-- Push
 
-    git push
-    git push --tags
+- Tag and push
+
+    make tagpush
 
 # Upload archives
 
