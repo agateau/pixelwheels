@@ -156,8 +156,15 @@ class Vehicle implements Disposable {
         float steerAngle = 0;
         if (mDirection != 0) {
             float direction = mDirection;
-            float steerFactor = Math.min(mBody.getLinearVelocity().len() / 40f, 1f);
-            float steer = MathUtils.lerp(GamePlay.instance.lowSpeedMaxSteer, GamePlay.instance.highSpeedMaxSteer, steerFactor);
+            float speed = mBody.getLinearVelocity().len() * 3.6f;
+            float steer;
+            final GamePlay gp = GamePlay.instance;
+            if (speed < gp.lowSpeed) {
+                steer = MathUtils.lerp(100, gp.lowSpeedMaxSteer, speed / gp.lowSpeed);
+            } else {
+                float factor = Math.min((speed - gp.lowSpeed) / (gp.maxSpeed - gp.lowSpeed), 1);
+                steer = MathUtils.lerp(gp.lowSpeedMaxSteer, gp.highSpeedMaxSteer, factor);
+            }
             steerAngle = direction * steer;
         }
 
