@@ -92,4 +92,4 @@ apk:
 release: dist apk
 	git tag -f -m "Release Tiny Wheels $(VERSION)" $(VERSION)
 
-.PHONY: tools
+.PHONY: tools build
