@@ -1,5 +1,5 @@
 <vehicle speed="1" name="Red">
     <main image="red"/>
     <axle y="44" width="26" steer="1"/>
-    <axle y="12" width="26"/>
+    <axle y="12" width="28"/>
 </vehicle>
