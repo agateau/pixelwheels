@@ -245,6 +245,7 @@ public class GameWorld implements ContactListener, Disposable {
     private void setupBonusPools() {
         mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this));
         mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this));
+        mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this));
     }
 
     public void addSkidmarkAt(Vector2 position) {

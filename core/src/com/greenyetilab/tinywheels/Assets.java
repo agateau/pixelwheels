@@ -19,6 +19,7 @@ public class Assets {
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
     private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
+    private static final float TURBO_FRAME_DURATION = 0.04f;
 
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin" };
 
@@ -37,6 +38,7 @@ public class Assets {
     public final Animation iceExplosion;
     public final Animation impact;
     public final Animation mine;
+    public final Animation turbo;
     public final Array<TextureRegion> gifts = new Array<TextureRegion>();
     public final Animation gunAnimation;
     public final TextureRegion bullet;
@@ -67,6 +69,8 @@ public class Assets {
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
+        this.turbo = new Animation(TURBO_FRAME_DURATION, this.findRegions("bonus-turbo"));
+        this.turbo.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         for (int idx = 0; idx <= 2; ++idx) {
             String name = String.format("gift-%d", idx);
             this.gifts.add(findRegion(name));
