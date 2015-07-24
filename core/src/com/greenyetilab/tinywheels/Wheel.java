@@ -27,6 +27,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private float mMaxDrivingForce;
     private float mDisabledGripDelay = 0;
     private float mGroundSpeed;
+    private float mTurbo = 0;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -65,6 +66,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     @Override
     public void reset() {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
+        mTurbo = 0;
     }
 
     public void act(float delta) {
@@ -90,6 +92,9 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public void adjustSpeed(float amount) {
+        if (mTurbo > 0 && amount == 0) {
+            amount = mTurbo;
+        }
         if (amount == 0) {
             return;
         }
@@ -104,6 +109,9 @@ public class Wheel implements Pool.Poolable, Disposable {
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
+        if (mTurbo > 0) {
+            force += GamePlay.instance.turboStrength * mTurbo;
+        }
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
@@ -117,7 +125,8 @@ public class Wheel implements Pool.Poolable, Disposable {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxImpulse) {
+        if (mCanDrift && impulse.len() > maxImpulse && mTurbo == 0) {
+            // Drift
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
@@ -142,5 +151,9 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setMaxDrivingForce(float maxDrivingForce) {
         mMaxDrivingForce = maxDrivingForce;
+    }
+
+    public void setTurbo(float turbo) {
+        mTurbo = turbo;
     }
 }

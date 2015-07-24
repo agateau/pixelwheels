@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.Disposable;
  * Represents a car on the world
  */
 class Vehicle implements Disposable {
+    private float mGroundSpeed;
+
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
@@ -32,6 +34,7 @@ class Vehicle implements Disposable {
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
+    private float mTurbo = 0;
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
@@ -169,20 +172,24 @@ class Vehicle implements Disposable {
         }
 
         steerAngle *= MathUtils.degreesToRadians;
-        float groundSpeed = 1;
+        mGroundSpeed = 0;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
             info.wheel.act(dt);
-            groundSpeed += info.wheel.getGroundSpeed();
+            mGroundSpeed += info.wheel.getGroundSpeed();
         }
-        groundSpeed /= mWheels.size;
+        mGroundSpeed /= mWheels.size;
 
-        if (groundSpeed != 1f) {
-            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GamePlay.instance.groundDragFactor);
+        if (mGroundSpeed < 1f && mTurbo == 0) {
+            Box2DUtils.applyDrag(mBody, (1 - mGroundSpeed) * GamePlay.instance.groundDragFactor);
         }
+    }
+
+    public float getGroundSpeed() {
+        return mGroundSpeed;
     }
 
     public boolean isAccelerating() {
@@ -215,5 +222,12 @@ class Vehicle implements Disposable {
 
     public String getName() {
         return mName;
+    }
+
+    public void setTurbo(float turbo) {
+        mTurbo = turbo;
+        for (WheelInfo info : mWheels) {
+            info.wheel.setTurbo(turbo);
+        }
     }
 }

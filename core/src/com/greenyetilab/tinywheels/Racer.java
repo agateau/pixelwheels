@@ -21,6 +21,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
 
     private final LapPositionComponent mLapPositionComponent;
+    private final TurboComponent mTurboComponent;
 
     private Pilot mPilot;
 
@@ -28,10 +29,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private Bonus mBonus;
     private boolean mMustSelectBonus = false;
 
-    public Racer(GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
+        mTurboComponent = new TurboComponent(assets, this);
 
         mVehicle = vehicle;
         mVehicle.setUserData(this);
@@ -128,6 +130,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
         mLapPositionComponent.act(delta);
         mVehicle.act(delta);
+        if (mVehicle.getGroundSpeed() > 1.5f) {
+            triggerTurbo();
+        }
         if (mLapPositionComponent.hasFinishedRace()) {
             mVehicle.setAccelerating(false);
         } else {
@@ -140,6 +145,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         if (mBonus != null) {
             mBonus.act(delta);
         }
+        mTurboComponent.act(delta);
     }
 
     private void selectBonus() {
@@ -186,5 +192,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     public VehicleRenderer getVehicleRenderer() {
         return mVehicleRenderer;
+    }
+
+    public void triggerTurbo() {
+        mTurboComponent.trigger();
     }
 }

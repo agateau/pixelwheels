@@ -14,9 +14,6 @@ import com.greenyetilab.utils.log.NLog;
  * A turbo bonus
  */
 public class TurboBonus extends BonusAdapter implements Pool.Poolable {
-    private static final float DURATION = 0.5f;
-    private static final float STRENGTH = 100;
-
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
             super(assets, gameWorld);
@@ -24,16 +21,14 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new TurboBonus(this, mAssets, mGameWorld);
+            return new TurboBonus(this, mAssets);
         }
     }
 
     private final Pool mPool;
     private final Assets mAssets;
-    private final GameWorld mGameWorld;
 
-    private boolean mTriggered;
-    private float mRemainingTime;
+    private boolean mTriggered = false;
     private float mAnimationTime;
 
     private final Renderer mBonusRenderer = new Renderer() {
@@ -46,31 +41,34 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
             float angle = body.getAngle() * MathUtils.radiansToDegrees;
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            float refW = vehicle.getWidth();
-            float refH = vehicle.getHeight() / 2;
+            float refH = vehicle.getHeight() / 3;
             float x = center.x + refH * MathUtils.cosDeg(angle - 90);
             float y = center.y + refH * MathUtils.sinDeg(angle - 90);
             batch.draw(region,
-                    x - w / 2, y - h, // pos
-                    w / 2, h, // origin
+                    x - w / 2, y - h / 2, // pos
+                    w / 2, h / 2, // origin
                     w, h, // size
                     1, 1, // scale
                     angle);
         }
     };
 
-    public TurboBonus(Pool pool, Assets assets, GameWorld gameWorld) {
+    public TurboBonus(Pool pool, Assets assets) {
         mPool = pool;
         mAssets = assets;
-        mGameWorld = gameWorld;
         reset();
     }
 
     @Override
     public void reset() {
-        mTriggered = false;
         mAnimationTime = 0;
-        mRemainingTime = DURATION;
+        mTriggered = false;
+    }
+
+    @Override
+    public void onPicked(Racer racer) {
+        super.onPicked(racer);
+        mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
     }
 
     @Override
@@ -86,8 +84,8 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void trigger() {
         if (!mTriggered) {
+            mRacer.triggerTurbo();
             mTriggered = true;
-            mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
         }
     }
 
@@ -97,10 +95,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
             return;
         }
         mAnimationTime += delta;
-        Box2DUtils.applyDrag(mRacer.getVehicle().getBody(), -STRENGTH);
-
-        mRemainingTime -= delta;
-        if (mRemainingTime < 0) {
+        if (mAnimationTime > mAssets.turbo.getAnimationDuration()) {
             resetBonus();
         }
     }
