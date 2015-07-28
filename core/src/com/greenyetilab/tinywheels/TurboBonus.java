@@ -84,7 +84,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void trigger() {
         if (!mTriggered) {
-            mRacer.triggerTurbo();
+            mRacer.getVehicle().triggerTurbo();
             mTriggered = true;
         }
     }

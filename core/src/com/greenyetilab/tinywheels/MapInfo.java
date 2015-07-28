@@ -159,10 +159,14 @@ public class MapInfo implements Disposable {
     }
 
     public TiledMapTile getTileAt(float x, float y) {
+        TiledMapTileLayer.Cell cell = getCellAt(x, y);
+        return cell == null ? null : cell.getTile();
+    }
+
+    public TiledMapTileLayer.Cell getCellAt(float x, float y) {
         int tx = MathUtils.floor(x / mTileWidth);
         int ty = MathUtils.floor(y / mTileHeight);
-        TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
-        return cell == null ? null : cell.getTile();
+        return mGroundLayer.getCell(tx, ty);
     }
 
     public float getMaxSpeedAt(Vector2 pos) {

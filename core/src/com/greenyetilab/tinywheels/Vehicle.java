@@ -1,6 +1,9 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,14 +12,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Represents a car on the world
  */
 class Vehicle implements Disposable {
-    private float mGroundSpeed;
-
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
@@ -34,7 +36,13 @@ class Vehicle implements Disposable {
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
-    private float mTurbo = 0;
+    private float mTurboTime = -1;
+
+    private static class TurboTileInfo {
+        public TiledMapTile tile;
+        public float duration;
+    }
+    private ArrayMap<TiledMapTileLayer.Cell, Float> mTurboCellMap = new ArrayMap<TiledMapTileLayer.Cell, Float>(false /* ordered */, 8);
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
@@ -151,6 +159,8 @@ class Vehicle implements Disposable {
     }
 
     public void act(float dt) {
+        final GamePlay GP = GamePlay.instance;
+
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.8f;
@@ -161,35 +171,69 @@ class Vehicle implements Disposable {
             float direction = mDirection;
             float speed = mBody.getLinearVelocity().len() * 3.6f;
             float steer;
-            final GamePlay gp = GamePlay.instance;
-            if (speed < gp.lowSpeed) {
-                steer = MathUtils.lerp(100, gp.lowSpeedMaxSteer, speed / gp.lowSpeed);
+            if (speed < GP.lowSpeed) {
+                steer = MathUtils.lerp(100, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
             } else {
-                float factor = Math.min((speed - gp.lowSpeed) / (gp.maxSpeed - gp.lowSpeed), 1);
-                steer = MathUtils.lerp(gp.lowSpeedMaxSteer, gp.highSpeedMaxSteer, factor);
+                float factor = Math.min((speed - GP.lowSpeed) / (GP.maxSpeed - GP.lowSpeed), 1);
+                steer = MathUtils.lerp(GP.lowSpeedMaxSteer, GP.highSpeedMaxSteer, factor);
             }
             steerAngle = direction * steer;
         }
+        float turboStrength = 0;
+        if (mTurboTime >= 0) {
+            turboStrength = GP.turboStrength * Interpolation.pow2.apply(1f - mTurboTime / GP.turboDuration);
+            mTurboTime += dt;
+            if (mTurboTime > GP.turboDuration) {
+                mTurboTime = -1;
+            }
+        }
+
+        boolean turboOn = mTurboTime > 0;
 
         steerAngle *= MathUtils.degreesToRadians;
-        mGroundSpeed = 0;
+        float groundSpeed = 0;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
+            info.wheel.setTurboStrength(turboStrength);
             info.wheel.act(dt);
-            mGroundSpeed += info.wheel.getGroundSpeed();
+            float wheelGroundSpeed = info.wheel.getGroundSpeed();
+            groundSpeed += wheelGroundSpeed;
+            TiledMapTileLayer.Cell cell = info.wheel.getCell();
+            boolean isTurboCell = wheelGroundSpeed > 1;
+            if (isTurboCell && (!turboOn || !alreadyTriggeredTurboCell(cell))) {
+                triggerTurbo();
+                addTriggeredTurboCell(cell);
+            }
         }
-        mGroundSpeed /= mWheels.size;
+        updateTriggeredTurboTiles(dt);
 
-        if (mGroundSpeed < 1f && mTurbo == 0) {
-            Box2DUtils.applyDrag(mBody, (1 - mGroundSpeed) * GamePlay.instance.groundDragFactor);
+        groundSpeed /= mWheels.size;
+
+        if (groundSpeed < 1f && !turboOn) {
+            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.instance.groundDragFactor);
         }
     }
 
-    public float getGroundSpeed() {
-        return mGroundSpeed;
+    private boolean alreadyTriggeredTurboCell(TiledMapTileLayer.Cell cell) {
+        return mTurboCellMap.containsKey(cell);
+    }
+
+    private void addTriggeredTurboCell(TiledMapTileLayer.Cell tile) {
+        mTurboCellMap.put(tile, GamePlay.instance.turboDuration);
+    }
+
+    private void updateTriggeredTurboTiles(float delta) {
+        for (int idx = mTurboCellMap.size - 1; idx >= 0; --idx) {
+            float duration = mTurboCellMap.getValueAt(idx) - delta;
+            if (duration <= 0) {
+                mTurboCellMap.removeIndex(idx);
+            } else {
+                mTurboCellMap.setValue(idx, duration);
+            }
+        }
     }
 
     public boolean isAccelerating() {
@@ -224,10 +268,11 @@ class Vehicle implements Disposable {
         return mName;
     }
 
-    public void setTurbo(float turbo) {
-        mTurbo = turbo;
-        for (WheelInfo info : mWheels) {
-            info.wheel.setTurbo(turbo);
-        }
+    public float getTurboTime() {
+        return mTurboTime;
+    }
+
+    public void triggerTurbo() {
+        mTurboTime = 0;
     }
 }
