@@ -1,7 +1,6 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -38,10 +37,6 @@ class Vehicle implements Disposable {
     private float mDirection = 0;
     private float mTurboTime = -1;
 
-    private static class TurboTileInfo {
-        public TiledMapTile tile;
-        public float duration;
-    }
     private ArrayMap<TiledMapTileLayer.Cell, Float> mTurboCellMap = new ArrayMap<TiledMapTileLayer.Cell, Float>(false /* ordered */, 8);
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
@@ -213,7 +208,7 @@ class Vehicle implements Disposable {
         groundSpeed /= mWheels.size;
 
         if (groundSpeed < 1f && !turboOn) {
-            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.instance.groundDragFactor);
+            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.groundDragFactor);
         }
     }
 
