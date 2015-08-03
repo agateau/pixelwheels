@@ -85,7 +85,7 @@ public class TouchInputHandler implements GameInputHandler {
         mBonusIndicator = new InputHudIndicator(assets, "square");
 
         group.addPositionRule(mLeftIndicator, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
-        group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mRightIndicator, Anchor.BOTTOM_RIGHT);
+        group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mLeftIndicator, Anchor.BOTTOM_RIGHT);
         group.addPositionRule(mBrakeIndicator, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
         group.addPositionRule(mBonusIndicator, Anchor.BOTTOM_RIGHT, mBrakeIndicator, Anchor.TOP_RIGHT);
     }
