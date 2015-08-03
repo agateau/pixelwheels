@@ -3,8 +3,6 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.greenyetilab.utils.anchor.Anchor;
-import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * Handle keyboard input, for desktop mode
@@ -47,7 +45,6 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     private final int[] mKeyForAction = new int[4];
-    private final BonusIndicator mBonusIndicator = new BonusIndicator();
     private GameInput mInput = new GameInput();
 
     public KeyboardInputHandler() {
@@ -59,11 +56,6 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     public void setActionKey(Action action, int key) {
         mKeyForAction[action.id] = key;
-    }
-
-    @Override
-    public BonusIndicator getBonusIndicator() {
-        return mBonusIndicator;
     }
 
     @Override
@@ -87,10 +79,10 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public void createHud(Assets assets, Group root) {
-        AnchorGroup group = new AnchorGroup();
-        group.setFillParent(true);
-        root.addActor(group);
-        group.addPositionRule(mBonusIndicator, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT, 16, -48);
+    }
+
+    @Override
+    public void setCanTriggerBonus(boolean canTrigger) {
     }
 
     private boolean isKeyPressed(Action action) {

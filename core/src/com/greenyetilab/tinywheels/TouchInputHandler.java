@@ -33,8 +33,7 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     private GameInput mInput = new GameInput();
-    private final BonusIndicator mBonusIndicator = new BonusIndicator();
-    private InputHudIndicator mLeftIndicator, mRightIndicator, mBrakeIndicator;
+    private InputHudIndicator mLeftIndicator, mRightIndicator, mBrakeIndicator, mBonusIndicator;
 
     @Override
     public GameInput getGameInput() {
@@ -42,6 +41,12 @@ public class TouchInputHandler implements GameInputHandler {
         mInput.triggeringBonus = false;
         mInput.braking = false;
         mInput.accelerating = true;
+
+        mLeftIndicator.setPressed(false);
+        mRightIndicator.setPressed(false);
+        mBrakeIndicator.setPressed(false);
+        mBonusIndicator.setPressed(false);
+
         for (int i = 0; i < 5; i++) {
             if (!Gdx.input.isTouched(i)) {
                 continue;
@@ -49,13 +54,17 @@ public class TouchInputHandler implements GameInputHandler {
             float x = Gdx.input.getX(i);
             float y = Gdx.graphics.getHeight() - Gdx.input.getY(i);
             if (isActorHit(mBonusIndicator, x, y)) {
+                mBonusIndicator.setPressed(true);
                 mInput.triggeringBonus = true;
             } else {
                 if (isActorHit(mLeftIndicator, x, 0)) {
+                    mLeftIndicator.setPressed(true);
                     mInput.direction = 1;
                 } else if (isActorHit(mRightIndicator, x, 0)) {
+                    mRightIndicator.setPressed(true);
                     mInput.direction = -1;
                 } else if (isActorHit(mBrakeIndicator, x, 0)) {
+                    mBrakeIndicator.setPressed(true);
                     mInput.accelerating = false;
                     mInput.braking = true;
                 }
@@ -70,9 +79,10 @@ public class TouchInputHandler implements GameInputHandler {
         group.setFillParent(true);
         root.addActor(group);
 
-        mLeftIndicator = new InputHudIndicator(assets.findRegion("hud-left"));
-        mRightIndicator = new InputHudIndicator(assets.findRegion("hud-right"));
-        mBrakeIndicator = new InputHudIndicator(assets.findRegion("hud-back"));
+        mLeftIndicator = new InputHudIndicator(assets, "left");
+        mRightIndicator = new InputHudIndicator(assets, "right");
+        mBrakeIndicator = new InputHudIndicator(assets, "back");
+        mBonusIndicator = new InputHudIndicator(assets, "square");
 
         group.addPositionRule(mLeftIndicator, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
         group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mRightIndicator, Anchor.BOTTOM_RIGHT);
@@ -81,8 +91,10 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     @Override
-    public BonusIndicator getBonusIndicator() {
-        return mBonusIndicator;
+    public void setCanTriggerBonus(boolean canTrigger) {
+        if (mBonusIndicator.isVisible() != canTrigger) {
+            mBonusIndicator.setVisible(canTrigger);
+        }
     }
 
     private static boolean isActorHit(Actor actor, float x, float y) {

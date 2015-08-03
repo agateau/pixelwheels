@@ -30,7 +30,6 @@ public class Assets {
     public final Skin skin;
     public final TextureRegion wheel;
     public final TextureRegion dot;
-    public final TextureRegion hudBackground;
     public final TextureAtlas uiAtlas;
     public final TextureAtlas atlas;
     public final Animation explosion;
@@ -77,9 +76,6 @@ public class Assets {
         // Fix white-pixel to avoid fading borders
         this.dot = findRegion("white-pixel");
         removeBorders(this.dot);
-
-        this.hudBackground = findRegion("hud-bg");
-        removeBorders(this.hudBackground);
 
         this.skidmark = findRegion("skidmark");
 

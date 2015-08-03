@@ -8,5 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 public interface GameInputHandler {
     GameInput getGameInput();
     void createHud(Assets assets, Group root);
-    BonusIndicator getBonusIndicator();
+
+    void setCanTriggerBonus(boolean canTrigger);
 }
