@@ -3,6 +3,7 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -97,7 +98,10 @@ public class TouchInputHandler implements GameInputHandler {
         }
     }
 
-    private static boolean isActorHit(Actor actor, float x, float y) {
+    private static boolean isActorHit(Actor actor, float screenX, float screenY) {
+        Stage stage = actor.getStage();
+        float x = screenX * stage.getWidth() / Gdx.graphics.getWidth();
+        float y = screenY * stage.getHeight() / Gdx.graphics.getHeight();
         return actor.hit(x - actor.getX(), y - actor.getY(), false) != null;
     }
 }

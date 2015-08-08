@@ -11,7 +11,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 /**
  * Select your vehicle
  */
-public class SelectVehicleScreen extends com.greenyetilab.utils.StageScreen {
+public class SelectVehicleScreen extends TwStageScreen {
     private final TheGame mGame;
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;

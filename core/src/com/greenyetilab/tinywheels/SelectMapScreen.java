@@ -11,7 +11,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 /**
  * Select your map
  */
-public class SelectMapScreen extends com.greenyetilab.utils.StageScreen {
+public class SelectMapScreen extends TwStageScreen {
     private final TheGame mGame;
     private final GameInfo mGameInfo;
     private final Maestro mMaestro;

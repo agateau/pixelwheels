@@ -4,18 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Created by aurelien on 21/11/14.
+ * A screen with a stage covering it
  */
 public class StageScreen extends ScreenAdapter {
     private Stage mStage;
     private Viewport mViewport;
 
-    public StageScreen() {
-        mViewport = new ScreenViewport();
+    public StageScreen(Viewport viewport) {
+        mViewport = viewport;
         mStage = new Stage(mViewport);
     }
 

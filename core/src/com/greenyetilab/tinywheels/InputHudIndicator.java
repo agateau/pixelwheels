@@ -24,12 +24,16 @@ public class InputHudIndicator extends Actor {
     public InputHudIndicator(Assets assets, String name) {
         mIcons[0] = assets.findRegion("hud-" + name);
         mIcons[1] = assets.findRegion("hud-" + name + "-down");
+    }
 
+    @Override
+    public void act(float dt) {
         float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
         float pxSize = INDICATOR_SIZE_CM * ppc;
+        float stageSize = pxSize * getStage().getWidth() / Gdx.graphics.getWidth();
 
-        setWidth(pxSize);
-        setHeight(pxSize);
+        setWidth(stageSize);
+        setHeight(stageSize);
     }
 
     void setPressed(boolean isPressed) {

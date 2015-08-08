@@ -19,7 +19,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 /**
  * The debug screen
  */
-public class DebugScreen extends com.greenyetilab.utils.StageScreen {
+public class DebugScreen extends TwStageScreen {
     private final TheGame mGame;
     private VerticalGroup mGroup;
     private GamePlay mReference = new GamePlay();
