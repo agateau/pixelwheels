@@ -8,7 +8,9 @@ import com.greenyetilab.utils.StageScreen;
  * A stage screen using the correct size for Tiny Wheels
  */
 public class TwStageScreen extends StageScreen {
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 480;
     public TwStageScreen() {
-        super(new ScalingViewport(Scaling.fit, 800, 480));
+        super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
     }
 }
