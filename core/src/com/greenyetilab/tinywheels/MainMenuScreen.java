@@ -12,7 +12,7 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 /**
  * Main menu, shown at startup
  */
-public class MainMenuScreen extends com.greenyetilab.utils.StageScreen {
+public class MainMenuScreen extends TwStageScreen {
     private final TheGame mGame;
 
     public MainMenuScreen(TheGame game) {

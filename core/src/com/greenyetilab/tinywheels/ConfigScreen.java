@@ -13,7 +13,7 @@ import com.greenyetilab.utils.anchor.SizeRule;
 /**
  * The config screen
  */
-public class ConfigScreen extends com.greenyetilab.utils.StageScreen {
+public class ConfigScreen extends TwStageScreen {
     private final TheGame mGame;
 
     public ConfigScreen(TheGame game) {
