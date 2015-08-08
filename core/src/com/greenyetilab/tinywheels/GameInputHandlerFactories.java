@@ -38,5 +38,6 @@ public class GameInputHandlerFactories {
         }
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
             mFactories.add(new TouchInputHandler.Factory());
+        }
     }
 }
