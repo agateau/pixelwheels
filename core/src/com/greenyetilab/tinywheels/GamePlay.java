@@ -26,6 +26,9 @@ public class GamePlay {
     public boolean rotateCamera = true;
     public int viewportWidth = 70;
 
+    public int turboStrength = 600;
+    public float turboDuration = 0.35f;
+
     public int spinImpulse = 80;
     public int spinDuration = 2;
 

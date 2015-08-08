@@ -28,7 +28,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private Bonus mBonus;
     private boolean mMustSelectBonus = false;
 
-    public Racer(GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
@@ -40,7 +40,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
                 | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                 | CollisionCategories.FLAT_OBJECT);
 
-        mVehicleRenderer = new VehicleRenderer(mVehicle);
+        mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
     }
 

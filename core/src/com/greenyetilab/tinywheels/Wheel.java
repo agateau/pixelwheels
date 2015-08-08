@@ -1,6 +1,8 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -27,6 +29,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private float mMaxDrivingForce;
     private float mDisabledGripDelay = 0;
     private float mGroundSpeed;
+    private float mTurboStrength = 0;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -65,6 +68,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     @Override
     public void reset() {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
+        mTurboStrength = 0;
     }
 
     public void act(float delta) {
@@ -90,6 +94,9 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public void adjustSpeed(float amount) {
+        if (mTurboStrength > 0 && amount == 0) {
+            amount = 1;
+        }
         if (amount == 0) {
             return;
         }
@@ -104,6 +111,9 @@ public class Wheel implements Pool.Poolable, Disposable {
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
+        if (mTurboStrength > 0) {
+            force += mTurboStrength;
+        }
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
@@ -113,11 +123,16 @@ public class Wheel implements Pool.Poolable, Disposable {
         mBraking = braking;
     }
 
+    public TiledMapTileLayer.Cell getCell() {
+        return mGameWorld.getMapInfo().getCellAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
+    }
+
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxImpulse) {
+        if (mCanDrift && impulse.len() > maxImpulse && mTurboStrength == 0) {
+            // Drift
             mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
@@ -142,5 +157,9 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setMaxDrivingForce(float maxDrivingForce) {
         mMaxDrivingForce = maxDrivingForce;
+    }
+
+    public void setTurboStrength(float turboStrength) {
+        mTurboStrength = turboStrength;
     }
 }
