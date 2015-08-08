@@ -24,7 +24,7 @@ public class TouchInputHandler implements GameInputHandler {
 
         @Override
         public String getDescription() {
-            return "Touch left part of the screen to go left.\nTouch middle part to go right.\nTouch right part to brake.";
+            return "Use virtual buttons to control your vehicle.";
         }
 
         @Override
