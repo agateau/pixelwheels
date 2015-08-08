@@ -1,5 +1,6 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class InputHudIndicator extends Actor {
     private final static float INDICATOR_OPACITY = 0.6f;
-    private final static float ICON_ZOOM = 2f;
+    private final static float INDICATOR_SIZE_CM = 2;
 
     private final TextureRegion[] mIcons = new TextureRegion[2];
 
@@ -23,8 +24,12 @@ public class InputHudIndicator extends Actor {
     public InputHudIndicator(Assets assets, String name) {
         mIcons[0] = assets.findRegion("hud-" + name);
         mIcons[1] = assets.findRegion("hud-" + name + "-down");
-        setWidth(GamePlay.instance.hudButtonSize);
-        setHeight(GamePlay.instance.hudButtonSize);
+
+        float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
+        float pxSize = INDICATOR_SIZE_CM * ppc;
+
+        setWidth(pxSize);
+        setHeight(pxSize);
     }
 
     void setPressed(boolean isPressed) {
@@ -38,16 +43,17 @@ public class InputHudIndicator extends Actor {
 
         float w = icon.getRegionWidth();
         float h = icon.getRegionHeight();
+        float zoom = MathUtils.floor(getWidth() / w);
         float oldA = color.a;
         color.a = alpha * INDICATOR_OPACITY;
         batch.setColor(color);
         batch.draw(
                 icon,
-                MathUtils.round(getX() + (getWidth() - ICON_ZOOM * w) / 2),
-                MathUtils.round(getY() + (getHeight() - ICON_ZOOM * h) / 2),
+                MathUtils.round(getX() + (getWidth() - w) / 2 / zoom),
+                MathUtils.round(getY() + (getHeight() - h) / 2 / zoom),
                 0, 0,
                 w, h,
-                ICON_ZOOM, ICON_ZOOM,
+                zoom, zoom,
                 0 // rotation
         );
         color.a = oldA;

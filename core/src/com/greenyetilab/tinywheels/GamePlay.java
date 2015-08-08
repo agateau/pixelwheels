@@ -29,8 +29,6 @@ public class GamePlay {
     public int spinImpulse = 80;
     public int spinDuration = 2;
 
-    public int hudButtonSize = 120;
-
     public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);
