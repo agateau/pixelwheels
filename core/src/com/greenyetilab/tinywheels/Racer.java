@@ -143,9 +143,29 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     private void selectBonus() {
+        float normalizedRank = (mGameWorld.getRacerRank(this) - 1) / (float)(mGameWorld.getRacers().size - 1);
+
         Array<BonusPool> pools = mGameWorld.getBonusPools();
-        int idx = MathUtils.random(pools.size - 1);
-        BonusPool pool = pools.get(idx);
+        float totalCount = 0;
+        for (BonusPool pool : pools) {
+            totalCount += pool.getCountForNormalizedRank(normalizedRank);
+        }
+
+        // To avoid allocating an array of the counts for each normalized rank, we subtract counts
+        // from pick, until it is less than 0, at this point we are on the selected pool
+        float pick = MathUtils.random(0f, totalCount);
+        BonusPool pool = null;
+        for (int idx = 0; idx < pools.size; ++idx) {
+            pool = pools.get(idx);
+            pick -= pool.getCountForNormalizedRank(normalizedRank);
+            if (pick < 0) {
+                break;
+            }
+        }
+        if (pool == null) {
+            pool = pools.get(pools.size - 1);
+        }
+
         mBonus = pool.obtain();
         mBonus.onPicked(this);
     }
