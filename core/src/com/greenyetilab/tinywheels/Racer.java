@@ -143,7 +143,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     private void selectBonus() {
-        float normalizedRank = (mGameWorld.getRacerRank(this) - 1) / (float)(mGameWorld.getRacers().size - 1);
+        float normalizedRank = mGameWorld.getRacerNormalizedRank(this);
 
         Array<BonusPool> pools = mGameWorld.getBonusPools();
         float totalCount = 0;

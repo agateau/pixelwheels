@@ -118,6 +118,17 @@ public class GameWorld implements ContactListener, Disposable {
         return -1;
     }
 
+    /**
+     * Normalized rank goes from 0 to 1, where 0 is for the first racer and 1 is for the last one
+     * If there is only one racer, returns 0
+     */
+    public float getRacerNormalizedRank(Racer racer) {
+        if (mRacers.size == 1) {
+            return 0;
+        }
+        return (getRacerRank(racer) - 1) / (float)(mRacers.size - 1);
+    }
+
     private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
         @Override
         public int compare(Racer racer1, Racer racer2) {
