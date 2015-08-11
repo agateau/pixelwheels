@@ -24,6 +24,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
     }
+    packagingOptions {
+        exclude "LICENSE.txt"
+    }
 }
 // needed to insert JNI shared libraries to APK when compiling on CLI
 tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
