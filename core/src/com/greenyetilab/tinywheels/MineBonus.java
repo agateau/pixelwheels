@@ -17,6 +17,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
             super(assets, gameWorld);
+            setCounts(new float[]{2, 1, 0});
         }
 
         @Override
