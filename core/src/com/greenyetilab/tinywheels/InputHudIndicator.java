@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class InputHudIndicator extends Actor {
     private final static float INDICATOR_OPACITY = 0.6f;
-    private final static float INDICATOR_SIZE_CM = 2;
+    private final static float INDICATOR_SIZE_CM = 1.5f;
 
     private final TextureRegion[] mIcons = new TextureRegion[2];
 
