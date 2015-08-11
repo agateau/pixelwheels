@@ -183,8 +183,6 @@ class Vehicle implements Disposable {
             }
         }
 
-        boolean turboOn = mTurboTime > 0;
-
         steerAngle *= MathUtils.degreesToRadians;
         float groundSpeed = 0;
         for (WheelInfo info : mWheels) {
@@ -198,7 +196,7 @@ class Vehicle implements Disposable {
             groundSpeed += wheelGroundSpeed;
             TiledMapTileLayer.Cell cell = info.wheel.getCell();
             boolean isTurboCell = wheelGroundSpeed > 1;
-            if (isTurboCell && (!turboOn || !alreadyTriggeredTurboCell(cell))) {
+            if (isTurboCell && !alreadyTriggeredTurboCell(cell)) {
                 triggerTurbo();
                 addTriggeredTurboCell(cell);
             }
@@ -207,6 +205,7 @@ class Vehicle implements Disposable {
 
         groundSpeed /= mWheels.size;
 
+        boolean turboOn = mTurboTime > 0;
         if (groundSpeed < 1f && !turboOn) {
             Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.groundDragFactor);
         }
