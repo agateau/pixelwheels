@@ -1,18 +1,23 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
 
 /**
  * A mine which can be dropped behind the racer
  */
 public class MineBonus extends BonusAdapter implements Pool.Poolable {
+    private static final float AI_KEEP_BONUS_MIN_TIME = 2f;
+    private static final float AI_KEEP_BONUS_MAX_TIME = 5f;
 
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private Mine mMine;
     private boolean mTriggered;
+
+    private float mAiKeepTime;
 
     public static class Pool extends BonusPool {
         public Pool(Assets assets, GameWorld gameWorld) {
@@ -46,6 +51,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mMine = Mine.create(mGameWorld, mAssets, mRacer);
+        mAiKeepTime = MathUtils.random(AI_KEEP_BONUS_MIN_TIME, AI_KEEP_BONUS_MAX_TIME);
     }
 
     @Override
@@ -69,6 +75,9 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void aiAct(float delta) {
-        mRacer.triggerBonus();
+        mAiKeepTime -= delta;
+        if (mAiKeepTime <= 0) {
+            mRacer.triggerBonus();
+        }
     }
 }
