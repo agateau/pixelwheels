@@ -27,7 +27,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mBraking;
     private boolean mCanDrift;
     private float mMaxDrivingForce;
-    private float mDisabledGripDelay = 0;
+    private boolean mGripEnabled = true;
     private float mGroundSpeed;
     private float mTurboStrength = 0;
 
@@ -73,9 +73,7 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void act(float delta) {
         updateGroundSpeed();
-        if (mDisabledGripDelay > 0) {
-            mDisabledGripDelay -= delta;
-        } else {
+        if (mGripEnabled) {
             updateFriction();
         }
         Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
@@ -89,8 +87,8 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mGroundSpeed;
     }
 
-    public void disableGripFor(float seconds) {
-        mDisabledGripDelay = seconds;
+    public void setGripEnabled(boolean enabled) {
+        mGripEnabled = enabled;
     }
 
     public void adjustSpeed(float amount) {

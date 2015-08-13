@@ -29,9 +29,6 @@ public class GamePlay {
     public int turboStrength = 400;
     public float turboDuration = 0.70f;
 
-    public int spinImpulse = 80;
-    public int spinDuration = 2;
-
     public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);

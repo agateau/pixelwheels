@@ -1,5 +1,7 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,7 +21,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final VehicleRenderer mVehicleRenderer;
     private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
-
+    private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
 
     private Pilot mPilot;
@@ -32,6 +34,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mGameWorld = gameWorld;
         mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
+        mSpinningComponent = new SpinningComponent(vehicle);
 
         mVehicle = vehicle;
         mVehicle.setUserData(this);
@@ -65,10 +68,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     public void spin() {
-        mVehicle.getBody().applyAngularImpulse(GamePlay.instance.spinImpulse, true);
-        for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
-            info.wheel.disableGripFor(GamePlay.instance.spinDuration / 10f);
+        if (mSpinningComponent.isActive()) {
+            return;
         }
+        mSpinningComponent.start();
         if (mBonus != null) {
             mBonus.onOwnerHit();
         }
@@ -86,6 +89,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
                 // engine is locked so they would have to delay such creations.
                 mMustSelectBonus = true;
             }
+        } else {
+            mSpinningComponent.onBeginContact();
         }
     }
 
@@ -128,7 +133,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
         mLapPositionComponent.act(delta);
         mVehicle.act(delta);
-        if (mLapPositionComponent.hasFinishedRace()) {
+        if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()) {
             mVehicle.setAccelerating(false);
         } else {
             mPilot.act(delta);
@@ -137,6 +142,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         if (!mHealthComponent.act(delta)) {
             setFinished(true);
         }
+
+        mSpinningComponent.act(delta);
         if (mBonus != null) {
             mBonus.act(delta);
         }

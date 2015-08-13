@@ -25,7 +25,7 @@ public class GameWorld implements ContactListener, Disposable {
         FINISHED
     }
 
-    private static final float TIME_STEP = 1f/60f;
+    public static final float BOX2D_TIME_STEP = 1f/60f;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
 
@@ -164,9 +164,9 @@ public class GameWorld implements ContactListener, Disposable {
         // max frame time to avoid spiral of death (on slow devices)
         float frameTime = Math.min(delta, 0.25f);
         mTimeAccumulator += frameTime;
-        while (mTimeAccumulator >= TIME_STEP) {
-            mBox2DWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            mTimeAccumulator -= TIME_STEP;
+        while (mTimeAccumulator >= BOX2D_TIME_STEP) {
+            mBox2DWorld.step(BOX2D_TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+            mTimeAccumulator -= BOX2D_TIME_STEP;
         }
         mBox2DPerformanceCounter.stop();
 

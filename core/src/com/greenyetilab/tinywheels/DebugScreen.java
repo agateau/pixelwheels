@@ -54,9 +54,6 @@ public class DebugScreen extends TwStageScreen {
         addTitle("Vehicle");
         mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
         mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
-        addTitle("Spin");
-        mGroup.addActor(addRange("Impulse:", "spinImpulse", 1, 200));
-        mGroup.addActor(addRange("Duration:", "spinDuration", 1, 20));
         addTitle("Debug");
         mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
         mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
