@@ -1,7 +1,6 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
+import com.greenyetilab.utils.CircularArray;
 
 /**
  * A wheel
@@ -20,6 +20,17 @@ public class Wheel implements Pool.Poolable, Disposable {
     private static final float DRAG_FACTOR = 1;
 
     private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
+
+    private final CircularArray<Vector2> mSkidmarks = new CircularArray<Vector2>(GamePlay.instance.maxSkidmarks) {
+        @Override
+        protected Vector2 initElement(Vector2 existingElement, Vector2 newElement) {
+            if (existingElement == null) {
+                existingElement = new Vector2();
+            }
+            existingElement.set(newElement.x, newElement.y);
+            return existingElement;
+        }
+    };
 
     private Body mBody;
     private TextureRegion mRegion;
@@ -131,7 +142,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse && mTurboStrength == 0) {
             // Drift
-            mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
+            mSkidmarks.add(mBody.getWorldCenter());
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
         }
@@ -159,5 +170,9 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setTurboStrength(float turboStrength) {
         mTurboStrength = turboStrength;
+    }
+
+    public CircularArray<Vector2> getSkidmarks() {
+        return mSkidmarks;
     }
 }

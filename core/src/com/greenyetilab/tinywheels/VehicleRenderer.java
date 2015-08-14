@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
+import com.greenyetilab.utils.CircularArray;
 
 /**
  * Renders a vehicle
@@ -30,6 +31,9 @@ public class VehicleRenderer implements Renderer {
 
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
+            for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+                drawSkidmarks(batch, info.wheel.getSkidmarks());
+            }
             DrawUtils.drawBodyRegionShadow(batch, mVehicle.getBody(), mVehicle.getRegion());
             return;
         }
@@ -48,6 +52,16 @@ public class VehicleRenderer implements Renderer {
 
         for (Renderer renderer : mRenderers) {
             renderer.draw(batch, zIndex);
+        }
+    }
+
+    private void drawSkidmarks(Batch batch, CircularArray<Vector2> skidmarks) {
+        final float U = Constants.UNIT_FOR_PIXEL;
+        final float width = mAssets.skidmark.getRegionWidth() * U;
+        final float height = mAssets.skidmark.getRegionHeight() * U;
+        for (int idx = skidmarks.getBeginIndex(); idx != skidmarks.getEndIndex(); idx = skidmarks.getNextIndex(idx)) {
+            Vector2 pos = skidmarks.get(idx);
+            batch.draw(mAssets.skidmark, pos.x, pos.y, width, height);
         }
     }
 

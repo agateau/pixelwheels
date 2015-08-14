@@ -47,7 +47,6 @@ public class GameRenderer {
     private int mScreenWidth;
     private int mScreenHeight;
     private PerformanceCounter mTilePerformanceCounter;
-    private PerformanceCounter mSkidmarksPerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameRenderer(Assets assets, GameWorld world, Vehicle vehicle, Batch batch, PerformanceCounters counters) {
@@ -67,7 +66,6 @@ public class GameRenderer {
         mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mTilePerformanceCounter = counters.add("- tiles");
-        mSkidmarksPerformanceCounter = counters.add("- skidmarks");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
     }
 
@@ -100,9 +98,6 @@ public class GameRenderer {
         mBatch.setProjectionMatrix(mCamera.combined);
         mBatch.enableBlending();
         mBatch.begin();
-        mSkidmarksPerformanceCounter.start();
-        renderSkidmarks();
-        mSkidmarksPerformanceCounter.stop();
 
         mGameObjectPerformanceCounter.start();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
@@ -147,17 +142,6 @@ public class GameRenderer {
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
-        }
-    }
-
-    private void renderSkidmarks() {
-        final float U = Constants.UNIT_FOR_PIXEL;
-        final float width = mAssets.skidmark.getRegionWidth() * U;
-        final float height = mAssets.skidmark.getRegionHeight() * U;
-        for (Vector2 pos: mWorld.getSkidmarks()) {
-            if (pos != null) {
-                mBatch.draw(mAssets.skidmark, pos.x, pos.y, width, height);
-            }
         }
     }
 
