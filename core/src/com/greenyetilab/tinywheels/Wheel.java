@@ -19,6 +19,8 @@ public class Wheel implements Pool.Poolable, Disposable {
     private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
+    public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);
+
     private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
 
     private final CircularArray<Vector2> mSkidmarks = new CircularArray<Vector2>(GamePlay.instance.maxSkidmarks) {
@@ -41,6 +43,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mGripEnabled = true;
     private float mGroundSpeed;
     private float mTurboStrength = 0;
+    private boolean mDrifting = false;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -142,9 +145,15 @@ public class Wheel implements Pool.Poolable, Disposable {
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse && mTurboStrength == 0) {
             // Drift
+            if (!mDrifting) {
+                mDrifting = true;
+            }
             mSkidmarks.add(mBody.getWorldCenter());
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
+        } else if (mDrifting) {
+            mSkidmarks.add(END_DRIFT_POS);
+            mDrifting = false;
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 
