@@ -13,7 +13,10 @@ import com.greenyetilab.utils.CircularArray;
  * Renders a vehicle
  */
 public class VehicleRenderer implements Renderer {
-    private final static float SKIDMARK_WIDTH = 10 * Constants.UNIT_FOR_PIXEL;
+    private final static float SKIDMARK_WIDTH = 7 * Constants.UNIT_FOR_PIXEL;
+    private final static float SKIDMARK_ALPHA_INC = 0.05f;
+    private final static float SKIDMARK_ALPHA_MIN = 0.1f;
+    private final static float SKIDMARK_ALPHA_MAX = 0.4f;
     private final Assets mAssets;
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<Renderer>();
@@ -63,23 +66,27 @@ public class VehicleRenderer implements Renderer {
             return;
         }
         int idx2 = skidmarks.getNextIndex(idx1);
+        float alpha = SKIDMARK_ALPHA_MIN;
         for (; idx2 != skidmarks.getEndIndex(); idx1 = idx2, idx2 = skidmarks.getNextIndex(idx2)) {
             Vector2 pos1 = skidmarks.get(idx1);
             Vector2 pos2 = skidmarks.get(idx2);
             if (!pos1.equals(Wheel.END_DRIFT_POS) && !pos2.equals(Wheel.END_DRIFT_POS)) {
-                drawSkidmark(batch, pos1, pos2);
+                drawSkidmark(batch, pos1, pos2, alpha);
+                alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
+            } else {
+                alpha = SKIDMARK_ALPHA_MIN;
             }
         }
     }
 
     private float[] mVertices = new float[4 * 5];
     private Vector2 mThick = new Vector2();
-    private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2) {
+    private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha) {
         mThick.set(pos2).sub(pos1).nor();
         mThick.set(-mThick.y, mThick.x).scl(SKIDMARK_WIDTH / 2);
         TextureRegion region = mAssets.skidmark;
-        float c = Color.WHITE.toFloatBits();
-        float c2 = Color.RED.toFloatBits();
+        float c = Color.toFloatBits(1, 1, 1, alpha);
+        float c2 = Color.toFloatBits(1, 1, 1, alpha + SKIDMARK_ALPHA_INC);
         float u = region.getU();
         float v = region.getV();
         float u2 = region.getU2();
@@ -107,9 +114,9 @@ public class VehicleRenderer implements Renderer {
         float y4 = pos1.y - mThick.y;
 
         initVertex(0, x1, y1, c, u, v);
-        initVertex(1, x4, y4, c2, u2, v);
+        initVertex(1, x4, y4, c, u2, v);
         initVertex(2, x3, y3, c2, u2, v2);
-        initVertex(3, x2, y2, c, u, v2);
+        initVertex(3, x2, y2, c2, u, v2);
 
         batch.draw(region.getTexture(), mVertices, 0, mVertices.length);
     }
