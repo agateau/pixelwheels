@@ -18,6 +18,12 @@ public class SkidmarksRenderer {
 
     private final Assets mAssets;
 
+    private boolean mValidThickness = false;
+    private float mThickX1;
+    private float mThickY1;
+    private float mThickX2;
+    private float mThickY2;
+
     public SkidmarksRenderer(Assets assets) {
         mAssets = assets;
     }
@@ -29,13 +35,29 @@ public class SkidmarksRenderer {
         }
         int idx2 = skidmarks.getNextIndex(idx1);
         float alpha = SKIDMARK_ALPHA_MIN;
+
         for (; idx2 != skidmarks.getEndIndex(); idx1 = idx2, idx2 = skidmarks.getNextIndex(idx2)) {
             Vector2 pos1 = skidmarks.get(idx1);
             Vector2 pos2 = skidmarks.get(idx2);
+
+            if (!mValidThickness) {
+                mValidThickness = true;
+                Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+                mThickX2 = thickness.x;
+                mThickY2 = thickness.y;
+            }
+
             if (!pos1.equals(Wheel.END_DRIFT_POS) && !pos2.equals(Wheel.END_DRIFT_POS)) {
+                mThickX1 = mThickX2;
+                mThickY1 = mThickY2;
+                Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+                mThickX2 = thickness.x;
+                mThickY2 = thickness.y;
+
                 drawSkidmark(batch, pos1, pos2, alpha);
                 alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
             } else {
+                mValidThickness = false;
                 alpha = SKIDMARK_ALPHA_MIN;
             }
         }
@@ -43,7 +65,7 @@ public class SkidmarksRenderer {
 
     private float[] mVertices = new float[4 * 5];
     private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha) {
-        Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+        //Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha);
         float c2 = Color.toFloatBits(1, 1, 1, alpha + SKIDMARK_ALPHA_INC);
@@ -61,17 +83,17 @@ public class SkidmarksRenderer {
              x----------x
             1            2
          */
-        float x0 = pos1.x + thickness.x;
-        float y0 = pos1.y + thickness.y;
+        float x0 = pos1.x + mThickX1;
+        float y0 = pos1.y + mThickY1;
 
-        float x1 = pos1.x - thickness.x;
-        float y1 = pos1.y - thickness.y;
+        float x1 = pos1.x - mThickX1;
+        float y1 = pos1.y - mThickY1;
 
-        float x2 = pos2.x - thickness.x;
-        float y2 = pos2.y - thickness.y;
+        float x2 = pos2.x - mThickX2;
+        float y2 = pos2.y - mThickY2;
 
-        float x3 = pos2.x + thickness.x;
-        float y3 = pos2.y + thickness.y;
+        float x3 = pos2.x + mThickX2;
+        float y3 = pos2.y + mThickY2;
 
         initVertex(0, x0, y0, c, u, v);
         initVertex(1, x1, y1, c, u2, v);
