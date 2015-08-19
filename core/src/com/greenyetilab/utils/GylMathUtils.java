@@ -1,6 +1,7 @@
 package com.greenyetilab.utils;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 public class GylMathUtils {
     /**
@@ -31,5 +32,19 @@ public class GylMathUtils {
             return array[array.length - 1];
         }
         return MathUtils.lerp(array[idx], array[idx + 1], k2 - idx);
+    }
+
+    private static Vector2 sWidthVector = new Vector2();
+
+    /**
+     * Compute the vector corresponding to the width side of a rectangle whose length side is made
+     * of @p pos1 to @p pos2, with a width of @p width
+     *
+     * Always return the same vector
+     */
+    public static Vector2 computeWidthVector(Vector2 pos1, Vector2 pos2, float width) {
+        sWidthVector.set(pos2).sub(pos1).nor();
+        sWidthVector.set(-sWidthVector.y, sWidthVector.x).scl(width);
+        return sWidthVector;
     }
 }

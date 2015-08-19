@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.greenyetilab.utils.CircularArray;
+import com.greenyetilab.utils.GylMathUtils;
 
 /**
  * Renders a vehicle
@@ -80,10 +81,8 @@ public class VehicleRenderer implements Renderer {
     }
 
     private float[] mVertices = new float[4 * 5];
-    private Vector2 mThick = new Vector2();
     private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha) {
-        mThick.set(pos2).sub(pos1).nor();
-        mThick.set(-mThick.y, mThick.x).scl(SKIDMARK_WIDTH / 2);
+        Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha);
         float c2 = Color.toFloatBits(1, 1, 1, alpha + SKIDMARK_ALPHA_INC);
@@ -96,22 +95,22 @@ public class VehicleRenderer implements Renderer {
             1            2
              x----------x        ^
              |          |        |
-        pos1 x          x pos2   | mThick
+        pos1 x          x pos2   | thickness
              |          |
              x----------x
             4            3
          */
-        float x1 = pos1.x + mThick.x;
-        float y1 = pos1.y + mThick.y;
+        float x1 = pos1.x + thickness.x;
+        float y1 = pos1.y + thickness.y;
 
-        float x2 = pos2.x + mThick.x;
-        float y2 = pos2.y + mThick.y;
+        float x2 = pos2.x + thickness.x;
+        float y2 = pos2.y + thickness.y;
 
-        float x3 = pos2.x - mThick.x;
-        float y3 = pos2.y - mThick.y;
+        float x3 = pos2.x - thickness.x;
+        float y3 = pos2.y - thickness.y;
 
-        float x4 = pos1.x - mThick.x;
-        float y4 = pos1.y - mThick.y;
+        float x4 = pos1.x - thickness.x;
+        float y4 = pos1.y - thickness.y;
 
         initVertex(0, x1, y1, c, u, v);
         initVertex(1, x4, y4, c, u2, v);
