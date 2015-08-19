@@ -92,30 +92,30 @@ public class VehicleRenderer implements Renderer {
         float v2 = region.getV2();
 
         /*
-            1            2
+            0            3
              x----------x        ^
              |          |        |
         pos1 x          x pos2   | thickness
              |          |
              x----------x
-            4            3
+            1            2
          */
-        float x1 = pos1.x + thickness.x;
-        float y1 = pos1.y + thickness.y;
+        float x0 = pos1.x + thickness.x;
+        float y0 = pos1.y + thickness.y;
 
-        float x2 = pos2.x + thickness.x;
-        float y2 = pos2.y + thickness.y;
+        float x1 = pos1.x - thickness.x;
+        float y1 = pos1.y - thickness.y;
 
-        float x3 = pos2.x - thickness.x;
-        float y3 = pos2.y - thickness.y;
+        float x2 = pos2.x - thickness.x;
+        float y2 = pos2.y - thickness.y;
 
-        float x4 = pos1.x - thickness.x;
-        float y4 = pos1.y - thickness.y;
+        float x3 = pos2.x + thickness.x;
+        float y3 = pos2.y + thickness.y;
 
-        initVertex(0, x1, y1, c, u, v);
-        initVertex(1, x4, y4, c, u2, v);
-        initVertex(2, x3, y3, c2, u2, v2);
-        initVertex(3, x2, y2, c2, u, v2);
+        initVertex(0, x0, y0, c, u, v);
+        initVertex(1, x1, y1, c, u2, v);
+        initVertex(2, x2, y2, c2, u2, v2);
+        initVertex(3, x3, y3, c2, u, v2);
 
         batch.draw(region.getTexture(), mVertices, 0, mVertices.length);
     }
