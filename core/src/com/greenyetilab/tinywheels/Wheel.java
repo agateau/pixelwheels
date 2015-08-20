@@ -18,6 +18,7 @@ import com.greenyetilab.utils.CircularArray;
 public class Wheel implements Pool.Poolable, Disposable {
     private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
+    private static final int SKIDMARK_INTERVAL = 3;
 
     public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);
 
@@ -139,6 +140,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mGameWorld.getMapInfo().getCellAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
+    private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
@@ -148,7 +150,10 @@ public class Wheel implements Pool.Poolable, Disposable {
             if (!mDrifting) {
                 mDrifting = true;
             }
-            mSkidmarks.add(mBody.getWorldCenter());
+            if (mSkidmarkCount == 0) {
+                mSkidmarks.add(mBody.getWorldCenter());
+            }
+            mSkidmarkCount = (mSkidmarkCount + 1) % SKIDMARK_INTERVAL;
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
         } else if (mDrifting) {
