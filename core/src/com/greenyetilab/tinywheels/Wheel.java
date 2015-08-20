@@ -1,7 +1,6 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -11,15 +10,30 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
+import com.greenyetilab.utils.CircularArray;
 
 /**
  * A wheel
  */
 public class Wheel implements Pool.Poolable, Disposable {
-    private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
+    private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
+    private static final int SKIDMARK_INTERVAL = 3;
+
+    public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);
 
     private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
+
+    private final CircularArray<Vector2> mSkidmarks = new CircularArray<Vector2>(GamePlay.instance.maxSkidmarks) {
+        @Override
+        protected Vector2 initElement(Vector2 existingElement, Vector2 newElement) {
+            if (existingElement == null) {
+                existingElement = new Vector2();
+            }
+            existingElement.set(newElement.x, newElement.y);
+            return existingElement;
+        }
+    };
 
     private Body mBody;
     private TextureRegion mRegion;
@@ -30,6 +44,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mGripEnabled = true;
     private float mGroundSpeed;
     private float mTurboStrength = 0;
+    private boolean mDrifting = false;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
         Wheel obj = sPool.obtain();
@@ -125,15 +140,25 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mGameWorld.getMapInfo().getCellAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
+    private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse && mTurboStrength == 0) {
             // Drift
-            mGameWorld.addSkidmarkAt(mBody.getWorldCenter());
+            if (!mDrifting) {
+                mDrifting = true;
+            }
+            if (mSkidmarkCount == 0) {
+                mSkidmarks.add(mBody.getWorldCenter());
+            }
+            mSkidmarkCount = (mSkidmarkCount + 1) % SKIDMARK_INTERVAL;
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
+        } else if (mDrifting) {
+            mSkidmarks.add(END_DRIFT_POS);
+            mDrifting = false;
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
 
@@ -159,5 +184,9 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setTurboStrength(float turboStrength) {
         mTurboStrength = turboStrength;
+    }
+
+    public CircularArray<Vector2> getSkidmarks() {
+        return mSkidmarks;
     }
 }

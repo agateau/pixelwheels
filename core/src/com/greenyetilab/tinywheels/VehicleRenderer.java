@@ -14,10 +14,12 @@ public class VehicleRenderer implements Renderer {
     private final Assets mAssets;
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<Renderer>();
+    private final SkidmarksRenderer mSkidmarksRenderer;
 
     public VehicleRenderer(Assets assets, Vehicle vehicle) {
         mAssets = assets;
         mVehicle = vehicle;
+        mSkidmarksRenderer = new SkidmarksRenderer(mAssets);
     }
 
     public void addRenderer(Renderer renderer) {
@@ -30,6 +32,9 @@ public class VehicleRenderer implements Renderer {
 
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
+            for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+                mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
+            }
             DrawUtils.drawBodyRegionShadow(batch, mVehicle.getBody(), mVehicle.getRegion());
             return;
         }
