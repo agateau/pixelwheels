@@ -16,7 +16,7 @@ import com.greenyetilab.utils.CircularArray;
  * A wheel
  */
 public class Wheel implements Pool.Poolable, Disposable {
-    private static final float DRIFT_IMPULSE_REDUCTION = 2; // Limit how much of the lateral velocity is killed when drifting
+    private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
 
     public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);

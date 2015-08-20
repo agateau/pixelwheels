@@ -13,8 +13,8 @@ public class GamePlay {
     public int lowSpeed = 20;
     public int midSpeed = 120;
     public int maxSpeed = 140;
-    public int maxLateralImpulse = 8;
-    public int maxSkidmarks = 30;
+    public int maxLateralImpulse = 3;
+    public int maxSkidmarks = 60;
 
     public int lowSpeedMaxSteer = 30;
     public int highSpeedMaxSteer = 6;
