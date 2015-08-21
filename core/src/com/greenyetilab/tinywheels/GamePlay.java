@@ -29,6 +29,8 @@ public class GamePlay {
     public int turboStrength = 400;
     public float turboDuration = 0.70f;
 
+    public boolean alwaysShowTouchInput = false;
+
     public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);

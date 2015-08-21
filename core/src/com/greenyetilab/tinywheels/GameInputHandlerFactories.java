@@ -36,7 +36,7 @@ public class GameInputHandlerFactories {
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             mFactories.add(new KeyboardInputHandler.Factory());
         }
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput) {
             mFactories.add(new TouchInputHandler.Factory());
         }
     }
