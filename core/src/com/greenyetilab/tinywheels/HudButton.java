@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * Indicate an input zone on the hud
  */
-public class InputHudIndicator extends Actor {
+public class HudButton extends Actor {
     private final static float INDICATOR_OPACITY = 0.6f;
     private final static float INDICATOR_SIZE_CM = 1.5f;
 
@@ -21,7 +21,7 @@ public class InputHudIndicator extends Actor {
     /**
      * name is a string like "left" or "right"
      */
-    public InputHudIndicator(Assets assets, String name) {
+    public HudButton(Assets assets, String name) {
         mIcons[0] = assets.findRegion("hud-" + name);
         mIcons[1] = assets.findRegion("hud-" + name + "-down");
     }

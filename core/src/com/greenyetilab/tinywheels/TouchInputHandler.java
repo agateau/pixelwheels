@@ -34,7 +34,7 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     private GameInput mInput = new GameInput();
-    private InputHudIndicator mLeftIndicator, mRightIndicator, mBrakeIndicator, mBonusIndicator;
+    private HudButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
 
     @Override
     public GameInput getGameInput() {
@@ -43,10 +43,10 @@ public class TouchInputHandler implements GameInputHandler {
         mInput.braking = false;
         mInput.accelerating = true;
 
-        mLeftIndicator.setPressed(false);
-        mRightIndicator.setPressed(false);
-        mBrakeIndicator.setPressed(false);
-        mBonusIndicator.setPressed(false);
+        mLeftButton.setPressed(false);
+        mRightButton.setPressed(false);
+        mBrakeButton.setPressed(false);
+        mBonusButton.setPressed(false);
 
         for (int i = 0; i < 5; i++) {
             if (!Gdx.input.isTouched(i)) {
@@ -54,18 +54,18 @@ public class TouchInputHandler implements GameInputHandler {
             }
             float x = Gdx.input.getX(i);
             float y = Gdx.graphics.getHeight() - Gdx.input.getY(i);
-            if (isActorHit(mBonusIndicator, x, y)) {
-                mBonusIndicator.setPressed(true);
+            if (isActorHit(mBonusButton, x, y)) {
+                mBonusButton.setPressed(true);
                 mInput.triggeringBonus = true;
             } else {
-                if (isActorHit(mLeftIndicator, x, 0)) {
-                    mLeftIndicator.setPressed(true);
+                if (isActorHit(mLeftButton, x, 0)) {
+                    mLeftButton.setPressed(true);
                     mInput.direction = 1;
-                } else if (isActorHit(mRightIndicator, x, 0)) {
-                    mRightIndicator.setPressed(true);
+                } else if (isActorHit(mRightButton, x, 0)) {
+                    mRightButton.setPressed(true);
                     mInput.direction = -1;
-                } else if (isActorHit(mBrakeIndicator, x, 0)) {
-                    mBrakeIndicator.setPressed(true);
+                } else if (isActorHit(mBrakeButton, x, 0)) {
+                    mBrakeButton.setPressed(true);
                     mInput.accelerating = false;
                     mInput.braking = true;
                 }
@@ -80,15 +80,15 @@ public class TouchInputHandler implements GameInputHandler {
         group.setFillParent(true);
         root.addActor(group);
 
-        mLeftIndicator = new InputHudIndicator(assets, "left");
-        mRightIndicator = new InputHudIndicator(assets, "right");
-        mBrakeIndicator = new InputHudIndicator(assets, "back");
-        mBonusIndicator = new InputHudIndicator(assets, "square");
+        mLeftButton = new HudButton(assets, "left");
+        mRightButton = new HudButton(assets, "right");
+        mBrakeButton = new HudButton(assets, "back");
+        mBonusButton = new HudButton(assets, "square");
 
-        group.addPositionRule(mLeftIndicator, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
-        group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mLeftIndicator, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBrakeIndicator, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBonusIndicator, Anchor.BOTTOM_RIGHT, mBrakeIndicator, Anchor.TOP_RIGHT);
+        group.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
+        group.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
+        group.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
+        group.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
     }
 
     @Override
