@@ -82,7 +82,7 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void setCanTriggerBonus(boolean canTrigger) {
+    public void setBonus(Bonus bonus) {
     }
 
     private boolean isKeyPressed(Action action) {

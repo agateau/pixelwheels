@@ -44,7 +44,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mAssets.findRegion("hud-mine");
+        return mAssets.mine.getKeyFrame(0);
     }
 
     @Override

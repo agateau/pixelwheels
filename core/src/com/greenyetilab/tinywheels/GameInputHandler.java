@@ -9,5 +9,5 @@ public interface GameInputHandler {
     GameInput getGameInput();
     void createHud(Assets assets, Group root);
 
-    void setCanTriggerBonus(boolean canTrigger);
+    void setBonus(Bonus bonus);
 }

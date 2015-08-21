@@ -92,9 +92,12 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void setCanTriggerBonus(boolean canTrigger) {
-        if (mBonusIndicator.isVisible() != canTrigger) {
-            mBonusIndicator.setVisible(canTrigger);
+    public void setBonus(Bonus bonus) {
+        if (bonus == null) {
+            mBonusButton.setVisible(false);
+        } else {
+            mBonusButton.setVisible(true);
+            mBonusButton.setIcon(bonus.getIconRegion());
         }
     }
 

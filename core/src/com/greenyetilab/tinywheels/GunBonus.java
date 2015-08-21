@@ -92,7 +92,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mAssets.findRegion("hud-fire");
+        return mAssets.bullet;
     }
 
     @Override

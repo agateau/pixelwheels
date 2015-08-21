@@ -35,7 +35,7 @@ public class PlayerPilot implements Pilot {
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
-            mInputHandler.setCanTriggerBonus(mRacer.getBonus() != null);
+            mInputHandler.setBonus(mRacer.getBonus());
             GameInput input = mInputHandler.getGameInput();
             vehicle.setDirection(input.direction);
             vehicle.setAccelerating(input.accelerating);
