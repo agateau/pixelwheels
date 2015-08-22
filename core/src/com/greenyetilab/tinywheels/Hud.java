@@ -23,7 +23,6 @@ class Hud {
     private final GameWorld mGameWorld;
     private final int mPlayerId;
     private AnchorGroup mRoot;
-    private WidgetGroup mTopRow;
     private Label mLapLabel;
     private Label mSpeedLabel;
     private Label mFinishedLabel;
@@ -37,24 +36,20 @@ class Hud {
         mRoot = new AnchorGroup();
 
         Skin skin = assets.skin;
-        mTopRow = new WidgetGroup();
 
         mLapLabel = new Label("0:00.0", skin);
         mSpeedLabel = new Label("0", skin);
         mFinishedLabel = new Label("Finished!", skin);
         mFinishedLabel.setVisible(false);
-        mTopRow.addActor(mLapLabel);
-        mTopRow.addActor(mSpeedLabel);
-        mTopRow.setHeight(mLapLabel.getHeight());
 
-        mRoot.addPositionRule(mTopRow, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT, 0, -5);
-        mRoot.addSizeRule(mTopRow, mRoot, 1, SizeRule.IGNORE);
+        mRoot.addPositionRule(mLapLabel, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT, 5, 0);
+        mRoot.addPositionRule(mSpeedLabel, Anchor.TOP_RIGHT, mRoot, Anchor.TOP_RIGHT, -5, 0);
         mRoot.addPositionRule(mFinishedLabel, Anchor.CENTER, mRoot, Anchor.CENTER);
 
         if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)
                 && mPerformanceCounters != null) {
             mDebugLabel = new Label("D", skin, "small");
-            stage.addActor(mDebugLabel);
+            mRoot.addPositionRule(mDebugLabel, Anchor.CENTER_LEFT, mRoot, Anchor.CENTER_LEFT);
         }
         stage.addActor(mRoot);
     }
@@ -107,10 +102,9 @@ class Hud {
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank(mPlayerId);
         mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
-        mLapLabel.setPosition(5, 0);
 
         mSpeedLabel.setText(StringUtils.formatSpeed(racer.getVehicle().getSpeed()));
-        mSpeedLabel.setPosition(mTopRow.getWidth() - mSpeedLabel.getPrefWidth() - 5, 0);
+        mSpeedLabel.pack();
 
         if (mDebugLabel != null) {
             sDebugSB.setLength(0);
@@ -131,7 +125,6 @@ class Hud {
                         .append("\n");
             }
             mDebugLabel.setText(sDebugSB);
-            mDebugLabel.setPosition(0, mTopRow.getY() - mDebugLabel.getPrefHeight());
         }
     }
 
