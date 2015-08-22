@@ -26,6 +26,8 @@ public class Packer {
         String packName = "sprites";
         TexturePacker.process(settings, inputDir, outputDir, packName);
 
+        settings.filterMin = Texture.TextureFilter.Linear;
+        settings.filterMag = Texture.TextureFilter.Linear;
         inputDir = baseDir + "/core/assets/ui";
         outputDir = baseDir + "/android/assets/ui";
         packName = "uiskin";
