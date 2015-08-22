@@ -1,6 +1,7 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * A pilot controlled by the player
@@ -21,7 +22,7 @@ public class PlayerPilot implements Pilot {
         mInputHandler = inputHandler;
     }
 
-    public void createHudActors(Group root) {
+    public void createHudActors(AnchorGroup root) {
         mInputHandler.createHud(mAssets, root);
     }
 

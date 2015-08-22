@@ -1,13 +1,13 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * Responsible for updating a GameInput according to player (or anything else) inputs
  */
 public interface GameInputHandler {
     GameInput getGameInput();
-    void createHud(Assets assets, Group root);
+    void createHud(Assets assets, AnchorGroup root);
 
     void setBonus(Bonus bonus);
 }

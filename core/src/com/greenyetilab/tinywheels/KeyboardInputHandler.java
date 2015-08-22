@@ -2,7 +2,7 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * Handle keyboard input, for desktop mode
@@ -78,7 +78,7 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, Group root) {
+    public void createHud(Assets assets, AnchorGroup root) {
     }
 
     @Override

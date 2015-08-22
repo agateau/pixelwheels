@@ -54,7 +54,7 @@ class Hud {
         stage.addActor(mRoot);
     }
 
-    public Group getRoot() {
+    public AnchorGroup getRoot() {
         return mRoot;
     }
 

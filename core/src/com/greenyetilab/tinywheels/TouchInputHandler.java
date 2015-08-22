@@ -2,7 +2,6 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
@@ -75,20 +74,16 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, Group root) {
-        AnchorGroup group = new AnchorGroup();
-        group.setFillParent(true);
-        root.addActor(group);
-
+    public void createHud(Assets assets, AnchorGroup root) {
         mLeftButton = new HudButton(assets, "left");
         mRightButton = new HudButton(assets, "right");
         mBrakeButton = new HudButton(assets, "back");
         mBonusButton = new HudButton(assets, "square");
 
-        group.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
-        group.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
+        root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
+        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
     }
 
     @Override
