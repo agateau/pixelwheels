@@ -22,7 +22,7 @@
                         width="200"
                         height="120"
                         center="root.center"
-                >One Player</TextButton>
+                >Start</TextButton>
         </Else>
 
         <ImageButton id="settingsButton"
