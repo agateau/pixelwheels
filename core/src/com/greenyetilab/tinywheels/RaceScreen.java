@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.greenyetilab.utils.log.NLog;
 
 public class RaceScreen extends ScreenAdapter {
     private final TheGame mGame;
@@ -33,6 +32,7 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mGameWorldPerformanceCounter;
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
+    private PauseOverlay mPauseOverlay = null;
 
     public RaceScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
@@ -83,7 +83,7 @@ public class RaceScreen extends ScreenAdapter {
             if (GameInputHandlerFactories.hasMultitouch()) {
                 hudContent.createPauseButton(new ClickListener() {
                     public void clicked(InputEvent event, float x, float y) {
-                        showPauseOverlay();
+                        pauseRace();
                     }
                 });
             }
@@ -93,16 +93,19 @@ public class RaceScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        boolean paused = mPauseOverlay != null;
+
         mOverallPerformanceCounter.start();
         mGameWorldPerformanceCounter.start();
-        GameWorld.State oldState = mGameWorld.getState();
-        mGameWorld.act(delta);
-        GameWorld.State newState = mGameWorld.getState();
-        mGameWorldPerformanceCounter.stop();
-
-        if (oldState != newState) {
-            showFinishedOverlay();
+        if (!paused) {
+            GameWorld.State oldState = mGameWorld.getState();
+            mGameWorld.act(delta);
+            GameWorld.State newState = mGameWorld.getState();
+            if (oldState != newState) {
+                showFinishedOverlay();
+            }
         }
+        mGameWorldPerformanceCounter.stop();
 
         for (Hud hud : mHuds) {
             hud.act(delta);
@@ -119,8 +122,12 @@ public class RaceScreen extends ScreenAdapter {
             gameRenderer.render(delta);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-            showPauseOverlay();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            if (paused) {
+                resumeRace();
+            } else {
+                pauseRace();
+            }
         }
 
         mHudViewport.apply(true);
@@ -129,7 +136,9 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
-        mPerformanceCounters.tick(delta);
+        if (!paused) {
+            mPerformanceCounters.tick(delta);
+        }
     }
 
     @Override
@@ -152,8 +161,14 @@ public class RaceScreen extends ScreenAdapter {
         mHudStage.addActor(overlay);
     }
 
-    private void showPauseOverlay() {
-        NLog.i("");
+    private void pauseRace() {
+        mPauseOverlay = new PauseOverlay(mGame, mMaestro, this);
+        mHudStage.addActor(mPauseOverlay);
+    }
+
+    public void resumeRace() {
+        mPauseOverlay.remove();
+        mPauseOverlay = null;
     }
 
     @Override

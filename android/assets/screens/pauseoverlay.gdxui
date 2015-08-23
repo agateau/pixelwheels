@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label id="pauseLabel" topCenter="root.topCenter 0 -5">Paused</Label>
+        <ImageButton id="resumeButton"
+                     imageName="icon-right"
+                     center="root.center"
+            />
+        <ImageButton id="menuButton"
+                     imageName="icon-back"
+                     topCenter="resumeButton.bottomCenter -2 -2"
+                     />
+        <ImageButton id="restartButton"
+                     imageName="icon-restart"
+                     topCenter="resumeButton.bottomCenter 2 -2"
+                     />
+        <ImageButton id="settingsButton"
+                     bottomLeft="root.bottomLeft 1 1"
+                     imageName="icon-config"/>
+    </AnchorGroup>
+</gdxui>
