@@ -11,8 +11,21 @@ public class StringUtils {
         return String.format("%d:%02d.%02d", minutes, seconds, fracs);
     }
 
-    public  static String formatSpeed(float speedMPS) {
+    public static String formatSpeed(float speedMPS) {
         int kmh = (int)(speedMPS * 3.6f);
         return String.valueOf(kmh) + " km/h";
+    }
+
+    public static String getRankSuffix(int rank) {
+        switch (rank) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+        }
     }
 }

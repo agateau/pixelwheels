@@ -3,6 +3,7 @@ package com.greenyetilab.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -22,7 +23,6 @@ public class HudContent {
     private PerformanceCounters mPerformanceCounters = null;
 
     private final Label mLapLabel;
-    private final Label mSpeedLabel;
     private final Label mFinishedLabel;
     private Label mDebugLabel = null;
 
@@ -32,16 +32,15 @@ public class HudContent {
         mHud = hud;
         mPlayerId = playerId;
         Skin skin = assets.skin;
-        mLapLabel = new Label("0:00.0", skin);
-        mSpeedLabel = new Label("0", skin);
+        mLapLabel = new Label("", skin);
+        mLapLabel.setAlignment(Align.right);
 
         mFinishedLabel = new Label("Finished!", skin);
         mFinishedLabel.setVisible(false);
 
         AnchorGroup root = hud.getRoot();
 
-        root.addPositionRule(mLapLabel, Anchor.TOP_LEFT, root, Anchor.TOP_LEFT, 5, 0);
-        root.addPositionRule(mSpeedLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
+        root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
         root.addPositionRule(mFinishedLabel, Anchor.CENTER, root, Anchor.CENTER);
     }
 
@@ -66,10 +65,8 @@ public class HudContent {
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank(mPlayerId);
-        mLapLabel.setText(String.format("Lap: %d/%d Rank: %d", lapCount, totalLapCount, rank));
-
-        mSpeedLabel.setText(StringUtils.formatSpeed(racer.getVehicle().getSpeed()));
-        mSpeedLabel.pack();
+        mLapLabel.setText(String.format("%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
+        mLapLabel.pack();
     }
 
     private static StringBuilder sDebugSB = new StringBuilder();
@@ -103,23 +100,14 @@ public class HudContent {
 
     private void showFinishedLabel() {
         int rank = mGameWorld.getPlayerRank(mPlayerId);
+        String suffix = StringUtils.getRankSuffix(rank);
         String text;
-        switch (rank) {
-        case 1:
-            text = "1st place!";
-            break;
-        case 2:
-            text = "2nd place!";
-            break;
-        case 3:
-            text = "3nd place!";
-            break;
-        default:
-            text = rank + "th place";
-            break;
+        if (rank <= 3) {
+            text = String.format("%d%s place!", rank, suffix);
+        } else {
+            text = String.format("%d%s place", rank, suffix);
         }
         mFinishedLabel.setText(text);
         mFinishedLabel.setVisible(true);
     }
-
 }
