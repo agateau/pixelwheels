@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -50,6 +51,13 @@ public class HudContent {
 
         AnchorGroup root = mHud.getRoot();
         root.addPositionRule(mDebugLabel, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);
+    }
+
+    public void createPauseButton(ClickListener clickListener) {
+        HudButton button = new HudButton(mAssets, mHud, "square");
+        button.addListener(clickListener);
+        AnchorGroup root = mHud.getRoot();
+        root.addPositionRule(button, Anchor.TOP_LEFT, root, Anchor.TOP_LEFT);
     }
 
     public void act(float delta) {
