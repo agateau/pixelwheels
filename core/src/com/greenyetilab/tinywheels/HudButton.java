@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Indicate an input zone on the hud
@@ -14,8 +16,8 @@ public class HudButton extends Actor {
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
+    private final ClickListener mClickListener;
 
-    private boolean mIsPressed = false;
     private TextureRegion mIcon = null;
 
     /**
@@ -25,6 +27,9 @@ public class HudButton extends Actor {
         mHud = hud;
         mRegions[0] = assets.findRegion("hud-" + name);
         mRegions[1] = assets.findRegion("hud-" + name + "-down");
+        setTouchable(Touchable.enabled);
+        mClickListener = new ClickListener();
+        addListener(mClickListener);
     }
 
     @Override
@@ -32,12 +37,12 @@ public class HudButton extends Actor {
         updateSize();
     }
 
-    void setPressed(boolean isPressed) {
-        mIsPressed = isPressed;
-    }
-
     void setIcon(TextureRegion icon) {
         mIcon = icon;
+    }
+
+    boolean isPressed() {
+        return mClickListener.isVisualPressed();
     }
 
     @Override
@@ -47,9 +52,9 @@ public class HudButton extends Actor {
         color.a = alpha * BUTTON_OPACITY;
         batch.setColor(color);
 
-        drawScaledRegion(batch, mRegions[mIsPressed ? 1 : 0], mHud.getZoom(), 0);
+        drawScaledRegion(batch, mRegions[isPressed() ? 1 : 0], mHud.getZoom(), 0);
         if (mIcon != null) {
-            drawScaledRegion(batch, mIcon, mHud.getZoom(), mIsPressed ? 0f : 2f);
+            drawScaledRegion(batch, mIcon, mHud.getZoom(), isPressed() ? 0f : 2f);
         }
 
         color.a = oldA;
