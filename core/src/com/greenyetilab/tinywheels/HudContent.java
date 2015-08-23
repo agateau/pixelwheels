@@ -55,6 +55,7 @@ public class HudContent {
 
     public void createPauseButton(ClickListener clickListener) {
         HudButton button = new HudButton(mAssets, mHud, "square");
+        button.setIcon(mAssets.findRegion("hud-icon-pause"));
         button.addListener(clickListener);
         AnchorGroup root = mHud.getRoot();
         root.addPositionRule(button, Anchor.TOP_LEFT, root, Anchor.TOP_LEFT);
