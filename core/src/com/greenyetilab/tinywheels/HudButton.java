@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Indicate an input zone on the hud
  */
 public class HudButton extends Actor {
-    private final static float INDICATOR_OPACITY = 0.6f;
-    private final static float INDICATOR_SIZE_CM = 1.5f;
+    private final static float BUTTON_OPACITY = 0.6f;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
+    private final Hud mHud;
 
     private boolean mIsPressed = false;
     private TextureRegion mIcon = null;
@@ -22,19 +21,15 @@ public class HudButton extends Actor {
     /**
      * name is a string like "left" or "right"
      */
-    public HudButton(Assets assets, String name) {
+    public HudButton(Assets assets, Hud hud, String name) {
+        mHud = hud;
         mRegions[0] = assets.findRegion("hud-" + name);
         mRegions[1] = assets.findRegion("hud-" + name + "-down");
     }
 
     @Override
     public void act(float dt) {
-        float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
-        float pxSize = INDICATOR_SIZE_CM * ppc;
-        float stageSize = pxSize * getStage().getWidth() / Gdx.graphics.getWidth();
-
-        setWidth(stageSize);
-        setHeight(stageSize);
+        updateSize();
     }
 
     void setPressed(boolean isPressed) {
@@ -49,14 +44,12 @@ public class HudButton extends Actor {
     public void draw(Batch batch, float alpha) {
         Color color = batch.getColor();
         float oldA = color.a;
-        color.a = alpha * INDICATOR_OPACITY;
+        color.a = alpha * BUTTON_OPACITY;
         batch.setColor(color);
 
-        float zoom = MathUtils.floor(Math.min(getWidth() / mRegions[0].getRegionWidth(), getHeight() / mRegions[0].getRegionHeight()));
-
-        drawScaledRegion(batch, mRegions[mIsPressed ? 1 : 0], zoom, 0);
+        drawScaledRegion(batch, mRegions[mIsPressed ? 1 : 0], mHud.getZoom(), 0);
         if (mIcon != null) {
-            drawScaledRegion(batch, mIcon, zoom, mIsPressed ? 0f : 2f);
+            drawScaledRegion(batch, mIcon, mHud.getZoom(), mIsPressed ? 0f : 2f);
         }
 
         color.a = oldA;
@@ -72,5 +65,10 @@ public class HudButton extends Actor {
                 MathUtils.round(getY() + (getHeight() - h) / 2) + vMargin * zoom,
                 w, h
         );
+    }
+
+    private void updateSize() {
+        setWidth(mRegions[0].getRegionWidth() * mHud.getZoom());
+        setHeight(mRegions[0].getRegionHeight() * mHud.getZoom());
     }
 }

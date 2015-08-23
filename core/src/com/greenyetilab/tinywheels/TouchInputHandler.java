@@ -74,12 +74,13 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, AnchorGroup root) {
-        mLeftButton = new HudButton(assets, "left");
-        mRightButton = new HudButton(assets, "right");
-        mBrakeButton = new HudButton(assets, "back");
-        mBonusButton = new HudButton(assets, "square");
+    public void createHudButtons(Assets assets, Hud hud) {
+        mLeftButton = new HudButton(assets, hud, "left");
+        mRightButton = new HudButton(assets, hud, "right");
+        mBrakeButton = new HudButton(assets, hud, "back");
+        mBonusButton = new HudButton(assets, hud, "square");
 
+        AnchorGroup root = hud.getRoot();
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
         root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
         root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
