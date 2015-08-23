@@ -21,6 +21,7 @@ public class RaceScreen extends ScreenAdapter {
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
     private Array<Hud> mHuds = new Array<Hud>();
+    private Array<HudContent> mHudContents = new Array<HudContent>();
     private ScreenViewport mHudViewport = new ScreenViewport();
     private final Stage mHudStage;
 
@@ -47,7 +48,11 @@ public class RaceScreen extends ScreenAdapter {
             GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, batch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
 
-            Hud hud = new Hud(game.getAssets(), mGameWorld, mHudStage, idx, mPerformanceCounters);
+            Hud hud = new Hud(game.getAssets(), mHudStage);
+            HudContent hudContent = new HudContent(game.getAssets(), mGameWorld, hud, idx);
+            if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false) && idx == 0) {
+                hudContent.setPerformanceCounters(mPerformanceCounters);
+            }
             Racer racer = mGameWorld.getPlayerRacer(idx);
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
@@ -56,6 +61,7 @@ public class RaceScreen extends ScreenAdapter {
 
             mGameRenderers.add(gameRenderer);
             mHuds.add(hud);
+            mHudContents.add(hudContent);
         }
     }
 
@@ -83,6 +89,9 @@ public class RaceScreen extends ScreenAdapter {
 
         for (Hud hud : mHuds) {
             hud.act(delta);
+        }
+        for (HudContent hudContent : mHudContents) {
+            hudContent.act(delta);
         }
         mHudStage.act(delta);
 
