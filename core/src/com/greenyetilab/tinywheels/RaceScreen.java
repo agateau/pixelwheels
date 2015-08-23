@@ -1,12 +1,15 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -21,6 +24,7 @@ public class RaceScreen extends ScreenAdapter {
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
 
     private Array<Hud> mHuds = new Array<Hud>();
+    private Array<HudContent> mHudContents = new Array<HudContent>();
     private ScreenViewport mHudViewport = new ScreenViewport();
     private final Stage mHudStage;
 
@@ -28,6 +32,7 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mGameWorldPerformanceCounter;
     private PerformanceCounter mRendererPerformanceCounter;
     private PerformanceCounter mOverallPerformanceCounter;
+    private PauseOverlay mPauseOverlay = null;
 
     public RaceScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
@@ -40,22 +45,23 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
-        Gdx.input.setInputProcessor(mHudStage);
 
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
             GameRenderer gameRenderer = new GameRenderer(game.getAssets(), mGameWorld, vehicle, batch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
 
-            Hud hud = new Hud(game.getAssets(), mGameWorld, mHudStage, idx, mPerformanceCounters);
+            Hud hud = new Hud(game.getAssets(), mHudStage);
+            HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
-                ((PlayerPilot) pilot).createHudActors(hud.getRoot());
+                ((PlayerPilot) pilot).createHudButtons(hud);
             }
 
             mGameRenderers.add(gameRenderer);
             mHuds.add(hud);
+            mHudContents.add(hudContent);
         }
     }
 
@@ -68,21 +74,44 @@ public class RaceScreen extends ScreenAdapter {
         gameRenderer.setDebugConfig(config);
     }
 
+    private HudContent setupHudContent(Hud hud, int idx) {
+        HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, idx);
+        if (idx == 0) {
+            if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
+                hudContent.setPerformanceCounters(mPerformanceCounters);
+            }
+            if (GameInputHandlerFactories.hasMultitouch()) {
+                hudContent.createPauseButton(new ClickListener() {
+                    public void clicked(InputEvent event, float x, float y) {
+                        pauseRace();
+                    }
+                });
+            }
+        }
+        return hudContent;
+    }
+
     @Override
     public void render(float delta) {
+        boolean paused = mPauseOverlay != null;
+
         mOverallPerformanceCounter.start();
         mGameWorldPerformanceCounter.start();
-        GameWorld.State oldState = mGameWorld.getState();
-        mGameWorld.act(delta);
-        GameWorld.State newState = mGameWorld.getState();
-        mGameWorldPerformanceCounter.stop();
-
-        if (oldState != newState) {
-            showFinishedOverlay();
+        if (!paused) {
+            GameWorld.State oldState = mGameWorld.getState();
+            mGameWorld.act(delta);
+            GameWorld.State newState = mGameWorld.getState();
+            if (oldState != newState) {
+                showFinishedOverlay();
+            }
         }
+        mGameWorldPerformanceCounter.stop();
 
         for (Hud hud : mHuds) {
             hud.act(delta);
+        }
+        for (HudContent hudContent : mHudContents) {
+            hudContent.act(delta);
         }
         mHudStage.act(delta);
 
@@ -93,13 +122,23 @@ public class RaceScreen extends ScreenAdapter {
             gameRenderer.render(delta);
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            if (paused) {
+                resumeRace();
+            } else {
+                pauseRace();
+            }
+        }
+
         mHudViewport.apply(true);
         mHudStage.draw();
 
         mRendererPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
-        mPerformanceCounters.tick(delta);
+        if (!paused) {
+            mPerformanceCounters.tick(delta);
+        }
     }
 
     @Override
@@ -120,6 +159,22 @@ public class RaceScreen extends ScreenAdapter {
     private void showFinishedOverlay() {
         FinishedOverlay overlay = new FinishedOverlay(mGame, mMaestro, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
         mHudStage.addActor(overlay);
+    }
+
+    private void pauseRace() {
+        mPauseOverlay = new PauseOverlay(mGame, mMaestro, this);
+        mHudStage.addActor(mPauseOverlay);
+    }
+
+    public void resumeRace() {
+        mPauseOverlay.remove();
+        mPauseOverlay = null;
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        Gdx.input.setInputProcessor(mHudStage);
     }
 
     @Override

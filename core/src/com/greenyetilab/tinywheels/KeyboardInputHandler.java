@@ -2,7 +2,6 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Group;
 
 /**
  * Handle keyboard input, for desktop mode
@@ -78,11 +77,11 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHud(Assets assets, Group root) {
+    public void createHudButtons(Assets assets, Hud hud) {
     }
 
     @Override
-    public void setCanTriggerBonus(boolean canTrigger) {
+    public void setBonus(Bonus bonus) {
     }
 
     private boolean isKeyPressed(Action action) {

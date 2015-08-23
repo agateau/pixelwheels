@@ -1,6 +1,6 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.greenyetilab.utils.anchor.AnchorGroup;
 
 /**
  * A pilot controlled by the player
@@ -21,8 +21,8 @@ public class PlayerPilot implements Pilot {
         mInputHandler = inputHandler;
     }
 
-    public void createHudActors(Group root) {
-        mInputHandler.createHud(mAssets, root);
+    public void createHudButtons(Hud hud) {
+        mInputHandler.createHudButtons(mAssets, hud);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PlayerPilot implements Pilot {
         }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
-            mInputHandler.setCanTriggerBonus(mRacer.getBonus() != null);
+            mInputHandler.setBonus(mRacer.getBonus());
             GameInput input = mInputHandler.getGameInput();
             vehicle.setDirection(input.direction);
             vehicle.setAccelerating(input.accelerating);

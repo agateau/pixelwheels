@@ -1,9 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.greenyetilab.utils.anchor.Anchor;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -34,7 +30,7 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     private GameInput mInput = new GameInput();
-    private InputHudIndicator mLeftIndicator, mRightIndicator, mBrakeIndicator, mBonusIndicator;
+    private HudButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
 
     @Override
     public GameInput getGameInput() {
@@ -43,65 +39,42 @@ public class TouchInputHandler implements GameInputHandler {
         mInput.braking = false;
         mInput.accelerating = true;
 
-        mLeftIndicator.setPressed(false);
-        mRightIndicator.setPressed(false);
-        mBrakeIndicator.setPressed(false);
-        mBonusIndicator.setPressed(false);
-
-        for (int i = 0; i < 5; i++) {
-            if (!Gdx.input.isTouched(i)) {
-                continue;
-            }
-            float x = Gdx.input.getX(i);
-            float y = Gdx.graphics.getHeight() - Gdx.input.getY(i);
-            if (isActorHit(mBonusIndicator, x, y)) {
-                mBonusIndicator.setPressed(true);
-                mInput.triggeringBonus = true;
-            } else {
-                if (isActorHit(mLeftIndicator, x, 0)) {
-                    mLeftIndicator.setPressed(true);
-                    mInput.direction = 1;
-                } else if (isActorHit(mRightIndicator, x, 0)) {
-                    mRightIndicator.setPressed(true);
-                    mInput.direction = -1;
-                } else if (isActorHit(mBrakeIndicator, x, 0)) {
-                    mBrakeIndicator.setPressed(true);
-                    mInput.accelerating = false;
-                    mInput.braking = true;
-                }
+        if (mBonusButton.isPressed()) {
+            mInput.triggeringBonus = true;
+        } else {
+            if (mLeftButton.isPressed()) {
+                mInput.direction = 1;
+            } else if (mRightButton.isPressed()) {
+                mInput.direction = -1;
+            } else if (mBrakeButton.isPressed()) {
+                mInput.accelerating = false;
+                mInput.braking = true;
             }
         }
         return mInput;
     }
 
     @Override
-    public void createHud(Assets assets, Group root) {
-        AnchorGroup group = new AnchorGroup();
-        group.setFillParent(true);
-        root.addActor(group);
+    public void createHudButtons(Assets assets, Hud hud) {
+        mLeftButton = new HudButton(assets, hud, "left");
+        mRightButton = new HudButton(assets, hud, "right");
+        mBrakeButton = new HudButton(assets, hud, "back");
+        mBonusButton = new HudButton(assets, hud, "square");
 
-        mLeftIndicator = new InputHudIndicator(assets, "left");
-        mRightIndicator = new InputHudIndicator(assets, "right");
-        mBrakeIndicator = new InputHudIndicator(assets, "back");
-        mBonusIndicator = new InputHudIndicator(assets, "square");
-
-        group.addPositionRule(mLeftIndicator, Anchor.BOTTOM_LEFT, group, Anchor.BOTTOM_LEFT);
-        group.addPositionRule(mRightIndicator, Anchor.BOTTOM_LEFT, mLeftIndicator, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBrakeIndicator, Anchor.BOTTOM_RIGHT, group, Anchor.BOTTOM_RIGHT);
-        group.addPositionRule(mBonusIndicator, Anchor.BOTTOM_RIGHT, mBrakeIndicator, Anchor.TOP_RIGHT);
+        AnchorGroup root = hud.getRoot();
+        root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
+        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
     }
 
     @Override
-    public void setCanTriggerBonus(boolean canTrigger) {
-        if (mBonusIndicator.isVisible() != canTrigger) {
-            mBonusIndicator.setVisible(canTrigger);
+    public void setBonus(Bonus bonus) {
+        if (bonus == null) {
+            mBonusButton.setVisible(false);
+        } else {
+            mBonusButton.setVisible(true);
+            mBonusButton.setIcon(bonus.getIconRegion());
         }
-    }
-
-    private static boolean isActorHit(Actor actor, float screenX, float screenY) {
-        Stage stage = actor.getStage();
-        float x = screenX * stage.getWidth() / Gdx.graphics.getWidth();
-        float y = screenY * stage.getHeight() / Gdx.graphics.getHeight();
-        return actor.hit(x - actor.getX(), y - actor.getY(), false) != null;
     }
 }
