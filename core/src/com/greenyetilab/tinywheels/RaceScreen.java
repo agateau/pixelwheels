@@ -45,7 +45,6 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
-        Gdx.input.setInputProcessor(mHudStage);
 
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
@@ -155,6 +154,12 @@ public class RaceScreen extends ScreenAdapter {
 
     private void showPauseOverlay() {
         NLog.i("");
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        Gdx.input.setInputProcessor(mHudStage);
     }
 
     @Override
