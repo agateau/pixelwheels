@@ -28,6 +28,10 @@ public class GameInputHandlerFactories {
         return mFactories.first();
     }
 
+    public static boolean hasMultitouch() {
+        return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput;
+    }
+
     private static void init() {
         if (mFactories != null) {
             return;
@@ -36,7 +40,7 @@ public class GameInputHandlerFactories {
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             mFactories.add(new KeyboardInputHandler.Factory());
         }
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput) {
+        if (hasMultitouch()) {
             mFactories.add(new TouchInputHandler.Factory());
         }
     }
