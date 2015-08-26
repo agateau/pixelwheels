@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class HudButton extends Actor {
     private final static float BUTTON_OPACITY = 0.6f;
+    private final static float ICON_VOFFSET = 2;
+    private final static float ICON_VOFFSET_DOWN = 1;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
@@ -54,7 +56,7 @@ public class HudButton extends Actor {
 
         drawScaledRegion(batch, mRegions[isPressed() ? 1 : 0], mHud.getZoom(), 0);
         if (mIcon != null) {
-            drawScaledRegion(batch, mIcon, mHud.getZoom(), isPressed() ? 0f : 2f);
+            drawScaledRegion(batch, mIcon, mHud.getZoom(), isPressed() ? ICON_VOFFSET_DOWN : ICON_VOFFSET);
         }
 
         color.a = oldA;

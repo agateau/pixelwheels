@@ -59,11 +59,11 @@ public class TouchInputHandler implements GameInputHandler {
         mLeftButton = new HudButton(assets, hud, "left");
         mRightButton = new HudButton(assets, hud, "right");
         mBrakeButton = new HudButton(assets, hud, "back");
-        mBonusButton = new HudButton(assets, hud, "square");
+        mBonusButton = new HudButton(assets, hud, "action");
 
         AnchorGroup root = hud.getRoot();
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
-        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, mLeftButton, Anchor.BOTTOM_RIGHT, 12, 0);
         root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
         root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
     }
