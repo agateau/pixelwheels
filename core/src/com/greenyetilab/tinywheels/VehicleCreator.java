@@ -29,20 +29,19 @@ public class VehicleCreator {
         for (AxleDef axle : vehicleDef.axles) {
             float width = axle.width * U;
             float y = (axle.y - mainRegion.getRegionHeight() / 2) * U;
-            float steer = axle.steer;
             float drive = maxDrivingForce * axle.drive;
 
-            createWheel(vehicle, wheelRegion, width / 2, y, steer, drive);
-            createWheel(vehicle, wheelRegion, -width / 2, y, steer, drive);
+            createWheel(vehicle, wheelRegion, width / 2, y, axle, drive);
+            createWheel(vehicle, wheelRegion, -width / 2, y, axle, drive);
         }
         vehicle.setInitialAngle(startAngle);
         return vehicle;
     }
 
-    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, float steer, float drive) {
+    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, AxleDef axle, float drive) {
         Vehicle.WheelInfo info = vehicle.addWheel(region, x, y);
-        info.steeringFactor = steer;
-        info.wheel.setCanDrift(true);
+        info.steeringFactor = axle.steer;
+        info.wheel.setCanDrift(axle.drift);
         info.wheel.setMaxDrivingForce(drive);
     }
 }

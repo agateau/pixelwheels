@@ -33,6 +33,7 @@ public class VehicleIO {
             axle.y = element.getFloatAttribute("y");
             axle.steer = element.getFloatAttribute("steer", 0);
             axle.drive = element.getFloatAttribute("drive", 1);
+            axle.drift = element.getBooleanAttribute("drift", true);
             data.axles.add(axle);
         }
         return data;

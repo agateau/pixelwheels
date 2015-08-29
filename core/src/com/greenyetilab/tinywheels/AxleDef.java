@@ -8,4 +8,5 @@ public class AxleDef {
     float y;
     float steer;
     float drive;
+    boolean drift;
 }
