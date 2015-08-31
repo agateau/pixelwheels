@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -64,19 +65,50 @@ public class Box2DUtils {
 
     public static Body createStaticBodyForMapObject(World world, MapObject object) {
         final float u = Constants.UNIT_FOR_PIXEL;
+        float rotation = object.getProperties().get("rotation", 0f, Float.class);
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.angle = -rotation * MathUtils.degreesToRadians;
+
         if (object instanceof RectangleMapObject) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            return createStaticBox(world, u * rect.getX(), u * rect.getY(), u * rect.getWidth(), u * rect.getHeight());
+
+            /*
+              A          D
+               x--------x
+               |        |
+               x--------x
+              B          C
+             */
+            float[] vertices = new float[8];
+            // A
+            vertices[0] = 0;
+            vertices[1] = 0;
+            // B
+            vertices[2] = 0;
+            vertices[3] = -rect.getHeight();
+            // C
+            vertices[4] = rect.getWidth();
+            vertices[5] = -rect.getHeight();
+            // D
+            vertices[6] = rect.getWidth();
+            vertices[7] = 0;
+            scaleVertices(vertices, u);
+
+            bodyDef.position.set(u * rect.getX(), u * (rect.getY() + rect.getHeight()));
+            Body body = world.createBody(bodyDef);
+
+            PolygonShape shape = new PolygonShape();
+            shape.set(vertices);
+
+            body.createFixture(shape, 1);
+            return body;
         } else if (object instanceof PolygonMapObject) {
             Polygon polygon = ((PolygonMapObject)object).getPolygon();
             float[] vertices = polygon.getVertices().clone();
-            for (int idx = 0; idx < vertices.length; idx += 2) {
-                vertices[idx] *= u;
-                vertices[idx + 1] *= u;
-            }
+            scaleVertices(vertices, u);
 
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.StaticBody;
             bodyDef.position.set(polygon.getX() * u, polygon.getY() * u);
             Body body = world.createBody(bodyDef);
 
@@ -91,8 +123,6 @@ public class Box2DUtils {
             float x = ellipse.x * u + radius;
             float y = ellipse.y * u + radius;
 
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.StaticBody;
             bodyDef.position.set(x, y);
             Body body = world.createBody(bodyDef);
 
@@ -129,5 +159,11 @@ public class Box2DUtils {
                 -width / 2, -height / 2 + cornerHeight,
                 -width / 2 + cornerWidth, -height / 2
         };
+    }
+
+    private static void scaleVertices(float[] vertices, float factor) {
+        for (int idx = 0; idx < vertices.length; ++idx) {
+            vertices[idx] *= factor;
+        }
     }
 }

@@ -263,8 +263,8 @@
   </object>
   <object x="783" y="1033" width="31.1667" height="300.167"/>
   <object x="1484" y="1296" width="324.333" height="30.6667"/>
-  <object x="1155.84" y="1639.07" width="449.054" height="27.4142" rotation="-45"/>
   <object x="1168" y="1670" width="32" height="266"/>
+  <object x="1155.28" y="1639.8" width="449.456" height="30" rotation="-45"/>
  </objectgroup>
  <objectgroup name="Sections">
   <object name="0" x="802" y="1170">
