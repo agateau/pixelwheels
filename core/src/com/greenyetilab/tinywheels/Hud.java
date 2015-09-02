@@ -19,7 +19,7 @@ class Hud {
     public Hud(Assets assets, Stage stage) {
         mRoot = new AnchorGroup();
 
-        BUTTON_SIZE_PX = assets.findRegion("hud-square").getRegionWidth();
+        BUTTON_SIZE_PX = assets.findRegion("hud-action").getRegionWidth();
         stage.addActor(mRoot);
     }
 
