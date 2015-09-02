@@ -1,6 +1,7 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
@@ -28,16 +29,19 @@ public class SpinBox extends HorizontalGroup {
         Button decButton = new TextButton("-", skin);
         Button incButton = new TextButton("+", skin);
 
-        decButton.addListener(new ClickListener() {
+        decButton.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 setValue(mValue - mStepSize);
+                // Cancel the event so that the button does not stay down
+                event.cancel();
             }
         });
-        incButton.addListener(new ClickListener() {
+        incButton.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 setValue(mValue + mStepSize);
+                event.cancel();
             }
         });
 
