@@ -45,7 +45,6 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
         addTitle("Speed");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
-        mGroup.addActor(addRange("Mid speed:", "midSpeed", 100, 250, 10));
         mGroup.addActor(addRange("Max speed:", "maxSpeed", 100, 400, 10));
         addTitle("Turbo");
         mGroup.addActor(addRange("Strength:", "turboStrength", 100, 800, 50));
@@ -53,7 +52,7 @@ public class DebugScreen extends TwStageScreen {
         addTitle("Wheels");
         mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
         mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
-        mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
+        mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 1));
         addTitle("Vehicle");
         mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
         mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
