@@ -45,6 +45,7 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
+        mHudStage.setDebugAll(GamePlay.instance.debugHud);
 
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);

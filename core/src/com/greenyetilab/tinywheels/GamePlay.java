@@ -31,6 +31,8 @@ public class GamePlay {
 
     public boolean alwaysShowTouchInput = false;
 
+    public boolean debugHud = false;
+
     public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);

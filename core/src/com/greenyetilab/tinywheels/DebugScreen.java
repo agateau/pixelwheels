@@ -58,6 +58,7 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
         mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
         mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
+        mGroup.addActor(addGamePlayCheckBox("Debug hud", "debugHud"));
         mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
 
         mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
