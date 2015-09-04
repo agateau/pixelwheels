@@ -134,4 +134,30 @@ public class Introspector {
             throw new RuntimeException("setInt(" + key + ") failed. " + e);
         }
     }
+
+    public float getFloat(String key) {
+        try {
+            Field field = mClass.getField(key);
+            return field.getFloat(mObject);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException("getInt(" + key + ") failed. " + e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("getInt(" + key + ") failed. " + e);
+        }
+    }
+
+    public void setFloat(String key, float value) {
+        try {
+            Field field = mClass.getField(key);
+            field.setFloat(mObject, value);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException("setInt(" + key + ") failed. " + e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("setInt(" + key + ") failed. " + e);
+        }
+    }
 }
