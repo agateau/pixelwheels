@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -44,10 +43,14 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
-        addTitle("Wheel");
+        addTitle("Speed");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
         mGroup.addActor(addRange("Mid speed:", "midSpeed", 100, 250, 10));
         mGroup.addActor(addRange("Max speed:", "maxSpeed", 100, 400, 10));
+        addTitle("Turbo");
+        mGroup.addActor(addRange("Strength:", "turboStrength", 100, 800, 50));
+        mGroup.addActor(addRange("Duration:", "turboDuration", 0.1f, 2f, 0.1f));
+        addTitle("Wheels");
         mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
         mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
         mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 2));
@@ -116,11 +119,9 @@ public class DebugScreen extends TwStageScreen {
     }
 
     private Actor addRange(String text, final String keyName, int min, int max, int stepSize) {
-        final Skin skin = mGame.getAssets().skin;
-
         final DefaultLabel defaultLabel = new DefaultLabel(keyName);
 
-        final SpinBox spinBox = new SpinBox(min, max, skin);
+        final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().skin);
         spinBox.setStepSize(stepSize);
         spinBox.setValue(GamePlay.instance.getIntrospector().getInt(keyName));
         spinBox.addListener(new ChangeListener() {
@@ -132,10 +133,38 @@ public class DebugScreen extends TwStageScreen {
             }
         });
 
+        return createRow(text, spinBox, defaultLabel);
+    }
+
+    private Actor addRange(String text, final String keyName, float min, float max) {
+        return addRange(text, keyName, min, max, 1f);
+    }
+
+    private Actor addRange(String text, final String keyName, float min, float max, float stepSize) {
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+
+        final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().skin);
+        spinBox.setStepSize(stepSize);
+        spinBox.setValue(GamePlay.instance.getIntrospector().getFloat(keyName));
+        spinBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float value = spinBox.getValue();
+                GamePlay.instance.getIntrospector().setFloat(keyName, value);
+                defaultLabel.update();
+            }
+        });
+
+        return createRow(text, spinBox, defaultLabel);
+    }
+
+    private Actor createRow(String text, Actor actor1, Actor actor2) {
         final HorizontalGroup group = new HorizontalGroup();
-        group.addActor(new Label(text + " ", skin));
-        group.addActor(spinBox);
-        group.addActor(defaultLabel);
+        group.addActor(new Label(text + " ", mGame.getAssets().skin));
+        group.addActor(actor1);
+        if (actor2 != null) {
+            group.addActor(actor2);
+        }
         return group;
     }
 

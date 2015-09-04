@@ -2,7 +2,6 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,16 +14,16 @@ import com.badlogic.gdx.utils.Pools;
 /**
  * An integer spinbox
  */
-public class SpinBox extends HorizontalGroup {
-    private int mMinValue;
-    private int mMaxValue;
-    private int mValue;
+public abstract class SpinBox<T extends Number> extends HorizontalGroup {
+    private float mMinValue;
+    private float mMaxValue;
+    private float mValue;
     private Label mLabel;
-    private int mStepSize = 1;
+    private float mStepSize = 1;
 
-    public SpinBox(int min, int max, Skin skin) {
-        mMinValue = min;
-        mMaxValue = max;
+    public SpinBox(T min, T max, Skin skin) {
+        mMinValue = floatFromT(min);
+        mMaxValue = floatFromT(max);
         mLabel = new Label("", skin);
         Button decButton = new TextButton("-", skin);
         Button incButton = new TextButton("+", skin);
@@ -32,7 +31,7 @@ public class SpinBox extends HorizontalGroup {
         decButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setValue(mValue - mStepSize);
+                setValue(tFromFloat(mValue - mStepSize));
                 // Cancel the event so that the button does not stay down
                 event.cancel();
             }
@@ -40,7 +39,7 @@ public class SpinBox extends HorizontalGroup {
         incButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setValue(mValue + mStepSize);
+                setValue(tFromFloat(mValue + mStepSize));
                 event.cancel();
             }
         });
@@ -50,29 +49,36 @@ public class SpinBox extends HorizontalGroup {
         addActor(incButton);
     }
 
-    public int getValue() {
-        return mValue;
+    protected abstract T tFromFloat(float f);
+
+    protected abstract float floatFromT(T t);
+
+    protected abstract String stringFromT(T t);
+
+    public T getValue() {
+        return tFromFloat(mValue);
     }
 
-    public void setValue(int value) {
+    public void setValue(T tvalue) {
+        float value = floatFromT(tvalue);
         value = MathUtils.clamp(value, mMinValue, mMaxValue);
         if (mValue == value) {
             return;
         }
         mValue = value;
 
-        mLabel.setText(String.valueOf(mValue) + " ");
+        mLabel.setText(stringFromT(tFromFloat(mValue)) + " ");
 
         ChangeListener.ChangeEvent changeEvent = Pools.obtain(ChangeListener.ChangeEvent.class);
         fire(changeEvent);
         Pools.free(changeEvent);
     }
 
-    public void setStepSize(int stepSize) {
-        mStepSize = stepSize;
+    public void setStepSize(T stepSize) {
+        mStepSize = floatFromT(stepSize);
     }
 
-    public int getStepSize() {
-        return mStepSize;
+    public T getStepSize() {
+        return tFromFloat(mStepSize);
     }
 }
