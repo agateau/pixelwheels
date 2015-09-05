@@ -1,0 +1,4 @@
+- Championship
+- Quick race
+- Ghost race (needs VCR controls)
+- Last man standing (needs a death line)

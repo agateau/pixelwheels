@@ -1,0 +1,17 @@
+- Fire truck
+- Santa Claus sled
+- Harvester
+- Semitrailer
+- 3-wheeled bike
+- Taxi
+- Police car
+- A-Team truck
+- Roadster
+- Jeep
+- Scoobidoo Van
+- Duke of Hazzard
+- Ghostbusters car
+- Bug Beetle
+- K2000
+- Starsky & Hutch
+- Batman begins batmobile
