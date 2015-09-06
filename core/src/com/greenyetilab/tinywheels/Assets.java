@@ -27,7 +27,8 @@ public class Assets {
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{
             new MapInfo("race", "Let it Snow"),
-            new MapInfo("be", "City")
+            new MapInfo("be", "City"),
+            new MapInfo("test", "Test"),
     });
     public final Skin skin;
     public final TextureRegion wheel;

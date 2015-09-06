@@ -1,96 +1,103 @@
 
 uiskin.png
-size: 359,274
+size: 196,533
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 checkbox-off
   rotate: false
-  xy: 297, 212
+  xy: 80, 76
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 checkbox-on
   rotate: false
-  xy: 297, 150
+  xy: 80, 14
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 icon-back
   rotate: false
-  xy: 232, 96
+  xy: 154, 339
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-config
   rotate: false
-  xy: 274, 60
+  xy: 154, 297
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-debug
   rotate: false
-  xy: 232, 54
+  xy: 154, 255
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-highscores
   rotate: false
-  xy: 316, 60
+  xy: 145, 165
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-left
   rotate: false
-  xy: 274, 18
+  xy: 145, 123
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-restart
   rotate: false
-  xy: 232, 12
+  xy: 142, 81
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-right
   rotate: false
-  xy: 316, 18
+  xy: 142, 39
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 map-screenshots/antonin
   rotate: false
-  xy: 2, 122
+  xy: 2, 381
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 map-screenshots/be
   rotate: false
-  xy: 154, 122
+  xy: 2, 122
   size: 75, 150
   orig: 75, 150
   offset: 0, 0
   index: -1
 map-screenshots/race
   rotate: false
-  xy: 2, 15
+  xy: 2, 274
   size: 150, 105
   orig: 150, 105
   offset: 0, 0
   index: -1
+map-screenshots/test
+  rotate: false
+  xy: 154, 381
+  size: 30, 150
+  orig: 30, 150
+  offset: 0, 0
+  index: -1
 rectbutton
   rotate: false
-  xy: 154, 2
+  xy: 2, 2
   size: 76, 58
   split: 15, 15, 17, 19
   pad: 10, 10, 10, 14
@@ -99,7 +106,7 @@ rectbutton
   index: -1
 rectbutton-down
   rotate: false
-  xy: 154, 62
+  xy: 2, 62
   size: 76, 58
   split: 15, 15, 18, 14
   pad: 10, 10, 16, 8
@@ -108,21 +115,21 @@ rectbutton-down
   index: -1
 roundbutton
   rotate: false
-  xy: 231, 204
+  xy: 79, 204
   size: 64, 68
   orig: 64, 68
   offset: 0, 0
   index: -1
 roundbutton-down
   rotate: false
-  xy: 231, 138
+  xy: 79, 138
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 selection
   rotate: false
-  xy: 297, 102
+  xy: 145, 207
   size: 46, 46
   split: 15, 15, 15, 15
   pad: 6, 6, 6, 6
