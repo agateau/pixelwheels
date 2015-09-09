@@ -2,6 +2,7 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -43,7 +44,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     private float mMaxDrivingForce;
     private boolean mGripEnabled = true;
     private float mGroundSpeed;
-    private float mTurboStrength = 0;
     private boolean mDrifting = false;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
@@ -83,7 +83,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     @Override
     public void reset() {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
-        mTurboStrength = 0;
     }
 
     public void act(float delta) {
@@ -107,26 +106,16 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public void adjustSpeed(float amount) {
-        if (mTurboStrength > 0 && amount == 0) {
-            amount = 1;
-        }
         if (amount == 0) {
             return;
         }
         final float currentSpeed = mBody.getLinearVelocity().len() * 3.6f;
 
-        // When currentSpeed is between midSpeed and maxSpeed linearly limit the force applied to
-        // the wheel so that vehicles accelerate strongly at start then less when they are driving
-        // faster
-        final float midSpeed = GamePlay.instance.midSpeed;
-        final float maxSpeed = GamePlay.instance.maxSpeed;
-        final float limit = MathUtils.clamp(1f - (currentSpeed - midSpeed) / (maxSpeed - midSpeed), 0f, 1f);
+        final float limit = 1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
+        DebugStringMap.put("strengthLimit", String.format("%.2f", limit));
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
-        if (mTurboStrength > 0) {
-            force += mTurboStrength;
-        }
         float angle = mBody.getAngle() + MathUtils.PI / 2;
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
@@ -145,7 +134,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxImpulse && mTurboStrength == 0) {
+        if (mCanDrift && impulse.len() > maxImpulse) {
             // Drift
             if (!mDrifting) {
                 mDrifting = true;
@@ -180,10 +169,6 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setMaxDrivingForce(float maxDrivingForce) {
         mMaxDrivingForce = maxDrivingForce;
-    }
-
-    public void setTurboStrength(float turboStrength) {
-        mTurboStrength = turboStrength;
     }
 
     public CircularArray<Vector2> getSkidmarks() {

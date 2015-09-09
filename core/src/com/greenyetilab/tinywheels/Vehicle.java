@@ -1,5 +1,6 @@
 package com.greenyetilab.tinywheels;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Interpolation;
@@ -13,6 +14,12 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.Disposable;
+import com.greenyetilab.utils.CsvWriter;
+import com.greenyetilab.utils.FileUtils;
+import com.greenyetilab.utils.log.NLog;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Represents a car on the world
@@ -39,8 +46,15 @@ class Vehicle implements Disposable {
 
     private ArrayMap<TiledMapTileLayer.Cell, Float> mTurboCellMap = new ArrayMap<TiledMapTileLayer.Cell, Float>(false /* ordered */, 8);
 
+    private CsvWriter mSpeedLogger = null;
+    private float mLogTime = 0;
+
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
         mGameWorld = gameWorld;
+        if (GamePlay.instance.createSpeedReport) {
+            mSpeedLogger = new CsvWriter(FileUtils.getUserWritableFile("speed.dat"));
+            mSpeedLogger.setFieldSeparator(' ');
+        }
 
         float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float carH = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -161,36 +175,33 @@ class Vehicle implements Disposable {
             speedDelta = mAccelerating ? 1 : -0.8f;
         }
 
-        float steerAngle = 0;
-        if (mDirection != 0) {
-            float direction = mDirection;
+        float steerAngle = computeSteerAngle();
+
+        if (mSpeedLogger != null) {
             float speed = mBody.getLinearVelocity().len() * 3.6f;
-            float steer;
-            if (speed < GP.lowSpeed) {
-                steer = MathUtils.lerp(100, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
-            } else {
-                float factor = Math.min((speed - GP.lowSpeed) / (GP.maxSpeed - GP.lowSpeed), 1);
-                steer = MathUtils.lerp(GP.lowSpeedMaxSteer, GP.highSpeedMaxSteer, factor);
-            }
-            steerAngle = direction * steer;
+            mSpeedLogger.addRow(mLogTime, speed);
+            mLogTime += dt;
         }
-        float turboStrength = 0;
+
+        steerAngle *= MathUtils.degRad;
+
+        if (mTurboTime == 0) {
+            mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(GP.turboStrength), mBody.getWorldCenter(), true);
+        }
         if (mTurboTime >= 0) {
-            turboStrength = GP.turboStrength * Interpolation.pow2.apply(1f - mTurboTime / GP.turboDuration);
             mTurboTime += dt;
             if (mTurboTime > GP.turboDuration) {
                 mTurboTime = -1;
+                mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(-GP.turboStrength / 4), mBody.getWorldCenter(), true);
             }
         }
 
-        steerAngle *= MathUtils.degreesToRadians;
         float groundSpeed = 0;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
-            info.wheel.setTurboStrength(turboStrength);
             info.wheel.act(dt);
             float wheelGroundSpeed = info.wheel.getGroundSpeed();
             groundSpeed += wheelGroundSpeed;
@@ -209,6 +220,25 @@ class Vehicle implements Disposable {
         if (groundSpeed < 1f && !turboOn) {
             Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.groundDragFactor);
         }
+    }
+
+    private float computeSteerAngle() {
+        final GamePlay GP = GamePlay.instance;
+        if (mDirection == 0) {
+            return 0;
+        }
+
+        float speed = mBody.getLinearVelocity().len() * 3.6f;
+        float steer;
+        if (speed < GP.lowSpeed) {
+            steer = MathUtils.lerp(100, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
+        } else if (speed < GP.maxSpeed) {
+            float factor = (speed - GP.lowSpeed) / (GP.maxSpeed - GP.lowSpeed);
+            steer = MathUtils.lerp(GP.lowSpeedMaxSteer, GP.highSpeedMaxSteer, factor);
+        } else {
+            steer = GP.highSpeedMaxSteer;
+        }
+        return mDirection * steer;
     }
 
     private boolean alreadyTriggeredTurboCell(TiledMapTileLayer.Cell cell) {
