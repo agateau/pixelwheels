@@ -28,7 +28,6 @@ public class Assets {
     public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{
             new MapInfo("race", "Let it Snow"),
             new MapInfo("be", "City"),
-            new MapInfo("test", "Test"),
     });
     public final Skin skin;
     public final TextureRegion wheel;
@@ -62,6 +61,9 @@ public class Assets {
     }
 
     Assets() {
+        if (GamePlay.instance.showTestTrack) {
+            mapInfos.add(new MapInfo("test", "Test"));
+        }
         this.uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.uiAtlas);
         this.atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));

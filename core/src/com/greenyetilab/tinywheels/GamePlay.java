@@ -33,6 +33,7 @@ public class GamePlay {
 
     public boolean debugHud = false;
 
+    public boolean showTestTrack = false;
     public static final GamePlay instance = new GamePlay();
 
     private final Introspector mIntrospector = new Introspector(GamePlay.class, this);
