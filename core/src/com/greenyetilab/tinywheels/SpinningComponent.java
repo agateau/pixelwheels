@@ -33,6 +33,10 @@ public class SpinningComponent {
         }
         Body body = mVehicle.getBody();
 
+        // Slow down
+        body.applyLinearImpulse(body.getLinearVelocity().nor().scl(-body.getMass()), body.getWorldCenter(), true);
+
+        // Spin
         float nextAngle = body.getAngle() + body.getAngularVelocity() * GameWorld.BOX2D_TIME_STEP;
         float totalRotation = mDesiredAngle - nextAngle;
         float desiredAngularVelocity = MathUtils.clamp(totalRotation / GameWorld.BOX2D_TIME_STEP, -15, 15);
