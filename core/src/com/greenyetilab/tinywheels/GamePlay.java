@@ -15,8 +15,8 @@ public class GamePlay {
     public int maxLateralImpulse = 3;
     public int maxSkidmarks = 60;
 
-    public int lowSpeedMaxSteer = 30;
-    public int highSpeedMaxSteer = 4;
+    public int lowSpeedMaxSteer = 20;
+    public int highSpeedMaxSteer = 5;
     public int vehicleDensity = 14;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;

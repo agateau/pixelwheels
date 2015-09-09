@@ -38,7 +38,7 @@ public class AIPilot implements Pilot {
         } else if (deltaAngle < -180) {
             deltaAngle += 360;
         }
-        float direction = MathUtils.clamp(deltaAngle / 4, -10, 10) / 10f;
+        float direction = MathUtils.clamp(deltaAngle / GamePlay.instance.lowSpeedMaxSteer, -1, 1);
         vehicle.setDirection(direction);
     }
 }
