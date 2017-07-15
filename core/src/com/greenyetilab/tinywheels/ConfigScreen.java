@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -31,13 +30,13 @@ public class ConfigScreen extends TwStageScreen {
     }
 
     private void setupUi() {
-        final Preferences prefs = mGame.getPreferences();
+        final GameConfig gameConfig = mGame.getConfig();
 
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
         builder.registerActorFactory("GameInputHandlerSelector", new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(XmlReader.Element element) {
-                return new GameInputHandlerSelector(mGame.getConfig(), mGame.getAssets().skin);
+                return new GameInputHandlerSelector(gameConfig, mGame.getAssets().skin);
             }
         });
 
@@ -46,12 +45,12 @@ public class ConfigScreen extends TwStageScreen {
         getStage().addActor(root);
 
         final CheckBox checkBox = builder.getActor("rotateScreenCheckBox");
-        checkBox.setChecked(prefs.getBoolean(PrefConstants.ROTATE_SCREEN_ID, true));
+        checkBox.setChecked(gameConfig.rotateCamera);
         checkBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mGame.getConfig().rotateCamera = checkBox.isChecked();
-                mGame.getConfig().flush();
+                gameConfig.rotateCamera = checkBox.isChecked();
+                gameConfig.flush();
             }
         });
 
