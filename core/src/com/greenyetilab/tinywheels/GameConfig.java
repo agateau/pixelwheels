@@ -18,6 +18,7 @@ public class GameConfig {
     public boolean debugEnabled = false;
     public boolean drawVelocities = false;
     public boolean drawTileCorners = false;
+    public String input;
 
     private Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
@@ -29,6 +30,7 @@ public class GameConfig {
         debugEnabled = mPreferences.getBoolean("debug/box2d", false);
         drawTileCorners = mPreferences.getBoolean("debug/tiles/drawCorners", false);
         drawVelocities = mPreferences.getBoolean("debug/box2d/drawVelocities", false);
+        input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
     }
 
     public void addListener(ChangeListener listener) {
@@ -42,6 +44,7 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN_ID, rotateCamera);
+        mPreferences.putString(PrefConstants.INPUT, input);
         mPreferences.flush();
         for (WeakReference<ChangeListener> listenerRef : mListeners) {
             ChangeListener listener = listenerRef.get();

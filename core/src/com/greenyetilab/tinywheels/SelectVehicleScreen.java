@@ -65,7 +65,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         prefs.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, id);
         prefs.flush();
 
-        String inputHandlerId = mGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
+        String inputHandlerId = mGame.getConfig().input;
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         mGameInfo.addPlayerInfo(id, factory.create());
         mMaestro.actionTriggered("next");
