@@ -6,6 +6,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.greenyetilab.utils.Assert;
+import com.greenyetilab.utils.FileUtils;
+import com.greenyetilab.utils.Introspector;
 
 import java.util.Stack;
 
@@ -18,13 +20,17 @@ public class TheGame extends Game {
     private Maestro mMaestro;
     private GameConfig mGameConfig;
 
+    private Introspector mGamePlayIntrospector;
+
     public Assets getAssets() {
         return mAssets;
     }
 
     @Override
     public void create() {
-        GamePlay.instance.load();
+        mGamePlayIntrospector = new Introspector(GamePlay.instance, new GamePlay(),
+                FileUtils.getUserWritableFile("gameplay.xml"));
+        mGamePlayIntrospector.load();
         mAssets = new Assets();
         mGameConfig = new GameConfig();
         Box2D.init();
@@ -60,6 +66,10 @@ public class TheGame extends Game {
 
     public GameConfig getConfig() {
         return mGameConfig;
+    }
+
+    public Introspector getGamePlayIntrospector() {
+        return mGamePlayIntrospector;
     }
 
     public void pushScreen(Screen screen) {

@@ -14,18 +14,22 @@ import java.lang.reflect.Modifier;
  */
 public class Introspector {
     private final Class mClass;
+    private final Object mReference;
     private final Object mObject;
+    private final FileHandle mFileHandle;
 
-    public Introspector(Class cls, Object object) {
-        mClass = cls;
+    public Introspector(Object object, Object reference, FileHandle fileHandle) {
+        mClass = object.getClass();
         mObject = object;
+        mReference = reference;
+        mFileHandle = fileHandle;
     }
 
-    public void load(FileHandle handle) {
-        if (!handle.exists()) {
+    public void load() {
+        if (!mFileHandle.exists()) {
             return;
         }
-        XmlReader.Element root = FileUtils.parseXml(handle);
+        XmlReader.Element root = FileUtils.parseXml(mFileHandle);
         if (root == null) {
             return;
         }
@@ -53,10 +57,10 @@ public class Introspector {
         }
     }
 
-    public void save(FileHandle handle, Object reference) {
-        XmlWriter writer = new XmlWriter(handle.writer(false));
+    public void save() {
+        XmlWriter writer = new XmlWriter(mFileHandle.writer(false));
         try {
-            XmlWriter root = writer.element("gameplay");
+            XmlWriter root = writer.element("object");
             for (Field field : mClass.getDeclaredFields()) {
                 if (!Modifier.isPublic(field.getModifiers())) {
                     continue;
@@ -65,7 +69,7 @@ public class Introspector {
                     continue;
                 }
                 Object value = field.get(mObject);
-                if (value.equals(field.get(reference))) {
+                if (value.equals(field.get(mReference))) {
                     continue;
                 }
                 root.element("key")
@@ -84,9 +88,17 @@ public class Introspector {
     }
 
     public <T> T get(String key) {
+        return getFrom(mObject, key);
+    }
+
+    public <T> T getReference(String key) {
+        return getFrom(mReference, key);
+    }
+
+    private <T> T getFrom(Object object, String key) {
         try {
             Field field = mClass.getField(key);
-            return (T)field.get(mObject);
+            return (T)field.get(object);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException("get(" + key + ") failed. " + e);

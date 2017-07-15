@@ -21,7 +21,6 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class DebugScreen extends TwStageScreen {
     private final TheGame mGame;
     private VerticalGroup mGroup;
-    private GamePlay mReference = new GamePlay();
 
     public DebugScreen(TheGame game) {
         mGame = game;
@@ -67,7 +66,7 @@ public class DebugScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GamePlay.instance.save();
+                mGame.getGamePlayIntrospector().save();
                 mGame.popScreen();
             }
         });
@@ -95,13 +94,13 @@ public class DebugScreen extends TwStageScreen {
         final DefaultLabel defaultLabel = new DefaultLabel(keyName);
 
         final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
-        boolean checked = GamePlay.instance.getIntrospector().get(keyName);
+        boolean checked = mGame.getGamePlayIntrospector().get(keyName);
         checkBox.setChecked(checked);
         checkBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 boolean value = checkBox.isChecked();
-                GamePlay.instance.getIntrospector().set(keyName, value);
+                mGame.getGamePlayIntrospector().set(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -121,12 +120,12 @@ public class DebugScreen extends TwStageScreen {
 
         final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(GamePlay.instance.getIntrospector().getInt(keyName));
+        spinBox.setValue(mGame.getGamePlayIntrospector().getInt(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 int value = spinBox.getValue();
-                GamePlay.instance.getIntrospector().setInt(keyName, value);
+                mGame.getGamePlayIntrospector().setInt(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -143,12 +142,12 @@ public class DebugScreen extends TwStageScreen {
 
         final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(GamePlay.instance.getIntrospector().getFloat(keyName));
+        spinBox.setValue(mGame.getGamePlayIntrospector().getFloat(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float value = spinBox.getValue();
-                GamePlay.instance.getIntrospector().setFloat(keyName, value);
+                mGame.getGamePlayIntrospector().setFloat(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -180,8 +179,8 @@ public class DebugScreen extends TwStageScreen {
         }
 
         public void update() {
-            Object ref = mReference.getIntrospector().get(mKeyName);
-            Object current = GamePlay.instance.getIntrospector().get(mKeyName);
+            Object ref = mGame.getGamePlayIntrospector().getReference(mKeyName);
+            Object current = mGame.getGamePlayIntrospector().get(mKeyName);
 
             if (ref.equals(current)) {
                 setVisible(false);

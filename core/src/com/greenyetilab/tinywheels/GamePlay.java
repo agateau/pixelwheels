@@ -35,23 +35,4 @@ public class GamePlay {
     public boolean createSpeedReport = false;
 
     public static final GamePlay instance = new GamePlay();
-
-    private final Introspector mIntrospector = new Introspector(GamePlay.class, this);
-
-    public Introspector getIntrospector() {
-        return mIntrospector;
-    }
-
-    public void load() {
-        mIntrospector.load(getFileHandle());
-    }
-
-    private static final GamePlay sReference = new GamePlay();
-    public void save() {
-        mIntrospector.save(getFileHandle(), sReference);
-    }
-
-    private static FileHandle getFileHandle() {
-        return FileUtils.getUserWritableFile("gameplay.xml");
-    }
 }
