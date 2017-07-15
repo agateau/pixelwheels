@@ -42,7 +42,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         mVehicleSelector = builder.getActor("vehicleSelector");
         mVehicleSelector.init(assets);
 
-        String id = TheGame.getPreferences().getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
+        String id = mGame.getPreferences().getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
         mVehicleSelector.setSelected(assets.findVehicleDefByID(id));
 
         builder.getActor("goButton").addListener(new ClickListener() {
@@ -60,12 +60,12 @@ public class SelectVehicleScreen extends TwStageScreen {
     }
 
     private void next() {
-        Preferences prefs = TheGame.getPreferences();
+        Preferences prefs = mGame.getPreferences();
         String id = mVehicleSelector.getSelectedId();
         prefs.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, id);
         prefs.flush();
 
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
+        String inputHandlerId = mGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         mGameInfo.addPlayerInfo(id, factory.create());
         mMaestro.actionTriggered("next");

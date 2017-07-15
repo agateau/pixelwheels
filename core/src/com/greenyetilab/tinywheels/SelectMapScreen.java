@@ -43,7 +43,7 @@ public class SelectMapScreen extends TwStageScreen {
 
         mMapSelector = builder.getActor("mapSelector");
         mMapSelector.init(assets);
-        String id = TheGame.getPreferences().getString(mPreferenceKey);
+        String id = mGame.getPreferences().getString(mPreferenceKey);
         mMapSelector.setSelected(assets.findMapInfoByID(id));
 
         builder.getActor("goButton").addListener(new ClickListener() {
@@ -62,7 +62,7 @@ public class SelectMapScreen extends TwStageScreen {
     }
 
     private void saveSelectedMap() {
-        Preferences prefs = TheGame.getPreferences();
+        Preferences prefs = mGame.getPreferences();
         prefs.putString(mPreferenceKey, mMapSelector.getSelected().getId());
         prefs.flush();
     }

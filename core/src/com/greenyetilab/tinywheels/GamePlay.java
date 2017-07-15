@@ -22,7 +22,6 @@ public class GamePlay {
     public int groundDragFactor = 8;
     public int borderRestitution = 1;
 
-    public boolean rotateCamera = true;
     public int viewportWidth = 70;
 
     public int turboStrength = 500;

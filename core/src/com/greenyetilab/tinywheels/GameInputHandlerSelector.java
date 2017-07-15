@@ -16,13 +16,15 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * An actor to select the input handler
  */
 public class GameInputHandlerSelector extends AnchorGroup {
+    private final GameConfig mGameConfig;
     private final Label mNameLabel;
     private final Label mDescriptionLabel;
     private Array<GameInputHandlerFactory> mFactories;
     private int mIndex = 0;
 
-    public GameInputHandlerSelector(Skin skin) {
+    public GameInputHandlerSelector(GameConfig gameConfig, Skin skin) {
         setSpacing(20);
+        mGameConfig = gameConfig;
         mFactories = GameInputHandlerFactories.getAvailableFactories();
         ImageButton leftButton = addButton("icon-left", skin, new ClickListener() {
             @Override
@@ -53,7 +55,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
         addPositionRule(mDescriptionLabel, Anchor.TOP_LEFT, leftButton, Anchor.BOTTOM_LEFT, 0, -0.5f);
         addSizeRule(mDescriptionLabel, this, 1, SizeRule.IGNORE);
 
-        String inputHandlerId = TheGame.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
+        String inputHandlerId = mGameConfig.getPreferences().getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         setIndex(findHandler(inputHandlerId));
 
         setHeight(mNameLabel.getHeight() + mDescriptionLabel.getHeight());
@@ -88,7 +90,7 @@ public class GameInputHandlerSelector extends AnchorGroup {
 
         mDescriptionLabel.setText(factory.getDescription());
 
-        Preferences prefs = TheGame.getPreferences();
+        Preferences prefs = mGameConfig.getPreferences();
         prefs.putString(PrefConstants.INPUT, factory.getId());
         prefs.flush();
     }

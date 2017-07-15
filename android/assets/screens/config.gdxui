@@ -9,6 +9,9 @@
                                   topLeft="$prev.bottomLeft 0 -1"
                                   />
 
+        <CheckBox id="rotateScreenCheckBox"
+                  topLeft="$prev.bottomLeft 0 -1">Rotate screen</CheckBox>
+
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"
                      imageName="icon-back"/>

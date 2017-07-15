@@ -16,6 +16,7 @@ public class TheGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
     private Maestro mMaestro;
+    private GameConfig mGameConfig;
 
     public Assets getAssets() {
         return mAssets;
@@ -25,6 +26,7 @@ public class TheGame extends Game {
     public void create() {
         GamePlay.instance.load();
         mAssets = new Assets();
+        mGameConfig = new GameConfig();
         Box2D.init();
         showMainMenu();
     }
@@ -51,8 +53,13 @@ public class TheGame extends Game {
         pushScreen(screen);
     }
 
-    public static Preferences getPreferences() {
-        return Gdx.app.getPreferences("com.greenyetilab.tinywheels");
+    // FIXME: Remove
+    public Preferences getPreferences() {
+        return mGameConfig.getPreferences();
+    }
+
+    public GameConfig getConfig() {
+        return mGameConfig;
     }
 
     public void pushScreen(Screen screen) {

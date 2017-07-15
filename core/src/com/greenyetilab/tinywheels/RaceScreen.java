@@ -67,18 +67,13 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {
-        GameRenderer.DebugConfig config = new GameRenderer.DebugConfig();
-        Preferences prefs = TheGame.getPreferences();
-        config.enabled = prefs.getBoolean("debug/box2d", false);
-        config.drawTileCorners = prefs.getBoolean("debug/tiles/drawCorners", false);
-        config.drawVelocities = prefs.getBoolean("debug/box2d/drawVelocities", false);
-        gameRenderer.setDebugConfig(config);
+        gameRenderer.setConfig(mGame.getConfig());
     }
 
     private HudContent setupHudContent(Hud hud, int idx) {
         HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, idx);
         if (idx == 0) {
-            if (TheGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
+            if (mGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
                 hudContent.setPerformanceCounters(mPerformanceCounters);
             }
             if (GameInputHandlerFactories.hasMultitouch()) {

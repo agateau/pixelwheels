@@ -1,30 +1,20 @@
 package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-
-import com.greenyetilab.utils.GylMathUtils;
 
 /**
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    public static class DebugConfig {
-        public boolean enabled = false;
-        public boolean drawVelocities = false;
-        public boolean drawTileCorners = false;
-    }
-    private DebugConfig mDebugConfig = new DebugConfig();
+    private GameConfig mGameConfig;
 
     private final MapInfo mMapInfo;
     private final OrthogonalTiledMapRenderer mRenderer;
@@ -76,9 +66,9 @@ public class GameRenderer {
         mScreenHeight = height;
     }
 
-    public void setDebugConfig(DebugConfig config) {
-        mDebugConfig = config;
-        mDebugRenderer.setDrawVelocities(mDebugConfig.drawVelocities);
+    public void setConfig(GameConfig config) {
+        mGameConfig = config;
+        mDebugRenderer.setDrawVelocities(mGameConfig.drawVelocities);
     }
 
     public OrthographicCamera getCamera() {
@@ -114,10 +104,10 @@ public class GameRenderer {
         mGameObjectPerformanceCounter.stop();
         mBatch.end();
 
-        if (mDebugConfig.enabled) {
+        if (mGameConfig.debugEnabled) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
-            if (mDebugConfig.drawTileCorners) {
+            if (mGameConfig.drawTileCorners) {
                 mShapeRenderer.setColor(1, 1, 1, 1);
                 float tileW = mMapInfo.getTileWidth();
                 float tileH = mMapInfo.getTileHeight();
@@ -152,22 +142,32 @@ public class GameRenderer {
         mCamera.viewportHeight = viewportHeight;
 
         // Compute pos
-        float advanceAngle;
-        if (GamePlay.instance.rotateCamera) {
-            float targetAngle = 180 - mVehicle.getAngle();
-            float deltaAngle = targetAngle - mCameraAngle;
-            float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
-            float progress = Math.min(Math.abs(deltaAngle), K) / K;
-            float maxRotationSpeed = MathUtils.lerp(1, Constants.MAX_CAMERA_ROTATION_SPEED, progress);
-            float maxDeltaAngle = maxRotationSpeed * delta;
-            deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
-            mCamera.rotate(deltaAngle);
-            mCameraAngle += deltaAngle;
+        float maxCameraRotationSpeed = mGameConfig.rotateCamera ? Constants.MAX_CAMERA_ROTATION_SPEED : 0;
 
+        float targetAngle = 180 - mVehicle.getAngle();
+        float deltaAngle = targetAngle - mCameraAngle;
+        float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
+        float progress = Math.min(Math.abs(deltaAngle), K) / K;
+        float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
+        float maxDeltaAngle = maxRotationSpeed * delta;
+        deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+        mCamera.rotate(deltaAngle);
+        mCameraAngle += deltaAngle;
+
+        if (!mGameConfig.rotateCamera && mCameraAngle != 90) {
+            // If we just disabled camera rotation, reset the camera angle
+            mCamera.rotate(-mCameraAngle + 90);
+            mCameraAngle = 90;
+        }
+
+        // Compute advanceAngle
+        float advanceAngle;
+        if (mGameConfig.rotateCamera) {
             advanceAngle = 180 - mCameraAngle;
         } else {
             advanceAngle = mVehicle.getAngle();
         }
+
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         mCamera.position.x = mVehicle.getX() + advance * MathUtils.cosDeg(advanceAngle);
         mCamera.position.y = mVehicle.getY() + advance * MathUtils.sinDeg(advanceAngle);
@@ -176,13 +176,9 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        if (GamePlay.instance.rotateCamera) {
-            // Increase size of render view to make sure corners are correctly drawn
-            float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
-            mRenderer.setView(mCamera.combined,
-                    mCamera.position.x - radius, mCamera.position.y - radius, radius * 2, radius * 2);
-        } else {
-            mRenderer.setView(mCamera);
-        }
+        // Increase size of render view to make sure corners are correctly drawn
+        float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
+        mRenderer.setView(mCamera.combined,
+                mCamera.position.x - radius, mCamera.position.y - radius, radius * 2, radius * 2);
     }
 }

@@ -39,7 +39,6 @@ public class DebugScreen extends TwStageScreen {
         mGroup.align(Align.left).space(20);
         addTitle("Race");
         mGroup.addActor(addRange("Viewport width:", "viewportWidth", 20, 800, 10));
-        mGroup.addActor(addGamePlayCheckBox("Rotate viewport", "rotateCamera"));
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
@@ -80,7 +79,7 @@ public class DebugScreen extends TwStageScreen {
 
     private CheckBox addCheckBox(String text, final String key) {
         final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
-        final Preferences prefs = TheGame.getPreferences();
+        final Preferences prefs = mGame.getPreferences();
         checkBox.setChecked(prefs.getBoolean(key, false));
         checkBox.addListener(new ChangeListener() {
             @Override

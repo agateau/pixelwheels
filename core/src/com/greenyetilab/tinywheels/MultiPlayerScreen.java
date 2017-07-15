@@ -35,7 +35,7 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        Preferences prefs = TheGame.getPreferences();
+        Preferences prefs = mGame.getPreferences();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
         VehicleSelector.register(builder);
 
@@ -72,7 +72,7 @@ public class MultiPlayerScreen extends TwStageScreen {
         // remove them
         mGameInfo.playerInfos.clear();
 
-        Preferences prefs = TheGame.getPreferences();
+        Preferences prefs = mGame.getPreferences();
         KeyboardInputHandler inputHandler;
         inputHandler = new KeyboardInputHandler();
         inputHandler.setActionKey(KeyboardInputHandler.Action.LEFT, Input.Keys.X);

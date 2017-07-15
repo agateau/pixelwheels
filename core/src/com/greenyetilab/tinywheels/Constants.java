@@ -18,7 +18,7 @@ public class Constants {
     public static final int PLAYER_HEALTH = 3;
 
     // In degrees per second
-    public static final float MAX_CAMERA_ROTATION_SPEED = 180;
+    public static final float MAX_CAMERA_ROTATION_SPEED = 90;
 
     // When the camera must rotate by less than this angle, its maximum rotation speed is linearly
     // interpolated between 1 and MAX_CAMERA_ROTATION_SPEED. When it must rotate by more than this
