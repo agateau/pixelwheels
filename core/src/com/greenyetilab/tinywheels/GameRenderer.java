@@ -68,7 +68,7 @@ public class GameRenderer {
 
     public void setConfig(GameConfig config) {
         mGameConfig = config;
-        mDebugRenderer.setDrawVelocities(mGameConfig.drawVelocities);
+        mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
     }
 
     public OrthographicCamera getCamera() {
@@ -104,10 +104,10 @@ public class GameRenderer {
         mGameObjectPerformanceCounter.stop();
         mBatch.end();
 
-        if (mGameConfig.debugEnabled) {
+        if (Debug.instance.showDebugLayer) {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
-            if (mGameConfig.drawTileCorners) {
+            if (Debug.instance.drawTileCorners) {
                 mShapeRenderer.setColor(1, 1, 1, 1);
                 float tileW = mMapInfo.getTileWidth();
                 float tileH = mMapInfo.getTileHeight();

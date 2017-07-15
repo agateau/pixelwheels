@@ -2,7 +2,6 @@ package com.greenyetilab.tinywheels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -45,7 +44,7 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
-        mHudStage.setDebugAll(GamePlay.instance.debugHud);
+        mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
         for (int idx = 0; idx < gameInfo.playerInfos.size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
@@ -73,7 +72,7 @@ public class RaceScreen extends ScreenAdapter {
     private HudContent setupHudContent(Hud hud, int idx) {
         HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, idx);
         if (idx == 0) {
-            if (mGame.getPreferences().getBoolean("debug/showDebugHud", false)) {
+            if (Debug.instance.showDebugHud) {
                 hudContent.setPerformanceCounters(mPerformanceCounters);
             }
             if (GameInputHandlerFactories.hasMultitouch()) {

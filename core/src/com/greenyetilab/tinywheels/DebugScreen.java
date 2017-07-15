@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
+import com.greenyetilab.utils.Introspector;
 import com.greenyetilab.utils.UiBuilder;
 import com.greenyetilab.utils.anchor.AnchorGroup;
 
@@ -21,6 +21,10 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
 public class DebugScreen extends TwStageScreen {
     private final TheGame mGame;
     private VerticalGroup mGroup;
+
+    // This field is set during setupUi: add* methods use it to bind the controls to the correct
+    // introspector
+    private Introspector mCurrentIntrospector = null;
 
     public DebugScreen(TheGame game) {
         mGame = game;
@@ -34,6 +38,7 @@ public class DebugScreen extends TwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mCurrentIntrospector = mGame.getGamePlayIntrospector();
         mGroup = new VerticalGroup();
         mGroup.align(Align.left).space(20);
         addTitle("Race");
@@ -54,18 +59,21 @@ public class DebugScreen extends TwStageScreen {
         addTitle("Vehicle");
         mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
         mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
+
+        mCurrentIntrospector = mGame.getDebugIntrospector();
         addTitle("Debug");
-        mGroup.addActor(addCheckBox("Show debug hud", "debug/showDebugHud"));
-        mGroup.addActor(addCheckBox("Box2D: Debug", "debug/box2d"));
-        mGroup.addActor(addCheckBox("Box2D: Draw velocities", "debug/box2d/drawVelocities"));
-        mGroup.addActor(addGamePlayCheckBox("Debug hud", "debugHud"));
-        mGroup.addActor(addCheckBox("Tiles: Draw corners", "debug/tiles/drawCorners"));
+        mGroup.addActor(addCheckBox("Show debug hud", "showDebugHud"));
+        mGroup.addActor(addCheckBox("Show debug layer", "showDebugLayer"));
+        mGroup.addActor(addCheckBox("- Draw velocities", "drawVelocities"));
+        mGroup.addActor(addCheckBox("- Draw tile corners", "drawTileCorners"));
+        mGroup.addActor(addCheckBox("Hud debug lines", "showHudDebugLines"));
 
         mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                mGame.getDebugIntrospector().save();
                 mGame.getGamePlayIntrospector().save();
                 mGame.popScreen();
             }
@@ -76,31 +84,19 @@ public class DebugScreen extends TwStageScreen {
         root.addSizeRule(pane, root, 1, 1, -5, 0);
     }
 
-    private CheckBox addCheckBox(String text, final String key) {
-        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
-        final Preferences prefs = mGame.getPreferences();
-        checkBox.setChecked(prefs.getBoolean(key, false));
-        checkBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                prefs.putBoolean(key, checkBox.isChecked());
-                prefs.flush();
-            }
-        });
-        return checkBox;
-    }
-
-    private Actor addGamePlayCheckBox(String text, final String keyName) {
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+    private Actor addCheckBox(String text, final String keyName) {
+        final Introspector introspector = mCurrentIntrospector;
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
         final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
-        boolean checked = mGame.getGamePlayIntrospector().get(keyName);
+        boolean checked = introspector.get(keyName);
         checkBox.setChecked(checked);
+
         checkBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 boolean value = checkBox.isChecked();
-                mGame.getGamePlayIntrospector().set(keyName, value);
+                introspector.set(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -116,16 +112,17 @@ public class DebugScreen extends TwStageScreen {
     }
 
     private Actor addRange(String text, final String keyName, int min, int max, int stepSize) {
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+        final Introspector introspector = mCurrentIntrospector;
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
         final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(mGame.getGamePlayIntrospector().getInt(keyName));
+        spinBox.setValue(introspector.getInt(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 int value = spinBox.getValue();
-                mGame.getGamePlayIntrospector().setInt(keyName, value);
+                introspector.setInt(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -133,21 +130,18 @@ public class DebugScreen extends TwStageScreen {
         return createRow(text, spinBox, defaultLabel);
     }
 
-    private Actor addRange(String text, final String keyName, float min, float max) {
-        return addRange(text, keyName, min, max, 1f);
-    }
-
     private Actor addRange(String text, final String keyName, float min, float max, float stepSize) {
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName);
+        final Introspector introspector = mCurrentIntrospector;
+        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
         final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().skin);
         spinBox.setStepSize(stepSize);
-        spinBox.setValue(mGame.getGamePlayIntrospector().getFloat(keyName));
+        spinBox.setValue(introspector.getFloat(keyName));
         spinBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float value = spinBox.getValue();
-                mGame.getGamePlayIntrospector().setFloat(keyName, value);
+                introspector.setFloat(keyName, value);
                 defaultLabel.update();
             }
         });
@@ -171,16 +165,18 @@ public class DebugScreen extends TwStageScreen {
 
     private class DefaultLabel extends Label {
         private final String mKeyName;
+        private final Introspector mIntrospector;
 
-        public DefaultLabel(String keyName) {
+        public DefaultLabel(String keyName, Introspector introspector) {
             super("", mGame.getAssets().skin);
             mKeyName = keyName;
+            mIntrospector = introspector;
             update();
         }
 
         public void update() {
-            Object ref = mGame.getGamePlayIntrospector().getReference(mKeyName);
-            Object current = mGame.getGamePlayIntrospector().get(mKeyName);
+            Object ref = mIntrospector.getReference(mKeyName);
+            Object current = mIntrospector.get(mKeyName);
 
             if (ref.equals(current)) {
                 setVisible(false);

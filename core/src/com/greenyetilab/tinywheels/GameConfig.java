@@ -19,9 +19,6 @@ public class GameConfig {
     }
 
     public boolean rotateCamera = true;
-    public boolean debugEnabled = false;
-    public boolean drawVelocities = false;
-    public boolean drawTileCorners = false;
     public String input;
     public String onePlayerVehicle;
     public String twoPlayersVehicle1;
@@ -37,9 +34,6 @@ public class GameConfig {
         mPreferences = Gdx.app.getPreferences("com.greenyetilab.tinywheels");
         rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN_ID, true);
 
-        debugEnabled = mPreferences.getBoolean("debug/box2d", false);
-        drawTileCorners = mPreferences.getBoolean("debug/tiles/drawCorners", false);
-        drawVelocities = mPreferences.getBoolean("debug/box2d/drawVelocities", false);
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
         twoPlayersVehicle1 = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID1);

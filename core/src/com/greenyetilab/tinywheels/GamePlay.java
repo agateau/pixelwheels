@@ -29,8 +29,6 @@ public class GamePlay {
 
     public boolean alwaysShowTouchInput = false;
 
-    public boolean debugHud = false;
-
     public boolean showTestTrack = false;
     public boolean createSpeedReport = false;
 

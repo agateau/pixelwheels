@@ -21,6 +21,7 @@ public class TheGame extends Game {
     private GameConfig mGameConfig;
 
     private Introspector mGamePlayIntrospector;
+    private Introspector mDebugIntrospector;
 
     public Assets getAssets() {
         return mAssets;
@@ -30,7 +31,12 @@ public class TheGame extends Game {
     public void create() {
         mGamePlayIntrospector = new Introspector(GamePlay.instance, new GamePlay(),
                 FileUtils.getUserWritableFile("gameplay.xml"));
+        mDebugIntrospector = new Introspector(Debug.instance, new Debug(),
+                FileUtils.getUserWritableFile("debug.xml"));
+
         mGamePlayIntrospector.load();
+        mDebugIntrospector.load();
+
         mAssets = new Assets();
         mGameConfig = new GameConfig();
         Box2D.init();
@@ -70,6 +76,10 @@ public class TheGame extends Game {
 
     public Introspector getGamePlayIntrospector() {
         return mGamePlayIntrospector;
+    }
+
+    public Introspector getDebugIntrospector() {
+        return mDebugIntrospector;
     }
 
     public void pushScreen(Screen screen) {
