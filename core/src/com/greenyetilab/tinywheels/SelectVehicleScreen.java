@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
@@ -42,7 +41,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         mVehicleSelector = builder.getActor("vehicleSelector");
         mVehicleSelector.init(assets);
 
-        String id = mGame.getPreferences().getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
+        String id = mGame.getConfig().onePlayerVehicle;
         mVehicleSelector.setSelected(assets.findVehicleDefByID(id));
 
         builder.getActor("goButton").addListener(new ClickListener() {
@@ -60,12 +59,13 @@ public class SelectVehicleScreen extends TwStageScreen {
     }
 
     private void next() {
-        Preferences prefs = mGame.getPreferences();
         String id = mVehicleSelector.getSelectedId();
-        prefs.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, id);
-        prefs.flush();
+        GameConfig gameConfig = mGame.getConfig();
 
-        String inputHandlerId = mGame.getConfig().input;
+        gameConfig.onePlayerVehicle = id;
+        gameConfig.flush();
+
+        String inputHandlerId = gameConfig.input;
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
         mGameInfo.addPlayerInfo(id, factory.create());
         mMaestro.actionTriggered("next");
