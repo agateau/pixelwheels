@@ -16,7 +16,7 @@ public class OnePlayerMaestro implements Maestro {
         String current = mGame.getScreen().getClass().getSimpleName();
         if (current.equals("SelectVehicleScreen")) {
             if (action.equals("next")) {
-                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo, PrefConstants.ONEPLAYER_MAP_ID));
+                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo, mGame.getConfig().onePlayer));
             } else if (action.equals("back")) {
                 mGame.showMainMenu();
             }

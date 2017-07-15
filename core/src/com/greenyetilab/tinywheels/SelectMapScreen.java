@@ -1,6 +1,5 @@
 package com.greenyetilab.tinywheels;
 
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.greenyetilab.utils.FileUtils;
@@ -15,19 +14,19 @@ public class SelectMapScreen extends TwStageScreen {
     private final TheGame mGame;
     private final GameInfo mGameInfo;
     private final Maestro mMaestro;
-    private final String mPreferenceKey;
+    private final GameConfig.GameModeConfig mGameModeConfig;
     private MapSelector mMapSelector;
 
-    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo, String preferenceKey) {
+    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
-        mPreferenceKey = preferenceKey;
+        mGameModeConfig = gameModeConfig;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo, mPreferenceKey));
+                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo, mGameModeConfig));
             }
         };
     }
@@ -43,8 +42,7 @@ public class SelectMapScreen extends TwStageScreen {
 
         mMapSelector = builder.getActor("mapSelector");
         mMapSelector.init(assets);
-        String id = mGame.getPreferences().getString(mPreferenceKey);
-        mMapSelector.setSelected(assets.findMapInfoByID(id));
+        mMapSelector.setSelected(assets.findMapInfoByID(mGameModeConfig.map));
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -62,9 +60,8 @@ public class SelectMapScreen extends TwStageScreen {
     }
 
     private void saveSelectedMap() {
-        Preferences prefs = mGame.getPreferences();
-        prefs.putString(mPreferenceKey, mMapSelector.getSelected().getId());
-        prefs.flush();
+        mGameModeConfig.map = mMapSelector.getSelected().getId();
+        mGame.getConfig().flush();
     }
 
     private void next() {

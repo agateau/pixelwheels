@@ -14,6 +14,10 @@ public class GameConfig {
         void change();
     }
 
+    static public class GameModeConfig {
+        public String map;
+    }
+
     public boolean rotateCamera = true;
     public boolean debugEnabled = false;
     public boolean drawVelocities = false;
@@ -22,6 +26,9 @@ public class GameConfig {
     public String onePlayerVehicle;
     public String twoPlayersVehicle1;
     public String twoPlayersVehicle2;
+
+    public GameModeConfig onePlayer = new GameModeConfig();
+    public GameModeConfig multiPlayer = new GameModeConfig();
 
     private Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
@@ -37,6 +44,10 @@ public class GameConfig {
         onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
         twoPlayersVehicle1 = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID1);
         twoPlayersVehicle2 = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID2);
+
+        onePlayer.map = mPreferences.getString(PrefConstants.ONEPLAYER_MAP_ID);
+
+        multiPlayer.map = mPreferences.getString(PrefConstants.MULTIPLAYER_MAP_ID);
     }
 
     public void addListener(ChangeListener listener) {
@@ -54,6 +65,10 @@ public class GameConfig {
         mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
         mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID1, twoPlayersVehicle1);
         mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID2, twoPlayersVehicle2);
+
+        mPreferences.putString(PrefConstants.ONEPLAYER_MAP_ID, onePlayer.map);
+        mPreferences.putString(PrefConstants.MULTIPLAYER_MAP_ID, multiPlayer.map);
+
         mPreferences.flush();
         for (WeakReference<ChangeListener> listenerRef : mListeners) {
             ChangeListener listener = listenerRef.get();
