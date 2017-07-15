@@ -84,4 +84,21 @@ class LapPositionComponent {
         }
         mLapTime = 0;
     }
+
+    public void markRaceFinished() {
+        if (mHasFinishedRace) {
+            return;
+        }
+        // Completing one lap represents that percentage of the race
+        float lapPercent = 1f / mMapInfo.getTotalLapCount();
+
+        float lastLapPercent = mLapPosition.getLapDistance() / mMapInfo.getLapPositionTable().getSectionCount() * lapPercent;
+        float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
+
+        mTotalTime = mTotalTime / percentageDone;
+        if (mBestLapTime < 0) {
+            mBestLapTime = mTotalTime / mMapInfo.getTotalLapCount();
+        }
+        mHasFinishedRace = true;
+    }
 }

@@ -214,4 +214,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public VehicleRenderer getVehicleRenderer() {
         return mVehicleRenderer;
     }
+
+    public void markRaceFinished() {
+        mLapPositionComponent.markRaceFinished();
+    }
 }

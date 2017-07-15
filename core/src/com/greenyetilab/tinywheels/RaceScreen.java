@@ -103,7 +103,7 @@ public class RaceScreen extends ScreenAdapter {
             mGameWorld.act(delta);
             GameWorld.State newState = mGameWorld.getState();
             if (oldState != newState) {
-                showFinishedOverlay();
+                onFinished();
             }
         }
         mGameWorldPerformanceCounter.stop();
@@ -157,7 +157,10 @@ public class RaceScreen extends ScreenAdapter {
         mHudViewport.update(width, height, true);
     }
 
-    private void showFinishedOverlay() {
+    private void onFinished() {
+        for (Racer racer : mGameWorld.getRacers()) {
+            racer.markRaceFinished();
+        }
         FinishedOverlay overlay = new FinishedOverlay(mGame, mMaestro, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
         mHudStage.addActor(overlay);
     }
