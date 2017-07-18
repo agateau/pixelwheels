@@ -48,11 +48,6 @@ public class GameConfig {
         mListeners.add(new WeakReference<ChangeListener>(listener));
     }
 
-    // FIXME: Remove
-    public Preferences getPreferences() {
-        return mPreferences;
-    }
-
     public void flush() {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN_ID, rotateCamera);
         mPreferences.putString(PrefConstants.INPUT, input);

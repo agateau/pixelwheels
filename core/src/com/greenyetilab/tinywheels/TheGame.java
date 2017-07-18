@@ -65,11 +65,6 @@ public class TheGame extends Game {
         pushScreen(screen);
     }
 
-    // FIXME: Remove
-    public Preferences getPreferences() {
-        return mGameConfig.getPreferences();
-    }
-
     public GameConfig getConfig() {
         return mGameConfig;
     }
