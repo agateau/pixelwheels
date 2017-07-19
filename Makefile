@@ -18,6 +18,8 @@ JDK_LINUX64_ZIP=openjdk-linux64.zip
 
 ARCHIVE_DIR=$(CURDIR)/archives
 
+SPRITES=core/assets/maps/city.png
+
 ifdef SNAPSHOT
 	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
 endif
@@ -47,6 +49,11 @@ mapscreenshotgenerator: tools
 mappacker: tools
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapPacker core/assets/maps android/assets/maps
 
+# Sprites
+sprites: $(SPRITES)
+
+%.png: %.ase
+	aseprite --batch $< --save-as $@
 
 # Packr
 $(JDK_LINUX64_ZIP):
