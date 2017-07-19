@@ -64,6 +64,7 @@ sprites: $(SPRITES)
 
 %.png: %.ase
 	aseprite --batch $< --save-as $@
+	$(COLORTR) --src '#ff00ff' --dst '#60222034' $@ $@
 
 # Packr
 $(JDK_LINUX64_ZIP):
