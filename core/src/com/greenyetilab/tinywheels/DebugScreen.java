@@ -19,14 +19,14 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * The debug screen
  */
 public class DebugScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private VerticalGroup mGroup;
 
     // This field is set during setupUi: add* methods use it to bind the controls to the correct
     // introspector
     private Introspector mCurrentIntrospector = null;
 
-    public DebugScreen(TheGame game) {
+    public DebugScreen(TwGame game) {
         mGame = game;
         setupUi();
     }

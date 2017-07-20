@@ -14,7 +14,7 @@ import java.util.Stack;
 /**
  * The game
  */
-public class TheGame extends Game {
+public class TwGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
     private Maestro mMaestro;

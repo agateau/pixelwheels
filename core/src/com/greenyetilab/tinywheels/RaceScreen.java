@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final Maestro mMaestro;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
@@ -33,7 +33,7 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
-    public RaceScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
+    public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         SpriteBatch batch = new SpriteBatch();
@@ -190,7 +190,7 @@ public class RaceScreen extends ScreenAdapter {
         // 2. The new RaceScreen creates a GameWorld
         // 3. The new GameWorld calls MapInfo.init()
         // 4. RaceScreen is set to replace the current screen
-        // 5. TheGame.replaceScreen() calls dispose() on the old screen
+        // 5. TwGame.replaceScreen() calls dispose() on the old screen
         // 6. The old screen calls dispose() on its GameWorld
         // 7. The old GameWorld  calls dispose() on its MapInfo
         // 8. Since the MapInfo of the old GameWorld is the same as the

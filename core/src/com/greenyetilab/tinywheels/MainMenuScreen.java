@@ -13,9 +13,9 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * Main menu, shown at startup
  */
 public class MainMenuScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
 
-    public MainMenuScreen(TheGame game) {
+    public MainMenuScreen(TwGame game) {
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {

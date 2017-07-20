@@ -16,9 +16,9 @@ import com.greenyetilab.utils.anchor.SizeRule;
  * The config screen
  */
 public class ConfigScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
 
-    public ConfigScreen(TheGame game) {
+    public ConfigScreen(TwGame game) {
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {

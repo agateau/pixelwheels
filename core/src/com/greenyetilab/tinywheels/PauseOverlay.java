@@ -10,11 +10,11 @@ import com.greenyetilab.utils.UiBuilder;
  * Appears on top of RaceScreen when paused
  */
 public class PauseOverlay extends Overlay {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final Maestro mMaestro;
     private final RaceScreen mRaceScreen;
 
-    public PauseOverlay(TheGame game, Maestro maestro, RaceScreen raceScreen) {
+    public PauseOverlay(TwGame game, Maestro maestro, RaceScreen raceScreen) {
         super(game.getAssets().dot);
         mGame = game;
         mMaestro = maestro;

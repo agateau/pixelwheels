@@ -11,12 +11,12 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * Select your vehicle
  */
 public class SelectVehicleScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;
     private VehicleSelector mVehicleSelector;
 
-    public SelectVehicleScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
+    public SelectVehicleScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;

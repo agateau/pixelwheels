@@ -11,10 +11,10 @@ import com.greenyetilab.utils.UiBuilder;
  * Appears on top of RaceScreen at the end of the race
  */
 public class FinishedOverlay extends Overlay {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final Maestro mMaestro;
 
-    public FinishedOverlay(TheGame game, Maestro maestro, final Array<Racer> racers, final Array<Racer> playerRacers) {
+    public FinishedOverlay(TwGame game, Maestro maestro, final Array<Racer> racers, final Array<Racer> playerRacers) {
         super(game.getAssets().dot);
         mGame = game;
         mMaestro = maestro;

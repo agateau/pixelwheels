@@ -11,13 +11,13 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * Select your map
  */
 public class SelectMapScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final GameInfo mGameInfo;
     private final Maestro mMaestro;
     private final GameConfig.GameModeConfig mGameModeConfig;
     private MapSelector mMapSelector;
 
-    public SelectMapScreen(TheGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+    public SelectMapScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;

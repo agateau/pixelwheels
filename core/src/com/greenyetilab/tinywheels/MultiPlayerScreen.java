@@ -12,13 +12,13 @@ import com.greenyetilab.utils.anchor.AnchorGroup;
  * Select player vehicles
  */
 public class MultiPlayerScreen extends TwStageScreen {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;
     private VehicleSelector mVehicleSelector1;
     private VehicleSelector mVehicleSelector2;
 
-    public MultiPlayerScreen(TheGame game, Maestro maestro, GameInfo gameInfo) {
+    public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;

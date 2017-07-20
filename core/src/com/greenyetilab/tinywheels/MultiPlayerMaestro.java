@@ -4,10 +4,10 @@ package com.greenyetilab.tinywheels;
  * Handle a multi player game
  */
 public class MultiPlayerMaestro implements Maestro {
-    private final TheGame mGame;
+    private final TwGame mGame;
     private final GameInfo mGameInfo = new GameInfo();
 
-    public MultiPlayerMaestro(TheGame game) {
+    public MultiPlayerMaestro(TwGame game) {
         mGame = game;
     }
 

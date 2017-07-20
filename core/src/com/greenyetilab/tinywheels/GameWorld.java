@@ -29,7 +29,7 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
 
-    private final TheGame mGame;
+    private final TwGame mGame;
     private MapInfo mMapInfo;
 
     private final World mBox2DWorld;
@@ -48,7 +48,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TheGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
+    public GameWorld(TwGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
         mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
