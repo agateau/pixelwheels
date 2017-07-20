@@ -78,7 +78,7 @@ public class Introspector {
                         .text(value.toString())
                         .pop();
             }
-            root.close();
+            root.pop();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
