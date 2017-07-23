@@ -1,1 +1,1 @@
-include 'desktop', 'tools', 'android', 'core'
+include 'uigallery', 'desktop', 'tools', 'android', 'core'
