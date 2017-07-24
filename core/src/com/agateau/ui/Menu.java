@@ -1,5 +1,6 @@
 package com.agateau.ui;
 
+import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -47,7 +48,7 @@ public class Menu extends ScrollPane {
     }
 
     public Actor addButton(String text) {
-        return addItem(new ButtonMenuItem(text, mSkin));
+        return addItem(new ButtonMenuItem(this, text, mSkin));
     }
 
     public Actor addItem(ButtonMenuItem item) {
@@ -72,6 +73,15 @@ public class Menu extends ScrollPane {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             triggerCurrentItem();
         }
+    }
+
+    void setCurrentItem(MenuItem item) {
+        if (item == null) {
+            mCurrentIndex = -1;
+            return;
+        }
+        mCurrentIndex = mItems.indexOf(item, /* identity= */ true);
+        Assert.check(mCurrentIndex != -1, "Invalid item");
     }
 
     private void adjustIndex(int delta) {
