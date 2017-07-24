@@ -41,9 +41,6 @@ class GalleryScreen extends StageScreen {
         getStage().addActor(root);
         root.setFillParent(true);
 
-        TextButton button = new TextButton("x", mSkin);
-        root.addPositionRule(button, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT);
-
         Menu menu = new Menu(mSkin);
         menu.addButton("Button A").addListener(new ChangeListener() {
             @Override
@@ -55,6 +52,12 @@ class GalleryScreen extends StageScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 NLog.e("Button B clicked");
+            }
+        });
+        menu.addButton("Quit").addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
             }
         });
         root.addPositionRule(menu, Anchor.CENTER, root, Anchor.CENTER);
