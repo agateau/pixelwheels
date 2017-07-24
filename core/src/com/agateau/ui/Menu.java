@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -28,9 +29,9 @@ public class Menu extends ScrollPane {
         @Override
         public void draw(Batch batch, float parentAlpha) {
             super.draw(batch, parentAlpha);
-            Actor actor = getCurrentActor();
-            if (actor != null) {
-                drawSelection(batch, parentAlpha, actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
+            MenuItem item = getCurrentItem();
+            if (item != null) {
+                drawSelection(batch, parentAlpha, item);
             }
         }
     }
@@ -75,13 +76,17 @@ public class Menu extends ScrollPane {
         }
     }
 
-    void setCurrentItem(MenuItem item) {
+    public void setCurrentItem(MenuItem item) {
         if (item == null) {
             mCurrentIndex = -1;
             return;
         }
         mCurrentIndex = mItems.indexOf(item, /* identity= */ true);
         Assert.check(mCurrentIndex != -1, "Invalid item");
+    }
+
+    public MenuItem getCurrentItem() {
+        return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
     }
 
     private void adjustIndex(int delta) {
@@ -95,14 +100,8 @@ public class Menu extends ScrollPane {
         mItems.get(mCurrentIndex).trigger();
     }
 
-    private Actor getCurrentActor() {
-        if (mCurrentIndex < 0) {
-            return null;
-        }
-        return mItems.get(mCurrentIndex).getActor();
-    }
-
-    private void drawSelection(Batch batch, float parentAlpha, float x, float y, float width, float height) {
-        mSelectionNinePatch.draw(batch, x - PADDING, y - PADDING, width + 2 * PADDING, height + 2 * PADDING);
+    private void drawSelection(Batch batch, float parentAlpha, MenuItem item) {
+        Rectangle rect = item.getFocusRectangle();
+        mSelectionNinePatch.draw(batch, rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
     }
 }

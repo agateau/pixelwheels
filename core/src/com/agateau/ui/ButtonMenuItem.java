@@ -1,5 +1,6 @@
 package com.agateau.ui;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.utils.Pools;
  */
 public class ButtonMenuItem extends Label implements MenuItem {
     private final Menu mMenu;
+    private final Rectangle mRect = new Rectangle();
 
     public ButtonMenuItem(Menu menu, String text, Skin skin) {
         super(text, skin);
@@ -37,5 +39,14 @@ public class ButtonMenuItem extends Label implements MenuItem {
         ChangeListener.ChangeEvent changeEvent = Pools.obtain(ChangeListener.ChangeEvent.class);
         fire(changeEvent);
         Pools.free(changeEvent);
+    }
+
+    @Override
+    public Rectangle getFocusRectangle() {
+        mRect.x = getX();
+        mRect.y = getY();
+        mRect.width = getWidth();
+        mRect.height = getHeight();
+        return mRect;
     }
 }
