@@ -27,6 +27,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemHeight = 0;
 
     public interface ItemRenderer<T> {
+        /**
+         * Returns a rectangle relative to the bottom-left corner of the grid
+         */
+        Rectangle getItemRectangle(float width, float height, T item);
+
         void render(Batch batch, float x, float y, float width, float height, T item);
     }
 
@@ -163,11 +168,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private void updateFocusRectangle() {
         if (mCurrentIndex == -1) {
             mFocusRectangle.set(0, 0, -1, -1);
-        } else {
-            float x = getX() + mCurrentIndex * mItemWidth;
-            float y = getY();
-            mFocusRectangle.set(x, y, mItemWidth, mItemHeight);
+            return;
         }
+        T item = mItems.get(mCurrentIndex);
+        float x = getX() + mCurrentIndex * mItemWidth;
+        float y = getY();
+        Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
     }
 
     private void touchDown(float touchX, float touchY) {

@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -75,15 +76,36 @@ class GalleryScreen extends StageScreen {
         Array<TextureRegion> items = new Array<TextureRegion>();
         items.add(mAtlas.findRegion("icon-back"));
         items.add(mAtlas.findRegion("icon-restart"));
+        items.add(mAtlas.findRegion("rectbutton"));
         items.add(mAtlas.findRegion("icon-left"));
         items.add(mAtlas.findRegion("icon-right"));
 
         GridMenuItem<TextureRegion> gridMenuItem = new GridMenuItem<TextureRegion>(menu);
-        gridMenuItem.setItemSize(64, 64);
+        gridMenuItem.setItemSize(70, 80);
         gridMenuItem.setItemRenderer(new GridMenuItem.ItemRenderer<TextureRegion>() {
+            private final Rectangle mRectangle = new Rectangle();
+            @Override
+            public Rectangle getItemRectangle(float width, float height, TextureRegion region) {
+                updateRectangle(width, height, region);
+                return mRectangle;
+            }
+
             @Override
             public void render(Batch batch, float x, float y, float width, float height, TextureRegion region) {
-                batch.draw(region, x, y, width, height);
+                updateRectangle(width, height, region);
+                batch.draw(region, x + mRectangle.x, y + mRectangle.y, mRectangle.width, mRectangle.height);
+            }
+
+            private void updateRectangle(float width, float height, TextureRegion region) {
+                float rWidth = region.getRegionWidth();
+                float rHeight = region.getRegionHeight();
+                float xScale = width / rWidth;
+                float yScale = height / rHeight;
+                float scale = Math.min(Math.min(xScale, yScale), 1);
+                mRectangle.width = rWidth * scale;
+                mRectangle.height = rHeight * scale;
+                mRectangle.x = (width - mRectangle.width) / 2;
+                mRectangle.y = (height - mRectangle.height) / 2;
             }
         });
         gridMenuItem.setItems(items);
