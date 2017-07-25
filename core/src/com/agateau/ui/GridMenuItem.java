@@ -1,0 +1,192 @@
+package com.agateau.ui;
+
+import com.agateau.utils.Assert;
+import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.utils.Array;
+
+/**
+ * A MenuItem to display a grid of custom elements
+ */
+
+public class GridMenuItem<T> extends Widget implements MenuItem {
+    private final Menu mMenu;
+    private final Rectangle mFocusRectangle = new Rectangle();
+    private Array<T> mItems;
+    private int mSelectedIndex = -1;
+    private int mCurrentIndex = -1;
+    private ItemRenderer<T> mRenderer;
+    private float mItemWidth = 0;
+    private float mItemHeight = 0;
+
+    public interface ItemRenderer<T> {
+        void render(Batch batch, float x, float y, float width, float height, T item);
+    }
+
+    public GridMenuItem(Menu menu) {
+        mMenu = menu;
+        addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (pointer == 0 && button != 0) {
+                    return false;
+                }
+                GridMenuItem.this.touchDown(x, y);
+                return true;
+            }
+        });
+    }
+
+    public void setSelected(T item) {
+        if (item == null) {
+            setSelectedIndex(mItems.size > 0 ? 0 : -1);
+            return;
+        }
+        int index = mItems.indexOf(item, true);
+        if (index < 0) {
+            NLog.e("Item is not in the item list");
+            return;
+        }
+        setSelectedIndex(index);
+    }
+
+    private void setSelectedIndex(int index) {
+        if (index < 0) {
+            mSelectedIndex = -1;
+            return;
+        }
+        Assert.check(index < mItems.size, "Invalid index value");
+        mSelectedIndex = index;
+    }
+
+    public T getSelected() {
+        return mSelectedIndex >= 0 ? mItems.get(mSelectedIndex) : null;
+    }
+
+    public void setItems(Array<T> items) {
+        mItems = items;
+        mCurrentIndex = items.size > 0 ? 0 : -1;
+        mSelectedIndex = mCurrentIndex;
+    }
+
+    public Array<T> getItems() {
+        return mItems;
+    }
+
+    public void setItemRenderer(ItemRenderer<T> renderer) {
+        mRenderer = renderer;
+    }
+
+    public void setItemSize(float width, float height) {
+        mItemWidth = width;
+        mItemHeight = height;
+    }
+
+    /// Scene2d API
+    @Override
+    public float getPrefWidth() {
+        return mItems.size * mItemWidth;
+    }
+
+    @Override
+    public float getPrefHeight() {
+        return mItemHeight;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        if (mRenderer == null) {
+            NLog.e("No renderer");
+            return;
+        }
+        if (mItemWidth <= 0 || mItemHeight <= 0) {
+            NLog.e("Invalid item size");
+            return;
+        }
+
+        Color color = getColor();
+        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+
+        final int columnCount = Math.min(MathUtils.floor(getWidth() / mItemWidth), mItems.size);
+        final float gutterWidth = (getWidth() - mItemWidth * columnCount) / 2;
+        float x = gutterWidth;
+        float y = getHeight() - mItemHeight;
+
+        for (T item : mItems) {
+            mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
+            x += mItemWidth;
+            if (x + mItemWidth > getWidth()) {
+                x = gutterWidth;
+                y -= mItemHeight;
+            }
+        }
+    }
+
+    /// MenuItem API
+    @Override
+    public Actor getActor() {
+        return this;
+    }
+
+    @Override
+    public void onTriggered() {
+        mSelectedIndex = mCurrentIndex;
+    }
+
+    @Override
+    public void onLeftPressed() {
+        if (mCurrentIndex > 0) {
+            mCurrentIndex--;
+        }
+    }
+
+    @Override
+    public void onRightPressed() {
+        if (mCurrentIndex < mItems.size - 1) {
+            mCurrentIndex++;
+        }
+    }
+
+    @Override
+    public Rectangle getFocusRectangle() {
+        updateFocusRectangle();
+        return mFocusRectangle;
+    }
+
+    /// Private
+    private void updateFocusRectangle() {
+        if (mCurrentIndex == -1) {
+            mFocusRectangle.set(0, 0, -1, -1);
+        } else {
+            float x = getX() + mCurrentIndex * mItemWidth;
+            float y = getY();
+            mFocusRectangle.set(x, y, mItemWidth, mItemHeight);
+        }
+    }
+
+    private void touchDown(float touchX, float touchY) {
+        if (mItems.size == 0) {
+            return;
+        }
+        if (mItemWidth <= 0 || mItemHeight <= 0) {
+            NLog.e("Invalid item size");
+            return;
+        }
+        final int columnCount = Math.min(MathUtils.floor(getWidth() / mItemWidth), mItems.size);
+        final float gutterWidth = (getWidth() - mItemWidth * columnCount) / 2;
+        int row = MathUtils.floor((getHeight() - touchY) / mItemHeight);
+        int column = MathUtils.floor((touchX - gutterWidth) / mItemWidth);
+        int idx = row * columnCount + column;
+        if (idx >= 0 && idx < mItems.size) {
+            mSelectedIndex = idx;
+            mCurrentIndex = idx;
+            mMenu.setCurrentItem(this);
+        }
+    }
+}

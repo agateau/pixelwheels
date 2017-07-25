@@ -1,7 +1,6 @@
 package com.agateau.ui;
 
 import com.agateau.utils.Assert;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -55,7 +53,7 @@ public class Menu extends ScrollPane {
         return addItem(new ButtonMenuItem(this, text, mSkin));
     }
 
-    public Actor addItem(ButtonMenuItem item) {
+    public Actor addItem(MenuItem item) {
         mItems.add(item);
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
@@ -81,6 +79,10 @@ public class Menu extends ScrollPane {
             adjustIndex(1);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             adjustIndex(-1);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            getCurrentItem().onLeftPressed();
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            getCurrentItem().onRightPressed();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             triggerCurrentItem();
         }
@@ -108,7 +110,7 @@ public class Menu extends ScrollPane {
         if (mCurrentIndex < 0) {
             return;
         }
-        mItems.get(mCurrentIndex).trigger();
+        mItems.get(mCurrentIndex).onTriggered();
     }
 
     private void setCurrentIndex(int index) {

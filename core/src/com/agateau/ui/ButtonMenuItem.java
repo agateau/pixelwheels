@@ -24,7 +24,7 @@ public class ButtonMenuItem extends Label implements MenuItem {
             @Override
             public void clicked (InputEvent event, float x, float y) {
                 mMenu.setCurrentItem(ButtonMenuItem.this);
-                trigger();
+                onTriggered();
             }
         });
     }
@@ -35,10 +35,20 @@ public class ButtonMenuItem extends Label implements MenuItem {
     }
 
     @Override
-    public void trigger() {
+    public void onTriggered() {
         ChangeListener.ChangeEvent changeEvent = Pools.obtain(ChangeListener.ChangeEvent.class);
         fire(changeEvent);
         Pools.free(changeEvent);
+    }
+
+    @Override
+    public void onLeftPressed() {
+
+    }
+
+    @Override
+    public void onRightPressed() {
+
     }
 
     @Override

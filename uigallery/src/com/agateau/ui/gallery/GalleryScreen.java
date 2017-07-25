@@ -1,6 +1,6 @@
 package com.agateau.ui.gallery;
 
-import com.agateau.ui.ButtonMenuItem;
+import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.utils.StageScreen;
 import com.agateau.utils.anchor.Anchor;
@@ -8,13 +8,13 @@ import com.agateau.utils.anchor.AnchorGroup;
 import com.agateau.utils.anchor.SizeRule;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
@@ -55,6 +55,9 @@ class GalleryScreen extends StageScreen {
                 NLog.e("Button B clicked");
             }
         });
+
+        GridMenuItem<TextureRegion> item = createGridMenuItem(menu);
+        menu.addItem(item);
         menu.addButton("Quit").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -66,5 +69,24 @@ class GalleryScreen extends StageScreen {
         }
         root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
         root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
+    }
+
+    private GridMenuItem<TextureRegion> createGridMenuItem(Menu menu) {
+        Array<TextureRegion> items = new Array<TextureRegion>();
+        items.add(mAtlas.findRegion("icon-back"));
+        items.add(mAtlas.findRegion("icon-restart"));
+        items.add(mAtlas.findRegion("icon-left"));
+        items.add(mAtlas.findRegion("icon-right"));
+
+        GridMenuItem<TextureRegion> gridMenuItem = new GridMenuItem<TextureRegion>(menu);
+        gridMenuItem.setItemSize(64, 64);
+        gridMenuItem.setItemRenderer(new GridMenuItem.ItemRenderer<TextureRegion>() {
+            @Override
+            public void render(Batch batch, float x, float y, float width, float height, TextureRegion region) {
+                batch.draw(region, x, y, width, height);
+            }
+        });
+        gridMenuItem.setItems(items);
+        return gridMenuItem;
     }
 }
