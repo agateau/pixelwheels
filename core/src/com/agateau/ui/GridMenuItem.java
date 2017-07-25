@@ -140,19 +140,19 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
-    public void onTriggered() {
+    public void trigger() {
         mSelectedIndex = mCurrentIndex;
     }
 
     @Override
-    public void onLeftPressed() {
+    public void goLeft() {
         if (mCurrentIndex > 0) {
             mCurrentIndex--;
         }
     }
 
     @Override
-    public void onRightPressed() {
+    public void goRight() {
         if (mCurrentIndex < mItems.size - 1) {
             mCurrentIndex++;
         }

@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public interface MenuItem {
     Actor getActor();
 
-    void onTriggered();
-    void onLeftPressed();
-    void onRightPressed();
+    void trigger();
+    void goLeft();
+    void goRight();
 
     Rectangle getFocusRectangle();
 }

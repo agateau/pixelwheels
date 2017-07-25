@@ -81,9 +81,9 @@ public class Menu extends ScrollPane {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             adjustIndex(-1);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            getCurrentItem().onLeftPressed();
+            getCurrentItem().goLeft();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            getCurrentItem().onRightPressed();
+            getCurrentItem().goRight();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             triggerCurrentItem();
         }
@@ -111,7 +111,7 @@ public class Menu extends ScrollPane {
         if (mCurrentIndex < 0) {
             return;
         }
-        mItems.get(mCurrentIndex).onTriggered();
+        mItems.get(mCurrentIndex).trigger();
     }
 
     private void setCurrentIndex(int index) {
