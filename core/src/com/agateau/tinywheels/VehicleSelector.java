@@ -1,29 +1,29 @@
 package com.agateau.tinywheels;
 
+import com.agateau.ui.GridMenuItem;
+import com.agateau.ui.Menu;
+import com.agateau.ui.TextureRegionItemRenderer;
+import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.XmlReader;
-import com.agateau.utils.GridSelector;
-import com.agateau.ui.UiBuilder;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * An actor to select a vehicle
  */
-public class VehicleSelector extends GridSelector<VehicleDef> {
+public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private Assets mAssets;
 
-    private class Renderer implements GridSelector.ItemRenderer<VehicleDef> {
-        @Override
-        public void renderSelectionIndicator(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
-            TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
-            mAssets.renderGridSelectionIndicator(batch, x, y, width, height, region);
-        }
+    public VehicleSelector(Menu menu) {
+        super(menu);
+    }
+
+    private class Renderer extends TextureRegionItemRendererAdapter<VehicleDef> {
+        private final TextureRegionItemRendererAdapter mRenderer = new TextureRegionItemRenderer();
 
         @Override
-        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
-            TextureRegion region = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
-            mAssets.renderGridItem(batch, x, y, width, height, region);
+        protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
+            return mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
         }
     }
 
@@ -36,14 +36,5 @@ public class VehicleSelector extends GridSelector<VehicleDef> {
 
     public String getSelectedId() {
         return getSelected().id;
-    }
-
-    public static void register(UiBuilder builder) {
-        builder.registerActorFactory("VehicleSelector", new UiBuilder.ActorFactory() {
-            @Override
-            public Actor createActor(XmlReader.Element element) {
-                return new VehicleSelector();
-            }
-        });
     }
 }

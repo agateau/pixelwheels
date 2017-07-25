@@ -1,10 +1,13 @@
 package com.agateau.tinywheels;
 
+import com.agateau.ui.Menu;
 import com.agateau.utils.FileUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -32,24 +35,26 @@ public class SelectVehicleScreen extends TwStageScreen {
     private void setupUi() {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
-        VehicleSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector = builder.getActor("vehicleSelector");
-        mVehicleSelector.init(assets);
+        Menu menu = builder.getActor("menu");
 
+        mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.init(assets);
         String id = mGame.getConfig().onePlayerVehicle;
         mVehicleSelector.setSelected(assets.findVehicleDefByID(id));
+        menu.addItem(mVehicleSelector);
 
-        builder.getActor("goButton").addListener(new ClickListener() {
+        menu.addButton("Go").addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 next();
             }
         });
+
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

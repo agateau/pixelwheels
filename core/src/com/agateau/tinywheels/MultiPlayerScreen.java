@@ -1,15 +1,15 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
-import com.agateau.ui.VirtualKey;
-import com.agateau.utils.FileUtils;
+import com.agateau.ui.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
-import com.badlogic.gdx.Gdx;
+import com.agateau.ui.VirtualKey;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.agateau.ui.anchor.AnchorGroup;
 
 /**
  * Select player vehicles
@@ -47,19 +47,23 @@ public class MultiPlayerScreen extends TwStageScreen {
         Assets assets = mGame.getAssets();
         GameConfig gameConfig = mGame.getConfig();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
-        VehicleSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector1 = builder.getActor("vehicleSelector1");
+        Menu menu1 = builder.getActor("menu1");
+        mVehicleSelector1 = new VehicleSelector(menu1);
         mVehicleSelector1.init(assets);
         mVehicleSelector1.setSelected(assets.findVehicleDefByID(gameConfig.twoPlayersVehicle1));
+        menu1.addItem(mVehicleSelector1);
 
-        mVehicleSelector2 = builder.getActor("vehicleSelector2");
+        Menu menu2 = builder.getActor("menu2");
+        menu2.setKeyMapper(mKeyMapper2);
+        mVehicleSelector2 = new VehicleSelector(menu2);
         mVehicleSelector2.init(assets);
         mVehicleSelector2.setSelected(assets.findVehicleDefByID(gameConfig.twoPlayersVehicle2));
+        menu2.addItem(mVehicleSelector2);
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
