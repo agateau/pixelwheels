@@ -4,6 +4,7 @@ import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,7 +21,7 @@ import com.badlogic.gdx.utils.Array;
  */
 
 public class Menu extends ScrollPane {
-    private static final float SELECTION_ANIMATION_DURATION = 0.1f;
+    private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private static final int PADDING = 8;
     private final Image mSelectionImage;
     private final Group mPaneWidget;
@@ -140,8 +141,8 @@ public class Menu extends ScrollPane {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
-        mSelectionImage.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION));
-        mSelectionImage.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION));
+        mSelectionImage.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        mSelectionImage.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         ensureItemVisible();
     }
 
