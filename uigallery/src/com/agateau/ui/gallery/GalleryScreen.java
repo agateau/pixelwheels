@@ -2,10 +2,10 @@ package com.agateau.ui.gallery;
 
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
-import com.agateau.utils.StageScreen;
-import com.agateau.utils.anchor.Anchor;
-import com.agateau.utils.anchor.AnchorGroup;
-import com.agateau.utils.anchor.SizeRule;
+import com.agateau.ui.StageScreen;
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.anchor.SizeRule;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;

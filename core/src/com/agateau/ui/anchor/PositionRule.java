@@ -1,4 +1,4 @@
-package com.agateau.utils.anchor;
+package com.agateau.ui.anchor;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;

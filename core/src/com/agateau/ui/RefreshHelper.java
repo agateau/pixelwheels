@@ -1,4 +1,4 @@
-package com.agateau.utils;
+package com.agateau.ui;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;

@@ -2,7 +2,7 @@ package com.agateau.tinywheels;
 
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.agateau.utils.StageScreen;
+import com.agateau.ui.StageScreen;
 
 /**
  * A stage screen using the correct size for Tiny Wheels

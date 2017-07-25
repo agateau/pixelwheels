@@ -1,6 +1,6 @@
 package com.agateau.tinywheels;
 
-import com.agateau.utils.UiBuilder;
+import com.agateau.ui.UiBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

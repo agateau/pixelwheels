@@ -1,5 +1,6 @@
-package com.agateau.utils;
+package com.agateau.ui;
 
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -21,9 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.XmlReader;
-import com.agateau.utils.anchor.Anchor;
-import com.agateau.utils.anchor.AnchorGroup;
-import com.agateau.utils.anchor.PositionRule;
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.anchor.PositionRule;
 
 import java.util.HashMap;
 import java.util.HashSet;

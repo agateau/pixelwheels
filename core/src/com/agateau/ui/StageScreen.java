@@ -1,4 +1,4 @@
-package com.agateau.utils;
+package com.agateau.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;

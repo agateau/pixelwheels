@@ -3,7 +3,7 @@ package com.agateau.tinywheels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.agateau.utils.anchor.AnchorGroup;
+import com.agateau.ui.anchor.AnchorGroup;
 
 /**
  * Hud showing player info during race

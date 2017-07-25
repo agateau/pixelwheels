@@ -1,7 +1,7 @@
 package com.agateau.tinywheels;
 
-import com.agateau.utils.anchor.Anchor;
-import com.agateau.utils.anchor.AnchorGroup;
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
 
 /**
  * Handle inputs with touch screen only

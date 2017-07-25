@@ -1,8 +1,8 @@
 package com.agateau.tinywheels;
 
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.RefreshHelper;
-import com.agateau.utils.UiBuilder;
+import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.UiBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;

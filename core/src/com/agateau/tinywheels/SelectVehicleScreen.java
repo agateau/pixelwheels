@@ -1,9 +1,9 @@
 package com.agateau.tinywheels;
 
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.RefreshHelper;
-import com.agateau.utils.UiBuilder;
-import com.agateau.utils.anchor.AnchorGroup;
+import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.UiBuilder;
+import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 

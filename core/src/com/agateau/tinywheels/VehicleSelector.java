@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.XmlReader;
 import com.agateau.utils.GridSelector;
-import com.agateau.utils.UiBuilder;
+import com.agateau.ui.UiBuilder;
 
 /**
  * An actor to select a vehicle

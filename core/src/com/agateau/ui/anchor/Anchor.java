@@ -1,4 +1,4 @@
-package com.agateau.utils.anchor;
+package com.agateau.ui.anchor;
 
 public class Anchor {
     public static final Anchor TOP_LEFT = new Anchor(0, 1);
