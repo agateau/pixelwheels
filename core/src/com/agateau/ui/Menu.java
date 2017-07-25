@@ -40,7 +40,16 @@ public class Menu extends ScrollPane {
 
         mPaneWidget = new Group();
 
-        mContainer = new VerticalGroup();
+        mContainer = new VerticalGroup() {
+            @Override
+            public void layout() {
+                super.layout();
+                if (mSelectionImage == null) {
+                    return;
+                }
+                updateSelectionBounds();
+            }
+        };
         mContainer.pad(PADDING);
         mContainer.space(PADDING * 2);
 
@@ -75,7 +84,6 @@ public class Menu extends ScrollPane {
     @Override
     public void act(float delta) {
         super.act(delta);
-        updateSelection();
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             adjustIndex(1);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
@@ -115,27 +123,20 @@ public class Menu extends ScrollPane {
     }
 
     private void setCurrentIndex(int index) {
-        if (index == mCurrentIndex) {
-            return;
-        }
         int old = mCurrentIndex;
         mCurrentIndex = index;
         if (old >= 0 && mCurrentIndex == -1) {
             mSelectionImage.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
-            return;
-        }
-        if (old == -1) {
+        } else if (old == -1) {
             Rectangle rect = getCurrentItem().getFocusRectangle();
-            mSelectionImage.setPosition(rect.x - PADDING, rect.y - PADDING);
-            mSelectionImage.setSize(rect.width + 2 * PADDING, rect.height + 2 * PADDING);
+            updateSelectionBounds();
             mSelectionImage.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
-            ensureItemVisible();
         } else {
-            updateSelection();
+            animateSelection();
         }
     }
 
-    void updateSelection() {
+    void animateSelection() {
         MenuItem item = getCurrentItem();
         if (item == null) {
             return;
@@ -143,6 +144,12 @@ public class Menu extends ScrollPane {
         Rectangle rect = item.getFocusRectangle();
         mSelectionImage.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         mSelectionImage.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        ensureItemVisible();
+    }
+
+    private void updateSelectionBounds() {
+        Rectangle rect = getCurrentItem().getFocusRectangle();
+        mSelectionImage.setBounds(rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
         ensureItemVisible();
     }
 
