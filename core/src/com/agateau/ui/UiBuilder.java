@@ -183,6 +183,8 @@ public class UiBuilder {
             return createHorizontalGroup(element);
         } else if (name.equals("CheckBox")) {
             return createCheckBox(element);
+        } else if (name.equals("Menu")) {
+            return createMenu(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -311,6 +313,10 @@ public class UiBuilder {
         String text = element.getText();
         CheckBox checkBox = new CheckBox(text, mSkin, styleName);
         return checkBox;
+    }
+
+    protected Menu createMenu(XmlReader.Element element) {
+        return new Menu(mSkin);
     }
 
     protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {
