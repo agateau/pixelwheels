@@ -1,12 +1,15 @@
 package com.agateau.tinywheels;
 
+import com.agateau.ui.Menu;
 import com.agateau.utils.FileUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -36,23 +39,32 @@ public class MainMenuScreen extends TwStageScreen {
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/mainmenu.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
-        builder.getActor("onePlayerButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mGame.showOnePlayer();
-            }
-        });
+
+        Menu menu = builder.getActor("menu");
         if (desktop) {
-            builder.getActor("multiPlayerButton").addListener(new ClickListener() {
+            menu.addButton("One Player").addListener(new ChangeListener() {
                 @Override
-                public void clicked(InputEvent event, float x, float y) {
+                public void changed(ChangeEvent event, Actor actor) {
+                    mGame.showOnePlayer();
+                }
+            });
+            menu.addButton("Multi Player").addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
                     mGame.showMultiPlayer();
                 }
             });
+        } else {
+            menu.addButton("Start").addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    mGame.showOnePlayer();
+                }
+            });
         }
-        builder.getActor("settingsButton").addListener(new ClickListener() {
+        menu.addButton("Settings").addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 mGame.pushScreen(new ConfigScreen(mGame));
             }
         });
