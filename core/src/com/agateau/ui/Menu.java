@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.Array;
 public class Menu extends ScrollPane {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private static final int PADDING = 8;
-    private final Image mSelectionImage;
+    private final Image mFocusIndicator;
     private final Group mPaneWidget;
     private final VerticalGroup mContainer;
     private final Skin mSkin;
@@ -36,7 +36,7 @@ public class Menu extends ScrollPane {
         mSkin = skin;
 
         NinePatch patch = skin.getAtlas().createPatch("selection");
-        mSelectionImage = new Image(patch);
+        mFocusIndicator = new Image(patch);
 
         mPaneWidget = new Group();
 
@@ -44,17 +44,17 @@ public class Menu extends ScrollPane {
             @Override
             public void layout() {
                 super.layout();
-                if (mSelectionImage == null) {
+                if (mFocusIndicator == null) {
                     return;
                 }
-                updateSelectionBounds();
+                updateFocusIndicatorBounds();
             }
         };
         mContainer.pad(PADDING);
         mContainer.space(PADDING * 2);
 
         mPaneWidget.addActor(mContainer);
-        mPaneWidget.addActor(mSelectionImage);
+        mPaneWidget.addActor(mFocusIndicator);
 
         setWidget(mPaneWidget);
     }
@@ -126,30 +126,30 @@ public class Menu extends ScrollPane {
         int old = mCurrentIndex;
         mCurrentIndex = index;
         if (old >= 0 && mCurrentIndex == -1) {
-            mSelectionImage.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
+            mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
         } else if (old == -1) {
             Rectangle rect = getCurrentItem().getFocusRectangle();
-            updateSelectionBounds();
-            mSelectionImage.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
+            updateFocusIndicatorBounds();
+            mFocusIndicator.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
         } else {
-            animateSelection();
+            animateFocusIndicator();
         }
     }
 
-    void animateSelection() {
+    void animateFocusIndicator() {
         MenuItem item = getCurrentItem();
         if (item == null) {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
-        mSelectionImage.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        mSelectionImage.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        mFocusIndicator.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         ensureItemVisible();
     }
 
-    private void updateSelectionBounds() {
+    private void updateFocusIndicatorBounds() {
         Rectangle rect = getCurrentItem().getFocusRectangle();
-        mSelectionImage.setBounds(rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
+        mFocusIndicator.setBounds(rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
         ensureItemVisible();
     }
 

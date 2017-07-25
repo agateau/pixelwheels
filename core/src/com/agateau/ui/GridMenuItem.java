@@ -148,7 +148,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void goLeft() {
         if (mCurrentIndex > 0) {
             mCurrentIndex--;
-            mMenu.animateSelection();
+            mMenu.animateFocusIndicator();
         }
     }
 
@@ -156,7 +156,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void goRight() {
         if (mCurrentIndex < mItems.size - 1) {
             mCurrentIndex++;
-            mMenu.animateSelection();
+            mMenu.animateFocusIndicator();
         }
     }
 
