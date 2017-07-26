@@ -7,8 +7,8 @@
         <VehicleSelector id="vehicleSelector1" centerRight="root.center -1 1" width="300" height="200"/>
         <VehicleSelector id="vehicleSelector2" centerLeft="root.center 1 1" width="300" height="200"/>
 
-        <Label topCenter="vehicleSelector1.bottomCenter">Keys: X - C - V\nLeft Control</Label>
-        <Label topCenter="vehicleSelector2.bottomCenter">Keys: Arrows\nRight Control</Label>
+        <Label topCenter="vehicleSelector1.bottomCenter">Keys: Arrows\nSpace</Label>
+        <Label topCenter="vehicleSelector2.bottomCenter">Keys: X - C - V\nLeft Control</Label>
 
         <TextButton id="goButton"
                     width="200"

@@ -1,25 +1,13 @@
 package com.agateau.tinywheels;
 
-import com.badlogic.gdx.Gdx;
+import com.agateau.ui.KeyMapper;
+import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.Input;
 
 /**
  * Handle keyboard input, for desktop mode
  */
 public class KeyboardInputHandler implements GameInputHandler {
-    public enum Action {
-        LEFT(0),
-        RIGHT(1),
-        BRAKE(2),
-        TRIGGER(3);
-
-        int id;
-
-        Action(int id) {
-            this.id = id;
-        }
-    }
-
     public static class Factory implements GameInputHandlerFactory {
         @Override
         public String getId() {
@@ -43,35 +31,27 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     }
 
-    private final int[] mKeyForAction = new int[4];
+    private KeyMapper mKeyMapper = new KeyMapper();
     private GameInput mInput = new GameInput();
 
     public KeyboardInputHandler() {
-        mKeyForAction[Action.LEFT.id] = Input.Keys.LEFT;
-        mKeyForAction[Action.RIGHT.id] = Input.Keys.RIGHT;
-        mKeyForAction[Action.BRAKE.id] = Input.Keys.DOWN;
-        mKeyForAction[Action.TRIGGER.id] = Input.Keys.CONTROL_LEFT;
     }
 
-    public void setActionKey(Action action, int key) {
-        mKeyForAction[action.id] = key;
+    public void setKeyMapper(KeyMapper keyMapper) {
+        mKeyMapper = keyMapper;
     }
 
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        /*
-        mInput.braking = Gdx.input.isKeyPressed(Input.Keys.DOWN);
-        mInput.accelerating = Gdx.input.isKeyPressed(Input.Keys.UP);
-        */
-        mInput.braking = isKeyPressed(Action.BRAKE);
-        mInput.accelerating = !mInput.braking; //Gdx.input.isKeyPressed(Input.Keys.UP);
-        if (isKeyPressed(Action.LEFT)) {
+        mInput.braking = mKeyMapper.isKeyPressed(VirtualKey.DOWN);
+        mInput.accelerating = !mInput.braking;
+        if (mKeyMapper.isKeyPressed(VirtualKey.LEFT)) {
             mInput.direction = 1;
-        } else if (isKeyPressed(Action.RIGHT)) {
+        } else if (mKeyMapper.isKeyPressed(VirtualKey.RIGHT)) {
             mInput.direction = -1;
         }
-        mInput.triggeringBonus = isKeyPressed(Action.TRIGGER);
+        mInput.triggeringBonus = mKeyMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
     }
@@ -82,9 +62,5 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public void setBonus(Bonus bonus) {
-    }
-
-    private boolean isKeyPressed(Action action) {
-        return Gdx.input.isKeyPressed(mKeyForAction[action.id]);
     }
 }

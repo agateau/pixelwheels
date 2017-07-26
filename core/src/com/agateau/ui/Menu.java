@@ -1,8 +1,6 @@
 package com.agateau.ui;
 
 import com.agateau.utils.Assert;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,6 +21,7 @@ import com.badlogic.gdx.utils.Array;
 public class Menu extends ScrollPane {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private static final int PADDING = 8;
+    private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
     private final Group mPaneWidget;
     private final VerticalGroup mContainer;
@@ -84,17 +83,22 @@ public class Menu extends ScrollPane {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        mMenuInputHandler.act(delta);
+        if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
             adjustIndex(1);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
             adjustIndex(-1);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
             getCurrentItem().goLeft();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
             getCurrentItem().goRight();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        } else if (mMenuInputHandler.isPressed(VirtualKey.TRIGGER)) {
             triggerCurrentItem();
         }
+    }
+
+    public void setKeyMapper(KeyMapper keyMapper) {
+        mMenuInputHandler.setKeyMapper(keyMapper);
     }
 
     public void setCurrentItem(MenuItem item) {
