@@ -85,9 +85,13 @@ public class Menu extends ScrollPane {
         super.act(delta);
         mMenuInputHandler.act(delta);
         if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
-            adjustIndex(1);
+            if (!getCurrentItem().goDown()) {
+                adjustIndex(1);
+            }
         } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
-            adjustIndex(-1);
+            if (!getCurrentItem().goUp()) {
+                adjustIndex(-1);
+            }
         } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
             getCurrentItem().goLeft();
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {

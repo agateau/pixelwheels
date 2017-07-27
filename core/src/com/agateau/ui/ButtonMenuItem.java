@@ -42,6 +42,16 @@ public class ButtonMenuItem extends Label implements MenuItem {
     }
 
     @Override
+    public boolean goUp() {
+        return false;
+    }
+
+    @Override
+    public boolean goDown() {
+        return false;
+    }
+
+    @Override
     public void goLeft() {
 
     }

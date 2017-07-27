@@ -156,6 +156,28 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
+    public boolean goUp() {
+        if (mCurrentIndex - mColumnCount >= 0) {
+            mCurrentIndex -= mColumnCount;
+            mMenu.animateFocusIndicator();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean goDown() {
+        if (mCurrentIndex + mColumnCount < mItems.size) {
+            mCurrentIndex += mColumnCount;
+            mMenu.animateFocusIndicator();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void goLeft() {
         if (mCurrentIndex > 0) {
             mCurrentIndex--;
