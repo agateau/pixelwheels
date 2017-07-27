@@ -23,6 +23,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private int mSelectedIndex = -1;
     private int mCurrentIndex = -1;
     private ItemRenderer<T> mRenderer;
+
+    private int mColumnCount = 3;
     private float mItemWidth = 0;
     private float mItemHeight = 0;
 
@@ -93,15 +95,25 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mItemHeight = height;
     }
 
+    public int getColumnCount() {
+        return mColumnCount;
+    }
+
+    public void setColumnCount(int columnCount) {
+        mColumnCount = columnCount;
+        invalidateHierarchy();
+    }
+
     /// Scene2d API
     @Override
     public float getPrefWidth() {
-        return mItems.size * mItemWidth;
+        return mItemWidth * mColumnCount;
     }
 
     @Override
     public float getPrefHeight() {
-        return mItemHeight;
+        int rowCount = MathUtils.ceil(mItems.size / (float)mColumnCount);
+        return mItemHeight * rowCount;
     }
 
     @Override
@@ -118,8 +130,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
-        final int columnCount = Math.min(MathUtils.floor(getWidth() / mItemWidth), mItems.size);
-        final float gutterWidth = (getWidth() - mItemWidth * columnCount) / 2;
+        final float gutterWidth = (getWidth() - mItemWidth * mColumnCount) / 2;
         float x = gutterWidth;
         float y = getHeight() - mItemHeight;
 
@@ -173,8 +184,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         T item = mItems.get(mCurrentIndex);
-        float x = getX() + mCurrentIndex * mItemWidth;
-        float y = getY();
+        float x = getX() + (mCurrentIndex % mColumnCount) * mItemWidth;
+        float y = getY() + getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
         Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
         mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
     }

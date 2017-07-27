@@ -57,14 +57,22 @@ class GalleryScreen extends StageScreen {
             }
         });
 
-        GridMenuItem<TextureRegion> item = createGridMenuItem(menu);
-        menu.addItem(item);
+        final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
+        menu.addItem(gridMenuItem);
+        menu.addButton("Add column").addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gridMenuItem.setColumnCount(gridMenuItem.getColumnCount() + 1);
+            }
+        });
+
         menu.addButton("Quit").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
             }
         });
+
         for (int i = 0; i < 100; ++i) {
             menu.addButton(String.format("Dummy %d", i));
         }
@@ -79,6 +87,9 @@ class GalleryScreen extends StageScreen {
         items.add(mAtlas.findRegion("rectbutton"));
         items.add(mAtlas.findRegion("icon-left"));
         items.add(mAtlas.findRegion("icon-right"));
+        items.add(mAtlas.findRegion("checkbox-off"));
+        items.add(mAtlas.findRegion("icon-config"));
+        items.add(mAtlas.findRegion("icon-debug"));
 
         GridMenuItem<TextureRegion> gridMenuItem = new GridMenuItem<TextureRegion>(menu);
         gridMenuItem.setItemSize(70, 80);
