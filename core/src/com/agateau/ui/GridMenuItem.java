@@ -146,8 +146,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         for (int idx = 0; idx < mItems.size; idx++) {
             T item = mItems.get(idx);
             if (idx == mSelectedIndex) {
+                int padding = mMenu.getMenuStyle().focusPadding;
                 Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
-                mStyle.selected.draw(batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+                mStyle.selected.draw(batch, getX() + x + rect.x - padding, getY() + y + rect.y - padding,
+                        rect.width + 2 * padding, rect.height + 2 * padding);
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
             x += mItemWidth;

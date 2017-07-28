@@ -70,6 +70,10 @@ public class Menu extends ScrollPane {
         return mSkin;
     }
 
+    public MenuStyle getMenuStyle() {
+        return mStyle;
+    }
+
     public Actor addButton(String text) {
         return addItem(new ButtonMenuItem(this, text, mSkin));
     }
