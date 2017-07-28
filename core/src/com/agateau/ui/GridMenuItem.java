@@ -61,7 +61,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setSelected(T item) {
         if (item == null) {
-            setSelectedIndex(mItems.size > 0 ? 0 : -1);
+            setSelectedIndex(-1);
             return;
         }
         int index = mItems.indexOf(item, true);
@@ -88,7 +88,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void setItems(Array<T> items) {
         mItems = items;
         mCurrentIndex = items.size > 0 ? 0 : -1;
-        mSelectedIndex = mCurrentIndex;
     }
 
     public Array<T> getItems() {
