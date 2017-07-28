@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 
@@ -21,6 +22,7 @@ import com.badlogic.gdx.utils.Pools;
 public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mFocusRectangle = new Rectangle();
+    private GridMenuItemStyle mStyle;
     private Array<T> mItems;
     private int mSelectedIndex = -1;
     private int mCurrentIndex = -1;
@@ -39,8 +41,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         void render(Batch batch, float x, float y, float width, float height, T item);
     }
 
+    public static class GridMenuItemStyle {
+        public Drawable selected;
+    }
+
     public GridMenuItem(Menu menu) {
         mMenu = menu;
+        mStyle = mMenu.getSkin().get(GridMenuItemStyle.class);
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (pointer == 0 && button != 0) {
@@ -136,7 +143,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         float x = gutterWidth;
         float y = getHeight() - mItemHeight;
 
-        for (T item : mItems) {
+        for (int idx = 0; idx < mItems.size; idx++) {
+            T item = mItems.get(idx);
+            if (idx == mSelectedIndex) {
+                Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+                mStyle.selected.draw(batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+            }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
             x += mItemWidth;
             if (x + mItemWidth > getWidth()) {

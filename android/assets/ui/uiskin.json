@@ -60,5 +60,10 @@
         default: {
             focus: selection
         }
+    },
+    com.agateau.ui.GridMenuItem$GridMenuItemStyle: {
+        default: {
+            selected: rectbutton-down
+        }
     }
 }
