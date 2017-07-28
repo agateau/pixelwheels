@@ -58,7 +58,8 @@
     },
     com.agateau.ui.Menu$MenuStyle: {
         default: {
-            focus: selection
+            focus: selection,
+            focusPadding: 8
         }
     },
     com.agateau.ui.GridMenuItem$GridMenuItemStyle: {

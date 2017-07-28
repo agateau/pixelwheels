@@ -1,7 +1,6 @@
 package com.agateau.ui;
 
 import com.agateau.utils.Assert;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
@@ -22,7 +20,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class Menu extends ScrollPane {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
-    private static final int PADDING = 8;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
     private final Group mPaneWidget;
@@ -35,6 +32,7 @@ public class Menu extends ScrollPane {
 
     public static class MenuStyle {
         public Drawable focus;
+        public int focusPadding;
 
         public MenuStyle() {
         }
@@ -59,8 +57,8 @@ public class Menu extends ScrollPane {
                 updateFocusIndicatorBounds();
             }
         };
-        mContainer.pad(PADDING);
-        mContainer.space(PADDING * 2);
+        mContainer.pad(mStyle.focusPadding);
+        mContainer.space(mStyle.focusPadding * 2);
 
         mPaneWidget.addActor(mContainer);
         mPaneWidget.addActor(mFocusIndicator);
@@ -164,20 +162,20 @@ public class Menu extends ScrollPane {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
-        mFocusIndicator.addAction(Actions.moveTo(rect.x - PADDING, rect.y - PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * PADDING, rect.height + 2 * PADDING, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        mFocusIndicator.addAction(Actions.moveTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         ensureItemVisible();
     }
 
     private void updateFocusIndicatorBounds() {
         Rectangle rect = getCurrentItem().getFocusRectangle();
-        mFocusIndicator.setBounds(rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
+        mFocusIndicator.setBounds(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
         ensureItemVisible();
     }
 
     private void ensureItemVisible() {
         MenuItem item = getCurrentItem();
         Rectangle rect = item.getFocusRectangle();
-        scrollTo(rect.x - PADDING, rect.y - PADDING, rect.width + 2 * PADDING, rect.height + 2 * PADDING);
+        scrollTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
     }
 }
