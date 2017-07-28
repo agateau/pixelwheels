@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -26,16 +27,24 @@ public class Menu extends ScrollPane {
     private final Group mPaneWidget;
     private final VerticalGroup mContainer;
     private final Skin mSkin;
+    private MenuStyle mStyle;
     private int mCurrentIndex = -1;
 
     private final Array<MenuItem> mItems = new Array<MenuItem>();
 
+    public static class MenuStyle {
+        public Drawable focus;
+
+        public MenuStyle() {
+        }
+    }
+
     public Menu(Skin skin) {
         super(null);
         mSkin = skin;
+        mStyle = skin.get(MenuStyle.class);
 
-        NinePatch patch = skin.getAtlas().createPatch("selection");
-        mFocusIndicator = new Image(patch);
+        mFocusIndicator = new Image(mStyle.focus);
 
         mPaneWidget = new Group();
 

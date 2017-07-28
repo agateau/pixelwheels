@@ -56,4 +56,9 @@
             fontColor: white
         }
     },
+    com.agateau.ui.Menu$MenuStyle: {
+        default: {
+            focus: selection
+        }
+    }
 }
