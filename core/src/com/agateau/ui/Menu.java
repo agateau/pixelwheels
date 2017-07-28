@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -44,6 +45,7 @@ public class Menu extends ScrollPane {
         mStyle = skin.get(MenuStyle.class);
 
         mFocusIndicator = new Image(mStyle.focus);
+        mFocusIndicator.setTouchable(Touchable.disabled);
 
         mPaneWidget = new Group();
 
