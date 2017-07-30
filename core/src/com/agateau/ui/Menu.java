@@ -154,7 +154,6 @@ public class Menu extends ScrollPane {
         if (old >= 0 && mCurrentIndex == -1) {
             mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
         } else if (old == -1) {
-            Rectangle rect = getCurrentItem().getFocusRectangle();
             updateFocusIndicatorBounds();
             mFocusIndicator.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
         } else {
