@@ -48,7 +48,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         mVehicleSelector.setSelected(assets.findVehicleDefByID(id));
         menu.addItem(mVehicleSelector);
 
-        menu.addButton("Go").addListener(new ChangeListener() {
+        mVehicleSelector.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 next();
