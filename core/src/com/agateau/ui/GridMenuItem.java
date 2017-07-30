@@ -244,9 +244,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         int column = MathUtils.floor((touchX - gutterWidth) / mItemWidth);
         int idx = row * columnCount + column;
         if (idx >= 0 && idx < mItems.size) {
-            mSelectedIndex = idx;
             mCurrentIndex = idx;
             mMenu.setCurrentItem(this);
+            trigger();
         }
     }
 }
