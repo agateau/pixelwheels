@@ -58,13 +58,13 @@
     },
     com.agateau.ui.Menu$MenuStyle: {
         default: {
-            focus: selection,
+            focus: focus,
             focusPadding: 8
         }
     },
     com.agateau.ui.GridMenuItem$GridMenuItemStyle: {
         default: {
-            selected: rectbutton-down
+            selected: selected
         }
     }
 }

@@ -86,7 +86,7 @@ public class Assets {
 
         this.skidmark = findRegion("skidmark");
 
-        this.selection = uiAtlas.createPatch("selection");
+        this.selection = uiAtlas.createPatch("focus");
 
         loadVehicleDefinitions();
     }
