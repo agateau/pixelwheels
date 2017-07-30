@@ -7,12 +7,13 @@ public class MenuInputHandler {
     private static final float REPEAT_DELAY = 0.6f;
     private static final float REPEAT_RATE = 0.025f;
     enum State {
+        STARTING,
         NORMAL,
         KEY_DOWN,
         REPEATING
     }
     private KeyMapper mKeyMapper = new KeyMapper();
-    private State mState = State.NORMAL;
+    private State mState = State.STARTING;
 
     private VirtualKey mPressedVirtualKey;
     private float mRepeatDelay = 0;
@@ -22,16 +23,19 @@ public class MenuInputHandler {
     }
 
     public void act(float delta) {
-        if (mState == State.NORMAL) {
+        if (mState == State.STARTING) {
+            // If a key is already down at startup, ignore it. If no key is down, go to NORMAL state
+            if (findPressedKey() == null) {
+                mState = State.NORMAL;
+            }
+        } else if (mState == State.NORMAL) {
             // Not repeating yet
-            for (VirtualKey virtualKey : VirtualKey.values()) {
-                if (mKeyMapper.isKeyPressed(virtualKey)) {
-                    mPressedVirtualKey = virtualKey;
-                    // Set delay to -1 so that next call to isPressed() returns true
-                    mRepeatDelay = -1;
-                    mState = State.KEY_DOWN;
-                    return;
-                }
+            VirtualKey virtualKey = findPressedKey();
+            if (virtualKey != null) {
+                mPressedVirtualKey = virtualKey;
+                // Set delay to -1 so that next call to isPressed() returns true
+                mRepeatDelay = -1;
+                mState = State.KEY_DOWN;
             }
         } else {
             // Repeating
@@ -55,5 +59,14 @@ public class MenuInputHandler {
 
     public void setKeyMapper(KeyMapper keyMapper) {
         mKeyMapper = keyMapper;
+    }
+
+    private VirtualKey findPressedKey() {
+        for (VirtualKey virtualKey : VirtualKey.values()) {
+            if (mKeyMapper.isKeyPressed(virtualKey)) {
+                return virtualKey;
+            }
+        }
+        return null;
     }
 }
