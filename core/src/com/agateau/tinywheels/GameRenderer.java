@@ -49,7 +49,7 @@ public class GameRenderer {
         mMapWidth = mMapInfo.getMapWidth();
         mMapHeight = mMapInfo.getMapHeight();
 
-        mForegroundLayerIndexes = new int[]{ 1 };
+        mForegroundLayerIndexes = new int[]{ 1, 2 };
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
