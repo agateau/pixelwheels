@@ -114,7 +114,7 @@ public class Menu extends ScrollPane {
             getCurrentItem().goLeft();
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
             getCurrentItem().goRight();
-        } else if (mMenuInputHandler.isPressed(VirtualKey.TRIGGER)) {
+        } else if (mMenuInputHandler.isJustPressed(VirtualKey.TRIGGER)) {
             triggerCurrentItem();
         }
     }

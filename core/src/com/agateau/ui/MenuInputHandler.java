@@ -15,11 +15,16 @@ public class MenuInputHandler {
     private KeyMapper mKeyMapper = new KeyMapper();
     private State mState = State.STARTING;
 
-    private VirtualKey mPressedVirtualKey;
+    private VirtualKey mPressedVirtualKey = null;
+    private VirtualKey mJustPressedVirtualKey = null;
     private float mRepeatDelay = 0;
 
     public boolean isPressed(VirtualKey vkey) {
         return mPressedVirtualKey == vkey && mRepeatDelay < 0;
+    }
+
+    public boolean isJustPressed(VirtualKey vkey) {
+        return mJustPressedVirtualKey == vkey;
     }
 
     public void act(float delta) {
@@ -30,6 +35,7 @@ public class MenuInputHandler {
             }
         } else if (mState == State.NORMAL) {
             // Not repeating yet
+            mJustPressedVirtualKey = null;
             VirtualKey virtualKey = findPressedKey();
             if (virtualKey != null) {
                 mPressedVirtualKey = virtualKey;
@@ -53,6 +59,7 @@ public class MenuInputHandler {
             } else {
                 // Key has been released, not repeating anymore
                 mState = State.NORMAL;
+                mJustPressedVirtualKey = mPressedVirtualKey;
             }
         }
     }
