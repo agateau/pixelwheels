@@ -10,6 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
 import com.agateau.utils.Assert;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Load a LapPositionTable from a TiledMap. The map must contain a "Zones" layer which must contain
@@ -17,9 +21,10 @@ import com.agateau.utils.Assert;
  *
  */
 public class LapPositionTableIO {
-    private static class Line {
+    private static class Line implements Comparable {
         float x1, y1;
         float x2, y2;
+        float order;
 
         void reverse() {
             float tmp = x1;
@@ -29,6 +34,11 @@ public class LapPositionTableIO {
             y1 = y2;
             y2 = tmp;
         }
+
+        @Override
+        public int compareTo(Object o) {
+            return Float.compare(order, ((Line)o).order);
+        }
     }
 
     public static LapPositionTable load(TiledMap map) {
@@ -36,28 +46,39 @@ public class LapPositionTableIO {
         Assert.check(layer != null, "No 'Sections' layer found");
         MapObjects objects = layer.getObjects();
 
-        Line[] lines = new Line[objects.getCount()];
+        Array<Line> lines = new Array<Line>();
+        lines.ensureCapacity(objects.getCount());
+        Set<String> names = new HashSet<String>();
         for (MapObject obj : objects) {
-            int section = Integer.parseInt(obj.getName());
-            Assert.check(section >= 0 && section < lines.length, "Invalid ID " + section);
+            String name = obj.getName();
+            Assert.check(!name.isEmpty(), "Section line is missing a name");
+            Assert.check(!names.contains(name), "Duplicate section line " + name);
+            names.add(name);
+
+            float order;
+            try {
+                order = Float.parseFloat(name);
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("Invalid section name " + name);
+            }
             Assert.check(obj instanceof PolylineMapObject, "'Sections' layer should only contain PolylineMapObjects");
             Polyline polyline = ((PolylineMapObject)obj).getPolyline();
             float[] vertices = polyline.getTransformedVertices();
-            Assert.check(vertices.length == 4, "Polyline with ID " + section + "should have 2 points, not " + (vertices.length / 2));
+            Assert.check(vertices.length == 4, "Polyline with name " + order + "should have 2 points, not " + (vertices.length / 2));
             Line line = new Line();
             line.x1 = vertices[0];
             line.y1 = vertices[1];
             line.x2 = vertices[2];
             line.y2 = vertices[3];
-            Assert.check(lines[section] == null, "Duplicate ID " + section);
-            lines[section] = line;
+            line.order = order;
+            lines.add(line);
         }
+        lines.sort();
 
         LapPositionTable table = new LapPositionTable();
-        for (int idx = 0; idx < lines.length; ++idx) {
-            Line line1 = lines[idx];
-            Line line2 = lines[(idx + 1) % lines.length];
-            Assert.check(line2 != null, "'Sections' layer is missing a line with ID " + idx);
+        for (int idx = 0; idx < lines.size; ++idx) {
+            Line line1 = lines.get(idx);
+            Line line2 = lines.get((idx + 1) % lines.size);
             float[] vertices = {
                 line1.x1, line1.y1,
                 line2.x1, line2.y1,
