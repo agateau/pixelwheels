@@ -25,7 +25,7 @@
  </layer>
  <layer name="Shadows" width="40" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2LENgzAQQNEbJSukSskcbJPRMlqwAOkEdFf4n/SfdP2XbSwgQpIkZZ9jqJZjqK5921r+JqU8OvtIe7y1vJZ9Ik+HRhr7arr0URGf3Yy8t4N9NfbV2FdjX02XPir7arr0dXi/IjaSvzGHax/tLHboG/9cyH1kHfpoz2xGPHNZlz7qHlPvlZN9NfbVkNsG75ea3PeO+M6tueu0fkT21eS+dXLLk07rR0TvkyRJ0t0fv+srbQ==
+   eJzt2EEKhDAQBdEcZW4xS88xt/VoY1ChUXd/YTXUg94XSQzqGJIkqfoeQ7UcQ3Xt29ZyfSnl0dlH2uOt5bPsM+p0aKSxL9Olj4r47FbkvZ3sy9iXsS9jX6ZLH5V9mS59Hd6viI3kb8zp2kc7ix365j8Xch9Zhz7aM1sRz1zVpY+6x9R75WRfxr4MuW3yfsnYl7Ev06nv93LLk07rR0TvkyRJ0t0fk50qvA==
   </data>
  </layer>
  <objectgroup name="Borders" visible="0">
@@ -42,7 +42,7 @@
   <object id="43" x="971.233" y="3392.04" width="435.446" height="15.0389" rotation="45"/>
   <object id="44" x="1536.58" y="2763.18" width="435.446" height="15.0389" rotation="135"/>
  </objectgroup>
- <objectgroup name="Sections" visible="0">
+ <objectgroup name="Sections">
   <object id="11" name="0" x="723" y="3266">
    <polyline points="0,0 -608,-2"/>
   </object>
@@ -118,7 +118,7 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup name="BonusSpots">
+ <objectgroup name="BonusSpots" visible="0">
   <object id="32" x="731.515" y="332.727" width="81.8182" height="69.697">
    <ellipse/>
   </object>

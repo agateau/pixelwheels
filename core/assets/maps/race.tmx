@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" backgroundcolor="#ffffff">
- <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="55">
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="112" columns="8">
   <image source="snow.png" width="512" height="896"/>
   <tile id="0">
    <properties>
@@ -79,7 +79,7 @@
     <property name="is_road" value="true"/>
    </properties>
    <objectgroup draworder="index">
-    <object x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
+    <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
    </objectgroup>
   </tile>
   <tile id="17">
@@ -87,7 +87,7 @@
     <property name="max_speed" value="0.75"/>
    </properties>
    <objectgroup draworder="index">
-    <object x="-0.181818" y="8" width="55.6364" height="55.8182"/>
+    <object id="0" x="-0.181818" y="8" width="55.6364" height="55.8182"/>
    </objectgroup>
   </tile>
   <tile id="19">
@@ -97,41 +97,41 @@
     <property name="max_speed" value="4"/>
    </properties>
    <objectgroup draworder="index">
-    <object x="63.6364" y="42.5455">
+    <object id="0" x="63.6364" y="42.5455">
      <polygon points="0.363636,-4.90909 -13.0909,-12.9091 -21.8182,20.9091 0,21.2727"/>
     </object>
-    <object x="46.7273" y="43.6364">
+    <object id="0" x="46.7273" y="43.6364">
      <polygon points="0,0 -14.7273,2.54545 -10.9091,20.3636 -4.72727,20"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="20">
    <objectgroup draworder="index">
-    <object x="28.3636" y="63.6364">
+    <object id="0" x="28.3636" y="63.6364">
      <polygon points="0,0 3.81818,-16 -29.0909,-18.3636 -28.3636,0.363636"/>
     </object>
-    <object x="18.7273" y="46.3636">
+    <object id="0" x="18.7273" y="46.3636">
      <polygon points="0,0 -4.18182,-15.6364 -20.1818,-8.72727 -19.4545,-0.545455"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="21">
    <objectgroup draworder="index">
-    <object x="46" y="52.75">
+    <object id="0" x="46" y="52.75">
      <polygon points="0,0 9.375,-14.5 8,-30 -1.625,-44 -20.875,-44 -34,-34.625 -39,-19.25 -31.75,-3 -17.875,4"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="22">
    <objectgroup draworder="index">
-    <object x="0" y="24.1818" width="64" height="15.0909"/>
+    <object id="0" x="0" y="24.1818" width="64" height="15.0909"/>
    </objectgroup>
   </tile>
   <tile id="23">
    <objectgroup draworder="index">
-    <object x="1.09091" y="24" width="10" height="16"/>
-    <object x="53.2727" y="24.1818" width="9.81818" height="15.6364"/>
-    <object x="10.9091" y="28.9091" width="42.1818" height="5.63636"/>
+    <object id="0" x="1.09091" y="24" width="10" height="16"/>
+    <object id="0" x="53.2727" y="24.1818" width="9.81818" height="15.6364"/>
+    <object id="0" x="10.9091" y="28.9091" width="42.1818" height="5.63636"/>
    </objectgroup>
   </tile>
   <tile id="24">
@@ -139,7 +139,7 @@
     <property name="max_speed" value="0.75"/>
    </properties>
    <objectgroup draworder="index">
-    <object x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
+    <object id="0" x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
    </objectgroup>
   </tile>
   <tile id="25">
@@ -147,56 +147,56 @@
     <property name="max_speed" value="0.5"/>
    </properties>
    <objectgroup draworder="index">
-    <object x="-0.545455" y="0" width="56" height="64"/>
+    <object id="0" x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
   </tile>
   <tile id="27">
    <objectgroup draworder="index">
-    <object x="62.9091" y="36.1818">
+    <object id="0" x="62.9091" y="36.1818">
      <polygon points="0,0 1.27273,-4 0.909091,-36.3636 -17.4545,-36.3636"/>
     </object>
-    <object x="39.8182" y="27.6364">
+    <object id="0" x="39.8182" y="27.6364">
      <polygon points="0,0 17.2727,-3.45455 5.27273,-28 -1.09091,-27.6364"/>
     </object>
-    <object x="39.2727" y="12.3636">
+    <object id="0" x="39.2727" y="12.3636">
      <polygon points="0,0 -0.727273,-12.3636 -10.7273,-12.1818 -13.6364,-6.90909"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="28">
    <objectgroup draworder="index">
-    <object x="0" y="33.0909">
+    <object id="0" x="0" y="33.0909">
      <polygon points="0,0 0.363636,1.81818 32.9091,-27.2727 29.8182,-33.0909 0,-33.0909"/>
     </object>
-    <object x="10.3636" y="26.1818">
+    <object id="0" x="10.3636" y="26.1818">
      <polygon points="0,0 10.9091,2.90909 10.7273,-10"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="29">
    <objectgroup draworder="index">
-    <object x="38.3636" y="63.2727">
+    <object id="0" x="38.3636" y="63.2727">
      <polygon points="0,0.545455 0,-39.4545 -9.81818,-38 -13.4545,-32.9091 -13.8182,0.363636"/>
     </object>
-    <object x="38.3636" y="23.6364" width="25.2727" height="15.4545"/>
+    <object id="0" x="38.3636" y="23.6364" width="25.2727" height="15.4545"/>
    </objectgroup>
   </tile>
   <tile id="30">
    <objectgroup draworder="index">
-    <object x="0" y="24.9091" width="25.2727" height="14.1818"/>
-    <object x="38.7273" y="63.2727">
+    <object id="0" x="0" y="24.9091" width="25.2727" height="14.1818"/>
+    <object id="0" x="38.7273" y="63.2727">
      <polygon points="0,0.727273 -0.181818,-33.4545 -3.81818,-38.1818 -13.6364,-38.3636 -13.6364,0.727273"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="32">
    <objectgroup draworder="index">
-    <object x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
+    <object id="0" x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
    </objectgroup>
   </tile>
   <tile id="33">
    <objectgroup draworder="index">
-    <object x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
+    <object id="0" x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
    </objectgroup>
   </tile>
   <tile id="35">
@@ -207,18 +207,18 @@
   </tile>
   <tile id="37">
    <objectgroup draworder="index">
-    <object x="24.1818" y="0" width="15.2727" height="25.2727"/>
-    <object x="63.8182" y="37.4545">
+    <object id="0" x="24.1818" y="0" width="15.2727" height="25.2727"/>
+    <object id="0" x="63.8182" y="37.4545">
      <polygon points="0,0 0,-12.1818 -39.6364,-12 -37.8182,-2 -31.4545,-0.363636"/>
     </object>
    </objectgroup>
   </tile>
   <tile id="38">
    <objectgroup draworder="index">
-    <object x="0.181818" y="37.4545">
+    <object id="0" x="0.181818" y="37.4545">
      <polygon points="0,0 32.9091,0.181818 37.2727,-6 37.8182,-13.8182 0,-12.9091"/>
     </object>
-    <object x="24.5455" y="0" width="13.2727" height="23.8182"/>
+    <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
    </objectgroup>
   </tile>
   <tile id="54">
@@ -251,155 +251,155 @@
   </data>
  </layer>
  <objectgroup name="Borders">
-  <object x="2832" y="304" width="64" height="1632"/>
-  <object x="320" y="304" width="48" height="1632"/>
-  <object x="1099.5" y="849" width="1258.5" height="30.5"/>
-  <object x="2319" y="882" width="32" height="451"/>
-  <object x="320" y="1936" width="2576" height="64"/>
-  <object x="1808" y="1287" width="31" height="647"/>
-  <object x="320" y="240" width="2560" height="64"/>
-  <object x="1088" y="832">
+  <object id="1" x="2832" y="304" width="64" height="1632"/>
+  <object id="2" x="320" y="304" width="48" height="1632"/>
+  <object id="3" x="1099.5" y="849" width="1258.5" height="30.5"/>
+  <object id="4" x="2319" y="882" width="32" height="451"/>
+  <object id="5" x="320" y="1936" width="2576" height="64"/>
+  <object id="6" x="1808" y="1287" width="31" height="647"/>
+  <object id="7" x="320" y="240" width="2560" height="64"/>
+  <object id="8" x="1088" y="832">
    <polygon points="-27.5,4.75 -250.333,226.667 -228,250.333 -5,26.8333"/>
   </object>
-  <object x="783" y="1033" width="31.1667" height="300.167"/>
-  <object x="1484" y="1296" width="324.333" height="30.6667"/>
-  <object x="1168" y="1670" width="32" height="266"/>
-  <object x="1155.28" y="1639.8" width="449.456" height="30" rotation="-45"/>
+  <object id="9" x="783" y="1033" width="31.1667" height="300.167"/>
+  <object id="10" x="1484" y="1296" width="324.333" height="30.6667"/>
+  <object id="11" x="1168" y="1670" width="32" height="266"/>
+  <object id="12" x="1155.28" y="1639.8" width="449.456" height="30" rotation="-45"/>
  </objectgroup>
- <objectgroup name="Sections">
-  <object name="0" x="802" y="1170">
+ <objectgroup name="Sections" visible="0">
+  <object id="13" name="0" x="802" y="1170">
    <polyline points="0,0 -481,-16"/>
   </object>
-  <object name="1" x="800" y="1138">
+  <object id="14" name="1" x="800" y="1138">
    <polyline points="0,0 -477,-304"/>
   </object>
-  <object name="2" x="898" y="1024">
+  <object id="15" name="2" x="898" y="1024">
    <polyline points="0,0 -530,-719"/>
   </object>
-  <object name="3" x="1090" y="848">
+  <object id="16" name="3" x="1090" y="848">
    <polyline points="0,0 -130,-543"/>
   </object>
-  <object name="4" x="1601" y="848">
+  <object id="17" name="4" x="1601" y="848">
    <polyline points="0,0 0,-546"/>
   </object>
-  <object name="5" x="2243" y="852">
+  <object id="18" name="5" x="2243" y="852">
    <polyline points="0,0 64,-549"/>
   </object>
-  <object name="6" x="2321" y="866">
+  <object id="19" name="6" x="2321" y="866">
    <polyline points="0,0 513,-564"/>
   </object>
-  <object name="7" x="2354" y="961">
+  <object id="20" name="7" x="2354" y="961">
    <polyline points="0,0 528,-67"/>
   </object>
-  <object name="8" x="2354" y="1282">
+  <object id="21" name="8" x="2354" y="1282">
    <polyline points="0,0 528,-3"/>
   </object>
-  <object name="9" x="2353" y="1327">
+  <object id="22" name="9" x="2353" y="1327">
    <polyline points="0,0 529,611"/>
   </object>
-  <object name="11" x="2323" y="882">
+  <object id="23" name="11" x="2323" y="882">
    <polyline points="0,0 -494,472"/>
   </object>
-  <object name="12" x="1338" y="1359">
+  <object id="24" name="12" x="1338" y="1359">
    <polyline points="-244,-500 122.667,10"/>
   </object>
-  <object name="13" x="1217" y="1504">
+  <object id="25" name="13" x="1217" y="1504">
    <polyline points="-418,-384 61.6667,35"/>
   </object>
-  <object name="14" x="1219" y="1936">
+  <object id="26" name="14" x="1219" y="1936">
    <polyline points="-403,-603 -6,-1"/>
   </object>
-  <object name="15" x="322" y="1934">
+  <object id="27" name="15" x="322" y="1934">
    <polyline points="465,-601 7,5"/>
   </object>
-  <object name="10" x="2322" y="1332">
+  <object id="28" name="10" x="2322" y="1332">
    <polyline points="0,0 -492,607"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints">
+ <objectgroup name="Waypoints" visible="0">
   <properties>
    <property name="direction" value="90"/>
   </properties>
-  <object x="1792" y="512" width="64" height="64">
+  <object id="29" x="1792" y="512" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1184" y="520" width="64" height="64">
+  <object id="30" x="1184" y="520" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="856" y="726" width="64" height="64">
+  <object id="31" x="856" y="726" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="680" y="856" width="64" height="64">
+  <object id="32" x="680" y="856" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="592" y="1056" width="64" height="64">
+  <object id="33" x="592" y="1056" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2432" y="576" width="64" height="64">
+  <object id="34" x="2432" y="576" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2537.52" y="778.606" width="64" height="64">
+  <object id="35" x="2537.52" y="778.606" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2560" y="1152" width="64" height="64">
+  <object id="36" x="2560" y="1152" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2285.09" y="1635.27" width="64" height="64">
+  <object id="37" x="2285.09" y="1635.27" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2043.76" y="1348.45" width="64" height="64">
+  <object id="38" x="2043.76" y="1348.45" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1727.42" y="1023.12" width="64" height="64">
+  <object id="39" x="1727.42" y="1023.12" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1131.52" y="1188" width="64" height="64">
+  <object id="40" x="1131.52" y="1188" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="976" y="1456" width="64" height="64">
+  <object id="41" x="976" y="1456" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="727.515" y="1549.33" width="64" height="64">
+  <object id="42" x="727.515" y="1549.33" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2560" y="1408" width="64" height="64">
+  <object id="43" x="2560" y="1408" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="590.667" y="1288" width="64" height="64">
+  <object id="44" x="590.667" y="1288" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1940.73" y="1061.94" width="64" height="64">
+  <object id="45" x="1940.73" y="1061.94" width="64" height="64">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="BonusSpots" visible="0">
-  <object x="2176" y="448" width="64" height="64">
+  <object id="46" x="2176" y="448" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2176" y="576" width="64" height="64">
+  <object id="47" x="2176" y="576" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2304" y="1600" width="64" height="64">
+  <object id="48" x="2304" y="1600" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2304" y="1728" width="64" height="64">
+  <object id="49" x="2304" y="1728" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1152" y="1088" width="64" height="64">
+  <object id="50" x="1152" y="1088" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="1216" y="1216" width="64" height="64">
+  <object id="51" x="1216" y="1216" width="64" height="64">
    <ellipse/>
   </object>
-  <object x="2176" y="704" width="64" height="64">
+  <object id="52" x="2176" y="704" width="64" height="64">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="Borders2" visible="0">
-  <object x="924" y="520">
+  <object id="53" x="924" y="520">
    <polyline points="-556,584 -556,1208 -524,1288 -492,1320 -412,1352 100,1352 180,1320 212,1288 244,1208 244,1016 306.599,898.548 548,776 820,776 868,792 900,824 916,872 916,1208 932,1272 964,1304 1028,1336 1796,1336 1856.12,1305.72 1884.25,1275.44 1908.5,1208.88 1908,-8 1892,-88 1844,-136 1764,-152 36,-152 -402,63 -556,376 -556,568"/>
   </object>
-  <object x="790" y="1376">
+  <object id="54" x="790" y="1376">
    <polyline points="8,-4 8,-254 70,-372 342.667,-514.667 1434,-512 1490,-504 1530,-464 1546,-416 1548,5"/>
   </object>
  </objectgroup>

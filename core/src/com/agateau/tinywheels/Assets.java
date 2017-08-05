@@ -28,6 +28,7 @@ public class Assets {
     public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{
             new MapInfo("race", "Let it Snow"),
             new MapInfo("be", "City"),
+            new MapInfo("tiny-sur-mer", "Tiny sur Mer"),
     });
     public final Skin skin;
     public final TextureRegion wheel;

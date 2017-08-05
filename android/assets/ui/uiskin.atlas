@@ -1,26 +1,26 @@
 
 uiskin.png
-size: 384,280
+size: 783,164
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 checkbox-off
   rotate: false
-  xy: 232, 66
+  xy: 717, 36
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 checkbox-on
   rotate: false
-  xy: 220, 4
+  xy: 651, 32
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 focus
   rotate: false
-  xy: 294, 102
+  xy: 154, 2
   size: 46, 46
   split: 15, 15, 15, 15
   pad: 6, 6, 6, 6
@@ -29,84 +29,91 @@ focus
   index: -1
 icon-back
   rotate: false
-  xy: 341, 238
+  xy: 250, 8
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-config
   rotate: false
-  xy: 282, 12
+  xy: 292, 8
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-debug
   rotate: false
-  xy: 341, 196
+  xy: 334, 15
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-highscores
   rotate: false
-  xy: 329, 154
+  xy: 376, 15
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-left
   rotate: false
-  xy: 342, 112
+  xy: 418, 15
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-restart
   rotate: false
-  xy: 342, 70
+  xy: 458, 62
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 icon-right
   rotate: false
-  xy: 324, 12
+  xy: 500, 62
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 map-screenshots/antonin
   rotate: false
-  xy: 2, 128
+  xy: 2, 12
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 map-screenshots/be
   rotate: false
-  xy: 154, 128
+  xy: 542, 12
   size: 75, 150
   orig: 75, 150
   offset: 0, 0
   index: -1
 map-screenshots/race
   rotate: false
-  xy: 2, 21
+  xy: 306, 57
   size: 150, 105
   orig: 150, 105
   offset: 0, 0
   index: -1
 map-screenshots/test
   rotate: false
-  xy: 231, 128
+  xy: 619, 12
   size: 30, 150
   orig: 30, 150
   offset: 0, 0
   index: -1
+map-screenshots/tiny-sur-mer
+  rotate: false
+  xy: 154, 50
+  size: 150, 112
+  orig: 150, 112
+  offset: 0, 0
+  index: -1
 rectbutton
   rotate: false
-  xy: 263, 220
+  xy: 460, 2
   size: 76, 58
   split: 15, 15, 17, 19
   pad: 10, 10, 10, 14
@@ -115,7 +122,7 @@ rectbutton
   index: -1
 rectbutton-down
   rotate: false
-  xy: 154, 68
+  xy: 458, 104
   size: 76, 58
   split: 15, 15, 18, 14
   pad: 10, 10, 16, 8
@@ -124,21 +131,21 @@ rectbutton-down
   index: -1
 roundbutton
   rotate: false
-  xy: 263, 150
+  xy: 651, 94
   size: 64, 68
   orig: 64, 68
   offset: 0, 0
   index: -1
 roundbutton-down
   rotate: false
-  xy: 154, 2
+  xy: 717, 98
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 selected
   rotate: false
-  xy: 294, 54
+  xy: 202, 2
   size: 46, 46
   split: 16, 16, 16, 16
   pad: 6, 6, 6, 6
