@@ -16,9 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Load a LapPositionTable from a TiledMap. The map must contain a "Zones" layer which must contain
- * convex quadrilaterals named "0".."n"
- *
+ * Loads a LapPositionTable from a TiledMap. Parses the section segments defined in
+ * doc/track-format.md
  */
 public class LapPositionTableIO {
     private static class Line implements Comparable {
