@@ -1,5 +1,6 @@
 package com.agateau.tinywheels;
 
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.agateau.utils.Assert;
+import com.badlogic.gdx.utils.IntArray;
 
 /**
  * The map of the current game
@@ -46,6 +47,8 @@ public class MapInfo implements Disposable {
     private int mStartTileId = -1;
     private TiledMapTileLayer mGroundLayer;
     private MapLayer mBordersLayer;
+    private int[] mExtraBackgroundLayerIndexes;
+    private int[] mForegroundLayerIndexes;
     private float mTileWidth;
     private float mTileHeight;
     private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
@@ -65,10 +68,7 @@ public class MapInfo implements Disposable {
         mMap = loader.load("maps/" + mId + ".tmx");
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         findSpecialTileIds();
-
-        mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
-        mBordersLayer = mMap.getLayers().get("Borders");
-        assert mBordersLayer != null;
+        findLayers();
 
         mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
@@ -79,6 +79,31 @@ public class MapInfo implements Disposable {
         String bgColorText = mMap.getProperties().get("backgroundcolor", "#808080", String.class);
         bgColorText = bgColorText.substring(1); // Skip leading '#'
         mBackgroundColor = Color.valueOf(bgColorText);
+    }
+
+    private void findLayers() {
+        mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
+        mBordersLayer = mMap.getLayers().get("Borders");
+        assert mBordersLayer != null;
+
+        IntArray layers = findLayerIndexesMatching("bg");
+        Assert.check(layers.size > 0, "No background layers found");
+        layers.removeValue(0);
+        mExtraBackgroundLayerIndexes = layers.toArray();
+
+        layers = findLayerIndexesMatching("fg");
+        mForegroundLayerIndexes = layers.toArray();
+    }
+
+    private IntArray findLayerIndexesMatching(String match) {
+        IntArray array = new IntArray();
+        for (int idx = 0; idx < mMap.getLayers().getCount(); ++idx) {
+            MapLayer layer = mMap.getLayers().get(idx);
+            if (layer.getName().startsWith(match)) {
+                array.add(idx);
+            }
+        }
+        return array;
     }
 
     public String getId() {
@@ -121,7 +146,7 @@ public class MapInfo implements Disposable {
         return  mGroundLayer.getHeight();
     }
 
-    public TiledMapTileLayer getGroundLayer() {
+    public TiledMapTileLayer getgroundlayer() {
         return mGroundLayer;
     }
 
@@ -131,6 +156,14 @@ public class MapInfo implements Disposable {
 
     public LapPositionTable getLapPositionTable() {
         return mLapPositionTable;
+    }
+
+    public int[] getExtraBackgroundLayerIndexes() {
+        return mExtraBackgroundLayerIndexes;
+    }
+
+    public int[] getForegroundLayerIndexes() {
+        return mForegroundLayerIndexes;
     }
 
     private float[] computeMaxSpeedForTileId() {

@@ -27,7 +27,8 @@ public class GameRenderer {
     private final float mMapWidth;
     private final float mMapHeight;
 
-    private int[] mBackgroundLayerIndexes = { 0 };
+    private int[] mBackgroundLayerFirstIndexes = { 0 };
+    private int[] mExtraBackgroundLayerIndexes;
     private int[] mForegroundLayerIndexes;
     private Vehicle mVehicle;
     private float mCameraAngle = 90;
@@ -49,7 +50,8 @@ public class GameRenderer {
         mMapWidth = mMapInfo.getMapWidth();
         mMapHeight = mMapInfo.getMapHeight();
 
-        mForegroundLayerIndexes = new int[]{ 1, 2 };
+        mExtraBackgroundLayerIndexes = mMapInfo.getExtraBackgroundLayerIndexes();
+        mForegroundLayerIndexes = mMapInfo.getForegroundLayerIndexes();
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
@@ -82,23 +84,30 @@ public class GameRenderer {
 
         mTilePerformanceCounter.start();
         mBatch.disableBlending();
-        mRenderer.render(mBackgroundLayerIndexes);
+        mRenderer.render(mBackgroundLayerFirstIndexes);
+        mBatch.enableBlending();
+        if (mExtraBackgroundLayerIndexes.length > 0) {
+            mRenderer.render(mExtraBackgroundLayerIndexes);
+        }
         mTilePerformanceCounter.stop();
 
-        mBatch.setProjectionMatrix(mCamera.combined);
-        mBatch.enableBlending();
-        mBatch.begin();
-
         mGameObjectPerformanceCounter.start();
+        mBatch.begin();
         for (int z = 0; z < Constants.Z_COUNT; ++z) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z);
             }
 
-            if (z == Constants.Z_OBSTACLES && mForegroundLayerIndexes != null) {
+            if (z == Constants.Z_OBSTACLES && mForegroundLayerIndexes.length > 0) {
+                mGameObjectPerformanceCounter.stop();
+                mTilePerformanceCounter.start();
+
                 mBatch.end();
                 mRenderer.render(mForegroundLayerIndexes);
                 mBatch.begin();
+
+                mTilePerformanceCounter.stop();
+                mGameObjectPerformanceCounter.start();
             }
         }
         mGameObjectPerformanceCounter.stop();

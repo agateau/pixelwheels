@@ -240,12 +240,12 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <layer name="Ground" width="50" height="35">
+ <layer name="bg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
    eJztl1tuwjAQRSdtCiJFkaD8QH+8FJbCUryULCVLyVI6ebgZT2ych5O6yB9XkSCZuYdrj8MeAPZRUVFRL6obQHlFHQDuW+kTdUT59H9GnVAJfsZ1aa+i0+B7k946ue5LF3JY/Nc+CyJhETCmwT2Ew1ajeT4DeMxl+Nb9Kz93wqH1u9j9/BkH5lAhQ2XwojhKR+8gOHAtVafnHAOFlgfLAro1pHlBRji39b0qN++3WRwsC41D+b+2vN7n+sEjR6bXUhziy+JfzbRspuj5sDYH5iDQq3DM5Dlrv1E65IA1ONCruBEOw0wuk/48aZ4Zccb9ciifvvP4wCsVrUPmQJE8OQ8deWzCwfOgddgcMDKEwrHr+2gchvOxeCd7wzWPc/P6Xz2PHeMgWWjraew8tuzjzfPIeu9SebHN4xA4bHlkPYPschjM45A4eB64rh/1mZW3e0GqHnwez+Vg9VfLg8wmafodl3I45C2P/8rxCnmkrVfaz8YB+I43em+w2pM4pvaphe+eEp+Trv8K6EkcJ9YfW3tpn6ioqKgQ9QOaBcuF
   </data>
  </layer>
- <layer name="Obstacles" width="50" height="35">
+ <layer name="fg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
    eJztWM1KBDEMzqP4CroqKOpJPbnenY4/F/Xk7vvfzMCEDYXNX6drkP3gY6DTpknTJmkBjvDgFHn210o0gPS/Ql4b+mWFpr+3nwcvyGFmmTmy9sK+1F5YO28bO8hz2HHiNv5A8Og2JLbDo1tJbMekmzUmZPeHNSZk98f0tfhkTGwH6WbxSfZ4pfliNX+z76ulz8cb8h0Om+c8a2yJV5/IL+S3VagR2p7WdDtHXiAvQT/nZMPGo6ARmp6abjfIW+QdyGsy/fuBPjZM0PTU/HWPfEA+grwHe8eA1n31hFwjn0Fek952oPwP5b95fmlNetcsmnzP/FJfT67ncZfFXHG8Jp/8sZI6VX0jeIVdXuGgHNy6Lz3r2LJ36rxS389b7fDUTJG5yA+UV7ZzO+lP9rTWoB7dInPty++1P1pr0KXi1T5QbtxW7bU/WuPd4LgPRvYVt53XOISlzsfI6l3NnshcfJ15jSP1i4DfP7T6PTIXt53XOFK/CIrDH5FzzsfwGmcJ2fV4qz96vvNxGd77Fs3Z8oaa/R3Zih7vyEf8X/wCBTZmFg==
   </data>
