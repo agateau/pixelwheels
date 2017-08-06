@@ -84,7 +84,7 @@ public class MapInfo implements Disposable {
     private void findLayers() {
         mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
         mBordersLayer = mMap.getLayers().get("Borders");
-        assert mBordersLayer != null;
+        Assert.check(mBordersLayer != null, "No \"Borders\" layer found");
 
         IntArray layers = findLayerIndexesMatching("bg");
         Assert.check(layers.size > 0, "No background layers found");
