@@ -10,6 +10,11 @@
     <property name="start" type="bool" value="true"/>
    </properties>
   </tile>
+  <tile id="19">
+   <properties>
+    <property name="max_speed" type="float" value="4"/>
+   </properties>
+  </tile>
   <tile id="32" terrain="0,,,"/>
   <tile id="34" terrain=",0,,"/>
   <tile id="40" terrain=",,0,"/>
