@@ -23,3 +23,13 @@ A "Waypoints" object layer containing ellipsis indicating where AI pilot should 
 # Bonuses
 
 A "BonusSpots" object layer containing ellipsis indicating where bonus should appear.
+
+# Tile properties
+
+## `max_speed`
+
+Float. Defaults to 1. Can be less than 1 for slow terrains, can be more than 1 for accelerators.
+
+## `start`
+
+Bool. Defaults to false. Set to true for the tile representing the start position.
