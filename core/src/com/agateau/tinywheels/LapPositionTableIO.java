@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  * Loads a LapPositionTable from a TiledMap. Parses the section segments defined in
- * doc/track-format.md
+ * doc/map-format.md
  */
 public class LapPositionTableIO {
     private static class Line implements Comparable {
