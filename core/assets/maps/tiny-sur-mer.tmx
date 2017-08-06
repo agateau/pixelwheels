@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="60" tilewidth="64" tileheight="64" nextobjectid="85">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="60" tilewidth="64" tileheight="64" nextobjectid="86">
  <tileset firstgid="1" name="city" tilewidth="64" tileheight="64" tilecount="112" columns="8">
   <image source="city.png" width="512" height="896"/>
   <terraintypes>
@@ -254,25 +254,25 @@
    <polyline points="0,0 -608,-2"/>
   </object>
   <object id="40" name="1" x="776.197" y="1599.83">
-   <polyline points="66.4976,87.0375 -526.068,-1390.53"/>
+   <polyline points="66.4976,87.0375 -563.401,-1427.86"/>
   </object>
   <object id="41" name="2" x="832.255" y="1668.82">
-   <polyline points="95.5515,21.3333 724.471,-1498.34"/>
+   <polyline points="95.5515,21.3333 788.471,-1546.34"/>
   </object>
   <object id="44" name="5" x="1944.8" y="1638.64">
-   <polyline points="721.621,-620.945 123.024,-1438.07"/>
+   <polyline points="742.954,-535.612 123.024,-1438.07"/>
   </object>
   <object id="42" name="3" x="983.182" y="1673.13">
    <polyline points="12.9371,375.162 612.354,-338.357"/>
   </object>
   <object id="43" name="4" x="1724.88" y="1358.34">
-   <polyline points="657.192,649.529 21.5816,-10.63"/>
+   <polyline points="657.192,649.529 -21.0851,-42.63"/>
   </object>
   <object id="45" name="6" x="3117.72" y="1647.26">
-   <polyline points="-296.274,-657.852 1388.55,-1584.59"/>
+   <polyline points="162.393,-812.519 1388.55,-1584.59"/>
   </object>
   <object id="46" name="7" x="3455.79" y="2079.7">
-   <polyline points="-832.494,-676.532 1631.39,-681.726"/>
+   <polyline points="-859.161,-671.199 1631.39,-681.726"/>
   </object>
   <object id="47" name="8" x="3480.7" y="1836.86">
    <polyline points="-906.485,282.372 1650.07,277.178"/>
@@ -290,7 +290,10 @@
    <polyline points="1652.67,-1220.99 1650.07,280.669"/>
   </object>
   <object id="84" name="4.5" x="1867.33" y="854.333">
-   <polyline points="657.192,649.529 -69.0851,-170.63"/>
+   <polyline points="646.525,633.529 -95.7518,-223.963"/>
+  </object>
+  <object id="85" name="6.5" x="3573.33" y="2074.67">
+   <polyline points="-205.607,-1111.19 1388.55,-1584.59"/>
   </object>
  </objectgroup>
  <objectgroup name="Waypoints" visible="0">
