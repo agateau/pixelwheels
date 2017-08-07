@@ -16,7 +16,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.IntArray;
 
 /**
  * The map of the current game
@@ -47,10 +46,9 @@ public class MapInfo implements Disposable {
     private TiledMap mMap;
     private float[] mMaxSpeedForTileId;
     private int mStartTileId = -1;
-    private TiledMapTileLayer mGroundLayer;
+    private Array<TiledMapTileLayer> mBackgroundLayers;
+    private Array<TiledMapTileLayer> mForegroundLayers;
     private MapLayer mBordersLayer;
-    private int[] mExtraBackgroundLayerIndexes;
-    private int[] mForegroundLayerIndexes;
     private float mTileWidth;
     private float mTileHeight;
     private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
@@ -72,8 +70,8 @@ public class MapInfo implements Disposable {
         findSpecialTileIds();
         findLayers();
 
-        mTileWidth = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileWidth();
-        mTileHeight = Constants.UNIT_FOR_PIXEL * mGroundLayer.getTileHeight();
+        mTileWidth = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileWidth();
+        mTileHeight = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileHeight();
 
         mLapPositionTable = LapPositionTableIO.load(mMap);
         readWaypoints();
@@ -84,25 +82,21 @@ public class MapInfo implements Disposable {
     }
 
     private void findLayers() {
-        mGroundLayer = (TiledMapTileLayer)mMap.getLayers().get(0);
+        mBackgroundLayers = findLayersMatching("bg");
+        Assert.check(mBackgroundLayers.size > 0, "No background layers found");
+
+        mForegroundLayers = findLayersMatching("fg");
+
         mBordersLayer = mMap.getLayers().get("Borders");
         Assert.check(mBordersLayer != null, "No \"Borders\" layer found");
-
-        IntArray layers = findLayerIndexesMatching("bg");
-        Assert.check(layers.size > 0, "No background layers found");
-        layers.removeValue(0);
-        mExtraBackgroundLayerIndexes = layers.toArray();
-
-        layers = findLayerIndexesMatching("fg");
-        mForegroundLayerIndexes = layers.toArray();
     }
 
-    private IntArray findLayerIndexesMatching(String match) {
-        IntArray array = new IntArray();
+    private Array<TiledMapTileLayer> findLayersMatching(String match) {
+        Array<TiledMapTileLayer> array = new Array<TiledMapTileLayer>();
         for (int idx = 0; idx < mMap.getLayers().getCount(); ++idx) {
             MapLayer layer = mMap.getLayers().get(idx);
             if (layer.getName().startsWith(match)) {
-                array.add(idx);
+                array.add((TiledMapTileLayer)layer);
             }
         }
         return array;
@@ -133,23 +127,11 @@ public class MapInfo implements Disposable {
     }
 
     public float getMapWidth() {
-        return mTileWidth * mGroundLayer.getWidth();
+        return mTileWidth * mBackgroundLayers.get(0).getWidth();
     }
 
     public float getMapHeight() {
-        return mTileHeight * mGroundLayer.getHeight();
-    }
-
-    public int getMapTWidth() {
-        return mGroundLayer.getWidth();
-    }
-
-    public int getMapTHeight() {
-        return  mGroundLayer.getHeight();
-    }
-
-    public TiledMapTileLayer getgroundlayer() {
-        return mGroundLayer;
+        return mTileHeight * mBackgroundLayers.get(0).getHeight();
     }
 
     public MapLayer getBordersLayer() {
@@ -161,11 +143,21 @@ public class MapInfo implements Disposable {
     }
 
     public int[] getExtraBackgroundLayerIndexes() {
-        return mExtraBackgroundLayerIndexes;
+        int[] indexes = new int[mBackgroundLayers.size - 1];
+        for (int idx = 1; idx < mBackgroundLayers.size; ++idx) {
+            indexes[idx - 1] = idx;
+        }
+        return indexes;
     }
 
     public int[] getForegroundLayerIndexes() {
-        return mForegroundLayerIndexes;
+        int[] indexes = new int[mForegroundLayers.size];
+        // Foreground layers are just after background layers
+        int start = mBackgroundLayers.size;
+        for (int idx = 0; idx < mForegroundLayers.size; ++idx) {
+            indexes[idx] = start + idx;
+        }
+        return indexes;
     }
 
     private float[] computeMaxSpeedForTileId() {
@@ -193,11 +185,16 @@ public class MapInfo implements Disposable {
         Assert.check(mStartTileId != -1, "No start id");
     }
 
-    public TiledMapTile getTileAt(float x, float y) {
+    private TiledMapTile getTopTileAt(Array<TiledMapTileLayer> layers, float x, float y) {
         int tx = MathUtils.floor(x / mTileWidth);
         int ty = MathUtils.floor(y / mTileHeight);
-        TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
-        return cell == null ? null : cell.getTile();
+        for (int idx = layers.size - 1; idx >= 0; idx--) {
+            TiledMapTileLayer.Cell cell = layers.get(idx).getCell(tx, ty);
+            if (cell != null) {
+                return cell.getTile();
+            }
+        }
+        return null;
     }
 
     /**
@@ -215,7 +212,7 @@ public class MapInfo implements Disposable {
     }
 
     public float getMaxSpeedAt(float x, float y) {
-        TiledMapTile tile = getTileAt(x, y);
+        TiledMapTile tile = getTopTileAt(mBackgroundLayers, x, y);
         if (tile == null) {
             return 1.0f;
         }
@@ -230,9 +227,10 @@ public class MapInfo implements Disposable {
 
     public Array<Vector2> findStartTilePositions() {
         Array<Vector2> lst = new Array<Vector2>();
-        for (int ty = 0; ty < mGroundLayer.getHeight(); ++ty) {
-            for (int tx = 0; tx < mGroundLayer.getWidth(); ++tx) {
-                TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
+        TiledMapTileLayer groundLayer = mBackgroundLayers.get(0);
+        for (int ty = 0; ty < groundLayer.getHeight(); ++ty) {
+            for (int tx = 0; tx < groundLayer.getWidth(); ++tx) {
+                TiledMapTileLayer.Cell cell = groundLayer.getCell(tx, ty);
                 if (cell == null) {
                     continue;
                 }
