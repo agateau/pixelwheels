@@ -1,7 +1,8 @@
 package com.agateau.tinywheels;
 
+import com.agateau.utils.CsvWriter;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,8 +13,6 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.Disposable;
-import com.agateau.utils.CsvWriter;
-import com.agateau.utils.FileUtils;
 
 /**
  * Represents a car on the world
@@ -38,7 +37,7 @@ class Vehicle implements Disposable {
     private float mDirection = 0;
     private float mTurboTime = -1;
 
-    private ArrayMap<TiledMapTileLayer.Cell, Float> mTurboCellMap = new ArrayMap<TiledMapTileLayer.Cell, Float>(false /* ordered */, 8);
+    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
 
     private CsvWriter mSpeedLogger = null;
     private float mLogTime = 0;
@@ -199,11 +198,11 @@ class Vehicle implements Disposable {
             info.wheel.act(dt);
             float wheelGroundSpeed = info.wheel.getGroundSpeed();
             groundSpeed += wheelGroundSpeed;
-            TiledMapTileLayer.Cell cell = info.wheel.getCell();
+            long cellId = info.wheel.getCellId();
             boolean isTurboCell = wheelGroundSpeed > 1;
-            if (isTurboCell && !alreadyTriggeredTurboCell(cell)) {
+            if (isTurboCell && !alreadyTriggeredTurboCell(cellId)) {
                 triggerTurbo();
-                addTriggeredTurboCell(cell);
+                addTriggeredTurboCell(cellId);
             }
         }
         updateTriggeredTurboTiles(dt);
@@ -235,12 +234,12 @@ class Vehicle implements Disposable {
         return mDirection * steer;
     }
 
-    private boolean alreadyTriggeredTurboCell(TiledMapTileLayer.Cell cell) {
-        return mTurboCellMap.containsKey(cell);
+    private boolean alreadyTriggeredTurboCell(long cellId) {
+        return mTurboCellMap.containsKey(cellId);
     }
 
-    private void addTriggeredTurboCell(TiledMapTileLayer.Cell tile) {
-        mTurboCellMap.put(tile, GamePlay.instance.turboDuration);
+    private void addTriggeredTurboCell(long cellId) {
+        mTurboCellMap.put(cellId, GamePlay.instance.turboDuration);
     }
 
     private void updateTriggeredTurboTiles(float delta) {

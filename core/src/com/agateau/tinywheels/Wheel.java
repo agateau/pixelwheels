@@ -125,8 +125,8 @@ public class Wheel implements Pool.Poolable, Disposable {
         mBraking = braking;
     }
 
-    public TiledMapTileLayer.Cell getCell() {
-        return mGameWorld.getMapInfo().getCellAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
+    public long getCellId() {
+        return mGameWorld.getMapInfo().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
     private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created

@@ -22,6 +22,8 @@ import com.badlogic.gdx.utils.IntArray;
  * The map of the current game
  */
 public class MapInfo implements Disposable {
+    private static final int CELL_ID_ROW_STRIDE = 10000;
+
     private static class WaypointInfo implements Comparable {
         float lapDistance;
         Vector2 waypoint;
@@ -192,14 +194,20 @@ public class MapInfo implements Disposable {
     }
 
     public TiledMapTile getTileAt(float x, float y) {
-        TiledMapTileLayer.Cell cell = getCellAt(x, y);
+        int tx = MathUtils.floor(x / mTileWidth);
+        int ty = MathUtils.floor(y / mTileHeight);
+        TiledMapTileLayer.Cell cell = mGroundLayer.getCell(tx, ty);
         return cell == null ? null : cell.getTile();
     }
 
-    public TiledMapTileLayer.Cell getCellAt(float x, float y) {
+    /**
+     * Returns a "cell id" for the given screen coordinates
+     * A cell id is a long representing the combination of x and y in map coordinates
+     */
+    public long getCellIdAt(float x, float y) {
         int tx = MathUtils.floor(x / mTileWidth);
         int ty = MathUtils.floor(y / mTileHeight);
-        return mGroundLayer.getCell(tx, ty);
+        return ty * CELL_ID_ROW_STRIDE + tx;
     }
 
     public float getMaxSpeedAt(Vector2 pos) {
