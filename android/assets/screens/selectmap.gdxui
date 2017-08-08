@@ -4,14 +4,7 @@
         <Label id="mainLabel"
                topCenter="root.topCenter 0 -2">Select Map</Label>
 
-        <MapSelector id="mapSelector" center="root.center"
-                         width="640" height="320"/>
-
-        <TextButton id="goButton"
-                    width="200"
-                    height="60"
-                    bottomCenter="root.bottomCenter 0 1"
-            >GO!</TextButton>
+        <Menu id="menu" center="root.center"/>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

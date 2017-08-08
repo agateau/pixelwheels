@@ -1,10 +1,13 @@
 package com.agateau.tinywheels;
 
+import com.agateau.ui.Menu;
 import com.agateau.utils.FileUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -34,22 +37,25 @@ public class SelectMapScreen extends TwStageScreen {
     private void setupUi() {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
-        MapSelector.register(builder);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectmap.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mMapSelector = builder.getActor("mapSelector");
+        Menu menu = builder.getActor("menu");
+
+        mMapSelector = new MapSelector(menu);
         mMapSelector.init(assets);
         mMapSelector.setSelected(assets.findMapInfoByID(mGameModeConfig.map));
+        menu.addItem(mMapSelector);
 
-        builder.getActor("goButton").addListener(new ClickListener() {
+        mMapSelector.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 next();
             }
         });
+
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
