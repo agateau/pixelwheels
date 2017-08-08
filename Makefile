@@ -26,7 +26,7 @@ endif
 
 all: build
 
-clean: clean-packr
+clean: clean-packr clean-sprites
 	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
 $(TOOLS_JAR):
@@ -51,6 +51,9 @@ mappacker: tools
 
 # Sprites
 sprites: $(SPRITES)
+
+clean-sprites:
+	rm -f $(SPRITES)
 
 %.png: %.ase
 	aseprite --batch $< --save-as $@
