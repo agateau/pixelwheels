@@ -20,10 +20,6 @@ ARCHIVE_DIR=$(CURDIR)/archives
 
 SPRITES=core/assets/maps/city.png
 
-IMGTOOLS_SRC_DIR=imgtools
-IMGTOOLS_BUILD_DIR=imgtools/build
-COLORTR=$(IMGTOOLS_BUILD_DIR)/colortr/colortr
-
 ifdef SNAPSHOT
 	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
 endif
@@ -40,12 +36,6 @@ build:
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
-
-imgtools:
-	mkdir -p $(IMGTOOLS_BUILD_DIR)
-	cd $(IMGTOOLS_BUILD_DIR) \
-		&& qmake $(PWD)/$(IMGTOOLS_SRC_DIR) \
-		&& $(MAKE)
 
 run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
@@ -64,7 +54,10 @@ sprites: $(SPRITES)
 
 %.png: %.ase
 	aseprite --batch $< --save-as $@
-	$(COLORTR) --src '#ff00ff' --dst '#60222034' $@ $@
+	mv $@ $@-tmp
+	# Replace color #ff00ff with #22203460 (RGBA order)
+	convert -alpha set -channel RGBA -fill '#22203460' -opaque '#ff00ff' $@-tmp $@
+	rm $@-tmp
 
 # Packr
 $(JDK_LINUX64_ZIP):
