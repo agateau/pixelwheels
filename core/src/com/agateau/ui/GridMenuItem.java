@@ -72,6 +72,19 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         setSelectedIndex(index);
     }
 
+    public void setCurrent(T item) {
+        if (item == null) {
+            mCurrentIndex = -1;
+            return;
+        }
+        int index = mItems.indexOf(item, true);
+        if (index < 0) {
+            NLog.e("Item is not in the item list");
+            return;
+        }
+        mCurrentIndex = index;
+    }
+
     private void setSelectedIndex(int index) {
         if (index < 0) {
             mSelectedIndex = -1;
