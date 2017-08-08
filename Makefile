@@ -32,7 +32,7 @@ clean: clean-packr clean-sprites
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build:
+build: sprites
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
