@@ -21,8 +21,7 @@ public class GameConfig {
     public boolean rotateCamera = true;
     public String input;
     public String onePlayerVehicle;
-    public String twoPlayersVehicle1;
-    public String twoPlayersVehicle2;
+    public String[] multiPlayerVehicles = new String[2];
 
     public GameModeConfig onePlayer = new GameModeConfig();
     public GameModeConfig multiPlayer = new GameModeConfig();
@@ -36,8 +35,9 @@ public class GameConfig {
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
-        twoPlayersVehicle1 = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID1);
-        twoPlayersVehicle2 = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID2);
+        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
+            multiPlayerVehicles[idx] = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx));
+        }
 
         onePlayer.map = mPreferences.getString(PrefConstants.ONEPLAYER_MAP_ID);
 
@@ -52,8 +52,9 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN_ID, rotateCamera);
         mPreferences.putString(PrefConstants.INPUT, input);
         mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
-        mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID1, twoPlayersVehicle1);
-        mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID2, twoPlayersVehicle2);
+        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
+            mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx), multiPlayerVehicles[idx]);
+        }
 
         mPreferences.putString(PrefConstants.ONEPLAYER_MAP_ID, onePlayer.map);
         mPreferences.putString(PrefConstants.MULTIPLAYER_MAP_ID, multiPlayer.map);

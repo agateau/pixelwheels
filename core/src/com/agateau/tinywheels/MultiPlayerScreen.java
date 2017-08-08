@@ -18,21 +18,22 @@ public class MultiPlayerScreen extends TwStageScreen {
     private final TwGame mGame;
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;
-    private VehicleSelector mVehicleSelector1;
-    private VehicleSelector mVehicleSelector2;
-    private KeyMapper mKeyMapper1 = new KeyMapper();
-    private KeyMapper mKeyMapper2 = new KeyMapper();
+    private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
+    private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
     public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
 
-        mKeyMapper2.put(VirtualKey.LEFT, Input.Keys.X);
-        mKeyMapper2.put(VirtualKey.RIGHT, Input.Keys.V);
-        mKeyMapper2.put(VirtualKey.UP, Input.Keys.D);
-        mKeyMapper2.put(VirtualKey.DOWN, Input.Keys.C);
-        mKeyMapper2.put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+        mKeyMappers[0] = new KeyMapper();
+        mKeyMappers[1] = new KeyMapper();
+
+        mKeyMappers[1].put(VirtualKey.LEFT, Input.Keys.X);
+        mKeyMappers[1].put(VirtualKey.RIGHT, Input.Keys.V);
+        mKeyMappers[1].put(VirtualKey.UP, Input.Keys.D);
+        mKeyMappers[1].put(VirtualKey.DOWN, Input.Keys.C);
+        mKeyMappers[1].put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
 
         setupUi();
         new RefreshHelper(getStage()) {
@@ -45,25 +46,14 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        GameConfig gameConfig = mGame.getConfig();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu1 = builder.getActor("menu1");
-        mVehicleSelector1 = new VehicleSelector(menu1);
-        mVehicleSelector1.init(assets);
-        mVehicleSelector1.setSelected(assets.findVehicleDefByID(gameConfig.twoPlayersVehicle1));
-        menu1.addItem(mVehicleSelector1);
-
-        Menu menu2 = builder.getActor("menu2");
-        menu2.setKeyMapper(mKeyMapper2);
-        mVehicleSelector2 = new VehicleSelector(menu2);
-        mVehicleSelector2.init(assets);
-        mVehicleSelector2.setSelected(assets.findVehicleDefByID(gameConfig.twoPlayersVehicle2));
-        menu2.addItem(mVehicleSelector2);
+        createVehicleSelector(builder, assets, 0);
+        createVehicleSelector(builder, assets, 1);
 
         builder.getActor("goButton").addListener(new ClickListener() {
             @Override
@@ -79,26 +69,37 @@ public class MultiPlayerScreen extends TwStageScreen {
         });
     }
 
+    private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
+        GameConfig gameConfig = mGame.getConfig();
+        String vehicleId = gameConfig.multiPlayerVehicles[idx];
+
+        Menu menu = builder.getActor("menu" + String.valueOf(idx + 1));
+        VehicleSelector selector = new VehicleSelector(menu);
+        mVehicleSelectors[idx] = selector;
+        selector.init(assets);
+        selector.setSelected(assets.findVehicleDefByID(vehicleId));
+
+        menu.setKeyMapper(mKeyMappers[idx]);
+        menu.addItem(selector);
+    }
+
     private void next() {
         // If we go back and forth between screens, there might already be some PlayerInfo instances
         // remove them
         mGameInfo.playerInfos.clear();
 
         GameConfig gameConfig = mGame.getConfig();
-        KeyboardInputHandler inputHandler;
-        inputHandler = new KeyboardInputHandler();
-        inputHandler.setKeyMapper(mKeyMapper1);
 
-        String id = mVehicleSelector1.getSelectedId();
-        mGameInfo.addPlayerInfo(id, inputHandler);
-        gameConfig.twoPlayersVehicle1 = id;
+        for (int idx = 0; idx < 2; ++idx) {
+            KeyboardInputHandler inputHandler;
+            inputHandler = new KeyboardInputHandler();
+            inputHandler.setKeyMapper(mKeyMappers[idx]);
 
-        inputHandler = new KeyboardInputHandler();
-        inputHandler.setKeyMapper(mKeyMapper2);
+            String id = mVehicleSelectors[idx].getSelectedId();
+            gameConfig.multiPlayerVehicles[idx] = id;
 
-        id = mVehicleSelector2.getSelectedId();
-        mGameInfo.addPlayerInfo(id, inputHandler);
-        gameConfig.twoPlayersVehicle2 = id;
+            mGameInfo.addPlayerInfo(id, inputHandler);
+        }
 
         gameConfig.flush();
         mMaestro.actionTriggered("next");
