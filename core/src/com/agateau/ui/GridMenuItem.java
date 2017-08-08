@@ -79,6 +79,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
         Assert.check(index < mItems.size, "Invalid index value");
         mSelectedIndex = index;
+        mCurrentIndex = index;
     }
 
     public T getSelected() {
