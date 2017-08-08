@@ -355,6 +355,10 @@ public class UiBuilder {
         if (!attr.isEmpty()) {
             actor.setOriginY(Float.parseFloat(attr));
         }
+        attr = element.getAttribute("visible", "");
+        if (!attr.isEmpty()) {
+            actor.setVisible(Boolean.parseBoolean(attr));
+        }
         for (int idx = 0, size = ANCHOR_NAMES.length; idx < size; ++idx) {
             String anchorName = ANCHOR_NAMES[idx];
             attr = element.getAttribute(anchorName, "");
