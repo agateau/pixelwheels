@@ -5,16 +5,12 @@
                topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
 
         <Menu id="menu1" centerRight="root.center -1 1" width="300" height="200"/>
+        <Label id="ready1" center="menu1.center" visible="false">Ready!</Label>
         <Menu id="menu2" centerLeft="root.center 1 1" width="300" height="200"/>
+        <Label id="ready2" center="menu2.center" visible="false">Ready!</Label>
 
         <Label topCenter="menu1.bottomCenter">Keys: Arrows\nSpace</Label>
         <Label topCenter="menu2.bottomCenter">Keys: X - C - V\nLeft Control</Label>
-
-        <TextButton id="goButton"
-                    width="200"
-                    height="60"
-                    bottomCenter="root.bottomCenter 0 1"
-            >Next</TextButton>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

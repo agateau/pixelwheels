@@ -8,7 +8,10 @@ import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -55,12 +58,6 @@ public class MultiPlayerScreen extends TwStageScreen {
         createVehicleSelector(builder, assets, 0);
         createVehicleSelector(builder, assets, 1);
 
-        builder.getActor("goButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                next();
-            }
-        });
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -74,13 +71,32 @@ public class MultiPlayerScreen extends TwStageScreen {
         String vehicleId = gameConfig.multiPlayerVehicles[idx];
 
         Menu menu = builder.getActor("menu" + String.valueOf(idx + 1));
+
+        final Label readyLabel = builder.getActor("ready" + String.valueOf(idx + 1));
+
         VehicleSelector selector = new VehicleSelector(menu);
         mVehicleSelectors[idx] = selector;
         selector.init(assets);
-        selector.setSelected(assets.findVehicleDefByID(vehicleId));
+        selector.setCurrent(assets.findVehicleDefByID(vehicleId));
+        selector.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                readyLabel.setVisible(true);
+                nextIfPossible();
+            }
+        });
 
         menu.setKeyMapper(mKeyMappers[idx]);
         menu.addItem(selector);
+    }
+
+    private void nextIfPossible() {
+        for (VehicleSelector selector : mVehicleSelectors) {
+            if (selector.getSelected() == null) {
+                return;
+            }
+        }
+        next();
     }
 
     private void next() {
