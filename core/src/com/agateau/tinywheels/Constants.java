@@ -1,7 +1,7 @@
 package com.agateau.tinywheels;
 
 /**
- * Created by aurelien on 25/11/14.
+ * Global game constants
  */
 public class Constants {
     public static final float UNIT_FOR_PIXEL = 1f / 20f;

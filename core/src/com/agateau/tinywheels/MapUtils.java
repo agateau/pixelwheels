@@ -10,7 +10,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Created by aurelien on 11/12/14.
+ * Utilities to work with Tiled maps
  */
 public class MapUtils {
     public static float getFloatProperty(MapProperties properties, String key, float defaultValue) {
