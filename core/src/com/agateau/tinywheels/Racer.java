@@ -22,12 +22,28 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
+    private final Array<Component> mComponents = new Array<Component>();
 
     private Pilot mPilot;
 
     // State
     private Bonus mBonus;
     private boolean mMustSelectBonus = false;
+
+    interface Component {
+        void act(float delta);
+    }
+
+    private class PilotSupervisorComponent implements Component {
+        @Override
+        public void act(float delta) {
+            if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()) {
+                mVehicle.setAccelerating(false);
+            } else {
+                mPilot.act(delta);
+            }
+        }
+    }
 
     public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
@@ -44,6 +60,15 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
+
+        PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
+
+        mComponents.add(mLapPositionComponent);
+        mComponents.add(mVehicle);
+        mComponents.add(mGroundCollisionHandlerComponent);
+        mComponents.add(mHealthComponent);
+        mComponents.add(mSpinningComponent);
+        mComponents.add(supervisorComponent);
     }
 
     public Pilot getPilot() {
@@ -130,16 +155,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             mMustSelectBonus = false;
             selectBonus();
         }
-        mLapPositionComponent.act(delta);
-        mVehicle.act(delta);
-        if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()) {
-            mVehicle.setAccelerating(false);
-        } else {
-            mPilot.act(delta);
+
+        for (Racer.Component component : mComponents) {
+            component.act(delta);
         }
-        mGroundCollisionHandlerComponent.act(delta);
-        mHealthComponent.act(delta);
-        mSpinningComponent.act(delta);
 
         if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
             if (!isFinished()) {

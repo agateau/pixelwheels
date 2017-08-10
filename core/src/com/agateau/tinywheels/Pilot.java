@@ -1,8 +1,7 @@
 package com.agateau.tinywheels;
 
 /**
-* Created by aurelien on 17/12/14.
-*/
-interface Pilot {
-    public void act(float dt);
+ * A Pilot (empty class for now)
+ */
+interface Pilot extends Racer.Component {
 }

@@ -3,7 +3,7 @@ package com.agateau.tinywheels;
 /**
  * Handles collisions
  */
-public class GroundCollisionHandlerComponent {
+public class GroundCollisionHandlerComponent implements Racer.Component {
     private final Vehicle mVehicle;
     private final HealthComponent mHealthComponent;
 
@@ -12,6 +12,7 @@ public class GroundCollisionHandlerComponent {
         mHealthComponent = healthComponent;
     }
 
+    @Override
     public void act(float dt) {
         if (mHealthComponent.getState() == HealthComponent.State.ALIVE) {
             checkGroundCollisions();

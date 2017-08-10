@@ -3,7 +3,7 @@ package com.agateau.tinywheels;
 /**
  * Created by aurelien on 19/12/14.
  */
-public class HealthComponent {
+public class HealthComponent implements Racer.Component {
     public static final float DYING_DURATION = 0.3f;
 
     private int mOldHealth = 1; // Used to detect health decrease in act()
@@ -11,7 +11,8 @@ public class HealthComponent {
     private int mMaxHealth = 1;
     private float mKilledTime = 0;
 
-    void act(float dt) {
+    @Override
+    public void act(float dt) {
         if (mOldHealth > mHealth) {
             mOldHealth = mHealth;
             onHealthDecreased();

@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements Disposable {
+class Vehicle implements Racer.Component, Disposable {
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
@@ -160,6 +160,7 @@ class Vehicle implements Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
+    @Override
     public void act(float dt) {
         final GamePlay GP = GamePlay.instance;
 

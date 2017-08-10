@@ -5,7 +5,7 @@ import com.agateau.utils.log.NLog;
 /**
  * A component to track the racer time
  */
-class LapPositionComponent {
+class LapPositionComponent implements Racer.Component {
     private final MapInfo mMapInfo;
     private final Vehicle mVehicle;
 
@@ -21,6 +21,7 @@ class LapPositionComponent {
         mVehicle = vehicle;
     }
 
+    @Override
     public void act(float delta) {
         if (mHasFinishedRace) {
             return;

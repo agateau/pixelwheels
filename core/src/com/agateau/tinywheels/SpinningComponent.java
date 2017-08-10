@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 /**
  * Make a vehicle spin on itself for a full circle
  */
-public class SpinningComponent {
+public class SpinningComponent implements Racer.Component {
     private final Vehicle mVehicle;
     private boolean mActive = false;
     private float mDesiredAngle;
@@ -27,6 +27,7 @@ public class SpinningComponent {
         mDesiredAngle = mStartAngle + 2 * MathUtils.PI;
     }
 
+    @Override
     public void act(float delta) {
         if (!mActive) {
             return;
