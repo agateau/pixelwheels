@@ -1,5 +1,6 @@
 package com.agateau.tinywheels;
 
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -137,11 +138,16 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             mPilot.act(delta);
         }
         mGroundCollisionHandlerComponent.act(delta);
-        if (!mHealthComponent.act(delta)) {
-            setFinished(true);
+        mHealthComponent.act(delta);
+        mSpinningComponent.act(delta);
+
+        if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
+            if (!isFinished()) {
+                NLog.i("Racer " + mVehicle.getName() + " died");
+                setFinished(true);
+            }
         }
 
-        mSpinningComponent.act(delta);
         if (mBonus != null) {
             mBonus.act(delta);
         }

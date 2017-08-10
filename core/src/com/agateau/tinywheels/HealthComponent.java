@@ -11,7 +11,7 @@ public class HealthComponent {
     private int mMaxHealth = 1;
     private float mKilledTime = 0;
 
-    boolean act(float dt) {
+    void act(float dt) {
         if (mOldHealth > mHealth) {
             mOldHealth = mHealth;
             onHealthDecreased();
@@ -23,10 +23,8 @@ public class HealthComponent {
             mKilledTime += dt;
             if (mKilledTime >= DYING_DURATION) {
                 onFullyDead();
-                return false;
             }
         }
-        return true;
     }
 
     public State getState() {
