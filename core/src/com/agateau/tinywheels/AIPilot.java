@@ -22,7 +22,7 @@ public class AIPilot implements Pilot {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
 
-        Vector2 waypoint = mMapInfo.getWaypoint(mRacer.getLapPositionComponent().getLapDistance());
+        Vector2 waypoint = mMapInfo.getWaypointStore().getWaypoint(mRacer.getLapPositionComponent().getLapDistance());
         mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
 
         Bonus bonus = mRacer.getBonus();

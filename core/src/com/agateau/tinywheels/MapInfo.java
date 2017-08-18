@@ -29,23 +29,6 @@ public class MapInfo implements Disposable {
     }
     private static final int CELL_ID_ROW_STRIDE = 10000;
 
-    private static class WaypointInfo implements Comparable {
-        float lapDistance;
-        Vector2 waypoint;
-
-        @Override
-        public int compareTo(Object o) {
-            WaypointInfo other = (WaypointInfo)o;
-            if (lapDistance < other.lapDistance) {
-                return -1;
-            } else if (lapDistance == other.lapDistance) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-    }
-
     private final String mId;
     private final String mMapName;
 
@@ -55,9 +38,9 @@ public class MapInfo implements Disposable {
     private Array<TiledMapTileLayer> mBackgroundLayers;
     private Array<TiledMapTileLayer> mForegroundLayers;
     private MapLayer mBordersLayer;
+    private final WaypointStore mWaypointStore = new WaypointStore();
     private float mTileWidth;
     private float mTileHeight;
-    private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
     private Array<MapObject> mBorderObjects = new Array<MapObject>();
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
@@ -152,6 +135,10 @@ public class MapInfo implements Disposable {
 
     public LapPositionTable getLapPositionTable() {
         return mLapPositionTable;
+    }
+
+    public WaypointStore getWaypointStore() {
+        return mWaypointStore;
     }
 
     public int[] getExtraBackgroundLayerIndexes() {
@@ -291,34 +278,11 @@ public class MapInfo implements Disposable {
     }
 
     private void readWaypoints() {
-        final float U = Constants.UNIT_FOR_PIXEL;
         MapLayer layer = mMap.getLayers().get("Waypoints");
         Assert.check(layer != null, "No Waypoints layer");
-
-        for (MapObject object : layer.getObjects()) {
-            Assert.check(object instanceof EllipseMapObject, "Waypoints layer should contains only ellipses. " + object + " is not an ellipse.");
-            Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
-            final LapPosition pos = mLapPositionTable.get((int) ellipse.x, (int) ellipse.y);
-            WaypointInfo info = new WaypointInfo();
-            info.waypoint = new Vector2(ellipse.x * U, ellipse.y * U);
-            info.lapDistance = pos.getLapDistance();
-            mWaypointInfos.add(info);
-        }
-        mWaypointInfos.sort();
+        mWaypointStore.read(layer, mLapPositionTable);
     }
 
-    public Vector2 getWaypoint(float lapDistance) {
-        int nextIdx = 0;
-        for (int idx = 0; idx < mWaypointInfos.size; ++idx) {
-            if (lapDistance < mWaypointInfos.get(idx).lapDistance) {
-                nextIdx = idx;
-                break;
-            }
-        }
-        // Target the waypoint after the next one to produce smoother moves
-        nextIdx = (nextIdx + 1) % mWaypointInfos.size;
-        return mWaypointInfos.get(nextIdx).waypoint;
-    }
 
     private void readBorders() {
         for (MapObject object : mBordersLayer.getObjects()) {
