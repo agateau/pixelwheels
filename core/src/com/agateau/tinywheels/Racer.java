@@ -37,7 +37,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private class PilotSupervisorComponent implements Component {
         @Override
         public void act(float delta) {
-            if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()) {
+            if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()
+                    || mGroundCollisionHandlerComponent.getState() != GroundCollisionHandlerComponent.State.NORMAL) {
                 mVehicle.setAccelerating(false);
             } else {
                 mPilot.act(delta);
@@ -59,7 +60,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
                 | CollisionCategories.FLAT_OBJECT);
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
-        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle, mHealthComponent);
+        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 

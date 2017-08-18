@@ -5,34 +5,69 @@ package com.agateau.tinywheels;
  */
 public class GroundCollisionHandlerComponent implements Racer.Component {
     private final Vehicle mVehicle;
-    private final HealthComponent mHealthComponent;
 
-    public GroundCollisionHandlerComponent(Vehicle vehicle, HealthComponent healthComponent) {
+    public enum State {
+        NORMAL,
+        FALLING,
+        RECOVERING
+    }
+
+    private State mState = State.NORMAL;
+    private float mDelay;
+    private float mGoodX = 0;
+    private float mGoodY = 0;
+
+    public GroundCollisionHandlerComponent(Vehicle vehicle) {
         mVehicle = vehicle;
-        mHealthComponent = healthComponent;
+    }
+
+    public State getState() {
+        return mState;
     }
 
     @Override
-    public void act(float dt) {
-        if (mHealthComponent.getState() == HealthComponent.State.ALIVE) {
-            checkGroundCollisions();
+    public void act(float delta) {
+        switch (mState) {
+        case NORMAL:
+            actNormal();
+            break;
+        case FALLING:
+            actFalling(delta);
+            break;
+        case RECOVERING:
+            actRecovering(delta);
+            break;
         }
     }
 
-    private void checkGroundCollisions() {
-        int wheelsOnFatalGround = 0;
+    private void actNormal() {
+        int wheelsInHole = 0;
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
             Wheel wheel = info.wheel;
             if (wheel.getGroundSpeed() == 0) {
-                ++wheelsOnFatalGround;
+                ++wheelsInHole;
             }
         }
-        if (wheelsOnFatalGround >= 2) {
-            onHitFatalGround();
+        if (wheelsInHole >= 2) {
+            mDelay = 1;
+            mState = State.FALLING;
+        } else if (wheelsInHole == 0) {
+            mGoodX = mVehicle.getX();
+            mGoodY = mVehicle.getY();
         }
     }
 
-    protected void onHitFatalGround() {
-        mHealthComponent.kill();
+    private void actFalling(float delta) {
+        mDelay -= delta;
+        if (mDelay <= 0) {
+            mState = State.RECOVERING;
+        }
+    }
+
+    private void actRecovering(float delta) {
+        float dx = mVehicle.getX() - mGoodX;
+        float dy = mVehicle.getY() - mGoodY;
+        mVehicle.teleport(mGoodX - dx, mGoodY - dy);
+        mState = State.NORMAL;
     }
 }

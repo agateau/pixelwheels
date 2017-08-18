@@ -160,6 +160,12 @@ class Vehicle implements Racer.Component, Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
+    public void teleport(float x, float y) {
+        mBody.setLinearVelocity(0, 0);
+        mBody.setAngularVelocity(0);
+        mBody.setTransform(x, y, mBody.getAngle());
+    }
+
     @Override
     public void act(float dt) {
         final GamePlay GP = GamePlay.instance;
