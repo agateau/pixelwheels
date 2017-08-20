@@ -1,6 +1,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.utils.Assert;
+import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.utils.Array;
  * Holds all the waypoints used by AI players
  */
 public class WaypointStore {
+    private static final OrientedPoint tmpPoint = new OrientedPoint();
+
     private static class WaypointInfo implements Comparable {
         float lapDistance;
         Vector2 waypoint;
@@ -46,16 +49,48 @@ public class WaypointStore {
         mWaypointInfos.sort();
     }
 
-    public Vector2 getWaypoint(float lapDistance) {
-        int nextIdx = 0;
+    public Vector2 getWaypoint(int index) {
+        return mWaypointInfos.get(index).waypoint;
+    }
+
+    public int getPreviousIndex(int index) {
+        return (index > 0 ? index : mWaypointInfos.size) - 1;
+    }
+
+    public int getNextIndex(int index) {
+        return (index + 1) % mWaypointInfos.size;
+    }
+
+    public int getCount() {
+        return mWaypointInfos.size;
+    }
+
+    public OrientedPoint getValidPosition(Vector2 pos, float lapDistance) {
+        int nextIdx = getWaypointIndex(lapDistance);
+        int prevIdx = getPreviousIndex(nextIdx);
+        Vector2 prev = mWaypointInfos.get(prevIdx).waypoint;
+        Vector2 next = mWaypointInfos.get(nextIdx).waypoint;
+        Vector2 projected = GylMathUtils.project(pos, prev, next);
+        float waypointSquareLength = GylMathUtils.segmentSquareLength(prev, next);
+        if (GylMathUtils.segmentSquareLength(prev, projected) > waypointSquareLength) {
+            // projected is after the [prev, next] segment
+            projected.set(next);
+        } else if (GylMathUtils.segmentSquareLength(projected, next) > waypointSquareLength) {
+            // projected is before the [prev, next] segment
+            projected.set(prev);
+        }
+        tmpPoint.x = projected.x;
+        tmpPoint.y = projected.y;
+        tmpPoint.angle = GylMathUtils.normalizeAngle(GylMathUtils.segmentAngle(prev, next));
+        return tmpPoint;
+    }
+
+    public int getWaypointIndex(float lapDistance) {
         for (int idx = 0; idx < mWaypointInfos.size; ++idx) {
             if (lapDistance < mWaypointInfos.get(idx).lapDistance) {
-                nextIdx = idx;
-                break;
+                return idx;
             }
         }
-        // Target the waypoint after the next one to produce smoother moves
-        nextIdx = (nextIdx + 1) % mWaypointInfos.size;
-        return mWaypointInfos.get(nextIdx).waypoint;
+        return 0;
     }
 }

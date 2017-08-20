@@ -60,7 +60,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
                 | CollisionCategories.FLAT_OBJECT);
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
-        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(mVehicle);
+        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(
+                mVehicle,
+                mGameWorld.getMapInfo(),
+                mLapPositionComponent);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 

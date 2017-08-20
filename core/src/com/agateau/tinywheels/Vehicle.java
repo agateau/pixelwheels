@@ -160,10 +160,10 @@ class Vehicle implements Racer.Component, Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
-    public void teleport(float x, float y) {
+    public void teleport(OrientedPoint point) {
         mBody.setLinearVelocity(0, 0);
         mBody.setAngularVelocity(0);
-        mBody.setTransform(x, y, mBody.getAngle());
+        mBody.setTransform(point.x, point.y, point.angle * MathUtils.degreesToRadians);
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class GylMathUtils {
+    private static Vector2 sTmpVector = new Vector2();
+
     /**
      * Wrap angles if they are less than 0 or greater than 360
      */
@@ -34,8 +36,6 @@ public class GylMathUtils {
         return MathUtils.lerp(array[idx], array[idx + 1], k2 - idx);
     }
 
-    private static Vector2 sWidthVector = new Vector2();
-
     /**
      * Compute the vector corresponding to the width side of a rectangle whose length side is made
      * of @p pos1 to @p pos2, with a width of @p width
@@ -43,8 +43,50 @@ public class GylMathUtils {
      * Always return the same vector
      */
     public static Vector2 computeWidthVector(Vector2 pos1, Vector2 pos2, float width) {
-        sWidthVector.set(pos2).sub(pos1).nor();
-        sWidthVector.set(-sWidthVector.y, sWidthVector.x).scl(width);
-        return sWidthVector;
+        sTmpVector.set(pos2).sub(pos1).nor();
+        sTmpVector.set(-sTmpVector.y, sTmpVector.x).scl(width);
+        return sTmpVector;
+    }
+
+    /**
+     * Compute the projection of A on the segment defined by P1 and P2
+     *
+     *      + A
+     *     /
+     *    /
+     *   /
+     *  +---+----------+
+     *  P1  H          P2
+     *
+     * @param a the point to project
+     * @param pos1 start of segment
+     * @param pos2 end of segment
+     * @return the projected point. Vector is reused.
+     */
+    public static Vector2 project(Vector2 a, Vector2 pos1, Vector2 pos2) {
+        sTmpVector.set(pos2).sub(pos1).nor();
+        float vx = sTmpVector.x;
+        float vy = sTmpVector.y;
+
+        float pos1ToH = (a.x - pos1.x) * vx + (a.y - pos1.y) * vy;
+        sTmpVector.x = pos1.x + pos1ToH * vx;
+        sTmpVector.y = pos1.y + pos1ToH * vy;
+        return sTmpVector;
+    }
+
+    /**
+     * Returns the squared length between two points, without altering them
+     */
+    public static float segmentSquareLength(Vector2 pos1, Vector2 pos2) {
+        float x = pos2.x - pos1.x;
+        float y = pos2.y - pos1.y;
+        return x * x + y * y;
+    }
+
+    /**
+     * Returns the angle in degrees of a segment defined by two points, without altering them
+     */
+    public static float segmentAngle(Vector2 pos1, Vector2 pos2) {
+        return (float)Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
     }
 }

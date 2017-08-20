@@ -283,6 +283,9 @@ public class MapInfo implements Disposable {
         mWaypointStore.read(layer, mLapPositionTable);
     }
 
+    public OrientedPoint getValidPosition(Vector2 pos, float lapDistance) {
+        return mWaypointStore.getValidPosition(pos, lapDistance);
+    }
 
     private void readBorders() {
         for (MapObject object : mBordersLayer.getObjects()) {

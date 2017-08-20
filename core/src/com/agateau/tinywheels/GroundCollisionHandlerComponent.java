@@ -5,6 +5,8 @@ package com.agateau.tinywheels;
  */
 public class GroundCollisionHandlerComponent implements Racer.Component {
     private final Vehicle mVehicle;
+    private final MapInfo mMapInfo;
+    private final LapPositionComponent mLapPositionComponent;
 
     public enum State {
         NORMAL,
@@ -14,11 +16,11 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
 
     private State mState = State.NORMAL;
     private float mDelay;
-    private float mGoodX = 0;
-    private float mGoodY = 0;
 
-    public GroundCollisionHandlerComponent(Vehicle vehicle) {
+    public GroundCollisionHandlerComponent(Vehicle vehicle, MapInfo mapInfo, LapPositionComponent lapPositionComponent) {
         mVehicle = vehicle;
+        mMapInfo = mapInfo;
+        mLapPositionComponent = lapPositionComponent;
     }
 
     public State getState() {
@@ -51,9 +53,6 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         if (wheelsInHole >= 2) {
             mDelay = 1;
             mState = State.FALLING;
-        } else if (wheelsInHole == 0) {
-            mGoodX = mVehicle.getX();
-            mGoodY = mVehicle.getY();
         }
     }
 
@@ -65,9 +64,9 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void actRecovering(float delta) {
-        float dx = mVehicle.getX() - mGoodX;
-        float dy = mVehicle.getY() - mGoodY;
-        mVehicle.teleport(mGoodX - dx, mGoodY - dy);
+        float distance = mLapPositionComponent.getLapDistance();
+        OrientedPoint point = mMapInfo.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
+        mVehicle.teleport(point);
         mState = State.NORMAL;
     }
 }

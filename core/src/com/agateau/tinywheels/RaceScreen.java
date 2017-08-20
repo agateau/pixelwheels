@@ -54,6 +54,9 @@ public class RaceScreen extends ScreenAdapter {
             Hud hud = new Hud(game.getAssets(), mHudStage);
             HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
+            if (Debug.instance.showDebugLayer) {
+                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.mapInfo));
+            }
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
                 ((PlayerPilot) pilot).createHudButtons(hud);
