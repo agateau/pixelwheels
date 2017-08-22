@@ -9,7 +9,7 @@ from PIL import Image
 import pafx
 
 
-DST_DIR = '../assets/sprites'
+DST_DIR = os.path.abspath(sys.argv[1])
 DEPTH_COLOR = '#595652'
 OUTLINE_COLOR = 'black'
 
