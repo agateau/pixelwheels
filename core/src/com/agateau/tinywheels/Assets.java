@@ -41,6 +41,7 @@ public class Assets {
     public final Animation mine;
     public final Animation turbo;
     public final Animation turboFlame;
+    public final Animation splash;
     public final TextureRegion gift;
     public final Animation gunAnimation;
     public final TextureRegion bullet;
@@ -77,6 +78,7 @@ public class Assets {
         this.turbo = new Animation(TURBO_FRAME_DURATION, this.findRegions("bonus-turbo"));
         this.turboFlame = new Animation(TURBO_FLAME_FRAME_DURATION, this.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        this.splash = new Animation(TURBO_FLAME_FRAME_DURATION, this.findRegions("vehicles/splash"));
         this.gift = findRegion("gift");
         this.gunAnimation = new Animation(0.1f / 3, this.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");

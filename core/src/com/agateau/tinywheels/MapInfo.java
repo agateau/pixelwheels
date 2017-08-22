@@ -21,6 +21,12 @@ import com.badlogic.gdx.utils.Disposable;
  * The map of the current game
  */
 public class MapInfo implements Disposable {
+    enum Material {
+        ROAD,
+        SAND,
+        SNOW,
+        WATER,
+    }
     private static final int CELL_ID_ROW_STRIDE = 10000;
 
     private static class WaypointInfo implements Comparable {
@@ -211,6 +217,23 @@ public class MapInfo implements Disposable {
         int tx = MathUtils.floor(x / mTileWidth);
         int ty = MathUtils.floor(y / mTileHeight);
         return ty * CELL_ID_ROW_STRIDE + tx;
+    }
+
+    public Material getMaterialAt(Vector2 pos) {
+        return getMaterialAt(pos.x, pos.y);
+    }
+
+    public Material getMaterialAt(float x, float y) {
+        float speed = getMaxSpeedAt(x, y);
+        if (speed < 0.35) {
+            return Material.WATER;
+        } else if (speed < 0.55) {
+            return Material.SNOW;
+        } else if (speed < 0.65) {
+            return Material.SAND;
+        } else {
+            return Material.ROAD;
+        }
     }
 
     public float getMaxSpeedAt(Vector2 pos) {

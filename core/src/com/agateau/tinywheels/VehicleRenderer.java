@@ -1,5 +1,6 @@
 package com.agateau.tinywheels;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,6 +16,7 @@ public class VehicleRenderer implements Renderer {
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<Renderer>();
     private final SkidmarksRenderer mSkidmarksRenderer;
+    private float mTime = 0;
 
     public VehicleRenderer(Assets assets, Vehicle vehicle) {
         mAssets = assets;
@@ -30,10 +32,15 @@ public class VehicleRenderer implements Renderer {
         mRenderers.removeValue(renderer, true);
     }
 
+    @Override
     public void draw(Batch batch, int zIndex) {
+        mTime += Gdx.app.getGraphics().getDeltaTime();
         if (zIndex == Constants.Z_GROUND) {
             for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
+                if (info.wheel.getMaterial() == MapInfo.Material.WATER) {
+                    DrawUtils.drawBodyRegion(batch, info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
+                }
             }
             DrawUtils.drawBodyRegionShadow(batch, mVehicle.getBody(), mVehicle.getRegion());
             return;

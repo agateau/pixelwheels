@@ -44,6 +44,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private float mMaxDrivingForce;
     private boolean mGripEnabled = true;
     private float mGroundSpeed;
+    private MapInfo.Material mMaterial;
     private boolean mDrifting = false;
 
     public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
@@ -86,7 +87,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public void act(float delta) {
-        updateGroundSpeed();
+        updateGroundInfo();
         if (mGripEnabled) {
             updateFriction();
         }
@@ -155,8 +156,9 @@ public class Wheel implements Pool.Poolable, Disposable {
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
     }
 
-    private void updateGroundSpeed() {
+    private void updateGroundInfo() {
         mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
+        mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
     }
 
     public void setCanDrift(boolean canDrift) {
@@ -173,5 +175,9 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public CircularArray<Vector2> getSkidmarks() {
         return mSkidmarks;
+    }
+
+    public MapInfo.Material getMaterial() {
+        return mMaterial;
     }
 }
