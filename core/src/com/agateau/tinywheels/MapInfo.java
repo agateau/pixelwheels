@@ -52,6 +52,7 @@ public class MapInfo implements Disposable {
     private float mTileWidth;
     private float mTileHeight;
     private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
+    private Array<MapObject> mBorderObjects = new Array<MapObject>();
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 
@@ -69,6 +70,7 @@ public class MapInfo implements Disposable {
         mMaxSpeedForTileId = computeMaxSpeedForTileId();
         findSpecialTileIds();
         findLayers();
+        readBorders();
 
         mTileWidth = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileHeight();
@@ -136,6 +138,10 @@ public class MapInfo implements Disposable {
 
     public MapLayer getBordersLayer() {
         return mBordersLayer;
+    }
+
+    public Array<MapObject> getBorderObjects() {
+        return mBorderObjects;
     }
 
     public LapPositionTable getLapPositionTable() {
@@ -289,5 +295,11 @@ public class MapInfo implements Disposable {
         // Target the waypoint after the next one to produce smoother moves
         nextIdx = (nextIdx + 1) % mWaypointInfos.size;
         return mWaypointInfos.get(nextIdx).waypoint;
+    }
+
+    private void readBorders() {
+        for (MapObject object : mBordersLayer.getObjects()) {
+            mBorderObjects.add(object);
+        }
     }
 }

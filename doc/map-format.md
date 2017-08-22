@@ -8,7 +8,7 @@ Zero or more foreground layers, named fgN, these are drawn on top of the vehicle
 
 # Borders
 
-A "Borders" object layer containing boxes representing the obstacles of the track.
+A "Borders" object layer containing rectangles, polygons or ellipsis representing the borders of the track.
 
 # Sections
 

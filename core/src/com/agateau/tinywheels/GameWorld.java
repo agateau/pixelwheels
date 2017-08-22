@@ -240,12 +240,12 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupRoadBorders() {
-        for (MapObject object : mMapInfo.getBordersLayer().getObjects()) {
+        for (MapObject object : mMapInfo.getBorderObjects()) {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER
-                    | CollisionCategories.FLAT_OBJECT
-                    | CollisionCategories.RACER_BULLET);
+                            | CollisionCategories.FLAT_OBJECT
+                            | CollisionCategories.RACER_BULLET);
             Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
         }
     }
