@@ -32,6 +32,9 @@ class Vehicle implements Racer.Component, Disposable {
     private String mId;
     private String mName;
 
+    private int mCollisionCategoryBits;
+    private int mCollisionMaskBits;
+
     private boolean mAccelerating = false;
     private boolean mBraking = false;
     private float mDirection = 0;
@@ -110,10 +113,9 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     public void setCollisionInfo(int categoryBits, int maskBits) {
-        Box2DUtils.setCollisionInfo(mBody, categoryBits, maskBits);
-        for (WheelInfo info : mWheels) {
-            Box2DUtils.setCollisionInfo(info.wheel.getBody(), categoryBits, maskBits);
-        }
+        mCollisionCategoryBits = categoryBits;
+        mCollisionMaskBits = maskBits;
+        applyCollisionInfo();
     }
 
     public Array<WheelInfo> getWheelInfos() {
@@ -298,5 +300,12 @@ class Vehicle implements Racer.Component, Disposable {
 
     public void triggerTurbo() {
         mTurboTime = 0;
+    }
+
+    private void applyCollisionInfo() {
+        Box2DUtils.setCollisionInfo(mBody, mCollisionCategoryBits, mCollisionMaskBits);
+        for (WheelInfo info : mWheels) {
+            Box2DUtils.setCollisionInfo(info.wheel.getBody(), mCollisionCategoryBits, mCollisionMaskBits);
+        }
     }
 }
