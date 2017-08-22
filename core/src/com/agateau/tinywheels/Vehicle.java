@@ -37,6 +37,7 @@ class Vehicle implements Racer.Component, Disposable {
 
     private boolean mAccelerating = false;
     private boolean mBraking = false;
+    private boolean mFlying = false;
     private float mDirection = 0;
     private float mTurboTime = -1;
 
@@ -162,6 +163,18 @@ class Vehicle implements Racer.Component, Disposable {
         mBody.setTransform(mBody.getPosition(), angle);
     }
 
+    public void setFlying(boolean flying) {
+        mFlying = flying;
+        if (mFlying) {
+            Box2DUtils.setCollisionInfo(mBody, 0, 0);
+            for (WheelInfo info : mWheels) {
+                Box2DUtils.setCollisionInfo(info.wheel.getBody(), 0, 0);
+            }
+        } else {
+            applyCollisionInfo();
+        }
+    }
+
     public void teleport(OrientedPoint point) {
         mBody.setLinearVelocity(0, 0);
         mBody.setAngularVelocity(0);
@@ -185,6 +198,9 @@ class Vehicle implements Racer.Component, Disposable {
             mLogTime += dt;
         }
 
+        if (mFlying) {
+            return;
+        }
         steerAngle *= MathUtils.degRad;
 
         if (mTurboTime == 0) {
