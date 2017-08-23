@@ -12,17 +12,18 @@ Rename frames from foo${N}.png to foo_${N-1}.png
 def main():
     parser = argparse.ArgumentParser()
     parser.description = DESCRIPTION
-    parser.add_argument('filename')
+    parser.add_argument('prefix', help='Path to the frames, without number (so'
+                        ' for foo/bar*.png use foo/bar')
 
     args = parser.parse_args()
+    prefix = args.prefix
 
-    name = os.path.splitext(args.filename)[0]
     idx = 1
     while True:
-        src = '{}{}.png'.format(name, idx)
+        src = '{}{}.png'.format(prefix, idx)
         if not os.path.exists(src):
             break
-        dst = '{}_{}.png'.format(name, idx - 1)
+        dst = '{}_{}.png'.format(prefix, idx - 1)
         print('Renaming {} to {}'.format(src, dst))
         os.rename(src, dst)
         idx += 1
