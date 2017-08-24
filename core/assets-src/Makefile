@@ -4,10 +4,7 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: $(OUT_DIR) hud anims stills vehicles
-
-$(OUT_DIR):
-	mkdir -p $(OUT_DIR)/$(VEHICLES_SUBDIR)
+all: hud anims stills vehicles
 
 clean: clean-anims clean-stills clean-vehicles
 
@@ -18,6 +15,7 @@ HUD_FILES := $(OUT_DIR)/sprites/hud-action.png $(OUT_DIR)/sprites/hud-left.png
 hud: $(HUD_FILES)
 
 $(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
+	mkdir -p $(OUT_DIR)/sprites
 	sprites/hud.py $(OUT_DIR)/sprites
 
 #- Still images ---------------------------------------------------------------
@@ -26,6 +24,7 @@ OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
 stills: $(OUT_STILL_IMAGES)
 
 $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
+	mkdir -p $(OUT_DIR)/sprites
 	aseprite --batch $< --save-as $@
 
 clean-stills:
@@ -41,6 +40,7 @@ clean-anims:
 	rm -f $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
+	mkdir -p $(OUT_DIR)/sprites
 	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
 	rename-aseprite-frames $(patsubst %_0.png,%,$@)
 
@@ -51,6 +51,7 @@ OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
 vehicles: $(OUT_VEHICLE_IMAGES)
 
 $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
+	mkdir -p $(OUT_DIR)/sprites/vehicles
 	aseprite --batch $< --save-as $@
 
 clean-vehicles:
