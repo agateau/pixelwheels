@@ -11,7 +11,13 @@ $(ASSETS_DIR):
 
 clean: clean-anims
 
-hud:
+# Hud
+# Just enough files to trigger the target
+HUD_FILES = $(ASSETS_DIR)/sprites/hud-action.png $(ASSETS_DIR)/sprites/hud-left.png
+
+hud: $(HUD_FILES)
+
+$(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
 	sprites/hud.py $(ASSETS_DIR)/sprites
 
 # Anims
