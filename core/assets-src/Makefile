@@ -21,13 +21,13 @@ $(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
 	sprites/hud.py $(OUT_DIR)/sprites
 
 # Anims
-ANIM_PREFIXES := $(patsubst %.anim.ase,%,$(wildcard sprites/*.anim.ase))
-ANIM_FIRST_FRAMES := $(addprefix $(OUT_DIR)/,$(addsuffix _0.png,$(ANIM_PREFIXES)))
+ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
+OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
 
-anims: $(ANIM_FIRST_FRAMES)
+anims: $(OUT_ANIM_FIRST_FRAMES)
 
 clean-anims:
-	rm $(ANIM_FIRST_FRAMES)
+	rm $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
