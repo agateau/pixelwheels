@@ -1,12 +1,58 @@
-ASSETS_DIR=../assets
+export PATH := $(PWD)/../../bin:$(PATH)
 
-VEHICLES_SUBDIR=sprites/vehicles
+OUT_DIR ?= ../assets
 
-$(ASSETS_DIR)/$(VEHICLES_SUBDIR)/splash_0.png,$(ASSETS_DIR)/$(VEHICLES_SUBDIR)/splash_1.png: $(VEHICLES_SUBDIR)/splash.ase
-	aseprite --batch $< --save-as $(ASSETS_DIR)/$(VEHICLES_SUBDIR)/splash_.png
-	cd $(ASSETS_DIR)/$(VEHICLES_SUBDIR) && for x in 0 1 ; do \
-		mv splash_$$((x+1)).png splash_$$x.png ; \
-	done
+VEHICLES_SUBDIR := sprites/vehicles
 
-hud:
-	sprites/hud.py $(ASSETS_DIR)/sprites
+all: hud anims stills vehicles
+
+clean: clean-anims clean-stills clean-vehicles
+
+#- Hud ------------------------------------------------------------------------
+# Just enough files to trigger the target
+HUD_FILES := $(OUT_DIR)/sprites/hud-action.png $(OUT_DIR)/sprites/hud-left.png
+
+hud: $(HUD_FILES)
+
+$(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
+	mkdir -p $(OUT_DIR)/sprites
+	sprites/hud.py $(OUT_DIR)/sprites
+
+#- Still images ---------------------------------------------------------------
+STILL_IMAGES := $(wildcard sprites/*.still.ase)
+OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
+stills: $(OUT_STILL_IMAGES)
+
+$(OUT_DIR)/sprites/%.png: sprites/%.still.ase
+	mkdir -p $(OUT_DIR)/sprites
+	aseprite --batch $< --save-as $@
+
+clean-stills:
+	rm -f $(OUT_STILL_IMAGES)
+
+#- Anims ----------------------------------------------------------------------
+ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
+OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
+
+anims: $(OUT_ANIM_FIRST_FRAMES)
+
+clean-anims:
+	rm -f $(OUT_ANIM_FIRST_FRAMES)
+
+$(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
+	mkdir -p $(OUT_DIR)/sprites
+	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
+	rename-aseprite-frames $(patsubst %_0.png,%,$@)
+
+#- Vehicles -------------------------------------------------------------------
+VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
+OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+
+vehicles: $(OUT_VEHICLE_IMAGES)
+
+$(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
+	mkdir -p $(OUT_DIR)/sprites/vehicles
+	aseprite --batch $< --save-as $@
+
+clean-vehicles:
+	rm -f $(OUT_VEHICLE_IMAGES)

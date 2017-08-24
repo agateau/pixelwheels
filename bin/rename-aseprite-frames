@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import sys
+
+
+DESCRIPTION = """\
+Rename frames from foo${N}.png to foo_${N-1}.png
+"""
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.description = DESCRIPTION
+    parser.add_argument('prefix', help='Path to the frames, without number (so'
+                        ' for foo/bar*.png use foo/bar')
+
+    args = parser.parse_args()
+    prefix = args.prefix
+
+    idx = 1
+    while True:
+        src = '{}{}.png'.format(prefix, idx)
+        if not os.path.exists(src):
+            break
+        dst = '{}_{}.png'.format(prefix, idx - 1)
+        print('Renaming {} to {}'.format(src, dst))
+        os.rename(src, dst)
+        idx += 1
+
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+# vi: ts=4 sw=4 et

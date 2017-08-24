@@ -36,7 +36,6 @@ public class Assets {
     public final TextureAtlas uiAtlas;
     public final TextureAtlas atlas;
     public final Animation explosion;
-    public final Animation iceExplosion;
     public final Animation impact;
     public final Animation mine;
     public final Animation turbo;
@@ -68,17 +67,16 @@ public class Assets {
         }
         this.uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.uiAtlas);
-        this.atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
-        this.wheel = findRegion("vehicles/wheel");
+        this.atlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+        this.wheel = findRegion("wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
-        this.iceExplosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("ice-explosion"));
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
         this.turbo = new Animation(TURBO_FRAME_DURATION, this.findRegions("bonus-turbo"));
         this.turboFlame = new Animation(TURBO_FLAME_FRAME_DURATION, this.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        this.splash = new Animation(TURBO_FLAME_FRAME_DURATION, this.findRegions("vehicles/splash"));
+        this.splash = new Animation(TURBO_FLAME_FRAME_DURATION, this.findRegions("splash"));
         this.gift = findRegion("gift");
         this.gunAnimation = new Animation(0.1f / 3, this.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");

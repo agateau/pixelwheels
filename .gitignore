@@ -1,6 +1,7 @@
-android/assets/sprites.atlas
-android/assets/sprites.png
+android/assets/sprites/
 android/assets/maps/
+
+core/assets/sprites/
 
 ## Java
 
