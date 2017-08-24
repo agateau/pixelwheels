@@ -11,7 +11,7 @@ $(OUT_DIR):
 
 clean: clean-anims
 
-# Hud
+#- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
 HUD_FILES := $(OUT_DIR)/sprites/hud-action.png $(OUT_DIR)/sprites/hud-left.png
 
@@ -20,7 +20,7 @@ hud: $(HUD_FILES)
 $(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
 	sprites/hud.py $(OUT_DIR)/sprites
 
-# Anims
+#- Anims ----------------------------------------------------------------------
 ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
 OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
 
