@@ -22,7 +22,7 @@ public class Packer {
         settings.combineSubdirectories = true;
 
         String inputDir = baseDir + "/core/assets/sprites";
-        String outputDir = baseDir + "/android/assets";
+        String outputDir = baseDir + "/android/assets/sprites";
         String packName = "sprites";
         TexturePacker.process(settings, inputDir, outputDir, packName);
 

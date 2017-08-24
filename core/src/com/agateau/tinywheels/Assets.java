@@ -67,7 +67,7 @@ public class Assets {
         }
         this.uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.uiAtlas);
-        this.atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
+        this.atlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
