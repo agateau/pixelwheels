@@ -4,12 +4,12 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: $(OUT_DIR) hud anims
+all: $(OUT_DIR) hud anims stills
 
 $(OUT_DIR):
 	mkdir -p $(OUT_DIR)/$(VEHICLES_SUBDIR)
 
-clean: clean-anims
+clean: clean-anims clean-stills
 
 #- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
@@ -20,6 +20,17 @@ hud: $(HUD_FILES)
 $(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
 	sprites/hud.py $(OUT_DIR)/sprites
 
+#- Still images ---------------------------------------------------------------
+STILL_IMAGES := $(wildcard sprites/*.still.ase)
+OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
+stills: $(OUT_STILL_IMAGES)
+
+$(OUT_DIR)/sprites/%.png: sprites/%.still.ase
+	aseprite --batch $< --save-as $@
+
+clean-stills:
+	rm -f $(OUT_STILL_IMAGES)
+
 #- Anims ----------------------------------------------------------------------
 ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
 OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
@@ -27,7 +38,7 @@ OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
 anims: $(OUT_ANIM_FIRST_FRAMES)
 
 clean-anims:
-	rm $(OUT_ANIM_FIRST_FRAMES)
+	rm -f $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
