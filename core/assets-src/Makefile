@@ -4,6 +4,11 @@ ASSETS_DIR=../assets
 
 VEHICLES_SUBDIR=sprites/vehicles
 
+all: $(ASSETS_DIR) hud anims
+
+$(ASSETS_DIR):
+	mkdir -p $(ASSETS_DIR)/$(VEHICLES_SUBDIR)
+
 clean: clean-anims
 
 hud:
