@@ -36,7 +36,6 @@ public class Assets {
     public final TextureAtlas uiAtlas;
     public final TextureAtlas atlas;
     public final Animation explosion;
-    public final Animation iceExplosion;
     public final Animation impact;
     public final Animation mine;
     public final Animation turbo;
@@ -71,7 +70,6 @@ public class Assets {
         this.atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
         this.wheel = findRegion("vehicles/wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
-        this.iceExplosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("ice-explosion"));
         this.impact = new Animation(IMPACT_FRAME_DURATION, this.findRegions("impact"));
         this.mine = new Animation(MINE_FRAME_DURATION, this.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
