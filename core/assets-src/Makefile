@@ -4,12 +4,12 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: $(OUT_DIR) hud anims stills
+all: $(OUT_DIR) hud anims stills vehicles
 
 $(OUT_DIR):
 	mkdir -p $(OUT_DIR)/$(VEHICLES_SUBDIR)
 
-clean: clean-anims clean-stills
+clean: clean-anims clean-stills clean-vehicles
 
 #- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
@@ -43,3 +43,15 @@ clean-anims:
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
 	rename-aseprite-frames $(patsubst %_0.png,%,$@)
+
+#- Vehicles -------------------------------------------------------------------
+VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
+OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+
+vehicles: $(OUT_VEHICLE_IMAGES)
+
+$(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
+	aseprite --batch $< --save-as $@
+
+clean-vehicles:
+	rm -f $(OUT_VEHICLE_IMAGES)
