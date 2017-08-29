@@ -21,8 +21,8 @@ import com.badlogic.gdx.physics.box2d.World;
  * A set of utility functions for Box2D
  */
 public class Box2DUtils {
-    private static final Vector2 FORWARD_VECTOR = new Vector2(0, 1);
-    private static final Vector2 LATERAL_VECTOR = new Vector2(1, 0);
+    private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
+    private static final Vector2 LATERAL_VECTOR = new Vector2(0, 1);
 
     public static Vector2 getForwardVelocity(Body body) {
         Vector2 currentRightNormal = body.getWorldVector(FORWARD_VECTOR);

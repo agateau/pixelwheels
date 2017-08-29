@@ -47,7 +47,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private MapInfo.Material mMaterial;
     private boolean mDrifting = false;
 
-    public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY) {
+    public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY, float angle) {
         Wheel obj = sPool.obtain();
         obj.mGameWorld = gameWorld;
         obj.mRegion = region;
@@ -62,6 +62,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(posX, posY);
+        bodyDef.angle = angle * MathUtils.degreesToRadians;
         obj.mBody = obj.mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape polygonShape = new PolygonShape();
@@ -117,7 +118,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
-        float angle = mBody.getAngle() + MathUtils.PI / 2;
+        float angle = mBody.getAngle();
         Vector2 pos = mBody.getWorldCenter();
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }

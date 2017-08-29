@@ -58,7 +58,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
                     w / 2, h / 2, // origin
                     w, h, // size
                     1, 1, // scale
-                    angle);
+                    angle - 90);
         }
     };
 
