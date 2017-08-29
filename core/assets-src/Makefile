@@ -52,7 +52,8 @@ vehicles: $(OUT_VEHICLE_IMAGES)
 
 $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	aseprite --batch $< --save-as $@
+	aseprite --batch $< --save-as $(patsubst %.png,%-tmp.png,$@)
+	convert -rotate 90 $(patsubst %.png,%-tmp.png,$@) $@
 
 clean-vehicles:
 	rm -f $(OUT_VEHICLE_IMAGES)
