@@ -39,15 +39,15 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
             float angle = body.getAngle() * MathUtils.radiansToDegrees;
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            float refH = vehicle.getHeight() / 3;
-            float x = center.x + refH * MathUtils.cosDeg(angle - 90);
-            float y = center.y + refH * MathUtils.sinDeg(angle - 90);
+            float refH = -vehicle.getWidth() / 3;
+            float x = center.x + refH * MathUtils.cosDeg(angle);
+            float y = center.y + refH * MathUtils.sinDeg(angle);
             batch.draw(region,
                     x - w / 2, y - h / 2, // pos
                     w / 2, h / 2, // origin
                     w, h, // size
                     1, 1, // scale
-                    angle);
+                    angle - 90);
         }
     };
 

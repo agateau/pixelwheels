@@ -70,14 +70,14 @@ public class VehicleRenderer implements Renderer {
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-        float refH = mVehicle.getHeight() / 2;
-        float x = center.x + refH * MathUtils.cosDeg(angle - 90);
-        float y = center.y + refH * MathUtils.sinDeg(angle - 90);
+        float refH = -mVehicle.getWidth() / 2;
+        float x = center.x + refH * MathUtils.cosDeg(angle);
+        float y = center.y + refH * MathUtils.sinDeg(angle);
         batch.draw(region,
                 x - w / 2, y - h, // pos
                 w / 2, h, // origin
                 w, h, // size
                 1, 1, // scale
-                angle);
+                angle - 90);
     }
 }

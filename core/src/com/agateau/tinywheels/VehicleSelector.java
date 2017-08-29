@@ -25,7 +25,9 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
     public void init(Assets assets) {
         mAssets = assets;
         setItemSize(80, 80);
-        setItemRenderer(new Renderer());
+        Renderer renderer = new Renderer();
+        renderer.setAngle(90);
+        setItemRenderer(renderer);
         setItems(mAssets.vehicleDefs);
     }
 

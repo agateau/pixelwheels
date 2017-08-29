@@ -48,7 +48,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mine.setFinished(false);
 
         Vehicle vehicle = owner.getVehicle();
-        sTmp.set(-vehicle.getHeight() * 2, 0);
+        sTmp.set(-vehicle.getWidth(), 0);
         sTmp.rotate(vehicle.getAngle()).add(vehicle.getX(), vehicle.getY());
         mine.mBodyDef.position.set(sTmp.x, sTmp.y);
 
@@ -80,7 +80,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         Body vehicleBody = mOwner.getVehicle().getBody();
         mJointDef.bodyA = mOwner.getVehicle().getBody();
         mJointDef.bodyB = mBody;
-        mJointDef.localAnchorA.set(vehicleBody.getLocalCenter().add(0, -mOwner.getVehicle().getHeight()));
+        mJointDef.localAnchorA.set(vehicleBody.getLocalCenter().add(-mOwner.getVehicle().getWidth(), 0));
         mJointDef.localAnchorB.set(mBody.getLocalCenter());
         mJoint = mGameWorld.getBox2DWorld().createJoint(mJointDef);
     }

@@ -1,6 +1,7 @@
 package com.agateau.tinywheels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -15,31 +16,51 @@ public class VehicleCreator {
         mAssets = assets;
     }
 
-    public Vehicle create(VehicleDef vehicleDef, Vector2 position, float startAngle) {
+    Vector2 sWheelPos = new Vector2();
+    public Vehicle create(VehicleDef vehicleDef, Vector2 position, float angle) {
         final float U = Constants.UNIT_FOR_PIXEL;
         float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
 
         TextureRegion mainRegion = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
         TextureRegion wheelRegion = mAssets.wheel;
 
-        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y);
+        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y, angle);
         vehicle.setName(vehicleDef.name);
         vehicle.setId(vehicleDef.id);
 
         for (AxleDef axle : vehicleDef.axles) {
-            float width = axle.width * U;
-            float y = (axle.y - mainRegion.getRegionHeight() / 2) * U;
+            /*
+              axle assumes the vehicle is facing top, like this:
+
+               ____
+              /    \
+             []----[] ^
+              |    |  |
+              |    |  | axle.y
+             []----[] |
+              |____|  |
+
+              <---->
+               axle.width
+
+              The body, on the other hand, assumes that if angle is 0, the vehicle is facing right.
+              We have to swap coordinates to take this into account.
+             */
+            float dy = axle.width * U / 2;
+            float x = (axle.y - mainRegion.getRegionWidth() / 2) * U;
             float drive = maxDrivingForce * axle.drive;
 
-            createWheel(vehicle, wheelRegion, width / 2, y, axle, drive);
-            createWheel(vehicle, wheelRegion, -width / 2, y, axle, drive);
+            sWheelPos.set(x, dy).rotate(angle);
+            createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
+
+            sWheelPos.set(x, -dy).rotate(angle);
+            createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
         }
-        vehicle.setInitialAngle(startAngle);
         return vehicle;
     }
 
-    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, AxleDef axle, float drive) {
-        Vehicle.WheelInfo info = vehicle.addWheel(region, x, y);
+    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, AxleDef axle, float drive, float angle) {
+        Vehicle.WheelInfo info = vehicle.addWheel(region, x, y, angle);
         info.steeringFactor = axle.steer;
         info.wheel.setCanDrift(axle.drift);
         info.wheel.setMaxDrivingForce(drive);

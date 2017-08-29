@@ -46,7 +46,7 @@ class Vehicle implements Racer.Component, Disposable {
     private CsvWriter mSpeedLogger = null;
     private float mLogTime = 0;
 
-    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY) {
+    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
         if (GamePlay.instance.createSpeedReport) {
             mSpeedLogger = new CsvWriter(FileUtils.getUserWritableFile("speed.dat"));
@@ -63,6 +63,7 @@ class Vehicle implements Racer.Component, Disposable {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(originX, originY);
+        bodyDef.angle = angle * MathUtils.degreesToRadians;
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
@@ -86,9 +87,9 @@ class Vehicle implements Racer.Component, Disposable {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
     }
 
-    public WheelInfo addWheel(TextureRegion region, float x, float y) {
+    public WheelInfo addWheel(TextureRegion region, float x, float y, float angle) {
         WheelInfo info = new WheelInfo();
-        info.wheel = Wheel.create(region, mGameWorld, getX() + x, getY() + y);
+        info.wheel = Wheel.create(region, mGameWorld, getX() + x, getY() + y, angle);
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
@@ -144,10 +145,10 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     /**
-     * Returns the angle the car is facing, not the internal mBody angle
+     * Returns the angle the car is facing
      */
     public float getAngle() {
-        return mBody.getAngle() * MathUtils.radiansToDegrees + 90;
+        return mBody.getAngle() * MathUtils.radiansToDegrees;
     }
 
     public float getWidth() {
@@ -159,8 +160,7 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     public void setInitialAngle(float angle) {
-        angle = (angle - 90) * MathUtils.degreesToRadians;
-        mBody.setTransform(mBody.getPosition(), angle);
+        mBody.setTransform(mBody.getPosition(), angle * MathUtils.degreesToRadians);
     }
 
     public void setFlying(boolean flying) {
