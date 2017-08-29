@@ -46,14 +46,16 @@ public class VehicleCreator {
               The body, on the other hand, assumes that if angle is 0, the vehicle is facing right.
               We have to swap coordinates to take this into account.
              */
-            float dy = axle.width * U / 2;
-            float x = (axle.y - mainRegion.getRegionWidth() / 2) * U;
+            float wheelY = axle.width * U / 2;
+            float wheelX = (axle.y - mainRegion.getRegionWidth() / 2) * U;
             float drive = maxDrivingForce * axle.drive;
 
-            sWheelPos.set(x, dy).rotate(angle);
+            // Left wheel
+            sWheelPos.set(wheelX, wheelY).rotate(angle);
             createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
 
-            sWheelPos.set(x, -dy).rotate(angle);
+            // Right wheel
+            sWheelPos.set(wheelX, -wheelY).rotate(angle);
             createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
         }
         return vehicle;
