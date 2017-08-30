@@ -4,9 +4,9 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: hud anims stills vehicles
+all: hud anims stills vehicles tiles
 
-clean: clean-anims clean-stills clean-vehicles
+clean: clean-anims clean-stills clean-vehicles clean-tiles
 
 #- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
@@ -57,3 +57,18 @@ $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 
 clean-vehicles:
 	rm -f $(OUT_VEHICLE_IMAGES)
+
+#- Tiles ----------------------------------------------------------------------
+TILE_IMAGES := $(wildcard maps/*.ase)
+OUT_TILE_IMAGES := $(TILE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+
+tiles: $(OUT_TILE_IMAGES)
+
+$(OUT_DIR)/maps/%.png: maps/%.ase
+	mkdir -p $(OUT_DIR)/maps
+	aseprite --batch $< --save-as $(patsubst %.png,%-tmp.png,$@)
+	convert -alpha set -channel RGBA -fill '#22203460' -opaque '#ff00ff' $(patsubst %.png,%-tmp.png,$@) $@
+	rm $(patsubst %.png,%-tmp.png,$@)
+
+clean-tiles:
+	rm -f $(OUT_TILE_IMAGES)
