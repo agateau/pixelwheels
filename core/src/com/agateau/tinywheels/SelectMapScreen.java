@@ -59,7 +59,6 @@ public class SelectMapScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                saveSelectedMap();
                 mMaestro.actionTriggered("back");
             }
         });
