@@ -16,5 +16,4 @@ public interface GameObject {
     void draw(Batch batch, int zIndex);
     float getX();
     float getY();
-    HealthComponent getHealthComponent();
 }

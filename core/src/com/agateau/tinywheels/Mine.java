@@ -125,11 +125,6 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         return mBody.getPosition().y;
     }
 
-    @Override
-    public HealthComponent getHealthComponent() {
-        return null;
-    }
-
     private void explode() {
         if (mJoint != null) {
             mOwner.resetBonus();

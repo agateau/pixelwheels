@@ -18,7 +18,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
-    private final HealthComponent mHealthComponent = new HealthComponent();
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
@@ -48,7 +47,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
         mGameWorld = gameWorld;
-        mHealthComponent.setInitialHealth(Constants.PLAYER_HEALTH);
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
         mSpinningComponent = new SpinningComponent(vehicle);
 
@@ -70,7 +68,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mComponents.add(mLapPositionComponent);
         mComponents.add(mVehicle);
         mComponents.add(mGroundCollisionHandlerComponent);
-        mComponents.add(mHealthComponent);
         mComponents.add(mSpinningComponent);
         mComponents.add(supervisorComponent);
     }
@@ -164,13 +161,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             component.act(delta);
         }
 
-        if (mHealthComponent.getState() == HealthComponent.State.DEAD) {
-            if (!isFinished()) {
-                NLog.i("Racer " + mVehicle.getName() + " died");
-                setFinished(true);
-            }
-        }
-
         if (mBonus != null) {
             mBonus.act(delta);
         }
@@ -231,11 +221,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     @Override
     public float getY() {
         return mVehicle.getY();
-    }
-
-    @Override
-    public HealthComponent getHealthComponent() {
-        return mHealthComponent;
     }
 
     public VehicleRenderer getVehicleRenderer() {

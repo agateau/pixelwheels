@@ -78,11 +78,6 @@ public class BonusSpot extends GameObjectAdapter {
         return mY;
     }
 
-    @Override
-    public HealthComponent getHealthComponent() {
-        return null;
-    }
-
     public void pickBonus() {
         mDisabledTimeout = DISABLED_TIMEOUT;
     }

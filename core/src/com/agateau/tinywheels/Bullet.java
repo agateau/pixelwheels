@@ -94,11 +94,6 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         return mBody.getPosition().y;
     }
 
-    @Override
-    public HealthComponent getHealthComponent() {
-        return null;
-    }
-
     private void explode() {
         Vector2 pos = mBody.getPosition();
         mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, pos.x, pos.y));

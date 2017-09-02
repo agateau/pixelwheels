@@ -63,11 +63,6 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         return mPosY;
     }
 
-    @Override
-    public HealthComponent getHealthComponent() {
-        return null;
-    }
-
     public static AnimationObject create(Animation animation, float posX, float posY) {
         return create(animation, posX, posY, 0);
     }
