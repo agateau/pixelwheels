@@ -4,6 +4,7 @@ import com.agateau.utils.CsvWriter;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -292,6 +293,10 @@ class Vehicle implements Racer.Component, Disposable {
 
     public void setDirection(float direction) {
         mDirection = direction;
+    }
+
+    public Vector2 getPosition() {
+        return mBody.getPosition();
     }
 
     public float getX() {

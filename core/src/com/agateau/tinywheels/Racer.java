@@ -1,6 +1,5 @@
 package com.agateau.tinywheels;
 
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -59,8 +58,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(
+                assets,
+                mGameWorld,
                 mVehicle,
-                mGameWorld.getMapInfo(),
                 mLapPositionComponent);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();

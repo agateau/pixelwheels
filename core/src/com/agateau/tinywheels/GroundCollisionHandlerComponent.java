@@ -10,11 +10,15 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private static final float FALLING_DELAY = 0;
     private static final float MAX_RECOVERING_SPEED = 20;
     private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
+
+    private final Assets mAssets;
+    private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
-    private final MapInfo mMapInfo;
     private final LapPositionComponent mLapPositionComponent;
+    private final MapInfo mMapInfo;
     private OrientedPoint mDropPoint;
     private final Vector2 mVelocity = new Vector2();
+    private Helicopter mHelicopter = null;
 
     public enum State {
         NORMAL,
@@ -25,9 +29,11 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private State mState = State.NORMAL;
     private float mDelay;
 
-    public GroundCollisionHandlerComponent(Vehicle vehicle, MapInfo mapInfo, LapPositionComponent lapPositionComponent) {
+    public GroundCollisionHandlerComponent(Assets assets, GameWorld gameWorld, Vehicle vehicle, LapPositionComponent lapPositionComponent) {
+        mAssets = assets;
+        mGameWorld = gameWorld;
         mVehicle = vehicle;
-        mMapInfo = mapInfo;
+        mMapInfo = gameWorld.getMapInfo();
         mLapPositionComponent = lapPositionComponent;
     }
 
@@ -65,13 +71,15 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
 
     private void startFalling() {
         mDelay = FALLING_DELAY;
+        mHelicopter = Helicopter.create(mAssets, mGameWorld.getMapInfo(), mVehicle.getPosition());
+        mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
     }
 
     private void actFalling(float delta) {
         // TODO: Implement falling animation
-        mDelay -= delta;
-        if (mDelay <= 0) {
+        mHelicopter.setEndPosition(mVehicle.getPosition());
+        if (mHelicopter.isReadyToRecover()) {
             startRecovering();
         }
     }
@@ -104,9 +112,11 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
             mVehicle.setFlying(false);
             mVehicle.getBody().setLinearVelocity(0, 0);
             mVehicle.getBody().setAngularVelocity(0);
+            mHelicopter.leave();
         } else {
             mVehicle.getBody().setLinearVelocity(mVelocity);
             mVehicle.getBody().setAngularVelocity(angleOK ? 0 : angularVelocity);
+            mHelicopter.setPosition(mVehicle.getPosition());
         }
     }
 }

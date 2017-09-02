@@ -21,6 +21,7 @@ public class Assets {
     private static final float MINE_FRAME_DURATION = 0.2f;
     private static final float TURBO_FRAME_DURATION = 0.1f;
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
+    private static final float HELICOPTER_FRAME_DURATION = 0.01f;
 
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin" };
 
@@ -46,6 +47,7 @@ public class Assets {
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
     public final NinePatch selection;
+    public final Animation helicopter;
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
@@ -88,6 +90,9 @@ public class Assets {
         this.skidmark = findRegion("skidmark");
 
         this.selection = uiAtlas.createPatch("focus");
+
+        this.helicopter = new Animation(HELICOPTER_FRAME_DURATION, this.findRegions("helicopter"));
+        this.helicopter.setPlayMode(Animation.PlayMode.LOOP);
 
         loadVehicleDefinitions();
     }
