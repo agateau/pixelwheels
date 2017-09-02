@@ -7,7 +7,6 @@ public class PlayerPilot implements Pilot {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Racer mRacer;
-    private final HealthComponent mHealthComponent;
 
     private GameInputHandler mInputHandler;
 
@@ -15,7 +14,6 @@ public class PlayerPilot implements Pilot {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
-        mHealthComponent = mRacer.getHealthComponent();
         mInputHandler = inputHandler;
     }
 
@@ -26,11 +24,6 @@ public class PlayerPilot implements Pilot {
     @Override
     public void act(float dt) {
         Vehicle vehicle = mRacer.getVehicle();
-        if (mHealthComponent.getHealth() == 0) {
-            vehicle.setBraking(true);
-            vehicle.setAccelerating(false);
-            return;
-        }
 
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
             mInputHandler.setBonus(mRacer.getBonus());
