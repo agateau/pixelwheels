@@ -4,9 +4,9 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: hud anims stills vehicles tiles
+all: hud anims stills vehicles tiles helicopter
 
-clean: clean-anims clean-stills clean-vehicles clean-tiles
+clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter
 
 #- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
@@ -43,6 +43,16 @@ $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
 	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
 	rename-aseprite-frames $(patsubst %_0.png,%,$@)
+
+#- Helicopter -----------------------------------------------------------------
+helicopter: $(OUT_DIR)/sprites/helicopter-body.png
+
+$(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
+	mkdir -p $(OUT_DIR)/sprites
+	aseprite --batch --split-layers --trim $< --filename-format '{path}/helicopter-{layer}.{extension}' --save-as $@
+
+clean-helicopter:
+	rm -f $(OUT_DIR)/sprites/helicopter-*.png
 
 #- Vehicles -------------------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
