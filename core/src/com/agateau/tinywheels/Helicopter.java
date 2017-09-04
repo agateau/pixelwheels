@@ -1,8 +1,6 @@
 package com.agateau.tinywheels;
 
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -20,6 +18,10 @@ import static com.agateau.tinywheels.DrawUtils.SHADOW_ALPHA;
 public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disposable {
     private static final float ARRIVING_DURATION = 2;
     private static final float SHADOW_OFFSET = 80;
+    private static final Vector2 BODY_CENTER = new Vector2(
+            Constants.UNIT_FOR_PIXEL * 30,
+            Constants.UNIT_FOR_PIXEL * (111 - 35));
+    private static final float PROPELLER_SPEED = 720;
 
     private enum State {
         ARRIVING,
@@ -28,7 +30,9 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
     private static final ReflectionPool<Helicopter> sPool = new ReflectionPool<Helicopter>(Helicopter.class);
 
-    private Animation mAnimation;
+    private TextureRegion mBodyRegion;
+    private TextureRegion mPropellerRegion;
+    private TextureRegion mPropellerTopRegion;
     private final Vector2 mPosition = new Vector2();
     private final Vector2 mStartPosition = new Vector2();
     private final Vector2 mEndPosition = new Vector2();
@@ -40,10 +44,12 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
-        float height = Constants.UNIT_FOR_PIXEL * assets.helicopter.getKeyFrame(0).getRegionHeight();
+        float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
         float mapHeight = mapInfo.getMapHeight() * mapInfo.getTileHeight();
 
-        object.mAnimation = assets.helicopter;
+        object.mBodyRegion = assets.helicopterBody;
+        object.mPropellerRegion = assets.helicopterPropeller;
+        object.mPropellerTopRegion = assets.helicopterPropellerTop;
         object.mPosition.set(vehiclePosition.x, -height);
         object.mStartPosition.set(object.mPosition);
         object.mEndPosition.set(vehiclePosition);
@@ -121,22 +127,46 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_SHADOWS) {
-            TextureRegion region = mAnimation.getKeyFrame(mTime);
-            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-
             Color old = batch.getColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
             float offset = SHADOW_OFFSET * Constants.UNIT_FOR_PIXEL;
-            batch.draw(region, mPosition.x - w / 2 + offset, mPosition.y - h / 2 + offset, w, h);
+            drawHelicopter(batch, offset);
             batch.setColor(old);
-
         } else if (zIndex == Constants.Z_FLYING) {
-            TextureRegion region = mAnimation.getKeyFrame(mTime);
-            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            batch.draw(region, mPosition.x - w / 2, mPosition.y - h / 2, w, h);
+            drawHelicopter(batch, 0);
         }
+    }
+
+    private void drawHelicopter(Batch batch, float offset) {
+        final float U = Constants.UNIT_FOR_PIXEL;
+        final float x = mPosition.x + offset;
+        final float y = mPosition.y + offset;
+        final float w = U * mBodyRegion.getRegionWidth();
+        final float h = U * mBodyRegion.getRegionHeight();
+
+        float propellerW = U * mPropellerRegion.getRegionWidth();
+        float propellerH = U * mPropellerRegion.getRegionHeight();
+
+        float propellerTopW = U * mPropellerTopRegion.getRegionWidth();
+        float propellerTopH = U * mPropellerTopRegion.getRegionHeight();
+
+        batch.draw(
+                mBodyRegion,
+                x - BODY_CENTER.x, y - BODY_CENTER.y,
+                w, h);
+
+        batch.draw(
+                mPropellerRegion,
+                x - propellerW / 2, y - propellerH / 2, // position
+                propellerW / 2, propellerH / 2, // origin
+                propellerW, propellerH, // size
+                1, 1, // scale
+                (mTime * PROPELLER_SPEED) % 360);
+
+        batch.draw(
+                mPropellerTopRegion,
+                x - propellerTopW / 2, y - propellerTopH / 2,
+                propellerTopW, propellerTopH);
     }
 
     @Override

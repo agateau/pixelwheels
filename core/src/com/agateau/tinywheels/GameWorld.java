@@ -224,6 +224,8 @@ public class GameWorld implements ContactListener, Disposable {
                 racer = new Racer(assets, this, vehicle);
                 racer.setPilot(new PlayerPilot(assets, this, racer, playerInfo.inputHandler));
                 mPlayerRacers.add(racer);
+
+                //addGameObject(Helicopter.create(assets, mMapInfo, vehicle.getPosition()));
             } else {
                 VehicleDef vehicleDef = vehicleDefs.get((rank - 1) % vehicleDefs.size);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
