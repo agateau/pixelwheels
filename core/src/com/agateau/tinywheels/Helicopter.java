@@ -41,13 +41,16 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private TextureRegion mPropellerRegion;
     private TextureRegion mPropellerTopRegion;
     private final Vector2 mPosition = new Vector2();
+    private float mAngle;
     private final Vector2 mStartPosition = new Vector2();
+    private float mStartAngle;
     private final Vector2 mEndPosition = new Vector2();
+    private float mEndAngle;
     private final Vector2 mLeavePosition = new Vector2();
     private float mTime;
     private State mState;
 
-    public static Helicopter create(Assets assets, MapInfo mapInfo, Vector2 vehiclePosition) {
+    public static Helicopter create(Assets assets, MapInfo mapInfo, Vector2 vehiclePosition, float vehicleAngle) {
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
@@ -58,8 +61,11 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         object.mPropellerRegion = assets.helicopterPropeller;
         object.mPropellerTopRegion = assets.helicopterPropellerTop;
         object.mPosition.set(vehiclePosition.x, -height);
+        object.mAngle = 0;
         object.mStartPosition.set(object.mPosition);
+        object.mStartAngle = 90;
         object.mEndPosition.set(vehiclePosition);
+        object.mEndAngle = vehicleAngle;
         object.mLeavePosition.set(vehiclePosition.x, mapHeight);
         object.mTime = 0;
         object.mState = State.ARRIVING;
@@ -94,6 +100,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         mState = State.LEAVING;
         mStartPosition.set(mPosition);
         mEndPosition.set(mLeavePosition);
+        mEndAngle = 90;
     }
 
     public void setEndPosition(Vector2 position) {
@@ -127,6 +134,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         float progress = mTime / ARRIVING_DURATION;
         mPosition.x = MathUtils.lerp(mStartPosition.x, mEndPosition.x, progress);
         mPosition.y = MathUtils.lerp(mStartPosition.y, mEndPosition.y, progress);
+        mAngle = MathUtils.lerp(mStartAngle, mEndAngle, progress);
     }
 
     private void actLeaving() {
@@ -137,6 +145,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         float progress = mTime / ARRIVING_DURATION;
         mPosition.x = MathUtils.lerp(mStartPosition.x, mEndPosition.x, progress);
         mPosition.y = MathUtils.lerp(mStartPosition.y, mEndPosition.y, progress);
+        mAngle = MathUtils.lerp(mStartAngle, mEndAngle, progress);
     }
 
     @Override
@@ -200,7 +209,15 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         Texture texture = mFrameBuffer.getColorBufferTexture();
         batch.draw(texture,
                 // dst
-                getX() - w * U / 2 + offset, getY() - BODY_CENTER.y * U - offset, w * U, h * U,
+                getX() - w * U / 2 + offset, getY() - BODY_CENTER.y * U - offset,
+                // origin
+                w * U / 2, BODY_CENTER.y * U,
+                // dst size
+                w * U, h * U,
+                // scale
+                1, 1,
+                // rotation
+                mAngle - 90,
                 // src
                 0, 0, w, h,
                 // flips
