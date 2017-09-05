@@ -111,6 +111,10 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         mPosition.set(position);
     }
 
+    public void setAngle(float angle) {
+        mAngle = angle;
+    }
+
     @Override
     public void act(float delta) {
         mTime += delta;

@@ -117,6 +117,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
             mVehicle.getBody().setLinearVelocity(mVelocity);
             mVehicle.getBody().setAngularVelocity(angleOK ? 0 : angularVelocity);
             mHelicopter.setPosition(mVehicle.getPosition());
+            mHelicopter.setAngle(mVehicle.getAngle());
         }
     }
 }
