@@ -23,10 +23,12 @@ import static com.agateau.tinywheels.DrawUtils.SHADOW_ALPHA;
  */
 
 public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disposable {
-    private static final float ARRIVING_DURATION = 2;
     private static final float SHADOW_OFFSET = 80;
     private static final Vector2 BODY_CENTER = new Vector2(30, (111 - 35));
     private static final float PROPELLER_SPEED = -720;
+    private static final float MAX_SPEED = 200 * 3.6f;
+    private static final float MIN_SPEED = 100 * 3.6f;
+    private static final float SLOW_DOWN_DISTANCE = 200 * Constants.UNIT_FOR_PIXEL;
 
     private enum State {
         ARRIVING,
@@ -120,35 +122,46 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         mTime += delta;
         switch (mState) {
         case ARRIVING:
-            actArriving();
+            actArriving(delta);
             break;
         case RECOVERING:
             break;
         case LEAVING:
-            actLeaving();
+            actLeaving(delta);
             break;
         }
     }
 
-    private void actArriving() {
-        if (mTime > ARRIVING_DURATION) {
+    private void actArriving(float delta) {
+        if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
             mState = State.RECOVERING;
             return;
         }
-        float progress = mTime / ARRIVING_DURATION;
-        mPosition.x = MathUtils.lerp(mStartPosition.x, mEndPosition.x, progress);
-        mPosition.y = MathUtils.lerp(mStartPosition.y, mEndPosition.y, progress);
-        mAngle = MathUtils.lerp(mStartAngle, mEndAngle, progress);
+        moveTowardEndPosition(delta);
     }
 
-    private void actLeaving() {
-        if (mTime > ARRIVING_DURATION) {
+    private void actLeaving(float delta) {
+        if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
             setFinished(true);
             return;
         }
-        float progress = mTime / ARRIVING_DURATION;
-        mPosition.x = MathUtils.lerp(mStartPosition.x, mEndPosition.x, progress);
-        mPosition.y = MathUtils.lerp(mStartPosition.y, mEndPosition.y, progress);
+        moveTowardEndPosition(delta);
+    }
+
+    private Vector2 mDelta = new Vector2();
+    private void moveTowardEndPosition(float delta) {
+        mDelta.set(mEndPosition).sub(mPosition);
+        float speed;
+        float distance = mDelta.len();
+        float progress = 0;
+        if (distance > SLOW_DOWN_DISTANCE) {
+            speed = MAX_SPEED;
+        } else {
+            progress = 1 - distance / SLOW_DOWN_DISTANCE;
+            speed = MathUtils.lerp(MAX_SPEED, MIN_SPEED, progress);
+        }
+        mDelta.limit(delta * speed * Constants.UNIT_FOR_PIXEL);
+        mPosition.add(mDelta);
         mAngle = MathUtils.lerp(mStartAngle, mEndAngle, progress);
     }
 
