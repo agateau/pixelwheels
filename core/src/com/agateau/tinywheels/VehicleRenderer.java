@@ -17,6 +17,7 @@ public class VehicleRenderer implements Renderer {
     private final Array<Renderer> mRenderers = new Array<Renderer>();
     private final SkidmarksRenderer mSkidmarksRenderer;
     private float mTime = 0;
+    private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
 
     public VehicleRenderer(Assets assets, Vehicle vehicle) {
         mAssets = assets;
@@ -34,15 +35,18 @@ public class VehicleRenderer implements Renderer {
 
     @Override
     public void draw(Batch batch, int zIndex) {
+        mBodyRegionDrawer.setBatch(batch);
+        mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
         mTime += Gdx.app.getGraphics().getDeltaTime();
         if (zIndex == Constants.Z_GROUND) {
             for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
                 if (info.wheel.getMaterial() == MapInfo.Material.WATER) {
                     DrawUtils.drawBodyRegion(batch, info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
+                    mBodyRegionDrawer.draw(info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                 }
             }
-            DrawUtils.drawBodyRegionShadow(batch, mVehicle.getBody(), mVehicle.getRegion());
+            mBodyRegionDrawer.drawShadow(mVehicle.getBody(), mVehicle.getRegion());
             return;
         }
         if (zIndex != Constants.Z_VEHICLES) {
@@ -50,9 +54,9 @@ public class VehicleRenderer implements Renderer {
         }
 
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
-            DrawUtils.drawBodyRegion(batch, info.wheel.getBody(), info.wheel.getRegion());
+            mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
         }
-        DrawUtils.drawBodyRegion(batch, mVehicle.getBody(), mVehicle.getRegion());
+        mBodyRegionDrawer.draw(mVehicle.getBody(), mVehicle.getRegion());
 
         if (mVehicle.getTurboTime() >= 0) {
             drawTurbo(batch);

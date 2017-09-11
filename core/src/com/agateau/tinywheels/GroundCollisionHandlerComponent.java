@@ -1,5 +1,6 @@
 package com.agateau.tinywheels;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
@@ -7,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * Handles collisions
  */
 public class GroundCollisionHandlerComponent implements Racer.Component {
-    private static final float FALLING_DELAY = 0;
+    private static final float LIFTING_DELAY = 0.5f;
     private static final float MAX_RECOVERING_SPEED = 20;
     private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
 
@@ -23,11 +24,13 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     public enum State {
         NORMAL,
         FALLING,
-        RECOVERING
+        LIFTING,
+        RECOVERING,
+        DROPPING
     }
 
     private State mState = State.NORMAL;
-    private float mDelay;
+    private float mTime;
 
     public GroundCollisionHandlerComponent(Assets assets, GameWorld gameWorld, Vehicle vehicle, LapPositionComponent lapPositionComponent) {
         mAssets = assets;
@@ -50,8 +53,14 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         case FALLING:
             actFalling(delta);
             break;
+        case LIFTING:
+            actLifting(delta);
+            break;
         case RECOVERING:
             actRecovering(delta);
+            break;
+        case DROPPING:
+            actDropping(delta);
             break;
         }
     }
@@ -70,7 +79,6 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void startFalling() {
-        mDelay = FALLING_DELAY;
         mHelicopter = Helicopter.create(mAssets, mGameWorld.getMapInfo(), mVehicle.getPosition(), mVehicle.getAngle());
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
@@ -80,15 +88,24 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         // TODO: Implement falling animation
         mHelicopter.setEndPosition(mVehicle.getPosition());
         if (mHelicopter.isReadyToRecover()) {
+            mState = State.LIFTING;
+            mTime = 0;
+        }
+    }
+
+    private void actLifting(float delta) {
+        mTime += delta;
+        if (mTime >= LIFTING_DELAY) {
+            mTime = LIFTING_DELAY;
             startRecovering();
         }
+        mVehicle.setZ(Interpolation.pow2.apply(mTime / LIFTING_DELAY));
     }
 
     private void startRecovering() {
         mState = State.RECOVERING;
         float distance = mLapPositionComponent.getLapDistance();
         mDropPoint = mMapInfo.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
-        mVehicle.setFlying(true);
     }
 
     private void actRecovering(float delta) {
@@ -108,16 +125,26 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         boolean angleOK = MathUtils.isZero(angularVelocity * delta, ANGLE_TOLERANCE);
 
         if (posOK) {
-            mState = State.NORMAL;
-            mVehicle.setFlying(false);
             mVehicle.getBody().setLinearVelocity(0, 0);
             mVehicle.getBody().setAngularVelocity(0);
-            mHelicopter.leave();
+            mState = State.DROPPING;
+            mTime = 0;
         } else {
             mVehicle.getBody().setLinearVelocity(mVelocity);
             mVehicle.getBody().setAngularVelocity(angleOK ? 0 : angularVelocity);
             mHelicopter.setPosition(mVehicle.getPosition());
             mHelicopter.setAngle(mVehicle.getAngle());
+        }
+    }
+
+    private void actDropping(float delta) {
+        mTime += delta;
+        mVehicle.setZ(Interpolation.bounceOut.apply(1, 0, mTime / LIFTING_DELAY));
+        if (mTime >= LIFTING_DELAY) {
+            mTime = LIFTING_DELAY;
+            mHelicopter.leave();
+            mVehicle.setZ(0);
+            mState = State.NORMAL;
         }
     }
 }
