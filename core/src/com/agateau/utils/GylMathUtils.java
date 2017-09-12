@@ -75,7 +75,13 @@ public class GylMathUtils {
     }
 
     /**
-     * Returns the angle in degrees of a segment defined by two points, without altering them
+     * Returns the angle in degrees between the X axis and the P1, P2 vector
+     *     + P2
+     *    /
+     *   /
+     *  /
+     * +-------------->
+     * P1
      */
     public static float segmentAngle(Vector2 pos1, Vector2 pos2) {
         return (float)Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
