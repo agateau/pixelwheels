@@ -160,10 +160,6 @@ class Vehicle implements Racer.Component, Disposable {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
-    public void setInitialAngle(float angle) {
-        mBody.setTransform(mBody.getPosition(), angle * MathUtils.degreesToRadians);
-    }
-
     public float getZ() {
         return mZ;
     }
@@ -180,12 +176,6 @@ class Vehicle implements Racer.Component, Disposable {
             applyCollisionInfo();
         }
         mZ = z;
-    }
-
-    public void teleport(OrientedPoint point) {
-        mBody.setLinearVelocity(0, 0);
-        mBody.setAngularVelocity(0);
-        mBody.setTransform(point.x, point.y, point.angle * MathUtils.degreesToRadians);
     }
 
     @Override
@@ -283,10 +273,6 @@ class Vehicle implements Racer.Component, Disposable {
                 mTurboCellMap.setValue(idx, duration);
             }
         }
-    }
-
-    public boolean isAccelerating() {
-        return mAccelerating;
     }
 
     public void setAccelerating(boolean value) {
