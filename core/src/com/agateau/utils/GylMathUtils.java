@@ -75,15 +75,6 @@ public class GylMathUtils {
     }
 
     /**
-     * Returns the squared length between two points, without altering them
-     */
-    public static float segmentSquareLength(Vector2 pos1, Vector2 pos2) {
-        float x = pos2.x - pos1.x;
-        float y = pos2.y - pos1.y;
-        return x * x + y * y;
-    }
-
-    /**
      * Returns the angle in degrees of a segment defined by two points, without altering them
      */
     public static float segmentAngle(Vector2 pos1, Vector2 pos2) {

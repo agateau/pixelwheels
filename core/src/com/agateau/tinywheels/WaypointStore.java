@@ -71,11 +71,11 @@ public class WaypointStore {
         Vector2 prev = mWaypointInfos.get(prevIdx).waypoint;
         Vector2 next = mWaypointInfos.get(nextIdx).waypoint;
         Vector2 projected = GylMathUtils.project(pos, prev, next);
-        float waypointSquareLength = GylMathUtils.segmentSquareLength(prev, next);
-        if (GylMathUtils.segmentSquareLength(prev, projected) > waypointSquareLength) {
+        float waypointSquareLength = prev.dst2(next);
+        if (projected.dst2(prev) > waypointSquareLength) {
             // projected is after the [prev, next] segment
             projected.set(next);
-        } else if (GylMathUtils.segmentSquareLength(projected, next) > waypointSquareLength) {
+        } else if (projected.dst2(next) > waypointSquareLength) {
             // projected is before the [prev, next] segment
             projected.set(prev);
         }
