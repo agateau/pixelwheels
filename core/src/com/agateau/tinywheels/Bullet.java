@@ -31,6 +31,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
     private Body mBody;
 
+    private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+
     public static Bullet create(Assets assets, GameWorld gameWorld, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
@@ -80,7 +82,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_GROUND) {
-            DrawUtils.drawBodyRegion(batch, mBody, mAssets.bullet);
+            mDrawer.setBatch(batch);
+            mDrawer.draw(mBody, mAssets.bullet);
         }
     }
 
