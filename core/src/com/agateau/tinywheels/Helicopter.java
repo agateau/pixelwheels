@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-import static com.agateau.tinywheels.DrawUtils.SHADOW_ALPHA;
+import static com.agateau.tinywheels.BodyRegionDrawer.SHADOW_ALPHA;
 
 /**
  * The rescue helicopter which comes to pick up fallen vehicles

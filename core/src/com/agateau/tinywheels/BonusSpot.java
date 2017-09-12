@@ -18,6 +18,7 @@ public class BonusSpot extends GameObjectAdapter {
     private final float mY;
     private final Body mBody;
     private float mDisabledTimeout = 0;
+    private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
 
     public BonusSpot(Assets assets, GameWorld gameWorld, float x, float y) {
         final float U = Constants.UNIT_FOR_PIXEL;
@@ -62,9 +63,11 @@ public class BonusSpot extends GameObjectAdapter {
             return;
         }
         if (zIndex == Constants.Z_GROUND) {
-            DrawUtils.drawBodyRegionShadow(batch, mBody, mRegion);
+            mDrawer.setBatch(batch);
+            mDrawer.drawShadow(mBody, mRegion);
         } else if (zIndex == Constants.Z_OBSTACLES) {
-            DrawUtils.drawBodyRegion(batch, mBody, mRegion);
+            mDrawer.setBatch(batch);
+            mDrawer.draw(mBody, mRegion);
         }
     }
 
