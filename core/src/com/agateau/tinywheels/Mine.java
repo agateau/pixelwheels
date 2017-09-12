@@ -107,11 +107,11 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mBodyRegionDrawer.setBatch(batch);
 
         if (zIndex == Constants.Z_GROUND) {
-            // Bigger shadow if the mine has not been dropped
-            float shadowPercent = mJoint == null ? 0.5f : 1f;
-            mBodyRegionDrawer.setScale(shadowPercent);
+            // Smaller shadow if the mine has been dropped
+            float z = mJoint == null ? -0.1f : 0f;
+            mBodyRegionDrawer.setZ(z);
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
-            mBodyRegionDrawer.draw(mBody, region);
+            mBodyRegionDrawer.drawShadow(mBody, region);
         }
         if (zIndex == Constants.Z_VEHICLES) {
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
