@@ -169,12 +169,14 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     public void setZ(float z) {
-        if (mZ == 0 && z > 0) {
+        boolean wasFlying = !MathUtils.isZero(mZ);
+        boolean flying = !MathUtils.isZero(z);
+        if (!wasFlying && flying) {
             Box2DUtils.setCollisionInfo(mBody, 0, 0);
             for (WheelInfo info : mWheels) {
                 Box2DUtils.setCollisionInfo(info.wheel.getBody(), 0, 0);
             }
-        } else if (z > 0 && mZ == 0) {
+        } else if (wasFlying && !flying) {
             applyCollisionInfo();
         }
         mZ = z;
