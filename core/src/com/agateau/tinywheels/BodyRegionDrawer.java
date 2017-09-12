@@ -11,10 +11,12 @@ import com.badlogic.gdx.physics.box2d.Body;
  * Helper class to draw a TextureRegion for a Box2D Body
  */
 public class BodyRegionDrawer {
-    private static final float SHADOW_ALPHA = 0.35f;
-    private static final float SHADOW_OFFSET = Constants.UNIT_FOR_PIXEL * 6;
+    public static final float SHADOW_ALPHA = 0.35f;
+    private static final float SHADOW_OFFSET_PX = 6;
+    private static final int Z_MAX_SHADOW_OFFSET_PX = 30;
+    private static final int SCALE_MAX_SHADOW_OFFSET_PX = 30;
     private Batch mBatch;
-    private float mZOffset = 0;
+    private float mZ = 0;
     private float mScale = 1;
 
     void setBatch(Batch batch) {
@@ -25,11 +27,20 @@ public class BodyRegionDrawer {
      * Defines the default Z value for a body.
      * 0 for a ground object
      * 1 for flying object
+     *
+     * Only affects the offset of the shadow
      */
     void setZ(float z) {
-        mZOffset = z * Constants.UNIT_FOR_PIXEL * 80;
+        mZ = z;
     }
 
+    /**
+     * Defines the scale of the body
+     * 1 by default
+     * Bigger for bigger objects
+     *
+     * Affects the size of the region, and the size and offset of its shadow
+     */
     void setScale(float scale) {
         mScale = scale;
     }
@@ -52,9 +63,10 @@ public class BodyRegionDrawer {
     void drawShadow(Body body, TextureRegion region) {
         Vector2 center = body.getPosition();
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
-        float shadowOffset = SHADOW_OFFSET + mZOffset + (mScale - 1) * 30 * Constants.UNIT_FOR_PIXEL;
-        float x = center.x + shadowOffset;
-        float y = center.y + shadowOffset;
+        float offset = (SHADOW_OFFSET_PX + mZ * Z_MAX_SHADOW_OFFSET_PX + (mScale - 1) * SCALE_MAX_SHADOW_OFFSET_PX)
+                * Constants.UNIT_FOR_PIXEL;
+        float x = center.x + offset;
+        float y = center.y + offset;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         Color old = mBatch.getColor();
