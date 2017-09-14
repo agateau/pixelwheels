@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
+import static com.agateau.tinywheels.MapInfo.Material.AIR;
+
 /**
  * A wheel
  */
@@ -36,8 +38,9 @@ public class Wheel implements Pool.Poolable, Disposable {
     };
 
     private Body mBody;
-    private TextureRegion mRegion;
     private GameWorld mGameWorld;
+    private TextureRegion mRegion;
+    private Vehicle mVehicle;
     private boolean mBraking;
     private boolean mCanDrift;
     private float mMaxDrivingForce;
@@ -46,9 +49,10 @@ public class Wheel implements Pool.Poolable, Disposable {
     private MapInfo.Material mMaterial;
     private boolean mDrifting = false;
 
-    public static Wheel create(TextureRegion region, GameWorld gameWorld, float posX, float posY, float angle) {
+    public static Wheel create(GameWorld gameWorld, Vehicle vehicle, TextureRegion region, float posX, float posY, float angle) {
         Wheel obj = sPool.obtain();
         obj.mGameWorld = gameWorld;
+        obj.mVehicle = vehicle;
         obj.mRegion = region;
         obj.mGroundSpeed = 1;
         obj.mBraking = false;
@@ -84,14 +88,17 @@ public class Wheel implements Pool.Poolable, Disposable {
     @Override
     public void reset() {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
+        mVehicle = null;
     }
 
     public void act(float delta) {
         updateGroundInfo();
-        if (mGripEnabled) {
-            updateFriction();
+        if (!mVehicle.isFlying()) {
+            if (mGripEnabled) {
+                updateFriction();
+            }
+            Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
         }
-        Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
     }
 
     public Body getBody() {
@@ -156,8 +163,13 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     private void updateGroundInfo() {
-        mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
-        mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
+        if (mVehicle.isFlying()) {
+            mGroundSpeed = 0;
+            mMaterial = AIR;
+        } else {
+            mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
+            mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
+        }
     }
 
     public void setCanDrift(boolean canDrift) {

@@ -26,6 +26,7 @@ public class MapInfo implements Disposable {
         SAND,
         SNOW,
         WATER,
+        AIR,
     }
     private static final int CELL_ID_ROW_STRIDE = 10000;
 

@@ -91,7 +91,7 @@ class Vehicle implements Racer.Component, Disposable {
 
     public WheelInfo addWheel(TextureRegion region, float x, float y, float angle) {
         WheelInfo info = new WheelInfo();
-        info.wheel = Wheel.create(region, mGameWorld, getX() + x, getY() + y, angle);
+        info.wheel = Wheel.create(mGameWorld, this, region, getX() + x, getY() + y, angle);
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
@@ -207,10 +207,11 @@ class Vehicle implements Racer.Component, Disposable {
                 actStopping(dt);
             } else {
                 applyTurbo(dt);
-                applyPilotCommands(dt);
+                applyPilotCommands();
                 applyGroundEffects(dt);
             }
         }
+        actWheels(dt);
     }
 
     private void actStopping(float dt) {
@@ -249,7 +250,7 @@ class Vehicle implements Racer.Component, Disposable {
     /**
      * Apply pilot commands to the wheels
      */
-    private void applyPilotCommands(float dt) {
+    private void applyPilotCommands() {
         float speedDelta = 0;
         if (mBraking || mAccelerating) {
             speedDelta = mAccelerating ? 1 : -0.8f;
@@ -261,6 +262,11 @@ class Vehicle implements Racer.Component, Disposable {
             info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
+        }
+    }
+
+    private void actWheels(float dt) {
+        for (WheelInfo info : mWheels) {
             info.wheel.act(dt);
         }
     }
