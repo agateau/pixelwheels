@@ -41,6 +41,7 @@ class Vehicle implements Racer.Component, Disposable {
     private float mZ = 0;
     private float mDirection = 0;
     private float mTurboTime = -1;
+    private boolean mStopped = false;
 
     private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
 
@@ -178,27 +179,90 @@ class Vehicle implements Racer.Component, Disposable {
         mZ = z;
     }
 
+    /**
+     * Call this when the vehicle needs to stop as soon as possible
+     * For example because it fell
+     */
+    public void setStopped(boolean stopped) {
+        if (stopped) {
+            mTurboTime = -1;
+        }
+        mStopped = stopped;
+    }
+
     @Override
     public void act(float dt) {
-        final GamePlay GP = GamePlay.instance;
-
-        float speedDelta = 0;
-        if (mBraking || mAccelerating) {
-            speedDelta = mAccelerating ? 1 : -0.8f;
-        }
-
-        float steerAngle = computeSteerAngle();
-
         if (mSpeedLogger != null) {
             float speed = mBody.getLinearVelocity().len() * 3.6f;
             mSpeedLogger.addRow(mLogTime, speed);
             mLogTime += dt;
         }
 
-        if (mZ > 0) {
-            return;
+        if (MathUtils.isZero(mZ)) {
+            if (mStopped) {
+                actStopping(dt);
+            } else {
+                applyTurbo(dt);
+                applyPilotCommands(dt);
+                applyGroundEffects(dt);
+            }
         }
-        steerAngle *= MathUtils.degRad;
+    }
+
+    private void actStopping(float dt) {
+        Vector2 invVelocity = mBody.getLinearVelocity().scl(-0.4f);
+        mBody.applyForce(invVelocity.scl(mBody.getMass()).scl(1 / dt), mBody.getWorldCenter(), true);
+    }
+
+    /**
+     * Apply ground effects on the vehicle:
+     * - trigger turbo when driving on turbo tiles
+     * - apply drag
+     */
+    private void applyGroundEffects(float dt) {
+        final GamePlay GP = GamePlay.instance;
+        float groundSpeed = 0;
+        for (WheelInfo info : mWheels) {
+            float wheelGroundSpeed = info.wheel.getGroundSpeed();
+            groundSpeed += wheelGroundSpeed;
+            long cellId = info.wheel.getCellId();
+            boolean isTurboCell = wheelGroundSpeed > 1;
+            if (isTurboCell && !alreadyTriggeredTurboCell(cellId)) {
+                triggerTurbo();
+                addTriggeredTurboCell(cellId);
+            }
+        }
+        groundSpeed /= mWheels.size;
+
+        updateTriggeredTurboTiles(dt);
+
+        boolean turboOn = mTurboTime > 0;
+        if (groundSpeed < 1f && !turboOn) {
+            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.groundDragFactor);
+        }
+    }
+
+    /**
+     * Apply pilot commands to the wheels
+     */
+    private void applyPilotCommands(float dt) {
+        float speedDelta = 0;
+        if (mBraking || mAccelerating) {
+            speedDelta = mAccelerating ? 1 : -0.8f;
+        }
+
+        float steerAngle = computeSteerAngle() * MathUtils.degRad;
+        for (WheelInfo info : mWheels) {
+            float angle = info.steeringFactor * steerAngle;
+            info.wheel.setBraking(mBraking);
+            info.wheel.adjustSpeed(speedDelta);
+            info.joint.setLimits(angle, angle);
+            info.wheel.act(dt);
+        }
+    }
+
+    private void applyTurbo(float dt) {
+        final GamePlay GP = GamePlay.instance;
 
         if (mTurboTime == 0) {
             mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(GP.turboStrength), mBody.getWorldCenter(), true);
@@ -209,31 +273,6 @@ class Vehicle implements Racer.Component, Disposable {
                 mTurboTime = -1;
                 mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(-GP.turboStrength / 4), mBody.getWorldCenter(), true);
             }
-        }
-
-        float groundSpeed = 0;
-        for (WheelInfo info : mWheels) {
-            float angle = info.steeringFactor * steerAngle;
-            info.wheel.setBraking(mBraking);
-            info.wheel.adjustSpeed(speedDelta);
-            info.joint.setLimits(angle, angle);
-            info.wheel.act(dt);
-            float wheelGroundSpeed = info.wheel.getGroundSpeed();
-            groundSpeed += wheelGroundSpeed;
-            long cellId = info.wheel.getCellId();
-            boolean isTurboCell = wheelGroundSpeed > 1;
-            if (isTurboCell && !alreadyTriggeredTurboCell(cellId)) {
-                triggerTurbo();
-                addTriggeredTurboCell(cellId);
-            }
-        }
-        updateTriggeredTurboTiles(dt);
-
-        groundSpeed /= mWheels.size;
-
-        boolean turboOn = mTurboTime > 0;
-        if (groundSpeed < 1f && !turboOn) {
-            Box2DUtils.applyDrag(mBody, (1 - groundSpeed) * GP.groundDragFactor);
         }
     }
 
