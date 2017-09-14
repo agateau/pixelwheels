@@ -66,7 +66,7 @@ public class BodyRegionDrawer {
         float offset = (SHADOW_OFFSET_PX + mZ * Z_MAX_SHADOW_OFFSET_PX + (mScale - 1) * SCALE_MAX_SHADOW_OFFSET_PX)
                 * Constants.UNIT_FOR_PIXEL;
         float x = center.x + offset;
-        float y = center.y + offset;
+        float y = center.y - offset;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         Color old = mBatch.getColor();
