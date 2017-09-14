@@ -161,6 +161,10 @@ class Vehicle implements Racer.Component, Disposable {
         return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
     }
 
+    public boolean isFlying() {
+        return !MathUtils.isZero(mZ);
+    }
+
     public float getZ() {
         return mZ;
     }
@@ -198,7 +202,7 @@ class Vehicle implements Racer.Component, Disposable {
             mLogTime += dt;
         }
 
-        if (MathUtils.isZero(mZ)) {
+        if (!isFlying()) {
             if (mStopped) {
                 actStopping(dt);
             } else {
