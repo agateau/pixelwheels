@@ -1,7 +1,7 @@
 package com.agateau.tinywheels;
 
+import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
-import com.agateau.utils.CircularArray;
 
 /**
  * A wheel
@@ -114,7 +113,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         final float currentSpeed = mBody.getLinearVelocity().len() * 3.6f;
 
         final float limit = 1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
-        DebugStringMap.put("strengthLimit", String.format("%.2f", limit));
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
