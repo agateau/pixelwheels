@@ -34,9 +34,19 @@
   <tile id="34" terrain=",0,,"/>
   <tile id="40" terrain=",,0,"/>
   <tile id="42" terrain=",,,0"/>
+  <tile id="64">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
   <tile id="66">
    <properties>
-    <property name="max_speed" value="0.5"/>
+    <property name="max_speed" value="0"/>
    </properties>
   </tile>
   <tile id="67">
@@ -44,7 +54,57 @@
     <property name="max_speed" value="0"/>
    </properties>
   </tile>
+  <tile id="72">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
   <tile id="75">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="88">
+   <properties>
+    <property name="max_speed" value="0.3"/>
+   </properties>
+  </tile>
+  <tile id="89">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="90">
+   <properties>
+    <property name="max_speed" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="91">
    <properties>
     <property name="max_speed" value="0.3"/>
    </properties>
