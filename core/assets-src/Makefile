@@ -76,11 +76,15 @@ OUT_TILE_IMAGES := $(TILE_IMAGES:%.ase=$(OUT_DIR)/%.png)
 
 tiles: $(OUT_TILE_IMAGES)
 
+$(OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(OUT_DIR)/maps/%.png: maps/%.ase
 	mkdir -p $(OUT_DIR)/maps
-	aseprite --batch $< --save-as $(patsubst %.png,%-tmp.png,$@)
-	convert -alpha set -channel RGBA -fill '#22203460' -opaque '#ff00ff' $(patsubst %.png,%-tmp.png,$@) $@
-	rm $(patsubst %.png,%-tmp.png,$@)
+	aseprite --batch $< --save-as $(TMP_PNG)
+	convert -alpha set -channel RGBA \
+		-fill '#22203460' -opaque '#ff00ff' \
+		-fill '#ffffff20' -opaque '#00ffff' \
+		$(TMP_PNG) $@
+	rm $(TMP_PNG)
 
 clean-tiles:
 	rm -f $(OUT_TILE_IMAGES)
