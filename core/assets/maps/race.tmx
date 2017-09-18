@@ -2,99 +2,39 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="55">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="112" columns="8">
   <image source="snow.png" width="512" height="896"/>
-  <tile id="0">
-   <properties>
-    <property name="is_road" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="is_road" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="is_road" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="max_speed" value="0.8"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="finish" value="true"/>
-    <property name="is_road" value="true"/>
-   </properties>
-  </tile>
   <tile id="5">
    <properties>
-    <property name="is_road" value="true"/>
     <property name="start" value="true"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
-    <property name="max_speed" value="0.5"/>
+    <property name="material" value="SNOW"/>
    </properties>
   </tile>
   <tile id="7">
    <properties>
-    <property name="max_speed" value="0.25"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="max_speed" value="0.8"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="max_speed" value="0.8"/>
+    <property name="material" value="SNOW"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
-    <property name="max_speed" value="0.7"/>
-   </properties>
-  </tile>
-  <tile id="12">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
-  </tile>
-  <tile id="14">
-   <properties>
-    <property name="max_speed" value="0"/>
+    <property name="material" value="SNOW"/>
    </properties>
   </tile>
   <tile id="16">
-   <properties>
-    <property name="is_road" value="true"/>
-   </properties>
    <objectgroup draworder="index">
     <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
    </objectgroup>
   </tile>
   <tile id="17">
-   <properties>
-    <property name="max_speed" value="0.75"/>
-   </properties>
    <objectgroup draworder="index">
     <object id="0" x="-0.181818" y="8" width="55.6364" height="55.8182"/>
    </objectgroup>
   </tile>
   <tile id="19">
    <properties>
-    <property name="finish" value="true"/>
-    <property name="is_road" value="true"/>
-    <property name="max_speed" value="4"/>
+    <property name="material" value="TURBO"/>
    </properties>
    <objectgroup draworder="index">
     <object id="0" x="63.6364" y="42.5455">
@@ -136,7 +76,7 @@
   </tile>
   <tile id="24">
    <properties>
-    <property name="max_speed" value="0.75"/>
+    <property name="material" value="SNOW"/>
    </properties>
    <objectgroup draworder="index">
     <object id="0" x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
@@ -144,11 +84,16 @@
   </tile>
   <tile id="25">
    <properties>
-    <property name="max_speed" value="0.5"/>
+    <property name="material" value="SNOW"/>
    </properties>
    <objectgroup draworder="index">
     <object id="0" x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
   </tile>
   <tile id="27">
    <objectgroup draworder="index">

@@ -27,7 +27,7 @@ public class MapInfo implements Disposable {
     private final String mMapName;
 
     private TiledMap mMap;
-    private float[] mMaxSpeedForTileId;
+    private Material[] mMaterialForTileId;
     private int mStartTileId = -1;
     private Array<TiledMapTileLayer> mBackgroundLayers;
     private Array<TiledMapTileLayer> mForegroundLayers;
@@ -50,7 +50,7 @@ public class MapInfo implements Disposable {
         }
         AtlasTmxMapLoader loader = new AtlasTmxMapLoader();
         mMap = loader.load("maps/" + mId + ".tmx");
-        mMaxSpeedForTileId = computeMaxSpeedForTileId();
+        mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();
         findLayers();
         readBorders();
@@ -153,16 +153,16 @@ public class MapInfo implements Disposable {
         return indexes;
     }
 
-    private float[] computeMaxSpeedForTileId() {
+    private Material[] computeMaterialForTileId() {
         TiledMapTileSet tileSet = mMap.getTileSets().getTileSet(0);
         int maxId = 0;
         for (TiledMapTile tile : tileSet) {
             maxId = Math.max(maxId, tile.getId());
         }
-        float[] array = new float[maxId + 1];
+        Material[] array = new Material[maxId + 1];
         for (int id = 0; id < array.length; ++id) {
             TiledMapTile tile = tileSet.getTile(id);
-            array[id] = tile == null ? 1f : MapUtils.getFloatProperty(tile.getProperties(), "max_speed", 1f);
+            array[id] = MapUtils.getTileMaterial(tile);
         }
         return array;
     }
@@ -205,28 +205,11 @@ public class MapInfo implements Disposable {
     }
 
     public Material getMaterialAt(float x, float y) {
-        float speed = getMaxSpeedAt(x, y);
-        if (speed < 0.25) {
-            return Material.DEEP_WATER;
-        } else if (speed < 0.35) {
-            return Material.WATER;
-        } else if (speed < 0.55) {
-            return Material.SNOW;
-        } else if (speed < 0.65) {
-            return Material.SAND;
-        } else if (speed < 1.05) {
-            return Material.ROAD;
-        } else {
-            return Material.TURBO;
-        }
-    }
-
-    public float getMaxSpeedAt(float x, float y) {
         TiledMapTile tile = getTopTileAt(mBackgroundLayers, x, y);
         if (tile == null) {
-            return 1.0f;
+            return Material.ROAD;
         }
-        return mMaxSpeedForTileId[tile.getId()];
+        return mMaterialForTileId[tile.getId()];
     }
 
     @Override

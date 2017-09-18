@@ -9,7 +9,7 @@
   </tile>
   <tile id="19">
    <properties>
-    <property name="max_speed" value="4"/>
+    <property name="material" value="TURBO"/>
    </properties>
   </tile>
  </tileset>

@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -49,5 +50,20 @@ public class MapUtils {
                 renderer.rect(rect.x * U, rect.y * U, rect.width * U, rect.height * U);
             }
         }
+    }
+
+    public static Material getTileMaterial(TiledMapTile tile) {
+        if (tile == null) {
+            return Material.ROAD;
+        }
+        Object value = tile.getProperties().get("material");
+        if (value == null) {
+            return Material.ROAD;
+        }
+        String materialName = value.toString();
+        if (materialName.isEmpty()) {
+            return Material.ROAD;
+        }
+        return Material.valueOf(materialName);
     }
 }
