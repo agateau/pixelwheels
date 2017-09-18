@@ -21,13 +21,6 @@ import com.badlogic.gdx.utils.Disposable;
  * The map of the current game
  */
 public class MapInfo implements Disposable {
-    enum Material {
-        ROAD,
-        SAND,
-        SNOW,
-        WATER,
-        AIR,
-    }
     private static final int CELL_ID_ROW_STRIDE = 10000;
 
     private final String mId;
@@ -213,7 +206,9 @@ public class MapInfo implements Disposable {
 
     public Material getMaterialAt(float x, float y) {
         float speed = getMaxSpeedAt(x, y);
-        if (speed < 0.35) {
+        if (speed < 0.25) {
+            return Material.DEEP_WATER;
+        } else if (speed < 0.35) {
             return Material.WATER;
         } else if (speed < 0.55) {
             return Material.SNOW;

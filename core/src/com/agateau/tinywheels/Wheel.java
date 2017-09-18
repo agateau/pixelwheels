@@ -12,8 +12,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-import static com.agateau.tinywheels.MapInfo.Material.AIR;
-
 /**
  * A wheel
  */
@@ -46,7 +44,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private float mMaxDrivingForce;
     private boolean mGripEnabled = true;
     private float mGroundSpeed;
-    private MapInfo.Material mMaterial;
+    private Material mMaterial;
     private boolean mDrifting = false;
 
     public static Wheel create(GameWorld gameWorld, Vehicle vehicle, TextureRegion region, float posX, float posY, float angle) {
@@ -165,7 +163,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private void updateGroundInfo() {
         if (mVehicle.isFlying()) {
             mGroundSpeed = 0;
-            mMaterial = AIR;
+            mMaterial = Material.AIR;
         } else {
             mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
             mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
@@ -188,7 +186,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mSkidmarks;
     }
 
-    public MapInfo.Material getMaterial() {
+    public Material getMaterial() {
         return mMaterial;
     }
 }
