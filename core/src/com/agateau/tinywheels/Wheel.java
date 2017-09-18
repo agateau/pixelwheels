@@ -43,7 +43,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     private boolean mCanDrift;
     private float mMaxDrivingForce;
     private boolean mGripEnabled = true;
-    private float mGroundSpeed;
     private Material mMaterial;
     private boolean mDrifting = false;
 
@@ -52,10 +51,10 @@ public class Wheel implements Pool.Poolable, Disposable {
         obj.mGameWorld = gameWorld;
         obj.mVehicle = vehicle;
         obj.mRegion = region;
-        obj.mGroundSpeed = 1;
         obj.mBraking = false;
         obj.mCanDrift = false;
         obj.mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
+        obj.mMaterial = Material.ROAD;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -104,7 +103,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     }
 
     public float getGroundSpeed() {
-        return mGroundSpeed;
+        return mMaterial.getSpeed();
     }
 
     public void setGripEnabled(boolean enabled) {
@@ -162,10 +161,8 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     private void updateGroundInfo() {
         if (mVehicle.isFlying()) {
-            mGroundSpeed = 0;
             mMaterial = Material.AIR;
         } else {
-            mGroundSpeed = mGameWorld.getMapInfo().getMaxSpeedAt(mBody.getWorldCenter());
             mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
         }
     }

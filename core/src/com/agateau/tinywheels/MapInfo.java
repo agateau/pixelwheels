@@ -214,13 +214,11 @@ public class MapInfo implements Disposable {
             return Material.SNOW;
         } else if (speed < 0.65) {
             return Material.SAND;
-        } else {
+        } else if (speed < 1.05) {
             return Material.ROAD;
+        } else {
+            return Material.TURBO;
         }
-    }
-
-    public float getMaxSpeedAt(Vector2 pos) {
-        return getMaxSpeedAt(pos.x, pos.y);
     }
 
     public float getMaxSpeedAt(float x, float y) {
