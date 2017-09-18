@@ -215,7 +215,7 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     private void actStopping(float dt) {
-        Vector2 invVelocity = mBody.getLinearVelocity().scl(-0.4f);
+        Vector2 invVelocity = mBody.getLinearVelocity().scl(-0.1f);
         mBody.applyForce(invVelocity.scl(mBody.getMass()).scl(1 / dt), mBody.getWorldCenter(), true);
     }
 
