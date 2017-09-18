@@ -42,7 +42,7 @@ public class VehicleRenderer implements Renderer {
             for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
                 Material material = info.wheel.getMaterial();
-                if (material == Material.DEEP_WATER || material == Material.WATER) {
+                if (material.isWater()) {
                     mBodyRegionDrawer.draw(info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                 }
             }

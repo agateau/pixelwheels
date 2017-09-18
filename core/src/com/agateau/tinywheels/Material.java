@@ -9,5 +9,13 @@ enum Material {
     SNOW,
     DEEP_WATER,
     WATER,
-    AIR,
+    AIR;
+
+    boolean isHole() {
+        return this == DEEP_WATER;
+    }
+
+    boolean isWater() {
+        return this == DEEP_WATER || this == WATER;
+    }
 }
