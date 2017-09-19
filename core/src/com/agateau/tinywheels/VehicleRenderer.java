@@ -41,22 +41,35 @@ public class VehicleRenderer implements Renderer {
         if (zIndex == Constants.Z_GROUND) {
             for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
-                Material material = info.wheel.getMaterial();
-                if (material.isWater()) {
-                    mBodyRegionDrawer.draw(info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
-                }
             }
-            mBodyRegionDrawer.drawShadow(mVehicle.getBody(), mVehicle.getRegion());
+
+            // Only draw splash and shadow if we are not falling
+            if (!mVehicle.isFalling()) {
+                for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
+                    if (info.wheel.getMaterial().isWater()) {
+                        mBodyRegionDrawer.draw(info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
+                    }
+                }
+                mBodyRegionDrawer.drawShadow(mVehicle.getBody(), mVehicle.getRegion());
+            }
             return;
         }
         if (zIndex != Constants.Z_VEHICLES) {
             return;
         }
 
+        if (mVehicle.isFalling()) {
+            float k = MathUtils.clamp(1 + mVehicle.getZ() * 10, 0, 1);
+            // k = 0 fully immersed, k = 1 not immersed
+            batch.setColor(MathUtils.lerp(0, 1, k), MathUtils.lerp(0.5f, 1, k), 1, MathUtils.lerp(0.2f, 1, k));
+        }
         for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
             mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
         }
         mBodyRegionDrawer.draw(mVehicle.getBody(), mVehicle.getRegion());
+        if (mVehicle.isFalling()) {
+            batch.setColor(1, 1, 1, 1);
+        }
 
         if (mVehicle.getTurboTime() >= 0) {
             drawTurbo(batch);

@@ -162,7 +162,11 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     public boolean isFlying() {
-        return !MathUtils.isZero(mZ);
+        return mZ > 0;
+    }
+
+    public boolean isFalling() {
+        return mZ < 0;
     }
 
     public float getZ() {
