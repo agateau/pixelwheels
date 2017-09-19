@@ -58,7 +58,9 @@ public class VehicleRenderer implements Renderer {
             }
             return;
         }
-        if (zIndex != Constants.Z_VEHICLES) {
+
+        int wantedZIndex = mVehicle.isFlying() ? Constants.Z_FLYING : Constants.Z_VEHICLES;
+        if (zIndex != wantedZIndex) {
             return;
         }
 
