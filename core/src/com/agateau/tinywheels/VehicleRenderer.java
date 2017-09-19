@@ -1,6 +1,7 @@
 package com.agateau.tinywheels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
  * Renders a vehicle
  */
 public class VehicleRenderer implements Renderer {
+    private static final Color IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
     private final Assets mAssets;
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<Renderer>();
@@ -32,6 +34,8 @@ public class VehicleRenderer implements Renderer {
     public void removeRenderer(Renderer renderer) {
         mRenderers.removeValue(renderer, true);
     }
+
+    private final Color mBatchColor = new Color();
 
     @Override
     public void draw(Batch batch, int zIndex) {
@@ -61,14 +65,19 @@ public class VehicleRenderer implements Renderer {
         if (mVehicle.isFalling()) {
             float k = MathUtils.clamp(1 + mVehicle.getZ() * 10, 0, 1);
             // k = 0 fully immersed, k = 1 not immersed
-            batch.setColor(MathUtils.lerp(0, 1, k), MathUtils.lerp(0.5f, 1, k), 1, MathUtils.lerp(0.2f, 1, k));
-        }
-        for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
-            mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
+            mBatchColor.set(IMMERSED_COLOR);
+            mBatchColor.lerp(Color.WHITE, k);
+            batch.setColor(mBatchColor);
+        } else {
+            // Do not draw the wheels when falling: when the body is painted with alpha < 1 the wheels are visible
+            // through it and it looks ugly
+            for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+                mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
+            }
         }
         mBodyRegionDrawer.draw(mVehicle.getBody(), mVehicle.getRegion());
         if (mVehicle.isFalling()) {
-            batch.setColor(1, 1, 1, 1);
+            batch.setColor(Color.WHITE);
         }
 
         if (mVehicle.getTurboTime() >= 0) {
