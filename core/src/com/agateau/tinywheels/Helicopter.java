@@ -120,6 +120,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     @Override
     public void act(float delta) {
         mTime += delta;
+        updateFrameBuffer();
         switch (mState) {
         case ARRIVING:
             actArriving(delta);
@@ -168,9 +169,6 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_SHADOWS) {
-            batch.end();
-            updateFrameBuffer();
-            batch.begin();
             Color old = batch.getColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
             float offset = SHADOW_OFFSET * Constants.UNIT_FOR_PIXEL;
