@@ -66,13 +66,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void actNormal() {
-        int wheelsInHole = 0;
-        for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
-            if (info.wheel.getMaterial().isHole()) {
-                ++wheelsInHole;
-            }
-        }
-        if (wheelsInHole >= mVehicle.getWheelInfos().size / 2) {
+        if (mGameWorld.getMapInfo().getMaterialAt(mVehicle.getPosition()).isHole()) {
             startFalling();
         }
     }
