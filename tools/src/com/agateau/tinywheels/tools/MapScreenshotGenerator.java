@@ -65,7 +65,7 @@ public class MapScreenshotGenerator {
         int shotWidth = (int)(mapWidth * ratio);
         int shotHeight = (int)(mapHeight * ratio);
 
-        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGBA8888, shotWidth, shotHeight, false /* hasDepth */);
+        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGB888, shotWidth, shotHeight, false /* hasDepth */);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map);
 
         OrthographicCamera camera = new OrthographicCamera();
