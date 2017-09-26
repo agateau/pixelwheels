@@ -1,5 +1,6 @@
 package com.agateau.tinywheels.tools;
 
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.agateau.utils.log.NLog;
 
 /**
  * Loads a TMX file and creates a screenshot of it as a PNG file
@@ -45,7 +45,11 @@ public class MapScreenshotGenerator {
         FileHandle shotFile = Gdx.files.absolute(shotFileName);
         if (isOutdated(shotFile, tmxFile)) {
             NLog.i("%s: updating", shotFile.path());
-            generateScreenshot(shotFile, tmxFile);
+            Pixmap pix1 = generateScreenshot(tmxFile);
+            Pixmap pix2 = scaleScreenshot(pix1);
+            pix1.dispose();
+            PixmapIO.writePNG(shotFile, pix2);
+            pix2.dispose();
         } else {
             NLog.i("%s: up to date", shotFile.path());
         }
@@ -55,17 +59,13 @@ public class MapScreenshotGenerator {
         return dst.lastModified() < src.lastModified();
     }
 
-    public static void generateScreenshot(FileHandle shotFile, FileHandle tmxFile) {
+    private static Pixmap generateScreenshot(FileHandle tmxFile) {
         TiledMap map = new TmxMapLoader().load(tmxFile.path());
-        TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
-        int mapWidth = (int)(layer.getWidth() * layer.getTileWidth());
-        int mapHeight = (int)(layer.getHeight() * layer.getTileHeight());
-        float ratio = (float)SHOT_SIZE / Math.max(mapWidth, mapHeight);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        int mapWidth = (int) (layer.getWidth() * layer.getTileWidth());
+        int mapHeight = (int) (layer.getHeight() * layer.getTileHeight());
 
-        int shotWidth = (int)(mapWidth * ratio);
-        int shotHeight = (int)(mapHeight * ratio);
-
-        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGB888, shotWidth, shotHeight, false /* hasDepth */);
+        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGB888, mapWidth, mapHeight, false /* hasDepth */);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map);
 
         OrthographicCamera camera = new OrthographicCamera();
@@ -75,7 +75,22 @@ public class MapScreenshotGenerator {
         fbo.begin();
         renderer.render();
 
-        Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, shotWidth, shotHeight);
-        PixmapIO.writePNG(shotFile, pixmap);
+        return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
+    }
+
+    private static Pixmap scaleScreenshot(Pixmap src) {
+        int srcW = src.getWidth();
+        int srcH = src.getHeight();
+
+        float ratio = (float)SHOT_SIZE / Math.max(srcW, srcH);
+        int dstW = (int) (srcW * ratio);
+        int dstH = (int) (srcH * ratio);
+
+        Pixmap dst = new Pixmap(dstW, dstH, src.getFormat());
+        Pixmap.setFilter(Pixmap.Filter.BiLinear);
+        dst.drawPixmap(src,
+                0, 0, srcW, srcH,
+                0, 0, dstW, dstH);
+        return dst;
     }
 }
