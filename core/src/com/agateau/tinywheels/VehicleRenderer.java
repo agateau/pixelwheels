@@ -78,9 +78,6 @@ public class VehicleRenderer implements Renderer {
             }
         }
         mBodyRegionDrawer.draw(mVehicle.getBody(), mVehicle.getRegion());
-        if (mVehicle.isFalling()) {
-            batch.setColor(Color.WHITE);
-        }
 
         if (mVehicle.getTurboTime() >= 0) {
             drawTurbo(batch);
@@ -88,6 +85,10 @@ public class VehicleRenderer implements Renderer {
 
         for (Renderer renderer : mRenderers) {
             renderer.draw(batch, zIndex);
+        }
+
+        if (mVehicle.isFalling()) {
+            batch.setColor(Color.WHITE);
         }
     }
 
