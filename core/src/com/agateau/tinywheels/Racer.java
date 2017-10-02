@@ -60,7 +60,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(
                 assets,
                 mGameWorld,
-                mVehicle,
+                this,
                 mLapPositionComponent);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
@@ -97,9 +97,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             return;
         }
         mSpinningComponent.start();
-        if (mBonus != null) {
-            mBonus.onOwnerHit();
-        }
+        looseBonus();
     }
 
     @Override
@@ -206,6 +204,15 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
      */
     public void resetBonus() {
         mBonus = null;
+    }
+
+    /**
+     * Called when something bad happens to the racer, causing her to loose her bonus
+     */
+    public void looseBonus() {
+        if (mBonus != null) {
+            mBonus.onOwnerHit();
+        }
     }
 
     @Override

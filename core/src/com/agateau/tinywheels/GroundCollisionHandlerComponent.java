@@ -17,6 +17,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private final Vehicle mVehicle;
     private final LapPositionComponent mLapPositionComponent;
     private final MapInfo mMapInfo;
+    private final Racer mRacer;
     private OrientedPoint mDropPoint;
     private final Vector2 mVelocity = new Vector2();
     private Helicopter mHelicopter = null;
@@ -32,10 +33,11 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private State mState = State.NORMAL;
     private float mTime;
 
-    public GroundCollisionHandlerComponent(Assets assets, GameWorld gameWorld, Vehicle vehicle, LapPositionComponent lapPositionComponent) {
+    public GroundCollisionHandlerComponent(Assets assets, GameWorld gameWorld, Racer racer, LapPositionComponent lapPositionComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
-        mVehicle = vehicle;
+        mRacer = racer;
+        mVehicle = racer.getVehicle();
         mMapInfo = gameWorld.getMapInfo();
         mLapPositionComponent = lapPositionComponent;
     }
@@ -76,6 +78,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
+        mRacer.looseBonus();
         mVehicle.setStopped(true);
     }
 
