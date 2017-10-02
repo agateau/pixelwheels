@@ -275,17 +275,22 @@ class Vehicle implements Racer.Component, Disposable {
         }
     }
 
+    final Vector2 mDirectionVector = new Vector2();
+    private Vector2 computeDirectionVector(float strength) {
+        return mDirectionVector.set(strength, 0).rotateRad(mBody.getAngle());
+    }
+
     private void applyTurbo(float dt) {
         final GamePlay GP = GamePlay.instance;
 
         if (mTurboTime == 0) {
-            mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(GP.turboStrength), mBody.getWorldCenter(), true);
+            mBody.applyLinearImpulse(computeDirectionVector(GP.turboStrength), mBody.getWorldCenter(), true);
         }
         if (mTurboTime >= 0) {
             mTurboTime += dt;
             if (mTurboTime > GP.turboDuration) {
                 mTurboTime = -1;
-                mBody.applyLinearImpulse(mBody.getLinearVelocity().nor().scl(-GP.turboStrength / 4), mBody.getWorldCenter(), true);
+                mBody.applyLinearImpulse(computeDirectionVector(-GP.turboStrength / 4), mBody.getWorldCenter(), true);
             }
         }
     }
