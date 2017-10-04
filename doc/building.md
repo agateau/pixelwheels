@@ -1,18 +1,35 @@
-Generate individual pngs
+# Building Tiny Wheels
 
-    cd core/assets-src
-    make
+## Assets
 
-Generate map screenshots
+Some assets must be generated from work files with:
 
-    Run Map Screenshot Generator
+    make -C core/assets-src
 
-Pack images
+## Map screenshots
 
-    Run Packer
+The map screenshots are generated using the MapScreenshotGenerator tool.
 
-Pack maps
+Attention! This tool *requires a graphical interface* because it uses LibGDX
+to do the rendering.
 
-    Run MapPacker
+You can run it with:
+
+    make mapscreenshotgenerator
+
+## Pack images
+
+Once assets and screenshots have been generated, you can pack them into atlases
+with:
+
+    make packer
+
+## Pack maps
+
+Maps also needs to be packed. This is done with:
+
+    make mappacker
+
+## Build the game
 
 Build the game

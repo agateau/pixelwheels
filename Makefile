@@ -24,7 +24,7 @@ endif
 
 all: build
 
-clean: clean-packr clean-sprites
+clean: clean-packr
 	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
 $(TOOLS_JAR):
