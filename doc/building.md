@@ -10,7 +10,7 @@ Some assets must be generated from work files with:
 
 The map screenshots are generated using the MapScreenshotGenerator tool.
 
-Attention! This tool *requires a graphical interface* because it uses LibGDX
+Attention! *This tool requires a graphical interface* because it uses LibGDX
 to do the rendering.
 
 You can run it with:
@@ -32,4 +32,10 @@ Maps also needs to be packed. This is done with:
 
 ## Build the game
 
-Build the game
+Run:
+
+    make
+
+You can also build and run it with:
+
+    make run
