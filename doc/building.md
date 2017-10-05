@@ -1,5 +1,16 @@
 # Building Tiny Wheels
 
+## Dependencies
+
+Building Tinywheels requires the following components:
+
+- A JDK
+- libgdx: <https://libgdx.badlogicgames.com>
+- pafx: <https://github.com/agateau/pafx>
+- aseprite: <https://aseprite.org>
+- imagemagick: <http://imagemagick.org>
+- GNU Make: <http://www.gnu.org/software/make/>
+
 ## Assets
 
 Some assets must be generated from work files with:
@@ -8,12 +19,13 @@ Some assets must be generated from work files with:
 
 ## Map screenshots
 
-The map screenshots are generated using the MapScreenshotGenerator tool.
+The map screenshots are generated using the MapScreenshotGenerator tool, which
+is part of the source code.
 
 Attention! *This tool requires a graphical interface* because it uses LibGDX
 to do the rendering.
 
-You can run it with:
+You can build and run it with:
 
     make mapscreenshotgenerator
 
