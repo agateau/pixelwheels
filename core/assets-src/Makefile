@@ -41,8 +41,7 @@ clean-anims:
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
-	aseprite --batch $< --save-as $(patsubst %_0.png,%.png,$@)
-	rename-aseprite-frames $(patsubst %_0.png,%,$@)
+	aseprite --batch $< --filename-format '{path}/{title}_{frame}.{extension}' --save-as $(patsubst %_0.png,%.png,$@)
 
 #- Helicopter -----------------------------------------------------------------
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png
