@@ -1,5 +1,0 @@
-- oil
-- spikes => other cars spin when hit
-- big boxing gloves hitting sideways
-- harpoon
-- launchable RC car which stick to the rear of opponent, slowing him down
