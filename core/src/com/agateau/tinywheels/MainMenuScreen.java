@@ -49,7 +49,7 @@ public class MainMenuScreen extends TwStageScreen {
 
     private void setupUi() {
         boolean desktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().uiAtlas, mGame.getAssets().skin);
         if (desktop) {
             builder.defineVariable("desktop");
         }

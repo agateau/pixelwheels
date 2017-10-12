@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel"
-               topCenter="root.topCenter 0 -2">Tiny Wheels</Label>
+        <Image topCenter="root.topCenter 0 -2" name="title"/>
 
         <Menu id="menu" center="root.center"/>
     </AnchorGroup>

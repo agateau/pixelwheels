@@ -4,9 +4,9 @@ OUT_DIR ?= ../assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-all: hud anims stills vehicles tiles helicopter
+all: hud anims stills vehicles tiles helicopter ui
 
-clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter
+clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui
 
 #- Hud ------------------------------------------------------------------------
 # Just enough files to trigger the target
@@ -87,3 +87,16 @@ $(OUT_DIR)/maps/%.png: maps/%.ase
 
 clean-tiles:
 	rm -f $(OUT_TILE_IMAGES)
+
+#- UI files -------------------------------------------------------------------
+UI_IMAGES := $(wildcard ui/*.ase)
+OUT_UI_IMAGES := $(UI_IMAGES:%.ase=$(OUT_DIR)/%.png)
+
+ui: $(OUT_UI_IMAGES)
+
+$(OUT_DIR)/ui/%.png: ui/%.ase
+	mkdir -p $(OUT_DIR)/ui
+	aseprite --batch $< --save-as $@
+
+clean-ui:
+	rm -f $(OUT_UI_IMAGES)
