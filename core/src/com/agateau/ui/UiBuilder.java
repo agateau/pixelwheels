@@ -18,6 +18,7 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -236,6 +237,7 @@ public class UiBuilder {
 
     private void initImageFromRegionName(Image image, String name) {
         TextureRegion region = mAtlas.findRegion(name);
+        Assert.check(region != null, "No region named " + name);
         image.setDrawable(new TextureRegionDrawable(region));
         if (image.getWidth() == 0) {
             image.setWidth(region.getRegionWidth());
