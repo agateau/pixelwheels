@@ -80,17 +80,15 @@ dist: build
 
 	@echo Copying files
 	@cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/$(EXECUTABLE).jar
-	@cp install/tinywheels.sh $(DIST_OUT_DIR)/
-	@chmod +x $(DIST_OUT_DIR)/tinywheels.sh
+	@cp -a install/* $(DIST_OUT_DIR)/
 
-	@echo Creating tarball
-	@cd $(DIST_OUT_BASE_DIR) && tar cf $(DIST_NAME).tar $(DIST_NAME)
-	@bzip2 -9 $(DIST_OUT_DIR).tar
+	@echo Creating zip
+	@cd $(DIST_OUT_BASE_DIR) && zip -r $(DIST_NAME).zip $(DIST_NAME)
 	@rm -rf $(DIST_OUT_DIR)
 
-	@echo Moving tarball
+	@echo Moving zip
 	@mkdir -p $(ARCHIVE_DIR)
-	@mv $(DIST_OUT_DIR).tar.bz2 $(ARCHIVE_DIR)
+	@mv $(DIST_OUT_DIR).zip $(ARCHIVE_DIR)
 
 # apk
 apk:
