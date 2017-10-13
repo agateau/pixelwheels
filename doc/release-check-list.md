@@ -9,7 +9,7 @@
     git checkout master
     git status
 
-    make clean packer mappacker dist apk
+    make clean assets mapscreenshotgenerator packer mappacker dist apk
 
 - Test on computer
 - Test on device

@@ -15,7 +15,7 @@ Building Tinywheels requires the following components:
 
 Some assets must be generated from work files with:
 
-    make -C core/assets-src
+    make assets
 
 ## Map screenshots
 

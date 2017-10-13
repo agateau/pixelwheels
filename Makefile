@@ -24,7 +24,7 @@ endif
 
 all: build
 
-clean: clean-packr
+clean: clean-packr clean-assets
 	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
 $(TOOLS_JAR):
@@ -46,6 +46,12 @@ mapscreenshotgenerator: tools
 
 mappacker: tools
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapPacker core/assets/maps android/assets/maps
+
+assets:
+	$(MAKE) -C core/assets-src
+
+clean-assets:
+	$(MAKE) -C core/assets-src clean
 
 # Packr
 $(JDK_LINUX64_ZIP):
