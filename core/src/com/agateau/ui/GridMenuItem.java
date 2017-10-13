@@ -43,7 +43,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
     private int mSelectedIndex = -1;
-    private int mCurrentIndex = -1;
+    private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
 
     private int mColumnCount = 3;
@@ -92,7 +92,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setCurrent(T item) {
         if (item == null) {
-            mCurrentIndex = -1;
+            mCurrentIndex = 0;
             return;
         }
         int index = mItems.indexOf(item, true);
