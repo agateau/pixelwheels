@@ -80,6 +80,7 @@ dist: build
 
 	@echo Copying files
 	@cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/$(EXECUTABLE).jar
+	chmod +x $(DIST_OUT_DIR)/$(EXECUTABLE).jar
 	@cp -a install/* $(DIST_OUT_DIR)/
 
 	@echo Creating zip
