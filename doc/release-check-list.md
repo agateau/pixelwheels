@@ -2,7 +2,7 @@
 
 - Edit Makefile to bump version number
 
-- Build archives on CI
+- Build archives
 
     git pull
 
@@ -26,7 +26,7 @@
 
 - Take screenshots
 
-# Greenyetilab.com
+# Game page
 
 - Update game page
 - Write blog post
@@ -39,11 +39,8 @@
 
 # Spread
 
-- Notify G+ community
-
-- Announce on G+
-    - GYL
-    - Self
-- Announce on FB
-    - GYL
-    - Self
+- Post on:
+    - Mastodon
+    - Twitter
+    - FB
+    - G+
