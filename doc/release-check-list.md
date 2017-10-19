@@ -1,6 +1,8 @@
 # Create archives
 
-- Edit Makefile to bump version number
+- Bump version number
+    - Makefile
+    - android/AndroidManifest.xml
 
 - Build archives
 
