@@ -38,7 +38,7 @@ public class GamePlay {
 
     public int viewportWidth = 70;
 
-    public int turboStrength = 140;
+    public int turboStrength = 300;
     public float turboDuration = 0.9f;
 
     public boolean alwaysShowTouchInput = false;
