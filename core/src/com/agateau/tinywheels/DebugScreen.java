@@ -66,9 +66,9 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
         addTitle("Speed");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
-        mGroup.addActor(addRange("Max speed:", "maxSpeed", 100, 400, 10));
+        mGroup.addActor(addRange("Max speed:", "maxSpeed", 10, 400, 10));
         addTitle("Turbo");
-        mGroup.addActor(addRange("Strength:", "turboStrength", 100, 800, 50));
+        mGroup.addActor(addRange("Strength:", "turboStrength", 10, 800, 20));
         mGroup.addActor(addRange("Duration:", "turboDuration", 0.1f, 2f, 0.1f));
         addTitle("Wheels");
         mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
