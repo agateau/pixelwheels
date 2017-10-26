@@ -302,13 +302,13 @@ class Vehicle implements Racer.Component, Disposable {
         final GamePlay GP = GamePlay.instance;
 
         if (mTurboTime == 0) {
-            mBody.applyLinearImpulse(computeDirectionVector(GP.turboStrength), mBody.getWorldCenter(), true);
+            mBody.applyLinearImpulse(computeDirectionVector(GP.turboStrength / 6), mBody.getWorldCenter(), true);
         }
         if (mTurboTime >= 0) {
             mTurboTime += dt;
+            mBody.applyForce(computeDirectionVector(GP.turboStrength), mBody.getWorldCenter(), true);
             if (mTurboTime > GP.turboDuration) {
                 mTurboTime = -1;
-                mBody.applyLinearImpulse(computeDirectionVector(-GP.turboStrength / 4), mBody.getWorldCenter(), true);
             }
         }
     }
