@@ -37,4 +37,8 @@ public class GameInfo {
         playerInfo.inputHandler = inputHandler;
         playerInfos.add(playerInfo);
     }
+
+    public void clearPlayerInfo() {
+        playerInfos.clear();
+    }
 }
