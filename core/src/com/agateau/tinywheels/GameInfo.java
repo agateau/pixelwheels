@@ -29,16 +29,20 @@ public class GameInfo {
         GameInputHandler inputHandler;
     }
     public MapInfo mapInfo;
-    public final Array<Player> players = new Array<Player>();
+    private final Array<Player> mPlayers = new Array<Player>();
+
+    public Array<Player> getPlayers() {
+        return mPlayers;
+    }
 
     public void addPlayer(String vehicleId, GameInputHandler inputHandler) {
         Player player = new Player();
         player.vehicleId = vehicleId;
         player.inputHandler = inputHandler;
-        players.add(player);
+        mPlayers.add(player);
     }
 
     public void clearPlayers() {
-        players.clear();
+        mPlayers.clear();
     }
 }

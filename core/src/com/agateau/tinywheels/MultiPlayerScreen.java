@@ -120,7 +120,7 @@ public class MultiPlayerScreen extends TwStageScreen {
     private void next() {
         // If we go back and forth between screens, there might already be some Player instances
         // remove them
-        mGameInfo.players.clear();
+        mGameInfo.clearPlayers();
 
         GameConfig gameConfig = mGame.getConfig();
 

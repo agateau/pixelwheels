@@ -76,7 +76,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers(gameInfo.players);
+        setupRacers(gameInfo.getPlayers());
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
