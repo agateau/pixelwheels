@@ -118,9 +118,9 @@ public class MultiPlayerScreen extends TwStageScreen {
     }
 
     private void next() {
-        // If we go back and forth between screens, there might already be some PlayerInfo instances
+        // If we go back and forth between screens, there might already be some Player instances
         // remove them
-        mGameInfo.playerInfos.clear();
+        mGameInfo.players.clear();
 
         GameConfig gameConfig = mGame.getConfig();
 
@@ -132,7 +132,7 @@ public class MultiPlayerScreen extends TwStageScreen {
             String id = mVehicleSelectors[idx].getSelectedId();
             gameConfig.multiPlayerVehicles[idx] = id;
 
-            mGameInfo.addPlayerInfo(id, inputHandler);
+            mGameInfo.addPlayer(id, inputHandler);
         }
 
         gameConfig.flush();

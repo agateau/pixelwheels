@@ -89,11 +89,11 @@ public class SelectVehicleScreen extends TwStageScreen {
         gameConfig.flush();
 
         // If we came here from the map screen then a player has already been added, remove it
-        mGameInfo.clearPlayerInfo();
+        mGameInfo.clearPlayers();
 
         String inputHandlerId = gameConfig.input;
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        mGameInfo.addPlayerInfo(id, factory.create());
+        mGameInfo.addPlayer(id, factory.create());
         mMaestro.actionTriggered("next");
     }
 }

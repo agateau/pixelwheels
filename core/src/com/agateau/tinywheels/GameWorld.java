@@ -76,7 +76,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers(gameInfo.playerInfos);
+        setupRacers(gameInfo.players);
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -223,7 +223,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void setupRacers(Array<GameInfo.PlayerInfo> playerInfos) {
+    private void setupRacers(Array<GameInfo.Player> players) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
@@ -235,12 +235,12 @@ public class GameWorld implements ContactListener, Disposable {
         Array<VehicleDef> vehicleDefs = assets.vehicleDefs;
         for (Vector2 position : positions) {
             Racer racer;
-            if (rank <= playerInfos.size) {
-                GameInfo.PlayerInfo playerInfo = playerInfos.get(rank - 1);
-                VehicleDef vehicleDef = assets.getVehicleById(playerInfo.vehicleId);
+            if (rank <= players.size) {
+                GameInfo.Player player = players.get(rank - 1);
+                VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
                 racer = new Racer(assets, this, vehicle);
-                racer.setPilot(new PlayerPilot(assets, this, racer, playerInfo.inputHandler));
+                racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
                 mPlayerRacers.add(racer);
             } else {
                 VehicleDef vehicleDef = vehicleDefs.get((rank - 1) % vehicleDefs.size);

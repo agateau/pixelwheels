@@ -24,21 +24,21 @@ import com.badlogic.gdx.utils.Array;
  * Details about the game to start
  */
 public class GameInfo {
-    public static class PlayerInfo {
+    public static class Player {
         String vehicleId;
         GameInputHandler inputHandler;
     }
     public MapInfo mapInfo;
-    public final Array<PlayerInfo> playerInfos = new Array<PlayerInfo>();
+    public final Array<Player> players = new Array<Player>();
 
-    public void addPlayerInfo(String vehicleId, GameInputHandler inputHandler) {
-        PlayerInfo playerInfo = new PlayerInfo();
-        playerInfo.vehicleId = vehicleId;
-        playerInfo.inputHandler = inputHandler;
-        playerInfos.add(playerInfo);
+    public void addPlayer(String vehicleId, GameInputHandler inputHandler) {
+        Player player = new Player();
+        player.vehicleId = vehicleId;
+        player.inputHandler = inputHandler;
+        players.add(player);
     }
 
-    public void clearPlayerInfo() {
-        playerInfos.clear();
+    public void clearPlayers() {
+        players.clear();
     }
 }
