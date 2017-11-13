@@ -187,15 +187,20 @@
  </tileset>
  <layer name="bg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztl1tuwjAQRSdtCiJFkaD8QH+8FJbCUryULCVLyVI6ebgZT2ych5O6yB9XkSCZuYdrj8MeAPZRUVFRL6obQHlFHQDuW+kTdUT59H9GnVAJfsZ1aa+i0+B7k946ue5LF3JY/Nc+CyJhETCmwT2Ew1ajeT4DeMxl+Nb9Kz93wqH1u9j9/BkH5lAhQ2XwojhKR+8gOHAtVafnHAOFlgfLAro1pHlBRji39b0qN++3WRwsC41D+b+2vN7n+sEjR6bXUhziy+JfzbRspuj5sDYH5iDQq3DM5Dlrv1E65IA1ONCruBEOw0wuk/48aZ4Zccb9ciifvvP4wCsVrUPmQJE8OQ8deWzCwfOgddgcMDKEwrHr+2gchvOxeCd7wzWPc/P6Xz2PHeMgWWjraew8tuzjzfPIeu9SebHN4xA4bHlkPYPschjM45A4eB64rh/1mZW3e0GqHnwez+Vg9VfLg8wmafodl3I45C2P/8rxCnmkrVfaz8YB+I43em+w2pM4pvaphe+eEp+Trv8K6EkcJ9YfW3tpn6ioqKgQ9QOaBcuF
+   eJztl1uSgjAQRZsZRku0qNL50vnJUlyKS8lSWApLYSnTPDJ0QtrwCJix8nHLKoTOPd5OB/cAsI+Kiop6U90AyivqAHDfSkfUCeXT/wV1RiV4jZHoxH2v6aOT6750IQfjv/ZZEAlGYDAN7iEcXI3m+QzgMZfhR/ev/NwJB+fbdv0lHJhDhQyVxYviKB1rB8GBvVSdn3NwfoPhMLKAroc0L8gIl7a+V+VMv87hMLLQOJT/a8vrfa4fPHJkei3FIb4Z/2qmZTNFz4e1OTAHgV6FYybP6f1G6ZAD1uBAr+JGOCwzuUz686R5ZsQZ98ehfPrO4ws/qWgdMgeK5Ml56MhjEw4zD1rHmANWhlA4dv06GoflfCw+yd5wzePc3v+r57EzOEgWWj+NncfMPt48j6z3LpUXbh6HwMHlkfUMssthMI9D4jDzwL5+1GdW3u4FqdYw5/FcDqP+anmQ2SRtv+NSDoe85fFfOd4hj7T1StfjOADf8UbvDaP2JI6p69TCd0+Jz0nXfwX0JE4T64+tvXSdqKioqBD1CyXJy0w=
+  </data>
+ </layer>
+ <layer name="bg2" width="50" height="35">
+  <data encoding="base64" compression="zlib">
+   eJzt0zEOACAIA0Aeof//qovuJi6Ad0k3lqYhAoDKxsXN3KmuQg975PLTHvCqyy/okUuXHgAAAMcCUb4Btw==
   </data>
  </layer>
  <layer name="fg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJztWM1KBDEMzqP4CroqKOpJPbnenY4/F/Xk7vvfzMCEDYXNX6drkP3gY6DTpknTJmkBjvDgFHn210o0gPS/Ql4b+mWFpr+3nwcvyGFmmTmy9sK+1F5YO28bO8hz2HHiNv5A8Og2JLbDo1tJbMekmzUmZPeHNSZk98f0tfhkTGwH6WbxSfZ4pfliNX+z76ulz8cb8h0Om+c8a2yJV5/IL+S3VagR2p7WdDtHXiAvQT/nZMPGo6ARmp6abjfIW+QdyGsy/fuBPjZM0PTU/HWPfEA+grwHe8eA1n31hFwjn0Fek952oPwP5b95fmlNetcsmnzP/FJfT67ncZfFXHG8Jp/8sZI6VX0jeIVdXuGgHNy6Lz3r2LJ36rxS389b7fDUTJG5yA+UV7ZzO+lP9rTWoB7dInPty++1P1pr0KXi1T5QbtxW7bU/WuPd4LgPRvYVt53XOISlzsfI6l3NnshcfJ15jSP1i4DfP7T6PTIXt53XOFK/CIrDH5FzzsfwGmcJ2fV4qz96vvNxGd77Fs3Z8oaa/R3Zih7vyEf8X/wCBTZmFg==
+   eJztWDtPAzEM9k8BNlgLTMAETJSdy/FYgIn2/2/4pLNqRapfuRQL9ZM+nZRLHDtObCcAR3hwijz7ayUaQPqfIy8M/bJC09/bz4MX5DCzzBxZe2Ffai+snbeNHeQ57DhxG38geHQbEtvh0a0ktmPSzRoTsvvDGhOy+2P6WnwyJraDdLP4JHu80nyxmr/Z99XS5+MN+Q6HzXOeNbbEq0/kF/LbKtQIbU9rul0ir5DXoJ9zsmHjUdAITU9NtxvkLfIO5DWZ/v1AHxsmaHpq/rpHPiAfQd6DvWNA6756Qq6RzyCvSW87UP6H8t88v7QmvWsWTb5nfqmvJ9fzuMtirjhek0/+WEmdqr4RvMIur3BQDm7dl551bNk7dV6p7+etdnhqpshc5AfKK9u5nfQne1prUI9ukbn25ffaH6016FLxah8oN26r9tofrfFucNwHI/uK285rHMJS52Nk9a5mT2Quvs68xpH6RcDvH1r9HpmL285rHKlfBMXhj8g552N4jbOE7Hq81R893/m4DO99i+ZseUPN/o5sRY935CP+L34B6Kph1g==
   </data>
  </layer>
- <objectgroup name="Borders">
+ <objectgroup name="Borders" visible="0">
   <object id="1" x="2832" y="304" width="64" height="1632"/>
   <object id="2" x="320" y="304" width="48" height="1632"/>
   <object id="3" x="1099.5" y="849" width="1258.5" height="30.5"/>
