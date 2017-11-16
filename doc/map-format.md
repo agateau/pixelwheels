@@ -26,9 +26,9 @@ A "BonusSpots" object layer containing ellipsis indicating where bonus should ap
 
 # Tile properties
 
-## `max_speed`
+## `material`
 
-Float. Defaults to 1. Can be less than 1 for slow terrains, can be more than 1 for accelerators.
+Enum. Defaults to ROAD. Must be one of the values of the com.agateau.tinywheels.Material enum.
 
 ## `start`
 
