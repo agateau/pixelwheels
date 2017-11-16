@@ -34,6 +34,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A wheel
  */
 public class Wheel implements Pool.Poolable, Disposable {
+    public static final float MS_TO_KMH = 3.6f;
     private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
     private static final int SKIDMARK_INTERVAL = 3;
@@ -132,7 +133,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         if (amount == 0) {
             return;
         }
-        final float currentSpeed = mBody.getLinearVelocity().len() * 3.6f;
+        final float currentSpeed = mBody.getLinearVelocity().len() * MS_TO_KMH;
 
         final float limit = 1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
         amount *= limit;
