@@ -37,6 +37,9 @@ import com.badlogic.gdx.utils.Disposable;
  * Represents a car on the world
  */
 class Vehicle implements Racer.Component, Disposable {
+    private static final float ACCELERATION_DELTA = 1;
+    private static final float BRAKING_DELTA = 0.8f;
+
     public static class WheelInfo {
         public Wheel wheel;
         public RevoluteJoint joint;
@@ -60,6 +63,7 @@ class Vehicle implements Racer.Component, Disposable {
     private float mDirection = 0;
     private float mTurboTime = -1;
     private boolean mStopped = false;
+    private float mSpeedLimiter = 1f;
 
     private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
 
@@ -162,6 +166,10 @@ class Vehicle implements Racer.Component, Disposable {
 
     public float getSpeed() {
         return mBody.getLinearVelocity().len();
+    }
+
+    public void setSpeedLimiter(float speedLimiter) {
+        mSpeedLimiter = speedLimiter;
     }
 
     /**
@@ -274,8 +282,11 @@ class Vehicle implements Racer.Component, Disposable {
      */
     private void applyPilotCommands() {
         float speedDelta = 0;
-        if (mBraking || mAccelerating) {
-            speedDelta = mAccelerating ? 1 : -0.8f;
+        if (mAccelerating) {
+            speedDelta = ACCELERATION_DELTA * mSpeedLimiter;
+        }
+        if (mBraking) {
+            speedDelta -= BRAKING_DELTA;
         }
 
         float steerAngle = computeSteerAngle() * MathUtils.degRad;

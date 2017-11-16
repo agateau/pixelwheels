@@ -45,6 +45,7 @@ public class AIPilot implements Pilot {
     private void updateAcceleration() {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
+        vehicle.setSpeedLimiter(0.8f);
     }
 
     private void updateDirection() {
