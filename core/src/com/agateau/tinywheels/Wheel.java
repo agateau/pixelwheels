@@ -58,7 +58,6 @@ public class Wheel implements Pool.Poolable, Disposable {
     private GameWorld mGameWorld;
     private TextureRegion mRegion;
     private Vehicle mVehicle;
-    private boolean mBraking;
     private boolean mCanDrift;
     private float mMaxDrivingForce;
     private boolean mGripEnabled = true;
@@ -70,7 +69,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         obj.mGameWorld = gameWorld;
         obj.mVehicle = vehicle;
         obj.mRegion = region;
-        obj.mBraking = false;
         obj.mCanDrift = false;
         obj.mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
         obj.mMaterial = Material.ROAD;
@@ -144,10 +142,6 @@ public class Wheel implements Pool.Poolable, Disposable {
         mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }
 
-    public void setBraking(boolean braking) {
-        mBraking = braking;
-    }
-
     public long getCellId() {
         return mGameWorld.getMapInfo().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
@@ -156,7 +150,7 @@ public class Wheel implements Pool.Poolable, Disposable {
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mBraking ? 2 : 1);
+        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse) {
             // Drift
             if (!mDrifting) {

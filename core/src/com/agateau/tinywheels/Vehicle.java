@@ -281,7 +281,6 @@ class Vehicle implements Racer.Component, Disposable {
         float steerAngle = computeSteerAngle() * MathUtils.degRad;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
-            info.wheel.setBraking(mBraking);
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
         }
@@ -357,6 +356,10 @@ class Vehicle implements Racer.Component, Disposable {
 
     public void setBraking(boolean value) {
         mBraking = value;
+    }
+
+    public boolean isBraking() {
+        return mBraking;
     }
 
     public void setDirection(float direction) {
