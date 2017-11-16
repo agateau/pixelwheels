@@ -1,28 +1,38 @@
-A track consists of several layers:
+# Map format
 
-# Tile layers
+This document describes the layer which a Tiny Wheels map is made of.
+
+Maps are created using [Tiled](http://mapeditor.org).
+
+# Map layers
+
+A map consists of several layers:
+
+## Tile layers
 
 One or more background layers, named bgN.
 
 Zero or more foreground layers, named fgN, these are drawn on top of the vehicles.
 
-# Borders
+## Borders
 
 A "Borders" object layer containing rectangles, polygons or ellipsis representing the borders of the track.
 
-# Sections
+## Sections
 
 A "Sections" object layer containing segments dividing the track into convex quadrilaterals.
 
 Segments must be named with a number (can be a float) indicating their order. A section quadrilateral is defined by two consecutive segments.
 
-# Waypoints
+All areas where vehicles can go must be covered by section quadrilaterals.
 
-A "Waypoints" object layer containing ellipsis indicating where AI pilot should go.
+## Waypoints
 
-# Bonuses
+A "Waypoints" object layer containing ellipsis indicating where AI pilots should go.
 
-A "BonusSpots" object layer containing ellipsis indicating where bonus should appear.
+## Bonuses
+
+A "BonusSpots" object layer containing ellipsis indicating where bonuses should appear.
 
 # Tile properties
 
