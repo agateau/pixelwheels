@@ -37,20 +37,20 @@ public class AIPilot implements Pilot {
     private final Vector2 mTargetVector = new Vector2();
     @Override
     public void act(float dt) {
+        handleBonus(dt);
+        updateAcceleration();
+        updateDirection();
+    }
+
+    private void updateAcceleration() {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
+    }
 
-        float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
-        WaypointStore store = mMapInfo.getWaypointStore();
-        int index = store.getWaypointIndex(lapDistance);
-        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
-        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
+    private void updateDirection() {
+        updateTargetVector();
 
-        Bonus bonus = mRacer.getBonus();
-        if (bonus != null) {
-            bonus.aiAct(dt);
-        }
-
+        Vehicle vehicle = mRacer.getVehicle();
         float targetAngle = GylMathUtils.normalizeAngle(mTargetVector.angle());
         float vehicleAngle = GylMathUtils.normalizeAngle(vehicle.getAngle());
         float deltaAngle = targetAngle - vehicleAngle;
@@ -61,5 +61,20 @@ public class AIPilot implements Pilot {
         }
         float direction = MathUtils.clamp(deltaAngle / GamePlay.instance.lowSpeedMaxSteer, -1, 1);
         vehicle.setDirection(direction);
+    }
+
+    private void updateTargetVector() {
+        float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
+        WaypointStore store = mMapInfo.getWaypointStore();
+        int index = store.getWaypointIndex(lapDistance);
+        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
+        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
+    }
+
+    private void handleBonus(float dt) {
+        Bonus bonus = mRacer.getBonus();
+        if (bonus != null) {
+            bonus.aiAct(dt);
+        }
     }
 }
