@@ -26,10 +26,12 @@ import com.agateau.utils.GylMathUtils;
  * An AI pilot
  */
 public class AIPilot implements Pilot {
+    private final GameWorld mGameWorld;
     private final MapInfo mMapInfo;
     private final Racer mRacer;
 
-    public AIPilot(MapInfo mapInfo, Racer racer) {
+    public AIPilot(GameWorld gameWorld, MapInfo mapInfo, Racer racer) {
+        mGameWorld = gameWorld;
         mMapInfo = mapInfo;
         mRacer = racer;
     }
@@ -37,20 +39,32 @@ public class AIPilot implements Pilot {
     private final Vector2 mTargetVector = new Vector2();
     @Override
     public void act(float dt) {
+        handleBonus(dt);
+        updateAcceleration();
+        updateDirection();
+    }
+
+    private void updateAcceleration() {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
 
-        float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
-        WaypointStore store = mMapInfo.getWaypointStore();
-        int index = store.getWaypointIndex(lapDistance);
-        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
-        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
-
-        Bonus bonus = mRacer.getBonus();
-        if (bonus != null) {
-            bonus.aiAct(dt);
+        // If we are better ranked than a player, slow down a bit
+        float rank = mGameWorld.getRacerRank(mRacer);
+        boolean needLimit = false;
+        for (Racer racer : mGameWorld.getPlayerRacers()) {
+            if (mGameWorld.getRacerRank(racer) > rank) {
+                needLimit = true;
+                break;
+            }
         }
+        float limit = needLimit ? GamePlay.instance.aiSpeedLimiter : 1f;
+        vehicle.setSpeedLimiter(limit);
+    }
 
+    private void updateDirection() {
+        updateTargetVector();
+
+        Vehicle vehicle = mRacer.getVehicle();
         float targetAngle = GylMathUtils.normalizeAngle(mTargetVector.angle());
         float vehicleAngle = GylMathUtils.normalizeAngle(vehicle.getAngle());
         float deltaAngle = targetAngle - vehicleAngle;
@@ -61,5 +75,20 @@ public class AIPilot implements Pilot {
         }
         float direction = MathUtils.clamp(deltaAngle / GamePlay.instance.lowSpeedMaxSteer, -1, 1);
         vehicle.setDirection(direction);
+    }
+
+    private void updateTargetVector() {
+        float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
+        WaypointStore store = mMapInfo.getWaypointStore();
+        int index = store.getWaypointIndex(lapDistance);
+        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
+        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
+    }
+
+    private void handleBonus(float dt) {
+        Bonus bonus = mRacer.getBonus();
+        if (bonus != null) {
+            bonus.aiAct(dt);
+        }
     }
 }
