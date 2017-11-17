@@ -287,4 +287,9 @@ public class MapInfo implements Disposable {
             mBorderObjects.add(object);
         }
     }
+
+    @SuppressWarnings("unused")
+    public String getMapName() {
+        return mMapName;
+    }
 }

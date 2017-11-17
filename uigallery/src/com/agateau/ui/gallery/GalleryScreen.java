@@ -36,6 +36,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
+import java.util.Locale;
+
 /**
  * The main screen of the gallery
  */
@@ -91,7 +93,7 @@ class GalleryScreen extends StageScreen {
         });
 
         for (int i = 0; i < 100; ++i) {
-            menu.addButton(String.format("Dummy %d", i));
+            menu.addButton(String.format(Locale.getDefault(), "Dummy %d", i));
         }
         root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
         root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);

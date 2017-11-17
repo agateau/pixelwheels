@@ -28,7 +28,6 @@ public class SpinningComponent implements Racer.Component {
     private final Vehicle mVehicle;
     private boolean mActive = false;
     private float mDesiredAngle;
-    private float mStartAngle;
 
     public SpinningComponent(Vehicle vehicle) {
         mVehicle = vehicle;
@@ -41,8 +40,7 @@ public class SpinningComponent implements Racer.Component {
     public void start() {
         mActive = true;
         setGripEnabled(false);
-        mStartAngle = mVehicle.getBody().getAngle();
-        mDesiredAngle = mStartAngle + 2 * MathUtils.PI;
+        mDesiredAngle = mVehicle.getBody().getAngle() + 2 * MathUtils.PI;
     }
 
     @Override

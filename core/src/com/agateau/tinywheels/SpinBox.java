@@ -70,6 +70,9 @@ public abstract class SpinBox<T extends Number> extends HorizontalGroup {
 
     protected abstract float floatFromT(T t);
 
+    /**
+     * Human readable value for t
+     */
     protected abstract String stringFromT(T t);
 
     public T getValue() {

@@ -63,6 +63,7 @@ public class PositionRule implements AnchorRule {
             -target.getWidth() * target.getScaleX() * targetAnchor.hPercent,
             -target.getHeight() * target.getScaleY() * targetAnchor.vPercent);
 
+        //noinspection SuspiciousNameCombination
         target.setPosition(MathUtils.floor(targetPos.x), MathUtils.floor(targetPos.y));
     }
 }

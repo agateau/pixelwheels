@@ -287,7 +287,7 @@ public class UiBuilder {
         Label label = new Label(text, mSkin, styleName);
         String alignText = element.getAttribute("align", "");
         if (!alignText.isEmpty()) {
-            int align = 0;
+            int align;
             if (alignText.equals("left")) {
                 align = Align.left;
             } else if (alignText.equals("center")) {
