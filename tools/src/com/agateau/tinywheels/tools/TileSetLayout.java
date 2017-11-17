@@ -29,8 +29,6 @@ public class TileSetLayout {
 
     public final BufferedImage image;
     private final IntMap<Vector2> imageTilePositions;
-    private int numRows;
-    private int numCols;
     public final int numTiles;
     public final int firstgid;
 
@@ -52,8 +50,8 @@ public class TileSetLayout {
 
         // fill the tile regions
         int x, y, tile = 0;
-        numRows = 0;
-        numCols = 0;
+        int numRows = 0;
+        int numCols = 0;
 
         int stopWidth = image.getWidth() - tileWidth;
         int stopHeight = image.getHeight() - tileHeight;
@@ -68,14 +66,6 @@ public class TileSetLayout {
         }
 
         numTiles = numRows * numCols;
-    }
-
-    public int getNumRows () {
-        return numRows;
-    }
-
-    public int getNumCols () {
-        return numCols;
     }
 
     /** Returns the location of the tile in {@link TileSetLayout#image} */
