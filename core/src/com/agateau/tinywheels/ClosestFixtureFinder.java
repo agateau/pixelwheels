@@ -31,10 +31,6 @@ class ClosestFixtureFinder implements RayCastCallback {
     private Body mIgnoredBody = null;
     private Fixture mFixture = null;
 
-    public Body getIgnoredBody() {
-        return mIgnoredBody;
-    }
-
     public void setIgnoredBody(Body ignoredBody) {
         mIgnoredBody = ignoredBody;
     }

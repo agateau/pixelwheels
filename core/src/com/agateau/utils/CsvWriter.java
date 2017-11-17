@@ -29,13 +29,11 @@ import java.util.Locale;
  * A class to write data in CSV format
  */
 public class CsvWriter {
-    private final FileHandle mHandle;
     private final Writer mWriter;
     private char mFieldSeparator = ';';
 
     public CsvWriter(FileHandle handle) {
-        mHandle = handle;
-        mWriter = mHandle.writer(false /* append */);
+        mWriter = handle.writer(false /* append */);
     }
 
     public void setFieldSeparator(char separator) {
@@ -51,7 +49,7 @@ public class CsvWriter {
                 Object value = args[i];
                 String text;
                 if (value instanceof Float) {
-                    text = String.format(Locale.US, "%f", ((Float) value).floatValue());
+                    text = String.format(Locale.US, "%f", (Float) value);
                 } else {
                     text = value.toString();
                 }

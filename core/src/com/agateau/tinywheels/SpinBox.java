@@ -26,7 +26,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pools;
 
 /**
@@ -94,9 +93,5 @@ public abstract class SpinBox<T extends Number> extends HorizontalGroup {
 
     public void setStepSize(T stepSize) {
         mStepSize = floatFromT(stepSize);
-    }
-
-    public T getStepSize() {
-        return tFromFloat(mStepSize);
     }
 }

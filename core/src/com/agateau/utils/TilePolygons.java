@@ -76,14 +76,10 @@ public class TilePolygons {
             int splitIndex = verticeCount / 2;
             float[] sub1 = new float[2 * (splitIndex + 1)];
             float[] sub2 = new float[2 * (verticeCount - splitIndex + 1)];
-            for (int idx = 0; idx < sub1.length; ++idx) {
-                sub1[idx] = vertices[idx];
-            }
+            System.arraycopy(vertices, 0, sub1, 0, sub1.length);
             sub2[0] = vertices[0];
             sub2[1] = vertices[1];
-            for (int idx = 0; idx < sub2.length - 2; ++idx) {
-                sub2[idx + 2] = vertices[splitIndex * 2 + idx];
-            }
+            System.arraycopy(vertices, splitIndex * 2, sub2, 2, sub2.length - 2);
             addPolygons(sub1);
             addPolygons(sub2);
         } else {

@@ -269,6 +269,7 @@ public class UiBuilder {
         return new TextButton(text, mSkin, styleName);
     }
 
+    @SuppressWarnings("UnusedParameters")
     protected Group createGroup(XmlReader.Element element) {
         return new Group();
     }
@@ -335,6 +336,7 @@ public class UiBuilder {
         return checkBox;
     }
 
+    @SuppressWarnings("UnusedParameters")
     protected Menu createMenu(XmlReader.Element element) {
         return new Menu(mSkin);
     }
@@ -396,8 +398,9 @@ public class UiBuilder {
 
     /**
      * Parse a string of the form "$actorId $anchorName [$xOffset $yOffset]"
-     * @param txt
-     * @return
+     * @param txt the string to parse
+     * @param spacing how many pixels a space of 1 represents
+     * @return a PositionRule
      */
     private PositionRule parseRule(String txt, float spacing) {
         PositionRule rule = new PositionRule();

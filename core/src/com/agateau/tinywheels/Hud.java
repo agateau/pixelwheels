@@ -45,6 +45,7 @@ class Hud {
         return mRoot;
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateZoom();
     }

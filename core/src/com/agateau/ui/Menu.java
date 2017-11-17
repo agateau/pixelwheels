@@ -71,9 +71,6 @@ public class Menu extends ScrollPane {
             @Override
             public void layout() {
                 super.layout();
-                if (mFocusIndicator == null) {
-                    return;
-                }
                 updateFocusIndicatorBounds();
             }
         };

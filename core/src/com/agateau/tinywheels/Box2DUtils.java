@@ -42,6 +42,7 @@ public class Box2DUtils {
     private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
     private static final Vector2 LATERAL_VECTOR = new Vector2(0, 1);
 
+    @SuppressWarnings("unused")
     public static Vector2 getForwardVelocity(Body body) {
         Vector2 currentRightNormal = body.getWorldVector(FORWARD_VECTOR);
         float v = currentRightNormal.dot(body.getLinearVelocity());
@@ -59,6 +60,7 @@ public class Box2DUtils {
         body.applyForce(dragForce, body.getWorldCenter(), true);
     }
 
+    @SuppressWarnings("unused")
     public static Body createStaticBox(World world, float x, float y, float width, float height) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -160,12 +162,8 @@ public class Box2DUtils {
     }
 
     /**
-     * Returns vertices for a rectangle of size width x height with truncated corners of cornerSize
+     * Returns vertices for a rectangle of size width x height with truncated corners
      */
-    static float[] createOctogon(float width, float height, float cornerSize) {
-        return createOctogon(width, height, cornerSize, cornerSize);
-    }
-
     static float[] createOctogon(float width, float height, float cornerWidth, float cornerHeight) {
         return new float[]{
                 width / 2 - cornerWidth, -height / 2,

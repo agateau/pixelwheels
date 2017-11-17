@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.MapLayer;
@@ -27,7 +28,6 @@ import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
-import com.agateau.utils.Assert;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashSet;
@@ -42,15 +42,6 @@ public class LapPositionTableIO {
         float x1, y1;
         float x2, y2;
         float order;
-
-        void reverse() {
-            float tmp = x1;
-            x1 = x2;
-            x2 = tmp;
-            tmp = y1;
-            y1 = y2;
-            y2 = tmp;
-        }
 
         @Override
         public int compareTo(Object o) {

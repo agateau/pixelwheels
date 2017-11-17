@@ -79,6 +79,7 @@ public class HudContent {
         root.addPositionRule(button, Anchor.TOP_LEFT, root, Anchor.TOP_LEFT);
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateLabels();
         checkFinished();

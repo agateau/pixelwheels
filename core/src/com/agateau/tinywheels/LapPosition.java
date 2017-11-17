@@ -71,7 +71,7 @@ public class LapPosition {
     }
 
     private void computeCenterDistance() {
-            /**
+            /*
              ^     V3      L     V2
              |     ,-------*-----,
              |    /          M    \_

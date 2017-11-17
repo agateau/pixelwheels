@@ -30,12 +30,12 @@ public class FloatSpinBox extends SpinBox<Float> {
 
     @Override
     protected Float tFromFloat(float f) {
-        return Float.valueOf(f);
+        return f;
     }
 
     @Override
     protected float floatFromT(Float f) {
-        return f.floatValue();
+        return f;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class IntSpinBox extends SpinBox<Integer> {
 
     @Override
     protected Integer tFromFloat(float f) {
-        return Integer.valueOf((int)f);
+        return (int)f;
     }
 
     @Override

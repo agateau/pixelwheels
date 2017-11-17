@@ -40,7 +40,6 @@ public class GameRenderer {
     private final Batch mBatch;
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
-    private final Assets mAssets;
     private final GameWorld mWorld;
     private final float mMapWidth;
     private final float mMapHeight;
@@ -58,8 +57,7 @@ public class GameRenderer {
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameRenderer(Assets assets, GameWorld world, Vehicle vehicle, Batch batch, PerformanceCounters counters) {
-        mAssets = assets;
+    public GameRenderer(GameWorld world, Vehicle vehicle, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
         mVehicle = vehicle;
@@ -89,10 +87,6 @@ public class GameRenderer {
     public void setConfig(GameConfig config) {
         mGameConfig = config;
         mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
-    }
-
-    public OrthographicCamera getCamera() {
-        return mCamera;
     }
 
     public void render(float delta) {

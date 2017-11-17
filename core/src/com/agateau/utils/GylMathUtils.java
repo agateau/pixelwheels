@@ -62,6 +62,7 @@ public class GylMathUtils {
      */
     public static Vector2 computeWidthVector(Vector2 pos1, Vector2 pos2, float width) {
         sTmpVector.set(pos2).sub(pos1).nor();
+        //noinspection SuspiciousNameCombination
         sTmpVector.set(-sTmpVector.y, sTmpVector.x).scl(width);
         return sTmpVector;
     }

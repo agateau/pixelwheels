@@ -19,16 +19,14 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.Menu;
-import com.agateau.utils.FileUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Main menu, shown at startup

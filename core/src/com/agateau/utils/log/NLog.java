@@ -32,8 +32,6 @@ public class NLog {
 
     /**
      * Implementation of Printer which logs to System.err
-     *
-     * @author aurelien
      */
     public static class DefaultPrinter implements Printer {
         @Override

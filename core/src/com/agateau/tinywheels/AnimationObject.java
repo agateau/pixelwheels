@@ -21,7 +21,6 @@ package com.agateau.tinywheels;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
@@ -30,8 +29,6 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A generic short-animation game object
  */
 public class AnimationObject extends GameObjectAdapter implements Pool.Poolable, Disposable {
-    private static float MULTI_DELAY = 0.25f;
-    private static float MULTI_DENSITY = 2;
     private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
     private float mTime;
     private Animation mAnimation;
@@ -92,16 +89,5 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         obj.mPosY = posY;
         obj.setFinished(false);
         return obj;
-    }
-
-    public static void createMulti(GameWorld gameWorld, Animation animation, float posX, float posY, float width, float height) {
-        int count = (int)(height * width / MULTI_DENSITY);
-        float delay = 0;
-        for (int i = 0; i < count; ++i, delay += MULTI_DELAY) {
-            float dx = MathUtils.random(-width / 2, width / 2);
-            float dy = MathUtils.random(-height / 2, height / 2);
-            GameObject obj = AnimationObject.create(animation, posX + dx, posY + dy, delay);
-            gameWorld.addGameObject(obj);
-        }
     }
 }

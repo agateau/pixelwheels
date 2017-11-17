@@ -32,6 +32,7 @@ import com.badlogic.gdx.math.Rectangle;
  * Utilities to work with Tiled maps
  */
 public class MapUtils {
+    @SuppressWarnings("unused")
     public static float getFloatProperty(MapProperties properties, String key, float defaultValue) {
         Object value = properties.get(key);
         if (value == null) {

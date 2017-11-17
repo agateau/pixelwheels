@@ -105,6 +105,7 @@ public class Wheel implements Pool.Poolable, Disposable {
         mVehicle = null;
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateGroundInfo();
         if (!mVehicle.isFlying()) {
@@ -182,10 +183,6 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     public void setCanDrift(boolean canDrift) {
         mCanDrift = canDrift;
-    }
-
-    public float getMaxDrivingForce() {
-        return mMaxDrivingForce;
     }
 
     public void setMaxDrivingForce(float maxDrivingForce) {

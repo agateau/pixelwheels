@@ -66,6 +66,7 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
         if (mAngle % 180 > 0) {
             // Swap width and height if necessary
             float tmp = rHeight;
+            //noinspection SuspiciousNameCombination
             rHeight = rWidth;
             rWidth = tmp;
         }

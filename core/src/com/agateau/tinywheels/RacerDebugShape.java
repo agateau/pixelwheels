@@ -19,7 +19,6 @@
 package com.agateau.tinywheels;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Draw racer-related debug shapes
