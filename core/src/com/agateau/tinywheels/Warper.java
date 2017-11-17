@@ -124,15 +124,16 @@ public class Warper {
         }
     }
 
-    public void computeSquareToQuad(        float x0,
-                                            float y0,
-                                            float x1,
-                                            float y1,
-                                            float x2,
-                                            float y2,
-                                            float x3,
-                                            float y3,
-                                            float[] mat) {
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    public void computeSquareToQuad(float x0,
+                                    float y0,
+                                    float x1,
+                                    float y1,
+                                    float x2,
+                                    float y2,
+                                    float x3,
+                                    float y3,
+                                    float[] mat) {
 
         float dx1 = x1 - x2,    dy1 = y1 - y2;
         float dx2 = x3 - x2,    dy2 = y3 - y2;
@@ -193,11 +194,6 @@ public class Warper {
         mat[12] = C * idet;     mat[13] = F * idet;     mat[14] = 0;    mat[15] = I * idet;
     }
 
-    public float[] getWarpMatrix()
-    {
-        return warpMat;
-    }
-
     private final Vector2 mOutput = new Vector2();
     public Vector2 warp(float srcX, float srcY)
     {
@@ -208,14 +204,6 @@ public class Warper {
     }
 
     private static void warp(float[] mat, float srcX, float srcY, Vector2 output) {
-        /*
-        float[] result = new float[4];
-        float z = 0;
-        result[0] = srcX * mat[0] + srcY * mat[4] + z * mat[8] + 1 * mat[12];
-        result[1] = srcX * mat[1] + srcY * mat[5] + z * mat[9] + 1 * mat[13];
-        result[2] = srcX * mat[2] + srcY * mat[6] + z * mat[10] + 1 * mat[14];
-        result[3] = srcX * mat[3] + srcY * mat[7] + z * mat[11] + 1 * mat[15];
-        */
         final float result0 = srcX * mat[0] + srcY * mat[4] + mat[12];
         final float result1 = srcX * mat[1] + srcY * mat[5] + mat[13];
         final float result3 = srcX * mat[3] + srcY * mat[7] + mat[15];
