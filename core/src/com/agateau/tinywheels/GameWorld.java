@@ -59,15 +59,12 @@ public class GameWorld implements ContactListener, Disposable {
     private final Array<Racer> mPlayerRacers = new Array<Racer>();
     private State mState = State.RUNNING;
 
-    private Vector2[] mSkidmarks;
-    private int mSkidmarksIndex = 0;
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameWorld(TwGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
-        mSkidmarks = new Vector2[GamePlay.instance.maxSkidmarks];
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
@@ -108,10 +105,6 @@ public class GameWorld implements ContactListener, Disposable {
 
     public Vehicle getPlayerVehicle(int id) {
         return mPlayerRacers.get(id).getVehicle();
-    }
-
-    public Vector2[] getSkidmarks() {
-        return mSkidmarks;
     }
 
     public Array<GameObject> getActiveGameObjects() {
@@ -279,17 +272,6 @@ public class GameWorld implements ContactListener, Disposable {
         mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this));
         mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this));
         mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this));
-    }
-
-    public void addSkidmarkAt(Vector2 position) {
-        Vector2 pos = mSkidmarks[mSkidmarksIndex];
-        if (pos == null) {
-            pos = new Vector2();
-            mSkidmarks[mSkidmarksIndex] = pos;
-        }
-        pos.x = position.x;
-        pos.y = position.y;
-        mSkidmarksIndex = (mSkidmarksIndex + 1) % mSkidmarks.length;
     }
 
     @Override
