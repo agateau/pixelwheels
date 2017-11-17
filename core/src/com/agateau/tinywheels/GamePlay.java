@@ -41,6 +41,9 @@ public class GamePlay {
     public int turboStrength = 300;
     public float turboDuration = 0.9f;
 
+    // When an AI is better ranked than a player, set its max speed to this percent of the best max speed
+    public float aiSpeedLimiter = 0.8f;
+
     public boolean alwaysShowTouchInput = false;
 
     public boolean showTestTrack = false;

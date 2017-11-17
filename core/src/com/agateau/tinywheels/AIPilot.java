@@ -26,10 +26,12 @@ import com.agateau.utils.GylMathUtils;
  * An AI pilot
  */
 public class AIPilot implements Pilot {
+    private final GameWorld mGameWorld;
     private final MapInfo mMapInfo;
     private final Racer mRacer;
 
-    public AIPilot(MapInfo mapInfo, Racer racer) {
+    public AIPilot(GameWorld gameWorld, MapInfo mapInfo, Racer racer) {
+        mGameWorld = gameWorld;
         mMapInfo = mapInfo;
         mRacer = racer;
     }
@@ -45,7 +47,18 @@ public class AIPilot implements Pilot {
     private void updateAcceleration() {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
-        vehicle.setSpeedLimiter(0.8f);
+
+        // If we are better ranked than a player, slow down a bit
+        float rank = mGameWorld.getRacerRank(mRacer);
+        boolean needLimit = false;
+        for (Racer racer : mGameWorld.getPlayerRacers()) {
+            if (mGameWorld.getRacerRank(racer) > rank) {
+                needLimit = true;
+                break;
+            }
+        }
+        float limit = needLimit ? GamePlay.instance.aiSpeedLimiter : 1f;
+        vehicle.setSpeedLimiter(limit);
     }
 
     private void updateDirection() {

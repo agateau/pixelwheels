@@ -168,6 +168,9 @@ class Vehicle implements Racer.Component, Disposable {
         return mBody.getLinearVelocity().len();
     }
 
+    /**
+     * speedLimiter is a percentage. Set it to 0.9 to make the vehicle drive at 90% of its maximum speed
+     */
     public void setSpeedLimiter(float speedLimiter) {
         mSpeedLimiter = speedLimiter;
     }
