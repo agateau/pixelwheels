@@ -4,9 +4,8 @@
  * This file is part of Tiny Wheels.
  *
  * Tiny Wheels is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
+ * the terms of the GNU General Public License 3 as published by the Free
+ * Software Foundation.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
@@ -21,7 +20,14 @@ package com.agateau.tinywheels;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by aurelien on 26/02/15.
+ * A Java port of [Warper.cs][1] by Simon Nilsson. Original class summary:
+ *
+ * This class is responsible for transforming a 2D-coordinate on a source rectangle onto a that of a destination rectangle.
+ * The transformation is linear and will not take into account bent or curved surfaces (the transformations are affine!).
+ * This is based on the work done by Johnny Lee and can be found here: http://johnnylee.net/projects/wii/
+ *
+ * [1]: https://github.com/simphax/Touchmote/blob/master/WiiTUIO/Input/WiiProvider/Warper.cs
+ *
  */
 public class Warper {
     float[] srcX = new float[4];
