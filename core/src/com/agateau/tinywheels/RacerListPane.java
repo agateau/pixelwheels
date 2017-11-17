@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -49,7 +50,7 @@ public class RacerListPane extends ScrollPane {
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
             String style = playerSet.contains(racer) ? "newHighScore" : "highScore";
             addRow(table, style,
-                    String.format("%d.", idx + 1),
+                    String.format(Locale.US, "%d.", idx + 1),
                     racer.getVehicle().getName(),
                     StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),
                     StringUtils.formatRaceTime(lapPositionComponent.getTotalTime())

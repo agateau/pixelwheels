@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import java.util.Locale;
+
 /**
  * String format utils
  */
@@ -26,7 +28,7 @@ public class StringUtils {
         int minutes = (int)(time / 60);
         int seconds = (int)(time) % 60;
         int fracs = (int)(time * 100) % 100;
-        return String.format("%d:%02d.%02d", minutes, seconds, fracs);
+        return String.format(Locale.US, "%d:%02d.%02d", minutes, seconds, fracs);
     }
 
     public static String getRankSuffix(int rank) {

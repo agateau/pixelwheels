@@ -20,6 +20,8 @@ package com.agateau.tinywheels;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import java.util.Locale;
+
 /**
  * A SpinBox for floats
  */
@@ -40,6 +42,6 @@ public class FloatSpinBox extends SpinBox<Float> {
 
     @Override
     protected String stringFromT(Float f) {
-        return String.format("%.2f", f.floatValue());
+        return String.format(Locale.getDefault(), "%.2f", f);
     }
 }

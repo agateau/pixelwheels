@@ -29,6 +29,7 @@ import com.badlogic.gdx.utils.StringBuilder;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -93,7 +94,7 @@ public class HudContent {
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank(mPlayerId);
-        mLapLabel.setText(String.format("%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
+        mLapLabel.setText(String.format(Locale.US, "%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
         mLapLabel.pack();
     }
 
@@ -131,9 +132,9 @@ public class HudContent {
         String suffix = StringUtils.getRankSuffix(rank);
         String text;
         if (rank <= 3) {
-            text = String.format("%d%s place!", rank, suffix);
+            text = String.format(Locale.US, "%d%s place!", rank, suffix);
         } else {
-            text = String.format("%d%s place", rank, suffix);
+            text = String.format(Locale.US, "%d%s place", rank, suffix);
         }
         mFinishedLabel.setText(text);
         mFinishedLabel.setVisible(true);
