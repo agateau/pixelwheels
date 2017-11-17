@@ -27,7 +27,7 @@ public class NLog {
     private static int sStackDepth = -1;
 
     public interface Printer {
-        public void print(int level, String tag, String message);
+        void print(int level, String tag, String message);
     }
 
     /**

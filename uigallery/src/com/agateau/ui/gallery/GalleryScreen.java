@@ -22,7 +22,6 @@ import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.TextureRegionItemRenderer;
-import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.SizeRule;

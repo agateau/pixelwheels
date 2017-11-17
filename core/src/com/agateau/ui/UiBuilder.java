@@ -61,7 +61,7 @@ public class UiBuilder {
     private Skin mSkin;
     private Actor mLastAddedActor;
 
-    public static interface ActorFactory {
+    public interface ActorFactory {
         Actor createActor(XmlReader.Element element);
     }
 
@@ -332,8 +332,7 @@ public class UiBuilder {
     protected CheckBox createCheckBox(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = element.getText();
-        CheckBox checkBox = new CheckBox(text, mSkin, styleName);
-        return checkBox;
+        return new CheckBox(text, mSkin, styleName);
     }
 
     @SuppressWarnings("UnusedParameters")
