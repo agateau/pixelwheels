@@ -39,7 +39,7 @@ public class KeyboardInputHandler implements GameInputHandler {
 
         @Override
         public String getDescription() {
-            return "Left and Right keys: Drive.\nLeft-Ctrl: Activate bonus.";
+            return "Left and Right keys: Drive.\nSpace: Activate bonus.";
         }
 
         @Override
