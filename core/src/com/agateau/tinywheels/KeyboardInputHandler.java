@@ -20,7 +20,6 @@ package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
-import com.badlogic.gdx.Input;
 
 /**
  * Handle keyboard input, for desktop mode
