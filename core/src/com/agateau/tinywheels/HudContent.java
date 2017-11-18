@@ -46,6 +46,8 @@ public class HudContent {
     private final Label mFinishedLabel;
     private Label mDebugLabel = null;
 
+    private final StringBuilder mStringBuilder = new StringBuilder();
+
     public HudContent(Assets assets, GameWorld gameWorld, Hud hud, int playerId) {
         mAssets = assets;
         mGameWorld = gameWorld;
@@ -94,7 +96,13 @@ public class HudContent {
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank(mPlayerId);
-        mLapLabel.setText(String.format(Locale.US, "%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
+
+        mStringBuilder.setLength(0);
+        mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank)).append('\n')
+                .append("Lap ").append(lapCount).append('/').append(totalLapCount);
+
+        mLapLabel.setText(mStringBuilder);
+        //mLapLabel.setText(String.format(Locale.US, "%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
         mLapLabel.pack();
     }
 
