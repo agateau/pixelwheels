@@ -102,7 +102,6 @@ public class HudContent {
                 .append("Lap ").append(lapCount).append('/').append(totalLapCount);
 
         mLapLabel.setText(mStringBuilder);
-        //mLapLabel.setText(String.format(Locale.US, "%d%s\nLap %d/%d", rank, StringUtils.getRankSuffix(rank), lapCount, totalLapCount));
         mLapLabel.pack();
     }
 
