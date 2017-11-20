@@ -82,10 +82,10 @@ public class Wheel implements Pool.Poolable, Disposable {
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         obj.mBody = obj.mGameWorld.getBox2DWorld().createBody(bodyDef);
 
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(w / 2, h / 2);
-        obj.mBody.createFixture(polygonShape, 2f);
-        polygonShape.dispose();
+        PolygonShape shape = new PolygonShape();
+        shape.set(Box2DUtils.createOctogon(w, h, w / 4, w / 4));
+        obj.mBody.createFixture(shape, 2f);
+        shape.dispose();
 
         return obj;
     }
