@@ -18,12 +18,27 @@
  */
 package com.agateau.tinywheels;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.StringBuilder;
+
 import java.util.HashMap;
 
 /**
  * Helper class to show debug info on hud
  */
+@SuppressWarnings("unused")
 public class DebugStringMap {
+    private static final String[] PERCENT_VALUES = new String[10];
+    static {
+        StringBuilder builder = new StringBuilder();
+        builder.setLength(10);
+        for (int row = 0; row < PERCENT_VALUES.length; ++row) {
+            for (int idx = 0; idx < builder.length; ++idx) {
+                builder.setCharAt(idx, idx < row ? '=' : '_');
+            }
+            PERCENT_VALUES[row] = builder.toString();
+        }
+    }
     private static HashMap<String, String> sMap = new HashMap<String, String>();
 
     public static HashMap<String, String> getMap() {
@@ -32,5 +47,10 @@ public class DebugStringMap {
 
     public static void put(String key, Object message) {
         sMap.put(key, message.toString());
+    }
+
+    public static void putPercent(String key, float percent) {
+        int idx = MathUtils.clamp((int)(percent * PERCENT_VALUES.length), 0, PERCENT_VALUES.length - 1);
+        sMap.put(key, PERCENT_VALUES[idx]);
     }
 }
