@@ -35,6 +35,17 @@ public class GylMathUtils {
     }
 
     /**
+     * Wrap angles so that they are between -180 and 180
+     */
+    public static float normalizeAngle180(float angle) {
+        angle = normalizeAngle(angle);
+        if (angle > 180) {
+            angle -= 360;
+        }
+        return angle;
+    }
+
+    /**
      * Pick a value from array, interpolating linearly between its elements. For example, assuming
      * array = [0, 1, 4]
      *
