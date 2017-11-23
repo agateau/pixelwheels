@@ -25,6 +25,8 @@ import com.badlogic.gdx.physics.box2d.Body;
  * Make a vehicle spin on itself for a full circle
  */
 public class SpinningComponent implements Racer.Component {
+    private static final float MIN_ANGULAR_VELOCITY = 1f;
+    private static final float MAX_ANGULAR_VELOCITY = 15f;
     private final Vehicle mVehicle;
     private boolean mActive = false;
     private float mDesiredAngle;
@@ -55,13 +57,20 @@ public class SpinningComponent implements Racer.Component {
 
         // Spin
         float nextAngle = body.getAngle() + body.getAngularVelocity() * GameWorld.BOX2D_TIME_STEP;
+        if (nextAngle > mDesiredAngle) {
+            stopSpinning();
+            return;
+        }
+
         float totalRotation = mDesiredAngle - nextAngle;
-        float desiredAngularVelocity = MathUtils.clamp(totalRotation / GameWorld.BOX2D_TIME_STEP, -15, 15);
+        float desiredAngularVelocity = totalRotation / GameWorld.BOX2D_TIME_STEP;
+        if (desiredAngularVelocity < 0) {
+            desiredAngularVelocity = MathUtils.clamp(desiredAngularVelocity, -MAX_ANGULAR_VELOCITY, -MIN_ANGULAR_VELOCITY);
+        } else {
+            desiredAngularVelocity = MathUtils.clamp(desiredAngularVelocity, MIN_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY);
+        }
         float impulse = body.getInertia() * (desiredAngularVelocity - body.getAngularVelocity());
         body.applyAngularImpulse(impulse, true);
-        if (Math.abs(totalRotation) < 1 * MathUtils.degRad) {
-            stopSpinning();
-        }
     }
 
     public void onBeginContact() {
