@@ -1,5 +1,5 @@
 android {
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "26.0.2"
     compileSdkVersion 24
     sourceSets {
         main {
