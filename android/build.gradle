@@ -1,5 +1,5 @@
 android {
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "26.0.2"
     compileSdkVersion 24
     sourceSets {
         main {
@@ -9,6 +9,7 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
         }
 
         instrumentTest.setRoot('tests')
@@ -28,11 +29,7 @@ android {
         exclude "LICENSE.txt"
     }
 }
-// needed to insert JNI shared libraries to APK when compiling on CLI
-tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
-    pkgTask.jniFolders = new HashSet<File>()
-    pkgTask.jniFolders.add(new File(projectDir, 'libs'))
-}
+
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
 // so they get packed with the APK.
