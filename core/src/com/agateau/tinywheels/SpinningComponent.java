@@ -20,11 +20,15 @@ package com.agateau.tinywheels;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  * Make a vehicle spin on itself for a full circle
  */
-public class SpinningComponent implements Racer.Component {
+public class SpinningComponent implements Racer.Component, Collidable {
     private static final float MIN_ANGULAR_VELOCITY = 1f;
     private static final float MAX_ANGULAR_VELOCITY = 15f;
     private final Vehicle mVehicle;
@@ -73,14 +77,6 @@ public class SpinningComponent implements Racer.Component {
         body.applyAngularImpulse(impulse, true);
     }
 
-    public void onBeginContact() {
-        // If we hit something, stop spinning: we may not be able to do a full circle at all if we
-        // are blocked by a wall
-        if (mActive) {
-            stopSpinning();
-        }
-    }
-
     private void stopSpinning() {
         mActive = false;
         setGripEnabled(true);
@@ -90,5 +86,33 @@ public class SpinningComponent implements Racer.Component {
         for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
             info.wheel.setGripEnabled(enabled);
         }
+    }
+
+    @Override
+    public void beginContact(Contact contact, Fixture otherFixture) {
+        // If we hit something, stop spinning: we may not be able to do a full circle at all if we
+        // are blocked by a wall
+        if (!mActive) {
+            return;
+        }
+        Object other = otherFixture.getBody().getUserData();
+        if (!(other instanceof BonusSpot)) {
+            stopSpinning();
+        }
+    }
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
+
     }
 }

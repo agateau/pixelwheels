@@ -39,12 +39,12 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
     private final Array<Component> mComponents = new Array<Component>();
+    private final Array<Collidable> mCollidableComponents = new Array<Collidable>();
 
     private Pilot mPilot;
 
     // State
     private Bonus mBonus;
-    private boolean mMustSelectBonus = false;
 
     interface Component {
         void act(float delta);
@@ -83,11 +83,19 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 
-        mComponents.add(mLapPositionComponent);
-        mComponents.add(mVehicle);
-        mComponents.add(mGroundCollisionHandlerComponent);
-        mComponents.add(mSpinningComponent);
-        mComponents.add(supervisorComponent);
+        addComponent(mLapPositionComponent);
+        addComponent(mVehicle);
+        addComponent(mGroundCollisionHandlerComponent);
+        addComponent(mSpinningComponent);
+        addComponent(supervisorComponent);
+        addComponent(new BonusSpotHitComponent(this));
+    }
+
+    public void addComponent(Component component) {
+        mComponents.add(component);
+        if (component instanceof Collidable) {
+            mCollidableComponents.add((Collidable)component);
+        }
     }
 
     public Pilot getPilot() {
@@ -120,23 +128,16 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        Object other = otherFixture.getBody().getUserData();
-        if (other instanceof BonusSpot) {
-            BonusSpot spot = (BonusSpot)other;
-            spot.pickBonus();
-            if (mBonus == null) {
-                // Do not call selectBonus() from here: it would make it harder for bonus code to
-                // create Box2D bodies: since we are in the collision handling code, the physic
-                // engine is locked so they would have to delay such creations.
-                mMustSelectBonus = true;
-            }
-        } else {
-            mSpinningComponent.onBeginContact();
+        for (Collidable collidable : mCollidableComponents) {
+            collidable.beginContact(contact, otherFixture);
         }
     }
 
     @Override
     public void endContact(Contact contact, Fixture otherFixture) {
+        for (Collidable collidable : mCollidableComponents) {
+            collidable.endContact(contact, otherFixture);
+        }
     }
 
     @Override
@@ -155,10 +156,17 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             body1.applyLinearImpulse(k * (x1 - x2), k * (y1 - y2), x1, y1, true);
             body2.applyLinearImpulse(k * (x2 - x1), k * (y2 - y1), x2, y2, true);
         }
+
+        for (Collidable collidable : mCollidableComponents) {
+            collidable.preSolve(contact, otherFixture, oldManifold);
+        }
     }
 
     @Override
     public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
+        for (Collidable collidable : mCollidableComponents) {
+            collidable.postSolve(contact, otherFixture, impulse);
+        }
     }
 
     @Override
@@ -168,11 +176,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     @Override
     public void act(float delta) {
-        if (mMustSelectBonus) {
-            mMustSelectBonus = false;
-            selectBonus();
-        }
-
         for (Racer.Component component : mComponents) {
             component.act(delta);
         }
@@ -182,7 +185,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
-    private void selectBonus() {
+    public void selectBonus() {
         float normalizedRank = mGameWorld.getRacerNormalizedRank(this);
 
         Array<BonusPool> pools = mGameWorld.getBonusPools();
