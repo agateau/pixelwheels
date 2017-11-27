@@ -25,5 +25,10 @@ public class CollisionCategories {
     public static final int WALL = 1;
     public static final int RACER = 2;
     public static final int RACER_BULLET = 4;
+
+    // Objects which do not stop bullets
     public static final int FLAT_OBJECT = 8;
+
+    // Masks for all bodies vehicles cannot go through
+    public static final int SOLID_BODIES = WALL | RACER | RACER_BULLET | FLAT_OBJECT;
 }

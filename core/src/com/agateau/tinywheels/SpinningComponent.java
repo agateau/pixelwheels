@@ -90,13 +90,12 @@ public class SpinningComponent implements Racer.Component, Collidable {
 
     @Override
     public void beginContact(Contact contact, Fixture otherFixture) {
-        // If we hit something, stop spinning: we may not be able to do a full circle at all if we
-        // are blocked by a wall
         if (!mActive) {
             return;
         }
-        Object other = otherFixture.getBody().getUserData();
-        if (!(other instanceof BonusSpot)) {
+        // If we hit something, stop spinning: we may not be able to do a full circle at all if we
+        // are blocked by a wall
+        if ((otherFixture.getFilterData().categoryBits & CollisionCategories.SOLID_BODIES) != 0) {
             stopSpinning();
         }
     }
