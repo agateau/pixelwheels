@@ -89,6 +89,12 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         addComponent(mSpinningComponent);
         addComponent(supervisorComponent);
         addComponent(new BonusSpotHitComponent(this));
+
+        if (GamePlay.instance.createSpeedReport) {
+            Probe probe = new Probe("speed.dat");
+            mVehicle.setProbe(probe);
+            addComponent(probe);
+        }
     }
 
     public void addComponent(Component component) {

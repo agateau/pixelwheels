@@ -18,8 +18,6 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.utils.CsvWriter;
-import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -65,18 +63,12 @@ class Vehicle implements Racer.Component, Disposable {
     private boolean mStopped = false;
     private float mSpeedLimiter = 1f;
 
-    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
+    private Probe mProbe = null;
 
-    private CsvWriter mSpeedLogger = null;
-    private float mLogTime = 0;
+    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
         mGameWorld = gameWorld;
-        if (GamePlay.instance.createSpeedReport) {
-            mSpeedLogger = new CsvWriter(FileUtils.getUserWritableFile("speed.dat"));
-            mSpeedLogger.setFieldSeparator(' ');
-        }
-
         float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float carH = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
 
@@ -136,6 +128,10 @@ class Vehicle implements Racer.Component, Disposable {
         for (WheelInfo info : mWheels) {
             info.wheel.getBody().setUserData(userData);
         }
+    }
+
+    public void setProbe(Probe probe) {
+        mProbe = probe;
     }
 
     public void setCollisionInfo(int categoryBits, int maskBits) {
@@ -229,12 +225,6 @@ class Vehicle implements Racer.Component, Disposable {
 
     @Override
     public void act(float dt) {
-        if (mSpeedLogger != null) {
-            float speed = mBody.getLinearVelocity().len() * 3.6f;
-            mSpeedLogger.addRow(mLogTime, speed);
-            mLogTime += dt;
-        }
-
         if (!isFlying()) {
             if (mStopped) {
                 actStopping(dt);
@@ -329,18 +319,35 @@ class Vehicle implements Racer.Component, Disposable {
     private float computeSteerAngle() {
         final GamePlay GP = GamePlay.instance;
         if (mDirection == 0) {
+            if (mProbe != null) {
+                float speed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
+                mProbe.addValue("steer", 0);
+                mProbe.addValue("speed", speed);
+                mProbe.addValue("category", 0);
+            }
             return 0;
         }
 
         float speed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
         float steer;
+        // Category is 0 if speed is < GP.lowSpeed, 1 if < GP.maxSpeed, 2 if > GP.maxSpeed
+        // For a better driving experience, it should not reach 2 except when triggering turbos
+        float category;
         if (speed < GP.lowSpeed) {
-            steer = MathUtils.lerp(100, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
+            steer = MathUtils.lerp(GP.stoppedMaxSteer, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
+            category = 0;
         } else if (speed < GP.maxSpeed) {
             float factor = (speed - GP.lowSpeed) / (GP.maxSpeed - GP.lowSpeed);
             steer = MathUtils.lerp(GP.lowSpeedMaxSteer, GP.highSpeedMaxSteer, factor);
+            category = 1;
         } else {
             steer = GP.highSpeedMaxSteer;
+            category = 2;
+        }
+        if (mProbe != null) {
+            mProbe.addValue("steer", steer);
+            mProbe.addValue("speed", speed);
+            mProbe.addValue("category", category);
         }
         return mDirection * steer;
     }
