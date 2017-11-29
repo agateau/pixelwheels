@@ -39,6 +39,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * A set of utility functions for Box2D
  */
 public class Box2DUtils {
+    public static final float MS_TO_KMH = 3.6f;
     private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
     private static final Vector2 LATERAL_VECTOR = new Vector2(0, 1);
 

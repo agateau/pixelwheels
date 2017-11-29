@@ -332,7 +332,7 @@ class Vehicle implements Racer.Component, Disposable {
             return 0;
         }
 
-        float speed = mBody.getLinearVelocity().len() * 3.6f;
+        float speed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
         float steer;
         if (speed < GP.lowSpeed) {
             steer = MathUtils.lerp(100, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
