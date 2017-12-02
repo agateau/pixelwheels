@@ -25,12 +25,13 @@ public class GamePlay {
     public int racerCount = 6;
     public int maxDrivingForce = 70;
     public int lowSpeed = 20;
-    public int maxSpeed = 100;
+    public int maxSpeed = 300;
     public int maxLateralImpulse = 2;
     public int maxSkidmarks = 60;
 
-    public int lowSpeedMaxSteer = 28;
-    public int highSpeedMaxSteer = 6;
+    public int stoppedMaxSteer = 100;
+    public int lowSpeedMaxSteer = 14;
+    public int highSpeedMaxSteer = 4;
     public int vehicleDensity = 14;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
