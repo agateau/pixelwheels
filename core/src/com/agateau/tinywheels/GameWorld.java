@@ -225,7 +225,9 @@ public class GameWorld implements ContactListener, Disposable {
         Array<Vector2> positions = mMapInfo.findStartTilePositions();
         positions.reverse();
 
-        Array<VehicleDef> vehicleDefs = assets.vehicleDefs;
+        Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
+        vehicleDefs.shuffle();
+
         for (Vector2 position : positions) {
             Racer racer;
             if (rank <= players.size) {
