@@ -38,7 +38,7 @@ public class Assets {
     private static final float TURBO_FRAME_DURATION = 0.1f;
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
 
-    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin" };
+    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa" };
 
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{

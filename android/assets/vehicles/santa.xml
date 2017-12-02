@@ -1,0 +1,6 @@
+<vehicle speed="1" name="Santa Truck">
+    <main image="santa"/>
+    <axle y="48" width="26" steer="1"/>
+    <axle y="24" width="28"/>
+    <axle y="9" width="28"/>
+</vehicle>
