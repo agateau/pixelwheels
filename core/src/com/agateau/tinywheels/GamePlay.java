@@ -37,7 +37,7 @@ public class GamePlay {
     public int groundDragFactor = 8;
     public int borderRestitution = 1;
 
-    public int viewportWidth = 70;
+    public int viewportWidth = 60;
 
     public int turboStrength = 300;
     public float turboDuration = 0.9f;
