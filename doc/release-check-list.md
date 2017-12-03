@@ -1,15 +1,22 @@
 # Create archives
 
+- Check source tree is clean
+
+    git checkout master
+    git pull
+    git status
+
 - Bump version number
     - Makefile
     - android/AndroidManifest.xml
 
+- Update changelog
+    vi CHANGELOG.md
+    git commit
+
 - Build archives
 
-    git pull
-
-    git checkout master
-    git status
+    Check signing key is in android/signing.gradle
 
     make clean assets mapscreenshotgenerator packer mappacker dist apk
 
@@ -31,12 +38,15 @@
 # Game page
 
 - Update game page
+    - Screenshots
+    - Archive links
 - Write blog post
 - Publish
 
 # Google Play
 
-- Update Google Play
+- Upload apk
+- Update Google Play page
 - Publish
 
 # Spread
