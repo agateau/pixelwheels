@@ -69,7 +69,7 @@ public class RaceScreen extends ScreenAdapter {
             GameRenderer gameRenderer = new GameRenderer(mGameWorld, vehicle, batch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
 
-            Hud hud = new Hud(game.getAssets(), mHudStage);
+            Hud hud = new Hud(mHudStage);
             HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
             if (Debug.instance.showDebugLayer) {
@@ -123,9 +123,6 @@ public class RaceScreen extends ScreenAdapter {
         }
         mGameWorldPerformanceCounter.stop();
 
-        for (Hud hud : mHuds) {
-            hud.act(delta);
-        }
         for (HudContent hudContent : mHudContents) {
             hudContent.act(delta);
         }

@@ -35,7 +35,6 @@ public class HudButton extends Actor {
     private final static float ICON_VOFFSET_DOWN = 1;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
-    private final Hud mHud;
     private final ClickListener mClickListener;
 
     private TextureRegion mIcon = null;
@@ -43,18 +42,16 @@ public class HudButton extends Actor {
     /**
      * name is a string like "left" or "right"
      */
-    public HudButton(Assets assets, Hud hud, String name) {
-        mHud = hud;
+    public HudButton(Assets assets, String name) {
         mRegions[0] = assets.findRegion("hud-" + name);
         mRegions[1] = assets.findRegion("hud-" + name + "-down");
         setTouchable(Touchable.enabled);
+
+        setWidth(mRegions[0].getRegionWidth());
+        setHeight(mRegions[0].getRegionHeight());
+
         mClickListener = new ClickListener();
         addListener(mClickListener);
-    }
-
-    @Override
-    public void act(float dt) {
-        updateSize();
     }
 
     void setIcon(TextureRegion icon) {
@@ -72,28 +69,23 @@ public class HudButton extends Actor {
         color.a = alpha * BUTTON_OPACITY;
         batch.setColor(color);
 
-        drawScaledRegion(batch, mRegions[isPressed() ? 1 : 0], mHud.getZoom(), 0);
+        drawScaledRegion(batch, mRegions[isPressed() ? 1 : 0], 0);
         if (mIcon != null) {
-            drawScaledRegion(batch, mIcon, mHud.getZoom(), isPressed() ? ICON_VOFFSET_DOWN : ICON_VOFFSET);
+            drawScaledRegion(batch, mIcon, isPressed() ? ICON_VOFFSET_DOWN : ICON_VOFFSET);
         }
 
         color.a = oldA;
         batch.setColor(color);
     }
 
-    private void drawScaledRegion(Batch batch, TextureRegion region, float zoom, float vMargin) {
-        float w = region.getRegionWidth() * zoom;
-        float h = region.getRegionHeight() * zoom;
+    private void drawScaledRegion(Batch batch, TextureRegion region, float vMargin) {
+        float w = region.getRegionWidth();
+        float h = region.getRegionHeight();
         batch.draw(
                 region,
                 MathUtils.round(getX() + (getWidth() - w) / 2),
-                MathUtils.round(getY() + (getHeight() - h) / 2) + vMargin * zoom,
+                MathUtils.round(getY() + (getHeight() - h) / 2) + vMargin,
                 w, h
         );
-    }
-
-    private void updateSize() {
-        setWidth(mRegions[0].getRegionWidth() * mHud.getZoom());
-        setHeight(mRegions[0].getRegionHeight() * mHud.getZoom());
     }
 }
