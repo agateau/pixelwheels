@@ -48,7 +48,7 @@ public class TouchInputHandler implements GameInputHandler {
     }
 
     private GameInput mInput = new GameInput();
-    private HudButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
+    private PieButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
 
     @Override
     public GameInput getGameInput() {
@@ -74,37 +74,36 @@ public class TouchInputHandler implements GameInputHandler {
 
     @Override
     public void createHudButtons(Assets assets, Hud hud) {
-        mLeftButton = new HudButton(assets, hud, "left");
-        mRightButton = new HudButton(assets, hud, "right");
-        mBrakeButton = new HudButton(assets, hud, "back");
-        mBonusButton = new HudButton(assets, hud, "action");
+        final float radius = 132;
+        mLeftButton = new PieButton(assets, hud, "left");
+        mLeftButton.setSector(45, 90);
+        mLeftButton.setRadius(radius);
+        mRightButton = new PieButton(assets, hud, "right");
+        mRightButton.setSector(0, 45);
+        mRightButton.setRadius(radius);
+        mBonusButton = new PieButton(assets, hud, "action");
+        mBonusButton.setSector(90, 135);
+        mBonusButton.setRadius(radius);
+        mBrakeButton = new PieButton(assets, hud, "brake");
+        mBrakeButton.setSector(135, 180);
+        mBrakeButton.setRadius(radius);
 
         AnchorGroup root = hud.getRoot();
 
-        ClickArea leftArea = new ClickArea(mLeftButton);
-        root.addPositionRule(leftArea, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
-        root.addSizeRule(leftArea, root, 0.2f, 0.5f);
-        root.addPositionRule(mLeftButton, Anchor.BOTTOM_CENTER, leftArea, Anchor.BOTTOM_CENTER);
+        root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
+        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
 
-        ClickArea rightArea = new ClickArea(mRightButton);
-        root.addPositionRule(rightArea, Anchor.BOTTOM_LEFT, leftArea, Anchor.BOTTOM_RIGHT);
-        root.addSizeRule(rightArea, root, 0.2f, 0.5f);
-        root.addPositionRule(mRightButton, Anchor.BOTTOM_CENTER, rightArea, Anchor.BOTTOM_CENTER);
-
-        ClickArea brakeArea = new ClickArea(mBrakeButton);
-        root.addSizeRule(brakeArea, root, 0.2f, 0.5f);
-        root.addPositionRule(brakeArea, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
-        root.addPositionRule(mBrakeButton, Anchor.BOTTOM_CENTER, brakeArea, Anchor.BOTTOM_CENTER);
-
-        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, mBrakeButton, Anchor.TOP_RIGHT);
+        root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
     }
 
     @Override
     public void setBonus(Bonus bonus) {
         if (bonus == null) {
-            mBonusButton.setVisible(false);
+            mBonusButton.setEnabled(false);
+            mBonusButton.setIcon(null);
         } else {
-            mBonusButton.setVisible(true);
+            mBonusButton.setEnabled(true);
             mBonusButton.setIcon(bonus.getIconRegion());
         }
     }
