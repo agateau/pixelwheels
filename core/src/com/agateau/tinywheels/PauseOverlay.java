@@ -48,7 +48,6 @@ public class PauseOverlay extends Overlay {
 
     private Actor createContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
-        RacerListPane.register(builder);
         Actor content = builder.build(FileUtils.assets("screens/pauseoverlay.gdxui"));
         builder.getActor("resumeButton").addListener(new ChangeListener() {
             @Override
