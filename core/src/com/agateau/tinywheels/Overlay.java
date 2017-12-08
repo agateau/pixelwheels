@@ -51,9 +51,16 @@ public class Overlay extends WidgetGroup {
     @Override
     public void layout() {
         super.layout();
-        if (mContent != null && mContent.getParent() == null) {
-            mContent.setSize(this.getWidth(), this.getHeight());
-            mContent.setPosition(0, this.getHeight());
+        if (mContent == null) {
+            return;
+        }
+        mContent.setSize(getWidth(), getHeight());
+
+        if (mContent.getParent() == null) {
+            // First time mContent is layouted, position on it above the screen and add an animation
+            // to make it fall down (can't do it in setContent() because we don't know the screen size at
+            // this moment)
+            mContent.setPosition(0, getHeight());
             mContent.addAction(Actions.moveTo(0, 0, IN_DURATION, Interpolation.swingOut));
             addActor(mContent);
         }
