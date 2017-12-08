@@ -18,19 +18,20 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.IntegerFitViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
     private final TwGame mGame;
@@ -42,7 +43,7 @@ public class RaceScreen extends ScreenAdapter {
 
     private Array<Hud> mHuds = new Array<Hud>();
     private Array<HudContent> mHudContents = new Array<HudContent>();
-    private ScreenViewport mHudViewport = new ScreenViewport();
+    private IntegerFitViewport mHudViewport = new IntegerFitViewport(TwStageScreen.WIDTH, TwStageScreen.HEIGHT);
     private final Stage mHudStage;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
@@ -157,16 +158,15 @@ public class RaceScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        float upp = Math.max((float)(TwStageScreen.WIDTH) / width, (float)(TwStageScreen.HEIGHT) / height);
-        mHudViewport.setUnitsPerPixel(upp);
+        mHudViewport.update(width, height, true);
+        int ppu = MathUtils.floor(1 / mHudViewport.getUnitsPerPixel());
         int viewportWidth = width / mGameRenderers.size;
         int x = 0;
         for (int idx = 0; idx < mGameRenderers.size; ++idx) {
             mGameRenderers.get(idx).setScreenRect(x, 0, viewportWidth, height);
-            mHuds.get(idx).setScreenRect((int)(x * upp), 0, (int)(viewportWidth * upp), (int)(height * upp));
+            mHuds.get(idx).setScreenRect(x / ppu, 0, viewportWidth / ppu, height / ppu);
             x += viewportWidth;
         }
-        mHudViewport.update(width, height, true);
     }
 
     private void onFinished() {

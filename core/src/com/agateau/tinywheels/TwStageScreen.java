@@ -18,8 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.agateau.ui.IntegerFitViewport;
 import com.agateau.ui.StageScreen;
 
 /**
@@ -28,7 +27,8 @@ import com.agateau.ui.StageScreen;
 public class TwStageScreen extends StageScreen {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
+
     public TwStageScreen() {
-        super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
+        super(new IntegerFitViewport(WIDTH, HEIGHT));
     }
 }
