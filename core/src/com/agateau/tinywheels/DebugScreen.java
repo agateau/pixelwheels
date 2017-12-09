@@ -64,6 +64,8 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
         mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
         mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
+        addTitle("Input");
+        mGroup.addActor(addCheckBox("Always show touch input", "alwaysShowTouchInput"));
         addTitle("Speed");
         mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
         mGroup.addActor(addRange("Max speed:", "maxSpeed", 10, 400, 10));
