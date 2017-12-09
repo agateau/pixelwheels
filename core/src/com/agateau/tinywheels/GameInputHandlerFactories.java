@@ -37,6 +37,9 @@ public class GameInputHandlerFactories {
 
     public static GameInputHandlerFactory getFactoryById(String id) {
         init();
+        if ("".equals(id)) {
+            return mFactories.first();
+        }
         for (GameInputHandlerFactory factory : mFactories) {
             if (factory.getId().equals(id)) {
                 return factory;
