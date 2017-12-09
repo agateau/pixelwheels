@@ -2,11 +2,15 @@
 import os
 import sys
 
+from collections import namedtuple
 from os.path import join
 
 from PIL import Image
 
 import pafx
+
+
+Button = namedtuple("Button", ("name", "anchor", "size"))
 
 
 DST_DIR = os.path.abspath(sys.argv[1])
@@ -16,18 +20,19 @@ OUTLINE_COLOR = 'black'
 NORMAL_DEPTH = 2
 DOWN_DEPTH = 1
 
-BUTTONS = ['action', 'brake', 'left', 'right']
-
-BUTTON_ANCHORS = {
-    'action': pafx.TOP_RIGHT,
-    'brake': pafx.BOTTOM_LEFT,
-    'left': pafx.TOP_LEFT,
-    'right': pafx.BOTTOM_RIGHT,
-}
-
 OUTLINE_SIZE = 1
 
 FINAL_SIZE = (132, 132 + NORMAL_DEPTH)
+
+PAUSE_SIZE = (80, 80 + NORMAL_DEPTH)
+
+BUTTONS = [
+    Button('action', pafx.TOP_RIGHT, FINAL_SIZE),
+    Button('brake', pafx.BOTTOM_LEFT, FINAL_SIZE),
+    Button('left', pafx.TOP_LEFT, FINAL_SIZE),
+    Button('right', pafx.BOTTOM_RIGHT, FINAL_SIZE),
+    Button('pause', pafx.CENTER, PAUSE_SIZE),
+]
 
 
 def create_button(src, down=False):
@@ -64,16 +69,11 @@ def main():
     os.chdir(os.path.dirname(sys.argv[0]))
 
     for button in BUTTONS:
-        print('Processing "{}"'.format(button))
-        image = Image.open('hud-{}.png'.format(button))
+        print('Processing "{}"'.format(button.name))
+        image = Image.open('hud-{}.png'.format(button.name))
 
-        anchor = BUTTON_ANCHORS[button]
-        create_buttons(image, 'hud-{}'.format(button), anchor=anchor,
-                       final_size=FINAL_SIZE)
-
-    print('Processing "round-button"')
-    image = Image.open('hud-round-button.png')
-    create_buttons(image, 'hud-round-button')
+        create_buttons(image, 'hud-{}'.format(button.name),
+                       anchor=button.anchor, final_size=button.size)
 
 
 if __name__ == '__main__':
