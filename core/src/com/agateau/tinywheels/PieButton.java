@@ -83,25 +83,21 @@ public class PieButton extends Actor {
         color.a = alpha * (mEnabled ? BUTTON_OPACITY : DISABLED_BUTTON_OPACITY);
         batch.setColor(color);
 
-        drawBackground(batch);
+        TextureRegion region = mRegions[isPressed() ? 1 : 0];
+        batch.draw(
+                region,
+                MathUtils.round(getX()),
+                MathUtils.round(getY()),
+                region.getRegionWidth() * mHud.getZoom(),
+                region.getRegionHeight() * mHud.getZoom());
 
         color.a = oldA;
         batch.setColor(color);
     }
 
-    private void drawBackground(Batch batch) {
-        TextureRegion region = mRegions[isPressed() ? 1 : 0];
-        float size = mRadius * mHud.getZoom();
-        batch.draw(
-                region,
-                MathUtils.round(getX()),
-                MathUtils.round(getY()),
-                size, size);
-    }
-
     private void updateSize() {
-        setWidth(mRadius * mHud.getZoom());
-        setHeight(mRadius * mHud.getZoom());
+        setWidth(mRegions[0].getRegionWidth() * mHud.getZoom());
+        setHeight(mRegions[0].getRegionHeight() * mHud.getZoom());
 
         if (mFrom >= 90) {
             setOrigin(getWidth(), 0);
@@ -121,7 +117,8 @@ public class PieButton extends Actor {
         // Check if we are outside the radius
         x -= getOriginX();
         y -= getOriginY();
-        if (x * x + y * y > mRadius * mRadius) {
+        float radius = mRadius * mHud.getZoom();
+        if (x * x + y * y > radius * radius) {
             return null;
         }
 
