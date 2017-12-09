@@ -18,18 +18,29 @@ DOWN_DEPTH = 1
 
 BUTTONS = ['action', 'brake', 'left', 'right']
 
-LEFT_BUTTONS = ['left', 'right']
+BUTTON_ANCHORS = {
+    'action': pafx.TOP_RIGHT,
+    'brake': pafx.BOTTOM_LEFT,
+    'left': pafx.TOP_LEFT,
+    'right': pafx.BOTTOM_RIGHT,
+}
 
-PADDING = 8
+OUTLINE_SIZE = 1
 
-FINAL_SIZE = (132, 132)
+FINAL_SIZE = (132, 132 + NORMAL_DEPTH)
 
 
 def create_button(src, down=False):
-    size = [x + PADDING for x in src.size]
+    size = (src.size[0] + OUTLINE_SIZE * 2,
+            src.size[1] + OUTLINE_SIZE * 2 + NORMAL_DEPTH)
     img = pafx.clone_format(src, size)
+
     depth = DOWN_DEPTH if down else NORMAL_DEPTH
-    pafx.paste(img, src, top_offset=-depth)
+
+    pafx.paste(img, src,
+               src_anchor=pafx.BOTTOM_CENTER,
+               dst_anchor=pafx.BOTTOM_CENTER,
+               top_offset=-(depth + OUTLINE_SIZE))
 
     for x in range(depth):
         img = pafx.add_depth(img, color=DEPTH_COLOR)
@@ -56,8 +67,9 @@ def main():
         print('Processing "{}"'.format(button))
         image = Image.open('hud-{}.png'.format(button))
 
-        anchor = pafx.BOTTOM_LEFT if button in LEFT_BUTTONS else pafx.BOTTOM_RIGHT
-        create_buttons(image, 'hud-{}'.format(button), anchor=anchor, final_size=FINAL_SIZE)
+        anchor = BUTTON_ANCHORS[button]
+        create_buttons(image, 'hud-{}'.format(button), anchor=anchor,
+                       final_size=FINAL_SIZE)
 
     print('Processing "round-button"')
     image = Image.open('hud-round-button.png')
