@@ -31,7 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class PieButton extends Actor {
     private final static float BUTTON_OPACITY = 0.6f;
-    private final static float DISABLED_BUTTON_OPACITY = 0.3f;
+    private final static float DISABLED_BUTTON_OPACITY = 0.2f;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
