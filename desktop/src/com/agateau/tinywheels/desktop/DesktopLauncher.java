@@ -18,16 +18,23 @@
  */
 package com.agateau.tinywheels.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class DesktopLauncher {
     public static void main (String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 800;
-        config.height = 480;
+
+        //config.width = 800; config.height = 480;
+        config.width = 1280; config.height = 720;
+        //config.width = 1920; config.height = 1080;
+        /*
+        config.width = 1920;
+        config.height = 1080;
+        config.fullscreen = true;
+        */
         config.title = "Tiny Wheels";
         FileUtils.appName = "tinywheels";
         new LwjglApplication(new TwGame(), config);

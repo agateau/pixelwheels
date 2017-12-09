@@ -18,19 +18,21 @@
  */
 package com.agateau.ui;
 
+import com.agateau.tinywheels.TwStageScreen;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * A clickable menu item
  */
-public class ButtonMenuItem extends Label implements MenuItem {
+public class ButtonMenuItem extends TextButton implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mRect = new Rectangle();
 
@@ -86,5 +88,28 @@ public class ButtonMenuItem extends Label implements MenuItem {
         mRect.width = getWidth();
         mRect.height = getHeight();
         return mRect;
+    }
+
+    @Override
+    public float getPrefWidth() {
+        return super.getPrefWidth() * getScreenZoom();
+    }
+
+    @Override
+    public float getPrefHeight() {
+        return super.getPrefHeight() * getScreenZoom();
+    }
+
+    private float getScreenZoom() {
+        if (getStage() == null) {
+            return 1;
+        }
+        Viewport viewport = getStage().getViewport();
+        if (viewport == null) {
+            return 1;
+        }
+        float xZoom = viewport.getWorldWidth() / TwStageScreen.WIDTH;
+        float yZoom = viewport.getWorldHeight() / TwStageScreen.HEIGHT;
+        return Math.min(xZoom, yZoom);
     }
 }
