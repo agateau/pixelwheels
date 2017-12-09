@@ -18,10 +18,10 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.agateau.ui.anchor.AnchorGroup;
 
 /**
  * Hud showing player info during race
@@ -61,13 +61,6 @@ class Hud {
     private void updateZoom() {
         float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
         float pxSize = BUTTON_SIZE_CM * ppc;
-        float stageSize = pxSize * mRoot.getStage().getWidth() / Gdx.graphics.getWidth();
-
-        float regionSize = BUTTON_SIZE_PX;
-        if (stageSize < regionSize) {
-            stageSize = regionSize;
-        }
-
-        mZoom = MathUtils.floor(stageSize / regionSize);
+        mZoom = MathUtils.floor(Math.max(pxSize / BUTTON_SIZE_PX, 1));
     }
 }
