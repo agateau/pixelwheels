@@ -99,12 +99,6 @@ public class TouchInputHandler implements GameInputHandler {
 
     @Override
     public void setBonus(Bonus bonus) {
-        if (bonus == null) {
-            mBonusButton.setEnabled(false);
-            mBonusButton.setIcon(null);
-        } else {
-            mBonusButton.setEnabled(true);
-            mBonusButton.setIcon(bonus.getIconRegion());
-        }
+        mBonusButton.setEnabled(bonus != null);
     }
 }

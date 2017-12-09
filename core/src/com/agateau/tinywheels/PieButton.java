@@ -18,7 +18,6 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,17 +32,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class PieButton extends Actor {
     private final static float BUTTON_OPACITY = 0.6f;
     private final static float DISABLED_BUTTON_OPACITY = 0.3f;
-    private final static float ICON_VOFFSET = 2;
-    private final static float ICON_VOFFSET_DOWN = 1;
-    private static final float ICON_RADIUS_RATIO = 0.6f;
-    private static final float ICON_ZOOM = 2;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
 
     private ClickListener mClickListener = new ClickListener();
-
-    private TextureRegion mIcon = null;
 
     private float mFrom = 0f;
     private float mTo = 90f;
@@ -75,10 +68,6 @@ public class PieButton extends Actor {
         updateSize();
     }
 
-    void setIcon(TextureRegion icon) {
-        mIcon = icon;
-    }
-
     boolean isPressed() {
         return mClickListener.isVisualPressed();
     }
@@ -95,9 +84,6 @@ public class PieButton extends Actor {
         batch.setColor(color);
 
         drawBackground(batch);
-        if (mIcon != null) {
-            drawIcon(batch);
-        }
 
         color.a = oldA;
         batch.setColor(color);
@@ -111,24 +97,6 @@ public class PieButton extends Actor {
                 MathUtils.round(getX()),
                 MathUtils.round(getY()),
                 size, size);
-    }
-
-    private void drawIcon(Batch batch) {
-        float zoom = mHud.getZoom();
-        float offset = (isPressed() ? ICON_VOFFSET_DOWN : ICON_VOFFSET) * zoom;
-        float w = mIcon.getRegionWidth() * zoom * ICON_ZOOM;
-        float h = mIcon.getRegionHeight() * zoom * ICON_ZOOM;
-
-        float angle = (mFrom + mTo) / 2;
-        float iconRadius = zoom * mRadius * ICON_RADIUS_RATIO;
-        float x = getX() + getOriginX() + iconRadius * MathUtils.cosDeg(angle) - w / 2;
-        float y = getY() + getOriginY() + iconRadius * MathUtils.sinDeg(angle) - h / 2;
-        batch.draw(
-                mIcon,
-                MathUtils.round(x),
-                MathUtils.round(y + offset),
-                w, h
-        );
     }
 
     private void updateSize() {
