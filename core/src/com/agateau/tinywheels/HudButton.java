@@ -30,15 +30,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Indicate an input zone on the hud
  */
 public class HudButton extends Actor {
-    private final static float BUTTON_OPACITY = 0.6f;
-    private final static float ICON_VOFFSET = 2;
-    private final static float ICON_VOFFSET_DOWN = 1;
+    public final static float BUTTON_OPACITY = 0.5f;
+    public final static float DISABLED_BUTTON_OPACITY = 0.2f;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
     private final ClickListener mClickListener;
-
-    private TextureRegion mIcon = null;
+    private boolean mEnabled = true;
 
     /**
      * name is a string like "left" or "right"
@@ -57,39 +55,34 @@ public class HudButton extends Actor {
         updateSize();
     }
 
-    void setIcon(TextureRegion icon) {
-        mIcon = icon;
-    }
-
     boolean isPressed() {
         return mClickListener.isVisualPressed();
+    }
+
+    void setEnabled(boolean enabled) {
+        mEnabled = enabled;
+    }
+
+    public Hud getHud() {
+        return mHud;
     }
 
     @Override
     public void draw(Batch batch, float alpha) {
         Color color = batch.getColor();
         float oldA = color.a;
-        color.a = alpha * BUTTON_OPACITY;
+        color.a = alpha * (mEnabled ? HudButton.BUTTON_OPACITY : HudButton.DISABLED_BUTTON_OPACITY);
         batch.setColor(color);
 
-        drawScaledRegion(batch, mRegions[isPressed() ? 1 : 0], mHud.getZoom(), 0);
-        if (mIcon != null) {
-            drawScaledRegion(batch, mIcon, mHud.getZoom(), isPressed() ? ICON_VOFFSET_DOWN : ICON_VOFFSET);
-        }
+        batch.draw(
+                mRegions[isPressed() ? 1 : 0],
+                MathUtils.round(getX()),
+                MathUtils.round(getY()),
+                getWidth(), getHeight()
+        );
 
         color.a = oldA;
         batch.setColor(color);
-    }
-
-    private void drawScaledRegion(Batch batch, TextureRegion region, float zoom, float vMargin) {
-        float w = region.getRegionWidth() * zoom;
-        float h = region.getRegionHeight() * zoom;
-        batch.draw(
-                region,
-                MathUtils.round(getX() + (getWidth() - w) / 2),
-                MathUtils.round(getY() + (getHeight() - h) / 2) + vMargin * zoom,
-                w, h
-        );
     }
 
     private void updateSize() {

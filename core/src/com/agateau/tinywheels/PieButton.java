@@ -18,40 +18,22 @@
  */
 package com.agateau.tinywheels;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Indicate an input zone on the hud
  */
-public class PieButton extends Actor {
-    private final static float BUTTON_OPACITY = 0.6f;
-    private final static float DISABLED_BUTTON_OPACITY = 0.2f;
-
-    private final TextureRegion[] mRegions = new TextureRegion[2];
-    private final Hud mHud;
-
-    private ClickListener mClickListener = new ClickListener();
-
+public class PieButton extends HudButton {
     private float mFrom = 0f;
     private float mTo = 90f;
     private float mRadius = 100;
-    private boolean mEnabled = true;
 
     /**
      * name is a string like "left" or "right"
      */
     public PieButton(Assets assets, Hud hud, String name) {
-        mHud = hud;
-        mRegions[0] = assets.findRegion("hud-" + name);
-        mRegions[1] = assets.findRegion("hud-" + name + "-down");
-        setTouchable(Touchable.enabled);
-        addListener(mClickListener);
+        super(assets, hud, name);
     }
 
     public void setSector(int from, int to) {
@@ -65,40 +47,11 @@ public class PieButton extends Actor {
 
     @Override
     public void act(float dt) {
-        updateSize();
+        super.act(dt);
+        updateOrigin();
     }
 
-    boolean isPressed() {
-        return mClickListener.isVisualPressed();
-    }
-
-    void setEnabled(boolean enabled) {
-        mEnabled = enabled;
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha) {
-        Color color = batch.getColor();
-        float oldA = color.a;
-        color.a = alpha * (mEnabled ? BUTTON_OPACITY : DISABLED_BUTTON_OPACITY);
-        batch.setColor(color);
-
-        TextureRegion region = mRegions[isPressed() ? 1 : 0];
-        batch.draw(
-                region,
-                MathUtils.round(getX()),
-                MathUtils.round(getY()),
-                region.getRegionWidth() * mHud.getZoom(),
-                region.getRegionHeight() * mHud.getZoom());
-
-        color.a = oldA;
-        batch.setColor(color);
-    }
-
-    private void updateSize() {
-        setWidth(mRegions[0].getRegionWidth() * mHud.getZoom());
-        setHeight(mRegions[0].getRegionHeight() * mHud.getZoom());
-
+    private void updateOrigin() {
         if (mFrom >= 90) {
             setOrigin(getWidth(), 0);
         } else {
@@ -117,7 +70,7 @@ public class PieButton extends Actor {
         // Check if we are outside the radius
         x -= getOriginX();
         y -= getOriginY();
-        float radius = mRadius * mHud.getZoom();
+        float radius = mRadius * getHud().getZoom();
         if (x * x + y * y > radius * radius) {
             return null;
         }
