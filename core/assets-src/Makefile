@@ -9,14 +9,14 @@ all: hud anims stills vehicles tiles helicopter ui
 clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui
 
 #- Hud ------------------------------------------------------------------------
-# Just enough files to trigger the target
-HUD_FILES := $(OUT_DIR)/sprites/hud-action.png $(OUT_DIR)/sprites/hud-left.png
+# Just enough to trigger the target
+hud: $(OUT_DIR)/sprites/hud-pause.png
 
-hud: $(HUD_FILES)
-
-$(HUD_FILES): sprites/hud-action.png sprites/hud-left.png sprites/hud.py
+$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
-	sprites/hud.py $(OUT_DIR)/sprites
+	aseprite --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
+		--filename-format '{path}/hud-{layer}.{extension}' --save-as sprites/hud/whatever.png
+	sprites/hud/hud.py $(OUT_DIR)/sprites
 
 #- Still images ---------------------------------------------------------------
 STILL_IMAGES := $(wildcard sprites/*.still.ase)

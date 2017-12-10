@@ -18,16 +18,16 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.agateau.ui.anchor.AnchorGroup;
 
 /**
  * Hud showing player info during race
  */
 class Hud {
-    private final static float BUTTON_SIZE_CM = 1.5f;
+    private final static float BUTTON_SIZE_CM = 1.4f;
 
     private final float BUTTON_SIZE_PX;
 
@@ -37,7 +37,7 @@ class Hud {
     public Hud(Assets assets, Stage stage) {
         mRoot = new AnchorGroup();
 
-        BUTTON_SIZE_PX = assets.findRegion("hud-action").getRegionWidth();
+        BUTTON_SIZE_PX = assets.findRegion("hud-pause").getRegionWidth();
         stage.addActor(mRoot);
     }
 
@@ -45,13 +45,10 @@ class Hud {
         return mRoot;
     }
 
-    @SuppressWarnings("UnusedParameters")
-    public void act(float delta) {
-        updateZoom();
-    }
-
+    @SuppressWarnings("SameParameterValue")
     public void setScreenRect(int x, int y, int width, int height) {
         mRoot.setBounds(x, y, width, height);
+        updateZoom();
     }
 
     public float getZoom() {
@@ -61,13 +58,6 @@ class Hud {
     private void updateZoom() {
         float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
         float pxSize = BUTTON_SIZE_CM * ppc;
-        float stageSize = pxSize * mRoot.getStage().getWidth() / Gdx.graphics.getWidth();
-
-        float regionSize = BUTTON_SIZE_PX;
-        if (stageSize < regionSize) {
-            stageSize = regionSize;
-        }
-
-        mZoom = MathUtils.floor(stageSize / regionSize);
+        mZoom = MathUtils.floor(Math.max(pxSize / BUTTON_SIZE_PX, 1));
     }
 }

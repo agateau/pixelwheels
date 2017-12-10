@@ -123,9 +123,6 @@ public class RaceScreen extends ScreenAdapter {
         }
         mGameWorldPerformanceCounter.stop();
 
-        for (Hud hud : mHuds) {
-            hud.act(delta);
-        }
         for (HudContent hudContent : mHudContents) {
             hudContent.act(delta);
         }
