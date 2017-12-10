@@ -59,15 +59,16 @@ public class TouchInputHandler implements GameInputHandler {
 
         if (mBonusButton.isPressed()) {
             mInput.triggeringBonus = true;
-        } else {
-            if (mLeftButton.isPressed()) {
-                mInput.direction = 1;
-            } else if (mRightButton.isPressed()) {
-                mInput.direction = -1;
-            } else if (mBrakeButton.isPressed()) {
-                mInput.accelerating = false;
-                mInput.braking = true;
-            }
+        }
+        if (mLeftButton.isPressed()) {
+            mInput.direction = 1;
+        }
+        if (mRightButton.isPressed()) {
+            mInput.direction = -1;
+        }
+        if (mBrakeButton.isPressed()) {
+            mInput.accelerating = false;
+            mInput.braking = true;
         }
         return mInput;
     }
