@@ -10,9 +10,9 @@ clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clea
 
 #- Hud ------------------------------------------------------------------------
 # Just enough to trigger the target
-hud: $(OUT_DIR)/sprites/hud-action.png
+hud: $(OUT_DIR)/sprites/hud-pause.png
 
-$(OUT_DIR)/sprites/hud-action.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud-round-button.png sprites/hud/hud.py
+$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
 	aseprite --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
 		--filename-format '{path}/hud-{layer}.{extension}' --save-as sprites/hud/whatever.png
