@@ -45,13 +45,10 @@ class Hud {
         return mRoot;
     }
 
-    @SuppressWarnings("UnusedParameters")
-    public void act(float delta) {
-        updateZoom();
-    }
-
+    @SuppressWarnings("SameParameterValue")
     public void setScreenRect(int x, int y, int width, int height) {
         mRoot.setBounds(x, y, width, height);
+        updateZoom();
     }
 
     public float getZoom() {
