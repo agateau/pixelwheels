@@ -27,7 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Hud showing player info during race
  */
 class Hud {
-    private final static float BUTTON_SIZE_CM = 1.5f;
+    private final static float BUTTON_SIZE_CM = 1.4f;
 
     private final float BUTTON_SIZE_PX;
 
