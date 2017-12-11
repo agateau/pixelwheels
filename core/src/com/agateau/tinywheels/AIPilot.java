@@ -66,7 +66,7 @@ public class AIPilot implements Pilot {
 
         Vehicle vehicle = mRacer.getVehicle();
         float targetAngle = GylMathUtils.normalizeAngle(mTargetVector.angle());
-        float vehicleAngle = GylMathUtils.normalizeAngle(vehicle.getAngle());
+        float vehicleAngle = vehicle.getAngle();
         float deltaAngle = targetAngle - vehicleAngle;
         if (deltaAngle > 180) {
             deltaAngle -= 360;
