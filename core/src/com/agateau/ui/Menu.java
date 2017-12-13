@@ -39,7 +39,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Menu extends ScrollPane {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
-    private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
+    private MenuInputHandler mMenuInputHandler;
     private final Image mFocusIndicator;
     private final Group mPaneWidget;
     private final VerticalGroup mContainer;
@@ -91,6 +91,10 @@ public class Menu extends ScrollPane {
         return mStyle;
     }
 
+    public void setMenuInputHandler(MenuInputHandler menuInputHandler) {
+        mMenuInputHandler = menuInputHandler;
+    }
+
     public Actor addButton(String text) {
         return addItem(new ButtonMenuItem(this, text, mSkin));
     }
@@ -116,7 +120,6 @@ public class Menu extends ScrollPane {
     @Override
     public void act(float delta) {
         super.act(delta);
-        mMenuInputHandler.act(delta);
         if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
             if (!getCurrentItem().goDown()) {
                 adjustIndex(1);
@@ -132,10 +135,6 @@ public class Menu extends ScrollPane {
         } else if (mMenuInputHandler.isJustPressed(VirtualKey.TRIGGER)) {
             triggerCurrentItem();
         }
-    }
-
-    public void setKeyMapper(KeyMapper keyMapper) {
-        mMenuInputHandler.setKeyMapper(keyMapper);
     }
 
     public void setCurrentItem(MenuItem item) {

@@ -20,6 +20,7 @@ package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuInputHandler;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
@@ -40,21 +41,22 @@ public class MultiPlayerScreen extends TwStageScreen {
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;
     private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
-    private KeyMapper[] mKeyMappers = new KeyMapper[2];
+    private MenuInputHandler[] mMenuInputHandlers = new MenuInputHandler[2];
 
     public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
 
-        mKeyMappers[0] = new KeyMapper();
-        mKeyMappers[1] = new KeyMapper();
+        mMenuInputHandlers[0] = getMenuInputHandler();
+        mMenuInputHandlers[1] = new MenuInputHandler();
 
-        mKeyMappers[1].put(VirtualKey.LEFT, Input.Keys.X);
-        mKeyMappers[1].put(VirtualKey.RIGHT, Input.Keys.V);
-        mKeyMappers[1].put(VirtualKey.UP, Input.Keys.D);
-        mKeyMappers[1].put(VirtualKey.DOWN, Input.Keys.C);
-        mKeyMappers[1].put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+        KeyMapper secondKeyMapper = mMenuInputHandlers[1].getKeyMapper();
+        secondKeyMapper.put(VirtualKey.LEFT, Input.Keys.X);
+        secondKeyMapper.put(VirtualKey.RIGHT, Input.Keys.V);
+        secondKeyMapper.put(VirtualKey.UP, Input.Keys.D);
+        secondKeyMapper.put(VirtualKey.DOWN, Input.Keys.C);
+        secondKeyMapper.put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
 
         setupUi();
         new RefreshHelper(getStage()) {
@@ -79,9 +81,20 @@ public class MultiPlayerScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mMaestro.actionTriggered("back");
+                onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        mMaestro.actionTriggered("back");
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        mMenuInputHandlers[1].act(delta);
     }
 
     private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
@@ -104,7 +117,7 @@ public class MultiPlayerScreen extends TwStageScreen {
             }
         });
 
-        menu.setKeyMapper(mKeyMappers[idx]);
+        menu.setMenuInputHandler(mMenuInputHandlers[idx]);
         menu.addItem(selector);
     }
 
@@ -127,7 +140,7 @@ public class MultiPlayerScreen extends TwStageScreen {
         for (int idx = 0; idx < 2; ++idx) {
             KeyboardInputHandler inputHandler;
             inputHandler = new KeyboardInputHandler();
-            inputHandler.setKeyMapper(mKeyMappers[idx]);
+            inputHandler.setKeyMapper(mMenuInputHandlers[idx].getKeyMapper());
 
             String id = mVehicleSelectors[idx].getSelectedId();
             gameConfig.multiPlayerVehicles[idx] = id;

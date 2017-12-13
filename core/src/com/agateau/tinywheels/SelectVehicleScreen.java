@@ -59,6 +59,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
+        menu.setMenuInputHandler(getMenuInputHandler());
 
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets);
@@ -76,9 +77,14 @@ public class SelectVehicleScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mMaestro.actionTriggered("back");
+                onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        mMaestro.actionTriggered("back");
     }
 
     private void next() {

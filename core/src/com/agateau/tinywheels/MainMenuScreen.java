@@ -57,6 +57,7 @@ public class MainMenuScreen extends TwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
+        menu.setMenuInputHandler(getMenuInputHandler());
         if (desktop) {
             menu.addButton("One Player").addListener(new ChangeListener() {
                 @Override
@@ -84,5 +85,10 @@ public class MainMenuScreen extends TwStageScreen {
                 mGame.pushScreen(new ConfigScreen(mGame));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Gdx.app.exit();
     }
 }

@@ -19,21 +19,34 @@
 package com.agateau.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * A screen with a stage covering it
  */
-public class StageScreen extends ScreenAdapter {
+public abstract class StageScreen extends ScreenAdapter {
     private Stage mStage;
     private Viewport mViewport;
 
     public StageScreen(Viewport viewport) {
         mViewport = viewport;
         mStage = new Stage(mViewport);
+        mStage.getRoot().addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.BACK) {
+                    onBackPressed();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public Stage getStage() {
@@ -51,6 +64,7 @@ public class StageScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mStage.act(delta);
+        act(delta);
         mStage.draw();
     }
 
@@ -58,5 +72,16 @@ public class StageScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         mViewport.update(width, height, true);
+    }
+
+    /**
+     * This method is called when the player wants to go back to the previous screen
+     * It is called automatically for global "back" shortcuts, but class users can call it
+     * themselves for example from the ClickListener of a Back button
+     */
+    public abstract void onBackPressed();
+
+    public void act(float delta) {
+
     }
 }

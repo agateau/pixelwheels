@@ -81,9 +81,14 @@ public class ConfigScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.popScreen();
+                onBackPressed();
             }
         });
         root.addSizeRule(builder.getActor("gameInputHandlerSelector"), root, 1, SizeRule.IGNORE, -2, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mGame.popScreen();
     }
 }

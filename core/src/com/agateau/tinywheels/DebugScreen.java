@@ -93,9 +93,7 @@ public class DebugScreen extends TwStageScreen {
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mGame.getDebugIntrospector().save();
-                mGame.getGamePlayIntrospector().save();
-                mGame.popScreen();
+                onBackPressed();
             }
         });
 
@@ -181,6 +179,13 @@ public class DebugScreen extends TwStageScreen {
 
     private void addTitle(String title) {
         mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().skin));
+    }
+
+    @Override
+    public void onBackPressed() {
+        mGame.getDebugIntrospector().save();
+        mGame.getGamePlayIntrospector().save();
+        mGame.popScreen();
     }
 
     private class DefaultLabel extends Label {

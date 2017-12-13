@@ -95,6 +95,10 @@ public class MenuInputHandler {
         }
     }
 
+    public KeyMapper getKeyMapper() {
+        return mKeyMapper;
+    }
+
     public void setKeyMapper(KeyMapper keyMapper) {
         mKeyMapper = keyMapper;
     }
