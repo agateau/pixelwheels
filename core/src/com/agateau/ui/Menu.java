@@ -187,7 +187,11 @@ public class Menu extends ScrollPane {
     }
 
     private void updateFocusIndicatorBounds() {
-        Rectangle rect = getCurrentItem().getFocusRectangle();
+        MenuItem item = getCurrentItem();
+        if (item == null) {
+            return;
+        }
+        Rectangle rect = item.getFocusRectangle();
         mFocusIndicator.setBounds(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
         ensureItemVisible();
     }
