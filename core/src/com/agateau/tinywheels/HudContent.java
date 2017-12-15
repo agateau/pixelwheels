@@ -18,16 +18,16 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.agateau.ui.anchor.Anchor;
-import com.agateau.ui.anchor.AnchorGroup;
 
 import java.util.Locale;
 import java.util.Map;

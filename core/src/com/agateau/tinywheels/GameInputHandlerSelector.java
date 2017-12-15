@@ -18,16 +18,16 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.anchor.SizeRule;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.agateau.ui.anchor.Anchor;
-import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.ui.anchor.SizeRule;
 
 /**
  * An actor to select the input handler
