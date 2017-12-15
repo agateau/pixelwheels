@@ -20,6 +20,7 @@ package com.agateau.ui.gallery;
 
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuInputHandler;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.anchor.Anchor;
@@ -45,11 +46,18 @@ import java.util.Locale;
 class GalleryScreen extends StageScreen {
     private TextureAtlas mAtlas;
     private Skin mSkin;
+    private MenuInputHandler mMenuInputHandler = new MenuInputHandler();
 
     GalleryScreen() {
         super(new ScalingViewport(Scaling.fit, 800, 480));
         loadSkin();
         setupUi();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        mMenuInputHandler.act(delta);
     }
 
     private void loadSkin() {
@@ -63,6 +71,7 @@ class GalleryScreen extends StageScreen {
         root.setFillParent(true);
 
         Menu menu = new Menu(mSkin);
+        menu.setMenuInputHandler(mMenuInputHandler);
         menu.addButton("Button A").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -115,5 +124,10 @@ class GalleryScreen extends StageScreen {
         gridMenuItem.setItemRenderer(new TextureRegionItemRenderer());
         gridMenuItem.setItems(items);
         return gridMenuItem;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Gdx.app.exit();
     }
 }
