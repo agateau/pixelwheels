@@ -61,7 +61,6 @@ public class SelectMapScreen extends TwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.setMenuInputHandler(getMenuInputHandler());
 
         mMapSelector = new MapSelector(menu);
         mMapSelector.init(assets);

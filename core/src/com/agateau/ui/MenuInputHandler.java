@@ -33,7 +33,7 @@ public class MenuInputHandler {
         KEY_DOWN,
         REPEATING
     }
-    private KeyMapper mKeyMapper = new KeyMapper();
+    private KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
     private State mState = State.STARTING;
 
     private VirtualKey mPressedVirtualKey = null;

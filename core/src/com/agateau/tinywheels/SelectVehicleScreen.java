@@ -59,7 +59,6 @@ public class SelectVehicleScreen extends TwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.setMenuInputHandler(getMenuInputHandler());
 
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets);

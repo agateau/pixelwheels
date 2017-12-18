@@ -57,7 +57,6 @@ public class MainMenuScreen extends TwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.setMenuInputHandler(getMenuInputHandler());
         if (desktop) {
             menu.addButton("One Player").addListener(new ChangeListener() {
                 @Override

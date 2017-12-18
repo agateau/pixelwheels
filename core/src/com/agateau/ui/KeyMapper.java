@@ -29,6 +29,12 @@ import java.util.HashMap;
 public class KeyMapper {
     private final HashMap<VirtualKey, Integer> mKeyForVirtualKey = new HashMap<VirtualKey, Integer>();
 
+    private static final KeyMapper sDefaultInstance = new KeyMapper();
+
+    public static KeyMapper getDefaultInstance() {
+        return sDefaultInstance;
+    }
+
     public KeyMapper() {
         put(VirtualKey.LEFT, Input.Keys.LEFT);
         put(VirtualKey.RIGHT, Input.Keys.RIGHT);

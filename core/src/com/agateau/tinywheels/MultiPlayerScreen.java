@@ -20,7 +20,6 @@ package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Menu;
-import com.agateau.ui.MenuInputHandler;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
@@ -41,17 +40,17 @@ public class MultiPlayerScreen extends TwStageScreen {
     private final Maestro mMaestro;
     private final GameInfo mGameInfo;
     private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
-    private MenuInputHandler[] mMenuInputHandlers = new MenuInputHandler[2];
+    private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
     public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
 
-        mMenuInputHandlers[0] = getMenuInputHandler();
-        mMenuInputHandlers[1] = new MenuInputHandler();
+        mKeyMappers[0] = KeyMapper.getDefaultInstance();
+        mKeyMappers[1] = new KeyMapper();
 
-        KeyMapper secondKeyMapper = mMenuInputHandlers[1].getKeyMapper();
+        KeyMapper secondKeyMapper = mKeyMappers[1];
         secondKeyMapper.put(VirtualKey.LEFT, Input.Keys.X);
         secondKeyMapper.put(VirtualKey.RIGHT, Input.Keys.V);
         secondKeyMapper.put(VirtualKey.UP, Input.Keys.D);
@@ -91,12 +90,6 @@ public class MultiPlayerScreen extends TwStageScreen {
         mMaestro.actionTriggered("back");
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        mMenuInputHandlers[1].act(delta);
-    }
-
     private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
         GameConfig gameConfig = mGame.getConfig();
         String vehicleId = gameConfig.multiPlayerVehicles[idx];
@@ -117,7 +110,7 @@ public class MultiPlayerScreen extends TwStageScreen {
             }
         });
 
-        menu.setMenuInputHandler(mMenuInputHandlers[idx]);
+        menu.setKeyMapper(mKeyMappers[idx]);
         menu.addItem(selector);
     }
 
@@ -140,7 +133,7 @@ public class MultiPlayerScreen extends TwStageScreen {
         for (int idx = 0; idx < 2; ++idx) {
             KeyboardInputHandler inputHandler;
             inputHandler = new KeyboardInputHandler();
-            inputHandler.setKeyMapper(mMenuInputHandlers[idx].getKeyMapper());
+            inputHandler.setKeyMapper(mKeyMappers[idx]);
 
             String id = mVehicleSelectors[idx].getSelectedId();
             gameConfig.multiPlayerVehicles[idx] = id;

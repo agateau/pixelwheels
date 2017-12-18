@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.MenuInputHandler;
+import com.agateau.ui.KeyMapper;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.utils.Scaling;
@@ -30,21 +30,13 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 public abstract class TwStageScreen extends StageScreen {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
-    private MenuInputHandler mMenuInputHandler = new MenuInputHandler();
 
     public TwStageScreen() {
         super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
     }
 
-    public MenuInputHandler getMenuInputHandler() {
-        return mMenuInputHandler;
-    }
-
     @Override
-    public void act(float delta) {
-        mMenuInputHandler.act(delta);
-        if (mMenuInputHandler.isJustPressed(VirtualKey.BACK)) {
-            onBackPressed();
-        }
+    public boolean isBackKeyPressed() {
+        return KeyMapper.getDefaultInstance().isKeyJustPressed(VirtualKey.BACK);
     }
 }
