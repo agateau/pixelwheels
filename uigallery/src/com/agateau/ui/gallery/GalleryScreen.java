@@ -27,6 +27,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.SizeRule;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -120,5 +121,10 @@ class GalleryScreen extends StageScreen {
     @Override
     public void onBackPressed() {
         Gdx.app.exit();
+    }
+
+    @Override
+    public boolean isBackKeyPressed() {
+        return Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
     }
 }
