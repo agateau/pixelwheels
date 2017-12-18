@@ -71,7 +71,8 @@ public abstract class StageScreen extends ScreenAdapter {
      */
     public abstract void onBackPressed();
 
-    public boolean isBackKeyPressed() {
-        return Gdx.input.isKeyPressed(Input.Keys.BACK);
-    }
+    /**
+     * Must return true if the user pressed a key or activated a control to go back
+     */
+    public abstract boolean isBackKeyPressed();
 }

@@ -51,11 +51,11 @@ public class MultiPlayerScreen extends TwStageScreen {
         mKeyMappers[1] = new KeyMapper();
 
         KeyMapper secondKeyMapper = mKeyMappers[1];
-        secondKeyMapper.put(VirtualKey.LEFT, Input.Keys.X);
-        secondKeyMapper.put(VirtualKey.RIGHT, Input.Keys.V);
-        secondKeyMapper.put(VirtualKey.UP, Input.Keys.D);
-        secondKeyMapper.put(VirtualKey.DOWN, Input.Keys.C);
-        secondKeyMapper.put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+        secondKeyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
+        secondKeyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
+        secondKeyMapper.setKey(VirtualKey.UP, Input.Keys.D);
+        secondKeyMapper.setKey(VirtualKey.DOWN, Input.Keys.C);
+        secondKeyMapper.setKey(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
 
         setupUi();
         new RefreshHelper(getStage()) {

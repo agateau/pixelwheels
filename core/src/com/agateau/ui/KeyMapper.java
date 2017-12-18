@@ -18,6 +18,7 @@
  */
 package com.agateau.ui;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -27,7 +28,7 @@ import java.util.HashMap;
  * Provide mapping between real and virtual keys
  */
 public class KeyMapper {
-    private final HashMap<VirtualKey, Integer> mKeyForVirtualKey = new HashMap<VirtualKey, Integer>();
+    private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<VirtualKey, Integer[]>();
 
     private static final KeyMapper sDefaultInstance = new KeyMapper();
 
@@ -36,23 +37,55 @@ public class KeyMapper {
     }
 
     public KeyMapper() {
-        put(VirtualKey.LEFT, Input.Keys.LEFT);
-        put(VirtualKey.RIGHT, Input.Keys.RIGHT);
-        put(VirtualKey.UP, Input.Keys.UP);
-        put(VirtualKey.DOWN, Input.Keys.DOWN);
-        put(VirtualKey.TRIGGER, Input.Keys.SPACE);
-        put(VirtualKey.BACK, Input.Keys.ESCAPE);
+        setKey(VirtualKey.LEFT, Input.Keys.LEFT);
+        setKey(VirtualKey.RIGHT, Input.Keys.RIGHT);
+        setKey(VirtualKey.UP, Input.Keys.UP);
+        setKey(VirtualKey.DOWN, Input.Keys.DOWN);
+        setKeys(VirtualKey.TRIGGER, new Integer[]{Input.Keys.SPACE, Input.Keys.ENTER});
+        setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
+        if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
+            // Do not add Input.Keys.BACK key on Desktop because it maps to the Windows key
+            addKey(VirtualKey.BACK, Input.Keys.BACK);
+        }
     }
 
-    public void put(VirtualKey vkey, Integer key) {
-        mKeyForVirtualKey.put(vkey, key);
+    public void setKey(VirtualKey vkey, int key) {
+        setKeys(vkey, new Integer[]{key});
+    }
+
+    public void setKeys(VirtualKey vkey, Integer[] keys) {
+        mKeyForVirtualKey.put(vkey, keys);
+    }
+
+    public void addKey(VirtualKey vkey, int key) {
+        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        if (keys == null) {
+            setKey(vkey, key);
+            return;
+        }
+        Integer[] newKeys = new Integer[keys.length + 1];
+        System.arraycopy(keys, 0, newKeys, 0, keys.length);
+        newKeys[keys.length] = key;
+        setKeys(vkey, newKeys);
     }
 
     public boolean isKeyPressed(VirtualKey vkey) {
-        return Gdx.input.isKeyPressed(mKeyForVirtualKey.get(vkey));
+        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        for (Integer key : keys) {
+            if (Gdx.input.isKeyPressed(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isKeyJustPressed(VirtualKey vkey) {
-        return Gdx.input.isKeyJustPressed(mKeyForVirtualKey.get(vkey));
+        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        for (Integer key : keys) {
+            if (Gdx.input.isKeyJustPressed(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
