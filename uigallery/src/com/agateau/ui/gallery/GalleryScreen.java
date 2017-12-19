@@ -21,7 +21,9 @@ package com.agateau.ui.gallery;
 import com.agateau.ui.ButtonMenuItem;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
+
 import com.agateau.ui.MenuItemListener;
+import com.agateau.ui.SelectorMenuItem;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.anchor.Anchor;
@@ -116,6 +118,12 @@ class GalleryScreen extends StageScreen {
                 NLog.e("Button B clicked");
             }
         });
+
+        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem(menu);
+        selectorMenuItem.addEntry("Keyboard", 12);
+        selectorMenuItem.addEntry("Joystick", 24);
+        selectorMenuItem.addEntry("Mind", 36);
+        menu.addItem(selectorMenuItem);
 
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);
