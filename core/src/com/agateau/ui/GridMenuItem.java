@@ -170,7 +170,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
-        final float gutterWidth = (getWidth() - mItemWidth * mColumnCount) / 2;
+        // Space between the vertical edge and the first/last column of items
+        final float gutterWidth = getGutterWidth();
         float x = gutterWidth;
         float y = getHeight() - mItemHeight;
 
@@ -259,7 +260,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         float x = getX() + (mCurrentIndex % mColumnCount) * mItemWidth;
         float y = getY() + getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
         Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
-        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
+        mFocusRectangle.set(x + rect.x + getGutterWidth(), y + rect.y, rect.width, rect.height);
+    }
+
+    private float getGutterWidth() {
+        return (getWidth() - mItemWidth * mColumnCount) / 2;
     }
 
     private void touchDown(float touchX, float touchY) {
