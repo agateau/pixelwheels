@@ -335,9 +335,13 @@ public class UiBuilder {
         return new CheckBox(text, mSkin, styleName);
     }
 
-    @SuppressWarnings("UnusedParameters")
     protected Menu createMenu(XmlReader.Element element) {
-        return new Menu(mSkin);
+        Menu menu = new Menu(mSkin);
+        int width = element.getIntAttribute("defaultItemWidth", 0);
+        if (width > 0) {
+            menu.setDefaultItemWidth(width);
+        }
+        return menu;
     }
 
     protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {

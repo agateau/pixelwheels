@@ -45,6 +45,8 @@ public class Menu extends ScrollPane {
     private final VerticalGroup mContainer;
     private final Skin mSkin;
     private MenuStyle mStyle;
+    private float mDefaultItemWidth = 300;
+
     private int mCurrentIndex = -1;
 
     private final Array<MenuItem> mItems = new Array<MenuItem>();
@@ -93,6 +95,14 @@ public class Menu extends ScrollPane {
 
     public void setKeyMapper(KeyMapper keyMapper) {
         mMenuInputHandler.setKeyMapper(keyMapper);
+    }
+
+    public float getDefaultItemWidth() {
+        return mDefaultItemWidth;
+    }
+
+    public void setDefaultItemWidth(float defaultItemWidth) {
+        mDefaultItemWidth = defaultItemWidth;
     }
 
     public Actor addButton(String text) {

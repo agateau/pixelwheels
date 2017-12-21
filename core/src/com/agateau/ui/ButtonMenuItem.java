@@ -48,6 +48,14 @@ public class ButtonMenuItem extends Label implements MenuItem {
     }
 
     @Override
+    public float getPrefWidth() {
+        if (mMenu == null) {
+            return super.getPrefWidth();
+        }
+        return mMenu.getDefaultItemWidth();
+    }
+
+    @Override
     public Actor getActor() {
         return this;
     }
