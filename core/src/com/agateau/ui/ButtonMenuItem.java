@@ -21,8 +21,8 @@ package com.agateau.ui;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pools;
@@ -30,7 +30,7 @@ import com.badlogic.gdx.utils.Pools;
 /**
  * A clickable menu item
  */
-public class ButtonMenuItem extends Label implements MenuItem {
+public class ButtonMenuItem extends TextButton implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mRect = new Rectangle();
 
