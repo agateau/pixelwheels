@@ -19,14 +19,13 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 /**
  * Main menu, shown at startup
@@ -58,29 +57,29 @@ public class MainMenuScreen extends TwStageScreen {
 
         Menu menu = builder.getActor("menu");
         if (desktop) {
-            menu.addButton("One Player").addListener(new ChangeListener() {
+            menu.addButton("One Player").addListener(new MenuItemListener() {
                 @Override
-                public void changed(ChangeEvent event, Actor actor) {
+                public void triggered() {
                     mGame.showOnePlayer();
                 }
             });
-            menu.addButton("Multi Player").addListener(new ChangeListener() {
+            menu.addButton("Multi Player").addListener(new MenuItemListener() {
                 @Override
-                public void changed(ChangeEvent event, Actor actor) {
+                public void triggered() {
                     mGame.showMultiPlayer();
                 }
             });
         } else {
-            menu.addButton("Start").addListener(new ChangeListener() {
+            menu.addButton("Start").addListener(new MenuItemListener() {
                 @Override
-                public void changed(ChangeEvent event, Actor actor) {
+                public void triggered() {
                     mGame.showOnePlayer();
                 }
             });
         }
-        menu.addButton("Settings").addListener(new ChangeListener() {
+        menu.addButton("Settings").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 mGame.pushScreen(new ConfigScreen(mGame));
             }
         });

@@ -20,6 +20,7 @@ package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
@@ -102,9 +103,9 @@ public class MultiPlayerScreen extends TwStageScreen {
         mVehicleSelectors[idx] = selector;
         selector.init(assets);
         selector.setCurrent(assets.findVehicleDefByID(vehicleId));
-        selector.addListener(new ChangeListener() {
+        selector.addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 readyLabel.setVisible(true);
                 nextIfPossible();
             }

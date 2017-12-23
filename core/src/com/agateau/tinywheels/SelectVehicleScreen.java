@@ -19,13 +19,12 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.Menu;
-import com.agateau.utils.FileUtils;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -66,9 +65,9 @@ public class SelectVehicleScreen extends TwStageScreen {
         mVehicleSelector.setCurrent(assets.findVehicleDefByID(id));
         menu.addItem(mVehicleSelector);
 
-        mVehicleSelector.addListener(new ChangeListener() {
+        mVehicleSelector.addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 next();
             }
         });
