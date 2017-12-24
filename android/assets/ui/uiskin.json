@@ -1,7 +1,7 @@
 {
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
         default-font: {
-            file: aero.fnt
+            file: kenvector-future.fnt
         },
         small-font: {
             file: small.fnt
@@ -21,8 +21,8 @@
     },
     com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
         default: {
-            up: roundbutton,
-            down: roundbutton-down,
+            up: rectbutton,
+            down: rectbutton-down,
             unpressedOffsetY: 2,
             pressedOffsetY: -2
         }
@@ -32,7 +32,8 @@
             up: rectbutton,
             down: rectbutton-down,
             font: default-font,
-            fontColor: white
+            fontColor: white,
+            pressedOffsetY: -2
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {

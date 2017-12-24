@@ -37,6 +37,7 @@ public class SelectVehicleScreen extends TwStageScreen {
     private VehicleSelector mVehicleSelector;
 
     public SelectVehicleScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+        super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
@@ -51,7 +52,7 @@ public class SelectVehicleScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);

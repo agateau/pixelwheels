@@ -34,6 +34,7 @@ public class MainMenuScreen extends TwStageScreen {
     private final TwGame mGame;
 
     public MainMenuScreen(TwGame game) {
+        super(game.getAssets().ui);
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {
@@ -46,7 +47,7 @@ public class MainMenuScreen extends TwStageScreen {
 
     private void setupUi() {
         boolean desktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
-        UiBuilder builder = new UiBuilder(mGame.getAssets().uiAtlas, mGame.getAssets().skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
         if (desktop) {
             builder.defineVariable("desktop");
         }

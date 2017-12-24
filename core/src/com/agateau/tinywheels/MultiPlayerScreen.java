@@ -44,6 +44,7 @@ public class MultiPlayerScreen extends TwStageScreen {
     private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
     public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+        super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
@@ -69,7 +70,7 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);

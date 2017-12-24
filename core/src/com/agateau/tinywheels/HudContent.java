@@ -53,7 +53,7 @@ public class HudContent {
         mGameWorld = gameWorld;
         mHud = hud;
         mPlayerId = playerId;
-        Skin skin = assets.skin;
+        Skin skin = assets.ui.skin;
         mLapLabel = new Label("", skin);
         mLapLabel.setAlignment(Align.right);
 
@@ -68,7 +68,7 @@ public class HudContent {
 
     public void setPerformanceCounters(PerformanceCounters performanceCounters) {
         mPerformanceCounters = performanceCounters;
-        mDebugLabel = new Label("D", mAssets.skin, "small");
+        mDebugLabel = new Label("D", mAssets.ui.skin, "small");
 
         AnchorGroup root = mHud.getRoot();
         root.addPositionRule(mDebugLabel, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);

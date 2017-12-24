@@ -37,6 +37,7 @@ public class ConfigScreen extends TwStageScreen {
     private final TwGame mGame;
 
     public ConfigScreen(TwGame game) {
+        super(game.getAssets().ui);
         mGame = game;
         setupUi();
         new RefreshHelper(getStage()) {
@@ -50,11 +51,11 @@ public class ConfigScreen extends TwStageScreen {
     private void setupUi() {
         final GameConfig gameConfig = mGame.getConfig();
 
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         builder.registerActorFactory("GameInputHandlerSelector", new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(XmlReader.Element element) {
-                return new GameInputHandlerSelector(gameConfig, mGame.getAssets().skin);
+                return new GameInputHandlerSelector(gameConfig, mGame.getAssets().ui.skin);
             }
         });
 

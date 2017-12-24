@@ -21,6 +21,8 @@ package com.agateau.tinywheels;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.VirtualKey;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
@@ -31,8 +33,13 @@ public abstract class TwStageScreen extends StageScreen {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
 
-    public TwStageScreen() {
+    public TwStageScreen(Assets.UiAssets uiAssets) {
         super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
+
+        Image image = new Image();
+        image.setDrawable(new TiledDrawable(uiAssets.background));
+        image.setFillParent(true);
+        getStage().addActor(image);
     }
 
     @Override

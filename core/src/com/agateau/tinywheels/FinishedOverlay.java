@@ -46,7 +46,7 @@ public class FinishedOverlay extends Overlay {
     }
 
     private Actor createContent(Array<Racer> racers, final Array<Racer> playerRacers) {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         RacerListPane.register(builder);
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         builder.getActor("restartButton").addListener(new ChangeListener() {
@@ -62,7 +62,7 @@ public class FinishedOverlay extends Overlay {
             }
         });
         RacerListPane racerListPane = builder.getActor("racerListPane");
-        racerListPane.init(mGame.getAssets().skin, racers, playerRacers);
+        racerListPane.init(mGame.getAssets().ui.skin, racers, playerRacers);
         return content;
     }
 }
