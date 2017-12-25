@@ -84,8 +84,8 @@ public class Menu extends ScrollPane {
         mContainer.pad(mStyle.focusPadding);
         mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
 
-        mPaneWidget.addActor(mContainer);
         mPaneWidget.addActor(mFocusIndicator);
+        mPaneWidget.addActor(mContainer);
 
         setWidget(mPaneWidget);
     }
