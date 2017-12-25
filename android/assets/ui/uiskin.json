@@ -1,7 +1,7 @@
 {
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
         default-font: {
-            file: ubuntu.fnt
+            file: aero.fnt
         },
         small-font: {
             file: small.fnt
