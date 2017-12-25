@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel"
+        <Label id="mainLabel" style="title"
                topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
 
         <Menu id="menu1" centerRight="root.center -1 1" width="300" height="200"/>

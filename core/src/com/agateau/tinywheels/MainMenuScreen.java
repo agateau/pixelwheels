@@ -58,27 +58,27 @@ public class MainMenuScreen extends TwStageScreen {
 
         Menu menu = builder.getActor("menu");
         if (desktop) {
-            menu.addButton("One Player").addListener(new MenuItemListener() {
+            menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
                     mGame.showOnePlayer();
                 }
             });
-            menu.addButton("Multi Player").addListener(new MenuItemListener() {
+            menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
                     mGame.showMultiPlayer();
                 }
             });
         } else {
-            menu.addButton("Start").addListener(new MenuItemListener() {
+            menu.addButton("START").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
                     mGame.showOnePlayer();
                 }
             });
         }
-        menu.addButton("Settings").addListener(new MenuItemListener() {
+        menu.addButton("SETTINGS").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
                 mGame.pushScreen(new ConfigScreen(mGame));

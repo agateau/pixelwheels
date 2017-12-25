@@ -1,10 +1,13 @@
 {
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
         default-font: {
-            file: kenvector-future.fnt
+            file: ubuntu.fnt
         },
         small-font: {
             file: small.fnt
+        },
+        title-font: {
+            file: aero.fnt
         }
     },
     com.badlogic.gdx.graphics.Color: {
@@ -39,6 +42,10 @@
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
         default: { font: default-font, fontColor: white },
         small: { font: small-font, fontColor: white },
+        title: {
+            font: title-font,
+            fontColor: white
+        },
         highScore: {
             font: default-font,
             fontColor: white
