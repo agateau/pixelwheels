@@ -4,7 +4,7 @@
         <Label id="mainLabel" style="title"
                topCenter="root.topCenter 0 -2">Select Map</Label>
 
-        <Menu id="menu" center="root.center"/>
+        <Menu id="menu" center="root.center" style="large"/>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

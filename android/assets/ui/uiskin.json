@@ -20,6 +20,9 @@
             g: 1,
             b: 0,
             a: 1
+        },
+        highlight: {
+            r: 0.965, g: 0.459, b: 0.478, a: 1
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
@@ -52,7 +55,7 @@
         },
         newHighScore: {
             font: default-font,
-            fontColor: yellow
+            fontColor: highlight
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -65,6 +68,11 @@
     },
     com.agateau.ui.Menu$MenuStyle: {
         default: {
+            focus: focus,
+            focusPadding: 2,
+            spacing: 16
+        },
+        large: {
             focus: focus,
             focusPadding: 8,
             spacing: 16
