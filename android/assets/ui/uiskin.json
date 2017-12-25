@@ -59,7 +59,8 @@
     com.agateau.ui.Menu$MenuStyle: {
         default: {
             focus: focus,
-            focusPadding: 8
+            focusPadding: 8,
+            spacing: 16
         }
     },
     com.agateau.ui.GridMenuItem$GridMenuItemStyle: {

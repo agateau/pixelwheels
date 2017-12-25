@@ -53,6 +53,7 @@ public class Menu extends ScrollPane {
 
     public static class MenuStyle {
         public Drawable focus;
+        public int spacing;
         public int focusPadding;
 
         public MenuStyle() {
@@ -77,7 +78,7 @@ public class Menu extends ScrollPane {
             }
         };
         mContainer.pad(mStyle.focusPadding);
-        mContainer.space(mStyle.focusPadding * 2);
+        mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
 
         mPaneWidget.addActor(mContainer);
         mPaneWidget.addActor(mFocusIndicator);
