@@ -336,7 +336,8 @@ public class UiBuilder {
     }
 
     protected Menu createMenu(XmlReader.Element element) {
-        Menu menu = new Menu(mSkin);
+        String styleName = element.getAttribute("style", "default");
+        Menu menu = new Menu(mSkin, styleName);
         int width = element.getIntAttribute("defaultItemWidth", 0);
         if (width > 0) {
             menu.setDefaultItemWidth(width);

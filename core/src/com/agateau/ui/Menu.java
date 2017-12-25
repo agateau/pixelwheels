@@ -61,9 +61,13 @@ public class Menu extends ScrollPane {
     }
 
     public Menu(Skin skin) {
+        this(skin, "default");
+    }
+
+    public Menu(Skin skin, String styleName) {
         super(null);
         mSkin = skin;
-        mStyle = skin.get(MenuStyle.class);
+        mStyle = skin.get(styleName, MenuStyle.class);
 
         mFocusIndicator = new Image(mStyle.focus);
         mFocusIndicator.setTouchable(Touchable.disabled);
