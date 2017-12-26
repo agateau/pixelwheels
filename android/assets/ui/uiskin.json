@@ -1,15 +1,4 @@
 {
-    com.badlogic.gdx.graphics.g2d.BitmapFont: {
-        default-font: {
-            file: aero.fnt
-        },
-        small-font: {
-            file: small.fnt
-        },
-        title-font: {
-            file: aero.fnt
-        }
-    },
     com.badlogic.gdx.graphics.Color: {
         green: { a: 1, b: 0, g: 1, r: 0 },
         white: { a: 1, b: 1, g: 1, r: 1 },
@@ -56,6 +45,12 @@
         newHighScore: {
             font: default-font,
             fontColor: highlight
+        },
+        hud: {
+            font: hud-font
+        },
+        hud-rank: {
+            font: hud-rank-font
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

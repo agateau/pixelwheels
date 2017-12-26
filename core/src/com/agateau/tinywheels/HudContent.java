@@ -42,6 +42,7 @@ public class HudContent {
     private final Hud mHud;
     private PerformanceCounters mPerformanceCounters = null;
 
+    private final Label mRankLabel;
     private final Label mLapLabel;
     private final Label mFinishedLabel;
     private Label mDebugLabel = null;
@@ -54,15 +55,20 @@ public class HudContent {
         mHud = hud;
         mPlayerId = playerId;
         Skin skin = assets.ui.skin;
-        mLapLabel = new Label("", skin);
+
+        mRankLabel = new Label("", skin, "hud-rank");
+        mRankLabel.setAlignment(Align.right);
+
+        mLapLabel = new Label("", skin, "hud");
         mLapLabel.setAlignment(Align.right);
 
-        mFinishedLabel = new Label("Finished!", skin);
+        mFinishedLabel = new Label("Finished!", skin, "hud");
         mFinishedLabel.setVisible(false);
 
         AnchorGroup root = hud.getRoot();
 
-        root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
+        root.addPositionRule(mRankLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
+        root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, mRankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
         root.addPositionRule(mFinishedLabel, Anchor.CENTER, root, Anchor.CENTER);
     }
 
@@ -97,11 +103,14 @@ public class HudContent {
         int rank = mGameWorld.getPlayerRank(mPlayerId);
 
         mStringBuilder.setLength(0);
-        mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank)).append('\n')
-                .append("Lap ").append(lapCount).append('/').append(totalLapCount);
-
+        mStringBuilder.append("Lap ").append(lapCount).append('/').append(totalLapCount);
         mLapLabel.setText(mStringBuilder);
         mLapLabel.pack();
+
+        mStringBuilder.setLength(0);
+        mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank));
+        mRankLabel.setText(mStringBuilder);
+        mRankLabel.pack();
     }
 
     private static StringBuilder sDebugSB = new StringBuilder();
