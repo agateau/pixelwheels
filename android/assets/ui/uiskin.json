@@ -45,6 +45,12 @@
         newHighScore: {
             font: default-font,
             fontColor: highlight
+        },
+        hud: {
+            font: hud-font
+        },
+        hud-rank: {
+            font: hud-rank-font
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
