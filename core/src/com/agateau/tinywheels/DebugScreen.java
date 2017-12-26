@@ -45,12 +45,13 @@ public class DebugScreen extends TwStageScreen {
     private Introspector mCurrentIntrospector = null;
 
     public DebugScreen(TwGame game) {
+        super(game.getAssets().ui);
         mGame = game;
         setupUi();
     }
 
     private void setupUi() {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/debug.gdxui"));
         root.setFillParent(true);
@@ -106,7 +107,7 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
         final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().skin);
+        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().ui.skin);
         boolean checked = introspector.get(keyName);
         checkBox.setChecked(checked);
 
@@ -133,7 +134,7 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
         final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().skin);
+        final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().ui.skin);
         spinBox.setStepSize(stepSize);
         spinBox.setValue(introspector.getInt(keyName));
         spinBox.addListener(new ChangeListener() {
@@ -152,7 +153,7 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
         final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().skin);
+        final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().ui.skin);
         spinBox.setStepSize(stepSize);
         spinBox.setValue(introspector.getFloat(keyName));
         spinBox.addListener(new ChangeListener() {
@@ -169,7 +170,7 @@ public class DebugScreen extends TwStageScreen {
 
     private Actor createRow(String text, Actor actor1, Actor actor2) {
         final HorizontalGroup group = new HorizontalGroup();
-        group.addActor(new Label(text + " ", mGame.getAssets().skin));
+        group.addActor(new Label(text + " ", mGame.getAssets().ui.skin));
         group.addActor(actor1);
         if (actor2 != null) {
             group.addActor(actor2);
@@ -178,7 +179,7 @@ public class DebugScreen extends TwStageScreen {
     }
 
     private void addTitle(String title) {
-        mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().skin));
+        mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().ui.skin));
     }
 
     @Override
@@ -193,7 +194,7 @@ public class DebugScreen extends TwStageScreen {
         private final Introspector mIntrospector;
 
         public DefaultLabel(String keyName, Introspector introspector) {
-            super("", mGame.getAssets().skin);
+            super("", mGame.getAssets().ui.skin);
             mKeyName = keyName;
             mIntrospector = introspector;
             update();

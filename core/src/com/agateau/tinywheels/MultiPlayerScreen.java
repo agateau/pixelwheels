@@ -20,6 +20,7 @@ package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
@@ -43,6 +44,7 @@ public class MultiPlayerScreen extends TwStageScreen {
     private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
     public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+        super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
@@ -68,7 +70,7 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);
@@ -102,9 +104,9 @@ public class MultiPlayerScreen extends TwStageScreen {
         mVehicleSelectors[idx] = selector;
         selector.init(assets);
         selector.setCurrent(assets.findVehicleDefByID(vehicleId));
-        selector.addListener(new ChangeListener() {
+        selector.addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 readyLabel.setVisible(true);
                 nextIfPossible();
             }

@@ -19,13 +19,12 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.Menu;
-import com.agateau.utils.FileUtils;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -39,6 +38,7 @@ public class SelectMapScreen extends TwStageScreen {
     private MapSelector mMapSelector;
 
     public SelectMapScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+        super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
         mGameInfo = gameInfo;
@@ -54,7 +54,7 @@ public class SelectMapScreen extends TwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.skin);
+        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectmap.gdxui"));
         root.setFillParent(true);
@@ -67,9 +67,9 @@ public class SelectMapScreen extends TwStageScreen {
         mMapSelector.setCurrent(assets.findMapInfoByID(mGameModeConfig.map));
         menu.addItem(mMapSelector);
 
-        mMapSelector.addListener(new ChangeListener() {
+        mMapSelector.addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 next();
             }
         });

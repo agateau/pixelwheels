@@ -45,12 +45,15 @@ public class Menu extends ScrollPane {
     private final VerticalGroup mContainer;
     private final Skin mSkin;
     private MenuStyle mStyle;
+    private float mDefaultItemWidth = 300;
+
     private int mCurrentIndex = -1;
 
     private final Array<MenuItem> mItems = new Array<MenuItem>();
 
     public static class MenuStyle {
         public Drawable focus;
+        public int spacing;
         public int focusPadding;
 
         public MenuStyle() {
@@ -58,9 +61,13 @@ public class Menu extends ScrollPane {
     }
 
     public Menu(Skin skin) {
+        this(skin, "default");
+    }
+
+    public Menu(Skin skin, String styleName) {
         super(null);
         mSkin = skin;
-        mStyle = skin.get(MenuStyle.class);
+        mStyle = skin.get(styleName, MenuStyle.class);
 
         mFocusIndicator = new Image(mStyle.focus);
         mFocusIndicator.setTouchable(Touchable.disabled);
@@ -75,10 +82,10 @@ public class Menu extends ScrollPane {
             }
         };
         mContainer.pad(mStyle.focusPadding);
-        mContainer.space(mStyle.focusPadding * 2);
+        mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
 
-        mPaneWidget.addActor(mContainer);
         mPaneWidget.addActor(mFocusIndicator);
+        mPaneWidget.addActor(mContainer);
 
         setWidget(mPaneWidget);
     }
@@ -93,6 +100,14 @@ public class Menu extends ScrollPane {
 
     public void setKeyMapper(KeyMapper keyMapper) {
         mMenuInputHandler.setKeyMapper(keyMapper);
+    }
+
+    public float getDefaultItemWidth() {
+        return mDefaultItemWidth;
+    }
+
+    public void setDefaultItemWidth(float defaultItemWidth) {
+        mDefaultItemWidth = defaultItemWidth;
     }
 
     public Actor addButton(String text) {

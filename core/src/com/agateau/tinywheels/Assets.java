@@ -32,6 +32,20 @@ import java.util.HashMap;
  * Stores all assets
  */
 public class Assets {
+    public static class UiAssets {
+        public final Skin skin;
+        public final TextureAtlas atlas;
+        public final TextureRegion background;
+        public final NinePatch selection;
+
+        UiAssets() {
+            this.atlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
+            this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.atlas);
+            this.background = this.atlas.findRegion("background");
+            this.selection = this.atlas.createPatch("focus");
+        }
+    }
+
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
     private static final float IMPACT_FRAME_DURATION = 0.05f;
     private static final float MINE_FRAME_DURATION = 0.2f;
@@ -46,10 +60,10 @@ public class Assets {
             new MapInfo("be", "City"),
             new MapInfo("tiny-sur-mer", "Tiny sur Mer"),
     });
-    public final Skin skin;
+    public final UiAssets ui = new UiAssets();
+
     public final TextureRegion wheel;
     public final TextureRegion dot;
-    public final TextureAtlas uiAtlas;
     public final TextureAtlas atlas;
     public final Animation explosion;
     public final Animation impact;
@@ -61,7 +75,6 @@ public class Assets {
     public final Animation gunAnimation;
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
-    public final NinePatch selection;
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
@@ -72,8 +85,7 @@ public class Assets {
         if (GamePlay.instance.showTestTrack) {
             mapInfos.add(new MapInfo("test", "Test"));
         }
-        this.uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
-        this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"), this.uiAtlas);
+
         this.atlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion = new Animation(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
@@ -93,8 +105,6 @@ public class Assets {
         removeBorders(this.dot);
 
         this.skidmark = findRegion("skidmark");
-
-        this.selection = uiAtlas.createPatch("focus");
 
         this.helicopterBody = this.findRegion("helicopter-body");
         this.helicopterPropeller = this.findRegion("helicopter-propeller");

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel"
+        <Label id="mainLabel" style="title"
                topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
 
-        <Menu id="menu1" centerRight="root.center -1 1" width="300" height="200"/>
+        <Menu id="menu1" centerRight="root.center -1 1" width="300" height="200" style="large"/>
         <Label id="ready1" center="menu1.center" visible="false">Ready!</Label>
-        <Menu id="menu2" centerLeft="root.center 1 1" width="300" height="200"/>
+        <Menu id="menu2" centerLeft="root.center 1 1" width="300" height="200" style="large"/>
         <Label id="ready2" center="menu2.center" visible="false">Ready!</Label>
 
         <Label topCenter="menu1.bottomCenter">Keys: Arrows\nSpace</Label>

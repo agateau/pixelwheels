@@ -19,13 +19,14 @@
 package com.agateau.tinywheels;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Pools;
 
 /**
@@ -45,19 +46,16 @@ public abstract class SpinBox<T extends Number> extends HorizontalGroup {
         Button decButton = new TextButton("-", skin);
         Button incButton = new TextButton("+", skin);
 
-        decButton.addListener(new ChangeListener() {
+        decButton.addListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void clicked(InputEvent event, float x, float y) {
                 setValue(tFromFloat(mValue - mStepSize));
-                // Cancel the event so that the button does not stay down
-                event.cancel();
             }
         });
-        incButton.addListener(new ChangeListener() {
+        incButton.addListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+                public void clicked(InputEvent event, float x, float y) {
                 setValue(tFromFloat(mValue + mStepSize));
-                event.cancel();
             }
         });
 

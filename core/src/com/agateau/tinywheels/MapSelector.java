@@ -32,7 +32,7 @@ public class MapSelector extends GridMenuItem<MapInfo> {
     private class Renderer extends TextureRegionItemRendererAdapter<MapInfo> {
         @Override
         protected TextureRegion getItemRegion(MapInfo mapInfo) {
-            return mAssets.uiAtlas.findRegion("map-screenshots/" + mapInfo.getId());
+            return mAssets.ui.atlas.findRegion("map-screenshots/" + mapInfo.getId());
         }
     }
 

@@ -20,6 +20,7 @@ package com.agateau.ui.gallery;
 
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.anchor.Anchor;
@@ -30,9 +31,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -64,31 +63,31 @@ class GalleryScreen extends StageScreen {
         root.setFillParent(true);
 
         Menu menu = new Menu(mSkin);
-        menu.addButton("Button A").addListener(new ChangeListener() {
+        menu.addButton("Button A").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 NLog.e("Button A clicked");
             }
         });
-        menu.addButton("Button B").addListener(new ChangeListener() {
+        menu.addButton("Button B").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 NLog.e("Button B clicked");
             }
         });
 
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);
-        menu.addButton("Add column").addListener(new ChangeListener() {
+        menu.addButton("Add column").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 gridMenuItem.setColumnCount(gridMenuItem.getColumnCount() + 1);
             }
         });
 
-        menu.addButton("Quit").addListener(new ChangeListener() {
+        menu.addButton("Quit").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 Gdx.app.exit();
             }
         });
