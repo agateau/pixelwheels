@@ -18,15 +18,19 @@
  */
 package com.agateau.ui;
 
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -45,11 +49,15 @@ public class Menu extends ScrollPane {
     private final VerticalGroup mContainer;
     private final Skin mSkin;
     private MenuStyle mStyle;
+
+    private float mLabelColumnWidth = 120;
     private float mDefaultItemWidth = 300;
 
     private int mCurrentIndex = -1;
 
     private final Array<MenuItem> mItems = new Array<MenuItem>();
+
+    private Vector2 mTmp = new Vector2();
 
     public static class MenuStyle {
         public Drawable focus;
@@ -110,17 +118,53 @@ public class Menu extends ScrollPane {
         mDefaultItemWidth = defaultItemWidth;
     }
 
+    public float getLabelColumnWidth() {
+        return mLabelColumnWidth;
+    }
+
+    public void setLabelColumnWidth(float labelColumnWidth) {
+        mLabelColumnWidth = labelColumnWidth;
+    }
+
     public Actor addButton(String text) {
         return addItem(new ButtonMenuItem(this, text, mSkin));
     }
 
+    /**
+     * Add a full-width item
+     */
     public Actor addItem(MenuItem item) {
+        return addItemInternal(item, item.getActor());
+    }
+
+    /**
+     * Add a [label - item] row
+     */
+    public Actor addItemWithLabel(String labelText, MenuItem item) {
+        Actor actor = item.getActor();
+        float height = actor.getHeight();
+
+        Label label = new Label(labelText, mSkin);
+        label.setSize(mLabelColumnWidth, height);
+
+        actor.setWidth(mDefaultItemWidth - mLabelColumnWidth);
+
+        AnchorGroup group = new AnchorGroup();
+        group.setSize(mDefaultItemWidth, height);
+
+        group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
+        group.addPositionRule(actor, Anchor.TOP_RIGHT, group, Anchor.TOP_RIGHT);
+
+        return addItemInternal(item, group);
+    }
+
+    private Actor addItemInternal(MenuItem item, Actor containerActor) {
         mItems.add(item);
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
         }
 
-        mContainer.addActor(item.getActor());
+        mContainer.addActor(containerActor);
 
         float width = mContainer.getPrefWidth();
         float height = mContainer.getPrefHeight();
@@ -197,6 +241,7 @@ public class Menu extends ScrollPane {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
+        mapDescendantRectangle(item.getActor(), rect);
         mFocusIndicator.addAction(Actions.moveTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         ensureItemVisible();
@@ -208,6 +253,7 @@ public class Menu extends ScrollPane {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
+        mapDescendantRectangle(item.getActor(), rect);
         mFocusIndicator.setBounds(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
         ensureItemVisible();
     }
@@ -215,6 +261,14 @@ public class Menu extends ScrollPane {
     private void ensureItemVisible() {
         MenuItem item = getCurrentItem();
         Rectangle rect = item.getFocusRectangle();
+        mapDescendantRectangle(item.getActor(), rect);
         scrollTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
+    }
+
+    private void mapDescendantRectangle(Actor actor, Rectangle rect) {
+        mTmp.set(rect.x, rect.y);
+        mTmp = actor.localToAscendantCoordinates(mContainer, mTmp);
+        rect.x = mTmp.x;
+        rect.y = mTmp.y;
     }
 }

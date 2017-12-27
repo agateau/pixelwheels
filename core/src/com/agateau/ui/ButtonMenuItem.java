@@ -44,6 +44,10 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         }
     };
 
+    public ButtonMenuItem(Menu menu, String text) {
+        this(menu, text, menu.getSkin());
+    }
+
     public ButtonMenuItem(Menu menu, String text, Skin skin) {
         super(text, skin);
         mMenu = menu;
@@ -112,8 +116,8 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     @Override
     public Rectangle getFocusRectangle() {
-        mRect.x = getX();
-        mRect.y = getY();
+        mRect.x = 0;
+        mRect.y = 0;
         mRect.width = getWidth();
         mRect.height = getHeight();
         return mRect;

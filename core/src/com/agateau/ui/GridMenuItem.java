@@ -253,8 +253,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         T item = mItems.get(mCurrentIndex);
-        float x = getX() + (mCurrentIndex % mColumnCount) * mItemWidth;
-        float y = getY() + getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
+        float x = (mCurrentIndex % mColumnCount) * mItemWidth;
+        float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
         Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
         mFocusRectangle.set(x + rect.x + getGutterWidth(), y + rect.y, rect.width, rect.height);
     }
