@@ -42,5 +42,9 @@ public interface MenuItem {
     void goLeft();
     void goRight();
 
+    /**
+     * Returns the coordinates of the focus rectangle in the item actor coordinates
+     * @return the focus rectangle
+     */
     Rectangle getFocusRectangle();
 }
