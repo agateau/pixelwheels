@@ -225,6 +225,10 @@ public class GameWorld implements ContactListener, Disposable {
         positions.reverse();
 
         Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
+        for (GameInfo.Player player : players) {
+            VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
+            vehicleDefs.removeValue(vehicleDef, /* identity= */ true);
+        }
         vehicleDefs.shuffle();
 
         int firstPlayerIdx = GamePlay.instance.racerCount - players.size;
