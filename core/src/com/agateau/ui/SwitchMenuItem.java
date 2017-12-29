@@ -14,12 +14,14 @@ import com.badlogic.gdx.utils.Align;
  * An item to select a boolean value
  */
 public class SwitchMenuItem extends Actor implements MenuItem {
+    private static final float SWITCH_SPEED = 10;
     private final Rectangle mFocusRectangle = new Rectangle();
 
     private BitmapFont mFont;
     private SwitchMenuItemStyle mStyle;
 
     private boolean mChecked = false;
+    private float mXOffset = 0;
 
     public static class SwitchMenuItemStyle {
         public Drawable frame;
@@ -38,7 +40,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mChecked = !mChecked;
+                trigger();
             }
         });
     }
@@ -49,6 +51,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     public void setChecked(boolean checked) {
         mChecked = checked;
+        mXOffset = mChecked ? 1 : 0;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     @Override
     public void trigger() {
-        Scene2dUtils.simulateClick(this);
+        mChecked = !mChecked;
     }
 
     @Override
@@ -101,13 +104,23 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     }
 
     @Override
+    public void act(float delta) {
+        super.act(delta);
+        if (mChecked && mXOffset < 1) {
+            mXOffset = Math.min(1, mXOffset + delta * SWITCH_SPEED);
+        } else if (!mChecked && mXOffset > 0) {
+            mXOffset = Math.max(0, mXOffset - delta * SWITCH_SPEED);
+        }
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
 
         // Draw handle
         Drawable handle = mStyle.handle;
         float handleWidth = handle.getMinWidth();
-        float x = mChecked ? handleWidth : 0;
+        float x = handleWidth * mXOffset;
         handle.draw(batch, getX() + x, getY(), handleWidth, handle.getMinHeight());
 
         // Draw text
