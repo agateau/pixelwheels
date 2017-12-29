@@ -32,7 +32,11 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
         mLeftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                goLeft();
+                if (mValue > mMin) {
+                    setValue(mValue - 1);
+                } else {
+                    setValue(mMax);
+                }
             }
         });
 
@@ -40,7 +44,11 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
         mRightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                goRight();
+                if (mValue < mMax) {
+                    setValue(mValue + 1);
+                } else {
+                    setValue(mMin);
+                }
             }
         });
 
@@ -113,20 +121,12 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
 
     @Override
     public void goLeft() {
-        if (mValue > mMin) {
-            setValue(mValue - 1);
-        } else {
-            setValue(mMax);
-        }
+        Scene2dUtils.simulateClick(mLeftButton);
     }
 
     @Override
     public void goRight() {
-        if (mValue < mMax) {
-            setValue(mValue + 1);
-        } else {
-            setValue(mMin);
-        }
+        Scene2dUtils.simulateClick(mRightButton);
     }
 
     @Override
