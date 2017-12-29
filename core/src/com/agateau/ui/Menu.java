@@ -155,7 +155,7 @@ public class Menu extends ScrollPane {
         group.setSize(mDefaultItemWidth, height);
 
         group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
-        group.addPositionRule(actor, Anchor.TOP_RIGHT, group, Anchor.TOP_RIGHT);
+        group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
 
         return addItemInternal(item, group);
     }
