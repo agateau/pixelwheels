@@ -246,6 +246,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         return mFocusRectangle;
     }
 
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        // We ignore the default width in this item
+    }
+
     /// Private
     private void updateFocusRectangle() {
         if (mCurrentIndex == -1) {

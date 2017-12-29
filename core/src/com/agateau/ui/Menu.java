@@ -91,6 +91,7 @@ public class Menu extends ScrollPane {
         };
         mContainer.pad(mStyle.focusPadding);
         mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
+        mContainer.fill();
 
         mPaneWidget.addActor(mFocusIndicator);
         mPaneWidget.addActor(mContainer);
@@ -134,6 +135,7 @@ public class Menu extends ScrollPane {
      * Add a full-width item
      */
     public Actor addItem(MenuItem item) {
+        item.setDefaultColumnWidth(mDefaultItemWidth);
         return addItemInternal(item, item.getActor());
     }
 
@@ -147,7 +149,7 @@ public class Menu extends ScrollPane {
         Label label = new Label(labelText, mSkin);
         label.setSize(mLabelColumnWidth, height);
 
-        actor.setWidth(mDefaultItemWidth - mLabelColumnWidth);
+        item.setDefaultColumnWidth(mDefaultItemWidth - mLabelColumnWidth);
 
         AnchorGroup group = new AnchorGroup();
         group.setSize(mDefaultItemWidth, height);

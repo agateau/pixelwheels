@@ -50,14 +50,6 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
-    public float getPrefWidth() {
-        if (mMenu == null) {
-            return super.getPrefWidth();
-        }
-        return mMenu.getDefaultItemWidth();
-    }
-
-    @Override
     public Actor getActor() {
         return this;
     }
@@ -94,5 +86,10 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         mRect.width = getWidth();
         mRect.height = getHeight();
         return mRect;
+    }
+
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        setWidth(width);
     }
 }

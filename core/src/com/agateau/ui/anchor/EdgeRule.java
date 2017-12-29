@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * A rule to adjust the position of the edge of an actor, altering the size but not the position of
  * the opposite edge
+ * TODO: Support for target and reference not being siblings, or merge into PositionRule
  */
 public class EdgeRule implements AnchorRule {
     private final Actor mTarget;
@@ -30,7 +31,7 @@ public class EdgeRule implements AnchorRule {
     private final Edge mTargetEdge;
     private final Edge mReferenceEdge;
 
-    enum Edge {
+    public enum Edge {
         TOP,
         RIGHT,
         BOTTOM,

@@ -1,11 +1,13 @@
 package com.agateau.ui;
 
+import com.agateau.ui.anchor.Anchor;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.anchor.EdgeRule;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -13,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * Base class for all menu items with plus|minus buttons and a UI between those
  */
-abstract class BaseRangeMenuItem extends HorizontalGroup implements MenuItem {
+abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
     private final Menu mMenu;
     private final Button mLeftButton;
     private final Button mRightButton;
@@ -41,15 +43,21 @@ abstract class BaseRangeMenuItem extends HorizontalGroup implements MenuItem {
                 goRight();
             }
         });
+
+        setHeight(mLeftButton.getPrefHeight());
     }
 
     @Override
     public void layout() {
         if (mMainActor == null) {
             mMainActor = createMainActor(mMenu);
-            addActor(mLeftButton);
-            addActor(mMainActor);
-            addActor(mRightButton);
+            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
+            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT);
+
+            addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
+            addRule(new EdgeRule(mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
+            addRule(new EdgeRule(mMainActor, EdgeRule.Edge.BOTTOM, mRightButton, EdgeRule.Edge.BOTTOM));
+
             updateMainActor();
         }
         super.layout();
@@ -128,6 +136,11 @@ abstract class BaseRangeMenuItem extends HorizontalGroup implements MenuItem {
         mRect.width = getWidth();
         mRect.height = getHeight();
         return mRect;
+    }
+
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        setWidth(width);
     }
 
     private static Button createButton(String text, Skin skin) {
