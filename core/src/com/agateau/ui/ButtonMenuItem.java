@@ -19,30 +19,18 @@
 package com.agateau.ui;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Pools;
 
 /**
  * A clickable menu item
  */
 public class ButtonMenuItem extends TextButton implements MenuItem {
-    private static final float FAKE_TOUCH_DELAY = 0.1f;
     private final Menu mMenu;
     private final Rectangle mRect = new Rectangle();
-
-    private final Vector2 mTmpCoords = new Vector2();
-    private final Runnable mFireTouchUpEvent = new Runnable() {
-        @Override
-        public void run() {
-            fireTouchEvent(InputEvent.Type.touchUp);
-        }
-    };
 
     public ButtonMenuItem(Menu menu, String text) {
         this(menu, text, menu.getSkin());
@@ -62,36 +50,13 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
-    public float getPrefWidth() {
-        if (mMenu == null) {
-            return super.getPrefWidth();
-        }
-        return mMenu.getDefaultItemWidth();
-    }
-
-    @Override
     public Actor getActor() {
         return this;
     }
 
     @Override
     public void trigger() {
-        fireTouchEvent(InputEvent.Type.touchDown);
-        addAction(Actions.delay(FAKE_TOUCH_DELAY, Actions.run(mFireTouchUpEvent)));
-    }
-
-    private void fireTouchEvent(InputEvent.Type type) {
-        localToStageCoordinates(mTmpCoords.set(getWidth() / 2, getHeight() / 2));
-
-        InputEvent event = Pools.obtain(InputEvent.class);
-        event.setType(type);
-        event.setStage(getStage());
-        event.setStageX(mTmpCoords.x);
-        event.setStageY(mTmpCoords.y);
-        event.setPointer(0);
-        event.setButton(0);
-        fire(event);
-        Pools.free(event);
+        Scene2dUtils.simulateClick(this);
     }
 
     @Override
@@ -121,5 +86,10 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         mRect.width = getWidth();
         mRect.height = getHeight();
         return mRect;
+    }
+
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        setWidth(width);
     }
 }

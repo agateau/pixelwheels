@@ -21,8 +21,11 @@ package com.agateau.ui.gallery;
 import com.agateau.ui.ButtonMenuItem;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
+
 import com.agateau.ui.MenuItemListener;
+import com.agateau.ui.SelectorMenuItem;
 import com.agateau.ui.StageScreen;
+import com.agateau.ui.SwitchMenuItem;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -103,7 +106,8 @@ class GalleryScreen extends StageScreen {
         root.setFillParent(true);
 
         Menu menu = new Menu(mSkin);
-        menu.setLabelColumnWidth(100);
+        menu.setLabelColumnWidth(200);
+        menu.setDefaultItemWidth(500);
         menu.addButton("Button A").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
@@ -117,6 +121,15 @@ class GalleryScreen extends StageScreen {
             }
         });
 
+        SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
+        menu.addItemWithLabel("Super Power", switchMenuItem);
+
+        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem(menu);
+        selectorMenuItem.addEntry("Keyboard", 12);
+        selectorMenuItem.addEntry("Joystick", 24);
+        selectorMenuItem.addEntry("Mind", 36);
+        menu.addItemWithLabel("Control", selectorMenuItem);
+
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);
         menu.addButton("Add column").addListener(new MenuItemListener() {
@@ -125,9 +138,6 @@ class GalleryScreen extends StageScreen {
                 gridMenuItem.setColumnCount(gridMenuItem.getColumnCount() + 1);
             }
         });
-
-        menu.addItemWithLabel("Hello", new ButtonMenuItem(menu, "HELLO"));
-        menu.addItemWithLabel("Bye", new ButtonMenuItem(menu, "BYE"));
 
         menu.addButton("Quit").addListener(new MenuItemListener() {
             @Override

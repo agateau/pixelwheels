@@ -77,5 +77,11 @@
         default: {
             selected: selected
         }
+    },
+    com.agateau.ui.SwitchMenuItem$SwitchMenuItemStyle: {
+        default: {
+            frame: menu-switch-frame,
+            handle: menu-switch-handle
+        }
     }
 }

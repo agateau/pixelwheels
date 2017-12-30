@@ -182,10 +182,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                         rect.width + 2 * padding, rect.height + 2 * padding);
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
-            x += mItemWidth;
-            if (x + mItemWidth > getWidth()) {
+
+            if ((idx + 1) % mColumnCount == 0) {
+                // New row
                 x = gutterWidth;
                 y -= mItemHeight;
+            } else {
+                x += mItemWidth;
             }
         }
     }
@@ -244,6 +247,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public Rectangle getFocusRectangle() {
         updateFocusRectangle();
         return mFocusRectangle;
+    }
+
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        // We ignore the default width in this item
     }
 
     /// Private
