@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
@@ -51,6 +52,13 @@ public class Scene2dUtils {
         event.setStageY(stageY);
         event.setPointer(0);
         event.setButton(0);
+        target.fire(event);
+        Pools.free(event);
+    }
+
+    public static void fireChangeEvent(Actor target) {
+        ChangeListener.ChangeEvent event = Pools.obtain(ChangeListener.ChangeEvent.class);
+        event.setStage(target.getStage());
         target.fire(event);
         Pools.free(event);
     }

@@ -62,6 +62,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     @Override
     public void trigger() {
         mChecked = !mChecked;
+        Scene2dUtils.fireChangeEvent(this);
     }
 
     @Override
