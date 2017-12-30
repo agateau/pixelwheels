@@ -51,6 +51,9 @@
         },
         hud-rank: {
             font: hud-rank-font
+        },
+        menuTitle: {
+            font: title-font
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

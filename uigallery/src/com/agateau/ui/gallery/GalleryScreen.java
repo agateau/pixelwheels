@@ -18,7 +18,6 @@
  */
 package com.agateau.ui.gallery;
 
-import com.agateau.ui.ButtonMenuItem;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
 
@@ -121,6 +120,7 @@ class GalleryScreen extends StageScreen {
             }
         });
 
+        menu.addTitleLabel("Two columns");
         SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
         menu.addItemWithLabel("Super Power", switchMenuItem);
 
@@ -129,6 +129,8 @@ class GalleryScreen extends StageScreen {
         selectorMenuItem.addEntry("Joystick", 24);
         selectorMenuItem.addEntry("Mind", 36);
         menu.addItemWithLabel("Control", selectorMenuItem);
+
+        menu.addTitleLabel("GridMenuItem");
 
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);

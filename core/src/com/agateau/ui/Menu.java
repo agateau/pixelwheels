@@ -132,11 +132,33 @@ public class Menu extends ScrollPane {
     }
 
     /**
+     * Add a plain label in the menu
+     * @return The created label
+     */
+    public Label addLabel(String text) {
+        Label label = new Label(text, mSkin);
+        addActorToContainer(label);
+        return label;
+    }
+
+    /**
+     * Add a "title" label in the menu (uses the "menuTitle" label style)
+     * @return The created label
+     */
+    public Label addTitleLabel(String text) {
+        Label label = new Label(text, mSkin, "menuTitle");
+        addActorToContainer(label);
+        return label;
+    }
+
+    /**
      * Add a full-width item
      */
     public Actor addItem(MenuItem item) {
         item.setDefaultColumnWidth(mDefaultItemWidth);
-        return addItemInternal(item, item.getActor());
+        addItemInternal(item);
+        addActorToContainer(item.getActor());
+        return item.getActor();
     }
 
     /**
@@ -157,16 +179,20 @@ public class Menu extends ScrollPane {
         group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
         group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
 
-        return addItemInternal(item, group);
+        addItemInternal(item);
+        addActorToContainer(group);
+        return item.getActor();
     }
 
-    private Actor addItemInternal(MenuItem item, Actor containerActor) {
+    private void addItemInternal(MenuItem item) {
         mItems.add(item);
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
         }
+    }
 
-        mContainer.addActor(containerActor);
+    private void addActorToContainer(Actor actor) {
+        mContainer.addActor(actor);
 
         float width = mContainer.getPrefWidth();
         float height = mContainer.getPrefHeight();
@@ -174,8 +200,6 @@ public class Menu extends ScrollPane {
         mContainer.setSize(width, height);
         mPaneWidget.setSize(width, height);
         setSize(width, height);
-
-        return item.getActor();
     }
 
     @Override
