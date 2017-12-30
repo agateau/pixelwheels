@@ -2,15 +2,12 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -1">Configuration</Label>
+               topCenter="root.topCenter 0 -2">Configuration</Label>
 
-        <Label topLeft="root.topLeft 1 -4">Input:</Label>
-        <GameInputHandlerSelector id="gameInputHandlerSelector"
-                                  topLeft="$prev.bottomLeft 0 -1"
-                                  />
+        <Menu id="menu" labelColumnWidth="250" defaultItemWidth="600"
+              topCenter="$prev.bottomCenter 0 -3">
 
-        <CheckBox id="rotateScreenCheckBox"
-                  topLeft="$prev.bottomLeft 0 -1">Rotate screen</CheckBox>
+        </Menu>
 
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"
