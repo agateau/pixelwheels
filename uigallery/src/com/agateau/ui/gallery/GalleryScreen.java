@@ -130,7 +130,7 @@ class GalleryScreen extends StageScreen {
             }
         });
 
-        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem(menu);
+        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem<Integer>(menu);
         selectorMenuItem.addEntry("Keyboard", 12);
         selectorMenuItem.addEntry("Joystick", 24);
         selectorMenuItem.addEntry("Mind", 36);
