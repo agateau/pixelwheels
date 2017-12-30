@@ -48,4 +48,14 @@ public class SelectorMenuItem<T> extends BaseRangeMenuItem {
         Entry<T> entry = mEntries.get(getValue());
         return entry.data;
     }
+
+    public void setData(T data) {
+        for (int idx = 0; idx < mEntries.size; ++idx) {
+            if (mEntries.get(idx).data == data) {
+                setValue(idx);
+                return;
+            }
+        }
+        setValue(0);
+    }
 }
