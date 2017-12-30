@@ -342,6 +342,10 @@ public class UiBuilder {
         if (width > 0) {
             menu.setDefaultItemWidth(width);
         }
+        width = element.getIntAttribute("labelColumnWidth", 0);
+        if (width > 0) {
+            menu.setLabelColumnWidth(width);
+        }
         return menu;
     }
 
