@@ -37,6 +37,7 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMax);
                 }
+                Scene2dUtils.fireChangeEvent(BaseRangeMenuItem.this);
             }
         });
 
@@ -49,6 +50,7 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMin);
                 }
+                Scene2dUtils.fireChangeEvent(BaseRangeMenuItem.this);
             }
         });
 
