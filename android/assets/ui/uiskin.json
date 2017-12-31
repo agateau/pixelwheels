@@ -51,6 +51,9 @@
         },
         hud-rank: {
             font: hud-rank-font
+        },
+        menuTitle: {
+            font: title-font
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -81,7 +84,16 @@
     com.agateau.ui.SwitchMenuItem$SwitchMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
+            framePadding: 4,
             handle: menu-switch-handle
+        }
+    },
+    com.agateau.ui.RangeMenuItem$RangeMenuItemStyle: {
+        default: {
+            frame: menu-switch-frame,
+            framePadding: 4,
+            decIcon: icon-left,
+            incIcon: icon-right
         }
     }
 }

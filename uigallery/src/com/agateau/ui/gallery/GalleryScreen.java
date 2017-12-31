@@ -18,10 +18,9 @@
  */
 package com.agateau.ui.gallery;
 
-import com.agateau.ui.ButtonMenuItem;
+import com.agateau.tinywheels.MenuScrollPane;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
-
 import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.SelectorMenuItem;
 import com.agateau.ui.StageScreen;
@@ -37,7 +36,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -121,14 +122,22 @@ class GalleryScreen extends StageScreen {
             }
         });
 
-        SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
-        menu.addItemWithLabel("Super Power", switchMenuItem);
+        menu.addTitleLabel("Two columns");
+        final SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
+        menu.addItemWithLabel("Super Power", switchMenuItem).addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                NLog.d("Switch changed to %s", switchMenuItem.isChecked() ? "ON" : "OFF");
+            }
+        });
 
-        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem(menu);
+        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem<Integer>(menu);
         selectorMenuItem.addEntry("Keyboard", 12);
         selectorMenuItem.addEntry("Joystick", 24);
         selectorMenuItem.addEntry("Mind", 36);
         menu.addItemWithLabel("Control", selectorMenuItem);
+
+        menu.addTitleLabel("GridMenuItem");
 
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);
@@ -149,8 +158,11 @@ class GalleryScreen extends StageScreen {
         for (int i = 0; i < 100; ++i) {
             menu.addButton(String.format(Locale.getDefault(), "Dummy %d", i));
         }
-        root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
-        root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
+
+        MenuScrollPane scrollPane = new MenuScrollPane(menu);
+        scrollPane.setWidth(scrollPane.getPrefWidth());
+        root.addSizeRule(scrollPane, root, SizeRule.IGNORE, 1);
+        root.addPositionRule(scrollPane, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
     }
 
     private GridMenuItem<TextureRegion> createGridMenuItem(Menu menu) {

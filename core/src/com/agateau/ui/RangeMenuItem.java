@@ -1,34 +1,64 @@
+/*
+ * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ *
+ * This file is part of Tiny Wheels.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.agateau.ui;
 
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.EdgeRule;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Base class for all menu items with plus|minus buttons and a UI between those
  */
-abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
+abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final Menu mMenu;
     private final Button mLeftButton;
     private final Button mRightButton;
     private final Rectangle mRect = new Rectangle();
+    private final RangeMenuItemStyle mStyle;
     private Actor mMainActor;
 
     private int mMin = 0;
     private int mMax = 0;
     private int mValue = 0;
 
-    public BaseRangeMenuItem(Menu menu) {
+    public static class RangeMenuItemStyle {
+        Drawable frame;
+        float framePadding;
+        Drawable incIcon;
+        Drawable decIcon;
+    }
+
+    public RangeMenuItem(Menu menu) {
         mMenu = menu;
-        mLeftButton = createButton("-", menu.getSkin());
+        mStyle = menu.getSkin().get(RangeMenuItemStyle.class);
+
+        mLeftButton = createButton(mStyle.decIcon, menu.getSkin());
         mLeftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -37,10 +67,11 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMax);
                 }
+                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
 
-        mRightButton = createButton("+", menu.getSkin());
+        mRightButton = createButton(mStyle.incIcon, menu.getSkin());
         mRightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -49,6 +80,7 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMin);
                 }
+                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
 
@@ -59,8 +91,12 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
     public void layout() {
         if (mMainActor == null) {
             mMainActor = createMainActor(mMenu);
-            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
-            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT);
+            float padding = mStyle.framePadding;
+            float buttonSize = getHeight() - 2 * padding;
+            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT, padding, -padding);
+            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
+            mLeftButton.setSize(buttonSize, buttonSize);
+            mRightButton.setSize(buttonSize, buttonSize);
 
             addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
             addRule(new EdgeRule(mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
@@ -69,6 +105,12 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
             updateMainActor();
         }
         super.layout();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
+        super.draw(batch, parentAlpha);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -143,7 +185,9 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
         setWidth(width);
     }
 
-    private static Button createButton(String text, Skin skin) {
-        return new TextButton(text, skin);
+    private static Button createButton(Drawable drawable, Skin skin) {
+        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get(ImageButton.ImageButtonStyle.class));
+        style.imageUp = drawable;
+        return new ImageButton(style);
     }
 }

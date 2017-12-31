@@ -18,23 +18,28 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.ButtonMenuItem;
+import com.agateau.ui.Menu;
+import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.SelectorMenuItem;
+import com.agateau.ui.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
+import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.XmlReader;
-import com.agateau.utils.FileUtils;
-import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.ui.anchor.SizeRule;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * The config screen
  */
 public class ConfigScreen extends TwStageScreen {
     private final TwGame mGame;
+    private SelectorMenuItem<GameInputHandlerFactory> mInputSelector;
+    private Label mInputDescriptionLabel;
 
     public ConfigScreen(TwGame game) {
         super(game.getAssets().ui);
@@ -52,40 +57,74 @@ public class ConfigScreen extends TwStageScreen {
         final GameConfig gameConfig = mGame.getConfig();
 
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        builder.registerActorFactory("GameInputHandlerSelector", new UiBuilder.ActorFactory() {
-            @Override
-            public Actor createActor(XmlReader.Element element) {
-                return new GameInputHandlerSelector(gameConfig, mGame.getAssets().ui.skin);
-            }
-        });
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/config.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        final CheckBox checkBox = builder.getActor("rotateScreenCheckBox");
-        checkBox.setChecked(gameConfig.rotateCamera);
-        checkBox.addListener(new ChangeListener() {
+        Menu menu = builder.getActor("menu");
+
+        setupInputSelector(menu);
+
+        final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
+        rotateScreenSwitch.setChecked(gameConfig.rotateCamera);
+        rotateScreenSwitch.getActor().addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                gameConfig.rotateCamera = checkBox.isChecked();
+                gameConfig.rotateCamera = rotateScreenSwitch.isChecked();
                 gameConfig.flush();
             }
         });
+        menu.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
 
-        builder.getActor("debugButton").addListener(new ClickListener() {
+        ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
+        developerButton.getActor().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.pushScreen(new DebugScreen(mGame));
             }
         });
+        menu.addItemWithLabel("Internal:", developerButton);
+
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 onBackPressed();
             }
         });
-        root.addSizeRule(builder.getActor("gameInputHandlerSelector"), root, 1, SizeRule.IGNORE, -2, 0);
+    }
+
+    private void setupInputSelector(Menu menu) {
+        mInputSelector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
+        Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
+
+        for (GameInputHandlerFactory factory : inputFactories) {
+            mInputSelector.addEntry(factory.getName(), factory);
+        }
+        menu.addItemWithLabel("Input:", mInputSelector);
+        mInputDescriptionLabel = menu.addLabel("");
+        mInputDescriptionLabel.setWrap(true);
+
+        mInputSelector.getActor().addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                GameInputHandlerFactory factory = mInputSelector.getData();
+                mGame.getConfig().input = factory.getId();
+                updateInputDescriptionLabel();
+            }
+        });
+
+        // Select current value
+        String factoryId = mGame.getConfig().input;
+        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(factoryId);
+        mInputSelector.setData(factory);
+
+        updateInputDescriptionLabel();
+    }
+
+    private void updateInputDescriptionLabel() {
+        GameInputHandlerFactory factory = mInputSelector.getData();
+        mInputDescriptionLabel.setText(factory.getDescription());
     }
 
     @Override

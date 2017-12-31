@@ -1,3 +1,21 @@
+/*
+ * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ *
+ * This file is part of Tiny Wheels.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.agateau.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,6 +43,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     public static class SwitchMenuItemStyle {
         public Drawable frame;
+        public float framePadding;
         public Drawable handle;
     }
 
@@ -62,6 +81,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     @Override
     public void trigger() {
         mChecked = !mChecked;
+        Scene2dUtils.fireChangeEvent(this);
     }
 
     @Override
@@ -119,13 +139,14 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         // Draw handle
         Drawable handle = mStyle.handle;
-        float handleWidth = handle.getMinWidth();
+        float padding = mStyle.framePadding;
+        float handleWidth = (getWidth() - 2 * padding) / 2;
         float x = handleWidth * mXOffset;
-        handle.draw(batch, getX() + x, getY(), handleWidth, handle.getMinHeight());
+        handle.draw(batch, getX() + x + padding, getY() + padding, handleWidth, getHeight() - 2 * padding);
 
         // Draw text
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        mFont.draw(batch, "OFF", getX(), y, handleWidth, Align.center, /* wrap= */false);
-        mFont.draw(batch, "ON", getX() + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, "OFF", getX() + padding, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, "ON", getX() + padding + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
     }
 }
