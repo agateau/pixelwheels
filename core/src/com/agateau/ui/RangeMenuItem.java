@@ -3,6 +3,7 @@ package com.agateau.ui;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.EdgeRule;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,6 +22,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final Button mLeftButton;
     private final Button mRightButton;
     private final Rectangle mRect = new Rectangle();
+    private final RangeMenuItemStyle mStyle;
     private Actor mMainActor;
 
     private int mMin = 0;
@@ -28,15 +30,17 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private int mValue = 0;
 
     public static class RangeMenuItemStyle {
+        Drawable frame;
+        float framePadding;
         Drawable incIcon;
         Drawable decIcon;
     }
 
     public RangeMenuItem(Menu menu) {
         mMenu = menu;
-        RangeMenuItemStyle style = menu.getSkin().get(RangeMenuItemStyle.class);
+        mStyle = menu.getSkin().get(RangeMenuItemStyle.class);
 
-        mLeftButton = createButton(style.decIcon, menu.getSkin());
+        mLeftButton = createButton(mStyle.decIcon, menu.getSkin());
         mLeftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -49,7 +53,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
             }
         });
 
-        mRightButton = createButton(style.incIcon, menu.getSkin());
+        mRightButton = createButton(mStyle.incIcon, menu.getSkin());
         mRightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -69,8 +73,12 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     public void layout() {
         if (mMainActor == null) {
             mMainActor = createMainActor(mMenu);
-            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT);
-            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT);
+            float padding = mStyle.framePadding;
+            float buttonSize = getHeight() - 2 * padding;
+            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT, padding, -padding);
+            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
+            mLeftButton.setSize(buttonSize, buttonSize);
+            mRightButton.setSize(buttonSize, buttonSize);
 
             addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
             addRule(new EdgeRule(mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
@@ -79,6 +87,12 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
             updateMainActor();
         }
         super.layout();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
+        super.draw(batch, parentAlpha);
     }
 
     @SuppressWarnings("SameParameterValue")

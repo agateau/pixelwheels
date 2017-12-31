@@ -89,6 +89,8 @@
     },
     com.agateau.ui.RangeMenuItem$RangeMenuItemStyle: {
         default: {
+            frame: menu-switch-frame,
+            framePadding: 4,
             decIcon: icon-left,
             incIcon: icon-right
         }
