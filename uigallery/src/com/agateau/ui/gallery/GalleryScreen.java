@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.gallery;
 
+import com.agateau.tinywheels.MenuScrollPane;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.MenuItemListener;
@@ -157,8 +158,11 @@ class GalleryScreen extends StageScreen {
         for (int i = 0; i < 100; ++i) {
             menu.addButton(String.format(Locale.getDefault(), "Dummy %d", i));
         }
-        root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
-        root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
+
+        MenuScrollPane scrollPane = new MenuScrollPane(menu);
+        scrollPane.setWidth(scrollPane.getPrefWidth());
+        root.addSizeRule(scrollPane, root, SizeRule.IGNORE, 1);
+        root.addPositionRule(scrollPane, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
     }
 
     private GridMenuItem<TextureRegion> createGridMenuItem(Menu menu) {

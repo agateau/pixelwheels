@@ -31,7 +31,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -39,13 +38,13 @@ import com.badlogic.gdx.utils.Array;
 
 /**
  * A keyboard and game controller friendly menu system
+ *
+ * Sends ChangeEvent when the current item changes.
  */
-
-public class Menu extends ScrollPane {
+public class Menu extends Group {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
-    private final Group mPaneWidget;
     private final VerticalGroup mContainer;
     private final Skin mSkin;
     private MenuStyle mStyle;
@@ -73,19 +72,17 @@ public class Menu extends ScrollPane {
     }
 
     public Menu(Skin skin, String styleName) {
-        super(null);
         mSkin = skin;
         mStyle = skin.get(styleName, MenuStyle.class);
 
         mFocusIndicator = new Image(mStyle.focus);
         mFocusIndicator.setTouchable(Touchable.disabled);
 
-        mPaneWidget = new Group();
-
         mContainer = new VerticalGroup() {
             @Override
             public void layout() {
                 super.layout();
+                updateBounds();
                 updateFocusIndicatorBounds();
             }
         };
@@ -93,10 +90,8 @@ public class Menu extends ScrollPane {
         mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
         mContainer.fill();
 
-        mPaneWidget.addActor(mFocusIndicator);
-        mPaneWidget.addActor(mContainer);
-
-        setWidget(mPaneWidget);
+        addActor(mFocusIndicator);
+        addActor(mContainer);
     }
 
     public Skin getSkin() {
@@ -193,13 +188,15 @@ public class Menu extends ScrollPane {
 
     private void addActorToContainer(Actor actor) {
         mContainer.addActor(actor);
+        updateBounds();
+    }
 
+    private void updateBounds() {
         float width = mContainer.getPrefWidth();
         float height = mContainer.getPrefHeight();
 
         mContainer.setSize(width, height);
-        mPaneWidget.setSize(width, height);
-        setSize(width, height);
+        setBounds(getX(), getTop() - height, width, height);
     }
 
     @Override
@@ -256,6 +253,7 @@ public class Menu extends ScrollPane {
         } else if (old == -1) {
             updateFocusIndicatorBounds();
             mFocusIndicator.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
+            Scene2dUtils.fireChangeEvent(this);
         } else {
             animateFocusIndicator();
         }
@@ -270,7 +268,7 @@ public class Menu extends ScrollPane {
         mapDescendantRectangle(item.getActor(), rect);
         mFocusIndicator.addAction(Actions.moveTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
         mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        ensureItemVisible();
+        Scene2dUtils.fireChangeEvent(this);
     }
 
     private void updateFocusIndicatorBounds() {
@@ -281,14 +279,6 @@ public class Menu extends ScrollPane {
         Rectangle rect = item.getFocusRectangle();
         mapDescendantRectangle(item.getActor(), rect);
         mFocusIndicator.setBounds(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
-        ensureItemVisible();
-    }
-
-    private void ensureItemVisible() {
-        MenuItem item = getCurrentItem();
-        Rectangle rect = item.getFocusRectangle();
-        mapDescendantRectangle(item.getActor(), rect);
-        scrollTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
     }
 
     private void mapDescendantRectangle(Actor actor, Rectangle rect) {
