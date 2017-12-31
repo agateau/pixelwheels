@@ -18,9 +18,10 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.utils.FileUtils;
+import com.agateau.ui.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
@@ -49,25 +50,28 @@ public class PauseOverlay extends Overlay {
     private Actor createContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         Actor content = builder.build(FileUtils.assets("screens/pauseoverlay.gdxui"));
-        builder.getActor("resumeButton").addListener(new ChangeListener() {
+
+        Menu menu = builder.getActor("menu");
+
+        menu.addButton("Resume").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 mRaceScreen.resumeRace();
             }
         });
-        builder.getActor("restartButton").addListener(new ChangeListener() {
+        menu.addButton("Restart").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 mMaestro.actionTriggered("restart");
             }
         });
-        builder.getActor("menuButton").addListener(new ChangeListener() {
+        menu.addButton("Quit to Menu").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 mMaestro.actionTriggered("quit");
             }
         });
-        builder.getActor("settingsButton").addListener(new ChangeListener() {
+        menu.addButton("Settings").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 mGame.pushScreen(new ConfigScreen(mGame));
