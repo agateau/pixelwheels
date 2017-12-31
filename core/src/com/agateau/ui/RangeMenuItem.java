@@ -8,14 +8,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Base class for all menu items with plus|minus buttons and a UI between those
  */
-abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
+abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final Menu mMenu;
     private final Button mLeftButton;
     private final Button mRightButton;
@@ -26,9 +27,16 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
     private int mMax = 0;
     private int mValue = 0;
 
-    public BaseRangeMenuItem(Menu menu) {
+    public static class RangeMenuItemStyle {
+        Drawable incIcon;
+        Drawable decIcon;
+    }
+
+    public RangeMenuItem(Menu menu) {
         mMenu = menu;
-        mLeftButton = createButton("-", menu.getSkin());
+        RangeMenuItemStyle style = menu.getSkin().get(RangeMenuItemStyle.class);
+
+        mLeftButton = createButton(style.decIcon, menu.getSkin());
         mLeftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -37,11 +45,11 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMax);
                 }
-                Scene2dUtils.fireChangeEvent(BaseRangeMenuItem.this);
+                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
 
-        mRightButton = createButton("+", menu.getSkin());
+        mRightButton = createButton(style.incIcon, menu.getSkin());
         mRightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -50,7 +58,7 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
                 } else {
                     setValue(mMin);
                 }
-                Scene2dUtils.fireChangeEvent(BaseRangeMenuItem.this);
+                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
 
@@ -145,7 +153,9 @@ abstract class BaseRangeMenuItem extends AnchorGroup implements MenuItem {
         setWidth(width);
     }
 
-    private static Button createButton(String text, Skin skin) {
-        return new TextButton(text, skin);
+    private static Button createButton(Drawable drawable, Skin skin) {
+        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get(ImageButton.ImageButtonStyle.class));
+        style.imageUp = drawable;
+        return new ImageButton(style);
     }
 }

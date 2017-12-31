@@ -86,5 +86,11 @@
             frame: menu-switch-frame,
             handle: menu-switch-handle
         }
+    },
+    com.agateau.ui.RangeMenuItem$RangeMenuItemStyle: {
+        default: {
+            decIcon: icon-left,
+            incIcon: icon-right
+        }
     }
 }
