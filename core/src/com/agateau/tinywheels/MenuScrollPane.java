@@ -60,15 +60,8 @@ public class MenuScrollPane extends ScrollPane {
 
         MenuItem item = mMenu.getCurrentItem();
         Rectangle rect = item.getFocusRectangle();
-        mapDescendantRectangle(item.getActor(), rect);
-        scrollTo(rect.x - style.focusPadding, rect.y - style.focusPadding, rect.width + 2 * style.focusPadding, rect.height + 2 * style.focusPadding);
-    }
-
-    // TODO: Duplicated in Menu: factorize
-    private void mapDescendantRectangle(Actor actor, Rectangle rect) {
         mTmp.set(rect.x, rect.y);
-        actor.localToAscendantCoordinates(mMenu, mTmp);
-        rect.x = mTmp.x;
-        rect.y = mTmp.y;
+        item.getActor().localToAscendantCoordinates(mMenu, mTmp);
+        scrollTo(mTmp.x - style.focusPadding, mTmp.y - style.focusPadding, rect.width + 2 * style.focusPadding, rect.height + 2 * style.focusPadding);
     }
 }
