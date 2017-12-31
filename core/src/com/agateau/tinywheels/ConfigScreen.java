@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.ButtonMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.SelectorMenuItem;
@@ -76,12 +77,15 @@ public class ConfigScreen extends TwStageScreen {
         });
         menu.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
 
-        builder.getActor("debugButton").addListener(new ClickListener() {
+        ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
+        developerButton.getActor().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mGame.pushScreen(new DebugScreen(mGame));
             }
         });
+        menu.addItemWithLabel("Internal:", developerButton);
+
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
