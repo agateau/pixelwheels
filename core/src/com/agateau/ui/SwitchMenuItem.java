@@ -25,6 +25,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     public static class SwitchMenuItemStyle {
         public Drawable frame;
+        public float framePadding;
         public Drawable handle;
     }
 
@@ -120,13 +121,14 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         // Draw handle
         Drawable handle = mStyle.handle;
-        float handleWidth = handle.getMinWidth();
+        float padding = mStyle.framePadding;
+        float handleWidth = (getWidth() - 2 * padding) / 2;
         float x = handleWidth * mXOffset;
-        handle.draw(batch, getX() + x, getY(), handleWidth, handle.getMinHeight());
+        handle.draw(batch, getX() + x + padding, getY() + padding, handleWidth, getHeight() - 2 * padding);
 
         // Draw text
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        mFont.draw(batch, "OFF", getX(), y, handleWidth, Align.center, /* wrap= */false);
-        mFont.draw(batch, "ON", getX() + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, "OFF", getX() + padding, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, "ON", getX() + padding + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
     }
 }

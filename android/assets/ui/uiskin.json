@@ -84,6 +84,7 @@
     com.agateau.ui.SwitchMenuItem$SwitchMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
+            framePadding: 4,
             handle: menu-switch-handle
         }
     },
