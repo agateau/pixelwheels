@@ -8,12 +8,14 @@
 - Added road indicators to all tracks so that you can anticipate turns.
 - Redrew snow tiles in "real" pixel-art, spread snow on top of pine-trees.
 - Reduced viewport a bit so that vehicles look bigger.
-- Made the wood bridge of Tiny-sur-Mer easier to drive by adding shallow water around it.
-- Made it easier to catchup with AI racers by slowing them down when they are ahead of you.
+- Made the wood bridge of Tiny-sur-Mer easier to drive by adding shallow water
+  around it.
+- Made it easier to catchup with AI racers by slowing them down when they are
+  ahead of you.
 - Made steering more progressive.
 
 #### Internals
-- Updated to Gradle 3.3 and Gradle Android plugin 2.3.3
+- Updated to Gradle 3.3 and Gradle Android plugin 2.3.3.
 
 ### Fixed
 - Fixed vehicles being stuck spinning infinitely.
