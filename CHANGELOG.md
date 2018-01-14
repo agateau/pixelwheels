@@ -7,8 +7,8 @@
   buttons. They can be revealed by swiping from the edge to the center, like in
   most games.
 
-- The driving buttons have been reworked: they are now larger and look sectors
-  in the bottom-left and bottom-right corners of the screen.
+- The driving buttons have been reworked: they are now larger and look like
+  sectors in the bottom-left and bottom-right corners of the screen.
 
 ### Changed
 - The rank now uses a larger font in the HUD, making it easier to read.
