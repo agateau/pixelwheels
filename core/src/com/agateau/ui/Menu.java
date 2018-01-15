@@ -192,7 +192,7 @@ public class Menu extends Group {
     }
 
     private void updateBounds() {
-        float width = mContainer.getPrefWidth();
+        float width = Math.max(getWidth(), mContainer.getPrefWidth());
         float height = mContainer.getPrefHeight();
 
         mContainer.setSize(width, height);
