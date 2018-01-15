@@ -18,11 +18,12 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.utils.FileUtils;
+import com.agateau.ui.Menu;
+import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -49,15 +50,10 @@ public class FinishedOverlay extends Overlay {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         RacerListPane.register(builder);
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
-        builder.getActor("restartButton").addListener(new ChangeListener() {
+        Menu menu = builder.getActor("menu");
+        menu.addButton("OK").addListener(new MenuItemListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                mMaestro.actionTriggered("restart");
-            }
-        });
-        builder.getActor("menuButton").addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void triggered() {
                 mMaestro.actionTriggered("quit");
             }
         });

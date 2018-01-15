@@ -2,17 +2,10 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <RacerListPane id="racerListPane"
-            center="root.center 0 0.5"
+            center="root.center 0 2"
             width="650"
             height="320"/>
 
-        <ImageButton id="menuButton"
-                     imageName="icon-back"
-                     topRight="racerListPane.bottomCenter -0.5 -1"
-                     />
-        <ImageButton id="restartButton"
-                     imageName="icon-restart"
-                     topLeft="racerListPane.bottomCenter 0.5 -1"
-                     />
+        <Menu id="menu" width="150" bottomCenter="racerListPane.bottomCenter 0 -3"/>
     </AnchorGroup>
 </gdxui>
