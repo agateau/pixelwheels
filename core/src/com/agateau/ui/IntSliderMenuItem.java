@@ -55,12 +55,12 @@ public class IntSliderMenuItem extends RangeMenuItem {
     }
 
     @Override
-    protected void decreaseValue() {
+    protected void decrease() {
         setValue(mValue - mStepSize);
     }
 
     @Override
-    protected void increaseValue() {
+    protected void increase() {
         setValue(mValue + mStepSize);
     }
 }

@@ -63,7 +63,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     @Override
-    protected void decreaseValue() {
+    protected void decrease() {
         if (mCurrentIndex > 0) {
             setCurrentIndex(mCurrentIndex - 1);
         } else {
@@ -72,7 +72,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     @Override
-    protected void increaseValue() {
+    protected void increase() {
         if (mCurrentIndex < mEntries.size - 1) {
             setCurrentIndex(mCurrentIndex + 1);
         } else {
