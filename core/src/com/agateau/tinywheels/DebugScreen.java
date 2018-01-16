@@ -18,27 +18,28 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.ui.FloatSliderMenuItem;
+import com.agateau.ui.IntSliderMenuItem;
+import com.agateau.ui.Menu;
+import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 
 /**
  * The debug screen
  */
 public class DebugScreen extends TwStageScreen {
     private final TwGame mGame;
-    private VerticalGroup mGroup;
+    private Menu mMenu;
 
     // This field is set during setupUi: add* methods use it to bind the controls to the correct
     // introspector
@@ -47,6 +48,12 @@ public class DebugScreen extends TwStageScreen {
     public DebugScreen(TwGame game) {
         super(game.getAssets().ui);
         mGame = game;
+        new RefreshHelper(getStage()) {
+            @Override
+            protected void refresh() {
+                mGame.replaceScreen(new DebugScreen(mGame));
+            }
+        };
         setupUi();
     }
 
@@ -58,22 +65,23 @@ public class DebugScreen extends TwStageScreen {
         getStage().addActor(root);
 
         mCurrentIntrospector = mGame.getGamePlayIntrospector();
-        mGroup = new VerticalGroup();
-        mGroup.align(Align.left).space(20);
+        MenuScrollPane pane = builder.getActor("scrollPane");
+        mMenu = pane.getMenu();
         addTitle("Race");
-        mGroup.addActor(addRange("Viewport width:", "viewportWidth", 20, 800, 10));
-        mGroup.addActor(addRange("Racer count:", "racerCount", 1, 8));
-        mGroup.addActor(addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10));
-        mGroup.addActor(addRange("Border restitution:", "borderRestitution", 1, 50));
+        addRange("Viewport width:", "viewportWidth", 20, 800, 10);
+        addRange("Racer count:", "racerCount", 1, 8);
+        addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10);
+        addRange("Border restitution:", "borderRestitution", 1, 50);
         addTitle("Input");
-        mGroup.addActor(addCheckBox("Always show touch input", "alwaysShowTouchInput"));
+        addCheckBox("Always show touch input", "alwaysShowTouchInput");
         addTitle("Speed");
-        mGroup.addActor(addRange("Max driving force:", "maxDrivingForce", 10, 200, 10));
-        mGroup.addActor(addRange("Max speed:", "maxSpeed", 10, 400, 10));
+        addRange("Max driving force:", "maxDrivingForce", 10, 200, 10);
+        addRange("Max speed:", "maxSpeed", 10, 400, 10);
         addTitle("Turbo");
-        mGroup.addActor(addRange("Strength:", "turboStrength", 10, 800, 20));
-        mGroup.addActor(addRange("Duration:", "turboDuration", 0.1f, 2f, 0.1f));
+        addRange("Strength:", "turboStrength", 10, 800, 20);
+        addRange("Duration:", "turboDuration", 0.1f, 2f, 0.1f);
         addTitle("Wheels");
+        /*
         mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
         mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
         mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 1));
@@ -90,6 +98,7 @@ public class DebugScreen extends TwStageScreen {
         mGroup.addActor(addCheckBox("Hud debug lines", "showHudDebugLines"));
 
         mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
+        */
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -97,16 +106,23 @@ public class DebugScreen extends TwStageScreen {
                 onBackPressed();
             }
         });
-
-        ScrollPane pane = builder.getActor("scrollPane");
-        pane.setWidget(mGroup);
-        root.addSizeRule(pane, root, 1, 1, -5, 0);
     }
 
-    private Actor addCheckBox(String text, final String keyName) {
-        final Introspector introspector = mCurrentIntrospector;
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
+    private void addTitle(String text) {
+        mMenu.addTitleLabel(text);
+    }
 
+    private void addCheckBox(String text, final String keyName) {
+        final Introspector introspector = mCurrentIntrospector;
+        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
+
+        SwitchMenuItem item = new SwitchMenuItem(mMenu);
+        boolean checked = introspector.get(keyName);
+        item.setChecked(checked);
+        mMenu.addItemWithLabel(text, item);
+
+
+        /*
         final CheckBox checkBox = new CheckBox(text, mGame.getAssets().ui.skin);
         boolean checked = introspector.get(keyName);
         checkBox.setChecked(checked);
@@ -124,48 +140,55 @@ public class DebugScreen extends TwStageScreen {
         group.addActor(checkBox);
         group.addActor(defaultLabel);
         return group;
+        */
     }
 
-    private Actor addRange(String text, final String keyName, int min, int max) {
-        return addRange(text, keyName, min, max, 1);
+    private void addRange(String text, final String keyName, int min, int max) {
+        addRange(text, keyName, min, max, 1);
     }
 
-    private Actor addRange(String text, final String keyName, int min, int max, int stepSize) {
+    private void addRange(String text, final String keyName, int min, int max, int stepSize) {
         final Introspector introspector = mCurrentIntrospector;
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
+        // FIXME
+        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final IntSpinBox spinBox = new IntSpinBox(min, max, mGame.getAssets().ui.skin);
-        spinBox.setStepSize(stepSize);
-        spinBox.setValue(introspector.getInt(keyName));
-        spinBox.addListener(new ChangeListener() {
+        final IntSliderMenuItem item = new IntSliderMenuItem(mMenu);
+        item.setRange(min, max);
+        item.setStepSize(stepSize);
+        item.setValue(introspector.getInt(keyName));
+        item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                int value = spinBox.getValue();
+                int value = item.getValue();
                 introspector.setInt(keyName, value);
-                defaultLabel.update();
+                // FIXME
+                //defaultLabel.update();
             }
         });
 
-        return createRow(text, spinBox, defaultLabel);
+        mMenu.addItemWithLabel(text, item);
     }
 
-    private Actor addRange(String text, final String keyName, float min, float max, float stepSize) {
+    private void addRange(String text, final String keyName, float min, float max, float stepSize) {
         final Introspector introspector = mCurrentIntrospector;
-        final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
+        // FIXME
+        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final FloatSpinBox spinBox = new FloatSpinBox(min, max, mGame.getAssets().ui.skin);
-        spinBox.setStepSize(stepSize);
-        spinBox.setValue(introspector.getFloat(keyName));
-        spinBox.addListener(new ChangeListener() {
+        final FloatSliderMenuItem item = new FloatSliderMenuItem(mMenu);
+        item.setRange(min, max);
+        item.setStepSize(stepSize);
+        item.setValue(introspector.getFloat(keyName));
+        item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float value = spinBox.getValue();
+                float value = item.getValue();
                 introspector.setFloat(keyName, value);
-                defaultLabel.update();
+                // FIXME
+                //defaultLabel.update();
             }
         });
 
-        return createRow(text, spinBox, defaultLabel);
+        mMenu.addItemWithLabel(text, item);
     }
 
     private Actor createRow(String text, Actor actor1, Actor actor2) {
@@ -176,10 +199,6 @@ public class DebugScreen extends TwStageScreen {
             group.addActor(actor2);
         }
         return group;
-    }
-
-    private void addTitle(String title) {
-        mGroup.addActor(new Label("-- " + title + " --", mGame.getAssets().ui.skin));
     }
 
     @Override
