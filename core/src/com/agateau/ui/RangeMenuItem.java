@@ -22,7 +22,6 @@ import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.EdgeRule;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,10 +42,6 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final RangeMenuItemStyle mStyle;
     private Actor mMainActor;
 
-    private int mMin = 0;
-    private int mMax = 0;
-    private int mValue = 0;
-
     public static class RangeMenuItemStyle {
         Drawable frame;
         float framePadding;
@@ -62,11 +57,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         mLeftButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (mValue > mMin) {
-                    setValue(mValue - 1);
-                } else {
-                    setValue(mMax);
-                }
+                decreaseValue();
                 Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
@@ -75,11 +66,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         mRightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (mValue < mMax) {
-                    setValue(mValue + 1);
-                } else {
-                    setValue(mMin);
-                }
+                increaseValue();
                 Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
             }
         });
@@ -113,24 +100,6 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         super.draw(batch, parentAlpha);
     }
 
-    @SuppressWarnings("SameParameterValue")
-    public void setRange(int min, int max) {
-        mMin = min;
-        mMax = max;
-        setValue(MathUtils.clamp(mValue, mMin, mMax));
-    }
-
-    public int getValue() {
-        return mValue;
-    }
-
-    public void setValue(int value) {
-        mValue = value;
-        if (mMainActor != null) {
-            updateMainActor();
-        }
-    }
-
     /**
      * Must create the actor to show between the left and right buttons
      */
@@ -140,6 +109,10 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
      * Called when main actor must be updated because value changed
      */
     protected abstract void updateMainActor();
+
+    protected abstract void decreaseValue();
+
+    protected abstract void increaseValue();
 
     @Override
     public Actor getActor() {
