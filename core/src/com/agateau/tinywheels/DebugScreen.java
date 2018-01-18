@@ -29,7 +29,6 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -109,33 +108,19 @@ public class DebugScreen extends TwStageScreen {
 
     private void addCheckBox(String text, final String keyName) {
         final Introspector introspector = mCurrentIntrospector;
-        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        SwitchMenuItem item = new SwitchMenuItem(mMenu);
+        final DebugSwitchMenuItem item = new DebugSwitchMenuItem(mMenu, keyName, introspector);
         boolean checked = introspector.get(keyName);
         item.setChecked(checked);
         mMenu.addItemWithLabel(text, item);
 
-
-        /*
-        final CheckBox checkBox = new CheckBox(text, mGame.getAssets().ui.skin);
-        boolean checked = introspector.get(keyName);
-        checkBox.setChecked(checked);
-
-        checkBox.addListener(new ChangeListener() {
+        item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                boolean value = checkBox.isChecked();
+                boolean value = item.isChecked();
                 introspector.set(keyName, value);
-                defaultLabel.update();
             }
         });
-
-        final HorizontalGroup group = new HorizontalGroup();
-        group.addActor(checkBox);
-        group.addActor(defaultLabel);
-        return group;
-        */
     }
 
     private void addRange(String text, final String keyName, int min, int max) {
@@ -145,7 +130,7 @@ public class DebugScreen extends TwStageScreen {
     private void addRange(String text, final String keyName, int min, int max, int stepSize) {
         final Introspector introspector = mCurrentIntrospector;
 
-        final MyIntSliderMenuItem item = new MyIntSliderMenuItem(mMenu, keyName, introspector);
+        final DebugIntSliderMenuItem item = new DebugIntSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max);
         item.setStepSize(stepSize);
         item.setValue(introspector.getInt(keyName));
@@ -164,7 +149,7 @@ public class DebugScreen extends TwStageScreen {
     private void addRange(String text, final String keyName, float min, float max, float stepSize) {
         final Introspector introspector = mCurrentIntrospector;
 
-        final MyFloatSliderMenuItem item = new MyFloatSliderMenuItem(mMenu, keyName, introspector);
+        final DebugFloatSliderMenuItem item = new DebugFloatSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max);
         item.setStepSize(stepSize);
         item.setValue(introspector.getFloat(keyName));
@@ -187,11 +172,11 @@ public class DebugScreen extends TwStageScreen {
         mGame.popScreen();
     }
 
-    private class MyIntSliderMenuItem extends IntSliderMenuItem {
+    private class DebugIntSliderMenuItem extends IntSliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
-        public MyIntSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
+        public DebugIntSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
             super(menu);
             mKeyName = keyName;
             mIntrospector = introspector;
@@ -210,11 +195,11 @@ public class DebugScreen extends TwStageScreen {
         }
     }
 
-    private class MyFloatSliderMenuItem extends FloatSliderMenuItem {
+    private class DebugFloatSliderMenuItem extends FloatSliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
-        public MyFloatSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
+        public DebugFloatSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
             super(menu);
             mKeyName = keyName;
             mIntrospector = introspector;
@@ -228,6 +213,29 @@ public class DebugScreen extends TwStageScreen {
 
             if (ref != current) {
                 text += " (" + super.formatValue(ref) + ")";
+            }
+            return text;
+        }
+    }
+
+    private class DebugSwitchMenuItem extends SwitchMenuItem {
+        private final String mKeyName;
+        private final Introspector mIntrospector;
+
+        public DebugSwitchMenuItem(Menu menu, String keyName, Introspector introspector) {
+            super(menu);
+            mKeyName = keyName;
+            mIntrospector = introspector;
+        }
+
+        @Override
+        protected String formatValue(boolean value) {
+            String text = super.formatValue(value);
+            boolean ref = mIntrospector.getReference(mKeyName);
+            boolean current = mIntrospector.get(mKeyName);
+
+            if (ref != current && value == ref) {
+                text += "*";
             }
             return text;
         }
