@@ -51,7 +51,7 @@ public class IntSliderMenuItem extends RangeMenuItem {
         if (mLabel == null) {
             return;
         }
-        mLabel.setText(String.valueOf(getValue()));
+        mLabel.setText(formatValue(getValue()));
     }
 
     @Override
@@ -62,5 +62,9 @@ public class IntSliderMenuItem extends RangeMenuItem {
     @Override
     protected void increase() {
         setValue(mValue + mStepSize);
+    }
+
+    protected String formatValue(int value) {
+        return String.valueOf(value);
     }
 }
