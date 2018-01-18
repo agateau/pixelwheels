@@ -45,6 +45,10 @@ public class MenuScrollPane extends ScrollPane {
         setMenu(menu);
     }
 
+    public Menu getMenu() {
+        return mMenu;
+    }
+
     public void setMenu(Menu menu) {
         setWidget(menu);
         mMenu = menu;

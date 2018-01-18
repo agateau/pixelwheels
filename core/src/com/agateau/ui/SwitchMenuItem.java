@@ -146,7 +146,11 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         // Draw text
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        mFont.draw(batch, "OFF", getX() + padding, y, handleWidth, Align.center, /* wrap= */false);
-        mFont.draw(batch, "ON", getX() + padding + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, formatValue(false), getX() + padding, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(batch, formatValue(true), getX() + padding + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
+    }
+
+    protected String formatValue(boolean value) {
+        return value ? "ON" : "OFF";
     }
 }

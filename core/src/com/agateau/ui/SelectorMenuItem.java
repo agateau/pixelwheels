@@ -40,9 +40,11 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     private Label mMainLabel;
 
     private Array<Entry<T>> mEntries = new Array<Entry<T>>();
+    private int mCurrentIndex = 0;
 
     public SelectorMenuItem(Menu menu) {
         super(menu);
+        mCurrentIndex = 0;
     }
 
     @Override
@@ -53,27 +55,52 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     @Override
-    protected void updateMainActor() {
-        mMainLabel.setText(mEntries.get(getValue()).text);
+    public void updateMainActor() {
+        if (mMainLabel == null) {
+            return;
+        }
+        mMainLabel.setText(mEntries.get(mCurrentIndex).text);
+    }
+
+    @Override
+    protected void decrease() {
+        if (mCurrentIndex > 0) {
+            setCurrentIndex(mCurrentIndex - 1);
+        } else {
+            setCurrentIndex(mEntries.size - 1);
+        }
+    }
+
+    @Override
+    protected void increase() {
+        if (mCurrentIndex < mEntries.size - 1) {
+            setCurrentIndex(mCurrentIndex + 1);
+        } else {
+            setCurrentIndex(0);
+        }
     }
 
     public void addEntry(String text, T data) {
         mEntries.add(new Entry<T>(text, data));
-        setRange(0, mEntries.size - 1);
     }
 
     public T getData() {
-        Entry<T> entry = mEntries.get(getValue());
+        Entry<T> entry = mEntries.get(mCurrentIndex);
         return entry.data;
     }
 
     public void setData(T data) {
         for (int idx = 0; idx < mEntries.size; ++idx) {
             if (mEntries.get(idx).data == data) {
-                setValue(idx);
+                setCurrentIndex(idx);
                 return;
             }
         }
-        setValue(0);
+        setCurrentIndex(0);
+    }
+
+    private void setCurrentIndex(int currentIndex) {
+        mCurrentIndex = currentIndex;
+        updateMainActor();
     }
 }

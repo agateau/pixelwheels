@@ -18,6 +18,7 @@
  */
 package com.agateau.ui;
 
+import com.agateau.tinywheels.MenuScrollPane;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
@@ -204,6 +205,8 @@ public class UiBuilder {
             return createCheckBox(element);
         } else if (name.equals("Menu")) {
             return createMenu(element);
+        } else if (name.equals("MenuScrollPane")) {
+            return createMenuScrollPane(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -347,6 +350,12 @@ public class UiBuilder {
             menu.setLabelColumnWidth(width);
         }
         return menu;
+    }
+
+    protected MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
+        Menu menu = createMenu(element);
+        MenuScrollPane pane = new MenuScrollPane(menu);
+        return pane;
     }
 
     protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {

@@ -68,9 +68,11 @@ public class Introspector {
                 continue;
             }
             if (type.equals("int")) {
-                setInt(name, Integer.valueOf(value));
+                set(name, Integer.valueOf(value));
             } else if (type.equals("boolean")) {
                 set(name, Boolean.valueOf(value));
+            } else if (type.equals("float")) {
+                set(name, Float.valueOf(value));
             }
         }
     }
@@ -171,10 +173,10 @@ public class Introspector {
             return field.getFloat(mObject);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            throw new RuntimeException("getInt(" + key + ") failed. " + e);
+            throw new RuntimeException("getFloat(" + key + ") failed. " + e);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            throw new RuntimeException("getInt(" + key + ") failed. " + e);
+            throw new RuntimeException("getFloat(" + key + ") failed. " + e);
         }
     }
 
@@ -184,10 +186,10 @@ public class Introspector {
             field.setFloat(mObject, value);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            throw new RuntimeException("setInt(" + key + ") failed. " + e);
+            throw new RuntimeException("setFloat(" + key + ") failed. " + e);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            throw new RuntimeException("setInt(" + key + ") failed. " + e);
+            throw new RuntimeException("setFloat(" + key + ") failed. " + e);
         }
     }
 }
