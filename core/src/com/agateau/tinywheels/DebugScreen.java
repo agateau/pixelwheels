@@ -29,7 +29,6 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -68,37 +67,33 @@ public class DebugScreen extends TwStageScreen {
         MenuScrollPane pane = builder.getActor("scrollPane");
         mMenu = pane.getMenu();
         addTitle("Race");
-        addRange("Viewport width:", "viewportWidth", 20, 800, 10);
-        addRange("Racer count:", "racerCount", 1, 8);
-        addRange("Max skidmarks:", "maxSkidmarks", 10, 200, 10);
-        addRange("Border restitution:", "borderRestitution", 1, 50);
+        addRange("Viewport width", "viewportWidth", 20, 800, 10);
+        addRange("Racer count", "racerCount", 1, 8);
+        addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
+        addRange("Border restitution", "borderRestitution", 1, 50);
         addTitle("Input");
-        addCheckBox("Always show touch input", "alwaysShowTouchInput");
+        addCheckBox("Force touch input", "alwaysShowTouchInput");
         addTitle("Speed");
-        addRange("Max driving force:", "maxDrivingForce", 10, 200, 10);
-        addRange("Max speed:", "maxSpeed", 10, 400, 10);
+        addRange("Max driving force", "maxDrivingForce", 10, 200, 10);
+        addRange("Max speed", "maxSpeed", 10, 400, 10);
         addTitle("Turbo");
-        addRange("Strength:", "turboStrength", 10, 800, 20);
-        addRange("Duration:", "turboDuration", 0.1f, 2f, 0.1f);
+        addRange("Strength", "turboStrength", 10, 800, 20);
+        addRange("Duration", "turboDuration", 0.1f, 2f, 0.1f);
         addTitle("Wheels");
-        /*
-        mGroup.addActor(addRange("Stickiness:", "maxLateralImpulse", 1, 40));
-        mGroup.addActor(addRange("Steer: low speed:", "lowSpeedMaxSteer", 2, 50, 2));
-        mGroup.addActor(addRange("Steer: high speed:", "highSpeedMaxSteer", 2, 50, 1));
+        addRange("Stickiness", "maxLateralImpulse", 1, 40);
+        addRange("Steer: low speed", "lowSpeedMaxSteer", 2, 50, 2);
+        addRange("Steer: high speed", "highSpeedMaxSteer", 2, 50, 1);
         addTitle("Vehicle");
-        mGroup.addActor(addRange("Density:", "vehicleDensity", 1, 50));
-        mGroup.addActor(addRange("Restitution:", "vehicleRestitution", 1, 50));
+        addRange("Density", "vehicleDensity", 1, 50);
+        addRange("Restitution", "vehicleRestitution", 1, 50);
 
         mCurrentIntrospector = mGame.getDebugIntrospector();
         addTitle("Debug");
-        mGroup.addActor(addCheckBox("Show debug hud", "showDebugHud"));
-        mGroup.addActor(addCheckBox("Show debug layer", "showDebugLayer"));
-        mGroup.addActor(addCheckBox("- Draw velocities", "drawVelocities"));
-        mGroup.addActor(addCheckBox("- Draw tile corners", "drawTileCorners"));
-        mGroup.addActor(addCheckBox("Hud debug lines", "showHudDebugLines"));
-
-        mGroup.setSize(mGroup.getPrefWidth(), mGroup.getPrefHeight());
-        */
+        addCheckBox("Show debug hud", "showDebugHud");
+        addCheckBox("Show debug layer", "showDebugLayer");
+        addCheckBox("- Draw velocities", "drawVelocities");
+        addCheckBox("- Draw tile corners", "drawTileCorners");
+        addCheckBox("Hud debug lines", "showHudDebugLines");
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -149,10 +144,8 @@ public class DebugScreen extends TwStageScreen {
 
     private void addRange(String text, final String keyName, int min, int max, int stepSize) {
         final Introspector introspector = mCurrentIntrospector;
-        // FIXME
-        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final IntSliderMenuItem item = new IntSliderMenuItem(mMenu);
+        final MyIntSliderMenuItem item = new MyIntSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max);
         item.setStepSize(stepSize);
         item.setValue(introspector.getInt(keyName));
@@ -161,8 +154,7 @@ public class DebugScreen extends TwStageScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 int value = item.getValue();
                 introspector.setInt(keyName, value);
-                // FIXME
-                //defaultLabel.update();
+                item.updateMainActor();
             }
         });
 
@@ -171,10 +163,8 @@ public class DebugScreen extends TwStageScreen {
 
     private void addRange(String text, final String keyName, float min, float max, float stepSize) {
         final Introspector introspector = mCurrentIntrospector;
-        // FIXME
-        //final DefaultLabel defaultLabel = new DefaultLabel(keyName, introspector);
 
-        final FloatSliderMenuItem item = new FloatSliderMenuItem(mMenu);
+        final MyFloatSliderMenuItem item = new MyFloatSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max);
         item.setStepSize(stepSize);
         item.setValue(introspector.getFloat(keyName));
@@ -183,22 +173,11 @@ public class DebugScreen extends TwStageScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 float value = item.getValue();
                 introspector.setFloat(keyName, value);
-                // FIXME
-                //defaultLabel.update();
+                item.updateMainActor();
             }
         });
 
         mMenu.addItemWithLabel(text, item);
-    }
-
-    private Actor createRow(String text, Actor actor1, Actor actor2) {
-        final HorizontalGroup group = new HorizontalGroup();
-        group.addActor(new Label(text + " ", mGame.getAssets().ui.skin));
-        group.addActor(actor1);
-        if (actor2 != null) {
-            group.addActor(actor2);
-        }
-        return group;
     }
 
     @Override
@@ -208,28 +187,49 @@ public class DebugScreen extends TwStageScreen {
         mGame.popScreen();
     }
 
-    private class DefaultLabel extends Label {
+    private class MyIntSliderMenuItem extends IntSliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
-        public DefaultLabel(String keyName, Introspector introspector) {
-            super("", mGame.getAssets().ui.skin);
+        public MyIntSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
+            super(menu);
             mKeyName = keyName;
             mIntrospector = introspector;
-            update();
         }
 
-        public void update() {
-            Object ref = mIntrospector.getReference(mKeyName);
-            Object current = mIntrospector.get(mKeyName);
+        @Override
+        protected String formatValue(int value) {
+            String text = super.formatValue(value);
+            int ref = mIntrospector.getReference(mKeyName);
+            int current = mIntrospector.get(mKeyName);
 
-            if (ref.equals(current)) {
-                setVisible(false);
-                return;
+            if (ref != current) {
+                text += " (" + super.formatValue(ref) + ")";
             }
-            setVisible(true);
-            String text = " (" + ref.toString() + ")";
-            setText(text);
+            return text;
+        }
+    }
+
+    private class MyFloatSliderMenuItem extends FloatSliderMenuItem {
+        private final String mKeyName;
+        private final Introspector mIntrospector;
+
+        public MyFloatSliderMenuItem(Menu menu, String keyName, Introspector introspector) {
+            super(menu);
+            mKeyName = keyName;
+            mIntrospector = introspector;
+        }
+
+        @Override
+        protected String formatValue(float value) {
+            String text = super.formatValue(value);
+            float ref = mIntrospector.getReference(mKeyName);
+            float current = mIntrospector.get(mKeyName);
+
+            if (ref != current) {
+                text += " (" + super.formatValue(ref) + ")";
+            }
+            return text;
         }
     }
 }
