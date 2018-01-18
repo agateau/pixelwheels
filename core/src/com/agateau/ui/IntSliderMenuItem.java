@@ -47,7 +47,7 @@ public class IntSliderMenuItem extends RangeMenuItem {
     }
 
     @Override
-    protected void updateMainActor() {
+    public void updateMainActor() {
         if (mLabel == null) {
             return;
         }

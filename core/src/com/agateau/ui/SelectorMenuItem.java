@@ -55,7 +55,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     @Override
-    protected void updateMainActor() {
+    public void updateMainActor() {
         if (mMainLabel == null) {
             return;
         }

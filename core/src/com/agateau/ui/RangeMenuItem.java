@@ -108,7 +108,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     /**
      * Called when main actor must be updated because value changed
      */
-    protected abstract void updateMainActor();
+    public abstract void updateMainActor();
 
     /**
      * Called when the user clicks on the decrease button
