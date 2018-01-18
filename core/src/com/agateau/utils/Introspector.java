@@ -68,9 +68,11 @@ public class Introspector {
                 continue;
             }
             if (type.equals("int")) {
-                setInt(name, Integer.valueOf(value));
+                set(name, Integer.valueOf(value));
             } else if (type.equals("boolean")) {
                 set(name, Boolean.valueOf(value));
+            } else if (type.equals("float")) {
+                set(name, Float.valueOf(value));
             }
         }
     }
