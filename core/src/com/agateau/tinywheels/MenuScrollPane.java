@@ -42,6 +42,8 @@ public class MenuScrollPane extends ScrollPane {
 
     public MenuScrollPane(Menu menu) {
         super(null);
+        // Do not steal touch events from items like sliders
+        setCancelTouchFocus(false);
         setMenu(menu);
     }
 

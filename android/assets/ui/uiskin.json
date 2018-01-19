@@ -95,5 +95,14 @@
             decIcon: icon-left,
             incIcon: icon-right
         }
+    },
+    com.agateau.ui.IntSliderMenuItem$SliderMenuItemStyle: {
+        default: {
+            frame: menu-switch-frame,
+            framePadding: 4,
+            decIcon: icon-left,
+            incIcon: icon-right,
+            handle: rectbutton
+        }
     }
 }
