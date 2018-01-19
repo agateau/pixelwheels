@@ -58,7 +58,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 decrease();
-                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
+                fireChangeEvent();
             }
         });
 
@@ -67,11 +67,15 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 increase();
-                Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
+                fireChangeEvent();
             }
         });
 
         setHeight(mLeftButton.getPrefHeight());
+    }
+
+    protected void fireChangeEvent() {
+        Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
     }
 
     @Override

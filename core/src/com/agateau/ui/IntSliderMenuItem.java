@@ -140,5 +140,6 @@ public class IntSliderMenuItem extends RangeMenuItem {
 
     private void onSliderChanged(float percent) {
         setValue(mMin + (int)(percent * (mMax - mMin)));
+        fireChangeEvent();
     }
 }
