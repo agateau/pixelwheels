@@ -279,11 +279,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             NLog.e("Invalid item size");
             return;
         }
-        final int columnCount = Math.min(MathUtils.floor(getWidth() / mItemWidth), mItems.size);
-        final float gutterWidth = (getWidth() - mItemWidth * columnCount) / 2;
+        final float gutterWidth = getGutterWidth();
         int row = MathUtils.floor((getHeight() - touchY) / mItemHeight);
         int column = MathUtils.floor((touchX - gutterWidth) / mItemWidth);
-        int idx = row * columnCount + column;
+        int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             mCurrentIndex = idx;
             mMenu.animateFocusIndicator();
