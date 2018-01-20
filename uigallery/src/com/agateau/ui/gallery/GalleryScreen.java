@@ -19,7 +19,6 @@
 package com.agateau.ui.gallery;
 
 import com.agateau.tinywheels.MenuScrollPane;
-import com.agateau.ui.FloatSliderMenuItem;
 import com.agateau.ui.GridMenuItem;
 import com.agateau.ui.IntSliderMenuItem;
 import com.agateau.ui.Menu;
@@ -143,9 +142,8 @@ class GalleryScreen extends StageScreen {
         intSliderMenuItem.setRange(12, 36, 2);
         menu.addItemWithLabel("Ints", intSliderMenuItem);
 
-        FloatSliderMenuItem floatSliderMenuItem = new FloatSliderMenuItem(menu);
-        floatSliderMenuItem.setRange(1, 9);
-        floatSliderMenuItem.setStepSize(0.5f);
+        IntSliderMenuItem floatSliderMenuItem = new IntSliderMenuItem(menu);
+        floatSliderMenuItem.setRange(1f, 9f, 0.5f);
         menu.addItemWithLabel("Floats", floatSliderMenuItem);
 
         menu.addTitleLabel("GridMenuItem");

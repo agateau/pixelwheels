@@ -1,5 +1,6 @@
 package com.agateau.ui;
 
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.utils.Align;
  * A Menu item to select int values
  */
 public class IntSliderMenuItem extends RangeMenuItem {
+    private static final float NO_DIVISOR = -1;
+
     private static class SliderMainActor extends Actor {
         private final Skin mSkin;
         private final SliderMenuItemStyle mStyle;
@@ -79,6 +82,7 @@ public class IntSliderMenuItem extends RangeMenuItem {
     private int mMin = 0;
     private int mMax = 100;
     private int mStepSize = 1;
+    private float mDivisor = NO_DIVISOR;
     private int mValue = 0;
 
     public IntSliderMenuItem(Menu menu) {
@@ -93,6 +97,15 @@ public class IntSliderMenuItem extends RangeMenuItem {
         mMin = min;
         mMax = max;
         mStepSize = stepSize;
+        mDivisor = NO_DIVISOR;
+        setValue(getValue());
+    }
+
+    public void setRange(float min, float max, float stepSize) {
+        mStepSize = 1;
+        mDivisor = 1 / stepSize;
+        mMin = (int)(min * mDivisor);
+        mMax = (int)(max * mDivisor);
         setValue(getValue());
     }
 
@@ -107,6 +120,14 @@ public class IntSliderMenuItem extends RangeMenuItem {
             mValue -= reminder;
         }
         updateMainActor();
+    }
+
+    public void setFloatValue(float value) {
+        setValue((int)(value * mDivisor));
+    }
+
+    public float getFloatValue() {
+        return mValue / mDivisor;
     }
 
     @Override
@@ -135,7 +156,15 @@ public class IntSliderMenuItem extends RangeMenuItem {
     }
 
     protected String formatValue(int value) {
-        return String.valueOf(value);
+        if (mDivisor == NO_DIVISOR) {
+            return String.valueOf(value);
+        } else {
+            return String.valueOf(value / mDivisor);
+        }
+    }
+
+    protected float getDivisor() {
+        return mDivisor;
     }
 
     private void onSliderChanged(float percent) {
