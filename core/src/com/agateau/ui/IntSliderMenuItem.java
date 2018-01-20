@@ -83,16 +83,16 @@ public class IntSliderMenuItem extends RangeMenuItem {
 
     public IntSliderMenuItem(Menu menu) {
         super(menu);
-        setStepSize(1);
-    }
-
-    public void setStepSize(int stepSize) {
-        mStepSize = stepSize;
     }
 
     public void setRange(int min, int max) {
+        setRange(min, max, 1);
+    }
+
+    public void setRange(int min, int max, int stepSize) {
         mMin = min;
         mMax = max;
+        mStepSize = stepSize;
         setValue(getValue());
     }
 

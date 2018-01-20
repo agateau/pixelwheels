@@ -140,8 +140,7 @@ class GalleryScreen extends StageScreen {
         menu.addItemWithLabel("Control", selectorMenuItem);
 
         IntSliderMenuItem intSliderMenuItem = new IntSliderMenuItem(menu);
-        intSliderMenuItem.setRange(12, 36);
-        intSliderMenuItem.setStepSize(2);
+        intSliderMenuItem.setRange(12, 36, 2);
         menu.addItemWithLabel("Ints", intSliderMenuItem);
 
         FloatSliderMenuItem floatSliderMenuItem = new FloatSliderMenuItem(menu);

@@ -131,8 +131,7 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
 
         final DebugIntSliderMenuItem item = new DebugIntSliderMenuItem(mMenu, keyName, introspector);
-        item.setRange(min, max);
-        item.setStepSize(stepSize);
+        item.setRange(min, max, stepSize);
         item.setValue(introspector.getInt(keyName));
         item.addListener(new ChangeListener() {
             @Override
