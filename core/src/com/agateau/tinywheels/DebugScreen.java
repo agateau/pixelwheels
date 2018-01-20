@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.IntSliderMenuItem;
+import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.SwitchMenuItem;
@@ -131,11 +131,11 @@ public class DebugScreen extends TwStageScreen {
 
         final DebugIntSliderMenuItem item = new DebugIntSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max, stepSize);
-        item.setValue(introspector.getInt(keyName));
+        item.setIntValue(introspector.getInt(keyName));
         item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                int value = item.getValue();
+                int value = item.getIntValue();
                 introspector.setInt(keyName, value);
                 item.updateMainActor();
             }
@@ -169,7 +169,7 @@ public class DebugScreen extends TwStageScreen {
         mGame.popScreen();
     }
 
-    private class DebugIntSliderMenuItem extends IntSliderMenuItem {
+    private class DebugIntSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
@@ -192,7 +192,7 @@ public class DebugScreen extends TwStageScreen {
         }
     }
 
-    private class DebugFloatSliderMenuItem extends IntSliderMenuItem {
+    private class DebugFloatSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 

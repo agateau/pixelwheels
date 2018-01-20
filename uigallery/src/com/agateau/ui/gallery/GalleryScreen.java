@@ -20,7 +20,7 @@ package com.agateau.ui.gallery;
 
 import com.agateau.tinywheels.MenuScrollPane;
 import com.agateau.ui.GridMenuItem;
-import com.agateau.ui.IntSliderMenuItem;
+import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.MenuItemListener;
 import com.agateau.ui.SelectorMenuItem;
@@ -138,11 +138,11 @@ class GalleryScreen extends StageScreen {
         selectorMenuItem.addEntry("Mind", 36);
         menu.addItemWithLabel("Control", selectorMenuItem);
 
-        IntSliderMenuItem intSliderMenuItem = new IntSliderMenuItem(menu);
-        intSliderMenuItem.setRange(12, 36, 2);
-        menu.addItemWithLabel("Ints", intSliderMenuItem);
+        SliderMenuItem sliderMenuItem = new SliderMenuItem(menu);
+        sliderMenuItem.setRange(12, 36, 2);
+        menu.addItemWithLabel("Ints", sliderMenuItem);
 
-        IntSliderMenuItem floatSliderMenuItem = new IntSliderMenuItem(menu);
+        SliderMenuItem floatSliderMenuItem = new SliderMenuItem(menu);
         floatSliderMenuItem.setRange(1f, 9f, 0.5f);
         menu.addItemWithLabel("Floats", floatSliderMenuItem);
 

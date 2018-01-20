@@ -96,7 +96,7 @@
             incIcon: icon-right
         }
     },
-    com.agateau.ui.IntSliderMenuItem$SliderMenuItemStyle: {
+    com.agateau.ui.SliderMenuItem$SliderMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
             framePadding: 4,
