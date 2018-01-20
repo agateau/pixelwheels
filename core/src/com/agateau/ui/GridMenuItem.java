@@ -286,7 +286,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         int idx = row * columnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             mCurrentIndex = idx;
-            mMenu.setCurrentItem(this);
+            mMenu.animateFocusIndicator();
             trigger();
         }
     }

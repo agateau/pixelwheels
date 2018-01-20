@@ -27,6 +27,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -89,6 +91,15 @@ public class Menu extends Group {
         mContainer.pad(mStyle.focusPadding);
         mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
         mContainer.fill();
+        mContainer.addCaptureListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                MenuItem item = getItemAt(x, y);
+                if (item != null) {
+                    setCurrentItem(item);
+                }
+                return false;
+            }
+        });
 
         addActor(mFocusIndicator);
         addActor(mContainer);
@@ -286,5 +297,23 @@ public class Menu extends Group {
         mTmp = actor.localToAscendantCoordinates(mContainer, mTmp);
         rect.x = mTmp.x;
         rect.y = mTmp.y;
+    }
+
+    /**
+     * Returns the item at x, y (relative to mContainer), if any
+     */
+    Rectangle mActorRectangle = new Rectangle();
+    private MenuItem getItemAt(float x, float y) {
+        for (MenuItem item : mItems) {
+            Actor actor = item.getActor();
+            // We do not use the item focus rect because it might be only represent a part of the item
+            // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
+            mActorRectangle.set(0, 0, actor.getWidth(), actor.getHeight());
+            mapDescendantRectangle(actor, mActorRectangle);
+            if (mActorRectangle.contains(x, y)) {
+                return item;
+            }
+        }
+        return null;
     }
 }
