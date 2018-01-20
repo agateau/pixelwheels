@@ -18,8 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.FloatSliderMenuItem;
-import com.agateau.ui.IntSliderMenuItem;
+import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.SwitchMenuItem;
@@ -131,13 +130,12 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
 
         final DebugIntSliderMenuItem item = new DebugIntSliderMenuItem(mMenu, keyName, introspector);
-        item.setRange(min, max);
-        item.setStepSize(stepSize);
-        item.setValue(introspector.getInt(keyName));
+        item.setRange(min, max, stepSize);
+        item.setIntValue(introspector.getInt(keyName));
         item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                int value = item.getValue();
+                int value = item.getIntValue();
                 introspector.setInt(keyName, value);
                 item.updateMainActor();
             }
@@ -150,13 +148,12 @@ public class DebugScreen extends TwStageScreen {
         final Introspector introspector = mCurrentIntrospector;
 
         final DebugFloatSliderMenuItem item = new DebugFloatSliderMenuItem(mMenu, keyName, introspector);
-        item.setRange(min, max);
-        item.setStepSize(stepSize);
-        item.setValue(introspector.getFloat(keyName));
+        item.setRange(min, max, stepSize);
+        item.setFloatValue(introspector.getFloat(keyName));
         item.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float value = item.getValue();
+                float value = item.getFloatValue();
                 introspector.setFloat(keyName, value);
                 item.updateMainActor();
             }
@@ -172,7 +169,7 @@ public class DebugScreen extends TwStageScreen {
         mGame.popScreen();
     }
 
-    private class DebugIntSliderMenuItem extends IntSliderMenuItem {
+    private class DebugIntSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
@@ -195,7 +192,7 @@ public class DebugScreen extends TwStageScreen {
         }
     }
 
-    private class DebugFloatSliderMenuItem extends FloatSliderMenuItem {
+    private class DebugFloatSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
@@ -206,13 +203,14 @@ public class DebugScreen extends TwStageScreen {
         }
 
         @Override
-        protected String formatValue(float value) {
+        protected String formatValue(int value) {
             String text = super.formatValue(value);
             float ref = mIntrospector.getReference(mKeyName);
             float current = mIntrospector.get(mKeyName);
 
             if (ref != current) {
-                text += " (" + super.formatValue(ref) + ")";
+                int intValue = (int)(ref * getDivisor());
+                text += " (" + super.formatValue(intValue) + ")";
             }
             return text;
         }

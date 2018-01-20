@@ -14,16 +14,18 @@ import com.badlogic.gdx.utils.Align;
 /**
  * A Menu item to select int values
  */
-public class IntSliderMenuItem extends RangeMenuItem {
+public class SliderMenuItem extends RangeMenuItem {
+    private static final float NO_DIVISOR = -1;
+
     private static class SliderMainActor extends Actor {
         private final Skin mSkin;
         private final SliderMenuItemStyle mStyle;
         private final BitmapFont mFont;
-        private final IntSliderMenuItem mMenuItem;
+        private final SliderMenuItem mMenuItem;
         private String mText;
         private float mPercent = 0;
 
-        SliderMainActor(Skin skin, final IntSliderMenuItem menuItem) {
+        SliderMainActor(Skin skin, final SliderMenuItem menuItem) {
             mSkin = skin;
             mStyle = mSkin.get("default", SliderMenuItemStyle.class);
             mFont = mSkin.get("default-font", BitmapFont.class);
@@ -79,34 +81,52 @@ public class IntSliderMenuItem extends RangeMenuItem {
     private int mMin = 0;
     private int mMax = 100;
     private int mStepSize = 1;
+    private float mDivisor = NO_DIVISOR;
     private int mValue = 0;
 
-    public IntSliderMenuItem(Menu menu) {
+    public SliderMenuItem(Menu menu) {
         super(menu);
-        setStepSize(1);
-    }
-
-    public void setStepSize(int stepSize) {
-        mStepSize = stepSize;
     }
 
     public void setRange(int min, int max) {
-        mMin = min;
-        mMax = max;
-        setValue(getValue());
+        setRange(min, max, 1);
     }
 
-    public int getValue() {
+    public void setRange(int min, int max, int stepSize) {
+        mMin = min;
+        mMax = max;
+        mStepSize = stepSize;
+        mDivisor = NO_DIVISOR;
+        setIntValue(getIntValue());
+    }
+
+    public void setRange(float min, float max, float stepSize) {
+        mStepSize = 1;
+        mDivisor = 1 / stepSize;
+        mMin = (int)(min * mDivisor);
+        mMax = (int)(max * mDivisor);
+        setIntValue(getIntValue());
+    }
+
+    public int getIntValue() {
         return mValue;
     }
 
-    public void setValue(int value) {
+    public void setIntValue(int value) {
         mValue = MathUtils.clamp(value, mMin, mMax);
         int reminder = (mValue - mMin) % mStepSize;
         if (reminder > 0) {
             mValue -= reminder;
         }
         updateMainActor();
+    }
+
+    public void setFloatValue(float value) {
+        setIntValue((int)(value * mDivisor));
+    }
+
+    public float getFloatValue() {
+        return mValue / mDivisor;
     }
 
     @Override
@@ -121,25 +141,33 @@ public class IntSliderMenuItem extends RangeMenuItem {
             return;
         }
         mMainActor.setPercent((mValue - mMin) / (float)(mMax - mMin));
-        mMainActor.setText(formatValue(getValue()));
+        mMainActor.setText(formatValue(getIntValue()));
     }
 
     @Override
     protected void decrease() {
-        setValue(mValue - mStepSize);
+        setIntValue(mValue - mStepSize);
     }
 
     @Override
     protected void increase() {
-        setValue(mValue + mStepSize);
+        setIntValue(mValue + mStepSize);
     }
 
     protected String formatValue(int value) {
-        return String.valueOf(value);
+        if (mDivisor == NO_DIVISOR) {
+            return String.valueOf(value);
+        } else {
+            return String.valueOf(value / mDivisor);
+        }
+    }
+
+    protected float getDivisor() {
+        return mDivisor;
     }
 
     private void onSliderChanged(float percent) {
-        setValue(mMin + (int)(percent * (mMax - mMin)));
+        setIntValue(mMin + (int)(percent * (mMax - mMin)));
         fireChangeEvent();
     }
 }
