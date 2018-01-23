@@ -1,1 +1,1 @@
-include 'uigallery', 'desktop', 'tools', 'android', 'core'
+include 'motorlab', 'uigallery', 'desktop', 'tools', 'android', 'core'
