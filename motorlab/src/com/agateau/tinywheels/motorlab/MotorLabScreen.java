@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.Locale;
@@ -24,11 +25,14 @@ class MotorLabScreen extends StageScreen {
     private MotorSound mMotorSound;
     private SliderMenuItem mSpeedItem;
 
+    private SliderMenuItem mPitchItem;
+    private Array<SliderMenuItem> mVolumeItems = new Array<SliderMenuItem>();
+
     public MotorLabScreen() {
         super(new ScreenViewport());
+        setupMotorLab();
         loadSkin();
         setupUi();
-        setupMotorLab();
     }
 
     private void loadSkin() {
@@ -86,6 +90,18 @@ class MotorLabScreen extends StageScreen {
         mSpeedItem.setRange(0, 1, 0.01f);
         menu.addItemWithLabel("Speed", mSpeedItem);
 
+        mPitchItem = new SliderMenuItem(menu);
+        mPitchItem.setRange(MotorSound.MIN_PITCH, MotorSound.MAX_PITCH, 0.01f);
+        menu.addItemWithLabel("Pitch", mPitchItem);
+
+        menu.addLabel("Volumes");
+        for (int i = 0; i < mMotorSound.getSoundCount(); ++i) {
+            SliderMenuItem item = new SliderMenuItem(menu);
+            item.setRange(0, 1, 0.01f);
+            menu.addItemWithLabel(String.valueOf(i), item);
+            mVolumeItems.add(item);
+        }
+
         root.addPositionRule(menu, Anchor.CENTER, root, Anchor.CENTER);
     }
 
@@ -103,6 +119,10 @@ class MotorLabScreen extends StageScreen {
     public void render(float dt) {
         super.render(dt);
         mMotorSound.play(mSpeedItem.getFloatValue());
+        mPitchItem.setFloatValue(mMotorSound.getPitch());
+        for (int i = 0; i < mMotorSound.getSoundCount(); ++i) {
+            mVolumeItems.get(i).setFloatValue(mMotorSound.getSoundVolume(i));
+        }
     }
 
     @Override

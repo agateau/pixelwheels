@@ -27,6 +27,10 @@ public class SoundAtlas {
         return sound;
     }
 
+    public boolean contains(String name) {
+        return mSounds.containsKey(name);
+    }
+
     public void load(String filename) {
         load(filename, "");
     }
