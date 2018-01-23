@@ -1,6 +1,9 @@
 package com.agateau.tinywheels.motorlab;
 
+import com.agateau.tinywheels.SoundAtlas;
+import com.agateau.tinywheels.sound.MotorSound;
 import com.agateau.ui.Menu;
+import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -11,22 +14,26 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.Locale;
+
 /**
  * Main screen for MotorLab
  */
 class MotorLabScreen extends StageScreen {
-    private TextureAtlas mAtlas;
     private Skin mSkin;
+    private MotorSound mMotorSound;
+    private SliderMenuItem mSpeedItem;
 
     public MotorLabScreen() {
         super(new ScreenViewport());
         loadSkin();
         setupUi();
+        setupMotorLab();
     }
 
     private void loadSkin() {
-        mAtlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
-        mSkin = new Skin(mAtlas);
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
+        mSkin = new Skin(atlas);
         loadFonts();
         mSkin.load(Gdx.files.internal("ui/uiskin.json"));
     }
@@ -74,9 +81,28 @@ class MotorLabScreen extends StageScreen {
         Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
         menu.setDefaultItemWidth(500);
-        menu.addButton("Button A");
+
+        mSpeedItem = new SliderMenuItem(menu);
+        mSpeedItem.setRange(0, 1, 0.01f);
+        menu.addItemWithLabel("Speed", mSpeedItem);
 
         root.addPositionRule(menu, Anchor.CENTER, root, Anchor.CENTER);
+    }
+
+    private void setupMotorLab() {
+        SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
+        for (int i = 0; i < 5; ++i) {
+            String name = String.format(Locale.US, "engine-%d", i);
+            String filename = String.format(Locale.US, "loop_%d_0.wav", i + 1);
+            soundAtlas.load(filename, name);
+        }
+        mMotorSound = new MotorSound(soundAtlas);
+    }
+
+    @Override
+    public void render(float dt) {
+        super.render(dt);
+        mMotorSound.play(mSpeedItem.getFloatValue());
     }
 
     @Override
