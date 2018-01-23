@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.Disposable;
  * A racer
  */
 public class Racer extends GameObjectAdapter implements Collidable, Disposable {
+    private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
@@ -63,6 +64,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+        mAssets = assets;
         mGameWorld = gameWorld;
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
         mSpinningComponent = new SpinningComponent(vehicle);
@@ -95,6 +97,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             mVehicle.setProbe(probe);
             addComponent(probe);
         }
+    }
+
+    public void addAudioComponent() {
+        addComponent(new AudioComponent(mAssets.soundAtlas, mVehicle));
     }
 
     public void addComponent(Component component) {
