@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Locale;
 
 /**
- * Simulates the sound of a motor
+ * Simulates the sound of a vehicle engine
  */
-public class MotorSound {
+public class EngineSound {
     public static final float MIN_PITCH = 1f;
     public static final float MAX_PITCH = 3f;
     private float mPitch = MIN_PITCH;
@@ -56,7 +56,7 @@ public class MotorSound {
         return mPitch;
     }
 
-    public MotorSound(SoundAtlas atlas) {
+    public EngineSound(SoundAtlas atlas) {
         for (int i = 0;; ++i) {
             String name = String.format(Locale.US, "engine-%d", i);
             if (!atlas.contains(name)) {

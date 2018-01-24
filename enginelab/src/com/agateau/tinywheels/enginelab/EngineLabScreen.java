@@ -1,7 +1,7 @@
-package com.agateau.tinywheels.motorlab;
+package com.agateau.tinywheels.enginelab;
 
 import com.agateau.tinywheels.SoundAtlas;
-import com.agateau.tinywheels.sound.MotorSound;
+import com.agateau.tinywheels.sound.EngineSound;
 import com.agateau.ui.Menu;
 import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.StageScreen;
@@ -18,19 +18,19 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.Locale;
 
 /**
- * Main screen for MotorLab
+ * Main screen for EngineLab
  */
-class MotorLabScreen extends StageScreen {
+class EngineLabScreen extends StageScreen {
     private Skin mSkin;
-    private MotorSound mMotorSound;
+    private EngineSound mEngineSound;
     private SliderMenuItem mSpeedItem;
 
     private SliderMenuItem mPitchItem;
     private Array<SliderMenuItem> mVolumeItems = new Array<SliderMenuItem>();
 
-    public MotorLabScreen() {
+    public EngineLabScreen() {
         super(new ScreenViewport());
-        setupMotorLab();
+        setupEngineLab();
         loadSkin();
         setupUi();
     }
@@ -91,11 +91,11 @@ class MotorLabScreen extends StageScreen {
         menu.addItemWithLabel("Speed", mSpeedItem);
 
         mPitchItem = new SliderMenuItem(menu);
-        mPitchItem.setRange(MotorSound.MIN_PITCH, MotorSound.MAX_PITCH, 0.01f);
+        mPitchItem.setRange(EngineSound.MIN_PITCH, EngineSound.MAX_PITCH, 0.01f);
         menu.addItemWithLabel("Pitch", mPitchItem);
 
         menu.addLabel("Volumes");
-        for (int i = 0; i < mMotorSound.getSoundCount(); ++i) {
+        for (int i = 0; i < mEngineSound.getSoundCount(); ++i) {
             SliderMenuItem item = new SliderMenuItem(menu);
             item.setRange(0, 1, 0.01f);
             menu.addItemWithLabel(String.valueOf(i), item);
@@ -105,23 +105,23 @@ class MotorLabScreen extends StageScreen {
         root.addPositionRule(menu, Anchor.CENTER, root, Anchor.CENTER);
     }
 
-    private void setupMotorLab() {
+    private void setupEngineLab() {
         SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
         for (int i = 0; i < 5; ++i) {
             String name = String.format(Locale.US, "engine-%d", i);
             String filename = String.format(Locale.US, "loop_%d_0.wav", i + 1);
             soundAtlas.load(filename, name);
         }
-        mMotorSound = new MotorSound(soundAtlas);
+        mEngineSound = new EngineSound(soundAtlas);
     }
 
     @Override
     public void render(float dt) {
         super.render(dt);
-        mMotorSound.play(mSpeedItem.getFloatValue());
-        mPitchItem.setFloatValue(mMotorSound.getPitch());
-        for (int i = 0; i < mMotorSound.getSoundCount(); ++i) {
-            mVolumeItems.get(i).setFloatValue(mMotorSound.getSoundVolume(i));
+        mEngineSound.play(mSpeedItem.getFloatValue());
+        mPitchItem.setFloatValue(mEngineSound.getPitch());
+        for (int i = 0; i < mEngineSound.getSoundCount(); ++i) {
+            mVolumeItems.get(i).setFloatValue(mEngineSound.getSoundVolume(i));
         }
     }
 

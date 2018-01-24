@@ -1,6 +1,6 @@
 package com.agateau.tinywheels;
 
-import com.agateau.tinywheels.sound.MotorSound;
+import com.agateau.tinywheels.sound.EngineSound;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.MathUtils;
  */
 class AudioComponent implements Racer.Component {
 
-    private final MotorSound mMotorSound;
+    private final EngineSound mEngineSound;
     private final Vehicle mVehicle;
 
     public AudioComponent(SoundAtlas atlas, Vehicle vehicle) {
-        mMotorSound = new MotorSound(atlas);
+        mEngineSound = new EngineSound(atlas);
         mVehicle = vehicle;
     }
 
@@ -20,6 +20,6 @@ class AudioComponent implements Racer.Component {
     public void act(float delta) {
         float speed = mVehicle.getSpeed();
         float normSpeed = MathUtils.clamp(speed / 50, 0, 1);
-        mMotorSound.play(normSpeed);
+        mEngineSound.play(normSpeed);
     }
 }

@@ -67,7 +67,7 @@ project(":uigallery") {
     }
 }
 
-project(":motorlab") {
+project(":enginelab") {
     apply plugin: "java"
 
     dependencies {
