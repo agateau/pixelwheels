@@ -1,8 +1,8 @@
-# Tiny Wheels
+# Pixel Wheels
 
-Tiny Wheels is a retro top-down race game.
+Pixel Wheels is a retro top-down race game.
 
-You can play Tiny Wheels alone or with a friend in split-screen.
+You can play Pixel Wheels alone or with a friend in split-screen.
 
 It runs on Linux, macOS, Windows and Android.
 
@@ -15,13 +15,13 @@ graphics, sounds, gameplay...
 ## I don't care, I want to try it anyway
 
 Great! The simplest way to give it a try is to get a binary for your platform
-from [Tiny Wheels home page][tw].
+from [Pixel Wheels home page][pw].
 
-[tw]: http://agateau.com/projects/tinywheels
+[pw]: http://agateau.com/projects/pixelwheels
 
 ## I think it would be much better if it did X, Y or Z! Please make it happen!
 
-I have a reasonably well defined vision of what I want Tiny Wheels to be.
+I have a reasonably well defined vision of what I want Pixel Wheels to be.
 Your (constructive) feedback and suggestions are welcome, and I will look into
 it with great attention, but I reserve the right to decide if your ideas fit
 with the game I am trying to create.
@@ -52,6 +52,13 @@ are interested in some of the GPL code, get in touch, I am open to relicensing.
 On the other hand, if your plan is to take the game, slap some ads on it, and
 release it without releasing the sources of your changes: the license forbids
 you to do so, go find another prey.
+
+## Why is the Java package called "tinywheels"
+
+The game used to be called Tiny Wheels, but I found out there is already a Tiny
+Wheels game on Steam, so I add to rename it. I did not change the Java package 
+name however because Google Play does not allow changing the package name of an
+existing app or game.
 
 ## Author
 
