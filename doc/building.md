@@ -1,8 +1,8 @@
-# Building Tiny Wheels
+# Building Pixel Wheels
 
 ## Dependencies
 
-Building Tinywheels requires the following components:
+Building Pixel Wheels requires the following components:
 
 - A JDK
 - libgdx: <https://libgdx.badlogicgames.com>

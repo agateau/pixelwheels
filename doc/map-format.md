@@ -1,6 +1,6 @@
 # Map format
 
-This document describes the layer which a Tiny Wheels map is made of.
+This document describes the layer which a Pixel Wheels map is made of.
 
 Maps are created using [Tiled](http://mapeditor.org).
 

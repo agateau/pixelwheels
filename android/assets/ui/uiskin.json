@@ -102,7 +102,7 @@
             framePadding: 4,
             decIcon: icon-left,
             incIcon: icon-right,
-            handle: rectbutton
+            handle: slider-handle
         }
     }
 }

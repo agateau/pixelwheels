@@ -2,7 +2,7 @@ DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
 TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
 GRADLEW=./gradlew --offline
 GAME_CP=com.agateau.tinywheels
-EXECUTABLE=tinywheels
+EXECUTABLE=pixelwheels
 
 PACKR=tools/packr.jar
 PACKR_OUT_DIR=packr-out
@@ -100,7 +100,7 @@ apk:
 	@mv android/build/outputs/apk/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
 
 tag:
-	git tag -f -m "Release Tiny Wheels $(VERSION)" $(VERSION)
+	git tag -f -m "Pixel Wheels $(VERSION)" $(VERSION)
 
 tagpush: tag
 	git push

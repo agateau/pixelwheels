@@ -3,7 +3,7 @@
     <AnchorGroup id="root" spacing="20">
         <Image topCenter="root.topCenter 0 -2" name="title"/>
 
-        <Menu id="menu" width="350" center="root.center 0 -1"/>
+        <Menu id="menu" width="350" center="root.center 0 -3"/>
 
         <Image bottomRight="root.bottomRight -1 0" name="wip"/>
     </AnchorGroup>
