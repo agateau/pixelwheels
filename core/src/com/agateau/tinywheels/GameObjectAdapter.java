@@ -18,6 +18,9 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.sound.AudioRenderer;
+
 /**
  * An adapter for the GameObject interface
  */
@@ -27,6 +30,10 @@ public abstract class GameObjectAdapter implements GameObject {
     @Override
     public boolean isFinished() {
         return mIsFinished;
+    }
+
+    @Override
+    public void audioRender(AudioRenderer audioRenderer, AudioClipper audioClipper) {
     }
 
     protected void setFinished(boolean value) {

@@ -120,7 +120,7 @@ public class Assets {
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
-    public final SoundAtlas soundAtlas;
+    public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
 
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
@@ -154,13 +154,17 @@ public class Assets {
         this.helicopterPropellerTop = this.findRegion("helicopter-propeller-top");
 
         loadVehicleDefinitions();
+        initSoundAtlas();
+    }
 
-        this.soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
+    private void initSoundAtlas() {
         for (int i = 0; i < 5; ++i) {
             String name = String.format("engine-%d", i);
             String filename = String.format("loop_%d_0.wav", i + 1);
             this.soundAtlas.load(filename, name);
         }
+        this.soundAtlas.load("drifting.wav");
+        this.soundAtlas.load("bonus.wav");
     }
 
     public VehicleDef getVehicleById(String id) {

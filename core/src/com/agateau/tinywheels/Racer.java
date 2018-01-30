@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.sound.AudioRenderer;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -39,6 +41,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
+    private final AudioComponent mAudioComponent;
     private final Array<Component> mComponents = new Array<Component>();
     private final Array<Collidable> mCollidableComponents = new Array<Collidable>();
 
@@ -85,12 +88,15 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 
+        mAudioComponent = new AudioComponent(mAssets.soundAtlas, this);
+
         addComponent(mLapPositionComponent);
         addComponent(mVehicle);
         addComponent(mGroundCollisionHandlerComponent);
         addComponent(mSpinningComponent);
         addComponent(supervisorComponent);
         addComponent(new BonusSpotHitComponent(this));
+        addComponent(mAudioComponent);
 
         if (GamePlay.instance.createSpeedReport) {
             Probe probe = new Probe("speed.dat");
@@ -99,11 +105,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
-    public void addAudioComponent() {
-        addComponent(new AudioComponent(mAssets.soundAtlas, mVehicle));
-    }
-
-    public void addComponent(Component component) {
+    private void addComponent(Component component) {
         mComponents.add(component);
         if (component instanceof Collidable) {
             mCollidableComponents.add((Collidable)component);
@@ -251,6 +253,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     @Override
     public void draw(Batch batch, int zIndex) {
         mVehicleRenderer.draw(batch, zIndex);
+    }
+
+    @Override
+    public void audioRender(AudioRenderer renderer, AudioClipper clipper) {
+        mAudioComponent.render(renderer, clipper);
     }
 
     @Override

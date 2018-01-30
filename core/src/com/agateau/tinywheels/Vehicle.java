@@ -165,6 +165,15 @@ class Vehicle implements Racer.Component, Disposable {
         return mBody.getLinearVelocity().len();
     }
 
+    public boolean isDrifting() {
+        for (WheelInfo wheelInfo : mWheels) {
+            if (wheelInfo.wheel.isDrifting()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * speedLimiter is a percentage. Set it to 0.9 to make the vehicle drive at 90% of its maximum speed
      */
