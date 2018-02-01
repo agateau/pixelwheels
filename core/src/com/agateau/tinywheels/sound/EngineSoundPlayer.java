@@ -29,23 +29,23 @@ public class EngineSoundPlayer {
         return mPitch;
     }
 
-    public EngineSoundPlayer(SoundAtlas atlas) {
+    public EngineSoundPlayer(SoundAtlas atlas, AudioManager audioManager) {
         for (int i = 0;; ++i) {
             String name = String.format(Locale.US, "engine-%d", i);
             if (!atlas.contains(name)) {
                 break;
             }
             Sound sound = atlas.get(name);
-            mSoundPlayers.add(new DefaultSoundPlayer(sound));
+            mSoundPlayers.add(audioManager.createSoundPlayer(sound));
         }
     }
 
-    public void play(float speed) {
+    public void play(float speed, float maxVolume) {
         mPitch = Interpolation.pow2Out.apply(MIN_PITCH, MAX_PITCH, speed);
         float idx = speed * (mSoundPlayers.size - 1);
         for (int i = 0; i < mSoundPlayers.size; ++i) {
             float di = Math.abs(i - idx);
-            float volume = Math.max(1 - di, 0);
+            float volume = Math.max(1 - di, 0) * maxVolume;
             SoundPlayer player = mSoundPlayers.get(i);
             player.setVolume(volume);
             player.setPitch(mPitch);

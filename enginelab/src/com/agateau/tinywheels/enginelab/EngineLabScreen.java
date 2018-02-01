@@ -1,6 +1,7 @@
 package com.agateau.tinywheels.enginelab;
 
 import com.agateau.tinywheels.SoundAtlas;
+import com.agateau.tinywheels.sound.DefaultAudioManager;
 import com.agateau.tinywheels.sound.EngineSoundPlayer;
 import com.agateau.ui.Menu;
 import com.agateau.ui.SliderMenuItem;
@@ -112,13 +113,13 @@ class EngineLabScreen extends StageScreen {
             String filename = String.format(Locale.US, "loop_%d_0.wav", i + 1);
             soundAtlas.load(filename, name);
         }
-        mEngineSoundPlayer = new EngineSoundPlayer(soundAtlas);
+        mEngineSoundPlayer = new EngineSoundPlayer(soundAtlas, new DefaultAudioManager());
     }
 
     @Override
     public void render(float dt) {
         super.render(dt);
-        mEngineSoundPlayer.play(mSpeedItem.getFloatValue());
+        mEngineSoundPlayer.play(mSpeedItem.getFloatValue(), /* maxVolume= */1);
         mPitchItem.setFloatValue(mEngineSoundPlayer.getPitch());
         for (int i = 0; i < mEngineSoundPlayer.getSoundCount(); ++i) {
             mVolumeItems.get(i).setFloatValue(mEngineSoundPlayer.getSoundVolume(i));

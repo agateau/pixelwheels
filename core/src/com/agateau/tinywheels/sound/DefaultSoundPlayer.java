@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 /**
  * Implementation of SoundPlayer based on libgdx
  */
-public class DefaultSoundPlayer implements SoundPlayer {
+class DefaultSoundPlayer implements SoundPlayer {
     private final Sound mSound;
     private long mId = -1;
     private boolean mLooping = false;
