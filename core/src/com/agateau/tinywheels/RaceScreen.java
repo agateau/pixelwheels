@@ -20,7 +20,6 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.sound.AudioClipper;
 import com.agateau.tinywheels.sound.AudioRenderer;
-import com.agateau.tinywheels.sound.DefaultAudioRenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -105,7 +104,7 @@ public class RaceScreen extends ScreenAdapter {
             }
         };
 
-        mAudioRenderer = new DefaultAudioRenderer();
+        mAudioRenderer = mGame.getAudioManager().createAudioRenderer();
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {

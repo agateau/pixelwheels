@@ -19,7 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.sound.AudioClipper;
-import com.agateau.tinywheels.sound.AudioRenderer;
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,6 +36,7 @@ public class BonusSpot extends GameObjectAdapter {
     private static final float DISABLED_TIMEOUT = 5;
     private final TextureRegion mRegion;
     private final Sound mSound;
+    private final AudioManager mAudioManager;
     private final float mX;
     private final float mY;
     private final Body mBody;
@@ -43,8 +44,9 @@ public class BonusSpot extends GameObjectAdapter {
     private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
     private boolean mJustPicked = false;
 
-    public BonusSpot(Assets assets, GameWorld gameWorld, float x, float y) {
+    public BonusSpot(Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {
         final float U = Constants.UNIT_FOR_PIXEL;
+        mAudioManager = audioManager;
         mX = x;
         mY = y;
 
@@ -96,10 +98,10 @@ public class BonusSpot extends GameObjectAdapter {
     }
 
     @Override
-    public void audioRender(AudioRenderer renderer, AudioClipper audioClipper) {
+    public void audioRender(AudioClipper audioClipper) {
         if (mJustPicked) {
             float volume = audioClipper.clip(this);
-            renderer.play(mSound, volume);
+            mAudioManager.play(mSound, volume);
             mJustPicked = false;
         }
     }

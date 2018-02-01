@@ -18,12 +18,14 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
+import com.agateau.tinywheels.sound.DefaultAudioManager;
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.agateau.utils.Assert;
 
 import java.util.Stack;
 
@@ -35,12 +37,17 @@ public class TwGame extends Game {
     private Stack<Screen> mScreenStack = new Stack<Screen>();
     private Maestro mMaestro;
     private GameConfig mGameConfig;
+    private AudioManager mAudioManager = new DefaultAudioManager();
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
 
     public Assets getAssets() {
         return mAssets;
+    }
+
+    public AudioManager getAudioManager() {
+        return mAudioManager;
     }
 
     @Override

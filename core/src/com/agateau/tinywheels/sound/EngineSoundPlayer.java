@@ -49,8 +49,12 @@ public class EngineSoundPlayer {
             SoundPlayer player = mSoundPlayers.get(i);
             player.setVolume(volume);
             player.setPitch(mPitch);
-            if (!player.isLooping()) {
-                player.loop();
+            if (volume > 0.01) {
+                if (!player.isLooping()) {
+                    player.loop();
+                }
+            } else {
+                player.stop();
             }
         }
     }

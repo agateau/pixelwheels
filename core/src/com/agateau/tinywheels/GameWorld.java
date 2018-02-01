@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -232,6 +233,7 @@ public class GameWorld implements ContactListener, Disposable {
         vehicleDefs.shuffle();
 
         int firstPlayerIdx = GamePlay.instance.racerCount - players.size;
+        AudioManager audioManager = mGame.getAudioManager();
         for (int idx = 0; idx < GamePlay.instance.racerCount; ++idx) {
             Vector2 position = positions.get(idx);
             Racer racer;
@@ -239,13 +241,13 @@ public class GameWorld implements ContactListener, Disposable {
                 GameInfo.Player player = players.get(idx - firstPlayerIdx);
                 VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, this, vehicle);
+                racer = new Racer(assets, audioManager, this, vehicle);
                 racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
                 mPlayerRacers.add(racer);
             } else {
                 VehicleDef vehicleDef = vehicleDefs.get(idx % vehicleDefs.size);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, this, vehicle);
+                racer = new Racer(assets, audioManager, this, vehicle);
                 racer.setPilot(new AIPilot(this, mMapInfo, racer));
             }
             addGameObject(racer);
@@ -266,7 +268,7 @@ public class GameWorld implements ContactListener, Disposable {
 
     private void setupBonusSpots() {
         for (Vector2 pos : mMapInfo.findBonusSpotPositions()) {
-            BonusSpot spot = new BonusSpot(mGame.getAssets(), this, pos.x, pos.y);
+            BonusSpot spot = new BonusSpot(mGame.getAssets(), mGame.getAudioManager(), this, pos.x, pos.y);
             addGameObject(spot);
         }
     }

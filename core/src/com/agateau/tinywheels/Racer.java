@@ -19,7 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.sound.AudioClipper;
-import com.agateau.tinywheels.sound.AudioRenderer;
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -66,7 +66,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
-    public Racer(Assets assets, GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(Assets assets, AudioManager audioManager, GameWorld gameWorld, Vehicle vehicle) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
@@ -88,7 +88,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 
-        mAudioComponent = new AudioComponent(mAssets.soundAtlas, this);
+        mAudioComponent = new AudioComponent(mAssets.soundAtlas, audioManager, this);
 
         addComponent(mLapPositionComponent);
         addComponent(mVehicle);
@@ -256,8 +256,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     @Override
-    public void audioRender(AudioRenderer renderer, AudioClipper clipper) {
-        mAudioComponent.render(renderer, clipper);
+    public void audioRender(AudioClipper clipper) {
+        mAudioComponent.render(clipper);
     }
 
     @Override
