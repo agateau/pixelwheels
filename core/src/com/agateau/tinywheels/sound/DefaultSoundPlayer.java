@@ -39,11 +39,21 @@ public class DefaultSoundPlayer implements SoundPlayer {
     }
 
     @Override
+    public float getVolume() {
+        return mVolume;
+    }
+
+    @Override
     public void setVolume(float volume) {
         mVolume = volume;
         if (mId != -1) {
             mSound.setVolume(mId, mVolume);
         }
+    }
+
+    @Override
+    public float getPitch() {
+        return mPitch;
     }
 
     @Override
