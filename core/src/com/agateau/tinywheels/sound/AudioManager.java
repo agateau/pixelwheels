@@ -6,8 +6,6 @@ import com.badlogic.gdx.audio.Sound;
  * Create audio objects
  */
 public interface AudioManager {
-    public AudioRenderer createAudioRenderer();
-
     /**
      * Basic method for simple sounds
      */

@@ -19,7 +19,6 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.sound.AudioClipper;
-import com.agateau.tinywheels.sound.AudioRenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -41,7 +40,6 @@ public class RaceScreen extends ScreenAdapter {
     private final Color mBackgroundColor;
 
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
-    private final AudioRenderer mAudioRenderer;
     private final AudioClipper mAudioClipper;
 
     private Array<Hud> mHuds = new Array<Hud>();
@@ -103,8 +101,6 @@ public class RaceScreen extends ScreenAdapter {
                 return 1f - distance2 / MAX_DISTANCE2;
             }
         };
-
-        mAudioRenderer = mGame.getAudioManager().createAudioRenderer();
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {
@@ -156,7 +152,9 @@ public class RaceScreen extends ScreenAdapter {
             gameRenderer.render(delta);
         }
 
-        mAudioRenderer.render(delta, mGameWorld.getActiveGameObjects(), mAudioClipper);
+        for (GameObject gameObject : mGameWorld.getActiveGameObjects()) {
+            gameObject.audioRender(mAudioClipper);
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             if (paused) {

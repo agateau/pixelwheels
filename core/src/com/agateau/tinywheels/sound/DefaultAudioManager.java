@@ -7,11 +7,6 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class DefaultAudioManager implements AudioManager {
     @Override
-    public AudioRenderer createAudioRenderer() {
-        return new DefaultAudioRenderer();
-    }
-
-    @Override
     public void play(Sound sound, float volume) {
         sound.play(volume);
     }
