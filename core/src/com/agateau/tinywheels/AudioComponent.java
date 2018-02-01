@@ -19,7 +19,6 @@ class AudioComponent implements Racer.Component {
     private SoundPlayer mDriftingSoundPlayer;
 
     private float mDriftDuration = 0;
-    private long mDriftingSoundId = -1;
 
     public AudioComponent(SoundAtlas atlas, Racer racer) {
         mEngineSound = new EngineSound(atlas);
@@ -47,10 +46,9 @@ class AudioComponent implements Racer.Component {
         if (mDriftDuration > 0) {
             float volume = MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f)
                     * clipper.clip(mRacer);
-            if (mDriftingSoundPlayer.isLooping()) {
-                mDriftingSoundPlayer.setVolume(volume);
-            } else {
-                mDriftingSoundPlayer.loop(volume);
+            mDriftingSoundPlayer.setVolume(volume);
+            if (!mDriftingSoundPlayer.isLooping()) {
+                mDriftingSoundPlayer.loop();
             }
         } else {
             mDriftingSoundPlayer.stop();

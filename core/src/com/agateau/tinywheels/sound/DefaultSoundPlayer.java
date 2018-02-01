@@ -9,19 +9,22 @@ public class DefaultSoundPlayer implements SoundPlayer {
     private final Sound mSound;
     private long mId = -1;
     private boolean mLooping = false;
+    private float mVolume = 1;
+    private float mPitch = 1;
+    private float mPan = 0;
 
     public DefaultSoundPlayer(Sound sound) {
         mSound = sound;
     }
 
     @Override
-    public void play(float volume) {
-        mId = mSound.play(volume);
+    public void play() {
+        mId = mSound.play(mVolume, mPitch, mPan);
     }
 
     @Override
-    public void loop(float volume) {
-        mId = mSound.loop(volume);
+    public void loop() {
+        mId = mSound.loop(mVolume, mPitch, mPan);
         mLooping = true;
     }
 
@@ -37,7 +40,18 @@ public class DefaultSoundPlayer implements SoundPlayer {
 
     @Override
     public void setVolume(float volume) {
-        mSound.setVolume(mId, volume);
+        mVolume = volume;
+        if (mId != -1) {
+            mSound.setVolume(mId, mVolume);
+        }
+    }
+
+    @Override
+    public void setPitch(float pitch) {
+        mPitch = pitch;
+        if (mId != -1) {
+            mSound.setPitch(mId, mPitch);
+        }
     }
 
     @Override
