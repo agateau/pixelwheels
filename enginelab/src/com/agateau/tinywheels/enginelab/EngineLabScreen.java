@@ -1,7 +1,7 @@
 package com.agateau.tinywheels.enginelab;
 
 import com.agateau.tinywheels.SoundAtlas;
-import com.agateau.tinywheels.sound.EngineSound;
+import com.agateau.tinywheels.sound.EngineSoundPlayer;
 import com.agateau.ui.Menu;
 import com.agateau.ui.SliderMenuItem;
 import com.agateau.ui.StageScreen;
@@ -22,7 +22,7 @@ import java.util.Locale;
  */
 class EngineLabScreen extends StageScreen {
     private Skin mSkin;
-    private EngineSound mEngineSound;
+    private EngineSoundPlayer mEngineSoundPlayer;
     private SliderMenuItem mSpeedItem;
 
     private SliderMenuItem mPitchItem;
@@ -91,11 +91,11 @@ class EngineLabScreen extends StageScreen {
         menu.addItemWithLabel("Speed", mSpeedItem);
 
         mPitchItem = new SliderMenuItem(menu);
-        mPitchItem.setRange(EngineSound.MIN_PITCH, EngineSound.MAX_PITCH, 0.01f);
+        mPitchItem.setRange(EngineSoundPlayer.MIN_PITCH, EngineSoundPlayer.MAX_PITCH, 0.01f);
         menu.addItemWithLabel("Pitch", mPitchItem);
 
         menu.addLabel("Volumes");
-        for (int i = 0; i < mEngineSound.getSoundCount(); ++i) {
+        for (int i = 0; i < mEngineSoundPlayer.getSoundCount(); ++i) {
             SliderMenuItem item = new SliderMenuItem(menu);
             item.setRange(0, 1, 0.01f);
             menu.addItemWithLabel(String.valueOf(i), item);
@@ -112,16 +112,16 @@ class EngineLabScreen extends StageScreen {
             String filename = String.format(Locale.US, "loop_%d_0.wav", i + 1);
             soundAtlas.load(filename, name);
         }
-        mEngineSound = new EngineSound(soundAtlas);
+        mEngineSoundPlayer = new EngineSoundPlayer(soundAtlas);
     }
 
     @Override
     public void render(float dt) {
         super.render(dt);
-        mEngineSound.play(mSpeedItem.getFloatValue());
-        mPitchItem.setFloatValue(mEngineSound.getPitch());
-        for (int i = 0; i < mEngineSound.getSoundCount(); ++i) {
-            mVolumeItems.get(i).setFloatValue(mEngineSound.getSoundVolume(i));
+        mEngineSoundPlayer.play(mSpeedItem.getFloatValue());
+        mPitchItem.setFloatValue(mEngineSoundPlayer.getPitch());
+        for (int i = 0; i < mEngineSoundPlayer.getSoundCount(); ++i) {
+            mVolumeItems.get(i).setFloatValue(mEngineSoundPlayer.getSoundVolume(i));
         }
     }
 
