@@ -45,13 +45,14 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new GunBonus(this, mAssets, mGameWorld);
+            return new GunBonus(this, mAssets, mGameWorld, mAudioManager);
         }
     }
 
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
+    private final AudioManager mAudioManager;
 
     private boolean mTriggered;
     private float mAnimationTime;
@@ -94,10 +95,11 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld) {
+    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
         mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
+        mAudioManager = audioManager;
         reset();
     }
 
@@ -149,7 +151,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         // Shoot
         Vehicle vehicle = mRacer.getVehicle();
         float angle = vehicle.getAngle() + MathUtils.random(-SPREAD_ANGLE, SPREAD_ANGLE);
-        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), angle));
+        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mAudioManager, mRacer, vehicle.getX(), vehicle.getY(), angle));
 
         mRemainingShots--;
         if (mRemainingShots == 0) {

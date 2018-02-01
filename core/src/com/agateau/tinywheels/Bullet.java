@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -43,22 +45,26 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
     private Racer mShooter;
     private GameWorld mGameWorld;
+    private AudioManager mAudioManager;
     private Assets mAssets;
     private BodyDef mBodyDef;
     private CircleShape mShape;
 
     private Body mBody;
+    private boolean mJustShot = false;
 
     private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
 
-    public static Bullet create(Assets assets, GameWorld gameWorld, Racer shooter, float originX, float originY, float angle) {
+    public static Bullet create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
             object.firstInit(assets);
         }
         object.mShooter = shooter;
         object.mGameWorld = gameWorld;
+        object.mAudioManager = audioManager;
         object.setFinished(false);
+        object.mJustShot = true;
         object.mBodyDef.position.set(originX, originY);
         object.mBodyDef.angle = angle * MathUtils.degreesToRadians;
 
@@ -102,6 +108,14 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         if (zIndex == Constants.Z_GROUND) {
             mDrawer.setBatch(batch);
             mDrawer.draw(mBody, mAssets.bullet);
+        }
+    }
+
+    @Override
+    public void audioRender(AudioClipper clipper) {
+        if (mJustShot) {
+            mAudioManager.play(mAssets.soundAtlas.get("shoot"), clipper.clip(this));
+            mJustShot = false;
         }
     }
 
