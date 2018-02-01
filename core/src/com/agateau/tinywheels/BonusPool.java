@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.utils.Pool;
 import com.agateau.utils.GylMathUtils;
 
@@ -27,11 +28,13 @@ import com.agateau.utils.GylMathUtils;
 public abstract class BonusPool extends Pool<Bonus> {
     protected final Assets mAssets;
     protected final GameWorld mGameWorld;
+    protected final AudioManager mAudioManager;
     private float[] mCounts;
 
-    public BonusPool(Assets assets, GameWorld gameWorld) {
+    public BonusPool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
         mAssets = assets;
         mGameWorld = gameWorld;
+        mAudioManager = audioManager;
     }
 
     /**

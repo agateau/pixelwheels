@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -43,6 +44,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     private static final float MINE_RADIUS = 0.8f;
 
     private GameWorld mGameWorld;
+    private AudioManager mAudioManager;
     private Assets mAssets;
     private Racer mOwner;
     private BodyDef mBodyDef;
@@ -54,13 +56,15 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     private Joint mJoint;
 
     private static final Vector2 sTmp = new Vector2();
-    public static Mine create(GameWorld gameWorld, Assets assets, Racer owner) {
+
+    public static Mine create(GameWorld gameWorld, Assets assets, AudioManager audioManager, Racer owner) {
         Mine mine = sPool.obtain();
         if (mine.mBodyDef == null) {
             mine.firstInit(assets);
         }
 
         mine.mGameWorld = gameWorld;
+        mine.mAudioManager = audioManager;
         mine.mOwner = owner;
         mine.mTime = 0;
         mine.setFinished(false);
@@ -153,7 +157,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         }
         setFinished(true);
         Vector2 pos = mBody.getPosition();
-        mGameWorld.addGameObject(AnimationObject.create(mAssets.explosion, pos.x, pos.y));
+        mGameWorld.addGameObject(Explosion.create(mAssets, mAudioManager, pos.x, pos.y));
     }
 
     @Override

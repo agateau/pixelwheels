@@ -18,6 +18,9 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.sound.AudioManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -34,6 +37,9 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     private Animation mAnimation;
     private float mPosX;
     private float mPosY;
+
+    private Sound mSound;
+    private AudioManager mAudioManager;
 
     @Override
     public void reset() {
@@ -69,6 +75,15 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     }
 
     @Override
+    public void audioRender(AudioClipper clipper) {
+        if (mSound != null) {
+            mAudioManager.play(mSound, clipper.clip(this));
+            // Make sure we don't play twice
+            mSound = null;
+        }
+    }
+
+    @Override
     public float getX() {
         return mPosX;
     }
@@ -76,6 +91,11 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     @Override
     public float getY() {
         return mPosY;
+    }
+
+    public void initAudio(AudioManager audioManager, Sound sound) {
+        mAudioManager = audioManager;
+        mSound = sound;
     }
 
     public static AnimationObject create(Animation animation, float posX, float posY) {
@@ -87,6 +107,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         obj.mAnimation = animation;
         obj.mPosX = posX;
         obj.mPosY = posY;
+        obj.mSound = null;
         obj.setFinished(false);
         return obj;
     }

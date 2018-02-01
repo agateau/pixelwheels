@@ -274,9 +274,9 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupBonusPools() {
-        mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this));
-        mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this));
-        mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this));
+        mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
+        mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
+        mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
     }
 
     @Override

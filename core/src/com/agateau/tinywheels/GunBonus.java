@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -37,8 +38,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private static final float AI_RAYCAST_LENGTH = 20;
 
     public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld) {
-            super(assets, gameWorld);
+        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+            super(assets, gameWorld, audioManager);
             setCounts(new float[]{0, 1, 1});
         }
 

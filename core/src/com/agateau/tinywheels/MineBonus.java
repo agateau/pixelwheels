@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
@@ -32,27 +33,29 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
+    private final AudioManager mAudioManager;
     private Mine mMine;
     private boolean mTriggered;
 
     private float mAiKeepTime;
 
     public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld) {
-            super(assets, gameWorld);
+        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+            super(assets, gameWorld, audioManager);
             setCounts(new float[]{2, 1, 0});
         }
 
         @Override
         protected Bonus newObject() {
-            return new MineBonus(this, mAssets, mGameWorld);
+            return new MineBonus(this, mAssets, mGameWorld, mAudioManager);
         }
     }
 
-    public MineBonus(Pool pool, Assets assets, GameWorld gameWorld) {
+    public MineBonus(Pool pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
         mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
+        mAudioManager = audioManager;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
-        mMine = Mine.create(mGameWorld, mAssets, mRacer);
+        mMine = Mine.create(mGameWorld, mAssets, mAudioManager, mRacer);
         mAiKeepTime = MathUtils.random(AI_KEEP_BONUS_MIN_TIME, AI_KEEP_BONUS_MAX_TIME);
     }
 
