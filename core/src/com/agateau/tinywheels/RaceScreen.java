@@ -88,7 +88,7 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         mAudioClipper = new AudioClipper() {
-            private final static float MAX_DISTANCE2 = 10 * 10;
+            private final static float MAX_DISTANCE2 = 15 * 15;
             @Override
             public float clip(GameObject gameObject) {
                 float distance2 = MAX_DISTANCE2;
