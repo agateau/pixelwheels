@@ -131,7 +131,9 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
     private void explode() {
         Vector2 pos = mBody.getPosition();
-        mGameWorld.addGameObject(AnimationObject.create(mAssets.impact, pos.x, pos.y));
+        AnimationObject obj = AnimationObject.create(mAssets.impact, pos.x, pos.y);
+        obj.initAudio(mAudioManager, mAssets.soundAtlas.get("impact"));
+        mGameWorld.addGameObject(obj);
         setFinished(true);
     }
 
