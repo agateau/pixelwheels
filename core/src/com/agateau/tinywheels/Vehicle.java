@@ -47,6 +47,7 @@ class Vehicle implements Racer.Component, Disposable {
 
     protected final Body mBody;
     protected final GameWorld mGameWorld;
+    private Racer mRacer;
 
     private final TextureRegion mRegion;
     protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
@@ -124,10 +125,11 @@ class Vehicle implements Racer.Component, Disposable {
         return info;
     }
 
-    public void setUserData(Object userData) {
-        mBody.setUserData(userData);
+    public void setRacer(Racer racer) {
+        mRacer = racer;
+        mBody.setUserData(racer);
         for (WheelInfo info : mWheels) {
-            info.wheel.getBody().setUserData(userData);
+            info.wheel.getBody().setUserData(racer);
         }
     }
 
@@ -422,6 +424,7 @@ class Vehicle implements Racer.Component, Disposable {
     }
 
     public void triggerTurbo() {
+        mRacer.getAudioComponent().triggerTurbo();
         mTurboTime = 0;
     }
 

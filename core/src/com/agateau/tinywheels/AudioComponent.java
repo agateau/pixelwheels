@@ -16,12 +16,14 @@ class AudioComponent implements Racer.Component {
     private final EngineSoundPlayer mEngineSoundPlayer;
     private final Racer mRacer;
     private final SoundPlayer mDriftingSoundPlayer;
+    private final SoundPlayer mTurboSoundPlayer;
     private float mDriftDuration = 0;
+    private boolean mTurboTriggered = false;
 
     public AudioComponent(SoundAtlas atlas, AudioManager audioManager, Racer racer) {
         mEngineSoundPlayer = new EngineSoundPlayer(atlas, audioManager);
-        Sound driftingSound = atlas.get("drifting");
-        mDriftingSoundPlayer = audioManager.createSoundPlayer(driftingSound);
+        mDriftingSoundPlayer = audioManager.createSoundPlayer(atlas.get("drifting"));
+        mTurboSoundPlayer = audioManager.createSoundPlayer(atlas.get("turbo"));
         mRacer = racer;
     }
 
@@ -49,5 +51,15 @@ class AudioComponent implements Racer.Component {
         } else {
             mDriftingSoundPlayer.stop();
         }
+
+        if (mTurboTriggered) {
+            mTurboSoundPlayer.setVolume(maxVolume);
+            mTurboSoundPlayer.play();
+            mTurboTriggered = false;
+        }
+    }
+
+    public void triggerTurbo() {
+        mTurboTriggered = true;
     }
 }

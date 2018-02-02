@@ -73,7 +73,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mSpinningComponent = new SpinningComponent(vehicle);
 
         mVehicle = vehicle;
-        mVehicle.setUserData(this);
+        mVehicle.setRacer(this);
         mVehicle.setCollisionInfo(CollisionCategories.RACER,
                 CollisionCategories.WALL
                 | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
@@ -130,6 +130,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     public LapPositionComponent getLapPositionComponent() {
         return mLapPositionComponent;
+    }
+
+    public AudioComponent getAudioComponent() {
+        return mAudioComponent;
     }
 
     public void spin() {
