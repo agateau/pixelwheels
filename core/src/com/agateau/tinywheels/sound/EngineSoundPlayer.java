@@ -58,4 +58,10 @@ public class EngineSoundPlayer {
             }
         }
     }
+
+    public void stop() {
+        for (SoundPlayer player : mSoundPlayers) {
+            player.stop();
+        }
+    }
 }

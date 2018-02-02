@@ -6,11 +6,12 @@ import com.agateau.tinywheels.sound.EngineSoundPlayer;
 import com.agateau.tinywheels.sound.SoundPlayer;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * A component to play the racer audio
  */
-class AudioComponent implements Racer.Component {
+class AudioComponent implements Racer.Component, Disposable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
 
     private final EngineSoundPlayer mEngineSoundPlayer;
@@ -61,5 +62,10 @@ class AudioComponent implements Racer.Component {
 
     public void triggerTurbo() {
         mTurboTriggered = true;
+    }
+
+    @Override
+    public void dispose() {
+        mEngineSoundPlayer.stop();
     }
 }

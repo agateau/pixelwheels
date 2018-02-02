@@ -189,7 +189,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     @Override
     public void dispose() {
-        mVehicle.dispose();
+        for (Racer.Component component : mComponents) {
+            if (component instanceof Disposable) {
+                ((Disposable) component).dispose();
+            }
+        }
     }
 
     @Override

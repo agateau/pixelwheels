@@ -340,6 +340,11 @@ public class GameWorld implements ContactListener, Disposable {
         if (mMapInfo != null) {
             mMapInfo.dispose();
         }
+        for (GameObject gameObject : mActiveGameObjects) {
+            if (gameObject instanceof Disposable) {
+                ((Disposable) gameObject).dispose();
+            }
+        }
     }
 
     public void forgetMapInfo() {
