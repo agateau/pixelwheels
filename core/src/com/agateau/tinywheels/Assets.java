@@ -169,6 +169,7 @@ public class Assets {
         this.soundAtlas.load("shoot.wav");
         this.soundAtlas.load("impact.wav");
         this.soundAtlas.load("turbo.wav");
+        this.soundAtlas.load("impact.wav", "collision");
     }
 
     public VehicleDef getVehicleById(String id) {
