@@ -42,11 +42,7 @@ public class KeyMapper {
         setKey(VirtualKey.UP, Input.Keys.UP);
         setKey(VirtualKey.DOWN, Input.Keys.DOWN);
         setKeys(VirtualKey.TRIGGER, new Integer[]{Input.Keys.SPACE, Input.Keys.ENTER});
-        setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
-        if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
-            // Do not add Input.Keys.BACK key on Desktop because it maps to the Windows key
-            addKey(VirtualKey.BACK, Input.Keys.BACK);
-        }
+        setKeys(VirtualKey.BACK, new Integer[]{Input.Keys.ESCAPE, Input.Keys.BACK});
     }
 
     public void setKey(VirtualKey vkey, int key) {
