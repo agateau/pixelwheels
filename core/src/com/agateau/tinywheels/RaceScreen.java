@@ -88,17 +88,17 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         mAudioClipper = new AudioClipper() {
-            private final static float MAX_DISTANCE2 = 15 * 15;
+            private final static float MAX_DISTANCE = 15;
             @Override
             public float clip(GameObject gameObject) {
-                float distance2 = MAX_DISTANCE2;
+                float distance2 = MAX_DISTANCE * MAX_DISTANCE;
                 for (Racer racer : mGameWorld.getPlayerRacers()) {
                     float dx = racer.getX() - gameObject.getX();
                     float dy = racer.getY() - gameObject.getY();
                     float d2 = dx * dx + dy * dy;
                     distance2 = Math.min(d2, distance2);
                 }
-                return 1f - distance2 / MAX_DISTANCE2;
+                return 1f - (float)Math.sqrt(distance2) / MAX_DISTANCE;
             }
         };
     }
