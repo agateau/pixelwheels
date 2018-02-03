@@ -19,6 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.sound.AudioClipper;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -156,7 +157,7 @@ public class RaceScreen extends ScreenAdapter {
             gameObject.audioRender(mAudioClipper);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+        if (isPauseKeyPressed()) {
             if (paused) {
                 resumeRace();
             } else {
@@ -173,6 +174,11 @@ public class RaceScreen extends ScreenAdapter {
         if (!paused) {
             mPerformanceCounters.tick(delta);
         }
+    }
+
+    private boolean isPauseKeyPressed() {
+        return Gdx.input.isKeyJustPressed(Input.Keys.P) ||
+                Gdx.input.isKeyJustPressed(Input.Keys.BACK);
     }
 
     @Override
