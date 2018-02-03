@@ -28,8 +28,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 800;
         config.height = 480;
-        config.title = "Tiny Wheels";
-        FileUtils.appName = "tinywheels";
+        config.title = "Pixel Wheels";
+        FileUtils.appName = "pixelwheels";
         new LwjglApplication(new TwGame(), config);
     }
 }
