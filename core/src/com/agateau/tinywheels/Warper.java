@@ -1,7 +1,7 @@
 /*
  * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
  *
- * This file is part of Tiny Wheels.
+ * This file is part of Pixel Wheels.
  *
  * Tiny Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License 3 as published by the Free
