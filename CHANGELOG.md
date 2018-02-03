@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.6.0 - 2018-02-03
+
+### Added
+- Added sounds for vehicle engines, collision, drifting, picking bonuses, and
+  bonuses themselves.
+
+### Changed
+- Renamed the game to Pixel Wheels, to avoid confusion with the already
+  existing Tiny Wheels game.
+
+- Finished porting the last screens to the menu systems. Pixel Wheels is now
+  entirely controllable from the keyboard.
+
+#### Internals
+- Updated to libgdx 1.6.5.
+
+### Fixed
+- Make Android Back button toggle pause while playing.
+
+
 ## 0.5.0 - 2018-01-06
 
 ### Added
