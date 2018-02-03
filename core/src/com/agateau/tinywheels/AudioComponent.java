@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
  */
 class AudioComponent implements Racer.Component, Disposable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
+    private static final float MIN_IMPACT_SPEED = 3;
 
     private final EngineSoundPlayer mEngineSoundPlayer;
     private final Racer mRacer;
@@ -80,7 +81,9 @@ class AudioComponent implements Racer.Component, Disposable {
     }
 
     public void onCollision() {
-        mJustCollided = true;
+        if (mRacer.getVehicle().getSpeed() > MIN_IMPACT_SPEED) {
+            mJustCollided = true;
+        }
     }
 
     @Override
