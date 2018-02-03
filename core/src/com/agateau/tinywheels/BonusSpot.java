@@ -18,6 +18,9 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.sound.AudioManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -32,18 +35,23 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class BonusSpot extends GameObjectAdapter {
     private static final float DISABLED_TIMEOUT = 5;
     private final TextureRegion mRegion;
+    private final Sound mSound;
+    private final AudioManager mAudioManager;
     private final float mX;
     private final float mY;
     private final Body mBody;
     private float mDisabledTimeout = 0;
     private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+    private boolean mJustPicked = false;
 
-    public BonusSpot(Assets assets, GameWorld gameWorld, float x, float y) {
+    public BonusSpot(Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {
         final float U = Constants.UNIT_FOR_PIXEL;
+        mAudioManager = audioManager;
         mX = x;
         mY = y;
 
         mRegion = assets.gift;
+        mSound = assets.soundAtlas.get("bonus");
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(U * mRegion.getRegionWidth() / 2, U * mRegion.getRegionHeight() / 2);
@@ -90,6 +98,15 @@ public class BonusSpot extends GameObjectAdapter {
     }
 
     @Override
+    public void audioRender(AudioClipper audioClipper) {
+        if (mJustPicked) {
+            float volume = audioClipper.clip(this);
+            mAudioManager.play(mSound, volume);
+            mJustPicked = false;
+        }
+    }
+
+    @Override
     public float getX() {
         return mX;
     }
@@ -101,5 +118,6 @@ public class BonusSpot extends GameObjectAdapter {
 
     public void pickBonus() {
         mDisabledTimeout = DISABLED_TIMEOUT;
+        mJustPicked = true;
     }
 }

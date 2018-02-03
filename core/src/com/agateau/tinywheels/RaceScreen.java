@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -39,6 +40,7 @@ public class RaceScreen extends ScreenAdapter {
     private final Color mBackgroundColor;
 
     private Array<GameRenderer> mGameRenderers = new Array<GameRenderer>();
+    private final AudioClipper mAudioClipper;
 
     private Array<Hud> mHuds = new Array<Hud>();
     private Array<HudContent> mHudContents = new Array<HudContent>();
@@ -84,6 +86,21 @@ public class RaceScreen extends ScreenAdapter {
             mHuds.add(hud);
             mHudContents.add(hudContent);
         }
+
+        mAudioClipper = new AudioClipper() {
+            private final static float MAX_DISTANCE = 15;
+            @Override
+            public float clip(GameObject gameObject) {
+                float distance2 = MAX_DISTANCE * MAX_DISTANCE;
+                for (Racer racer : mGameWorld.getPlayerRacers()) {
+                    float dx = racer.getX() - gameObject.getX();
+                    float dy = racer.getY() - gameObject.getY();
+                    float d2 = dx * dx + dy * dy;
+                    distance2 = Math.min(d2, distance2);
+                }
+                return 1f - (float)Math.sqrt(distance2) / MAX_DISTANCE;
+            }
+        };
     }
 
     private void setupGameRenderer(GameRenderer gameRenderer) {
@@ -133,6 +150,10 @@ public class RaceScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         for (GameRenderer gameRenderer : mGameRenderers) {
             gameRenderer.render(delta);
+        }
+
+        for (GameObject gameObject : mGameWorld.getActiveGameObjects()) {
+            gameObject.audioRender(mAudioClipper);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {

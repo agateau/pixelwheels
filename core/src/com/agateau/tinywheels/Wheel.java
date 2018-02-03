@@ -93,6 +93,10 @@ public class Wheel implements Pool.Poolable, Disposable {
         return mRegion;
     }
 
+    public boolean isDrifting() {
+        return mDrifting;
+    }
+
     @Override
     public void dispose() {
         sPool.free(this);

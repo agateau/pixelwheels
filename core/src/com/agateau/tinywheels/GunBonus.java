@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -37,20 +38,21 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private static final float AI_RAYCAST_LENGTH = 20;
 
     public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld) {
-            super(assets, gameWorld);
+        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+            super(assets, gameWorld, audioManager);
             setCounts(new float[]{0, 1, 1});
         }
 
         @Override
         protected Bonus newObject() {
-            return new GunBonus(this, mAssets, mGameWorld);
+            return new GunBonus(this, mAssets, mGameWorld, mAudioManager);
         }
     }
 
     private final Pool mPool;
     private final Assets mAssets;
     private final GameWorld mGameWorld;
+    private final AudioManager mAudioManager;
 
     private boolean mTriggered;
     private float mAnimationTime;
@@ -93,10 +95,11 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld) {
+    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
         mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
+        mAudioManager = audioManager;
         reset();
     }
 
@@ -148,7 +151,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         // Shoot
         Vehicle vehicle = mRacer.getVehicle();
         float angle = vehicle.getAngle() + MathUtils.random(-SPREAD_ANGLE, SPREAD_ANGLE);
-        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mRacer, vehicle.getX(), vehicle.getY(), angle));
+        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mAudioManager, mRacer, vehicle.getX(), vehicle.getY(), angle));
 
         mRemainingShots--;
         if (mRemainingShots == 0) {

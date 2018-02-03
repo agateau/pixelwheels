@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.sound.AudioClipper;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -34,4 +35,6 @@ public interface GameObject {
     void draw(Batch batch, int zIndex);
     float getX();
     float getY();
+
+    void audioRender(AudioClipper audioClipper);
 }
