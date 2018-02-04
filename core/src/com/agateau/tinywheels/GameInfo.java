@@ -19,6 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameinput.GameInputHandler;
+import com.agateau.tinywheels.map.MapInfo;
 import com.badlogic.gdx.utils.Array;
 
 /**

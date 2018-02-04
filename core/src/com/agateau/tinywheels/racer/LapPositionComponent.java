@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Constants;
-import com.agateau.tinywheels.LapPosition;
-import com.agateau.tinywheels.MapInfo;
+import com.agateau.tinywheels.map.LapPosition;
+import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.utils.log.NLog;
 
 /**

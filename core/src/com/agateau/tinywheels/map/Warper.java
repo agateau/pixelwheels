@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.map;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,7 +29,7 @@ import com.badlogic.gdx.math.Vector2;
  * [1]: https://github.com/simphax/Touchmote/blob/master/WiiTUIO/Input/WiiProvider/Warper.cs
  *
  */
-public class Warper {
+class Warper {
     float[] srcX = new float[4];
     float[] srcY = new float[4];
     float[] dstX = new float[4];

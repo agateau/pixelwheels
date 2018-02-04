@@ -21,6 +21,8 @@ package com.agateau.tinywheels;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.MapUtils;
 import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.Gdx;

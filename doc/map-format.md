@@ -38,7 +38,7 @@ A "BonusSpots" object layer containing ellipsis indicating where bonuses should 
 
 ## `material`
 
-Enum. Defaults to ROAD. Must be one of the values of the com.agateau.tinywheels.Material enum.
+Enum. Defaults to ROAD. Must be one of the values of the com.agateau.tinywheels.map.Material enum.
 
 ## `start`
 

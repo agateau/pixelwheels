@@ -25,8 +25,8 @@ import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.agateau.tinywheels.LapPositionTable;
-import com.agateau.tinywheels.LapPositionTableIO;
+import com.agateau.tinywheels.map.LapPositionTable;
+import com.agateau.tinywheels.map.LapPositionTableIO;
 
 /**
  * Load a .tmx file and save its corresponding lap position table as a PNG file

@@ -24,6 +24,7 @@ import com.agateau.tinywheels.bonus.GunBonus;
 import com.agateau.tinywheels.bonus.MineBonus;
 import com.agateau.tinywheels.bonus.TurboBonus;
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.tinywheels.racer.AIPilot;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.PlayerPilot;

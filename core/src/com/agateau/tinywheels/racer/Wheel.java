@@ -22,7 +22,7 @@ import com.agateau.tinywheels.Box2DUtils;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.Material;
+import com.agateau.tinywheels.map.Material;
 import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;

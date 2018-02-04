@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.tinywheels.vehicledef.VehicleIO;
 import com.badlogic.gdx.Gdx;
