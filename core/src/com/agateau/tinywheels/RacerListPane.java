@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.racer.LapPositionComponent;
+import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.UiBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;

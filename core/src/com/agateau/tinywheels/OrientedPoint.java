@@ -22,7 +22,7 @@ package com.agateau.tinywheels;
  * Represents a position and an angle
  */
 public class OrientedPoint {
-    float x = 0;
-    float y = 0;
-    float angle = 0;
+    public float x = 0;
+    public float y = 0;
+    public float angle = 0;
 }

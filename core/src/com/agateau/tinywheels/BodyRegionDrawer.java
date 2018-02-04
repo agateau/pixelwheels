@@ -37,7 +37,7 @@ public class BodyRegionDrawer {
     private float mZ = 0;
     private float mScale = 1;
 
-    void setBatch(Batch batch) {
+    public void setBatch(Batch batch) {
         mBatch = batch;
     }
 
@@ -59,11 +59,11 @@ public class BodyRegionDrawer {
      *
      * Affects the size of the region, and the size and offset of its shadow
      */
-    void setScale(float scale) {
+    public void setScale(float scale) {
         mScale = scale;
     }
 
-    void draw(Body body, TextureRegion region) {
+    public void draw(Body body, TextureRegion region) {
         Vector2 center = body.getPosition();
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
         float x = center.x;
@@ -78,7 +78,7 @@ public class BodyRegionDrawer {
                 angle);
     }
 
-    void drawShadow(Body body, TextureRegion region) {
+    public void drawShadow(Body body, TextureRegion region) {
         Vector2 center = body.getPosition();
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
         float offset = (SHADOW_OFFSET_PX + mZ * Z_MAX_SHADOW_OFFSET_PX + (mScale - 1) * SCALE_MAX_SHADOW_OFFSET_PX)

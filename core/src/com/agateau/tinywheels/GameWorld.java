@@ -19,6 +19,11 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.racer.AIPilot;
+import com.agateau.tinywheels.racer.LapPositionComponent;
+import com.agateau.tinywheels.racer.PlayerPilot;
+import com.agateau.tinywheels.racer.Racer;
+import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;

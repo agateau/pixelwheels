@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;

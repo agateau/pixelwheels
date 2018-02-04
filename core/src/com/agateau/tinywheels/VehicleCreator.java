@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.racer.Vehicle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 

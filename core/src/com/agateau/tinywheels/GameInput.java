@@ -22,8 +22,8 @@ package com.agateau.tinywheels;
  * A plain struct which can be updated by a GameInputHandler
  */
 public class GameInput {
-    boolean braking = false;
-    boolean accelerating = false;
-    boolean triggeringBonus = false;
-    float direction = 0;
+    public boolean braking = false;
+    public boolean accelerating = false;
+    public boolean triggeringBonus = false;
+    public float direction = 0;
 }

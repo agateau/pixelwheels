@@ -16,14 +16,17 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.LapPosition;
+import com.agateau.tinywheels.MapInfo;
 import com.agateau.utils.log.NLog;
 
 /**
  * A component to track the racer time
  */
-class LapPositionComponent implements Racer.Component {
+public class LapPositionComponent implements Racer.Component {
     private final MapInfo mMapInfo;
     private final Vehicle mVehicle;
 

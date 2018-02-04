@@ -20,6 +20,10 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
+import com.agateau.tinywheels.racer.Pilot;
+import com.agateau.tinywheels.racer.PlayerPilot;
+import com.agateau.tinywheels.racer.Racer;
+import com.agateau.tinywheels.racer.Vehicle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;

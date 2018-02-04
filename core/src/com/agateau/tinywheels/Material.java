@@ -23,7 +23,7 @@ import com.agateau.utils.Assert;
 /**
  * Represents the type of material vehicles are driving on
  */
-enum Material {
+public enum Material {
     ROAD,
     TURBO,
     SAND,
@@ -32,15 +32,15 @@ enum Material {
     WATER,
     AIR;
 
-    boolean isHole() {
+    public boolean isHole() {
         return this == DEEP_WATER;
     }
 
-    boolean isWater() {
+    public boolean isWater() {
         return this == DEEP_WATER || this == WATER;
     }
 
-    float getSpeed() {
+    public float getSpeed() {
         switch (this) {
         case ROAD:
             return 1;

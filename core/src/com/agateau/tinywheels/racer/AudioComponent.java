@@ -16,8 +16,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.SoundAtlas;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.EngineSoundPlayer;

@@ -16,8 +16,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.BodyRegionDrawer;
+import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.Renderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;

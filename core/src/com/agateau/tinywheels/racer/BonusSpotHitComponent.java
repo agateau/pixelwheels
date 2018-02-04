@@ -16,13 +16,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.BonusSpot;
+import com.agateau.tinywheels.Collidable;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.utils.Pools;
 
 /**
  * Handles hitting a bonus spot

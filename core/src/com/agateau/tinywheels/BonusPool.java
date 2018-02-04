@@ -51,7 +51,7 @@ public abstract class BonusPool extends Pool<Bonus> {
      * normalizedRank goes from 0 to 1, so when racer is 1st, normalizedRank is 0, when racer is
      * last, normalizedRank is 1
      */
-    float getCountForNormalizedRank(float normalizedRank) {
+    public float getCountForNormalizedRank(float normalizedRank) {
         return GylMathUtils.arrayLerp(mCounts, normalizedRank);
     }
 }

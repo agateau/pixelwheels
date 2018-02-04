@@ -16,7 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
+
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.GameInput;
+import com.agateau.tinywheels.GameInputHandler;
+import com.agateau.tinywheels.GameWorld;
+import com.agateau.tinywheels.Hud;
 
 /**
  * A pilot controlled by the player

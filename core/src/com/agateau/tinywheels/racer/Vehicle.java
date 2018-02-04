@@ -16,8 +16,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.Box2DUtils;
+import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.GamePlay;
+import com.agateau.tinywheels.GameWorld;
 import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -35,7 +39,7 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * Represents a car on the world
  */
-class Vehicle implements Racer.Component, Disposable {
+public class Vehicle implements Racer.Component, Disposable {
     private static final float ACCELERATION_DELTA = 1;
     private static final float BRAKING_DELTA = 0.8f;
 
@@ -45,12 +49,12 @@ class Vehicle implements Racer.Component, Disposable {
         public float steeringFactor;
     }
 
-    protected final Body mBody;
-    protected final GameWorld mGameWorld;
+    private final Body mBody;
+    private final GameWorld mGameWorld;
     private Racer mRacer;
 
     private final TextureRegion mRegion;
-    protected final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    private final Array<WheelInfo> mWheels = new Array<WheelInfo>();
     private String mId;
     private String mName;
 
@@ -308,7 +312,7 @@ class Vehicle implements Racer.Component, Disposable {
         }
     }
 
-    final Vector2 mDirectionVector = new Vector2();
+    private final Vector2 mDirectionVector = new Vector2();
     private Vector2 computeDirectionVector(float strength) {
         return mDirectionVector.set(strength, 0).rotateRad(mBody.getAngle());
     }

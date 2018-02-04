@@ -19,6 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

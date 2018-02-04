@@ -21,6 +21,7 @@ package com.agateau.tinywheels;
 import com.agateau.tinywheels.gameobjet.AnimationObject;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
+import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
