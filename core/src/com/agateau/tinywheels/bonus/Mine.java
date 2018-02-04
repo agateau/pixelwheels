@@ -24,7 +24,6 @@ import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.racescreen.Collidable;
 import com.agateau.tinywheels.racescreen.CollisionCategories;
 import com.agateau.tinywheels.Constants;
-import com.agateau.tinywheels.Explosion;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
 import com.agateau.tinywheels.racer.Racer;
@@ -168,7 +167,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         }
         setFinished(true);
         Vector2 pos = mBody.getPosition();
-        mGameWorld.addGameObject(Explosion.create(mAssets, mAudioManager, pos.x, pos.y));
+        mGameWorld.addGameObject(mAssets.createExplosion(mAudioManager, pos.x, pos.y));
     }
 
     @Override

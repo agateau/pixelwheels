@@ -18,7 +18,9 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameobjet.AnimationObject;
 import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.tinywheels.vehicledef.VehicleIO;
@@ -111,7 +113,6 @@ public class Assets {
     public final TextureRegion wheel;
     public final TextureRegion dot;
     public final TextureAtlas atlas;
-    public final Animation explosion;
     public final Animation impact;
     public final Animation mine;
     public final Animation turbo;
@@ -126,6 +127,7 @@ public class Assets {
     public final TextureRegion helicopterPropellerTop;
     public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
 
+    private final Animation explosion;
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
     Assets() {
@@ -229,6 +231,12 @@ public class Assets {
             }
         }
         return null;
+    }
+
+    public AnimationObject createExplosion(AudioManager audioManager, float x, float y) {
+        AnimationObject obj = AnimationObject.create(explosion, x, y);
+        obj.initAudio(audioManager, soundAtlas.get("explosion"));
+        return obj;
     }
 
     private void loadVehicleDefinitions() {
