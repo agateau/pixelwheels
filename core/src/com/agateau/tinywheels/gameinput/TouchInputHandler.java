@@ -16,8 +16,11 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gameinput;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.Hud;
+import com.agateau.tinywheels.PieButton;
 import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;

@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;

@@ -30,8 +30,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Indicate an input zone on the hud
  */
 public class HudButton extends Actor {
-    public final static float BUTTON_OPACITY = 0.5f;
-    public final static float DISABLED_BUTTON_OPACITY = 0.2f;
+    private final static float BUTTON_OPACITY = 0.5f;
+    private final static float DISABLED_BUTTON_OPACITY = 0.2f;
 
     private final TextureRegion[] mRegions = new TextureRegion[2];
     private final Hud mHud;
@@ -55,11 +55,11 @@ public class HudButton extends Actor {
         updateSize();
     }
 
-    boolean isPressed() {
+    public boolean isPressed() {
         return mClickListener.isVisualPressed();
     }
 
-    void setEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled) {
         mEnabled = enabled;
     }
 

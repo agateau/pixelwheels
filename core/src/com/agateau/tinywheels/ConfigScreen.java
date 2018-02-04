@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;

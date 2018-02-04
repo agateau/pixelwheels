@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.GameInput;
-import com.agateau.tinywheels.GameInputHandler;
+import com.agateau.tinywheels.gameinput.GameInput;
+import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.Hud;
 

@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gameinput;
 
 /**
- * A factory to create GameInputHandlers and provide information about them
+ * A plain struct which can be updated by a GameInputHandler
  */
-public interface GameInputHandlerFactory {
-    String getId();
-    String getName();
-    String getDescription();
-    GameInputHandler create();
+public class GameInput {
+    public boolean braking = false;
+    public boolean accelerating = false;
+    public boolean triggeringBonus = false;
+    public float direction = 0;
 }

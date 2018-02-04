@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.badlogic.gdx.utils.Array;
 
 /**
