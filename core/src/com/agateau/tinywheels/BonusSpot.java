@@ -18,7 +18,8 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
+import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,25 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gameobjet;
 
-import com.agateau.tinywheels.sound.AudioClipper;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.agateau.tinywheels.gameobjet.GameObject;
 
 /**
- * A generic game object
+ * Filter a GameObject to "clip" it if it is too far
  */
-public interface GameObject {
-    void act(float delta);
-
-    /**
-     * Returns true if the object is done and should be removed from the game.
-     * If the object implements Disposable, GameWorld will take care of calling dispose() on it.
-     */
-    boolean isFinished();
-    void draw(Batch batch, int zIndex);
-    float getX();
-    float getY();
-
-    void audioRender(AudioClipper audioClipper);
+public interface AudioClipper {
+    float clip(GameObject gameObject);
 }

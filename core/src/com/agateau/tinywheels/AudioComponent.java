@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.tinywheels.sound.AudioClipper;
+import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.EngineSoundPlayer;
 import com.agateau.tinywheels.sound.SoundPlayer;

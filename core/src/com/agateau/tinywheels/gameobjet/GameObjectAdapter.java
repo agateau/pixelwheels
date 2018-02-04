@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,13 +16,24 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels.sound;
-
-import com.agateau.tinywheels.GameObject;
+package com.agateau.tinywheels.gameobjet;
 
 /**
- * Filter a GameObject to "clip" it if it is too far
+ * An adapter for the GameObject interface
  */
-public interface AudioClipper {
-    float clip(GameObject gameObject);
+public abstract class GameObjectAdapter implements GameObject {
+    private boolean mIsFinished = false;
+
+    @Override
+    public boolean isFinished() {
+        return mIsFinished;
+    }
+
+    @Override
+    public void audioRender(AudioClipper audioClipper) {
+    }
+
+    protected void setFinished(boolean value) {
+        mIsFinished = value;
+    }
 }

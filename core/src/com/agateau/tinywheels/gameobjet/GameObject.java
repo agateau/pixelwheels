@@ -16,28 +16,24 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gameobjet;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
- * An actor which forwards its clicks to another one
+ * A generic game object
  */
-public class ClickArea extends Actor {
-    public ClickArea(final Actor target) {
+public interface GameObject {
+    void act(float delta);
 
-        addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return target.fire(event);
-            }
+    /**
+     * Returns true if the object is done and should be removed from the game.
+     * If the object implements Disposable, GameWorld will take care of calling dispose() on it.
+     */
+    boolean isFinished();
+    void draw(Batch batch, int zIndex);
+    float getX();
+    float getY();
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                target.fire(event);
-            }
-        });
-    }
+    void audioRender(AudioClipper audioClipper);
 }

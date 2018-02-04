@@ -18,8 +18,8 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.tinywheels.sound.AudioClipper;
-import com.badlogic.gdx.Application;
+import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;

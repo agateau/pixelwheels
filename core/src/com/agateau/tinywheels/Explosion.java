@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameobjet.AnimationObject;
 import com.agateau.tinywheels.sound.AudioManager;
 
 /**
