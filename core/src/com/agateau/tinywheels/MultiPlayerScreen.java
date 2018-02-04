@@ -19,18 +19,16 @@
 package com.agateau.tinywheels;
 
 import com.agateau.ui.KeyMapper;
-import com.agateau.ui.Menu;
-import com.agateau.ui.MenuItemListener;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**

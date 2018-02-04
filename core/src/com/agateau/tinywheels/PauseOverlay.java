@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.Menu;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.utils.FileUtils;

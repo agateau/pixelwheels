@@ -16,8 +16,11 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.menu;
 
+import com.agateau.ui.KeyMapper;
+import com.agateau.ui.Scene2dUtils;
+import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;

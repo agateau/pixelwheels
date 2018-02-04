@@ -16,7 +16,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.menu;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;

@@ -64,7 +64,7 @@
             fontColor: white
         }
     },
-    com.agateau.ui.Menu$MenuStyle: {
+    com.agateau.ui.menu.Menu$MenuStyle: {
         default: {
             focus: focus,
             focusPadding: 2,
@@ -76,19 +76,19 @@
             spacing: 16
         }
     },
-    com.agateau.ui.GridMenuItem$GridMenuItemStyle: {
+    com.agateau.ui.menu.GridMenuItem$GridMenuItemStyle: {
         default: {
             selected: selected
         }
     },
-    com.agateau.ui.SwitchMenuItem$SwitchMenuItemStyle: {
+    com.agateau.ui.menu.SwitchMenuItem$SwitchMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
             framePadding: 4,
             handle: menu-switch-handle
         }
     },
-    com.agateau.ui.RangeMenuItem$RangeMenuItemStyle: {
+    com.agateau.ui.menu.RangeMenuItem$RangeMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
             framePadding: 4,
@@ -96,7 +96,7 @@
             incIcon: icon-right
         }
     },
-    com.agateau.ui.SliderMenuItem$SliderMenuItemStyle: {
+    com.agateau.ui.menu.SliderMenuItem$SliderMenuItemStyle: {
         default: {
             frame: menu-switch-frame,
             framePadding: 4,

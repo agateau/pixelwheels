@@ -16,22 +16,23 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.menu;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 
 /**
- * Event fired when a MenuItem is triggered
+ * Listener for a MenuItem
  */
-public class MenuItemTriggerEvent extends Event {
-    /**
-     * Helper method to fire a MenuItemTriggerEvent on an actor
-     */
-    public static void fire(Actor actor) {
-        MenuItemTriggerEvent event = Pools.obtain(MenuItemTriggerEvent.class);
-        actor.fire(event);
-        Pools.free(event);
+public abstract class MenuItemListener implements EventListener {
+    abstract public void triggered();
+
+    public boolean handle(Event e) {
+        if (!(e instanceof MenuItemTriggerEvent)) {
+            return false;
+        }
+        e.handle();
+        triggered();
+        return true;
     }
 }

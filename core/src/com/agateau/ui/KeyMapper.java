@@ -18,7 +18,6 @@
  */
 package com.agateau.ui;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 

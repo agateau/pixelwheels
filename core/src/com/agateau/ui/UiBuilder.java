@@ -18,10 +18,11 @@
  */
 package com.agateau.ui;
 
-import com.agateau.tinywheels.MenuScrollPane;
+import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
+import com.agateau.ui.menu.Menu;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;

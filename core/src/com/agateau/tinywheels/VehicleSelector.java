@@ -18,8 +18,8 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.GridMenuItem;
-import com.agateau.ui.Menu;
+import com.agateau.ui.menu.GridMenuItem;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

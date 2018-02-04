@@ -16,7 +16,10 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.menu;
+
+import com.agateau.ui.KeyMapper;
+import com.agateau.ui.VirtualKey;
 
 /**
  * Monitor input events for the menu

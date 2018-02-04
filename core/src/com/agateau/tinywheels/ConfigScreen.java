@@ -18,11 +18,11 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.ui.ButtonMenuItem;
-import com.agateau.ui.Menu;
+import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.SelectorMenuItem;
-import com.agateau.ui.SwitchMenuItem;
+import com.agateau.ui.menu.SelectorMenuItem;
+import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;

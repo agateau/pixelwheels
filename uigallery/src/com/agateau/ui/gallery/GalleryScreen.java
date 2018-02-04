@@ -18,14 +18,14 @@
  */
 package com.agateau.ui.gallery;
 
-import com.agateau.tinywheels.MenuScrollPane;
-import com.agateau.ui.GridMenuItem;
-import com.agateau.ui.SliderMenuItem;
-import com.agateau.ui.Menu;
-import com.agateau.ui.MenuItemListener;
-import com.agateau.ui.SelectorMenuItem;
+import com.agateau.ui.menu.MenuScrollPane;
+import com.agateau.ui.menu.GridMenuItem;
+import com.agateau.ui.menu.SliderMenuItem;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.ui.StageScreen;
-import com.agateau.ui.SwitchMenuItem;
+import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;

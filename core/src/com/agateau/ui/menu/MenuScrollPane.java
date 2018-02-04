@@ -16,10 +16,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.tinywheels;
+package com.agateau.ui.menu;
 
-import com.agateau.ui.Menu;
-import com.agateau.ui.MenuItem;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
