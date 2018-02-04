@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.TextureRegionItemRendererAdapter;

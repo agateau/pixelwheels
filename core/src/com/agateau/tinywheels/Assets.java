@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.vehicledef.VehicleDef;
+import com.agateau.tinywheels.vehicledef.VehicleIO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

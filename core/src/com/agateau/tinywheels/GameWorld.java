@@ -25,6 +25,8 @@ import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.tinywheels.sound.AudioManager;
+import com.agateau.tinywheels.vehicledef.VehicleCreator;
+import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;

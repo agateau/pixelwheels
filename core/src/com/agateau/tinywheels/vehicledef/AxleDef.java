@@ -16,17 +16,15 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
-
-import com.badlogic.gdx.utils.Array;
+package com.agateau.tinywheels.vehicledef;
 
 /**
- * Definition of a vehicle
+ * Definition of a vehicle axle
  */
-public class VehicleDef {
-    String id;
-    String name;
-    float speed;
-    String mainImage;
-    Array<AxleDef> axles = new Array<AxleDef>();
+public class AxleDef {
+    float width;
+    float y;
+    float steer;
+    float drive;
+    boolean drift;
 }
