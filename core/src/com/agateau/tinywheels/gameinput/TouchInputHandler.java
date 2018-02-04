@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.gameinput;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.Hud;
-import com.agateau.tinywheels.PieButton;
+import com.agateau.tinywheels.racescreen.Hud;
+import com.agateau.tinywheels.racescreen.PieButton;
 import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;

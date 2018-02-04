@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racescreen;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
 import com.agateau.tinywheels.map.MapInfo;
 import com.badlogic.gdx.Gdx;

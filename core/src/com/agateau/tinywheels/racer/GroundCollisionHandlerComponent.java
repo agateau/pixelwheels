@@ -20,7 +20,7 @@ package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.Helicopter;
+import com.agateau.tinywheels.racescreen.Helicopter;
 import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.tinywheels.OrientedPoint;
 import com.badlogic.gdx.math.Interpolation;

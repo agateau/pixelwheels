@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.gameinput;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.Hud;
+import com.agateau.tinywheels.racescreen.Hud;
 import com.agateau.tinywheels.bonus.Bonus;
 
 /**

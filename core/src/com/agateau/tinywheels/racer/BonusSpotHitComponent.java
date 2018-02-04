@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.bonus.BonusSpot;
-import com.agateau.tinywheels.Collidable;
+import com.agateau.tinywheels.racescreen.Collidable;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;

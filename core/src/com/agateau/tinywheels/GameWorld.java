@@ -30,6 +30,8 @@ import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.racer.Vehicle;
+import com.agateau.tinywheels.racescreen.Collidable;
+import com.agateau.tinywheels.racescreen.CollisionCategories;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.vehicledef.VehicleCreator;
 import com.agateau.tinywheels.vehicledef.VehicleDef;

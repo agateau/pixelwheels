@@ -16,19 +16,16 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racescreen;
 
-/**
- * Collision categories for Box2D fixtures
- */
-public class CollisionCategories {
-    public static final int WALL = 1;
-    public static final int RACER = 2;
-    public static final int RACER_BULLET = 4;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 
-    // Objects which do not stop bullets
-    public static final int FLAT_OBJECT = 8;
-
-    // Masks for all bodies vehicles cannot go through
-    public static final int SOLID_BODIES = WALL | RACER | RACER_BULLET | FLAT_OBJECT;
+public interface Collidable {
+    void beginContact(Contact contact, Fixture otherFixture);
+    void endContact(Contact contact, Fixture otherFixture);
+    void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold);
+    void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse);
 }

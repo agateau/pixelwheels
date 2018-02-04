@@ -16,8 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racescreen;
 
+import com.agateau.tinywheels.GameInfo;
+import com.agateau.tinywheels.GameWorld;
+import com.agateau.tinywheels.Maestro;
+import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.TwStageScreen;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;

@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racescreen;
 
+import com.agateau.tinywheels.Maestro;
+import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;

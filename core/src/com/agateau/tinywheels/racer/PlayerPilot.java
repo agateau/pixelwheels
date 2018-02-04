@@ -22,7 +22,7 @@ import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.gameinput.GameInput;
 import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.Hud;
+import com.agateau.tinywheels.racescreen.Hud;
 
 /**
  * A pilot controlled by the player

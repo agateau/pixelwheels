@@ -16,8 +16,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.racescreen;
 
+import com.agateau.tinywheels.StringUtils;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.UiBuilder;

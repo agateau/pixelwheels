@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.racescreen.RaceScreen;
+
 /**
  * Handle a one player game
  */

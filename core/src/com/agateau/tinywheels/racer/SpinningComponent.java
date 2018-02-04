@@ -18,8 +18,8 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.Collidable;
-import com.agateau.tinywheels.CollisionCategories;
+import com.agateau.tinywheels.racescreen.Collidable;
+import com.agateau.tinywheels.racescreen.CollisionCategories;
 import com.agateau.tinywheels.GameWorld;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
