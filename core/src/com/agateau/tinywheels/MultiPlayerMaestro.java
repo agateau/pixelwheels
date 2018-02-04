@@ -19,6 +19,8 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.racescreen.RaceScreen;
+import com.agateau.tinywheels.screens.MultiPlayerScreen;
+import com.agateau.tinywheels.screens.SelectMapScreen;
 
 /**
  * Handle a multi player game

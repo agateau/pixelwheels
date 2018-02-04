@@ -19,6 +19,8 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.racescreen.RaceScreen;
+import com.agateau.tinywheels.screens.SelectMapScreen;
+import com.agateau.tinywheels.screens.SelectVehicleScreen;
 
 /**
  * Handle a one player game

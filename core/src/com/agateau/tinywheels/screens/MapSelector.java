@@ -16,8 +16,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;

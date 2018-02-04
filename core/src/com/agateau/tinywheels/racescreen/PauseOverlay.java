@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.ConfigScreen;
+import com.agateau.tinywheels.screens.ConfigScreen;
 import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.menu.Menu;
