@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.bonus;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.BodyRegionDrawer;
+import com.agateau.tinywheels.utils.BodyRegionDrawer;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;

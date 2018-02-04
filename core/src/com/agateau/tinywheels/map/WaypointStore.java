@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.map;
 
 import com.agateau.tinywheels.Constants;
-import com.agateau.tinywheels.OrientedPoint;
+import com.agateau.tinywheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.maps.MapLayer;

@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.bonus;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.ClosestFixtureFinder;
+import com.agateau.tinywheels.utils.ClosestFixtureFinder;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.Renderer;

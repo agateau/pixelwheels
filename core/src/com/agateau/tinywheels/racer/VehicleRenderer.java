@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.BodyRegionDrawer;
+import com.agateau.tinywheels.utils.BodyRegionDrawer;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.Renderer;
 import com.badlogic.gdx.Gdx;

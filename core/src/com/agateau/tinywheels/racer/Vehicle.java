@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.Box2DUtils;
+import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;

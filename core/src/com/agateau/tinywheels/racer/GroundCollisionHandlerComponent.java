@@ -22,7 +22,7 @@ import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.racescreen.Helicopter;
 import com.agateau.tinywheels.map.MapInfo;
-import com.agateau.tinywheels.OrientedPoint;
+import com.agateau.tinywheels.utils.OrientedPoint;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;

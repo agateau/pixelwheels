@@ -20,7 +20,7 @@ package com.agateau.tinywheels.racescreen;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.StringUtils;
+import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.tinywheels.debug.DebugStringMap;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.anchor.Anchor;

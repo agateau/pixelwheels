@@ -33,6 +33,7 @@ import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.tinywheels.racescreen.Collidable;
 import com.agateau.tinywheels.racescreen.CollisionCategories;
 import com.agateau.tinywheels.sound.AudioManager;
+import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.vehicledef.VehicleCreator;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.maps.MapObject;

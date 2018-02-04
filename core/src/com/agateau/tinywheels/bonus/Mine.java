@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.bonus;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.BodyRegionDrawer;
-import com.agateau.tinywheels.Box2DUtils;
+import com.agateau.tinywheels.utils.BodyRegionDrawer;
+import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.racescreen.Collidable;
 import com.agateau.tinywheels.racescreen.CollisionCategories;
 import com.agateau.tinywheels.Constants;

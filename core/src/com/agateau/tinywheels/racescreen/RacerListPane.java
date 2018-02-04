@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.StringUtils;
+import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.ui.UiBuilder;

@@ -19,9 +19,9 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Constants;
-import com.agateau.tinywheels.DrawUtils;
+import com.agateau.tinywheels.utils.DrawUtils;
 import com.agateau.tinywheels.map.MapInfo;
-import com.agateau.tinywheels.OrientedPoint;
+import com.agateau.tinywheels.utils.OrientedPoint;
 import com.agateau.tinywheels.map.WaypointStore;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
