@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.SoundAtlas;
+import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.EngineSoundPlayer;

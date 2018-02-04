@@ -18,7 +18,6 @@
  */
 package com.agateau.tinywheels.sound;
 
-import com.agateau.tinywheels.SoundAtlas;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;

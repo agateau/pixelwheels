@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.enginelab;
 
-import com.agateau.tinywheels.SoundAtlas;
+import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.sound.DefaultAudioManager;
 import com.agateau.tinywheels.sound.EngineSoundPlayer;
 import com.agateau.ui.menu.Menu;
