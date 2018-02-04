@@ -48,7 +48,7 @@ public class BodyRegionDrawer {
      *
      * Only affects the offset of the shadow
      */
-    void setZ(float z) {
+    public void setZ(float z) {
         mZ = z;
     }
 

@@ -18,6 +18,8 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.bonus.Bonus;
+
 /**
  * Responsible for updating a GameInput according to player (or anything else) inputs
  */

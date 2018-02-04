@@ -18,6 +18,11 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.bonus.BonusPool;
+import com.agateau.tinywheels.bonus.BonusSpot;
+import com.agateau.tinywheels.bonus.GunBonus;
+import com.agateau.tinywheels.bonus.MineBonus;
+import com.agateau.tinywheels.bonus.TurboBonus;
 import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.racer.AIPilot;
 import com.agateau.tinywheels.racer.LapPositionComponent;

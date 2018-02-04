@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
 

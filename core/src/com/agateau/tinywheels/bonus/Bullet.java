@@ -16,8 +16,15 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.bonus;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.BodyRegionDrawer;
+import com.agateau.tinywheels.Box2DUtils;
+import com.agateau.tinywheels.Collidable;
+import com.agateau.tinywheels.CollisionCategories;
+import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.gameobjet.AnimationObject;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
 import com.agateau.tinywheels.gameobjet.AudioClipper;

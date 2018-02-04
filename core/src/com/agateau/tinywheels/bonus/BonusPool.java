@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.bonus;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.utils.Pool;
 import com.agateau.utils.GylMathUtils;

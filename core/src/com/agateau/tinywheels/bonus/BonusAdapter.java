@@ -16,37 +16,37 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.bonus;
 
 import com.agateau.tinywheels.racer.Racer;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * A bonus. When the bonus is done, it must call Racer.resetBonus().
+ * An adapter for the Bonus class
  */
-public interface Bonus {
-    TextureRegion getIconRegion();
+public abstract class BonusAdapter implements Bonus {
+    protected Racer mRacer;
 
-    /**
-     * Called when a Racer picked the bonus. Should store the racer parameter for future use, such
-     * as when aiAct() is called.
-     */
-    void onPicked(Racer racer);
+    @Override
+    public void onPicked(Racer racer) {
+        mRacer = racer;
+    }
 
-    /**
-     * Called when a Racer is hit while carrying a bonus.
-     */
-    void onOwnerHit();
+    @Override
+    public void onOwnerHit() {
+    }
 
-    void trigger();
+    @Override
+    public void trigger() {
 
-    /**
-     * Called by the racer as long as it owns the bonus.
-     */
-    void act(float delta);
+    }
 
-    /**
-     * Implements behavior of the AI when it owns this bonus
-     */
-    void aiAct(float delta);
+    @Override
+    public void act(float delta) {
+
+    }
+
+    @Override
+    public void aiAct(float delta) {
+
+    }
 }

@@ -26,7 +26,7 @@ import java.util.HashMap;
  * An helper class to register global debug shape drawers
  */
 public class DebugShapeMap {
-    interface Shape {
+    public interface Shape {
         void draw(ShapeRenderer renderer);
     }
     private static HashMap<Object, Shape> sMap = new HashMap<Object, Shape>();

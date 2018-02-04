@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.Bonus;
+import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.MapInfo;
