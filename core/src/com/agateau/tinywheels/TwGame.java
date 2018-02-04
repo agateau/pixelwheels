@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.DefaultAudioManager;
 import com.agateau.utils.Assert;

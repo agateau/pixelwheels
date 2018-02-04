@@ -18,6 +18,9 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.debug.Debug;
+import com.agateau.tinywheels.debug.DebugShapeMap;
+import com.agateau.tinywheels.racer.RacerDebugShape;
 import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.racer.Pilot;
