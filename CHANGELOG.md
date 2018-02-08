@@ -19,7 +19,6 @@
 ### Fixed
 - Make Android Back button toggle pause while playing.
 
-
 ## 0.5.0 - 2018-01-06
 
 ### Added
