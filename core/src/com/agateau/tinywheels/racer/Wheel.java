@@ -18,11 +18,11 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.map.Material;
+import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -32,20 +32,16 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A wheel
  */
-public class Wheel implements Pool.Poolable, Disposable {
+public class Wheel implements Disposable {
     private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
     private static final int SKIDMARK_INTERVAL = 3;
 
     public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);
-
-    private static ReflectionPool<Wheel> sPool = new ReflectionPool<Wheel>(Wheel.class);
 
     private final CircularArray<Vector2> mSkidmarks = new CircularArray<Vector2>(GamePlay.instance.maxSkidmarks) {
         @Override
@@ -62,20 +58,16 @@ public class Wheel implements Pool.Poolable, Disposable {
     private GameWorld mGameWorld;
     private TextureRegion mRegion;
     private Vehicle mVehicle;
-    private boolean mCanDrift;
-    private float mMaxDrivingForce;
+    private boolean mCanDrift = false;
+    private float mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
     private boolean mGripEnabled = true;
-    private Material mMaterial;
+    private Material mMaterial = Material.ROAD;
     private boolean mDrifting = false;
 
-    public static Wheel create(GameWorld gameWorld, Vehicle vehicle, TextureRegion region, float posX, float posY, float angle) {
-        Wheel obj = sPool.obtain();
-        obj.mGameWorld = gameWorld;
-        obj.mVehicle = vehicle;
-        obj.mRegion = region;
-        obj.mCanDrift = false;
-        obj.mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
-        obj.mMaterial = Material.ROAD;
+    public Wheel(GameWorld gameWorld, Vehicle vehicle, TextureRegion region, float posX, float posY, float angle) {
+        mGameWorld = gameWorld;
+        mVehicle = vehicle;
+        mRegion = region;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -84,14 +76,12 @@ public class Wheel implements Pool.Poolable, Disposable {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(posX, posY);
         bodyDef.angle = angle * MathUtils.degreesToRadians;
-        obj.mBody = obj.mGameWorld.getBox2DWorld().createBody(bodyDef);
+        mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.set(Box2DUtils.createOctogon(w, h, w / 4, w / 4));
-        obj.mBody.createFixture(shape, 2f);
+        mBody.createFixture(shape, 2f);
         shape.dispose();
-
-        return obj;
     }
 
     public TextureRegion getRegion() {
@@ -104,13 +94,7 @@ public class Wheel implements Pool.Poolable, Disposable {
 
     @Override
     public void dispose() {
-        sPool.free(this);
-    }
-
-    @Override
-    public void reset() {
         mGameWorld.getBox2DWorld().destroyBody(mBody);
-        mVehicle = null;
     }
 
     @SuppressWarnings("UnusedParameters")
