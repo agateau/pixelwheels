@@ -53,6 +53,7 @@ public class Wheel implements Disposable {
             return existingElement;
         }
     };
+    private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
 
     private Body mBody;
     private GameWorld mGameWorld;
@@ -139,16 +140,13 @@ public class Wheel implements Disposable {
         return mGameWorld.getMapInfo().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
-    private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
     private void updateFriction() {
         // Kill lateral velocity
         Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
         float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 2 : 1);
         if (mCanDrift && impulse.len() > maxImpulse) {
             // Drift
-            if (!mDrifting) {
-                mDrifting = true;
-            }
+            mDrifting = true;
             if (mSkidmarkCount == 0) {
                 mSkidmarks.add(mBody.getWorldCenter());
             }
