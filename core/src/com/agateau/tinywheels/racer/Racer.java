@@ -144,6 +144,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         return mAudioComponent;
     }
 
+    public AudioManager getAudioManager() {
+        return mAudioComponent.getAudioManager();
+    }
+
     public void spin() {
         if (mSpinningComponent.isActive()) {
             return;

@@ -97,7 +97,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void startFalling() {
-        mHelicopter = Helicopter.create(mAssets, mGameWorld.getMapInfo(), mVehicle.getPosition(), mVehicle.getAngle());
+        mHelicopter = Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getMapInfo(), mVehicle.getPosition(), mVehicle.getAngle());
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
