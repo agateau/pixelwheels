@@ -54,6 +54,8 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private static final float MAX_SPEED = 200 * 3.6f;
     private static final float MIN_SPEED = 100 * 3.6f;
     private static final float SLOW_DOWN_DISTANCE = 200 * Constants.UNIT_FOR_PIXEL;
+    private static final float MIN_PITCH = 0.7f;
+    private static final float MAX_PITCH = 1.3f;
 
     private enum State {
         ARRIVING,
@@ -165,6 +167,8 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     @Override
     public void audioRender(AudioClipper clipper) {
         mSoundPlayer.setVolume(clipper.clip(this));
+        float pitch = MathUtils.random(MIN_PITCH, MAX_PITCH);
+        mSoundPlayer.setPitch(pitch);
         if (!mSoundPlayer.isLooping()) {
             mSoundPlayer.loop();
         }
