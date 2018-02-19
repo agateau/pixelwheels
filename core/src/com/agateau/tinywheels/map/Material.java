@@ -58,7 +58,7 @@ public enum Material {
         case AIR:
             return 0;
         case ICE:
-            return 0.6f;
+            return 0.3f;
         }
         Assert.check(false, "Missing material speed for " + toString());
         return 0;
@@ -66,8 +66,8 @@ public enum Material {
 
     public float getGrip() {
         if (this == ICE) {
-            return 0.3f;
+            return 0.1f;
         }
-        return 1;
+        return 1f;
     }
 }

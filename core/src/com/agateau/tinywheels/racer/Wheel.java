@@ -18,11 +18,11 @@
  */
 package com.agateau.tinywheels.racer;
 
-import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.map.Material;
+import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -158,9 +158,9 @@ public class Wheel implements Pool.Poolable, Disposable {
     private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
     private void updateFriction() {
         // Kill lateral velocity
-        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxImpulse) {
+        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass()).scl(mMaterial.getGrip());
+        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 0.2f : 1);
+        if (mMaterial != Material.ICE && mCanDrift && impulse.len() > maxImpulse) {
             // Drift
             if (!mDrifting) {
                 mDrifting = true;
