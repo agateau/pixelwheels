@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="45" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="66">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="45" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="68">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="112" columns="8">
   <image source="snow.png" width="512" height="896"/>
+  <terraintypes>
+   <terrain name="ice" tile="-1"/>
+  </terraintypes>
   <tile id="5">
    <properties>
     <property name="start" value="true"/>
@@ -144,7 +147,15 @@
     <object id="0" x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
    </objectgroup>
   </tile>
-  <tile id="35">
+  <tile id="34" terrain="0,0,0,">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="35" terrain="0,0,,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
    <objectgroup draworder="index"/>
   </tile>
   <tile id="36">
@@ -166,11 +177,26 @@
     <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
    </objectgroup>
   </tile>
+  <tile id="42" terrain="0,,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="43" terrain=",0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
   <tile id="54">
    <objectgroup draworder="index"/>
   </tile>
   <tile id="55">
    <objectgroup draworder="index"/>
+  </tile>
+  <tile id="58" terrain="0,0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
   </tile>
   <tile id="60">
    <objectgroup draworder="index"/>
@@ -178,21 +204,33 @@
   <tile id="61">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="66">
+  <tile id="64" terrain=",,,0"/>
+  <tile id="65" terrain=",,0,0"/>
+  <tile id="66" terrain=",,0,">
    <objectgroup draworder="index"/>
   </tile>
   <tile id="67">
    <objectgroup draworder="index"/>
   </tile>
+  <tile id="72" terrain=",0,,0"/>
+  <tile id="73" terrain="0,0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="74" terrain="0,,0,"/>
+  <tile id="80" terrain=",0,,"/>
+  <tile id="81" terrain="0,0,,"/>
+  <tile id="82" terrain="0,,,"/>
  </tileset>
  <layer name="bg1" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztmFFymzAQhoWdOoOdyRk807ylN+gLbZ/qPqW9gI/CUXwUjuKjRKpZ8vN7RRASsTLDwz82AoE+7Wp3pXtjzP2iRYsWLVqUmR6MOd9ZlcY0raq5tbOy361uwWu/fS6MOYLMWK0myvW9uxFv+cZbOa0v46mG5J6R5/g/P+d7h/3u8da8GoOPl9nHzAE+1/I2udh3HeGv7Lva/OXE68b5eLmXQrV914ntnBuvbd8n/MZpRX5j5+C4TZQPQuK9xruegbe1r0m1TnC9hMT7j+KFPFbxWDG3KdeV9JH5ory4L0y3PnLivYqF7/H6chy0ZcurxOiOEX0d/Z3yINoX27PkRZ7I2P8/3sOcZMmL6y723eUn4MW1Ku/+YfVzpH5dj3ky7xf7y0pZ34o9xMbC+9vqYPUdfn16BuaWt0pl35D+If4sPjiG96Dc+0O8MfF5Y/q1vqt/oIZpQMH7V9/6FV6nr1ZPHttqvBCno+y7MVfxXmx+LGB/HLJ/HeIVHsfyQswH07cz8sL6iLKvluNj8h3zav7s5Nani0vfiHHAn6N40b5Kjqwl78XwSv2k8bItkdPnzynsO7Q/KiN5xSaaP/viMt5jf45Zv+LDG+OvCbAODuUVVpxLt17/Buhff8zR9gUfUftLHpjKKzEmQX115tp7yvp1fTcD/SN4e+NLySt5eIo/o30h/3a517Y1wqvd96ntl5RXOOn8L8i+WF/h3gyv+ZmQc4iUvDC2/VTe986ex55NY52GMT81L9STVQBvl2N4rHyuXCgs2nXxNpZe3znsG+rPti6sC9qvzSFlbM1E3hP7c0i8snV/vbvUT9pZQgr1ziOUvUiourgJ/hyUL+ZWqZy3i805nhXUxj6C7VPqjY/khRjTi2Eraqd48Sl5ZVwcwzm20/nkaN5tRrwcE5WcNcjlE/LuImN+SlFMrFNqe5nP/UNGvIsWzaVXU6EUVw==
+   eJztmf2RgjAQxYN6OuqNNVgKf18VlGIplmIplnKL8JjHkighq8EZnHnjgXzkl13eLrmdc263aNGiRYtmrVef3ON7B++vc7ejaO9c+SnJ/Uq5b5mDdyOsa1Eh9xe59ruk7aBWE1U0983CK/N9r9naceAb43pwy3y4dWBb/41jiK308NZxrnLkNHgx3pVi0xx6G7xj5oCPa3lvOXjByfHgfSkq1FxAOXkpDh3vqfnNQhe51lXHOTNvpXNO9p8N73FF7vy1cZc5qA5GdSHG7z/Fyz4GZqvnJcbvP8Ub8O5BbfNsd+fAC1RdPBeuez5mwxvw8qe8odpA+2bL6/HojhHsOEbHlnsfzT9XXuZJ9P6H39OczJKX8zf12vsv4OVnFdeO/agxT+b9kW8ty/4W8UCMp/KCWfX8yfGNOT8mn5GDVrwp/rx1/V6/7n+oh7mRot9fQ89vCi/5dFJ8t27g94h51Sqqn3kXLz0fSfH11fiUeqd5DfM5iZfj66mRF9S9FF70T1b5bBFfjMtXj/aJvIiJVT6nPL/I4Zb7GS+/v47mBetc8hl5/KwecR2YwguPMeiv7rr3juDt9T7bJ+djXifw9sZnyRs7/5oXovrb1d5Ts24b/D0knGfJC061/jeZl9/NeJt7sJg1PWteGtvZgNdbe1/U5d4xen6s85n6l9qvyhRevQ6h1hP0GsNgW18L+94R39h8Pja10ZvTlvKM7TaR98q+CR3kmm7E+dL3XzfNNULrCanqrUd43kVi1fPNWN5PiPorfsa9flaofWO1nyEv/w9De3vAG76Wt/VRrmcDv/esT47WnPJZ/OFSkCd6atbA28bywhM2rvnkZq0lnng5Nu+U3bvlBPV88EA6NvfIzvkOhT65x7Uoj/4B193oqw==
   </data>
  </layer>
- <layer name="bg2" width="60" height="45" visible="0">
+ <layer name="bg2" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20PBxQAAAAAAAAAAAAAzwYqMAAB
+   eJztWUtOAzEMnbvADm7AqrAqrAr3v0vHEpbMk+O4JBk7ozzJuzbjF/+dbVtYWFhYyI7LLu8V+QjTrj+uu3wa8rbLV8P5pfuMukPiS5xKXFv58n3iN1rObIFlX9axRbfbLs9w3tMuPw1ntkDjK/X67qDb7fcc5h1lW4L0NykjbMCxk4nvSH9j337ZYvMV2nfk/bONozjLfHJE7pT3G+XXmENH6iG/lSGOj6gVnK+jalIWHRYWZodnPoueMXoC5wns86RE9im9YPHFfj66F+0BOa9QLaTarNnWw5djI7MPyPmbuHA/gjb28M0wj9Qg7UvxSfZ53f5y9Nj3Iv43C19tt+KJX8l1Br613FzbLV3htz3zeO+cwH2sV7R+V/KtzbSP7g/Z/zLVQhkT1s4N/V76TomPvMsscYI5wPL7R/ewR86NXmDPUtIN/cCzr8s4NyKPkt9ZuTGLr3qAbwYW35J9Z+DLuZZykJcv9my9duyjwblWmy1qfEfu2HsB6ybaVOarUm3BWp+ZK9dNrffSYnKGeCzBesPU7Ju9h65Be/Ox+obMcekBvgdYvjw7V4Znz3UWrgSZWzVbn4krQpshz8r1P7gDte6Evw==
   </data>
  </layer>
  <layer name="fg1" width="60" height="45">
@@ -200,7 +238,7 @@
    eJztWVtOwzAQ9FFyiISvhK/yB/yTVi1FAgQSnClH6dGYSIkchY3xI2tvikcapWlsr8Zjr51YqYyMjIxt4QzuwXbgnrhS/7UW9VyuB7AEK/CGUS/iPTM274QabMBbxhht1psMMfTm8ZwOO/BOueVKKu99KdW9glQMSf7egw/gY2A739D6Bh4JzZL8XRPv0Hoi9Eryd20cCG2h/mKPUNQzYh4W5ew+JIYvKG2h/krWS2kL9Rf7v6KZETm2qGb3ITF8QWm7Zr2Uv7bjedzL+15TIMTfcS/ge00BKj9nf2ls0d+Q+evafqm0t1v017X9Wun3nWatAI7gWH+X2pKgl2N/tdSWBL0c++eltiTo9fX3rPQ79YuhnDR/fedvX2/Mtab+uRZ/+3rjOmrqnw+lx8FO6bV3qPfrm/WkbFcTRB931LNy4VuNjTYbf6c6Pm0COYJLL3d+9oU0f7mB8d41BJEvOupZZamXez3yBZdeqeOZS6/U8cwFqf5yQer85QKld7q22pA6514od0HbF049fyG2l6nHTuy5mjo3PEWObzqX5MYRPEWOaTqX5AT6WCFuf0YYHeO5JHUuTf02lbN5Npx39339r/EDcJPg2g==
   </data>
  </layer>
- <objectgroup name="Borders">
+ <objectgroup name="Borders" visible="0">
   <object id="1" x="3665.15" y="773.455" width="64" height="1885.88"/>
   <object id="2" x="126.788" y="366.166" width="48" height="2106.99"/>
   <object id="3" x="1760.06" y="2767.67" width="1798.97" height="31.8312"/>
@@ -218,7 +256,7 @@
   <object id="59" x="768" y="1152" width="433.273" height="256"/>
   <object id="61" x="2368" y="320" width="128" height="384"/>
  </objectgroup>
- <objectgroup name="Sections">
+ <objectgroup name="Sections" visible="0">
   <object id="13" name="0" x="779.576" y="1344.55">
    <polyline points="180.424,-0.545455 -651.576,-0.545455"/>
   </object>
@@ -266,40 +304,37 @@
   <object id="31" x="1447.17" y="571.605" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="32" x="843.641" y="597.766" width="64" height="64">
+  <object id="32" x="644.641" y="618.766" width="64" height="64">
    <ellipse/>
   </object>
   <object id="34" x="2548.97" y="959.636" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="35" x="3039.34" y="1022.85" width="64" height="64">
+  <object id="35" x="2948.34" y="1060.85" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="36" x="3213.33" y="1329.58" width="64" height="64">
+  <object id="36" x="3259.33" y="1430.58" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="37" x="3092.97" y="2428.63" width="64" height="64">
+  <object id="37" x="3024.97" y="2396.63" width="64" height="64">
    <ellipse/>
   </object>
   <object id="38" x="2184.97" y="2429.06" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="39" x="1340.17" y="2178.41" width="64" height="64">
+  <object id="39" x="857.17" y="2186.41" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="40" x="896.975" y="2171.64" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="41" x="499.03" y="2079.03" width="64" height="64">
+  <object id="40" x="573.975" y="2083.64" width="64" height="64">
    <ellipse/>
   </object>
   <object id="42" x="441.861" y="1726.32" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="43" x="3255.76" y="2234.06" width="64" height="64">
+  <object id="43" x="3216.76" y="2278.06" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="44" x="455.377" y="931.322" width="64" height="64">
+  <object id="44" x="566.377" y="923.322" width="64" height="64">
    <ellipse/>
   </object>
   <object id="45" x="1921.34" y="2227.39" width="64" height="64">
@@ -308,8 +343,11 @@
   <object id="62" x="2613.45" y="2543.76" width="64" height="64">
    <ellipse/>
   </object>
+  <object id="66" x="780" y="520" width="64" height="64">
+   <ellipse/>
+  </object>
  </objectgroup>
- <objectgroup name="BonusSpots">
+ <objectgroup name="BonusSpots" visible="0">
   <object id="46" x="1280" y="608" width="64" height="64">
    <ellipse/>
   </object>
