@@ -20,8 +20,11 @@ package com.agateau.tinywheels.racescreen;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
 import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.sound.AudioManager;
+import com.agateau.tinywheels.sound.SoundPlayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -51,6 +54,8 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private static final float MAX_SPEED = 200 * 3.6f;
     private static final float MIN_SPEED = 100 * 3.6f;
     private static final float SLOW_DOWN_DISTANCE = 200 * Constants.UNIT_FOR_PIXEL;
+    private static final float MIN_PITCH = 0.7f;
+    private static final float MAX_PITCH = 1.3f;
 
     private enum State {
         ARRIVING,
@@ -59,6 +64,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
     private static final ReflectionPool<Helicopter> sPool = new ReflectionPool<Helicopter>(Helicopter.class);
 
+    private SoundPlayer mSoundPlayer;
     private FrameBuffer mFrameBuffer;
     private SpriteBatch mFrameBufferBatch;
     private TextureRegion mBodyRegion;
@@ -74,13 +80,16 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private float mTime;
     private State mState;
 
-    public static Helicopter create(Assets assets, MapInfo mapInfo, Vector2 vehiclePosition, float vehicleAngle) {
+    public static Helicopter create(Assets assets, AudioManager audioManager, MapInfo mapInfo, Vector2 vehiclePosition, float vehicleAngle) {
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
         float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
         float mapHeight = mapInfo.getMapHeight() * mapInfo.getTileHeight();
 
+        if (object.mSoundPlayer == null) {
+            object.mSoundPlayer = audioManager.createSoundPlayer(assets.soundAtlas.get("helicopter"));
+        }
         object.mBodyRegion = assets.helicopterBody;
         object.mPropellerRegion = assets.helicopterPropeller;
         object.mPropellerTopRegion = assets.helicopterPropellerTop;
@@ -155,6 +164,16 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         }
     }
 
+    @Override
+    public void audioRender(AudioClipper clipper) {
+        mSoundPlayer.setVolume(clipper.clip(this));
+        float pitch = MathUtils.random(MIN_PITCH, MAX_PITCH);
+        mSoundPlayer.setPitch(pitch);
+        if (!mSoundPlayer.isLooping()) {
+            mSoundPlayer.loop();
+        }
+    }
+
     private void actArriving(float delta) {
         if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
             mState = State.RECOVERING;
@@ -164,8 +183,9 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     private void actLeaving(float delta) {
-        if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
+        if (mSoundPlayer.getVolume() == 0) {
             setFinished(true);
+            mSoundPlayer.stop();
             return;
         }
         moveTowardEndPosition(delta);

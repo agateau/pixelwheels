@@ -34,6 +34,7 @@ class AudioComponent implements Racer.Component, Disposable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
     private static final float MIN_IMPACT_SPEED = 3;
 
+    private final AudioManager mAudioManager;
     private final EngineSoundPlayer mEngineSoundPlayer;
     private final Racer mRacer;
     private final SoundPlayer mDriftingSoundPlayer;
@@ -45,12 +46,17 @@ class AudioComponent implements Racer.Component, Disposable {
     private boolean mJustCollided = false;
 
     public AudioComponent(SoundAtlas atlas, AudioManager audioManager, Racer racer) {
+        mAudioManager = audioManager;
         mEngineSoundPlayer = new EngineSoundPlayer(atlas, audioManager);
         mDriftingSoundPlayer = audioManager.createSoundPlayer(atlas.get("drifting"));
         mTurboSoundPlayer = audioManager.createSoundPlayer(atlas.get("turbo"));
         mCollisionSoundPlayer = audioManager.createSoundPlayer(atlas.get("collision"));
         mSoundPlayers.addAll(mDriftingSoundPlayer, mTurboSoundPlayer, mCollisionSoundPlayer);
         mRacer = racer;
+    }
+
+    public AudioManager getAudioManager() {
+        return mAudioManager;
     }
 
     @Override
