@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="45" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="68">
- <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="112" columns="8">
-  <image source="snow.png" width="512" height="896"/>
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="210" columns="15">
+  <image source="snow.png" width="960" height="896"/>
   <terraintypes>
    <terrain name="ice" tile="-1"/>
+   <terrain name="mountain1" tile="-1"/>
+   <terrain name="mountain2" tile="-1"/>
+   <terrain name="mountain3" tile="-1"/>
   </terraintypes>
   <tile id="5">
    <properties>
@@ -20,22 +23,32 @@
     <property name="material" value="SNOW"/>
    </properties>
   </tile>
-  <tile id="11">
+  <tile id="8" terrain=",,,1"/>
+  <tile id="9" terrain=",,1,1"/>
+  <tile id="10" terrain=",,1,"/>
+  <tile id="11" terrain="1,1,1,"/>
+  <tile id="12" terrain="1,1,,1"/>
+  <tile id="18">
    <properties>
     <property name="material" value="SNOW"/>
    </properties>
   </tile>
-  <tile id="16">
+  <tile id="23" terrain=",1,,1"/>
+  <tile id="24" terrain="1,1,1,1"/>
+  <tile id="25" terrain="1,,1,"/>
+  <tile id="26" terrain="1,,1,1"/>
+  <tile id="27" terrain=",1,1,1"/>
+  <tile id="30">
    <objectgroup draworder="index">
     <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
    </objectgroup>
   </tile>
-  <tile id="17">
+  <tile id="31">
    <objectgroup draworder="index">
     <object id="0" x="-0.181818" y="8" width="55.6364" height="55.8182"/>
    </objectgroup>
   </tile>
-  <tile id="19">
+  <tile id="33">
    <properties>
     <property name="material" value="TURBO"/>
    </properties>
@@ -48,7 +61,7 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="20">
+  <tile id="34">
    <objectgroup draworder="index">
     <object id="0" x="28.3636" y="63.6364">
      <polygon points="0,0 3.81818,-16 -29.0909,-18.3636 -28.3636,0.363636"/>
@@ -58,26 +71,29 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="21">
+  <tile id="35">
    <objectgroup draworder="index">
     <object id="0" x="46" y="52.75">
      <polygon points="0,0 9.375,-14.5 8,-30 -1.625,-44 -20.875,-44 -34,-34.625 -39,-19.25 -31.75,-3 -17.875,4"/>
     </object>
    </objectgroup>
   </tile>
-  <tile id="22">
+  <tile id="36">
    <objectgroup draworder="index">
     <object id="0" x="0" y="24.1818" width="64" height="15.0909"/>
    </objectgroup>
   </tile>
-  <tile id="23">
+  <tile id="37">
    <objectgroup draworder="index">
     <object id="0" x="1.09091" y="24" width="10" height="16"/>
     <object id="0" x="53.2727" y="24.1818" width="9.81818" height="15.6364"/>
     <object id="0" x="10.9091" y="28.9091" width="42.1818" height="5.63636"/>
    </objectgroup>
   </tile>
-  <tile id="24">
+  <tile id="38" terrain=",1,,"/>
+  <tile id="39" terrain="1,1,,"/>
+  <tile id="40" terrain="1,,,"/>
+  <tile id="45">
    <properties>
     <property name="material" value="SNOW"/>
    </properties>
@@ -85,7 +101,7 @@
     <object id="0" x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
    </objectgroup>
   </tile>
-  <tile id="25">
+  <tile id="46">
    <properties>
     <property name="material" value="SNOW"/>
    </properties>
@@ -93,12 +109,12 @@
     <object id="0" x="-0.545455" y="0" width="56" height="64"/>
    </objectgroup>
   </tile>
-  <tile id="26">
+  <tile id="47">
    <properties>
     <property name="material" value="SNOW"/>
    </properties>
   </tile>
-  <tile id="27">
+  <tile id="48">
    <objectgroup draworder="index">
     <object id="0" x="62.9091" y="36.1818">
      <polygon points="0,0 1.27273,-4 0.909091,-36.3636 -17.4545,-36.3636"/>
@@ -111,7 +127,7 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="28">
+  <tile id="49">
    <objectgroup draworder="index">
     <object id="0" x="0" y="33.0909">
      <polygon points="0,0 0.363636,1.81818 32.9091,-27.2727 29.8182,-33.0909 0,-33.0909"/>
@@ -121,7 +137,7 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="29">
+  <tile id="50">
    <objectgroup draworder="index">
     <object id="0" x="38.3636" y="63.2727">
      <polygon points="0,0.545455 0,-39.4545 -9.81818,-38 -13.4545,-32.9091 -13.8182,0.363636"/>
@@ -129,7 +145,7 @@
     <object id="0" x="38.3636" y="23.6364" width="25.2727" height="15.4545"/>
    </objectgroup>
   </tile>
-  <tile id="30">
+  <tile id="51">
    <objectgroup draworder="index">
     <object id="0" x="0" y="24.9091" width="25.2727" height="14.1818"/>
     <object id="0" x="38.7273" y="63.2727">
@@ -137,31 +153,36 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="32">
+  <tile id="53" terrain=",,,2"/>
+  <tile id="54" terrain=",,2,2"/>
+  <tile id="55" terrain=",,2,"/>
+  <tile id="56" terrain="2,2,2,"/>
+  <tile id="57" terrain="2,2,,2"/>
+  <tile id="60">
    <objectgroup draworder="index">
     <object id="0" x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
    </objectgroup>
   </tile>
-  <tile id="33">
+  <tile id="61">
    <objectgroup draworder="index">
     <object id="0" x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
    </objectgroup>
   </tile>
-  <tile id="34" terrain="0,0,0,">
+  <tile id="62" terrain="0,0,0,">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
   </tile>
-  <tile id="35" terrain="0,0,,0">
+  <tile id="63" terrain="0,0,,0">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="36">
+  <tile id="64">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="37">
+  <tile id="65">
    <objectgroup draworder="index">
     <object id="0" x="24.1818" y="0" width="15.2727" height="25.2727"/>
     <object id="0" x="63.8182" y="37.4545">
@@ -169,7 +190,7 @@
     </object>
    </objectgroup>
   </tile>
-  <tile id="38">
+  <tile id="66">
    <objectgroup draworder="index">
     <object id="0" x="0.181818" y="37.4545">
      <polygon points="0,0 32.9091,0.181818 37.2727,-6 37.8182,-13.8182 0,-12.9091"/>
@@ -177,65 +198,91 @@
     <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
    </objectgroup>
   </tile>
-  <tile id="42" terrain="0,,0,0">
+  <tile id="68" terrain=",2,,2"/>
+  <tile id="69" terrain="2,2,2,2"/>
+  <tile id="70" terrain="2,,2,"/>
+  <tile id="71" terrain="2,,2,2"/>
+  <tile id="72" terrain=",2,2,2"/>
+  <tile id="77" terrain="0,,0,0">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
   </tile>
-  <tile id="43" terrain=",0,0,0">
+  <tile id="78" terrain=",0,0,0">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
   </tile>
-  <tile id="54">
+  <tile id="83" terrain=",2,,"/>
+  <tile id="84" terrain="2,2,,"/>
+  <tile id="85" terrain="2,,,"/>
+  <tile id="96">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="55">
+  <tile id="97">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="58" terrain="0,0,0,0">
+  <tile id="98" terrain=",,,3"/>
+  <tile id="99" terrain=",,3,3"/>
+  <tile id="100" terrain=",,3,"/>
+  <tile id="101" terrain="3,3,3,"/>
+  <tile id="102" terrain="3,3,,3"/>
+  <tile id="107" terrain="0,0,0,0">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
   </tile>
-  <tile id="60">
+  <tile id="109">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="61">
+  <tile id="110">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="64" terrain=",,,0"/>
-  <tile id="65" terrain=",,0,0"/>
-  <tile id="66" terrain=",,0,">
+  <tile id="113" terrain=",3,,3"/>
+  <tile id="114" terrain="3,3,3,3"/>
+  <tile id="115" terrain="3,,3,"/>
+  <tile id="116" terrain="3,,3,3"/>
+  <tile id="117" terrain=",3,3,3"/>
+  <tile id="120" terrain=",,,0"/>
+  <tile id="121" terrain=",,0,0"/>
+  <tile id="122" terrain=",,0,">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="67">
+  <tile id="123">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="72" terrain=",0,,0"/>
-  <tile id="73" terrain="0,0,0,0">
+  <tile id="128" terrain=",3,,"/>
+  <tile id="129" terrain="3,3,,"/>
+  <tile id="130" terrain="3,,,"/>
+  <tile id="135" terrain=",0,,0"/>
+  <tile id="136" terrain="0,0,0,0">
    <properties>
     <property name="material" value="ICE"/>
    </properties>
   </tile>
-  <tile id="74" terrain="0,,0,"/>
-  <tile id="80" terrain=",0,,"/>
-  <tile id="81" terrain="0,0,,"/>
-  <tile id="82" terrain="0,,,"/>
+  <tile id="137" terrain="0,,0,"/>
+  <tile id="150" terrain=",0,,"/>
+  <tile id="151" terrain="0,0,,"/>
+  <tile id="152" terrain="0,,,"/>
  </tileset>
  <layer name="bg1" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztmf2RgjAQxYN6OuqNNVgKf18VlGIplmIplnKL8JjHkighq8EZnHnjgXzkl13eLrmdc263aNGiRYtmrVef3ON7B++vc7ejaO9c+SnJ/Uq5b5mDdyOsa1Eh9xe59ruk7aBWE1U0983CK/N9r9naceAb43pwy3y4dWBb/41jiK308NZxrnLkNHgx3pVi0xx6G7xj5oCPa3lvOXjByfHgfSkq1FxAOXkpDh3vqfnNQhe51lXHOTNvpXNO9p8N73FF7vy1cZc5qA5GdSHG7z/Fyz4GZqvnJcbvP8Ub8O5BbfNsd+fAC1RdPBeuez5mwxvw8qe8odpA+2bL6/HojhHsOEbHlnsfzT9XXuZJ9P6H39OczJKX8zf12vsv4OVnFdeO/agxT+b9kW8ty/4W8UCMp/KCWfX8yfGNOT8mn5GDVrwp/rx1/V6/7n+oh7mRot9fQ89vCi/5dFJ8t27g94h51Sqqn3kXLz0fSfH11fiUeqd5DfM5iZfj66mRF9S9FF70T1b5bBFfjMtXj/aJvIiJVT6nPL/I4Zb7GS+/v47mBetc8hl5/KwecR2YwguPMeiv7rr3juDt9T7bJ+djXifw9sZnyRs7/5oXovrb1d5Ts24b/D0knGfJC061/jeZl9/NeJt7sJg1PWteGtvZgNdbe1/U5d4xen6s85n6l9qvyhRevQ6h1hP0GsNgW18L+94R39h8Pja10ZvTlvKM7TaR98q+CR3kmm7E+dL3XzfNNULrCanqrUd43kVi1fPNWN5PiPorfsa9flaofWO1nyEv/w9De3vAG76Wt/VRrmcDv/esT47WnPJZ/OFSkCd6atbA28bywhM2rvnkZq0lnng5Nu+U3bvlBPV88EA6NvfIzvkOhT65x7Uoj/4B193oqw==
+   eJztmV2SgjAQhIO6+qpu+e5ROApH8XVv4VE8ikfZQWiqGRIlZDRYhVVdLshPvszQM2R3zrndokWLFi2atV59co/vHby/zt2Oor1z5ack9yvlvmUO3o2wrkWF3F/k2u+StoNaTVTR3DcLr8z3vWZrx4FvjOvBLfPh1oFt/TeOIbbSw1vHucqR0+DFeFeKTXPobfCOmQM+ruW95eAFJ8eD96WoUHMB5eSlOHS8p+Y3C13kWlcd58y8lc452X82vMcVufPXxl3moDoY1YUYv/8UL/sYmK2elxi//xRvwLsHtc2z3Z0DL1B18Vy47vmYDW/Ay5/yhmoD7Zstr8ejO0aw4xgdW+59NP9ceZkn0fsffk9zMktezt/Ua++/gJefVVw79qPGPJn3R761LPtbxAMxnsoLZtXzJ8c35vyYfEYOWvGm+PPW9Xv9uv+hHuZGin5/DT2/Kbzk00nx3bqB3yPmVauofuZdvPR8JMXXV+NT6p3mNcznJF6Or6dGXlD3UnjRP1nls0V8MS5fPdon8iImVvmc8vwih1vuZ7z8/jqaF6xzyWfk8bN6xHVgCi88xqC/uuveO4K31/tsn5yPeZ3A2xufJW/s/GteiOpvV3tPzbpt8PeQcJ4lLzjV+t9kXn43423uwWLW9Kx5aWxnA15v7X1Rl3vH6PmxzmfqX2q/KlN49TqEWk/QawyDbX0t7HtHfGPz+djURm9OW8oztttE3iv7JnSQa7oR50vff9001witJ6Sqtx7heReJVc83Y3k/Ieqv+Bn3+lmh9o3Vfoa8/D8M7e0Bb/ha3tZHuZ4N/N6zPjlac8pn8YdLQZ7oqVkDbxvLC0/YuOaTm7WWeOLl2LxTdu+WE9TzwQPp2NwjO+c7FPrkHteiPPoHUwTyDA==
   </data>
  </layer>
  <layer name="bg2" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztWcFORCEMfP+it/UPPKmnXU+r//8vQmKTyQRoFdiWFybp7YXXoWXawnFsbGxsbETHW7J3xT7cvBuPa7Jbw16TfXasX9tPrz3MfDOnGtdevrKf/I+eNXvQiq/42OPbPdkzrfeU7LtjzR6U+KJfXwN8u/+uI7y9YpuB+YY2IwZydiLxnZlvktuXw1evOL4z919i7MUZ9eQR2on765XXrKEz/cB/RTjHj6gVotdeNSmKDxsbq8Myn3nPGCPB8wT3eWiefcooCN+sk6KZ2XCewr3wrGEjIHw5blKnsc/V+MrZiJwDrRmCZzeNb4R5RINwYh9zrF4Oe3zle+++TYPwzVqEWixcLecXua7AV9Nm7W7pSt+O1PHRmoCabLFSv4t8tZn2r/eHmH9RdBB1rXXnxnmPuVPjg3sZ5ZxYdbx2N6mdFe87Rgb3aDXfOA8s93UR50bmUcu7ljZGyVUL+M2gxbcW3xX4itZirdb48jvHqDv22Sj1X9Z8nnnHPgpcNzmmqFe12sK1PjJXqZul3qt0Jlc4jzW03jBL8Y3eQ2sovfm0+obI59ICfg9o5fLqXAWWe66zcM1AbS3F+kxcGaUZ8qxc/4MfZjKCkQ==
+   eJztWVFORCEM5Ga+E6wX8QLqBVYvsHpbIbHJZBYoCmzLC5P074XXoWXaQggbGxsbG97xGu1NsXcz78bjGu2jYi/RPjvWL+2n1R4mvolTiWsvX9lP/kfPmj2oxVd87PHtFu2g9Z6ifXes2YMcX/Tra4Bvt991jmAb2wTMN7QZMZCz44nvzHyT3L4EW73i+M7cf4mxFWfUk0doJ+6vVV6zhs70A//l4Rw/olaIXlvVJC8+bGysjpb5zHrGGAmeJ7jPQ7PsU0ZB+CadFM1MhvMU7oVlDRsB4ctxkzqNfa7GV86G5xyozRA8u2l8PcwjGoQT+5hi9Rza4yvfW/dtGoRv0iLUYuHacn6R6wp8NW3W7pau9O1IHR+tCajJLZbrd5GvNtP+9f4Q88+LDqKu1e7cOO8xd0p8cC+9nJNWHS/dTWpnxfqOkcE9Wsk3zoOW+zqPcyPzKOVdTRu95GoL+M2gxrcU3xX4itZirdb48jvHqDv22cj1X635PPOOfRS4bnJMUa9KtYVrvWeuUjdzvVfuTK5wHkuovWHm4uu9h9aQe/Op9Q2ez2UL+D2glsurcxW03HOdhWsCausR7jmfiSsjN0Oelet/8AMO2vDR
   </data>
  </layer>
  <layer name="fg1" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztWVtOwzAQ9FFyiISvhK/yB/yTVi1FAgQSnClH6dGYSIkchY3xI2tvikcapWlsr8Zjr51YqYyMjIxt4QzuwXbgnrhS/7UW9VyuB7AEK/CGUS/iPTM274QabMBbxhht1psMMfTm8ZwOO/BOueVKKu99KdW9glQMSf7egw/gY2A739D6Bh4JzZL8XRPv0Hoi9Eryd20cCG2h/mKPUNQzYh4W5ew+JIYvKG2h/krWS2kL9Rf7v6KZETm2qGb3ITF8QWm7Zr2Uv7bjedzL+15TIMTfcS/ge00BKj9nf2ls0d+Q+evafqm0t1v017X9Wun3nWatAI7gWH+X2pKgl2N/tdSWBL0c++eltiTo9fX3rPQ79YuhnDR/fedvX2/Mtab+uRZ/+3rjOmrqnw+lx8FO6bV3qPfrm/WkbFcTRB931LNy4VuNjTYbf6c6Pm0COYJLL3d+9oU0f7mB8d41BJEvOupZZamXez3yBZdeqeOZS6/U8cwFqf5yQer85QKld7q22pA6514od0HbF049fyG2l6nHTuy5mjo3PEWObzqX5MYRPEWOaTqX5AT6WCFuf0YYHeO5JHUuTf02lbN5Npx39339r/EDcJPg2g==
+   eJztWUtOwzAQnW357KGwyA64VMoFEi5QTgDcISvaqt0WCdh0ARLcirGIFcuduP50kknhSU9pGnvc5+exnRpALkbII4PH/f4cdpwhzw1egJ/+kUcZibD12tT6TU1K6+WOMlJxhbyueQrtusd1eVur3TdD0Kzg0mHq3TUexkbMNXKOnNWcE1fqu5lHvZDrApkjJ8jbQB0heudN+N5RIEvkXX3PoXcmWK/KYyp/T+A3t2+Mcq58H4peBVOL5s121a3ypu6hjOcUmP1k9o8kf6fIewibK6l57wugekVSbUjy9wH5iHxKjPONWt+QS0KzJH/3iXfUuiL0SvJ331gQ2lL9xT1CVljEPMxy6z6ljVhQ2lL9layX0pbqL+7/stIizrHZxLpPaSMWlLZD1kv56zue9V4+9toHUvzVe4HYax+g5ud/f2kM0d+U/A2Nn0Pj7RD9DY1fQPO+U+6rgUBwrL9tsSTo5dhftcWSoJdj/9wWS4LeWH/X0LxTvzjKSfM3Nn9VPT3XuvrnUPxV9fQ66uqfD2jGwRSatbeut/WftVG2KghiH1fUs7zlvxofbT7+mjo+fRoKBJde7vk5FtL85QaO96okiPNFRT2beOrlXo9iwaVX6njm0it1PHNBqr9ckJq/XKD0mmurD6lz7pZyG4y94dSzC1172ffY6TpX+54bnjtu33UuyY0lctVxm65zSU5gHwO2q84IO4c+l6TOpanPrnI+z+rzbtXXfxo/dUBdyg==
+  </data>
+ </layer>
+ <layer name="fg2" width="60" height="45">
+  <data encoding="base64" compression="zlib">
+   eJzt0zkOgCAQheE5lVvv1qv3P4pDlDhBYyhcAvm/5FVQ8BgQyUOhKTXV3wd5yF0ftzZqOk3/5aFe1MrWZ5Ctt+0+aeY9i+Qxa9/XxnUPO9lZ+7tJsbebYSPnzuH7jb2XFFx1iemb6r+2M67l+K/hHv+X7XtIsa/j+4Q97/bG7gcAAAAAAAAAAAAAAACetgK8PxaQ
   </data>
  </layer>
  <objectgroup name="Borders" visible="0">
