@@ -230,7 +230,7 @@
  </layer>
  <layer name="bg2" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJztWUtOAzEMnbvADm7AqrAqrAr3v0vHEpbMk+O4JBk7ozzJuzbjF/+dbVtYWFhYyI7LLu8V+QjTrj+uu3wa8rbLV8P5pfuMukPiS5xKXFv58n3iN1rObIFlX9axRbfbLs9w3tMuPw1ntkDjK/X67qDb7fcc5h1lW4L0NykjbMCxk4nvSH9j337ZYvMV2nfk/bONozjLfHJE7pT3G+XXmENH6iG/lSGOj6gVnK+jalIWHRYWZodnPoueMXoC5wns86RE9im9YPHFfj66F+0BOa9QLaTarNnWw5djI7MPyPmbuHA/gjb28M0wj9Qg7UvxSfZ53f5y9Nj3Iv43C19tt+KJX8l1Br613FzbLV3htz3zeO+cwH2sV7R+V/KtzbSP7g/Z/zLVQhkT1s4N/V76TomPvMsscYI5wPL7R/ewR86NXmDPUtIN/cCzr8s4NyKPkt9ZuTGLr3qAbwYW35J9Z+DLuZZykJcv9my9duyjwblWmy1qfEfu2HsB6ybaVOarUm3BWp+ZK9dNrffSYnKGeCzBesPU7Ju9h65Be/Ox+obMcekBvgdYvjw7V4Znz3UWrgSZWzVbn4krQpshz8r1P7gDte6Evw==
+   eJztWcFORCEMfP+it/UPPKmnXU+r//8vQmKTyQRoFdiWFybp7YXXoWXawnFsbGxsbETHW7J3xT7cvBuPa7Jbw16TfXasX9tPrz3MfDOnGtdevrKf/I+eNXvQiq/42OPbPdkzrfeU7LtjzR6U+KJfXwN8u/+uI7y9YpuB+YY2IwZydiLxnZlvktuXw1evOL4z919i7MUZ9eQR2on765XXrKEz/cB/RTjHj6gVotdeNSmKDxsbq8Myn3nPGCPB8wT3eWiefcooCN+sk6KZ2XCewr3wrGEjIHw5blKnsc/V+MrZiJwDrRmCZzeNb4R5RINwYh9zrF4Oe3zle+++TYPwzVqEWixcLecXua7AV9Nm7W7pSt+O1PHRmoCabLFSv4t8tZn2r/eHmH9RdBB1rXXnxnmPuVPjg3sZ5ZxYdbx2N6mdFe87Rgb3aDXfOA8s93UR50bmUcu7ljZGyVUL+M2gxbcW3xX4itZirdb48jvHqDv22Sj1X9Z8nnnHPgpcNzmmqFe12sK1PjJXqZul3qt0Jlc4jzW03jBL8Y3eQ2sovfm0+obI59ICfg9o5fLqXAWWe66zcM1AbS3F+kxcGaUZ8qxc/4MfZjKCkQ==
   </data>
  </layer>
  <layer name="fg1" width="60" height="45">
@@ -291,7 +291,7 @@
    <polyline points="177.697,-413.212 -1102.3,162.788"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints">
+ <objectgroup name="Waypoints" visible="0">
   <properties>
    <property name="direction" value="90"/>
   </properties>
