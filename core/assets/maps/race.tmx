@@ -22,6 +22,11 @@
     <property name="material" value="SNOW"/>
    </properties>
   </tile>
+  <tile id="19">
+   <properties>
+    <property name="material" value="TURBO"/>
+   </properties>
+  </tile>
   <tile id="30">
    <objectgroup draworder="index">
     <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
@@ -34,7 +39,7 @@
   </tile>
   <tile id="33">
    <properties>
-    <property name="material" value="TURBO"/>
+    <property name="material" value="SNOW"/>
    </properties>
    <objectgroup draworder="index">
     <object id="0" x="63.6364" y="42.5455">
@@ -192,7 +197,7 @@
  </layer>
  <layer name="bg2" width="50" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt1t0JgDAQA+CMIq06l6M4iqM4mhV8LNVi+p8PhEOh9cgVBUREpGWm9AsI7HPdjOfel3oGDrzUEo99PlxeG3nJIph9LKyFBsbKo3QWvZyPGrgsJ18do5c8WH3YTr6nqftw/x176PkKnCn3z73PXyPMFSOLWuaqFSPMVQ6aKxERSekCNIYSTw==
+   eJzt1u0JgCAUheEzhAP0o1qgBRulURotg35GKV0/0vcB4ZKQ2rlCEgDgz1zpDUDLNU7u5llIPUqbXmrEs74fSyN5WJ5jsnpRx6zyKJ1FK/ejBj7L4a6O0UoeVufge4Tx/x3r0/ws7SnXz73OVz30lUUWtfTVX/TQVznQVwCAlA7WrRUF
   </data>
  </layer>
  <layer name="fg1" width="50" height="35">
