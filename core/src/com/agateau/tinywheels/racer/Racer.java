@@ -298,4 +298,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public void markRaceFinished() {
         mLapPositionComponent.markRaceFinished();
     }
+
+    @Override
+    public String toString() {
+        return "<racer pilot=" + mPilot + " vehicle=" + mVehicle + ">";
+    }
 }

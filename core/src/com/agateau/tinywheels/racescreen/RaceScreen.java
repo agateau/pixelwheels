@@ -34,6 +34,7 @@ import com.agateau.tinywheels.racer.Pilot;
 import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.racer.Vehicle;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -69,6 +70,7 @@ public class RaceScreen extends ScreenAdapter {
     private PauseOverlay mPauseOverlay = null;
 
     public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+        NLog.i("Starting race on %s", gameInfo.mapInfo.getMapName());
         mGame = game;
         mMaestro = maestro;
         SpriteBatch batch = new SpriteBatch();

@@ -438,4 +438,9 @@ public class Vehicle implements Racer.Component, Disposable {
             Box2DUtils.setCollisionInfo(info.wheel.getBody(), mCollisionCategoryBits, mCollisionMaskBits);
         }
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
