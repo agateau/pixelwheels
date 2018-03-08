@@ -23,6 +23,7 @@ import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.tinywheels.map.WaypointStore;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.agateau.utils.GylMathUtils;
@@ -31,9 +32,21 @@ import com.agateau.utils.GylMathUtils;
  * An AI pilot
  */
 public class AIPilot implements Pilot {
+    private static final float MIN_NORMAL_SPEED = 1;
+    private static final float MAX_BLOCKED_DURATION = 1;
+    private static final float MAX_REVERSE_DURATION = 0.5f;
     private final GameWorld mGameWorld;
     private final MapInfo mMapInfo;
     private final Racer mRacer;
+
+    private enum State {
+        NORMAL,
+        BLOCKED,
+    }
+
+    private State mState = State.NORMAL;
+    private float mBlockedDuration = 0;
+    private float mReverseDuration = 0;
 
     public AIPilot(GameWorld gameWorld, MapInfo mapInfo, Racer racer) {
         mGameWorld = gameWorld;
@@ -45,13 +58,48 @@ public class AIPilot implements Pilot {
     @Override
     public void act(float dt) {
         handleBonus(dt);
+        switch (mState) {
+        case NORMAL:
+            actNormal(dt);
+            break;
+        case BLOCKED:
+            actBlocked(dt);
+            break;
+        }
+    }
+
+    private void actNormal(float dt) {
         updateAcceleration();
         updateDirection();
+        float speed = mRacer.getVehicle().getSpeed();
+        if (speed < MIN_NORMAL_SPEED) {
+            mBlockedDuration += dt;
+            if (mBlockedDuration > MAX_BLOCKED_DURATION) {
+                NLog.i("Racer %s blocked", mRacer);
+                mState = State.BLOCKED;
+                mReverseDuration = 0;
+            }
+        } else {
+            mBlockedDuration = 0;
+        }
+    }
+
+    private void actBlocked(float dt) {
+        Vehicle vehicle = mRacer.getVehicle();
+        vehicle.setAccelerating(false);
+        vehicle.setBraking(true);
+        vehicle.setDirection(0);
+        mReverseDuration += dt;
+        if (mReverseDuration > MAX_REVERSE_DURATION) {
+            mState = State.NORMAL;
+            mBlockedDuration = 0;
+        }
     }
 
     private void updateAcceleration() {
         Vehicle vehicle = mRacer.getVehicle();
         vehicle.setAccelerating(true);
+        vehicle.setBraking(false);
 
         // If we are better ranked than a player, slow down a bit
         float rank = mGameWorld.getRacerRank(mRacer);
