@@ -160,12 +160,12 @@
   <tile id="53" terrain=",1,,"/>
   <tile id="54" terrain="1,1,,"/>
   <tile id="55" terrain="1,,,"/>
-  <tile id="60">
+  <tile id="60" terrain=",,,2">
    <objectgroup draworder="index">
     <object id="0" x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
    </objectgroup>
   </tile>
-  <tile id="61">
+  <tile id="61" terrain=",,2,">
    <objectgroup draworder="index">
     <object id="0" x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
    </objectgroup>
@@ -200,6 +200,8 @@
     <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
    </objectgroup>
   </tile>
+  <tile id="75" terrain=",2,,"/>
+  <tile id="76" terrain="2,,,"/>
   <tile id="77" terrain="0,,0,0">
    <properties>
     <property name="material" value="ICE"/>
@@ -210,12 +212,16 @@
     <property name="material" value="ICE"/>
    </properties>
   </tile>
+  <tile id="90" terrain=",2,2,2"/>
+  <tile id="91" terrain="2,,2,2"/>
   <tile id="96">
    <objectgroup draworder="index"/>
   </tile>
   <tile id="97">
    <objectgroup draworder="index"/>
   </tile>
+  <tile id="105" terrain="2,2,,2"/>
+  <tile id="106" terrain="2,2,2,"/>
   <tile id="107" terrain="0,0,0,0">
    <properties>
     <property name="material" value="ICE"/>
@@ -227,11 +233,6 @@
   <tile id="110">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="111" terrain=",,,2"/>
-  <tile id="112" terrain=",,2,2"/>
-  <tile id="113" terrain=",,2,"/>
-  <tile id="114" terrain="2,2,2,"/>
-  <tile id="115" terrain="2,2,,2"/>
   <tile id="120" terrain=",,,0"/>
   <tile id="121" terrain=",,0,0"/>
   <tile id="122" terrain=",,0,">
@@ -240,11 +241,6 @@
   <tile id="123">
    <objectgroup draworder="index"/>
   </tile>
-  <tile id="126" terrain=",2,,2"/>
-  <tile id="127" terrain="2,2,2,2"/>
-  <tile id="128" terrain="2,,2,"/>
-  <tile id="129" terrain="2,,2,2"/>
-  <tile id="130" terrain=",2,2,2"/>
   <tile id="135" terrain=",0,,0"/>
   <tile id="136" terrain="0,0,0,0">
    <properties>
@@ -252,9 +248,6 @@
    </properties>
   </tile>
   <tile id="137" terrain="0,,0,"/>
-  <tile id="141" terrain=",2,,"/>
-  <tile id="142" terrain="2,2,,"/>
-  <tile id="143" terrain="2,,,"/>
   <tile id="150" terrain=",0,,"/>
   <tile id="151" terrain="0,0,,"/>
   <tile id="152" terrain="0,,,"/>
@@ -271,15 +264,15 @@
  </layer>
  <layer name="fg1" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="fg2" width="60" height="45">
   <data encoding="base64" compression="zlib">
-   eJzlmktSwzAMhr0F2j2PA7RcADgNcAHeLHkYWAItR0YaohmNsJ3YsSMn+Wf+SeuSkM+WZcUTa4yxhfxmyusWfAf+6HGfKX4Ab4V/cgA5RIyanKXYUJwvNyPe/yM7ynb+fSjOEmPI73/DjlvRXjpWuV473nuKh8gtsZobL8YTn0O5jLE8RHymqARzjWPLRXkjF3ftvCSeL7lj+2EsvD75+sHVH0OtLZriOWAuorVtLkrl3QHvJnqv7033UCrvqjnKGt7ne3bukdFjpjkcK+LtWuu9m//MWmO9STgnlhctmVHHCf9bQym8aGTm8T023tS6lmqbsfGiZF3ThZ9iO8TrWgO08tx+4Le2up7vKRwGroN9eiCsldtPwKceL5u/cXHLZ87Q+GKfrsHn4AvwJTunpnmAfbFk3337PwvwWeA6OL7IewW+Bt807bXxolYtv7ex0jWQ9wn8DH5p2mvkpXhfivZF046ssjaTazPxfoK/wN/mbw6H5ry25DynMUVWub8q6xGcv5Sn1uxzbWPbRb46hTNTHuCs+FljfGltTF0bQmuWZJb5v23elxDNrb6x5eOmutM1rzVE/Z6rr0N1qes5YwoKMY99L9EnX3zn5q1lnpDkM0juvVNrphszLlkzP96p5kGXrJnXGFvj3l+aqqzx1zcxrr2f6JnMZnJtdaBUyXcjZIzUwF+SV1or/2u+l9aWF3L2h9Y7hjHOuR6GYvcXVpVxxA==
+   eJztmbtSwzAQRdUCcc/jAxJ+AGigATrS0PKsYYAmJY8PABI+md3BO3NH2JIjx5Yc7Zm5I8WxPbpa7cpOjFHasAD9RB5Ll6yzN2ToPnn8c2hxbdqfFaUN8w7vner67NJzquTomcF6uYg8lpjY82BrBufmsLfkmg858RF43QZpM1Bb7YbcilC/47I9Jp0s0TJ7Jp5nzuGZ96z/iN8L0jXpqmGLnmPFOqRuYXyberU9M/thQ+4djO8D6XHJVjwPzW9IfLmdltcPze+q43tKOiOdm+o9IFad24Y+e55arc+zxHfXuu8l9HlOdyzFqu0HpMMaFaZ6DrAVXOuZ53RCuiXdke7hmpTygOeigM91v/+MSEeO+3B82e8T6Zn0Qrox6fllxp7vxWvV8wjeg/2+kt5I7+XxFP3Kei+s46PyuHh17c3i95P0Rfo2fzls53xK2HmO67fq2Qxzm/NX6tQE+qnFtim++EodQK/cjxFf2RtD9wauYb74MlX7gKvGdYXkVtu1VbdPMa5a1jcy76uaa/s9zbfW1wF8T2uy1tcBeTbJIb5ILvFFXLVMURRFURRF6R/Xf4G/oIRrsg==
   </data>
  </layer>
- <objectgroup name="Borders">
+ <objectgroup name="Borders" visible="0">
   <object id="1" x="3684.95" y="732.392" width="67.8003" height="1930.88"/>
   <object id="2" x="232.226" y="316.708" width="53.3204" height="2159.49"/>
   <object id="3" x="1725.06" y="2656.91" width="1943.97" height="34.1114"/>
