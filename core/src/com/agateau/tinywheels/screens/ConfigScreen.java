@@ -81,6 +81,18 @@ public class ConfigScreen extends TwStageScreen {
         });
         menu.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
 
+        final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
+        audioSwitch.setChecked(gameConfig.audio);
+        audioSwitch.getActor().addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gameConfig.audio = audioSwitch.isChecked();
+                mGame.getAudioManager().setMuted(!gameConfig.audio);
+                gameConfig.flush();
+            }
+        });
+        menu.addItemWithLabel("Audio:", audioSwitch);
+
         ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
         developerButton.getActor().addListener(new ClickListener() {
             @Override

@@ -37,6 +37,7 @@ public class GameConfig {
     }
 
     public boolean rotateCamera = true;
+    public boolean audio = true;
     public String input;
     public String onePlayerVehicle;
     public String[] multiPlayerVehicles = new String[2];
@@ -50,6 +51,7 @@ public class GameConfig {
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
         rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN_ID, true);
+        audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
         onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
@@ -68,6 +70,7 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN_ID, rotateCamera);
+        mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
         mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
         for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {

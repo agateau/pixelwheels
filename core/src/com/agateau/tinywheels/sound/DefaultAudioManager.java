@@ -19,18 +19,44 @@
 package com.agateau.tinywheels.sound;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Array;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Default implementation of AudioManager
  */
 public class DefaultAudioManager implements AudioManager {
+    private boolean mMuted = false;
+    private Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<WeakReference<DefaultSoundPlayer>>();
+
+    public boolean isMuted() {
+        return mMuted;
+    }
+
+    public void setMuted(boolean muted) {
+        mMuted = muted;
+        for (WeakReference<DefaultSoundPlayer> ref : mSoundPlayers) {
+            DefaultSoundPlayer player = ref.get();
+            if (player != null) {
+                player.setMuted(muted);
+            }
+        }
+    }
+
     @Override
     public void play(Sound sound, float volume) {
+        if (mMuted) {
+            return;
+        }
         sound.play(volume);
     }
 
     @Override
     public SoundPlayer createSoundPlayer(Sound sound) {
-        return new DefaultSoundPlayer(sound);
+        DefaultSoundPlayer player = new DefaultSoundPlayer(sound);
+        player.setMuted(mMuted);
+        mSoundPlayers.add(new WeakReference<DefaultSoundPlayer>(player));
+        return player;
     }
 }

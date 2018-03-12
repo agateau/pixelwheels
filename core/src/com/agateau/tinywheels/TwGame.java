@@ -64,6 +64,7 @@ public class TwGame extends Game {
 
         mAssets = new Assets();
         mGameConfig = new GameConfig();
+        mAudioManager.setMuted(!mGameConfig.audio);
         Box2D.init();
         showMainMenu();
     }
