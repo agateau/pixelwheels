@@ -36,12 +36,6 @@ with:
 
     make packer
 
-## Pack maps
-
-Maps also needs to be packed. This is done with:
-
-    make mappacker
-
 ## Build the game
 
 Run:

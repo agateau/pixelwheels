@@ -21,16 +21,17 @@ package com.agateau.tinywheels.map;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -68,8 +69,8 @@ public class MapInfo implements Disposable {
         if (mMap != null) {
             return;
         }
-        AtlasTmxMapLoader loader = new AtlasTmxMapLoader();
-        mMap = loader.load("maps/" + mId + ".tmx");
+        TmxMapLoader loader = new TmxMapLoader();
+        mMap = loader.load(Gdx.files.internal("maps/" + mId + ".tmx").path());
         mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();
         findLayers();
