@@ -46,7 +46,7 @@ public class MapScreenshotGenerator {
                     String tmxFileName = arguments[1];
                     processFile(shotFileName, tmxFileName);
                 } else {
-                    FileHandle tmxDir = Gdx.files.absolute("core/assets/maps");
+                    FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
                     FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
                     for (FileHandle tmxFile : tmxDir.list(".tmx")) {
                         String shotFileName = shotDir.path() + "/" + tmxFile.nameWithoutExtension() + ".png";

@@ -18,7 +18,7 @@
 
     Check signing key is in android/signing.gradle
 
-    make clean assets mapscreenshotgenerator packer mappacker dist apk
+    make clean assets mapscreenshotgenerator packer dist apk
 
 - Test on computer
 - Test on device

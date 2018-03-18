@@ -44,9 +44,6 @@ packer: tools
 mapscreenshotgenerator: tools
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapScreenshotGenerator
 
-mappacker: tools
-	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapPacker core/assets/maps android/assets/maps
-
 assets:
 	$(MAKE) -C core/assets-src
 
