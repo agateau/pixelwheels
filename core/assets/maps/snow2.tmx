@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="45" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="99">
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="210" columns="15">
+  <image source="snow.png" width="960" height="896"/>
+  <terraintypes>
+   <terrain name="ice" tile="-1"/>
+   <terrain name="mountain1" tile="-1"/>
+   <terrain name="forest" tile="-1"/>
+  </terraintypes>
+  <tile id="5">
+   <properties>
+    <property name="start" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+  </tile>
+  <tile id="8" terrain=",,,1"/>
+  <tile id="9" terrain=",,1,1"/>
+  <tile id="10" terrain=",,1,"/>
+  <tile id="11" terrain="1,1,1,"/>
+  <tile id="12" terrain="1,1,,1"/>
+  <tile id="18">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="material" value="TURBO"/>
+   </properties>
+  </tile>
+  <tile id="23" terrain=",1,,1"/>
+  <tile id="24" terrain="1,1,1,1"/>
+  <tile id="25" terrain="1,,1,"/>
+  <tile id="26" terrain="1,,1,1"/>
+  <tile id="27" terrain=",1,1,1"/>
+  <tile id="30">
+   <objectgroup draworder="index">
+    <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="31">
+   <objectgroup draworder="index">
+    <object id="0" x="-0.181818" y="8" width="55.6364" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+   <objectgroup draworder="index">
+    <object id="0" x="63.6364" y="42.5455">
+     <polygon points="0.363636,-4.90909 -13.0909,-12.9091 -21.8182,20.9091 0,21.2727"/>
+    </object>
+    <object id="0" x="46.7273" y="43.6364">
+     <polygon points="0,0 -14.7273,2.54545 -10.9091,20.3636 -4.72727,20"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="34">
+   <objectgroup draworder="index">
+    <object id="0" x="28.3636" y="63.6364">
+     <polygon points="0,0 3.81818,-16 -29.0909,-18.3636 -28.3636,0.363636"/>
+    </object>
+    <object id="0" x="18.7273" y="46.3636">
+     <polygon points="0,0 -4.18182,-15.6364 -20.1818,-8.72727 -19.4545,-0.545455"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="35">
+   <objectgroup draworder="index">
+    <object id="0" x="46" y="52.75">
+     <polygon points="0,0 9.375,-14.5 8,-30 -1.625,-44 -20.875,-44 -34,-34.625 -39,-19.25 -31.75,-3 -17.875,4"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="36">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="24.1818" width="64" height="15.0909"/>
+   </objectgroup>
+  </tile>
+  <tile id="37">
+   <objectgroup draworder="index">
+    <object id="0" x="1.09091" y="24" width="10" height="16"/>
+    <object id="0" x="53.2727" y="24.1818" width="9.81818" height="15.6364"/>
+    <object id="0" x="10.9091" y="28.9091" width="42.1818" height="5.63636"/>
+   </objectgroup>
+  </tile>
+  <tile id="38" terrain=",1,,1"/>
+  <tile id="39" terrain="1,1,1,1"/>
+  <tile id="40" terrain="1,,1,"/>
+  <tile id="45">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+   <objectgroup draworder="index">
+    <object id="0" x="9.45455" y="0.181818" width="54.7273" height="63.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+   <objectgroup draworder="index">
+    <object id="0" x="-0.545455" y="0" width="56" height="64"/>
+   </objectgroup>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="material" value="SNOW"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <objectgroup draworder="index">
+    <object id="0" x="62.9091" y="36.1818">
+     <polygon points="0,0 1.27273,-4 0.909091,-36.3636 -17.4545,-36.3636"/>
+    </object>
+    <object id="0" x="39.8182" y="27.6364">
+     <polygon points="0,0 17.2727,-3.45455 5.27273,-28 -1.09091,-27.6364"/>
+    </object>
+    <object id="0" x="39.2727" y="12.3636">
+     <polygon points="0,0 -0.727273,-12.3636 -10.7273,-12.1818 -13.6364,-6.90909"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="49">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="33.0909">
+     <polygon points="0,0 0.363636,1.81818 32.9091,-27.2727 29.8182,-33.0909 0,-33.0909"/>
+    </object>
+    <object id="0" x="10.3636" y="26.1818">
+     <polygon points="0,0 10.9091,2.90909 10.7273,-10"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="50">
+   <objectgroup draworder="index">
+    <object id="0" x="38.3636" y="63.2727">
+     <polygon points="0,0.545455 0,-39.4545 -9.81818,-38 -13.4545,-32.9091 -13.8182,0.363636"/>
+    </object>
+    <object id="0" x="38.3636" y="23.6364" width="25.2727" height="15.4545"/>
+   </objectgroup>
+  </tile>
+  <tile id="51">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="24.9091" width="25.2727" height="14.1818"/>
+    <object id="0" x="38.7273" y="63.2727">
+     <polygon points="0,0.727273 -0.181818,-33.4545 -3.81818,-38.1818 -13.6364,-38.3636 -13.6364,0.727273"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="53" terrain=",1,,"/>
+  <tile id="54" terrain="1,1,,"/>
+  <tile id="55" terrain="1,,,"/>
+  <tile id="60" terrain=",,,2">
+   <objectgroup draworder="index">
+    <object id="0" x="9.63636" y="0.181818" width="54.3636" height="55.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="61" terrain=",,2,">
+   <objectgroup draworder="index">
+    <object id="0" x="-0.181818" y="-0.181818" width="55.6364" height="56.1818"/>
+   </objectgroup>
+  </tile>
+  <tile id="62" terrain="0,0,0,">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="63" terrain="0,0,,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="64">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="65">
+   <objectgroup draworder="index">
+    <object id="0" x="24.1818" y="0" width="15.2727" height="25.2727"/>
+    <object id="0" x="63.8182" y="37.4545">
+     <polygon points="0,0 0,-12.1818 -39.6364,-12 -37.8182,-2 -31.4545,-0.363636"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="66">
+   <objectgroup draworder="index">
+    <object id="0" x="0.181818" y="37.4545">
+     <polygon points="0,0 32.9091,0.181818 37.2727,-6 37.8182,-13.8182 0,-12.9091"/>
+    </object>
+    <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="75" terrain=",2,,"/>
+  <tile id="76" terrain="2,,,"/>
+  <tile id="77" terrain="0,,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="78" terrain=",0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="90" terrain=",2,2,2"/>
+  <tile id="91" terrain="2,,2,2"/>
+  <tile id="96">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="97">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="105" terrain="2,2,,2"/>
+  <tile id="106" terrain="2,2,2,"/>
+  <tile id="107" terrain="0,0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="109">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="110">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="120" terrain=",,,0"/>
+  <tile id="121" terrain=",,0,0"/>
+  <tile id="122" terrain=",,0,">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="123">
+   <objectgroup draworder="index"/>
+  </tile>
+  <tile id="135" terrain=",0,,0"/>
+  <tile id="136" terrain="0,0,0,0">
+   <properties>
+    <property name="material" value="ICE"/>
+   </properties>
+  </tile>
+  <tile id="137" terrain="0,,0,"/>
+  <tile id="150" terrain=",0,,"/>
+  <tile id="151" terrain="0,0,,"/>
+  <tile id="152" terrain="0,,,"/>
+ </tileset>
+ <layer name="bg1" width="60" height="45">
+  <data encoding="base64" compression="zlib">
+   eJzdWVuSmzAQFGaz/BpyAVdif7t2fQEfhaPkKByFo0UCDW7GM0LimQpVXUgYhFo9ao1wYYwpNoZ2xNyz1jPS83tyNZH3rH0cwVN6917Hkfri+/c6tuYbO3/5vVuNwR58t5oPS/nS8dOYtrIoLc4bn/m1D2Nq+/56D32pbt/Znuw5M+bpz4bqhDxQpzJeO0EbVKa2OSrPdwvOEl87zg311/UpxG0CA+8btCmUR3xL4Ls2Z40v18NzNA8P1AivUTmLKz8lfTlf7BuW8axdC/ElpOorxTL0vyuTpljW9D33fOn+59beGNIX5/NJqEt6ZezZ/H0MR/d92ff/sthrLXB8id/V9/PbethX76Pud7PG+bfV0bZb41hk/bsa+1uD/p3i+2fB66f48ni172/tmLdrjqttr7ZjWDuuN1gLYrwQY4XFxwVRzeDrQB7CYzkmpqV7cvauqbZobl2hb77c8bq+fGDEV/K+EN+rfw89x/sknUNzl8qMb5SmKfr668l8yVfKl2e+6SbpGjEGne9Wvk3e7xR93bNr6cviueEc5/BFfa2fNNZXGvKwhb7n+np5QJyfZ8Rzbt5zAE1f6azN67V9j/RFvgvjeXTflM7aOOB6Trj7Nu8AqV6817s1o/Sxx+M5VV/iTPEc4hzjU1qM3wP9MeH+cr4j74rV94c9IzS+krdo1/hvqDHnO8ExxHfw5jn6Up+0nDZj46J48RsoN6cxWTB/B76Upz4gP4zRt/S8PvtnOs6xOe0UT2ndPK3El/QFvzJz5q/jLeW00jcJzae4V0t8Q3M4hi9ff6V1JcSX9J1A12fMUzVvwjLfbxFf9OU58Yz6npbpO+yPCLi/kdZnzYtx/kp+lagz6nuZM3+5vmx/1BBwneftarpSnfpDvDWOEdxH85etj0n+TLnGJ/DJ+t86FP18boBvo+kr7XvQo6X8gucZkfPXPCAnT9U3Hz/ntBxQ9PEdxVeqk87oV5xfxJwW5y9bR2P4Dv0CfVW+fH1OxRTXGL60h0Ik6DvSBdbfmmDrbl7z31O8RuU2pa2UP9u9TYv+nM/U14Gvv2Xv1+56F4/S71PAdZvPX85L2zcQZyXfSNkfIV+3L6wpRqjs99l1KE6l/xow18B1O0Zfxcta8KsLIkbfivHNBWSvXOPJ+Qj1UVt0DfKBRtoDarpKc5jimdZfiucYffk3hy2+v96M+bPGvC/6vGDwEVyPYv15K2B+QutuKC/X/kfkZfIR7jlSHrQ3JG/AXDr0TUTig/D+PNqLHKmvwtfFdk15hyu7s43J9tH3/wllo5U1HK2v5IUhz+PfBSQI36AHfBzI1QG9UMJSX0RU/fsO5bsTasDRfVkV/PhfeUZoe3Q//gn8BVt/UV0=
+  </data>
+ </layer>
+ <layer name="bg2" width="60" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztWdFtAzEI9RDdIyP0JmgXyQJpF2izQNK/jhojFQm9+rAd3xl88pNQpNPFxwMMBocwMTExMeEdlygfGfk00257fEX5VuQc5Sref6lcf82eVjYkvsRpjWsrX7YnfuOq/WlHaP5lHVv43qIssN5rlJ8WpRuQ4iv1uoNutXwJt791lmDrW4KMNylrPniGr/wW7o/eQL57xhvH9luwzVfo3z3tzz624izzSY/cKe1rFdeYQ/fUQ37Lwz7uUSs4X1vVJC86TEzUgOvrCDgVvhfPP78o9JxrjWeUcCy1w7lFEUco5esd1CeXnLeOwpfqP50/jsInB8ot2pn6FI5li3vIn3eOxHcLyFnZVr0Xr9mjl6uNYe41tZ6ndn7IfUWv/rWGs5w9pvgS1/fwf26l9eMlNrSCnMWldFubTWp8evaNNZC+y+leM6/z2jfKuNP8K2O41wxrD0i+z/h3JL4cy9J3Of+ypGbsnpHimovn3J71DOSg5WfOPSVnOUtod7YyJ+dqyyjAfYf+xF/rWW8rUnc+GL9og5H54n0Ack3ZYmS+BLw3x/opc67nXFQKmVuXUHcmHB1YV7zXl954AJdcvY0=
+  </data>
+ </layer>
+ <layer name="fg1" width="60" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztWbtu3EAMZOnEcW/HKdzpAvd5fIwBf1lK51ykTCqXSZWf8go4wsQch+RaOkkBQoA4Sbe3u8PHkNoT+S9Xju4Ois/Y9W7xXdcE94p71u/EXO+IRtjZvNmc0ThvPXzmiTdntoeq4PoR/mx9fVYV5rPIN95+mS17rz0bZM/YXnC855cr86n6runnDehFYCvEkNkGfWyfv5dtyKUc52Elp5i/vTGjbgXvIBwXy6coX73fb9G/LDcZ36MdRHiMbM2/lTrFeIv5GW23JbzMZ5Ua4PU93nwfTw+lJJ9kXq5XQftsBe+cYmOlB++bpm9n1PN5YVEZDp9e7Ed4LyXOKdaDMQ5dKpYGc92Tv4Mc26en/0NdihsRr91Xxb/Mf6wmMN+vgbcnxgY59hHr06M4WJobtXdRqfKV7WkZtsz39vm1LMNl6ieVar8RxXMljtm9F++3Tb833Td9bPrg3I/Xvwp4dd+9eG2Px/g3y+OoH9bP8Z30SwHHKA3zTTZG66+KXXdO/3qc7MX1FN7+VhiD+WvXzPiKYc1wR7mNY3vw/iiMsbwjsFaEN+tp9UwiqruRfbKcOhO5R30q4tX5BdaeUhPtO2vWd0T53rOHv4Ux2D+LWWtKTbT5zXqMjNN6bd44+z4bg32DmLXmwBv1I5Wc78H7UMDrnYVVuPGnvNRAr/bhGUzGS6wuj30I6zfu4P6x6N9erhilYb2x+9vDWuz9Kao9nj1GiTBbwT14gmdDVa7YH/DqPj28EVdVapO9134zwt2bv7hGlL8jXjsW18L6zPKU4We/xT7b4u/xrxdjEd7f8pK7o/6B71975nRB7IH7Ewf/V8njHvsNi32N80l2vlTl+KymIF4xv10Lb9RzZT1btmdrT5Ut4K3yN9oi86+dX2WOfuO1MvWsOXt3xP454sJ/8fwVxeLN8iTqhXvr6lr/1WC+eJgijBF/snmz2n5K8fg56wMiPFXca+G1/I/ixSSOi+piFPNrxTPylSesFuD3Wc2wekoujPRDgjWygfWnCsY8SqVXrNosyjHGnZlvK7g9/CxHEHcU/9VaUK0Pc8sU2/XgyupE5kuNx2cIPclx
+  </data>
+ </layer>
+ <layer name="fg2" width="60" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztl0FuwjAQRb2lhX1FDwBcoGUDJyAnAAFrUNsLFDgA9M4dSxlpZGVMTGwnQf9JX0ZxEuZn7MnEGAAAAAAAAAAAjzAgvTyo1xbibcpE/F6QlgHju+mfZ/ZrPWxI64CRPfcp1+x3ZcK8Ss+WWb6QGyHzeyAdA8eivL5vflPkdyHmu0Kq/HI9KIyf3M/krRxtfgtl9HnmWMfOfVfOvAb/Ty4+SJ+KRiImbU379q/mZUvakfYxDETEPgvpuSr/liFpHnDfL9I36SdOmFGZ3JmXXt1+RKPLfnm9j5zjw/K49KrVbpdf0ol0jh1sRNx9Ltev1psVzjns/0q6kf7ShpwMrZ4tnXPq1OvU8PdRk/63Tn4tud89Vdh6NDXN+kFZszWv92pYrr6D92XI+8RHVQ5l/rX63YXcx8D3ndn2Xk5Bnd7smahby54FXx8KAAAAAADa4eKZ+wdPw1a/
+  </data>
+ </layer>
+ <objectgroup name="Borders" visible="0">
+  <object id="1" x="3684.95" y="732.392" width="67.8003" height="1930.88"/>
+  <object id="2" x="232.226" y="316.708" width="53.3204" height="2159.49"/>
+  <object id="3" x="1725.06" y="2656.91" width="1943.97" height="34.1114"/>
+  <object id="4" x="2142.67" y="2046.15" width="1024.46" height="196.546"/>
+  <object id="5" x="17.388" y="2335.46" width="1710.72" height="351.169"/>
+  <object id="7" x="160.46" y="281.832" width="2351.74" height="71.6005"/>
+  <object id="9" x="1280.67" y="1184.13" width="1139.19" height="832.713"/>
+  <object id="10" x="2496.05" y="346.706" width="1213.06" height="389.772"/>
+  <object id="55" x="3719.77" y="2601.7" width="31.999" height="232.115" rotation="45"/>
+  <object id="58" x="736.392" y="896.15" width="1276.8" height="576.093"/>
+  <object id="73" x="2463.86" y="344.768" width="197.527" height="358.98"/>
+  <object id="74" x="2463.59" y="672.664" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="75" x="767.251" y="865.369" width="1216.02" height="152.807"/>
+  <object id="76" x="736.373" y="865.248" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="77" x="1949.34" y="865.091" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="78" x="768.572" y="1420.57" width="486.697" height="86.9336"/>
+  <object id="79" x="736.272" y="1438.37" width="69.1221" height="69.1221">
+   <ellipse/>
+  </object>
+  <object id="80" x="1249.15" y="1460.73" width="128.639" height="523.866"/>
+  <object id="81" x="1249.25" y="1952.84" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="82" x="2142.76" y="2016.03" width="993.022" height="50.1441"/>
+  <object id="83" x="3102.9" y="2016.03" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="86" x="2175.99" y="2226.04" width="960.092" height="50.1441"/>
+  <object id="87" x="3103.2" y="2212.04" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="88" x="2142.61" y="2212.27" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="90" x="1723.36" y="2368.2" width="36.5783" height="339.425"/>
+  <object id="91" x="1696.04" y="2335.58" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="96" x="2414.21" y="1185.28">
+   <polygon points="1.73123,-0.865614 1.19847,123.442 34.1563,123.442 50.552,103.517 51.4676,18.4263 28.164,-1.19847"/>
+  </object>
+  <object id="97" x="723.018" y="1746.42" width="282.568" height="282.568"/>
+  <object id="98" x="2378" y="1234" width="741" height="784"/>
+ </objectgroup>
+ <objectgroup name="Sections">
+  <object id="13" name="0" x="779.576" y="1344.55">
+   <polyline points="180.424,-0.545455 -651.576,-0.545455"/>
+  </object>
+  <object id="14" name="1" x="1120" y="1458">
+   <polyline points="-160,-242 -992,-1138"/>
+  </object>
+  <object id="15" name="2" x="1218" y="1344">
+   <polyline points="126,-256 -258,-1091.5"/>
+  </object>
+  <object id="16" name="3" x="1410" y="1168">
+   <polyline points="318,-80 1079.5,-903"/>
+  </object>
+  <object id="17" name="4" x="1921" y="1168">
+   <polyline points="29,92 645,-553"/>
+  </object>
+  <object id="18" name="5" x="2563" y="1172">
+   <polyline points="459,154 1242.5,-540"/>
+  </object>
+  <object id="19" name="6" x="2641" y="1186">
+   <polyline points="405,996 1224,1623"/>
+  </object>
+  <object id="20" name="7" x="2674" y="1281">
+   <polyline points="-370,895 -1074,1599"/>
+  </object>
+  <object id="21" name="8" x="2674" y="1602">
+   <polyline points="-421.847,369.847 -1074,894"/>
+  </object>
+  <object id="22" name="9" x="2673" y="1647">
+   <polyline points="-1265,209 -2545,849"/>
+  </object>
+  <object id="60" name="10" x="1230.3" y="1821.21">
+   <polyline points="177.697,-413.212 -1102.3,162.788"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Waypoints" visible="0">
+  <properties>
+   <property name="direction" value="90"/>
+  </properties>
+  <object id="29" x="2270.92" y="882.74" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="30" x="2045.79" y="729.085" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="31" x="1449.01" y="608.451" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="32" x="699.91" y="662.981" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="34" x="3094.29" y="961.478" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="35" x="3265.22" y="1070.06" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="36" x="3371.67" y="1437.95" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="37" x="3133.61" y="2474.02" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="38" x="2017.33" y="2375.64" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="39" x="685.836" y="2125.61" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="40" x="531.608" y="1978.62" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="42" x="491.603" y="1656.31" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="43" x="3286.73" y="2351.75" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="44" x="566.377" y="923.322" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="45" x="1878.98" y="2173.98" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="62" x="2241.3" y="2477.44" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="66" x="868.426" y="602.899" width="64" height="64">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="BonusSpots" visible="0">
+  <object id="46" x="1280" y="608" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="47" x="1280" y="512" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="49" x="1600" y="2048" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="50" x="1280" y="704" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="51" x="2880" y="2560" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="52" x="2880" y="2368" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="63" x="2880.12" y="2464.97" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="64" x="1600" y="2144" width="64" height="64">
+   <ellipse/>
+  </object>
+  <object id="65" x="1600" y="2240" width="64" height="64">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>

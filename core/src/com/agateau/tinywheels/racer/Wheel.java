@@ -142,9 +142,9 @@ public class Wheel implements Disposable {
 
     private void updateFriction() {
         // Kill lateral velocity
-        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
-        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 2 : 1);
-        if (mCanDrift && impulse.len() > maxImpulse) {
+        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass()).scl(mMaterial.getGrip());
+        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 0.2f : 1);
+        if (mMaterial != Material.ICE && mCanDrift && impulse.len() > maxImpulse) {
             // Drift
             mDrifting = true;
             if (mSkidmarkCount == 0) {

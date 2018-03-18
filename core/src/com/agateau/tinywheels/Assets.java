@@ -105,6 +105,7 @@ public class Assets {
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{
             new MapInfo("race", "Let it Snow"),
+            new MapInfo("snow2", "More Snow!"),
             new MapInfo("be", "City"),
             new MapInfo("tiny-sur-mer", "Tiny sur Mer"),
     });
