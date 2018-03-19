@@ -1,10 +1,9 @@
 android/assets/sprites/
+android/assets/maps/*.png
 android/assets/ui/uiskin.atlas
 android/assets/ui/uiskin.png
 
-core/assets/sprites/
-core/assets/ui/
-core/assets/maps/*.png
+core/assets/
 
 ## Java
 

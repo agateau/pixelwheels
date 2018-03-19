@@ -2,6 +2,8 @@ export PATH := $(PWD)/../../bin:$(PATH)
 
 OUT_DIR ?= ../assets
 
+FINAL_OUT_DIR ?= ../../android/assets
+
 VEHICLES_SUBDIR := sprites/vehicles
 
 all: hud anims stills vehicles tiles helicopter ui
@@ -71,13 +73,13 @@ clean-vehicles:
 
 #- Tiles ----------------------------------------------------------------------
 TILE_IMAGES := $(wildcard maps/*.ase)
-OUT_TILE_IMAGES := $(TILE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+OUT_TILE_IMAGES := $(TILE_IMAGES:%.ase=$(FINAL_OUT_DIR)/%.png)
 
 tiles: $(OUT_TILE_IMAGES)
 
-$(OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
-$(OUT_DIR)/maps/%.png: maps/%.ase
-	mkdir -p $(OUT_DIR)/maps
+$(FINAL_OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
+$(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
+	mkdir -p $(FINAL_OUT_DIR)/maps
 	aseprite --batch $< --save-as $(TMP_PNG)
 	convert -alpha set -channel RGBA \
 		-fill '#22203460' -opaque '#ff00ff' \
