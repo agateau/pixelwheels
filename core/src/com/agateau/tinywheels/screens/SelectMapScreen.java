@@ -68,6 +68,7 @@ public class SelectMapScreen extends TwStageScreen {
         Menu menu = builder.getActor("menu");
 
         mMapSelector = new MapSelector(menu);
+        mMapSelector.setColumnCount(2);
         mMapSelector.init(assets);
         mMapSelector.setCurrent(assets.findMapInfoByID(mGameModeConfig.map));
         menu.addItem(mMapSelector);

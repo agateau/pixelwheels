@@ -168,9 +168,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
-        // Space between the vertical edge and the first/last column of items
-        final float gutterWidth = getGutterWidth();
-        float x = gutterWidth;
+        float itemSpacing = getItemSpacing();
+        float x = 0;
         float y = getHeight() - mItemHeight;
 
         for (int idx = 0; idx < mItems.size; idx++) {
@@ -185,10 +184,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
             if ((idx + 1) % mColumnCount == 0) {
                 // New row
-                x = gutterWidth;
+                x = 0;
                 y -= mItemHeight;
             } else {
-                x += mItemWidth;
+                x += mItemWidth + itemSpacing;
             }
         }
     }
@@ -261,14 +260,19 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         T item = mItems.get(mCurrentIndex);
-        float x = (mCurrentIndex % mColumnCount) * mItemWidth;
+        float x = (mCurrentIndex % mColumnCount) * (mItemWidth + getItemSpacing());
         float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
         Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
-        mFocusRectangle.set(x + rect.x + getGutterWidth(), y + rect.y, rect.width, rect.height);
+        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
     }
 
-    private float getGutterWidth() {
-        return (getWidth() - mItemWidth * mColumnCount) / 2;
+    /**
+     * Horizontal spacing between items
+     */
+    private float getItemSpacing() {
+        return mColumnCount > 1
+                ? (getWidth() - mItemWidth * mColumnCount) / (mColumnCount - 1)
+                : 0;
     }
 
     private void touchDown(float touchX, float touchY) {
@@ -279,9 +283,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             NLog.e("Invalid item size");
             return;
         }
-        final float gutterWidth = getGutterWidth();
+        float gridWidth = mItemWidth + getItemSpacing();
         int row = MathUtils.floor((getHeight() - touchY) / mItemHeight);
-        int column = MathUtils.floor((touchX - gutterWidth) / mItemWidth);
+        int column = MathUtils.floor(touchX / gridWidth);
+
+        float itemX = column * gridWidth;
+        if (itemX + mItemWidth < touchX) {
+            // Clicked between columns
+            return;
+        }
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             mCurrentIndex = idx;
