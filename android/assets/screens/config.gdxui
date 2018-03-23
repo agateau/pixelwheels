@@ -1,11 +1,8 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -2">Configuration</Label>
-
         <Menu id="menu" labelColumnWidth="250" defaultItemWidth="600"
-              topCenter="$prev.bottomCenter 0 -3">
+              topCenter="root.topCenter 0 -2">
 
         </Menu>
 

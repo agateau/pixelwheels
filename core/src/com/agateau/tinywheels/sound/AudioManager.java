@@ -24,6 +24,10 @@ import com.badlogic.gdx.audio.Sound;
  * Create audio objects
  */
 public interface AudioManager {
+    boolean isMuted();
+
+    void setMuted(boolean muted);
+
     /**
      * Basic method for simple sounds
      */

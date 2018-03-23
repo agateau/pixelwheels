@@ -29,4 +29,5 @@ public class PrefConstants {
     public static final String MULTIPLAYER_VEHICLE_ID_PREFIX = "multiPlayer.vehicleID.";
     public static final String MULTIPLAYER_MAP_ID = "multiPlayer.mapID";
     public static final String ROTATE_SCREEN_ID = "rotateScreen";
+    public static final String AUDIO = "audio";
 }
