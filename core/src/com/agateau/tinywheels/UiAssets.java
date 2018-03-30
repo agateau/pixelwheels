@@ -30,7 +30,6 @@ public class UiAssets {
     public final Skin skin;
     public final TextureAtlas atlas;
     public final TextureRegion background;
-    public final NinePatch selection;
 
     UiAssets() {
         this.atlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
@@ -41,7 +40,6 @@ public class UiAssets {
         this.skin.load(Gdx.files.internal("ui/uiskin.json"));
 
         this.background = this.atlas.findRegion("background");
-        this.selection = this.atlas.createPatch("focus");
     }
 
     private void loadFonts() {
