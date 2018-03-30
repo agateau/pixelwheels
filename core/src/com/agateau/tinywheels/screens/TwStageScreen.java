@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
-import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.UiAssets;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.VirtualKey;
@@ -34,7 +34,7 @@ public abstract class TwStageScreen extends StageScreen {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
 
-    public TwStageScreen(Assets.UiAssets uiAssets) {
+    public TwStageScreen(UiAssets uiAssets) {
         super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
 
         Image image = new Image();

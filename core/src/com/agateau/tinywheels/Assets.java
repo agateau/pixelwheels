@@ -26,12 +26,8 @@ import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.tinywheels.vehicledef.VehicleIO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
@@ -40,59 +36,6 @@ import java.util.HashMap;
  * Stores all assets
  */
 public class Assets {
-    public static class UiAssets {
-        public final Skin skin;
-        public final TextureAtlas atlas;
-        public final TextureRegion background;
-        public final NinePatch selection;
-
-        UiAssets() {
-            this.atlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
-            this.skin = new Skin(this.atlas);
-
-            loadFonts();
-
-            this.skin.load(Gdx.files.internal("ui/uiskin.json"));
-
-            this.background = this.atlas.findRegion("background");
-            this.selection = this.atlas.createPatch("focus");
-        }
-
-        private void loadFonts() {
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-            this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", 28));
-            this.skin.add("title-font", loadFont("fonts/Aero.ttf", 32));
-
-            parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 12;
-            parameter.borderWidth = 0.5f;
-            this.skin.add("small-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-
-            parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 28;
-            parameter.borderWidth = 0.5f;
-            this.skin.add("hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-
-            parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 56;
-            parameter.characters = "1234567890thsrdneméè";
-            parameter.borderWidth = 0.5f;
-            this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-        }
-
-        private BitmapFont loadFont(String name, int size) {
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = size;
-            return loadFont(name, parameter);
-        }
-
-        private BitmapFont loadFont(String name, FreeTypeFontGenerator.FreeTypeFontParameter parameter) {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(name));
-            BitmapFont font = generator.generateFont(parameter);
-            generator.dispose();
-            return font;
-        }
-    }
 
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
     private static final float IMPACT_FRAME_DURATION = 0.05f;
