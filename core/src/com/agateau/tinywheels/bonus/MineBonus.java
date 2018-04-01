@@ -34,9 +34,6 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     private static final float AI_KEEP_BONUS_MAX_TIME = 5f;
 
     private final Pool mPool;
-    private final Assets mAssets;
-    private final GameWorld mGameWorld;
-    private final AudioManager mAudioManager;
     private Mine mMine;
     private boolean mTriggered;
 
@@ -50,15 +47,12 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new MineBonus(this, mAssets, mGameWorld, mAudioManager);
+            return new MineBonus(this);
         }
     }
 
-    public MineBonus(Pool pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+    public MineBonus(Pool pool) {
         mPool = pool;
-        mAssets = assets;
-        mGameWorld = gameWorld;
-        mAudioManager = audioManager;
     }
 
     @Override
@@ -68,13 +62,13 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mAssets.mine.getKeyFrame(0);
+        return mPool.getAssets().mine.getKeyFrame(0);
     }
 
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
-        mMine = Mine.create(mGameWorld, mAssets, mAudioManager, mRacer);
+        mMine = Mine.create(mPool.getGameWorld(), mPool.getAssets(), mPool.getAudioManager(), mRacer);
         mAiKeepTime = MathUtils.random(AI_KEEP_BONUS_MIN_TIME, AI_KEEP_BONUS_MAX_TIME);
     }
 

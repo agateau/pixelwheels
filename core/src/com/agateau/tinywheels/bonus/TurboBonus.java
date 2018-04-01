@@ -44,12 +44,11 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new TurboBonus(this, mAssets);
+            return new TurboBonus(this);
         }
     }
 
     private final Pool mPool;
-    private final Assets mAssets;
 
     private boolean mTriggered = false;
     private float mAnimationTime;
@@ -57,7 +56,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, int zIndex) {
-            TextureRegion region = mAssets.turbo.getKeyFrame(mAnimationTime, true);
+            TextureRegion region = mPool.getAssets().turbo.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();
             Vector2 center = body.getPosition();
@@ -76,9 +75,8 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public TurboBonus(Pool pool, Assets assets) {
+    public TurboBonus(Pool pool) {
         mPool = pool;
-        mAssets = assets;
         reset();
     }
 
@@ -96,7 +94,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mAssets.turbo.getKeyFrame(0);
+        return mPool.getAssets().turbo.getKeyFrame(0);
     }
 
     @Override
@@ -118,7 +116,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
             return;
         }
         mAnimationTime += delta;
-        if (mAnimationTime > mAssets.turbo.getAnimationDuration()) {
+        if (mAnimationTime > mPool.getAssets().turbo.getAnimationDuration()) {
             resetBonus();
         }
     }

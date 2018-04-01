@@ -56,4 +56,16 @@ public abstract class BonusPool extends Pool<Bonus> {
     public float getCountForNormalizedRank(float normalizedRank) {
         return GylMathUtils.arrayLerp(mCounts, normalizedRank);
     }
+
+    public Assets getAssets() {
+        return mAssets;
+    }
+
+    public GameWorld getGameWorld() {
+        return mGameWorld;
+    }
+
+    public AudioManager getAudioManager() {
+        return mAudioManager;
+    }
 }

@@ -53,14 +53,11 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
         @Override
         protected Bonus newObject() {
-            return new GunBonus(this, mAssets, mGameWorld, mAudioManager);
+            return new GunBonus(this);
         }
     }
 
     private final Pool mPool;
-    private final Assets mAssets;
-    private final GameWorld mGameWorld;
-    private final AudioManager mAudioManager;
 
     private boolean mTriggered;
     private float mAnimationTime;
@@ -72,7 +69,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, int zIndex) {
-            TextureRegion region = mAssets.gunAnimation.getKeyFrame(mAnimationTime, true);
+            TextureRegion region = mPool.getAssets().gunAnimation.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();
             Vector2 center = body.getPosition();
@@ -103,11 +100,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public GunBonus(Pool pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+    public GunBonus(Pool pool) {
         mPool = pool;
-        mAssets = assets;
-        mGameWorld = gameWorld;
-        mAudioManager = audioManager;
         reset();
     }
 
@@ -121,7 +115,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mAssets.bullet;
+        return mPool.getAssets().bullet;
     }
 
     @Override
@@ -159,7 +153,9 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         // Shoot
         Vehicle vehicle = mRacer.getVehicle();
         float angle = vehicle.getAngle() + MathUtils.random(-SPREAD_ANGLE, SPREAD_ANGLE);
-        mGameWorld.addGameObject(Bullet.create(mAssets, mGameWorld, mAudioManager, mRacer, vehicle.getX(), vehicle.getY(), angle));
+        GameWorld gameWorld = mPool.getGameWorld();
+        Bullet bullet = Bullet.create(mPool.getAssets(), gameWorld, mPool.getAudioManager(), mRacer, vehicle.getX(), vehicle.getY(), angle);
+        gameWorld.addGameObject(bullet);
 
         mRemainingShots--;
         if (mRemainingShots == 0) {
@@ -173,7 +169,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public void aiAct(float delta) {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.run(mGameWorld.getBox2DWorld(), mRayCastV1, mRayCastV2);
+        Fixture fixture = mClosestFixtureFinder.run(mPool.getGameWorld().getBox2DWorld(), mRayCastV1, mRayCastV2);
         if (fixture == null) {
             return;
         }
