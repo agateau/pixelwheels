@@ -28,9 +28,9 @@ import com.agateau.utils.GylMathUtils;
  * Pool of bonus instances
  */
 public abstract class BonusPool extends Pool<Bonus> {
-    protected final Assets mAssets;
-    protected final GameWorld mGameWorld;
-    protected final AudioManager mAudioManager;
+    private final Assets mAssets;
+    private final GameWorld mGameWorld;
+    private final AudioManager mAudioManager;
     private float[] mCounts;
 
     public BonusPool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
