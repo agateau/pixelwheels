@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.7.0 - 2018-04-01
+
+### For players
+
+#### Added
+
+- There is a new snow race. It's full of icy patches, be careful!
+
+- The rescue helicopter now has a sound.
+
+- If you don't like PixelWheels sounds, you can now mute them from the Settings
+  screen.
+
+#### Changed
+
+- Bots have finally learned how to use the reverse gear to unblock themselves,
+  you won't be able to score easy wins because they got stuck against a wall.
+  (Issue #2)
+
+- The Android icon was a bit crude, I redrew it to something nicer.
+
+#### Fixed
+
+- Sometimes skid marks would be kept from one race to another, this is no longer
+  the case.
+
+- There was a few holes around bridges on the "Tiny sur Mer" map. They have
+  been closed (Issue #16)
+
+### For developers
+
+- libgdx has been updated to 1.7.2.
+
+- Code is now grouped into packages, making it a little less messy!
+
+- The update to libgdx 1.7.2 required an update of my fork of MapPacker, but
+  instead I decided to use the maps directly instead of pre-processing them to
+  load them through AtlasTmxMapLoader. This means there is no more MapPacker
+  fork in the code and no need to run it before testing a map, just save from
+  Tiled and run the game.
+
 ## 0.6.0 - 2018-02-03
 
 ### Added
