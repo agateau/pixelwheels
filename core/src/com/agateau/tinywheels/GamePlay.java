@@ -23,7 +23,7 @@ package com.agateau.tinywheels;
  */
 public class GamePlay {
     public int racerCount = 6;
-    public int maxDrivingForce = 70;
+    public int maxDrivingForce = 50;
     public int lowSpeed = 20;
     public int maxSpeed = 300;
     public int maxLateralImpulse = 2;
