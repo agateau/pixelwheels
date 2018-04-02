@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.7.0 - 2018-04-01
+## 0.7.0 - 2018-04-02
 
 ### For players
 
@@ -10,8 +10,8 @@
 
 - The rescue helicopter now has a sound.
 
-- If you don't like PixelWheels sounds, you can now mute them from the Settings
-  screen.
+- If you don't like Pixel Wheels sounds, you can now mute them from the
+  Settings screen.
 
 #### Changed
 
@@ -19,12 +19,15 @@
   you won't be able to score easy wins because they got stuck against a wall.
   (Issue #2)
 
+- I made the vehicles a bit slower, they should be easier to handle now,
+  especially on Android.
+
 - The Android icon was a bit crude, I redrew it to something nicer.
 
 #### Fixed
 
-- Sometimes skid marks would be kept from one race to another, this is no longer
-  the case.
+- Sometimes skid marks would be kept from one race to another, this is no
+  longer the case.
 
 - There was a few holes around bridges on the "Tiny sur Mer" map. They have
   been closed (Issue #16)
