@@ -26,7 +26,10 @@ import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 import java.util.Stack;
@@ -66,6 +69,7 @@ public class TwGame extends Game {
         mGameConfig = new GameConfig();
         mAudioManager.setMuted(!mGameConfig.audio);
         Box2D.init();
+        hideMouseCursor();
         showMainMenu();
     }
 
@@ -113,5 +117,15 @@ public class TwGame extends Game {
         mScreenStack.pop().dispose();
         Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
         setScreen(mScreenStack.peek());
+    }
+
+    private void hideMouseCursor() {
+        Pixmap pixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0);
+        pixmap.fill();
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0);
+        if (cursor != null) {
+            Gdx.graphics.setCursor(cursor);
+        }
     }
 }
