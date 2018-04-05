@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.gameinput;
 
 import com.agateau.tinywheels.GamePlay;
+import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
@@ -59,7 +59,7 @@ public class GameInputHandlerFactories {
             return;
         }
         mFactories = new Array<GameInputHandlerFactory>();
-        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+        if (PlatformUtils.isDesktop()) {
             mFactories.add(new KeyboardInputHandler.Factory());
         }
         if (hasMultitouch()) {

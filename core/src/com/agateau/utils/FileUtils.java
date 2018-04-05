@@ -18,19 +18,18 @@
  */
 package com.agateau.utils;
 
-import java.io.IOException;
-
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
+
+import java.io.IOException;
 
 public class FileUtils {
     public static String appName = "unnamed";
     public static FileHandle getUserWritableFile(String name) {
         FileHandle handle;
-        if (Gdx.app.getType() == ApplicationType.Desktop) {
+        if (PlatformUtils.isDesktop()) {
             handle = Gdx.files.external(".local/share/" + appName + "/" + name);
         } else {
             handle = Gdx.files.local(name);
@@ -40,7 +39,7 @@ public class FileUtils {
 
     public static FileHandle getCacheDir() {
         FileHandle handle;
-        if (Gdx.app.getType() == ApplicationType.Desktop) {
+        if (PlatformUtils.isDesktop()) {
             handle = Gdx.files.external(".cache/" + appName);
         } else {
             if (!Gdx.files.isExternalStorageAvailable()) {
