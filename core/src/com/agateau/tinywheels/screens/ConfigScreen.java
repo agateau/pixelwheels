@@ -30,6 +30,7 @@ import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -80,6 +81,20 @@ public class ConfigScreen extends TwStageScreen {
             }
         });
         menu.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
+
+        if (PlatformUtils.isDesktop()) {
+            final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
+            fullscreenSwitch.setChecked(gameConfig.fullscreen);
+            fullscreenSwitch.getActor().addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    gameConfig.fullscreen = fullscreenSwitch.isChecked();
+                    mGame.setFullscreen(gameConfig.fullscreen);
+                    gameConfig.flush();
+                }
+            });
+            menu.addItemWithLabel("Fullscreen:", fullscreenSwitch);
+        }
 
         final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
         audioSwitch.setChecked(gameConfig.audio);

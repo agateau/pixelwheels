@@ -20,13 +20,16 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.screens.MainMenuScreen;
+import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.DefaultAudioManager;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -70,6 +73,7 @@ public class TwGame extends Game {
         mAudioManager.setMuted(!mGameConfig.audio);
         Box2D.init();
         hideMouseCursor();
+        setupDisplay();
         showMainMenu();
     }
 
@@ -126,6 +130,22 @@ public class TwGame extends Game {
         Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0);
         if (cursor != null) {
             Gdx.graphics.setCursor(cursor);
+        }
+    }
+
+    private void setupDisplay() {
+        setFullscreen(mGameConfig.fullscreen);
+    }
+
+    public void setFullscreen(boolean fullscreen) {
+        if (!PlatformUtils.isDesktop()) {
+            return;
+        }
+        if (fullscreen) {
+            Graphics.DisplayMode mode = Gdx.graphics.getDisplayMode();
+            Gdx.graphics.setFullscreenMode(mode);
+        } else {
+            Gdx.graphics.setWindowedMode(TwStageScreen.WIDTH, TwStageScreen.HEIGHT);
         }
     }
 }
