@@ -32,6 +32,7 @@ import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.tinywheels.racescreen.Collidable;
 import com.agateau.tinywheels.racescreen.CollisionCategories;
+import com.agateau.tinywheels.racescreen.CountDown;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.vehicledef.VehicleCreator;
@@ -57,6 +58,7 @@ import java.util.Comparator;
  */
 public class GameWorld implements ContactListener, Disposable {
     public enum State {
+        COUNTDOWN,
         RUNNING,
         FINISHED
     }
@@ -67,6 +69,7 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final TwGame mGame;
     private MapInfo mMapInfo;
+    private final CountDown mCountDown;
 
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
@@ -75,7 +78,7 @@ public class GameWorld implements ContactListener, Disposable {
 
     private final Array<Racer> mRacers = new Array<Racer>();
     private final Array<Racer> mPlayerRacers = new Array<Racer>();
-    private State mState = State.RUNNING;
+    private State mState = State.COUNTDOWN;
 
     private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
 
@@ -88,6 +91,7 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld.setContactListener(this);
         mMapInfo = gameInfo.mapInfo;
         mMapInfo.init();
+        mCountDown = new CountDown(this);
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
@@ -136,6 +140,10 @@ public class GameWorld implements ContactListener, Disposable {
     public int getPlayerRank(int playerId) {
         Racer racer = mPlayerRacers.get(playerId);
         return getRacerRank(racer);
+    }
+
+    public CountDown getCountDown() {
+        return mCountDown;
     }
 
     public int getRacerRank(Racer racer) {
@@ -188,6 +196,7 @@ public class GameWorld implements ContactListener, Disposable {
     };
 
     public void act(float delta) {
+        mCountDown.act(delta);
         mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
@@ -346,6 +355,10 @@ public class GameWorld implements ContactListener, Disposable {
 
     public State getState() {
         return mState;
+    }
+
+    public void startRace() {
+        setState(State.RUNNING);
     }
 
     private void setState(State state) {

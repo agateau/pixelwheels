@@ -62,6 +62,12 @@ public class UiAssets {
         parameter.characters = "1234567890thsrdneméè";
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 180;
+        parameter.characters = "123GO!";
+        parameter.borderWidth = 0.5f;
+        this.skin.add("hud-countdown-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
     }
 
     private BitmapFont loadFont(String name, int size) {

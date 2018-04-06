@@ -72,7 +72,7 @@ public class AIPilot implements Pilot {
         updateAcceleration();
         updateDirection();
         float speed = mRacer.getVehicle().getSpeed();
-        if (speed < MIN_NORMAL_SPEED) {
+        if (mGameWorld.getState() == GameWorld.State.RUNNING && speed < MIN_NORMAL_SPEED) {
             mBlockedDuration += dt;
             if (mBlockedDuration > MAX_BLOCKED_DURATION) {
                 NLog.i("Racer %s blocked", mRacer);

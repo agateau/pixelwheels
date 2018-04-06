@@ -291,11 +291,13 @@ public class Vehicle implements Racer.Component, Disposable {
      */
     private void applyPilotCommands() {
         float speedDelta = 0;
-        if (mAccelerating) {
-            speedDelta = ACCELERATION_DELTA * mSpeedLimiter;
-        }
-        if (mBraking) {
-            speedDelta -= BRAKING_DELTA;
+        if (mGameWorld.getState() == GameWorld.State.RUNNING) {
+            if (mAccelerating) {
+                speedDelta = ACCELERATION_DELTA * mSpeedLimiter;
+            }
+            if (mBraking) {
+                speedDelta -= BRAKING_DELTA;
+            }
         }
 
         float steerAngle = computeSteerAngle() * MathUtils.degRad;

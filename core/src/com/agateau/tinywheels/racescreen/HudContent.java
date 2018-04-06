@@ -20,9 +20,9 @@ package com.agateau.tinywheels.racescreen;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.tinywheels.debug.DebugStringMap;
 import com.agateau.tinywheels.racer.Racer;
+import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
@@ -50,6 +50,7 @@ public class HudContent {
     private final Label mRankLabel;
     private final Label mLapLabel;
     private final Label mFinishedLabel;
+    private final Label mCountDownLabel;
     private Label mDebugLabel = null;
 
     private final StringBuilder mStringBuilder = new StringBuilder();
@@ -70,11 +71,15 @@ public class HudContent {
         mFinishedLabel = new Label("Finished!", skin, "hud");
         mFinishedLabel.setVisible(false);
 
+        mCountDownLabel = new Label("", skin, "hud-countdown");
+        mCountDownLabel.setAlignment(Align.bottom);
+
         AnchorGroup root = hud.getRoot();
 
         root.addPositionRule(mRankLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
         root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, mRankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
         root.addPositionRule(mFinishedLabel, Anchor.CENTER, root, Anchor.CENTER);
+        root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
     }
 
     public void setPerformanceCounters(PerformanceCounters performanceCounters) {
@@ -95,6 +100,7 @@ public class HudContent {
     @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateLabels();
+        updateCountDownLabel();
         checkFinished();
         if (mDebugLabel != null) {
             updateDebugLabel();
@@ -116,6 +122,21 @@ public class HudContent {
         mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank));
         mRankLabel.setText(mStringBuilder);
         mRankLabel.pack();
+    }
+
+    private void updateCountDownLabel() {
+        CountDown countDown = mGameWorld.getCountDown();
+        if (countDown.isFinished()) {
+            mCountDownLabel.setVisible(false);
+            return;
+        }
+        float alpha = countDown.getPercent();
+        int count = countDown.getValue();
+
+        mCountDownLabel.setColor(1, 1, 1, alpha);
+
+        String text = count > 0 ? String.valueOf(count) : "GO!";
+        mCountDownLabel.setText(text);
     }
 
     private static StringBuilder sDebugSB = new StringBuilder();

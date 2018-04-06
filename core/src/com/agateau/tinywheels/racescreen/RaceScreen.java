@@ -151,7 +151,7 @@ public class RaceScreen extends ScreenAdapter {
             GameWorld.State oldState = mGameWorld.getState();
             mGameWorld.act(delta);
             GameWorld.State newState = mGameWorld.getState();
-            if (oldState != newState) {
+            if (newState == GameWorld.State.FINISHED && oldState != newState) {
                 onFinished();
             }
         }

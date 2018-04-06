@@ -52,6 +52,9 @@
         hud-rank: {
             font: hud-rank-font
         },
+        hud-countdown: {
+            font: hud-countdown-font
+        },
         menuTitle: {
             font: title-font
         }
