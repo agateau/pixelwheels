@@ -94,7 +94,7 @@ public class GameWorld implements ContactListener, Disposable {
         mBox2DWorld.setContactListener(this);
         mTrack = gameInfo.getTrack();
         mTrack.init();
-        mCountDown = new CountDown(this);
+        mCountDown = new CountDown(this, game.getAudioManager(), game.getAssets().soundAtlas);
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
