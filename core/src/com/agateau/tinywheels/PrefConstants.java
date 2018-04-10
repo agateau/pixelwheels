@@ -30,4 +30,5 @@ public class PrefConstants {
     public static final String MULTIPLAYER_MAP_ID = "multiPlayer.mapID";
     public static final String ROTATE_SCREEN_ID = "rotateScreen";
     public static final String AUDIO = "audio";
+    public static final String FULLSCREEN = "fullscreen";
 }

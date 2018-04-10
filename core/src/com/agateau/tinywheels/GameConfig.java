@@ -52,6 +52,7 @@ public class GameConfig {
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
         rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN_ID, true);
+        fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
@@ -71,6 +72,7 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN_ID, rotateCamera);
+        mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
         mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
