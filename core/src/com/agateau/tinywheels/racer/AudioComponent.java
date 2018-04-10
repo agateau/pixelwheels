@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels.racer;
 
+import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.sound.AudioManager;
@@ -76,7 +77,7 @@ class AudioComponent implements Racer.Component, Disposable {
 
         if (mDriftDuration > 0) {
             float volume = MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f) * maxVolume;
-            mDriftingSoundPlayer.setVolume(volume);
+            mDriftingSoundPlayer.setVolume(volume * GamePlay.instance.driftVolume);
             if (!mDriftingSoundPlayer.isLooping()) {
                 mDriftingSoundPlayer.loop();
             }
@@ -85,7 +86,7 @@ class AudioComponent implements Racer.Component, Disposable {
         }
 
         if (mTurboTriggered) {
-            mTurboSoundPlayer.setVolume(maxVolume);
+            mTurboSoundPlayer.setVolume(maxVolume * GamePlay.instance.turboVolume);
             mTurboSoundPlayer.play();
             mTurboTriggered = false;
         }

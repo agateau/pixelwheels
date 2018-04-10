@@ -50,5 +50,8 @@ public class GamePlay {
     public boolean showTestTrack = false;
     public boolean createSpeedReport = false;
 
+    public float driftVolume = 0.6f;
+    public float turboVolume = 0.5f;
+
     public static final GamePlay instance = new GamePlay();
 }

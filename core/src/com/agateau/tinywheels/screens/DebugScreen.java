@@ -78,7 +78,7 @@ public class DebugScreen extends TwStageScreen {
         addRange("Max speed", "maxSpeed", 10, 400, 10);
         addTitle("Turbo");
         addRange("Strength", "turboStrength", 10, 800, 20);
-        addRange("Duration", "turboDuration", 0.1f, 2f, 0.1f);
+        addRange("Duration", "turboDuration", 0.1f, 2f);
         addTitle("Wheels");
         addRange("Stickiness", "maxLateralImpulse", 1, 40);
         addRange("Steer: low speed", "lowSpeedMaxSteer", 2, 50, 2);
@@ -86,6 +86,9 @@ public class DebugScreen extends TwStageScreen {
         addTitle("Vehicle");
         addRange("Density", "vehicleDensity", 1, 50);
         addRange("Restitution", "vehicleRestitution", 1, 50);
+        addTitle("Sound");
+        addRange("Drift volume", "driftVolume", 0f, 1f);
+        addRange("Turbo volume", "turboVolume", 0f, 1f);
 
         mCurrentIntrospector = mGame.getDebugIntrospector();
         addTitle("Debug");
@@ -144,6 +147,10 @@ public class DebugScreen extends TwStageScreen {
         });
 
         mMenu.addItemWithLabel(text, item);
+    }
+
+    private void addRange(String text, final String keyName, float min, float max) {
+        addRange(text, keyName, min, max, 0.1f);
     }
 
     private void addRange(String text, final String keyName, float min, float max, float stepSize) {
