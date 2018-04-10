@@ -36,6 +36,7 @@ public class GameConfig {
         public String map;
     }
 
+    public boolean fullscreen = false;
     public boolean rotateCamera = true;
     public boolean audio = true;
     public String input;

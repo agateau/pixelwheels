@@ -19,13 +19,13 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.TwGame;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.Application;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 
 /**
@@ -47,7 +47,7 @@ public class MainMenuScreen extends TwStageScreen {
     }
 
     private void setupUi() {
-        boolean desktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
+        boolean desktop = PlatformUtils.isDesktop();
         UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
         if (desktop) {
             builder.defineVariable("desktop");
