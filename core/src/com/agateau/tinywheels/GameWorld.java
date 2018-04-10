@@ -166,6 +166,10 @@ public class GameWorld implements ContactListener, Disposable {
         return (getRacerRank(racer) - 1) / (float)(mRacers.size - 1);
     }
 
+    /**
+     * Sort racers, listing racers which have driven the longest first,
+     * so it returns 1 if racer1 has driven less than racer2
+     */
     private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
         @Override
         public int compare(Racer racer1, Racer racer2) {
@@ -185,13 +189,7 @@ public class GameWorld implements ContactListener, Disposable {
             }
             float d1 = c1.getLapDistance();
             float d2 = c2.getLapDistance();
-            if (d1 < d2) {
-                return 1;
-            }
-            if (d1 > d2) {
-                return -1;
-            }
-            return 0;
+            return Float.compare(d2, d1);
         }
     };
 
