@@ -28,7 +28,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * A menu item to select a map
  */
-public class MapSelector extends GridMenuItem<Track> {
+public class TrackSelector extends GridMenuItem<Track> {
     private Assets mAssets;
 
     private class Renderer extends TextureRegionItemRendererAdapter<Track> {
@@ -38,7 +38,7 @@ public class MapSelector extends GridMenuItem<Track> {
         }
     }
 
-    public MapSelector(Menu menu) {
+    public TrackSelector(Menu menu) {
         super(menu);
     }
 

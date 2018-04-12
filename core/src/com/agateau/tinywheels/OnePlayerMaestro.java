@@ -19,7 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.racescreen.RaceScreen;
-import com.agateau.tinywheels.screens.SelectMapScreen;
+import com.agateau.tinywheels.screens.SelectTrackScreen;
 import com.agateau.tinywheels.screens.SelectVehicleScreen;
 
 /**
@@ -38,11 +38,11 @@ public class OnePlayerMaestro implements Maestro {
         String current = mGame.getScreen().getClass().getSimpleName();
         if (current.equals("SelectVehicleScreen")) {
             if (action.equals("next")) {
-                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo, mGame.getConfig().onePlayer));
+                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().onePlayer));
             } else if (action.equals("back")) {
                 mGame.showMainMenu();
             }
-        } else if (current.equals("SelectMapScreen")) {
+        } else if (current.equals("SelectTrackScreen")) {
             if (action.equals("next")) {
                 mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
             } else if (action.equals("back")) {

@@ -35,14 +35,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * Select your map
  */
-public class SelectMapScreen extends TwStageScreen {
+public class SelectTrackScreen extends TwStageScreen {
     private final TwGame mGame;
     private final GameInfo mGameInfo;
     private final Maestro mMaestro;
     private final GameConfig.GameModeConfig mGameModeConfig;
-    private MapSelector mMapSelector;
+    private TrackSelector mTrackSelector;
 
-    public SelectMapScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+    public SelectTrackScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
         super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
@@ -52,7 +52,7 @@ public class SelectMapScreen extends TwStageScreen {
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectMapScreen(mGame, mMaestro, mGameInfo, mGameModeConfig));
+                mGame.replaceScreen(new SelectTrackScreen(mGame, mMaestro, mGameInfo, mGameModeConfig));
             }
         };
     }
@@ -61,19 +61,19 @@ public class SelectMapScreen extends TwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectmap.gdxui"));
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
 
-        mMapSelector = new MapSelector(menu);
-        mMapSelector.setColumnCount(2);
-        mMapSelector.init(assets);
-        mMapSelector.setCurrent(assets.findTrackByID(mGameModeConfig.map));
-        menu.addItem(mMapSelector);
+        mTrackSelector = new TrackSelector(menu);
+        mTrackSelector.setColumnCount(2);
+        mTrackSelector.init(assets);
+        mTrackSelector.setCurrent(assets.findTrackByID(mGameModeConfig.map));
+        menu.addItem(mTrackSelector);
 
-        mMapSelector.addListener(new MenuItemListener() {
+        mTrackSelector.addListener(new MenuItemListener() {
             @Override
             public void triggered() {
                 next();
@@ -94,13 +94,13 @@ public class SelectMapScreen extends TwStageScreen {
     }
 
     private void saveSelectedMap() {
-        mGameModeConfig.map = mMapSelector.getSelected().getId();
+        mGameModeConfig.map = mTrackSelector.getSelected().getId();
         mGame.getConfig().flush();
     }
 
     private void next() {
         saveSelectedMap();
-        mGameInfo.track = mMapSelector.getSelected();
+        mGameInfo.track = mTrackSelector.getSelected();
         mMaestro.actionTriggered("next");
     }
 }

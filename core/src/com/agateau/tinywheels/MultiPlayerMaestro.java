@@ -20,7 +20,7 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
-import com.agateau.tinywheels.screens.SelectMapScreen;
+import com.agateau.tinywheels.screens.SelectTrackScreen;
 
 /**
  * Handle a multi player game
@@ -38,11 +38,11 @@ public class MultiPlayerMaestro implements Maestro {
         String current = mGame.getScreen().getClass().getSimpleName();
         if (current.equals("MultiPlayerScreen")) {
             if (action.equals("next")) {
-                mGame.replaceScreen(new SelectMapScreen(mGame, this, mGameInfo, mGame.getConfig().multiPlayer));
+                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().multiPlayer));
             } else if (action.equals("back")) {
                 mGame.showMainMenu();
             }
-        } else if (current.equals("SelectMapScreen")) {
+        } else if (current.equals("SelectTrackScreen")) {
             if (action.equals("next")) {
                 mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
             } else if (action.equals("back")) {
