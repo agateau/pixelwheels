@@ -19,6 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.AnimationObject;
+import com.agateau.tinywheels.map.Championship;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundAtlas;
@@ -52,6 +53,7 @@ public class Assets {
             new Track("be", "City"),
             new Track("tiny-sur-mer", "Tiny sur Mer"),
     });
+    public final Array<Championship> championships = new Array<Championship>();
     public final UiAssets ui = new UiAssets();
 
     public final TextureRegion wheel;
@@ -105,6 +107,7 @@ public class Assets {
 
         loadVehicleDefinitions();
         initSoundAtlas();
+        initChampionships();
     }
 
     private void initSoundAtlas() {
@@ -121,6 +124,16 @@ public class Assets {
         this.soundAtlas.load("turbo.wav");
         this.soundAtlas.load("impact.wav", "collision");
         this.soundAtlas.load("helicopter.wav");
+    }
+
+    private void initChampionships() {
+        championships.add(new Championship("Snow")
+                .addTrack(findTrackByID("race"))
+                .addTrack(findTrackByID("snow2")));
+
+        championships.add(new Championship("City")
+                .addTrack(findTrackByID("be"))
+                .addTrack(findTrackByID("tiny-sur-mer")));
     }
 
     public VehicleDef getVehicleById(String id) {
