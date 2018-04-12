@@ -21,16 +21,22 @@ package com.agateau.tinywheels.map;
 import com.badlogic.gdx.utils.Array;
 
 public class Championship {
+    private final String mId;
     private final String mName;
     private final Array<Track> mTracks = new Array<Track>();
 
-    public Championship(String name) {
+    public Championship(String id, String name) {
+        mId = id;
         mName = name;
     }
 
     public Championship addTrack(Track track) {
         mTracks.add(track);
         return this;
+    }
+
+    public String getId() {
+        return mId;
     }
 
     public String getName() {

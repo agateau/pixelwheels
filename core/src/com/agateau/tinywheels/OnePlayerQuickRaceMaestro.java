@@ -19,34 +19,34 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.racescreen.RaceScreen;
-import com.agateau.tinywheels.screens.MultiPlayerScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
+import com.agateau.tinywheels.screens.SelectVehicleScreen;
 
 /**
- * Handle a multi player game
+ * Handle a one player game
  */
-public class MultiPlayerMaestro implements Maestro {
+public class OnePlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
     private final GameInfo mGameInfo = new GameInfo();
 
-    public MultiPlayerMaestro(TwGame game) {
+    public OnePlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
     }
 
     @Override
     public void actionTriggered(String action) {
         String current = mGame.getScreen().getClass().getSimpleName();
-        if (current.equals("MultiPlayerScreen")) {
+        if (current.equals("SelectVehicleScreen")) {
             if (action.equals("next")) {
-                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().multiPlayer));
+                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().onePlayer));
             } else if (action.equals("back")) {
-                mGame.showMainMenu();
+                mGame.popScreen();
             }
         } else if (current.equals("SelectTrackScreen")) {
             if (action.equals("next")) {
                 mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
             } else if (action.equals("back")) {
-                mGame.replaceScreen(new MultiPlayerScreen(mGame, this, mGameInfo));
+                mGame.replaceScreen(new SelectVehicleScreen(mGame, this, mGameInfo));
             }
         } else if (current.equals("RaceScreen")) {
             if (action.equals("restart")) {
@@ -60,6 +60,6 @@ public class MultiPlayerMaestro implements Maestro {
 
     @Override
     public void start() {
-        mGame.replaceScreen(new MultiPlayerScreen(mGame, this, mGameInfo));
+        mGame.pushScreen(new SelectVehicleScreen(mGame, this, mGameInfo));
     }
 }

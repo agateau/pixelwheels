@@ -62,20 +62,26 @@ public class MainMenuScreen extends TwStageScreen {
             menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showOnePlayer();
+                    mGame.pushScreen(new SelectGameModeScreen(mGame));
                 }
             });
             menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showMultiPlayer();
+                    mGame.showMultiPlayerQuickRace();
                 }
             });
         } else {
-            menu.addButton("START").addListener(new MenuItemListener() {
+            menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showOnePlayer();
+                    mGame.showOnePlayerQuickRace();
+                }
+            });
+            menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
+                @Override
+                public void triggered() {
+                    mGame.showOnePlayerChampionship();
                 }
             });
         }

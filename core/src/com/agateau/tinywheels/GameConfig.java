@@ -34,6 +34,7 @@ public class GameConfig {
 
     static public class GameModeConfig {
         public String track;
+        public String championship;
     }
 
     public boolean fullscreen = false;

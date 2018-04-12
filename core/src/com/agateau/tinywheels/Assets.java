@@ -127,11 +127,11 @@ public class Assets {
     }
 
     private void initChampionships() {
-        championships.add(new Championship("Snow")
+        championships.add(new Championship("snow", "Snow")
                 .addTrack(findTrackByID("race"))
                 .addTrack(findTrackByID("snow2")));
 
-        championships.add(new Championship("City")
+        championships.add(new Championship("city", "City")
                 .addTrack(findTrackByID("be"))
                 .addTrack(findTrackByID("tiny-sur-mer")));
     }
@@ -177,6 +177,15 @@ public class Assets {
         for (VehicleDef def : vehicleDefs) {
             if (def.id.equals(id)) {
                 return def;
+            }
+        }
+        return null;
+    }
+
+    public Championship findChampionshipByID(String id) {
+        for (Championship championship : championships) {
+            if (championship.getId().equals(id)) {
+                return championship;
             }
         }
         return null;

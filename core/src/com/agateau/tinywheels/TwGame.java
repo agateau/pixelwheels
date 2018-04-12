@@ -82,13 +82,18 @@ public class TwGame extends Game {
         replaceScreen(screen);
     }
 
-    public void showOnePlayer() {
-        mMaestro = new OnePlayerMaestro(this);
+    public void showOnePlayerQuickRace() {
+        mMaestro = new OnePlayerQuickRaceMaestro(this);
         mMaestro.start();
     }
 
-    public void showMultiPlayer() {
-        mMaestro = new MultiPlayerMaestro(this);
+    public void showOnePlayerChampionship() {
+        mMaestro = new OnePlayerChampionshipMaestro(this);
+        mMaestro.start();
+    }
+
+    public void showMultiPlayerQuickRace() {
+        mMaestro = new MultiPlayerQuickRaceMaestro(this);
         mMaestro.start();
     }
 
