@@ -110,7 +110,7 @@ public class HudContent {
     private void updateLabels() {
         Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
-        int totalLapCount = mGameWorld.getMapInfo().getTotalLapCount();
+        int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
         int rank = mGameWorld.getPlayerRank(mPlayerId);
 
         mStringBuilder.setLength(0);

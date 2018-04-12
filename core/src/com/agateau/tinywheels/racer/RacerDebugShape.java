@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.utils.DrawUtils;
-import com.agateau.tinywheels.map.MapInfo;
 import com.agateau.tinywheels.utils.OrientedPoint;
 import com.agateau.tinywheels.map.WaypointStore;
 import com.agateau.tinywheels.debug.DebugShapeMap;
@@ -31,16 +31,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class RacerDebugShape implements DebugShapeMap.Shape {
     private final Racer mRacer;
-    private final MapInfo mMapInfo;
+    private final Track mTrack;
 
-    public RacerDebugShape(Racer racer, MapInfo mapInfo) {
+    public RacerDebugShape(Racer racer, Track track) {
         mRacer = racer;
-        mMapInfo = mapInfo;
+        mTrack = track;
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        WaypointStore store = mMapInfo.getWaypointStore();
+        WaypointStore store = mTrack.getWaypointStore();
 
         // Render waypoints
         renderer.begin(ShapeRenderer.ShapeType.Line);

@@ -70,14 +70,14 @@ public class RaceScreen extends ScreenAdapter {
     private PauseOverlay mPauseOverlay = null;
 
     public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
-        NLog.i("Starting race on %s", gameInfo.mapInfo.getMapName());
+        NLog.i("Starting race on %s", gameInfo.track.getMapName());
         mGame = game;
         mMaestro = maestro;
         SpriteBatch batch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
-        mBackgroundColor = gameInfo.mapInfo.getBackgroundColor();
+        mBackgroundColor = gameInfo.track.getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
@@ -92,7 +92,7 @@ public class RaceScreen extends ScreenAdapter {
             HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
             if (Debug.instance.showDebugLayer) {
-                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.mapInfo));
+                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.track));
             }
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
@@ -244,28 +244,28 @@ public class RaceScreen extends ScreenAdapter {
         mGameWorld.dispose();
     }
 
-    public void forgetMapInfo() {
+    public void forgetTrack() {
         // HACK
         // This is a hack to work around a dispose() issue.
         // When the player restarts a race, the following events happen:
         //
         // 1. New RaceScreen is created,
         // 2. The new RaceScreen creates a GameWorld
-        // 3. The new GameWorld calls MapInfo.init()
+        // 3. The new GameWorld calls Track.init()
         // 4. RaceScreen is set to replace the current screen
         // 5. TwGame.replaceScreen() calls dispose() on the old screen
         // 6. The old screen calls dispose() on its GameWorld
-        // 7. The old GameWorld  calls dispose() on its MapInfo
-        // 8. Since the MapInfo of the old GameWorld is the same as the
-        //    MapInfo of the new GameWorld, the MapInfo of the new
+        // 7. The old GameWorld  calls dispose() on its Track
+        // 8. Since the Track of the old GameWorld is the same as the
+        //    Track of the new GameWorld, the Track of the new
         //    GameWorld has now been disposed.
         //
-        // Asking GameWorld to "forget" its MapINfo causes it to reset its
-        // MapInfo pointer, so it won't dispose it on step #7
+        // Asking GameWorld to "forget" its track causes it to reset its
+        // Track pointer, so it won't dispose it on step #7
         //
         // This is only necessary when restarting a race because it is the
-        // only case where MapInfo.dispose() is called *after* the same
-        // MapInfo instance has been inited.
-        mGameWorld.forgetMapInfo();
+        // only case where Track.dispose() is called *after* the same
+        // Track instance has been inited.
+        mGameWorld.forgetTrack();
     }
 }

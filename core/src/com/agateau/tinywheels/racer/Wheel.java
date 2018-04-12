@@ -137,7 +137,7 @@ public class Wheel implements Disposable {
     }
 
     public long getCellId() {
-        return mGameWorld.getMapInfo().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
+        return mGameWorld.getTrack().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
     private void updateFriction() {
@@ -167,7 +167,7 @@ public class Wheel implements Disposable {
         if (mVehicle.isFlying()) {
             mMaterial = Material.AIR;
         } else {
-            mMaterial = mGameWorld.getMapInfo().getMaterialAt(mBody.getWorldCenter());
+            mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
         }
     }
 

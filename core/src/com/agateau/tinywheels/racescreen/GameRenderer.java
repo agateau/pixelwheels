@@ -25,7 +25,7 @@ import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameobjet.GameObject;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.map.MapUtils;
 import com.agateau.tinywheels.racer.Vehicle;
 import com.agateau.utils.GylMathUtils;
@@ -45,7 +45,7 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 public class GameRenderer {
     private GameConfig mGameConfig;
 
-    private final MapInfo mMapInfo;
+    private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
     private final Batch mBatch;
@@ -73,16 +73,16 @@ public class GameRenderer {
         mWorld = world;
         mVehicle = vehicle;
 
-        mMapInfo = mWorld.getMapInfo();
-        mMapWidth = mMapInfo.getMapWidth();
-        mMapHeight = mMapInfo.getMapHeight();
+        mTrack = mWorld.getTrack();
+        mMapWidth = mTrack.getMapWidth();
+        mMapHeight = mTrack.getMapHeight();
 
-        mExtraBackgroundLayerIndexes = mMapInfo.getExtraBackgroundLayerIndexes();
-        mForegroundLayerIndexes = mMapInfo.getForegroundLayerIndexes();
+        mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
+        mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
-        mRenderer = new OrthogonalTiledMapRenderer(mMapInfo.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
+        mRenderer = new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
@@ -141,8 +141,8 @@ public class GameRenderer {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (Debug.instance.drawTileCorners) {
                 mShapeRenderer.setColor(1, 1, 1, 1);
-                float tileW = mMapInfo.getTileWidth();
-                float tileH = mMapInfo.getTileHeight();
+                float tileW = mTrack.getTileWidth();
+                float tileH = mTrack.getTileHeight();
                 for (float y = 0; y < mMapHeight; y += tileH) {
                     for (float x = 0; x < mMapWidth; x += tileW) {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
@@ -160,7 +160,7 @@ public class GameRenderer {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.setColor(1, 0, 0, 1);
-            MapUtils.renderObjectLayer(mShapeRenderer, mWorld.getMapInfo().getBordersLayer());
+            MapUtils.renderObjectLayer(mShapeRenderer, mWorld.getTrack().getBordersLayer());
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);

@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
@@ -28,13 +28,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * A menu item to select a map
  */
-public class MapSelector extends GridMenuItem<MapInfo> {
+public class MapSelector extends GridMenuItem<Track> {
     private Assets mAssets;
 
-    private class Renderer extends TextureRegionItemRendererAdapter<MapInfo> {
+    private class Renderer extends TextureRegionItemRendererAdapter<Track> {
         @Override
-        protected TextureRegion getItemRegion(MapInfo mapInfo) {
-            return mAssets.ui.atlas.findRegion("map-screenshots/" + mapInfo.getId());
+        protected TextureRegion getItemRegion(Track track) {
+            return mAssets.ui.atlas.findRegion("map-screenshots/" + track.getId());
         }
     }
 
@@ -46,6 +46,6 @@ public class MapSelector extends GridMenuItem<MapInfo> {
         mAssets = assets;
         setItemSize(160, 160);
         setItemRenderer(new Renderer());
-        setItems(mAssets.mapInfos);
+        setItems(mAssets.tracks);
     }
 }

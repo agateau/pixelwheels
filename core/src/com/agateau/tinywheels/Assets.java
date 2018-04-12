@@ -19,7 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.AnimationObject;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
@@ -46,11 +46,11 @@ public class Assets {
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa" };
 
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
-    public final Array<MapInfo> mapInfos = new Array<MapInfo>(new MapInfo[]{
-            new MapInfo("race", "Let it Snow"),
-            new MapInfo("snow2", "More Snow!"),
-            new MapInfo("be", "City"),
-            new MapInfo("tiny-sur-mer", "Tiny sur Mer"),
+    public final Array<Track> tracks = new Array<Track>(new Track[]{
+            new Track("race", "Let it Snow"),
+            new Track("snow2", "More Snow!"),
+            new Track("be", "City"),
+            new Track("tiny-sur-mer", "Tiny sur Mer"),
     });
     public final UiAssets ui = new UiAssets();
 
@@ -76,7 +76,7 @@ public class Assets {
 
     Assets() {
         if (GamePlay.instance.showTestTrack) {
-            mapInfos.add(new MapInfo("test", "Test"));
+            tracks.add(new Track("test", "Test"));
         }
 
         this.atlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
@@ -169,10 +169,10 @@ public class Assets {
         return null;
     }
 
-    public MapInfo findMapInfoByID(String id) {
-        for (MapInfo info : mapInfos) {
-            if (info.getId().equals(id)) {
-                return info;
+    public Track findTrackByID(String id) {
+        for (Track track : tracks) {
+            if (track.getId().equals(id)) {
+                return track;
             }
         }
         return null;

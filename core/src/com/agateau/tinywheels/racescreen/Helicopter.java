@@ -22,7 +22,7 @@ import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.gameobjet.GameObjectAdapter;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundPlayer;
 import com.badlogic.gdx.Gdx;
@@ -80,12 +80,12 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private float mTime;
     private State mState;
 
-    public static Helicopter create(Assets assets, AudioManager audioManager, MapInfo mapInfo, Vector2 vehiclePosition, float vehicleAngle) {
+    public static Helicopter create(Assets assets, AudioManager audioManager, Track track, Vector2 vehiclePosition, float vehicleAngle) {
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
         float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
-        float mapHeight = mapInfo.getMapHeight() * mapInfo.getTileHeight();
+        float mapHeight = track.getMapHeight() * track.getTileHeight();
 
         if (object.mSoundPlayer == null) {
             object.mSoundPlayer = audioManager.createSoundPlayer(assets.soundAtlas.get("helicopter"));

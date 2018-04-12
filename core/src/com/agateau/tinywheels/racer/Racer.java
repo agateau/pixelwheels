@@ -77,7 +77,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public Racer(Assets assets, AudioManager audioManager, GameWorld gameWorld, Vehicle vehicle) {
         mAssets = assets;
         mGameWorld = gameWorld;
-        mLapPositionComponent = new LapPositionComponent(gameWorld.getMapInfo(), vehicle);
+        mLapPositionComponent = new LapPositionComponent(gameWorld.getTrack(), vehicle);
         mSpinningComponent = new SpinningComponent(vehicle);
 
         mVehicle = vehicle;

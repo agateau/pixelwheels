@@ -20,14 +20,14 @@ package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.map.LapPosition;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.utils.log.NLog;
 
 /**
  * A component to track the racer time
  */
 public class LapPositionComponent implements Racer.Component {
-    private final MapInfo mMapInfo;
+    private final Track mTrack;
     private final Vehicle mVehicle;
 
     private float mBestLapTime = -1;
@@ -37,8 +37,8 @@ public class LapPositionComponent implements Racer.Component {
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mHasFinishedRace = false;
 
-    public LapPositionComponent(MapInfo mapInfo, Vehicle vehicle) {
-        mMapInfo = mapInfo;
+    public LapPositionComponent(Track track, Vehicle vehicle) {
+        mTrack = track;
         mVehicle = vehicle;
     }
 
@@ -77,7 +77,7 @@ public class LapPositionComponent implements Racer.Component {
         final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
         final int pixelX = (int)(PFU * mVehicle.getX());
         final int pixelY = (int)(PFU * mVehicle.getY());
-        final LapPosition pos = mMapInfo.getLapPositionTable().get(pixelX, pixelY);
+        final LapPosition pos = mTrack.getLapPositionTable().get(pixelX, pixelY);
         if (pos == null) {
             NLog.e("No LapPosition at pixel " + pixelX + " x " + pixelY);
             return;
@@ -91,7 +91,7 @@ public class LapPositionComponent implements Racer.Component {
                 onLapCompleted();
             }
             ++mLapCount;
-            if (mLapCount > mMapInfo.getTotalLapCount()) {
+            if (mLapCount > mTrack.getTotalLapCount()) {
                 --mLapCount;
                 mHasFinishedRace = true;
             }
@@ -112,14 +112,14 @@ public class LapPositionComponent implements Racer.Component {
             return;
         }
         // Completing one lap represents that percentage of the race
-        float lapPercent = 1f / mMapInfo.getTotalLapCount();
+        float lapPercent = 1f / mTrack.getTotalLapCount();
 
-        float lastLapPercent = mLapPosition.getLapDistance() / mMapInfo.getLapPositionTable().getSectionCount() * lapPercent;
+        float lastLapPercent = mLapPosition.getLapDistance() / mTrack.getLapPositionTable().getSectionCount() * lapPercent;
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
         mTotalTime = mTotalTime / percentageDone;
         if (mBestLapTime < 0) {
-            mBestLapTime = mTotalTime / mMapInfo.getTotalLapCount();
+            mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
         }
         mHasFinishedRace = true;
     }

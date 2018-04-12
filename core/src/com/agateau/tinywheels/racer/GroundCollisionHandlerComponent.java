@@ -21,7 +21,7 @@ package com.agateau.tinywheels.racer;
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.racescreen.Helicopter;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.utils.OrientedPoint;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -39,7 +39,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final LapPositionComponent mLapPositionComponent;
-    private final MapInfo mMapInfo;
+    private final Track mTrack;
     private final Racer mRacer;
     private OrientedPoint mDropPoint;
     private final Vector2 mVelocity = new Vector2();
@@ -61,7 +61,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         mGameWorld = gameWorld;
         mRacer = racer;
         mVehicle = racer.getVehicle();
-        mMapInfo = gameWorld.getMapInfo();
+        mTrack = gameWorld.getTrack();
         mLapPositionComponent = lapPositionComponent;
     }
 
@@ -91,13 +91,13 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void actNormal() {
-        if (mGameWorld.getMapInfo().getMaterialAt(mVehicle.getPosition()).isHole()) {
+        if (mGameWorld.getTrack().getMaterialAt(mVehicle.getPosition()).isHole()) {
             startFalling();
         }
     }
 
     private void startFalling() {
-        mHelicopter = Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getMapInfo(), mVehicle.getPosition(), mVehicle.getAngle());
+        mHelicopter = Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getTrack(), mVehicle.getPosition(), mVehicle.getAngle());
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
@@ -129,7 +129,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private void startRecovering() {
         mState = State.RECOVERING;
         float distance = mLapPositionComponent.getLapDistance();
-        mDropPoint = mMapInfo.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
+        mDropPoint = mTrack.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
     }
 
     private void actRecovering(float delta) {

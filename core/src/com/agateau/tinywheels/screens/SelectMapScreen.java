@@ -70,7 +70,7 @@ public class SelectMapScreen extends TwStageScreen {
         mMapSelector = new MapSelector(menu);
         mMapSelector.setColumnCount(2);
         mMapSelector.init(assets);
-        mMapSelector.setCurrent(assets.findMapInfoByID(mGameModeConfig.map));
+        mMapSelector.setCurrent(assets.findTrackByID(mGameModeConfig.map));
         menu.addItem(mMapSelector);
 
         mMapSelector.addListener(new MenuItemListener() {
@@ -100,7 +100,7 @@ public class SelectMapScreen extends TwStageScreen {
 
     private void next() {
         saveSelectedMap();
-        mGameInfo.mapInfo = mMapSelector.getSelected();
+        mGameInfo.track = mMapSelector.getSelected();
         mMaestro.actionTriggered("next");
     }
 }

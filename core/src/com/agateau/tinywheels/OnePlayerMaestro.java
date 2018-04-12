@@ -50,7 +50,7 @@ public class OnePlayerMaestro implements Maestro {
             }
         } else if (current.equals("RaceScreen")) {
             if (action.equals("restart")) {
-                ((RaceScreen)mGame.getScreen()).forgetMapInfo();
+                ((RaceScreen)mGame.getScreen()).forgetTrack();
                 mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
             } else if (action.equals("quit")) {
                 mGame.showMainMenu();

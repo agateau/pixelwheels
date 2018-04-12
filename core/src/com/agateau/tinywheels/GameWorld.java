@@ -24,7 +24,7 @@ import com.agateau.tinywheels.bonus.GunBonus;
 import com.agateau.tinywheels.bonus.MineBonus;
 import com.agateau.tinywheels.bonus.TurboBonus;
 import com.agateau.tinywheels.gameobjet.GameObject;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racer.AIPilot;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.PlayerPilot;
@@ -68,7 +68,7 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int POSITION_ITERATIONS = 2;
 
     private final TwGame mGame;
-    private MapInfo mMapInfo;
+    private Track mTrack;
     private final CountDown mCountDown;
 
     private final World mBox2DWorld;
@@ -89,8 +89,8 @@ public class GameWorld implements ContactListener, Disposable {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mMapInfo = gameInfo.mapInfo;
-        mMapInfo.init();
+        mTrack = gameInfo.track;
+        mTrack.init();
         mCountDown = new CountDown(this);
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
@@ -101,8 +101,8 @@ public class GameWorld implements ContactListener, Disposable {
         setupBonusPools();
     }
 
-    public MapInfo getMapInfo() {
-        return mMapInfo;
+    public Track getTrack() {
+        return mTrack;
     }
 
     public World getBox2DWorld() {
@@ -246,7 +246,7 @@ public class GameWorld implements ContactListener, Disposable {
         Assets assets = mGame.getAssets();
 
         final float startAngle = 90;
-        Array<Vector2> positions = mMapInfo.findStartTilePositions();
+        Array<Vector2> positions = mTrack.findStartTilePositions();
         positions.reverse();
 
         Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
@@ -272,7 +272,7 @@ public class GameWorld implements ContactListener, Disposable {
                 VehicleDef vehicleDef = vehicleDefs.get(idx % vehicleDefs.size);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
                 racer = new Racer(assets, audioManager, this, vehicle);
-                racer.setPilot(new AIPilot(this, mMapInfo, racer));
+                racer.setPilot(new AIPilot(this, mTrack, racer));
             }
             addGameObject(racer);
             mRacers.add(racer);
@@ -280,7 +280,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupRoadBorders() {
-        for (MapObject object : mMapInfo.getBorderObjects()) {
+        for (MapObject object : mTrack.getBorderObjects()) {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER
@@ -291,7 +291,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupBonusSpots() {
-        for (Vector2 pos : mMapInfo.findBonusSpotPositions()) {
+        for (Vector2 pos : mTrack.findBonusSpotPositions()) {
             BonusSpot spot = new BonusSpot(mGame.getAssets(), mGame.getAudioManager(), this, pos.x, pos.y);
             addGameObject(spot);
         }
@@ -365,8 +365,8 @@ public class GameWorld implements ContactListener, Disposable {
 
     @Override
     public void dispose() {
-        if (mMapInfo != null) {
-            mMapInfo.dispose();
+        if (mTrack != null) {
+            mTrack.dispose();
         }
         for (GameObject gameObject : mActiveGameObjects) {
             if (gameObject instanceof Disposable) {
@@ -376,8 +376,8 @@ public class GameWorld implements ContactListener, Disposable {
         mActiveGameObjects.clear();
     }
 
-    public void forgetMapInfo() {
-        mMapInfo = null;
+    public void forgetTrack() {
+        mTrack = null;
     }
 
 }

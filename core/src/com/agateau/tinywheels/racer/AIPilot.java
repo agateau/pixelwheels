@@ -21,7 +21,7 @@ package com.agateau.tinywheels.racer;
 import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.map.WaypointStore;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
@@ -36,7 +36,7 @@ public class AIPilot implements Pilot {
     private static final float MAX_BLOCKED_DURATION = 1;
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private final GameWorld mGameWorld;
-    private final MapInfo mMapInfo;
+    private final Track mTrack;
     private final Racer mRacer;
 
     private enum State {
@@ -48,9 +48,9 @@ public class AIPilot implements Pilot {
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
 
-    public AIPilot(GameWorld gameWorld, MapInfo mapInfo, Racer racer) {
+    public AIPilot(GameWorld gameWorld, Track track, Racer racer) {
         mGameWorld = gameWorld;
-        mMapInfo = mapInfo;
+        mTrack = track;
         mRacer = racer;
     }
 
@@ -132,7 +132,7 @@ public class AIPilot implements Pilot {
 
     private void updateTargetVector() {
         float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
-        WaypointStore store = mMapInfo.getWaypointStore();
+        WaypointStore store = mTrack.getWaypointStore();
         int index = store.getWaypointIndex(lapDistance);
         Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
         mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());

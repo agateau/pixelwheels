@@ -19,7 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameinput.GameInputHandler;
-import com.agateau.tinywheels.map.MapInfo;
+import com.agateau.tinywheels.map.Track;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -30,7 +30,7 @@ public class GameInfo {
         String vehicleId;
         GameInputHandler inputHandler;
     }
-    public MapInfo mapInfo;
+    public Track track;
     private final Array<Player> mPlayers = new Array<Player>();
 
     public Array<Player> getPlayers() {
