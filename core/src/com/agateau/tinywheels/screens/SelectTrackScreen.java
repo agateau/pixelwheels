@@ -33,7 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Select your map
+ * Select your track
  */
 public class SelectTrackScreen extends TwStageScreen {
     private final TwGame mGame;
@@ -70,7 +70,7 @@ public class SelectTrackScreen extends TwStageScreen {
         mTrackSelector = new TrackSelector(menu);
         mTrackSelector.setColumnCount(2);
         mTrackSelector.init(assets);
-        mTrackSelector.setCurrent(assets.findTrackByID(mGameModeConfig.map));
+        mTrackSelector.setCurrent(assets.findTrackByID(mGameModeConfig.track));
         menu.addItem(mTrackSelector);
 
         mTrackSelector.addListener(new MenuItemListener() {
@@ -94,7 +94,7 @@ public class SelectTrackScreen extends TwStageScreen {
     }
 
     private void saveSelectedMap() {
-        mGameModeConfig.map = mTrackSelector.getSelected().getId();
+        mGameModeConfig.track = mTrackSelector.getSelected().getId();
         mGame.getConfig().flush();
     }
 

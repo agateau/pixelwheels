@@ -25,9 +25,9 @@ public class PrefConstants {
     public static final String INPUT = "input";
     public static final String INPUT_DEFAULT = "";
     public static final String ONEPLAYER_VEHICLE_ID = "onePlayer.vehicleID";
-    public static final String ONEPLAYER_MAP_ID = "onePlayer.mapID";
+    public static final String ONEPLAYER_TRACK_ID = "onePlayer.trackID";
     public static final String MULTIPLAYER_VEHICLE_ID_PREFIX = "multiPlayer.vehicleID.";
-    public static final String MULTIPLAYER_MAP_ID = "multiPlayer.mapID";
+    public static final String MULTIPLAYER_TRACK_ID = "multiPlayer.trackID";
     public static final String ROTATE_SCREEN = "rotateScreen";
     public static final String AUDIO = "audio";
     public static final String FULLSCREEN = "fullscreen";

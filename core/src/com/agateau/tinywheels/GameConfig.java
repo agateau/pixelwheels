@@ -33,7 +33,7 @@ public class GameConfig {
     }
 
     static public class GameModeConfig {
-        public String map;
+        public String track;
     }
 
     public boolean fullscreen = false;
@@ -61,9 +61,9 @@ public class GameConfig {
             multiPlayerVehicles[idx] = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx));
         }
 
-        onePlayer.map = mPreferences.getString(PrefConstants.ONEPLAYER_MAP_ID);
+        onePlayer.track = mPreferences.getString(PrefConstants.ONEPLAYER_TRACK_ID);
 
-        multiPlayer.map = mPreferences.getString(PrefConstants.MULTIPLAYER_MAP_ID);
+        multiPlayer.track = mPreferences.getString(PrefConstants.MULTIPLAYER_TRACK_ID);
     }
 
     public void addListener(ChangeListener listener) {
@@ -80,8 +80,8 @@ public class GameConfig {
             mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx), multiPlayerVehicles[idx]);
         }
 
-        mPreferences.putString(PrefConstants.ONEPLAYER_MAP_ID, onePlayer.map);
-        mPreferences.putString(PrefConstants.MULTIPLAYER_MAP_ID, multiPlayer.map);
+        mPreferences.putString(PrefConstants.ONEPLAYER_TRACK_ID, onePlayer.track);
+        mPreferences.putString(PrefConstants.MULTIPLAYER_TRACK_ID, multiPlayer.track);
 
         mPreferences.flush();
         for (WeakReference<ChangeListener> listenerRef : mListeners) {

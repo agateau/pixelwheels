@@ -100,7 +100,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         gameConfig.onePlayerVehicle = id;
         gameConfig.flush();
 
-        // If we came here from the map screen then a player has already been added, remove it
+        // If we came here from the track screen then a player has already been added, remove it
         mGameInfo.clearPlayers();
 
         String inputHandlerId = gameConfig.input;

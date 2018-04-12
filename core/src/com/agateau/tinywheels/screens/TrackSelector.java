@@ -26,7 +26,7 @@ import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * A menu item to select a map
+ * A menu item to select a track
  */
 public class TrackSelector extends GridMenuItem<Track> {
     private Assets mAssets;
