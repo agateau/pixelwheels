@@ -25,22 +25,15 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Details about the game to start
  */
-public class GameInfo {
+public abstract class GameInfo {
     public static class Player {
         String vehicleId;
         GameInputHandler inputHandler;
     }
 
-    private Track mTrack;
     private final Array<Player> mPlayers = new Array<Player>();
 
-    public Track getTrack() {
-        return mTrack;
-    }
-
-    public void setTrack(Track track) {
-        mTrack = track;
-    }
+    public abstract Track getTrack();
 
     public Array<Player> getPlayers() {
         return mPlayers;

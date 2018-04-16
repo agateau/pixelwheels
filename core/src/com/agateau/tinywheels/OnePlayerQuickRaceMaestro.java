@@ -27,7 +27,7 @@ import com.agateau.tinywheels.screens.SelectVehicleScreen;
  */
 public class OnePlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final GameInfo mGameInfo = new GameInfo();
+    private final QuickRaceGameInfo mGameInfo = new QuickRaceGameInfo();
 
     public OnePlayerQuickRaceMaestro(TwGame game) {
         mGame = game;

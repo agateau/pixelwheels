@@ -1,15 +1,15 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.map.Championship;
+import com.agateau.tinywheels.map.Track;
+import com.agateau.utils.Assert;
 
 public class ChampionshipGameInfo extends GameInfo {
     public Championship championship;
-    // TODO: make track private, and use different implementations of getTrack()
     private int mTrackIndex = 0;
 
     void restart() {
         mTrackIndex = 0;
-        this.setTrack(this.championship.getTracks().get(mTrackIndex));
     }
 
     public boolean isLastTrack() {
@@ -17,7 +17,12 @@ public class ChampionshipGameInfo extends GameInfo {
     }
 
     public void selectNextTrack() {
+        Assert.check(!isLastTrack(), "Can't select past the last track");
         mTrackIndex++;
-        this.setTrack(this.championship.getTracks().get(mTrackIndex));
+    }
+
+    @Override
+    public Track getTrack() {
+        return this.championship.getTracks().get(mTrackIndex);
     }
 }

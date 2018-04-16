@@ -20,14 +20,14 @@ package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.Maestro;
+import com.agateau.tinywheels.QuickRaceGameInfo;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -37,12 +37,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class SelectTrackScreen extends TwStageScreen {
     private final TwGame mGame;
-    private final GameInfo mGameInfo;
+    private final QuickRaceGameInfo mGameInfo;
     private final Maestro mMaestro;
     private final GameConfig.GameModeConfig mGameModeConfig;
     private TrackSelector mTrackSelector;
 
-    public SelectTrackScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+    public SelectTrackScreen(TwGame game, Maestro maestro, QuickRaceGameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
         super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
