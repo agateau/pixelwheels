@@ -9,7 +9,7 @@ public class ChampionshipGameInfo extends GameInfo {
 
     void restart() {
         mTrackIndex = 0;
-        this.track = this.championship.getTracks().get(mTrackIndex);
+        this.setTrack(this.championship.getTracks().get(mTrackIndex));
     }
 
     public boolean isLastTrack() {
@@ -18,6 +18,6 @@ public class ChampionshipGameInfo extends GameInfo {
 
     public void selectNextTrack() {
         mTrackIndex++;
-        this.track = this.championship.getTracks().get(mTrackIndex);
+        this.setTrack(this.championship.getTracks().get(mTrackIndex));
     }
 }

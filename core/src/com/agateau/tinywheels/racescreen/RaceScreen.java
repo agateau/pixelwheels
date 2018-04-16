@@ -70,14 +70,14 @@ public class RaceScreen extends ScreenAdapter {
     private PauseOverlay mPauseOverlay = null;
 
     public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
-        NLog.i("Starting race on %s", gameInfo.track.getMapName());
+        NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mMaestro = maestro;
         SpriteBatch batch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
-        mBackgroundColor = gameInfo.track.getBackgroundColor();
+        mBackgroundColor = gameInfo.getTrack().getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
@@ -92,7 +92,7 @@ public class RaceScreen extends ScreenAdapter {
             HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
             if (Debug.instance.showDebugLayer) {
-                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.track));
+                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.getTrack()));
             }
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {

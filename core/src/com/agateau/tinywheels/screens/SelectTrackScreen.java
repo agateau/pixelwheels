@@ -100,7 +100,7 @@ public class SelectTrackScreen extends TwStageScreen {
 
     private void next() {
         saveSelectedMap();
-        mGameInfo.track = mTrackSelector.getSelected();
+        mGameInfo.setTrack(mTrackSelector.getSelected());
         mMaestro.actionTriggered("next");
     }
 }

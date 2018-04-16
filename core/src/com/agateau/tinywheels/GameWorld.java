@@ -89,7 +89,7 @@ public class GameWorld implements ContactListener, Disposable {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mTrack = gameInfo.track;
+        mTrack = gameInfo.getTrack();
         mTrack.init();
         mCountDown = new CountDown(this);
 

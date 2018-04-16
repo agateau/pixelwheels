@@ -30,8 +30,17 @@ public class GameInfo {
         String vehicleId;
         GameInputHandler inputHandler;
     }
-    public Track track;
+
+    private Track mTrack;
     private final Array<Player> mPlayers = new Array<Player>();
+
+    public Track getTrack() {
+        return mTrack;
+    }
+
+    public void setTrack(Track track) {
+        mTrack = track;
+    }
 
     public Array<Player> getPlayers() {
         return mPlayers;
