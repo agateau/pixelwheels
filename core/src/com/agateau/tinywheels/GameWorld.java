@@ -251,7 +251,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
         for (GameInfo.Player player : players) {
-            VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
+            VehicleDef vehicleDef = assets.findVehicleDefByID(player.vehicleId);
             vehicleDefs.removeValue(vehicleDef, /* identity= */ true);
         }
         vehicleDefs.shuffle();
@@ -263,7 +263,7 @@ public class GameWorld implements ContactListener, Disposable {
             Racer racer;
             if (idx >= firstPlayerIdx) {
                 GameInfo.Player player = players.get(idx - firstPlayerIdx);
-                VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
+                VehicleDef vehicleDef = assets.findVehicleDefByID(player.vehicleId);
                 Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
                 racer = new Racer(assets, audioManager, this, vehicle);
                 racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));

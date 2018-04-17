@@ -136,15 +136,6 @@ public class Assets {
                 .addTrack(findTrackByID("tiny-sur-mer")));
     }
 
-    public VehicleDef getVehicleById(String id) {
-        for (VehicleDef def : this.vehicleDefs) {
-            if (def.id.equals(id)) {
-                return def;
-            }
-        }
-        return null;
-    }
-
     private static void removeBorders(TextureRegion region) {
         region.setRegionX(region.getRegionX() + 2);
         region.setRegionY(region.getRegionY() + 2);
