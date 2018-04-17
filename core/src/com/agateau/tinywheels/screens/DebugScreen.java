@@ -97,6 +97,7 @@ public class DebugScreen extends TwStageScreen {
         addCheckBox("- Draw velocities", "drawVelocities");
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
+        addCheckBox("One lap only", "oneLapOnly");
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override

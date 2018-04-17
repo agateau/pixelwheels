@@ -19,6 +19,7 @@
 package com.agateau.tinywheels.map;
 
 import com.agateau.tinywheels.Constants;
+import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
@@ -117,7 +118,7 @@ public class Track implements Disposable {
     }
 
     public int getTotalLapCount() {
-        return 3;
+        return Debug.instance.oneLapOnly ? 1 : 3;
     }
 
     public TiledMap getMap() {

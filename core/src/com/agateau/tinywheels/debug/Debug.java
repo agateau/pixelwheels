@@ -27,6 +27,7 @@ public class Debug {
     public boolean drawVelocities = false;
     public boolean drawTileCorners = false;
     public boolean showHudDebugLines = false;
+    public boolean oneLapOnly = false;
 
     public final static Debug instance = new Debug();
 }
