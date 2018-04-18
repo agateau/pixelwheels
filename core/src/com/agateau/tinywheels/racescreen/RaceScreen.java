@@ -21,19 +21,18 @@ package com.agateau.tinywheels.racescreen;
 import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
-import com.agateau.tinywheels.racer.RacerDebugShape;
-import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
+import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.racer.Pilot;
 import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
+import com.agateau.tinywheels.racer.RacerDebugShape;
 import com.agateau.tinywheels.racer.Vehicle;
+import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -50,8 +49,13 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
+    public interface Listener {
+        void onRestartPressed();
+        void onQuitPressed();
+        void onNextTrackPressed();
+    }
     private final TwGame mGame;
-    private final Maestro mMaestro;
+    private final Listener mListener;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
 
@@ -69,10 +73,10 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
-    public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+    public RaceScreen(TwGame game, Listener listener, GameInfo gameInfo) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
-        mMaestro = maestro;
+        mListener = listener;
         SpriteBatch batch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
@@ -216,13 +220,13 @@ public class RaceScreen extends ScreenAdapter {
         for (Racer racer : mGameWorld.getRacers()) {
             racer.markRaceFinished();
         }
-        FinishedOverlay overlay = new FinishedOverlay(mGame, mMaestro, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
+        FinishedOverlay overlay = new FinishedOverlay(mGame, mListener, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
         mHudStage.addActor(overlay);
     }
 
     private void pauseRace() {
         mGame.getAudioManager().setMuted(true);
-        mPauseOverlay = new PauseOverlay(mGame, mMaestro, this);
+        mPauseOverlay = new PauseOverlay(mGame, mListener, this);
         mHudStage.addActor(mPauseOverlay);
     }
 

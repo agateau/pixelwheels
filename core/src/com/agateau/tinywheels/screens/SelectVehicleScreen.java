@@ -19,17 +19,12 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.GameInfo;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -38,21 +33,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Select your vehicle
  */
 public class SelectVehicleScreen extends TwStageScreen {
+    public interface Listener {
+        void onBackPressed();
+        void onVehicleSelected(String vehicleId);
+    }
     private final TwGame mGame;
-    private final Maestro mMaestro;
-    private final GameInfo mGameInfo;
+    private final Listener mListener;
     private VehicleSelector mVehicleSelector;
 
-    public SelectVehicleScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+    public SelectVehicleScreen(TwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
-        mMaestro = maestro;
-        mGameInfo = gameInfo;
+        mListener = listener;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectVehicleScreen(mGame, mMaestro, mGameInfo));
+                mGame.replaceScreen(new SelectVehicleScreen(mGame, mListener));
             }
         };
     }
@@ -69,7 +66,7 @@ public class SelectVehicleScreen extends TwStageScreen {
 
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets);
-        String id = mGame.getConfig().onePlayerVehicle;
+        String id = mGame.getConfig().onePlayer.vehicles[0];
         mVehicleSelector.setCurrent(assets.findVehicleDefByID(id));
         menu.addItem(mVehicleSelector);
 
@@ -90,22 +87,11 @@ public class SelectVehicleScreen extends TwStageScreen {
 
     @Override
     public void onBackPressed() {
-        mMaestro.actionTriggered("back");
+        mListener.onBackPressed();
     }
 
     private void next() {
         String id = mVehicleSelector.getSelectedId();
-        GameConfig gameConfig = mGame.getConfig();
-
-        gameConfig.onePlayerVehicle = id;
-        gameConfig.flush();
-
-        // If we came here from the track screen then a player has already been added, remove it
-        mGameInfo.clearPlayers();
-
-        String inputHandlerId = gameConfig.input;
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        mGameInfo.addPlayer(id, factory.create());
-        mMaestro.actionTriggered("next");
+        mListener.onVehicleSelected(id);
     }
 }

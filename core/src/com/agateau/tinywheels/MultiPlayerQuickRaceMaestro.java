@@ -18,48 +18,85 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gameinput.GameInputHandler;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
+import com.badlogic.gdx.Screen;
 
 /**
  * Handle a multi player game
  */
 public class MultiPlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final QuickRaceGameInfo mGameInfo = new QuickRaceGameInfo();
+    private final QuickRaceGameInfo mGameInfo;
 
     public MultiPlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-    }
-
-    @Override
-    public void actionTriggered(String action) {
-        String current = mGame.getScreen().getClass().getSimpleName();
-        if (current.equals("MultiPlayerScreen")) {
-            if (action.equals("next")) {
-                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().multiPlayer));
-            } else if (action.equals("back")) {
-                mGame.showMainMenu();
-            }
-        } else if (current.equals("SelectTrackScreen")) {
-            if (action.equals("next")) {
-                mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
-            } else if (action.equals("back")) {
-                mGame.replaceScreen(new MultiPlayerScreen(mGame, this, mGameInfo));
-            }
-        } else if (current.equals("RaceScreen")) {
-            if (action.equals("restart")) {
-                ((RaceScreen)mGame.getScreen()).forgetTrack();
-                mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
-            } else if (action.equals("quit")) {
-                mGame.showMainMenu();
-            }
-        }
+        mGameInfo = new QuickRaceGameInfo(mGame.getConfig(), mGame.getConfig().multiPlayer);
     }
 
     @Override
     public void start() {
-        mGame.replaceScreen(new MultiPlayerScreen(mGame, this, mGameInfo));
+        mGame.replaceScreen(createMultiPlayerScreen());
+    }
+
+    private Screen createMultiPlayerScreen() {
+        MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.showMainMenu();
+            }
+
+            @Override
+            public void onVehicleSelected(String vehicleId, GameInputHandler inputHandler) {
+                mGameInfo.addPlayer(vehicleId, inputHandler);
+            }
+
+            @Override
+            public void onDone() {
+                mGame.replaceScreen(createSelectTrackScreen());
+            }
+        };
+        // If we came here from the track screen then a player has already been added, remove it
+        mGameInfo.clearPlayers();
+        return new MultiPlayerScreen(mGame, listener);
+    }
+
+    private Screen createSelectTrackScreen() {
+        SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.replaceScreen(createMultiPlayerScreen());
+            }
+            @Override
+            public void onTrackSelected(Track track) {
+                mGameInfo.setTrack(track);
+                mGame.replaceScreen(createRaceScreen());
+            }
+        };
+        return new SelectTrackScreen(mGame, listener, mGame.getConfig().onePlayer);
+    }
+
+    private Screen createRaceScreen() {
+        RaceScreen.Listener listener = new RaceScreen.Listener() {
+            @Override
+            public void onRestartPressed() {
+                ((RaceScreen)mGame.getScreen()).forgetTrack();
+                mGame.replaceScreen(createRaceScreen());
+            }
+
+            @Override
+            public void onQuitPressed() {
+                mGame.showMainMenu();
+            }
+
+            @Override
+            public void onNextTrackPressed() {
+                mGame.showMainMenu();
+            }
+        };
+        return new RaceScreen(mGame, listener, mGameInfo);
     }
 }

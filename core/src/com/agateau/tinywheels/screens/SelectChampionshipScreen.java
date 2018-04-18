@@ -23,6 +23,7 @@ import com.agateau.tinywheels.ChampionshipGameInfo;
 import com.agateau.tinywheels.GameConfig;
 import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.map.Championship;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -36,28 +37,28 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Select the championship
  */
 public class SelectChampionshipScreen extends TwStageScreen {
+    public interface Listener {
+        void onBackPressed();
+        void onChampionshipSelected(Championship championship);
+    }
     private final TwGame mGame;
-    private final ChampionshipGameInfo mGameInfo;
-    private final Maestro mMaestro;
-    private final GameConfig.GameModeConfig mGameModeConfig;
+    private final Listener mListener;
     private ChampionshipSelector mChampionshipSelector;
 
-    public SelectChampionshipScreen(TwGame game, Maestro maestro, ChampionshipGameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+    public SelectChampionshipScreen(TwGame game, Listener listener, final String championshipId) {
         super(game.getAssets().ui);
         mGame = game;
-        mMaestro = maestro;
-        mGameInfo = gameInfo;
-        mGameModeConfig = gameModeConfig;
-        setupUi();
+        mListener = listener;
+        setupUi(championshipId);
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectChampionshipScreen(mGame, mMaestro, mGameInfo, mGameModeConfig));
+                mGame.replaceScreen(new SelectChampionshipScreen(mGame, mListener, championshipId));
             }
         };
     }
 
-    private void setupUi() {
+    private void setupUi(String championshipId) {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
@@ -70,7 +71,7 @@ public class SelectChampionshipScreen extends TwStageScreen {
         mChampionshipSelector = new ChampionshipSelector(menu);
         mChampionshipSelector.setColumnCount(2);
         mChampionshipSelector.init(assets);
-        mChampionshipSelector.setCurrent(assets.findChampionshipByID(mGameModeConfig.championship));
+        mChampionshipSelector.setCurrent(assets.findChampionshipByID(championshipId));
         menu.addItem(mChampionshipSelector);
 
         mChampionshipSelector.addListener(new MenuItemListener() {
@@ -90,17 +91,10 @@ public class SelectChampionshipScreen extends TwStageScreen {
 
     @Override
     public void onBackPressed() {
-        mMaestro.actionTriggered("back");
-    }
-
-    private void saveSelectedChampionship() {
-        mGameModeConfig.championship = mChampionshipSelector.getSelected().getId();
-        mGame.getConfig().flush();
+        mListener.onBackPressed();
     }
 
     private void next() {
-        saveSelectedChampionship();
-        mGameInfo.championship = mChampionshipSelector.getSelected();
-        mMaestro.actionTriggered("next");
+        mListener.onChampionshipSelected(mChampionshipSelector.getSelected());
     }
 }

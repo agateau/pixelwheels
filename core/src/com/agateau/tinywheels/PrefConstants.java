@@ -24,10 +24,11 @@ package com.agateau.tinywheels;
 public class PrefConstants {
     public static final String INPUT = "input";
     public static final String INPUT_DEFAULT = "";
-    public static final String ONEPLAYER_VEHICLE_ID = "onePlayer.vehicleID";
-    public static final String ONEPLAYER_TRACK_ID = "onePlayer.trackID";
-    public static final String MULTIPLAYER_VEHICLE_ID_PREFIX = "multiPlayer.vehicleID.";
-    public static final String MULTIPLAYER_TRACK_ID = "multiPlayer.trackID";
+    public static final String ONE_PLAYER_PREFIX = "onePlayer.";
+    public static final String MULTI_PLAYER_PREFIX = "multiPlayer.";
+    public static final String VEHICLE_ID_PREFIX = "vehicleID.";
+    public static final String TRACK_ID = "trackID";
+    public static final String CHAMPIONSHIP_ID = "championshipID";
     public static final String ROTATE_SCREEN = "rotateScreen";
     public static final String AUDIO = "audio";
     public static final String FULLSCREEN = "fullscreen";

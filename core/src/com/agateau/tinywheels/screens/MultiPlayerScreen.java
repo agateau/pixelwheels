@@ -20,17 +20,16 @@ package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.GameInfo;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -41,17 +40,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Select player vehicles
  */
 public class MultiPlayerScreen extends TwStageScreen {
+    public interface Listener {
+        void onBackPressed();
+        void onVehicleSelected(String vehicleId, GameInputHandler inputHandler);
+        void onDone();
+    }
     private final TwGame mGame;
-    private final Maestro mMaestro;
-    private final GameInfo mGameInfo;
+    private final Listener mListener;
     private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
     private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
-    public MultiPlayerScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
+    public MultiPlayerScreen(TwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
-        mMaestro = maestro;
-        mGameInfo = gameInfo;
+        mListener = listener;
 
         mKeyMappers[0] = KeyMapper.getDefaultInstance();
         mKeyMappers[1] = new KeyMapper();
@@ -67,7 +69,7 @@ public class MultiPlayerScreen extends TwStageScreen {
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new MultiPlayerScreen(mGame, mMaestro, mGameInfo));
+                mGame.replaceScreen(new MultiPlayerScreen(mGame, mListener));
             }
         };
     }
@@ -93,12 +95,12 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     @Override
     public void onBackPressed() {
-        mMaestro.actionTriggered("back");
+        mListener.onBackPressed();
     }
 
     private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
         GameConfig gameConfig = mGame.getConfig();
-        String vehicleId = gameConfig.multiPlayerVehicles[idx];
+        String vehicleId = gameConfig.multiPlayer.vehicles[idx];
 
         Menu menu = builder.getActor("menu" + String.valueOf(idx + 1));
 
@@ -130,24 +132,16 @@ public class MultiPlayerScreen extends TwStageScreen {
     }
 
     private void next() {
-        // If we go back and forth between screens, there might already be some Player instances
-        // remove them
-        mGameInfo.clearPlayers();
-
-        GameConfig gameConfig = mGame.getConfig();
-
         for (int idx = 0; idx < 2; ++idx) {
             KeyboardInputHandler inputHandler;
             inputHandler = new KeyboardInputHandler();
             inputHandler.setKeyMapper(mKeyMappers[idx]);
 
             String id = mVehicleSelectors[idx].getSelectedId();
-            gameConfig.multiPlayerVehicles[idx] = id;
 
-            mGameInfo.addPlayer(id, inputHandler);
+            mListener.onVehicleSelected(id, inputHandler);
         }
 
-        gameConfig.flush();
-        mMaestro.actionTriggered("next");
+        mListener.onDone();
     }
 }

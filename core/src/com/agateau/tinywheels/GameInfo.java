@@ -19,6 +19,8 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameinput.GameInputHandler;
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.tinywheels.map.Track;
 import com.badlogic.gdx.utils.Array;
 
@@ -26,6 +28,9 @@ import com.badlogic.gdx.utils.Array;
  * Details about the game to start
  */
 public abstract class GameInfo {
+    protected final GameConfig mConfig;
+    protected final GameInfoConfig mGameInfoConfig;
+
     public static class Player {
         String vehicleId;
         GameInputHandler inputHandler;
@@ -33,20 +38,41 @@ public abstract class GameInfo {
 
     private final Array<Player> mPlayers = new Array<Player>();
 
+    public GameInfo(GameConfig config, GameInfoConfig gameInfoConfig) {
+        mConfig = config;
+        mGameInfoConfig = gameInfoConfig;
+    }
+
     public abstract Track getTrack();
 
     public Array<Player> getPlayers() {
         return mPlayers;
     }
 
+    public void addPlayer(String vehicleId) {
+        String inputHandlerId = mConfig.input;
+        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
+        addPlayer(vehicleId, factory.create());
+    }
+
     public void addPlayer(String vehicleId, GameInputHandler inputHandler) {
         Player player = new Player();
         player.vehicleId = vehicleId;
         player.inputHandler = inputHandler;
+
         mPlayers.add(player);
+        flush();
     }
 
     public void clearPlayers() {
         mPlayers.clear();
+    }
+
+    protected void flush() {
+        for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
+            String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).vehicleId : "";
+            mGameInfoConfig.vehicles[idx] = vehicleId;
+        }
+        mGameInfoConfig.flush();
     }
 }

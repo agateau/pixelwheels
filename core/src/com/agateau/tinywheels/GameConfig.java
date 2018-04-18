@@ -32,39 +32,33 @@ public class GameConfig {
         void change();
     }
 
-    static public class GameModeConfig {
-        public String track;
-        public String championship;
-    }
-
     public boolean fullscreen = false;
     public boolean rotateCamera = true;
     public boolean audio = true;
     public String input;
-    public String onePlayerVehicle;
-    public String[] multiPlayerVehicles = new String[2];
 
-    public GameModeConfig onePlayer = new GameModeConfig();
-    public GameModeConfig multiPlayer = new GameModeConfig();
+    public final GameInfoConfig onePlayer;
+    public final GameInfoConfig multiPlayer;
 
-    private Preferences mPreferences;
+    private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
 
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
+        onePlayer = new GameInfoConfig(mPreferences, PrefConstants.ONE_PLAYER_PREFIX);
+        multiPlayer = new GameInfoConfig(mPreferences, PrefConstants.MULTI_PLAYER_PREFIX);
+
+        load();
+    }
+
+    private void load() {
         rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN, true);
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
-        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
-            multiPlayerVehicles[idx] = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx));
-        }
-
-        onePlayer.track = mPreferences.getString(PrefConstants.ONEPLAYER_TRACK_ID);
-
-        multiPlayer.track = mPreferences.getString(PrefConstants.MULTIPLAYER_TRACK_ID);
+        onePlayer.load();
+        multiPlayer.load();
     }
 
     public void addListener(ChangeListener listener) {
@@ -76,13 +70,8 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
-        mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
-        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
-            mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx), multiPlayerVehicles[idx]);
-        }
-
-        mPreferences.putString(PrefConstants.ONEPLAYER_TRACK_ID, onePlayer.track);
-        mPreferences.putString(PrefConstants.MULTIPLAYER_TRACK_ID, multiPlayer.track);
+        onePlayer.flush();
+        multiPlayer.flush();
 
         mPreferences.flush();
         for (WeakReference<ChangeListener> listenerRef : mListeners) {

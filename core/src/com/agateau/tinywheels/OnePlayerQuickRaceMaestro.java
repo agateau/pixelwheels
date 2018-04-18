@@ -18,48 +18,80 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
 import com.agateau.tinywheels.screens.SelectVehicleScreen;
+import com.badlogic.gdx.Screen;
 
 /**
  * Handle a one player game
  */
 public class OnePlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final QuickRaceGameInfo mGameInfo = new QuickRaceGameInfo();
+    private final QuickRaceGameInfo mGameInfo;
 
     public OnePlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-    }
-
-    @Override
-    public void actionTriggered(String action) {
-        String current = mGame.getScreen().getClass().getSimpleName();
-        if (current.equals("SelectVehicleScreen")) {
-            if (action.equals("next")) {
-                mGame.replaceScreen(new SelectTrackScreen(mGame, this, mGameInfo, mGame.getConfig().onePlayer));
-            } else if (action.equals("back")) {
-                mGame.popScreen();
-            }
-        } else if (current.equals("SelectTrackScreen")) {
-            if (action.equals("next")) {
-                mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
-            } else if (action.equals("back")) {
-                mGame.replaceScreen(new SelectVehicleScreen(mGame, this, mGameInfo));
-            }
-        } else if (current.equals("RaceScreen")) {
-            if (action.equals("restart")) {
-                ((RaceScreen)mGame.getScreen()).forgetTrack();
-                mGame.replaceScreen(new RaceScreen(mGame, this, mGameInfo));
-            } else if (action.equals("quit")) {
-                mGame.showMainMenu();
-            }
-        }
+        mGameInfo = new QuickRaceGameInfo(game.getConfig(), game.getConfig().onePlayer);
     }
 
     @Override
     public void start() {
-        mGame.pushScreen(new SelectVehicleScreen(mGame, this, mGameInfo));
+        mGame.pushScreen(createSelectVehicleScreen());
+    }
+
+    private Screen createSelectVehicleScreen() {
+        SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.popScreen();
+            }
+
+            @Override
+            public void onVehicleSelected(String vehicleId) {
+                mGameInfo.addPlayer(vehicleId);
+                mGame.replaceScreen(createSelectTrackScreen());
+            }
+        };
+        // If we came here from the track screen then a player has already been added, remove it
+        mGameInfo.clearPlayers();
+        return new SelectVehicleScreen(mGame, listener);
+    }
+
+    private Screen createSelectTrackScreen() {
+        SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.replaceScreen(createSelectVehicleScreen());
+            }
+            @Override
+            public void onTrackSelected(Track track) {
+                mGameInfo.setTrack(track);
+                mGame.replaceScreen(createRaceScreen());
+            }
+        };
+        return new SelectTrackScreen(mGame, listener, mGame.getConfig().onePlayer);
+    }
+
+    private Screen createRaceScreen() {
+        RaceScreen.Listener listener = new RaceScreen.Listener() {
+            @Override
+            public void onRestartPressed() {
+                ((RaceScreen)mGame.getScreen()).forgetTrack();
+                mGame.replaceScreen(createRaceScreen());
+            }
+
+            @Override
+            public void onQuitPressed() {
+                mGame.showMainMenu();
+            }
+
+            @Override
+            public void onNextTrackPressed() {
+                mGame.showMainMenu();
+            }
+        };
+        return new RaceScreen(mGame, listener, mGameInfo);
     }
 }

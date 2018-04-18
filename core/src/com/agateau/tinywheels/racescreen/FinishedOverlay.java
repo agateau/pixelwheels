@@ -34,12 +34,12 @@ import com.badlogic.gdx.utils.Array;
  */
 public class FinishedOverlay extends Overlay {
     private final TwGame mGame;
-    private final Maestro mMaestro;
+    private final RaceScreen.Listener mListener;
 
-    public FinishedOverlay(TwGame game, Maestro maestro, final Array<Racer> racers, final Array<Racer> playerRacers) {
+    public FinishedOverlay(TwGame game, RaceScreen.Listener listener, final Array<Racer> racers, final Array<Racer> playerRacers) {
         super(game.getAssets().dot);
         mGame = game;
-        mMaestro = maestro;
+        mListener = listener;
         new RefreshHelper(this) {
             @Override
             protected void refresh() {
@@ -57,7 +57,7 @@ public class FinishedOverlay extends Overlay {
         menu.addButton("OK").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                mMaestro.actionTriggered("quit");
+                mListener.onNextTrackPressed();
             }
         });
         RacerListPane racerListPane = builder.getActor("racerListPane");
