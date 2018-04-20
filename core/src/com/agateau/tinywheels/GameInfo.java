@@ -27,9 +27,53 @@ import com.badlogic.gdx.utils.Array;
  * Details about the game to start
  */
 public abstract class GameInfo {
-    private final Array<VehicleDef> mVehicleDefs;
-    protected final GameInfoConfig mGameInfoConfig;
     private final Array<Entrant> mEntrants = new Array<Entrant>();
+
+    public static abstract class Builder<T extends GameInfo> {
+        protected final Array<VehicleDef> mVehicleDefs;
+        protected final GameInfoConfig mGameInfoConfig;
+        protected Array<Player> mPlayers;
+
+        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+            mVehicleDefs = vehicleDefs;
+            mGameInfoConfig = gameInfoConfig;
+        }
+
+        public void setPlayers(Array<Player> players) {
+            mPlayers = players;
+            storePlayersInConfig();
+        }
+
+        public abstract T build();
+
+        protected void createEntrants(GameInfo gameInfo) {
+            Array<String> vehicleIds = new Array<String>();
+            for (VehicleDef vehicleDef : mVehicleDefs) {
+                vehicleIds.add(vehicleDef.id);
+            }
+            for (GameInfo.Player player : mPlayers) {
+                vehicleIds.removeValue(player.vehicleId, /* identity= */ false);
+            }
+            vehicleIds.shuffle();
+            int aiCount = GamePlay.instance.racerCount - mPlayers.size;
+
+            gameInfo.mEntrants.clear();
+            for (int idx = 0; idx < aiCount; ++idx) {
+                Entrant entrant = new Entrant();
+                entrant.vehicleId = vehicleIds.get(idx % vehicleIds.size);
+                gameInfo.mEntrants.add(entrant);
+            }
+            gameInfo.mEntrants.addAll(mPlayers);
+        }
+
+        private void storePlayersInConfig() {
+            for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
+                String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).vehicleId : "";
+                mGameInfoConfig.vehicles[idx] = vehicleId;
+            }
+            mGameInfoConfig.flush();
+        }
+    }
 
     public static class Entrant {
         String vehicleId;
@@ -44,48 +88,9 @@ public abstract class GameInfo {
         }
     }
 
-    public GameInfo(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
-        mVehicleDefs = vehicleDefs;
-        mGameInfoConfig = gameInfoConfig;
-    }
-
     public abstract Track getTrack();
 
     public Array<Entrant> getEntrants() {
         return mEntrants;
-    }
-
-    public void setPlayers(Array<Player> players) {
-        Array<String> vehicleIds = new Array<String>();
-        for (VehicleDef vehicleDef : mVehicleDefs) {
-            vehicleIds.add(vehicleDef.id);
-        }
-        for (GameInfo.Player player : players) {
-            vehicleIds.removeValue(player.vehicleId, /* identity= */ false);
-        }
-        vehicleIds.shuffle();
-        int aiCount = GamePlay.instance.racerCount - players.size;
-
-        mEntrants.clear();
-        for (int idx = 0; idx < aiCount; ++idx) {
-            Entrant entrant = new Entrant();
-            entrant.vehicleId = vehicleIds.get(idx % vehicleIds.size);
-            mEntrants.add(entrant);
-        }
-        mEntrants.addAll(players);
-
-        storePlayersInConfig(players);
-        flush();
-    }
-
-    private void storePlayersInConfig(Array<Player> players) {
-        for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
-            String vehicleId = idx < players.size ? players.get(idx).vehicleId : "";
-            mGameInfoConfig.vehicles[idx] = vehicleId;
-        }
-    }
-
-    protected void flush() {
-        mGameInfoConfig.flush();
     }
 }

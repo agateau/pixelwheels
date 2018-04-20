@@ -30,11 +30,12 @@ import com.badlogic.gdx.utils.Array;
  */
 public class OnePlayerChampionshipMaestro implements Maestro {
     private final TwGame mGame;
-    private final ChampionshipGameInfo mGameInfo;
+    private final ChampionshipGameInfo.Builder mGameInfoBuilder;
+    private ChampionshipGameInfo mGameInfo;
 
     public OnePlayerChampionshipMaestro(TwGame game) {
         mGame = game;
-        mGameInfo = new ChampionshipGameInfo(mGame.getAssets().vehicleDefs, mGame.getConfig().onePlayer);
+        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().onePlayer);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class OnePlayerChampionshipMaestro implements Maestro {
             public void onPlayerSelected(GameInfo.Player player) {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
-                mGameInfo.setPlayers(players);
+                mGameInfoBuilder.setPlayers(players);
                 mGame.replaceScreen(createChampionshipScreen());
             }
         };
@@ -70,13 +71,17 @@ public class OnePlayerChampionshipMaestro implements Maestro {
 
             @Override
             public void onChampionshipSelected(Championship championship) {
-                mGameInfo.setChampionship(championship);
-                mGameInfo.restart();
-                mGame.replaceScreen(createRaceScreen());
+                mGameInfoBuilder.setChampionship(championship);
+                startChampionship();
             }
         };
 
         return new SelectChampionshipScreen(mGame, listener, gameInfoConfig.championship);
+    }
+
+    private void startChampionship() {
+        mGameInfo = mGameInfoBuilder.build();
+        mGame.replaceScreen(createRaceScreen());
     }
 
     private Screen createRaceScreen() {

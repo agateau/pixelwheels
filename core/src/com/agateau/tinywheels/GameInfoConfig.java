@@ -32,5 +32,6 @@ public class GameInfoConfig {
 
         mPreferences.putString(mPrefix + PrefConstants.TRACK_ID, this.track);
         mPreferences.putString(mPrefix + PrefConstants.CHAMPIONSHIP_ID, this.championship);
+        mPreferences.flush();
     }
 }

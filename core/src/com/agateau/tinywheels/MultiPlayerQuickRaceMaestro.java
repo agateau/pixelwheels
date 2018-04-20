@@ -18,7 +18,6 @@
  */
 package com.agateau.tinywheels;
 
-import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
@@ -31,11 +30,11 @@ import com.badlogic.gdx.utils.Array;
  */
 public class MultiPlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final QuickRaceGameInfo mGameInfo;
+    private final QuickRaceGameInfo.Builder mGameInfoBuilder;
 
     public MultiPlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-        mGameInfo = new QuickRaceGameInfo(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
+        mGameInfoBuilder = new QuickRaceGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
 
             @Override
             public void onPlayersSelected(Array<GameInfo.Player> players) {
-                mGameInfo.setPlayers(players);
+                mGameInfoBuilder.setPlayers(players);
                 mGame.replaceScreen(createSelectTrackScreen());
             }
         };
@@ -67,7 +66,7 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
             }
             @Override
             public void onTrackSelected(Track track) {
-                mGameInfo.setTrack(track);
+                mGameInfoBuilder.setTrack(track);
                 mGame.replaceScreen(createRaceScreen());
             }
         };
@@ -92,6 +91,7 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
                 mGame.showMainMenu();
             }
         };
-        return new RaceScreen(mGame, listener, mGameInfo);
+        QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
+        return new RaceScreen(mGame, listener, gameInfo);
     }
 }

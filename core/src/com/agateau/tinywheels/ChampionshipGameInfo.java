@@ -10,12 +10,26 @@ public class ChampionshipGameInfo extends GameInfo {
     private Championship mChampionship;
     private int mTrackIndex = 0;
 
-    public ChampionshipGameInfo(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
-        super(vehicleDefs, gameInfoConfig);
-    }
+    public static class Builder extends GameInfo.Builder<ChampionshipGameInfo> {
+        private Championship mChampionship;
 
-    void restart() {
-        mTrackIndex = 0;
+        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+            super(vehicleDefs, gameInfoConfig);
+        }
+
+        public void setChampionship(Championship championship) {
+            mChampionship = championship;
+            mGameInfoConfig.championship = mChampionship.getId();
+            mGameInfoConfig.flush();
+        }
+
+        @Override
+        public ChampionshipGameInfo build() {
+            ChampionshipGameInfo gameInfo = new ChampionshipGameInfo();
+            gameInfo.mChampionship = mChampionship;
+            createEntrants(gameInfo);
+            return gameInfo;
+        }
     }
 
     public boolean isLastTrack() {
@@ -30,22 +44,5 @@ public class ChampionshipGameInfo extends GameInfo {
     @Override
     public Track getTrack() {
         return mChampionship.getTracks().get(mTrackIndex);
-    }
-
-    public Championship getChampionship() {
-        return mChampionship;
-    }
-
-    public void setChampionship(Championship championship) {
-        mChampionship = championship;
-        flush();
-    }
-
-    @Override
-    protected void flush() {
-        if (mChampionship != null) {
-            mGameInfoConfig.championship = mChampionship.getId();
-        }
-        super.flush();
     }
 }

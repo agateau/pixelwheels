@@ -30,11 +30,11 @@ import com.badlogic.gdx.utils.Array;
  */
 public class OnePlayerQuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final QuickRaceGameInfo mGameInfo;
+    private final QuickRaceGameInfo.Builder mGameInfoBuilder;
 
     public OnePlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-        mGameInfo = new QuickRaceGameInfo(game.getAssets().vehicleDefs, game.getConfig().onePlayer);
+        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig().onePlayer);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class OnePlayerQuickRaceMaestro implements Maestro {
             public void onPlayerSelected(GameInfo.Player player) {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
-                mGameInfo.setPlayers(players);
+                mGameInfoBuilder.setPlayers(players);
                 mGame.replaceScreen(createSelectTrackScreen());
             }
         };
@@ -68,7 +68,7 @@ public class OnePlayerQuickRaceMaestro implements Maestro {
             }
             @Override
             public void onTrackSelected(Track track) {
-                mGameInfo.setTrack(track);
+                mGameInfoBuilder.setTrack(track);
                 mGame.replaceScreen(createRaceScreen());
             }
         };
@@ -93,6 +93,7 @@ public class OnePlayerQuickRaceMaestro implements Maestro {
                 mGame.showMainMenu();
             }
         };
-        return new RaceScreen(mGame, listener, mGameInfo);
+        QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
+        return new RaceScreen(mGame, listener, gameInfo);
     }
 }

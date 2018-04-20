@@ -7,25 +7,30 @@ import com.badlogic.gdx.utils.Array;
 public class QuickRaceGameInfo extends GameInfo {
     private Track mTrack;
 
-    public QuickRaceGameInfo(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
-        super(vehicleDefs, gameInfoConfig);
+    public static class Builder extends GameInfo.Builder<QuickRaceGameInfo> {
+        private Track mTrack;
+
+        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+            super(vehicleDefs, gameInfoConfig);
+        }
+
+        public void setTrack(Track track) {
+            mTrack = track;
+            mGameInfoConfig.track = mTrack.getId();
+            mGameInfoConfig.flush();
+        }
+
+        @Override
+        public QuickRaceGameInfo build() {
+            QuickRaceGameInfo gameInfo = new QuickRaceGameInfo();
+            gameInfo.mTrack = mTrack;
+            createEntrants(gameInfo);
+            return gameInfo;
+        }
     }
 
     @Override
     public Track getTrack() {
         return mTrack;
-    }
-
-    public void setTrack(Track track) {
-        mTrack = track;
-        flush();
-    }
-
-    @Override
-    protected void flush() {
-        if (mTrack != null) {
-            mGameInfoConfig.track = mTrack.getId();
-        }
-        super.flush();
     }
 }
