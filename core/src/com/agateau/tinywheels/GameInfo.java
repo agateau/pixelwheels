@@ -28,7 +28,7 @@ import com.badlogic.gdx.utils.Array;
  * Details about the game to start
  */
 public abstract class GameInfo {
-    protected final GameConfig mConfig;
+    private final GameConfig mConfig;
     protected final GameInfoConfig mGameInfoConfig;
 
     public static class Player {
