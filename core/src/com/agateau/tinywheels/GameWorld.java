@@ -37,6 +37,7 @@ import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.vehicledef.VehicleCreator;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -95,7 +96,7 @@ public class GameWorld implements ContactListener, Disposable {
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers(gameInfo.getPlayers());
+        setupRacers(gameInfo.getEntrants());
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -241,7 +242,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void setupRacers(Array<GameInfo.Player> players) {
+    private void setupRacers(Array<GameInfo.Entrant> entrants) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
@@ -249,29 +250,18 @@ public class GameWorld implements ContactListener, Disposable {
         Array<Vector2> positions = mTrack.findStartTilePositions();
         positions.reverse();
 
-        Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
-        for (GameInfo.Player player : players) {
-            VehicleDef vehicleDef = assets.findVehicleDefByID(player.vehicleId);
-            vehicleDefs.removeValue(vehicleDef, /* identity= */ true);
-        }
-        vehicleDefs.shuffle();
-
-        int firstPlayerIdx = GamePlay.instance.racerCount - players.size;
         AudioManager audioManager = mGame.getAudioManager();
-        for (int idx = 0; idx < GamePlay.instance.racerCount; ++idx) {
-            Vector2 position = positions.get(idx);
-            Racer racer;
-            if (idx >= firstPlayerIdx) {
-                GameInfo.Player player = players.get(idx - firstPlayerIdx);
-                VehicleDef vehicleDef = assets.findVehicleDefByID(player.vehicleId);
-                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, audioManager, this, vehicle);
+        for (int idx = 0; idx < entrants.size; ++idx) {
+            Assert.check(idx < positions.size, "Too many entrants");
+            GameInfo.Entrant entrant = entrants.get(idx);
+            VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.vehicleId);
+            Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
+            Racer racer = new Racer(assets, audioManager, this, vehicle);
+            if (entrant instanceof GameInfo.Player) {
+                GameInfo.Player player = (GameInfo.Player)entrant;
                 racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
                 mPlayerRacers.add(racer);
             } else {
-                VehicleDef vehicleDef = vehicleDefs.get(idx % vehicleDefs.size);
-                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, audioManager, this, vehicle);
                 racer.setPilot(new AIPilot(this, mTrack, racer));
             }
             addGameObject(racer);

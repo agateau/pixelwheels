@@ -2,14 +2,16 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.map.Championship;
 import com.agateau.tinywheels.map.Track;
+import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.utils.Assert;
+import com.badlogic.gdx.utils.Array;
 
 public class ChampionshipGameInfo extends GameInfo {
     private Championship mChampionship;
     private int mTrackIndex = 0;
 
-    public ChampionshipGameInfo(GameConfig config, GameInfoConfig gameInfoConfig) {
-        super(config, gameInfoConfig);
+    public ChampionshipGameInfo(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+        super(vehicleDefs, gameInfoConfig);
     }
 
     void restart() {

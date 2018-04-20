@@ -19,7 +19,10 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
+import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -35,7 +38,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class SelectVehicleScreen extends TwStageScreen {
     public interface Listener {
         void onBackPressed();
-        void onVehicleSelected(String vehicleId);
+        void onPlayerSelected(GameInfo.Player player);
     }
     private final TwGame mGame;
     private final Listener mListener;
@@ -91,7 +94,9 @@ public class SelectVehicleScreen extends TwStageScreen {
     }
 
     private void next() {
-        String id = mVehicleSelector.getSelectedId();
-        mListener.onVehicleSelected(id);
+        String vehicleId = mVehicleSelector.getSelectedId();
+        String inputHandlerId = mGame.getConfig().input;
+        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
+        mListener.onPlayerSelected(new GameInfo.Player(vehicleId, factory.create()));
     }
 }

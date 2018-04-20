@@ -19,60 +19,73 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameinput.GameInputHandler;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.tinywheels.map.Track;
+import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.utils.Array;
 
 /**
  * Details about the game to start
  */
 public abstract class GameInfo {
-    private final GameConfig mConfig;
+    private final Array<VehicleDef> mVehicleDefs;
     protected final GameInfoConfig mGameInfoConfig;
+    private final Array<Entrant> mEntrants = new Array<Entrant>();
 
-    public static class Player {
+    public static class Entrant {
         String vehicleId;
-        GameInputHandler inputHandler;
     }
 
-    private final Array<Player> mPlayers = new Array<Player>();
+    public static class Player extends Entrant {
+        GameInputHandler inputHandler;
 
-    public GameInfo(GameConfig config, GameInfoConfig gameInfoConfig) {
-        mConfig = config;
+        public Player(String vehicleId, GameInputHandler inputHandler) {
+            this.vehicleId = vehicleId;
+            this.inputHandler = inputHandler;
+        }
+    }
+
+    public GameInfo(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+        mVehicleDefs = vehicleDefs;
         mGameInfoConfig = gameInfoConfig;
     }
 
     public abstract Track getTrack();
 
-    public Array<Player> getPlayers() {
-        return mPlayers;
+    public Array<Entrant> getEntrants() {
+        return mEntrants;
     }
 
-    public void addPlayer(String vehicleId) {
-        String inputHandlerId = mConfig.input;
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        addPlayer(vehicleId, factory.create());
-    }
+    public void setPlayers(Array<Player> players) {
+        Array<String> vehicleIds = new Array<String>();
+        for (VehicleDef vehicleDef : mVehicleDefs) {
+            vehicleIds.add(vehicleDef.id);
+        }
+        for (GameInfo.Player player : players) {
+            vehicleIds.removeValue(player.vehicleId, /* identity= */ false);
+        }
+        vehicleIds.shuffle();
+        int aiCount = GamePlay.instance.racerCount - players.size;
 
-    public void addPlayer(String vehicleId, GameInputHandler inputHandler) {
-        Player player = new Player();
-        player.vehicleId = vehicleId;
-        player.inputHandler = inputHandler;
+        mEntrants.clear();
+        for (int idx = 0; idx < aiCount; ++idx) {
+            Entrant entrant = new Entrant();
+            entrant.vehicleId = vehicleIds.get(idx % vehicleIds.size);
+            mEntrants.add(entrant);
+        }
+        mEntrants.addAll(players);
 
-        mPlayers.add(player);
+        storePlayersInConfig(players);
         flush();
     }
 
-    public void clearPlayers() {
-        mPlayers.clear();
+    private void storePlayersInConfig(Array<Player> players) {
+        for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
+            String vehicleId = idx < players.size ? players.get(idx).vehicleId : "";
+            mGameInfoConfig.vehicles[idx] = vehicleId;
+        }
     }
 
     protected void flush() {
-        for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
-            String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).vehicleId : "";
-            mGameInfoConfig.vehicles[idx] = vehicleId;
-        }
         mGameInfoConfig.flush();
     }
 }

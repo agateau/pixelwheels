@@ -23,6 +23,7 @@ import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
 import com.agateau.tinywheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handle a one player game
@@ -33,7 +34,7 @@ public class OnePlayerQuickRaceMaestro implements Maestro {
 
     public OnePlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-        mGameInfo = new QuickRaceGameInfo(game.getConfig(), game.getConfig().onePlayer);
+        mGameInfo = new QuickRaceGameInfo(game.getAssets().vehicleDefs, game.getConfig().onePlayer);
     }
 
     @Override
@@ -49,13 +50,13 @@ public class OnePlayerQuickRaceMaestro implements Maestro {
             }
 
             @Override
-            public void onVehicleSelected(String vehicleId) {
-                mGameInfo.addPlayer(vehicleId);
+            public void onPlayerSelected(GameInfo.Player player) {
+                Array<GameInfo.Player> players = new Array<GameInfo.Player>();
+                players.add(player);
+                mGameInfo.setPlayers(players);
                 mGame.replaceScreen(createSelectTrackScreen());
             }
         };
-        // If we came here from the track screen then a player has already been added, remove it
-        mGameInfo.clearPlayers();
         return new SelectVehicleScreen(mGame, listener);
     }
 

@@ -24,6 +24,7 @@ import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handle a multi player game
@@ -34,7 +35,7 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
 
     public MultiPlayerQuickRaceMaestro(TwGame game) {
         mGame = game;
-        mGameInfo = new QuickRaceGameInfo(mGame.getConfig(), mGame.getConfig().multiPlayer);
+        mGameInfo = new QuickRaceGameInfo(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
     }
 
     @Override
@@ -50,17 +51,11 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
             }
 
             @Override
-            public void onVehicleSelected(String vehicleId, GameInputHandler inputHandler) {
-                mGameInfo.addPlayer(vehicleId, inputHandler);
-            }
-
-            @Override
-            public void onDone() {
+            public void onPlayersSelected(Array<GameInfo.Player> players) {
+                mGameInfo.setPlayers(players);
                 mGame.replaceScreen(createSelectTrackScreen());
             }
         };
-        // If we came here from the track screen then a player has already been added, remove it
-        mGameInfo.clearPlayers();
         return new MultiPlayerScreen(mGame, listener);
     }
 

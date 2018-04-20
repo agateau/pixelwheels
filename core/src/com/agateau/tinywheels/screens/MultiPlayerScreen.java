@@ -20,6 +20,7 @@ package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameConfig;
+import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.gameinput.KeyboardInputHandler;
@@ -35,6 +36,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Select player vehicles
@@ -42,8 +44,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class MultiPlayerScreen extends TwStageScreen {
     public interface Listener {
         void onBackPressed();
-        void onVehicleSelected(String vehicleId, GameInputHandler inputHandler);
-        void onDone();
+        void onPlayersSelected(Array<GameInfo.Player> players);
     }
     private final TwGame mGame;
     private final Listener mListener;
@@ -132,6 +133,7 @@ public class MultiPlayerScreen extends TwStageScreen {
     }
 
     private void next() {
+        Array<GameInfo.Player> players = new Array<GameInfo.Player>();
         for (int idx = 0; idx < 2; ++idx) {
             KeyboardInputHandler inputHandler;
             inputHandler = new KeyboardInputHandler();
@@ -139,9 +141,9 @@ public class MultiPlayerScreen extends TwStageScreen {
 
             String id = mVehicleSelectors[idx].getSelectedId();
 
-            mListener.onVehicleSelected(id, inputHandler);
+            players.add(new GameInfo.Player(id, inputHandler));
         }
 
-        mListener.onDone();
+        mListener.onPlayersSelected(players);
     }
 }
