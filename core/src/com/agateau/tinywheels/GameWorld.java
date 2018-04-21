@@ -242,6 +242,14 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
+    private void attributePoints() {
+        for (int idx = 0; idx < mRacers.size; ++idx) {
+            Racer racer = mRacers.get(idx);
+            int points = mRacers.size - idx;
+            racer.getEntrant().addPoints(points);
+        }
+    }
+
     private void setupRacers(Array<GameInfo.Entrant> entrants) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
@@ -256,7 +264,7 @@ public class GameWorld implements ContactListener, Disposable {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.vehicleId);
             Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
-            Racer racer = new Racer(assets, audioManager, this, vehicle);
+            Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant instanceof GameInfo.Player) {
                 GameInfo.Player player = (GameInfo.Player)entrant;
                 racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
@@ -350,7 +358,13 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setState(State state) {
+        if (mState == state) {
+            return;
+        }
         mState = state;
+        if (mState == State.FINISHED) {
+            attributePoints();
+        }
     }
 
     @Override

@@ -47,7 +47,7 @@ public class RacerListPane extends ScrollPane {
         for (Racer racer : playerRacers) {
             playerSet.add(racer);
         }
-        addRow(table, "highScore", "#", "Racer", "Best Lap", "Total");
+        addRow(table, "highScore", "#", "Racer", "Best Lap", "Total", "Score");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
@@ -56,7 +56,8 @@ public class RacerListPane extends ScrollPane {
                     String.format(Locale.US, "%d.", idx + 1),
                     racer.getVehicle().getName(),
                     StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),
-                    StringUtils.formatRaceTime(lapPositionComponent.getTotalTime())
+                    StringUtils.formatRaceTime(lapPositionComponent.getTotalTime()),
+                    String.format(Locale.US, "%d", racer.getEntrant().getScore())
             );
         }
         setWidget(table);
@@ -71,11 +72,12 @@ public class RacerListPane extends ScrollPane {
         });
     }
 
-    public static void addRow(Table table, String style, String v1, String v2, String v3, String v4) {
+    public static void addRow(Table table, String style, String v1, String v2, String v3, String v4, String v5) {
         table.add(v1, style).right().padRight(24);
         table.add(v2, style).left().expandX();
         table.add(v3, style).right().padRight(24);
-        table.add(v4, style).right();
+        table.add(v4, style).right().padRight(24);
+        table.add(v5, style).right();
         table.row();
     }
 }

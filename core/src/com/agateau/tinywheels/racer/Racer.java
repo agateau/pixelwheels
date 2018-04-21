@@ -19,6 +19,7 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.tinywheels.bonus.BonusPool;
 import com.agateau.tinywheels.racescreen.Collidable;
@@ -51,6 +52,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final AudioComponent mAudioComponent;
     private final Array<Component> mComponents = new Array<Component>();
     private final Array<Collidable> mCollidableComponents = new Array<Collidable>();
+    private final GameInfo.Entrant mEntrant;
 
     private Pilot mPilot;
 
@@ -73,7 +75,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
-    public Racer(Assets assets, AudioManager audioManager, GameWorld gameWorld, Vehicle vehicle) {
+    public Racer(Assets assets, AudioManager audioManager, GameWorld gameWorld, Vehicle vehicle, GameInfo.Entrant entrant) {
         mGameWorld = gameWorld;
         mLapPositionComponent = new LapPositionComponent(gameWorld.getTrack(), vehicle);
         mSpinningComponent = new SpinningComponent(vehicle);
@@ -84,6 +86,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
                 CollisionCategories.WALL
                 | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
                 | CollisionCategories.FLAT_OBJECT);
+
+        mEntrant = entrant;
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
         mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(
@@ -116,6 +120,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         if (component instanceof Collidable) {
             mCollidableComponents.add((Collidable)component);
         }
+    }
+
+    public GameInfo.Entrant getEntrant() {
+        return mEntrant;
     }
 
     public Pilot getPilot() {

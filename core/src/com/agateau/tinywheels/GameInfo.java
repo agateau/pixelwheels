@@ -77,6 +77,16 @@ public abstract class GameInfo {
 
     public static class Entrant {
         String vehicleId;
+
+        private int mScore = 0;
+
+        public int getScore() {
+            return mScore;
+        }
+
+        public void addPoints(int points) {
+            mScore += points;
+        }
     }
 
     public static class Player extends Entrant {
