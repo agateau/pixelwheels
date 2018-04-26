@@ -46,6 +46,10 @@
             font: default-font,
             fontColor: highlight
         },
+        tableHeaderRow: {
+            font: default-font,
+            fontColor: highlight
+        },
         hud: {
             font: hud-font
         },
