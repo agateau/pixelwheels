@@ -100,7 +100,7 @@ public class OnePlayerChampionshipMaestro implements Maestro {
             @Override
             public void onNextTrackPressed() {
                 if (mGameInfo.isLastTrack()) {
-                    mGame.showMainMenu();
+                    mGame.replaceScreen(createChampionshipFinishedScreen());
                 } else {
                     mGameInfo.selectNextTrack();
                     mGame.replaceScreen(createRaceScreen());
@@ -108,5 +108,9 @@ public class OnePlayerChampionshipMaestro implements Maestro {
             }
         };
         return new RaceScreen(mGame, listener, mGameInfo);
+    }
+
+    private Screen createChampionshipFinishedScreen() {
+        return new ChampionshipFinishedScreen(mGame, mGameInfo);
     }
 }
