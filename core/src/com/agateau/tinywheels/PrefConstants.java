@@ -30,4 +30,5 @@ public class PrefConstants {
     public static final String ROTATE_SCREEN = "rotateScreen";
     public static final String AUDIO = "audio";
     public static final String FULLSCREEN = "fullscreen";
+    public static final String GAME_MODE = "gameMode";
 }

@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gamesetup.GameMode;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
@@ -37,6 +38,7 @@ public class GameConfig {
     public boolean audio = true;
     public String input;
 
+    public GameMode gameMode = GameMode.QUICK_RACE;
     public final String[] vehicles = new String[2];
     public String track;
     public String championship;
@@ -57,6 +59,12 @@ public class GameConfig {
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
 
+        try {
+            this.gameMode = GameMode.valueOf(mPreferences.getString(PrefConstants.GAME_MODE));
+        } catch (IllegalArgumentException e) {
+            // Nothing to do, fallback to default value
+        }
+
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
             this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
         }
@@ -75,6 +83,7 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
 
+        mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
             mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
                     this.vehicles[idx]);

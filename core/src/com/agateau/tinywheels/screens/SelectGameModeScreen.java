@@ -18,12 +18,14 @@
  */
 package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.gamesetup.GameMode;
 import com.agateau.tinywheels.gamesetup.PlayerCount;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 
@@ -58,15 +60,23 @@ public class SelectGameModeScreen extends TwStageScreen {
         menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
+                mGame.getConfig().gameMode = GameMode.QUICK_RACE;
+                mGame.getConfig().flush();
                 mGame.showQuickRace(mPlayerCount);
             }
         });
-        menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
+        MenuItem championshipItem = menu.addButton("CHAMPIONSHIP");
+        championshipItem.addListener(new MenuItemListener() {
             @Override
             public void triggered() {
+                mGame.getConfig().gameMode = GameMode.CHAMPIONSHIP;
+                mGame.getConfig().flush();
                 mGame.showChampionship(mPlayerCount);
             }
         });
+        if (mGame.getConfig().gameMode == GameMode.CHAMPIONSHIP) {
+            menu.setCurrentItem(championshipItem);
+        }
     }
 
     @Override
