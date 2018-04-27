@@ -67,7 +67,6 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
         getStage().addActor(root);
 
         ScrollableTable table = builder.getActor("entrantTable");
-        table.init(mGame.getAssets().ui.skin);
         table.addHeaderRow("#", "Racer", "Score");
         Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
         entrants.sort(new Comparator<GameInfo.Entrant>() {

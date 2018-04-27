@@ -64,7 +64,7 @@ public class UiBuilder {
     private Actor mLastAddedActor;
 
     public interface ActorFactory {
-        Actor createActor(XmlReader.Element element);
+        Actor createActor(UiBuilder uiBuilder, XmlReader.Element element);
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -116,6 +116,14 @@ public class UiBuilder {
     public Actor build(XmlReader.Element parentElement, Group parentActor) {
         mActorForId.clear();
         return doBuild(parentElement, parentActor);
+    }
+
+    public TextureAtlas getAtlas() {
+        return mAtlas;
+    }
+
+    public Skin getSkin() {
+        return mSkin;
     }
 
     private Actor doBuild(XmlReader.Element parentElement, Group parentActor) {
@@ -211,7 +219,7 @@ public class UiBuilder {
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
-            return factory.createActor(element);
+            return factory.createActor(this, element);
         }
         throw new RuntimeException("Unknown UI element type: " + name);
     }

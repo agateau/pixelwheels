@@ -76,7 +76,6 @@ public class FinishedOverlay extends Overlay {
         });
 
         ScrollableTable scrollableTable = builder.getActor("scrollableTable");
-        scrollableTable.init(mGame.getAssets().ui.skin);
         scrollableTable.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);

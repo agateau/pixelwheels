@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.XmlReader;
  */
 public class ScrollableTable extends ScrollPane {
     private static final String HEADER_STYLE = "tableHeaderRow";
-    private Table mTable;
+    private final Table mTable;
     private final CellCreator mCellCreator;
 
     public interface CellCreator {
@@ -45,12 +45,9 @@ public class ScrollableTable extends ScrollPane {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public ScrollableTable(CellCreator cellCreator) {
+    public ScrollableTable(Skin skin, CellCreator cellCreator) {
         super(null);
         mCellCreator = cellCreator;
-    }
-
-    public void init(Skin skin) {
         mTable = new Table(skin);
         setWidget(mTable);
     }
@@ -75,8 +72,8 @@ public class ScrollableTable extends ScrollPane {
     public static void register(UiBuilder builder, String className, final CellCreator cellCreator) {
         builder.registerActorFactory(className, new UiBuilder.ActorFactory() {
             @Override
-            public Actor createActor(XmlReader.Element element) {
-                return new ScrollableTable(cellCreator);
+            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
+                return new ScrollableTable(uiBuilder.getSkin(), cellCreator);
             }
         });
     }
