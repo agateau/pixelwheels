@@ -136,7 +136,7 @@ public class Menu extends Group {
         mLabelColumnWidth = labelColumnWidth;
     }
 
-    public Actor addButton(String text) {
+    public MenuItem addButton(String text) {
         return addItem(new ButtonMenuItem(this, text, mSkin));
     }
 
@@ -163,17 +163,17 @@ public class Menu extends Group {
     /**
      * Add a full-width item
      */
-    public Actor addItem(MenuItem item) {
+    public MenuItem addItem(MenuItem item) {
         item.setDefaultColumnWidth(mDefaultItemWidth);
         addItemInternal(item);
         addActorToContainer(item.getActor());
-        return item.getActor();
+        return item;
     }
 
     /**
      * Add a [label - item] row
      */
-    public Actor addItemWithLabel(String labelText, MenuItem item) {
+    public MenuItem addItemWithLabel(String labelText, MenuItem item) {
         Actor actor = item.getActor();
         float height = actor.getHeight();
 
@@ -190,7 +190,7 @@ public class Menu extends Group {
 
         addItemInternal(item);
         addActorToContainer(group);
-        return item.getActor();
+        return item;
     }
 
     private void addItemInternal(MenuItem item) {

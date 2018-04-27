@@ -20,12 +20,15 @@ package com.agateau.ui.menu;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 
 /**
  * A MenuItem in a Menu
  */
 public interface MenuItem {
     Actor getActor();
+
+    boolean addListener(EventListener eventListener);
 
     void trigger();
 
