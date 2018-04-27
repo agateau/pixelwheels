@@ -32,12 +32,12 @@ import com.badlogic.gdx.utils.Array;
 public class ChampionshipMaestro implements Maestro {
     private final TwGame mGame;
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
-    private final GameMode mGameMode;
+    private final PlayerCount mPlayerCount;
     private ChampionshipGameInfo mGameInfo;
 
-    public ChampionshipMaestro(TwGame game, GameMode gameMode) {
+    public ChampionshipMaestro(TwGame game, PlayerCount playerCount) {
         mGame = game;
-        mGameMode = gameMode;
+        mPlayerCount = playerCount;
         mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig());
     }
 
@@ -47,7 +47,7 @@ public class ChampionshipMaestro implements Maestro {
     }
 
     private Screen createSelectVehicleScreen() {
-        if (mGameMode == GameMode.ONE_PLAYER) {
+        if (mPlayerCount == PlayerCount.ONE) {
             return createOnePlayerVehicleScreen();
         } else {
             return createMultiPlayerVehicleScreen();

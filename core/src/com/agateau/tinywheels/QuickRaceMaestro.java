@@ -32,11 +32,11 @@ import com.badlogic.gdx.utils.Array;
 public class QuickRaceMaestro implements Maestro {
     private final TwGame mGame;
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
-    private final GameMode mGameMode;
+    private final PlayerCount mPlayerCount;
 
-    public QuickRaceMaestro(TwGame game, GameMode gameMode) {
+    public QuickRaceMaestro(TwGame game, PlayerCount playerCount) {
         mGame = game;
-        mGameMode = gameMode;
+        mPlayerCount = playerCount;
         mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
     }
 
@@ -46,7 +46,7 @@ public class QuickRaceMaestro implements Maestro {
     }
 
     private Screen createSelectVehicleScreen() {
-        if (mGameMode == GameMode.ONE_PLAYER) {
+        if (mPlayerCount == PlayerCount.ONE) {
             return createOnePlayerVehicleScreen();
         } else {
             return createMultiPlayerVehicleScreen();
