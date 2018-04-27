@@ -37,16 +37,15 @@ public class GameConfig {
     public boolean audio = true;
     public String input;
 
-    public final GameInfoConfig onePlayer;
-    public final GameInfoConfig multiPlayer;
+    public final String[] vehicles = new String[2];
+    public String track;
+    public String championship;
 
     private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
 
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
-        onePlayer = new GameInfoConfig(mPreferences, PrefConstants.ONE_PLAYER_PREFIX);
-        multiPlayer = new GameInfoConfig(mPreferences, PrefConstants.MULTI_PLAYER_PREFIX);
 
         load();
     }
@@ -57,8 +56,13 @@ public class GameConfig {
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        onePlayer.load();
-        multiPlayer.load();
+
+        for (int idx = 0; idx < this.vehicles.length; ++idx) {
+            this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
+        }
+
+        this.track = mPreferences.getString(PrefConstants.TRACK_ID);
+        this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
     }
 
     public void addListener(ChangeListener listener) {
@@ -70,10 +74,17 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
-        onePlayer.flush();
-        multiPlayer.flush();
+
+        for (int idx = 0; idx < this.vehicles.length; ++idx) {
+            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
+                    this.vehicles[idx]);
+        }
+
+        mPreferences.putString(PrefConstants.TRACK_ID, this.track);
+        mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
 
         mPreferences.flush();
+
         for (WeakReference<ChangeListener> listenerRef : mListeners) {
             ChangeListener listener = listenerRef.get();
             if (listener != null) {

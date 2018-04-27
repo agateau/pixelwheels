@@ -31,12 +31,12 @@ public abstract class GameInfo {
 
     public static abstract class Builder<T extends GameInfo> {
         protected final Array<VehicleDef> mVehicleDefs;
-        protected final GameInfoConfig mGameInfoConfig;
+        protected final GameConfig mGameConfig;
         protected Array<Player> mPlayers;
 
-        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
+        public Builder(Array<VehicleDef> vehicleDefs, GameConfig gameConfig) {
             mVehicleDefs = vehicleDefs;
-            mGameInfoConfig = gameInfoConfig;
+            mGameConfig = gameConfig;
         }
 
         public void setPlayers(Array<Player> players) {
@@ -67,11 +67,11 @@ public abstract class GameInfo {
         }
 
         private void storePlayersInConfig() {
-            for (int idx = 0; idx < mGameInfoConfig.vehicles.length; ++idx) {
+            for (int idx = 0; idx < mGameConfig.vehicles.length; ++idx) {
                 String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).vehicleId : "";
-                mGameInfoConfig.vehicles[idx] = vehicleId;
+                mGameConfig.vehicles[idx] = vehicleId;
             }
-            mGameInfoConfig.flush();
+            mGameConfig.flush();
         }
     }
 

@@ -37,7 +37,7 @@ public class QuickRaceMaestro implements Maestro {
     public QuickRaceMaestro(TwGame game, GameMode gameMode) {
         mGame = game;
         mGameMode = gameMode;
-        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig().multiPlayer);
+        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class QuickRaceMaestro implements Maestro {
                 mGame.replaceScreen(createRaceScreen());
             }
         };
-        return new SelectTrackScreen(mGame, listener, mGame.getConfig().onePlayer);
+        return new SelectTrackScreen(mGame, listener);
     }
 
     private Screen createRaceScreen() {

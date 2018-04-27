@@ -22,7 +22,6 @@ import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameConfig;
 import com.agateau.tinywheels.GameInfo;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.RefreshHelper;
@@ -101,7 +100,7 @@ public class MultiPlayerScreen extends TwStageScreen {
 
     private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
         GameConfig gameConfig = mGame.getConfig();
-        String vehicleId = gameConfig.multiPlayer.vehicles[idx];
+        String vehicleId = gameConfig.vehicles[idx];
 
         Menu menu = builder.getActor("menu" + String.valueOf(idx + 1));
 

@@ -13,14 +13,14 @@ public class ChampionshipGameInfo extends GameInfo {
     public static class Builder extends GameInfo.Builder<ChampionshipGameInfo> {
         private Championship mChampionship;
 
-        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
-            super(vehicleDefs, gameInfoConfig);
+        public Builder(Array<VehicleDef> vehicleDefs, GameConfig gameConfig) {
+            super(vehicleDefs, gameConfig);
         }
 
         public void setChampionship(Championship championship) {
             mChampionship = championship;
-            mGameInfoConfig.championship = mChampionship.getId();
-            mGameInfoConfig.flush();
+            mGameConfig.championship = mChampionship.getId();
+            mGameConfig.flush();
         }
 
         @Override

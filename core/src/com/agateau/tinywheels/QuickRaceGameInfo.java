@@ -10,14 +10,14 @@ public class QuickRaceGameInfo extends GameInfo {
     public static class Builder extends GameInfo.Builder<QuickRaceGameInfo> {
         private Track mTrack;
 
-        public Builder(Array<VehicleDef> vehicleDefs, GameInfoConfig gameInfoConfig) {
-            super(vehicleDefs, gameInfoConfig);
+        public Builder(Array<VehicleDef> vehicleDefs, GameConfig gameConfig) {
+            super(vehicleDefs, gameConfig);
         }
 
         public void setTrack(Track track) {
             mTrack = track;
-            mGameInfoConfig.track = mTrack.getId();
-            mGameInfoConfig.flush();
+            mGameConfig.track = mTrack.getId();
+            mGameConfig.flush();
         }
 
         @Override

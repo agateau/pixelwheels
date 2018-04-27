@@ -38,7 +38,7 @@ public class ChampionshipMaestro implements Maestro {
     public ChampionshipMaestro(TwGame game, GameMode gameMode) {
         mGame = game;
         mGameMode = gameMode;
-        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
+        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ChampionshipMaestro implements Maestro {
     }
 
     private Screen createChampionshipScreen() {
-        final GameInfoConfig gameInfoConfig = mGame.getConfig().onePlayer;
+        final GameConfig gameConfig = mGame.getConfig();
         SelectChampionshipScreen.Listener listener = new SelectChampionshipScreen.Listener() {
             @Override
             public void onBackPressed() {
@@ -103,7 +103,7 @@ public class ChampionshipMaestro implements Maestro {
             }
         };
 
-        return new SelectChampionshipScreen(mGame, listener, gameInfoConfig.championship);
+        return new SelectChampionshipScreen(mGame, listener, gameConfig.championship);
     }
 
     private void startChampionship() {
