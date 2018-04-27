@@ -24,6 +24,7 @@ import com.agateau.tinywheels.bonus.GunBonus;
 import com.agateau.tinywheels.bonus.MineBonus;
 import com.agateau.tinywheels.bonus.TurboBonus;
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racer.AIPilot;
 import com.agateau.tinywheels.racer.LapPositionComponent;
@@ -262,12 +263,12 @@ public class GameWorld implements ContactListener, Disposable {
         for (int idx = 0; idx < entrants.size; ++idx) {
             Assert.check(idx < positions.size, "Too many entrants");
             GameInfo.Entrant entrant = entrants.get(idx);
-            VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.vehicleId);
+            VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.getVehicleId());
             Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
             Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant instanceof GameInfo.Player) {
                 GameInfo.Player player = (GameInfo.Player)entrant;
-                racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
+                racer.setPilot(new PlayerPilot(assets, this, racer, player.getInputHandler()));
                 mPlayerRacers.add(racer);
             } else {
                 racer.setPilot(new AIPilot(this, mTrack, racer));

@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.racer;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.GameInfo;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.bonus.Bonus;
 import com.agateau.tinywheels.bonus.BonusPool;
 import com.agateau.tinywheels.racescreen.Collidable;

@@ -16,10 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.gamesetup.ChampionshipGameInfo;
+import com.agateau.tinywheels.gamesetup.GameInfo;
+import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.racescreen.ScrollableTable;
-import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -30,7 +33,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Comparator;
 import java.util.Locale;
 
-class ChampionshipFinishedScreen extends TwStageScreen {
+public class ChampionshipFinishedScreen extends TwStageScreen {
     private final TwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
 
@@ -78,7 +81,7 @@ class ChampionshipFinishedScreen extends TwStageScreen {
             String style = entrant instanceof GameInfo.Player ? "newHighScore" : "highScore";
             table.addContentRow(style,
                     String.format(Locale.US, "%d.", idx + 1),
-                    entrant.vehicleId,
+                    entrant.getVehicleId(),
                     String.valueOf(entrant.getScore())
             );
         }

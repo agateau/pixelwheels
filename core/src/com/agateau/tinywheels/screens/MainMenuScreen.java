@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
-import com.agateau.tinywheels.PlayerCount;
+import com.agateau.tinywheels.gamesetup.PlayerCount;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;

@@ -44,7 +44,7 @@ public class GameConfig {
     private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
 
-    GameConfig() {
+    public GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
 
         load();

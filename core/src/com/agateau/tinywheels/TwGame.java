@@ -19,6 +19,10 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.debug.Debug;
+import com.agateau.tinywheels.gamesetup.ChampionshipMaestro;
+import com.agateau.tinywheels.gamesetup.Maestro;
+import com.agateau.tinywheels.gamesetup.PlayerCount;
+import com.agateau.tinywheels.gamesetup.QuickRaceMaestro;
 import com.agateau.tinywheels.screens.MainMenuScreen;
 import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.tinywheels.sound.AudioManager;

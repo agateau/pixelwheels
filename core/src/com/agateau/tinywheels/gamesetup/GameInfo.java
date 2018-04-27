@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gamesetup;
 
+import com.agateau.tinywheels.GameConfig;
+import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.gameinput.GameInputHandler;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
@@ -52,7 +54,7 @@ public abstract class GameInfo {
                 vehicleIds.add(vehicleDef.id);
             }
             for (GameInfo.Player player : mPlayers) {
-                vehicleIds.removeValue(player.vehicleId, /* identity= */ false);
+                vehicleIds.removeValue(player.mVehicleId, /* identity= */ false);
             }
             vehicleIds.shuffle();
             int aiCount = GamePlay.instance.racerCount - mPlayers.size;
@@ -60,7 +62,7 @@ public abstract class GameInfo {
             gameInfo.mEntrants.clear();
             for (int idx = 0; idx < aiCount; ++idx) {
                 Entrant entrant = new Entrant();
-                entrant.vehicleId = vehicleIds.get(idx % vehicleIds.size);
+                entrant.mVehicleId = vehicleIds.get(idx % vehicleIds.size);
                 gameInfo.mEntrants.add(entrant);
             }
             gameInfo.mEntrants.addAll(mPlayers);
@@ -68,7 +70,7 @@ public abstract class GameInfo {
 
         private void storePlayersInConfig() {
             for (int idx = 0; idx < mGameConfig.vehicles.length; ++idx) {
-                String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).vehicleId : "";
+                String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).mVehicleId : "";
                 mGameConfig.vehicles[idx] = vehicleId;
             }
             mGameConfig.flush();
@@ -76,9 +78,13 @@ public abstract class GameInfo {
     }
 
     public static class Entrant {
-        String vehicleId;
+        protected String mVehicleId;
 
         private int mScore = 0;
+
+        public String getVehicleId() {
+            return mVehicleId;
+        }
 
         public int getScore() {
             return mScore;
@@ -90,11 +96,15 @@ public abstract class GameInfo {
     }
 
     public static class Player extends Entrant {
-        GameInputHandler inputHandler;
+        private GameInputHandler mInputHandler;
+
+        public GameInputHandler getInputHandler() {
+            return mInputHandler;
+        }
 
         public Player(String vehicleId, GameInputHandler inputHandler) {
-            this.vehicleId = vehicleId;
-            this.inputHandler = inputHandler;
+            this.mVehicleId = vehicleId;
+            this.mInputHandler = inputHandler;
         }
     }
 

@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.GameInfo;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;

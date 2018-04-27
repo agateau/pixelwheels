@@ -19,9 +19,6 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.ChampionshipGameInfo;
-import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.map.Championship;
 import com.agateau.ui.RefreshHelper;

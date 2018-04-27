@@ -1,4 +1,4 @@
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gamesetup;
 
 public enum PlayerCount {
     ONE,

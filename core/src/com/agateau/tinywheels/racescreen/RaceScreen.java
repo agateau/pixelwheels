@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.GameInfo;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.TwGame;

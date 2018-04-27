@@ -1,5 +1,6 @@
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gamesetup;
 
+import com.agateau.tinywheels.GameConfig;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.utils.Array;

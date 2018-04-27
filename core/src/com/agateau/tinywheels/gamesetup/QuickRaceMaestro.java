@@ -16,29 +16,29 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.gamesetup;
 
-import com.agateau.tinywheels.map.Championship;
+import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
-import com.agateau.tinywheels.screens.SelectChampionshipScreen;
+import com.agateau.tinywheels.screens.SelectTrackScreen;
 import com.agateau.tinywheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Handle a championship game
+ * Handle a quick race game
  */
-public class ChampionshipMaestro implements Maestro {
+public class QuickRaceMaestro implements Maestro {
     private final TwGame mGame;
-    private final ChampionshipGameInfo.Builder mGameInfoBuilder;
+    private final QuickRaceGameInfo.Builder mGameInfoBuilder;
     private final PlayerCount mPlayerCount;
-    private ChampionshipGameInfo mGameInfo;
 
-    public ChampionshipMaestro(TwGame game, PlayerCount playerCount) {
+    public QuickRaceMaestro(TwGame game, PlayerCount playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
-        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig());
+        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ChampionshipMaestro implements Maestro {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
-                mGame.replaceScreen(createChampionshipScreen());
+                mGame.replaceScreen(createSelectTrackScreen());
             }
         };
         return new SelectVehicleScreen(mGame, listener);
@@ -82,33 +82,25 @@ public class ChampionshipMaestro implements Maestro {
             @Override
             public void onPlayersSelected(Array<GameInfo.Player> players) {
                 mGameInfoBuilder.setPlayers(players);
-                mGame.replaceScreen(createChampionshipScreen());
+                mGame.replaceScreen(createSelectTrackScreen());
             }
         };
         return new MultiPlayerScreen(mGame, listener);
     }
 
-    private Screen createChampionshipScreen() {
-        final GameConfig gameConfig = mGame.getConfig();
-        SelectChampionshipScreen.Listener listener = new SelectChampionshipScreen.Listener() {
+    private Screen createSelectTrackScreen() {
+        SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
             @Override
             public void onBackPressed() {
                 mGame.replaceScreen(createSelectVehicleScreen());
             }
-
             @Override
-            public void onChampionshipSelected(Championship championship) {
-                mGameInfoBuilder.setChampionship(championship);
-                startChampionship();
+            public void onTrackSelected(Track track) {
+                mGameInfoBuilder.setTrack(track);
+                mGame.replaceScreen(createRaceScreen());
             }
         };
-
-        return new SelectChampionshipScreen(mGame, listener, gameConfig.championship);
-    }
-
-    private void startChampionship() {
-        mGameInfo = mGameInfoBuilder.build();
-        mGame.replaceScreen(createRaceScreen());
+        return new SelectTrackScreen(mGame, listener);
     }
 
     private Screen createRaceScreen() {
@@ -126,18 +118,10 @@ public class ChampionshipMaestro implements Maestro {
 
             @Override
             public void onNextTrackPressed() {
-                if (mGameInfo.isLastTrack()) {
-                    mGame.replaceScreen(createChampionshipFinishedScreen());
-                } else {
-                    mGameInfo.selectNextTrack();
-                    mGame.replaceScreen(createRaceScreen());
-                }
+                mGame.showMainMenu();
             }
         };
-        return new RaceScreen(mGame, listener, mGameInfo);
-    }
-
-    private Screen createChampionshipFinishedScreen() {
-        return new ChampionshipFinishedScreen(mGame, mGameInfo);
+        QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
+        return new RaceScreen(mGame, listener, gameInfo);
     }
 }
