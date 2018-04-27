@@ -22,31 +22,60 @@ import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
 import com.agateau.tinywheels.screens.SelectTrackScreen;
+import com.agateau.tinywheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Handle a multi player game
+ * Handle a quick race game
  */
-public class MultiPlayerQuickRaceMaestro implements Maestro {
+public class QuickRaceMaestro implements Maestro {
     private final TwGame mGame;
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
+    private final GameMode mGameMode;
 
-    public MultiPlayerQuickRaceMaestro(TwGame game) {
+    public QuickRaceMaestro(TwGame game, GameMode gameMode) {
         mGame = game;
-        mGameInfoBuilder = new QuickRaceGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
+        mGameMode = gameMode;
+        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig().multiPlayer);
     }
 
     @Override
     public void start() {
-        mGame.replaceScreen(createMultiPlayerScreen());
+        mGame.pushScreen(createSelectVehicleScreen());
     }
 
-    private Screen createMultiPlayerScreen() {
+    private Screen createSelectVehicleScreen() {
+        if (mGameMode == GameMode.ONE_PLAYER) {
+            return createOnePlayerVehicleScreen();
+        } else {
+            return createMultiPlayerVehicleScreen();
+        }
+    }
+
+    private Screen createOnePlayerVehicleScreen() {
+        SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.popScreen();
+            }
+
+            @Override
+            public void onPlayerSelected(GameInfo.Player player) {
+                Array<GameInfo.Player> players = new Array<GameInfo.Player>();
+                players.add(player);
+                mGameInfoBuilder.setPlayers(players);
+                mGame.replaceScreen(createSelectTrackScreen());
+            }
+        };
+        return new SelectVehicleScreen(mGame, listener);
+    }
+
+    private Screen createMultiPlayerVehicleScreen() {
         MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
             @Override
             public void onBackPressed() {
-                mGame.showMainMenu();
+                mGame.popScreen();
             }
 
             @Override
@@ -62,7 +91,7 @@ public class MultiPlayerQuickRaceMaestro implements Maestro {
         SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
             @Override
             public void onBackPressed() {
-                mGame.replaceScreen(createMultiPlayerScreen());
+                mGame.replaceScreen(createSelectVehicleScreen());
             }
             @Override
             public void onTrackSelected(Track track) {

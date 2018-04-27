@@ -20,22 +20,25 @@ package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.map.Championship;
 import com.agateau.tinywheels.racescreen.RaceScreen;
+import com.agateau.tinywheels.screens.MultiPlayerScreen;
 import com.agateau.tinywheels.screens.SelectChampionshipScreen;
 import com.agateau.tinywheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Handle a one player game
+ * Handle a championship game
  */
-public class OnePlayerChampionshipMaestro implements Maestro {
+public class ChampionshipMaestro implements Maestro {
     private final TwGame mGame;
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
+    private final GameMode mGameMode;
     private ChampionshipGameInfo mGameInfo;
 
-    public OnePlayerChampionshipMaestro(TwGame game) {
+    public ChampionshipMaestro(TwGame game, GameMode gameMode) {
         mGame = game;
-        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().onePlayer);
+        mGameMode = gameMode;
+        mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig().multiPlayer);
     }
 
     @Override
@@ -44,6 +47,14 @@ public class OnePlayerChampionshipMaestro implements Maestro {
     }
 
     private Screen createSelectVehicleScreen() {
+        if (mGameMode == GameMode.ONE_PLAYER) {
+            return createOnePlayerVehicleScreen();
+        } else {
+            return createMultiPlayerVehicleScreen();
+        }
+    }
+
+    private Screen createOnePlayerVehicleScreen() {
         SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
             @Override
             public void onBackPressed() {
@@ -59,6 +70,22 @@ public class OnePlayerChampionshipMaestro implements Maestro {
             }
         };
         return new SelectVehicleScreen(mGame, listener);
+    }
+
+    private Screen createMultiPlayerVehicleScreen() {
+        MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
+            @Override
+            public void onBackPressed() {
+                mGame.popScreen();
+            }
+
+            @Override
+            public void onPlayersSelected(Array<GameInfo.Player> players) {
+                mGameInfoBuilder.setPlayers(players);
+                mGame.replaceScreen(createChampionshipScreen());
+            }
+        };
+        return new MultiPlayerScreen(mGame, listener);
     }
 
     private Screen createChampionshipScreen() {

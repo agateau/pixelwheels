@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.GameMode;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -31,15 +32,17 @@ import com.agateau.utils.FileUtils;
  */
 public class SelectGameModeScreen extends TwStageScreen {
     private final TwGame mGame;
+    private final GameMode mGameMode;
 
-    public SelectGameModeScreen(TwGame game) {
+    public SelectGameModeScreen(TwGame game, GameMode gameMode) {
         super(game.getAssets().ui);
         mGame = game;
+        mGameMode = gameMode;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectGameModeScreen(mGame));
+                mGame.replaceScreen(new SelectGameModeScreen(mGame, mGameMode));
             }
         };
     }
@@ -55,13 +58,13 @@ public class SelectGameModeScreen extends TwStageScreen {
         menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                mGame.showOnePlayerQuickRace();
+                mGame.showQuickRace(mGameMode);
             }
         });
         menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                mGame.showOnePlayerChampionship();
+                mGame.showChampionship(mGameMode);
             }
         });
     }
