@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,12 +16,34 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels;
+package com.agateau.tinywheels.map;
 
-/**
- * Orchestrate changes between screens
- */
-public interface Maestro {
-    void actionTriggered(String action);
-    void start();
+import com.badlogic.gdx.utils.Array;
+
+public class Championship {
+    private final String mId;
+    private final String mName;
+    private final Array<Track> mTracks = new Array<Track>();
+
+    public Championship(String id, String name) {
+        mId = id;
+        mName = name;
+    }
+
+    public Championship addTrack(Track track) {
+        mTracks.add(track);
+        return this;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public Array<Track> getTracks() {
+        return mTracks;
+    }
 }

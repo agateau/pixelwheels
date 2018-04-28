@@ -24,6 +24,7 @@ import com.agateau.tinywheels.bonus.GunBonus;
 import com.agateau.tinywheels.bonus.MineBonus;
 import com.agateau.tinywheels.bonus.TurboBonus;
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racer.AIPilot;
 import com.agateau.tinywheels.racer.LapPositionComponent;
@@ -37,6 +38,7 @@ import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.vehicledef.VehicleCreator;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -89,13 +91,13 @@ public class GameWorld implements ContactListener, Disposable {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);
-        mTrack = gameInfo.track;
+        mTrack = gameInfo.getTrack();
         mTrack.init();
         mCountDown = new CountDown(this);
 
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
-        setupRacers(gameInfo.getPlayers());
+        setupRacers(gameInfo.getEntrants());
         setupRoadBorders();
         setupBonusSpots();
         setupBonusPools();
@@ -241,7 +243,21 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void setupRacers(Array<GameInfo.Player> players) {
+    private void onFinished() {
+        for (int idx = 0; idx < mRacers.size; ++idx) {
+            Racer racer = mRacers.get(idx);
+            racer.markRaceFinished();
+            GameInfo.Entrant entrant = racer.getEntrant();
+
+            int points = mRacers.size - idx;
+            entrant.addPoints(points);
+
+            LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
+            entrant.addRaceTime(lapPositionComponent.getTotalTime());
+        }
+    }
+
+    private void setupRacers(Array<GameInfo.Entrant> entrants) {
         VehicleCreator creator = new VehicleCreator(mGame.getAssets(), this);
         Assets assets = mGame.getAssets();
 
@@ -249,29 +265,18 @@ public class GameWorld implements ContactListener, Disposable {
         Array<Vector2> positions = mTrack.findStartTilePositions();
         positions.reverse();
 
-        Array<VehicleDef> vehicleDefs = new Array<VehicleDef>(assets.vehicleDefs);
-        for (GameInfo.Player player : players) {
-            VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
-            vehicleDefs.removeValue(vehicleDef, /* identity= */ true);
-        }
-        vehicleDefs.shuffle();
-
-        int firstPlayerIdx = GamePlay.instance.racerCount - players.size;
         AudioManager audioManager = mGame.getAudioManager();
-        for (int idx = 0; idx < GamePlay.instance.racerCount; ++idx) {
-            Vector2 position = positions.get(idx);
-            Racer racer;
-            if (idx >= firstPlayerIdx) {
-                GameInfo.Player player = players.get(idx - firstPlayerIdx);
-                VehicleDef vehicleDef = assets.getVehicleById(player.vehicleId);
-                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, audioManager, this, vehicle);
-                racer.setPilot(new PlayerPilot(assets, this, racer, player.inputHandler));
+        for (int idx = 0; idx < entrants.size; ++idx) {
+            Assert.check(idx < positions.size, "Too many entrants");
+            GameInfo.Entrant entrant = entrants.get(idx);
+            VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.getVehicleId());
+            Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
+            Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
+            if (entrant instanceof GameInfo.Player) {
+                GameInfo.Player player = (GameInfo.Player)entrant;
+                racer.setPilot(new PlayerPilot(assets, this, racer, player.getInputHandler()));
                 mPlayerRacers.add(racer);
             } else {
-                VehicleDef vehicleDef = vehicleDefs.get(idx % vehicleDefs.size);
-                Vehicle vehicle = creator.create(vehicleDef, position, startAngle);
-                racer = new Racer(assets, audioManager, this, vehicle);
                 racer.setPilot(new AIPilot(this, mTrack, racer));
             }
             addGameObject(racer);
@@ -360,7 +365,13 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setState(State state) {
+        if (mState == state) {
+            return;
+        }
         mState = state;
+        if (mState == State.FINISHED) {
+            onFinished();
+        }
     }
 
     @Override

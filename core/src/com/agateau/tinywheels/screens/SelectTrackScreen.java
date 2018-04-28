@@ -19,15 +19,13 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.GameInfo;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -37,22 +35,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class SelectTrackScreen extends TwStageScreen {
     private final TwGame mGame;
-    private final GameInfo mGameInfo;
-    private final Maestro mMaestro;
-    private final GameConfig.GameModeConfig mGameModeConfig;
+    private final Listener mListener;
     private TrackSelector mTrackSelector;
 
-    public SelectTrackScreen(TwGame game, Maestro maestro, GameInfo gameInfo, GameConfig.GameModeConfig gameModeConfig) {
+    public interface Listener {
+        void onBackPressed();
+        void onTrackSelected(Track track);
+    }
+
+    public SelectTrackScreen(TwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
-        mMaestro = maestro;
-        mGameInfo = gameInfo;
-        mGameModeConfig = gameModeConfig;
+        mListener = listener;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectTrackScreen(mGame, mMaestro, mGameInfo, mGameModeConfig));
+                mGame.replaceScreen(new SelectTrackScreen(mGame, mListener));
             }
         };
     }
@@ -70,7 +69,7 @@ public class SelectTrackScreen extends TwStageScreen {
         mTrackSelector = new TrackSelector(menu);
         mTrackSelector.setColumnCount(2);
         mTrackSelector.init(assets);
-        mTrackSelector.setCurrent(assets.findTrackByID(mGameModeConfig.track));
+        mTrackSelector.setCurrent(assets.findTrackByID(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
 
         mTrackSelector.addListener(new MenuItemListener() {
@@ -90,17 +89,16 @@ public class SelectTrackScreen extends TwStageScreen {
 
     @Override
     public void onBackPressed() {
-        mMaestro.actionTriggered("back");
+        mListener.onBackPressed();
     }
 
     private void saveSelectedMap() {
-        mGameModeConfig.track = mTrackSelector.getSelected().getId();
+        mGame.getConfig().track = mTrackSelector.getSelected().getId();
         mGame.getConfig().flush();
     }
 
     private void next() {
         saveSelectedMap();
-        mGameInfo.track = mTrackSelector.getSelected();
-        mMaestro.actionTriggered("next");
+        mListener.onTrackSelected(mTrackSelector.getSelected());
     }
 }

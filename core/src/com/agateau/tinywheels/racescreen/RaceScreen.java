@@ -18,22 +18,21 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.GameInfo;
+import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
-import com.agateau.tinywheels.racer.RacerDebugShape;
-import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
+import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.racer.Pilot;
 import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
+import com.agateau.tinywheels.racer.RacerDebugShape;
 import com.agateau.tinywheels.racer.Vehicle;
+import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -50,8 +49,13 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class RaceScreen extends ScreenAdapter {
+    public interface Listener {
+        void onRestartPressed();
+        void onQuitPressed();
+        void onNextTrackPressed();
+    }
     private final TwGame mGame;
-    private final Maestro mMaestro;
+    private final Listener mListener;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
 
@@ -69,21 +73,21 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
-    public RaceScreen(TwGame game, Maestro maestro, GameInfo gameInfo) {
-        NLog.i("Starting race on %s", gameInfo.track.getMapName());
+    public RaceScreen(TwGame game, Listener listener, GameInfo gameInfo) {
+        NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
-        mMaestro = maestro;
+        mListener = listener;
         SpriteBatch batch = new SpriteBatch();
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
-        mBackgroundColor = gameInfo.track.getBackgroundColor();
+        mBackgroundColor = gameInfo.getTrack().getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         mHudStage = new Stage(mHudViewport, batch);
         mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
-        for (int idx = 0; idx < gameInfo.getPlayers().size; ++idx) {
+        for (int idx = 0; idx < mGameWorld.getPlayerRacers().size; ++idx) {
             Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
             GameRenderer gameRenderer = new GameRenderer(mGameWorld, vehicle, batch, mPerformanceCounters);
             setupGameRenderer(gameRenderer);
@@ -92,7 +96,7 @@ public class RaceScreen extends ScreenAdapter {
             HudContent hudContent = setupHudContent(hud, idx);
             Racer racer = mGameWorld.getPlayerRacer(idx);
             if (Debug.instance.showDebugLayer) {
-                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.track));
+                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.getTrack()));
             }
             Pilot pilot = racer.getPilot();
             if (pilot instanceof PlayerPilot) {
@@ -213,16 +217,13 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void onFinished() {
-        for (Racer racer : mGameWorld.getRacers()) {
-            racer.markRaceFinished();
-        }
-        FinishedOverlay overlay = new FinishedOverlay(mGame, mMaestro, mGameWorld.getRacers(), mGameWorld.getPlayerRacers());
+        FinishedOverlay overlay = new FinishedOverlay(mGame, mListener, mGameWorld.getRacers());
         mHudStage.addActor(overlay);
     }
 
     private void pauseRace() {
         mGame.getAudioManager().setMuted(true);
-        mPauseOverlay = new PauseOverlay(mGame, mMaestro, this);
+        mPauseOverlay = new PauseOverlay(mGame, mListener, this);
         mHudStage.addActor(mPauseOverlay);
     }
 

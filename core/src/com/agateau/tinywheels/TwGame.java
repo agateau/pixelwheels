@@ -19,6 +19,10 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.debug.Debug;
+import com.agateau.tinywheels.gamesetup.ChampionshipMaestro;
+import com.agateau.tinywheels.gamesetup.Maestro;
+import com.agateau.tinywheels.gamesetup.PlayerCount;
+import com.agateau.tinywheels.gamesetup.QuickRaceMaestro;
 import com.agateau.tinywheels.screens.MainMenuScreen;
 import com.agateau.tinywheels.screens.TwStageScreen;
 import com.agateau.tinywheels.sound.AudioManager;
@@ -82,13 +86,13 @@ public class TwGame extends Game {
         replaceScreen(screen);
     }
 
-    public void showOnePlayer() {
-        mMaestro = new OnePlayerMaestro(this);
+    public void showQuickRace(PlayerCount playerCount) {
+        mMaestro = new QuickRaceMaestro(this, playerCount);
         mMaestro.start();
     }
 
-    public void showMultiPlayer() {
-        mMaestro = new MultiPlayerMaestro(this);
+    public void showChampionship(PlayerCount playerCount) {
+        mMaestro = new ChampionshipMaestro(this, playerCount);
         mMaestro.start();
     }
 

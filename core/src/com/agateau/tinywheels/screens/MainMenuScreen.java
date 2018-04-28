@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.gamesetup.PlayerCount;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -62,20 +63,26 @@ public class MainMenuScreen extends TwStageScreen {
             menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showOnePlayer();
+                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
                 }
             });
             menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showMultiPlayer();
+                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.MULTI));
                 }
             });
         } else {
-            menu.addButton("START").addListener(new MenuItemListener() {
+            menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    mGame.showOnePlayer();
+                    mGame.showQuickRace(PlayerCount.ONE);
+                }
+            });
+            menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
+                @Override
+                public void triggered() {
+                    mGame.showChampionship(PlayerCount.ONE);
                 }
             });
         }

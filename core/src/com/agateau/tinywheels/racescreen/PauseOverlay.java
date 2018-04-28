@@ -19,7 +19,6 @@
 package com.agateau.tinywheels.racescreen;
 
 import com.agateau.tinywheels.screens.ConfigScreen;
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
@@ -33,13 +32,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  */
 public class PauseOverlay extends Overlay {
     private final TwGame mGame;
-    private final Maestro mMaestro;
+    private final RaceScreen.Listener mListener;
     private final RaceScreen mRaceScreen;
 
-    public PauseOverlay(TwGame game, Maestro maestro, RaceScreen raceScreen) {
+    public PauseOverlay(TwGame game, RaceScreen.Listener listener, RaceScreen raceScreen) {
         super(game.getAssets().dot);
         mGame = game;
-        mMaestro = maestro;
+        mListener = listener;
         mRaceScreen = raceScreen;
         new RefreshHelper(this) {
             @Override
@@ -65,13 +64,13 @@ public class PauseOverlay extends Overlay {
         menu.addButton("Restart").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mMaestro.actionTriggered("restart");
+                mListener.onRestartPressed();
             }
         });
         menu.addButton("Quit to Menu").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mMaestro.actionTriggered("quit");
+                mListener.onQuitPressed();
             }
         });
         menu.addButton("Settings").addListener(new ChangeListener() {

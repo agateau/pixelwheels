@@ -18,6 +18,7 @@
  */
 package com.agateau.tinywheels;
 
+import com.agateau.tinywheels.gamesetup.GameMode;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
@@ -32,38 +33,44 @@ public class GameConfig {
         void change();
     }
 
-    static public class GameModeConfig {
-        public String track;
-    }
-
     public boolean fullscreen = false;
     public boolean rotateCamera = true;
     public boolean audio = true;
     public String input;
-    public String onePlayerVehicle;
-    public String[] multiPlayerVehicles = new String[2];
 
-    public GameModeConfig onePlayer = new GameModeConfig();
-    public GameModeConfig multiPlayer = new GameModeConfig();
+    public GameMode gameMode = GameMode.QUICK_RACE;
+    public final String[] vehicles = new String[2];
+    public String track;
+    public String championship;
 
-    private Preferences mPreferences;
+    private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
 
-    GameConfig() {
+    public GameConfig() {
         mPreferences = Gdx.app.getPreferences("com.agateau.tinywheels");
+
+        load();
+    }
+
+    private void load() {
         rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN, true);
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
         input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-        onePlayerVehicle = mPreferences.getString(PrefConstants.ONEPLAYER_VEHICLE_ID);
-        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
-            multiPlayerVehicles[idx] = mPreferences.getString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx));
+
+        try {
+            this.gameMode = GameMode.valueOf(mPreferences.getString(PrefConstants.GAME_MODE));
+        } catch (IllegalArgumentException e) {
+            // Nothing to do, fallback to default value
         }
 
-        onePlayer.track = mPreferences.getString(PrefConstants.ONEPLAYER_TRACK_ID);
+        for (int idx = 0; idx < this.vehicles.length; ++idx) {
+            this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
+        }
 
-        multiPlayer.track = mPreferences.getString(PrefConstants.MULTIPLAYER_TRACK_ID);
+        this.track = mPreferences.getString(PrefConstants.TRACK_ID);
+        this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
     }
 
     public void addListener(ChangeListener listener) {
@@ -75,15 +82,18 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
         mPreferences.putString(PrefConstants.INPUT, input);
-        mPreferences.putString(PrefConstants.ONEPLAYER_VEHICLE_ID, onePlayerVehicle);
-        for (int idx = 0; idx < multiPlayerVehicles.length; ++idx) {
-            mPreferences.putString(PrefConstants.MULTIPLAYER_VEHICLE_ID_PREFIX + String.valueOf(idx), multiPlayerVehicles[idx]);
+
+        mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
+        for (int idx = 0; idx < this.vehicles.length; ++idx) {
+            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
+                    this.vehicles[idx]);
         }
 
-        mPreferences.putString(PrefConstants.ONEPLAYER_TRACK_ID, onePlayer.track);
-        mPreferences.putString(PrefConstants.MULTIPLAYER_TRACK_ID, multiPlayer.track);
+        mPreferences.putString(PrefConstants.TRACK_ID, this.track);
+        mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
 
         mPreferences.flush();
+
         for (WeakReference<ChangeListener> listenerRef : mListeners) {
             ChangeListener listener = listenerRef.get();
             if (listener != null) {

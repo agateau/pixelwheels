@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -19,10 +19,8 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.TwGame;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
-import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
+import com.agateau.tinywheels.map.Championship;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -33,47 +31,47 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Select your vehicle
+ * Select the championship
  */
-public class SelectVehicleScreen extends TwStageScreen {
+public class SelectChampionshipScreen extends TwStageScreen {
     public interface Listener {
         void onBackPressed();
-        void onPlayerSelected(GameInfo.Player player);
+        void onChampionshipSelected(Championship championship);
     }
     private final TwGame mGame;
     private final Listener mListener;
-    private VehicleSelector mVehicleSelector;
+    private ChampionshipSelector mChampionshipSelector;
 
-    public SelectVehicleScreen(TwGame game, Listener listener) {
+    public SelectChampionshipScreen(TwGame game, Listener listener, final String championshipId) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
-        setupUi();
+        setupUi(championshipId);
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectVehicleScreen(mGame, mListener));
+                mGame.replaceScreen(new SelectChampionshipScreen(mGame, mListener, championshipId));
             }
         };
     }
 
-    private void setupUi() {
+    private void setupUi(String championshipId) {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
+        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectchampionship.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
 
-        mVehicleSelector = new VehicleSelector(menu);
-        mVehicleSelector.init(assets);
-        String id = mGame.getConfig().vehicles[0];
-        mVehicleSelector.setCurrent(assets.findVehicleDefByID(id));
-        menu.addItem(mVehicleSelector);
+        mChampionshipSelector = new ChampionshipSelector(menu);
+        mChampionshipSelector.setColumnCount(2);
+        mChampionshipSelector.init(assets);
+        mChampionshipSelector.setCurrent(assets.findChampionshipByID(championshipId));
+        menu.addItem(mChampionshipSelector);
 
-        mVehicleSelector.addListener(new MenuItemListener() {
+        mChampionshipSelector.addListener(new MenuItemListener() {
             @Override
             public void triggered() {
                 next();
@@ -94,10 +92,6 @@ public class SelectVehicleScreen extends TwStageScreen {
     }
 
     private void next() {
-        String vehicleId = mVehicleSelector.getSelectedId();
-        String inputHandlerId = mGame.getConfig().input;
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        GameInfo.Player player = new GameInfo.Player(0, vehicleId, factory.create());
-        mListener.onPlayerSelected(player);
+        mListener.onChampionshipSelected(mChampionshipSelector.getSelected());
     }
 }

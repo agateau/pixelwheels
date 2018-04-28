@@ -18,50 +18,78 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.Maestro;
 import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.Racer;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.tinywheels.utils.StringUtils;
+import com.agateau.tinywheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Locale;
 
 /**
  * Appears on top of RaceScreen at the end of the race
  */
 public class FinishedOverlay extends Overlay {
     private final TwGame mGame;
-    private final Maestro mMaestro;
+    private final RaceScreen.Listener mListener;
 
-    public FinishedOverlay(TwGame game, Maestro maestro, final Array<Racer> racers, final Array<Racer> playerRacers) {
+    public FinishedOverlay(TwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
         super(game.getAssets().dot);
         mGame = game;
-        mMaestro = maestro;
+        mListener = listener;
         new RefreshHelper(this) {
             @Override
             protected void refresh() {
-                setContent(createContent(racers, playerRacers));
+                setContent(createContent(racers));
             }
         };
-        setContent(createContent(racers, playerRacers));
+        setContent(createContent(racers));
     }
 
-    private Actor createContent(Array<Racer> racers, final Array<Racer> playerRacers) {
+    private Actor createContent(Array<Racer> racers) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        RacerListPane.register(builder);
+        ScrollableTable.register(builder, "ScrollableTable", new ScrollableTable.CellCreator() {
+            @Override
+            public void createCells(Table table, String style, String... values) {
+                table.add(values[0], style).right().padRight(24);
+                table.add(values[1], style).left().expandX();
+                table.add(values[2], style).right().padRight(24);
+                table.add(values[3], style).right().padRight(24);
+                table.add(values[4], style).right();
+            }
+        });
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         Menu menu = builder.getActor("menu");
         menu.addButton("OK").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                mMaestro.actionTriggered("quit");
+                mListener.onNextTrackPressed();
             }
         });
-        RacerListPane racerListPane = builder.getActor("racerListPane");
-        racerListPane.init(mGame.getAssets().ui.skin, racers, playerRacers);
+
+        ScrollableTable scrollableTable = builder.getActor("scrollableTable");
+        scrollableTable.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
+        for (int idx = 0; idx < racers.size; ++idx) {
+            Racer racer = racers.get(idx);
+            String style = UiUtils.getEntrantRowStyle(racer.getEntrant());
+            LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
+            scrollableTable.setRowStyle(style);
+            scrollableTable.addRow(
+                    String.format(Locale.US, "%d.", idx + 1),
+                    racer.getVehicle().getName(),
+                    StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),
+                    StringUtils.formatRaceTime(lapPositionComponent.getTotalTime()),
+                    String.valueOf(racer.getEntrant().getScore())
+            );
+        }
         return content;
     }
 }

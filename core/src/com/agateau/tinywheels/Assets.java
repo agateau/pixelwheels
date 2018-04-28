@@ -19,6 +19,7 @@
 package com.agateau.tinywheels;
 
 import com.agateau.tinywheels.gameobjet.AnimationObject;
+import com.agateau.tinywheels.map.Championship;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundAtlas;
@@ -52,6 +53,7 @@ public class Assets {
             new Track("be", "City"),
             new Track("tiny-sur-mer", "Tiny sur Mer"),
     });
+    public final Array<Championship> championships = new Array<Championship>();
     public final UiAssets ui = new UiAssets();
 
     public final TextureRegion wheel;
@@ -105,6 +107,7 @@ public class Assets {
 
         loadVehicleDefinitions();
         initSoundAtlas();
+        initChampionships();
     }
 
     private void initSoundAtlas() {
@@ -123,13 +126,14 @@ public class Assets {
         this.soundAtlas.load("helicopter.wav");
     }
 
-    public VehicleDef getVehicleById(String id) {
-        for (VehicleDef def : this.vehicleDefs) {
-            if (def.id.equals(id)) {
-                return def;
-            }
-        }
-        return null;
+    private void initChampionships() {
+        championships.add(new Championship("snow", "Snow")
+                .addTrack(findTrackByID("race"))
+                .addTrack(findTrackByID("snow2")));
+
+        championships.add(new Championship("city", "City")
+                .addTrack(findTrackByID("be"))
+                .addTrack(findTrackByID("tiny-sur-mer")));
     }
 
     private static void removeBorders(TextureRegion region) {
@@ -164,6 +168,15 @@ public class Assets {
         for (VehicleDef def : vehicleDefs) {
             if (def.id.equals(id)) {
                 return def;
+            }
+        }
+        return null;
+    }
+
+    public Championship findChampionshipByID(String id) {
+        for (Championship championship : championships) {
+            if (championship.getId().equals(id)) {
+                return championship;
             }
         }
         return null;

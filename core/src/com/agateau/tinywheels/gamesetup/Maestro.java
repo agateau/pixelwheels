@@ -16,18 +16,11 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.tinywheels.debug;
+package com.agateau.tinywheels.gamesetup;
 
 /**
- * Debug options
+ * Orchestrate changes between screens
  */
-public class Debug {
-    public boolean showDebugHud = false;
-    public boolean showDebugLayer = false;
-    public boolean drawVelocities = false;
-    public boolean drawTileCorners = false;
-    public boolean showHudDebugLines = false;
-    public boolean oneLapOnly = false;
-
-    public final static Debug instance = new Debug();
+public interface Maestro {
+    void start();
 }
