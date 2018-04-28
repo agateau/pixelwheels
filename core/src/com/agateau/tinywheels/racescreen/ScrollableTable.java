@@ -36,6 +36,8 @@ public class ScrollableTable extends ScrollPane {
     private final Table mTable;
     private final CellCreator mCellCreator;
 
+    private String mNextStyle = "";
+
     public interface CellCreator {
         /**
          * Must create cells in @p table using the table.add() method
@@ -52,21 +54,23 @@ public class ScrollableTable extends ScrollPane {
         setWidget(mTable);
     }
 
+    public ScrollableTable setRowStyle(String style) {
+        mNextStyle = style;
+        return this;
+    }
+
+    public ScrollableTable addRow(String... values) {
+        mCellCreator.createCells(mTable, mNextStyle, values);
+        mTable.row();
+        return this;
+    }
+
     /**
      * Add an header row
      */
     public void addHeaderRow(String... values) {
-        mCellCreator.createCells(mTable, HEADER_STYLE, values);
-        mTable.row();
-    }
-
-    /**
-     * Add a content row. All Label inside the row will use
-     * the style @p style.
-     */
-    public void addContentRow(String style, String... values) {
-        mCellCreator.createCells(mTable, style, values);
-        mTable.row();
+        setRowStyle(HEADER_STYLE);
+        addRow(values);
     }
 
     public static void register(UiBuilder builder, String className, final CellCreator cellCreator) {

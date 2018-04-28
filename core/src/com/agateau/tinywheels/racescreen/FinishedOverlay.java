@@ -81,7 +81,8 @@ public class FinishedOverlay extends Overlay {
             Racer racer = racers.get(idx);
             String style = racer.getEntrant() instanceof GameInfo.Player ? "newHighScore" : "highScore";
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            scrollableTable.addContentRow(style,
+            scrollableTable.setRowStyle(style);
+            scrollableTable.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     racer.getVehicle().getName(),
                     StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),

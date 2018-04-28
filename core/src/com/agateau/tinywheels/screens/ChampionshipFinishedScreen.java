@@ -78,7 +78,8 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             String style = entrant instanceof GameInfo.Player ? "newHighScore" : "highScore";
-            table.addContentRow(style,
+            table.setRowStyle(style);
+            table.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     entrant.getVehicleId(),
                     String.valueOf(entrant.getScore())
