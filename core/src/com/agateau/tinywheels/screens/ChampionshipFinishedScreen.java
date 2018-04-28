@@ -23,6 +23,7 @@ import com.agateau.tinywheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.racescreen.ScrollableTable;
+import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.tinywheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -58,8 +59,9 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
             @Override
             public void createCells(Table table, String style, String... values) {
                 table.add(values[0], style).right().padRight(24);
-                table.add(values[1], style).left().expandX();
-                table.add(values[2], style).right();
+                table.add(values[1], style).left().expandX().padRight(24);
+                table.add(values[2], style).right().padRight(24);
+                table.add(values[3], style).right();
             }
         });
 
@@ -68,12 +70,17 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
         getStage().addActor(root);
 
         ScrollableTable table = builder.getActor("entrantTable");
-        table.addHeaderRow("#", "Racer", "Score");
+        table.addHeaderRow("#", "Racer", "Score", "Total Time");
         Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
         entrants.sort(new Comparator<GameInfo.Entrant>() {
             @Override
             public int compare(GameInfo.Entrant e1, GameInfo.Entrant e2) {
-                return -Integer.compare(e1.getScore(), e2.getScore());
+                int cmp = -Integer.compare(e1.getScore(), e2.getScore());
+                if (cmp != 0) {
+                    return cmp;
+                }
+                // If it's a tie, the fastest gets the best place
+                return Float.compare(e1.getRaceTime(), e2.getRaceTime());
             }
         });
         for (int idx = 0; idx < entrants.size; ++idx) {
@@ -83,7 +90,8 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
             table.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     entrant.getVehicleId(),
-                    String.valueOf(entrant.getScore())
+                    String.valueOf(entrant.getScore()),
+                    StringUtils.formatRaceTime(entrant.getRaceTime())
             );
         }
     }

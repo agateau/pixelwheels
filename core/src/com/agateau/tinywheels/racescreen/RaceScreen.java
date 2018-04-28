@@ -217,9 +217,6 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void onFinished() {
-        for (Racer racer : mGameWorld.getRacers()) {
-            racer.markRaceFinished();
-        }
         FinishedOverlay overlay = new FinishedOverlay(mGame, mListener, mGameWorld.getRacers());
         mHudStage.addActor(overlay);
     }

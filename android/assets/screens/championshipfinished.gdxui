@@ -5,7 +5,7 @@
                topCenter="root.topCenter 0 -2">Championship Finished!</Label>
 
         <EntrantTable id="entrantTable" center="root.center"
-            width="350"
+            width="500"
             height="320"/>
 
         <ImageButton id="backButton"

@@ -243,11 +243,17 @@ public class GameWorld implements ContactListener, Disposable {
         }
     }
 
-    private void attributePoints() {
+    private void onFinished() {
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
+            racer.markRaceFinished();
+            GameInfo.Entrant entrant = racer.getEntrant();
+
             int points = mRacers.size - idx;
-            racer.getEntrant().addPoints(points);
+            entrant.addPoints(points);
+
+            LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
+            entrant.addRaceTime(lapPositionComponent.getTotalTime());
         }
     }
 
@@ -364,7 +370,7 @@ public class GameWorld implements ContactListener, Disposable {
         }
         mState = state;
         if (mState == State.FINISHED) {
-            attributePoints();
+            onFinished();
         }
     }
 
