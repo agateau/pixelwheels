@@ -96,15 +96,21 @@ public abstract class GameInfo {
     }
 
     public static class Player extends Entrant {
+        private final int mIndex;
         private GameInputHandler mInputHandler;
 
         public GameInputHandler getInputHandler() {
             return mInputHandler;
         }
 
-        public Player(String vehicleId, GameInputHandler inputHandler) {
-            this.mVehicleId = vehicleId;
-            this.mInputHandler = inputHandler;
+        public Player(int idx, String vehicleId, GameInputHandler inputHandler) {
+            mIndex = idx;
+            mVehicleId = vehicleId;
+            mInputHandler = inputHandler;
+        }
+
+        public int getIndex() {
+            return mIndex;
         }
     }
 

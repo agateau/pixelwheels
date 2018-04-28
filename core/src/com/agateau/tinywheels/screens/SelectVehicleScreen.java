@@ -97,6 +97,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         String vehicleId = mVehicleSelector.getSelectedId();
         String inputHandlerId = mGame.getConfig().input;
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        mListener.onPlayerSelected(new GameInfo.Player(vehicleId, factory.create()));
+        GameInfo.Player player = new GameInfo.Player(0, vehicleId, factory.create());
+        mListener.onPlayerSelected(player);
     }
 }

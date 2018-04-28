@@ -23,6 +23,7 @@ import com.agateau.tinywheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.racescreen.ScrollableTable;
+import com.agateau.tinywheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -77,7 +78,7 @@ public class ChampionshipFinishedScreen extends TwStageScreen {
         });
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
-            String style = entrant instanceof GameInfo.Player ? "newHighScore" : "highScore";
+            String style = UiUtils.getEntrantRowStyle(entrant);
             table.setRowStyle(style);
             table.addRow(
                     String.format(Locale.US, "%d.", idx + 1),

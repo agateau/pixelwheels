@@ -18,11 +18,11 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.utils.StringUtils;
+import com.agateau.tinywheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.menu.Menu;
@@ -79,7 +79,7 @@ public class FinishedOverlay extends Overlay {
         scrollableTable.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
-            String style = racer.getEntrant() instanceof GameInfo.Player ? "newHighScore" : "highScore";
+            String style = UiUtils.getEntrantRowStyle(racer.getEntrant());
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
             scrollableTable.setRowStyle(style);
             scrollableTable.addRow(

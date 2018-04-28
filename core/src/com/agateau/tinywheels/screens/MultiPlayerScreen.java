@@ -140,7 +140,7 @@ public class MultiPlayerScreen extends TwStageScreen {
 
             String id = mVehicleSelectors[idx].getSelectedId();
 
-            players.add(new GameInfo.Player(id, inputHandler));
+            players.add(new GameInfo.Player(idx, id, inputHandler));
         }
 
         mListener.onPlayersSelected(players);
