@@ -24,6 +24,7 @@ import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
+import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -63,6 +64,11 @@ public class Menu extends Group {
 
     private Vector2 mTmp = new Vector2();
 
+    private enum FocusIndicatorMovement {
+        IMMEDIATE,
+        ANIMATED
+    }
+
     public static class MenuStyle {
         public Drawable focus;
         public int spacing;
@@ -88,7 +94,7 @@ public class Menu extends Group {
             public void layout() {
                 super.layout();
                 updateBounds();
-                updateFocusIndicatorBounds();
+                updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
             }
         };
         mContainer.pad(mStyle.focusPadding);
@@ -268,34 +274,33 @@ public class Menu extends Group {
         if (old >= 0 && mCurrentIndex == -1) {
             mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
         } else if (old == -1) {
-            updateFocusIndicatorBounds();
-            mFocusIndicator.addAction(Actions.fadeIn(SELECTION_ANIMATION_DURATION));
-            Scene2dUtils.fireChangeEvent(this);
+            updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
         } else {
-            animateFocusIndicator();
+            updateFocusIndicatorBounds(FocusIndicatorMovement.ANIMATED);
         }
     }
 
     void animateFocusIndicator() {
-        MenuItem item = getCurrentItem();
-        if (item == null) {
-            return;
-        }
-        Rectangle rect = item.getFocusRectangle();
-        mapDescendantRectangle(item.getActor(), rect);
-        mFocusIndicator.addAction(Actions.moveTo(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        mFocusIndicator.addAction(Actions.sizeTo(rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        Scene2dUtils.fireChangeEvent(this);
+        updateFocusIndicatorBounds(FocusIndicatorMovement.ANIMATED);
     }
 
-    private void updateFocusIndicatorBounds() {
+    private void updateFocusIndicatorBounds(FocusIndicatorMovement movement) {
         MenuItem item = getCurrentItem();
         if (item == null) {
             return;
         }
         Rectangle rect = item.getFocusRectangle();
         mapDescendantRectangle(item.getActor(), rect);
-        mFocusIndicator.setBounds(rect.x - mStyle.focusPadding, rect.y - mStyle.focusPadding, rect.width + 2 * mStyle.focusPadding, rect.height + 2 * mStyle.focusPadding);
+        GylMathUtils.adjustRectangle(rect, mStyle.focusPadding);
+
+        mFocusIndicator.clearActions();
+        if (movement == FocusIndicatorMovement.IMMEDIATE) {
+            mFocusIndicator.setBounds(rect.x, rect.y, rect.width, rect.height);
+        } else {
+            mFocusIndicator.addAction(Actions.moveTo(rect.x, rect.y, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+            mFocusIndicator.addAction(Actions.sizeTo(rect.width, rect.height, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
+        }
+        Scene2dUtils.fireChangeEvent(this);
     }
 
     private void mapDescendantRectangle(Actor actor, Rectangle rect) {

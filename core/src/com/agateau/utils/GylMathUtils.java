@@ -19,6 +19,7 @@
 package com.agateau.utils;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class GylMathUtils {
@@ -115,5 +116,16 @@ public class GylMathUtils {
      */
     public static float segmentAngle(Vector2 pos1, Vector2 pos2) {
         return (float)Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
+    }
+
+    /**
+     * Grows @p rect in all directions by @p amount. A negative value
+     * will shrink it.
+     */
+    public static void adjustRectangle(Rectangle rect, float amount) {
+        rect.x -= amount;
+        rect.y -= amount;
+        rect.width += 2 * amount;
+        rect.height += 2 * amount;
     }
 }
