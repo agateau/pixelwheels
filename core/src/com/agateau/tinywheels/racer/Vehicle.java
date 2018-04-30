@@ -22,7 +22,7 @@ import com.agateau.tinywheels.utils.Box2DUtils;
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -191,7 +191,7 @@ public class Vehicle implements Racer.Component, Disposable {
      * Returns the angle the car is facing
      */
     public float getAngle() {
-        return GylMathUtils.normalizeAngle(mBody.getAngle() * MathUtils.radiansToDegrees);
+        return AgcMathUtils.normalizeAngle(mBody.getAngle() * MathUtils.radiansToDegrees);
     }
 
     public float getWidth() {

@@ -23,10 +23,10 @@ import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.map.WaypointStore;
+import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.agateau.utils.GylMathUtils;
 
 /**
  * An AI pilot
@@ -118,7 +118,7 @@ public class AIPilot implements Pilot {
         updateTargetVector();
 
         Vehicle vehicle = mRacer.getVehicle();
-        float targetAngle = GylMathUtils.normalizeAngle(mTargetVector.angle());
+        float targetAngle = AgcMathUtils.normalizeAngle(mTargetVector.angle());
         float vehicleAngle = vehicle.getAngle();
         float deltaAngle = targetAngle - vehicleAngle;
         if (deltaAngle > 180) {

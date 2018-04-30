@@ -28,7 +28,7 @@ import com.agateau.tinywheels.gameobjet.GameObject;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.map.MapUtils;
 import com.agateau.tinywheels.racer.Vehicle;
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -176,8 +176,8 @@ public class GameRenderer {
         // Compute pos
         float maxCameraRotationSpeed = mGameConfig.rotateCamera ? Constants.MAX_CAMERA_ROTATION_SPEED : 0;
 
-        float targetAngle = GylMathUtils.normalizeAngle(180 - mVehicle.getAngle());
-        float deltaAngle = GylMathUtils.normalizeAngle180(targetAngle - mCameraAngle);
+        float targetAngle = AgcMathUtils.normalizeAngle(180 - mVehicle.getAngle());
+        float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraAngle);
 
         float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
         float progress = Math.min(Math.abs(deltaAngle), K) / K;

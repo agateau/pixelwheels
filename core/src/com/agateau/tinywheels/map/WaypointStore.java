@@ -20,8 +20,8 @@ package com.agateau.tinywheels.map;
 
 import com.agateau.tinywheels.Constants;
 import com.agateau.tinywheels.utils.OrientedPoint;
+import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Assert;
-import com.agateau.utils.GylMathUtils;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -90,7 +90,7 @@ public class WaypointStore {
         int prevIdx = getPreviousIndex(nextIdx);
         Vector2 prev = mWaypointInfos.get(prevIdx).waypoint;
         Vector2 next = mWaypointInfos.get(nextIdx).waypoint;
-        Vector2 projected = GylMathUtils.project(pos, prev, next);
+        Vector2 projected = AgcMathUtils.project(pos, prev, next);
         float waypointSquareLength = prev.dst2(next);
         if (projected.dst2(prev) > waypointSquareLength) {
             // projected is after the [prev, next] segment
@@ -101,7 +101,7 @@ public class WaypointStore {
         }
         tmpPoint.x = projected.x;
         tmpPoint.y = projected.y;
-        tmpPoint.angle = GylMathUtils.normalizeAngle(GylMathUtils.segmentAngle(prev, next));
+        tmpPoint.angle = AgcMathUtils.normalizeAngle(AgcMathUtils.segmentAngle(prev, next));
         return tmpPoint;
     }
 

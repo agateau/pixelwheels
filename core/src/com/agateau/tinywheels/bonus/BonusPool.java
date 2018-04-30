@@ -22,7 +22,7 @@ import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameWorld;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.badlogic.gdx.utils.Pool;
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 
 /**
  * Pool of bonus instances
@@ -54,7 +54,7 @@ public abstract class BonusPool extends Pool<Bonus> {
      * last, normalizedRank is 1
      */
     public float getCountForNormalizedRank(float normalizedRank) {
-        return GylMathUtils.arrayLerp(mCounts, normalizedRank);
+        return AgcMathUtils.arrayLerp(mCounts, normalizedRank);
     }
 
     public Assets getAssets() {

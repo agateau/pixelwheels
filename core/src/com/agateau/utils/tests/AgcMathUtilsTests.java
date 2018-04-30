@@ -18,7 +18,7 @@
  */
 package com.agateau.utils.tests;
 
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import org.junit.Test;
@@ -29,10 +29,10 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
- * Tests for the GylMathUtils class
+ * Tests for the AgcMathUtils class
  */
 @RunWith(JUnit4.class)
-public class GylMathUtilsTests {
+public class AgcMathUtilsTests {
     @Test
     public void testArrayLerp() {
         class ArrayLerpData {
@@ -53,7 +53,7 @@ public class GylMathUtilsTests {
                 new ArrayLerpData(new float[]{0, 1, 4}, 1, 4),
         };
         for (ArrayLerpData data : dataSet) {
-            float actual = GylMathUtils.arrayLerp(data.array, data.k);
+            float actual = AgcMathUtils.arrayLerp(data.array, data.k);
             assertEquals(data.expected, actual, 0.001f);
         }
     }
@@ -89,7 +89,7 @@ public class GylMathUtilsTests {
                 new Data().setInput(1, 1).setP1(0, 0).setP2(0, 2).setExpected(0, 1),
         };
         for (Data data : dataSet) {
-            Vector2 result = GylMathUtils.project(data.input, data.p1, data.p2);
+            Vector2 result = AgcMathUtils.project(data.input, data.p1, data.p2);
             assertEquals(data.expected.x, result.x, 0.001f);
             assertEquals(data.expected.y, result.y, 0.001f);
         }

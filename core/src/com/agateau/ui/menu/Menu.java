@@ -24,7 +24,7 @@ import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -291,7 +291,7 @@ public class Menu extends Group {
         }
         Rectangle rect = item.getFocusRectangle();
         mapDescendantRectangle(item.getActor(), rect);
-        GylMathUtils.adjustRectangle(rect, mStyle.focusPadding);
+        AgcMathUtils.adjustRectangle(rect, mStyle.focusPadding);
 
         mFocusIndicator.clearActions();
         if (movement == FocusIndicatorMovement.IMMEDIATE) {

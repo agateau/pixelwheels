@@ -25,7 +25,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.agateau.utils.CircularArray;
-import com.agateau.utils.GylMathUtils;
+import com.agateau.utils.AgcMathUtils;
 
 /**
  * Render a circular array of skidmarks
@@ -62,7 +62,7 @@ public class SkidmarksRenderer {
 
             if (!mValidThickness) {
                 mValidThickness = true;
-                Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+                Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
                 mThickX2 = thickness.x;
                 mThickY2 = thickness.y;
             }
@@ -70,7 +70,7 @@ public class SkidmarksRenderer {
             if (!pos1.equals(Wheel.END_DRIFT_POS) && !pos2.equals(Wheel.END_DRIFT_POS)) {
                 mThickX1 = mThickX2;
                 mThickY1 = mThickY2;
-                Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+                Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
                 mThickX2 = thickness.x;
                 mThickY2 = thickness.y;
 
@@ -85,7 +85,7 @@ public class SkidmarksRenderer {
 
     private float[] mVertices = new float[4 * 5];
     private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha) {
-        //Vector2 thickness = GylMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+        //Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha);
         float c2 = Color.toFloatBits(1, 1, 1, alpha + SKIDMARK_ALPHA_INC);
