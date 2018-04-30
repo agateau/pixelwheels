@@ -128,12 +128,12 @@ public class Assets {
 
     private void initChampionships() {
         championships.add(new Championship("snow", "Snow")
-                .addTrack(findTrackByID("race"))
-                .addTrack(findTrackByID("snow2")));
+                .addTrack(findTrackById("race"))
+                .addTrack(findTrackById("snow2")));
 
         championships.add(new Championship("city", "City")
-                .addTrack(findTrackByID("be"))
-                .addTrack(findTrackByID("tiny-sur-mer")));
+                .addTrack(findTrackById("be"))
+                .addTrack(findTrackById("tiny-sur-mer")));
     }
 
     private static void removeBorders(TextureRegion region) {
@@ -164,7 +164,7 @@ public class Assets {
         return lst;
     }
 
-    public VehicleDef findVehicleDefByID(String id) {
+    public VehicleDef findVehicleDefById(String id) {
         for (VehicleDef def : vehicleDefs) {
             if (def.id.equals(id)) {
                 return def;
@@ -173,7 +173,7 @@ public class Assets {
         return null;
     }
 
-    public Championship findChampionshipByID(String id) {
+    public Championship findChampionshipById(String id) {
         for (Championship championship : championships) {
             if (championship.getId().equals(id)) {
                 return championship;
@@ -182,7 +182,7 @@ public class Assets {
         return null;
     }
 
-    public Track findTrackByID(String id) {
+    public Track findTrackById(String id) {
         for (Track track : tracks) {
             if (track.getId().equals(id)) {
                 return track;

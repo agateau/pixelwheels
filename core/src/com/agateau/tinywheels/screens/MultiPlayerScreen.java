@@ -109,7 +109,7 @@ public class MultiPlayerScreen extends TwStageScreen {
         VehicleSelector selector = new VehicleSelector(menu);
         mVehicleSelectors[idx] = selector;
         selector.init(assets);
-        selector.setCurrent(assets.findVehicleDefByID(vehicleId));
+        selector.setCurrent(assets.findVehicleDefById(vehicleId));
         selector.addListener(new MenuItemListener() {
             @Override
             public void triggered() {

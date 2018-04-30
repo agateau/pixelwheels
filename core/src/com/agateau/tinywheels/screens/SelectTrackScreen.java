@@ -69,7 +69,7 @@ public class SelectTrackScreen extends TwStageScreen {
         mTrackSelector = new TrackSelector(menu);
         mTrackSelector.setColumnCount(2);
         mTrackSelector.init(assets);
-        mTrackSelector.setCurrent(assets.findTrackByID(mGame.getConfig().track));
+        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
 
         mTrackSelector.addListener(new MenuItemListener() {

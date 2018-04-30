@@ -269,7 +269,7 @@ public class GameWorld implements ContactListener, Disposable {
         for (int idx = 0; idx < entrants.size; ++idx) {
             Assert.check(idx < positions.size, "Too many entrants");
             GameInfo.Entrant entrant = entrants.get(idx);
-            VehicleDef vehicleDef = assets.findVehicleDefByID(entrant.getVehicleId());
+            VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
             Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
             Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant instanceof GameInfo.Player) {

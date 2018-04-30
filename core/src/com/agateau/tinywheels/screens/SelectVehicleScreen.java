@@ -70,7 +70,7 @@ public class SelectVehicleScreen extends TwStageScreen {
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets);
         String id = mGame.getConfig().vehicles[0];
-        mVehicleSelector.setCurrent(assets.findVehicleDefByID(id));
+        mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);
 
         mVehicleSelector.addListener(new MenuItemListener() {

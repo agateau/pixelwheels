@@ -68,7 +68,7 @@ public class SelectChampionshipScreen extends TwStageScreen {
         mChampionshipSelector = new ChampionshipSelector(menu);
         mChampionshipSelector.setColumnCount(2);
         mChampionshipSelector.init(assets);
-        mChampionshipSelector.setCurrent(assets.findChampionshipByID(championshipId));
+        mChampionshipSelector.setCurrent(assets.findChampionshipById(championshipId));
         menu.addItem(mChampionshipSelector);
 
         mChampionshipSelector.addListener(new MenuItemListener() {
