@@ -32,7 +32,7 @@ import com.badlogic.gdx.Gdx;
 /**
  * Main menu, shown at startup
  */
-public class MainMenuScreen extends TwStageScreen {
+public class MainMenuScreen extends PwStageScreen {
     private final PwGame mGame;
 
     public MainMenuScreen(PwGame game) {

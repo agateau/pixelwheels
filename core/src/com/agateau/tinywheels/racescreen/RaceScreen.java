@@ -32,7 +32,7 @@ import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.racer.RacerDebugShape;
 import com.agateau.tinywheels.racer.Vehicle;
-import com.agateau.tinywheels.screens.TwStageScreen;
+import com.agateau.tinywheels.screens.PwStageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -204,7 +204,7 @@ public class RaceScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        float upp = Math.max((float)(TwStageScreen.WIDTH) / width, (float)(TwStageScreen.HEIGHT) / height);
+        float upp = Math.max((float)(PwStageScreen.WIDTH) / width, (float)(PwStageScreen.HEIGHT) / height);
         mHudViewport.setUnitsPerPixel(upp);
         int viewportWidth = width / mGameRenderers.size;
         int x = 0;

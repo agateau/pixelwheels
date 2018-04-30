@@ -35,7 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * Select your vehicle
  */
-public class SelectVehicleScreen extends TwStageScreen {
+public class SelectVehicleScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
         void onPlayerSelected(GameInfo.Player player);

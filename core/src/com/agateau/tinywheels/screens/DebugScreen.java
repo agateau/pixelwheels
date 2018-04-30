@@ -36,7 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * The debug screen
  */
-public class DebugScreen extends TwStageScreen {
+public class DebugScreen extends PwStageScreen {
     private final PwGame mGame;
     private Menu mMenu;
 

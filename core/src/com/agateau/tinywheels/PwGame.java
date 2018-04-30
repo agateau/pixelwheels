@@ -24,7 +24,7 @@ import com.agateau.tinywheels.gamesetup.Maestro;
 import com.agateau.tinywheels.gamesetup.PlayerCount;
 import com.agateau.tinywheels.gamesetup.QuickRaceMaestro;
 import com.agateau.tinywheels.screens.MainMenuScreen;
-import com.agateau.tinywheels.screens.TwStageScreen;
+import com.agateau.tinywheels.screens.PwStageScreen;
 import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.DefaultAudioManager;
 import com.agateau.utils.Assert;
@@ -149,7 +149,7 @@ public class PwGame extends Game {
             Graphics.DisplayMode mode = Gdx.graphics.getDisplayMode();
             Gdx.graphics.setFullscreenMode(mode);
         } else {
-            Gdx.graphics.setWindowedMode(TwStageScreen.WIDTH, TwStageScreen.HEIGHT);
+            Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
     }
 }

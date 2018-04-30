@@ -40,7 +40,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Select player vehicles
  */
-public class MultiPlayerScreen extends TwStageScreen {
+public class MultiPlayerScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
         void onPlayersSelected(Array<GameInfo.Player> players);

@@ -33,7 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * Select your track
  */
-public class SelectTrackScreen extends TwStageScreen {
+public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
     private TrackSelector mTrackSelector;

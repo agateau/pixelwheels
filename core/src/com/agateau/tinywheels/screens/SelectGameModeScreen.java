@@ -32,7 +32,7 @@ import com.agateau.utils.FileUtils;
 /**
  * Select between quick race, championship...
  */
-public class SelectGameModeScreen extends TwStageScreen {
+public class SelectGameModeScreen extends PwStageScreen {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
 

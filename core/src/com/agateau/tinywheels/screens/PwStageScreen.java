@@ -28,13 +28,13 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
 /**
- * A stage screen using the correct size for Tiny Wheels
+ * A stage screen using the correct size for Pixel Wheels
  */
-public abstract class TwStageScreen extends StageScreen {
+public abstract class PwStageScreen extends StageScreen {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
 
-    public TwStageScreen(UiAssets uiAssets) {
+    public PwStageScreen(UiAssets uiAssets) {
         super(new ScalingViewport(Scaling.fit, WIDTH, HEIGHT));
 
         Image image = new Image();

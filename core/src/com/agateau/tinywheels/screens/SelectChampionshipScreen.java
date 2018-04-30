@@ -33,7 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * Select the championship
  */
-public class SelectChampionshipScreen extends TwStageScreen {
+public class SelectChampionshipScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
         void onChampionshipSelected(Championship championship);

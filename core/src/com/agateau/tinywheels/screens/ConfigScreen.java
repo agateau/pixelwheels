@@ -41,7 +41,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * The config screen
  */
-public class ConfigScreen extends TwStageScreen {
+public class ConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private SelectorMenuItem<GameInputHandlerFactory> mInputSelector;
     private Label mInputDescriptionLabel;

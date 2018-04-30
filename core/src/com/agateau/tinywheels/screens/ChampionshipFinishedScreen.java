@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Comparator;
 import java.util.Locale;
 
-public class ChampionshipFinishedScreen extends TwStageScreen {
+public class ChampionshipFinishedScreen extends PwStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
 
