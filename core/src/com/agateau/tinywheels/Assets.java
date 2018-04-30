@@ -25,6 +25,7 @@ import com.agateau.tinywheels.sound.AudioManager;
 import com.agateau.tinywheels.sound.SoundAtlas;
 import com.agateau.tinywheels.vehicledef.VehicleDef;
 import com.agateau.tinywheels.vehicledef.VehicleIO;
+import com.agateau.ui.UiAssets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

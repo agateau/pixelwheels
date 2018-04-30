@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
-import com.agateau.tinywheels.UiAssets;
+import com.agateau.ui.UiAssets;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.VirtualKey;
