@@ -21,7 +21,6 @@ package com.agateau.ui.menu;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.Scene2dUtils;
 import com.agateau.ui.VirtualKey;
-import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -39,6 +38,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  * Sends ChangeEvent when the current item changes.
  */
 public class Menu extends Group {
+    private static final float DEFAULT_ITEM_WIDTH = 300;
+    private static final float LABEL_COLUMN_WIDTH = 120;
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
@@ -47,6 +48,9 @@ public class Menu extends Group {
     private MenuStyle mStyle;
 
     private Vector2 mTmp = new Vector2();
+
+    private float mLabelColumnWidth;
+    private float mDefaultItemWidth;
 
     enum FocusIndicatorMovement {
         IMMEDIATE,
@@ -74,6 +78,8 @@ public class Menu extends Group {
         mFocusIndicator.setTouchable(Touchable.disabled);
 
         mGroup = new MenuItemGroup(this);
+        setDefaultItemWidth(DEFAULT_ITEM_WIDTH);
+        setLabelColumnWidth(LABEL_COLUMN_WIDTH);
 
         addActor(mFocusIndicator);
         addActor(mGroup.getActor());
@@ -91,22 +97,22 @@ public class Menu extends Group {
         mMenuInputHandler.setInputMapper(inputMapper);
     }
 
-    @SuppressWarnings("unused")
     public float getDefaultItemWidth() {
-        return mGroup.getDefaultItemWidth();
+        return mDefaultItemWidth;
     }
 
     public void setDefaultItemWidth(float defaultItemWidth) {
+        mDefaultItemWidth = defaultItemWidth;
         mGroup.setDefaultItemWidth(defaultItemWidth);
+        setWidth(defaultItemWidth + 2 * mStyle.focusPadding);
     }
 
-    @SuppressWarnings("unused")
     public float getLabelColumnWidth() {
-        return mGroup.getLabelColumnWidth();
+        return mLabelColumnWidth;
     }
 
     public void setLabelColumnWidth(float labelColumnWidth) {
-        mGroup.setLabelColumnWidth(labelColumnWidth);
+        mLabelColumnWidth = labelColumnWidth;
     }
 
     public MenuItem addButton(String text) {
@@ -133,6 +139,7 @@ public class Menu extends Group {
     /**
      * Add a full-width item
      */
+    @SuppressWarnings("UnusedReturnValue")
     public MenuItem addItem(MenuItem item) {
         return mGroup.addItem(item);
     }
@@ -188,7 +195,8 @@ public class Menu extends Group {
         }
         Rectangle rect = item.getFocusRectangle();
         mapDescendantRectangle(item.getActor(), rect);
-        AgcMathUtils.adjustRectangle(rect, mStyle.focusPadding);
+        rect.width += 2 * mStyle.focusPadding;
+        rect.height += 2 * mStyle.focusPadding;
 
         mFocusIndicator.clearActions();
         if (movement == FocusIndicatorMovement.IMMEDIATE) {
@@ -209,5 +217,11 @@ public class Menu extends Group {
         mTmp = actor.localToAscendantCoordinates(mGroup.getActor(), mTmp);
         rect.x = mTmp.x;
         rect.y = mTmp.y;
+    }
+
+    void onGroupBoundariesChanged() {
+        Actor actor = mGroup.getActor();
+        actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
+        setBounds(0, 0, getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
     }
 }

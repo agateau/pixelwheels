@@ -254,7 +254,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
-    public void setDefaultColumnWidth(float width) {
+    public void setDefaultItemWidth(float width) {
         // We ignore the default width in this item
     }
 

@@ -170,7 +170,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     @Override
-    public void setDefaultColumnWidth(float width) {
+    public void setDefaultItemWidth(float width) {
         setWidth(width);
     }
 

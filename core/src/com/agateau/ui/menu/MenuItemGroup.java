@@ -46,11 +46,16 @@ public class MenuItemGroup implements MenuItem {
     private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
     private int mCurrentIndex = -1;
-    private float mLabelColumnWidth = 120;
-    private float mDefaultItemWidth = 300;
+
+    private enum SetCurrentHint {
+        NONE,
+        FROM_TOP,
+        FROM_BOTTOM
+    }
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
+        //mGroup.setDebug(true, true);
         mGroup.addCaptureListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
@@ -61,7 +66,6 @@ public class MenuItemGroup implements MenuItem {
             }
         });
         Menu.MenuStyle style = mMenu.getMenuStyle();
-        mGroup.pad(style.focusPadding);
         mGroup.space(style.focusPadding * 2 + style.spacing);
         mGroup.fill();
     }
@@ -121,15 +125,17 @@ public class MenuItemGroup implements MenuItem {
     private final Rectangle mFocusRect = new Rectangle();
     @Override
     public Rectangle getFocusRectangle() {
-        mFocusRect.set(getCurrentItem().getFocusRectangle());
-        mMenu.mapDescendantRectangle(getCurrentItem().getActor(), mFocusRect);
+        MenuItem item = getCurrentItem();
+        mFocusRect.set(item.getFocusRectangle());
+        mFocusRect.x += item.getActor().getX();
+        mFocusRect.y += item.getActor().getY();
         return mFocusRect;
     }
 
     @Override
-    public void setDefaultColumnWidth(float width) {
+    public void setDefaultItemWidth(float width) {
         for (MenuItem item : mItems) {
-            item.setDefaultColumnWidth(width);
+            item.setDefaultItemWidth(width);
         }
     }
 
@@ -176,22 +182,6 @@ public class MenuItemGroup implements MenuItem {
         updateBounds();
     }
 
-    public float getDefaultItemWidth() {
-        return mDefaultItemWidth;
-    }
-
-    public void setDefaultItemWidth(float defaultItemWidth) {
-        mDefaultItemWidth = defaultItemWidth;
-    }
-
-    public float getLabelColumnWidth() {
-        return mLabelColumnWidth;
-    }
-
-    public void setLabelColumnWidth(float labelColumnWidth) {
-        mLabelColumnWidth = labelColumnWidth;
-    }
-
     public MenuItem addButton(String text) {
         return addItem(new ButtonMenuItem(mMenu, text, mMenu.getSkin()));
     }
@@ -209,7 +199,7 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public MenuItem addItem(MenuItem item) {
-        item.setDefaultColumnWidth(mDefaultItemWidth);
+        item.setDefaultItemWidth(mMenu.getDefaultItemWidth());
         addItemInternal(item, item.getActor());
         return item;
     }
@@ -218,13 +208,16 @@ public class MenuItemGroup implements MenuItem {
         Actor actor = item.getActor();
         float height = actor.getHeight();
 
-        Label label = new Label(labelText, mMenu.getSkin());
-        label.setSize(mLabelColumnWidth, height);
+        float labelWidth = mMenu.getLabelColumnWidth();
+        float itemWidth = mMenu.getDefaultItemWidth();
 
-        item.setDefaultColumnWidth(mDefaultItemWidth - mLabelColumnWidth);
+        Label label = new Label(labelText, mMenu.getSkin());
+        label.setSize(labelWidth, height);
+
+        item.setDefaultItemWidth(itemWidth - labelWidth);
 
         AnchorGroup group = new AnchorGroup();
-        group.setSize(mDefaultItemWidth, height);
+        group.setSize(itemWidth, height);
 
         group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
         group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
@@ -238,7 +231,7 @@ public class MenuItemGroup implements MenuItem {
         for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
             MenuItem item = mItems.get(idx);
             if (item.isFocusable() && isItemVisible(item)) {
-                setCurrentIndex(idx);
+                setCurrentIndex(idx, delta > 0 ? SetCurrentHint.FROM_TOP : SetCurrentHint.FROM_BOTTOM);
                 return true;
             }
         }
@@ -246,11 +239,12 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void updateBounds() {
-        float width = Math.max(mMenu.getWidth(), mGroup.getPrefWidth());
+        float width = Math.max(mMenu.getWidth() - mMenu.getMenuStyle().focusPadding * 2,
+                mGroup.getPrefWidth());
         float height = mGroup.getPrefHeight();
 
         mGroup.setSize(width, height);
-        mMenu.setBounds(mGroup.getX(), mGroup.getTop() - height, width, height);
+        mMenu.onGroupBoundariesChanged();
     }
 
     private void addItemInternal(MenuItem item, Actor actor) {
@@ -264,10 +258,30 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void setCurrentIndex(int index) {
+        setCurrentIndex(index, SetCurrentHint.NONE);
+    }
+
+    private void setCurrentIndex(int index, SetCurrentHint hint) {
         int old = mCurrentIndex;
         mCurrentIndex = index;
         if (mCurrentIndex >= 0) {
             Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
+        }
+        if (mCurrentIndex != -1) {
+            MenuItem item = mItems.get(mCurrentIndex);
+            if (item instanceof MenuItemGroup) {
+                MenuItemGroup group = (MenuItemGroup)item;
+                switch (hint) {
+                    case NONE:
+                        break;
+                    case FROM_BOTTOM:
+                        group.goUp();
+                        break;
+                    case FROM_TOP:
+                        group.goDown();
+                        break;
+                }
+            }
         }
         if (old >= 0 && mCurrentIndex == -1) {
             mMenu.hideFocusIndicator();

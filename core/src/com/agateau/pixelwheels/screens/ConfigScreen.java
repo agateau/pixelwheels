@@ -27,7 +27,6 @@ import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
-import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.menu.SelectorMenuItem;

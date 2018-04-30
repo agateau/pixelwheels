@@ -94,7 +94,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
-    public void setDefaultColumnWidth(float width) {
+    public void setDefaultItemWidth(float width) {
         setWidth(width);
     }
 }

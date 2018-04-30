@@ -26,7 +26,6 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.SizeRule;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.MenuScrollPane;
@@ -93,8 +92,6 @@ class GalleryScreen extends StageScreen {
         });
         hiddenGroup.addTitleLabel("Hidden item");
         hiddenGroup.addButton("I was hidden");
-        hiddenGroup.setLabelColumnWidth(200);
-        hiddenGroup.setDefaultItemWidth(500);
         menu.addItem(hiddenGroup);
         menu.setItemVisible(hiddenGroup, false);
 
