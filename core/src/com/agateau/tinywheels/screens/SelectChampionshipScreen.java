@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.map.Championship;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -38,11 +38,11 @@ public class SelectChampionshipScreen extends TwStageScreen {
         void onBackPressed();
         void onChampionshipSelected(Championship championship);
     }
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final Listener mListener;
     private ChampionshipSelector mChampionshipSelector;
 
-    public SelectChampionshipScreen(TwGame game, Listener listener, final String championshipId) {
+    public SelectChampionshipScreen(PwGame game, Listener listener, final String championshipId) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;

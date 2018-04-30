@@ -18,8 +18,8 @@
  */
 package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.gamesetup.PlayerCount;
-import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -33,9 +33,9 @@ import com.badlogic.gdx.Gdx;
  * Main menu, shown at startup
  */
 public class MainMenuScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
 
-    public MainMenuScreen(TwGame game) {
+    public MainMenuScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
         setupUi();

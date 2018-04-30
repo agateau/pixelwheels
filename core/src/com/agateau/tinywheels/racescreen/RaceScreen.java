@@ -21,7 +21,7 @@ package com.agateau.tinywheels.racescreen;
 import com.agateau.tinywheels.gamesetup.GameInfo;
 import com.agateau.tinywheels.GamePlay;
 import com.agateau.tinywheels.GameWorld;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.debug.Debug;
 import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
@@ -54,7 +54,7 @@ public class RaceScreen extends ScreenAdapter {
         void onQuitPressed();
         void onNextTrackPressed();
     }
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final Listener mListener;
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
@@ -73,7 +73,7 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
-    public RaceScreen(TwGame game, Listener listener, GameInfo gameInfo) {
+    public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mListener = listener;
@@ -254,7 +254,7 @@ public class RaceScreen extends ScreenAdapter {
         // 2. The new RaceScreen creates a GameWorld
         // 3. The new GameWorld calls Track.init()
         // 4. RaceScreen is set to replace the current screen
-        // 5. TwGame.replaceScreen() calls dispose() on the old screen
+        // 5. PwGame.replaceScreen() calls dispose() on the old screen
         // 6. The old screen calls dispose() on its GameWorld
         // 7. The old GameWorld  calls dispose() on its Track
         // 8. Since the Track of the old GameWorld is the same as the

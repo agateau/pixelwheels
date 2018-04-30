@@ -20,7 +20,7 @@ package com.agateau.tinywheels.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.utils.FileUtils;
 
 public class DesktopLauncher {
@@ -31,6 +31,6 @@ public class DesktopLauncher {
         config.title = "Pixel Wheels";
         config.preferencesDirectory = ".config/agateau.com";
         FileUtils.appName = "pixelwheels";
-        new LwjglApplication(new TwGame(), config);
+        new LwjglApplication(new PwGame(), config);
     }
 }

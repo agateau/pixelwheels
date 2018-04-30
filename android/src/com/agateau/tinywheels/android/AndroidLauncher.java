@@ -23,7 +23,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.utils.FileUtils;
 
 public class AndroidLauncher extends AndroidApplication {
@@ -34,7 +34,7 @@ public class AndroidLauncher extends AndroidApplication {
         config.useImmersiveMode = true;
         config.hideStatusBar = true;
         FileUtils.appName = "tinywheels";
-        initialize(new TwGame(), config);
+        initialize(new PwGame(), config);
         Gdx.input.setCatchBackKey(true);
     }
 }

@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.racescreen;
 
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.racer.LapPositionComponent;
 import com.agateau.tinywheels.racer.Racer;
 import com.agateau.tinywheels.utils.StringUtils;
@@ -38,10 +38,10 @@ import java.util.Locale;
  * Appears on top of RaceScreen at the end of the race
  */
 public class FinishedOverlay extends Overlay {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final RaceScreen.Listener mListener;
 
-    public FinishedOverlay(TwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
+    public FinishedOverlay(PwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
         super(game.getAssets().dot);
         mGame = game;
         mListener = listener;

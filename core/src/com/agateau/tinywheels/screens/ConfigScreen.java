@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.ui.menu.ButtonMenuItem;
@@ -42,11 +42,11 @@ import com.badlogic.gdx.utils.Array;
  * The config screen
  */
 public class ConfigScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private SelectorMenuItem<GameInputHandlerFactory> mInputSelector;
     private Label mInputDescriptionLabel;
 
-    public ConfigScreen(TwGame game) {
+    public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
         setupUi();

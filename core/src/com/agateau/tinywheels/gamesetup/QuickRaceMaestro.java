@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.gamesetup;
 
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.MultiPlayerScreen;
@@ -31,11 +31,11 @@ import com.badlogic.gdx.utils.Array;
  * Handle a quick race game
  */
 public class QuickRaceMaestro implements Maestro {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
     private final PlayerCount mPlayerCount;
 
-    public QuickRaceMaestro(TwGame game, PlayerCount playerCount) {
+    public QuickRaceMaestro(PwGame game, PlayerCount playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
         mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());

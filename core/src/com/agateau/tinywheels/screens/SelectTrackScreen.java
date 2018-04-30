@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.map.Track;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -34,7 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Select your track
  */
 public class SelectTrackScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final Listener mListener;
     private TrackSelector mTrackSelector;
 
@@ -43,7 +43,7 @@ public class SelectTrackScreen extends TwStageScreen {
         void onTrackSelected(Track track);
     }
 
-    public SelectTrackScreen(TwGame game, Listener listener) {
+    public SelectTrackScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;

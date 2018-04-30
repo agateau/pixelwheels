@@ -21,7 +21,7 @@ package com.agateau.tinywheels.screens;
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.tinywheels.gamesetup.GameInfo;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.racescreen.ScrollableTable;
 import com.agateau.tinywheels.utils.StringUtils;
 import com.agateau.tinywheels.utils.UiUtils;
@@ -36,10 +36,10 @@ import java.util.Comparator;
 import java.util.Locale;
 
 public class ChampionshipFinishedScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
 
-    public ChampionshipFinishedScreen(TwGame game, ChampionshipGameInfo gameInfo) {
+    public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo) {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;

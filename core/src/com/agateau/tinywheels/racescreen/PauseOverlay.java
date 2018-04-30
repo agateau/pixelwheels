@@ -18,8 +18,8 @@
  */
 package com.agateau.tinywheels.racescreen;
 
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.screens.ConfigScreen;
-import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -31,11 +31,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * Appears on top of RaceScreen when paused
  */
 public class PauseOverlay extends Overlay {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final RaceScreen.Listener mListener;
     private final RaceScreen mRaceScreen;
 
-    public PauseOverlay(TwGame game, RaceScreen.Listener listener, RaceScreen raceScreen) {
+    public PauseOverlay(PwGame game, RaceScreen.Listener listener, RaceScreen raceScreen) {
         super(game.getAssets().dot);
         mGame = game;
         mListener = listener;

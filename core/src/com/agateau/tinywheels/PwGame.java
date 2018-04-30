@@ -44,7 +44,7 @@ import java.util.Stack;
 /**
  * The game
  */
-public class TwGame extends Game {
+public class PwGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
     private Maestro mMaestro;

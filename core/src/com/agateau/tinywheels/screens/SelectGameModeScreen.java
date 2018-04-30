@@ -18,9 +18,9 @@
  */
 package com.agateau.tinywheels.screens;
 
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.gamesetup.GameMode;
 import com.agateau.tinywheels.gamesetup.PlayerCount;
-import com.agateau.tinywheels.TwGame;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -33,10 +33,10 @@ import com.agateau.utils.FileUtils;
  * Select between quick race, championship...
  */
 public class SelectGameModeScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final PlayerCount mPlayerCount;
 
-    public SelectGameModeScreen(TwGame game, PlayerCount playerCount) {
+    public SelectGameModeScreen(PwGame game, PlayerCount playerCount) {
         super(game.getAssets().ui);
         mGame = game;
         mPlayerCount = playerCount;

@@ -21,7 +21,7 @@ package com.agateau.tinywheels.screens;
 import com.agateau.tinywheels.Assets;
 import com.agateau.tinywheels.GameConfig;
 import com.agateau.tinywheels.gamesetup.GameInfo;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.RefreshHelper;
@@ -45,12 +45,12 @@ public class MultiPlayerScreen extends TwStageScreen {
         void onBackPressed();
         void onPlayersSelected(Array<GameInfo.Player> players);
     }
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final Listener mListener;
     private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
     private KeyMapper[] mKeyMappers = new KeyMapper[2];
 
-    public MultiPlayerScreen(TwGame game, Listener listener) {
+    public MultiPlayerScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;

@@ -18,7 +18,7 @@
  */
 package com.agateau.tinywheels.screens;
 
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.menu.SliderMenuItem;
 import com.agateau.ui.menu.Menu;
@@ -37,14 +37,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * The debug screen
  */
 public class DebugScreen extends TwStageScreen {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private Menu mMenu;
 
     // This field is set during setupUi: add* methods use it to bind the controls to the correct
     // introspector
     private Introspector mCurrentIntrospector = null;
 
-    public DebugScreen(TwGame game) {
+    public DebugScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
         new RefreshHelper(getStage()) {

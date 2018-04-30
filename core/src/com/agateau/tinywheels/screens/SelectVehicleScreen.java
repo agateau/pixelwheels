@@ -19,8 +19,8 @@
 package com.agateau.tinywheels.screens;
 
 import com.agateau.tinywheels.Assets;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.gamesetup.GameInfo;
-import com.agateau.tinywheels.TwGame;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactory;
 import com.agateau.ui.RefreshHelper;
@@ -40,11 +40,11 @@ public class SelectVehicleScreen extends TwStageScreen {
         void onBackPressed();
         void onPlayerSelected(GameInfo.Player player);
     }
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final Listener mListener;
     private VehicleSelector mVehicleSelector;
 
-    public SelectVehicleScreen(TwGame game, Listener listener) {
+    public SelectVehicleScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;

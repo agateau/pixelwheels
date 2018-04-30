@@ -69,7 +69,7 @@ public class GameWorld implements ContactListener, Disposable {
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
 
-    private final TwGame mGame;
+    private final PwGame mGame;
     private Track mTrack;
     private final CountDown mCountDown;
 
@@ -87,7 +87,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameWorld(TwGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
+    public GameWorld(PwGame game, GameInfo gameInfo, PerformanceCounters performanceCounters) {
         mGame = game;
         mBox2DWorld = new World(new Vector2(0, 0), true);
         mBox2DWorld.setContactListener(this);

@@ -19,7 +19,7 @@
 package com.agateau.tinywheels.gamesetup;
 
 import com.agateau.tinywheels.GameConfig;
-import com.agateau.tinywheels.TwGame;
+import com.agateau.tinywheels.PwGame;
 import com.agateau.tinywheels.map.Championship;
 import com.agateau.tinywheels.racescreen.RaceScreen;
 import com.agateau.tinywheels.screens.ChampionshipFinishedScreen;
@@ -33,12 +33,12 @@ import com.badlogic.gdx.utils.Array;
  * Handle a championship game
  */
 public class ChampionshipMaestro implements Maestro {
-    private final TwGame mGame;
+    private final PwGame mGame;
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
     private final PlayerCount mPlayerCount;
     private ChampionshipGameInfo mGameInfo;
 
-    public ChampionshipMaestro(TwGame game, PlayerCount playerCount) {
+    public ChampionshipMaestro(PwGame game, PlayerCount playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
         mGameInfoBuilder = new ChampionshipGameInfo.Builder(mGame.getAssets().vehicleDefs, mGame.getConfig());
