@@ -120,6 +120,7 @@ public class Menu extends Group {
         mMenuInputHandler.setKeyMapper(keyMapper);
     }
 
+    @SuppressWarnings("unused")
     public float getDefaultItemWidth() {
         return mDefaultItemWidth;
     }
@@ -128,6 +129,7 @@ public class Menu extends Group {
         mDefaultItemWidth = defaultItemWidth;
     }
 
+    @SuppressWarnings("unused")
     public float getLabelColumnWidth() {
         return mLabelColumnWidth;
     }
@@ -154,6 +156,7 @@ public class Menu extends Group {
      * Add a "title" label in the menu (uses the "menuTitle" label style)
      * @return The created label
      */
+    @SuppressWarnings("UnusedReturnValue")
     public Label addTitleLabel(String text) {
         Label label = new Label(text, mSkin, "menuTitle");
         addActorToContainer(label);
@@ -305,7 +308,7 @@ public class Menu extends Group {
     /**
      * Returns the item at x, y (relative to mContainer), if any
      */
-    Rectangle mActorRectangle = new Rectangle();
+    private Rectangle mActorRectangle = new Rectangle();
     private MenuItem getItemAt(float x, float y) {
         for (MenuItem item : mItems) {
             Actor actor = item.getActor();
