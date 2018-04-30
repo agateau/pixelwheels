@@ -29,6 +29,7 @@ public class DesktopLauncher {
         config.width = 800;
         config.height = 480;
         config.title = "Pixel Wheels";
+        config.preferencesDirectory = ".config/agateau.com";
         FileUtils.appName = "pixelwheels";
         new LwjglApplication(new TwGame(), config);
     }
