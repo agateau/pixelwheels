@@ -169,11 +169,6 @@ public class RaceScreen extends ScreenAdapter {
         }
         mGameWorldPerformanceCounter.stop();
 
-        for (HudContent hudContent : mHudContents) {
-            hudContent.act(delta);
-        }
-        mHudStage.act(delta);
-
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -193,10 +188,18 @@ public class RaceScreen extends ScreenAdapter {
             }
         }
 
+        mRendererPerformanceCounter.stop();
+
+        // Process hud *after* rendering game so that if an action on the hud (called from
+        // mHudStage.act()) causes us to leave this screen (back to menu from pause, or leaving
+        // the FinishedOverlay) then the game renderer does not alter the OpenGL viewport *after*
+        // we have changed screens.
+        for (HudContent hudContent : mHudContents) {
+            hudContent.act(delta);
+        }
         mHudViewport.apply(true);
         mHudStage.draw();
-
-        mRendererPerformanceCounter.stop();
+        mHudStage.act(delta);
 
         mOverallPerformanceCounter.stop();
         if (!paused) {
