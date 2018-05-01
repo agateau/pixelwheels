@@ -27,6 +27,7 @@ import com.agateau.tinywheels.debug.DebugShapeMap;
 import com.agateau.tinywheels.gameinput.GameInputHandlerFactories;
 import com.agateau.tinywheels.gameobjet.AudioClipper;
 import com.agateau.tinywheels.gameobjet.GameObject;
+import com.agateau.tinywheels.map.Track;
 import com.agateau.tinywheels.racer.Pilot;
 import com.agateau.tinywheels.racer.PlayerPilot;
 import com.agateau.tinywheels.racer.Racer;
@@ -77,38 +78,66 @@ public class RaceScreen extends ScreenAdapter {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mListener = listener;
-        SpriteBatch batch = new SpriteBatch();
+
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
         mBackgroundColor = gameInfo.getTrack().getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
+        SpriteBatch batch = new SpriteBatch();
         mHudStage = new Stage(mHudViewport, batch);
         mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
         for (int idx = 0; idx < mGameWorld.getPlayerRacers().size; ++idx) {
-            Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
-            GameRenderer gameRenderer = new GameRenderer(mGameWorld, vehicle, batch, mPerformanceCounters);
-            setupGameRenderer(gameRenderer);
+            setupGameRenderer(idx, batch);
+            setupHud(idx, gameInfo.getTrack());
+        }
+        setupFirstHudContent();
 
-            Hud hud = new Hud(game.getAssets(), mHudStage);
-            HudContent hudContent = setupHudContent(hud, idx);
-            Racer racer = mGameWorld.getPlayerRacer(idx);
-            if (Debug.instance.showDebugLayer) {
-                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, gameInfo.getTrack()));
-            }
-            Pilot pilot = racer.getPilot();
-            if (pilot instanceof PlayerPilot) {
-                ((PlayerPilot) pilot).createHudButtons(hud);
-            }
+        mAudioClipper = createAudioClipper();
+    }
 
-            mGameRenderers.add(gameRenderer);
-            mHuds.add(hud);
-            mHudContents.add(hudContent);
+    private void setupGameRenderer(int idx, SpriteBatch batch) {
+        Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
+        GameRenderer gameRenderer = new GameRenderer(mGameWorld, vehicle, batch, mPerformanceCounters);
+        gameRenderer.setConfig(mGame.getConfig());
+        mGameRenderers.add(gameRenderer);
+    }
+
+    private void setupHud(int idx, Track track) {
+        Hud hud = new Hud(mGame.getAssets(), mHudStage);
+        mHuds.add(hud);
+
+        Racer racer = mGameWorld.getPlayerRacer(idx);
+        if (Debug.instance.showDebugLayer) {
+            DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, track));
+        }
+        Pilot pilot = racer.getPilot();
+        if (pilot instanceof PlayerPilot) {
+            ((PlayerPilot) pilot).createHudButtons(hud);
         }
 
-        mAudioClipper = new AudioClipper() {
+        HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, idx);
+        mHudContents.add(hudContent);
+    }
+
+    private void setupFirstHudContent() {
+        HudContent hudContent = mHudContents.get(0);
+        if (Debug.instance.showDebugHud) {
+            hudContent.setPerformanceCounters(mPerformanceCounters);
+        }
+        if (GameInputHandlerFactories.hasMultitouch()) {
+            hudContent.createPauseButton(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    pauseRace();
+                }
+            });
+        }
+    }
+
+    private AudioClipper createAudioClipper() {
+        return new AudioClipper() {
             @Override
             public float clip(GameObject gameObject) {
                 float maxDistance = GamePlay.instance.viewportWidth;
@@ -122,27 +151,6 @@ public class RaceScreen extends ScreenAdapter {
                 return 1f - (float)Math.sqrt(distance2) / maxDistance;
             }
         };
-    }
-
-    private void setupGameRenderer(GameRenderer gameRenderer) {
-        gameRenderer.setConfig(mGame.getConfig());
-    }
-
-    private HudContent setupHudContent(Hud hud, int idx) {
-        HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, idx);
-        if (idx == 0) {
-            if (Debug.instance.showDebugHud) {
-                hudContent.setPerformanceCounters(mPerformanceCounters);
-            }
-            if (GameInputHandlerFactories.hasMultitouch()) {
-                hudContent.createPauseButton(new ClickListener() {
-                    public void clicked(InputEvent event, float x, float y) {
-                        pauseRace();
-                    }
-                });
-            }
-        }
-        return hudContent;
     }
 
     @Override
