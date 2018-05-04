@@ -7,7 +7,7 @@ EXECUTABLE=pixelwheels
 PACKR=tools/packr.jar
 PACKR_OUT_DIR=packr-out
 
-VERSION=0.7.0
+VERSION=0.8.0
 
 DIST_OUT_BASE_DIR=dist-out
 DIST_NAME=$(EXECUTABLE)-$(VERSION)
