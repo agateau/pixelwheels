@@ -1,7 +1,7 @@
 DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
 TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
 GRADLEW=./gradlew --offline
-GAME_CP=com.agateau.tinywheels
+GAME_CP=com.agateau.pixelwheels
 EXECUTABLE=pixelwheels
 
 PACKR=tools/packr.jar
@@ -60,7 +60,7 @@ $(PACKR_OUT_DIR)/$(EXECUTABLE): $(JDK_LINUX64_ZIP) build
 		-jdk $(JDK_LINUX64_ZIP) \
 		-executable $(EXECUTABLE) \
 		-appjar $(DESKTOP_JAR) \
-		-mainclass com/agateau/tinywheels/desktop/DesktopLauncher \
+		-mainclass com/agateau/pixelwheels/desktop/DesktopLauncher \
 		-outdir $(PACKR_OUT_DIR) \
 		-minimizejre soft
 	cd android/assets && cp -r maps screens ui sprites.atlas sprites.png uiskin.atlas $(PACKR_OUT_DIR)
