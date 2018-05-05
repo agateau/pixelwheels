@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.8.0 - 2018-05-06
+
+### For players
+
+#### Added
+
+- Championships! A first rough version of championships has been added: since
+  there are 4 tracks in Pixel Wheels at the moment, they have been grouped in 2
+  championships of 2 tracks each.
+
+- The volumes of the sound effects have been adjusted to avoid cacophony.
+
+- A fullscreen option has been added.
+
+- There is now a 3 second countdown at the start of each race.
+
+#### Changed
+
+- Moved config file from ~/.prefs/com.agateau.tinywheels to
+  ~/.config/agateau.com/pixelwheels.conf.
+
+#### Fixed
+
+- In score tables, player rows now use different colors.
+
+- Mouse cursor is now always hidden.
+
+### For developers
+
+- libgdx has been updated to 1.8.0.
+
+- Package name has been changed from com.agateau.tinywheels to
+  com.agateau.pixelwheels (but the Android applicationId remains stays set to
+  com.agateau.tinywheels.android so that the game can be updated on Google Play)
+
 ## 0.7.0 - 2018-04-02
 
 ### For players
