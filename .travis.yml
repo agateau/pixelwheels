@@ -1,0 +1,11 @@
+dist: xenial
+language: minimal
+
+services:
+- docker
+
+install:
+- ci/build-docker-image
+
+script:
+- ci/docker-build-game

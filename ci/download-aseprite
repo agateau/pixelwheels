@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+ASEPRITE_VERSION=$1
+
+ASEPRITE_URL=https://github.com/aseprite/aseprite/releases/download/v$ASEPRITE_VERSION/Aseprite-v$ASEPRITE_VERSION-Source.zip \
+
+curl --location $ASEPRITE_URL > aseprite.zip
+unzip -q aseprite.zip

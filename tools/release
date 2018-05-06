@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "--clone" ] ; then
+    cd $(dirname $0)/..
+    repo_dir=$PWD
+    tmp_repo_dir=/tmp/pixelwheels
+    rm -rf $tmp_repo_dir
+    git clone $repo_dir $tmp_repo_dir
+    exec $tmp_repo_dir/tools/release
+fi
+
+DOT_GRADLE_DIR=/tmp/pixelwheels-dot-gradle
+
+cd $(dirname $0)/../ci
+
+./build-docker-image
+
+docker run -ti --rm \
+    -v $PWD/..:/src/pixelwheels \
+    -v $DOT_GRADLE_DIR:/root/.gradle \
+    pixelwheels \
+    -c "make -C /src/pixelwheels assets packer dist"
