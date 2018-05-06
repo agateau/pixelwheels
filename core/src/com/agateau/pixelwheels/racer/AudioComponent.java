@@ -72,7 +72,7 @@ class AudioComponent implements Racer.Component, Disposable {
     public void render(AudioClipper clipper) {
         float speed = mRacer.getVehicle().getSpeed();
         float normSpeed = MathUtils.clamp(speed / 50, 0, 1);
-        float maxVolume = clipper.clip(mRacer);
+        float maxVolume = GamePlay.instance.engineVolume * clipper.clip(mRacer);
         mEngineSoundPlayer.play(normSpeed, maxVolume);
 
         if (mDriftDuration > 0) {

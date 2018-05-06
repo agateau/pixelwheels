@@ -89,6 +89,7 @@ public class DebugScreen extends PwStageScreen {
         addTitle("Sound");
         addRange("Drift volume", "driftVolume", 0f, 1f);
         addRange("Turbo volume", "turboVolume", 0f, 1f);
+        addRange("Engine volume", "engineVolume", 0f, 1f);
 
         mCurrentIntrospector = mGame.getDebugIntrospector();
         addTitle("Debug");
