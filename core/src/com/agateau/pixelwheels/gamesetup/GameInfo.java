@@ -102,6 +102,10 @@ public abstract class GameInfo {
         public void addRaceTime(float time) {
             mRaceTime += time;
         }
+
+        public boolean isPlayer() {
+            return false;
+        }
     }
 
     public static class Player extends Entrant {
@@ -120,6 +124,11 @@ public abstract class GameInfo {
 
         public int getIndex() {
             return mIndex;
+        }
+
+        @Override
+        public boolean isPlayer() {
+            return true;
         }
     }
 

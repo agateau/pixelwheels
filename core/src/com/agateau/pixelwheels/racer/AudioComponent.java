@@ -48,7 +48,11 @@ class AudioComponent implements Racer.Component, Disposable {
 
     public AudioComponent(SoundAtlas atlas, AudioManager audioManager, Racer racer) {
         mAudioManager = audioManager;
-        mEngineSoundPlayer = new EngineSoundPlayer(atlas, audioManager);
+        if (racer.getEntrant().isPlayer()) {
+            mEngineSoundPlayer = new EngineSoundPlayer(atlas, audioManager);
+        } else {
+            mEngineSoundPlayer = null;
+        }
         mDriftingSoundPlayer = audioManager.createSoundPlayer(atlas.get("drifting"));
         mTurboSoundPlayer = audioManager.createSoundPlayer(atlas.get("turbo"));
         mCollisionSoundPlayer = audioManager.createSoundPlayer(atlas.get("collision"));
@@ -73,7 +77,9 @@ class AudioComponent implements Racer.Component, Disposable {
         float speed = mRacer.getVehicle().getSpeed();
         float normSpeed = MathUtils.clamp(speed / 50, 0, 1);
         float maxVolume = GamePlay.instance.engineVolume * clipper.clip(mRacer);
-        mEngineSoundPlayer.play(normSpeed, maxVolume);
+        if (mEngineSoundPlayer != null) {
+            mEngineSoundPlayer.play(normSpeed, maxVolume);
+        }
 
         if (mDriftDuration > 0) {
             float volume = MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f) * maxVolume;
@@ -114,7 +120,9 @@ class AudioComponent implements Racer.Component, Disposable {
 
     @Override
     public void dispose() {
-        mEngineSoundPlayer.stop();
+        if (mEngineSoundPlayer != null) {
+            mEngineSoundPlayer.stop();
+        }
         for (SoundPlayer soundPlayer : mSoundPlayers) {
             soundPlayer.stop();
         }

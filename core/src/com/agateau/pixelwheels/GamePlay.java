@@ -52,7 +52,7 @@ public class GamePlay {
 
     public float driftVolume = 0.6f;
     public float turboVolume = 0.5f;
-    public float engineVolume = 0.5f;
+    public float engineVolume = 1f;
 
     public static final GamePlay instance = new GamePlay();
 }

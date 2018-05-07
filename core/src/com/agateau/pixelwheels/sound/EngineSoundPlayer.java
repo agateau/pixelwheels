@@ -28,8 +28,8 @@ import java.util.Locale;
  * Simulates the sound of a vehicle engine
  */
 public class EngineSoundPlayer {
-    public static final float MIN_PITCH = 1f;
-    public static final float MAX_PITCH = 3f;
+    public static final float MIN_PITCH = 0.5f;
+    public static final float MAX_PITCH = 2f;
     private float mPitch = MIN_PITCH;
 
     private final Array<SoundPlayer> mSoundPlayers = new Array<SoundPlayer>();
