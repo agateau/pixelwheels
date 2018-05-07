@@ -29,7 +29,9 @@ import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Comparator;
@@ -68,6 +70,13 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
+
+        builder.getActor("backButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                onBackPressed();
+            }
+        });
 
         ScrollableTable table = builder.getActor("entrantTable");
         table.addHeaderRow("#", "Racer", "Score", "Total Time");
