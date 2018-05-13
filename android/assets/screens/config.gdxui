@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Menu id="menu" labelColumnWidth="250" defaultItemWidth="600"
-              center="root.center 0 0">
-
-        </Menu>
+        <MenuScrollPane id="menuScrollPane" topLeft="root.topLeft 5 0"
+            width="700"/>
 
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"

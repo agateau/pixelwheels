@@ -22,13 +22,14 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
-import com.agateau.ui.menu.ButtonMenuItem;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.menu.SelectorMenuItem;
-import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuScrollPane;
+import com.agateau.ui.menu.SelectorMenuItem;
+import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -67,8 +68,13 @@ public class ConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
+        Menu menu = new Menu(mGame.getAssets().ui.skin);
+        menu.setLabelColumnWidth(250);
+        menu.setDefaultItemWidth(600);
 
+        MenuScrollPane scrollPane = builder.getActor("menuScrollPane");
+        scrollPane.setMenu(menu);
+        scrollPane.setHeight(getStage().getHeight());
         setupInputSelector(menu);
 
         final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
