@@ -36,10 +36,10 @@ public class GameConfig {
     public boolean fullscreen = false;
     public boolean rotateCamera = true;
     public boolean audio = true;
-    public String input;
+    public String[] inputs = new String[Constants.MAX_PLAYERS];
 
     public GameMode gameMode = GameMode.QUICK_RACE;
-    public final String[] vehicles = new String[2];
+    public final String[] vehicles = new String[Constants.MAX_PLAYERS];
     public String track;
     public String championship;
 
@@ -57,15 +57,14 @@ public class GameConfig {
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
-        input = mPreferences.getString(PrefConstants.INPUT, PrefConstants.INPUT_DEFAULT);
-
         try {
             this.gameMode = GameMode.valueOf(mPreferences.getString(PrefConstants.GAME_MODE));
         } catch (IllegalArgumentException e) {
             // Nothing to do, fallback to default value
         }
 
-        for (int idx = 0; idx < this.vehicles.length; ++idx) {
+        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+            this.inputs[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx), PrefConstants.INPUT_DEFAULT);
             this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
         }
 
@@ -81,12 +80,13 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN, rotateCamera);
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
-        mPreferences.putString(PrefConstants.INPUT, input);
 
         mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
             mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
                     this.vehicles[idx]);
+            mPreferences.putString(PrefConstants.INPUT_PREFIX + String.valueOf(idx),
+                    this.inputs[idx]);
         }
 
         mPreferences.putString(PrefConstants.TRACK_ID, this.track);

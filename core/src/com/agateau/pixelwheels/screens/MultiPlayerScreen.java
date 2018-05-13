@@ -19,10 +19,12 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
-import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
+import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
+import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -133,14 +135,11 @@ public class MultiPlayerScreen extends PwStageScreen {
 
     private void next() {
         Array<GameInfo.Player> players = new Array<GameInfo.Player>();
-        for (int idx = 0; idx < 2; ++idx) {
-            KeyboardInputHandler inputHandler;
-            inputHandler = new KeyboardInputHandler();
-            inputHandler.setInputMapper(mKeyMappers[idx]);
-
+        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
             String id = mVehicleSelectors[idx].getSelectedId();
-
-            players.add(new GameInfo.Player(idx, id, inputHandler));
+            String inputHandlerId = mGame.getConfig().inputs[idx];
+            GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
+            players.add(new GameInfo.Player(idx, id, factory.create()));
         }
 
         mListener.onPlayersSelected(players);
