@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -50,17 +51,17 @@ public class MultiPlayerScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
     private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
-    private KeyMapper[] mKeyMappers = new KeyMapper[2];
+    private InputMapper[] mInputMappers = new InputMapper[2];
 
     public MultiPlayerScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
 
-        mKeyMappers[0] = KeyMapper.getDefaultInstance();
-        mKeyMappers[1] = new KeyMapper();
+        mInputMappers[0] = KeyMapper.getDefaultInstance();
+        KeyMapper secondKeyMapper = new KeyMapper();
+        mInputMappers[1] = secondKeyMapper;
 
-        KeyMapper secondKeyMapper = mKeyMappers[1];
         secondKeyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
         secondKeyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
         secondKeyMapper.setKey(VirtualKey.UP, Input.Keys.D);
@@ -120,7 +121,7 @@ public class MultiPlayerScreen extends PwStageScreen {
             }
         });
 
-        menu.setKeyMapper(mKeyMappers[idx]);
+        menu.setInputMapper(mInputMappers[idx]);
         menu.addItem(selector);
     }
 

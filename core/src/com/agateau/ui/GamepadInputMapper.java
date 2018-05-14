@@ -23,6 +23,7 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * An implementation of InputMapper for gamepads
@@ -34,17 +35,20 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         MORE
     }
 
-    AxisValue[] mAxisValues = new AxisValue[2];
-    boolean mButtonDown = false;
+    private AxisValue[] mAxisValues = new AxisValue[2];
+    private boolean mButtonDown = false;
 
-    public GamepadInputMapper() {
-        mAxisValues[0] = AxisValue.ZERO;
-        mAxisValues[1] = AxisValue.ZERO;
-
-        Controllers.addListener(this);
+    public static GamepadInputMapper create(int idx) {
+        Array<Controller> controllers = Controllers.getControllers();
+        if (controllers.size <= idx) {
+            return null;
+        }
+        return new GamepadInputMapper(controllers.get(idx));
     }
 
-    public void setController(Controller controller) {
+    private GamepadInputMapper(Controller controller) {
+        mAxisValues[0] = AxisValue.ZERO;
+        mAxisValues[1] = AxisValue.ZERO;
         controller.addListener(this);
     }
 

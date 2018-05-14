@@ -51,11 +51,7 @@ public class GamepadInputHandler extends KeyboardInputHandler {
     }
 
     GamepadInputHandler() {
-        GamepadInputMapper mapper = new GamepadInputMapper();
-        Array<Controller> controllers = Controllers.getControllers();
-        if (controllers.size > 0) {
-            mapper.setController(controllers.get(0));
-        }
+        GamepadInputMapper mapper = GamepadInputMapper.create(0);
         setInputMapper(mapper);
     }
 }
