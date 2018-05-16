@@ -97,4 +97,8 @@ public class KeyboardInputHandler implements GameInputHandler {
     @Override
     public void setBonus(Bonus bonus) {
     }
+
+    public InputMapper getInputMapper() {
+        return mInputMapper;
+    }
 }

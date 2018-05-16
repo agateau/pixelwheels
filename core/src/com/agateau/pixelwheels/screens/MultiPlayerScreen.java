@@ -23,17 +23,16 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
+import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.KeyMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
-import com.agateau.ui.VirtualKey;
+import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -48,24 +47,25 @@ public class MultiPlayerScreen extends PwStageScreen {
         void onPlayersSelected(Array<GameInfo.Player> players);
     }
     private final PwGame mGame;
+    private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
     private final Listener mListener;
-    private VehicleSelector[] mVehicleSelectors = new VehicleSelector[2];
-    private InputMapper[] mInputMappers = new InputMapper[2];
+    private final VehicleSelector[] mVehicleSelectors;
+    private final InputMapper[] mInputMappers;
 
     public MultiPlayerScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
 
-        mInputMappers[0] = KeyMapper.getDefaultInstance();
-        KeyMapper secondKeyMapper = new KeyMapper();
-        mInputMappers[1] = secondKeyMapper;
+        mVehicleSelectors = new VehicleSelector[mPlayerCount];
+        mInputMappers = new InputMapper[mPlayerCount];
 
-        secondKeyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
-        secondKeyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
-        secondKeyMapper.setKey(VirtualKey.UP, Input.Keys.D);
-        secondKeyMapper.setKey(VirtualKey.DOWN, Input.Keys.C);
-        secondKeyMapper.setKey(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+        mInputMappers[0] = UiInputMapper.getInstance();
+        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(mPlayerCount);
+        for (int idx = 1; idx < mPlayerCount; ++idx) {
+            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler)inputHandlers.get(idx);
+            mInputMappers[idx] = keyboardInputHandler.getInputMapper();
+        }
 
         setupUi();
         new RefreshHelper(getStage()) {
@@ -135,8 +135,8 @@ public class MultiPlayerScreen extends PwStageScreen {
 
     private void next() {
         Array<GameInfo.Player> players = new Array<GameInfo.Player>();
-        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(Constants.MAX_PLAYERS);
-        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(mPlayerCount);
+        for (int idx = 0; idx < mPlayerCount; ++idx) {
             String id = mVehicleSelectors[idx].getSelectedId();
             GameInputHandler inputHandler = inputHandlers.get(idx);
             players.add(new GameInfo.Player(idx, id, inputHandler));
