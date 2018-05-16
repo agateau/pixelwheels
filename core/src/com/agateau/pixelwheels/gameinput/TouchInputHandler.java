@@ -24,12 +24,19 @@ import com.agateau.pixelwheels.racescreen.PieButton;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handle inputs with touch screen only
  */
 public class TouchInputHandler implements GameInputHandler {
     public static class Factory implements GameInputHandlerFactory {
+        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+
+        Factory() {
+            mHandlers.add(new TouchInputHandler());
+        }
+
         @Override
         public String getId() {
             return "touch";
@@ -46,8 +53,8 @@ public class TouchInputHandler implements GameInputHandler {
         }
 
         @Override
-        public GameInputHandler create() {
-            return new TouchInputHandler();
+        public Array<GameInputHandler> getAllHandlers() {
+            return mHandlers;
         }
     }
 

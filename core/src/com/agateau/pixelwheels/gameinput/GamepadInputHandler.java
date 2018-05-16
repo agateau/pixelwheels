@@ -19,8 +19,6 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.ui.GamepadInputMapper;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -29,6 +27,16 @@ import com.badlogic.gdx.utils.Array;
 public class GamepadInputHandler extends KeyboardInputHandler {
 
     public static class Factory implements GameInputHandlerFactory {
+        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+
+        Factory() {
+            for (GamepadInputMapper inputMapper : GamepadInputMapper.getInstances()) {
+                if (inputMapper.isActive()) {
+                    mHandlers.add(new GamepadInputHandler(inputMapper));
+                }
+            }
+        }
+
         @Override
         public String getId() {
             return "gamepad";
@@ -45,13 +53,12 @@ public class GamepadInputHandler extends KeyboardInputHandler {
         }
 
         @Override
-        public GameInputHandler create() {
-            return new GamepadInputHandler();
+        public Array<GameInputHandler> getAllHandlers() {
+            return mHandlers;
         }
     }
 
-    GamepadInputHandler() {
-        GamepadInputMapper mapper = GamepadInputMapper.create(0);
-        setInputMapper(mapper);
+    private GamepadInputHandler(GamepadInputMapper inputMapper) {
+        super(inputMapper);
     }
 }

@@ -29,27 +29,52 @@ import com.badlogic.gdx.utils.Array;
  * An implementation of InputMapper for gamepads
  */
 public class GamepadInputMapper extends ControllerAdapter implements InputMapper {
+    private static final int MAX_GAMEPAD_COUNT = 4;
+
     private enum AxisValue {
         LESS,
         ZERO,
         MORE
     }
 
+    private boolean mActive;
+
     private AxisValue[] mAxisValues = new AxisValue[2];
     private boolean mButtonDown = false;
 
-    public static GamepadInputMapper create(int idx) {
-        Array<Controller> controllers = Controllers.getControllers();
-        if (controllers.size <= idx) {
-            return null;
+    private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
+
+    public static GamepadInputMapper[] getInstances() {
+        if (sInstances[0] == null) {
+            createInstances();
         }
-        return new GamepadInputMapper(controllers.get(idx));
+        return sInstances;
     }
 
-    private GamepadInputMapper(Controller controller) {
+    public static GamepadInputMapper getInstance(int idx) {
+        return getInstances()[idx];
+    }
+
+    private static void createInstances() {
+        for (int idx = 0; idx < sInstances.length; ++idx) {
+            sInstances[idx] = new GamepadInputMapper(idx);
+        }
+    }
+
+    private GamepadInputMapper(int idx) {
         mAxisValues[0] = AxisValue.ZERO;
         mAxisValues[1] = AxisValue.ZERO;
-        controller.addListener(this);
+        Array<Controller> controllers = Controllers.getControllers();
+        if (idx < controllers.size) {
+            controllers.get(idx).addListener(this);
+            mActive = true;
+        } else {
+            mActive = false;
+        }
+    }
+
+    public boolean isActive() {
+        return mActive;
     }
 
     @Override

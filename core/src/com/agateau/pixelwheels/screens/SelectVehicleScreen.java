@@ -20,9 +20,8 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
-import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -31,6 +30,7 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Select your vehicle
@@ -95,9 +95,9 @@ public class SelectVehicleScreen extends PwStageScreen {
 
     private void next() {
         String vehicleId = mVehicleSelector.getSelectedId();
-        String inputHandlerId = mGame.getConfig().inputs[0];
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(inputHandlerId);
-        GameInfo.Player player = new GameInfo.Player(0, vehicleId, factory.create());
+        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(1);
+        GameInputHandler inputHandler = inputHandlers.get(0);
+        GameInfo.Player player = new GameInfo.Player(0, vehicleId, inputHandler);
         mListener.onPlayerSelected(player);
     }
 }

@@ -19,6 +19,8 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
+import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
@@ -31,6 +33,7 @@ import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
@@ -38,7 +41,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.utils.Array;
 
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -151,5 +156,34 @@ public class PwGame extends Game {
         } else {
             Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
+    }
+
+    /**
+     * Returns true if devices for all players are available
+     */
+    public boolean checkInputHandlers(int playerCount) {
+        return getPlayerInputHandlers(playerCount) != null;
+    }
+
+    public Array<GameInputHandler> getPlayerInputHandlers(int playerCount) {
+        Array<GameInputHandler> playerInputHandlers = new Array<GameInputHandler>();
+        Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
+        for (int idx = 0; idx < playerCount; ++idx) {
+            Assert.check(idx < mGameConfig.inputs.length, "Not enough inputs for all players");
+            String id = mGameConfig.inputs[idx];
+            Array<GameInputHandler> inputHandlers = inputHandlersByIds.get(id);
+            if (inputHandlers == null) {
+                NLog.e("No input handlers for id '%s'", id);
+                return null;
+            }
+            if (inputHandlers.size == 0) {
+                NLog.i("Not enough input handlers for id '%s'", id);
+                return null;
+            } else {
+                playerInputHandlers.add(inputHandlers.first());
+                inputHandlers.removeIndex(0);
+            }
+        }
+        return playerInputHandlers;
     }
 }

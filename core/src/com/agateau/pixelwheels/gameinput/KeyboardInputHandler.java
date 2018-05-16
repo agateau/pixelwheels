@@ -24,12 +24,29 @@ import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handle keyboard input, for desktop mode
  */
 public class KeyboardInputHandler implements GameInputHandler {
     public static class Factory implements GameInputHandlerFactory {
+        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+
+        Factory() {
+            mHandlers.add(new KeyboardInputHandler(KeyMapper.getDefaultInstance()));
+
+            KeyMapper keyMapper = new KeyMapper();
+            keyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
+            keyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
+            keyMapper.setKey(VirtualKey.UP, Input.Keys.D);
+            keyMapper.setKey(VirtualKey.DOWN, Input.Keys.C);
+            keyMapper.setKey(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+            keyMapper.setKey(VirtualKey.BACK, Input.Keys.Q);
+            mHandlers.add(new KeyboardInputHandler(keyMapper));
+        }
+
         @Override
         public String getId() {
             return "keyboard";
@@ -46,19 +63,15 @@ public class KeyboardInputHandler implements GameInputHandler {
         }
 
         @Override
-        public GameInputHandler create() {
-            return new KeyboardInputHandler();
+        public Array<GameInputHandler> getAllHandlers() {
+            return mHandlers;
         }
-
     }
 
-    private InputMapper mInputMapper = new KeyMapper();
+    private final InputMapper mInputMapper;
     private GameInput mInput = new GameInput();
 
-    public KeyboardInputHandler() {
-    }
-
-    public void setInputMapper(InputMapper inputMapper) {
+    KeyboardInputHandler(InputMapper inputMapper) {
         mInputMapper = inputMapper;
     }
 

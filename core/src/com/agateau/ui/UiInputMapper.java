@@ -23,29 +23,15 @@ package com.agateau.ui;
  */
 public class UiInputMapper implements InputMapper {
     private KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
-    private GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.create(0);
+    private GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.getInstance(0);
 
-    @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean isKeyPressed(VirtualKey key) {
-        if (mKeyMapper.isKeyPressed(key)) {
-            return true;
-        }
-        if (mGamepadInputMapper != null && mGamepadInputMapper.isKeyPressed(key)) {
-            return true;
-        }
-        return false;
+        return mKeyMapper.isKeyPressed(key) || mGamepadInputMapper.isKeyPressed(key);
     }
 
-    @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean isKeyJustPressed(VirtualKey key) {
-        if (mKeyMapper.isKeyJustPressed(key)) {
-            return true;
-        }
-        if (mGamepadInputMapper != null && mGamepadInputMapper.isKeyJustPressed(key)) {
-            return true;
-        }
-        return false;
+        return mKeyMapper.isKeyJustPressed(key) || mGamepadInputMapper.isKeyJustPressed(key);
     }
 }
