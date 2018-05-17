@@ -125,6 +125,46 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     @Override
     public boolean povMoved(Controller controller, int povCode, PovDirection value) {
         NLog.i("povCode=%d value=%s", povCode, value);
+        boolean up = false;
+        boolean down = false;
+        boolean left = false;
+        boolean right = false;
+        switch (value) {
+        case center:
+            break;
+        case north:
+            up = true;
+            break;
+        case south:
+            down = true;
+            break;
+        case east:
+            right = true;
+            break;
+        case west:
+            left = true;
+            break;
+        case northEast:
+            up = true;
+            right = true;
+            break;
+        case southEast:
+            down = true;
+            right = true;
+            break;
+        case northWest:
+            up = true;
+            left = true;
+            break;
+        case southWest:
+            down = true;
+            left = true;
+            break;
+        }
+        mPressedKeys.put(VirtualKey.UP, up);
+        mPressedKeys.put(VirtualKey.DOWN, down);
+        mPressedKeys.put(VirtualKey.LEFT, left);
+        mPressedKeys.put(VirtualKey.RIGHT, right);
         return false;
     }
 
