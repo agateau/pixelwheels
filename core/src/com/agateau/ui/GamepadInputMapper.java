@@ -48,8 +48,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private int mTriggerButtonCode = 1;
     private int mBackButtonCode = 2;
-    private int mHorizontalAxis = 0;
-    private int mVerticalAxis = 1;
 
     private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
 
@@ -167,10 +165,10 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     @Override
     public boolean axisMoved(Controller controller, int axisCode, float fvalue) {
         AxisValue value = normalizeAxisValue(fvalue);
-        if (axisCode == mHorizontalAxis) {
+        if ((axisCode & 2) == 0) {
             mPressedKeys.put(VirtualKey.LEFT, value == AxisValue.LESS);
             mPressedKeys.put(VirtualKey.RIGHT, value == AxisValue.MORE);
-        } else if (axisCode == mVerticalAxis) {
+        } else {
             mPressedKeys.put(VirtualKey.UP, value == AxisValue.LESS);
             mPressedKeys.put(VirtualKey.DOWN, value == AxisValue.MORE);
         }
