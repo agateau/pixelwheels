@@ -19,17 +19,23 @@
 package com.agateau.ui;
 
 import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashMap;
+
 /**
  * An implementation of InputMapper for gamepads
  */
 public class GamepadInputMapper extends ControllerAdapter implements InputMapper {
     private static final int MAX_GAMEPAD_COUNT = 4;
+
+    private static final String TRIGGER_BUTTON_PREF = "trigger";
+    private static final String BACK_BUTTON_PREF = "back";
 
     private enum AxisValue {
         LESS,
@@ -39,8 +45,12 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private boolean mActive;
 
-    private AxisValue[] mAxisValues = new AxisValue[2];
-    private boolean mButtonDown = false;
+    private final HashMap<VirtualKey, Boolean> mPressedKeys = new HashMap<VirtualKey, Boolean>();
+
+    private int mTriggerButtonCode = 1;
+    private int mBackButtonCode = 2;
+    private int mHorizontalAxis = 0;
+    private int mVerticalAxis = 1;
 
     private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
 
@@ -62,8 +72,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     private GamepadInputMapper(int idx) {
-        mAxisValues[0] = AxisValue.ZERO;
-        mAxisValues[1] = AxisValue.ZERO;
         Array<Controller> controllers = Controllers.getControllers();
         if (idx < controllers.size) {
             controllers.get(idx).addListener(this);
@@ -79,22 +87,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public boolean isKeyPressed(VirtualKey key) {
-        switch (key) {
-        case UP:
-            return mAxisValues[1] == AxisValue.LESS;
-        case DOWN:
-            return mAxisValues[1] == AxisValue.MORE;
-        case LEFT:
-            return mAxisValues[0] == AxisValue.LESS;
-        case RIGHT:
-            return mAxisValues[0] == AxisValue.MORE;
-        case TRIGGER:
-            return mButtonDown;
-        case BACK:
-            return false;
-        }
-        NLog.e("Unknown key %s", key);
-        return false;
+        Boolean pressed = mPressedKeys.get(key);
+        return pressed != null ? pressed : false;
     }
 
     @Override
@@ -103,16 +97,28 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+        mTriggerButtonCode = preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1);
+        mBackButtonCode = preferences.getInteger(prefix + BACK_BUTTON_PREF, 2);
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+        preferences.putInteger(prefix + TRIGGER_BUTTON_PREF, mTriggerButtonCode);
+        preferences.putInteger(prefix + BACK_BUTTON_PREF, mBackButtonCode);
+    }
+
+    @Override
     public boolean buttonDown(Controller controller, int buttonCode) {
         NLog.i("buttonCode=%d", buttonCode);
-        mButtonDown = true;
+        setPressed(buttonCode, true);
         return false;
     }
 
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
         NLog.i("buttonCode=%d", buttonCode);
-        mButtonDown = false;
+        setPressed(buttonCode, false);
         return false;
     }
 
@@ -123,9 +129,15 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     @Override
-    public boolean axisMoved(Controller controller, int axisCode, float value) {
-        if (axisCode < mAxisValues.length) {
-            mAxisValues[axisCode] = normalizeAxisValue(value);
+    public boolean axisMoved(Controller controller, int axisCode, float fvalue) {
+        NLog.i("axisCode=%d value=%f", axisCode, fvalue);
+        AxisValue value = normalizeAxisValue(fvalue);
+        if (axisCode == mHorizontalAxis) {
+            mPressedKeys.put(VirtualKey.LEFT, value == AxisValue.LESS);
+            mPressedKeys.put(VirtualKey.RIGHT, value == AxisValue.MORE);
+        } else if (axisCode == mVerticalAxis) {
+            mPressedKeys.put(VirtualKey.UP, value == AxisValue.LESS);
+            mPressedKeys.put(VirtualKey.DOWN, value == AxisValue.MORE);
         }
         return false;
     }
@@ -137,6 +149,14 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
             return AxisValue.MORE;
         } else {
             return AxisValue.ZERO;
+        }
+    }
+
+    private void setPressed(int buttonCode, boolean pressed) {
+        if (buttonCode == mTriggerButtonCode) {
+            mPressedKeys.put(VirtualKey.TRIGGER, pressed);
+        } else if (buttonCode == mBackButtonCode) {
+            mPressedKeys.put(VirtualKey.BACK, pressed);
         }
     }
 }

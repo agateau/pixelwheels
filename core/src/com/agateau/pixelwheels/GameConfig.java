@@ -101,4 +101,14 @@ public class GameConfig {
             }
         }
     }
+
+    public Preferences getPreferences() {
+        return mPreferences;
+    }
+
+    public String getInputPrefix(int idx) {
+        // Include inputs[idx] to ensure there are no configuration clashes when switching
+        // between input handlers
+        return PrefConstants.INPUT_PREFIX + String.valueOf(idx) + "." + inputs[idx] + ".";
+    }
 }

@@ -18,6 +18,8 @@
  */
 package com.agateau.ui;
 
+import com.badlogic.gdx.Preferences;
+
 /**
  * Responds to input from keyboard or gamepad
  */
@@ -42,5 +44,15 @@ public class UiInputMapper implements InputMapper {
     @Override
     public boolean isKeyJustPressed(VirtualKey key) {
         return mKeyMapper.isKeyJustPressed(key) || mGamepadInputMapper.isKeyJustPressed(key);
+    }
+
+    @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+
     }
 }

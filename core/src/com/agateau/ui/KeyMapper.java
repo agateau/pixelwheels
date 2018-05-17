@@ -20,6 +20,7 @@ package com.agateau.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 
 import java.util.HashMap;
 
@@ -84,5 +85,15 @@ public class KeyMapper implements InputMapper {
             }
         }
         return false;
+    }
+
+    @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+
     }
 }

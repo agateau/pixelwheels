@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.racescreen.PieButton;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -82,6 +83,16 @@ public class TouchInputHandler implements GameInputHandler {
             mInput.braking = true;
         }
         return mInput;
+    }
+
+    @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+
     }
 
     @Override

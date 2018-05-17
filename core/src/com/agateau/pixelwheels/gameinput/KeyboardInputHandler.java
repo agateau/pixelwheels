@@ -25,6 +25,7 @@ import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -88,6 +89,16 @@ public class KeyboardInputHandler implements GameInputHandler {
         mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
+    }
+
+    @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+        mInputMapper.loadConfig(preferences, prefix);
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+        mInputMapper.saveConfig(preferences, prefix);
     }
 
     @Override

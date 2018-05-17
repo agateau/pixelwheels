@@ -180,7 +180,9 @@ public class PwGame extends Game {
                 NLog.i("Not enough input handlers for id '%s'", id);
                 return null;
             } else {
-                playerInputHandlers.add(inputHandlers.first());
+                GameInputHandler inputHandler = inputHandlers.first();
+                inputHandler.loadConfig(mGameConfig.getPreferences(), mGameConfig.getInputPrefix(idx));
+                playerInputHandlers.add(inputHandler);
                 inputHandlers.removeIndex(0);
             }
         }
