@@ -18,7 +18,6 @@
  */
 package com.agateau.ui;
 
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
@@ -110,21 +109,18 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public boolean buttonDown(Controller controller, int buttonCode) {
-        NLog.i("buttonCode=%d", buttonCode);
         setPressed(buttonCode, true);
         return false;
     }
 
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
-        NLog.i("buttonCode=%d", buttonCode);
         setPressed(buttonCode, false);
         return false;
     }
 
     @Override
     public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-        NLog.i("povCode=%d value=%s", povCode, value);
         boolean up = false;
         boolean down = false;
         boolean left = false;
@@ -170,7 +166,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public boolean axisMoved(Controller controller, int axisCode, float fvalue) {
-        NLog.i("axisCode=%d value=%f", axisCode, fvalue);
         AxisValue value = normalizeAxisValue(fvalue);
         if (axisCode == mHorizontalAxis) {
             mPressedKeys.put(VirtualKey.LEFT, value == AxisValue.LESS);
