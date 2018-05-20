@@ -42,9 +42,15 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         MORE
     }
 
+    private enum KeyState {
+        RELEASED,
+        PRESSED,
+        JUST_PRESSED
+    }
+
     private boolean mActive;
 
-    private final HashMap<VirtualKey, Boolean> mPressedKeys = new HashMap<VirtualKey, Boolean>();
+    private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<VirtualKey, KeyState>();
 
     private int mTriggerButtonCode = 1;
     private int mBackButtonCode = 2;
@@ -84,13 +90,19 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public boolean isKeyPressed(VirtualKey key) {
-        Boolean pressed = mPressedKeys.get(key);
-        return pressed != null ? pressed : false;
+        KeyState state = mPressedKeys.get(key);
+        return state != null && state != KeyState.RELEASED;
     }
 
     @Override
-    public boolean isKeyJustPressed(VirtualKey vkey) {
-        return isKeyPressed(vkey);
+    public boolean isKeyJustPressed(VirtualKey key) {
+        KeyState state = mPressedKeys.get(key);
+        if (state == KeyState.JUST_PRESSED) {
+            mPressedKeys.put(key, KeyState.PRESSED);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -107,13 +119,13 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public boolean buttonDown(Controller controller, int buttonCode) {
-        setPressed(buttonCode, true);
+        onButtonPressed(buttonCode, true);
         return false;
     }
 
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
-        setPressed(buttonCode, false);
+        onButtonPressed(buttonCode, false);
         return false;
     }
 
@@ -155,10 +167,10 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
             left = true;
             break;
         }
-        mPressedKeys.put(VirtualKey.UP, up);
-        mPressedKeys.put(VirtualKey.DOWN, down);
-        mPressedKeys.put(VirtualKey.LEFT, left);
-        mPressedKeys.put(VirtualKey.RIGHT, right);
+        setKeyJustPressed(VirtualKey.UP, up);
+        setKeyJustPressed(VirtualKey.DOWN, down);
+        setKeyJustPressed(VirtualKey.LEFT, left);
+        setKeyJustPressed(VirtualKey.RIGHT, right);
         return false;
     }
 
@@ -166,13 +178,17 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     public boolean axisMoved(Controller controller, int axisCode, float fvalue) {
         AxisValue value = normalizeAxisValue(fvalue);
         if ((axisCode & 2) == 0) {
-            mPressedKeys.put(VirtualKey.LEFT, value == AxisValue.LESS);
-            mPressedKeys.put(VirtualKey.RIGHT, value == AxisValue.MORE);
+            setKeyJustPressed(VirtualKey.LEFT, value == AxisValue.LESS);
+            setKeyJustPressed(VirtualKey.RIGHT, value == AxisValue.MORE);
         } else {
-            mPressedKeys.put(VirtualKey.UP, value == AxisValue.LESS);
-            mPressedKeys.put(VirtualKey.DOWN, value == AxisValue.MORE);
+            setKeyJustPressed(VirtualKey.UP, value == AxisValue.LESS);
+            setKeyJustPressed(VirtualKey.DOWN, value == AxisValue.MORE);
         }
         return false;
+    }
+
+    private void setKeyJustPressed(VirtualKey key, boolean justPressed) {
+        mPressedKeys.put(key, justPressed ? KeyState.JUST_PRESSED : KeyState.RELEASED);
     }
 
     private static AxisValue normalizeAxisValue(float value) {
@@ -185,11 +201,11 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         }
     }
 
-    private void setPressed(int buttonCode, boolean pressed) {
+    private void onButtonPressed(int buttonCode, boolean pressed) {
         if (buttonCode == mTriggerButtonCode) {
-            mPressedKeys.put(VirtualKey.TRIGGER, pressed);
+            setKeyJustPressed(VirtualKey.TRIGGER, pressed);
         } else if (buttonCode == mBackButtonCode) {
-            mPressedKeys.put(VirtualKey.BACK, pressed);
+            setKeyJustPressed(VirtualKey.BACK, pressed);
         }
     }
 }
