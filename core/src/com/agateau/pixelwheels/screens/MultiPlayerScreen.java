@@ -28,7 +28,6 @@ import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
-import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
@@ -60,9 +59,8 @@ public class MultiPlayerScreen extends PwStageScreen {
         mVehicleSelectors = new VehicleSelector[mPlayerCount];
         mInputMappers = new InputMapper[mPlayerCount];
 
-        mInputMappers[0] = UiInputMapper.getInstance();
         Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(mPlayerCount);
-        for (int idx = 1; idx < mPlayerCount; ++idx) {
+        for (int idx = 0; idx < mPlayerCount; ++idx) {
             KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler)inputHandlers.get(idx);
             mInputMappers[idx] = keyboardInputHandler.getInputMapper();
         }
