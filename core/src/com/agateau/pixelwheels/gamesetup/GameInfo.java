@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.gamesetup;
 
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.utils.Array;
@@ -110,16 +109,10 @@ public abstract class GameInfo {
 
     public static class Player extends Entrant {
         private final int mIndex;
-        private GameInputHandler mInputHandler;
 
-        public GameInputHandler getInputHandler() {
-            return mInputHandler;
-        }
-
-        public Player(int idx, String vehicleId, GameInputHandler inputHandler) {
+        public Player(int idx, String vehicleId) {
             mIndex = idx;
             mVehicleId = vehicleId;
-            mInputHandler = inputHandler;
         }
 
         public int getIndex() {

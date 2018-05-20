@@ -52,6 +52,7 @@ import java.util.Stack;
 public class PwGame extends Game {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private final Array<GameInputHandler> mPlayerInputHandlers = new Array<GameInputHandler>();
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private AudioManager mAudioManager = new DefaultAudioManager();
@@ -83,6 +84,7 @@ public class PwGame extends Game {
         Box2D.init();
         hideMouseCursor();
         setupDisplay();
+        setupInputHandlers();
         showMainMenu();
     }
 
@@ -166,26 +168,35 @@ public class PwGame extends Game {
     }
 
     public Array<GameInputHandler> getPlayerInputHandlers(int playerCount) {
-        Array<GameInputHandler> playerInputHandlers = new Array<GameInputHandler>();
+        return mPlayerInputHandlers.size >= playerCount ? mPlayerInputHandlers : null;
+    }
+
+    public GameInputHandler getPlayerInputHandler(int index) {
+        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
+        return mPlayerInputHandlers.get(index);
+    }
+
+    private void setupInputHandlers() {
+        mPlayerInputHandlers.clear();
         Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
-        for (int idx = 0; idx < playerCount; ++idx) {
-            Assert.check(idx < mGameConfig.inputs.length, "Not enough inputs for all players");
+        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
             String id = mGameConfig.inputs[idx];
+            if ("".equals(id)) {
+                continue;
+            }
             Array<GameInputHandler> inputHandlers = inputHandlersByIds.get(id);
             if (inputHandlers == null) {
-                NLog.e("No input handlers for id '%s'", id);
-                return null;
+                NLog.e("Player %d: no input handlers for id '%s'", idx + 1, id);
+                continue;
             }
             if (inputHandlers.size == 0) {
-                NLog.i("Not enough input handlers for id '%s'", id);
-                return null;
-            } else {
-                GameInputHandler inputHandler = inputHandlers.first();
-                inputHandler.loadConfig(mGameConfig.getPreferences(), mGameConfig.getInputPrefix(idx));
-                playerInputHandlers.add(inputHandler);
-                inputHandlers.removeIndex(0);
+                NLog.i("Player %d: not enough input handlers for id '%s'", idx + 1, id);
+                continue;
             }
+            GameInputHandler inputHandler = inputHandlers.first();
+            inputHandler.loadConfig(mGameConfig.getPreferences(), mGameConfig.getInputPrefix(idx));
+            mPlayerInputHandlers.add(inputHandler);
+            inputHandlers.removeIndex(0);
         }
-        return playerInputHandlers;
     }
 }

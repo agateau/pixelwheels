@@ -135,11 +135,9 @@ public class MultiPlayerScreen extends PwStageScreen {
 
     private void next() {
         Array<GameInfo.Player> players = new Array<GameInfo.Player>();
-        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(mPlayerCount);
         for (int idx = 0; idx < mPlayerCount; ++idx) {
             String id = mVehicleSelectors[idx].getSelectedId();
-            GameInputHandler inputHandler = inputHandlers.get(idx);
-            players.add(new GameInfo.Player(idx, id, inputHandler));
+            players.add(new GameInfo.Player(idx, id));
         }
 
         mListener.onPlayersSelected(players);

@@ -95,9 +95,7 @@ public class SelectVehicleScreen extends PwStageScreen {
 
     private void next() {
         String vehicleId = mVehicleSelector.getSelectedId();
-        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(1);
-        GameInputHandler inputHandler = inputHandlers.get(0);
-        GameInfo.Player player = new GameInfo.Player(0, vehicleId, inputHandler);
+        GameInfo.Player player = new GameInfo.Player(0, vehicleId);
         mListener.onPlayerSelected(player);
     }
 }
