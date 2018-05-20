@@ -23,7 +23,11 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameinput.GameInput;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
+import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.racescreen.Hud;
+import com.agateau.ui.InputMapper;
+import com.agateau.ui.KeyMapper;
+import com.agateau.ui.VirtualKey;
 
 /**
  * A pilot controlled by the player
@@ -71,6 +75,14 @@ public class PlayerPilot implements Pilot {
                 mRacer.triggerBonus();
             }
         }
+    }
+
+    public boolean isPauseKeyPressed() {
+        if (!(mInputHandler instanceof KeyboardInputHandler)) {
+            return false;
+        }
+        InputMapper inputMapper = ((KeyboardInputHandler)mInputHandler).getInputMapper();
+        return inputMapper.isKeyJustPressed(VirtualKey.BACK);
     }
 
     private void updateInputHandler() {
