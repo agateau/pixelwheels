@@ -20,7 +20,6 @@ package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
-import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
@@ -33,7 +32,6 @@ import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
@@ -43,16 +41,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Map;
 import java.util.Stack;
 
 /**
  * The game
  */
-public class PwGame extends Game {
+public class PwGame extends Game implements GameConfig.ChangeListener {
     private Assets mAssets;
     private Stack<Screen> mScreenStack = new Stack<Screen>();
-    private final Array<GameInputHandler> mPlayerInputHandlers = new Array<GameInputHandler>();
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private AudioManager mAudioManager = new DefaultAudioManager();
@@ -79,13 +75,17 @@ public class PwGame extends Game {
         mDebugIntrospector.load();
 
         mAssets = new Assets();
-        mGameConfig = new GameConfig();
-        mAudioManager.setMuted(!mGameConfig.audio);
+        setupConfig();
         Box2D.init();
         hideMouseCursor();
         setupDisplay();
-        setupInputHandlers();
         showMainMenu();
+    }
+
+    private void setupConfig() {
+        mGameConfig = new GameConfig();
+        mGameConfig.addListener(this);
+        onGameConfigChanged();
     }
 
     public void showMainMenu() {
@@ -164,39 +164,12 @@ public class PwGame extends Game {
      * Returns true if devices for all players are available
      */
     public boolean checkInputHandlers(int playerCount) {
-        return getPlayerInputHandlers(playerCount) != null;
+        Array<GameInputHandler> handlers = mGameConfig.getPlayerInputHandlers();
+        return playerCount <= handlers.size;
     }
 
-    public Array<GameInputHandler> getPlayerInputHandlers(int playerCount) {
-        return mPlayerInputHandlers.size >= playerCount ? mPlayerInputHandlers : null;
-    }
-
-    public GameInputHandler getPlayerInputHandler(int index) {
-        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
-        return mPlayerInputHandlers.get(index);
-    }
-
-    private void setupInputHandlers() {
-        mPlayerInputHandlers.clear();
-        Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
-        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            String id = mGameConfig.inputs[idx];
-            if ("".equals(id)) {
-                continue;
-            }
-            Array<GameInputHandler> inputHandlers = inputHandlersByIds.get(id);
-            if (inputHandlers == null) {
-                NLog.e("Player %d: no input handlers for id '%s'", idx + 1, id);
-                continue;
-            }
-            if (inputHandlers.size == 0) {
-                NLog.i("Player %d: not enough input handlers for id '%s'", idx + 1, id);
-                continue;
-            }
-            GameInputHandler inputHandler = inputHandlers.first();
-            inputHandler.loadConfig(mGameConfig.getPreferences(), mGameConfig.getInputPrefix(idx));
-            mPlayerInputHandlers.add(inputHandler);
-            inputHandlers.removeIndex(0);
-        }
+    @Override
+    public void onGameConfigChanged() {
+        mAudioManager.setMuted(!mGameConfig.audio);
     }
 }

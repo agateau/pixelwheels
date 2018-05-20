@@ -114,7 +114,6 @@ public class ConfigScreen extends PwStageScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 gameConfig.audio = audioSwitch.isChecked();
-                mGame.getAudioManager().setMuted(!gameConfig.audio);
                 gameConfig.flush();
             }
         });
@@ -164,6 +163,7 @@ public class ConfigScreen extends PwStageScreen {
                 GameInputHandlerFactory factory = info.selector.getData();
                 mGame.getConfig().inputs[idx] = factory.getId();
                 info.updateLabel();
+                mGame.getConfig().flush();
             }
         });
 

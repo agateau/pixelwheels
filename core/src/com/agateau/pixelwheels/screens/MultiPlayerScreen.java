@@ -59,9 +59,9 @@ public class MultiPlayerScreen extends PwStageScreen {
         mVehicleSelectors = new VehicleSelector[mPlayerCount];
         mInputMappers = new InputMapper[mPlayerCount];
 
-        Array<GameInputHandler> inputHandlers = mGame.getPlayerInputHandlers(mPlayerCount);
         for (int idx = 0; idx < mPlayerCount; ++idx) {
-            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler)inputHandlers.get(idx);
+            GameInputHandler inputHandler = mGame.getConfig().getPlayerInputHandler(idx);
+            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler)inputHandler;
             mInputMappers[idx] = keyboardInputHandler.getInputMapper();
         }
 

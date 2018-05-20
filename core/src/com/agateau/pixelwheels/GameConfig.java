@@ -18,19 +18,25 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
+import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gamesetup.GameMode;
+import com.agateau.utils.Assert;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.utils.Array;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The game configuration
  */
 public class GameConfig {
-    interface ChangeListener {
-        void change();
+    public interface ChangeListener {
+        void onGameConfigChanged();
     }
 
     public boolean fullscreen = false;
@@ -43,10 +49,12 @@ public class GameConfig {
     public String track;
     public String championship;
 
+    private final Array<GameInputHandler> mPlayerInputHandlers = new Array<GameInputHandler>();
+
     private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
 
-    public GameConfig() {
+    GameConfig() {
         mPreferences = Gdx.app.getPreferences("pixelwheels.conf");
 
         load();
@@ -70,6 +78,8 @@ public class GameConfig {
 
         this.track = mPreferences.getString(PrefConstants.TRACK_ID);
         this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
+
+        setupInputHandlers();
     }
 
     public void addListener(ChangeListener listener) {
@@ -94,21 +104,52 @@ public class GameConfig {
 
         mPreferences.flush();
 
+        setupInputHandlers();
+
         for (WeakReference<ChangeListener> listenerRef : mListeners) {
             ChangeListener listener = listenerRef.get();
             if (listener != null) {
-                listener.change();
+                listener.onGameConfigChanged();
             }
         }
     }
 
-    public Preferences getPreferences() {
-        return mPreferences;
+    public Array<GameInputHandler> getPlayerInputHandlers() {
+        return mPlayerInputHandlers;
     }
 
-    public String getInputPrefix(int idx) {
+    public GameInputHandler getPlayerInputHandler(int index) {
+        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
+        return mPlayerInputHandlers.get(index);
+    }
+
+    private String getInputPrefix(int idx) {
         // Include inputs[idx] to ensure there are no configuration clashes when switching
         // between input handlers
         return PrefConstants.INPUT_PREFIX + String.valueOf(idx) + "." + inputs[idx] + ".";
+    }
+
+    private void setupInputHandlers() {
+        mPlayerInputHandlers.clear();
+        Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
+        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+            String id = this.inputs[idx];
+            if ("".equals(id)) {
+                continue;
+            }
+            Array<GameInputHandler> inputHandlers = inputHandlersByIds.get(id);
+            if (inputHandlers == null) {
+                NLog.e("Player %d: no input handlers for id '%s'", idx + 1, id);
+                continue;
+            }
+            if (inputHandlers.size == 0) {
+                NLog.i("Player %d: not enough input handlers for id '%s'", idx + 1, id);
+                continue;
+            }
+            GameInputHandler inputHandler = inputHandlers.first();
+            inputHandler.loadConfig(mPreferences, getInputPrefix(idx));
+            mPlayerInputHandlers.add(inputHandler);
+            inputHandlers.removeIndex(0);
+        }
     }
 }

@@ -19,9 +19,10 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameConfig;
+import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameinput.GameInput;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racescreen.Hud;
 
 /**
@@ -31,14 +32,25 @@ public class PlayerPilot implements Pilot {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Racer mRacer;
+    private final GameConfig mGameConfig;
+    private final int mPlayerIndex;
 
     private GameInputHandler mInputHandler;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer, GameInputHandler inputHandler) {
+    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer, GameConfig gameConfig, int playerIndex) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
-        mInputHandler = inputHandler;
+        mGameConfig = gameConfig;
+        mPlayerIndex = playerIndex;
+        updateInputHandler();
+
+        mGameConfig.addListener(new GameConfig.ChangeListener() {
+            @Override
+            public void onGameConfigChanged() {
+                updateInputHandler();
+            }
+        });
     }
 
     public void createHudButtons(Hud hud) {
@@ -59,5 +71,9 @@ public class PlayerPilot implements Pilot {
                 mRacer.triggerBonus();
             }
         }
+    }
+
+    private void updateInputHandler() {
+        mInputHandler = mGameConfig.getPlayerInputHandler(mPlayerIndex);
     }
 }
