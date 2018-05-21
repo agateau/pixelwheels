@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.menu;
 
+import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Scene2dUtils;
 import com.agateau.ui.VirtualKey;
@@ -122,8 +123,8 @@ public class Menu extends Group {
         return mStyle;
     }
 
-    public void setKeyMapper(KeyMapper keyMapper) {
-        mMenuInputHandler.setKeyMapper(keyMapper);
+    public void setInputMapper(InputMapper inputMapper) {
+        mMenuInputHandler.setInputMapper(inputMapper);
     }
 
     @SuppressWarnings("unused")

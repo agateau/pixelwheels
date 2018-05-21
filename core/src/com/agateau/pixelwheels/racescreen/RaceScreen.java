@@ -208,6 +208,12 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private boolean isPauseKeyPressed() {
+        for (Racer racer : mGameWorld.getPlayerRacers()) {
+            PlayerPilot pilot = (PlayerPilot)racer.getPilot();
+            if (pilot.isPauseKeyPressed()) {
+                return true;
+            }
+        }
         return Gdx.input.isKeyJustPressed(Input.Keys.P) ||
                 Gdx.input.isKeyJustPressed(Input.Keys.BACK);
     }

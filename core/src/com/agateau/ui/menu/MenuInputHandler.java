@@ -18,7 +18,8 @@
  */
 package com.agateau.ui.menu;
 
-import com.agateau.ui.KeyMapper;
+import com.agateau.ui.InputMapper;
+import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
 
 /**
@@ -36,7 +37,7 @@ public class MenuInputHandler {
         KEY_DOWN,
         REPEATING
     }
-    private KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
+    private InputMapper mInputMapper = UiInputMapper.getInstance();
     private State mState = State.STARTING;
 
     private VirtualKey mPressedVirtualKey = null;
@@ -79,7 +80,7 @@ public class MenuInputHandler {
             }
         } else {
             // Repeating
-            if (mKeyMapper.isKeyPressed(mPressedVirtualKey)) {
+            if (mInputMapper.isKeyPressed(mPressedVirtualKey)) {
                 if (mRepeatDelay > 0) {
                     mRepeatDelay -= delta;
                 } else {
@@ -98,17 +99,17 @@ public class MenuInputHandler {
         }
     }
 
-    public KeyMapper getKeyMapper() {
-        return mKeyMapper;
+    public InputMapper getInputMapper() {
+        return mInputMapper;
     }
 
-    public void setKeyMapper(KeyMapper keyMapper) {
-        mKeyMapper = keyMapper;
+    public void setInputMapper(InputMapper inputMapper) {
+        mInputMapper = inputMapper;
     }
 
     private VirtualKey findPressedKey() {
         for (VirtualKey virtualKey : VirtualKey.values()) {
-            if (mKeyMapper.isKeyPressed(virtualKey)) {
+            if (mInputMapper.isKeyPressed(virtualKey)) {
                 return virtualKey;
             }
         }

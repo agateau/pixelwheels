@@ -40,4 +40,6 @@ public class Constants {
     // interpolated between 1 and MAX_CAMERA_ROTATION_SPEED. When it must rotate by more than this
     // angle its maximum rotation speed is MAX_CAMERA_ROTATION_SPEED.
     public static final float MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED = 15;
+
+    public static final int MAX_PLAYERS = 2;
 }

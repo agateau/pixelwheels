@@ -21,14 +21,33 @@ package com.agateau.pixelwheels.gameinput;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handle keyboard input, for desktop mode
  */
 public class KeyboardInputHandler implements GameInputHandler {
     public static class Factory implements GameInputHandlerFactory {
+        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+
+        Factory() {
+            mHandlers.add(new KeyboardInputHandler(KeyMapper.getDefaultInstance()));
+
+            KeyMapper keyMapper = new KeyMapper();
+            keyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
+            keyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
+            keyMapper.setKey(VirtualKey.UP, Input.Keys.D);
+            keyMapper.setKey(VirtualKey.DOWN, Input.Keys.C);
+            keyMapper.setKey(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+            keyMapper.setKey(VirtualKey.BACK, Input.Keys.Q);
+            mHandlers.add(new KeyboardInputHandler(keyMapper));
+        }
+
         @Override
         public String getId() {
             return "keyboard";
@@ -45,35 +64,41 @@ public class KeyboardInputHandler implements GameInputHandler {
         }
 
         @Override
-        public GameInputHandler create() {
-            return new KeyboardInputHandler();
+        public Array<GameInputHandler> getAllHandlers() {
+            return mHandlers;
         }
-
     }
 
-    private KeyMapper mKeyMapper = new KeyMapper();
+    private final InputMapper mInputMapper;
     private GameInput mInput = new GameInput();
 
-    public KeyboardInputHandler() {
-    }
-
-    public void setKeyMapper(KeyMapper keyMapper) {
-        mKeyMapper = keyMapper;
+    KeyboardInputHandler(InputMapper inputMapper) {
+        mInputMapper = inputMapper;
     }
 
     @Override
     public GameInput getGameInput() {
         mInput.direction = 0;
-        mInput.braking = mKeyMapper.isKeyPressed(VirtualKey.DOWN);
+        mInput.braking = mInputMapper.isKeyPressed(VirtualKey.DOWN);
         mInput.accelerating = !mInput.braking;
-        if (mKeyMapper.isKeyPressed(VirtualKey.LEFT)) {
+        if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
             mInput.direction = 1;
-        } else if (mKeyMapper.isKeyPressed(VirtualKey.RIGHT)) {
+        } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
             mInput.direction = -1;
         }
-        mInput.triggeringBonus = mKeyMapper.isKeyPressed(VirtualKey.TRIGGER);
+        mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
+    }
+
+    @Override
+    public void loadConfig(Preferences preferences, String prefix) {
+        mInputMapper.loadConfig(preferences, prefix);
+    }
+
+    @Override
+    public void saveConfig(Preferences preferences, String prefix) {
+        mInputMapper.saveConfig(preferences, prefix);
     }
 
     @Override
@@ -82,5 +107,9 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public void setBonus(Bonus bonus) {
+    }
+
+    public InputMapper getInputMapper() {
+        return mInputMapper;
     }
 }

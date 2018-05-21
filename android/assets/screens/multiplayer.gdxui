@@ -9,9 +9,6 @@
         <Menu id="menu2" centerLeft="root.center 1 1" width="300" height="200" style="large"/>
         <Label id="ready2" center="menu2.center" visible="false">Ready!</Label>
 
-        <Label topCenter="menu1.bottomCenter">Keys: Arrows\nSpace</Label>
-        <Label topCenter="menu2.bottomCenter">Keys: D - C - X - V\nLeft Control</Label>
-
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"
                     imageName="icon-back"/>

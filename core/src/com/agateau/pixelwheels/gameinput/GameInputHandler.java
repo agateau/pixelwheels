@@ -21,12 +21,15 @@ package com.agateau.pixelwheels.gameinput;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.badlogic.gdx.Preferences;
 
 /**
  * Responsible for updating a GameInput according to player (or anything else) inputs
  */
 public interface GameInputHandler {
     GameInput getGameInput();
+    void loadConfig(Preferences preferences, String prefix);
+    void saveConfig(Preferences preferences, String prefix);
     void createHudButtons(Assets assets, Hud hud);
 
     void setBonus(Bonus bonus);

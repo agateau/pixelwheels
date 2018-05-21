@@ -18,17 +18,19 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
-import com.agateau.ui.menu.ButtonMenuItem;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.menu.SelectorMenuItem;
-import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuScrollPane;
+import com.agateau.ui.menu.SelectorMenuItem;
+import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -43,8 +45,6 @@ import com.badlogic.gdx.utils.Array;
  */
 public class ConfigScreen extends PwStageScreen {
     private final PwGame mGame;
-    private SelectorMenuItem<GameInputHandlerFactory> mInputSelector;
-    private Label mInputDescriptionLabel;
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -67,9 +67,21 @@ public class ConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
+        Menu menu = new Menu(mGame.getAssets().ui.skin);
+        menu.setLabelColumnWidth(250);
+        menu.setDefaultItemWidth(600);
 
-        setupInputSelector(menu);
+        MenuScrollPane scrollPane = builder.getActor("menuScrollPane");
+        scrollPane.setMenu(menu);
+        scrollPane.setHeight(getStage().getHeight());
+
+        if (PlatformUtils.isDesktop()) {
+            for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+                setupInputSelector(menu, "Input " + String.valueOf(idx + 1), idx);
+            }
+        } else {
+            setupInputSelector(menu, "Input", 0);
+        }
 
         final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
         rotateScreenSwitch.setChecked(gameConfig.rotateCamera);
@@ -102,7 +114,6 @@ public class ConfigScreen extends PwStageScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 gameConfig.audio = audioSwitch.isChecked();
-                mGame.getAudioManager().setMuted(!gameConfig.audio);
                 gameConfig.flush();
             }
         });
@@ -125,37 +136,43 @@ public class ConfigScreen extends PwStageScreen {
         });
     }
 
-    private void setupInputSelector(Menu menu) {
-        mInputSelector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
+    private void setupInputSelector(Menu menu, String label, final int idx) {
+        class InputSelectorInfo {
+            SelectorMenuItem<GameInputHandlerFactory> selector;
+            Label label;
+
+            void updateLabel() {
+                GameInputHandlerFactory factory = this.selector.getData();
+                this.label.setText(factory.getDescription());
+            }
+        };
+        final InputSelectorInfo info = new InputSelectorInfo();
+        info.selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
         Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
 
         for (GameInputHandlerFactory factory : inputFactories) {
-            mInputSelector.addEntry(factory.getName(), factory);
+            info.selector.addEntry(factory.getName(), factory);
         }
-        menu.addItemWithLabel("Input:", mInputSelector);
-        mInputDescriptionLabel = menu.addLabel("");
-        mInputDescriptionLabel.setWrap(true);
+        menu.addItemWithLabel(label + ":", info.selector);
+        info.label = menu.addLabel("");
+        info.label.setWrap(true);
 
-        mInputSelector.getActor().addListener(new ChangeListener() {
+        info.selector.getActor().addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                GameInputHandlerFactory factory = mInputSelector.getData();
-                mGame.getConfig().input = factory.getId();
-                updateInputDescriptionLabel();
+                GameInputHandlerFactory factory = info.selector.getData();
+                mGame.getConfig().inputs[idx] = factory.getId();
+                info.updateLabel();
+                mGame.getConfig().flush();
             }
         });
 
         // Select current value
-        String factoryId = mGame.getConfig().input;
+        String factoryId = mGame.getConfig().inputs[idx];
         GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(factoryId);
-        mInputSelector.setData(factory);
+        info.selector.setData(factory);
 
-        updateInputDescriptionLabel();
-    }
-
-    private void updateInputDescriptionLabel() {
-        GameInputHandlerFactory factory = mInputSelector.getData();
-        mInputDescriptionLabel.setText(factory.getDescription());
+        info.updateLabel();
     }
 
     @Override

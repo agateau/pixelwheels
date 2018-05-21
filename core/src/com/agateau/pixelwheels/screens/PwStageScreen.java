@@ -18,9 +18,9 @@
  */
 package com.agateau.pixelwheels.screens;
 
-import com.agateau.ui.UiAssets;
-import com.agateau.ui.KeyMapper;
 import com.agateau.ui.StageScreen;
+import com.agateau.ui.UiAssets;
+import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
@@ -45,6 +45,6 @@ public abstract class PwStageScreen extends StageScreen {
 
     @Override
     public boolean isBackKeyPressed() {
-        return KeyMapper.getDefaultInstance().isKeyJustPressed(VirtualKey.BACK);
+        return UiInputMapper.getInstance().isKeyJustPressed(VirtualKey.BACK);
     }
 }

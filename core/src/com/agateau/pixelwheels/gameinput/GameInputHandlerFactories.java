@@ -25,6 +25,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Provides input handlers
  */
@@ -34,6 +37,15 @@ public class GameInputHandlerFactories {
     public static Array<GameInputHandlerFactory> getAvailableFactories() {
         init();
         return mFactories;
+    }
+
+    public static Map<String, Array<GameInputHandler>> getInputHandlersByIds() {
+        init();
+        Map<String, Array<GameInputHandler>> map = new HashMap<String, Array<GameInputHandler>>();
+        for (GameInputHandlerFactory factory : mFactories) {
+            map.put(factory.getId(), new Array<GameInputHandler>(factory.getAllHandlers()));
+        }
+        return map;
     }
 
     public static GameInputHandlerFactory getFactoryById(String id) {
@@ -61,6 +73,7 @@ public class GameInputHandlerFactories {
         mFactories = new Array<GameInputHandlerFactory>();
         if (PlatformUtils.isDesktop()) {
             mFactories.add(new KeyboardInputHandler.Factory());
+            mFactories.add(new GamepadInputHandler.Factory());
         }
         if (hasMultitouch()) {
             mFactories.add(new TouchInputHandler.Factory());

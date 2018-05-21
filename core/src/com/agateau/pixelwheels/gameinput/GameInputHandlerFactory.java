@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.gameinput;
 
+import com.badlogic.gdx.utils.Array;
+
 /**
  * A factory to create GameInputHandlers and provide information about them
  */
@@ -25,5 +27,5 @@ public interface GameInputHandlerFactory {
     String getId();
     String getName();
     String getDescription();
-    GameInputHandler create();
+    Array<GameInputHandler> getAllHandlers();
 }

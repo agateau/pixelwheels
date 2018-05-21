@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.bonus.BonusSpot;
 import com.agateau.pixelwheels.bonus.GunBonus;
 import com.agateau.pixelwheels.bonus.MineBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
@@ -274,7 +275,8 @@ public class GameWorld implements ContactListener, Disposable {
             Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant.isPlayer()) {
                 GameInfo.Player player = (GameInfo.Player)entrant;
-                racer.setPilot(new PlayerPilot(assets, this, racer, player.getInputHandler()));
+                PlayerPilot pilot = new PlayerPilot(assets, this, racer, mGame.getConfig(), player.getIndex());
+                racer.setPilot(pilot);
                 mPlayerRacers.add(racer);
             } else {
                 racer.setPilot(new AIPilot(this, mTrack, racer));
