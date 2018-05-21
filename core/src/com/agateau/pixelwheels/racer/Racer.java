@@ -19,15 +19,15 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.bonus.Bonus;
-import com.agateau.pixelwheels.bonus.BonusPool;
-import com.agateau.pixelwheels.racescreen.Collidable;
-import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.racescreen.Collidable;
+import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
@@ -160,6 +160,20 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
         mSpinningComponent.start();
         looseBonus();
+    }
+
+    /**
+     * Returns the angle the camera should use to follow the vehicle.
+     * This is the same as Vehicle.getAngle() except when spinning,
+     * in which case we return the original angle, to avoid too much
+     * camera shaking, especially when "rotate screen" option is off.
+     */
+    public float getCameraAngle() {
+        if (mSpinningComponent.isActive()) {
+            return mSpinningComponent.getOriginalAngle();
+        } else {
+            return mVehicle.getAngle();
+        }
     }
 
     @Override

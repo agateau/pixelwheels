@@ -25,8 +25,9 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
-import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.MapUtils;
+import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
@@ -52,6 +53,7 @@ public class GameRenderer {
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
+    private final Racer mRacer;
     private final float mMapWidth;
     private final float mMapHeight;
 
@@ -68,10 +70,11 @@ public class GameRenderer {
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Vehicle vehicle, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
-        mVehicle = vehicle;
+        mRacer = racer;
+        mVehicle = racer.getVehicle();
 
         mTrack = mWorld.getTrack();
         mMapWidth = mTrack.getMapWidth();
@@ -176,7 +179,7 @@ public class GameRenderer {
         // Compute pos
         float maxCameraRotationSpeed = mGameConfig.rotateCamera ? Constants.MAX_CAMERA_ROTATION_SPEED : 0;
 
-        float targetAngle = AgcMathUtils.normalizeAngle(180 - mVehicle.getAngle());
+        float targetAngle = AgcMathUtils.normalizeAngle(180 - mRacer.getCameraAngle());
         float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraAngle);
 
         float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
@@ -198,7 +201,7 @@ public class GameRenderer {
         if (mGameConfig.rotateCamera) {
             advanceAngle = 180 - mCameraAngle;
         } else {
-            advanceAngle = mVehicle.getAngle();
+            advanceAngle = mRacer.getCameraAngle();
         }
 
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;

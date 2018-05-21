@@ -18,7 +18,6 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
-import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
@@ -27,12 +26,12 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObject;
+import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racer.Pilot;
 import com.agateau.pixelwheels.racer.PlayerPilot;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.RacerDebugShape;
-import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -99,8 +98,8 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void setupGameRenderer(int idx, SpriteBatch batch) {
-        Vehicle vehicle = mGameWorld.getPlayerVehicle(idx);
-        GameRenderer gameRenderer = new GameRenderer(mGameWorld, vehicle, batch, mPerformanceCounters);
+        Racer racer = mGameWorld.getPlayerRacer(idx);
+        GameRenderer gameRenderer = new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
         gameRenderer.setConfig(mGame.getConfig());
         mGameRenderers.add(gameRenderer);
     }

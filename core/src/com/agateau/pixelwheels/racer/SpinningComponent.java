@@ -18,9 +18,9 @@
  */
 package com.agateau.pixelwheels.racer;
 
+import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
-import com.agateau.pixelwheels.GameWorld;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -36,7 +36,8 @@ public class SpinningComponent implements Racer.Component, Collidable {
     private static final float MAX_ANGULAR_VELOCITY = 15f;
     private final Vehicle mVehicle;
     private boolean mActive = false;
-    private float mDesiredAngle;
+    private float mOriginalAngle;
+    private float mTargetBodyAngle;
 
     public SpinningComponent(Vehicle vehicle) {
         mVehicle = vehicle;
@@ -46,10 +47,15 @@ public class SpinningComponent implements Racer.Component, Collidable {
         return mActive;
     }
 
+    public float getOriginalAngle() {
+        return mOriginalAngle;
+    }
+
     public void start() {
         mActive = true;
         setGripEnabled(false);
-        mDesiredAngle = mVehicle.getBody().getAngle() + 2 * MathUtils.PI;
+        mOriginalAngle = mVehicle.getAngle();
+        mTargetBodyAngle = mVehicle.getBody().getAngle() + 2 * MathUtils.PI;
     }
 
     @Override
@@ -64,12 +70,12 @@ public class SpinningComponent implements Racer.Component, Collidable {
 
         // Spin
         float nextAngle = body.getAngle() + body.getAngularVelocity() * GameWorld.BOX2D_TIME_STEP;
-        if (nextAngle > mDesiredAngle) {
+        if (nextAngle > mTargetBodyAngle) {
             stopSpinning();
             return;
         }
 
-        float totalRotation = mDesiredAngle - nextAngle;
+        float totalRotation = mTargetBodyAngle - nextAngle;
         float desiredAngularVelocity = totalRotation / GameWorld.BOX2D_TIME_STEP;
         if (desiredAngularVelocity < 0) {
             desiredAngularVelocity = MathUtils.clamp(desiredAngularVelocity, -MAX_ANGULAR_VELOCITY, -MIN_ANGULAR_VELOCITY);
