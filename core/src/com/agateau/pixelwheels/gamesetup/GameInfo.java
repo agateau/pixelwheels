@@ -31,11 +31,11 @@ public abstract class GameInfo {
     private final Array<Entrant> mEntrants = new Array<Entrant>();
 
     public static abstract class Builder<T extends GameInfo> {
-        protected final Array<VehicleDef> mVehicleDefs;
-        protected final GameConfig mGameConfig;
-        protected Array<Player> mPlayers;
+        final Array<VehicleDef> mVehicleDefs;
+        final GameConfig mGameConfig;
+        Array<Player> mPlayers;
 
-        public Builder(Array<VehicleDef> vehicleDefs, GameConfig gameConfig) {
+        Builder(Array<VehicleDef> vehicleDefs, GameConfig gameConfig) {
             mVehicleDefs = vehicleDefs;
             mGameConfig = gameConfig;
         }
@@ -47,7 +47,7 @@ public abstract class GameInfo {
 
         public abstract T build();
 
-        protected void createEntrants(GameInfo gameInfo) {
+        void createEntrants(GameInfo gameInfo) {
             Array<String> vehicleIds = new Array<String>();
             for (VehicleDef vehicleDef : mVehicleDefs) {
                 vehicleIds.add(vehicleDef.id);
