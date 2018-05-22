@@ -19,13 +19,15 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.racescreen.Hud;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -78,14 +80,16 @@ public class KeyboardInputHandler implements GameInputHandler {
 
     @Override
     public GameInput getGameInput() {
-        mInput.direction = 0;
         mInput.braking = mInputMapper.isKeyPressed(VirtualKey.DOWN);
         mInput.accelerating = !mInput.braking;
         if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
-            mInput.direction = 1;
+            mInput.direction += GamePlay.instance.steeringStep;
         } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
-            mInput.direction = -1;
+            mInput.direction -= GamePlay.instance.steeringStep;
+        } else {
+            mInput.direction = 0;
         }
+        mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
         mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
