@@ -58,7 +58,7 @@ public class KeyValueWriter {
             mWriter.append('=');
             mWriter.append(text);
         } catch (IOException e) {
-            NLog.e("Failed to write CSV file");
+            NLog.e("Failed to write KV file");
             e.printStackTrace();
         }
     }
