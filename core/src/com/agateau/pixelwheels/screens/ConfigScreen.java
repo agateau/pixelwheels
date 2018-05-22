@@ -138,14 +138,14 @@ public class ConfigScreen extends PwStageScreen {
 
     private void setupInputSelector(Menu menu, String label, final int idx) {
         class InputSelectorInfo {
-            SelectorMenuItem<GameInputHandlerFactory> selector;
-            Label label;
+            private SelectorMenuItem<GameInputHandlerFactory> selector;
+            private Label label;
 
             void updateLabel() {
                 GameInputHandlerFactory factory = this.selector.getData();
                 this.label.setText(factory.getDescription());
             }
-        };
+        }
         final InputSelectorInfo info = new InputSelectorInfo();
         info.selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
         Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
