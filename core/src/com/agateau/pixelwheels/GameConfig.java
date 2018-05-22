@@ -20,6 +20,7 @@ package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
+import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gamesetup.GameMode;
 import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
@@ -42,13 +43,13 @@ public class GameConfig {
     public boolean fullscreen = false;
     public boolean rotateCamera = true;
     public boolean audio = true;
-    public String[] inputs = new String[Constants.MAX_PLAYERS];
 
     public GameMode gameMode = GameMode.QUICK_RACE;
     public final String[] vehicles = new String[Constants.MAX_PLAYERS];
     public String track;
     public String championship;
 
+    private final String[] mPlayerInputFactoryIds = new String[Constants.MAX_PLAYERS];
     private final Array<GameInputHandler> mPlayerInputHandlers = new Array<GameInputHandler>();
 
     private final Preferences mPreferences;
@@ -72,7 +73,7 @@ public class GameConfig {
         }
 
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            this.inputs[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx), PrefConstants.INPUT_DEFAULT);
+            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx), PrefConstants.INPUT_DEFAULT);
             this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
         }
 
@@ -96,7 +97,7 @@ public class GameConfig {
             mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
                     this.vehicles[idx]);
             mPreferences.putString(PrefConstants.INPUT_PREFIX + String.valueOf(idx),
-                    this.inputs[idx]);
+                    mPlayerInputFactoryIds[idx]);
         }
 
         mPreferences.putString(PrefConstants.TRACK_ID, this.track);
@@ -123,17 +124,26 @@ public class GameConfig {
         return mPlayerInputHandlers.get(index);
     }
 
+    public GameInputHandlerFactory getPlayerInputHandlerFactory(int idx) {
+        String factoryId = mPlayerInputFactoryIds[idx];
+        return GameInputHandlerFactories.getFactoryById(factoryId);
+    }
+
+    public void setPlayerInputHandlerFactory(int idx, GameInputHandlerFactory factory) {
+        mPlayerInputFactoryIds[idx] = factory.getId();
+    }
+
     private String getInputPrefix(int idx) {
-        // Include inputs[idx] to ensure there are no configuration clashes when switching
+        // Include the factory id to ensure there are no configuration clashes when switching
         // between input handlers
-        return PrefConstants.INPUT_PREFIX + String.valueOf(idx) + "." + inputs[idx] + ".";
+        return PrefConstants.INPUT_PREFIX + String.valueOf(idx) + "." + mPlayerInputFactoryIds[idx] + ".";
     }
 
     private void setupInputHandlers() {
         mPlayerInputHandlers.clear();
         Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            String id = this.inputs[idx];
+            String id = mPlayerInputFactoryIds[idx];
             if ("".equals(id)) {
                 continue;
             }

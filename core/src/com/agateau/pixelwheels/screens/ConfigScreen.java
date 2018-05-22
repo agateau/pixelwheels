@@ -161,15 +161,14 @@ public class ConfigScreen extends PwStageScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 GameInputHandlerFactory factory = info.selector.getData();
-                mGame.getConfig().inputs[idx] = factory.getId();
+                mGame.getConfig().setPlayerInputHandlerFactory(idx, factory);
                 info.updateLabel();
                 mGame.getConfig().flush();
             }
         });
 
         // Select current value
-        String factoryId = mGame.getConfig().inputs[idx];
-        GameInputHandlerFactory factory = GameInputHandlerFactories.getFactoryById(factoryId);
+        GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(idx);
         info.selector.setData(factory);
 
         info.updateLabel();
