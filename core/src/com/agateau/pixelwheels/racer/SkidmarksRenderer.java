@@ -48,7 +48,7 @@ public class SkidmarksRenderer {
         mAssets = assets;
     }
 
-    public void draw(Batch batch, CircularArray<Vector2> skidmarks) {
+    public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks) {
         int idx1 = skidmarks.getBeginIndex();
         if (idx1 == skidmarks.getEndIndex()) {
             return;
@@ -57,8 +57,11 @@ public class SkidmarksRenderer {
         float alpha = SKIDMARK_ALPHA_MIN;
 
         for (; idx2 != skidmarks.getEndIndex(); idx1 = idx2, idx2 = skidmarks.getNextIndex(idx2)) {
-            Vector2 pos1 = skidmarks.get(idx1);
-            Vector2 pos2 = skidmarks.get(idx2);
+            Wheel.Skidmark mark1 = skidmarks.get(idx1);
+            Wheel.Skidmark mark2 = skidmarks.get(idx2);
+
+            Vector2 pos1 = mark1.getPos();
+            Vector2 pos2 = mark2.getPos();
 
             if (!mValidThickness) {
                 mValidThickness = true;
@@ -67,7 +70,7 @@ public class SkidmarksRenderer {
                 mThickY2 = thickness.y;
             }
 
-            if (!pos1.equals(Wheel.END_DRIFT_POS) && !pos2.equals(Wheel.END_DRIFT_POS)) {
+            if (!mark1.isEnd() && !mark2.isEnd()) {
                 mThickX1 = mThickX2;
                 mThickY1 = mThickY2;
                 Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);

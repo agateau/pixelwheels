@@ -41,16 +41,32 @@ public class Wheel implements Disposable {
     private static final float DRAG_FACTOR = 1;
     private static final int SKIDMARK_INTERVAL = 3;
 
-    public static final Vector2 END_DRIFT_POS = new Vector2(-12, -12);
+    public static class Skidmark {
+        private final Vector2 mPos = new Vector2();
+        private boolean mIsEnd = false;
 
-    private final CircularArray<Vector2> mSkidmarks = new CircularArray<Vector2>(GamePlay.instance.maxSkidmarks) {
+
+        public boolean isEnd() {
+            return mIsEnd;
+        }
+
+        public Vector2 getPos() {
+            return mPos;
+        }
+
+        public void init(Vector2 pos) {
+            mPos.set(pos);
+        }
+
+        public void initAsEnd() {
+            mIsEnd = true;
+        }
+    }
+
+    private final CircularArray<Skidmark> mSkidmarks = new CircularArray<Skidmark>(GamePlay.instance.maxSkidmarks) {
         @Override
-        protected Vector2 initElement(Vector2 existingElement, Vector2 newElement) {
-            if (existingElement == null) {
-                existingElement = new Vector2();
-            }
-            existingElement.set(newElement.x, newElement.y);
-            return existingElement;
+        protected Skidmark createInstance() {
+            return new Skidmark();
         }
     };
     private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
@@ -148,13 +164,13 @@ public class Wheel implements Disposable {
             // Drift
             mDrifting = true;
             if (mSkidmarkCount == 0) {
-                mSkidmarks.add(mBody.getWorldCenter());
+                mSkidmarks.add().init(mBody.getWorldCenter());
             }
             mSkidmarkCount = (mSkidmarkCount + 1) % SKIDMARK_INTERVAL;
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
         } else if (mDrifting) {
-            mSkidmarks.add(END_DRIFT_POS);
+            mSkidmarks.add().initAsEnd();
             mDrifting = false;
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);
@@ -179,7 +195,7 @@ public class Wheel implements Disposable {
         mMaxDrivingForce = maxDrivingForce;
     }
 
-    public CircularArray<Vector2> getSkidmarks() {
+    public CircularArray<Skidmark> getSkidmarks() {
         return mSkidmarks;
     }
 
