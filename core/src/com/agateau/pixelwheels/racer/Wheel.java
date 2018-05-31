@@ -40,11 +40,12 @@ public class Wheel implements Disposable {
     private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
     private static final int SKIDMARK_INTERVAL = 3;
+    private static final float SKIDMARK_LIFETIME = 10f;
 
     public static class Skidmark {
         private final Vector2 mPos = new Vector2();
         private boolean mIsEnd = false;
-
+        private float mRemainingLife;
 
         public boolean isEnd() {
             return mIsEnd;
@@ -56,10 +57,19 @@ public class Wheel implements Disposable {
 
         public void init(Vector2 pos) {
             mPos.set(pos);
+            mRemainingLife = SKIDMARK_LIFETIME;
         }
 
         public void initAsEnd() {
             mIsEnd = true;
+        }
+
+        public void act(float delta) {
+            mRemainingLife = Math.max(0, mRemainingLife - delta);
+        }
+
+        public float getOpacity() {
+            return mRemainingLife / SKIDMARK_LIFETIME;
         }
     }
 
@@ -122,6 +132,10 @@ public class Wheel implements Disposable {
                 updateFriction();
             }
             Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
+        }
+        for (int idx = mSkidmarks.getBeginIndex(), end = mSkidmarks.getEndIndex();
+                idx != end; idx = mSkidmarks.getNextIndex(idx)) {
+            mSkidmarks.get(idx).act(delta);
         }
     }
 

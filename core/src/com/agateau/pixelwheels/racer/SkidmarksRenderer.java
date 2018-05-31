@@ -76,8 +76,8 @@ public class SkidmarksRenderer {
                 Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
                 mThickX2 = thickness.x;
                 mThickY2 = thickness.y;
-
-                drawSkidmark(batch, pos1, pos2, alpha);
+                drawSkidmark(batch, pos1, pos2, alpha * mark1.getOpacity(),
+                        (alpha + SKIDMARK_ALPHA_INC) * mark2.getOpacity());
                 alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
             } else {
                 mValidThickness = false;
@@ -87,11 +87,10 @@ public class SkidmarksRenderer {
     }
 
     private float[] mVertices = new float[4 * 5];
-    private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha) {
-        //Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+    private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha1, float alpha2) {
         TextureRegion region = mAssets.skidmark;
-        float c = Color.toFloatBits(1, 1, 1, alpha);
-        float c2 = Color.toFloatBits(1, 1, 1, alpha + SKIDMARK_ALPHA_INC);
+        float c = Color.toFloatBits(1, 1, 1, alpha1);
+        float c2 = Color.toFloatBits(1, 1, 1, alpha2);
         float u = region.getU();
         float v = region.getV();
         float u2 = region.getU2();
