@@ -20,16 +20,22 @@ package com.agateau.utils;
 
 /**
  * An array which loops after reaching the end. Adding a new element when the array is full
- * overwrites the first element
+ * overwrites the first element.
+ *
+ * It only makes sense to use this with mutable objects, since the goal is to reuse the existing
+ * instances.
  */
 
-public class CircularArray<T> {
+public abstract class CircularArray<T> {
     private final T[] mItems;
+    // Points to the first valid item, if any
     private int mBegin = 0;
+    // Points to the item after the last valid item
     private int mEnd = 0;
 
     public CircularArray(int size) {
-        mItems = (T[])new Object[size];
+        // +1 so that mEnd has an item to point to
+        mItems = (T[])new Object[size + 1];
     }
 
     public T get(int index) {
@@ -48,15 +54,18 @@ public class CircularArray<T> {
         return (idx + 1) % mItems.length;
     }
 
-    public void add(T element) {
-        mItems[mEnd] = initElement(mItems[mEnd], element);
+    public T add() {
+        T element = mItems[mEnd];
+        if (element == null) {
+            element = createInstance();
+            mItems[mEnd] = element;
+        }
         mEnd = getNextIndex(mEnd);
-        if (mEnd == mBegin) {
+        if (mBegin == mEnd) {
             mBegin = getNextIndex(mBegin);
         }
+        return element;
     }
 
-    protected T initElement(T existingElement, T newElement) {
-        return newElement;
-    }
+    abstract protected T createInstance();
 }
