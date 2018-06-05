@@ -199,6 +199,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
     public void trigger() {
         mSelectedIndex = mCurrentIndex;
         MenuItemTriggerEvent.fire(this);

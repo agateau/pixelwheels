@@ -30,6 +30,8 @@ public interface MenuItem {
 
     boolean addListener(EventListener eventListener);
 
+    boolean isFocusable();
+
     void trigger();
 
     /**

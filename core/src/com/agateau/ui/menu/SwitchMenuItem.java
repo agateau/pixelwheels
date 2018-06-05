@@ -80,6 +80,11 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     }
 
     @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
     public void trigger() {
         mChecked = !mChecked;
         Scene2dUtils.fireChangeEvent(this);

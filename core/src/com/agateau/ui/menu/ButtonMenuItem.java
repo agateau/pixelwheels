@@ -55,6 +55,11 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
     public void trigger() {
         Scene2dUtils.simulateClick(this);
     }

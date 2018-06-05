@@ -19,15 +19,13 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.KeyMapper;
 import com.agateau.ui.Scene2dUtils;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.utils.Assert;
 import com.agateau.utils.AgcMathUtils;
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -42,6 +40,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.HashMap;
 
 /**
  * A keyboard and game controller friendly menu system
@@ -62,6 +62,8 @@ public class Menu extends Group {
     private int mCurrentIndex = -1;
 
     private final Array<MenuItem> mItems = new Array<MenuItem>();
+
+    private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
     private Vector2 mTmp = new Vector2();
 
@@ -153,10 +155,10 @@ public class Menu extends Group {
      * Add a plain label in the menu
      * @return The created label
      */
-    public Label addLabel(String text) {
-        Label label = new Label(text, mSkin);
-        addActorToContainer(label);
-        return label;
+    public LabelMenuItem addLabel(String text) {
+        LabelMenuItem labelMenuItem = new LabelMenuItem(text, mSkin);
+        addItem(labelMenuItem);
+        return labelMenuItem;
     }
 
     /**
@@ -164,10 +166,10 @@ public class Menu extends Group {
      * @return The created label
      */
     @SuppressWarnings("UnusedReturnValue")
-    public Label addTitleLabel(String text) {
-        Label label = new Label(text, mSkin, "menuTitle");
-        addActorToContainer(label);
-        return label;
+    public LabelMenuItem addTitleLabel(String text) {
+        LabelMenuItem labelMenuItem = new LabelMenuItem(text, mSkin, "menuTitle");
+        addItem(labelMenuItem);
+        return labelMenuItem;
     }
 
     /**
@@ -175,8 +177,7 @@ public class Menu extends Group {
      */
     public MenuItem addItem(MenuItem item) {
         item.setDefaultColumnWidth(mDefaultItemWidth);
-        addItemInternal(item);
-        addActorToContainer(item.getActor());
+        addItemInternal(item, item.getActor());
         return item;
     }
 
@@ -198,19 +199,16 @@ public class Menu extends Group {
         group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
         group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
 
-        addItemInternal(item);
-        addActorToContainer(group);
+        addItemInternal(item, group);
         return item;
     }
 
-    private void addItemInternal(MenuItem item) {
+    private void addItemInternal(MenuItem item, Actor actor) {
         mItems.add(item);
+        mActorForItem.put(item, actor);
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
         }
-    }
-
-    private void addActorToContainer(Actor actor) {
         mContainer.addActor(actor);
         updateBounds();
     }
@@ -228,13 +226,9 @@ public class Menu extends Group {
         super.act(delta);
         mMenuInputHandler.act(delta);
         if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
-            if (!getCurrentItem().goDown()) {
-                adjustIndex(1);
-            }
+            goDown();
         } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
-            if (!getCurrentItem().goUp()) {
-                adjustIndex(-1);
-            }
+            goUp();
         } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
             getCurrentItem().goLeft();
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
@@ -249,7 +243,7 @@ public class Menu extends Group {
             setCurrentIndex(-1);
             return;
         }
-        int index = mItems.indexOf(item, /* identity= */ true);
+        int index = getItemIndex(item);
         Assert.check(index != -1, "Invalid item");
         setCurrentIndex(index);
     }
@@ -258,8 +252,58 @@ public class Menu extends Group {
         return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
     }
 
-    private void adjustIndex(int delta) {
-        setCurrentIndex(MathUtils.clamp(mCurrentIndex + delta, 0, mItems.size - 1));
+    public boolean isItemVisible(MenuItem item) {
+        Actor actor = mActorForItem.get(item);
+        return actor.getParent() == mContainer;
+    }
+
+    public void setItemVisible(MenuItem item, boolean visible) {
+        if (isItemVisible(item) == visible) {
+            return;
+        }
+        int itemIndex = getItemIndex(item);
+        Actor actor = mActorForItem.get(item);
+        Assert.check(actor != null, "No actor for item");
+        if (visible) {
+            Actor previous = null;
+            for (int idx = itemIndex - 1; idx >= 0; --idx) {
+                MenuItem previousItem = mItems.get(idx);
+                if (isItemVisible(previousItem)) {
+                    previous = mActorForItem.get(previousItem);
+                    break;
+                }
+            }
+            mContainer.addActorAfter(previous, actor);
+        } else {
+            mContainer.removeActor(actor);
+        }
+        updateBounds();
+    }
+
+    public boolean goDown() {
+        if (getCurrentItem().goDown()) {
+            return true;
+        }
+        return adjustIndex(1);
+    }
+
+    public boolean goUp() {
+        if (getCurrentItem().goUp()) {
+            return true;
+        }
+        return adjustIndex(-1);
+    }
+
+    private boolean adjustIndex(int delta) {
+        int size = mItems.size;
+        for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
+            MenuItem item = mItems.get(idx);
+            if (item.isFocusable() && isItemVisible(item)) {
+                setCurrentIndex(idx);
+                return true;
+            }
+        }
+        return false;
     }
 
     private void triggerCurrentItem() {
@@ -327,5 +371,9 @@ public class Menu extends Group {
             }
         }
         return null;
+    }
+
+    private int getItemIndex(MenuItem item) {
+        return mItems.indexOf(item, /* identity= */ true);
     }
 }

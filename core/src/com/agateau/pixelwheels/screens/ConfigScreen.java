@@ -27,6 +27,7 @@ import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.menu.SelectorMenuItem;
@@ -154,7 +155,7 @@ public class ConfigScreen extends PwStageScreen {
             info.selector.addEntry(factory.getName(), factory);
         }
         menu.addItemWithLabel(label + ":", info.selector);
-        info.label = menu.addLabel("");
+        info.label = menu.addLabel("").getLabel();
         info.label.setWrap(true);
 
         info.selector.getActor().addListener(new ChangeListener() {
