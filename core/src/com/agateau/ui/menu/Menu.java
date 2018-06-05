@@ -307,15 +307,20 @@ public class Menu extends Group {
     }
 
     private void triggerCurrentItem() {
-        if (mCurrentIndex < 0) {
+        MenuItem item = getCurrentItem();
+        if (item == null) {
             return;
         }
-        mItems.get(mCurrentIndex).trigger();
+        Assert.check(isItemVisible(item), "Cannot trigger an invisible item");
+        item.trigger();
     }
 
     private void setCurrentIndex(int index) {
         int old = mCurrentIndex;
         mCurrentIndex = index;
+        if (mCurrentIndex >= 0) {
+            Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
+        }
         if (old >= 0 && mCurrentIndex == -1) {
             mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
         } else if (old == -1) {
@@ -361,6 +366,9 @@ public class Menu extends Group {
     private Rectangle mActorRectangle = new Rectangle();
     private MenuItem getItemAt(float x, float y) {
         for (MenuItem item : mItems) {
+            if (!isItemVisible(item)) {
+                continue;
+            }
             Actor actor = item.getActor();
             // We do not use the item focus rect because it might be only represent a part of the item
             // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
