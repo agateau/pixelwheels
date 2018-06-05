@@ -48,7 +48,7 @@ import java.util.HashMap;
  *
  * Sends ChangeEvent when the current item changes.
  */
-public class Menu extends Group {
+public class Menu extends Group implements MenuItem {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
@@ -66,6 +66,8 @@ public class Menu extends Group {
     private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
     private Vector2 mTmp = new Vector2();
+
+    public Menu mParentMenu = null;
 
     private enum FocusIndicatorMovement {
         IMMEDIATE,
@@ -280,6 +282,47 @@ public class Menu extends Group {
         updateBounds();
     }
 
+    @Override
+    public Actor getActor() {
+        return mContainer;
+    }
+
+    @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
+    public void trigger() {
+        triggerCurrentItem();
+    }
+
+    @Override
+    public void goLeft() {
+        getCurrentItem().goLeft();
+    }
+
+    @Override
+    public void goRight() {
+        getCurrentItem().goRight();
+    }
+
+    private final Rectangle mFocusRect = new Rectangle();
+    @Override
+    public Rectangle getFocusRectangle() {
+        mFocusRect.set(getCurrentItem().getFocusRectangle());
+        mapDescendantRectangle(getCurrentItem().getActor(), mFocusRect);
+        return mFocusRect;
+    }
+
+    @Override
+    public void setDefaultColumnWidth(float width) {
+        for (MenuItem item : mItems) {
+            item.setDefaultColumnWidth(width);
+        }
+    }
+
+    @Override
     public boolean goDown() {
         if (getCurrentItem().goDown()) {
             return true;
@@ -287,6 +330,7 @@ public class Menu extends Group {
         return adjustIndex(1);
     }
 
+    @Override
     public boolean goUp() {
         if (getCurrentItem().goUp()) {
             return true;
@@ -318,6 +362,10 @@ public class Menu extends Group {
     private void setCurrentIndex(int index) {
         int old = mCurrentIndex;
         mCurrentIndex = index;
+        if (mParentMenu != null) {
+            mParentMenu.animateFocusIndicator();
+            return;
+        }
         if (mCurrentIndex >= 0) {
             Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
         }
