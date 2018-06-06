@@ -419,15 +419,15 @@ public class Menu extends Group {
         super.act(delta);
         mMenuInputHandler.act(delta);
         if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
-            goDown();
+            mGroup.goDown();
         } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
-            goUp();
+            mGroup.goUp();
         } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
             getCurrentItem().goLeft();
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
             getCurrentItem().goRight();
         } else if (mMenuInputHandler.isJustPressed(VirtualKey.TRIGGER)) {
-            triggerCurrentItem();
+            mGroup.trigger();
         }
     }
 
@@ -445,18 +445,6 @@ public class Menu extends Group {
 
     public void setItemVisible(MenuItem item, boolean visible) {
         mGroup.setItemVisible(item, visible);
-    }
-
-    public boolean goDown() {
-        return mGroup.goDown();
-    }
-
-    public boolean goUp() {
-        return mGroup.goUp();
-    }
-
-    private void triggerCurrentItem() {
-        mGroup.trigger();
     }
 
     void animateFocusIndicator() {
