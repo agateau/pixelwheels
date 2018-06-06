@@ -52,7 +52,7 @@ public class Menu extends Group {
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final Image mFocusIndicator;
-    private final VerticalGroup mContainer;
+    private final MenuItemGroup mGroup;
     private final Skin mSkin;
     private MenuStyle mStyle;
 
@@ -66,6 +66,80 @@ public class Menu extends Group {
     private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
     private Vector2 mTmp = new Vector2();
+
+    private static class MenuItemGroup extends VerticalGroup implements MenuItem {
+        private final Menu mMenu;
+
+        public MenuItemGroup(Menu menu) {
+            mMenu = menu;
+        }
+
+        @Override
+        public Actor getActor() {
+            return this;
+        }
+
+        @Override
+        public boolean isFocusable() {
+            // TODO: return false if there are only non focusable items
+            return true;
+        }
+
+        @Override
+        public void trigger() {
+
+        }
+
+        @Override
+        public boolean goUp() {
+            return false;
+        }
+
+        @Override
+        public boolean goDown() {
+            return false;
+        }
+
+        @Override
+        public void goLeft() {
+
+        }
+
+        @Override
+        public void goRight() {
+
+        }
+
+        private final Rectangle mFocusRect = new Rectangle();
+        @Override
+        public Rectangle getFocusRectangle() {
+            mFocusRect.set(mMenu.getCurrentItem().getFocusRectangle());
+            mMenu.mapDescendantRectangle(mMenu.getCurrentItem().getActor(), mFocusRect);
+            return mFocusRect;
+        }
+
+        @Override
+        public void setDefaultColumnWidth(float width) {
+            for (MenuItem item : mMenu.mItems) {
+                item.setDefaultColumnWidth(width);
+            }
+        }
+
+        @Override
+        public void layout() {
+            super.layout();
+            updateBounds();
+            mMenu.updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
+        }
+
+        private void updateBounds() {
+            float width = Math.max(mMenu.getWidth(), getPrefWidth());
+            float height = getPrefHeight();
+
+            setSize(width, height);
+            mMenu.setBounds(getX(), getTop() - height, width, height);
+        }
+    }
 
     private enum FocusIndicatorMovement {
         IMMEDIATE,
@@ -92,18 +166,11 @@ public class Menu extends Group {
         mFocusIndicator = new Image(mStyle.focus);
         mFocusIndicator.setTouchable(Touchable.disabled);
 
-        mContainer = new VerticalGroup() {
-            @Override
-            public void layout() {
-                super.layout();
-                updateBounds();
-                updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
-            }
-        };
-        mContainer.pad(mStyle.focusPadding);
-        mContainer.space(mStyle.focusPadding * 2 + mStyle.spacing);
-        mContainer.fill();
-        mContainer.addCaptureListener(new InputListener() {
+        mGroup = new MenuItemGroup(this);
+        mGroup.pad(mStyle.focusPadding);
+        mGroup.space(mStyle.focusPadding * 2 + mStyle.spacing);
+        mGroup.fill();
+        mGroup.addCaptureListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
                 if (item != null) {
@@ -114,7 +181,7 @@ public class Menu extends Group {
         });
 
         addActor(mFocusIndicator);
-        addActor(mContainer);
+        addActor(mGroup);
     }
 
     public Skin getSkin() {
@@ -209,16 +276,8 @@ public class Menu extends Group {
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
         }
-        mContainer.addActor(actor);
-        updateBounds();
-    }
-
-    private void updateBounds() {
-        float width = Math.max(getWidth(), mContainer.getPrefWidth());
-        float height = mContainer.getPrefHeight();
-
-        mContainer.setSize(width, height);
-        setBounds(getX(), getTop() - height, width, height);
+        mGroup.addActor(actor);
+        mGroup.updateBounds();
     }
 
     @Override
@@ -254,7 +313,7 @@ public class Menu extends Group {
 
     public boolean isItemVisible(MenuItem item) {
         Actor actor = mActorForItem.get(item);
-        return actor.getParent() == mContainer;
+        return actor.getParent() == mGroup;
     }
 
     public void setItemVisible(MenuItem item, boolean visible) {
@@ -273,11 +332,11 @@ public class Menu extends Group {
                     break;
                 }
             }
-            mContainer.addActorAfter(previous, actor);
+            mGroup.addActorAfter(previous, actor);
         } else {
-            mContainer.removeActor(actor);
+            mGroup.removeActor(actor);
         }
-        updateBounds();
+        mGroup.updateBounds();
     }
 
     public boolean goDown() {
@@ -355,13 +414,13 @@ public class Menu extends Group {
 
     private void mapDescendantRectangle(Actor actor, Rectangle rect) {
         mTmp.set(rect.x, rect.y);
-        mTmp = actor.localToAscendantCoordinates(mContainer, mTmp);
+        mTmp = actor.localToAscendantCoordinates(mGroup, mTmp);
         rect.x = mTmp.x;
         rect.y = mTmp.y;
     }
 
     /**
-     * Returns the item at x, y (relative to mContainer), if any
+     * Returns the item at x, y (relative to mGroup), if any
      */
     private Rectangle mActorRectangle = new Rectangle();
     private MenuItem getItemAt(float x, float y) {
