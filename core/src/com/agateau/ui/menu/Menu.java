@@ -59,19 +59,28 @@ public class Menu extends Group {
     private float mLabelColumnWidth = 120;
     private float mDefaultItemWidth = 300;
 
-    private int mCurrentIndex = -1;
-
-    private final Array<MenuItem> mItems = new Array<MenuItem>();
-
-    private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
-
     private Vector2 mTmp = new Vector2();
 
     private static class MenuItemGroup extends VerticalGroup implements MenuItem {
         private final Menu mMenu;
 
+        private int mCurrentIndex = -1;
+
+        private final Array<MenuItem> mItems = new Array<MenuItem>();
+
+        private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
+
         public MenuItemGroup(Menu menu) {
             mMenu = menu;
+            addCaptureListener(new InputListener() {
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    MenuItem item = getItemAt(x, y);
+                    if (item != null) {
+                        setCurrentItem(item);
+                    }
+                    return false;
+                }
+            });
         }
 
         @Override
@@ -91,13 +100,19 @@ public class Menu extends Group {
         }
 
         @Override
-        public boolean goUp() {
-            return false;
+        public boolean goDown() {
+            if (getCurrentItem().goDown()) {
+                return true;
+            }
+            return adjustIndex(1);
         }
 
         @Override
-        public boolean goDown() {
-            return false;
+        public boolean goUp() {
+            if (getCurrentItem().goUp()) {
+                return true;
+            }
+            return adjustIndex(-1);
         }
 
         @Override
@@ -113,14 +128,14 @@ public class Menu extends Group {
         private final Rectangle mFocusRect = new Rectangle();
         @Override
         public Rectangle getFocusRectangle() {
-            mFocusRect.set(mMenu.getCurrentItem().getFocusRectangle());
-            mMenu.mapDescendantRectangle(mMenu.getCurrentItem().getActor(), mFocusRect);
+            mFocusRect.set(getCurrentItem().getFocusRectangle());
+            mMenu.mapDescendantRectangle(getCurrentItem().getActor(), mFocusRect);
             return mFocusRect;
         }
 
         @Override
         public void setDefaultColumnWidth(float width) {
-            for (MenuItem item : mMenu.mItems) {
+            for (MenuItem item : mItems) {
                 item.setDefaultColumnWidth(width);
             }
         }
@@ -132,12 +147,116 @@ public class Menu extends Group {
             mMenu.updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
         }
 
+        public MenuItem getCurrentItem() {
+            return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
+        }
+
+        public void setCurrentItem(MenuItem item) {
+            if (item == null) {
+                setCurrentIndex(-1);
+                return;
+            }
+            int index = getItemIndex(item);
+            Assert.check(index != -1, "Invalid item");
+            setCurrentIndex(index);
+        }
+
+        public boolean isItemVisible(MenuItem item) {
+            Actor actor = mActorForItem.get(item);
+            return actor.getParent() == this;
+        }
+
+        public void setItemVisible(MenuItem item, boolean visible) {
+            if (isItemVisible(item) == visible) {
+                return;
+            }
+            int itemIndex = getItemIndex(item);
+            Actor actor = mActorForItem.get(item);
+            Assert.check(actor != null, "No actor for item");
+            if (visible) {
+                Actor previous = null;
+                for (int idx = itemIndex - 1; idx >= 0; --idx) {
+                    MenuItem previousItem = mItems.get(idx);
+                    if (isItemVisible(previousItem)) {
+                        previous = mActorForItem.get(previousItem);
+                        break;
+                    }
+                }
+                addActorAfter(previous, actor);
+            } else {
+                removeActor(actor);
+            }
+            updateBounds();
+        }
+
+        private boolean adjustIndex(int delta) {
+            int size = mItems.size;
+            for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
+                MenuItem item = mItems.get(idx);
+                if (item.isFocusable() && isItemVisible(item)) {
+                    setCurrentIndex(idx);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void updateBounds() {
             float width = Math.max(mMenu.getWidth(), getPrefWidth());
             float height = getPrefHeight();
 
             setSize(width, height);
             mMenu.setBounds(getX(), getTop() - height, width, height);
+        }
+
+        private void addItemInternal(MenuItem item, Actor actor) {
+            mItems.add(item);
+            mActorForItem.put(item, actor);
+            if (mCurrentIndex == -1) {
+                mCurrentIndex = mItems.size - 1;
+            }
+            addActor(actor);
+            updateBounds();
+        }
+
+        private void setCurrentIndex(int index) {
+            int old = mCurrentIndex;
+            mCurrentIndex = index;
+            if (mCurrentIndex >= 0) {
+                Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
+            }
+            if (old >= 0 && mCurrentIndex == -1) {
+                mMenu.mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
+            } else if (old == -1) {
+                mMenu.updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
+            } else {
+                mMenu.updateFocusIndicatorBounds(FocusIndicatorMovement.ANIMATED);
+            }
+        }
+
+        /**
+         * Returns the item at x, y (relative to mGroup), if any
+         */
+        private Rectangle mActorRectangle = new Rectangle();
+        private MenuItem getItemAt(float x, float y) {
+            for (MenuItem item : mItems) {
+                if (!isItemVisible(item)) {
+                    continue;
+                }
+                Actor actor = item.getActor();
+                // We do not use the item focus rect because it might be only represent a part of the item
+                // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
+                mActorRectangle.set(0, 0, actor.getWidth(), actor.getHeight());
+                mMenu.mapDescendantRectangle(actor, mActorRectangle);
+                if (mActorRectangle.contains(x, y)) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        private int getItemIndex(MenuItem item) {
+            return mItems.indexOf(item, /* identity= */ true);
         }
     }
 
@@ -170,15 +289,6 @@ public class Menu extends Group {
         mGroup.pad(mStyle.focusPadding);
         mGroup.space(mStyle.focusPadding * 2 + mStyle.spacing);
         mGroup.fill();
-        mGroup.addCaptureListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                MenuItem item = getItemAt(x, y);
-                if (item != null) {
-                    setCurrentItem(item);
-                }
-                return false;
-            }
-        });
 
         addActor(mFocusIndicator);
         addActor(mGroup);
@@ -244,7 +354,7 @@ public class Menu extends Group {
      */
     public MenuItem addItem(MenuItem item) {
         item.setDefaultColumnWidth(mDefaultItemWidth);
-        addItemInternal(item, item.getActor());
+        mGroup.addItemInternal(item, item.getActor());
         return item;
     }
 
@@ -266,18 +376,8 @@ public class Menu extends Group {
         group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
         group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
 
-        addItemInternal(item, group);
+        mGroup.addItemInternal(item, group);
         return item;
-    }
-
-    private void addItemInternal(MenuItem item, Actor actor) {
-        mItems.add(item);
-        mActorForItem.put(item, actor);
-        if (mCurrentIndex == -1) {
-            mCurrentIndex = mItems.size - 1;
-        }
-        mGroup.addActor(actor);
-        mGroup.updateBounds();
     }
 
     @Override
@@ -298,71 +398,27 @@ public class Menu extends Group {
     }
 
     public void setCurrentItem(MenuItem item) {
-        if (item == null) {
-            setCurrentIndex(-1);
-            return;
-        }
-        int index = getItemIndex(item);
-        Assert.check(index != -1, "Invalid item");
-        setCurrentIndex(index);
+        mGroup.setCurrentItem(item);
     }
 
     public MenuItem getCurrentItem() {
-        return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
+        return mGroup.getCurrentItem();
     }
 
     public boolean isItemVisible(MenuItem item) {
-        Actor actor = mActorForItem.get(item);
-        return actor.getParent() == mGroup;
+        return mGroup.isItemVisible(item);
     }
 
     public void setItemVisible(MenuItem item, boolean visible) {
-        if (isItemVisible(item) == visible) {
-            return;
-        }
-        int itemIndex = getItemIndex(item);
-        Actor actor = mActorForItem.get(item);
-        Assert.check(actor != null, "No actor for item");
-        if (visible) {
-            Actor previous = null;
-            for (int idx = itemIndex - 1; idx >= 0; --idx) {
-                MenuItem previousItem = mItems.get(idx);
-                if (isItemVisible(previousItem)) {
-                    previous = mActorForItem.get(previousItem);
-                    break;
-                }
-            }
-            mGroup.addActorAfter(previous, actor);
-        } else {
-            mGroup.removeActor(actor);
-        }
-        mGroup.updateBounds();
+        mGroup.setItemVisible(item, visible);
     }
 
     public boolean goDown() {
-        if (getCurrentItem().goDown()) {
-            return true;
-        }
-        return adjustIndex(1);
+        return mGroup.goDown();
     }
 
     public boolean goUp() {
-        if (getCurrentItem().goUp()) {
-            return true;
-        }
-        return adjustIndex(-1);
-    }
-
-    private boolean adjustIndex(int delta) {
-        int size = mItems.size;
-        for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
-            MenuItem item = mItems.get(idx);
-            if (item.isFocusable() && isItemVisible(item)) {
-                setCurrentIndex(idx);
-                return true;
-            }
-        }
-        return false;
+        return mGroup.goUp();
     }
 
     private void triggerCurrentItem() {
@@ -372,21 +428,6 @@ public class Menu extends Group {
         }
         Assert.check(isItemVisible(item), "Cannot trigger an invisible item");
         item.trigger();
-    }
-
-    private void setCurrentIndex(int index) {
-        int old = mCurrentIndex;
-        mCurrentIndex = index;
-        if (mCurrentIndex >= 0) {
-            Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
-        }
-        if (old >= 0 && mCurrentIndex == -1) {
-            mFocusIndicator.addAction(Actions.fadeOut(SELECTION_ANIMATION_DURATION));
-        } else if (old == -1) {
-            updateFocusIndicatorBounds(FocusIndicatorMovement.IMMEDIATE);
-        } else {
-            updateFocusIndicatorBounds(FocusIndicatorMovement.ANIMATED);
-        }
     }
 
     void animateFocusIndicator() {
@@ -417,30 +458,5 @@ public class Menu extends Group {
         mTmp = actor.localToAscendantCoordinates(mGroup, mTmp);
         rect.x = mTmp.x;
         rect.y = mTmp.y;
-    }
-
-    /**
-     * Returns the item at x, y (relative to mGroup), if any
-     */
-    private Rectangle mActorRectangle = new Rectangle();
-    private MenuItem getItemAt(float x, float y) {
-        for (MenuItem item : mItems) {
-            if (!isItemVisible(item)) {
-                continue;
-            }
-            Actor actor = item.getActor();
-            // We do not use the item focus rect because it might be only represent a part of the item
-            // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
-            mActorRectangle.set(0, 0, actor.getWidth(), actor.getHeight());
-            mapDescendantRectangle(actor, mActorRectangle);
-            if (mActorRectangle.contains(x, y)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    private int getItemIndex(MenuItem item) {
-        return mItems.indexOf(item, /* identity= */ true);
     }
 }
