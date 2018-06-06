@@ -56,19 +56,16 @@ public class Menu extends Group {
     private final Skin mSkin;
     private MenuStyle mStyle;
 
-    private float mLabelColumnWidth = 120;
-    private float mDefaultItemWidth = 300;
-
     private Vector2 mTmp = new Vector2();
 
     private static class MenuItemGroup extends VerticalGroup implements MenuItem {
         private final Menu mMenu;
+        private final Array<MenuItem> mItems = new Array<MenuItem>();
+        private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
         private int mCurrentIndex = -1;
-
-        private final Array<MenuItem> mItems = new Array<MenuItem>();
-
-        private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
+        private float mLabelColumnWidth = 120;
+        private float mDefaultItemWidth = 300;
 
         public MenuItemGroup(Menu menu) {
             mMenu = menu;
@@ -96,7 +93,12 @@ public class Menu extends Group {
 
         @Override
         public void trigger() {
-
+            MenuItem item = getCurrentItem();
+            if (item == null) {
+                return;
+            }
+            Assert.check(isItemVisible(item), "Cannot trigger an invisible item");
+            item.trigger();
         }
 
         @Override
@@ -187,6 +189,57 @@ public class Menu extends Group {
                 removeActor(actor);
             }
             updateBounds();
+        }
+
+        public float getDefaultItemWidth() {
+            return mDefaultItemWidth;
+        }
+
+        public void setDefaultItemWidth(float defaultItemWidth) {
+            mDefaultItemWidth = defaultItemWidth;
+        }
+
+        public float getLabelColumnWidth() {
+            return mLabelColumnWidth;
+        }
+
+        public void setLabelColumnWidth(float labelColumnWidth) {
+            mLabelColumnWidth = labelColumnWidth;
+        }
+
+        public MenuItem addButton(String text) {
+            return addItem(new ButtonMenuItem(mMenu, text, mMenu.mSkin));
+        }
+
+        public LabelMenuItem addLabel(String text) {
+            LabelMenuItem labelMenuItem = new LabelMenuItem(text, mMenu.mSkin);
+            addItem(labelMenuItem);
+            return labelMenuItem;
+        }
+
+        public MenuItem addItem(MenuItem item) {
+            item.setDefaultColumnWidth(mDefaultItemWidth);
+            addItemInternal(item, item.getActor());
+            return item;
+        }
+
+        public MenuItem addItemWithLabel(String labelText, MenuItem item) {
+            Actor actor = item.getActor();
+            float height = actor.getHeight();
+
+            Label label = new Label(labelText, mMenu.mSkin);
+            label.setSize(mLabelColumnWidth, height);
+
+            item.setDefaultColumnWidth(mDefaultItemWidth - mLabelColumnWidth);
+
+            AnchorGroup group = new AnchorGroup();
+            group.setSize(mDefaultItemWidth, height);
+
+            group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
+            group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
+
+            addItemInternal(item, group);
+            return item;
         }
 
         private boolean adjustIndex(int delta) {
@@ -308,24 +361,24 @@ public class Menu extends Group {
 
     @SuppressWarnings("unused")
     public float getDefaultItemWidth() {
-        return mDefaultItemWidth;
+        return mGroup.getDefaultItemWidth();
     }
 
     public void setDefaultItemWidth(float defaultItemWidth) {
-        mDefaultItemWidth = defaultItemWidth;
+        mGroup.setDefaultItemWidth(defaultItemWidth);
     }
 
     @SuppressWarnings("unused")
     public float getLabelColumnWidth() {
-        return mLabelColumnWidth;
+        return mGroup.getLabelColumnWidth();
     }
 
     public void setLabelColumnWidth(float labelColumnWidth) {
-        mLabelColumnWidth = labelColumnWidth;
+        mGroup.setLabelColumnWidth(labelColumnWidth);
     }
 
     public MenuItem addButton(String text) {
-        return addItem(new ButtonMenuItem(this, text, mSkin));
+        return mGroup.addButton(text);
     }
 
     /**
@@ -333,9 +386,7 @@ public class Menu extends Group {
      * @return The created label
      */
     public LabelMenuItem addLabel(String text) {
-        LabelMenuItem labelMenuItem = new LabelMenuItem(text, mSkin);
-        addItem(labelMenuItem);
-        return labelMenuItem;
+        return mGroup.addLabel(text);
     }
 
     /**
@@ -353,31 +404,14 @@ public class Menu extends Group {
      * Add a full-width item
      */
     public MenuItem addItem(MenuItem item) {
-        item.setDefaultColumnWidth(mDefaultItemWidth);
-        mGroup.addItemInternal(item, item.getActor());
-        return item;
+        return mGroup.addItem(item);
     }
 
     /**
      * Add a [label - item] row
      */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
-        Actor actor = item.getActor();
-        float height = actor.getHeight();
-
-        Label label = new Label(labelText, mSkin);
-        label.setSize(mLabelColumnWidth, height);
-
-        item.setDefaultColumnWidth(mDefaultItemWidth - mLabelColumnWidth);
-
-        AnchorGroup group = new AnchorGroup();
-        group.setSize(mDefaultItemWidth, height);
-
-        group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
-        group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
-
-        mGroup.addItemInternal(item, group);
-        return item;
+        return mGroup.addItemWithLabel(labelText, item);
     }
 
     @Override
@@ -422,12 +456,7 @@ public class Menu extends Group {
     }
 
     private void triggerCurrentItem() {
-        MenuItem item = getCurrentItem();
-        if (item == null) {
-            return;
-        }
-        Assert.check(isItemVisible(item), "Cannot trigger an invisible item");
-        item.trigger();
+        mGroup.trigger();
     }
 
     void animateFocusIndicator() {
