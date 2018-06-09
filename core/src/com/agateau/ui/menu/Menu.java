@@ -74,12 +74,9 @@ public class Menu extends Group {
         mFocusIndicator.setTouchable(Touchable.disabled);
 
         mGroup = new MenuItemGroup(this);
-        mGroup.pad(mStyle.focusPadding);
-        mGroup.space(mStyle.focusPadding * 2 + mStyle.spacing);
-        mGroup.fill();
 
         addActor(mFocusIndicator);
-        addActor(mGroup);
+        addActor(mGroup.getActor());
     }
 
     public Skin getSkin() {
@@ -209,7 +206,7 @@ public class Menu extends Group {
 
     void mapDescendantRectangle(Actor actor, Rectangle rect) {
         mTmp.set(rect.x, rect.y);
-        mTmp = actor.localToAscendantCoordinates(mGroup, mTmp);
+        mTmp = actor.localToAscendantCoordinates(mGroup.getActor(), mTmp);
         rect.x = mTmp.x;
         rect.y = mTmp.y;
     }

@@ -23,6 +23,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -31,8 +32,16 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 
-public class MenuItemGroup extends VerticalGroup implements MenuItem {
+public class MenuItemGroup implements MenuItem {
     private final Menu mMenu;
+    private final VerticalGroup mGroup = new VerticalGroup() {
+        @Override
+        public void layout() {
+            super.layout();
+            updateBounds();
+            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
+        }
+    };
     private final Array<MenuItem> mItems = new Array<MenuItem>();
     private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
 
@@ -42,7 +51,7 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
-        addCaptureListener(new InputListener() {
+        mGroup.addCaptureListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
                 if (item != null) {
@@ -51,11 +60,20 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
                 return false;
             }
         });
+        Menu.MenuStyle style = mMenu.getMenuStyle();
+        mGroup.pad(style.focusPadding);
+        mGroup.space(style.focusPadding * 2 + style.spacing);
+        mGroup.fill();
     }
 
     @Override
     public Actor getActor() {
-        return this;
+        return mGroup;
+    }
+
+    @Override
+    public boolean addListener(EventListener eventListener) {
+        return mGroup.addListener(eventListener);
     }
 
     @Override
@@ -115,13 +133,6 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
         }
     }
 
-    @Override
-    public void layout() {
-        super.layout();
-        updateBounds();
-        mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
-    }
-
     public MenuItem getCurrentItem() {
         return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
     }
@@ -139,7 +150,7 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
     public boolean isItemVisible(MenuItem item) {
         Actor actor = mActorForItem.get(item);
         Assert.check(actor != null, "No actor for item");
-        return actor.getParent() == this;
+        return actor.getParent() == mGroup;
     }
 
     public void setItemVisible(MenuItem item, boolean visible) {
@@ -158,9 +169,9 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
                     break;
                 }
             }
-            addActorAfter(previous, actor);
+            mGroup.addActorAfter(previous, actor);
         } else {
-            removeActor(actor);
+            mGroup.removeActor(actor);
         }
         updateBounds();
     }
@@ -235,11 +246,11 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
     }
 
     private void updateBounds() {
-        float width = Math.max(mMenu.getWidth(), getPrefWidth());
-        float height = getPrefHeight();
+        float width = Math.max(mMenu.getWidth(), mGroup.getPrefWidth());
+        float height = mGroup.getPrefHeight();
 
-        setSize(width, height);
-        mMenu.setBounds(getX(), getTop() - height, width, height);
+        mGroup.setSize(width, height);
+        mMenu.setBounds(mGroup.getX(), mGroup.getTop() - height, width, height);
     }
 
     private void addItemInternal(MenuItem item, Actor actor) {
@@ -248,7 +259,7 @@ public class MenuItemGroup extends VerticalGroup implements MenuItem {
         if (mCurrentIndex == -1) {
             mCurrentIndex = mItems.size - 1;
         }
-        addActor(actor);
+        mGroup.addActor(actor);
         updateBounds();
     }
 
