@@ -130,9 +130,7 @@ public class Menu extends Group {
      */
     @SuppressWarnings("UnusedReturnValue")
     public LabelMenuItem addTitleLabel(String text) {
-        LabelMenuItem labelMenuItem = new LabelMenuItem(text, mSkin, "menuTitle");
-        addItem(labelMenuItem);
-        return labelMenuItem;
+        return mGroup.addTitleLabel(text);
     }
 
     /**

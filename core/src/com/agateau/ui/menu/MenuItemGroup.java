@@ -31,7 +31,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 
-class MenuItemGroup extends VerticalGroup implements MenuItem {
+public class MenuItemGroup extends VerticalGroup implements MenuItem {
     private final Menu mMenu;
     private final Array<MenuItem> mItems = new Array<MenuItem>();
     private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
@@ -138,6 +138,7 @@ class MenuItemGroup extends VerticalGroup implements MenuItem {
 
     public boolean isItemVisible(MenuItem item) {
         Actor actor = mActorForItem.get(item);
+        Assert.check(actor != null, "No actor for item");
         return actor.getParent() == this;
     }
 
@@ -186,6 +187,12 @@ class MenuItemGroup extends VerticalGroup implements MenuItem {
 
     public LabelMenuItem addLabel(String text) {
         LabelMenuItem labelMenuItem = new LabelMenuItem(text, mMenu.getSkin());
+        addItem(labelMenuItem);
+        return labelMenuItem;
+    }
+
+    public LabelMenuItem addTitleLabel(String text) {
+        LabelMenuItem labelMenuItem = new LabelMenuItem(text, mMenu.getSkin(), "menuTitle");
         addItem(labelMenuItem);
         return labelMenuItem;
     }
