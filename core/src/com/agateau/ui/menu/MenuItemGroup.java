@@ -126,6 +126,8 @@ public class MenuItemGroup implements MenuItem {
     @Override
     public Rectangle getFocusRectangle() {
         MenuItem item = getCurrentItem();
+        Assert.check(item != null, "Cannot get focus rectangle of an invalid item");
+        Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
         mFocusRect.set(item.getFocusRectangle());
         mFocusRect.x += item.getActor().getX();
         mFocusRect.y += item.getActor().getY();
@@ -250,7 +252,7 @@ public class MenuItemGroup implements MenuItem {
     private void addItemInternal(MenuItem item, Actor actor) {
         mItems.add(item);
         mActorForItem.put(item, actor);
-        if (mCurrentIndex == -1) {
+        if (mCurrentIndex == -1 && item.isFocusable()) {
             mCurrentIndex = mItems.size - 1;
         }
         mGroup.addActor(actor);
@@ -264,11 +266,11 @@ public class MenuItemGroup implements MenuItem {
     private void setCurrentIndex(int index, SetCurrentHint hint) {
         int old = mCurrentIndex;
         mCurrentIndex = index;
-        if (mCurrentIndex >= 0) {
-            Assert.check(isItemVisible(getCurrentItem()), "Cannot set an invisible item current");
-        }
         if (mCurrentIndex != -1) {
-            MenuItem item = mItems.get(mCurrentIndex);
+            MenuItem item = getCurrentItem();
+            Assert.check(isItemVisible(item), "Cannot set an invisible item current");
+            Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
+
             if (item instanceof MenuItemGroup) {
                 MenuItemGroup group = (MenuItemGroup)item;
                 switch (hint) {
