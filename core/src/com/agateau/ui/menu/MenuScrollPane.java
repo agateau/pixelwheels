@@ -34,6 +34,7 @@ public class MenuScrollPane extends ScrollPane {
     private ChangeListener mListener = new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
+            layout();
             ensureItemVisible();
         }
     };
