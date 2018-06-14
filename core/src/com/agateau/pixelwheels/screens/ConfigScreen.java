@@ -154,7 +154,7 @@ public class ConfigScreen extends PwStageScreen {
             info.selector.addEntry(factory.getName(), factory);
         }
         menu.addItemWithLabel(label + ":", info.selector);
-        info.label = menu.addLabel("");
+        info.label = menu.addLabel("").getLabel();
         info.label.setWrap(true);
 
         info.selector.getActor().addListener(new ChangeListener() {

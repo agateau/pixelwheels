@@ -30,6 +30,8 @@ public interface MenuItem {
 
     boolean addListener(EventListener eventListener);
 
+    boolean isFocusable();
+
     void trigger();
 
     /**
@@ -55,5 +57,5 @@ public interface MenuItem {
      * The width this item should use to fit the menu column.
      * The item can choose to ignore this if it needs more or less room.
      */
-    void setDefaultColumnWidth(float width);
+    void setDefaultItemWidth(float width);
 }

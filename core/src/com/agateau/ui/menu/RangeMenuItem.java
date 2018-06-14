@@ -126,6 +126,11 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     protected abstract void increase();
 
     @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
     public Actor getActor() {
         return this;
     }
@@ -165,7 +170,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     @Override
-    public void setDefaultColumnWidth(float width) {
+    public void setDefaultItemWidth(float width) {
         setWidth(width);
     }
 

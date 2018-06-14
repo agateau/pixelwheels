@@ -26,6 +26,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.SizeRule;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.menu.SelectorMenuItem;
@@ -66,7 +67,7 @@ class GalleryScreen extends StageScreen {
         getStage().addActor(root);
         root.setFillParent(true);
 
-        Menu menu = new Menu(mSkin);
+        final Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
         menu.setDefaultItemWidth(500);
         menu.addButton("Button A").addListener(new MenuItemListener() {
@@ -81,6 +82,18 @@ class GalleryScreen extends StageScreen {
                 NLog.e("Button B clicked");
             }
         });
+        final MenuItemGroup hiddenGroup = new MenuItemGroup(menu);
+        menu.addButton("Toggle Hidden Group").addListener(new MenuItemListener() {
+            @Override
+            public void triggered() {
+                boolean visible = menu.isItemVisible(hiddenGroup);
+                menu.setItemVisible(hiddenGroup, !visible);
+            }
+        });
+        hiddenGroup.addTitleLabel("Hidden item");
+        hiddenGroup.addButton("I was hidden");
+        menu.addItem(hiddenGroup);
+        menu.setItemVisible(hiddenGroup, false);
 
         menu.addTitleLabel("Two columns");
         final SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
