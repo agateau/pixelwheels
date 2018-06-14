@@ -10,7 +10,7 @@ public class LabelMenuItem implements MenuItem {
     private final Label mLabel;
 
     public LabelMenuItem(String text, Skin skin) {
-        this(text, skin, "");
+        this(text, skin, "default");
     }
 
     public LabelMenuItem(String text, Skin skin, String style) {
