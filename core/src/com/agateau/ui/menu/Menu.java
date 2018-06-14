@@ -222,6 +222,6 @@ public class Menu extends Group {
     void onGroupBoundariesChanged() {
         Actor actor = mGroup.getActor();
         actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
-        setBounds(0, 0, getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
+        setSize(getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
     }
 }
