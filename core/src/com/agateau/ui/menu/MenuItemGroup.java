@@ -101,7 +101,7 @@ public class MenuItemGroup implements MenuItem {
         if (getCurrentItem().goDown()) {
             return true;
         }
-        return adjustIndex(1);
+        return adjustIndex(mCurrentIndex, 1);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class MenuItemGroup implements MenuItem {
         if (getCurrentItem().goUp()) {
             return true;
         }
-        return adjustIndex(-1);
+        return adjustIndex(mCurrentIndex, -1);
     }
 
     @Override
@@ -228,9 +228,9 @@ public class MenuItemGroup implements MenuItem {
         return item;
     }
 
-    private boolean adjustIndex(int delta) {
+    private boolean adjustIndex(int startIndex, int delta) {
         int size = mItems.size;
-        for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
+        for (int idx = startIndex + delta; idx >= 0 && idx < size; idx += delta) {
             MenuItem item = mItems.get(idx);
             if (item.isFocusable() && isItemVisible(item)) {
                 setCurrentIndex(idx, delta > 0 ? SetCurrentHint.FROM_TOP : SetCurrentHint.FROM_BOTTOM);
@@ -276,11 +276,11 @@ public class MenuItemGroup implements MenuItem {
                 switch (hint) {
                     case NONE:
                         break;
-                    case FROM_BOTTOM:
-                        group.goUp();
-                        break;
                     case FROM_TOP:
-                        group.goDown();
+                        group.adjustIndex(-1, 1);
+                        break;
+                    case FROM_BOTTOM:
+                        group.adjustIndex(group.mItems.size, -1);
                         break;
                 }
             }

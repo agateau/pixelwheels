@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
@@ -37,7 +38,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  *
  * Sends ChangeEvent when the current item changes.
  */
-public class Menu extends Group {
+public class Menu extends WidgetGroup {
     private static final float DEFAULT_ITEM_WIDTH = 300;
     private static final float LABEL_COLUMN_WIDTH = 120;
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
