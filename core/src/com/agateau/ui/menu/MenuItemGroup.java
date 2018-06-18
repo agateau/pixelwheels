@@ -55,9 +55,8 @@ public class MenuItemGroup implements MenuItem {
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
-        //mGroup.setDebug(true, true);
         mGroup.addCaptureListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
                 if (item != null) {
                     setCurrentItem(item);
