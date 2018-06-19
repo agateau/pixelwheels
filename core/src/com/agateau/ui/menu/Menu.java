@@ -25,7 +25,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -213,7 +212,7 @@ public class Menu extends WidgetGroup {
         mFocusIndicator.addAction(Actions.fadeOut(Menu.SELECTION_ANIMATION_DURATION));
     }
 
-    void mapDescendantRectangle(Actor actor, Rectangle rect) {
+    private void mapDescendantRectangle(Actor actor, Rectangle rect) {
         mTmp.set(rect.x, rect.y);
         mTmp = actor.localToAscendantCoordinates(mGroup.getActor(), mTmp);
         rect.x = mTmp.x;

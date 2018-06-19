@@ -19,13 +19,13 @@
 package com.agateau.ui.gallery;
 
 import com.agateau.ui.StageScreen;
-import com.agateau.ui.menu.TabMenuItem;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.SwitchMenuItem;
+import com.agateau.ui.menu.TabMenuItem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
