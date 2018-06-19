@@ -113,12 +113,18 @@ public class MenuItemGroup implements MenuItem {
 
     @Override
     public void goLeft() {
-
+        MenuItem item = getCurrentItem();
+        if (item != null) {
+            item.goLeft();
+        }
     }
 
     @Override
     public void goRight() {
-
+        MenuItem item = getCurrentItem();
+        if (item != null) {
+            item.goRight();
+        }
     }
 
     private final Rectangle mFocusRect = new Rectangle();
