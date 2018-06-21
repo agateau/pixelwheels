@@ -117,6 +117,7 @@
         default: {
             frame: menu-switch-frame,
             framePadding: 4,
+            tabPadding: 12,
             handle: menu-switch-handle
         }
     },

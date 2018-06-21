@@ -18,7 +18,6 @@
  */
 package com.agateau.ui.menu;
 
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -60,7 +59,8 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     public static class TabMenuItemStyle {
         Drawable frame;
-        float framePadding;
+        float framePadding; // space between tab borders and outer frame
+        float tabPadding; // horizontal space between tab borders and text
         Drawable handle;
     }
 
@@ -88,7 +88,7 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     public MenuItemGroup addPage(String name) {
         mGlyphLayout.setText(mFont, name);
-        float tabWidth = mGlyphLayout.width + mStyle.framePadding * 2;
+        float tabWidth = mGlyphLayout.width + mStyle.tabPadding * 2;
 
         MenuItemGroup group = new MenuItemGroup(mMenu);
         mMenu.addItem(group);
@@ -170,18 +170,18 @@ public class TabMenuItem extends Actor implements MenuItem {
 
         // Draw handle
         Drawable handle = mStyle.handle;
-        float padding = mStyle.framePadding;
+        float framePadding = mStyle.framePadding;
 
-        float x = padding;
+        float x = framePadding;
         for (int idx = 0; idx < mCurrentTab; ++idx) {
             x += mPages.get(idx).tabWidth;
         }
         float handleWidth = mPages.get(mCurrentTab).tabWidth;
-        handle.draw(batch, getX() + x, getY() + padding, handleWidth, getHeight() - 2 * padding);
+        handle.draw(batch, getX() + x, getY() + framePadding, handleWidth, getHeight() - 2 * framePadding);
 
         // Draw text
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        x = padding;
+        x = framePadding;
         for (int idx = 0; idx < pageSize; ++idx) {
             String name = mPages.get(idx).name;
             float tabWidth = mPages.get(idx).tabWidth;
