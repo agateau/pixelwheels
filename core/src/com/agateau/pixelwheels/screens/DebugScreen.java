@@ -19,13 +19,14 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.ui.menu.MenuScrollPane;
-import com.agateau.ui.menu.SliderMenuItem;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemGroup;
+import com.agateau.ui.menu.SliderMenuItem;
+import com.agateau.ui.menu.SwitchMenuItem;
+import com.agateau.ui.menu.TabMenuItem;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,11 +39,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class DebugScreen extends PwStageScreen {
     private final PwGame mGame;
-    private Menu mMenu;
+    private MenuItemGroup mCurrentGroup;
 
     // This field is set during setupUi: add* methods use it to bind the controls to the correct
     // introspector
     private Introspector mCurrentIntrospector = null;
+    private Menu mMenu;
 
     public DebugScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -64,41 +66,47 @@ public class DebugScreen extends PwStageScreen {
         getStage().addActor(root);
 
         mCurrentIntrospector = mGame.getGamePlayIntrospector();
-        MenuScrollPane pane = builder.getActor("scrollPane");
-        mMenu = pane.getMenu();
-        addTitle("Race");
+
+        mMenu = builder.getActor("menu");
+        TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
+        mMenu.addItem(tabMenuItem);
+
+        mCurrentGroup = tabMenuItem.addPage("Race");
         addRange("Viewport width", "viewportWidth", 20, 800, 10);
         addRange("Racer count", "racerCount", 1, 8);
         addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addRange("Border restitution", "borderRestitution", 1, 50);
-        addTitle("Input");
-        addCheckBox("Force touch input", "alwaysShowTouchInput");
+
+        mCurrentGroup = tabMenuItem.addPage("Speed");
         addTitle("Speed");
         addRange("Max driving force", "maxDrivingForce", 10, 200, 10);
         addRange("Max speed", "maxSpeed", 10, 400, 10);
         addTitle("Turbo");
         addRange("Strength", "turboStrength", 10, 800, 20);
         addRange("Duration", "turboDuration", 0.1f, 2f);
-        addTitle("Wheels");
-        addRange("Stickiness", "maxLateralImpulse", 1, 40);
+        mCurrentGroup = tabMenuItem.addPage("Vehicle");
+        addRange("Wheel stickiness", "maxLateralImpulse", 1, 40);
         addRange("Steer: low speed", "lowSpeedMaxSteer", 2, 50, 2);
         addRange("Steer: high speed", "highSpeedMaxSteer", 2, 50, 1);
-        addTitle("Vehicle");
-        addRange("Density", "vehicleDensity", 1, 50);
+        addRange("Vehicle density", "vehicleDensity", 1, 50);
         addRange("Restitution", "vehicleRestitution", 1, 50);
-        addTitle("Sound");
+
+        mCurrentGroup = tabMenuItem.addPage("Sound");
         addRange("Drift volume", "driftVolume", 0f, 1f);
         addRange("Turbo volume", "turboVolume", 0f, 1f);
         addRange("Engine volume", "engineVolume", 0f, 1f);
 
+        mCurrentGroup = tabMenuItem.addPage("Misc");
+        addCheckBox("Force touch input", "alwaysShowTouchInput");
         mCurrentIntrospector = mGame.getDebugIntrospector();
-        addTitle("Debug");
+        addCheckBox("One lap only", "oneLapOnly");
+
+        mCurrentGroup = tabMenuItem.addPage("Debug");
         addCheckBox("Show debug hud", "showDebugHud");
         addCheckBox("Show debug layer", "showDebugLayer");
         addCheckBox("- Draw velocities", "drawVelocities");
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
-        addCheckBox("One lap only", "oneLapOnly");
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -109,7 +117,7 @@ public class DebugScreen extends PwStageScreen {
     }
 
     private void addTitle(String text) {
-        mMenu.addTitleLabel(text);
+        mCurrentGroup.addTitleLabel(text);
     }
 
     private void addCheckBox(String text, final String keyName) {
@@ -118,7 +126,7 @@ public class DebugScreen extends PwStageScreen {
         final DebugSwitchMenuItem item = new DebugSwitchMenuItem(mMenu, keyName, introspector);
         boolean checked = introspector.get(keyName);
         item.setChecked(checked);
-        mMenu.addItemWithLabel(text, item);
+        mCurrentGroup.addItemWithLabel(text, item);
 
         item.addListener(new ChangeListener() {
             @Override
@@ -148,7 +156,7 @@ public class DebugScreen extends PwStageScreen {
             }
         });
 
-        mMenu.addItemWithLabel(text, item);
+        mCurrentGroup.addItemWithLabel(text, item);
     }
 
     private void addRange(String text, final String keyName, float min, float max) {
@@ -170,7 +178,7 @@ public class DebugScreen extends PwStageScreen {
             }
         });
 
-        mMenu.addItemWithLabel(text, item);
+        mCurrentGroup.addItemWithLabel(text, item);
     }
 
     @Override

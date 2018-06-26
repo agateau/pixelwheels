@@ -113,6 +113,16 @@
             handle: menu-switch-handle
         }
     },
+    com.agateau.ui.menu.TabMenuItem$TabMenuItemStyle: {
+        default: {
+            frame: menu-switch-frame,
+            framePadding: 4,
+            tabPadding: 12,
+            handle: menu-switch-handle,
+            leftTabBorder: tab-border-left,
+            rightTabBorder: tab-border-right
+        }
+    },
     com.agateau.ui.menu.RangeMenuItem$RangeMenuItemStyle: {
         default: {
             frame: menu-switch-frame,

@@ -28,7 +28,6 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
-import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.ui.menu.SliderMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
@@ -41,10 +40,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-
-import java.util.Locale;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
  * The main screen of the gallery
@@ -55,7 +51,7 @@ class GalleryScreen extends StageScreen {
     private Skin mSkin;
 
     GalleryScreen() {
-        super(new ScalingViewport(Scaling.fit, 800, 480));
+        super(new ScreenViewport());
         UiAssets assets = new UiAssets();
         mAtlas = assets.atlas;
         mSkin = assets.skin;
@@ -136,14 +132,8 @@ class GalleryScreen extends StageScreen {
             }
         });
 
-        for (int i = 0; i < 100; ++i) {
-            menu.addButton(String.format(Locale.getDefault(), "Dummy %d", i));
-        }
-
-        MenuScrollPane scrollPane = new MenuScrollPane(menu);
-        scrollPane.setWidth(scrollPane.getPrefWidth());
-        root.addSizeRule(scrollPane, root, SizeRule.IGNORE, 1);
-        root.addPositionRule(scrollPane, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
+        root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
+        root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);
     }
 
     private GridMenuItem<TextureRegion> createGridMenuItem(Menu menu) {

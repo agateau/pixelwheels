@@ -55,9 +55,8 @@ public class MenuItemGroup implements MenuItem {
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
-        //mGroup.setDebug(true, true);
-        mGroup.addCaptureListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+        mGroup.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
                 if (item != null) {
                     setCurrentItem(item);
@@ -101,7 +100,7 @@ public class MenuItemGroup implements MenuItem {
         if (getCurrentItem().goDown()) {
             return true;
         }
-        return adjustIndex(1);
+        return adjustIndex(mCurrentIndex, 1);
     }
 
     @Override
@@ -109,17 +108,23 @@ public class MenuItemGroup implements MenuItem {
         if (getCurrentItem().goUp()) {
             return true;
         }
-        return adjustIndex(-1);
+        return adjustIndex(mCurrentIndex, -1);
     }
 
     @Override
     public void goLeft() {
-
+        MenuItem item = getCurrentItem();
+        if (item != null) {
+            item.goLeft();
+        }
     }
 
     @Override
     public void goRight() {
-
+        MenuItem item = getCurrentItem();
+        if (item != null) {
+            item.goRight();
+        }
     }
 
     private final Rectangle mFocusRect = new Rectangle();
@@ -129,8 +134,13 @@ public class MenuItemGroup implements MenuItem {
         Assert.check(item != null, "Cannot get focus rectangle of an invalid item");
         Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
         mFocusRect.set(item.getFocusRectangle());
-        mFocusRect.x += item.getActor().getX();
-        mFocusRect.y += item.getActor().getY();
+        Actor actor = mActorForItem.get(item);
+        mFocusRect.x += actor.getX();
+        mFocusRect.y += actor.getY();
+        if (actor != item.getActor()) {
+            // Item has a label
+            mFocusRect.x += item.getActor().getX();
+        }
         return mFocusRect;
     }
 
@@ -228,9 +238,9 @@ public class MenuItemGroup implements MenuItem {
         return item;
     }
 
-    private boolean adjustIndex(int delta) {
+    private boolean adjustIndex(int startIndex, int delta) {
         int size = mItems.size;
-        for (int idx = getItemIndex(getCurrentItem()) + delta; idx >= 0 && idx < size; idx += delta) {
+        for (int idx = startIndex + delta; idx >= 0 && idx < size; idx += delta) {
             MenuItem item = mItems.get(idx);
             if (item.isFocusable() && isItemVisible(item)) {
                 setCurrentIndex(idx, delta > 0 ? SetCurrentHint.FROM_TOP : SetCurrentHint.FROM_BOTTOM);
@@ -276,11 +286,11 @@ public class MenuItemGroup implements MenuItem {
                 switch (hint) {
                     case NONE:
                         break;
-                    case FROM_BOTTOM:
-                        group.goUp();
-                        break;
                     case FROM_TOP:
-                        group.goDown();
+                        group.adjustIndex(-1, 1);
+                        break;
+                    case FROM_BOTTOM:
+                        group.adjustIndex(group.mItems.size, -1);
                         break;
                 }
             }
@@ -304,10 +314,13 @@ public class MenuItemGroup implements MenuItem {
                 continue;
             }
             Actor actor = item.getActor();
-            // We do not use the item focus rect because it might be only represent a part of the item
+            // We do not use the item focus rect because it might only represent a part of the item
             // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
             mActorRectangle.set(0, 0, actor.getWidth(), actor.getHeight());
-            mMenu.mapDescendantRectangle(actor, mActorRectangle);
+            for (; actor != mGroup && actor != null; actor = actor.getParent()) {
+                mActorRectangle.x += actor.getX();
+                mActorRectangle.y += actor.getY();
+            }
             if (mActorRectangle.contains(x, y)) {
                 return item;
             }

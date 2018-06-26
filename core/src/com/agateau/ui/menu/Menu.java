@@ -25,11 +25,11 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
@@ -37,7 +37,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  *
  * Sends ChangeEvent when the current item changes.
  */
-public class Menu extends Group {
+public class Menu extends WidgetGroup {
     private static final float DEFAULT_ITEM_WIDTH = 300;
     private static final float LABEL_COLUMN_WIDTH = 120;
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
@@ -212,7 +212,7 @@ public class Menu extends Group {
         mFocusIndicator.addAction(Actions.fadeOut(Menu.SELECTION_ANIMATION_DURATION));
     }
 
-    void mapDescendantRectangle(Actor actor, Rectangle rect) {
+    private void mapDescendantRectangle(Actor actor, Rectangle rect) {
         mTmp.set(rect.x, rect.y);
         mTmp = actor.localToAscendantCoordinates(mGroup.getActor(), mTmp);
         rect.x = mTmp.x;

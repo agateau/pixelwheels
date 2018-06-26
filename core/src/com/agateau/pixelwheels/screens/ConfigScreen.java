@@ -28,9 +28,10 @@ import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuScrollPane;
+import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
+import com.agateau.ui.menu.TabMenuItem;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -67,66 +68,76 @@ public class ConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = new Menu(mGame.getAssets().ui.skin);
+        Menu menu = builder.getActor("menu");
         menu.setLabelColumnWidth(250);
         menu.setDefaultItemWidth(600);
 
-        MenuScrollPane scrollPane = builder.getActor("menuScrollPane");
-        scrollPane.setMenu(menu);
-        scrollPane.setHeight(getStage().getHeight());
+        TabMenuItem tab = new TabMenuItem(menu);
+        menu.addItem(tab);
+        {
+            MenuItemGroup group = tab.addPage("Input");
 
-        if (PlatformUtils.isDesktop()) {
-            for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                setupInputSelector(menu, "Input " + String.valueOf(idx + 1), idx);
+            if (PlatformUtils.isDesktop()) {
+                for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+                    setupInputSelector(menu, group, "Input " + String.valueOf(idx + 1), idx);
+                }
+            } else {
+                setupInputSelector(menu, group, "Input", 0);
             }
-        } else {
-            setupInputSelector(menu, "Input", 0);
         }
 
-        final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
-        rotateScreenSwitch.setChecked(gameConfig.rotateCamera);
-        rotateScreenSwitch.getActor().addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                gameConfig.rotateCamera = rotateScreenSwitch.isChecked();
-                gameConfig.flush();
-            }
-        });
-        menu.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
+        {
+            MenuItemGroup group = tab.addPage("Audio & Video");
 
-        if (PlatformUtils.isDesktop()) {
-            final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
-            fullscreenSwitch.setChecked(gameConfig.fullscreen);
-            fullscreenSwitch.getActor().addListener(new ChangeListener() {
+            final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
+            audioSwitch.setChecked(gameConfig.audio);
+            audioSwitch.getActor().addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    gameConfig.fullscreen = fullscreenSwitch.isChecked();
-                    mGame.setFullscreen(gameConfig.fullscreen);
+                    gameConfig.audio = audioSwitch.isChecked();
                     gameConfig.flush();
                 }
             });
-            menu.addItemWithLabel("Fullscreen:", fullscreenSwitch);
+            group.addItemWithLabel("Audio:", audioSwitch);
+
+            group.addTitleLabel("");
+            final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
+            rotateScreenSwitch.setChecked(gameConfig.rotateCamera);
+            rotateScreenSwitch.getActor().addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    gameConfig.rotateCamera = rotateScreenSwitch.isChecked();
+                    gameConfig.flush();
+                }
+            });
+            group.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
+
+            if (PlatformUtils.isDesktop()) {
+                final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
+                fullscreenSwitch.setChecked(gameConfig.fullscreen);
+                fullscreenSwitch.getActor().addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        gameConfig.fullscreen = fullscreenSwitch.isChecked();
+                        mGame.setFullscreen(gameConfig.fullscreen);
+                        gameConfig.flush();
+                    }
+                });
+                group.addItemWithLabel("Fullscreen:", fullscreenSwitch);
+            }
         }
 
-        final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
-        audioSwitch.setChecked(gameConfig.audio);
-        audioSwitch.getActor().addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                gameConfig.audio = audioSwitch.isChecked();
-                gameConfig.flush();
-            }
-        });
-        menu.addItemWithLabel("Audio:", audioSwitch);
-
-        ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
-        developerButton.getActor().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                mGame.pushScreen(new DebugScreen(mGame));
-            }
-        });
-        menu.addItemWithLabel("Internal:", developerButton);
+        {
+            MenuItemGroup group = tab.addPage("Misc");
+            ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
+            developerButton.getActor().addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    mGame.pushScreen(new DebugScreen(mGame));
+                }
+            });
+            group.addItemWithLabel("Internal:", developerButton);
+        }
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -136,7 +147,7 @@ public class ConfigScreen extends PwStageScreen {
         });
     }
 
-    private void setupInputSelector(Menu menu, String label, final int idx) {
+    private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
         class InputSelectorInfo {
             private SelectorMenuItem<GameInputHandlerFactory> selector;
             private Label label;
@@ -153,8 +164,8 @@ public class ConfigScreen extends PwStageScreen {
         for (GameInputHandlerFactory factory : inputFactories) {
             info.selector.addEntry(factory.getName(), factory);
         }
-        menu.addItemWithLabel(label + ":", info.selector);
-        info.label = menu.addLabel("").getLabel();
+        group.addItemWithLabel(label + ":", info.selector);
+        info.label = group.addLabel("").getLabel();
         info.label.setWrap(true);
 
         info.selector.getActor().addListener(new ChangeListener() {
