@@ -63,6 +63,8 @@ public class TabMenuItem extends Actor implements MenuItem {
         float framePadding; // space between tab borders and outer frame
         float tabPadding; // horizontal space between tab borders and text
         Drawable handle;
+        Drawable leftTabBorder;
+        Drawable rightTabBorder;
     }
 
     public TabMenuItem(Menu menu) {
@@ -175,10 +177,23 @@ public class TabMenuItem extends Actor implements MenuItem {
     }
 
     private void drawFrame(Batch batch) {
-        float left = getDistanceToLeftEdge(0);
+        float distance = getDistanceToLeftEdge();
+        drawFrameBorder(batch, mStyle.leftTabBorder, getX() - distance, distance);
+        drawFrameBorder(batch, mStyle.rightTabBorder, getRight(), getStage().getWidth() - getRight());
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 
+    private float getDistanceToLeftEdge() {
+        float x = 0;
+        for (Actor actor = this; actor != null; actor = actor.getParent()) {
+            x += actor.getX();
+        }
+        return x;
+    }
+
+    private void drawFrameBorder(Batch batch, Drawable drawable, float x, float width) {
+        drawable.draw(batch, x, getY(), width, drawable.getMinHeight());
+    }
 
     private void drawHandle(Batch batch) {
         float framePadding = mStyle.framePadding;

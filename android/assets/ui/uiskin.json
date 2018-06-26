@@ -118,7 +118,9 @@
             frame: menu-switch-frame,
             framePadding: 4,
             tabPadding: 12,
-            handle: menu-switch-handle
+            handle: menu-switch-handle,
+            leftTabBorder: tab-border-left,
+            rightTabBorder: tab-border-right
         }
     },
     com.agateau.ui.menu.RangeMenuItem$RangeMenuItemStyle: {
