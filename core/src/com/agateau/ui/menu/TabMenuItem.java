@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.menu;
 
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -147,6 +148,8 @@ public class TabMenuItem extends Actor implements MenuItem {
         mFocusRectangle.y = 0;
         mFocusRectangle.width = getWidth();
         mFocusRectangle.height = getHeight();
+        float focusPadding = mMenu.getMenuStyle().focusPadding;
+        AgcMathUtils.adjustRectangle(mFocusRectangle, -2 * focusPadding);
         return mFocusRectangle;
     }
 
