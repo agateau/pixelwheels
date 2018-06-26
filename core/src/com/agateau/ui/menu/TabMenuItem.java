@@ -162,27 +162,36 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        int pageSize = mPages.size;
-        if (pageSize == 0) {
+        if (mPages.size == 0) {
             return;
         }
+
+        drawFrame(batch);
+        drawHandle(batch);
+        drawText(batch);
+    }
+
+    private void drawFrame(Batch batch) {
+        float left = getDistanceToLeftEdge(0);
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
+    }
 
-        // Draw handle
-        Drawable handle = mStyle.handle;
+
+    private void drawHandle(Batch batch) {
         float framePadding = mStyle.framePadding;
-
         float x = framePadding;
         for (int idx = 0; idx < mCurrentTab; ++idx) {
             x += mPages.get(idx).tabWidth;
         }
         float handleWidth = mPages.get(mCurrentTab).tabWidth;
-        handle.draw(batch, getX() + x, getY() + framePadding, handleWidth, getHeight() - 2 * framePadding);
+        mStyle.handle.draw(batch, getX() + x, getY() + framePadding,
+                handleWidth, getHeight() - 2 * framePadding);
+    }
 
-        // Draw text
+    private void drawText(Batch batch) {
+        float x = mStyle.framePadding;
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        x = framePadding;
-        for (int idx = 0; idx < pageSize; ++idx) {
+        for (int idx = 0; idx < mPages.size; ++idx) {
             String name = mPages.get(idx).name;
             float tabWidth = mPages.get(idx).tabWidth;
             mFont.draw(batch, name, getX() + x, y, tabWidth, Align.center, /* wrap= */false);
