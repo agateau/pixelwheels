@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0 - 2018-07-01
+
+### For players
+
+#### Added
+
+- You can finally play the game and navigate the user interface using gamepads.
+
+#### Changed
+
+- Steering is more progressive, making it easier to make small direction
+  adjustments.
+
+#### Fixed
+
+- Skidmarks disappear more progressively now.
+
+- Fix screen shaking too much when spinning with rotate screen disabled.
+
 ## 0.8.0 - 2018-05-07
 
 ### For players
