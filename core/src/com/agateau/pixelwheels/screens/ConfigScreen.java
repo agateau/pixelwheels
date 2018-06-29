@@ -110,7 +110,7 @@ public class ConfigScreen extends PwStageScreen {
                     gameConfig.flush();
                 }
             });
-            group.addItemWithLabel("Rotate screen:", rotateScreenSwitch);
+            group.addItemWithLabel("Rotate camera:", rotateScreenSwitch);
 
             if (PlatformUtils.isDesktop()) {
                 final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
