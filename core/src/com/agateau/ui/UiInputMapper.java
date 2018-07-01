@@ -27,12 +27,15 @@ public class UiInputMapper implements InputMapper {
     private KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
     private GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.getInstance(0);
 
-    private static final UiInputMapper sInstance = new UiInputMapper();
+    private static UiInputMapper sInstance;
 
     private UiInputMapper() {
     }
 
     public static UiInputMapper getInstance() {
+        if (sInstance == null) {
+            sInstance = new UiInputMapper();
+        }
         return sInstance;
     }
 
