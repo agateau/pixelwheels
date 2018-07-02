@@ -62,6 +62,11 @@ public class GameInputHandlerFactories {
         return mFactories.first();
     }
 
+    public static GameInputHandler getDefaultInputHandler() {
+        GameInputHandlerFactory factory = mFactories.first();
+        return factory.getAllHandlers().get(0);
+    }
+
     public static boolean hasMultitouch() {
         return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput;
     }

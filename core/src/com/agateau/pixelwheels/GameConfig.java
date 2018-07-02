@@ -161,5 +161,8 @@ public class GameConfig {
             mPlayerInputHandlers.add(inputHandler);
             inputHandlers.removeIndex(0);
         }
+        if (mPlayerInputHandlers.size == 0) {
+            mPlayerInputHandlers.add(GameInputHandlerFactories.getDefaultInputHandler());
+        }
     }
 }
