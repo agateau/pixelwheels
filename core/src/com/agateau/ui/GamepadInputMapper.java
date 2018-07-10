@@ -177,7 +177,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     @Override
     public boolean axisMoved(Controller controller, int axisCode, float fvalue) {
         AxisValue value = normalizeAxisValue(fvalue);
-        if ((axisCode & 2) == 0) {
+        if ((axisCode & 1) == 0) {
             setKeyJustPressed(VirtualKey.LEFT, value == AxisValue.LESS);
             setKeyJustPressed(VirtualKey.RIGHT, value == AxisValue.MORE);
         } else {
