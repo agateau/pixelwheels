@@ -68,6 +68,22 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         return getInstances()[idx];
     }
 
+    public int getTriggerButtonCode() {
+        return mTriggerButtonCode;
+    }
+
+    public void setTriggerButtonCode(int triggerButtonCode) {
+        mTriggerButtonCode = triggerButtonCode;
+    }
+
+    public int getBackButtonCode() {
+        return mBackButtonCode;
+    }
+
+    public void setBackButtonCode(int backButtonCode) {
+        mBackButtonCode = backButtonCode;
+    }
+
     private static void createInstances() {
         for (int idx = 0; idx < sInstances.length; ++idx) {
             sInstances[idx] = new GamepadInputMapper(idx);
