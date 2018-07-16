@@ -25,6 +25,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.utils.Array;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 /**
@@ -48,14 +49,24 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         JUST_PRESSED
     }
 
+    public enum GamepadButton {
+        TRIGGER,
+        BACK
+    }
+
     private boolean mActive;
 
     private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<VirtualKey, KeyState>();
 
-    private int mTriggerButtonCode = 1;
-    private int mBackButtonCode = 2;
+    private final HashMap<GamepadButton,Integer> mButtonCodes = new HashMap<GamepadButton, Integer>();
 
     private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
+
+    private WeakReference<Listener> mListenerRef;
+
+    public interface Listener {
+        void onButtonPressed(int buttonCode, boolean pressed);
+    }
 
     public static GamepadInputMapper[] getInstances() {
         if (sInstances[0] == null) {
@@ -68,22 +79,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         return getInstances()[idx];
     }
 
-    public int getTriggerButtonCode() {
-        return mTriggerButtonCode;
-    }
-
-    public void setTriggerButtonCode(int triggerButtonCode) {
-        mTriggerButtonCode = triggerButtonCode;
-    }
-
-    public int getBackButtonCode() {
-        return mBackButtonCode;
-    }
-
-    public void setBackButtonCode(int backButtonCode) {
-        mBackButtonCode = backButtonCode;
-    }
-
     private static void createInstances() {
         for (int idx = 0; idx < sInstances.length; ++idx) {
             sInstances[idx] = new GamepadInputMapper(idx);
@@ -92,6 +87,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private GamepadInputMapper(int idx) {
         Array<Controller> controllers = Controllers.getControllers();
+        mButtonCodes.put(GamepadButton.TRIGGER, 1);
+        mButtonCodes.put(GamepadButton.BACK, 2);
         if (idx < controllers.size) {
             controllers.get(idx).addListener(this);
             mActive = true;
@@ -100,8 +97,20 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         }
     }
 
+    public int getButtonCode(GamepadButton button) {
+        return mButtonCodes.get(button);
+    }
+
+    public void setButtonCode(GamepadButton button, int code) {
+        mButtonCodes.put(button, code);
+    }
+
     public boolean isActive() {
         return mActive;
+    }
+
+    public void setListener(Listener listener) {
+        mListenerRef = new WeakReference<Listener>(listener);
     }
 
     @Override
@@ -123,14 +132,14 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public void loadConfig(Preferences preferences, String prefix) {
-        mTriggerButtonCode = preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1);
-        mBackButtonCode = preferences.getInteger(prefix + BACK_BUTTON_PREF, 2);
+        mButtonCodes.put(GamepadButton.TRIGGER, preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1));
+        mButtonCodes.put(GamepadButton.BACK, preferences.getInteger(prefix + BACK_BUTTON_PREF, 2));
     }
 
     @Override
     public void saveConfig(Preferences preferences, String prefix) {
-        preferences.putInteger(prefix + TRIGGER_BUTTON_PREF, mTriggerButtonCode);
-        preferences.putInteger(prefix + BACK_BUTTON_PREF, mBackButtonCode);
+        preferences.putInteger(prefix + TRIGGER_BUTTON_PREF, mButtonCodes.get(GamepadButton.TRIGGER));
+        preferences.putInteger(prefix + BACK_BUTTON_PREF, mButtonCodes.get(GamepadButton.BACK));
     }
 
     @Override
@@ -218,10 +227,14 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     private void onButtonPressed(int buttonCode, boolean pressed) {
-        if (buttonCode == mTriggerButtonCode) {
+        if (buttonCode == mButtonCodes.get(GamepadButton.TRIGGER)) {
             setKeyJustPressed(VirtualKey.TRIGGER, pressed);
-        } else if (buttonCode == mBackButtonCode) {
+        } else if (buttonCode == mButtonCodes.get(GamepadButton.BACK)) {
             setKeyJustPressed(VirtualKey.BACK, pressed);
+        }
+        Listener listener = mListenerRef != null ? mListenerRef.get() : null;
+        if (listener != null) {
+            listener.onButtonPressed(buttonCode, pressed);
         }
     }
 }

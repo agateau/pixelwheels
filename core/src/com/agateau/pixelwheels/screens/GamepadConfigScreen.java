@@ -18,14 +18,22 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
+import com.agateau.ui.GamepadInputMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.Locale;
 
 /**
  * Configure an input device
@@ -33,11 +41,59 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class GamepadConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
+    private final GamepadInputMapper mInputMapper;
+    private final Array<GamepadButtonItemController> mButtonControllers = new Array<GamepadButtonItemController>();
 
-    public GamepadConfigScreen(PwGame game, int playerIdx) {
+    private GamepadButtonItemController mEditingController;
+
+    private class GamepadButtonItemController implements GamepadInputMapper.Listener {
+        private final ButtonMenuItem mMenuItem;
+        private final GamepadInputMapper.GamepadButton mButtonId;
+        private boolean mEditing = false;
+
+        GamepadButtonItemController(ButtonMenuItem menuItem, GamepadInputMapper.GamepadButton buttonId) {
+            mMenuItem = menuItem;
+            mButtonId = buttonId;
+            mMenuItem.addListener(new MenuItemListener() {
+                @Override
+                public void triggered() {
+                    onEditButton(GamepadButtonItemController.this);
+                }
+            });
+            updateText();
+        }
+
+        void setEditing(boolean editing) {
+            mEditing = editing;
+            if (editing) {
+                mInputMapper.setListener(this);
+            }
+            updateText();
+        }
+
+        private void updateText() {
+            String text;
+            if (mEditing) {
+                text = "Press the gamepad key...";
+            } else {
+                text = String.format(Locale.US, "%d", mInputMapper.getButtonCode(mButtonId));
+            }
+            mMenuItem.setText(text);
+        }
+
+        @Override
+        public void onButtonPressed(int buttonCode, boolean pressed) {
+            mInputMapper.setButtonCode(mButtonId, buttonCode);
+            onEditButton(null);
+        }
+    }
+
+    GamepadConfigScreen(PwGame game, int playerIdx) {
         super(game.getAssets().ui);
         mGame = game;
         mPlayerIdx = playerIdx;
+        GamepadInputHandler handler = (GamepadInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
+        mInputMapper = (GamepadInputMapper) handler.getInputMapper();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
@@ -56,6 +112,9 @@ public class GamepadConfigScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
+        createButton(menu, "Trigger:", GamepadInputMapper.GamepadButton.TRIGGER);
+        createButton(menu, "Back:", GamepadInputMapper.GamepadButton.BACK);
+
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -64,10 +123,32 @@ public class GamepadConfigScreen extends PwStageScreen {
         });
     }
 
+    private void createButton(Menu menu, String label, GamepadInputMapper.GamepadButton buttonId) {
+        ButtonMenuItem buttonItem = new ButtonMenuItem(menu, "");
+        menu.addItemWithLabel(label, buttonItem);
+        GamepadButtonItemController controller = new GamepadButtonItemController(buttonItem, buttonId);
+        mButtonControllers.add(controller);
+    }
+
+    private void onEditButton(GamepadButtonItemController controller) {
+        if (mEditingController != null) {
+            mEditingController.setEditing(false);
+        }
+        mEditingController = controller;
+        if (mEditingController != null) {
+            mEditingController.setEditing(true);
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        mGame.getDebugIntrospector().save();
-        mGame.getGamePlayIntrospector().save();
+        saveConfig();
         mGame.popScreen();
+    }
+
+    private void saveConfig() {
+        GameConfig config = mGame.getConfig();
+        config.savePlayerInputHandlerConfig(mPlayerIdx);
+
     }
 }
