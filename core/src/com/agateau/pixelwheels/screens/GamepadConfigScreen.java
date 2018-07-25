@@ -57,7 +57,7 @@ public class GamepadConfigScreen extends PwStageScreen {
             mMenuItem.addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    onEditButton(GamepadButtonItemController.this);
+                    startEditing(GamepadButtonItemController.this);
                 }
             });
             updateText();
@@ -65,9 +65,6 @@ public class GamepadConfigScreen extends PwStageScreen {
 
         void setEditing(boolean editing) {
             mEditing = editing;
-            if (editing) {
-                mInputMapper.setListener(this);
-            }
             updateText();
         }
 
@@ -82,9 +79,10 @@ public class GamepadConfigScreen extends PwStageScreen {
         }
 
         @Override
-        public void onButtonPressed(int buttonCode, boolean pressed) {
+        public boolean onButtonPressed(int buttonCode, boolean pressed) {
             mInputMapper.setButtonCode(mButtonId, buttonCode);
-            onEditButton(null);
+            stopEditing();
+            return true;
         }
     }
 
@@ -130,18 +128,23 @@ public class GamepadConfigScreen extends PwStageScreen {
         mButtonControllers.add(controller);
     }
 
-    private void onEditButton(GamepadButtonItemController controller) {
+    private void startEditing(GamepadButtonItemController controller) {
+        stopEditing();
+        mEditingController = controller;
+        mEditingController.setEditing(true);
+        mInputMapper.setListener(mEditingController);
+    }
+
+    private void stopEditing() {
         if (mEditingController != null) {
             mEditingController.setEditing(false);
-        }
-        mEditingController = controller;
-        if (mEditingController != null) {
-            mEditingController.setEditing(true);
+            mInputMapper.setListener(null);
         }
     }
 
     @Override
     public void onBackPressed() {
+        stopEditing();
         saveConfig();
         mGame.popScreen();
     }

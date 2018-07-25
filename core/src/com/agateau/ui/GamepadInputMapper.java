@@ -54,6 +54,13 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         BACK
     }
 
+    public interface Listener {
+        /**
+         * Returns true if the event has been handled. In this case the internal state of the input mapper won't be updated
+         */
+        boolean onButtonPressed(int buttonCode, boolean pressed);
+    }
+
     private boolean mActive;
 
     private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<VirtualKey, KeyState>();
@@ -63,10 +70,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
 
     private WeakReference<Listener> mListenerRef;
-
-    public interface Listener {
-        void onButtonPressed(int buttonCode, boolean pressed);
-    }
 
     public static GamepadInputMapper[] getInstances() {
         if (sInstances[0] == null) {
@@ -227,14 +230,16 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     private void onButtonPressed(int buttonCode, boolean pressed) {
+        Listener listener = mListenerRef != null ? mListenerRef.get() : null;
+        if (listener != null) {
+            if (listener.onButtonPressed(buttonCode, pressed)) {
+                return;
+            }
+        }
         if (buttonCode == mButtonCodes.get(GamepadButton.TRIGGER)) {
             setKeyJustPressed(VirtualKey.TRIGGER, pressed);
         } else if (buttonCode == mButtonCodes.get(GamepadButton.BACK)) {
             setKeyJustPressed(VirtualKey.BACK, pressed);
-        }
-        Listener listener = mListenerRef != null ? mListenerRef.get() : null;
-        if (listener != null) {
-            listener.onButtonPressed(buttonCode, pressed);
         }
     }
 }
