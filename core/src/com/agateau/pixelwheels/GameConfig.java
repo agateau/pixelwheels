@@ -133,6 +133,13 @@ public class GameConfig {
         mPlayerInputFactoryIds[idx] = factory.getId();
     }
 
+    public void savePlayerInputHandlerConfig(int index) {
+        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
+        GameInputHandler handler = mPlayerInputHandlers.get(index);
+        String prefix = getInputPrefix(index);
+        handler.saveConfig(mPreferences, prefix);
+    }
+
     private String getInputPrefix(int idx) {
         // Include the factory id to ensure there are no configuration clashes when switching
         // between input handlers

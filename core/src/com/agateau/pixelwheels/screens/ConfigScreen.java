@@ -23,20 +23,22 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
+import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.menu.TabMenuItem;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -148,41 +150,40 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
-        class InputSelectorInfo {
-            private SelectorMenuItem<GameInputHandlerFactory> selector;
-            private Label label;
+        final SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
 
-            void updateLabel() {
-                GameInputHandlerFactory factory = this.selector.getData();
-                this.label.setText(factory.getDescription());
-            }
-        }
-        final InputSelectorInfo info = new InputSelectorInfo();
-        info.selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
         Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
-
         for (GameInputHandlerFactory factory : inputFactories) {
-            info.selector.addEntry(factory.getName(), factory);
+            selector.addEntry(factory.getName(), factory);
         }
-        group.addItemWithLabel(label + ":", info.selector);
-        info.label = group.addLabel("").getLabel();
-        info.label.setWrap(true);
 
-        info.selector.getActor().addListener(new ChangeListener() {
+        group.addItemWithLabel(label + ":", selector);
+        ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
+        configureButton.addListener(new MenuItemListener() {
+            @Override
+            public void triggered() {
+                GameInputHandlerFactory factory = selector.getData();
+                if (factory instanceof GamepadInputHandler.Factory) {
+                    mGame.pushScreen(new GamepadConfigScreen(mGame, idx));
+                } else {
+                    NLog.e("No config screen for factory %s yet", factory.getClass().getName());
+                }
+            }
+        });
+        group.addItemWithLabel("", configureButton);
+
+        selector.getActor().addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                GameInputHandlerFactory factory = info.selector.getData();
+                GameInputHandlerFactory factory = selector.getData();
                 mGame.getConfig().setPlayerInputHandlerFactory(idx, factory);
-                info.updateLabel();
                 mGame.getConfig().flush();
             }
         });
 
         // Select current value
         GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(idx);
-        info.selector.setData(factory);
-
-        info.updateLabel();
+        selector.setData(factory);
     }
 
     @Override

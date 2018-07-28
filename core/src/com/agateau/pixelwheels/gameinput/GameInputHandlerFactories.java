@@ -82,6 +82,7 @@ public class GameInputHandlerFactories {
         }
         if (hasMultitouch()) {
             mFactories.add(new TouchInputHandler.Factory());
+            mFactories.add(new GamepadInputHandler.Factory());
         }
     }
 }
