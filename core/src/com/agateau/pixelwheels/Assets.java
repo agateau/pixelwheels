@@ -69,6 +69,7 @@ public class Assets {
     public final Animation gunAnimation;
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
+    public final TextureRegion missile;
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
@@ -101,6 +102,8 @@ public class Assets {
         removeBorders(this.dot);
 
         this.skidmark = findRegion("skidmark");
+
+        this.missile = findRegion("missile");
 
         this.helicopterBody = this.findRegion("helicopter-body");
         this.helicopterPropeller = this.findRegion("helicopter-propeller");

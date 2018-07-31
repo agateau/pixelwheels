@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.bonus.BonusSpot;
 import com.agateau.pixelwheels.bonus.GunBonus;
 import com.agateau.pixelwheels.bonus.MineBonus;
+import com.agateau.pixelwheels.bonus.MissileBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameobjet.GameObject;
@@ -308,6 +309,7 @@ public class GameWorld implements ContactListener, Disposable {
         mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
         mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
         mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
+        mBonusPools.add(new MissileBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
     }
 
     @Override
