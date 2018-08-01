@@ -28,16 +28,21 @@ import com.badlogic.gdx.physics.box2d.World;
  * An helper class to find the closest fixture using a raycast
  */
 public class ClosestFixtureFinder implements RayCastCallback {
+    private final World mWorld;
     private Body mIgnoredBody = null;
     private Fixture mFixture = null;
+
+    public ClosestFixtureFinder(World world) {
+        mWorld = world;
+    }
 
     public void setIgnoredBody(Body ignoredBody) {
         mIgnoredBody = ignoredBody;
     }
 
-    public Fixture run(World world, Vector2 v1, Vector2 v2) {
+    public Fixture run(Vector2 v1, Vector2 v2) {
         mFixture = null;
-        world.rayCast(this, v1, v2);
+        mWorld.rayCast(this, v1, v2);
         return mFixture;
     }
 

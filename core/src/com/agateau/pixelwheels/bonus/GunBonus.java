@@ -64,7 +64,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private float mDelayForNextShot;
     private int mRemainingShots;
 
-    private final ClosestFixtureFinder mClosestFixtureFinder = new ClosestFixtureFinder();
+    private final ClosestFixtureFinder mClosestFixtureFinder;
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
@@ -102,6 +102,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     public GunBonus(Pool pool) {
         mPool = pool;
+        mClosestFixtureFinder = new ClosestFixtureFinder(pool.getGameWorld().getBox2DWorld());
         reset();
     }
 
@@ -169,7 +170,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public void aiAct(float delta) {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.run(mPool.getGameWorld().getBox2DWorld(), mRayCastV1, mRayCastV2);
+        Fixture fixture = mClosestFixtureFinder.run(mRayCastV1, mRayCastV2);
         if (fixture == null) {
             return;
         }

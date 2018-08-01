@@ -54,7 +54,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     private boolean mTriggered;
 
-    private final ClosestFixtureFinder mClosestFixtureFinder = new ClosestFixtureFinder();
+    private final ClosestFixtureFinder mClosestFixtureFinder;
 
     private final Vector2 mRayCastV1 = new Vector2();
     private final Vector2 mRayCastV2 = new Vector2();
@@ -71,6 +71,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     public MissileBonus(Pool pool) {
         mPool = pool;
+        mClosestFixtureFinder = new ClosestFixtureFinder(mPool.getGameWorld().getBox2DWorld());
         reset();
     }
 
@@ -115,7 +116,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     public void aiAct(float delta) {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.run(mPool.getGameWorld().getBox2DWorld(), mRayCastV1, mRayCastV2);
+        Fixture fixture = mClosestFixtureFinder.run(mRayCastV1, mRayCastV2);
         if (fixture == null) {
             return;
         }

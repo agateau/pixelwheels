@@ -37,34 +37,34 @@ import static junit.framework.TestCase.assertNull;
 public class ClosestFixtureFinderTests {
     @Test
     public void testEmpty() {
-        ClosestFixtureFinder finder = new ClosestFixtureFinder();
         World world = createWorld();
-        Fixture fixture = finder.run(world, new Vector2(0, 0), new Vector2(1, 0));
+        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
+        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(1, 0));
 
         assertNull(fixture);
     }
 
     @Test
     public void testOneFixture() {
-        ClosestFixtureFinder finder = new ClosestFixtureFinder();
         World world = createWorld();
+        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
         Body body = createSquareBody(world, 1, 1);
 
-        Fixture fixture = finder.run(world, new Vector2(0, 0), new Vector2(1, 0));
+        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(1, 0));
         assertNull(fixture);
 
-        fixture = finder.run(world, new Vector2(0, 0), new Vector2(2, 2));
+        fixture = finder.run(new Vector2(0, 0), new Vector2(2, 2));
         assertEquals(body.getFixtureList().first(), fixture);
     }
 
     @Test
     public void testTwoFixtures() {
-        ClosestFixtureFinder finder = new ClosestFixtureFinder();
         World world = createWorld();
+        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
         Body closestBody = createSquareBody(world, 1, 1);
         createSquareBody(world, 3, 3);
 
-        Fixture fixture = finder.run(world, new Vector2(0, 0), new Vector2(4, 4));
+        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(4, 4));
         assertEquals(closestBody.getFixtureList().first(), fixture);
     }
 
