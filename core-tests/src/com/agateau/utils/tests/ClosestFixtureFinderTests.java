@@ -68,6 +68,24 @@ public class ClosestFixtureFinderTests {
         assertEquals(closestBody.getFixtureList().first(), fixture);
     }
 
+    @Test
+    public void testFilter() {
+        World world = createWorld();
+        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
+        final Body ignoredBody = createSquareBody(world, 1, 1);
+        Body acceptedBody = createSquareBody(world, 3, 3);
+
+        finder.setFixtureFilter(new ClosestFixtureFinder.FixtureFilter() {
+            @Override
+            public boolean acceptFixture(Fixture fixture) {
+                return fixture.getBody() != ignoredBody;
+            }
+        });
+
+        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(4, 4));
+        assertEquals(acceptedBody.getFixtureList().first(), fixture);
+    }
+
     private World createWorld() {
         return new World(new Vector2(0, 0), true);
     }

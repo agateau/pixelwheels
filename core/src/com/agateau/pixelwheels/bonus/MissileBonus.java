@@ -89,7 +89,6 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mMissile = Missile.create(mPool.getAssets(), mPool.getGameWorld(), mPool.getAudioManager(), mRacer);
-        mClosestFixtureFinder.setIgnoredBody(mRacer.getVehicle().getBody());
         DebugShapeMap.put(this, mDebugShape);
     }
 

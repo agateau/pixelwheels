@@ -29,15 +29,19 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class ClosestFixtureFinder implements RayCastCallback {
     private final World mWorld;
-    private Body mIgnoredBody = null;
+    private FixtureFilter mFixtureFilter = null;
     private Fixture mFixture = null;
+
+    public interface FixtureFilter {
+        boolean acceptFixture(Fixture fixture);
+    }
 
     public ClosestFixtureFinder(World world) {
         mWorld = world;
     }
 
-    public void setIgnoredBody(Body ignoredBody) {
-        mIgnoredBody = ignoredBody;
+    public void setFixtureFilter(FixtureFilter fixtureFilter) {
+        mFixtureFilter = fixtureFilter;
     }
 
     public Fixture run(Vector2 v1, Vector2 v2) {
@@ -48,11 +52,10 @@ public class ClosestFixtureFinder implements RayCastCallback {
 
     @Override
     public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-        if (fixture.getBody() == mIgnoredBody) {
-            return 1;
-        } else {
-            mFixture = fixture;
-            return fraction;
+        if (mFixtureFilter != null && !mFixtureFilter.acceptFixture(fixture)) {
+            return -1;
         }
+        mFixture = fixture;
+        return fraction;
     }
 }

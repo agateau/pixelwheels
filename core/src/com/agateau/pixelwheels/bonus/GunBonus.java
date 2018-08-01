@@ -57,6 +57,24 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     }
 
+    public static class RacerFixtureFilter implements ClosestFixtureFinder.FixtureFilter {
+        private Racer mIgnoredRacer;
+
+        public void setIgnoredRacer(Racer ignoredRacer) {
+            mIgnoredRacer = ignoredRacer;
+        }
+
+        @Override
+        public boolean acceptFixture(Fixture fixture) {
+            if (mIgnoredRacer != null
+                    && fixture.getBody() == mIgnoredRacer.getVehicle().getBody()) {
+                return false;
+            }
+            Object userData = fixture.getBody().getUserData();
+            return userData instanceof Racer;
+        }
+    }
+
     private final Pool mPool;
 
     private boolean mTriggered;
@@ -65,6 +83,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private int mRemainingShots;
 
     private final ClosestFixtureFinder mClosestFixtureFinder;
+    private final RacerFixtureFilter mRacerFixtureFilter = new RacerFixtureFilter();
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
@@ -103,6 +122,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public GunBonus(Pool pool) {
         mPool = pool;
         mClosestFixtureFinder = new ClosestFixtureFinder(pool.getGameWorld().getBox2DWorld());
+        mClosestFixtureFinder.setFixtureFilter(mRacerFixtureFilter);
         reset();
     }
 
@@ -123,7 +143,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
-        mClosestFixtureFinder.setIgnoredBody(mRacer.getVehicle().getBody());
+        mRacerFixtureFilter.setIgnoredRacer(mRacer);
         DebugShapeMap.put(this, mDebugShape);
     }
 
@@ -171,11 +191,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
         Fixture fixture = mClosestFixtureFinder.run(mRayCastV1, mRayCastV2);
-        if (fixture == null) {
-            return;
-        }
-        Object userData = fixture.getBody().getUserData();
-        if (userData instanceof Racer) {
+        if (fixture != null) {
             mRacer.triggerBonus();
         }
     }
