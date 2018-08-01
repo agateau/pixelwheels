@@ -18,11 +18,10 @@
  */
 package com.agateau.utils.tests;
 
-import com.agateau.pixelwheels.utils.ClosestFixtureFinder;
+import com.agateau.pixelwheels.utils.ClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -34,56 +33,67 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
 
 @RunWith(JUnit4.class)
-public class ClosestFixtureFinderTests {
+public class ClosestBodyFinderTests {
     @Test
     public void testEmpty() {
         World world = createWorld();
-        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
-        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(1, 0));
+        ClosestBodyFinder finder = new ClosestBodyFinder(world, 1);
+        Body body = finder.find(new Vector2(0, 0), 45f);
 
-        assertNull(fixture);
+        assertNull(body);
     }
 
     @Test
     public void testOneFixture() {
         World world = createWorld();
-        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
-        Body body = createSquareBody(world, 1, 1);
+        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
+        Body target = createSquareBody(world, 1, 1);
 
-        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(1, 0));
-        assertNull(fixture);
+        Body found = finder.find(new Vector2(0, 0), 90);
+        assertNull(found);
 
-        fixture = finder.find(new Vector2(0, 0), new Vector2(2, 2));
-        assertEquals(body.getFixtureList().first(), fixture);
+        found = finder.find(new Vector2(0, 0), 45);
+        assertEquals(target, found);
     }
 
     @Test
     public void testTwoFixtures() {
         World world = createWorld();
-        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
+        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
         Body closestBody = createSquareBody(world, 1, 1);
         createSquareBody(world, 3, 3);
 
-        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(4, 4));
-        assertEquals(closestBody.getFixtureList().first(), fixture);
+        Body found = finder.find(new Vector2(0, 0), 45f);
+        assertEquals(closestBody, found);
     }
 
     @Test
     public void testFilter() {
         World world = createWorld();
-        ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
+        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
         final Body ignoredBody = createSquareBody(world, 1, 1);
         Body acceptedBody = createSquareBody(world, 3, 3);
 
-        finder.setFixtureFilter(new ClosestFixtureFinder.FixtureFilter() {
+        finder.setBodyFilter(new ClosestBodyFinder.BodyFilter() {
             @Override
-            public boolean acceptFixture(Fixture fixture) {
-                return fixture.getBody() != ignoredBody;
+            public boolean acceptBody(Body body) {
+                return body != ignoredBody;
             }
         });
 
-        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(4, 4));
-        assertEquals(acceptedBody.getFixtureList().first(), fixture);
+        Body found = finder.find(new Vector2(0, 0), 45);
+        assertEquals(acceptedBody, found);
+    }
+
+    @Test
+    public void testArc() {
+        World world = createWorld();
+        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10, 90);
+        Body closestBody = createSquareBody(world, 0, 1);
+        createSquareBody(world, 3, 0);
+
+        Body found = finder.find(new Vector2(0, 0), 45f);
+        assertEquals(closestBody, found);
     }
 
     private World createWorld() {

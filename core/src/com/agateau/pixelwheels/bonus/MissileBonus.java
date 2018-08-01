@@ -23,19 +23,14 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.sound.AudioManager;
-import com.agateau.pixelwheels.utils.ClosestFixtureFinder;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool;
 
 /**
  * A missile bonus
  */
 public class MissileBonus extends BonusAdapter implements Pool.Poolable {
-    private static final float AI_RAYCAST_LENGTH = 40;
     private Missile mMissile;
 
     public static class Pool extends BonusPool {
@@ -54,24 +49,8 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     private boolean mTriggered;
 
-    private final ClosestFixtureFinder mClosestFixtureFinder;
-
-    private final Vector2 mRayCastV1 = new Vector2();
-    private final Vector2 mRayCastV2 = new Vector2();
-
-    private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
-        @Override
-        public void draw(ShapeRenderer renderer) {
-            renderer.begin(ShapeRenderer.ShapeType.Line);
-            renderer.setColor(1, 0, 0, 1);
-            renderer.line(mRayCastV1, mRayCastV2);
-            renderer.end();
-        }
-    };
-
     public MissileBonus(Pool pool) {
         mPool = pool;
-        mClosestFixtureFinder = new ClosestFixtureFinder(mPool.getGameWorld().getBox2DWorld());
         reset();
     }
 
@@ -89,7 +68,6 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mMissile = Missile.create(mPool.getAssets(), mPool.getGameWorld(), mPool.getAudioManager(), mRacer);
-        DebugShapeMap.put(this, mDebugShape);
     }
 
     @Override
@@ -113,16 +91,6 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void aiAct(float delta) {
-        mRayCastV1.set(mRacer.getX(), mRacer.getY());
-        mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.find(mRayCastV1, mRayCastV2);
-        if (fixture == null) {
-            return;
-        }
-        Object userData = fixture.getBody().getUserData();
-        if (userData instanceof Racer) {
-            mRacer.triggerBonus();
-        }
     }
 
     private void resetBonus() {

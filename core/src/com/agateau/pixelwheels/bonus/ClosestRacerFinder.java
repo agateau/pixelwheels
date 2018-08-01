@@ -19,44 +19,55 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.utils.ClosestFixtureFinder;
+import com.agateau.pixelwheels.utils.ClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class ClosestRacerFinder {
-    private final ClosestFixtureFinder mFixtureFinder;
-    private final RacerFixtureFilter mFixtureFilter = new RacerFixtureFilter();
+    private final ClosestBodyFinder mBodyFinder;
+    private final RacerBodyFilter mFilter = new RacerBodyFilter();
 
-    private static class RacerFixtureFilter implements ClosestFixtureFinder.FixtureFilter {
+    private static class RacerBodyFilter implements ClosestBodyFinder.BodyFilter {
         Racer mIgnoredRacer;
 
         @Override
-        public boolean acceptFixture(Fixture fixture) {
-            if (mIgnoredRacer != null
-                    && fixture.getBody() == mIgnoredRacer.getVehicle().getBody()) {
+        public boolean acceptBody(Body body) {
+            if (mIgnoredRacer != null && body == mIgnoredRacer.getVehicle().getBody()) {
                 return false;
             }
-            Object userData = fixture.getBody().getUserData();
+            Object userData = body.getUserData();
             return userData instanceof Racer;
         }
     }
 
-    public ClosestRacerFinder(World world) {
-        mFixtureFinder = new ClosestFixtureFinder(world);
-        mFixtureFinder.setFixtureFilter(mFixtureFilter);
+    public ClosestRacerFinder(World world, float depth) {
+        this(world, depth, 0);
+    }
+
+    public ClosestRacerFinder(World world, float depth, float arc) {
+        mBodyFinder = new ClosestBodyFinder(world, depth, arc);
+        mBodyFinder.setBodyFilter(mFilter);
     }
 
     public void setIgnoredRacer(Racer ignoredRacer) {
-        mFixtureFilter.mIgnoredRacer = ignoredRacer;
+        mFilter.mIgnoredRacer = ignoredRacer;
     }
 
-    public Racer find(Vector2 v1, Vector2 v2) {
-        Fixture fixture = mFixtureFinder.find(v1, v2);
-        if (fixture == null) {
+    public Racer find(Vector2 origin, float angle) {
+        Body body = mBodyFinder.find(origin, angle);
+        if (body == null) {
             return null;
         } else {
-            return (Racer)fixture.getBody().getUserData();
+            return (Racer)body.getUserData();
         }
+    }
+
+    public Vector2 getLeftVertex(Vector2 origin, float angle) {
+        return mBodyFinder.getLeftVertex(origin, angle);
+    }
+
+    public Vector2 getRightVertex(Vector2 origin, float angle) {
+        return mBodyFinder.getRightVertex(origin, angle);
     }
 }

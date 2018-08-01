@@ -85,22 +85,25 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    private final Vector2 mRayCastV1 = new Vector2();
-    private final Vector2 mRayCastV2 = new Vector2();
+    private final Vector2 mRayCastOrigin = new Vector2();
 
     private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
         @Override
         public void draw(ShapeRenderer renderer) {
+            float angle = mRacer.getVehicle().getAngle();
             renderer.begin(ShapeRenderer.ShapeType.Line);
             renderer.setColor(1, 0, 0, 1);
-            renderer.line(mRayCastV1, mRayCastV2);
+            renderer.line(mRayCastOrigin, mClosestRacerFinder.getLeftVertex(mRayCastOrigin, angle));
+            renderer.line(mRayCastOrigin, mClosestRacerFinder.getRightVertex(mRayCastOrigin, angle));
             renderer.end();
         }
     };
 
     public GunBonus(Pool pool) {
         mPool = pool;
-        mClosestRacerFinder = new ClosestRacerFinder(pool.getGameWorld().getBox2DWorld());
+        mClosestRacerFinder = new ClosestRacerFinder(
+                pool.getGameWorld().getBox2DWorld(),
+                AI_RAYCAST_LENGTH);
         reset();
     }
 
@@ -166,9 +169,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void aiAct(float delta) {
-        mRayCastV1.set(mRacer.getX(), mRacer.getY());
-        mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Racer racer = mClosestRacerFinder.find(mRayCastV1, mRayCastV2);
+        mRayCastOrigin.set(mRacer.getX(), mRacer.getY());
+        Racer racer = mClosestRacerFinder.find(mRayCastOrigin, mRacer.getVehicle().getAngle());
         if (racer != null) {
             mRacer.triggerBonus();
         }
