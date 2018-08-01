@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.utils.ClosestFixtureFinder;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.Renderer;
@@ -33,8 +32,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 
 /**
@@ -55,43 +52,6 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         @Override
         protected Bonus newObject() {
             return new GunBonus(this);
-        }
-    }
-
-    public static class ClosestRacerFinder {
-        private final ClosestFixtureFinder mFixtureFinder;
-        private final RacerFixtureFilter mFixtureFilter = new RacerFixtureFilter();
-
-        private static class RacerFixtureFilter implements ClosestFixtureFinder.FixtureFilter {
-            Racer mIgnoredRacer;
-
-            @Override
-            public boolean acceptFixture(Fixture fixture) {
-                if (mIgnoredRacer != null
-                        && fixture.getBody() == mIgnoredRacer.getVehicle().getBody()) {
-                    return false;
-                }
-                Object userData = fixture.getBody().getUserData();
-                return userData instanceof Racer;
-            }
-        }
-
-        public ClosestRacerFinder(World world) {
-            mFixtureFinder = new ClosestFixtureFinder(world);
-            mFixtureFinder.setFixtureFilter(mFixtureFilter);
-        }
-
-        public void setIgnoredRacer(Racer ignoredRacer) {
-            mFixtureFilter.mIgnoredRacer = ignoredRacer;
-        }
-
-        public Racer find(Vector2 v1, Vector2 v2) {
-            Fixture fixture = mFixtureFinder.find(v1, v2);
-            if (fixture == null) {
-                return null;
-            } else {
-                return (Racer)fixture.getBody().getUserData();
-            }
         }
     }
 
