@@ -65,31 +65,38 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         LOCKED
     }
 
+    // Init-once fields
+    private final BodyDef mBodyDef = new BodyDef();
+    private final CircleShape mShape = new CircleShape();
+    private final WeldJointDef mJointDef = new WeldJointDef();
+    private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+
+    // Init-at-pool-reuse fields
+    private Assets mAssets;
     private Racer mShooter;
     private GameWorld mGameWorld;
     private AudioManager mAudioManager;
-    private Assets mAssets;
-    private BodyDef mBodyDef;
-    private WeldJointDef mJointDef = new WeldJointDef();
-    private CircleShape mShape;
-
     private Body mBody;
+
+    // Moving fields
     private float mRemainingTime;
     private Joint mJoint;
     private Status mStatus;
     private boolean mNeedShootSound;
 
-    private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+    public Missile() {
+        mBodyDef.type = BodyDef.BodyType.DynamicBody;
+        mBodyDef.bullet = true;
+        mShape.setRadius(Y_RADIUS);
+    }
 
     public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
         NLog.d("");
         Missile object = sPool.obtain();
-        if (object.mBodyDef == null) {
-            object.firstInit(assets);
-        }
+        object.mAssets = assets;
+        object.mGameWorld = gameWorld;
         Vehicle vehicle = shooter.getVehicle();
         object.mShooter = shooter;
-        object.mGameWorld = gameWorld;
         object.mAudioManager = audioManager;
         object.setFinished(false);
         object.mBodyDef.position.set(vehicle.getX(), vehicle.getY());
@@ -109,17 +116,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
         object.initJoint();
         return object;
-    }
-
-    private void firstInit(Assets assets) {
-        NLog.d("");
-        mAssets = assets;
-        mBodyDef = new BodyDef();
-        mBodyDef.type = BodyDef.BodyType.DynamicBody;
-        mBodyDef.bullet = true;
-
-        mShape = new CircleShape();
-        mShape.setRadius(Y_RADIUS);
     }
 
     private void initJoint() {
