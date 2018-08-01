@@ -34,6 +34,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 
 /**
@@ -57,21 +58,40 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     }
 
-    public static class RacerFixtureFilter implements ClosestFixtureFinder.FixtureFilter {
-        private Racer mIgnoredRacer;
+    public static class ClosestRacerFinder {
+        private final ClosestFixtureFinder mFixtureFinder;
+        private final RacerFixtureFilter mFixtureFilter = new RacerFixtureFilter();
 
-        public void setIgnoredRacer(Racer ignoredRacer) {
-            mIgnoredRacer = ignoredRacer;
+        private static class RacerFixtureFilter implements ClosestFixtureFinder.FixtureFilter {
+            Racer mIgnoredRacer;
+
+            @Override
+            public boolean acceptFixture(Fixture fixture) {
+                if (mIgnoredRacer != null
+                        && fixture.getBody() == mIgnoredRacer.getVehicle().getBody()) {
+                    return false;
+                }
+                Object userData = fixture.getBody().getUserData();
+                return userData instanceof Racer;
+            }
         }
 
-        @Override
-        public boolean acceptFixture(Fixture fixture) {
-            if (mIgnoredRacer != null
-                    && fixture.getBody() == mIgnoredRacer.getVehicle().getBody()) {
-                return false;
+        public ClosestRacerFinder(World world) {
+            mFixtureFinder = new ClosestFixtureFinder(world);
+            mFixtureFinder.setFixtureFilter(mFixtureFilter);
+        }
+
+        public void setIgnoredRacer(Racer ignoredRacer) {
+            mFixtureFilter.mIgnoredRacer = ignoredRacer;
+        }
+
+        public Racer find(Vector2 v1, Vector2 v2) {
+            Fixture fixture = mFixtureFinder.find(v1, v2);
+            if (fixture == null) {
+                return null;
+            } else {
+                return (Racer)fixture.getBody().getUserData();
             }
-            Object userData = fixture.getBody().getUserData();
-            return userData instanceof Racer;
         }
     }
 
@@ -82,8 +102,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private float mDelayForNextShot;
     private int mRemainingShots;
 
-    private final ClosestFixtureFinder mClosestFixtureFinder;
-    private final RacerFixtureFilter mRacerFixtureFilter = new RacerFixtureFilter();
+    private final ClosestRacerFinder mClosestRacerFinder;
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
@@ -121,8 +140,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     public GunBonus(Pool pool) {
         mPool = pool;
-        mClosestFixtureFinder = new ClosestFixtureFinder(pool.getGameWorld().getBox2DWorld());
-        mClosestFixtureFinder.setFixtureFilter(mRacerFixtureFilter);
+        mClosestRacerFinder = new ClosestRacerFinder(pool.getGameWorld().getBox2DWorld());
         reset();
     }
 
@@ -143,7 +161,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
-        mRacerFixtureFilter.setIgnoredRacer(mRacer);
+        mClosestRacerFinder.setIgnoredRacer(mRacer);
         DebugShapeMap.put(this, mDebugShape);
     }
 
@@ -190,8 +208,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     public void aiAct(float delta) {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.run(mRayCastV1, mRayCastV2);
-        if (fixture != null) {
+        Racer racer = mClosestRacerFinder.find(mRayCastV1, mRayCastV2);
+        if (racer != null) {
             mRacer.triggerBonus();
         }
     }

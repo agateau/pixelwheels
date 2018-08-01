@@ -39,7 +39,7 @@ public class ClosestFixtureFinderTests {
     public void testEmpty() {
         World world = createWorld();
         ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
-        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(1, 0));
+        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(1, 0));
 
         assertNull(fixture);
     }
@@ -50,10 +50,10 @@ public class ClosestFixtureFinderTests {
         ClosestFixtureFinder finder = new ClosestFixtureFinder(world);
         Body body = createSquareBody(world, 1, 1);
 
-        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(1, 0));
+        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(1, 0));
         assertNull(fixture);
 
-        fixture = finder.run(new Vector2(0, 0), new Vector2(2, 2));
+        fixture = finder.find(new Vector2(0, 0), new Vector2(2, 2));
         assertEquals(body.getFixtureList().first(), fixture);
     }
 
@@ -64,7 +64,7 @@ public class ClosestFixtureFinderTests {
         Body closestBody = createSquareBody(world, 1, 1);
         createSquareBody(world, 3, 3);
 
-        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(4, 4));
+        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(4, 4));
         assertEquals(closestBody.getFixtureList().first(), fixture);
     }
 
@@ -82,7 +82,7 @@ public class ClosestFixtureFinderTests {
             }
         });
 
-        Fixture fixture = finder.run(new Vector2(0, 0), new Vector2(4, 4));
+        Fixture fixture = finder.find(new Vector2(0, 0), new Vector2(4, 4));
         assertEquals(acceptedBody.getFixtureList().first(), fixture);
     }
 

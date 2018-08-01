@@ -44,7 +44,7 @@ public class ClosestFixtureFinder implements RayCastCallback {
         mFixtureFilter = fixtureFilter;
     }
 
-    public Fixture run(Vector2 v1, Vector2 v2) {
+    public Fixture find(Vector2 v1, Vector2 v2) {
         mFixture = null;
         mWorld.rayCast(this, v1, v2);
         return mFixture;

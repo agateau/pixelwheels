@@ -115,7 +115,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     public void aiAct(float delta) {
         mRayCastV1.set(mRacer.getX(), mRacer.getY());
         mRayCastV2.set(AI_RAYCAST_LENGTH, 0).rotate(mRacer.getVehicle().getAngle()).add(mRayCastV1);
-        Fixture fixture = mClosestFixtureFinder.run(mRayCastV1, mRayCastV2);
+        Fixture fixture = mClosestFixtureFinder.find(mRayCastV1, mRayCastV2);
         if (fixture == null) {
             return;
         }
