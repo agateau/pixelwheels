@@ -201,8 +201,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private void explode() {
         NLog.d("");
         Vector2 pos = mBody.getPosition();
-        AnimationObject obj = AnimationObject.create(mAssets.impact, pos.x, pos.y);
-        obj.initAudio(mAudioManager, mAssets.soundAtlas.get("impact"));
+        AnimationObject obj = mAssets.createExplosion(mAudioManager, pos.x, pos.y);
         mGameWorld.addGameObject(obj);
         setFinished(true);
     }
