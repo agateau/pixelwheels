@@ -91,6 +91,9 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void aiAct(float delta) {
+        if (mMissile.hasTarget()) {
+            trigger();
+        }
     }
 
     private void resetBonus() {

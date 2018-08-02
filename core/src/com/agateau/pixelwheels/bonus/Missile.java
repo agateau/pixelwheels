@@ -148,6 +148,10 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         return object;
     }
 
+    public boolean hasTarget() {
+        return mTarget != null;
+    }
+
     private void initJoint() {
         Vehicle vehicle = mShooter.getVehicle();
         Body vehicleBody = vehicle.getBody();
