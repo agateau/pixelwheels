@@ -46,6 +46,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     private final Pool mPool;
 
     private boolean mTriggered;
+    private boolean mOwnerHit;
 
     public MissileBonus(Pool pool) {
         mPool = pool;
@@ -55,6 +56,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void reset() {
         mTriggered = false;
+        mOwnerHit = false;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public void onOwnerHit() {
-        mTriggered = true;
+        mOwnerHit = true;
     }
 
     @Override
@@ -82,6 +84,9 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     public void act(float delta) {
         if (mTriggered) {
             mMissile.shoot();
+            resetBonus();
+        }
+        if (mOwnerHit) {
             resetBonus();
         }
     }
