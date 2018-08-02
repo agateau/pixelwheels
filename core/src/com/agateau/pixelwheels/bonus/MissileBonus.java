@@ -20,10 +20,8 @@ package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.GameWorld;
-import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.sound.AudioManager;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 
@@ -78,7 +76,6 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void trigger() {
         mTriggered = true;
-        DebugShapeMap.remove(this);
     }
 
     @Override
@@ -97,7 +94,6 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     private void resetBonus() {
-        NLog.d("");
         mPool.free(this);
         mRacer.resetBonus();
     }
