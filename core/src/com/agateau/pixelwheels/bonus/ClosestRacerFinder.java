@@ -33,11 +33,8 @@ public class ClosestRacerFinder {
 
         @Override
         public boolean acceptBody(Body body) {
-            if (mIgnoredRacer != null && body == mIgnoredRacer.getVehicle().getBody()) {
-                return false;
-            }
             Object userData = body.getUserData();
-            return userData instanceof Racer;
+            return userData instanceof Racer && userData != mIgnoredRacer;
         }
     }
 
