@@ -85,7 +85,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
             renderer.setColor(1, 0, 0, 1);
 
             Vector2 origin = mBody.getWorldCenter();
-            float angle = mBody.getAngle();
+            float angle = mBody.getAngle() * MathUtils.radDeg;
             renderer.line(origin, mRacerFinder.getLeftVertex(origin, angle));
             renderer.line(origin, mRacerFinder.getRightVertex(origin, angle));
             renderer.end();
@@ -208,7 +208,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private void findTarget() {
         Racer oldTarget = mTarget;
-        mTarget = mRacerFinder.find(mBody.getWorldCenter(), mBody.getAngle());
+        mTarget = mRacerFinder.find(mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
         if (oldTarget != mTarget) {
             NLog.d("target changed: %s => %s", oldTarget, mTarget);
         }
