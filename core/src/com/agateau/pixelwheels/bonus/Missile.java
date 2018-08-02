@@ -37,12 +37,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
@@ -54,8 +54,8 @@ import com.badlogic.gdx.utils.ReflectionPool;
 public class Missile extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Missile> sPool = new ReflectionPool<Missile>(Missile.class);
 
-    private static final float X_RADIUS = 0.2f;
-    private static final float Y_RADIUS = 0.8f;
+    private static final float WIDTH = 32;
+    private static final float HEIGHT = 6;
     private static final float FORCE = 160;
     private static final float DURATION = 3;
 
@@ -67,8 +67,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     // Init-once fields
     private final BodyDef mBodyDef = new BodyDef();
-    private final CircleShape mShape = new CircleShape();
     private final WeldJointDef mJointDef = new WeldJointDef();
+    private final PolygonShape mShape = new PolygonShape();
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
 
     // Init-at-pool-reuse fields
@@ -87,7 +87,9 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     public Missile() {
         mBodyDef.type = BodyDef.BodyType.DynamicBody;
         mBodyDef.bullet = true;
-        mShape.setRadius(Y_RADIUS);
+        mShape.setAsBox(
+                WIDTH * Constants.UNIT_FOR_PIXEL / 2,
+                HEIGHT * Constants.UNIT_FOR_PIXEL / 2);
     }
 
     public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
