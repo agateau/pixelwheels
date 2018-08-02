@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.bonus;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
@@ -33,6 +34,7 @@ import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -59,6 +61,9 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private static final float FORCE = 160;
     private static final float DURATION = 3;
 
+    private static final float LOCK_DISTANCE = 20;
+    private static final float LOCK_ARC = 90;
+
     enum Status {
         WAITING,
         SHOT,
@@ -70,12 +75,27 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private final WeldJointDef mJointDef = new WeldJointDef();
     private final PolygonShape mShape = new PolygonShape();
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+    private ClosestRacerFinder mRacerFinder;
+    private Assets mAssets;
+
+    private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
+        @Override
+        public void draw(ShapeRenderer renderer) {
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(1, 0, 0, 1);
+
+            Vector2 origin = mBody.getWorldCenter();
+            float angle = mBody.getAngle();
+            renderer.line(origin, mRacerFinder.getLeftVertex(origin, angle));
+            renderer.line(origin, mRacerFinder.getRightVertex(origin, angle));
+            renderer.end();
+        }
+    };
 
     // Init-at-pool-reuse fields
-    private Assets mAssets;
-    private Racer mShooter;
     private GameWorld mGameWorld;
     private AudioManager mAudioManager;
+    private Racer mShooter;
     private Body mBody;
 
     // Moving fields
@@ -83,6 +103,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private Joint mJoint;
     private Status mStatus;
     private boolean mNeedShootSound;
+    private Racer mTarget;
 
     public Missile() {
         mBodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -95,28 +116,35 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
         NLog.d("");
         Missile object = sPool.obtain();
-        object.mAssets = assets;
+        if (object.mRacerFinder == null) {
+            object.mRacerFinder = new ClosestRacerFinder(gameWorld.getBox2DWorld(), LOCK_DISTANCE, LOCK_ARC);
+            object.mAssets = assets;
+        }
+
         object.mGameWorld = gameWorld;
-        Vehicle vehicle = shooter.getVehicle();
-        object.mShooter = shooter;
         object.mAudioManager = audioManager;
         object.setFinished(false);
+        object.mRacerFinder.setIgnoredRacer(shooter);
+        Vehicle vehicle = shooter.getVehicle();
+        object.mShooter = shooter;
         object.mBodyDef.position.set(vehicle.getX(), vehicle.getY());
         object.mBodyDef.angle = vehicle.getAngle() * MathUtils.degRad;
 
         object.mBody = gameWorld.getBox2DWorld().createBody(object.mBodyDef);
         object.mBody.createFixture(object.mShape, 0.00001f);
         object.mBody.setUserData(object);
-
-        object.mStatus = Status.WAITING;
-        object.mNeedShootSound = false;
-
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
                 CollisionCategories.WALL | CollisionCategories.RACER);
 
+        object.mStatus = Status.WAITING;
+        object.mNeedShootSound = false;
+        object.mTarget = null;
+        object.initJoint();
+
         gameWorld.addGameObject(object);
 
-        object.initJoint();
+        DebugShapeMap.put(object, object.mDebugShape);
+
         return object;
     }
 
@@ -146,6 +174,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         resetJoint();
         mGameWorld.getBox2DWorld().destroyBody(mBody);
         mBody = null;
+        DebugShapeMap.remove(this);
     }
 
     private void resetJoint() {
@@ -162,6 +191,9 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     @Override
     public void act(float delta) {
+        if (mStatus != Status.LOCKED) {
+            findTarget();
+        }
         if (mStatus == Status.WAITING) {
             return;
         }
@@ -171,6 +203,14 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         mRemainingTime -= delta;
         if (mRemainingTime < 0) {
             explode();
+        }
+    }
+
+    private void findTarget() {
+        Racer oldTarget = mTarget;
+        mTarget = mRacerFinder.find(mBody.getWorldCenter(), mBody.getAngle());
+        if (oldTarget != mTarget) {
+            NLog.d("target changed: %s => %s", oldTarget, mTarget);
         }
     }
 
