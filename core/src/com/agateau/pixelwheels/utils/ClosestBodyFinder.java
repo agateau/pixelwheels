@@ -56,6 +56,7 @@ public class ClosestBodyFinder implements RayCastCallback {
     public void setBodyFilter(BodyFilter bodyFilter) {
         mBodyFilter = bodyFilter;
     }
+
     public Body find(Vector2 origin, float angle) {
         mFraction = 1;
         mBody = null;
