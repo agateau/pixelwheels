@@ -191,15 +191,44 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     @Override
     public void act(float delta) {
-        if (mStatus != Status.LOCKED) {
-            findTarget();
+        switch (mStatus) {
+            case WAITING:
+                actWaiting();
+                break;
+            case SHOT:
+                actShot(delta);
+                break;
+            case LOCKED:
+                actLocked(delta);
+                break;
         }
-        if (mStatus == Status.WAITING) {
-            return;
+    }
+
+    private void actWaiting() {
+        findTarget();
+    }
+
+    private void actShot(float delta) {
+        findTarget();
+        if (mTarget != null) {
+            mStatus = Status.LOCKED;
         }
+        move();
+        consumeTime(delta);
+    }
+
+    private void actLocked(float delta) {
+        move();
+        consumeTime(delta);
+    }
+
+    private void move() {
         mBody.applyForce(
                 FORCE * MathUtils.cos(mBody.getAngle()), FORCE * MathUtils.sin(mBody.getAngle()),
                 mBody.getWorldCenter().x, mBody.getWorldCenter().y, true);
+    }
+
+    private void consumeTime(float delta) {
         mRemainingTime -= delta;
         if (mRemainingTime < 0) {
             explode();
