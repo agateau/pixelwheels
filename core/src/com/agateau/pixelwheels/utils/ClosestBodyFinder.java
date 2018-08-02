@@ -28,7 +28,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * An helper class to find the closest body using a raycast
  */
 public class ClosestBodyFinder implements RayCastCallback {
-    private static final float ANGLE_INTERVAL = 3;
+    private static final float ANGLE_BETWEEN_RAYS = 3;
     private final World mWorld;
     private final float mDepth;
     private final float mArc;
@@ -60,7 +60,7 @@ public class ClosestBodyFinder implements RayCastCallback {
     public Body find(Vector2 origin, float angle) {
         mFraction = 1;
         mBody = null;
-        for (float a = angle - mArc / 2; a <= angle + mArc / 2; a += ANGLE_INTERVAL) {
+        for (float a = angle - mArc / 2; a <= angle + mArc / 2; a += ANGLE_BETWEEN_RAYS) {
             mTmp.set(mDepth, 0).rotate(a).add(origin);
             mWorld.rayCast(this, origin, mTmp);
         }
@@ -68,12 +68,12 @@ public class ClosestBodyFinder implements RayCastCallback {
     }
 
     public Vector2 getLeftVertex(Vector2 origin, float angle) {
-        mTmp.set(mDepth, 0).rotate(angle - mArc / 2).add(origin);
+        mTmp.set(mDepth, 0).rotate(angle + mArc / 2).add(origin);
         return mTmp;
     }
 
     public Vector2 getRightVertex(Vector2 origin, float angle) {
-        mTmp.set(mDepth, 0).rotate(angle + mArc / 2).add(origin);
+        mTmp.set(mDepth, 0).rotate(angle - mArc / 2).add(origin);
         return mTmp;
     }
 
