@@ -45,6 +45,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
@@ -75,7 +76,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private final WeldJointDef mJointDef = new WeldJointDef();
     private final PolygonShape mShape = new PolygonShape();
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
-    private ClosestRacerFinder mRacerFinder;
+    private final ClosestRacerFinder mRacerFinder = new ClosestRacerFinder(LOCK_DISTANCE, LOCK_ARC);
     private Assets mAssets;
 
     private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
@@ -116,11 +117,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
         NLog.d("");
         Missile object = sPool.obtain();
-        if (object.mRacerFinder == null) {
-            object.mRacerFinder = new ClosestRacerFinder(gameWorld.getBox2DWorld(), LOCK_DISTANCE, LOCK_ARC);
-            object.mAssets = assets;
-        }
-
+        object.mAssets = assets;
         object.mGameWorld = gameWorld;
         object.mAudioManager = audioManager;
         object.setFinished(false);
@@ -241,7 +238,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private void findTarget() {
         Racer oldTarget = mTarget;
-        mTarget = mRacerFinder.find(mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
+        World world = mGameWorld.getBox2DWorld();
+        mTarget = mRacerFinder.find(world, mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
         if (oldTarget != mTarget) {
             NLog.d("target changed: %s => %s", oldTarget, mTarget);
         }

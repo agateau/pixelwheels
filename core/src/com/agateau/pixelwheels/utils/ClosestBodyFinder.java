@@ -26,10 +26,11 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * An helper class to find the closest body using a raycast
+ *
+ * World is not passed to the constructor to make it easier for the class to be used in a poolable object
  */
 public class ClosestBodyFinder implements RayCastCallback {
     private static final float ANGLE_BETWEEN_RAYS = 3;
-    private final World mWorld;
     private final float mDepth;
     private final float mArc;
     private BodyFilter mBodyFilter = null;
@@ -43,12 +44,11 @@ public class ClosestBodyFinder implements RayCastCallback {
         boolean acceptBody(Body body);
     }
 
-    public ClosestBodyFinder(World world, float depth) {
-        this(world, depth, 0);
+    public ClosestBodyFinder(float depth) {
+        this(depth, 0);
     }
 
-    public ClosestBodyFinder(World world, float depth, float arc) {
-        mWorld = world;
+    public ClosestBodyFinder(float depth, float arc) {
         mDepth = depth;
         mArc = arc;
     }
@@ -57,12 +57,12 @@ public class ClosestBodyFinder implements RayCastCallback {
         mBodyFilter = bodyFilter;
     }
 
-    public Body find(Vector2 origin, float angle) {
+    public Body find(World world, Vector2 origin, float angle) {
         mFraction = 1;
         mBody = null;
         for (float a = angle - mArc / 2; a <= angle + mArc / 2; a += ANGLE_BETWEEN_RAYS) {
             mTmp.set(mDepth, 0).rotate(a).add(origin);
-            mWorld.rayCast(this, origin, mTmp);
+            world.rayCast(this, origin, mTmp);
         }
         return mBody;
     }

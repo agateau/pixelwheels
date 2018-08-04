@@ -37,8 +37,8 @@ public class ClosestBodyFinderTests {
     @Test
     public void testEmpty() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(world, 1);
-        Body body = finder.find(new Vector2(0, 0), 45f);
+        ClosestBodyFinder finder = new ClosestBodyFinder(1);
+        Body body = finder.find(world, new Vector2(0, 0), 45f);
 
         assertNull(body);
     }
@@ -46,31 +46,31 @@ public class ClosestBodyFinderTests {
     @Test
     public void testOneFixture() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
+        ClosestBodyFinder finder = new ClosestBodyFinder(10);
         Body target = createSquareBody(world, 1, 1);
 
-        Body found = finder.find(new Vector2(0, 0), 90);
+        Body found = finder.find(world, new Vector2(0, 0), 90);
         assertNull(found);
 
-        found = finder.find(new Vector2(0, 0), 45);
+        found = finder.find(world, new Vector2(0, 0), 45);
         assertEquals(target, found);
     }
 
     @Test
     public void testTwoFixtures() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
+        ClosestBodyFinder finder = new ClosestBodyFinder(10);
         Body closestBody = createSquareBody(world, 1, 1);
         createSquareBody(world, 3, 3);
 
-        Body found = finder.find(new Vector2(0, 0), 45f);
+        Body found = finder.find(world, new Vector2(0, 0), 45f);
         assertEquals(closestBody, found);
     }
 
     @Test
     public void testFilter() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10);
+        ClosestBodyFinder finder = new ClosestBodyFinder(10);
         final Body ignoredBody = createSquareBody(world, 1, 1);
         Body acceptedBody = createSquareBody(world, 3, 3);
 
@@ -81,18 +81,18 @@ public class ClosestBodyFinderTests {
             }
         });
 
-        Body found = finder.find(new Vector2(0, 0), 45);
+        Body found = finder.find(world, new Vector2(0, 0), 45);
         assertEquals(acceptedBody, found);
     }
 
     @Test
     public void testArc() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(world, 10, 90);
+        ClosestBodyFinder finder = new ClosestBodyFinder(10, 90);
         Body closestBody = createSquareBody(world, 0, 1);
         createSquareBody(world, 3, 0);
 
-        Body found = finder.find(new Vector2(0, 0), 45f);
+        Body found = finder.find(world, new Vector2(0, 0), 45f);
         assertEquals(closestBody, found);
     }
 

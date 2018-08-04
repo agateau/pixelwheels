@@ -38,12 +38,12 @@ public class ClosestRacerFinder {
         }
     }
 
-    public ClosestRacerFinder(World world, float depth) {
-        this(world, depth, 0);
+    public ClosestRacerFinder(float depth) {
+        this(depth, 0);
     }
 
-    public ClosestRacerFinder(World world, float depth, float arc) {
-        mBodyFinder = new ClosestBodyFinder(world, depth, arc);
+    public ClosestRacerFinder(float depth, float arc) {
+        mBodyFinder = new ClosestBodyFinder(depth, arc);
         mBodyFinder.setBodyFilter(mFilter);
     }
 
@@ -51,8 +51,8 @@ public class ClosestRacerFinder {
         mFilter.mIgnoredRacer = ignoredRacer;
     }
 
-    public Racer find(Vector2 origin, float angle) {
-        Body body = mBodyFinder.find(origin, angle);
+    public Racer find(World world, Vector2 origin, float angle) {
+        Body body = mBodyFinder.find(world, origin, angle);
         if (body == null) {
             return null;
         } else {

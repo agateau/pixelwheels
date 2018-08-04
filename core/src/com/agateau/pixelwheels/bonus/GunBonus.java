@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 
 /**
@@ -56,13 +57,12 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     private final Pool mPool;
+    private final ClosestRacerFinder mClosestRacerFinder = new ClosestRacerFinder(AI_RAYCAST_LENGTH);
 
     private boolean mTriggered;
     private float mAnimationTime;
     private float mDelayForNextShot;
     private int mRemainingShots;
-
-    private final ClosestRacerFinder mClosestRacerFinder;
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
@@ -101,9 +101,6 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     public GunBonus(Pool pool) {
         mPool = pool;
-        mClosestRacerFinder = new ClosestRacerFinder(
-                pool.getGameWorld().getBox2DWorld(),
-                AI_RAYCAST_LENGTH);
         reset();
     }
 
@@ -170,7 +167,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void aiAct(float delta) {
         mRayCastOrigin.set(mRacer.getX(), mRacer.getY());
-        Racer racer = mClosestRacerFinder.find(mRayCastOrigin, mRacer.getVehicle().getAngle());
+        World world = mPool.getGameWorld().getBox2DWorld();
+        Racer racer = mClosestRacerFinder.find(world, mRayCastOrigin, mRacer.getVehicle().getAngle());
         if (racer != null) {
             mRacer.triggerBonus();
         }
