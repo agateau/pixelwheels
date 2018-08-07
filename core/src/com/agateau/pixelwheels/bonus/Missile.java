@@ -33,6 +33,7 @@ import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -100,7 +101,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private Body mBody;
 
     // Moving fields
-    private float mRemainingTime;
+    private float mTime;
     private Joint mJoint;
     private Status mStatus;
     private boolean mNeedShootSound;
@@ -167,7 +168,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         mBody.setAngularVelocity(0);
         mBody.setLinearVelocity(0, 0);
         mStatus = Status.SHOT;
-        mRemainingTime = DURATION;
+        mTime = 0;
         mNeedShootSound = true;
     }
 
@@ -226,8 +227,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     private void consumeTime(float delta) {
-        mRemainingTime -= delta;
-        if (mRemainingTime < 0) {
+        mTime += delta;
+        if (mTime >= DURATION) {
             explode();
         }
     }
@@ -239,10 +240,32 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     @Override
     public void draw(Batch batch, int zIndex) {
-        if (zIndex == Constants.Z_FLYING) {
-            mDrawer.setBatch(batch);
-            mDrawer.draw(mBody, mAssets.missile);
+        if (zIndex != Constants.Z_FLYING) {
+            return;
         }
+        mDrawer.setBatch(batch);
+        mDrawer.draw(mBody, mAssets.missile);
+        if (mStatus != Status.WAITING) {
+            drawReactorFire(batch);
+        }
+    }
+
+    private void drawReactorFire(Batch batch) {
+        TextureRegion region = mAssets.turboFlame.getKeyFrame(mTime, true);
+        Vector2 center = mBody.getPosition();
+        float angle = mBody.getAngle();
+        float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+        float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+        float refH = Constants.UNIT_FOR_PIXEL * -WIDTH / 2;
+        float x = center.x + refH * MathUtils.cos(angle);
+        float y = center.y + refH * MathUtils.sin(angle);
+        batch.draw(region,
+                x - w / 2, y - h, // pos
+                w / 2, h, // origin
+                w, h, // size
+                1, 1, // scale
+                angle * MathUtils.radDeg - 90);
+
     }
 
     @Override
