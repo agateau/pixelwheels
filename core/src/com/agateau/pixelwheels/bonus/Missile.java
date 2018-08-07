@@ -32,7 +32,6 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -116,7 +115,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
-        NLog.d("");
         Missile object = sPool.obtain();
         object.mAssets = assets;
         object.mGameWorld = gameWorld;
@@ -163,7 +161,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     public void shoot() {
-        NLog.d("");
         resetJoint();
         mBody.getFixtureList().first().setDensity(1);
         mBody.resetMassData();
@@ -235,12 +232,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     private void findTarget() {
-        Racer oldTarget = mTarget;
         World world = mGameWorld.getBox2DWorld();
         mTarget = mRacerFinder.find(world, mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
-        if (oldTarget != mTarget) {
-            NLog.d("target changed: %s => %s", oldTarget, mTarget);
-        }
     }
 
     @Override
@@ -274,7 +267,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     private void explode() {
-        NLog.d("");
         Vector2 pos = mBody.getPosition();
         AnimationObject obj = mAssets.createExplosion(mAudioManager, pos.x, pos.y);
         mGameWorld.addGameObject(obj);
