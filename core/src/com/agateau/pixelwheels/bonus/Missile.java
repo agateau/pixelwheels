@@ -269,6 +269,10 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         return mBody.getPosition().y;
     }
 
+    public void remove() {
+        setFinished(true);
+    }
+
     private void explode() {
         NLog.d("");
         Vector2 pos = mBody.getPosition();

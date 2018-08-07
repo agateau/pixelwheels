@@ -87,6 +87,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
             resetBonus();
         }
         if (mOwnerHit) {
+            mMissile.remove();
             resetBonus();
         }
     }
