@@ -173,7 +173,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     @Override
     public void reset() {
-        resetJoint();
+        // Do not reset the joint here: it crashes for some reason.
+        // The joint is deleted when the body is destroyed anyway.
         mGameWorld.getBox2DWorld().destroyBody(mBody);
         mBody = null;
         DebugShapeMap.remove(this);
