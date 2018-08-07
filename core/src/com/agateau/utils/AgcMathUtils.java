@@ -35,6 +35,13 @@ public class AgcMathUtils {
         return angle % 360;
     }
 
+    public static float normalizeAngleRad(float angle) {
+        while (angle < 0) {
+            angle += MathUtils.PI2;
+        }
+        return angle % MathUtils.PI2;
+    }
+
     /**
      * Wrap angles so that they are between -180 and 180
      */
@@ -42,6 +49,14 @@ public class AgcMathUtils {
         angle = normalizeAngle(angle);
         if (angle > 180) {
             angle -= 360;
+        }
+        return angle;
+    }
+
+    public static float normalizeAnglePiRad(float angle) {
+        angle = normalizeAngleRad(angle);
+        if (angle > MathUtils.PI) {
+            angle -= MathUtils.PI2;
         }
         return angle;
     }

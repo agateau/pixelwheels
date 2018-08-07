@@ -59,11 +59,11 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private static final float WIDTH = 32;
     private static final float HEIGHT = 6;
-    private static final float FORCE = 160;
+    private static final float FORCE = 200;
     private static final float DURATION = 3;
 
-    private static final float LOCK_DISTANCE = 20;
-    private static final float LOCK_ARC = 90;
+    private static final float LOCK_DISTANCE = 40;
+    private static final float LOCK_ARC = 170;
 
     enum Status {
         WAITING,
@@ -77,6 +77,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private final PolygonShape mShape = new PolygonShape();
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
     private final ClosestRacerFinder mRacerFinder = new ClosestRacerFinder(LOCK_DISTANCE, LOCK_ARC);
+    private final MissileGuidingSystem mGuidingSystem = new MissileGuidingSystem();
     private Assets mAssets;
 
     private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
@@ -138,6 +139,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         object.mTarget = null;
         object.initJoint();
 
+        object.mGuidingSystem.init(object.mBody, FORCE);
+
         gameWorld.addGameObject(object);
 
         DebugShapeMap.put(object, object.mDebugShape);
@@ -165,6 +168,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         mBody.getFixtureList().first().setDensity(1);
         mBody.resetMassData();
         mBody.setAngularVelocity(0);
+        mBody.setLinearVelocity(0, 0);
         mStatus = Status.SHOT;
         mRemainingTime = DURATION;
         mNeedShootSound = true;
@@ -214,19 +218,13 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         if (mTarget != null) {
             mStatus = Status.LOCKED;
         }
-        move();
+        mGuidingSystem.act(null);
         consumeTime(delta);
     }
 
     private void actLocked(float delta) {
-        move();
+        mGuidingSystem.act(mTarget.getPosition());
         consumeTime(delta);
-    }
-
-    private void move() {
-        mBody.applyForce(
-                FORCE * MathUtils.cos(mBody.getAngle()), FORCE * MathUtils.sin(mBody.getAngle()),
-                mBody.getWorldCenter().x, mBody.getWorldCenter().y, true);
     }
 
     private void consumeTime(float delta) {
