@@ -6,6 +6,9 @@ FINAL_OUT_DIR ?= ../../android/assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
+# Path to aseprite or libresprite
+ASEPRITE ?= aseprite
+
 all: hud anims stills vehicles tiles helicopter ui
 
 clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui
@@ -16,7 +19,7 @@ hud: $(OUT_DIR)/sprites/hud-pause.png
 
 $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
-	aseprite --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
+	$(ASEPRITE) --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
 		--filename-format '{path}/hud-{layer}.{extension}' --save-as sprites/hud/whatever.png
 	sprites/hud/hud.py $(OUT_DIR)/sprites
 
@@ -27,7 +30,7 @@ stills: $(OUT_STILL_IMAGES)
 
 $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
 	mkdir -p $(OUT_DIR)/sprites
-	aseprite --batch $< --save-as $@
+	$(ASEPRITE) --batch $< --save-as $@
 
 clean-stills:
 	rm -f $(OUT_STILL_IMAGES)
@@ -43,14 +46,14 @@ clean-anims:
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
-	aseprite --batch $< --filename-format '{path}/{title}_{frame}.{extension}' --save-as $(patsubst %_0.png,%.png,$@)
+	$(ASEPRITE) --batch $< --filename-format '{path}/{title}_{frame}.{extension}' --save-as $(patsubst %_0.png,%.png,$@)
 
 #- Helicopter -----------------------------------------------------------------
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png
 
 $(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
 	mkdir -p $(OUT_DIR)/sprites
-	aseprite --batch --split-layers --trim $< --filename-format '{path}/helicopter-{layer}.{extension}' --save-as $@
+	$(ASEPRITE) --batch --split-layers --trim $< --filename-format '{path}/helicopter-{layer}.{extension}' --save-as $@
 
 clean-helicopter:
 	rm -f $(OUT_DIR)/sprites/helicopter-*.png
@@ -64,7 +67,7 @@ vehicles: $(OUT_VEHICLE_IMAGES)
 $(OUT_DIR)/sprites/vehicles/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	aseprite --batch $< --save-as $(TMP_PNG)
+	$(ASEPRITE) --batch $< --save-as $(TMP_PNG)
 	convert -rotate 90 $(TMP_PNG) $@
 	rm $(TMP_PNG)
 
@@ -80,7 +83,7 @@ tiles: $(OUT_TILE_IMAGES)
 $(FINAL_OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	mkdir -p $(FINAL_OUT_DIR)/maps
-	aseprite --batch $< --save-as $(TMP_PNG)
+	$(ASEPRITE) --batch $< --save-as $(TMP_PNG)
 	convert -alpha set -channel RGBA \
 		-fill '#22203460' -opaque '#ff00ff' \
 		-fill '#ffffff20' -opaque '#00ffff' \
@@ -98,7 +101,7 @@ ui: $(OUT_UI_IMAGES)
 
 $(OUT_DIR)/ui/%.png: ui/%.ase
 	mkdir -p $(OUT_DIR)/ui
-	aseprite --batch $< --save-as $@
+	$(ASEPRITE) --batch $< --save-as $@
 
 clean-ui:
 	rm -f $(OUT_UI_IMAGES)

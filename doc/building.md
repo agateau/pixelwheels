@@ -6,9 +6,9 @@ Building Pixel Wheels requires the following components:
 
 - A JDK
 - libgdx: <https://libgdx.badlogicgames.com>
-- pafx: <https://github.com/agateau/pafx>
-- aseprite: <https://aseprite.org>
-- imagemagick: <http://imagemagick.org>
+- PAFX: <https://github.com/agateau/pafx>
+- Aseprite: <https://aseprite.org> (or LibreSprite <https://github.com/LibreSprite/LibreSprite>)
+- ImageMagick: <http://imagemagick.org>
 - GNU Make: <http://www.gnu.org/software/make/>
 
 ## Assets
@@ -16,6 +16,11 @@ Building Pixel Wheels requires the following components:
 Some assets must be generated from work files with:
 
     make assets
+
+If you want to use LibreSprite instead of Aseprite, generate the assets with
+this command instead:
+
+    make assets ASEPRITE=/path/to/libresprite
 
 ## Map screenshots
 
