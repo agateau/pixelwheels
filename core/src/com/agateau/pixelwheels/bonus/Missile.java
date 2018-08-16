@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -64,6 +65,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private static final float LOCK_DISTANCE = 40;
     private static final float LOCK_ARC = 170;
+    private static final Color TARGETED_COLOR = new Color(1, 1, 1, 0.7f);
+    private static final Color LOCKED_COLOR = new Color(1, 0.3f, 0.3f, 0.9f);
 
     enum Status {
         WAITING,
@@ -242,12 +245,25 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_FLYING) {
             drawMissile(batch);
+            drawTarget(batch);
             if (mStatus != Status.WAITING) {
                 drawReactorFire(batch);
             }
         } else if (zIndex == Constants.Z_SHADOWS && mStatus != Status.WAITING) {
             drawShadow(batch);
         }
+    }
+
+    private void drawTarget(Batch batch) {
+        if (mTarget == null) {
+            return;
+        }
+        batch.setColor(mStatus == Status.LOCKED ? LOCKED_COLOR : TARGETED_COLOR);
+        TextureRegion region = mAssets.target;
+        float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+        float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+        batch.draw(region, mTarget.getX() - w / 2, mTarget.getY() - h / 2, w, h);
+        batch.setColor(Color.WHITE);
     }
 
     private void drawMissile(Batch batch) {
