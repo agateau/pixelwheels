@@ -34,69 +34,91 @@ import static com.agateau.pixelwheels.Constants.UNIT_FOR_PIXEL;
 import static com.agateau.pixelwheels.GameWorld.BOX2D_TIME_STEP;
 import static com.agateau.pixelwheels.GameWorld.POSITION_ITERATIONS;
 import static com.agateau.pixelwheels.GameWorld.VELOCITY_ITERATIONS;
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class MissileGuidingSystemTests {
     private static final float MISSILE_WIDTH = 32 * UNIT_FOR_PIXEL;
     private static final float MISSILE_HEIGHT = 6 * UNIT_FOR_PIXEL;
+    private static final long MAX_DURATION_MILLIS = 2000;
+
+    interface WorldCallback {
+        void act();
+        boolean isDone();
+    }
+
+    private void iterate(World world, WorldCallback callback) {
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() - start < MAX_DURATION_MILLIS) {
+            world.step(BOX2D_TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+            callback.act();
+            if (callback.isDone()) {
+                return;
+            }
+        }
+        Assert.fail("Took too long");
+    }
 
     @Test
     public void noTarget() {
         World world = createWorld();
-        Body body = createMissileBody(world, 0, 0);
-        Vector2 end = new Vector2(10 * UNIT_FOR_PIXEL, 0);
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 end = new Vector2(10 * UNIT_FOR_PIXEL, 0);
 
-        MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body, 100);
 
-        long start = System.currentTimeMillis();
-        while (!hasBodyReachedPoint(body, end)) {
-            if (System.currentTimeMillis() - start > 100) {
-                Assert.fail("Took too long");
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                guidingSystem.act(null);
             }
-            world.step(BOX2D_TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            guidingSystem.act(null);
-        }
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, end);
+            }
+        });
         assertEquals(0f, body.getAngle());
     }
 
     @Test
     public void hitTargetInFrontOfMissile() {
         World world = createWorld();
-        Body body = createMissileBody(world, 0, 0);
-        Vector2 target = new Vector2(10 * UNIT_FOR_PIXEL, 0);
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 target = new Vector2(10 * UNIT_FOR_PIXEL, 0);
 
-        MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body, 100);
-        assertTrue(iterate(guidingSystem, world, body, target, 2000));
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                guidingSystem.act(target);
+            }
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, target);
+            }
+        });
     }
 
     @Test
     public void hitStillTarget() {
         World world = createWorld();
-        Body body = createMissileBody(world, 0, 0);
-        Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, 80 * UNIT_FOR_PIXEL);
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, 80 * UNIT_FOR_PIXEL);
 
-        MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body, 10);
-        assertTrue(iterate(guidingSystem, world, body, target, 2000));
-    }
-
-    private boolean iterate(MissileGuidingSystem guidingSystem, World world, Body body, Vector2 target, long maxDuration) {
-        long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < maxDuration) {
-            world.step(BOX2D_TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            guidingSystem.act(target);
-            if (hasBodyReachedPoint(body, target)) {
-                return true;
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                guidingSystem.act(target);
             }
-            if (body.getPosition().x > target.x) {
-                break;
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, target);
             }
-        }
-        return false;
+        });
     }
 
     private boolean hasBodyReachedPoint(Body body, Vector2 target) {
