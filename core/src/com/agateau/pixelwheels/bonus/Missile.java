@@ -240,14 +240,19 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     @Override
     public void draw(Batch batch, int zIndex) {
-        if (zIndex != Constants.Z_FLYING) {
-            return;
+        if (zIndex == Constants.Z_FLYING) {
+            drawMissile(batch);
+            if (mStatus != Status.WAITING) {
+                drawReactorFire(batch);
+            }
+        } else if (zIndex == Constants.Z_SHADOWS && mStatus != Status.WAITING) {
+            drawShadow(batch);
         }
+    }
+
+    private void drawMissile(Batch batch) {
         mDrawer.setBatch(batch);
         mDrawer.draw(mBody, mAssets.missile);
-        if (mStatus != Status.WAITING) {
-            drawReactorFire(batch);
-        }
     }
 
     private void drawReactorFire(Batch batch) {
@@ -265,7 +270,11 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
                 w, h, // size
                 1, 1, // scale
                 angle * MathUtils.radDeg - 90);
+    }
 
+    private void drawShadow(Batch batch) {
+        mDrawer.setBatch(batch);
+        mDrawer.drawShadow(mBody, mAssets.missile);
     }
 
     @Override
