@@ -102,10 +102,30 @@ public class MissileGuidingSystemTests {
     }
 
     @Test
-    public void hitStillTarget() {
+    public void hitStillTargetAbove() {
         World world = createWorld();
         final Body body = createMissileBody(world, 0, 0);
         final Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, 80 * UNIT_FOR_PIXEL);
+
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        guidingSystem.init(body, 10);
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                guidingSystem.act(target);
+            }
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, target);
+            }
+        });
+    }
+
+    @Test
+    public void hitStillTargetBelow() {
+        World world = createWorld();
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, -80 * UNIT_FOR_PIXEL);
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body, 10);
