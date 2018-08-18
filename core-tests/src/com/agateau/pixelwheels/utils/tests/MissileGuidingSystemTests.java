@@ -40,7 +40,7 @@ import static junit.framework.Assert.assertEquals;
 public class MissileGuidingSystemTests {
     private static final float MISSILE_WIDTH = 32 * UNIT_FOR_PIXEL;
     private static final float MISSILE_HEIGHT = 6 * UNIT_FOR_PIXEL;
-    private static final long MAX_DURATION_MILLIS = 2000;
+    private static final long MAX_DURATION_MILLIS = 200;
 
     interface WorldCallback {
         void act();
@@ -63,14 +63,16 @@ public class MissileGuidingSystemTests {
     public void noTarget() {
         World world = createWorld();
         final Body body = createMissileBody(world, 0, 0);
-        final Vector2 end = new Vector2(10 * UNIT_FOR_PIXEL, 0);
+        final Vector2 end = new Vector2(100 * UNIT_FOR_PIXEL, 0);
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
-        guidingSystem.init(body, 100);
+        guidingSystem.init(body);
 
         iterate(world, new WorldCallback() {
             @Override
             public void act() {
+                float velocity = body.getLinearVelocity().len();
+                Assert.assertTrue(velocity <= MissileGuidingSystem.MAX_SPEED);
                 guidingSystem.act(null);
             }
             @Override
@@ -85,10 +87,30 @@ public class MissileGuidingSystemTests {
     public void hitTargetInFrontOfMissile() {
         World world = createWorld();
         final Body body = createMissileBody(world, 0, 0);
-        final Vector2 target = new Vector2(10 * UNIT_FOR_PIXEL, 0);
+        final Vector2 target = new Vector2(200 * UNIT_FOR_PIXEL, 0);
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
-        guidingSystem.init(body, 100);
+        guidingSystem.init(body);
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                guidingSystem.act(target);
+            }
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, target);
+            }
+        });
+    }
+
+    @Test
+    public void hitTargetBehind() {
+        World world = createWorld();
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 target = new Vector2(-200 * UNIT_FOR_PIXEL, 0);
+
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        guidingSystem.init(body);
         iterate(world, new WorldCallback() {
             @Override
             public void act() {
@@ -105,10 +127,10 @@ public class MissileGuidingSystemTests {
     public void hitStillTargetAbove() {
         World world = createWorld();
         final Body body = createMissileBody(world, 0, 0);
-        final Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, 80 * UNIT_FOR_PIXEL);
+        final Vector2 target = new Vector2(200 * UNIT_FOR_PIXEL, 40 * UNIT_FOR_PIXEL);
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
-        guidingSystem.init(body, 10);
+        guidingSystem.init(body);
         iterate(world, new WorldCallback() {
             @Override
             public void act() {
@@ -125,10 +147,10 @@ public class MissileGuidingSystemTests {
     public void hitStillTargetBelow() {
         World world = createWorld();
         final Body body = createMissileBody(world, 0, 0);
-        final Vector2 target = new Vector2(400 * UNIT_FOR_PIXEL, -80 * UNIT_FOR_PIXEL);
+        final Vector2 target = new Vector2(200 * UNIT_FOR_PIXEL, -80 * UNIT_FOR_PIXEL);
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
-        guidingSystem.init(body, 10);
+        guidingSystem.init(body);
         iterate(world, new WorldCallback() {
             @Override
             public void act() {

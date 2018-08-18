@@ -60,7 +60,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private static final float WIDTH = 32;
     private static final float HEIGHT = 6;
-    private static final float FORCE = 200;
     private static final float DURATION = 3;
 
     private static final float LOCK_DISTANCE = 40;
@@ -143,7 +142,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         object.mTarget = null;
         object.initJoint();
 
-        object.mGuidingSystem.init(object.mBody, FORCE);
+        object.mGuidingSystem.init(object.mBody);
 
         gameWorld.addGameObject(object);
 
