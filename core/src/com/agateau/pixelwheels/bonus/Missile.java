@@ -65,6 +65,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private static final float LOCK_DISTANCE = 40;
     private static final float LOCK_ARC = 170;
+    private static final float WAITING_DENSITY = 0.0000001f;
+    private static final float SHOT_DENSITY = 0.0001f;
     private static final Color TARGETED_COLOR = new Color(1, 1, 1, 0.7f);
     private static final Color LOCKED_COLOR = new Color(1, 0.3f, 0.3f, 0.9f);
 
@@ -131,7 +133,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         object.mBodyDef.angle = vehicle.getAngle() * MathUtils.degRad;
 
         object.mBody = gameWorld.getBox2DWorld().createBody(object.mBodyDef);
-        object.mBody.createFixture(object.mShape, 0.00001f);
+        object.mBody.createFixture(object.mShape, WAITING_DENSITY);
         object.mBody.setUserData(object);
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
                 CollisionCategories.WALL | CollisionCategories.RACER);
@@ -166,7 +168,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     public void shoot() {
         resetJoint();
-        mBody.getFixtureList().first().setDensity(1);
+        mBody.getFixtureList().first().setDensity(SHOT_DENSITY);
         mBody.resetMassData();
         mBody.setAngularVelocity(0);
         mStatus = Status.SHOT;
