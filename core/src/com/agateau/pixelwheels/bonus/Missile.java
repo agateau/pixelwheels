@@ -169,7 +169,6 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         mBody.getFixtureList().first().setDensity(1);
         mBody.resetMassData();
         mBody.setAngularVelocity(0);
-        mBody.setLinearVelocity(0, 0);
         mStatus = Status.SHOT;
         mTime = 0;
         mNeedShootSound = true;
