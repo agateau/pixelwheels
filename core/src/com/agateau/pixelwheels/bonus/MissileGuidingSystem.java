@@ -18,19 +18,16 @@
  */
 package com.agateau.pixelwheels.bonus;
 
+import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.AgcMathUtils;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class MissileGuidingSystem {
-    private static final float MAX_ROTATION = 30f * MathUtils.degRad;
+    private static final float MAX_ROTATION = 5f * MathUtils.degRad;
+    public static float MAX_SPEED = 160 * AgcMathUtils.kmhToMs;
     private Body mBody;
-
-    public static float MAX_SPEED = 150 / 3.6f;
-
-    private static final float FORCE = 3;
 
     public void init(Body body) {
         mBody = body;
@@ -41,6 +38,7 @@ public class MissileGuidingSystem {
         if (target == null) {
             return;
         }
+
         float angle = computeAngle(target);
         mBody.setTransform(mBody.getWorldCenter(), angle);
     }
@@ -64,8 +62,15 @@ public class MissileGuidingSystem {
     }
 
     private void move() {
-        float k = 1 - Interpolation.pow2Out.apply(mBody.getLinearVelocity().len() / MAX_SPEED);
-        mTmp.set(k * FORCE, 0).rotateRad(mBody.getAngle());
-        mBody.applyForce(mTmp, mBody.getWorldCenter(), true);
+        Vector2 velocity = mBody.getLinearVelocity();
+        float speed = velocity.len();
+
+        float delta = MAX_SPEED - speed;
+        float impulse = delta * mBody.getMass();
+        mTmp.set(impulse, 0).rotateRad(mBody.getAngle());
+        mBody.applyLinearImpulse(mTmp, mBody.getWorldCenter(), true);
+
+        Vector2 latImpulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass());
+        mBody.applyLinearImpulse(latImpulse, mBody.getWorldCenter(), true);
     }
 }
