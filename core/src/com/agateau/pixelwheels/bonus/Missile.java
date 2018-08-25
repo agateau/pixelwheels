@@ -63,7 +63,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private static final float DURATION = 3;
 
     private static final float LOCK_DISTANCE = 40;
-    private static final float LOCK_ARC = 170;
+    private static final float LOCK_ARC = 120;
     private static final float WAITING_DENSITY = 0.0000001f;
     private static final float SHOT_DENSITY = 0.0001f;
     private static final Color TARGETED_COLOR = new Color(1, 1, 1, 0.7f);
