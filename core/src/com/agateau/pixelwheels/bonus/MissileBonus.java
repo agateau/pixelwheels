@@ -19,10 +19,17 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.Renderer;
 import com.agateau.pixelwheels.racer.Racer;
+import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool;
 
 /**
@@ -48,6 +55,27 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     private boolean mTriggered;
     private boolean mOwnerHit;
 
+    private final Renderer mBonusRenderer = new Renderer() {
+        @Override
+        public void draw(Batch batch, int zIndex) {
+            TextureRegion region = mPool.getAssets().missileLaunchpad;
+            Vehicle vehicle = mRacer.getVehicle();
+            Body body = vehicle.getBody();
+            Vector2 center = body.getPosition();
+            float angle = body.getAngle() * MathUtils.radiansToDegrees;
+            float x = center.x;
+            float y = center.y;
+            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+            batch.draw(region,
+                    x - w / 2, y - h / 2, // pos
+                    w / 2, h / 2, // origin
+                    w, h, // size
+                    1, 1, // scale
+                    angle);
+        }
+    };
+
     public MissileBonus(Pool pool) {
         mPool = pool;
         reset();
@@ -67,6 +95,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
+        mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);
         mMissile = Missile.create(mPool.getAssets(), mPool.getGameWorld(), mPool.getAudioManager(), mRacer);
     }
 
@@ -100,6 +129,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     private void resetBonus() {
+        mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
         mPool.free(this);
         mRacer.resetBonus();
     }

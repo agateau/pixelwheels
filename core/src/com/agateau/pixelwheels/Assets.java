@@ -70,6 +70,7 @@ public class Assets {
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
     public final TextureRegion missile;
+    public final TextureAtlas.AtlasRegion missileLaunchpad;
     public final TextureRegion target;
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
@@ -105,6 +106,7 @@ public class Assets {
         this.skidmark = findRegion("skidmark");
 
         this.missile = findRegion("missile");
+        this.missileLaunchpad = findRegion("missile-launchpad");
         this.target = findRegion("target");
 
         this.helicopterBody = this.findRegion("helicopter-body");
