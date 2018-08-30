@@ -244,13 +244,13 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     @Override
     public void draw(Batch batch, int zIndex) {
         if (zIndex == Constants.Z_FLYING) {
+            // Draw the shadow at Z_FLYING so that the shadow is drawn *over* its vehicle
+            drawShadow(batch);
             drawMissile(batch);
             drawTarget(batch);
             if (mStatus != Status.WAITING) {
                 drawReactorFire(batch);
             }
-        } else if (zIndex == Constants.Z_SHADOWS && mStatus != Status.WAITING) {
-            drawShadow(batch);
         }
     }
 
