@@ -59,7 +59,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private static final ReflectionPool<Missile> sPool = new ReflectionPool<Missile>(Missile.class);
 
     private static final float WIDTH = 32;
-    private static final float HEIGHT = 6;
+    private static final float HEIGHT = 13;
     private static final float DURATION = 3;
 
     private static final float LOCK_DISTANCE = 40;
