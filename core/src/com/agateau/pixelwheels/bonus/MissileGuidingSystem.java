@@ -57,7 +57,7 @@ public class MissileGuidingSystem {
         mTmp.set(target).sub(mBody.getWorldCenter());
         float bodyAngle = AgcMathUtils.normalizeAnglePiRad(mBody.getAngle());
         float desiredAngle = AgcMathUtils.normalizeAnglePiRad(mTmp.angleRad());
-        float delta = desiredAngle - bodyAngle;
+        float delta = AgcMathUtils.normalizeAnglePiRad(desiredAngle - bodyAngle);
         return bodyAngle + MathUtils.clamp(delta, -MAX_ROTATION, MAX_ROTATION);
     }
 
