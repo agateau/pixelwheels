@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.racescreen.Collidable;
@@ -84,7 +85,7 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
 
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.RACER);
+                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.EXPLOSABLE);
         return object;
     }
 
@@ -169,6 +170,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         explode();
         if (other instanceof Racer) {
             ((Racer)other).spin();
+        } else if (other instanceof Explosable) {
+            ((Explosable)other).explode();
         }
     }
 

@@ -24,7 +24,6 @@ import com.agateau.pixelwheels.bonus.GunBonus;
 import com.agateau.pixelwheels.bonus.MineBonus;
 import com.agateau.pixelwheels.bonus.MissileBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
@@ -292,7 +291,7 @@ public class GameWorld implements ContactListener, Disposable {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER
-                            | CollisionCategories.FLAT_OBJECT
+                            | CollisionCategories.EXPLOSABLE
                             | CollisionCategories.RACER_BULLET);
             Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
         }

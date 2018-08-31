@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
+import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
@@ -55,7 +56,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A player bullet
  */
-public class Missile extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
+public class Missile extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
     private static final ReflectionPool<Missile> sPool = new ReflectionPool<Missile>(Missile.class);
 
     private static final float WIDTH = 44;
@@ -135,7 +136,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         object.mBody.createFixture(object.mShape, WAITING_DENSITY);
         object.mBody.setUserData(object);
         Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.RACER);
+                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.EXPLOSABLE);
 
         object.mStatus = Status.WAITING;
         object.mNeedShootSound = false;
@@ -315,7 +316,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         setFinished(true);
     }
 
-    private void explode() {
+    @Override
+    public void explode() {
         Vector2 pos = mBody.getPosition();
         AnimationObject obj = mAssets.createExplosion(mAudioManager, pos.x, pos.y);
         mGameWorld.addGameObject(obj);
@@ -348,6 +350,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         explode();
         if (other instanceof Racer) {
             ((Racer)other).spin();
+        } else if (other instanceof Explosable) {
+            ((Explosable)other).explode();
         }
     }
 
