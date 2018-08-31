@@ -163,6 +163,27 @@ public class MissileGuidingSystemTests {
         });
     }
 
+    @Test
+    public void hitMovingTarget() {
+        World world = createWorld();
+        final Body body = createMissileBody(world, 0, 0);
+        final Vector2 target = new Vector2(200 * UNIT_FOR_PIXEL, 20 * UNIT_FOR_PIXEL);
+
+        final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
+        guidingSystem.init(body);
+        iterate(world, new WorldCallback() {
+            @Override
+            public void act() {
+                target.y += 4 * UNIT_FOR_PIXEL;
+                guidingSystem.act(target);
+            }
+            @Override
+            public boolean isDone() {
+                return hasBodyReachedPoint(body, target);
+            }
+        });
+    }
+
     private boolean hasBodyReachedPoint(Body body, Vector2 target) {
         return body.getFixtureList().first().testPoint(target);
     }
