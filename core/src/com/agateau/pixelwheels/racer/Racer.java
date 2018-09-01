@@ -31,6 +31,7 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -204,16 +205,24 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
+    /**
+     * Simplifies collisions between vehicles to make the game easier to play:
+     * bump them but do not change their direction
+     */
+    private Vector2 mTmp = new Vector2();
     private void applySimplifiedRacerCollision(Racer other) {
         Body body1 = getVehicle().getBody();
         Body body2 = other.getVehicle().getBody();
-        float x1 = body1.getWorldCenter().x;
-        float y1 = body1.getWorldCenter().y;
-        float x2 = body2.getWorldCenter().x;
-        float y2 = body2.getWorldCenter().y;
-        final float k = 4;
-        body1.applyLinearImpulse(k * (x1 - x2), k * (y1 - y2), x1, y1, true);
-        body2.applyLinearImpulse(k * (x2 - x1), k * (y2 - y1), x2, y2, true);
+
+        mTmp.set(body2.getLinearVelocity()).sub(body1.getLinearVelocity());
+        float deltaV = mTmp.len();
+
+        final float k = GamePlay.instance.simplifiedCollisionKFactor * MathUtils.clamp(deltaV / GamePlay.instance.simplifiedCollisionMaxDeltaV, 0, 1);
+        mTmp.set(body2.getWorldCenter()).sub(body1.getWorldCenter()).nor().scl(k);
+
+        body2.applyLinearImpulse(mTmp, body2.getWorldCenter(), true);
+        mTmp.scl(-1);
+        body1.applyLinearImpulse(mTmp, body1.getWorldCenter(), true);
     }
 
     @Override
