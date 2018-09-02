@@ -31,6 +31,7 @@ import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.Color;
@@ -69,6 +70,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private static final float SHOT_DENSITY = 0.0001f;
     private static final Color TARGETED_COLOR = new Color(1, 1, 1, 0.7f);
     private static final Color LOCKED_COLOR = new Color(1, 0.3f, 0.3f, 0.9f);
+    private SoundPlayer mSoundPlayer;
 
     enum Status {
         WAITING,
@@ -297,7 +299,10 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     @Override
     public void audioRender(AudioClipper clipper) {
         if (mNeedShootSound) {
-            mAudioManager.play(mAssets.soundAtlas.get("missile"), clipper.clip(this));
+            mSoundPlayer = mAudioManager.createSoundPlayer(mAssets.soundAtlas.get("missile"));
+            mSoundPlayer.setVolume(clipper.clip(this));
+            mSoundPlayer.play();
+
             mNeedShootSound = false;
         }
     }
@@ -321,6 +326,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         Vector2 pos = mBody.getPosition();
         AnimationObject obj = mAssets.createExplosion(mAudioManager, pos.x, pos.y);
         mGameWorld.addGameObject(obj);
+        mSoundPlayer.stop();
         setFinished(true);
     }
 
