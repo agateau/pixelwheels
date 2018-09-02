@@ -297,7 +297,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     @Override
     public void audioRender(AudioClipper clipper) {
         if (mNeedShootSound) {
-            mAudioManager.play(mAssets.soundAtlas.get("shoot"), clipper.clip(this));
+            mAudioManager.play(mAssets.soundAtlas.get("missile"), clipper.clip(this));
             mNeedShootSound = false;
         }
     }
