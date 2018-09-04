@@ -196,21 +196,24 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mAudioComponent.onCollision();
         if (other instanceof Racer) {
             contact.setEnabled(false);
-            Racer racer2 = (Racer)other;
-            Body body1 = getVehicle().getBody();
-            Body body2 = racer2.getVehicle().getBody();
-            float x1 = body1.getWorldCenter().x;
-            float y1 = body1.getWorldCenter().y;
-            float x2 = body2.getWorldCenter().x;
-            float y2 = body2.getWorldCenter().y;
-            final float k = 4;
-            body1.applyLinearImpulse(k * (x1 - x2), k * (y1 - y2), x1, y1, true);
-            body2.applyLinearImpulse(k * (x2 - x1), k * (y2 - y1), x2, y2, true);
+            applySimplifiedRacerCollision((Racer) other);
         }
 
         for (Collidable collidable : mCollidableComponents) {
             collidable.preSolve(contact, otherFixture, oldManifold);
         }
+    }
+
+    private void applySimplifiedRacerCollision(Racer other) {
+        Body body1 = getVehicle().getBody();
+        Body body2 = other.getVehicle().getBody();
+        float x1 = body1.getWorldCenter().x;
+        float y1 = body1.getWorldCenter().y;
+        float x2 = body2.getWorldCenter().x;
+        float y2 = body2.getWorldCenter().y;
+        final float k = 4;
+        body1.applyLinearImpulse(k * (x1 - x2), k * (y1 - y2), x1, y1, true);
+        body2.applyLinearImpulse(k * (x2 - x1), k * (y2 - y1), x2, y2, true);
     }
 
     @Override
