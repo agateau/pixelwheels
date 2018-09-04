@@ -18,11 +18,14 @@
  */
 package com.agateau.pixelwheels.gameobjet;
 
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * An adapter for the GameObject interface
  */
 public abstract class GameObjectAdapter implements GameObject {
     private boolean mIsFinished = false;
+    private final Vector2 mPosition = new Vector2();
 
     @Override
     public boolean isFinished() {
@@ -31,6 +34,12 @@ public abstract class GameObjectAdapter implements GameObject {
 
     @Override
     public void audioRender(AudioClipper audioClipper) {
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        mPosition.set(getX(), getY());
+        return mPosition;
     }
 
     protected void setFinished(boolean value) {

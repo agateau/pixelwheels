@@ -86,7 +86,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mVehicle.setCollisionInfo(CollisionCategories.RACER,
                 CollisionCategories.WALL
                 | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
-                | CollisionCategories.FLAT_OBJECT);
+                | CollisionCategories.EXPLOSABLE);
 
         mEntrant = entrant;
 

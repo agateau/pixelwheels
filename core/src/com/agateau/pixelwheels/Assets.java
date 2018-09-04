@@ -69,6 +69,8 @@ public class Assets {
     public final Animation gunAnimation;
     public final TextureRegion bullet;
     public final TextureRegion skidmark;
+    public final TextureRegion missile;
+    public final TextureRegion target;
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
@@ -102,6 +104,9 @@ public class Assets {
 
         this.skidmark = findRegion("skidmark");
 
+        this.missile = findRegion("missile");
+        this.target = findRegion("target");
+
         this.helicopterBody = this.findRegion("helicopter-body");
         this.helicopterPropeller = this.findRegion("helicopter-propeller");
         this.helicopterPropellerTop = this.findRegion("helicopter-propeller-top");
@@ -125,6 +130,7 @@ public class Assets {
         this.soundAtlas.load("turbo.wav");
         this.soundAtlas.load("impact.wav", "collision");
         this.soundAtlas.load("helicopter.wav");
+        this.soundAtlas.load("missile.wav");
     }
 
     private void initChampionships() {

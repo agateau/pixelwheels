@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.gameobjet;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * A generic game object
@@ -31,9 +32,14 @@ public interface GameObject {
      * If the object implements Disposable, GameWorld will take care of calling dispose() on it.
      */
     boolean isFinished();
+
     void draw(Batch batch, int zIndex);
+
     float getX();
+
     float getY();
+
+    Vector2 getPosition();
 
     void audioRender(AudioClipper audioClipper);
 }

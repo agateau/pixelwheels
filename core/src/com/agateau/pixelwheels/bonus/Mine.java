@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.racescreen.Collidable;
@@ -48,7 +49,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 /**
  * A mine on the road
  */
-public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
+public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;
@@ -89,9 +90,9 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mine.mBody.setUserData(mine);
         mine.mBody.setType(BodyDef.BodyType.DynamicBody);
 
-        Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.FLAT_OBJECT,
+        Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.EXPLOSABLE,
                 CollisionCategories.WALL | CollisionCategories.RACER
-                | CollisionCategories.FLAT_OBJECT);
+                | CollisionCategories.RACER_BULLET);
 
         gameWorld.addGameObject(mine);
 
@@ -161,7 +162,8 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         return mBody.getPosition().y;
     }
 
-    private void explode() {
+    @Override
+    public void explode() {
         if (mJoint != null) {
             mOwner.resetBonus();
         }

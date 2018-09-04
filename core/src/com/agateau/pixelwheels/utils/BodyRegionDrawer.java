@@ -37,6 +37,8 @@ public class BodyRegionDrawer {
     private Batch mBatch;
     private float mZ = 0;
     private float mScale = 1;
+    private float mOffsetX = 0;
+    private float mOffsetY = 0;
 
     public void setBatch(Batch batch) {
         mBatch = batch;
@@ -64,11 +66,16 @@ public class BodyRegionDrawer {
         mScale = scale;
     }
 
+    public void setOffset(float x, float y) {
+        mOffsetX = x;
+        mOffsetY = y;
+    }
+
     public void draw(Body body, TextureRegion region) {
         Vector2 center = body.getPosition();
-        float angle = body.getAngle() * MathUtils.radiansToDegrees;
-        float x = center.x;
-        float y = center.y;
+        float angle = body.getAngle();
+        float x = center.x + mOffsetX * MathUtils.cos(angle) - mOffsetY * MathUtils.sin(angle);
+        float y = center.y + mOffsetX * MathUtils.sin(angle) + mOffsetY * MathUtils.cos(angle);
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         mBatch.draw(region,
@@ -76,7 +83,7 @@ public class BodyRegionDrawer {
                 w / 2, h / 2, // origin
                 w, h, // size
                 mScale, mScale,
-                angle);
+                angle * MathUtils.radDeg);
     }
 
     public void drawShadow(Body body, TextureRegion region) {

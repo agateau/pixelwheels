@@ -35,7 +35,7 @@ The [build instructions][build] should have you covered.
 ## License
 
 - The game logic is licensed under GPL 3.0 or later. This is all the code in
-  [core/src/com/agateau/tinywheels](core/src/com/agateau/tinywheels).
+  [core/src/com/agateau/pixelwheels](core/src/com/agateau/pixelwheels).
 - The rest of the code is licensed under Apache 2.0.
 - Assets are licensed under Creative Commons BY-SA 4.0.
 

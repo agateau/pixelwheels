@@ -22,8 +22,8 @@ import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.bonus.BonusSpot;
 import com.agateau.pixelwheels.bonus.GunBonus;
 import com.agateau.pixelwheels.bonus.MineBonus;
+import com.agateau.pixelwheels.bonus.MissileBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
@@ -67,8 +67,8 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public static final float BOX2D_TIME_STEP = 1f/60f;
-    private static final int VELOCITY_ITERATIONS = 6;
-    private static final int POSITION_ITERATIONS = 2;
+    public static final int VELOCITY_ITERATIONS = 6;
+    public static final int POSITION_ITERATIONS = 2;
 
     private final PwGame mGame;
     private Track mTrack;
@@ -291,7 +291,7 @@ public class GameWorld implements ContactListener, Disposable {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
             Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
                     CollisionCategories.RACER
-                            | CollisionCategories.FLAT_OBJECT
+                            | CollisionCategories.EXPLOSABLE
                             | CollisionCategories.RACER_BULLET);
             Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
         }
@@ -308,6 +308,7 @@ public class GameWorld implements ContactListener, Disposable {
         mBonusPools.add(new GunBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
         mBonusPools.add(new MineBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
         mBonusPools.add(new TurboBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
+        mBonusPools.add(new MissileBonus.Pool(mGame.getAssets(), this, mGame.getAudioManager()));
     }
 
     @Override
