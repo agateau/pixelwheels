@@ -38,6 +38,8 @@ public class GamePlay {
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
     public int borderRestitution = 1;
+    public float simplifiedCollisionMaxDeltaV = 0.4f;
+    public float simplifiedCollisionKFactor = 4;
 
     public int viewportWidth = 60;
 
