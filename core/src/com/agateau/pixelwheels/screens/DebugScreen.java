@@ -82,7 +82,7 @@ public class DebugScreen extends PwStageScreen {
         addRange("Max driving force", "maxDrivingForce", 10, 200, 10);
         addRange("Max speed", "maxSpeed", 10, 400, 10);
         addTitle("Turbo");
-        addRange("Strength", "turboStrength", 10, 800, 20);
+        addRange("Strength", "turboStrength", 10, 800, 10);
         addRange("Duration", "turboDuration", 0.1f, 2f);
         mCurrentGroup = tabMenuItem.addPage("Vehicle");
         addRange("Wheel stickiness", "maxLateralImpulse", 1, 40);
