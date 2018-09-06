@@ -25,7 +25,7 @@ public class GamePlay {
     public int racerCount = 6;
     public int maxDrivingForce = 50;
     public int lowSpeed = 20;
-    public int maxSpeed = 300;
+    public int maxSpeed = 270;
     public int maxLateralImpulse = 2;
     public int maxSkidmarks = 60;
 
@@ -43,8 +43,8 @@ public class GamePlay {
 
     public int viewportWidth = 60;
 
-    public int turboStrength = 300;
-    public float turboDuration = 0.9f;
+    public int turboStrength = 200;
+    public float turboDuration = 0.5f;
 
     // When an AI is better ranked than a player, set its max speed to this percent of the best max speed
     public float aiSpeedLimiter = 0.8f;
