@@ -22,6 +22,7 @@ import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Scaling;
@@ -46,5 +47,10 @@ public abstract class PwStageScreen extends StageScreen {
     @Override
     public boolean isBackKeyPressed() {
         return UiInputMapper.getInstance().isKeyJustPressed(VirtualKey.BACK);
+    }
+
+    public static float getUnitsPerPixel() {
+        return Math.max((float)(PwStageScreen.WIDTH) / Gdx.graphics.getWidth(),
+                (float)(PwStageScreen.HEIGHT) / Gdx.graphics.getHeight());
     }
 }

@@ -19,7 +19,9 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,7 +30,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Hud showing player info during race
  */
 public class Hud {
-    private final static float BUTTON_SIZE_CM = 1.4f;
+    private final static float BUTTON_SIZE_INCH = 3f / 2.54f; // 3 cm
+    // See Android doc for DisplayMetrics.density
+    private final static float DIP_DPI = 160;
 
     private final float BUTTON_SIZE_PX;
 
@@ -38,7 +42,7 @@ public class Hud {
     public Hud(Assets assets, Stage stage) {
         mRoot = new AnchorGroup();
 
-        BUTTON_SIZE_PX = assets.findRegion("hud-pause").getRegionWidth();
+        BUTTON_SIZE_PX = assets.findRegion("hud-right").getRegionWidth();
         stage.addActor(mRoot);
     }
 
@@ -57,8 +61,10 @@ public class Hud {
     }
 
     private void updateZoom() {
-        float ppc = (Gdx.graphics.getPpcX() + Gdx.graphics.getPpcY()) / 2;
-        float pxSize = BUTTON_SIZE_CM * ppc;
-        mZoom = MathUtils.floor(Math.max(pxSize / BUTTON_SIZE_PX, 1));
+        float pxSize = BUTTON_SIZE_INCH * DIP_DPI * Gdx.graphics.getDensity();
+        float upp = PwStageScreen.getUnitsPerPixel();
+
+        // Multiply by upp to compensate for the viewport scaling set in RaceScreen.resize()
+        mZoom = Math.max(pxSize / BUTTON_SIZE_PX * upp, 1);
     }
 }

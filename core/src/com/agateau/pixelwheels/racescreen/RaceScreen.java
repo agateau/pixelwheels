@@ -220,7 +220,7 @@ public class RaceScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        float upp = Math.max((float)(PwStageScreen.WIDTH) / width, (float)(PwStageScreen.HEIGHT) / height);
+        float upp = PwStageScreen.getUnitsPerPixel();
         mHudViewport.setUnitsPerPixel(upp);
         int viewportWidth = width / mGameRenderers.size;
         int x = 0;
