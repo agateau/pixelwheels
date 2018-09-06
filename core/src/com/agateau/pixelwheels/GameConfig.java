@@ -62,7 +62,7 @@ public class GameConfig {
     }
 
     private void load() {
-        rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN, true);
+        rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN, false);
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
