@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.bonus;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
@@ -245,8 +246,8 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
-        if (zIndex == Constants.Z_FLYING) {
+    public void draw(Batch batch, ZLevel zLevel) {
+        if (zLevel == ZLevel.FLYING) {
             // Draw the shadow at Z_FLYING so that the shadow is drawn *over* its vehicle
             drawShadow(batch);
             drawMissile(batch);

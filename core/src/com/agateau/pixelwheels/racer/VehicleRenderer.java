@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.Renderer;
@@ -60,11 +61,11 @@ public class VehicleRenderer implements Renderer {
     private final Color mBatchColor = new Color();
 
     @Override
-    public void draw(Batch batch, int zIndex) {
+    public void draw(Batch batch, ZLevel zLevel) {
         mBodyRegionDrawer.setBatch(batch);
         mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
         mTime += Gdx.app.getGraphics().getDeltaTime();
-        if (zIndex == Constants.Z_GROUND) {
+        if (zLevel == ZLevel.GROUND) {
             for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
             }
@@ -81,8 +82,8 @@ public class VehicleRenderer implements Renderer {
             return;
         }
 
-        int wantedZIndex = mVehicle.isFlying() ? Constants.Z_FLYING : Constants.Z_VEHICLES;
-        if (zIndex != wantedZIndex) {
+        ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING : ZLevel.VEHICLES;
+        if (zLevel != wantedZIndex) {
             return;
         }
 
@@ -106,7 +107,7 @@ public class VehicleRenderer implements Renderer {
         }
 
         for (Renderer renderer : mRenderers) {
-            renderer.draw(batch, zIndex);
+            renderer.draw(batch, zLevel);
         }
 
         if (mVehicle.isFalling()) {

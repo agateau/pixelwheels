@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.gameobjet;
 
+import com.agateau.pixelwheels.ZLevel;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -33,7 +34,7 @@ public interface GameObject {
      */
     boolean isFinished();
 
-    void draw(Batch batch, int zIndex);
+    void draw(Batch batch, ZLevel zLevel);
 
     float getX();
 

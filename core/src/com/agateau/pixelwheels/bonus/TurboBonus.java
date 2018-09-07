@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.Renderer;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
@@ -55,7 +56,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
-        public void draw(Batch batch, int zIndex) {
+        public void draw(Batch batch, ZLevel zLevel) {
             TextureRegion region = mPool.getAssets().turbo.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();

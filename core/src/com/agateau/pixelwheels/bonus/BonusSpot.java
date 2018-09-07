@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
@@ -89,14 +90,14 @@ public class BonusSpot extends GameObjectAdapter {
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
+    public void draw(Batch batch, ZLevel zLevel) {
         if (!mBody.isActive()) {
             return;
         }
-        if (zIndex == Constants.Z_GROUND) {
+        if (zLevel == ZLevel.GROUND) {
             mDrawer.setBatch(batch);
             mDrawer.drawShadow(mBody, mRegion);
-        } else if (zIndex == Constants.Z_OBSTACLES) {
+        } else if (zLevel == ZLevel.OBSTACLES) {
             mDrawer.setBatch(batch);
             mDrawer.draw(mBody, mRegion);
         }

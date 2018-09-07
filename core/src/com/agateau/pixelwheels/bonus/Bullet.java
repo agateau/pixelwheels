@@ -19,12 +19,12 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
@@ -115,8 +115,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
-        if (zIndex == Constants.Z_GROUND) {
+    public void draw(Batch batch, ZLevel zLevel) {
+        if (zLevel == ZLevel.GROUND) {
             mDrawer.setBatch(batch);
             mDrawer.draw(mBody, mAssets.bullet);
         }

@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.gameobjet;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -62,11 +63,11 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
+    public void draw(Batch batch, ZLevel zLevel) {
         if (mTime < 0) {
             return;
         }
-        if (zIndex == Constants.Z_OBSTACLES) {
+        if (zLevel == ZLevel.OBSTACLES) {
             TextureRegion region = mAnimation.getKeyFrame(mTime);
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();

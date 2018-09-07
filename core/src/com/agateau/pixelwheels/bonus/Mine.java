@@ -19,12 +19,12 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.racer.Racer;
@@ -136,17 +136,17 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
 
     private BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
     @Override
-    public void draw(Batch batch, int zIndex) {
+    public void draw(Batch batch, ZLevel zLevel) {
         mBodyRegionDrawer.setBatch(batch);
 
-        if (zIndex == Constants.Z_GROUND) {
+        if (zLevel == ZLevel.GROUND) {
             // Smaller shadow if the mine has been dropped
             float z = mJoint == null ? -0.1f : 0f;
             mBodyRegionDrawer.setZ(z);
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.drawShadow(mBody, region);
         }
-        if (zIndex == Constants.Z_VEHICLES) {
+        if (zLevel == ZLevel.VEHICLES) {
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.draw(mBody, region);
         }

@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
@@ -119,12 +120,12 @@ public class GameRenderer {
 
         mGameObjectPerformanceCounter.start();
         mBatch.begin();
-        for (int z = 0; z < Constants.Z_COUNT; ++z) {
+        for (ZLevel z : ZLevel.values()) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z);
             }
 
-            if (z == Constants.Z_OBSTACLES && mForegroundLayerIndexes.length > 0) {
+            if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
                 mGameObjectPerformanceCounter.stop();
                 mTilePerformanceCounter.start();
 

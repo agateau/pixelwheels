@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.map.Track;
@@ -209,14 +210,14 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
-        if (zIndex == Constants.Z_SHADOWS) {
+    public void draw(Batch batch, ZLevel zLevel) {
+        if (zLevel == ZLevel.SHADOWS) {
             Color old = batch.getColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
             float offset = SHADOW_OFFSET * Constants.UNIT_FOR_PIXEL;
             drawFrameBuffer(batch, offset);
             batch.setColor(old);
-        } else if (zIndex == Constants.Z_FLYING) {
+        } else if (zLevel == ZLevel.FLYING) {
             drawFrameBuffer(batch, 0);
         }
     }

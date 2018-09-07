@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
@@ -304,8 +305,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     @Override
-    public void draw(Batch batch, int zIndex) {
-        mVehicleRenderer.draw(batch, zIndex);
+    public void draw(Batch batch, ZLevel zLevel) {
+        mVehicleRenderer.draw(batch, zLevel);
     }
 
     @Override
