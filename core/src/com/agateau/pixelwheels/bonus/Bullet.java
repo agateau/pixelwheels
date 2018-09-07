@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
@@ -41,6 +42,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
@@ -51,7 +53,6 @@ import com.badlogic.gdx.utils.ReflectionPool;
 public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
 
-    private static final float BULLET_RADIUS = 0.8f;
     private static final float IMPULSE = 160;
 
     private Racer mShooter;
@@ -59,7 +60,7 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     private AudioManager mAudioManager;
     private Assets mAssets;
     private BodyDef mBodyDef;
-    private CircleShape mShape;
+    private PolygonShape mShape;
 
     private Body mBody;
     private boolean mJustShot = false;
@@ -95,8 +96,10 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         mBodyDef.type = BodyDef.BodyType.DynamicBody;
         mBodyDef.bullet = true;
 
-        mShape = new CircleShape();
-        mShape.setRadius(BULLET_RADIUS);
+        mShape = new PolygonShape();
+        mShape.setAsBox(
+                assets.bullet.getRegionWidth() * Constants.UNIT_FOR_PIXEL / 2,
+                assets.bullet.getRegionHeight() * Constants.UNIT_FOR_PIXEL / 2);
     }
 
     @Override
