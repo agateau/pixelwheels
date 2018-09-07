@@ -19,12 +19,14 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.pixelwheels.racescreen.PieButton;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -64,24 +66,18 @@ public class TouchInputHandler implements GameInputHandler {
 
     @Override
     public GameInput getGameInput() {
-        mInput.direction = 0;
-        mInput.triggeringBonus = false;
-        mInput.braking = false;
-        mInput.accelerating = true;
-
-        if (mBonusButton.isPressed()) {
-            mInput.triggeringBonus = true;
-        }
+        mInput.braking = mBrakeButton.isPressed();
+        mInput.accelerating = !mInput.braking;
         if (mLeftButton.isPressed()) {
-            mInput.direction = 1;
+            mInput.direction += GamePlay.instance.steeringStep;
+        } else if (mRightButton.isPressed()) {
+            mInput.direction -= GamePlay.instance.steeringStep;
+        } else {
+            mInput.direction = 0;
         }
-        if (mRightButton.isPressed()) {
-            mInput.direction = -1;
-        }
-        if (mBrakeButton.isPressed()) {
-            mInput.accelerating = false;
-            mInput.braking = true;
-        }
+        mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
+        mInput.triggeringBonus = mBonusButton.isPressed();
+
         return mInput;
     }
 
