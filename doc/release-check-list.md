@@ -55,4 +55,3 @@
     - Mastodon
     - Twitter
     - FB
-    - G+
