@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.10.0 - 2018-09-09
+
+### For players
+
+#### Added
+
+- Added a new bonus: the homing missile.
+
+- Enabled gamepad on Android.
+
+#### Changed
+
+- Camera does not rotate to follow the player vehicle anymore by default.  As
+  much as I like this feature, almost every player prefers when the camera does
+  not rotate, so let's change the default.
+  It's still available as an option.
+
+- Redraw all cars and all bonuses using the edg32 color palette from Endesga.
+
+- Adjusted the design of the police car so that the front and rear are easier
+  to distinguish.
+
+- Made touch handler more progressive, similar to the keyboard handler.
+
+- Bonus crates are bigger now, making them easier to grab.
+
+- Turbo and maximum speed have been reduced a bit.
+
+- You can now destroy mines (and missiles!) using the gun. This also means that
+  when you picked a mine bonus but you haven't dropped it yet, it can protect
+  you from one gun bullet or missile.
+
+- Enabled vsync for less tearing.
+
+- Made gamepad buttons configurable.
+
+#### Fixed
+
+- Fixed HUD buttons being huge on hi-dpi devices.
+
+- Made vehicle collision less strange.
+
+- Fixed detection of gamepad horizontal and vertical axis.
+
+### For developers
+
+- It is now possible to use LibreSprite instead of Aseprite to generate the
+  assets, see [building.md](doc/building.md) for details.
+
 ## 0.9.0 - 2018-07-04
 
 ### For players
