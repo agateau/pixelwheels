@@ -32,9 +32,12 @@ import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
+import com.agateau.utils.ScreenshotCreator;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -80,6 +83,15 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         hideMouseCursor();
         setupDisplay();
         showMainMenu();
+    }
+
+    @Override
+    public void render() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            String path = ScreenshotCreator.saveScreenshot();
+            NLog.i("Screenshot saved in %s", path);
+        }
+        super.render();
     }
 
     private void setupConfig() {
