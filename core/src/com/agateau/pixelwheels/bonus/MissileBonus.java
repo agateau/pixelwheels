@@ -18,10 +18,7 @@
  */
 package com.agateau.pixelwheels.bonus;
 
-import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 
@@ -31,25 +28,10 @@ import com.badlogic.gdx.utils.Pool;
 public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     private Missile mMissile;
 
-    public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
-            super(assets, gameWorld, audioManager);
-            setCounts(new float[]{0, 1, 1});
-        }
-
-        @Override
-        protected Bonus newObject() {
-            return new MissileBonus(this);
-        }
-    }
-
-    private final Pool mPool;
-
     private boolean mTriggered;
     private boolean mOwnerHit;
 
-    public MissileBonus(Pool pool) {
-        mPool = pool;
+    public MissileBonus() {
         reset();
     }
 
@@ -61,13 +43,13 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mPool.getAssets().missile;
+        return mAssets.missile;
     }
 
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
-        mMissile = Missile.create(mPool.getAssets(), mPool.getGameWorld(), mPool.getAudioManager(), mRacer);
+        mMissile = Missile.create(mAssets, mGameWorld, mAudioManager, mRacer);
     }
 
     @Override
@@ -100,7 +82,7 @@ public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     private void resetBonus() {
-        mPool.free(this);
+        free();
         mRacer.resetBonus();
     }
 }

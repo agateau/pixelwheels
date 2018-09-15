@@ -21,19 +21,20 @@ package com.agateau.pixelwheels.bonus;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.sound.AudioManager;
-import com.badlogic.gdx.utils.Pool;
 import com.agateau.utils.AgcMathUtils;
+import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * Pool of bonus instances
  */
-public abstract class BonusPool extends Pool<Bonus> {
+public class BonusPool<T extends Bonus> extends ReflectionPool<T> {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final AudioManager mAudioManager;
     private float[] mCounts;
 
-    public BonusPool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+    public BonusPool(Class<T> type, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+        super(type);
         mAssets = assets;
         mGameWorld = gameWorld;
         mAudioManager = audioManager;
@@ -44,7 +45,7 @@ public abstract class BonusPool extends Pool<Bonus> {
      * This is used by getCountForNormalizedRank so the array is a set of values where the lowest is
      * used for normalizedRank == 0 and the highest for normalizedRank == 1
      */
-    void setCounts(float[] counts) {
+    public void setCounts(float[] counts) {
         mCounts = counts;
     }
 
@@ -58,7 +59,7 @@ public abstract class BonusPool extends Pool<Bonus> {
     }
 
     public Assets getAssets() {
-        return mAssets;
+        return null;
     }
 
     public GameWorld getGameWorld() {
@@ -66,6 +67,13 @@ public abstract class BonusPool extends Pool<Bonus> {
     }
 
     public AudioManager getAudioManager() {
-        return mAudioManager;
+        return null;
+    }
+
+    @Override
+    protected T newObject() {
+        T object = super.newObject();
+        object.init(this, mAssets, mGameWorld, mAudioManager);
+        return object;
     }
 }

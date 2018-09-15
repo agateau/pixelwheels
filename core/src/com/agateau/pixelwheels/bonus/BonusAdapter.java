@@ -18,13 +18,35 @@
  */
 package com.agateau.pixelwheels.bonus;
 
+import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
+import com.agateau.pixelwheels.sound.AudioManager;
+import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * An adapter for the Bonus class
  */
 public abstract class BonusAdapter implements Bonus {
     protected Racer mRacer;
+
+    private ReflectionPool mPool;
+    protected Assets mAssets;
+    protected GameWorld mGameWorld;
+    protected AudioManager mAudioManager;
+
+    @Override
+    public void init(ReflectionPool<? extends Bonus> pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+        mPool = pool;
+        mAssets = assets;
+        mGameWorld = gameWorld;
+        mAudioManager = audioManager;
+    }
+
+    protected void free() {
+        //noinspection unchecked
+        mPool.free(this);
+    }
 
     @Override
     public void onPicked(Racer racer) {

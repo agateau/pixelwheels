@@ -18,14 +18,11 @@
  */
 package com.agateau.pixelwheels.bonus;
 
-import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.Renderer;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
-import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -37,27 +34,13 @@ import com.badlogic.gdx.utils.Pool;
  * A turbo bonus
  */
 public class TurboBonus extends BonusAdapter implements Pool.Poolable {
-    public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
-                super(assets, gameWorld, audioManager);
-            setCounts(new float[]{0, 1, 2});
-        }
-
-        @Override
-        protected Bonus newObject() {
-            return new TurboBonus(this);
-        }
-    }
-
-    private final Pool mPool;
-
     private boolean mTriggered = false;
     private float mAnimationTime;
 
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, ZLevel zLevel) {
-            TextureRegion region = mPool.getAssets().turbo.getKeyFrame(mAnimationTime, true);
+            TextureRegion region = mAssets.turbo.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();
             Vector2 center = body.getPosition();
@@ -76,8 +59,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public TurboBonus(Pool pool) {
-        mPool = pool;
+    public TurboBonus() {
         reset();
     }
 
@@ -95,7 +77,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mPool.getAssets().turbo.getKeyFrame(0);
+        return mAssets.turbo.getKeyFrame(0);
     }
 
     @Override
@@ -117,7 +99,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
             return;
         }
         mAnimationTime += delta;
-        if (mAnimationTime > mPool.getAssets().turbo.getAnimationDuration()) {
+        if (mAnimationTime > mAssets.turbo.getAnimationDuration()) {
             resetBonus();
         }
     }
@@ -129,7 +111,7 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
 
     private void resetBonus() {
         mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
-        mPool.free(this);
+        free();
         mRacer.resetBonus();
     }
 }

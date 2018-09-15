@@ -18,10 +18,7 @@
  */
 package com.agateau.pixelwheels.bonus;
 
-import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
@@ -33,27 +30,10 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     private static final float AI_KEEP_BONUS_MIN_TIME = 2f;
     private static final float AI_KEEP_BONUS_MAX_TIME = 5f;
 
-    private final Pool mPool;
     private Mine mMine;
     private boolean mTriggered;
 
     private float mAiKeepTime;
-
-    public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
-            super(assets, gameWorld, audioManager);
-            setCounts(new float[]{2, 1, 0});
-        }
-
-        @Override
-        protected Bonus newObject() {
-            return new MineBonus(this);
-        }
-    }
-
-    public MineBonus(Pool pool) {
-        mPool = pool;
-    }
 
     @Override
     public void reset() {
@@ -62,13 +42,13 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mPool.getAssets().mine.getKeyFrame(0);
+        return mAssets.mine.getKeyFrame(0);
     }
 
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
-        mMine = Mine.create(mPool.getGameWorld(), mPool.getAssets(), mPool.getAudioManager(), mRacer);
+        mMine = Mine.create(mGameWorld, mAssets, mAudioManager, mRacer);
         mAiKeepTime = MathUtils.random(AI_KEEP_BONUS_MIN_TIME, AI_KEEP_BONUS_MAX_TIME);
     }
 
@@ -87,7 +67,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
         if (mTriggered) {
             mRacer.resetBonus();
             mMine.drop();
-            mPool.free(this);
+            free();
         }
     }
 

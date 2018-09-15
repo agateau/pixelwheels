@@ -18,15 +18,12 @@
  */
 package com.agateau.pixelwheels.bonus;
 
-import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.Renderer;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
-import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -45,19 +42,6 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private static final float SPREAD_ANGLE = 5;
     private static final float AI_RAYCAST_LENGTH = 20;
 
-    public static class Pool extends BonusPool {
-        public Pool(Assets assets, GameWorld gameWorld, AudioManager audioManager) {
-            super(assets, gameWorld, audioManager);
-            setCounts(new float[]{0, 1, 1});
-        }
-
-        @Override
-        protected Bonus newObject() {
-            return new GunBonus(this);
-        }
-    }
-
-    private final Pool mPool;
     private final ClosestRacerFinder mClosestRacerFinder = new ClosestRacerFinder(AI_RAYCAST_LENGTH);
 
     private boolean mTriggered;
@@ -68,7 +52,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer = new Renderer() {
         @Override
         public void draw(Batch batch, ZLevel zLevel) {
-            TextureRegion region = mPool.getAssets().gunAnimation.getKeyFrame(mAnimationTime, true);
+            TextureRegion region = mAssets.gunAnimation.getKeyFrame(mAnimationTime, true);
             Vehicle vehicle = mRacer.getVehicle();
             Body body = vehicle.getBody();
             Vector2 center = body.getPosition();
@@ -100,11 +84,6 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
-    public GunBonus(Pool pool) {
-        mPool = pool;
-        reset();
-    }
-
     @Override
     public void reset() {
         mTriggered = false;
@@ -115,7 +94,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     @Override
     public TextureRegion getIconRegion() {
-        return mPool.getAssets().bullet;
+        return mAssets.bullet;
     }
 
     @Override
@@ -153,9 +132,8 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         // Shoot
         Vehicle vehicle = mRacer.getVehicle();
         float angle = vehicle.getAngle() + MathUtils.random(-SPREAD_ANGLE, SPREAD_ANGLE);
-        GameWorld gameWorld = mPool.getGameWorld();
-        Bullet bullet = Bullet.create(mPool.getAssets(), gameWorld, mPool.getAudioManager(), mRacer, vehicle.getX(), vehicle.getY(), angle);
-        gameWorld.addGameObject(bullet);
+        Bullet bullet = Bullet.create(mAssets, mGameWorld, mAudioManager, mRacer, vehicle.getX(), vehicle.getY(), angle);
+        mGameWorld.addGameObject(bullet);
 
         mRemainingShots--;
         if (mRemainingShots == 0) {
@@ -168,7 +146,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void aiAct(float delta) {
         mRayCastOrigin.set(mRacer.getX(), mRacer.getY());
-        World world = mPool.getGameWorld().getBox2DWorld();
+        World world = mGameWorld.getBox2DWorld();
         Racer racer = mClosestRacerFinder.find(world, mRayCastOrigin, mRacer.getVehicle().getAngle());
         if (racer != null) {
             mRacer.triggerBonus();
@@ -177,7 +155,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     private void resetBonus() {
         mRacer.getVehicleRenderer().removeRenderer(mBonusRenderer);
-        mPool.free(this);
+        free();
         mRacer.resetBonus();
     }
 }

@@ -18,13 +18,19 @@
  */
 package com.agateau.pixelwheels.bonus;
 
+import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
+import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
  * A bonus. When the bonus is done, it must call Racer.resetBonus().
  */
 public interface Bonus {
+    void init(ReflectionPool<? extends Bonus> pool, Assets assets, GameWorld gameWorld, AudioManager audioManager);
+
     TextureRegion getIconRegion();
 
     /**

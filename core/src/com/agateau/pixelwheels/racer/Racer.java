@@ -277,7 +277,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             pool = pools.get(pools.size - 1);
         }
 
-        mBonus = pool.obtain();
+        mBonus = (Bonus)pool.obtain();
         mBonus.onPicked(this);
     }
 
