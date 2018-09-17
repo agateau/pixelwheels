@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.racer.Racer;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
 
@@ -38,11 +37,6 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void reset() {
         mTriggered = false;
-    }
-
-    @Override
-    public TextureRegion getIconRegion() {
-        return mAssets.mine.getKeyFrame(0);
     }
 
     @Override

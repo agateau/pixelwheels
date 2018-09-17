@@ -93,11 +93,6 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     @Override
-    public TextureRegion getIconRegion() {
-        return mAssets.bullet;
-    }
-
-    @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
         mRacer.getVehicleRenderer().addRenderer(mBonusRenderer);

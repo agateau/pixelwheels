@@ -22,7 +22,6 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.sound.AudioManager;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ReflectionPool;
 
 /**
@@ -30,8 +29,6 @@ import com.badlogic.gdx.utils.ReflectionPool;
  */
 public interface Bonus {
     void init(ReflectionPool<? extends Bonus> pool, Assets assets, GameWorld gameWorld, AudioManager audioManager);
-
-    TextureRegion getIconRegion();
 
     /**
      * Called when a Racer picked the bonus. Should store the racer parameter for future use, such

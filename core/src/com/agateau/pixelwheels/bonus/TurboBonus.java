@@ -76,11 +76,6 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     }
 
     @Override
-    public TextureRegion getIconRegion() {
-        return mAssets.turbo.getKeyFrame(0);
-    }
-
-    @Override
     public void onOwnerHit() {
         resetBonus();
     }
