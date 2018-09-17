@@ -84,6 +84,10 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
         }
     };
 
+    public GunBonus() {
+        reset();
+    }
+
     @Override
     public void reset() {
         mTriggered = false;
