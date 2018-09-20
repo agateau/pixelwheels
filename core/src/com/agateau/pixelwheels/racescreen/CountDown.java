@@ -19,6 +19,9 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.sound.SoundAtlas;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
@@ -28,11 +31,16 @@ public class CountDown {
     private static final int START = 3;
 
     private final GameWorld mGameWorld;
+    private final AudioManager mAudioManager;
+    private final SoundAtlas mSoundAtlas;
 
     private float mTime = START;
+    private boolean mFirstCall = true;
 
-    public CountDown(GameWorld gameWorld) {
+    public CountDown(GameWorld gameWorld, AudioManager audioManager, SoundAtlas soundAtlas) {
         mGameWorld = gameWorld;
+        mAudioManager = audioManager;
+        mSoundAtlas = soundAtlas;
     }
 
     public int getValue() {
@@ -52,7 +60,14 @@ public class CountDown {
         if (isFinished()) {
             return;
         }
+        int oldValue = getValue();
         mTime -= delta;
+        int newValue = getValue();
+        if ((oldValue != newValue && newValue >= 0) || mFirstCall) {
+            mFirstCall = false;
+            String soundName = newValue > 0 ? "countdown1" : "countdown2";
+            mAudioManager.play(mSoundAtlas.get(soundName), 1f);
+        }
         if (mTime < 0) {
             mGameWorld.startRace();
         }
