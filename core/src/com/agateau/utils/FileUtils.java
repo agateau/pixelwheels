@@ -63,13 +63,7 @@ public class FileUtils {
 
     public static XmlReader.Element parseXml(FileHandle handle) {
         XmlReader reader = new XmlReader();
-        XmlReader.Element root;
-        try {
-            root = reader.parse(handle);
-        } catch (IOException e) {
-            NLog.e("Failed to parse xml file from %s. Exception: %s.", handle.path(), e.toString());
-            return null;
-        }
+        XmlReader.Element root = reader.parse(handle);
         if (root == null) {
             NLog.e("Failed to parse xml file from %s. No root element.", handle.path());
             return null;

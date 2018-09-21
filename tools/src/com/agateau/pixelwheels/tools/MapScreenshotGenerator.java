@@ -105,7 +105,7 @@ public class MapScreenshotGenerator {
         int dstH = (int) (srcH * ratio);
 
         Pixmap dst = new Pixmap(dstW, dstH, src.getFormat());
-        Pixmap.setFilter(Pixmap.Filter.BiLinear);
+        dst.setFilter(Pixmap.Filter.BiLinear);
         dst.drawPixmap(src,
                 0, 0, srcW, srcH,
                 0, 0, dstW, dstH);
