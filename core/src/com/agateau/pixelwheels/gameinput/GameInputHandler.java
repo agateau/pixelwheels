@@ -33,4 +33,5 @@ public interface GameInputHandler {
     void createHudButtons(Assets assets, Hud hud);
 
     void setBonus(Bonus bonus);
+    boolean isAvailable();
 }

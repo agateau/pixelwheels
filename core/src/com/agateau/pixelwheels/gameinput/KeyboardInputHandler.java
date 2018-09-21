@@ -113,6 +113,11 @@ public class KeyboardInputHandler implements GameInputHandler {
     public void setBonus(Bonus bonus) {
     }
 
+    @Override
+    public boolean isAvailable() {
+        return mInputMapper.isAvailable();
+    }
+
     public InputMapper getInputMapper() {
         return mInputMapper;
     }

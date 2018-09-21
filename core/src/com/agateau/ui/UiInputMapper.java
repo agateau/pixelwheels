@@ -58,4 +58,9 @@ public class UiInputMapper implements InputMapper {
     public void saveConfig(Preferences preferences, String prefix) {
 
     }
+
+    @Override
+    public boolean isAvailable() {
+        return true;
+    }
 }

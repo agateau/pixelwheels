@@ -61,7 +61,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         boolean onButtonPressed(int buttonCode, boolean pressed);
     }
 
-    private boolean mActive;
+    private Controller mController;
 
     private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<VirtualKey, KeyState>();
 
@@ -86,6 +86,27 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         for (int idx = 0; idx < sInstances.length; ++idx) {
             sInstances[idx] = new GamepadInputMapper(idx);
         }
+        Controllers.addListener(new ControllerAdapter() {
+            @Override
+            public void connected(Controller controller) {
+                for(GamepadInputMapper mapper : sInstances) {
+                    if (mapper.mController == null) {
+                        mapper.setController(controller);
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void disconnected(Controller controller) {
+                for(GamepadInputMapper mapper : sInstances) {
+                    if (mapper.mController == controller) {
+                        mapper.setController(null);
+                        return;
+                    }
+                }
+            }
+        });
     }
 
     private GamepadInputMapper(int idx) {
@@ -93,10 +114,14 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         mButtonCodes.put(GamepadButton.TRIGGER, 1);
         mButtonCodes.put(GamepadButton.BACK, 2);
         if (idx < controllers.size) {
-            controllers.get(idx).addListener(this);
-            mActive = true;
-        } else {
-            mActive = false;
+            setController(controllers.get(idx));
+        }
+    }
+
+    private void setController(Controller controller) {
+        mController = controller;
+        if (controller != null) {
+            mController.addListener(this);
         }
     }
 
@@ -106,10 +131,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     public void setButtonCode(GamepadButton button, int code) {
         mButtonCodes.put(button, code);
-    }
-
-    public boolean isActive() {
-        return mActive;
     }
 
     public void setListener(Listener listener) {
@@ -143,6 +164,11 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     public void saveConfig(Preferences preferences, String prefix) {
         preferences.putInteger(prefix + TRIGGER_BUTTON_PREF, mButtonCodes.get(GamepadButton.TRIGGER));
         preferences.putInteger(prefix + BACK_BUTTON_PREF, mButtonCodes.get(GamepadButton.BACK));
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return mController != null;
     }
 
     @Override

@@ -31,4 +31,6 @@ public interface InputMapper {
     void loadConfig(Preferences preferences, String prefix);
 
     void saveConfig(Preferences preferences, String prefix);
+
+    boolean isAvailable();
 }
