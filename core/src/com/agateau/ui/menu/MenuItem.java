@@ -54,8 +54,8 @@ public interface MenuItem {
     Rectangle getFocusRectangle();
 
     /**
-     * The width this item should use to fit the menu column.
-     * The item can choose to ignore this if it needs more or less room.
+     * If ratio is > 0, item width will be set to parentWidth * ratio
+     * If ratio is 0, item width won't be changed
      */
-    void setDefaultItemWidth(float width);
+    float getParentWidthRatio();
 }

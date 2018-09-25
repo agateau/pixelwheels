@@ -18,8 +18,6 @@
  */
 package com.agateau.ui.menu;
 
-import com.agateau.ui.anchor.Anchor;
-import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -27,23 +25,29 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 
 public class MenuItemGroup implements MenuItem {
     private final Menu mMenu;
-    private final VerticalGroup mGroup = new VerticalGroup() {
+    private final WidgetGroup mGroup = new WidgetGroup() {
         @Override
         public void layout() {
-            super.layout();
             updateBounds();
             mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
         }
     };
+
+    private static class ItemInfo {
+        Label label = null;
+        boolean visible = true;
+    }
     private final Array<MenuItem> mItems = new Array<MenuItem>();
-    private final HashMap<MenuItem, Actor> mActorForItem = new HashMap<MenuItem, Actor>();
+    private final HashMap<Actor, MenuItem> mItemForActor = new HashMap<Actor, MenuItem>();
+    private final HashMap<MenuItem, ItemInfo> mInfoForItem = new HashMap<MenuItem, ItemInfo>();
 
     private int mCurrentIndex = -1;
 
@@ -55,7 +59,6 @@ public class MenuItemGroup implements MenuItem {
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
-        mGroup.expand();
         mGroup.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 MenuItem item = getItemAt(x, y);
@@ -65,9 +68,6 @@ public class MenuItemGroup implements MenuItem {
                 return false;
             }
         });
-        Menu.MenuStyle style = mMenu.getMenuStyle();
-        mGroup.space(style.focusPadding * 2 + style.spacing);
-        mGroup.fill();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class MenuItemGroup implements MenuItem {
         Assert.check(item != null, "Cannot get focus rectangle of an invalid item");
         Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
         mFocusRect.set(item.getFocusRectangle());
-        Actor actor = mActorForItem.get(item);
+        Actor actor = item.getActor();
         mFocusRect.x += actor.getX();
         mFocusRect.y += actor.getY();
         if (actor != item.getActor()) {
@@ -146,10 +146,8 @@ public class MenuItemGroup implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-        for (MenuItem item : mItems) {
-            item.setDefaultItemWidth(width);
-        }
+    public float getParentWidthRatio() {
+        return 1;
     }
 
     public MenuItem getCurrentItem() {
@@ -167,30 +165,20 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public boolean isItemVisible(MenuItem item) {
-        Actor actor = mActorForItem.get(item);
-        Assert.check(actor != null, "No actor for item");
-        return actor.getParent() == mGroup;
+        ItemInfo info = mInfoForItem.get(item);
+        Assert.check(info != null, "No info for item");
+        return info.visible;
     }
 
     public void setItemVisible(MenuItem item, boolean visible) {
         if (isItemVisible(item) == visible) {
             return;
         }
-        int itemIndex = getItemIndex(item);
-        Actor actor = mActorForItem.get(item);
-        Assert.check(actor != null, "No actor for item");
-        if (visible) {
-            Actor previous = null;
-            for (int idx = itemIndex - 1; idx >= 0; --idx) {
-                MenuItem previousItem = mItems.get(idx);
-                if (isItemVisible(previousItem)) {
-                    previous = mActorForItem.get(previousItem);
-                    break;
-                }
-            }
-            mGroup.addActorAfter(previous, actor);
-        } else {
-            mGroup.removeActor(actor);
+        ItemInfo info = mInfoForItem.get(item);
+        info.visible = visible;
+        item.getActor().setVisible(visible);
+        if (info.label != null) {
+            info.label.setVisible(visible);
         }
         updateBounds();
     }
@@ -212,8 +200,7 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public MenuItem addItem(MenuItem item) {
-        item.setDefaultItemWidth(mMenu.getDefaultItemWidth());
-        addItemInternal(item, item.getActor());
+        addItemInternal(item, null);
         return item;
     }
 
@@ -222,20 +209,11 @@ public class MenuItemGroup implements MenuItem {
         float height = actor.getHeight();
 
         float labelWidth = mMenu.getLabelColumnWidth();
-        float itemWidth = mMenu.getDefaultItemWidth();
 
         Label label = new Label(labelText, mMenu.getSkin());
         label.setSize(labelWidth, height);
 
-        item.setDefaultItemWidth(itemWidth - labelWidth);
-
-        AnchorGroup group = new AnchorGroup();
-        group.setSize(itemWidth, height);
-
-        group.addPositionRule(label, Anchor.TOP_LEFT, group, Anchor.TOP_LEFT);
-        group.addPositionRule(actor, Anchor.TOP_LEFT, label, Anchor.TOP_RIGHT);
-
-        addItemInternal(item, group);
+        addItemInternal(item, label);
         return item;
     }
 
@@ -252,21 +230,58 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void updateBounds() {
-        float width = Math.max(mMenu.getWidth() - mMenu.getMenuStyle().focusPadding * 2,
-                mGroup.getPrefWidth());
-        float height = mGroup.getPrefHeight();
+        float y = 0;
+        Menu.MenuStyle style = mMenu.getMenuStyle();
+        final float spacing = style.focusPadding * 2 + style.spacing;
+        for (int idx = mItems.size - 1; idx >= 0; --idx) {
+            MenuItem item = mItems.get(idx);
+            ItemInfo info = mInfoForItem.get(item);
+            if (!info.visible) {
+                continue;
+            }
+            Actor actor = item.getActor();
+            if (actor instanceof Layout) {
+                ((Layout) actor).layout();
+            }
 
-        mGroup.setSize(width, height);
+            float x = 0;
+            float width = mGroup.getWidth();
+            if (info.label != null) {
+                info.label.setPosition(0, y);
+                x = mMenu.getLabelColumnWidth();
+                width -= x;
+            }
+
+            float ratio = mItemForActor.get(actor).getParentWidthRatio();
+            if (ratio > 0) {
+                actor.setWidth(width * ratio);
+            }
+
+            if (info.label == null) {
+                x += (width - actor.getWidth()) / 2;
+            }
+            actor.setPosition(x, y);
+            y += actor.getHeight() + spacing;
+        }
+
+        mGroup.setHeight(y - spacing);
+        mGroup.invalidateHierarchy();
         mMenu.onGroupBoundariesChanged();
     }
 
-    private void addItemInternal(MenuItem item, Actor actor) {
+    private void addItemInternal(MenuItem item, Label label) {
         mItems.add(item);
-        mActorForItem.put(item, actor);
+        ItemInfo info = new ItemInfo();
+        info.label = label;
+        mInfoForItem.put(item, info);
+        mItemForActor.put(item.getActor(), item);
         if (mCurrentIndex == -1 && item.isFocusable()) {
             mCurrentIndex = mItems.size - 1;
         }
-        mGroup.addActor(actor);
+        if (label != null) {
+            mGroup.addActor(label);
+        }
+        mGroup.addActor(item.getActor());
         updateBounds();
     }
 

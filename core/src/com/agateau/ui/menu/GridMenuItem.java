@@ -155,6 +155,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
+    protected void sizeChanged() {
+        setHeight(getPrefHeight());
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         if (mRenderer == null) {
             NLog.e("No renderer");
@@ -254,8 +259,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-        // We ignore the default width in this item
+    public float getParentWidthRatio() {
+        return 1;
     }
 
     /// Private

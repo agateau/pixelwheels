@@ -67,7 +67,7 @@ public class LabelMenuItem implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-
+    public float getParentWidthRatio() {
+        return 0;
     }
 }

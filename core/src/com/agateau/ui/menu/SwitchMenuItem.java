@@ -125,8 +125,8 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-        // We ignore default width for this item
+    public float getParentWidthRatio() {
+        return 0;
     }
 
     @Override

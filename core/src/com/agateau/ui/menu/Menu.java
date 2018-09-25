@@ -38,7 +38,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  * Sends ChangeEvent when the current item changes.
  */
 public class Menu extends WidgetGroup {
-    private static final float DEFAULT_ITEM_WIDTH = 300;
     private static final float LABEL_COLUMN_WIDTH = 120;
     private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
@@ -78,7 +77,6 @@ public class Menu extends WidgetGroup {
         mFocusIndicator.setTouchable(Touchable.disabled);
 
         mGroup = new MenuItemGroup(this);
-        setDefaultItemWidth(DEFAULT_ITEM_WIDTH);
         setLabelColumnWidth(LABEL_COLUMN_WIDTH);
 
         addActor(mFocusIndicator);
@@ -95,16 +93,6 @@ public class Menu extends WidgetGroup {
 
     public void setInputMapper(InputMapper inputMapper) {
         mMenuInputHandler.setInputMapper(inputMapper);
-    }
-
-    public float getDefaultItemWidth() {
-        return mDefaultItemWidth;
-    }
-
-    public void setDefaultItemWidth(float defaultItemWidth) {
-        mDefaultItemWidth = defaultItemWidth;
-        mGroup.setDefaultItemWidth(defaultItemWidth);
-        setWidth(defaultItemWidth + 2 * mStyle.focusPadding);
     }
 
     public float getLabelColumnWidth() {
@@ -223,5 +211,13 @@ public class Menu extends WidgetGroup {
         Actor actor = mGroup.getActor();
         actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
         setSize(getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
+    }
+
+    @Override
+    public void sizeChanged() {
+        super.sizeChanged();
+        float width = getWidth();
+        mGroup.getActor().setPosition(mStyle.focusPadding, mStyle.focusPadding);
+        mGroup.getActor().setWidth(width - 2 * mStyle.focusPadding);
     }
 }

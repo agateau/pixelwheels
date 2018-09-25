@@ -49,7 +49,7 @@ class TabbedMenuScreen extends StageScreen {
 
         final Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
-        menu.setDefaultItemWidth(700);
+        menu.setWidth(700);
 
         TabMenuItem tab = new TabMenuItem(menu);
         menu.addItem(tab);
@@ -57,7 +57,7 @@ class TabbedMenuScreen extends StageScreen {
         group1.addItemWithLabel("A switch", new SwitchMenuItem(menu));
         group1.addButton("Group 1");
 
-        MenuItemGroup group2 = tab.addPage("Page with long title");
+        MenuItemGroup group2 = tab.addPage("Page");// with long title");
         group2.addButton("Group 2");
         group2.addButton("Another Group 2 button");
         group2.addButton("Yet Another Group 2 button");

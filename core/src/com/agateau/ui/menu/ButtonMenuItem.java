@@ -94,7 +94,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-        setWidth(width);
+    public float getParentWidthRatio() {
+        return 1;
     }
 }
