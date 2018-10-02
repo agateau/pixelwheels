@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
 public class AnimationObject extends GameObjectAdapter implements Pool.Poolable, Disposable {
     private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
     private float mTime;
-    private Animation mAnimation;
+    private Animation<TextureRegion> mAnimation;
     private float mPosX;
     private float mPosY;
 
@@ -99,10 +99,10 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         mSound = sound;
     }
 
-    public static AnimationObject create(Animation animation, float posX, float posY) {
+    public static AnimationObject create(Animation<TextureRegion> animation, float posX, float posY) {
         return create(animation, posX, posY, 0);
     }
-    public static AnimationObject create(Animation animation, float posX, float posY, float delay) {
+    public static AnimationObject create(Animation<TextureRegion> animation, float posX, float posY, float delay) {
         AnimationObject obj = sPool.obtain();
         obj.mTime = -delay;
         obj.mAnimation = animation;

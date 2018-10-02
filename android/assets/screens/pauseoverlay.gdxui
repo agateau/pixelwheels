@@ -2,6 +2,6 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="pauseLabel" topCenter="root.topCenter 0 -1">Paused</Label>
-        <Menu id="menu" center="root.center"/>
+        <Menu id="menu" center="root.center" width="300"/>
     </AnchorGroup>
 </gdxui>

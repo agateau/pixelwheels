@@ -72,7 +72,6 @@ public class ConfigScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
         menu.setLabelColumnWidth(250);
-        menu.setDefaultItemWidth(600);
 
         TabMenuItem tab = new TabMenuItem(menu);
         menu.addItem(tab);

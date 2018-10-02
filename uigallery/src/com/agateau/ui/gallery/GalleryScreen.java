@@ -65,7 +65,7 @@ class GalleryScreen extends StageScreen {
 
         final Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
-        menu.setDefaultItemWidth(500);
+        menu.setWidth(500);
         menu.addButton("Button A").addListener(new MenuItemListener() {
             @Override
             public void triggered() {

@@ -170,8 +170,8 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     @Override
-    public void setDefaultItemWidth(float width) {
-        setWidth(width);
+    public float getParentWidthRatio() {
+        return 1;
     }
 
     private static Button createButton(Drawable drawable, Skin skin) {
