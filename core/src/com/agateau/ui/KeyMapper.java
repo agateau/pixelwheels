@@ -18,6 +18,7 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
@@ -42,7 +43,12 @@ public class KeyMapper implements InputMapper {
         setKey(VirtualKey.UP, Input.Keys.UP);
         setKey(VirtualKey.DOWN, Input.Keys.DOWN);
         setKeys(VirtualKey.TRIGGER, new Integer[]{Input.Keys.SPACE, Input.Keys.ENTER});
-        setKeys(VirtualKey.BACK, new Integer[]{Input.Keys.ESCAPE, Input.Keys.BACK});
+        if (PlatformUtils.isDesktop()) {
+            // Do not use BACK on Desktop, it causes invalid enum value errors with lwjgl3
+            setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
+        } else {
+            setKeys(VirtualKey.BACK, new Integer[]{Input.Keys.ESCAPE, Input.Keys.BACK});
+        }
     }
 
     public void setKey(VirtualKey vkey, int key) {

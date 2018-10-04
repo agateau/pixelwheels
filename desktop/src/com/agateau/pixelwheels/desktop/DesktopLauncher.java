@@ -18,20 +18,20 @@
  */
 package com.agateau.pixelwheels.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class DesktopLauncher {
     public static void main (String[] arg) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 800;
-        config.height = 480;
-        config.title = "Pixel Wheels";
-        config.preferencesDirectory = ".config/agateau.com";
-        config.vSyncEnabled = true;
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(800, 480);
+        config.setTitle("Pixel Wheels");
+        config.setPreferencesConfig(".config/agateau.com", Files.FileType.External);
+        config.useVsync(true);
         FileUtils.appName = "pixelwheels";
-        new LwjglApplication(new PwGame(), config);
+        new Lwjgl3Application(new PwGame(), config);
     }
 }
