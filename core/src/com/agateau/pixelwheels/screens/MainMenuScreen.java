@@ -63,34 +63,26 @@ public class MainMenuScreen extends PwStageScreen {
             menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    if (mGame.checkInputHandlers(1)) {
-                        mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
-                    }
-                }
+                mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
+            }
             });
             menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    if (mGame.checkInputHandlers(2)) {
-                        mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.MULTI));
-                    }
+                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.MULTI));
                 }
             });
         } else {
             menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    if (mGame.checkInputHandlers(1)) {
-                        mGame.showQuickRace(PlayerCount.ONE);
-                    }
+                    mGame.showQuickRace(PlayerCount.ONE);
                 }
             });
             menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                    if (mGame.checkInputHandlers(1)) {
-                        mGame.showChampionship(PlayerCount.ONE);
-                    }
+                    mGame.showChampionship(PlayerCount.ONE);
                 }
             });
         }

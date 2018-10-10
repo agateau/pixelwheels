@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
@@ -42,7 +41,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.Stack;
 
@@ -176,14 +174,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         } else {
             Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
-    }
-
-    /**
-     * Returns true if devices for all players are available
-     */
-    public boolean checkInputHandlers(int playerCount) {
-        Array<GameInputHandler> handlers = mGameConfig.getPlayerInputHandlers();
-        return playerCount <= handlers.size;
     }
 
     @Override
