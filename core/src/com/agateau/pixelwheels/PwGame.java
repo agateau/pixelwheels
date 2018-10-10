@@ -101,8 +101,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void showMainMenu() {
-        Screen screen = new MainMenuScreen(this);
-        replaceScreen(screen);
+        clearScreenStack();
+        pushScreen(new MainMenuScreen(this));
     }
 
     public void showQuickRace(PlayerCount playerCount) {
@@ -144,6 +144,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mScreenStack.pop().dispose();
         Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
         setScreen(mScreenStack.peek());
+    }
+
+    private void clearScreenStack() {
+        while (!mScreenStack.isEmpty()) {
+            mScreenStack.pop().dispose();
+        }
     }
 
     private void hideMouseCursor() {
