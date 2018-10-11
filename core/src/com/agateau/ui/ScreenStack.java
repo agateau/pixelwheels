@@ -27,6 +27,7 @@ import java.util.Stack;
 public class ScreenStack {
     private final Game mGame;
     private final Stack<Screen> mStack = new Stack<Screen>();
+    private Screen mBlockingScreen;
 
     public ScreenStack(Game game) {
         mGame = game;
@@ -34,14 +35,14 @@ public class ScreenStack {
 
     public void push(Screen screen) {
         mStack.push(screen);
-        mGame.setScreen(screen);
+        setScreen(screen);
     }
 
     public void pop() {
         Assert.check(!mStack.isEmpty(), "mScreenStack is empty");
         mStack.pop().dispose();
         Assert.check(!mStack.isEmpty(), "mScreenStack is empty");
-        mGame.setScreen(mStack.peek());
+        setScreen(mStack.peek());
     }
 
     public void replace(Screen screen) {
@@ -54,6 +55,29 @@ public class ScreenStack {
     public void clear() {
         while (!mStack.isEmpty()) {
             mStack.pop().dispose();
+        }
+    }
+
+    /**
+     * A blocking screen override the normal stack, once a blocking screen is shown,
+     * screens from the stack won't be shown unless hideBlockingScreen() is called.
+     */
+    public void showBlockingScreen(Screen screen) {
+        Assert.check(mBlockingScreen == null, "There is already a blocking screen");
+        mBlockingScreen = screen;
+        mGame.setScreen(mBlockingScreen);
+    }
+
+    public void hideBlockingScreen() {
+        Assert.check(mBlockingScreen != null, "There is no blocking screen");
+        mBlockingScreen.dispose();
+        mBlockingScreen = null;
+        mGame.setScreen(mStack.peek());
+    }
+
+    private void setScreen(Screen screen) {
+        if (mBlockingScreen == null) {
+            mGame.setScreen(screen);
         }
     }
 }

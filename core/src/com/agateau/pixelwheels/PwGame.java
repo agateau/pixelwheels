@@ -127,6 +127,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mDebugIntrospector;
     }
 
+    public ScreenStack getScreenStack() {
+        return mScreenStack;
+    }
+
     public void pushScreen(Screen screen) {
         mScreenStack.push(screen);
     }
