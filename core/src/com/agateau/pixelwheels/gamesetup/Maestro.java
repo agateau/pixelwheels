@@ -19,28 +19,32 @@
 package com.agateau.pixelwheels.gamesetup;
 
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.gameinput.InputWatcher;
-import com.agateau.pixelwheels.screens.NotEnoughControllersScreen;
+import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
+import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
+import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.utils.IntArray;
 
 /**
  * Orchestrate changes between screens for a game
  */
-public abstract class Maestro implements InputWatcher.Listener {
+public abstract class Maestro implements GamepadInputWatcher.Listener {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
-    private final InputWatcher mInputWatcher;
+    private final GamepadInputWatcher mGamepadInputWatcher;
+
+    private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
 
     public Maestro(PwGame game, PlayerCount playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
-        mInputWatcher = new InputWatcher(mGame.getConfig(), this);
-        mInputWatcher.setInputCount(playerCount.toInt());
+        mGamepadInputWatcher = new GamepadInputWatcher(mGame.getConfig(), this);
+        mGamepadInputWatcher.setInputCount(playerCount.toInt());
     }
 
     public abstract void start();
 
     public void stop() {
-        mInputWatcher.setInputCount(0);
+        mGamepadInputWatcher.setInputCount(0);
         mGame.showMainMenu();
     }
 
@@ -53,12 +57,19 @@ public abstract class Maestro implements InputWatcher.Listener {
     }
 
     @Override
-    public void onNotEnoughControllers() {
-        mGame.pushScreen(new NotEnoughControllersScreen(mGame.getAssets().ui));
+    public void onNotEnoughGamepads(IntArray missingGamepads) {
+        if (mNotEnoughGamepadsScreen == null) {
+            NLog.d("adding screen");
+            mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame.getAssets().ui);
+            mGame.pushScreen(mNotEnoughGamepadsScreen);
+        }
+        mNotEnoughGamepadsScreen.setMissingGamepads(missingGamepads);
     }
 
     @Override
-    public void onEnoughControllers() {
+    public void onEnoughGamepads() {
+        NLog.d("popping screen");
+        mNotEnoughGamepadsScreen = null;
         mGame.popScreen();
     }
 }
