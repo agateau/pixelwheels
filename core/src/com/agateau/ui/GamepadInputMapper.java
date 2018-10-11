@@ -21,9 +21,7 @@ package com.agateau.ui;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
-import com.badlogic.gdx.utils.Array;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -32,8 +30,6 @@ import java.util.HashMap;
  * An implementation of InputMapper for gamepads
  */
 public class GamepadInputMapper extends ControllerAdapter implements InputMapper {
-    private static final int MAX_GAMEPAD_COUNT = 4;
-
     private static final String TRIGGER_BUTTON_PREF = "trigger";
     private static final String BACK_BUTTON_PREF = "back";
 
@@ -67,58 +63,27 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private final HashMap<GamepadButton,Integer> mButtonCodes = new HashMap<GamepadButton, Integer>();
 
-    private static final GamepadInputMapper[] sInstances = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
-
     private WeakReference<Listener> mListenerRef;
 
     public static GamepadInputMapper[] getInstances() {
-        if (sInstances[0] == null) {
-            createInstances();
-        }
-        return sInstances;
+        return GamepadInputMappers.getInstance().getMappers();
     }
 
     public static GamepadInputMapper getInstance(int idx) {
-        return getInstances()[idx];
+        return GamepadInputMappers.getInstance().getMappers()[idx];
     }
 
-    private static void createInstances() {
-        for (int idx = 0; idx < sInstances.length; ++idx) {
-            sInstances[idx] = new GamepadInputMapper(idx);
-        }
-        Controllers.addListener(new ControllerAdapter() {
-            @Override
-            public void connected(Controller controller) {
-                for(GamepadInputMapper mapper : sInstances) {
-                    if (mapper.mController == null) {
-                        mapper.setController(controller);
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void disconnected(Controller controller) {
-                for(GamepadInputMapper mapper : sInstances) {
-                    if (mapper.mController == controller) {
-                        mapper.setController(null);
-                        return;
-                    }
-                }
-            }
-        });
-    }
-
-    private GamepadInputMapper(int idx) {
-        Array<Controller> controllers = Controllers.getControllers();
+    GamepadInputMapper(Controller controller) {
         mButtonCodes.put(GamepadButton.TRIGGER, 1);
         mButtonCodes.put(GamepadButton.BACK, 2);
-        if (idx < controllers.size) {
-            setController(controllers.get(idx));
-        }
+        setController(controller);
     }
 
-    private void setController(Controller controller) {
+    Controller getController() {
+        return mController;
+    }
+
+    void setController(Controller controller) {
         mController = controller;
         if (controller != null) {
             mController.addListener(this);
