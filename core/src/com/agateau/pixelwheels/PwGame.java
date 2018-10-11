@@ -27,7 +27,7 @@ import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
-import com.agateau.utils.Assert;
+import com.agateau.ui.ScreenStack;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
@@ -42,14 +42,12 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
-import java.util.Stack;
-
 /**
  * The game
  */
 public class PwGame extends Game implements GameConfig.ChangeListener {
     private Assets mAssets;
-    private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private final ScreenStack mScreenStack = new ScreenStack(this);
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private AudioManager mAudioManager = new DefaultAudioManager();
@@ -99,8 +97,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void showMainMenu() {
-        clearScreenStack();
-        pushScreen(new MainMenuScreen(this));
+        mScreenStack.clear();
+        mScreenStack.push(new MainMenuScreen(this));
     }
 
     public void showQuickRace(PlayerCount playerCount) {
@@ -114,10 +112,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void replaceScreen(Screen screen) {
-        if (!mScreenStack.isEmpty()) {
-            mScreenStack.pop().dispose();
-        }
-        pushScreen(screen);
+        mScreenStack.replace(screen);
     }
 
     public GameConfig getConfig() {
@@ -133,22 +128,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void pushScreen(Screen screen) {
-        NLog.d("Pushing screen %s", screen);
         mScreenStack.push(screen);
-        setScreen(screen);
     }
 
     public void popScreen() {
-        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
-        mScreenStack.pop().dispose();
-        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
-        setScreen(mScreenStack.peek());
-    }
-
-    private void clearScreenStack() {
-        while (!mScreenStack.isEmpty()) {
-            mScreenStack.pop().dispose();
-        }
+        mScreenStack.pop();
     }
 
     private void hideMouseCursor() {
