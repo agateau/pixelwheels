@@ -133,6 +133,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void pushScreen(Screen screen) {
+        NLog.d("Pushing screen %s", screen);
         mScreenStack.push(screen);
         setScreen(screen);
     }
