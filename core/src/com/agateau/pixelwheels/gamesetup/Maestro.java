@@ -22,7 +22,6 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.utils.IntArray;
 
 /**
  * Orchestrate changes between screens for a game
@@ -44,6 +43,9 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     public abstract void start();
 
     public void stop() {
+        if (mNotEnoughGamepadsScreen != null) {
+            hideNotEnoughGamepadsScreen();
+        }
         mGamepadInputWatcher.setInputCount(0);
         mGame.showMainMenu();
     }
@@ -57,20 +59,25 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     }
 
     @Override
-    public void onNotEnoughGamepads(IntArray missingGamepads) {
+    public void onNotEnoughGamepads() {
         NLog.d("");
         if (mNotEnoughGamepadsScreen == null) {
             NLog.d("adding screen");
-            mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame.getAssets().ui);
+            mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
             mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
+        } else {
+            mNotEnoughGamepadsScreen.updateMissingGamepads();
         }
-        mNotEnoughGamepadsScreen.setMissingGamepads(missingGamepads);
     }
 
     @Override
     public void onEnoughGamepads() {
         NLog.d("");
-        mNotEnoughGamepadsScreen = null;
+        hideNotEnoughGamepadsScreen();
+    }
+
+    private void hideNotEnoughGamepadsScreen() {
         mGame.getScreenStack().hideBlockingScreen();
+        mNotEnoughGamepadsScreen = null;
     }
 }

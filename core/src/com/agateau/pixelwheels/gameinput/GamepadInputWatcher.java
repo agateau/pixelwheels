@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.IntArray;
 
 public class GamepadInputWatcher {
     public interface Listener {
-        void onNotEnoughGamepads(IntArray missingGamepads);
+        void onNotEnoughGamepads();
         void onEnoughGamepads();
     }
 
@@ -51,6 +51,14 @@ public class GamepadInputWatcher {
         });
     }
 
+    public int getInputCount() {
+        return mInputCount;
+    }
+
+    public IntArray getMissingGamepads() {
+        return mMissingGamepads;
+    }
+
     public void setInputCount(int inputCount) {
         mInputCount = inputCount;
         if (mInputCount == 0) {
@@ -58,7 +66,7 @@ public class GamepadInputWatcher {
         }
         updateMissingGamepads();
         if (!hasEnoughGamepads()) {
-            mListener.onNotEnoughGamepads(mMissingGamepads);
+            mListener.onNotEnoughGamepads();
         }
     }
 
@@ -85,7 +93,7 @@ public class GamepadInputWatcher {
         if (hasEnoughGamepads()) {
             mListener.onEnoughGamepads();
         } else {
-            mListener.onNotEnoughGamepads(mMissingGamepads);
+            mListener.onNotEnoughGamepads();
         }
     }
 
@@ -97,7 +105,7 @@ public class GamepadInputWatcher {
         NLog.d("are we bad now?");
         updateMissingGamepads();
         if (!hasEnoughGamepads()) {
-            mListener.onNotEnoughGamepads(mMissingGamepads);
+            mListener.onNotEnoughGamepads();
         }
     }
 
