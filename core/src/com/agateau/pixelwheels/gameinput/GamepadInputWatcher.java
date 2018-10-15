@@ -80,15 +80,12 @@ public class GamepadInputWatcher {
                 mMissingGamepads.add(idx);
             }
         }
-        NLog.d("missing gamepads: %s", mMissingGamepads);
     }
 
     private void onGamepadConnected() {
-        NLog.d("");
         if (mInputCount == 0 | hasEnoughGamepads()) {
             return;
         }
-        NLog.d("are we good now?");
         updateMissingGamepads();
         if (hasEnoughGamepads()) {
             mListener.onEnoughGamepads();
@@ -98,11 +95,9 @@ public class GamepadInputWatcher {
     }
 
     private void onGamepadDisconnected() {
-        NLog.d("");
         if (mInputCount == 0) {
             return;
         }
-        NLog.d("are we bad now?");
         updateMissingGamepads();
         if (!hasEnoughGamepads()) {
             mListener.onNotEnoughGamepads();

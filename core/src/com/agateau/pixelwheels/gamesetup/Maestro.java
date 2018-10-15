@@ -60,9 +60,8 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
 
     @Override
     public void onNotEnoughGamepads() {
-        NLog.d("");
+        NLog.e("There aren't enough connected gamepads");
         if (mNotEnoughGamepadsScreen == null) {
-            NLog.d("adding screen");
             mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
             mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
         } else {
@@ -72,7 +71,7 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
 
     @Override
     public void onEnoughGamepads() {
-        NLog.d("");
+        NLog.i("There are enough connected gamepads");
         hideNotEnoughGamepadsScreen();
     }
 
