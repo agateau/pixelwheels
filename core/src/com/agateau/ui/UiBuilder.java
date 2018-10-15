@@ -450,7 +450,10 @@ public class UiBuilder {
         mFactoryForName.put(name, factory);
     }
 
-    public static String processText(String text) {
+    private static String processText(String text) {
+        if (text == null) {
+            return "";
+        }
         return text.replace("\\n", "\n");
     }
 }
