@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
@@ -28,7 +27,7 @@ import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
-import com.agateau.utils.Assert;
+import com.agateau.ui.ScreenStack;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
@@ -42,16 +41,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.Stack;
 
 /**
  * The game
  */
 public class PwGame extends Game implements GameConfig.ChangeListener {
     private Assets mAssets;
-    private Stack<Screen> mScreenStack = new Stack<Screen>();
+    private final ScreenStack mScreenStack = new ScreenStack(this);
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private AudioManager mAudioManager = new DefaultAudioManager();
@@ -101,8 +97,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void showMainMenu() {
-        Screen screen = new MainMenuScreen(this);
-        replaceScreen(screen);
+        mScreenStack.clear();
+        mScreenStack.push(new MainMenuScreen(this));
     }
 
     public void showQuickRace(PlayerCount playerCount) {
@@ -116,10 +112,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void replaceScreen(Screen screen) {
-        if (!mScreenStack.isEmpty()) {
-            mScreenStack.pop().dispose();
-        }
-        pushScreen(screen);
+        mScreenStack.replace(screen);
     }
 
     public GameConfig getConfig() {
@@ -134,16 +127,16 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mDebugIntrospector;
     }
 
+    public ScreenStack getScreenStack() {
+        return mScreenStack;
+    }
+
     public void pushScreen(Screen screen) {
         mScreenStack.push(screen);
-        setScreen(screen);
     }
 
     public void popScreen() {
-        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
-        mScreenStack.pop().dispose();
-        Assert.check(!mScreenStack.isEmpty(), "mScreenStack is empty");
-        setScreen(mScreenStack.peek());
+        mScreenStack.pop();
     }
 
     private void hideMouseCursor() {
@@ -170,14 +163,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         } else {
             Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
-    }
-
-    /**
-     * Returns true if devices for all players are available
-     */
-    public boolean checkInputHandlers(int playerCount) {
-        Array<GameInputHandler> handlers = mGameConfig.getPlayerInputHandlers();
-        return playerCount <= handlers.size;
     }
 
     @Override

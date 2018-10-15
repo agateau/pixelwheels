@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label topCenter="root.topCenter 0 -2">Some gamepads are missing</Label>
+
+        <Label id="gamepadsLabel" center="root.center 0 2" align="left"/>
+
+        <Menu id="menu" width="350" bottomCenter="root.bottomCenter 0 2"/>
+    </AnchorGroup>
+</gdxui>

@@ -102,4 +102,9 @@ public class KeyMapper implements InputMapper {
     public void saveConfig(Preferences preferences, String prefix) {
 
     }
+
+    @Override
+    public boolean isAvailable() {
+        return true;
+    }
 }

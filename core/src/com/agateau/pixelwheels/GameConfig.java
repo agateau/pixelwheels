@@ -50,7 +50,7 @@ public class GameConfig {
     public String championship;
 
     private final String[] mPlayerInputFactoryIds = new String[Constants.MAX_PLAYERS];
-    private final Array<GameInputHandler> mPlayerInputHandlers = new Array<GameInputHandler>();
+    private final GameInputHandler[] mPlayerInputHandlers = new GameInputHandler[Constants.MAX_PLAYERS];
 
     private final Preferences mPreferences;
     private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
@@ -115,13 +115,13 @@ public class GameConfig {
         }
     }
 
-    public Array<GameInputHandler> getPlayerInputHandlers() {
+    public GameInputHandler[] getPlayerInputHandlers() {
         return mPlayerInputHandlers;
     }
 
     public GameInputHandler getPlayerInputHandler(int index) {
-        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
-        return mPlayerInputHandlers.get(index);
+        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + String.valueOf(index));
+        return mPlayerInputHandlers[index];
     }
 
     public GameInputHandlerFactory getPlayerInputHandlerFactory(int idx) {
@@ -134,8 +134,11 @@ public class GameConfig {
     }
 
     public void savePlayerInputHandlerConfig(int index) {
-        Assert.check(index < mPlayerInputHandlers.size, "Not enough input handlers for index " + String.valueOf(index));
-        GameInputHandler handler = mPlayerInputHandlers.get(index);
+        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + String.valueOf(index));
+        GameInputHandler handler = mPlayerInputHandlers[index];
+        if (handler == null) {
+            return;
+        }
         String prefix = getInputPrefix(index);
         handler.saveConfig(mPreferences, prefix);
     }
@@ -147,9 +150,9 @@ public class GameConfig {
     }
 
     private void setupInputHandlers() {
-        mPlayerInputHandlers.clear();
         Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+            mPlayerInputHandlers[idx] = null;
             String id = mPlayerInputFactoryIds[idx];
             if ("".equals(id)) {
                 continue;
@@ -163,13 +166,9 @@ public class GameConfig {
                 NLog.i("Player %d: not enough input handlers for id '%s'", idx + 1, id);
                 continue;
             }
-            GameInputHandler inputHandler = inputHandlers.first();
+            GameInputHandler inputHandler = inputHandlers.removeIndex(0);
             inputHandler.loadConfig(mPreferences, getInputPrefix(idx));
-            mPlayerInputHandlers.add(inputHandler);
-            inputHandlers.removeIndex(0);
-        }
-        if (mPlayerInputHandlers.size == 0) {
-            mPlayerInputHandlers.add(GameInputHandlerFactories.getDefaultInputHandler());
+            mPlayerInputHandlers[idx] = inputHandler;
         }
     }
 }

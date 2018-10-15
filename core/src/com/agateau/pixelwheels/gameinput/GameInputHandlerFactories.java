@@ -78,11 +78,10 @@ public class GameInputHandlerFactories {
         mFactories = new Array<GameInputHandlerFactory>();
         if (PlatformUtils.isDesktop()) {
             mFactories.add(new KeyboardInputHandler.Factory());
-            mFactories.add(new GamepadInputHandler.Factory());
         }
         if (hasMultitouch()) {
             mFactories.add(new TouchInputHandler.Factory());
-            mFactories.add(new GamepadInputHandler.Factory());
         }
+        mFactories.add(new GamepadInputHandler.Factory());
     }
 }

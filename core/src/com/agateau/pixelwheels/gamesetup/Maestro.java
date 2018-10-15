@@ -18,9 +18,65 @@
  */
 package com.agateau.pixelwheels.gamesetup;
 
+import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
+import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
+import com.agateau.utils.log.NLog;
+
 /**
- * Orchestrate changes between screens
+ * Orchestrate changes between screens for a game
  */
-public interface Maestro {
-    void start();
+public abstract class Maestro implements GamepadInputWatcher.Listener {
+    private final PwGame mGame;
+    private final PlayerCount mPlayerCount;
+    private final GamepadInputWatcher mGamepadInputWatcher;
+
+    private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
+
+    public Maestro(PwGame game, PlayerCount playerCount) {
+        mGame = game;
+        mPlayerCount = playerCount;
+        mGamepadInputWatcher = new GamepadInputWatcher(mGame.getConfig(), this);
+        mGamepadInputWatcher.setInputCount(playerCount.toInt());
+    }
+
+    public abstract void start();
+
+    public void stop() {
+        if (mNotEnoughGamepadsScreen != null) {
+            hideNotEnoughGamepadsScreen();
+        }
+        mGamepadInputWatcher.setInputCount(0);
+        mGame.showMainMenu();
+    }
+
+    public PlayerCount getPlayerCount() {
+        return mPlayerCount;
+    }
+
+    protected PwGame getGame() {
+        return mGame;
+    }
+
+    @Override
+    public void onNotEnoughGamepads() {
+        NLog.e("There aren't enough connected gamepads");
+        if (mNotEnoughGamepadsScreen == null) {
+            mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
+            mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
+        } else {
+            mNotEnoughGamepadsScreen.updateMissingGamepads();
+        }
+    }
+
+    @Override
+    public void onEnoughGamepads() {
+        NLog.i("There are enough connected gamepads");
+        hideNotEnoughGamepadsScreen();
+    }
+
+    private void hideNotEnoughGamepadsScreen() {
+        mGame.getScreenStack().hideBlockingScreen();
+        mNotEnoughGamepadsScreen = null;
+    }
 }

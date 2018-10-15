@@ -30,24 +30,21 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Handle a quick race game
  */
-public class QuickRaceMaestro implements Maestro {
-    private final PwGame mGame;
+public class QuickRaceMaestro extends Maestro {
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
-    private final PlayerCount mPlayerCount;
 
     public QuickRaceMaestro(PwGame game, PlayerCount playerCount) {
-        mGame = game;
-        mPlayerCount = playerCount;
+        super(game, playerCount);
         mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
     }
 
     @Override
     public void start() {
-        mGame.pushScreen(createSelectVehicleScreen());
+        getGame().pushScreen(createSelectVehicleScreen());
     }
 
     private Screen createSelectVehicleScreen() {
-        if (mPlayerCount == PlayerCount.ONE) {
+        if (getPlayerCount() == PlayerCount.ONE) {
             return createOnePlayerVehicleScreen();
         } else {
             return createMultiPlayerVehicleScreen();
@@ -58,7 +55,7 @@ public class QuickRaceMaestro implements Maestro {
         SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
             @Override
             public void onBackPressed() {
-                mGame.popScreen();
+                stop();
             }
 
             @Override
@@ -66,62 +63,62 @@ public class QuickRaceMaestro implements Maestro {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
-                mGame.replaceScreen(createSelectTrackScreen());
+                getGame().replaceScreen(createSelectTrackScreen());
             }
         };
-        return new SelectVehicleScreen(mGame, listener);
+        return new SelectVehicleScreen(getGame(), listener);
     }
 
     private Screen createMultiPlayerVehicleScreen() {
         MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
             @Override
             public void onBackPressed() {
-                mGame.popScreen();
+                stop();
             }
 
             @Override
             public void onPlayersSelected(Array<GameInfo.Player> players) {
                 mGameInfoBuilder.setPlayers(players);
-                mGame.replaceScreen(createSelectTrackScreen());
+                getGame().replaceScreen(createSelectTrackScreen());
             }
         };
-        return new MultiPlayerScreen(mGame, listener);
+        return new MultiPlayerScreen(getGame(), listener);
     }
 
     private Screen createSelectTrackScreen() {
         SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
             @Override
             public void onBackPressed() {
-                mGame.replaceScreen(createSelectVehicleScreen());
+                getGame().replaceScreen(createSelectVehicleScreen());
             }
             @Override
             public void onTrackSelected(Track track) {
                 mGameInfoBuilder.setTrack(track);
-                mGame.replaceScreen(createRaceScreen());
+                getGame().replaceScreen(createRaceScreen());
             }
         };
-        return new SelectTrackScreen(mGame, listener);
+        return new SelectTrackScreen(getGame(), listener);
     }
 
     private Screen createRaceScreen() {
         RaceScreen.Listener listener = new RaceScreen.Listener() {
             @Override
             public void onRestartPressed() {
-                ((RaceScreen)mGame.getScreen()).forgetTrack();
-                mGame.replaceScreen(createRaceScreen());
+                ((RaceScreen)getGame().getScreen()).forgetTrack();
+                getGame().replaceScreen(createRaceScreen());
             }
 
             @Override
             public void onQuitPressed() {
-                mGame.showMainMenu();
+                stop();
             }
 
             @Override
             public void onNextTrackPressed() {
-                mGame.showMainMenu();
+                stop();
             }
         };
         QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
-        return new RaceScreen(mGame, listener, gameInfo);
+        return new RaceScreen(getGame(), listener, gameInfo);
     }
 }

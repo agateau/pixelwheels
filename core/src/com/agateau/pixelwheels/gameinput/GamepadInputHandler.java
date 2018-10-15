@@ -31,9 +31,7 @@ public class GamepadInputHandler extends KeyboardInputHandler {
 
         Factory() {
             for (GamepadInputMapper inputMapper : GamepadInputMapper.getInstances()) {
-                if (inputMapper.isActive()) {
-                    mHandlers.add(new GamepadInputHandler(inputMapper));
-                }
+                mHandlers.add(new GamepadInputHandler(inputMapper));
             }
         }
 
