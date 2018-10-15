@@ -6,19 +6,22 @@ import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.ScreenStack;
-import com.agateau.ui.UiAssets;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.IntArray;
+
+import java.util.Locale;
 
 public class NotEnoughGamepadsScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Maestro mMaestro;
     private final GamepadInputWatcher mWatcher;
+    private Label mLabel;
+    private AnchorGroup mRoot;
 
     public NotEnoughGamepadsScreen(PwGame game, Maestro maestro, GamepadInputWatcher watcher) {
         super(game.getAssets().ui);
@@ -42,21 +45,31 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
 
     }
 
+    private static StringBuilder sStringBuilder = new StringBuilder();
     public void updateMissingGamepads() {
+        sStringBuilder.setLength(0);
         IntArray missingGamepads = mWatcher.getMissingGamepads();
-        for (int idx = 0; idx < missingGamepads.size; ++idx) {
-            int playerId = missingGamepads.get(idx);
-            NLog.d("missing gamepad for player %d", playerId + 1);
+        for (int playerId = 0; playerId < mWatcher.getInputCount(); ++playerId) {
+            boolean ok = !missingGamepads.contains(playerId);
+            if (playerId > 0) {
+                sStringBuilder.append("\n");
+            }
+            sStringBuilder.append(String.format(Locale.US, "Player #%d: ", playerId + 1));
+            sStringBuilder.append(ok ? "OK" : "Missing");
         }
+        mLabel.setText(sStringBuilder.toString());
+        mLabel.setSize(mLabel.getPrefWidth(), mLabel.getPrefHeight());
     }
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
-        root.setFillParent(true);
-        getStage().addActor(root);
+        mRoot = (AnchorGroup)builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
+        mRoot.setFillParent(true);
+        getStage().addActor(mRoot);
+
+        mLabel = builder.getActor("gamepadsLabel");
 
         Menu menu = builder.getActor("menu");
         menu.addButton("Main Menu").addListener(new MenuItemListener() {
