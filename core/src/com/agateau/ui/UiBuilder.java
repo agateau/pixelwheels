@@ -18,11 +18,11 @@
  */
 package com.agateau.ui;
 
-import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;
@@ -402,6 +402,20 @@ public class UiBuilder {
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
             actor.setVisible(Boolean.parseBoolean(attr));
+        }
+        attr = element.getAttribute("debug", "");
+        if (!attr.isEmpty()) {
+            if (actor instanceof Group) {
+                Group group = (Group)actor;
+                attr = attr.toLowerCase();
+                if (attr.equals("true")) {
+                    group.debug();
+                } else if (attr.equals("all")) {
+                    group.debugAll();
+                }
+            } else {
+                actor.setDebug(Boolean.parseBoolean(attr));
+            }
         }
         for (int idx = 0, size = ANCHOR_NAMES.length; idx < size; ++idx) {
             String anchorName = ANCHOR_NAMES[idx];
