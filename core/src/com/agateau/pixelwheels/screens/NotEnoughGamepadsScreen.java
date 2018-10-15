@@ -5,6 +5,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.ScreenStack;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -28,7 +29,9 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new NotEnoughGamepadsScreen(mGame, mMaestro, mWatcher));
+                ScreenStack stack = mGame.getScreenStack();
+                stack.hideBlockingScreen();
+                stack.showBlockingScreen(new NotEnoughGamepadsScreen(mGame, mMaestro, mWatcher));
             }
         };
         updateMissingGamepads();
