@@ -73,6 +73,8 @@ public class RaceScreen extends ScreenAdapter {
     private PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
+    private boolean mFirstRender = true;
+
     public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
@@ -154,6 +156,12 @@ public class RaceScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        if (mFirstRender) {
+            for (GameRenderer gameRenderer : mGameRenderers) {
+                gameRenderer.onAboutToStart();
+            }
+            mFirstRender = false;
+        }
         boolean paused = mPauseOverlay != null;
 
         mOverallPerformanceCounter.start();

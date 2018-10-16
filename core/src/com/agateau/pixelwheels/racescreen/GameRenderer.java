@@ -37,6 +37,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -45,6 +47,8 @@ import com.badlogic.gdx.utils.PerformanceCounters;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
+    private static final float MAX_CAMERA_DELTA = 100;
+    private static final float IMMEDIATE = -1;
     private GameConfig mGameConfig;
 
     private final Track mTrack;
@@ -102,6 +106,10 @@ public class GameRenderer {
     public void setConfig(GameConfig config) {
         mGameConfig = config;
         mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
+    }
+
+    public void onAboutToStart() {
+        updateCamera(IMMEDIATE);
     }
 
     public void render(float delta) {
@@ -171,7 +179,9 @@ public class GameRenderer {
         }
     }
 
+    private static Vector2 sDelta = new Vector2();
     private void updateCamera(float delta) {
+        boolean immediate = delta < 0;
         float viewportWidth = GamePlay.instance.viewportWidth;
         float viewportHeight = GamePlay.instance.viewportWidth * mScreenHeight / mScreenWidth;
         mCamera.viewportWidth = viewportWidth;
@@ -186,8 +196,10 @@ public class GameRenderer {
         float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
         float progress = Math.min(Math.abs(deltaAngle), K) / K;
         float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
-        float maxDeltaAngle = maxRotationSpeed * delta;
-        deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+        if (!immediate) {
+            float maxDeltaAngle = maxRotationSpeed * delta;
+            deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+        }
         mCamera.rotate(deltaAngle);
         mCameraAngle += deltaAngle;
 
@@ -205,9 +217,14 @@ public class GameRenderer {
             advanceAngle = mRacer.getCameraAngle();
         }
 
+        Vector3 cameraPos = mCamera.position;
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        mCamera.position.x = mVehicle.getX() + advance * MathUtils.cosDeg(advanceAngle);
-        mCamera.position.y = mVehicle.getY() + advance * MathUtils.sinDeg(advanceAngle);
+        sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(cameraPos.x, cameraPos.y);
+
+        if (!immediate && sDelta.len() > MAX_CAMERA_DELTA * delta) {
+            sDelta.setLength(MAX_CAMERA_DELTA * delta);
+        }
+        cameraPos.add(sDelta.x, sDelta.y, 0);
 
         mCamera.update();
     }
