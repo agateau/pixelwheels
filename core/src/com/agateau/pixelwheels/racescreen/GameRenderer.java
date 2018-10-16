@@ -227,8 +227,8 @@ public class GameRenderer {
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(mCameraInfo.position);
 
-        if (!immediate && sDelta.len() > MAX_CAMERA_DELTA * delta) {
-            sDelta.setLength(MAX_CAMERA_DELTA * delta);
+        if (!immediate) {
+            sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
 
