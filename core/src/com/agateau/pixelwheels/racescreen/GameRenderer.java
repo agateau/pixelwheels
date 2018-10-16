@@ -46,7 +46,11 @@ import com.badlogic.gdx.utils.PerformanceCounters;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float MAX_CAMERA_DELTA = 100;
+    private static final float MAX_CAMERA_DELTA = 50;
+    private static final float MAX_ZOOM_DELTA = 0.4f;
+    private static final float MIN_ZOOM = 0.6f;
+    private static final float MAX_ZOOM = 2.1f;
+    private static final float MAX_ZOOM_SPEED = 75f;
     private static final float IMMEDIATE = -1;
     private GameConfig mGameConfig;
 
@@ -78,6 +82,7 @@ public class GameRenderer {
         float viewportHeight;
         Vector2 position = new Vector2();
         float angle = 90;
+        float zoom = 1;
     }
     private CameraInfo mCameraInfo = new CameraInfo();
     private CameraInfo mNextCameraInfo = new CameraInfo();
@@ -191,8 +196,14 @@ public class GameRenderer {
         boolean immediate = delta < 0;
 
         // Compute viewport size
-        float viewportWidth = GamePlay.instance.viewportWidth;
-        float viewportHeight = GamePlay.instance.viewportWidth * mScreenHeight / mScreenWidth;
+        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, mVehicle.getSpeed() / MAX_ZOOM_SPEED);
+        if (!immediate) {
+            float zoomDelta = MAX_ZOOM_DELTA * delta;
+            mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
+                    mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
+        }
+        float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
+        float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
         mNextCameraInfo.viewportWidth = viewportWidth;
         mNextCameraInfo.viewportHeight = viewportHeight;
 
