@@ -38,7 +38,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -47,7 +46,11 @@ import com.badlogic.gdx.utils.PerformanceCounters;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float MAX_CAMERA_DELTA = 100;
+    private static final float MAX_CAMERA_DELTA = 50;
+    private static final float MAX_ZOOM_DELTA = 0.4f;
+    private static final float MIN_ZOOM = 0.6f;
+    private static final float MAX_ZOOM = 2.1f;
+    private static final float MAX_ZOOM_SPEED = 75f;
     private static final float IMMEDIATE = -1;
     private GameConfig mGameConfig;
 
@@ -66,7 +69,6 @@ public class GameRenderer {
     private int[] mExtraBackgroundLayerIndexes;
     private int[] mForegroundLayerIndexes;
     private Vehicle mVehicle;
-    private float mCameraAngle = 90;
 
     private int mScreenX;
     private int mScreenY;
@@ -74,6 +76,16 @@ public class GameRenderer {
     private int mScreenHeight;
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
+
+    private static class CameraInfo {
+        float viewportWidth;
+        float viewportHeight;
+        Vector2 position = new Vector2();
+        float angle = 90;
+        float zoom = 1;
+    }
+    private CameraInfo mCameraInfo = new CameraInfo();
+    private CameraInfo mNextCameraInfo = new CameraInfo();
 
     public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
@@ -182,51 +194,66 @@ public class GameRenderer {
     private static Vector2 sDelta = new Vector2();
     private void updateCamera(float delta) {
         boolean immediate = delta < 0;
-        float viewportWidth = GamePlay.instance.viewportWidth;
-        float viewportHeight = GamePlay.instance.viewportWidth * mScreenHeight / mScreenWidth;
-        mCamera.viewportWidth = viewportWidth;
-        mCamera.viewportHeight = viewportHeight;
 
-        // Compute pos
-        float maxCameraRotationSpeed = mGameConfig.rotateCamera ? Constants.MAX_CAMERA_ROTATION_SPEED : 0;
-
-        float targetAngle = AgcMathUtils.normalizeAngle(180 - mRacer.getCameraAngle());
-        float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraAngle);
-
-        float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
-        float progress = Math.min(Math.abs(deltaAngle), K) / K;
-        float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
+        // Compute viewport size
+        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, mVehicle.getSpeed() / MAX_ZOOM_SPEED);
         if (!immediate) {
-            float maxDeltaAngle = maxRotationSpeed * delta;
-            deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+            float zoomDelta = MAX_ZOOM_DELTA * delta;
+            mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
+                    mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
         }
-        mCamera.rotate(deltaAngle);
-        mCameraAngle += deltaAngle;
+        float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
+        float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
+        mNextCameraInfo.viewportWidth = viewportWidth;
+        mNextCameraInfo.viewportHeight = viewportHeight;
 
-        if (!mGameConfig.rotateCamera && mCameraAngle != 90) {
-            // If we just disabled camera rotation, reset the camera angle
-            mCamera.rotate(-mCameraAngle + 90);
-            mCameraAngle = 90;
+        // Compute angle
+        if (mGameConfig.rotateCamera) {
+            float maxCameraRotationSpeed = Constants.MAX_CAMERA_ROTATION_SPEED;
+
+            float targetAngle = AgcMathUtils.normalizeAngle(180 - mRacer.getCameraAngle());
+            float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraInfo.angle);
+
+            float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
+            float progress = Math.min(Math.abs(deltaAngle), K) / K;
+            float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
+            if (!immediate) {
+                float maxDeltaAngle = maxRotationSpeed * delta;
+                deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
+            }
+            mNextCameraInfo.angle = mCameraInfo.angle + deltaAngle;
+        } else {
+            mNextCameraInfo.angle = 90;
         }
 
         // Compute advanceAngle
         float advanceAngle;
         if (mGameConfig.rotateCamera) {
-            advanceAngle = 180 - mCameraAngle;
+            advanceAngle = 180 - mCameraInfo.angle;
         } else {
             advanceAngle = mRacer.getCameraAngle();
         }
 
-        Vector3 cameraPos = mCamera.position;
+        // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(cameraPos.x, cameraPos.y);
+        sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(mCameraInfo.position);
 
-        if (!immediate && sDelta.len() > MAX_CAMERA_DELTA * delta) {
-            sDelta.setLength(MAX_CAMERA_DELTA * delta);
+        if (!immediate) {
+            sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
-        cameraPos.add(sDelta.x, sDelta.y, 0);
+        mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
 
+        // Apply changes
+        mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
+        mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
+        mCamera.position.set(mNextCameraInfo.position, 0);
+        mCamera.rotate(mNextCameraInfo.angle - mCameraInfo.angle);
         mCamera.update();
+
+        // Swap instances
+        CameraInfo tmp = mCameraInfo;
+        mCameraInfo = mNextCameraInfo;
+        mNextCameraInfo = tmp;
     }
 
     private void updateMapRendererCamera() {
