@@ -29,11 +29,11 @@ public class TrackRecords {
         mStats = stats;
     }
 
-    ArrayList<TrackResult> getResults() {
+    public ArrayList<TrackResult> getResults() {
         return mResults;
     }
 
-    int addResult(TrackResult result) {
+    public int addResult(TrackResult result) {
         if (mResults.isEmpty()) {
             mResults.add(result);
             mStats.save();

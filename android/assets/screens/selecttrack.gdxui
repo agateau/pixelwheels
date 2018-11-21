@@ -4,7 +4,15 @@
         <Label id="mainLabel" style="title"
                topCenter="root.topCenter 0 -2">Select Track</Label>
 
-        <Menu id="menu" center="root.center 0 -1" style="large" width="400"/>
+        <Menu id="menu" centerLeft="root.centerLeft 1 0" style="large" width="400"/>
+
+        <VerticalGroup topLeft="menu.topRight 1 -1" width="300">
+            <Label id="trackNameLabel"></Label>
+            <Label>Best Lap</Label>
+            <Label id="lapRecordsLabel"></Label>
+            <Label>\nBest Total</Label>
+            <Label id="totalRecordsLabel"></Label>
+        </VerticalGroup>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

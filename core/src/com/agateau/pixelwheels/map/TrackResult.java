@@ -19,11 +19,11 @@
 package com.agateau.pixelwheels.map;
 
 public class TrackResult {
-    final String racer;
-    final int value;
+    public final String racer;
+    public final float value;
 
 
-    public TrackResult(String racer, int value) {
+    public TrackResult(String racer, float value) {
         this.racer = racer;
         this.value = value;
     }

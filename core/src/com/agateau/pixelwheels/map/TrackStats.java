@@ -48,7 +48,7 @@ public class TrackStats {
         mIO = io;
     }
 
-    TrackRecords getRecords(String trackId, ResultType resultType) {
+    public TrackRecords getRecords(String trackId, ResultType resultType) {
         return mTrackResults.get(trackId).get(resultType);
     }
 
