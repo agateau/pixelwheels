@@ -34,11 +34,26 @@ public class TrackRecords {
     }
 
     public int addResult(TrackResult result) {
-        if (mResults.isEmpty()) {
-            mResults.add(result);
-            mStats.save();
-            return 0;
+        int rank = -1;
+        // Insert result if it is better than an existing one
+        for (int idx = 0; idx < mResults.size(); ++idx) {
+            if (result.value < mResults.get(idx).value) {
+                mResults.add(idx, result);
+                if (mResults.size() > RECORD_COUNT) {
+                    mResults.remove(RECORD_COUNT);
+                }
+                rank = idx;
+                break;
+            }
         }
-        return -1;
+        // If result is not better than existing ones but there is room at the end, append it
+        if (rank == -1 && mResults.size() < RECORD_COUNT) {
+            mResults.add(result);
+            rank = mResults.size() - 1;
+        }
+        if (rank > -1) {
+            mStats.save();
+        }
+        return rank;
     }
 }
