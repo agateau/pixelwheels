@@ -60,6 +60,12 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
     // State
     private Bonus mBonus;
+    private final RecordRanks mRecordRanks = new RecordRanks();
+
+    public static class RecordRanks {
+        public int lapRecordRank = -1;
+        public int totalRecordRank = -1;
+    }
 
     interface Component {
         void act(float delta);
@@ -122,6 +128,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         if (component instanceof Collidable) {
             mCollidableComponents.add((Collidable)component);
         }
+    }
+
+    public RecordRanks getRecordRanks() {
+        return mRecordRanks;
     }
 
     public GameInfo.Entrant getEntrant() {

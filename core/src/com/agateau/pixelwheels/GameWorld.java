@@ -27,6 +27,9 @@ import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.map.TrackRecords;
+import com.agateau.pixelwheels.map.TrackResult;
+import com.agateau.pixelwheels.map.TrackStats;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.PlayerPilot;
@@ -245,6 +248,9 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void onFinished() {
+        TrackStats stats = mGame.getTrackStats();
+        TrackRecords lapRecords = stats.getRecords(mTrack.getId(), TrackStats.ResultType.LAP);
+        TrackRecords totalRecords = stats.getRecords(mTrack.getId(), TrackStats.ResultType.TOTAL);
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             racer.markRaceFinished();
@@ -255,6 +261,16 @@ public class GameWorld implements ContactListener, Disposable {
 
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
             entrant.addRaceTime(lapPositionComponent.getTotalTime());
+
+            if (entrant.isPlayer()) {
+                Racer.RecordRanks ranks = racer.getRecordRanks();
+                // TODO find another way to get the name
+                String name = racer.getVehicle().getName();
+                ranks.lapRecordRank = lapRecords.addResult(
+                        new TrackResult(name, lapPositionComponent.getBestLapTime()));
+                ranks.totalRecordRank = totalRecords.addResult(
+                        new TrackResult(name, lapPositionComponent.getTotalTime()));
+            }
         }
     }
 
