@@ -138,6 +138,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public T getSelected() {
         return mSelectedIndex >= 0 ? mItems.get(mSelectedIndex) : null;
     }
+    public T getCurrent() {
+        return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
+    }
 
     public void setItems(Array<T> items) {
         mItems = items;

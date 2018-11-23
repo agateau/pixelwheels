@@ -111,7 +111,7 @@ public class SelectTrackScreen extends PwStageScreen {
             }
         });
 
-        updateTrackRecords(mGame.getAssets().tracks.get(0));
+        updateTrackRecords(mTrackSelector.getCurrent());
     }
 
     @Override
