@@ -21,8 +21,8 @@ package com.agateau.pixelwheels.map;
 import java.util.HashMap;
 
 public class GameStats {
-    private final IO mIO;
-    private final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
+    private final transient IO mIO;
+    final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
 
     interface IO {
         void setGameStats(GameStats gameStats);
@@ -42,9 +42,5 @@ public class GameStats {
 
     public void addTrack(String trackId) {
         mTrackStats.put(trackId, new TrackStats(mIO));
-    }
-
-    void save() {
-        mIO.save();
     }
 }

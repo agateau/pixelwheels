@@ -132,6 +132,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "junit:junit:4.12"
+        compile 'com.google.code.gson:gson:2.8.5'
     }
 }
 

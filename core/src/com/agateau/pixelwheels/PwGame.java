@@ -23,7 +23,7 @@ import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
-import com.agateau.pixelwheels.map.FileGameStatsIO;
+import com.agateau.pixelwheels.map.JsonGameStatsIO;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
@@ -102,7 +102,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        FileGameStatsIO io = new FileGameStatsIO(FileUtils.getUserWritableFile("trackstats.xml"));
+        JsonGameStatsIO io = new JsonGameStatsIO(FileUtils.getUserWritableFile("gamestats.json"));
         mGameStats = new GameStats(io);
         for (Track track : mAssets.tracks) {
             mGameStats.addTrack(track.getId());

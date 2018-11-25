@@ -24,8 +24,8 @@ public class TrackStats {
     private static final int RECORD_COUNT = 3;
 
     private final GameStats.IO mIO;
-    private final ArrayList<TrackResult> mLapRecords;
-    private final ArrayList<TrackResult> mTotalRecords;
+    final ArrayList<TrackResult> mLapRecords;
+    final ArrayList<TrackResult> mTotalRecords;
 
     public enum ResultType {
         LAP,
