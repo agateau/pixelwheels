@@ -28,6 +28,7 @@ import org.mockito.junit.MockitoRule;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
@@ -44,6 +45,6 @@ public class GameStatsTests {
         GameStats stats = new GameStats(mStatsIO);
         stats.addTrack(trackId);
         TrackStats trackStats = stats.getTrackStats(trackId);
-        assertThat(trackStats, is(not(null)));
+        assertThat(trackStats, is(not(nullValue())));
     }
 }
