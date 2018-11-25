@@ -18,9 +18,14 @@
  */
 package com.agateau.pixelwheels.map;
 
+import java.util.ArrayList;
+
 public class TrackStats {
-    final private TrackRecords mLapRecords;
-    final private TrackRecords mTotalRecords;
+    private static final int RECORD_COUNT = 3;
+
+    private final GameStats.IO mIO;
+    private final ArrayList<TrackResult> mLapRecords;
+    private final ArrayList<TrackResult> mTotalRecords;
 
     public enum ResultType {
         LAP,
@@ -28,11 +33,39 @@ public class TrackStats {
     }
 
     TrackStats(GameStats.IO io) {
-        mLapRecords = new TrackRecords(io);
-        mTotalRecords = new TrackRecords(io);
+        mIO = io;
+        mLapRecords = new ArrayList<TrackResult>();
+        mTotalRecords = new ArrayList<TrackResult>();
     }
 
-    public TrackRecords get(ResultType resultType) {
+    public ArrayList<TrackResult> get(ResultType resultType) {
         return resultType == ResultType.LAP ? mLapRecords : mTotalRecords;
+    }
+
+    public int addResult(ResultType resultType, TrackResult result) {
+        int rank = addResult(get(resultType), result);
+        if (rank != -1) {
+            mIO.save();
+        }
+        return rank;
+    }
+
+    private static int addResult(ArrayList<TrackResult> results, TrackResult result) {
+        // Insert result if it is better than an existing one
+        for (int idx = 0; idx < results.size(); ++idx) {
+            if (result.value < results.get(idx).value) {
+                results.add(idx, result);
+                if (results.size() > RECORD_COUNT) {
+                    results.remove(RECORD_COUNT);
+                }
+                return idx;
+            }
+        }
+        // If result is not better than existing ones but there is room at the end, append it
+        if (results.size() < RECORD_COUNT) {
+            results.add(result);
+            return results.size() - 1;
+        }
+        return -1;
     }
 }

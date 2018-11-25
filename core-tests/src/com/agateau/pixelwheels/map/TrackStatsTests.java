@@ -26,9 +26,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(JUnit4.class)
 public class TrackStatsTests {
@@ -42,19 +46,40 @@ public class TrackStatsTests {
     public void testInit() {
         TrackStats trackStats = new TrackStats(mStatsIO);
 
-        TrackRecords records;
+        ArrayList<TrackResult> records;
 
         records = trackStats.get(TrackStats.ResultType.LAP);
-        assertThat(records.getResults().size(), is(0));
+        assertThat(records.size(), is(0));
         records = trackStats.get(TrackStats.ResultType.TOTAL);
-        assertThat(records.getResults().size(), is(0));
+        assertThat(records.size(), is(0));
     }
 
     @Test
     public void testAddResultCausesSaving() {
         TrackStats trackStats = new TrackStats(mStatsIO);
-        int row = trackStats.get(TrackStats.ResultType.LAP).addResult(new TrackResult("bob", 12));
+        int row = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", 12));
         assertThat(row, is(0));
         verify(mStatsIO).save();
+    }
+
+    @Test
+    public void testAddResults() {
+        TrackStats trackStats = new TrackStats(mStatsIO);
+
+        checkAddResult(trackStats, 12, 0); // 12
+        checkAddResult(trackStats, 14, 1); // 12, 14
+        checkAddResult(trackStats, 10, 0); // 10, 12, 14
+        checkAddResult(trackStats, 20, -1); // 10, 12, 14
+    }
+
+    private void checkAddResult(TrackStats trackStats, float value, int expectedRank) {
+        clearInvocations(mStatsIO);
+        int rank = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", value));
+        assertThat(rank, is(expectedRank));
+        if (rank >= 0) {
+            verify(mStatsIO).save();
+        } else {
+            verifyZeroInteractions(mStatsIO);
+        }
     }
 }

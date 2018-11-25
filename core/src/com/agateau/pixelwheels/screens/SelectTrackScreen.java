@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.map.TrackRecords;
 import com.agateau.pixelwheels.map.TrackResult;
-import com.agateau.pixelwheels.map.GameStats;
 import com.agateau.pixelwheels.map.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.RefreshHelper;
@@ -132,16 +130,13 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void updateTrackRecords(Track track) {
         TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
-        TrackRecords lapRecords = stats.get(TrackStats.ResultType.LAP);
-        TrackRecords totalRecords = stats.get(TrackStats.ResultType.TOTAL);
-        updateRecordLabel(mLapRecordsLabel, lapRecords);
-        updateRecordLabel(mTotalRecordsLabel, totalRecords);
+        updateRecordLabel(mLapRecordsLabel, stats.get(TrackStats.ResultType.LAP));
+        updateRecordLabel(mTotalRecordsLabel, stats.get(TrackStats.ResultType.TOTAL));
     }
 
     private final StringBuilder mStringBuilder = new StringBuilder();
-    private void updateRecordLabel(Label label, TrackRecords records) {
+    private void updateRecordLabel(Label label, ArrayList<TrackResult> results) {
         mStringBuilder.setLength(0);
-        ArrayList<TrackResult> results = records.getResults();
         if (results.isEmpty()) {
             label.setText("No record yet");
             return;
