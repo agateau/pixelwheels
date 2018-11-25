@@ -46,6 +46,7 @@ public class TrackStats {
 
     public TrackStats(IO io) {
         mIO = io;
+        mIO.load(this);
     }
 
     public TrackRecords getRecords(String trackId, ResultType resultType) {
