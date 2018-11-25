@@ -18,21 +18,31 @@
  */
 package com.agateau.pixelwheels.map;
 
-public class TrackStats {
-    final private TrackRecords mLapRecords;
-    final private TrackRecords mTotalRecords;
+import java.util.HashMap;
 
-    public enum ResultType {
-        LAP,
-        TOTAL
+public class GameStats {
+    private final IO mIO;
+    private final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
+
+    interface IO {
+        void load(GameStats gameStats);
+        void save(GameStats gameStats);
     }
 
-    TrackStats(GameStats gameStats) {
-        mLapRecords = new TrackRecords(gameStats);
-        mTotalRecords = new TrackRecords(gameStats);
+    public GameStats(IO io) {
+        mIO = io;
+        mIO.load(this);
     }
 
-    public TrackRecords get(ResultType resultType) {
-        return resultType == ResultType.LAP ? mLapRecords : mTotalRecords;
+    public TrackStats getTrackStats(String trackId) {
+        return mTrackStats.get(trackId);
+    }
+
+    public void addTrack(String trackId) {
+        mTrackStats.put(trackId, new TrackStats(this));
+    }
+
+    void save() {
+        mIO.save(this);
     }
 }

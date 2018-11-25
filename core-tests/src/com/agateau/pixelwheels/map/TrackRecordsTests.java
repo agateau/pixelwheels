@@ -35,14 +35,14 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 @RunWith(JUnit4.class)
 public class TrackRecordsTests {
     @Mock
-    private TrackStats.IO mStatsIO;
+    private GameStats.IO mStatsIO;
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testAddResults() {
-        TrackStats stats = new TrackStats(mStatsIO);
+        GameStats stats = new GameStats(mStatsIO);
         TrackRecords records = new TrackRecords(stats);
 
         checkAddResult(stats, records, 12, 0); // 12
@@ -51,7 +51,7 @@ public class TrackRecordsTests {
         checkAddResult(stats, records, 20, -1); // 10, 12, 14
     }
 
-    private void checkAddResult(TrackStats stats, TrackRecords records, float value, int expectedRank) {
+    private void checkAddResult(GameStats stats, TrackRecords records, float value, int expectedRank) {
         clearInvocations(mStatsIO);
         int rank = records.addResult(new TrackResult("bob", value));
         assertThat(rank, is(expectedRank));

@@ -29,6 +29,7 @@ import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.TrackRecords;
 import com.agateau.pixelwheels.map.TrackResult;
+import com.agateau.pixelwheels.map.GameStats;
 import com.agateau.pixelwheels.map.TrackStats;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
@@ -248,9 +249,9 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void onFinished() {
-        TrackStats stats = mGame.getTrackStats();
-        TrackRecords lapRecords = stats.getRecords(mTrack.getId(), TrackStats.ResultType.LAP);
-        TrackRecords totalRecords = stats.getRecords(mTrack.getId(), TrackStats.ResultType.TOTAL);
+        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack.getId());
+        TrackRecords lapRecords = stats.get(TrackStats.ResultType.LAP);
+        TrackRecords totalRecords = stats.get(TrackStats.ResultType.TOTAL);
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             racer.markRaceFinished();

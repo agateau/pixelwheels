@@ -25,7 +25,7 @@ import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
 import com.agateau.pixelwheels.map.FileTrackStatsIO;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.map.TrackStats;
+import com.agateau.pixelwheels.map.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
@@ -57,7 +57,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
-    private TrackStats mTrackStats;
+    private GameStats mGameStats;
 
     public Assets getAssets() {
         return mAssets;
@@ -103,9 +103,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void setupTrackStats() {
         FileTrackStatsIO io = new FileTrackStatsIO(FileUtils.getUserWritableFile("trackstats.xml"));
-        mTrackStats = new TrackStats(io);
+        mGameStats = new GameStats(io);
         for (Track track : mAssets.tracks) {
-            mTrackStats.addTrack(track.getId());
+            mGameStats.addTrack(track.getId());
         }
     }
 
@@ -132,8 +132,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mGameConfig;
     }
 
-    public TrackStats getTrackStats() {
-        return mTrackStats;
+    public GameStats getGameStats() {
+        return mGameStats;
     }
 
     public Introspector getGamePlayIntrospector() {

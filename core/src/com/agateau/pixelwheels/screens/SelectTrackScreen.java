@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.TrackRecords;
 import com.agateau.pixelwheels.map.TrackResult;
+import com.agateau.pixelwheels.map.GameStats;
 import com.agateau.pixelwheels.map.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.RefreshHelper;
@@ -130,9 +131,9 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void updateTrackRecords(Track track) {
-        TrackStats stats = mGame.getTrackStats();
-        TrackRecords lapRecords = stats.getRecords(track.getId(), TrackStats.ResultType.LAP);
-        TrackRecords totalRecords = stats.getRecords(track.getId(), TrackStats.ResultType.TOTAL);
+        TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
+        TrackRecords lapRecords = stats.get(TrackStats.ResultType.LAP);
+        TrackRecords totalRecords = stats.get(TrackStats.ResultType.TOTAL);
         updateRecordLabel(mLapRecordsLabel, lapRecords);
         updateRecordLabel(mTotalRecordsLabel, totalRecords);
     }

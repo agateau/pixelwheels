@@ -31,9 +31,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
 @RunWith(JUnit4.class)
-public class TrackStatsTests {
+public class GameStatsTests {
     @Mock
-    private TrackStats.IO mStatsIO;
+    private GameStats.IO mStatsIO;
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
@@ -41,24 +41,25 @@ public class TrackStatsTests {
     @Test
     public void testInit() {
         final String trackId = "t";
-        TrackStats stats = new TrackStats(mStatsIO);
+        GameStats stats = new GameStats(mStatsIO);
         stats.addTrack(trackId);
+        TrackStats trackStats = stats.getTrackStats(trackId);
 
         TrackRecords records;
 
-        records = stats.getRecords(trackId, TrackStats.ResultType.LAP);
+        records = trackStats.get(TrackStats.ResultType.LAP);
         assertThat(records.getResults().size(), is(0));
-        records = stats.getRecords(trackId, TrackStats.ResultType.TOTAL);
+        records = trackStats.get(TrackStats.ResultType.TOTAL);
         assertThat(records.getResults().size(), is(0));
     }
 
     @Test
     public void testAddResultCausesSaving() {
         final String trackId = "t";
-        TrackStats stats = new TrackStats(mStatsIO);
+        GameStats stats = new GameStats(mStatsIO);
         stats.addTrack(trackId);
 
-        int row = stats.getRecords(trackId, TrackStats.ResultType.LAP).addResult(new TrackResult("bob", 12));
+        int row = stats.getTrackStats(trackId).get(TrackStats.ResultType.LAP).addResult(new TrackResult("bob", 12));
         assertThat(row, is(0));
         verify(mStatsIO).save(stats);
     }

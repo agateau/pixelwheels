@@ -22,10 +22,10 @@ import java.util.ArrayList;
 
 public class TrackRecords {
     private static final int RECORD_COUNT = 3;
-    private final TrackStats mStats;
+    private final GameStats mStats;
     private final ArrayList<TrackResult> mResults = new ArrayList<TrackResult>(RECORD_COUNT);
 
-    TrackRecords(TrackStats stats) {
+    TrackRecords(GameStats stats) {
         mStats = stats;
     }
 
