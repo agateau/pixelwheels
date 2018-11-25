@@ -8,12 +8,17 @@ public class FileTrackStatsIO implements GameStats.IO {
     }
 
     @Override
-    public void load(GameStats gameStats) {
+    public void setGameStats(GameStats gameStats) {
 
     }
 
     @Override
-    public void save(GameStats gameStats) {
+    public void load() {
+
+    }
+
+    @Override
+    public void save() {
 
     }
 }

@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 public class TrackRecords {
     private static final int RECORD_COUNT = 3;
-    private final GameStats mStats;
+    private final GameStats.IO mIO;
     private final ArrayList<TrackResult> mResults = new ArrayList<TrackResult>(RECORD_COUNT);
 
-    TrackRecords(GameStats stats) {
-        mStats = stats;
+    TrackRecords(GameStats.IO io) {
+        mIO = io;
     }
 
     public ArrayList<TrackResult> getResults() {
@@ -52,7 +52,7 @@ public class TrackRecords {
             rank = mResults.size() - 1;
         }
         if (rank > -1) {
-            mStats.save();
+            mIO.save();
         }
         return rank;
     }

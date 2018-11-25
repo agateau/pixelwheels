@@ -27,9 +27,9 @@ public class TrackStats {
         TOTAL
     }
 
-    TrackStats(GameStats gameStats) {
-        mLapRecords = new TrackRecords(gameStats);
-        mTotalRecords = new TrackRecords(gameStats);
+    TrackStats(GameStats.IO io) {
+        mLapRecords = new TrackRecords(io);
+        mTotalRecords = new TrackRecords(io);
     }
 
     public TrackRecords get(ResultType resultType) {

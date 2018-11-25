@@ -42,21 +42,20 @@ public class TrackRecordsTests {
 
     @Test
     public void testAddResults() {
-        GameStats stats = new GameStats(mStatsIO);
-        TrackRecords records = new TrackRecords(stats);
+        TrackRecords records = new TrackRecords(mStatsIO);
 
-        checkAddResult(stats, records, 12, 0); // 12
-        checkAddResult(stats, records, 14, 1); // 12, 14
-        checkAddResult(stats, records, 10, 0); // 10, 12, 14
-        checkAddResult(stats, records, 20, -1); // 10, 12, 14
+        checkAddResult(records, 12, 0); // 12
+        checkAddResult(records, 14, 1); // 12, 14
+        checkAddResult(records, 10, 0); // 10, 12, 14
+        checkAddResult(records, 20, -1); // 10, 12, 14
     }
 
-    private void checkAddResult(GameStats stats, TrackRecords records, float value, int expectedRank) {
+    private void checkAddResult(TrackRecords records, float value, int expectedRank) {
         clearInvocations(mStatsIO);
         int rank = records.addResult(new TrackResult("bob", value));
         assertThat(rank, is(expectedRank));
         if (rank >= 0) {
-            verify(mStatsIO).save(stats);
+            verify(mStatsIO).save();
         } else {
             verifyZeroInteractions(mStatsIO);
         }

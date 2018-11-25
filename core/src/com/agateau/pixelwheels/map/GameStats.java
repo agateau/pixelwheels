@@ -25,13 +25,15 @@ public class GameStats {
     private final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
 
     interface IO {
-        void load(GameStats gameStats);
-        void save(GameStats gameStats);
+        void setGameStats(GameStats gameStats);
+        void load();
+        void save();
     }
 
     public GameStats(IO io) {
         mIO = io;
-        mIO.load(this);
+        mIO.setGameStats(this);
+        mIO.load();
     }
 
     public TrackStats getTrackStats(String trackId) {
@@ -39,10 +41,10 @@ public class GameStats {
     }
 
     public void addTrack(String trackId) {
-        mTrackStats.put(trackId, new TrackStats(this));
+        mTrackStats.put(trackId, new TrackStats(mIO));
     }
 
     void save() {
-        mIO.save(this);
+        mIO.save();
     }
 }
