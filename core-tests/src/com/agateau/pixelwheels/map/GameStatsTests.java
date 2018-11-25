@@ -43,8 +43,10 @@ public class GameStatsTests {
     public void testInit() {
         final String trackId = "t";
         GameStats stats = new GameStats(mStatsIO);
-        stats.addTrack(trackId);
         TrackStats trackStats = stats.getTrackStats(trackId);
         assertThat(trackStats, is(not(nullValue())));
+
+        TrackStats trackStats2 = stats.getTrackStats(trackId);
+        assertThat(trackStats, is(trackStats2));
     }
 }

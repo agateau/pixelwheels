@@ -37,10 +37,16 @@ public class GameStats {
     }
 
     public TrackStats getTrackStats(String trackId) {
-        return mTrackStats.get(trackId);
+        TrackStats stats = mTrackStats.get(trackId);
+        if (stats == null) {
+            stats = addTrack(trackId);
+        }
+        return stats;
     }
 
-    public void addTrack(String trackId) {
-        mTrackStats.put(trackId, new TrackStats(mIO));
+    TrackStats addTrack(String trackId) {
+        TrackStats stats = new TrackStats(mIO);
+        mTrackStats.put(trackId, stats);
+        return stats;
     }
 }

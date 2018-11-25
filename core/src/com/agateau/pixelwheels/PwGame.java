@@ -104,9 +104,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private void setupTrackStats() {
         JsonGameStatsIO io = new JsonGameStatsIO(FileUtils.getUserWritableFile("gamestats.json"));
         mGameStats = new GameStats(io);
-        for (Track track : mAssets.tracks) {
-            mGameStats.addTrack(track.getId());
-        }
     }
 
     public void showMainMenu() {
