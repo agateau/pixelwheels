@@ -56,6 +56,27 @@ public class FinishedOverlay extends Overlay {
 
     private Actor createContent(Array<Racer> racers) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        registerCellCreator(builder);
+
+        Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
+        Menu menu = builder.getActor("menu");
+        ScrollableTable scrollableTable = builder.getActor("scrollableTable");
+
+        fillMenu(menu);
+        fillTable(scrollableTable, racers);
+        return content;
+    }
+
+    private void fillMenu(Menu menu) {
+        menu.addButton("OK").addListener(new MenuItemListener() {
+            @Override
+            public void triggered() {
+                mListener.onNextTrackPressed();
+            }
+        });
+    }
+
+    private void registerCellCreator(UiBuilder builder) {
         ScrollableTable.register(builder, "ScrollableTable", new ScrollableTable.CellCreator() {
             @Override
             public void createCells(Table table, String style, String... values) {
@@ -66,16 +87,9 @@ public class FinishedOverlay extends Overlay {
                 table.add(values[4], style).right();
             }
         });
-        Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
-        Menu menu = builder.getActor("menu");
-        menu.addButton("OK").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mListener.onNextTrackPressed();
-            }
-        });
+    }
 
-        ScrollableTable scrollableTable = builder.getActor("scrollableTable");
+    private void fillTable(ScrollableTable scrollableTable, Array<Racer> racers) {
         scrollableTable.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
         for (int idx = 0; idx < racers.size; ++idx) {
             Racer racer = racers.get(idx);
@@ -90,6 +104,5 @@ public class FinishedOverlay extends Overlay {
                     String.valueOf(racer.getEntrant().getScore())
             );
         }
-        return content;
     }
 }
