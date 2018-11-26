@@ -157,10 +157,7 @@ public class Assets {
         if (region != null) {
             return region;
         }
-        region = this.atlas.findRegion(name);
-        if (region == null) {
-            throw new RuntimeException("Failed to load a texture region named '" + name + "'");
-        }
+        region = UiAssets.findRegion(this.atlas, name);
         mRegions.put(name, region);
         return region;
     }

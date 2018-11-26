@@ -81,4 +81,12 @@ public class UiAssets {
         generator.dispose();
         return font;
     }
+
+    public static TextureAtlas.AtlasRegion findRegion(TextureAtlas atlas, String name) {
+        TextureAtlas.AtlasRegion region = atlas.findRegion(name);
+        if (region == null) {
+            throw new RuntimeException("Failed to load a texture region named '" + name + "' from atlas " + atlas);
+        }
+        return region;
+    }
 }
