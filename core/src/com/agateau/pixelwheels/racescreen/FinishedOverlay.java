@@ -170,7 +170,7 @@ public class FinishedOverlay extends Overlay {
         Image image = builder.getActor("bestImage" + String.valueOf(row));
         Label label = builder.getActor("bestLabel" + String.valueOf(row));
 
-        TextureRegion region = UiAssets.findRegion(mGame.getAssets().ui.atlas, "best-" + String.valueOf(rank + 1));
+        TextureRegion region = mGame.getAssets().ui.atlas.findRegion("best-" + String.valueOf(rank + 1));
         image.setDrawable(new TextureRegionDrawable(region));
         image.pack();
 

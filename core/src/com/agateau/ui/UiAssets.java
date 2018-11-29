@@ -31,7 +31,7 @@ public class UiAssets {
     public final TextureRegion background;
 
     public UiAssets() {
-        this.atlas = new TextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
+        this.atlas = new StrictTextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(this.atlas);
 
         loadFonts();
@@ -80,13 +80,5 @@ public class UiAssets {
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
         return font;
-    }
-
-    public static TextureAtlas.AtlasRegion findRegion(TextureAtlas atlas, String name) {
-        TextureAtlas.AtlasRegion region = atlas.findRegion(name);
-        if (region == null) {
-            throw new RuntimeException("Failed to load a texture region named '" + name + "' from atlas " + atlas);
-        }
-        return region;
     }
 }
