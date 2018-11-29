@@ -65,6 +65,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public static class RecordRanks {
         public int lapRecordRank = -1;
         public int totalRecordRank = -1;
+        public boolean brokeRecord() {
+            return lapRecordRank > -1 || totalRecordRank > -1;
+        }
     }
 
     interface Component {
