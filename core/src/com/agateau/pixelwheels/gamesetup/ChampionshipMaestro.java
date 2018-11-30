@@ -43,7 +43,7 @@ public class ChampionshipMaestro extends Maestro {
 
     @Override
     public void start() {
-        getGame().pushScreen(createSelectVehicleScreen());
+        getGame().pushScreen(createChampionshipScreen());
     }
 
     private Screen createSelectVehicleScreen() {
@@ -58,7 +58,7 @@ public class ChampionshipMaestro extends Maestro {
         SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
             @Override
             public void onBackPressed() {
-                stop();
+                getGame().replaceScreen(createChampionshipScreen());
             }
 
             @Override
@@ -66,7 +66,7 @@ public class ChampionshipMaestro extends Maestro {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createChampionshipScreen());
+                startChampionship();
             }
         };
         return new SelectVehicleScreen(getGame(), listener);
@@ -76,13 +76,13 @@ public class ChampionshipMaestro extends Maestro {
         MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
             @Override
             public void onBackPressed() {
-                stop();
+                getGame().replaceScreen(createChampionshipScreen());
             }
 
             @Override
             public void onPlayersSelected(Array<GameInfo.Player> players) {
                 mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createChampionshipScreen());
+                startChampionship();
             }
         };
         return new MultiPlayerScreen(getGame(), listener);
@@ -93,13 +93,13 @@ public class ChampionshipMaestro extends Maestro {
         SelectChampionshipScreen.Listener listener = new SelectChampionshipScreen.Listener() {
             @Override
             public void onBackPressed() {
-                getGame().replaceScreen(createSelectVehicleScreen());
+                stop();
             }
 
             @Override
             public void onChampionshipSelected(Championship championship) {
                 mGameInfoBuilder.setChampionship(championship);
-                startChampionship();
+                getGame().replaceScreen(createSelectVehicleScreen());
             }
         };
 
