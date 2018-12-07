@@ -31,6 +31,7 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -79,29 +80,7 @@ public class SelectTrackScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
-        mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(2);
-        mTrackSelector.init(assets);
-        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
-        menu.addItem(mTrackSelector);
-
-        mTrackSelector.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                next();
-            }
-        });
-
-        mTrackSelector.setSelectionListener(new GridMenuItem.SelectionListener<Track>() {
-            @Override
-            public void selectedChanged(Track item, int index) {
-            }
-
-            @Override
-            public void currentChanged(Track track, int index) {
-                updateTrackRecords(track);
-            }
-        });
+        createTrackSelector(menu);
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -110,6 +89,36 @@ public class SelectTrackScreen extends PwStageScreen {
             }
         });
 
+        builder.getActor("nextButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                next();
+            }
+        });
+    }
+
+    private void createTrackSelector(Menu menu) {
+        Assets assets = mGame.getAssets();
+
+        mTrackSelector = new TrackSelector(menu);
+        mTrackSelector.setColumnCount(2);
+        mTrackSelector.init(assets);
+        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
+        menu.addItem(mTrackSelector);
+
+        mTrackSelector.setSelectionListener(new GridMenuItem.SelectionListener<Track>() {
+            @Override
+            public void selectedChanged(Track item, int index) {
+                if (PlatformUtils.isButtonsUi()) {
+                    next();
+                }
+            }
+
+            @Override
+            public void currentChanged(Track track, int index) {
+                updateTrackRecords(track);
+            }
+        });
         updateTrackRecords(mTrackSelector.getCurrent());
     }
 
@@ -119,13 +128,13 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void saveSelectedMap() {
-        mGame.getConfig().track = mTrackSelector.getSelected().getId();
+        mGame.getConfig().track = mTrackSelector.getCurrent().getId();
         mGame.getConfig().flush();
     }
 
     private void next() {
         saveSelectedMap();
-        mListener.onTrackSelected(mTrackSelector.getSelected());
+        mListener.onTrackSelected(mTrackSelector.getCurrent());
     }
 
     private void updateTrackRecords(Track track) {
