@@ -74,9 +74,8 @@ public class GamepadInputWatcher {
         mMissingGamepads.clear();
         for (int idx = 0; idx < mInputCount; ++idx) {
             GameInputHandler handler = mGameConfig.getPlayerInputHandler(idx);
-            Assert.check(handler != null, "Missing GameInputHandler");
-            if (!handler.isAvailable()) {
-                NLog.e("Controller for player %d is not available", idx + 1);
+            if (handler == null || !handler.isAvailable()) {
+                NLog.e("Controller for player %d is not available (handler=%s)", idx + 1, handler);
                 mMissingGamepads.add(idx);
             }
         }
