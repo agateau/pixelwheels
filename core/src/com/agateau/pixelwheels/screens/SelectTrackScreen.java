@@ -24,12 +24,12 @@ import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
+import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -68,8 +68,7 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void setupUi() {
-        Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        UiBuilder builder = UiUtils.createUiBuilder(mGame.getAssets());
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
