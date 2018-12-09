@@ -42,8 +42,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.XmlReader;
 
@@ -62,6 +64,7 @@ public class UiBuilder {
     private TextureAtlas mAtlas;
     private Skin mSkin;
     private Actor mLastAddedActor;
+    private Map<String, TextureAtlas> mAtlasMap = new HashMap<String, TextureAtlas>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element);
@@ -124,6 +127,10 @@ public class UiBuilder {
 
     public Skin getSkin() {
         return mSkin;
+    }
+
+    public void addAtlas(String ui, TextureAtlas atlas) {
+        mAtlasMap.put(ui, atlas);
     }
 
     private Actor doBuild(XmlReader.Element parentElement, Group parentActor) {
@@ -226,12 +233,14 @@ public class UiBuilder {
 
     protected Image createImage(XmlReader.Element element) {
         Image image = new Image();
+        TextureAtlas atlas = getAtlasForElement(element);
         String attr = element.getAttribute("name", "");
         if (!attr.isEmpty()) {
             if (attr.endsWith(".9")) {
-                initImageFromNinePatchName(image, attr);
+                initImageFromNinePatchName(image, atlas, attr);
             } else {
-                initImageFromRegionName(image, attr);
+                boolean tiled = element.getBooleanAttribute("tiled", false);
+                initImageFromRegionName(image, atlas, attr, tiled);
             }
         }
         return image;
@@ -242,15 +251,29 @@ public class UiBuilder {
         return mVariables.contains(condition);
     }
 
-    private void initImageFromNinePatchName(Image image, String name) {
-        NinePatch patch = mAtlas.createPatch(name.substring(0, name.length() - 2));
+    private TextureAtlas getAtlasForElement(XmlReader.Element element) {
+        String name = element.getAttribute("atlas", "");
+        if (name.isEmpty()) {
+            return mAtlas;
+        }
+        return mAtlasMap.get(name);
+    }
+
+    private void initImageFromNinePatchName(Image image, TextureAtlas atlas, String name) {
+        NinePatch patch = atlas.createPatch(name.substring(0, name.length() - 2));
         image.setDrawable(new NinePatchDrawable(patch));
     }
 
-    private void initImageFromRegionName(Image image, String name) {
-        TextureRegion region = mAtlas.findRegion(name);
+    private void initImageFromRegionName(Image image, TextureAtlas atlas, String name, boolean tiled) {
+        TextureRegion region = atlas.findRegion(name);
         Assert.check(region != null, "No region named " + name);
-        image.setDrawable(new TextureRegionDrawable(region));
+        Drawable drawable;
+        if (tiled) {
+            drawable = new TiledDrawable(region);
+        } else {
+            drawable = new TextureRegionDrawable(region);
+        }
+        image.setDrawable(drawable);
         if (image.getWidth() == 0) {
             image.setWidth(region.getRegionWidth());
         }
@@ -402,6 +425,10 @@ public class UiBuilder {
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
             actor.setVisible(Boolean.parseBoolean(attr));
+        }
+        attr = element.getAttribute("color", "");
+        if (!attr.isEmpty()) {
+            actor.setColor(Color.valueOf(attr));
         }
         attr = element.getAttribute("debug", "");
         if (!attr.isEmpty()) {
