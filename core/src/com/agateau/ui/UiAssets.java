@@ -49,6 +49,11 @@ public class UiAssets {
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;
         parameter.borderWidth = 0.5f;
+        this.skin.add("tiny-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 20;
+        parameter.borderWidth = 0.5f;
         this.skin.add("small-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

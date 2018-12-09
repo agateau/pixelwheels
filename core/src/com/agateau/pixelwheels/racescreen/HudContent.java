@@ -84,7 +84,7 @@ public class HudContent {
 
     public void setPerformanceCounters(PerformanceCounters performanceCounters) {
         mPerformanceCounters = performanceCounters;
-        mDebugLabel = new Label("D", mAssets.ui.skin, "small");
+        mDebugLabel = new Label("D", mAssets.ui.skin, "tiny");
 
         AnchorGroup root = mHud.getRoot();
         root.addPositionRule(mDebugLabel, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);
