@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.desktop;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
@@ -27,7 +28,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 public class DesktopLauncher {
     public static void main (String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowedMode(800, 480);
+        config.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         config.setTitle("Pixel Wheels");
         config.setPreferencesConfig(".config/agateau.com", Files.FileType.External);
         config.useVsync(true);
