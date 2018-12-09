@@ -1,20 +1,24 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1">Select Track</Label>
 
-        <Menu id="menu" topRight="root.topCenter 1 -1" style="large" width="400"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="800" height="400"/>
 
-        <VerticalGroup topLeft="root.topCenter 3 -1" width="300">
-            <Label id="trackNameLabel"></Label>
+        <Label id="trackNameLabel" topCenter="menu.bottomCenter 0 -1" style="title"/>
+        <VerticalGroup topRight="menu.bottomCenter -1 -4" width="300">
             <Label>Best Lap</Label>
-            <Label id="lapRecordsLabel"></Label>
-            <Label>\nBest Total</Label>
-            <Label id="totalRecordsLabel"></Label>
+            <Label align="left" id="lapRecordsLabel" style="small"/>
+        </VerticalGroup>
+
+        <VerticalGroup topLeft="menu.bottomCenter 1 -4" width="300">
+            <Label>Best Total</Label>
+            <Label align="left" id="totalRecordsLabel" style="small"/>
         </VerticalGroup>
 
         <ImageButton id="backButton"
-                    bottomLeft="root.bottomLeft 1 1"
-                    imageName="icon-back"/>
+            bottomLeft="root.bottomLeft 1 1"
+            imageName="icon-back"/>
 
         <ImageButton id="nextButton"
             bottomRight="root.bottomRight -1 1"

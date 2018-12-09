@@ -46,6 +46,7 @@ public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
     private TrackSelector mTrackSelector;
+    private Label mTrackNameLabel;
     private Label mLapRecordsLabel;
     private Label mTotalRecordsLabel;
 
@@ -74,12 +75,14 @@ public class SelectTrackScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mTrackNameLabel = builder.getActor("trackNameLabel");
         mLapRecordsLabel = builder.getActor("lapRecordsLabel");
         mTotalRecordsLabel = builder.getActor("totalRecordsLabel");
 
         Menu menu = builder.getActor("menu");
 
         createTrackSelector(menu);
+        updateTrackRecords(mTrackSelector.getCurrent());
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -100,7 +103,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(2);
+        mTrackSelector.setColumnCount(4);
         mTrackSelector.init(assets);
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
@@ -118,7 +121,6 @@ public class SelectTrackScreen extends PwStageScreen {
                 updateTrackRecords(track);
             }
         });
-        updateTrackRecords(mTrackSelector.getCurrent());
     }
 
     @Override
@@ -137,6 +139,8 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void updateTrackRecords(Track track) {
+        mTrackNameLabel.setText(track.getMapName());
+        mTrackNameLabel.pack();
         TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
         updateRecordLabel(mLapRecordsLabel, stats.get(TrackStats.ResultType.LAP));
         updateRecordLabel(mTotalRecordsLabel, stats.get(TrackStats.ResultType.TOTAL));
