@@ -21,13 +21,16 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -40,6 +43,8 @@ public class SelectChampionshipScreen extends PwStageScreen {
     }
     private final PwGame mGame;
     private final Listener mListener;
+    private Label mChampionshipNameLabel;
+    private Label mChampionshipDetailsLabel;
     private ChampionshipSelector mChampionshipSelector;
 
     public SelectChampionshipScreen(PwGame game, Listener listener, final String championshipId) {
@@ -63,20 +68,13 @@ public class SelectChampionshipScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mChampionshipNameLabel = builder.getActor("championshipNameLabel");
+        mChampionshipDetailsLabel = builder.getActor("championshipDetailsLabel");
+
         Menu menu = builder.getActor("menu");
 
-        mChampionshipSelector = new ChampionshipSelector(menu);
-        mChampionshipSelector.setColumnCount(2);
-        mChampionshipSelector.init(assets);
-        mChampionshipSelector.setCurrent(assets.findChampionshipById(championshipId));
-        menu.addItem(mChampionshipSelector);
-
-        mChampionshipSelector.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                next();
-            }
-        });
+        createChampionshipSelector(championshipId, menu);
+        updateChampionshipDetails(assets.findChampionshipById(championshipId));
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -84,6 +82,56 @@ public class SelectChampionshipScreen extends PwStageScreen {
                 onBackPressed();
             }
         });
+
+        builder.getActor("nextButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                next();
+            }
+        });
+    }
+
+    private void createChampionshipSelector(String championshipId, Menu menu) {
+        Assets assets = mGame.getAssets();
+        mChampionshipSelector = new ChampionshipSelector(menu);
+        mChampionshipSelector.setColumnCount(2);
+        mChampionshipSelector.init(assets);
+        mChampionshipSelector.setCurrent(assets.findChampionshipById(championshipId));
+        menu.addItem(mChampionshipSelector);
+
+        mChampionshipSelector.setSelectionListener(new GridMenuItem.SelectionListener<Championship>() {
+            @Override
+            public void selectedChanged(Championship item, int index) {
+                if (PlatformUtils.isButtonsUi()) {
+                    next();
+                }
+            }
+
+            @Override
+            public void currentChanged(Championship championship, int index) {
+                updateChampionshipDetails(championship);
+            }
+        });
+    }
+
+    private final StringBuilder mStringBuilder = new StringBuilder();
+    private void updateChampionshipDetails(Championship championship) {
+        mChampionshipNameLabel.setText(championship.getName());
+
+        mStringBuilder.setLength(0);
+        boolean first = true;
+        for (Track track : championship.getTracks()) {
+            if (first) {
+                first = false;
+            } else {
+                mStringBuilder.append('\n');
+            }
+            mStringBuilder.append(track.getMapName());
+        }
+        mChampionshipDetailsLabel.setText(mStringBuilder.toString());
+
+        mChampionshipNameLabel.pack();
+        mChampionshipDetailsLabel.pack();
     }
 
     @Override
