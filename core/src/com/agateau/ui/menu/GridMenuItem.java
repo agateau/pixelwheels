@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.utils.Assert;
+import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -109,6 +110,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         setCurrentIndex(index);
+        if (PlatformUtils.isTouchUi()) {
+            setSelectedIndex(index);
+        }
     }
 
     private void setSelectedIndex(int index) {
