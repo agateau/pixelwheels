@@ -25,7 +25,7 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
-import com.agateau.ui.UiAssets;
+import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
@@ -48,6 +48,16 @@ public class FinishedOverlay extends Overlay {
     private final RaceScreen.Listener mListener;
     private final Array<Racer> mRacers;
     private final Array<Racer> mRecordBreakers = new Array<Racer>();
+    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
+        @Override
+        protected void createCells(Table table, String style, String... values) {
+            table.add(values[0], style).right().padRight(24);
+            table.add(values[1], style).left().expandX();
+            table.add(values[2], style).right().padRight(24);
+            table.add(values[3], style).right().padRight(24);
+            table.add(values[4], style).right();
+        }
+    };
 
     public FinishedOverlay(PwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
         super(game.getAssets().dot);
@@ -74,14 +84,13 @@ public class FinishedOverlay extends Overlay {
 
     private Actor createScoreTableContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        registerCellCreator(builder);
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         Menu menu = builder.getActor("menu");
-        ScrollableTable scrollableTable = builder.getActor("scrollableTable");
+        Table table = builder.getActor("scrollableTable");
 
         fillMenu(menu);
-        fillTable(scrollableTable);
+        fillTable(table);
         return content;
     }
 
@@ -103,27 +112,15 @@ public class FinishedOverlay extends Overlay {
         });
     }
 
-    private void registerCellCreator(UiBuilder builder) {
-        ScrollableTable.register(builder, "ScrollableTable", new ScrollableTable.CellCreator() {
-            @Override
-            public void createCells(Table table, String style, String... values) {
-                table.add(values[0], style).right().padRight(24);
-                table.add(values[1], style).left().expandX();
-                table.add(values[2], style).right().padRight(24);
-                table.add(values[3], style).right().padRight(24);
-                table.add(values[4], style).right();
-            }
-        });
-    }
-
-    private void fillTable(ScrollableTable scrollableTable) {
-        scrollableTable.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
+    private void fillTable(Table table) {
+        mTableRowCreator.setTable(table);
+        mTableRowCreator.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             String style = UiUtils.getEntrantRowStyle(racer.getEntrant());
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            scrollableTable.setRowStyle(style);
-            scrollableTable.addRow(
+            mTableRowCreator.setRowStyle(style);
+            mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     racer.getVehicle().getName(),
                     StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),

@@ -21,12 +21,12 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.racescreen.ScrollableTable;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.GridMenuItem;
@@ -49,9 +49,18 @@ public class SelectTrackScreen extends PwStageScreen {
     private final Listener mListener;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
-    private ScrollableTable mLapRecordsTable;
-    private ScrollableTable mTotalRecordsTable;
+    private Table mLapRecordsTable;
+    private Table mTotalRecordsTable;
     private AnchorGroup root;
+
+    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
+        @Override
+        protected void createCells(Table table, String style, String... values) {
+            table.add(values[0], style).right().padRight(12);
+            table.add(values[1], style).left().growX().padRight(12);
+            table.add(values[2], style).right();
+        }
+    };
 
     public interface Listener {
         void onBackPressed();
@@ -62,6 +71,7 @@ public class SelectTrackScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
+        mTableRowCreator.setRowStyle("small");
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
@@ -73,7 +83,6 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = UiUtils.createUiBuilder(mGame.getAssets());
-        registerScrollableTable(builder);
 
         root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
@@ -99,17 +108,6 @@ public class SelectTrackScreen extends PwStageScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 next();
-            }
-        });
-    }
-
-    private void registerScrollableTable(UiBuilder builder) {
-        ScrollableTable.register(builder, "ScrollableTable", new ScrollableTable.CellCreator() {
-            @Override
-            public void createCells(Table table, String style, String... values) {
-                table.add(values[0], style).right().padRight(12);
-                table.add(values[1], style).left().growX().padRight(12);
-                table.add(values[2], style).right();
             }
         });
     }
@@ -162,11 +160,12 @@ public class SelectTrackScreen extends PwStageScreen {
         root.layout();
     }
 
-    private void updateRecordLabel(ScrollableTable table, ArrayList<TrackResult> results) {
+    private void updateRecordLabel(Table table, ArrayList<TrackResult> results) {
         table.clearChildren();
+        mTableRowCreator.setTable(table);
         for (int idx = 0, n = results.size(); idx < n; ++idx) {
             TrackResult result = results.get(idx);
-            table.addRow(
+            mTableRowCreator.addRow(
                     String.format(Locale.US, "%d", idx + 1),
                     result.racer,
                     StringUtils.formatRaceTime(result.value));

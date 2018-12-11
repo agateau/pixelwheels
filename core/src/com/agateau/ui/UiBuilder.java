@@ -39,6 +39,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
@@ -223,6 +224,8 @@ public class UiBuilder {
             return createMenu(element);
         } else if (name.equals("MenuScrollPane")) {
             return createMenuScrollPane(element);
+        } else if (name.equals("Table")) {
+            return createTable(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -356,6 +359,10 @@ public class UiBuilder {
         HorizontalGroup group = new HorizontalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         return group;
+    }
+
+    protected Table createTable(XmlReader.Element element) {
+        return new Table(mSkin);
     }
 
     protected CheckBox createCheckBox(XmlReader.Element element) {
