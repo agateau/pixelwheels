@@ -62,7 +62,7 @@ public class HudContent {
         mPlayerId = playerId;
         Skin skin = assets.ui.skin;
 
-        mRankLabel = new Label("", skin, "hud-rank");
+        mRankLabel = new Label("", skin, "hudRank");
         mRankLabel.setAlignment(Align.right);
 
         mLapLabel = new Label("", skin, "hud");
@@ -71,7 +71,7 @@ public class HudContent {
         mFinishedLabel = new Label("Finished!", skin, "hud");
         mFinishedLabel.setVisible(false);
 
-        mCountDownLabel = new Label("", skin, "hud-countdown");
+        mCountDownLabel = new Label("", skin, "hudCountDown");
         mCountDownLabel.setAlignment(Align.bottom);
 
         AnchorGroup root = hud.getRoot();

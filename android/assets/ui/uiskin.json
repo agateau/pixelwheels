@@ -72,10 +72,10 @@
         hud: {
             font: hud-font
         },
-        hud-rank: {
+        hudRank: {
             font: hud-rank-font
         },
-        hud-countdown: {
+        hudCountDown: {
             font: hud-countdown-font
         },
         menuTitle: {
