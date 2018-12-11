@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.racescreen.ScrollableTable;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
@@ -34,6 +35,7 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
@@ -47,8 +49,9 @@ public class SelectTrackScreen extends PwStageScreen {
     private final Listener mListener;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
-    private Label mLapRecordsLabel;
-    private Label mTotalRecordsLabel;
+    private ScrollableTable mLapRecordsTable;
+    private ScrollableTable mTotalRecordsTable;
+    private AnchorGroup root;
 
     public interface Listener {
         void onBackPressed();
@@ -70,14 +73,15 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = UiUtils.createUiBuilder(mGame.getAssets());
+        registerScrollableTable(builder);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
+        root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         mTrackNameLabel = builder.getActor("trackNameLabel");
-        mLapRecordsLabel = builder.getActor("lapRecordsLabel");
-        mTotalRecordsLabel = builder.getActor("totalRecordsLabel");
+        mLapRecordsTable = builder.getActor("lapRecordsTable");
+        mTotalRecordsTable = builder.getActor("totalRecordsTable");
 
         Menu menu = builder.getActor("menu");
 
@@ -95,6 +99,17 @@ public class SelectTrackScreen extends PwStageScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 next();
+            }
+        });
+    }
+
+    private void registerScrollableTable(UiBuilder builder) {
+        ScrollableTable.register(builder, "ScrollableTable", new ScrollableTable.CellCreator() {
+            @Override
+            public void createCells(Table table, String style, String... values) {
+                table.add(values[0], style).right().padRight(12);
+                table.add(values[1], style).left().growX().padRight(12);
+                table.add(values[2], style).right();
             }
         });
     }
@@ -142,26 +157,20 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackNameLabel.setText(track.getMapName());
         mTrackNameLabel.pack();
         TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
-        updateRecordLabel(mLapRecordsLabel, stats.get(TrackStats.ResultType.LAP));
-        updateRecordLabel(mTotalRecordsLabel, stats.get(TrackStats.ResultType.TOTAL));
+        updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
+        updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
+        root.layout();
     }
 
-    private final StringBuilder mStringBuilder = new StringBuilder();
-    private void updateRecordLabel(Label label, ArrayList<TrackResult> results) {
-        mStringBuilder.setLength(0);
-        if (results.isEmpty()) {
-            label.setText("No record yet");
-            return;
-        }
+    private void updateRecordLabel(ScrollableTable table, ArrayList<TrackResult> results) {
+        table.clearChildren();
         for (int idx = 0, n = results.size(); idx < n; ++idx) {
             TrackResult result = results.get(idx);
-            if (idx > 0) {
-                mStringBuilder.append('\n');
-            }
-            String timeStr = StringUtils.formatRaceTime(result.value);
-            String line = String.format(Locale.US, "%d %s %s", idx + 1, timeStr, result.racer);
-            mStringBuilder.append(line);
+            table.addRow(
+                    String.format(Locale.US, "%d", idx + 1),
+                    result.racer,
+                    StringUtils.formatRaceTime(result.value));
         }
-        label.setText(mStringBuilder.toString());
+        table.setHeight(table.getPrefHeight());
     }
 }

@@ -6,15 +6,12 @@
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="800" height="400"/>
 
         <Label id="trackNameLabel" topCenter="menu.bottomCenter 0 -1" style="title"/>
-        <VerticalGroup topRight="menu.bottomCenter -1 -4" width="300">
-            <Label>Best Lap</Label>
-            <Label align="left" id="lapRecordsLabel" style="small"/>
-        </VerticalGroup>
 
-        <VerticalGroup topLeft="menu.bottomCenter 1 -4" width="300">
-            <Label>Best Total</Label>
-            <Label align="left" id="totalRecordsLabel" style="small"/>
-        </VerticalGroup>
+        <Label topRight="menu.bottomCenter -0.5 -4" width="300" align="topCenter">Best Lap</Label>
+        <ScrollableTable id="lapRecordsTable" topLeft="$prev.bottomLeft 0 0" style="small" width="300"/>
+
+        <Label topLeft="menu.bottomCenter 0.5 -4" width="300" align="topCenter">Best Total</Label>
+        <ScrollableTable id="totalRecordsTable" topLeft="$prev.bottomLeft 0 0" style="small" width="300"/>
 
         <ImageButton id="backButton"
             bottomLeft="root.bottomLeft 1 1"
