@@ -54,7 +54,8 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;
-        setupUi();
+        Array<GameInfo.Entrant> entrants = getSortedEntrants();
+        setupUi(entrants);
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
@@ -63,7 +64,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         };
     }
 
-    private void setupUi() {
+    private void setupUi(Array<GameInfo.Entrant> entrants) {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
@@ -79,12 +80,26 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         });
 
         Table table = builder.getActor("entrantTable");
-        fillEntrantTable(table);
+        fillEntrantTable(table, entrants);
     }
 
-    private void fillEntrantTable(Table table) {
+    private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
         mTableRowCreator.setTable(table);
         mTableRowCreator.addHeaderRow("#", "Racer", "Score", "Total Time");
+        for (int idx = 0; idx < entrants.size; ++idx) {
+            GameInfo.Entrant entrant = entrants.get(idx);
+            String style = UiUtils.getEntrantRowStyle(entrant);
+            mTableRowCreator.setRowStyle(style);
+            mTableRowCreator.addRow(
+                    String.format(Locale.US, "%d.", idx + 1),
+                    entrant.getVehicleId(),
+                    String.valueOf(entrant.getScore()),
+                    StringUtils.formatRaceTime(entrant.getRaceTime())
+            );
+        }
+    }
+
+    private Array<GameInfo.Entrant> getSortedEntrants() {
         Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
         entrants.sort(new Comparator<GameInfo.Entrant>() {
             @Override
@@ -97,17 +112,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
                 return Float.compare(e1.getRaceTime(), e2.getRaceTime());
             }
         });
-        for (int idx = 0; idx < entrants.size; ++idx) {
-            GameInfo.Entrant entrant = entrants.get(idx);
-            String style = UiUtils.getEntrantRowStyle(entrant);
-            mTableRowCreator.setRowStyle(style);
-            mTableRowCreator.addRow(
-                    String.format(Locale.US, "%d.", idx + 1),
-                    entrant.getVehicleId(),
-                    String.valueOf(entrant.getScore()),
-                    StringUtils.formatRaceTime(entrant.getRaceTime())
-            );
-        }
+        return entrants;
     }
 
     @Override
