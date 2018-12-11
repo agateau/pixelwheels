@@ -77,7 +77,10 @@ public class ScrollableTable extends ScrollPane {
         builder.registerActorFactory(className, new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
-                return new ScrollableTable(uiBuilder.getSkin(), cellCreator);
+                String styleName = element.getAttribute("style", "default");
+                ScrollableTable table = new ScrollableTable(uiBuilder.getSkin(), cellCreator);
+                table.setRowStyle(styleName);
+                return table;
             }
         });
     }
