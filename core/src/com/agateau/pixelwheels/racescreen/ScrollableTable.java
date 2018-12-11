@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.ui.UiBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.XmlReader;
@@ -31,7 +30,7 @@ import com.badlogic.gdx.utils.XmlReader;
  * addHeaderRow and addContentRow should always be called with
  * the same number of values.
  */
-public class ScrollableTable extends ScrollPane {
+public class ScrollableTable extends Table {
     private static final String HEADER_STYLE = "tableHeaderRow";
     private final Table mTable;
     private final CellCreator mCellCreator;
@@ -48,10 +47,9 @@ public class ScrollableTable extends ScrollPane {
 
     @SuppressWarnings("WeakerAccess")
     public ScrollableTable(Skin skin, CellCreator cellCreator) {
-        super(null);
+        super(skin);
         mCellCreator = cellCreator;
-        mTable = new Table(skin);
-        setWidget(mTable);
+        mTable = this;
     }
 
     public ScrollableTable setRowStyle(String style) {
