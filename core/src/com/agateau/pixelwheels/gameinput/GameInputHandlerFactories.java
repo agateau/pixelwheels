@@ -67,6 +67,10 @@ public class GameInputHandlerFactories {
         return factory.getAllHandlers().get(0);
     }
 
+    public static boolean hasKeyboard() {
+        return Gdx.input.isPeripheralAvailable(Input.Peripheral.HardwareKeyboard);
+    }
+
     public static boolean hasMultitouch() {
         return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput;
     }
@@ -76,7 +80,7 @@ public class GameInputHandlerFactories {
             return;
         }
         mFactories = new Array<GameInputHandlerFactory>();
-        if (PlatformUtils.isDesktop()) {
+        if (hasKeyboard()) {
             mFactories.add(new KeyboardInputHandler.Factory());
         }
         if (hasMultitouch()) {

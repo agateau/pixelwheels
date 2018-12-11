@@ -1,13 +1,21 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -2">Select Championship</Label>
+        <Label id="titleLabel" style="title"
+               topCenter="root.topCenter 0 -1">Select Championship</Label>
 
-        <Menu id="menu" center="root.center 0 -1" style="large" width="400"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="400"/>
+
+        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -2" style="title"/>
+
+        <Label id="championshipDetailsLabel" topCenter="championshipNameLabel.bottomCenter 0 -1"/>
 
         <ImageButton id="backButton"
-                    bottomLeft="root.bottomLeft 1 1"
-                    imageName="icon-back"/>
+            bottomLeft="root.bottomLeft 1 1"
+            imageName="icon-back"/>
+
+        <ImageButton id="nextButton"
+            bottomRight="root.bottomRight -1 1"
+            imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

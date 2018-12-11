@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <ScrollableTable id="scrollableTable"
+        <Table id="scrollableTable"
             center="root.center 0 2"
             width="650"
             height="320"/>

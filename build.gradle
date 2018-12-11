@@ -52,7 +52,8 @@ project(":core-tests") {
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        compile "junit:junit:4.11"
+        compile "junit:junit:4.12"
+        compile "org.mockito:mockito-core:2.7.22"
     }
 }
 
@@ -130,7 +131,8 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-        compile "junit:junit:4.11"
+        compile "junit:junit:4.12"
+        compile 'com.google.code.gson:gson:2.8.5'
     }
 }
 

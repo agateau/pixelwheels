@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -4" />
+
+        <Label id="bestLabel1" topLeft="titleLabel.bottomCenter -4 -3"/>
+        <Image id="bestImage1" centerRight="bestLabel1.centerLeft -1 0"/>
+
+        <Label id="bestLabel2" topLeft="bestLabel1.bottomLeft 0 -2"/>
+        <Image id="bestImage2" centerRight="bestLabel2.centerLeft -1 0"/>
+
+        <Menu id="menu" width="150" topLeft="titleLabel.bottomCenter -4 -11"/>
+    </AnchorGroup>
+</gdxui>

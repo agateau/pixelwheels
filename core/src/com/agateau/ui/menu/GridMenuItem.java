@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.utils.Assert;
+import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -43,6 +44,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
+    private SelectionListener<T> mSelectionListener;
 
     private int mColumnCount = 3;
     private float mItemWidth = 0;
@@ -55,6 +57,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Rectangle getItemRectangle(float width, float height, T item);
 
         void render(Batch batch, float x, float y, float width, float height, T item);
+    }
+
+    public interface SelectionListener<T> {
+        void selectedChanged(T item, int index);
+        void currentChanged(T item, int index);
     }
 
     public static class GridMenuItemStyle {
@@ -75,6 +82,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         });
     }
 
+    public void setSelectionListener(SelectionListener<T> selectionListener) {
+        mSelectionListener = selectionListener;
+    }
+
     public void setSelected(T item) {
         if (item == null) {
             setSelectedIndex(-1);
@@ -90,7 +101,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setCurrent(T item) {
         if (item == null) {
-            mCurrentIndex = 0;
+            setCurrentIndex(0);
             return;
         }
         int index = mItems.indexOf(item, true);
@@ -98,26 +109,46 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             NLog.e("Item is not in the item list");
             return;
         }
-        mCurrentIndex = index;
+        setCurrentIndex(index);
+        if (PlatformUtils.isTouchUi()) {
+            setSelectedIndex(index);
+        }
     }
 
     private void setSelectedIndex(int index) {
         if (index < 0) {
             mSelectedIndex = -1;
-            return;
+            if (mSelectionListener != null) {
+                mSelectionListener.selectedChanged(null, -1);
+            }
         }
         Assert.check(index < mItems.size, "Invalid index value");
         mSelectedIndex = index;
-        mCurrentIndex = index;
+        if (mSelectionListener != null) {
+            T item = mItems.get(index);
+            mSelectionListener.selectedChanged(item, index);
+        }
+        setCurrentIndex(index);
+    }
+
+    private void setCurrentIndex(int currentIndex) {
+        mCurrentIndex = currentIndex;
+        if (mSelectionListener != null) {
+            T item = currentIndex >= 0 ? mItems.get(currentIndex) : null;
+            mSelectionListener.currentChanged(item, currentIndex);
+        }
     }
 
     public T getSelected() {
         return mSelectedIndex >= 0 ? mItems.get(mSelectedIndex) : null;
     }
+    public T getCurrent() {
+        return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
+    }
 
     public void setItems(Array<T> items) {
         mItems = items;
-        mCurrentIndex = items.size > 0 ? 0 : -1;
+        setCurrentIndex(items.size > 0 ? 0 : -1);
     }
 
     public Array<T> getItems() {
@@ -210,14 +241,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public void trigger() {
-        mSelectedIndex = mCurrentIndex;
+        setSelectedIndex(mCurrentIndex);
         MenuItemTriggerEvent.fire(this);
     }
 
     @Override
     public boolean goUp() {
         if (mCurrentIndex - mColumnCount >= 0) {
-            mCurrentIndex -= mColumnCount;
+            setCurrentIndex(mCurrentIndex - mColumnCount);
             mMenu.animateFocusIndicator();
             return true;
         } else {
@@ -228,7 +259,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     @Override
     public boolean goDown() {
         if (mCurrentIndex + mColumnCount < mItems.size) {
-            mCurrentIndex += mColumnCount;
+            setCurrentIndex(mCurrentIndex + mColumnCount);
             mMenu.animateFocusIndicator();
             return true;
         } else {
@@ -239,7 +270,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     @Override
     public void goLeft() {
         if (mCurrentIndex > 0) {
-            mCurrentIndex--;
+            setCurrentIndex(mCurrentIndex - 1);
             mMenu.animateFocusIndicator();
         }
     }
@@ -247,7 +278,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     @Override
     public void goRight() {
         if (mCurrentIndex < mItems.size - 1) {
-            mCurrentIndex++;
+            setCurrentIndex(mCurrentIndex + 1);
             mMenu.animateFocusIndicator();
         }
     }
@@ -304,7 +335,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
-            mCurrentIndex = idx;
+            setCurrentIndex(idx);
             mMenu.animateFocusIndicator();
             trigger();
         }

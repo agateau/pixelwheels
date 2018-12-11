@@ -19,13 +19,13 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.racescreen.ScrollableTable;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
@@ -40,12 +40,22 @@ import java.util.Locale;
 public class ChampionshipFinishedScreen extends PwStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
+    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
+        @Override
+        protected void createCells(Table table, String style, String... values) {
+            table.add(values[0], style).right().padRight(24);
+            table.add(values[1], style).left().expandX().padRight(24);
+            table.add(values[2], style).right().padRight(24);
+            table.add(values[3], style).right();
+        }
+    };
 
     public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo) {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;
-        setupUi();
+        Array<GameInfo.Entrant> entrants = getSortedEntrants();
+        setupUi(entrants);
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
@@ -54,20 +64,11 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         };
     }
 
-    private void setupUi() {
+    private void setupUi(Array<GameInfo.Entrant> entrants) {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
-        ScrollableTable.register(builder, "EntrantTable", new ScrollableTable.CellCreator() {
-            @Override
-            public void createCells(Table table, String style, String... values) {
-                table.add(values[0], style).right().padRight(24);
-                table.add(values[1], style).left().expandX().padRight(24);
-                table.add(values[2], style).right().padRight(24);
-                table.add(values[3], style).right();
-            }
-        });
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -78,8 +79,27 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
             }
         });
 
-        ScrollableTable table = builder.getActor("entrantTable");
-        table.addHeaderRow("#", "Racer", "Score", "Total Time");
+        Table table = builder.getActor("entrantTable");
+        fillEntrantTable(table, entrants);
+    }
+
+    private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
+        mTableRowCreator.setTable(table);
+        mTableRowCreator.addHeaderRow("#", "Racer", "Score", "Total Time");
+        for (int idx = 0; idx < entrants.size; ++idx) {
+            GameInfo.Entrant entrant = entrants.get(idx);
+            String style = UiUtils.getEntrantRowStyle(entrant);
+            mTableRowCreator.setRowStyle(style);
+            mTableRowCreator.addRow(
+                    String.format(Locale.US, "%d.", idx + 1),
+                    entrant.getVehicleId(),
+                    String.valueOf(entrant.getScore()),
+                    StringUtils.formatRaceTime(entrant.getRaceTime())
+            );
+        }
+    }
+
+    private Array<GameInfo.Entrant> getSortedEntrants() {
         Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
         entrants.sort(new Comparator<GameInfo.Entrant>() {
             @Override
@@ -92,17 +112,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
                 return Float.compare(e1.getRaceTime(), e2.getRaceTime());
             }
         });
-        for (int idx = 0; idx < entrants.size; ++idx) {
-            GameInfo.Entrant entrant = entrants.get(idx);
-            String style = UiUtils.getEntrantRowStyle(entrant);
-            table.setRowStyle(style);
-            table.addRow(
-                    String.format(Locale.US, "%d.", idx + 1),
-                    entrant.getVehicleId(),
-                    String.valueOf(entrant.getScore()),
-                    StringUtils.formatRaceTime(entrant.getRaceTime())
-            );
-        }
+        return entrants;
     }
 
     @Override

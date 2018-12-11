@@ -25,14 +25,13 @@ import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
+import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-
-import java.util.HashMap;
 
 /**
  * Stores all assets
@@ -77,25 +76,24 @@ public class Assets {
     public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
 
     private final Animation explosion;
-    private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
 
     Assets() {
         if (GamePlay.instance.showTestTrack) {
             tracks.add(new Track("test", "Test"));
         }
 
-        this.atlas = new TextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+        this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
-        this.explosion = new Animation<TextureRegion>(EXPLOSION_FRAME_DURATION, this.findRegions("explosion"));
-        this.impact = new Animation<TextureRegion>(IMPACT_FRAME_DURATION, this.findRegions("impact"));
-        this.mine = new Animation<TextureRegion>(MINE_FRAME_DURATION, this.findRegions("mine"));
+        this.explosion = new Animation<TextureRegion>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
+        this.impact = new Animation<TextureRegion>(IMPACT_FRAME_DURATION, this.atlas.findRegions("impact"));
+        this.mine = new Animation<TextureRegion>(MINE_FRAME_DURATION, this.atlas.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
-        this.turbo = new Animation<TextureRegion>(TURBO_FRAME_DURATION, this.findRegions("bonus-turbo"));
-        this.turboFlame = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.findRegions("turbo-flame"));
+        this.turbo = new Animation<TextureRegion>(TURBO_FRAME_DURATION, this.atlas.findRegions("bonus-turbo"));
+        this.turboFlame = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        this.splash = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.findRegions("splash"));
+        this.splash = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("splash"));
         this.gift = findRegion("gift");
-        this.gunAnimation = new Animation<TextureRegion>(0.1f / 3, this.findRegions("bonus-gun"));
+        this.gunAnimation = new Animation<TextureRegion>(0.1f / 3, this.atlas.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");
 
         // Fix white-pixel to avoid fading borders
@@ -153,24 +151,7 @@ public class Assets {
     }
 
     public TextureAtlas.AtlasRegion findRegion(String name) {
-        TextureAtlas.AtlasRegion region = mRegions.get(name);
-        if (region != null) {
-            return region;
-        }
-        region = this.atlas.findRegion(name);
-        if (region == null) {
-            throw new RuntimeException("Failed to load a texture region named '" + name + "'");
-        }
-        mRegions.put(name, region);
-        return region;
-    }
-
-    public Array<TextureAtlas.AtlasRegion> findRegions(String name) {
-        Array<TextureAtlas.AtlasRegion> lst = this.atlas.findRegions(name);
-        if (lst.size == 0) {
-            throw new RuntimeException("Failed to load an array of regions named '" + name + "'");
-        }
-        return lst;
+        return this.atlas.findRegion(name);
     }
 
     public VehicleDef findVehicleDefById(String id) {

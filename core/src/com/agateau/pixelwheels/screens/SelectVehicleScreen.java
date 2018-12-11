@@ -20,17 +20,22 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.racer.Vehicle;
+import com.agateau.pixelwheels.utils.UiUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 
 /**
  * Select your vehicle
@@ -43,6 +48,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
     private VehicleSelector mVehicleSelector;
+    private Label mVehicleNameLabel;
 
     public SelectVehicleScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
@@ -59,26 +65,17 @@ public class SelectVehicleScreen extends PwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        UiBuilder builder = UiUtils.createUiBuilder(assets);
 
         AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
+        mVehicleNameLabel = builder.getActor("vehicleNameLabel");
 
-        mVehicleSelector = new VehicleSelector(menu);
-        mVehicleSelector.init(assets);
-        String id = mGame.getConfig().vehicles[0];
-        mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
-        menu.addItem(mVehicleSelector);
-
-        mVehicleSelector.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                next();
-            }
-        });
+        createVehicleSelector(menu);
+        updateVehicleDetails(mVehicleSelector.getCurrent());
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -86,6 +83,41 @@ public class SelectVehicleScreen extends PwStageScreen {
                 onBackPressed();
             }
         });
+
+        builder.getActor("nextButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                next();
+            }
+        });
+    }
+
+    private void createVehicleSelector(Menu menu) {
+        Assets assets = mGame.getAssets();
+        mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.init(assets);
+        String id = mGame.getConfig().vehicles[0];
+        mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
+        menu.addItem(mVehicleSelector);
+
+        mVehicleSelector.setSelectionListener(new GridMenuItem.SelectionListener<VehicleDef>() {
+            @Override
+            public void selectedChanged(VehicleDef item, int index) {
+                if (PlatformUtils.isButtonsUi()) {
+                    next();
+                }
+            }
+
+            @Override
+            public void currentChanged(VehicleDef vehicle, int index) {
+                updateVehicleDetails(vehicle);
+            }
+        });
+    }
+
+    private void updateVehicleDetails(VehicleDef vehicle) {
+        mVehicleNameLabel.setText(vehicle.name);
+        mVehicleNameLabel.pack();
     }
 
     @Override

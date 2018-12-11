@@ -18,14 +18,52 @@
  */
 package com.agateau.utils;
 
-import com.badlogic.gdx.Application;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 
 /**
  * Utility methods to deal with the platform
  */
 public class PlatformUtils {
+    private static enum UiType {
+        BUTTONS,
+        TOUCH
+    }
+
+    private static UiType sUiType;
+
+    public static boolean isTouchUi() {
+        init();
+        return sUiType == UiType.TOUCH;
+    }
+
+    public static boolean isButtonsUi() {
+        return !isTouchUi();
+    }
+
     public static boolean isDesktop() {
-        return Gdx.app.getType() == Application.ApplicationType.Desktop;
+        switch (Gdx.app.getType()) {
+            case Desktop:
+            case HeadlessDesktop:
+            case Applet:
+            case WebGL:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static void init() {
+        if (sUiType != null) {
+            return;
+        }
+        String envValue = System.getenv("AGC_UI_TYPE");
+        if (envValue == null) {
+            sUiType = isDesktop() ? UiType.BUTTONS : UiType.TOUCH;
+        } else {
+            sUiType = UiType.valueOf(envValue);
+            NLog.d("Forcing UI type to %s", sUiType);
+        }
+        NLog.i("UI type: %s", sUiType);
     }
 }

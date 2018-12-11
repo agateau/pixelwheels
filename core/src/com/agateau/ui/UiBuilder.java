@@ -39,11 +39,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.XmlReader;
 
@@ -62,6 +65,7 @@ public class UiBuilder {
     private TextureAtlas mAtlas;
     private Skin mSkin;
     private Actor mLastAddedActor;
+    private Map<String, TextureAtlas> mAtlasMap = new HashMap<String, TextureAtlas>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element);
@@ -124,6 +128,10 @@ public class UiBuilder {
 
     public Skin getSkin() {
         return mSkin;
+    }
+
+    public void addAtlas(String ui, TextureAtlas atlas) {
+        mAtlasMap.put(ui, atlas);
     }
 
     private Actor doBuild(XmlReader.Element parentElement, Group parentActor) {
@@ -216,6 +224,8 @@ public class UiBuilder {
             return createMenu(element);
         } else if (name.equals("MenuScrollPane")) {
             return createMenuScrollPane(element);
+        } else if (name.equals("Table")) {
+            return createTable(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -226,12 +236,14 @@ public class UiBuilder {
 
     protected Image createImage(XmlReader.Element element) {
         Image image = new Image();
+        TextureAtlas atlas = getAtlasForElement(element);
         String attr = element.getAttribute("name", "");
         if (!attr.isEmpty()) {
             if (attr.endsWith(".9")) {
-                initImageFromNinePatchName(image, attr);
+                initImageFromNinePatchName(image, atlas, attr);
             } else {
-                initImageFromRegionName(image, attr);
+                boolean tiled = element.getBooleanAttribute("tiled", false);
+                initImageFromRegionName(image, atlas, attr, tiled);
             }
         }
         return image;
@@ -242,15 +254,29 @@ public class UiBuilder {
         return mVariables.contains(condition);
     }
 
-    private void initImageFromNinePatchName(Image image, String name) {
-        NinePatch patch = mAtlas.createPatch(name.substring(0, name.length() - 2));
+    private TextureAtlas getAtlasForElement(XmlReader.Element element) {
+        String name = element.getAttribute("atlas", "");
+        if (name.isEmpty()) {
+            return mAtlas;
+        }
+        return mAtlasMap.get(name);
+    }
+
+    private void initImageFromNinePatchName(Image image, TextureAtlas atlas, String name) {
+        NinePatch patch = atlas.createPatch(name.substring(0, name.length() - 2));
         image.setDrawable(new NinePatchDrawable(patch));
     }
 
-    private void initImageFromRegionName(Image image, String name) {
-        TextureRegion region = mAtlas.findRegion(name);
+    private void initImageFromRegionName(Image image, TextureAtlas atlas, String name, boolean tiled) {
+        TextureRegion region = atlas.findRegion(name);
         Assert.check(region != null, "No region named " + name);
-        image.setDrawable(new TextureRegionDrawable(region));
+        Drawable drawable;
+        if (tiled) {
+            drawable = new TiledDrawable(region);
+        } else {
+            drawable = new TextureRegionDrawable(region);
+        }
+        image.setDrawable(drawable);
         if (image.getWidth() == 0) {
             image.setWidth(region.getRegionWidth());
         }
@@ -297,18 +323,8 @@ public class UiBuilder {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
-        String alignText = element.getAttribute("align", "");
-        if (!alignText.isEmpty()) {
-            int align;
-            if (alignText.equals("left")) {
-                align = Align.left;
-            } else if (alignText.equals("center")) {
-                align = Align.center;
-            } else if (alignText.equals("right")) {
-                align = Align.right;
-            } else {
-                throw new RuntimeException("Unknown value of 'align': " + alignText);
-            }
+        int align = parseAlign(element);
+        if (align != -1) {
             label.setAlignment(align);
         }
         return label;
@@ -332,6 +348,10 @@ public class UiBuilder {
     protected VerticalGroup createVerticalGroup(XmlReader.Element element) {
         VerticalGroup group = new VerticalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
+        int align = parseAlign(element);
+        if (align != -1) {
+            group.align(align);
+        }
         return group;
     }
 
@@ -339,6 +359,10 @@ public class UiBuilder {
         HorizontalGroup group = new HorizontalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         return group;
+    }
+
+    protected Table createTable(XmlReader.Element element) {
+        return new Table(mSkin);
     }
 
     protected CheckBox createCheckBox(XmlReader.Element element) {
@@ -402,6 +426,10 @@ public class UiBuilder {
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
             actor.setVisible(Boolean.parseBoolean(attr));
+        }
+        attr = element.getAttribute("color", "");
+        if (!attr.isEmpty()) {
+            actor.setColor(Color.valueOf(attr));
         }
         attr = element.getAttribute("debug", "");
         if (!attr.isEmpty()) {
@@ -469,5 +497,33 @@ public class UiBuilder {
             return "";
         }
         return text.replace("\\n", "\n");
+    }
+
+    private static int parseAlign(XmlReader.Element element) {
+        String alignText = element.getAttribute("align", "");
+        if (alignText.isEmpty()) {
+            return -1;
+        }
+        if (alignText.equals("center")) {
+            return Align.center;
+        } else if (alignText.equals("centerLeft")) {
+            return Align.left;
+        } else if (alignText.equals("centerRight")) {
+            return Align.right;
+        } else if (alignText.equals("topLeft")) {
+            return Align.topLeft;
+        } else if (alignText.equals("topCenter")) {
+            return Align.top;
+        } else if (alignText.equals("topRight")) {
+            return Align.topRight;
+        } else if (alignText.equals("bottomLeft")) {
+            return Align.bottomLeft;
+        } else if (alignText.equals("bottomCenter")) {
+            return Align.bottom;
+        } else if (alignText.equals("bottomRight")) {
+            return Align.bottomRight;
+        } else {
+            throw new RuntimeException("Unknown value of 'align': " + alignText);
+        }
     }
 }

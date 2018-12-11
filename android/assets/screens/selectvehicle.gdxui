@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -2">Select Your Vehicle</Label>
+        <Label id="titleLabel" style="title"
+               topCenter="root.topCenter 0 -1">Select Your Vehicle</Label>
 
-        <Menu id="menu" center="root.center" width="400" style="large"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="400" style="large"/>
+
+        <Label id="vehicleNameLabel" topCenter="menu.bottomCenter 0 -1" style="title"/>
 
         <ImageButton id="backButton"
-                    bottomLeft="root.bottomLeft 1 1"
-                    imageName="icon-back"/>
+            bottomLeft="root.bottomLeft 1 1"
+            imageName="icon-back"/>
+
+        <ImageButton id="nextButton"
+            bottomRight="root.bottomRight -1 1"
+            imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

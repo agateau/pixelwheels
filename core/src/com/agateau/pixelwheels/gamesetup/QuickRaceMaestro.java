@@ -40,7 +40,7 @@ public class QuickRaceMaestro extends Maestro {
 
     @Override
     public void start() {
-        getGame().pushScreen(createSelectVehicleScreen());
+        getGame().pushScreen(createSelectTrackScreen());
     }
 
     private Screen createSelectVehicleScreen() {
@@ -55,7 +55,7 @@ public class QuickRaceMaestro extends Maestro {
         SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
             @Override
             public void onBackPressed() {
-                stop();
+                getGame().replaceScreen(createSelectTrackScreen());
             }
 
             @Override
@@ -63,7 +63,7 @@ public class QuickRaceMaestro extends Maestro {
                 Array<GameInfo.Player> players = new Array<GameInfo.Player>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createSelectTrackScreen());
+                getGame().replaceScreen(createRaceScreen());
             }
         };
         return new SelectVehicleScreen(getGame(), listener);
@@ -73,13 +73,13 @@ public class QuickRaceMaestro extends Maestro {
         MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
             @Override
             public void onBackPressed() {
-                stop();
+                getGame().replaceScreen(createSelectTrackScreen());
             }
 
             @Override
             public void onPlayersSelected(Array<GameInfo.Player> players) {
                 mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createSelectTrackScreen());
+                getGame().replaceScreen(createRaceScreen());
             }
         };
         return new MultiPlayerScreen(getGame(), listener);
@@ -89,12 +89,12 @@ public class QuickRaceMaestro extends Maestro {
         SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
             @Override
             public void onBackPressed() {
-                getGame().replaceScreen(createSelectVehicleScreen());
+                stop();
             }
             @Override
             public void onTrackSelected(Track track) {
                 mGameInfoBuilder.setTrack(track);
-                getGame().replaceScreen(createRaceScreen());
+                getGame().replaceScreen(createSelectVehicleScreen());
             }
         };
         return new SelectTrackScreen(getGame(), listener);

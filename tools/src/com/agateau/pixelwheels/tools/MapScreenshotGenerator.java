@@ -100,15 +100,15 @@ public class MapScreenshotGenerator {
         int srcW = src.getWidth();
         int srcH = src.getHeight();
 
-        float ratio = (float)SHOT_SIZE / Math.max(srcW, srcH);
+        float ratio = (float)SHOT_SIZE / Math.min(srcW, srcH);
         int dstW = (int) (srcW * ratio);
         int dstH = (int) (srcH * ratio);
 
-        Pixmap dst = new Pixmap(dstW, dstH, src.getFormat());
+        Pixmap dst = new Pixmap(SHOT_SIZE, SHOT_SIZE, src.getFormat());
         dst.setFilter(Pixmap.Filter.BiLinear);
         dst.drawPixmap(src,
                 0, 0, srcW, srcH,
-                0, 0, dstW, dstH);
+                (SHOT_SIZE - dstW) / 2, (SHOT_SIZE - dstH) / 2, dstW, dstH);
         return dst;
     }
 }

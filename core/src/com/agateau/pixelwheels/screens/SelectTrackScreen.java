@@ -21,14 +21,25 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.stats.TrackResult;
+import com.agateau.pixelwheels.stats.TrackStats;
+import com.agateau.pixelwheels.utils.StringUtils;
+import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.RefreshHelper;
+import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Select your track
@@ -37,6 +48,19 @@ public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
     private TrackSelector mTrackSelector;
+    private Label mTrackNameLabel;
+    private Table mLapRecordsTable;
+    private Table mTotalRecordsTable;
+    private AnchorGroup root;
+
+    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
+        @Override
+        protected void createCells(Table table, String style, String... values) {
+            table.add(values[0], style).right().padRight(12);
+            table.add(values[1], style).left().growX().padRight(12);
+            table.add(values[2], style).right();
+        }
+    };
 
     public interface Listener {
         void onBackPressed();
@@ -47,6 +71,7 @@ public class SelectTrackScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
+        mTableRowCreator.setRowStyle("small");
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
@@ -57,32 +82,56 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void setupUi() {
-        Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        UiBuilder builder = UiUtils.createUiBuilder(mGame.getAssets());
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
+        root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mTrackNameLabel = builder.getActor("trackNameLabel");
+        mLapRecordsTable = builder.getActor("lapRecordsTable");
+        mTotalRecordsTable = builder.getActor("totalRecordsTable");
+
         Menu menu = builder.getActor("menu");
 
-        mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(2);
-        mTrackSelector.init(assets);
-        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
-        menu.addItem(mTrackSelector);
-
-        mTrackSelector.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                next();
-            }
-        });
+        createTrackSelector(menu);
+        updateTrackRecords(mTrackSelector.getCurrent());
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 onBackPressed();
+            }
+        });
+
+        builder.getActor("nextButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                next();
+            }
+        });
+    }
+
+    private void createTrackSelector(Menu menu) {
+        Assets assets = mGame.getAssets();
+
+        mTrackSelector = new TrackSelector(menu);
+        mTrackSelector.setColumnCount(4);
+        mTrackSelector.init(assets);
+        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
+        menu.addItem(mTrackSelector);
+
+        mTrackSelector.setSelectionListener(new GridMenuItem.SelectionListener<Track>() {
+            @Override
+            public void selectedChanged(Track item, int index) {
+                if (PlatformUtils.isButtonsUi()) {
+                    next();
+                }
+            }
+
+            @Override
+            public void currentChanged(Track track, int index) {
+                updateTrackRecords(track);
             }
         });
     }
@@ -93,12 +142,34 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void saveSelectedMap() {
-        mGame.getConfig().track = mTrackSelector.getSelected().getId();
+        mGame.getConfig().track = mTrackSelector.getCurrent().getId();
         mGame.getConfig().flush();
     }
 
     private void next() {
         saveSelectedMap();
-        mListener.onTrackSelected(mTrackSelector.getSelected());
+        mListener.onTrackSelected(mTrackSelector.getCurrent());
+    }
+
+    private void updateTrackRecords(Track track) {
+        mTrackNameLabel.setText(track.getMapName());
+        mTrackNameLabel.pack();
+        TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
+        updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
+        updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
+        root.layout();
+    }
+
+    private void updateRecordLabel(Table table, ArrayList<TrackResult> results) {
+        table.clearChildren();
+        mTableRowCreator.setTable(table);
+        for (int idx = 0, n = results.size(); idx < n; ++idx) {
+            TrackResult result = results.get(idx);
+            mTableRowCreator.addRow(
+                    String.format(Locale.US, "%d", idx + 1),
+                    result.racer,
+                    StringUtils.formatRaceTime(result.value));
+        }
+        table.setHeight(table.getPrefHeight());
     }
 }
