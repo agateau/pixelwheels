@@ -320,18 +320,8 @@ public class UiBuilder {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
-        String alignText = element.getAttribute("align", "");
-        if (!alignText.isEmpty()) {
-            int align;
-            if (alignText.equals("left")) {
-                align = Align.left;
-            } else if (alignText.equals("center")) {
-                align = Align.center;
-            } else if (alignText.equals("right")) {
-                align = Align.right;
-            } else {
-                throw new RuntimeException("Unknown value of 'align': " + alignText);
-            }
+        int align = parseAlign(element);
+        if (align != -1) {
             label.setAlignment(align);
         }
         return label;
@@ -355,6 +345,10 @@ public class UiBuilder {
     protected VerticalGroup createVerticalGroup(XmlReader.Element element) {
         VerticalGroup group = new VerticalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
+        int align = parseAlign(element);
+        if (align != -1) {
+            group.align(align);
+        }
         return group;
     }
 
@@ -496,5 +490,33 @@ public class UiBuilder {
             return "";
         }
         return text.replace("\\n", "\n");
+    }
+
+    private static int parseAlign(XmlReader.Element element) {
+        String alignText = element.getAttribute("align", "");
+        if (alignText.isEmpty()) {
+            return -1;
+        }
+        if (alignText.equals("center")) {
+            return Align.center;
+        } else if (alignText.equals("centerLeft")) {
+            return Align.left;
+        } else if (alignText.equals("centerRight")) {
+            return Align.right;
+        } else if (alignText.equals("topLeft")) {
+            return Align.topLeft;
+        } else if (alignText.equals("topCenter")) {
+            return Align.top;
+        } else if (alignText.equals("topRight")) {
+            return Align.topRight;
+        } else if (alignText.equals("bottomLeft")) {
+            return Align.bottomLeft;
+        } else if (alignText.equals("bottomCenter")) {
+            return Align.bottom;
+        } else if (alignText.equals("bottomRight")) {
+            return Align.bottomRight;
+        } else {
+            throw new RuntimeException("Unknown value of 'align': " + alignText);
+        }
     }
 }
