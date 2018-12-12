@@ -37,6 +37,10 @@ public class LabelMenuItem implements MenuItem {
     }
 
     @Override
+    public void setFocused(boolean focused) {
+    }
+
+    @Override
     public void trigger() {
 
     }

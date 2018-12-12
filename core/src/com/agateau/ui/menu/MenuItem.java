@@ -58,4 +58,6 @@ public interface MenuItem {
      * If ratio is 0, item width won't be changed
      */
     float getParentWidthRatio();
+
+    void setFocused(boolean focused);
 }

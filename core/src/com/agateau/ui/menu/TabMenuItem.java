@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.utils.AgcMathUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -117,6 +118,11 @@ public class TabMenuItem extends Actor implements MenuItem {
     @Override
     public boolean isFocusable() {
         return true;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        NLog.e("TODO");
     }
 
     @Override

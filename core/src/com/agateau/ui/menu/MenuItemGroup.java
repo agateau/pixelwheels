@@ -33,13 +33,7 @@ import java.util.HashMap;
 
 public class MenuItemGroup implements MenuItem {
     private final Menu mMenu;
-    private final WidgetGroup mGroup = new WidgetGroup() {
-        @Override
-        public void layout() {
-            updateBounds();
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
-        }
-    };
+    private final WidgetGroup mGroup = new WidgetGroup();
 
     private static class ItemInfo {
         Label label = null;
@@ -70,6 +64,10 @@ public class MenuItemGroup implements MenuItem {
         });
     }
 
+    public void focusFirstItem() {
+        setCurrentIndex(0);
+    }
+
     @Override
     public Actor getActor() {
         return mGroup;
@@ -84,6 +82,15 @@ public class MenuItemGroup implements MenuItem {
     public boolean isFocusable() {
         // TODO: return false if there are only non focusable items
         return true;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        if (focused) {
+            adjustIndex(-1, 1);
+        } else {
+            setCurrentIndex(-1);
+        }
     }
 
     @Override
@@ -275,9 +282,6 @@ public class MenuItemGroup implements MenuItem {
         info.label = label;
         mInfoForItem.put(item, info);
         mItemForActor.put(item.getActor(), item);
-        if (mCurrentIndex == -1 && item.isFocusable()) {
-            mCurrentIndex = mItems.size - 1;
-        }
         if (label != null) {
             mGroup.addActor(label);
         }
@@ -290,12 +294,18 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void setCurrentIndex(int index, SetCurrentHint hint) {
-        int old = mCurrentIndex;
+        if (mCurrentIndex != -1) {
+            MenuItem item = getCurrentItem();
+            if (item.isFocusable()) {
+                item.setFocused(false);
+            }
+        }
         mCurrentIndex = index;
         if (mCurrentIndex != -1) {
             MenuItem item = getCurrentItem();
             Assert.check(isItemVisible(item), "Cannot set an invisible item current");
             Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
+            item.setFocused(true);
 
             if (item instanceof MenuItemGroup) {
                 MenuItemGroup group = (MenuItemGroup)item;
@@ -310,13 +320,6 @@ public class MenuItemGroup implements MenuItem {
                         break;
                 }
             }
-        }
-        if (old >= 0 && mCurrentIndex == -1) {
-            mMenu.hideFocusIndicator();
-        } else if (old == -1) {
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
-        } else {
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.ANIMATED);
         }
     }
 
