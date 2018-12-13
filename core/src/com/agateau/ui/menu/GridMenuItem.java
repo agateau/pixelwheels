@@ -39,9 +39,9 @@ import com.badlogic.gdx.utils.Array;
 public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mFocusRectangle = new Rectangle();
-    private final FocusIndicator mFocusIndicator;
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
+    private final Array<FocusIndicator> mFocusIndicators = new Array<FocusIndicator>();
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
@@ -50,6 +50,22 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private int mColumnCount = 3;
     private float mItemWidth = 0;
     private float mItemHeight = 0;
+
+    private static class GridFocusIndicator<T> extends FocusIndicator {
+        private final int mIndex;
+        private final GridMenuItem<T> mGridMenuItem;
+
+        public GridFocusIndicator(int index, GridMenuItem<T> item, Menu menu) {
+            super(item, menu);
+            mGridMenuItem = item;
+            mIndex = index;
+        }
+
+        @Override
+        protected Rectangle getFocusRectangle() {
+            return mGridMenuItem.getFocusRectangleForIndex(mIndex);
+        }
+    }
 
     public interface ItemRenderer<T> {
         /**
@@ -71,7 +87,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public GridMenuItem(Menu menu) {
         mMenu = menu;
-        mFocusIndicator = new FocusIndicator(this, menu);
         mStyle = mMenu.getSkin().get(GridMenuItemStyle.class);
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -134,8 +149,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     private void setCurrentIndex(int currentIndex) {
+        if (mCurrentIndex != -1) {
+            mFocusIndicators.get(mCurrentIndex).setFocused(false);
+        }
         mCurrentIndex = currentIndex;
-        mFocusIndicator.update();
+        if (mCurrentIndex != -1) {
+            mFocusIndicators.get(mCurrentIndex).setFocused(true);
+        }
         if (mSelectionListener != null) {
             T item = currentIndex >= 0 ? mItems.get(currentIndex) : null;
             mSelectionListener.currentChanged(item, currentIndex);
@@ -151,6 +171,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setItems(Array<T> items) {
         mItems = items;
+        while (mFocusIndicators.size < mItems.size) {
+            GridFocusIndicator<T> indicator = new GridFocusIndicator<T>(mFocusIndicators.size, this, mMenu);
+            mFocusIndicators.add(indicator);
+        }
         setCurrentIndex(items.size > 0 ? 0 : -1);
     }
 
@@ -284,8 +308,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public Rectangle getFocusRectangle() {
-        updateFocusRectangle();
-        return mFocusRectangle;
+        return getFocusRectangleForIndex(mCurrentIndex);
     }
 
     @Override
@@ -295,20 +318,24 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public void setFocused(boolean focused) {
-        mFocusIndicator.setFocused(focused);
+        if (mCurrentIndex == -1) {
+            return;
+        }
+        mFocusIndicators.get(mCurrentIndex).setFocused(focused);
     }
 
     /// Private
-    private void updateFocusRectangle() {
-        if (mCurrentIndex == -1) {
+    private Rectangle getFocusRectangleForIndex(int index) {
+        if (index == -1) {
             mFocusRectangle.set(0, 0, -1, -1);
-            return;
+            return mFocusRectangle;
         }
-        T item = mItems.get(mCurrentIndex);
-        float x = (mCurrentIndex % mColumnCount) * (mItemWidth + getItemSpacing());
-        float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
+        T item = mItems.get(index);
+        float x = (index % mColumnCount) * (mItemWidth + getItemSpacing());
+        float y = getHeight() - (index / mColumnCount + 1) * mItemHeight;
         Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
         mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
+        return mFocusRectangle;
     }
 
     /**

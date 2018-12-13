@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 class FocusIndicator {
-    private static final int MARGIN = 5;
+    private static final int MARGIN = 3;
     private static final float ANIMATION_DURATION = 0.2f;
     private final Image mImage;
     private final MenuItem mItem;
@@ -40,24 +40,25 @@ class FocusIndicator {
     }
 
     public void setFocused(boolean focused) {
+        mImage.clearActions();
         if (focused) {
-            updateBounds();
+            update();
             mImage.addAction(Actions.alpha(1, ANIMATION_DURATION));
         } else {
-            mImage.addAction(Actions.alpha(0, ANIMATION_DURATION));
+            mImage.addAction(Actions.alpha(0, ANIMATION_DURATION * 3));
         }
     }
 
-    public void update() {
-        updateBounds();
-    }
-
     private final Vector2 mTmp = new Vector2();
-    private void updateBounds() {
-        Rectangle rect = mItem.getFocusRectangle();
+    private void update() {
+        Rectangle rect = getFocusRectangle();
         mTmp.set(rect.x, rect.y);
         Actor actor = mItem.getActor();
         actor.localToAscendantCoordinates(mImage.getParent(), mTmp);
         mImage.setBounds(mTmp.x - MARGIN, mTmp.y - MARGIN, rect.width + 2 * MARGIN, rect.height + 2 * MARGIN);
+    }
+
+    protected Rectangle getFocusRectangle() {
+        return mItem.getFocusRectangle();
     }
 }
