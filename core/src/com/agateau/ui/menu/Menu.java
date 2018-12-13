@@ -119,11 +119,18 @@ public class Menu extends WidgetGroup {
         return mGroup.addItemWithLabel(labelText, item);
     }
 
+    private boolean mFirstLayout = true;
     @Override
     public void layout() {
         super.layout();
+        if (!mFirstLayout) {
+            return;
+        }
+        mFirstLayout = false;
         if (mGroup.getCurrentItem() == null) {
             mGroup.focusFirstItem();
+        } else {
+            mGroup.updateFocusIndicatorBounds();
         }
     }
 

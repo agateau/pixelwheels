@@ -18,21 +18,18 @@
  */
 package com.agateau.ui.menu;
 
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-class FocusIndicator {
+public abstract class FocusIndicator {
     private static final int MARGIN = 3;
     private static final float ANIMATION_DURATION = 0.2f;
     private final Image mImage;
-    private final MenuItem mItem;
 
-    public FocusIndicator(MenuItem item, Menu menu) {
-        mItem = item;
+    public FocusIndicator(Menu menu) {
         mImage = new Image(menu.getMenuStyle().focus);
         mImage.setTouchable(Touchable.disabled);
         mImage.setColor(1, 1, 1, 0);
@@ -42,23 +39,21 @@ class FocusIndicator {
     public void setFocused(boolean focused) {
         mImage.clearActions();
         if (focused) {
-            update();
+            updateBounds();
             mImage.addAction(Actions.alpha(1, ANIMATION_DURATION));
         } else {
             mImage.addAction(Actions.alpha(0, ANIMATION_DURATION * 3));
         }
     }
 
-    private final Vector2 mTmp = new Vector2();
-    private void update() {
-        Rectangle rect = getFocusRectangle();
-        mTmp.set(rect.x, rect.y);
-        Actor actor = mItem.getActor();
-        actor.localToAscendantCoordinates(mImage.getParent(), mTmp);
-        mImage.setBounds(mTmp.x - MARGIN, mTmp.y - MARGIN, rect.width + 2 * MARGIN, rect.height + 2 * MARGIN);
+    private void updateBounds() {
+        Rectangle rect = getBoundsRectangle();
+        AgcMathUtils.adjustRectangle(rect, MARGIN);
+        mImage.setBounds(rect.x, rect.y, rect.width, rect.height);
     }
 
-    protected Rectangle getFocusRectangle() {
-        return mItem.getFocusRectangle();
-    }
+    /**
+     * Must return the bounds of the focused area, in stage coordinates
+     */
+    abstract protected Rectangle getBoundsRectangle();
 }

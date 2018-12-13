@@ -41,7 +41,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Rectangle mFocusRectangle = new Rectangle();
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
-    private final Array<FocusIndicator> mFocusIndicators = new Array<FocusIndicator>();
+    private final Array<MenuItemFocusIndicator> mFocusIndicators = new Array<MenuItemFocusIndicator>();
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
@@ -51,7 +51,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemWidth = 0;
     private float mItemHeight = 0;
 
-    private static class GridFocusIndicator<T> extends FocusIndicator {
+    private static class GridFocusIndicator<T> extends MenuItemFocusIndicator {
         private final int mIndex;
         private final GridMenuItem<T> mGridMenuItem;
 
@@ -62,7 +62,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
 
         @Override
-        protected Rectangle getFocusRectangle() {
+        protected Rectangle getBoundsRectangle() {
             return mGridMenuItem.getFocusRectangleForIndex(mIndex);
         }
     }

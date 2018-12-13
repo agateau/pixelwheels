@@ -68,6 +68,10 @@ public class MenuItemGroup implements MenuItem {
         setCurrentIndex(0);
     }
 
+    public void updateFocusIndicatorBounds() {
+        getCurrentItem().setFocused(true);
+    }
+
     @Override
     public Actor getActor() {
         return mGroup;

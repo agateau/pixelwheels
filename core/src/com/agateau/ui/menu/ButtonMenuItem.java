@@ -32,7 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class ButtonMenuItem extends TextButton implements MenuItem {
     private final Rectangle mRect = new Rectangle();
 
-    private final FocusIndicator mFocusIndicator;
+    private final MenuItemFocusIndicator mFocusIndicator;
 
     public ButtonMenuItem(Menu menu, String text) {
         this(menu, text, menu.getSkin());
@@ -40,7 +40,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     public ButtonMenuItem(Menu menu, String text, Skin skin) {
         super(text, skin);
-        mFocusIndicator = new FocusIndicator(this, menu);
+        mFocusIndicator = new MenuItemFocusIndicator(this, menu);
 
         addListener(new ClickListener() {
             @Override
