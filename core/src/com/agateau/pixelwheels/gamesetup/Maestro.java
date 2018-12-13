@@ -42,12 +42,11 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
 
     public abstract void start();
 
-    public void stop() {
+    public void stopGamepadInputWatcher() {
         if (mNotEnoughGamepadsScreen != null) {
             hideNotEnoughGamepadsScreen();
         }
         mGamepadInputWatcher.setInputCount(0);
-        mGame.showMainMenu();
     }
 
     public PlayerCount getPlayerCount() {

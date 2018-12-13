@@ -75,7 +75,8 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         menu.addButton("Main Menu").addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                mMaestro.stop();
+                mMaestro.stopGamepadInputWatcher();
+                mGame.showMainMenu();
             }
         });
     }
