@@ -19,7 +19,6 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.Scene2dUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
@@ -36,6 +35,7 @@ import com.badlogic.gdx.utils.Align;
 public class SwitchMenuItem extends Actor implements MenuItem {
     private static final float SWITCH_SPEED = 10;
     private final Rectangle mFocusRectangle = new Rectangle();
+    private final MenuItemFocusIndicator mFocusIndicator;
 
     private BitmapFont mFont;
     private SwitchMenuItemStyle mStyle;
@@ -51,6 +51,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     public SwitchMenuItem(Menu menu) {
         super();
+        mFocusIndicator = new MenuItemFocusIndicator(this, menu);
         setTouchable(Touchable.enabled);
 
         mFont = menu.getSkin().get("default-font", BitmapFont.class);
@@ -87,7 +88,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     @Override
     public void setFocused(boolean focused) {
-        NLog.e("TODO");
+        mFocusIndicator.setFocused(focused);
     }
 
     @Override
