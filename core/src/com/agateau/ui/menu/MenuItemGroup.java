@@ -298,6 +298,9 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void setCurrentIndex(int index, SetCurrentHint hint) {
+        if (mCurrentIndex == index) {
+            return;
+        }
         if (mCurrentIndex != -1) {
             MenuItem item = getCurrentItem();
             if (item.isFocusable()) {
