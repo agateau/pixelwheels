@@ -25,6 +25,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -41,7 +42,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Rectangle mFocusRectangle = new Rectangle();
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
-    private final Array<MenuItemFocusIndicator> mFocusIndicators = new Array<MenuItemFocusIndicator>();
+    private final Array<FocusIndicator> mFocusIndicators = new Array<FocusIndicator>();
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
@@ -51,19 +52,25 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemWidth = 0;
     private float mItemHeight = 0;
 
-    private static class GridFocusIndicator<T> extends MenuItemFocusIndicator {
+    private static class GridFocusIndicator<T> extends FocusIndicator {
         private final int mIndex;
-        private final GridMenuItem<T> mGridMenuItem;
+        private final GridMenuItem<T> mItem;
 
         public GridFocusIndicator(int index, GridMenuItem<T> item, Menu menu) {
-            super(item, menu);
-            mGridMenuItem = item;
+            super(menu);
+            mItem = item;
             mIndex = index;
         }
 
+        private final Vector2 mTmp = new Vector2();
         @Override
         protected Rectangle getBoundsRectangle() {
-            return mGridMenuItem.getFocusRectangleForIndex(mIndex);
+            Rectangle rect = mItem.getRectangleForIndex(mIndex);
+            mTmp.set(rect.x, rect.y);
+            mItem.getActor().localToStageCoordinates(mTmp);
+            rect.x = mTmp.x;
+            rect.y = mTmp.y;
+            return rect;
         }
     }
 
@@ -308,7 +315,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public Rectangle getFocusRectangle() {
-        return getFocusRectangleForIndex(mCurrentIndex);
+        return getRectangleForIndex(mCurrentIndex);
     }
 
     @Override
@@ -325,7 +332,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     /// Private
-    private Rectangle getFocusRectangleForIndex(int index) {
+    private Rectangle getRectangleForIndex(int index) {
         if (index == -1) {
             mFocusRectangle.set(0, 0, -1, -1);
             return mFocusRectangle;
