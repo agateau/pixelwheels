@@ -149,10 +149,6 @@ public class MenuItemGroup implements MenuItem {
         Actor actor = item.getActor();
         mFocusRect.x += actor.getX();
         mFocusRect.y += actor.getY();
-        if (actor != item.getActor()) {
-            // Item has a label
-            mFocusRect.x += item.getActor().getX();
-        }
         return mFocusRect;
     }
 
