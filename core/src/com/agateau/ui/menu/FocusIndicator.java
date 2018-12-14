@@ -25,7 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public abstract class FocusIndicator {
-    private static final float ANIMATION_DURATION = 0.2f;
+    private static final float IN_ANIMATION_DURATION = 0.1f;
+    private static final float OUT_ANIMATION_DURATION = 0.4f;
     private final Menu mMenu;
     private final Image mImage;
 
@@ -41,9 +42,9 @@ public abstract class FocusIndicator {
         mImage.clearActions();
         if (focused) {
             updateBounds();
-            mImage.addAction(Actions.alpha(1, ANIMATION_DURATION));
+            mImage.addAction(Actions.alpha(1, IN_ANIMATION_DURATION));
         } else {
-            mImage.addAction(Actions.alpha(0, ANIMATION_DURATION * 3));
+            mImage.addAction(Actions.alpha(0, OUT_ANIMATION_DURATION));
         }
     }
 
