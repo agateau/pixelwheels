@@ -48,7 +48,7 @@ public abstract class FocusIndicator {
         }
     }
 
-    private void updateBounds() {
+    public void updateBounds() {
         float padding = mMenu.getMenuStyle().focusPadding;
         Rectangle rect = getBoundsRectangle();
         AgcMathUtils.adjustRectangle(rect, padding);

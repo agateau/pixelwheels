@@ -33,7 +33,13 @@ import java.util.HashMap;
 
 public class MenuItemGroup implements MenuItem {
     private final Menu mMenu;
-    private final WidgetGroup mGroup = new WidgetGroup();
+    private final WidgetGroup mGroup = new WidgetGroup() {
+        @Override
+        public void layout() {
+            super.layout();
+            updateBounds();
+        }
+    };
 
     private static class ItemInfo {
         Label label = null;
