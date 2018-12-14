@@ -19,7 +19,6 @@
 package com.agateau.ui.menu;
 
 import com.agateau.utils.AgcMathUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -37,6 +36,7 @@ import com.badlogic.gdx.utils.Array;
  * An item to create tabbed content in a menu
  */
 public class TabMenuItem extends Actor implements MenuItem {
+    private final MenuItemFocusIndicator mFocusIndicator;
     private final Menu mMenu;
     private final GlyphLayout mGlyphLayout = new GlyphLayout();
 
@@ -70,6 +70,7 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     public TabMenuItem(Menu menu) {
         mMenu = menu;
+        mFocusIndicator = new MenuItemFocusIndicator(this, menu);
         mFont = menu.getSkin().get("default-font", BitmapFont.class);
         mStyle = menu.getSkin().get(TabMenuItemStyle.class);
 
@@ -122,7 +123,7 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     @Override
     public void setFocused(boolean focused) {
-        NLog.e("TODO");
+        mFocusIndicator.setFocused(focused);
     }
 
     @Override
