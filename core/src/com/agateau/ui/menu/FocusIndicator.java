@@ -25,11 +25,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public abstract class FocusIndicator {
-    private static final int MARGIN = 3;
     private static final float ANIMATION_DURATION = 0.2f;
+    private final Menu mMenu;
     private final Image mImage;
 
     public FocusIndicator(Menu menu) {
+        mMenu = menu;
         mImage = new Image(menu.getMenuStyle().focus);
         mImage.setTouchable(Touchable.disabled);
         mImage.setColor(1, 1, 1, 0);
@@ -47,8 +48,9 @@ public abstract class FocusIndicator {
     }
 
     private void updateBounds() {
+        float padding = mMenu.getMenuStyle().focusPadding;
         Rectangle rect = getBoundsRectangle();
-        AgcMathUtils.adjustRectangle(rect, MARGIN);
+        AgcMathUtils.adjustRectangle(rect, padding);
         mImage.setBounds(rect.x, rect.y, rect.width, rect.height);
     }
 
