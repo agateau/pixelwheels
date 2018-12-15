@@ -36,7 +36,9 @@ public abstract class FocusIndicator {
             @Override
             public void act(float delta) {
                 super.act(delta);
-                updateBounds();
+                if (getColor().a > 0) {
+                    updateBounds();
+                }
             }
         };
         mImage.setTouchable(Touchable.disabled);
