@@ -34,6 +34,12 @@ public class NLog {
      * Implementation of Printer which logs to System.err
      */
     public static class DefaultPrinter implements Printer {
+        final long mStartTime;
+
+        DefaultPrinter() {
+            mStartTime = System.currentTimeMillis();
+        }
+
         @Override
         public void print(int level, String tag, String message) {
             String levelString;
@@ -44,7 +50,8 @@ public class NLog {
             } else { // LOG_ERROR
                 levelString = "E";
             }
-            System.err.printf("%s %s %s\n", levelString, tag, message);
+            long timeSpent = System.currentTimeMillis() - mStartTime;
+            System.err.printf("%08d %s %s %s\n", timeSpent, levelString, tag, message);
         }
     }
 
