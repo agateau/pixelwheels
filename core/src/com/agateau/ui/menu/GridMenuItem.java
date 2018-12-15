@@ -183,6 +183,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             mFocusIndicators.add(indicator);
         }
         setCurrentIndex(items.size > 0 ? 0 : -1);
+        updateHeight();
     }
 
     public Array<T> getItems() {
@@ -204,6 +205,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setColumnCount(int columnCount) {
         mColumnCount = columnCount;
+        updateHeight();
+    }
+
+    private void updateHeight() {
+        float height = getPrefHeight();
+        if (MathUtils.isEqual(height, getHeight(), 1)) {
+            return;
+        }
+        setHeight(height);
         invalidateHierarchy();
     }
 
@@ -215,13 +225,16 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public float getPrefHeight() {
+        if (mItems == null || mColumnCount == 0) {
+            return 0;
+        }
         int rowCount = MathUtils.ceil(mItems.size / (float)mColumnCount);
         return mItemHeight * rowCount;
     }
 
     @Override
     protected void sizeChanged() {
-        setHeight(getPrefHeight());
+        updateHeight();
     }
 
     @Override
