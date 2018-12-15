@@ -18,53 +18,42 @@
  */
 package com.agateau.ui.menu;
 
-import com.agateau.utils.AgcMathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.agateau.pixelwheels.utils.DrawUtils;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 
-public abstract class FocusIndicator {
+class FocusIndicator {
     private static final float IN_ANIMATION_DURATION = 0.1f;
     private static final float OUT_ANIMATION_DURATION = 0.4f;
-    private final Menu mMenu;
-    private final Image mImage;
+    private final Menu.MenuStyle mMenuStyle;
 
-    public FocusIndicator(Menu menu) {
-        mMenu = menu;
-        mImage = new Image(menu.getMenuStyle().focus) {
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-                if (getColor().a > 0) {
-                    updateBounds();
-                }
-            }
-        };
-        mImage.setTouchable(Touchable.disabled);
-        mImage.setColor(1, 1, 1, 0);
-        menu.getStage().addActor(mImage);
+    private boolean mFocused = false;
+    private float mAlpha = 0;
+
+    FocusIndicator(Menu menu) {
+        mMenuStyle = menu.getMenuStyle();
+    }
+
+    public void act(float delta) {
+        if (mFocused && mAlpha < 1) {
+            mAlpha += delta / IN_ANIMATION_DURATION;
+        } else if (!mFocused && mAlpha > 0) {
+            mAlpha -= delta / OUT_ANIMATION_DURATION;
+        }
+        mAlpha = MathUtils.clamp(mAlpha, 0, 1);
+    }
+
+    public void draw(Batch batch, float x, float y, float width, float height) {
+        if (mAlpha == 0) {
+            return;
+        }
+        int padding = mMenuStyle.focusPadding;
+        float oldA = DrawUtils.setBatchAlpha(batch, batch.getColor().a * mAlpha);
+        mMenuStyle.focus.draw(batch, x - padding, y - padding, width + 2 * padding, height + 2 * padding);
+        DrawUtils.setBatchAlpha(batch, oldA);
     }
 
     public void setFocused(boolean focused) {
-        mImage.clearActions();
-        if (focused) {
-            updateBounds();
-            mImage.addAction(Actions.alpha(1, IN_ANIMATION_DURATION));
-        } else {
-            mImage.addAction(Actions.alpha(0, OUT_ANIMATION_DURATION));
-        }
+        mFocused = focused;
     }
-
-    public void updateBounds() {
-        float padding = mMenu.getMenuStyle().focusPadding;
-        Rectangle rect = getBoundsRectangle();
-        AgcMathUtils.adjustRectangle(rect, padding);
-        mImage.setBounds(rect.x, rect.y, rect.width, rect.height);
-    }
-
-    /**
-     * Must return the bounds of the focused area, in stage coordinates
-     */
-    abstract protected Rectangle getBoundsRectangle();
 }

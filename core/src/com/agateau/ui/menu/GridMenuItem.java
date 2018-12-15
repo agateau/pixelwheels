@@ -25,7 +25,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -51,28 +50,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private int mColumnCount = 3;
     private float mItemWidth = 0;
     private float mItemHeight = 0;
-
-    private static class GridFocusIndicator<T> extends FocusIndicator {
-        private final int mIndex;
-        private final GridMenuItem<T> mItem;
-
-        public GridFocusIndicator(int index, GridMenuItem<T> item, Menu menu) {
-            super(menu);
-            mItem = item;
-            mIndex = index;
-        }
-
-        private final Vector2 mTmp = new Vector2();
-        @Override
-        protected Rectangle getBoundsRectangle() {
-            Rectangle rect = mItem.getRectangleForIndex(mIndex);
-            mTmp.set(rect.x, rect.y);
-            mItem.getActor().localToStageCoordinates(mTmp);
-            rect.x = mTmp.x;
-            rect.y = mTmp.y;
-            return rect;
-        }
-    }
 
     public interface ItemRenderer<T> {
         /**
@@ -179,7 +156,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void setItems(Array<T> items) {
         mItems = items;
         while (mFocusIndicators.size < mItems.size) {
-            GridFocusIndicator<T> indicator = new GridFocusIndicator<T>(mFocusIndicators.size, this, mMenu);
+            FocusIndicator indicator = new FocusIndicator(mMenu);
             mFocusIndicators.add(indicator);
         }
         setCurrentIndex(items.size > 0 ? 0 : -1);
@@ -238,6 +215,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     @Override
+    public void act(float delta) {
+        super.act(delta);
+        for (FocusIndicator focusIndicator : mFocusIndicators) {
+            focusIndicator.act(delta);
+        }
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         if (mRenderer == null) {
             NLog.e("No renderer");
@@ -257,9 +242,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
         for (int idx = 0; idx < mItems.size; idx++) {
             T item = mItems.get(idx);
+            Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+
+            FocusIndicator focusIndicator = mFocusIndicators.get(idx);
+            focusIndicator.draw(batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+
             if (idx == mSelectedIndex) {
                 int padding = mMenu.getMenuStyle().focusPadding;
-                Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
                 mStyle.selected.draw(batch, getX() + x + rect.x - padding, getY() + y + rect.y - padding,
                         rect.width + 2 * padding, rect.height + 2 * padding);
             }

@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.Align;
 public class SwitchMenuItem extends Actor implements MenuItem {
     private static final float SWITCH_SPEED = 10;
     private final Rectangle mFocusRectangle = new Rectangle();
-    private final MenuItemFocusIndicator mFocusIndicator;
+    private final FocusIndicator mFocusIndicator;
 
     private BitmapFont mFont;
     private SwitchMenuItemStyle mStyle;
@@ -51,7 +51,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     public SwitchMenuItem(Menu menu) {
         super();
-        mFocusIndicator = new MenuItemFocusIndicator(this, menu);
+        mFocusIndicator = new FocusIndicator(menu);
         setTouchable(Touchable.enabled);
 
         mFont = menu.getSkin().get("default-font", BitmapFont.class);
@@ -139,6 +139,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     @Override
     public void act(float delta) {
         super.act(delta);
+        mFocusIndicator.act(delta);
         if (mChecked && mXOffset < 1) {
             mXOffset = Math.min(1, mXOffset + delta * SWITCH_SPEED);
         } else if (!mChecked && mXOffset > 0) {
@@ -149,6 +150,8 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
+
+        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
 
         // Draw handle
         Drawable handle = mStyle.handle;
