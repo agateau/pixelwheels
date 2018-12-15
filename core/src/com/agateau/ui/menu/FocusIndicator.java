@@ -32,7 +32,13 @@ public abstract class FocusIndicator {
 
     public FocusIndicator(Menu menu) {
         mMenu = menu;
-        mImage = new Image(menu.getMenuStyle().focus);
+        mImage = new Image(menu.getMenuStyle().focus) {
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+                updateBounds();
+            }
+        };
         mImage.setTouchable(Touchable.disabled);
         mImage.setColor(1, 1, 1, 0);
         menu.getStage().addActor(mImage);
