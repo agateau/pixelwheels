@@ -36,8 +36,7 @@ public class MenuItemGroup implements MenuItem {
     private final WidgetGroup mGroup = new WidgetGroup() {
         @Override
         public void layout() {
-            super.layout();
-            updateBounds();
+            layoutItems();
         }
     };
 
@@ -193,7 +192,7 @@ public class MenuItemGroup implements MenuItem {
         if (info.label != null) {
             info.label.setVisible(visible);
         }
-        updateBounds();
+        updateHeight();
     }
 
     public MenuItem addButton(String text) {
@@ -242,7 +241,8 @@ public class MenuItemGroup implements MenuItem {
         return false;
     }
 
-    private void updateBounds() {
+    private void layoutItems() {
+        // Keep in sync with computeHeight()!
         float y = 0;
         Menu.MenuStyle style = mMenu.getMenuStyle();
         final float spacing = style.focusPadding * 2 + style.spacing;
@@ -254,7 +254,8 @@ public class MenuItemGroup implements MenuItem {
             }
             Actor actor = item.getActor();
             if (actor instanceof Layout) {
-                ((Layout) actor).layout();
+                ((Layout) actor).invalidate();
+                ((Layout) actor).validate();
             }
 
             float x = 0;
@@ -276,10 +277,23 @@ public class MenuItemGroup implements MenuItem {
             actor.setPosition(x, y);
             y += actor.getHeight() + spacing;
         }
+    }
 
-        mGroup.setHeight(y - spacing);
-        mGroup.invalidateHierarchy();
-        mMenu.onGroupBoundariesChanged();
+    private float computeHeight() {
+        // Keep in sync with layoutItems()!
+        float y = 0;
+        Menu.MenuStyle style = mMenu.getMenuStyle();
+        final float spacing = style.focusPadding * 2 + style.spacing;
+        for (int idx = mItems.size - 1; idx >= 0; --idx) {
+            MenuItem item = mItems.get(idx);
+            ItemInfo info = mInfoForItem.get(item);
+            if (!info.visible) {
+                continue;
+            }
+            Actor actor = item.getActor();
+            y += actor.getHeight() + spacing;
+        }
+        return y - spacing;
     }
 
     private void addItemInternal(MenuItem item, Label label) {
@@ -292,7 +306,12 @@ public class MenuItemGroup implements MenuItem {
             mGroup.addActor(label);
         }
         mGroup.addActor(item.getActor());
-        updateBounds();
+        updateHeight();
+    }
+
+    private void updateHeight() {
+        mGroup.setHeight(computeHeight());
+        mMenu.onGroupBoundariesChanged();
     }
 
     private void setCurrentIndex(int index) {

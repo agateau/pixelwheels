@@ -183,12 +183,6 @@ public class TabMenuItem extends Actor implements MenuItem {
         drawText(batch);
     }
 
-    @Override
-    protected void positionChanged() {
-        super.positionChanged();
-        mFocusIndicator.updateBounds();
-    }
-
     private void drawFrame(Batch batch) {
         float distance = getDistanceToLeftEdge();
         drawFrameBorder(batch, mStyle.leftTabBorder, getX() - distance, distance);

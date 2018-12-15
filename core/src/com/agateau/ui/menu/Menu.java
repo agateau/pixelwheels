@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 /**
  * A keyboard and game controller friendly menu system
@@ -123,10 +124,24 @@ public class Menu extends WidgetGroup {
     @Override
     public void layout() {
         super.layout();
-        if (!mFirstLayout) {
-            return;
+
+        updateGroupBounds();
+
+        if (mFirstLayout) {
+            mFirstLayout = false;
+            onFirstLayout();
         }
-        mFirstLayout = false;
+    }
+
+    private void updateGroupBounds() {
+        Actor actor = mGroup.getActor();
+        actor.setWidth(getWidth() - 2 * mStyle.focusPadding);
+        ((Layout)actor).invalidate();
+        ((Layout)actor).validate();
+        actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
+    }
+
+    private void onFirstLayout() {
         if (mGroup.getCurrentItem() == null) {
             mGroup.focusFirstItem();
         } else {
@@ -171,13 +186,6 @@ public class Menu extends WidgetGroup {
         Actor actor = mGroup.getActor();
         actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
         setSize(getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
-    }
-
-    @Override
-    public void sizeChanged() {
-        super.sizeChanged();
-        float width = getWidth();
-        mGroup.getActor().setPosition(mStyle.focusPadding, mStyle.focusPadding);
-        mGroup.getActor().setWidth(width - 2 * mStyle.focusPadding);
+        invalidateHierarchy();
     }
 }
