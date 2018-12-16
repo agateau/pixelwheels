@@ -103,8 +103,11 @@ tagpush: tag
 	git push
 	git push --tags
 
-cleanconf:
+clean-desktop-conf:
 	rm -f ~/.config/agateau.com/pixelwheels.conf
 	rm -rf ~/.local/share/pixelwheels
+
+clean-android-conf:
+	adb shell "pm clear com.agateau.tinywheels.android"
 
 .PHONY: tools build
