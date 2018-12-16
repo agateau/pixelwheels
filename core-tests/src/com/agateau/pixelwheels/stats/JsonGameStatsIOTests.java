@@ -70,11 +70,11 @@ public class JsonGameStatsIOTests {
     private void checkRecords(TrackStats stats, int rank, float expectedLap) {
         float expectedTotal = expectedLap * 3;
         ArrayList<TrackResult> results = stats.get(TrackStats.ResultType.LAP);
-        assertThat(results.get(rank).racer, is("bob"));
+        assertThat(results.get(rank).vehicle, is("bob"));
         assertThat(results.get(rank).value, is(expectedLap));
 
         results = stats.get(TrackStats.ResultType.TOTAL);
-        assertThat(results.get(rank).racer, is("bob"));
+        assertThat(results.get(rank).vehicle, is("bob"));
         assertThat(results.get(rank).value, is(expectedTotal));
     }
 

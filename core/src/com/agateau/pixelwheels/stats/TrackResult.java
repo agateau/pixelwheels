@@ -19,12 +19,12 @@
 package com.agateau.pixelwheels.stats;
 
 public class TrackResult {
-    public final String racer;
+    public final String vehicle;
     public final float value;
 
 
-    public TrackResult(String racer, float value) {
-        this.racer = racer;
+    public TrackResult(String vehicle, float value) {
+        this.vehicle = vehicle;
         this.value = value;
     }
 }

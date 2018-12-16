@@ -167,7 +167,7 @@ public class SelectTrackScreen extends PwStageScreen {
             TrackResult result = results.get(idx);
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d", idx + 1),
-                    result.racer,
+                    result.vehicle,
                     StringUtils.formatRaceTime(result.value));
         }
         table.setHeight(table.getPrefHeight());
