@@ -317,7 +317,16 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public Rectangle getFocusRectangle() {
-        return getRectangleForIndex(mCurrentIndex);
+        if (mCurrentIndex == -1) {
+            mFocusRectangle.set(0, 0, -1, -1);
+            return mFocusRectangle;
+        }
+        T item = mItems.get(mCurrentIndex);
+        float x = (mCurrentIndex % mColumnCount) * (mItemWidth + getItemSpacing());
+        float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
+        Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
+        return mFocusRectangle;
     }
 
     @Override
@@ -334,19 +343,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     /// Private
-    private Rectangle getRectangleForIndex(int index) {
-        if (index == -1) {
-            mFocusRectangle.set(0, 0, -1, -1);
-            return mFocusRectangle;
-        }
-        T item = mItems.get(index);
-        float x = (index % mColumnCount) * (mItemWidth + getItemSpacing());
-        float y = getHeight() - (index / mColumnCount + 1) * mItemHeight;
-        Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
-        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
-        return mFocusRectangle;
-    }
-
     /**
      * Horizontal spacing between items
      */
