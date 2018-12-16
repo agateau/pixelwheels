@@ -51,7 +51,8 @@ public class SelectChampionshipScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
-        setupUi(championshipId);
+        Championship championship = findChampionship(championshipId);
+        setupUi(championship);
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
@@ -60,7 +61,15 @@ public class SelectChampionshipScreen extends PwStageScreen {
         };
     }
 
-    private void setupUi(String championshipId) {
+    private Championship findChampionship(String championshipId) {
+        Championship championship = mGame.getAssets().findChampionshipById(championshipId);
+        if (championship == null) {
+            championship = mGame.getAssets().championships.get(0);
+        }
+        return championship;
+    }
+
+    private void setupUi(Championship championship) {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
@@ -73,8 +82,8 @@ public class SelectChampionshipScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
-        createChampionshipSelector(championshipId, menu);
-        updateChampionshipDetails(assets.findChampionshipById(championshipId));
+        createChampionshipSelector(championship, menu);
+        updateChampionshipDetails(championship);
 
         builder.getActor("backButton").addListener(new ClickListener() {
             @Override
@@ -91,12 +100,12 @@ public class SelectChampionshipScreen extends PwStageScreen {
         });
     }
 
-    private void createChampionshipSelector(String championshipId, Menu menu) {
+    private void createChampionshipSelector(Championship championship, Menu menu) {
         Assets assets = mGame.getAssets();
         mChampionshipSelector = new ChampionshipSelector(menu);
         mChampionshipSelector.setColumnCount(2);
         mChampionshipSelector.init(assets);
-        mChampionshipSelector.setCurrent(assets.findChampionshipById(championshipId));
+        mChampionshipSelector.setCurrent(championship);
         menu.addItem(mChampionshipSelector);
 
         mChampionshipSelector.setSelectionListener(new GridMenuItem.SelectionListener<Championship>() {
