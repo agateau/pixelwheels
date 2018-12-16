@@ -51,7 +51,9 @@ public class GameInputHandlerFactories {
     public static GameInputHandlerFactory getFactoryById(String id) {
         init();
         if ("".equals(id)) {
-            return mFactories.first();
+            GameInputHandlerFactory factory = mFactories.first();
+            NLog.i("No input handler selected, using '%s'", factory.getId());
+            return factory;
         }
         for (GameInputHandlerFactory factory : mFactories) {
             if (factory.getId().equals(id)) {
@@ -60,11 +62,6 @@ public class GameInputHandlerFactories {
         }
         NLog.e("Could not find an input handler factory with id '%s'", id);
         return mFactories.first();
-    }
-
-    public static GameInputHandler getDefaultInputHandler() {
-        GameInputHandlerFactory factory = mFactories.first();
-        return factory.getAllHandlers().get(0);
     }
 
     public static boolean hasKeyboard() {
