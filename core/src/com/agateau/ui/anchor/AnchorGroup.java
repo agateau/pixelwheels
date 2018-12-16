@@ -20,6 +20,7 @@ package com.agateau.ui.anchor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Iterator;
@@ -80,7 +81,14 @@ public class AnchorGroup extends WidgetGroup {
         }
     }
 
+    @Override
     public void layout() {
+        for (Actor actor : getChildren()) {
+            if (actor instanceof Layout) {
+                ((Layout) actor).invalidate();
+                ((Layout) actor).validate();
+            }
+        }
         for (AnchorRule rule: mRules) {
             rule.apply();
         }

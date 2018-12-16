@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.Scene2dUtils;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,8 +31,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * A clickable menu item
  */
 public class ButtonMenuItem extends TextButton implements MenuItem {
-    private final Menu mMenu;
     private final Rectangle mRect = new Rectangle();
+
+    private final FocusIndicator mFocusIndicator;
 
     public ButtonMenuItem(Menu menu, String text) {
         this(menu, text, menu.getSkin());
@@ -39,7 +41,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     public ButtonMenuItem(Menu menu, String text, Skin skin) {
         super(text, skin);
-        mMenu = menu;
+        mFocusIndicator = new FocusIndicator(menu);
 
         addListener(new ClickListener() {
             @Override
@@ -96,5 +98,22 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     @Override
     public float getParentWidthRatio() {
         return 1;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        mFocusIndicator.setFocused(focused);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        mFocusIndicator.act(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 }

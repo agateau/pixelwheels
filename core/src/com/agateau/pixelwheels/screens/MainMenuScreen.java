@@ -63,8 +63,8 @@ public class MainMenuScreen extends PwStageScreen {
             menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
                 @Override
                 public void triggered() {
-                mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
-            }
+                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
+                }
             });
             menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
                 @Override

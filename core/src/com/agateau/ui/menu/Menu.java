@@ -19,18 +19,12 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.Scene2dUtils;
 import com.agateau.ui.VirtualKey;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
 /**
  * A keyboard and game controller friendly menu system
@@ -39,22 +33,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  */
 public class Menu extends WidgetGroup {
     private static final float LABEL_COLUMN_WIDTH = 120;
-    private static final float SELECTION_ANIMATION_DURATION = 0.2f;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
-    private final Image mFocusIndicator;
     private final MenuItemGroup mGroup;
     private final Skin mSkin;
     private MenuStyle mStyle;
 
-    private Vector2 mTmp = new Vector2();
-
     private float mLabelColumnWidth;
-    private float mDefaultItemWidth;
-
-    enum FocusIndicatorMovement {
-        IMMEDIATE,
-        ANIMATED
-    }
 
     public static class MenuStyle {
         public Drawable focus;
@@ -73,13 +57,9 @@ public class Menu extends WidgetGroup {
         mSkin = skin;
         mStyle = skin.get(styleName, MenuStyle.class);
 
-        mFocusIndicator = new Image(mStyle.focus);
-        mFocusIndicator.setTouchable(Touchable.disabled);
-
         mGroup = new MenuItemGroup(this);
         setLabelColumnWidth(LABEL_COLUMN_WIDTH);
 
-        addActor(mFocusIndicator);
         addActor(mGroup.getActor());
     }
 
@@ -111,6 +91,7 @@ public class Menu extends WidgetGroup {
      * Add a plain label in the menu
      * @return The created label
      */
+    @SuppressWarnings("UnusedReturnValue")
     public LabelMenuItem addLabel(String text) {
         return mGroup.addLabel(text);
     }
@@ -137,6 +118,35 @@ public class Menu extends WidgetGroup {
      */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
         return mGroup.addItemWithLabel(labelText, item);
+    }
+
+    private boolean mFirstLayout = true;
+    @Override
+    public void layout() {
+        super.layout();
+
+        updateGroupBounds();
+
+        if (mFirstLayout) {
+            mFirstLayout = false;
+            onFirstLayout();
+        }
+    }
+
+    private void updateGroupBounds() {
+        Actor actor = mGroup.getActor();
+        actor.setWidth(getWidth() - 2 * mStyle.focusPadding);
+        ((Layout)actor).invalidate();
+        ((Layout)actor).validate();
+        actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
+    }
+
+    private void onFirstLayout() {
+        if (mGroup.getCurrentItem() == null) {
+            mGroup.focusFirstItem();
+        } else {
+            mGroup.updateFocusIndicatorBounds();
+        }
     }
 
     @Override
@@ -172,52 +182,10 @@ public class Menu extends WidgetGroup {
         mGroup.setItemVisible(item, visible);
     }
 
-    void animateFocusIndicator() {
-        updateFocusIndicatorBounds(FocusIndicatorMovement.ANIMATED);
-    }
-
-    void updateFocusIndicatorBounds(FocusIndicatorMovement movement) {
-        MenuItem item = getCurrentItem();
-        if (item == null) {
-            return;
-        }
-        Rectangle rect = item.getFocusRectangle();
-        mapDescendantRectangle(item.getActor(), rect);
-        rect.width += 2 * mStyle.focusPadding;
-        rect.height += 2 * mStyle.focusPadding;
-
-        mFocusIndicator.clearActions();
-        if (movement == FocusIndicatorMovement.IMMEDIATE) {
-            mFocusIndicator.setBounds(rect.x, rect.y, rect.width, rect.height);
-        } else {
-            mFocusIndicator.addAction(Actions.moveTo(rect.x, rect.y, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-            mFocusIndicator.addAction(Actions.sizeTo(rect.width, rect.height, SELECTION_ANIMATION_DURATION, Interpolation.pow2Out));
-        }
-        Scene2dUtils.fireChangeEvent(this);
-    }
-
-    void hideFocusIndicator() {
-        mFocusIndicator.addAction(Actions.fadeOut(Menu.SELECTION_ANIMATION_DURATION));
-    }
-
-    private void mapDescendantRectangle(Actor actor, Rectangle rect) {
-        mTmp.set(rect.x, rect.y);
-        mTmp = actor.localToAscendantCoordinates(mGroup.getActor(), mTmp);
-        rect.x = mTmp.x;
-        rect.y = mTmp.y;
-    }
-
     void onGroupBoundariesChanged() {
         Actor actor = mGroup.getActor();
         actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
         setSize(getWidth(), actor.getHeight() + 2 * mStyle.focusPadding);
-    }
-
-    @Override
-    public void sizeChanged() {
-        super.sizeChanged();
-        float width = getWidth();
-        mGroup.getActor().setPosition(mStyle.focusPadding, mStyle.focusPadding);
-        mGroup.getActor().setWidth(width - 2 * mStyle.focusPadding);
+        invalidateHierarchy();
     }
 }

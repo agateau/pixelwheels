@@ -40,6 +40,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final Button mLeftButton;
     private final Button mRightButton;
     private final Rectangle mRect = new Rectangle();
+    private final FocusIndicator mFocusIndicator;
     private final RangeMenuItemStyle mStyle;
     private Actor mMainActor;
 
@@ -52,6 +53,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
 
     public RangeMenuItem(Menu menu) {
         mMenu = menu;
+        mFocusIndicator = new FocusIndicator(menu);
         mStyle = menu.getSkin().get(RangeMenuItemStyle.class);
 
         mLeftButton = createButton(mStyle.decIcon, menu.getSkin());
@@ -100,9 +102,16 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     @Override
+    public void act(float delta) {
+        super.act(delta);
+        mFocusIndicator.act(delta);
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
         super.draw(batch, parentAlpha);
+        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 
     /**
@@ -128,6 +137,11 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     @Override
     public boolean isFocusable() {
         return true;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        mFocusIndicator.setFocused(focused);
     }
 
     @Override

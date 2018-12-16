@@ -36,8 +36,7 @@ public class MenuItemGroup implements MenuItem {
     private final WidgetGroup mGroup = new WidgetGroup() {
         @Override
         public void layout() {
-            updateBounds();
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
+            layoutItems();
         }
     };
 
@@ -70,6 +69,14 @@ public class MenuItemGroup implements MenuItem {
         });
     }
 
+    public void focusFirstItem() {
+        setCurrentIndex(0);
+    }
+
+    public void updateFocusIndicatorBounds() {
+        getCurrentItem().setFocused(true);
+    }
+
     @Override
     public Actor getActor() {
         return mGroup;
@@ -84,6 +91,15 @@ public class MenuItemGroup implements MenuItem {
     public boolean isFocusable() {
         // TODO: return false if there are only non focusable items
         return true;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        if (focused) {
+            adjustIndex(-1, 1);
+        } else {
+            setCurrentIndex(-1);
+        }
     }
 
     @Override
@@ -138,10 +154,6 @@ public class MenuItemGroup implements MenuItem {
         Actor actor = item.getActor();
         mFocusRect.x += actor.getX();
         mFocusRect.y += actor.getY();
-        if (actor != item.getActor()) {
-            // Item has a label
-            mFocusRect.x += item.getActor().getX();
-        }
         return mFocusRect;
     }
 
@@ -180,7 +192,7 @@ public class MenuItemGroup implements MenuItem {
         if (info.label != null) {
             info.label.setVisible(visible);
         }
-        updateBounds();
+        updateHeight();
     }
 
     public MenuItem addButton(String text) {
@@ -229,7 +241,8 @@ public class MenuItemGroup implements MenuItem {
         return false;
     }
 
-    private void updateBounds() {
+    private void layoutItems() {
+        // Keep in sync with computeHeight()!
         float y = 0;
         Menu.MenuStyle style = mMenu.getMenuStyle();
         final float spacing = style.focusPadding * 2 + style.spacing;
@@ -241,7 +254,8 @@ public class MenuItemGroup implements MenuItem {
             }
             Actor actor = item.getActor();
             if (actor instanceof Layout) {
-                ((Layout) actor).layout();
+                ((Layout) actor).invalidate();
+                ((Layout) actor).validate();
             }
 
             float x = 0;
@@ -263,10 +277,23 @@ public class MenuItemGroup implements MenuItem {
             actor.setPosition(x, y);
             y += actor.getHeight() + spacing;
         }
+    }
 
-        mGroup.setHeight(y - spacing);
-        mGroup.invalidateHierarchy();
-        mMenu.onGroupBoundariesChanged();
+    private float computeHeight() {
+        // Keep in sync with layoutItems()!
+        float y = 0;
+        Menu.MenuStyle style = mMenu.getMenuStyle();
+        final float spacing = style.focusPadding * 2 + style.spacing;
+        for (int idx = mItems.size - 1; idx >= 0; --idx) {
+            MenuItem item = mItems.get(idx);
+            ItemInfo info = mInfoForItem.get(item);
+            if (!info.visible) {
+                continue;
+            }
+            Actor actor = item.getActor();
+            y += actor.getHeight() + spacing;
+        }
+        return y - spacing;
     }
 
     private void addItemInternal(MenuItem item, Label label) {
@@ -275,14 +302,16 @@ public class MenuItemGroup implements MenuItem {
         info.label = label;
         mInfoForItem.put(item, info);
         mItemForActor.put(item.getActor(), item);
-        if (mCurrentIndex == -1 && item.isFocusable()) {
-            mCurrentIndex = mItems.size - 1;
-        }
         if (label != null) {
             mGroup.addActor(label);
         }
         mGroup.addActor(item.getActor());
-        updateBounds();
+        updateHeight();
+    }
+
+    private void updateHeight() {
+        mGroup.setHeight(computeHeight());
+        mMenu.onGroupBoundariesChanged();
     }
 
     private void setCurrentIndex(int index) {
@@ -290,12 +319,21 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void setCurrentIndex(int index, SetCurrentHint hint) {
-        int old = mCurrentIndex;
+        if (mCurrentIndex == index) {
+            return;
+        }
+        if (mCurrentIndex != -1) {
+            MenuItem item = getCurrentItem();
+            if (item.isFocusable()) {
+                item.setFocused(false);
+            }
+        }
         mCurrentIndex = index;
         if (mCurrentIndex != -1) {
             MenuItem item = getCurrentItem();
             Assert.check(isItemVisible(item), "Cannot set an invisible item current");
             Assert.check(item.isFocusable(), "Item " + item + " is not focusable");
+            item.setFocused(true);
 
             if (item instanceof MenuItemGroup) {
                 MenuItemGroup group = (MenuItemGroup)item;
@@ -310,13 +348,6 @@ public class MenuItemGroup implements MenuItem {
                         break;
                 }
             }
-        }
-        if (old >= 0 && mCurrentIndex == -1) {
-            mMenu.hideFocusIndicator();
-        } else if (old == -1) {
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.IMMEDIATE);
-        } else {
-            mMenu.updateFocusIndicatorBounds(Menu.FocusIndicatorMovement.ANIMATED);
         }
     }
 

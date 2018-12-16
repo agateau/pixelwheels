@@ -36,6 +36,7 @@ import com.badlogic.gdx.utils.Array;
  * An item to create tabbed content in a menu
  */
 public class TabMenuItem extends Actor implements MenuItem {
+    private final FocusIndicator mFocusIndicator;
     private final Menu mMenu;
     private final GlyphLayout mGlyphLayout = new GlyphLayout();
 
@@ -69,6 +70,7 @@ public class TabMenuItem extends Actor implements MenuItem {
 
     public TabMenuItem(Menu menu) {
         mMenu = menu;
+        mFocusIndicator = new FocusIndicator(menu);
         mFont = menu.getSkin().get("default-font", BitmapFont.class);
         mStyle = menu.getSkin().get(TabMenuItemStyle.class);
 
@@ -120,6 +122,11 @@ public class TabMenuItem extends Actor implements MenuItem {
     }
 
     @Override
+    public void setFocused(boolean focused) {
+        mFocusIndicator.setFocused(focused);
+    }
+
+    @Override
     public void trigger() {
 
     }
@@ -163,6 +170,7 @@ public class TabMenuItem extends Actor implements MenuItem {
     @Override
     public void act(float delta) {
         super.act(delta);
+        mFocusIndicator.act(delta);
     }
 
     @Override
@@ -171,6 +179,7 @@ public class TabMenuItem extends Actor implements MenuItem {
             return;
         }
 
+        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
         drawFrame(batch);
         drawHandle(batch);
         drawText(batch);

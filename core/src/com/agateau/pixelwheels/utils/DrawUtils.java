@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.utils;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -32,5 +34,13 @@ public class DrawUtils {
     public static void drawCross(ShapeRenderer renderer, float x, float y, float radius) {
         renderer.line(x - radius, y, x + radius, y);
         renderer.line(x, y - radius, x, y + radius);
+    }
+
+    public static float setBatchAlpha(Batch batch, float alpha) {
+        Color color = batch.getColor();
+        float old = color.a;
+        color.a = alpha;
+        batch.setColor(color);
+        return old;
     }
 }

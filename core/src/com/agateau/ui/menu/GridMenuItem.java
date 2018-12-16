@@ -41,6 +41,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Rectangle mFocusRectangle = new Rectangle();
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
+    private final Array<FocusIndicator> mFocusIndicators = new Array<FocusIndicator>();
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
@@ -132,7 +133,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     private void setCurrentIndex(int currentIndex) {
+        if (mCurrentIndex != -1) {
+            mFocusIndicators.get(mCurrentIndex).setFocused(false);
+        }
         mCurrentIndex = currentIndex;
+        if (mCurrentIndex != -1) {
+            mFocusIndicators.get(mCurrentIndex).setFocused(true);
+        }
         if (mSelectionListener != null) {
             T item = currentIndex >= 0 ? mItems.get(currentIndex) : null;
             mSelectionListener.currentChanged(item, currentIndex);
@@ -148,7 +155,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setItems(Array<T> items) {
         mItems = items;
+        while (mFocusIndicators.size < mItems.size) {
+            FocusIndicator indicator = new FocusIndicator(mMenu);
+            mFocusIndicators.add(indicator);
+        }
         setCurrentIndex(items.size > 0 ? 0 : -1);
+        updateHeight();
     }
 
     public Array<T> getItems() {
@@ -170,6 +182,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setColumnCount(int columnCount) {
         mColumnCount = columnCount;
+        updateHeight();
+    }
+
+    private void updateHeight() {
+        float height = getPrefHeight();
+        if (MathUtils.isEqual(height, getHeight(), 1)) {
+            return;
+        }
+        setHeight(height);
         invalidateHierarchy();
     }
 
@@ -181,13 +202,24 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public float getPrefHeight() {
+        if (mItems == null || mColumnCount == 0) {
+            return 0;
+        }
         int rowCount = MathUtils.ceil(mItems.size / (float)mColumnCount);
         return mItemHeight * rowCount;
     }
 
     @Override
     protected void sizeChanged() {
-        setHeight(getPrefHeight());
+        updateHeight();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        for (FocusIndicator focusIndicator : mFocusIndicators) {
+            focusIndicator.act(delta);
+        }
     }
 
     @Override
@@ -210,9 +242,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
         for (int idx = 0; idx < mItems.size; idx++) {
             T item = mItems.get(idx);
+            Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+
+            FocusIndicator focusIndicator = mFocusIndicators.get(idx);
+            focusIndicator.draw(batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+
             if (idx == mSelectedIndex) {
                 int padding = mMenu.getMenuStyle().focusPadding;
-                Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
                 mStyle.selected.draw(batch, getX() + x + rect.x - padding, getY() + y + rect.y - padding,
                         rect.width + 2 * padding, rect.height + 2 * padding);
             }
@@ -249,7 +285,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public boolean goUp() {
         if (mCurrentIndex - mColumnCount >= 0) {
             setCurrentIndex(mCurrentIndex - mColumnCount);
-            mMenu.animateFocusIndicator();
             return true;
         } else {
             return false;
@@ -260,7 +295,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public boolean goDown() {
         if (mCurrentIndex + mColumnCount < mItems.size) {
             setCurrentIndex(mCurrentIndex + mColumnCount);
-            mMenu.animateFocusIndicator();
             return true;
         } else {
             return false;
@@ -271,7 +305,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void goLeft() {
         if (mCurrentIndex > 0) {
             setCurrentIndex(mCurrentIndex - 1);
-            mMenu.animateFocusIndicator();
         }
     }
 
@@ -279,13 +312,20 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public void goRight() {
         if (mCurrentIndex < mItems.size - 1) {
             setCurrentIndex(mCurrentIndex + 1);
-            mMenu.animateFocusIndicator();
         }
     }
 
     @Override
     public Rectangle getFocusRectangle() {
-        updateFocusRectangle();
+        if (mCurrentIndex == -1) {
+            mFocusRectangle.set(0, 0, -1, -1);
+            return mFocusRectangle;
+        }
+        T item = mItems.get(mCurrentIndex);
+        float x = (mCurrentIndex % mColumnCount) * (mItemWidth + getItemSpacing());
+        float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
+        Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
+        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
         return mFocusRectangle;
     }
 
@@ -294,19 +334,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         return 1;
     }
 
-    /// Private
-    private void updateFocusRectangle() {
+    @Override
+    public void setFocused(boolean focused) {
         if (mCurrentIndex == -1) {
-            mFocusRectangle.set(0, 0, -1, -1);
             return;
         }
-        T item = mItems.get(mCurrentIndex);
-        float x = (mCurrentIndex % mColumnCount) * (mItemWidth + getItemSpacing());
-        float y = getHeight() - (mCurrentIndex / mColumnCount + 1) * mItemHeight;
-        Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
-        mFocusRectangle.set(x + rect.x, y + rect.y, rect.width, rect.height);
+        mFocusIndicators.get(mCurrentIndex).setFocused(focused);
     }
 
+    /// Private
     /**
      * Horizontal spacing between items
      */
@@ -336,7 +372,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             setCurrentIndex(idx);
-            mMenu.animateFocusIndicator();
             trigger();
         }
     }
