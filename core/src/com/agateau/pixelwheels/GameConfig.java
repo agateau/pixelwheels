@@ -73,7 +73,8 @@ public class GameConfig {
         }
 
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx), PrefConstants.INPUT_DEFAULT);
+            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx),
+                    getDefaultInputFactoryId(idx));
             this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
         }
 
@@ -81,6 +82,16 @@ public class GameConfig {
         this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
 
         setupInputHandlers();
+    }
+
+    private String getDefaultInputFactoryId(int idx) {
+        if (idx > 0) {
+            // No input defaults except for the first player
+            return "";
+        }
+        Array<GameInputHandlerFactory> factories = GameInputHandlerFactories.getAvailableFactories();
+        Assert.check(factories.size > 0, "No GameInputHandler factories");
+        return factories.first().getId();
     }
 
     public void addListener(ChangeListener listener) {
