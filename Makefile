@@ -103,4 +103,8 @@ tagpush: tag
 	git push
 	git push --tags
 
+cleanconf:
+	rm -f ~/.config/agateau.com/pixelwheels.conf
+	rm -rf ~/.local/share/pixelwheels
+
 .PHONY: tools build
