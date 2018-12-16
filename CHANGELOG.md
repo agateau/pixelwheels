@@ -1,5 +1,53 @@
 # Changelog
 
+## 0.11.0 - 2018-12-16
+
+### For players
+
+#### Added
+
+- Pixel Wheels now remembers the best lap and best total time for each track
+  and shows you a congratulation message when you reach the top 3 in either
+  categories.
+
+- Sounds have been added to the start up countdown.
+
+#### Changed
+
+- The faster the vehicle is driving the more zoomed out the view is, giving you
+  more time to anticipate the track.
+
+- The game now shows a blocking message if there aren't enough gamepads to
+  start a game, or if a gamepad is disconnected while playing.
+
+- The focus indicator in the game menu has been reimplemented: now each menu
+  item has its own, fading, focus indicator. This fixes the focus indicator
+  glitches when a screen appeared or when switching between tabs in the
+  configuration screen.
+
+- The screens to select vehicles, tracks and championships now show the name of
+  the selected element. Furthermore, the track selection screen shows the
+  track records.
+
+#### Fixed
+
+- Fixed glitches when changing tabs in the configuration screen.
+
+### For developers
+
+#### Added
+
+- Added secret key shortcut to save a screenshot ('S' for now).
+
+#### Changed
+
+- Switched desktop version to LWJGL3.
+
+- Updated libgdx to 1.9.8.
+
+- Make Google Play happy: bump `targetSdkVersion` to 26.
+
+
 ## 0.10.0 - 2018-09-09
 
 ### For players
