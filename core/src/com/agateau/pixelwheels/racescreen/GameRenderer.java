@@ -208,31 +208,11 @@ public class GameRenderer {
         mNextCameraInfo.viewportHeight = viewportHeight;
 
         // Compute angle
-        if (mGameConfig.rotateCamera) {
-            float maxCameraRotationSpeed = Constants.MAX_CAMERA_ROTATION_SPEED;
-
-            float targetAngle = AgcMathUtils.normalizeAngle(180 - mRacer.getCameraAngle());
-            float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraInfo.angle);
-
-            float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
-            float progress = Math.min(Math.abs(deltaAngle), K) / K;
-            float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
-            if (!immediate) {
-                float maxDeltaAngle = maxRotationSpeed * delta;
-                deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
-            }
-            mNextCameraInfo.angle = mCameraInfo.angle + deltaAngle;
-        } else {
-            mNextCameraInfo.angle = 90;
-        }
+        mNextCameraInfo.angle = 90;
 
         // Compute advanceAngle
         float advanceAngle;
-        if (mGameConfig.rotateCamera) {
-            advanceAngle = 180 - mCameraInfo.angle;
-        } else {
-            advanceAngle = mRacer.getCameraAngle();
-        }
+        advanceAngle = mRacer.getCameraAngle();
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;

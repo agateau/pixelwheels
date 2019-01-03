@@ -101,18 +101,6 @@ public class ConfigScreen extends PwStageScreen {
             });
             group.addItemWithLabel("Audio:", audioSwitch);
 
-            group.addTitleLabel("");
-            final SwitchMenuItem rotateScreenSwitch = new SwitchMenuItem(menu);
-            rotateScreenSwitch.setChecked(gameConfig.rotateCamera);
-            rotateScreenSwitch.getActor().addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    gameConfig.rotateCamera = rotateScreenSwitch.isChecked();
-                    gameConfig.flush();
-                }
-            });
-            group.addItemWithLabel("Rotate camera:", rotateScreenSwitch);
-
             if (PlatformUtils.isDesktop()) {
                 final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
                 fullscreenSwitch.setChecked(gameConfig.fullscreen);

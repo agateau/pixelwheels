@@ -27,7 +27,6 @@ public class PrefConstants {
     public static final String VEHICLE_ID_PREFIX = "vehicleId.";
     public static final String TRACK_ID = "trackId";
     public static final String CHAMPIONSHIP_ID = "championshipId";
-    public static final String ROTATE_SCREEN = "rotateScreen";
     public static final String AUDIO = "audio";
     public static final String FULLSCREEN = "fullscreen";
     public static final String GAME_MODE = "gameMode";
