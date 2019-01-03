@@ -209,6 +209,14 @@ public class GameRenderer {
         }
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
 
+        // Clamp camera to the limits of the track
+        float minWidth = viewportWidth / 2;
+        float minHeight = viewportHeight / 2;
+        float maxWidth = mWorld.getTrack().getMapWidth() - viewportWidth / 2;
+        float maxHeight = mWorld.getTrack().getMapHeight() - viewportHeight / 2;
+        mNextCameraInfo.position.x = MathUtils.clamp(mNextCameraInfo.position.x, minWidth, maxWidth);
+        mNextCameraInfo.position.y = MathUtils.clamp(mNextCameraInfo.position.y, minHeight, maxHeight);
+
         // Apply changes
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
