@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
@@ -30,7 +29,6 @@ import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
-import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -52,7 +50,6 @@ public class GameRenderer {
     private static final float MAX_ZOOM = 2.1f;
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float IMMEDIATE = -1;
-    private GameConfig mGameConfig;
 
     private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
@@ -105,6 +102,8 @@ public class GameRenderer {
 
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
+
+        mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
     }
 
     public void setScreenRect(int x, int y, int width, int height) {
@@ -112,11 +111,6 @@ public class GameRenderer {
         mScreenY = y;
         mScreenWidth = width;
         mScreenHeight = height;
-    }
-
-    public void setConfig(GameConfig config) {
-        mGameConfig = config;
-        mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
     }
 
     public void onAboutToStart() {

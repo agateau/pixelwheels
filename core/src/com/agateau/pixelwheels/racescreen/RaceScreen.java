@@ -102,7 +102,6 @@ public class RaceScreen extends ScreenAdapter {
     private void setupGameRenderer(int idx, SpriteBatch batch) {
         Racer racer = mGameWorld.getPlayerRacer(idx);
         GameRenderer gameRenderer = new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
-        gameRenderer.setConfig(mGame.getConfig());
         mGameRenderers.add(gameRenderer);
     }
 
