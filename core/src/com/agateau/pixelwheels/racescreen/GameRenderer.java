@@ -79,6 +79,15 @@ public class GameRenderer {
         float viewportHeight;
         Vector2 position = new Vector2();
         float zoom = 1;
+
+        void clampPosition(Track track) {
+            float minWidth = viewportWidth / 2;
+            float minHeight = viewportHeight / 2;
+            float maxWidth = track.getMapWidth() - viewportWidth / 2;
+            float maxHeight = track.getMapHeight() - viewportHeight / 2;
+            position.x = MathUtils.clamp(position.x, minWidth, maxWidth);
+            position.y = MathUtils.clamp(position.y, minHeight, maxHeight);
+        }
     }
     private CameraInfo mCameraInfo = new CameraInfo();
     private CameraInfo mNextCameraInfo = new CameraInfo();
@@ -209,13 +218,7 @@ public class GameRenderer {
         }
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
 
-        // Clamp camera to the limits of the track
-        float minWidth = viewportWidth / 2;
-        float minHeight = viewportHeight / 2;
-        float maxWidth = mWorld.getTrack().getMapWidth() - viewportWidth / 2;
-        float maxHeight = mWorld.getTrack().getMapHeight() - viewportHeight / 2;
-        mNextCameraInfo.position.x = MathUtils.clamp(mNextCameraInfo.position.x, minWidth, maxWidth);
-        mNextCameraInfo.position.y = MathUtils.clamp(mNextCameraInfo.position.y, minHeight, maxHeight);
+        mNextCameraInfo.clampPosition(mWorld.getTrack());
 
         // Apply changes
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
