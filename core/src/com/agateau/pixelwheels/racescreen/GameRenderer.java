@@ -59,8 +59,6 @@ public class GameRenderer {
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
     private final Racer mRacer;
-    private final float mMapWidth;
-    private final float mMapHeight;
 
     private int[] mBackgroundLayerFirstIndexes = { 0 };
     private int[] mExtraBackgroundLayerIndexes;
@@ -97,8 +95,6 @@ public class GameRenderer {
         mRacer = racer;
 
         mTrack = mWorld.getTrack();
-        mMapWidth = mTrack.getMapWidth();
-        mMapHeight = mTrack.getMapHeight();
 
         mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
         mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
@@ -167,8 +163,10 @@ public class GameRenderer {
                 mShapeRenderer.setColor(1, 1, 1, 1);
                 float tileW = mTrack.getTileWidth();
                 float tileH = mTrack.getTileHeight();
-                for (float y = 0; y < mMapHeight; y += tileH) {
-                    for (float x = 0; x < mMapWidth; x += tileW) {
+                float mapWidth = mTrack.getMapWidth();
+                float mapHeight = mTrack.getMapHeight();
+                for (float y = 0; y < mapHeight; y += tileH) {
+                    for (float x = 0; x < mapWidth; x += tileW) {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
                     }
                 }
