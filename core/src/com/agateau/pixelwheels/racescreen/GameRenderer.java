@@ -65,7 +65,6 @@ public class GameRenderer {
     private int[] mBackgroundLayerFirstIndexes = { 0 };
     private int[] mExtraBackgroundLayerIndexes;
     private int[] mForegroundLayerIndexes;
-    private Vehicle mVehicle;
 
     private int mScreenX;
     private int mScreenY;
@@ -96,7 +95,6 @@ public class GameRenderer {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
         mRacer = racer;
-        mVehicle = racer.getVehicle();
 
         mTrack = mWorld.getTrack();
         mMapWidth = mTrack.getMapWidth();
@@ -194,9 +192,10 @@ public class GameRenderer {
     private static Vector2 sDelta = new Vector2();
     private void updateCamera(float delta) {
         boolean immediate = delta < 0;
+        Vehicle vehicle = mRacer.getVehicle();
 
         // Compute viewport size
-        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, mVehicle.getSpeed() / MAX_ZOOM_SPEED);
+        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
         if (!immediate) {
             float zoomDelta = MAX_ZOOM_DELTA * delta;
             mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
@@ -209,7 +208,7 @@ public class GameRenderer {
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(mRacer.getCameraAngle()).add(mVehicle.getPosition()).sub(mCameraInfo.position);
+        sDelta.set(advance, 0).rotate(mRacer.getCameraAngle()).add(vehicle.getPosition()).sub(mCameraInfo.position);
 
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
