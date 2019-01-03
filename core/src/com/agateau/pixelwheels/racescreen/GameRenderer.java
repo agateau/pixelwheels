@@ -230,9 +230,9 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        // Increase size of render view to make sure corners are correctly drawn
-        float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
+        float width = mCamera.viewportWidth * mCamera.zoom;
+        float height = mCamera.viewportHeight * mCamera.zoom;
         mRenderer.setView(mCamera.combined,
-                mCamera.position.x - radius, mCamera.position.y - radius, radius * 2, radius * 2);
+                mCamera.position.x - width / 2, mCamera.position.y - height / 2, width, height);
     }
 }
