@@ -81,7 +81,6 @@ public class GameRenderer {
         float viewportWidth;
         float viewportHeight;
         Vector2 position = new Vector2();
-        float angle = 90;
         float zoom = 1;
     }
     private CameraInfo mCameraInfo = new CameraInfo();
@@ -207,16 +206,9 @@ public class GameRenderer {
         mNextCameraInfo.viewportWidth = viewportWidth;
         mNextCameraInfo.viewportHeight = viewportHeight;
 
-        // Compute angle
-        mNextCameraInfo.angle = 90;
-
-        // Compute advanceAngle
-        float advanceAngle;
-        advanceAngle = mRacer.getCameraAngle();
-
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(mCameraInfo.position);
+        sDelta.set(advance, 0).rotate(mRacer.getCameraAngle()).add(mVehicle.getPosition()).sub(mCameraInfo.position);
 
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
@@ -227,7 +219,6 @@ public class GameRenderer {
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
         mCamera.position.set(mNextCameraInfo.position, 0);
-        mCamera.rotate(mNextCameraInfo.angle - mCameraInfo.angle);
         mCamera.update();
 
         // Swap instances
