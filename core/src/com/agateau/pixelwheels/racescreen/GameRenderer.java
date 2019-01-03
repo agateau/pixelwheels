@@ -163,9 +163,9 @@ public class GameRenderer {
         mBatch.end();
 
         if (Debug.instance.showDebugLayer) {
-            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (Debug.instance.drawTileCorners) {
+                mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                mShapeRenderer.setProjectionMatrix(mCamera.combined);
                 mShapeRenderer.setColor(1, 1, 1, 1);
                 float tileW = mTrack.getTileWidth();
                 float tileH = mTrack.getTileHeight();
@@ -174,10 +174,8 @@ public class GameRenderer {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
                     }
                 }
+                mShapeRenderer.end();
             }
-            mShapeRenderer.setColor(0, 0, 1, 1);
-            mShapeRenderer.rect(mVehicle.getX(), mVehicle.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
-            mShapeRenderer.end();
 
             for (DebugShapeMap.Shape shape : DebugShapeMap.getMap().values()) {
                 shape.draw(mShapeRenderer);
