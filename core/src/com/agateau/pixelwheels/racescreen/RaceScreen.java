@@ -90,20 +90,27 @@ public class RaceScreen extends ScreenAdapter {
         mHudStage = new Stage(mHudViewport, batch);
         mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
-        for (int idx = 0; idx < mGameWorld.getPlayerRacers().size; ++idx) {
+        /*
+        for (int idx = 0; idx < 1 mGameWorld.getPlayerRacers().size; ++idx) {
             setupGameRenderer(idx, batch);
             setupHud(idx, gameInfo.getTrack());
         }
+        */
+
+        GameRenderer gameRenderer = new GameRenderer(mGameWorld, batch, mPerformanceCounters);
+        mGameRenderers.add(gameRenderer);
+        setupHud(0, mGameWorld.getTrack());
         setupFirstHudContent();
 
         mAudioClipper = createAudioClipper();
     }
 
+    /*
     private void setupGameRenderer(int idx, SpriteBatch batch) {
-        Racer racer = mGameWorld.getPlayerRacer(idx);
         GameRenderer gameRenderer = new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
         mGameRenderers.add(gameRenderer);
     }
+    */
 
     private void setupHud(int idx, Track track) {
         Hud hud = new Hud(mGame.getAssets(), mHudStage);

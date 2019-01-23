@@ -46,8 +46,6 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 public class GameRenderer {
     private static final float MAX_CAMERA_DELTA = 50;
     private static final float MAX_ZOOM_DELTA = 0.4f;
-    private static final float MIN_ZOOM = 0.6f;
-    private static final float MAX_ZOOM = 2.1f;
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float IMMEDIATE = -1;
 
@@ -58,7 +56,6 @@ public class GameRenderer {
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
-    private final Racer mRacer;
 
     private int[] mBackgroundLayerFirstIndexes = { 0 };
     private int[] mExtraBackgroundLayerIndexes;
@@ -89,10 +86,9 @@ public class GameRenderer {
     private CameraInfo mCameraInfo = new CameraInfo();
     private CameraInfo mNextCameraInfo = new CameraInfo();
 
-    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
-        mRacer = racer;
 
         mTrack = mWorld.getTrack();
 
@@ -187,10 +183,20 @@ public class GameRenderer {
         }
     }
 
-    private static Vector2 sDelta = new Vector2();
     private void updateCamera(float delta) {
+        //updateCameraSinglePlayer(delta);
+        updateCameraMultiPlayer(delta);
+    }
+
+    private static Vector2 sDelta = new Vector2();
+
+    private void updateCameraSinglePlayer(float delta) {
+        final float MIN_ZOOM = 0.6f;
+        final float MAX_ZOOM = 2.1f;
+
         boolean immediate = delta < 0;
-        Vehicle vehicle = mRacer.getVehicle();
+        Racer racer = mWorld.getPlayerRacers().first();
+        Vehicle vehicle = racer.getVehicle();
 
         // Compute viewport size
         mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
@@ -206,12 +212,54 @@ public class GameRenderer {
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(mRacer.getCameraAngle()).add(vehicle.getPosition()).sub(mCameraInfo.position);
+        sDelta.set(advance, 0).rotate(racer.getCameraAngle()).add(vehicle.getPosition()).sub(mCameraInfo.position);
 
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
+
+        mNextCameraInfo.clampPosition(mWorld.getTrack());
+
+        // Apply changes
+        mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
+        mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
+        mCamera.position.set(mNextCameraInfo.position, 0);
+        mCamera.update();
+
+        // Swap instances
+        CameraInfo tmp = mCameraInfo;
+        mCameraInfo = mNextCameraInfo;
+        mNextCameraInfo = tmp;
+    }
+
+    private void updateCameraMultiPlayer(float delta) {
+        // Compute viewport size
+        float viewportWidth = GamePlay.instance.viewportWidth;
+        float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
+
+        // Compute pos
+        float x1 = mWorld.getTrack().getMapWidth();
+        float y1 = mWorld.getTrack().getMapHeight();
+        float x2 = 0;
+        float y2 = 0;
+        mNextCameraInfo.position.setZero();
+        for (Racer racer : mWorld.getPlayerRacers()) {
+            Vector2 pos = racer.getVehicle().getPosition();
+            x1 = Math.min(x1, pos.x);
+            x2 = Math.max(x2, pos.x);
+            y1 = Math.min(y1, pos.y);
+            y2 = Math.max(y2, pos.y);
+        }
+        float padding = Constants.CAMERA_ADVANCE_PERCENT * viewportWidth;
+        x1 -= padding;
+        y1 -= padding;
+        x2 += padding;
+        y2 += padding;
+        mNextCameraInfo.position.set((x1 + x2) / 2, (y1 + y2) / 2);
+        mNextCameraInfo.zoom = Math.max((x2 - x1) / viewportWidth, (y2 - y1) / viewportHeight);
+        mNextCameraInfo.viewportWidth = viewportWidth * mNextCameraInfo.zoom;
+        mNextCameraInfo.viewportHeight = viewportHeight * mNextCameraInfo.zoom;
 
         mNextCameraInfo.clampPosition(mWorld.getTrack());
 
