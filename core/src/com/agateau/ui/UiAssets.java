@@ -30,6 +30,8 @@ public class UiAssets {
     public final TextureAtlas atlas;
     public final TextureRegion background;
 
+    private static final float SMALL_HUD_RATIO = 0.7f;
+
     public UiAssets() {
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(this.atlas);
@@ -56,16 +58,22 @@ public class UiAssets {
         parameter.borderWidth = 0.5f;
         this.skin.add("small-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
+        // hud-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 28;
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.size = (int)(parameter.size * SMALL_HUD_RATIO);
+        this.skin.add("small-hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
+        // hud-rank-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 56;
-        parameter.characters = "1234567890thsrdneméè";
+        parameter.characters = "1234567890thsrdneméèP:";
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.size = (int)(parameter.size * SMALL_HUD_RATIO);
+        this.skin.add("small-hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 180;
