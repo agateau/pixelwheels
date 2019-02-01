@@ -50,7 +50,6 @@ public class HudContent {
 
     private final Array<Label> mRankLabels = new Array<Label>();
     private final Array<Label> mLapLabels = new Array<Label>();
-    private final Label mFinishedLabel;
     private final Label mCountDownLabel;
     private Label mDebugLabel = null;
 
@@ -66,13 +65,9 @@ public class HudContent {
 
         createPlayerLabels(root);
 
-        mFinishedLabel = new Label("Finished!", skin, "hud");
-        mFinishedLabel.setVisible(false);
-
         mCountDownLabel = new Label("", skin, "hudCountDown");
         mCountDownLabel.setAlignment(Align.bottom);
 
-        root.addPositionRule(mFinishedLabel, Anchor.CENTER, root, Anchor.CENTER);
         root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
     }
 
@@ -123,7 +118,6 @@ public class HudContent {
     public void act(float delta) {
         updateLabels();
         updateCountDownLabel();
-        checkFinished();
         if (mDebugLabel != null) {
             updateDebugLabel();
         }
@@ -193,29 +187,5 @@ public class HudContent {
                     .append("\n");
         }
         mDebugLabel.setText(sDebugSB);
-    }
-
-    private void checkFinished() {
-        // FIXME
-        int playerId = 0;
-        Racer racer = mGameWorld.getPlayerRacer(playerId);
-        if (racer.getLapPositionComponent().hasFinishedRace() && !mFinishedLabel.isVisible() && mGameWorld.getPlayerRacers().size > 1) {
-            showFinishedLabel();
-        }
-    }
-
-    private void showFinishedLabel() {
-        // FIXME
-        int playerId = 0;
-        int rank = mGameWorld.getPlayerRank(playerId);
-        String suffix = StringUtils.getRankSuffix(rank);
-        String text;
-        if (rank <= 3) {
-            text = String.format(Locale.US, "%d%s place!", rank, suffix);
-        } else {
-            text = String.format(Locale.US, "%d%s place", rank, suffix);
-        }
-        mFinishedLabel.setText(text);
-        mFinishedLabel.setVisible(true);
     }
 }
