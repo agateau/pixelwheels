@@ -43,7 +43,6 @@ import java.util.Map;
 public class HudContent {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final int mPlayerId;
     private final Hud mHud;
     private PerformanceCounters mPerformanceCounters = null;
 
@@ -55,11 +54,10 @@ public class HudContent {
 
     private final StringBuilder mStringBuilder = new StringBuilder();
 
-    public HudContent(Assets assets, GameWorld gameWorld, Hud hud, int playerId) {
+    public HudContent(Assets assets, GameWorld gameWorld, Hud hud) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mHud = hud;
-        mPlayerId = playerId;
         Skin skin = assets.ui.skin;
 
         mRankLabel = new Label("", skin, "hudRank");
@@ -108,10 +106,12 @@ public class HudContent {
     }
 
     private void updateLabels() {
-        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
+        // FIXME
+        int playerId = 0;
+        Racer racer = mGameWorld.getPlayerRacer(playerId);
         int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
         int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
-        int rank = mGameWorld.getPlayerRank(mPlayerId);
+        int rank = mGameWorld.getPlayerRank(playerId);
 
         mStringBuilder.setLength(0);
         mStringBuilder.append("Lap ").append(lapCount).append('/').append(totalLapCount);
@@ -162,14 +162,18 @@ public class HudContent {
     }
 
     private void checkFinished() {
-        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
+        // FIXME
+        int playerId = 0;
+        Racer racer = mGameWorld.getPlayerRacer(playerId);
         if (racer.getLapPositionComponent().hasFinishedRace() && !mFinishedLabel.isVisible() && mGameWorld.getPlayerRacers().size > 1) {
             showFinishedLabel();
         }
     }
 
     private void showFinishedLabel() {
-        int rank = mGameWorld.getPlayerRank(mPlayerId);
+        // FIXME
+        int playerId = 0;
+        int rank = mGameWorld.getPlayerRank(playerId);
         String suffix = StringUtils.getRankSuffix(rank);
         String text;
         if (rank <= 3) {
