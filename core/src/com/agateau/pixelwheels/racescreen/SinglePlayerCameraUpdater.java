@@ -35,7 +35,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
 
     private Vector2 sDelta = new Vector2();
 
-    public SinglePlayerCameraUpdater(GameWorld world) {
+    SinglePlayerCameraUpdater(GameWorld world) {
         super(world);
     }
 

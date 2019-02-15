@@ -25,7 +25,7 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.badlogic.gdx.math.Vector2;
 
 class MultiPlayerCameraUpdater extends CameraUpdater {
-    public MultiPlayerCameraUpdater(GameWorld world) {
+    MultiPlayerCameraUpdater(GameWorld world) {
         super(world);
     }
 
@@ -35,7 +35,7 @@ class MultiPlayerCameraUpdater extends CameraUpdater {
         float viewportWidth = GamePlay.instance.viewportWidth;
         float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
 
-        // Compute pos
+        // Compute rect containing all players
         float x1 = mWorld.getTrack().getMapWidth();
         float y1 = mWorld.getTrack().getMapHeight();
         float x2 = 0;
@@ -53,6 +53,8 @@ class MultiPlayerCameraUpdater extends CameraUpdater {
         y1 -= padding;
         x2 += padding;
         y2 += padding;
+
+        // Compute pos
         mNextCameraInfo.position.set((x1 + x2) / 2, (y1 + y2) / 2);
         mNextCameraInfo.zoom = Math.max((x2 - x1) / viewportWidth, (y2 - y1) / viewportHeight);
         mNextCameraInfo.viewportWidth = viewportWidth * mNextCameraInfo.zoom;

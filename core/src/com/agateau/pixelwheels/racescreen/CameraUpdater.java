@@ -51,7 +51,7 @@ abstract class CameraUpdater {
     CameraInfo mCameraInfo = new CameraInfo();
     CameraInfo mNextCameraInfo = new CameraInfo();
 
-    public CameraUpdater(GameWorld world) {
+    CameraUpdater(GameWorld world) {
         mWorld = world;
     }
 
@@ -63,8 +63,7 @@ abstract class CameraUpdater {
 
     public abstract void update(float delta);
 
-    protected void applyChanges() {
-
+    void applyChanges() {
         mNextCameraInfo.clampPosition(mWorld.getTrack());
 
         // Apply changes
