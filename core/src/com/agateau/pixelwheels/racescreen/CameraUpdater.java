@@ -45,8 +45,16 @@ abstract class CameraUpdater {
             float minHeight = viewportHeight / 2;
             float maxWidth = track.getMapWidth() - viewportWidth / 2;
             float maxHeight = track.getMapHeight() - viewportHeight / 2;
-            position.x = MathUtils.clamp(position.x, minWidth, maxWidth);
-            position.y = MathUtils.clamp(position.y, minHeight, maxHeight);
+            if (minWidth < maxWidth) {
+                position.x = MathUtils.clamp(position.x, minWidth, maxWidth);
+            } else {
+                position.x = track.getMapWidth() / 2;
+            }
+            if (minHeight < maxHeight) {
+                position.y = MathUtils.clamp(position.y, minHeight, maxHeight);
+            } else {
+                position.y = track.getMapHeight() / 2;
+            }
         }
     }
 
