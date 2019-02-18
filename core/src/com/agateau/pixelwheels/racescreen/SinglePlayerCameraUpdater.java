@@ -27,8 +27,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 class SinglePlayerCameraUpdater extends CameraUpdater {
-    private static final float MAX_CAMERA_DELTA = 50;
-    private static final float MAX_ZOOM_DELTA = 0.4f;
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float MIN_ZOOM = 0.6f;
     private static final float MAX_ZOOM = 2.1f;
@@ -47,11 +45,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
 
         // Compute viewport size
         mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
-        if (!immediate) {
-            float zoomDelta = MAX_ZOOM_DELTA * delta;
-            mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
-                    mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
-        }
+        limitZoomChange(delta);
         float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
         float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
         mNextCameraInfo.viewportWidth = viewportWidth;
@@ -60,11 +54,10 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         sDelta.set(advance, 0).rotate(racer.getCameraAngle()).add(vehicle.getPosition()).sub(mCameraInfo.position);
-
+        mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
-        mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
         applyChanges();
     }
 }

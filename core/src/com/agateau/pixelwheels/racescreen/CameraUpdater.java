@@ -26,6 +26,8 @@ import com.badlogic.gdx.math.Vector2;
 
 abstract class CameraUpdater {
     static final float IMMEDIATE = -1;
+    private static final float MAX_ZOOM_DELTA = 0.4f;
+    static final float MAX_CAMERA_DELTA = 50;
 
     final GameWorld mWorld;
     private OrthographicCamera mCamera;
@@ -76,5 +78,14 @@ abstract class CameraUpdater {
         CameraInfo tmp = mCameraInfo;
         mCameraInfo = mNextCameraInfo;
         mNextCameraInfo = tmp;
+    }
+
+    void limitZoomChange(float delta) {
+        if (delta < 0) {
+            return;
+        }
+        float zoomDelta = MAX_ZOOM_DELTA * delta;
+        mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
+                mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
     }
 }

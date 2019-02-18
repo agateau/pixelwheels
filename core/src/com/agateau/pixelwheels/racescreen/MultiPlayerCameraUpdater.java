@@ -40,7 +40,6 @@ class MultiPlayerCameraUpdater extends CameraUpdater {
         float y1 = mWorld.getTrack().getMapHeight();
         float x2 = 0;
         float y2 = 0;
-        mNextCameraInfo.position.setZero();
         for (Racer racer : mWorld.getPlayerRacers()) {
             Vector2 pos = racer.getVehicle().getPosition();
             x1 = Math.min(x1, pos.x);
@@ -57,8 +56,20 @@ class MultiPlayerCameraUpdater extends CameraUpdater {
         // Compute pos
         mNextCameraInfo.position.set((x1 + x2) / 2, (y1 + y2) / 2);
         mNextCameraInfo.zoom = Math.max((x2 - x1) / viewportWidth, (y2 - y1) / viewportHeight);
+        limitPositionChange(delta);
+        limitZoomChange(delta);
         mNextCameraInfo.viewportWidth = viewportWidth * mNextCameraInfo.zoom;
         mNextCameraInfo.viewportHeight = viewportHeight * mNextCameraInfo.zoom;
         applyChanges();
+    }
+
+    private Vector2 sDeltaPos = new Vector2();
+    private void limitPositionChange(float delta) {
+        if (delta < 0) {
+            return;
+        }
+        sDeltaPos.set(mNextCameraInfo.position).sub(mCameraInfo.position);
+        sDeltaPos.limit(MAX_CAMERA_DELTA * delta);
+        mNextCameraInfo.position.set(mCameraInfo.position).add(sDeltaPos);
     }
 }
