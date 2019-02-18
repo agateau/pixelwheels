@@ -38,7 +38,7 @@ abstract class CameraUpdater {
         Vector2 position = new Vector2();
         float zoom = 1;
 
-        void clampPosition(Track track) {
+        void clampPositionToTrack(Track track) {
             float minWidth = viewportWidth / 2;
             float minHeight = viewportHeight / 2;
             float maxWidth = track.getMapWidth() - viewportWidth / 2;
@@ -64,7 +64,7 @@ abstract class CameraUpdater {
     public abstract void update(float delta);
 
     void applyChanges() {
-        mNextCameraInfo.clampPosition(mWorld.getTrack());
+        mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
 
         // Apply changes
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
