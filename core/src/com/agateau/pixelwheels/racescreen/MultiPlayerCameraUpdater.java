@@ -56,20 +56,9 @@ class MultiPlayerCameraUpdater extends CameraUpdater {
         // Compute pos
         mNextCameraInfo.position.set((x1 + x2) / 2, (y1 + y2) / 2);
         mNextCameraInfo.zoom = Math.max((x2 - x1) / viewportWidth, (y2 - y1) / viewportHeight);
-        limitPositionChange(delta);
         limitZoomChange(delta);
         mNextCameraInfo.viewportWidth = viewportWidth * mNextCameraInfo.zoom;
         mNextCameraInfo.viewportHeight = viewportHeight * mNextCameraInfo.zoom;
         applyChanges();
-    }
-
-    private Vector2 sDeltaPos = new Vector2();
-    private void limitPositionChange(float delta) {
-        if (delta < 0) {
-            return;
-        }
-        sDeltaPos.set(mNextCameraInfo.position).sub(mCameraInfo.position);
-        sDeltaPos.limit(MAX_CAMERA_DELTA * delta);
-        mNextCameraInfo.position.set(mCameraInfo.position).add(sDeltaPos);
     }
 }
