@@ -41,7 +41,6 @@ public class GameConfig {
     }
 
     public boolean fullscreen = false;
-    public boolean rotateCamera = true;
     public boolean audio = true;
 
     public GameMode gameMode = GameMode.QUICK_RACE;
@@ -62,7 +61,6 @@ public class GameConfig {
     }
 
     private void load() {
-        rotateCamera = mPreferences.getBoolean(PrefConstants.ROTATE_SCREEN, false);
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
         audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
 
@@ -88,7 +86,6 @@ public class GameConfig {
     }
 
     public void flush() {
-        mPreferences.putBoolean(PrefConstants.ROTATE_SCREEN, rotateCamera);
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
         mPreferences.putBoolean(PrefConstants.AUDIO, audio);
 

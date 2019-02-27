@@ -19,8 +19,6 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GameConfig;
-import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
@@ -28,16 +26,11 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.racer.Vehicle;
-import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -46,14 +39,6 @@ import com.badlogic.gdx.utils.PerformanceCounters;
  * Responsible for rendering the game world
  */
 public class GameRenderer {
-    private static final float MAX_CAMERA_DELTA = 50;
-    private static final float MAX_ZOOM_DELTA = 0.4f;
-    private static final float MIN_ZOOM = 0.6f;
-    private static final float MAX_ZOOM = 2.1f;
-    private static final float MAX_ZOOM_SPEED = 75f;
-    private static final float IMMEDIATE = -1;
-    private GameConfig mGameConfig;
-
     private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
@@ -61,14 +46,11 @@ public class GameRenderer {
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
-    private final Racer mRacer;
-    private final float mMapWidth;
-    private final float mMapHeight;
+    private final CameraUpdater mCameraUpdater;
 
     private int[] mBackgroundLayerFirstIndexes = { 0 };
     private int[] mExtraBackgroundLayerIndexes;
     private int[] mForegroundLayerIndexes;
-    private Vehicle mVehicle;
 
     private int mScreenX;
     private int mScreenY;
@@ -77,35 +59,25 @@ public class GameRenderer {
     private PerformanceCounter mTilePerformanceCounter;
     private PerformanceCounter mGameObjectPerformanceCounter;
 
-    private static class CameraInfo {
-        float viewportWidth;
-        float viewportHeight;
-        Vector2 position = new Vector2();
-        float angle = 90;
-        float zoom = 1;
-    }
-    private CameraInfo mCameraInfo = new CameraInfo();
-    private CameraInfo mNextCameraInfo = new CameraInfo();
-
-    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
-        mRacer = racer;
-        mVehicle = racer.getVehicle();
 
         mTrack = mWorld.getTrack();
-        mMapWidth = mTrack.getMapWidth();
-        mMapHeight = mTrack.getMapHeight();
 
         mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
         mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
+        boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
+        mCameraUpdater = singlePlayer ? new SinglePlayerCameraUpdater(mWorld) : new MultiPlayerCameraUpdater(mWorld);
         mRenderer = new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
+
+        mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
     }
 
     public void setScreenRect(int x, int y, int width, int height) {
@@ -113,15 +85,11 @@ public class GameRenderer {
         mScreenY = y;
         mScreenWidth = width;
         mScreenHeight = height;
-    }
-
-    public void setConfig(GameConfig config) {
-        mGameConfig = config;
-        mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
+        mCameraUpdater.init(mCamera, width, height);
     }
 
     public void onAboutToStart() {
-        updateCamera(IMMEDIATE);
+        updateCamera(CameraUpdater.IMMEDIATE);
     }
 
     public void render(float delta) {
@@ -161,21 +129,21 @@ public class GameRenderer {
         mBatch.end();
 
         if (Debug.instance.showDebugLayer) {
-            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (Debug.instance.drawTileCorners) {
+                mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                mShapeRenderer.setProjectionMatrix(mCamera.combined);
                 mShapeRenderer.setColor(1, 1, 1, 1);
                 float tileW = mTrack.getTileWidth();
                 float tileH = mTrack.getTileHeight();
-                for (float y = 0; y < mMapHeight; y += tileH) {
-                    for (float x = 0; x < mMapWidth; x += tileW) {
+                float mapWidth = mTrack.getMapWidth();
+                float mapHeight = mTrack.getMapHeight();
+                for (float y = 0; y < mapHeight; y += tileH) {
+                    for (float x = 0; x < mapWidth; x += tileW) {
                         mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
                     }
                 }
+                mShapeRenderer.end();
             }
-            mShapeRenderer.setColor(0, 0, 1, 1);
-            mShapeRenderer.rect(mVehicle.getX(), mVehicle.getY(), Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
-            mShapeRenderer.end();
 
             for (DebugShapeMap.Shape shape : DebugShapeMap.getMap().values()) {
                 shape.draw(mShapeRenderer);
@@ -191,75 +159,14 @@ public class GameRenderer {
         }
     }
 
-    private static Vector2 sDelta = new Vector2();
     private void updateCamera(float delta) {
-        boolean immediate = delta < 0;
-
-        // Compute viewport size
-        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, mVehicle.getSpeed() / MAX_ZOOM_SPEED);
-        if (!immediate) {
-            float zoomDelta = MAX_ZOOM_DELTA * delta;
-            mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
-                    mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
-        }
-        float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
-        float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
-        mNextCameraInfo.viewportWidth = viewportWidth;
-        mNextCameraInfo.viewportHeight = viewportHeight;
-
-        // Compute angle
-        if (mGameConfig.rotateCamera) {
-            float maxCameraRotationSpeed = Constants.MAX_CAMERA_ROTATION_SPEED;
-
-            float targetAngle = AgcMathUtils.normalizeAngle(180 - mRacer.getCameraAngle());
-            float deltaAngle = AgcMathUtils.normalizeAngle180(targetAngle - mCameraInfo.angle);
-
-            float K = Constants.MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED;
-            float progress = Math.min(Math.abs(deltaAngle), K) / K;
-            float maxRotationSpeed = MathUtils.lerp(1, maxCameraRotationSpeed, progress);
-            if (!immediate) {
-                float maxDeltaAngle = maxRotationSpeed * delta;
-                deltaAngle = MathUtils.clamp(deltaAngle, -maxDeltaAngle, maxDeltaAngle);
-            }
-            mNextCameraInfo.angle = mCameraInfo.angle + deltaAngle;
-        } else {
-            mNextCameraInfo.angle = 90;
-        }
-
-        // Compute advanceAngle
-        float advanceAngle;
-        if (mGameConfig.rotateCamera) {
-            advanceAngle = 180 - mCameraInfo.angle;
-        } else {
-            advanceAngle = mRacer.getCameraAngle();
-        }
-
-        // Compute pos
-        float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(advanceAngle).add(mVehicle.getPosition()).sub(mCameraInfo.position);
-
-        if (!immediate) {
-            sDelta.limit(MAX_CAMERA_DELTA * delta);
-        }
-        mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
-
-        // Apply changes
-        mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
-        mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
-        mCamera.position.set(mNextCameraInfo.position, 0);
-        mCamera.rotate(mNextCameraInfo.angle - mCameraInfo.angle);
-        mCamera.update();
-
-        // Swap instances
-        CameraInfo tmp = mCameraInfo;
-        mCameraInfo = mNextCameraInfo;
-        mNextCameraInfo = tmp;
+        mCameraUpdater.update(delta);
     }
 
     private void updateMapRendererCamera() {
-        // Increase size of render view to make sure corners are correctly drawn
-        float radius = (float) Math.hypot(mCamera.viewportWidth, mCamera.viewportHeight) * mCamera.zoom / 2;
+        float width = mCamera.viewportWidth * mCamera.zoom;
+        float height = mCamera.viewportHeight * mCamera.zoom;
         mRenderer.setView(mCamera.combined,
-                mCamera.position.x - radius, mCamera.position.y - radius, radius * 2, radius * 2);
+                mCamera.position.x - width / 2, mCamera.position.y - height / 2, width, height);
     }
 }

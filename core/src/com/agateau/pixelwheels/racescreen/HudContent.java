@@ -26,10 +26,12 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -43,43 +45,58 @@ import java.util.Map;
 public class HudContent {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
-    private final int mPlayerId;
     private final Hud mHud;
     private PerformanceCounters mPerformanceCounters = null;
 
-    private final Label mRankLabel;
-    private final Label mLapLabel;
-    private final Label mFinishedLabel;
+    private final Array<Label> mRankLabels = new Array<Label>();
+    private final Array<Label> mLapLabels = new Array<Label>();
     private final Label mCountDownLabel;
     private Label mDebugLabel = null;
 
     private final StringBuilder mStringBuilder = new StringBuilder();
 
-    public HudContent(Assets assets, GameWorld gameWorld, Hud hud, int playerId) {
+    public HudContent(Assets assets, GameWorld gameWorld, Hud hud) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mHud = hud;
-        mPlayerId = playerId;
         Skin skin = assets.ui.skin;
 
-        mRankLabel = new Label("", skin, "hudRank");
-        mRankLabel.setAlignment(Align.right);
+        AnchorGroup root = hud.getRoot();
 
-        mLapLabel = new Label("", skin, "hud");
-        mLapLabel.setAlignment(Align.right);
-
-        mFinishedLabel = new Label("Finished!", skin, "hud");
-        mFinishedLabel.setVisible(false);
+        createPlayerLabels(root);
 
         mCountDownLabel = new Label("", skin, "hudCountDown");
         mCountDownLabel.setAlignment(Align.bottom);
 
-        AnchorGroup root = hud.getRoot();
-
-        root.addPositionRule(mRankLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
-        root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, mRankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
-        root.addPositionRule(mFinishedLabel, Anchor.CENTER, root, Anchor.CENTER);
         root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
+    }
+
+    private void createPlayerLabels(AnchorGroup root) {
+        Skin skin = mAssets.ui.skin;
+        int playerCount = mGameWorld.getPlayerRacers().size;
+
+        Actor topEdge = root;
+        Anchor topAnchor = Anchor.TOP_RIGHT;
+        float hMargin = -5;
+
+        boolean singlePlayer = mGameWorld.getPlayerRacers().size == 1;
+        for (int idx = 0; idx < playerCount; ++idx) {
+            Label rankLabel = new Label("", skin, singlePlayer ? "hudRank" : "smallHudRank");
+            rankLabel.setAlignment(Align.right);
+
+            Label lapLabel = new Label("", skin, singlePlayer ? "hud" : "smallHud");
+            lapLabel.setAlignment(Align.right);
+
+            root.addPositionRule(rankLabel, Anchor.TOP_RIGHT, topEdge, topAnchor, hMargin, 0);
+            root.addPositionRule(lapLabel, Anchor.TOP_RIGHT, rankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
+
+            mRankLabels.add(rankLabel);
+            mLapLabels.add(lapLabel);
+
+            topAnchor = Anchor.BOTTOM_RIGHT;
+            topEdge = lapLabel;
+            hMargin = 0;
+        }
     }
 
     public void setPerformanceCounters(PerformanceCounters performanceCounters) {
@@ -101,27 +118,38 @@ public class HudContent {
     public void act(float delta) {
         updateLabels();
         updateCountDownLabel();
-        checkFinished();
         if (mDebugLabel != null) {
             updateDebugLabel();
         }
     }
 
     private void updateLabels() {
-        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
-        int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
-        int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
-        int rank = mGameWorld.getPlayerRank(mPlayerId);
+        int idx = 0;
+        boolean singlePlayer = mGameWorld.getPlayerRacers().size == 1;
+        for (Racer racer : mGameWorld.getPlayerRacers()) {
+            Label lapLabel = mLapLabels.get(idx);
+            Label rankLabel = mRankLabels.get(idx);
 
-        mStringBuilder.setLength(0);
-        mStringBuilder.append("Lap ").append(lapCount).append('/').append(totalLapCount);
-        mLapLabel.setText(mStringBuilder);
-        mLapLabel.pack();
+            int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
+            int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
+            int rank = mGameWorld.getRacerRank(racer);
 
-        mStringBuilder.setLength(0);
-        mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank));
-        mRankLabel.setText(mStringBuilder);
-        mRankLabel.pack();
+            mStringBuilder.setLength(0);
+            if (!singlePlayer) {
+                mStringBuilder.append("P").append(idx + 1).append(": ");
+            }
+
+            mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank));
+            rankLabel.setText(mStringBuilder);
+            rankLabel.pack();
+
+            mStringBuilder.setLength(0);
+            mStringBuilder.append("Lap ").append(lapCount).append('/').append(totalLapCount);
+            lapLabel.setText(mStringBuilder);
+            lapLabel.pack();
+
+            ++idx;
+        }
     }
 
     private void updateCountDownLabel() {
@@ -159,25 +187,5 @@ public class HudContent {
                     .append("\n");
         }
         mDebugLabel.setText(sDebugSB);
-    }
-
-    private void checkFinished() {
-        Racer racer = mGameWorld.getPlayerRacer(mPlayerId);
-        if (racer.getLapPositionComponent().hasFinishedRace() && !mFinishedLabel.isVisible() && mGameWorld.getPlayerRacers().size > 1) {
-            showFinishedLabel();
-        }
-    }
-
-    private void showFinishedLabel() {
-        int rank = mGameWorld.getPlayerRank(mPlayerId);
-        String suffix = StringUtils.getRankSuffix(rank);
-        String text;
-        if (rank <= 3) {
-            text = String.format(Locale.US, "%d%s place!", rank, suffix);
-        } else {
-            text = String.format(Locale.US, "%d%s place", rank, suffix);
-        }
-        mFinishedLabel.setText(text);
-        mFinishedLabel.setVisible(true);
     }
 }

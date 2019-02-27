@@ -75,6 +75,12 @@
         hudRank: {
             font: hud-rank-font
         },
+        smallHud: {
+            font: small-hud-font
+        },
+        smallHudRank: {
+            font: small-hud-rank-font
+        },
         hudCountDown: {
             font: hud-countdown-font
         },
