@@ -1,0 +1,5 @@
+<vehicle speed="0.8" name="2CV">
+    <main image="2cv"/>
+    <axle y="48" width="24" steer="1"/>
+    <axle y="9" width="24"/>
+</vehicle>
