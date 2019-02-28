@@ -1,0 +1,5 @@
+<vehicle speed="1" name="Harvester">
+    <main image="harvester"/>
+    <axle y="34" width="26"/>
+    <axle y="12" width="24" steer="-1.2"/>
+</vehicle>

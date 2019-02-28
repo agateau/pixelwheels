@@ -44,7 +44,7 @@ public class Assets {
     private static final float TURBO_FRAME_DURATION = 0.1f;
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
 
-    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa", "2cv" };
+    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester" };
 
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<Track> tracks = new Array<Track>(new Track[]{
