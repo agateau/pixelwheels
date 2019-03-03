@@ -106,6 +106,8 @@ public class QuickRaceMaestro extends Maestro {
             @Override
             public void onRestartPressed() {
                 ((RaceScreen)getGame().getScreen()).forgetTrack();
+                // Useful to tweak assets
+                getGame().reloadAssets();
                 getGame().replaceScreen(createRaceScreen());
             }
 
