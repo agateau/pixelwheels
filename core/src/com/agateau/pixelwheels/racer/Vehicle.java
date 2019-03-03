@@ -18,18 +18,18 @@
  */
 package com.agateau.pixelwheels.racer;
 
-import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
@@ -73,10 +73,8 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
 
-    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, float angle) {
+    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, Array<Shape2D> shapes, float angle) {
         mGameWorld = gameWorld;
-        float carW = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-        float carH = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
 
         // Main
         mRegion = region;
@@ -88,17 +86,16 @@ public class Vehicle implements Racer.Component, Disposable {
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
-        PolygonShape shape = new PolygonShape();
-        shape.set(Box2DUtils.createOctogon(carW, carH, 0.5f, 0.5f));
-
-        // Body fixture
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = GamePlay.instance.vehicleDensity / 10.0f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = GamePlay.instance.vehicleRestitution / 10.0f;
-        mBody.createFixture(fixtureDef);
-        shape.dispose();
+        // Body fixtures
+        for (Shape2D shape : shapes) {
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = Box2DUtils.createBox2DShape(shape, Constants.UNIT_FOR_PIXEL);
+            fixtureDef.density = GamePlay.instance.vehicleDensity / 10.0f;
+            fixtureDef.friction = 0.2f;
+            fixtureDef.restitution = GamePlay.instance.vehicleRestitution / 10.0f;
+            mBody.createFixture(fixtureDef);
+            fixtureDef.shape.dispose();
+        }
     }
 
     @Override

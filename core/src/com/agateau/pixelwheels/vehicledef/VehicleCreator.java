@@ -46,7 +46,7 @@ public class VehicleCreator {
         TextureRegion mainRegion = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
         TextureRegion wheelRegion = mAssets.wheel;
 
-        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y, angle);
+        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y, vehicleDef.shapes, angle);
         vehicle.setName(vehicleDef.name);
         vehicle.setId(vehicleDef.id);
 

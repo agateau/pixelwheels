@@ -1,5 +1,8 @@
-<vehicle speed="1" name="Police">
+<vehicle speed="1" name="Police" width="30" height="56">
     <main image="police"/>
+    <shapes>
+        <octogon y="0" corner="1" width="30" height="54"/>
+    </shapes>
     <axle y="42" width="24" steer="1"/>
     <axle y="12" width="24"/>
 </vehicle>

@@ -1,5 +1,9 @@
-<vehicle speed="1" name="Harvester">
+<vehicle speed="1" name="Harvester" width="30" height="56">
     <main image="harvester"/>
+    <shapes>
+        <octogon y="3" corner="2" width="20" height="37"/>
+        <octogon y="40" corner="0.5" width="32" height="16"/>
+    </shapes>
     <axle y="34" width="26"/>
     <axle y="12" width="24" steer="-1.2"/>
 </vehicle>

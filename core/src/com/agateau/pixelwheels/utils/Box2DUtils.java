@@ -27,6 +27,7 @@ import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -34,7 +35,10 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.Arrays;
 
 /**
  * A set of utility functions for Box2D
@@ -177,6 +181,19 @@ public class Box2DUtils {
                 -width / 2, -height / 2 + cornerHeight,
                 -width / 2 + cornerWidth, -height / 2
         };
+    }
+
+    public static Shape createBox2DShape(Shape2D shape2D, float zoomFactor) {
+        if (shape2D instanceof Polygon) {
+            float[] polygonVertices = ((Polygon)shape2D).getTransformedVertices();
+            PolygonShape shape = new PolygonShape();
+            float[] vertices = Arrays.copyOf(polygonVertices, polygonVertices.length);
+            scaleVertices(vertices, zoomFactor);
+            shape.set(vertices);
+            return shape;
+        } else {
+            throw new RuntimeException("Unsupported Shape2D type " + shape2D);
+        }
     }
 
     private static void scaleVertices(float[] vertices, float factor) {

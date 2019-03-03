@@ -1,5 +1,8 @@
-<vehicle speed="0.8" name="Santa Truck">
+<vehicle speed="0.8" name="Santa Truck" width="30" height="56">
     <main image="santa"/>
+    <shapes>
+        <octogon corner="1" width="30" height="56"/>
+    </shapes>
     <axle y="48" width="26" steer="1"/>
     <axle y="24" width="28" steer="0.5"/>
     <axle y="9" width="28"/>

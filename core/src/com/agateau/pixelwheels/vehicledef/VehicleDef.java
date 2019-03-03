@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.vehicledef;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Shape2D;
 
 /**
  * Definition of a vehicle
@@ -29,4 +30,5 @@ public class VehicleDef {
     public float speed;
     public String mainImage;
     public Array<AxleDef> axles = new Array<AxleDef>();
+    public Array<Shape2D> shapes = new Array<Shape2D>();
 }

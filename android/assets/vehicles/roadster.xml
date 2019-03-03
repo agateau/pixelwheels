@@ -1,5 +1,10 @@
-<vehicle speed="1" name="Roadster">
+<vehicle speed="1" name="Roadster" width="30" height="56">
     <main image="roadster"/>
-    <axle y="44" width="21" steer="0.8"/>
-    <axle y="16" width="23"/>
+    <shapes>
+        <octogon y="2" corner="0.5" width="20" height="54"/>
+        <octogon y="5" corner="3" width="32" height="18"/>
+        <octogon y="40" corner="2" width="30" height="14"/>
+    </shapes>
+    <axle y="47" width="21" steer="0.8"/>
+    <axle y="14" width="23"/>
 </vehicle>

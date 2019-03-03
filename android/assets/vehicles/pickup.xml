@@ -1,5 +1,8 @@
-<vehicle speed="1" name="Pickup">
+<vehicle speed="1" name="Pickup" width="30" height="56">
     <main image="pickup"/>
+    <shapes>
+        <octogon corner="0.5" width="30" height="56"/>
+    </shapes>
     <axle y="46" width="24" steer="1"/>
     <axle y="12" width="24"/>
 </vehicle>
