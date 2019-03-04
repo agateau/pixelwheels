@@ -22,7 +22,7 @@ package com.agateau.pixelwheels;
  * Customization of the gameplay
  */
 public class GamePlay {
-    public int racerCount = 6;
+    public int racerCount = 8;
     public int maxDrivingForce = 50;
     public int lowSpeed = 20;
     public int maxSpeed = 270;
