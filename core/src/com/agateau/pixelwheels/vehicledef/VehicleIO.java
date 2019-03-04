@@ -81,11 +81,11 @@ public class VehicleIO {
 
     private static Shape2D loadShape(XmlReader.Element element, float vehicleWidth, float vehicleHeight) {
         String type = element.getName();
-        float width = element.getFloatAttribute("height");
-        float height = element.getFloatAttribute("width");
-        float x = element.getFloatAttribute("y", (vehicleWidth - width) / 2);
-        float y = element.getFloatAttribute("x", (vehicleHeight - height) / 2);
         if (type.equals("octogon")) {
+            float width = element.getFloatAttribute("height");
+            float height = element.getFloatAttribute("width");
+            float x = element.getFloatAttribute("y", (vehicleWidth - width) / 2);
+            float y = element.getFloatAttribute("x", (vehicleHeight - height) / 2);
             float corner = element.getFloatAttribute("corner", 0);
             Polygon polygon = new Polygon();
             polygon.setVertices(new float[]{
@@ -97,6 +97,22 @@ public class VehicleIO {
                     -width / 2, height / 2 - corner,
                     -width / 2, -height / 2 + corner,
                     -width / 2 + corner, -height / 2
+            });
+            polygon.translate(x - (vehicleWidth - width) / 2, y - (vehicleHeight - height) / 2);
+            return polygon;
+        } else if (type.equals("trapezoid")) {
+            float bottomHeight = element.getFloatAttribute("bottomWidth");
+            float topHeight = element.getFloatAttribute("topWidth");
+            float height = Math.max(bottomHeight, topHeight);
+            float width = element.getFloatAttribute("height");
+            float x = element.getFloatAttribute("y", (vehicleWidth - width) / 2);
+            float y = element.getFloatAttribute("x", (vehicleHeight - height) / 2);
+            Polygon polygon = new Polygon();
+            polygon.setVertices(new float[]{
+                    width / 2, topHeight / 2,
+                    -width / 2, bottomHeight / 2,
+                    -width / 2, -bottomHeight / 2,
+                    width / 2, -topHeight / 2,
             });
             polygon.translate(x - (vehicleWidth - width) / 2, y - (vehicleHeight - height) / 2);
             return polygon;
