@@ -58,6 +58,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
+        limitZoomChange(delta);
         applyChanges();
     }
 }
