@@ -17,8 +17,12 @@
         - `image`: image name, without extension
     - `<shapes>`: the vehicle shapes. Can contain multiple children
         - `<octogon>`
-            - `width`, `height`: the polygon size
-            - `x`, `y`: the polygon bottom-left corner. Default to centered if
+            - `width`, `height`: the octogon dimensions
+            - `x`, `y`: the shape bottom-left corner. Default to centered if
+              not set
+        - `<trapezoid>`: an horizontal trapezoid
+            - `bottomWidth`, `topWidth`, `height`: the trapezoid dimensions
+            - `x`, `y`: the shape bottom-left corner. Default to centered if
               not set
     - `<axle>`: An axle linking two wheels. Can (should!) appear multiple times
         - `y`: y position
