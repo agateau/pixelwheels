@@ -54,8 +54,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;
-        Array<GameInfo.Entrant> entrants = getSortedEntrants();
-        setupUi(entrants);
+        setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
@@ -64,7 +63,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         };
     }
 
-    private void setupUi(Array<GameInfo.Entrant> entrants) {
+    private void setupUi() {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
@@ -80,7 +79,7 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         });
 
         Table table = builder.getActor("entrantTable");
-        fillEntrantTable(table, entrants);
+        fillEntrantTable(table, mGameInfo.getEntrants());
     }
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
@@ -97,22 +96,6 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
                     StringUtils.formatRaceTime(entrant.getRaceTime())
             );
         }
-    }
-
-    private Array<GameInfo.Entrant> getSortedEntrants() {
-        Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
-        entrants.sort(new Comparator<GameInfo.Entrant>() {
-            @Override
-            public int compare(GameInfo.Entrant e1, GameInfo.Entrant e2) {
-                int cmp = -Integer.compare(e1.getScore(), e2.getScore());
-                if (cmp != 0) {
-                    return cmp;
-                }
-                // If it's a tie, the fastest gets the best place
-                return Float.compare(e1.getRaceTime(), e2.getRaceTime());
-            }
-        });
-        return entrants;
     }
 
     @Override

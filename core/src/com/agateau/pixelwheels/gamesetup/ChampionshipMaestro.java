@@ -130,6 +130,7 @@ public class ChampionshipMaestro extends Maestro {
 
             @Override
             public void onNextTrackPressed() {
+                mGameInfo.sortEntrants();
                 if (mGameInfo.isLastTrack()) {
                     getGame().replaceScreen(createChampionshipFinishedScreen());
                 } else {
