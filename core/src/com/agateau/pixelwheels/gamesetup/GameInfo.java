@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Comparator;
@@ -145,5 +146,16 @@ public abstract class GameInfo {
                 return Float.compare(e1.getRaceTime(), e2.getRaceTime());
             }
         });
+    }
+
+    public int getBestRank() {
+        for (int idx = 0; idx < mEntrants.size; ++idx) {
+            GameInfo.Entrant entrant = mEntrants.get(idx);
+            if (entrant.isPlayer()) {
+                return idx;
+            }
+        }
+        NLog.e("No player entrants found!");
+        return Integer.MAX_VALUE;
     }
 }

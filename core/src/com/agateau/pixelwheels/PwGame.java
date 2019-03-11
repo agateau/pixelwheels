@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
@@ -191,6 +192,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         } else {
             Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
+    }
+
+    public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
+        mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
     }
 
     @Override

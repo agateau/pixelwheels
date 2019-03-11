@@ -42,6 +42,10 @@ public class ChampionshipGameInfo extends GameInfo {
         mTrackIndex++;
     }
 
+    public Championship getChampionship() {
+        return mChampionship;
+    }
+
     @Override
     public Track getTrack() {
         return mChampionship.getTracks().get(mTrackIndex);

@@ -133,6 +133,7 @@ public class ChampionshipMaestro extends Maestro {
                 mGameInfo.sortEntrants();
                 if (mGameInfo.isLastTrack()) {
                     getGame().replaceScreen(createChampionshipFinishedScreen());
+                    getGame().onChampionshipFinished(mGameInfo);
                 } else {
                     mGameInfo.selectNextTrack();
                     getGame().replaceScreen(createRaceScreen());

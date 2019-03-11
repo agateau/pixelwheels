@@ -23,6 +23,7 @@ import java.util.HashMap;
 public class GameStats {
     private final transient IO mIO;
     final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
+    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
 
     interface IO {
         void setGameStats(GameStats gameStats);
@@ -48,5 +49,13 @@ public class GameStats {
         TrackStats stats = new TrackStats(mIO);
         mTrackStats.put(trackId, stats);
         return stats;
+    }
+
+    public void onChampionshipFinished(String id, int rank) {
+        Integer currentBest = mBestChampionshipRank.get(id);
+        if (currentBest == null || currentBest > rank) {
+            mBestChampionshipRank.put(id, rank);
+            mIO.save();
+        }
     }
 }
