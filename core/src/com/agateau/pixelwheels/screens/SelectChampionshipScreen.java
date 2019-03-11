@@ -104,7 +104,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         mChampionshipSelector = new ChampionshipSelector(menu);
         mChampionshipSelector.setColumnCount(2);
-        mChampionshipSelector.init(assets);
+        mChampionshipSelector.init(assets, mGame.getRewardManager());
         mChampionshipSelector.setCurrent(championship);
         menu.addItem(mChampionshipSelector);
 
@@ -149,6 +149,9 @@ public class SelectChampionshipScreen extends PwStageScreen {
     }
 
     private void next() {
+        if (mChampionshipSelector.getSelected() == null) {
+            return;
+        }
         mListener.onChampionshipSelected(mChampionshipSelector.getSelected());
     }
 }

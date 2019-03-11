@@ -30,7 +30,8 @@ public class RewardManager {
     }
 
     public boolean isChampionshipUnlocked(String championshipId) {
-        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championshipId);
+        return championshipId.equals("snow");
+        //return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championshipId);
     }
 
     public boolean isVehicleUnlocked(String vehicleId) {

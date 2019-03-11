@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
@@ -31,6 +32,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class ChampionshipSelector extends GridMenuItem<Championship> {
     private Assets mAssets;
+    private RewardManager mRewardManager;
 
     private class Renderer extends TextureRegionItemRendererAdapter<Championship> {
         @Override
@@ -38,14 +40,20 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
             Track track = championship.getTracks().get(0);
             return mAssets.ui.atlas.findRegion("map-screenshots/" + track.getId());
         }
+
+        @Override
+        public boolean isItemEnabled(Championship championship) {
+            return mRewardManager.isChampionshipUnlocked(championship.getId());
+        }
     }
 
     public ChampionshipSelector(Menu menu) {
         super(menu);
     }
 
-    public void init(Assets assets) {
+    public void init(Assets assets, RewardManager rewardManager) {
         mAssets = assets;
+        mRewardManager = rewardManager;
         setItemSize(160, 160);
         setItemRenderer(new Renderer());
         setItems(mAssets.championships);
