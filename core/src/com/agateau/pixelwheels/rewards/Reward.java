@@ -18,10 +18,17 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import java.util.HashMap;
+
 /**
  * A POJO representing a reward
+ *
+ * Instances cannot be directly created: get them through the get() static method.
+ * This ensures there is only one instance of each reward.
  */
 public class Reward {
+    private final static HashMap<Category, HashMap<String, Reward>> sInstances = new HashMap<Category, HashMap<String, Reward>>();
+
     enum Category {
         VEHICLE,
         TRACK,
@@ -31,8 +38,22 @@ public class Reward {
     public final Category category;
     public final String id;
 
-    public Reward(Category category, String id) {
+    private Reward(Category category, String id) {
         this.category = category;
         this.id = id;
+    }
+
+    public static Reward get(Category category, String id) {
+        HashMap<String, Reward> map = sInstances.get(category);
+        if (map == null) {
+            map = new HashMap<String, Reward>();
+            sInstances.put(category, map);
+        }
+        Reward reward = map.get(id);
+        if (reward == null) {
+            reward = new Reward(category, id);
+            map.put(id, reward);
+        }
+        return reward;
     }
 }

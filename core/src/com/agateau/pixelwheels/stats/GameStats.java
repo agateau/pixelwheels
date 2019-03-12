@@ -51,6 +51,14 @@ public class GameStats {
         return stats;
     }
 
+    public int getBestChampionshipRank(String id) {
+        Integer rank = mBestChampionshipRank.get(id);
+        if (rank == null) {
+            return Integer.MAX_VALUE;
+        }
+        return rank;
+    }
+
     public void onChampionshipFinished(String id, int rank) {
         Integer currentBest = mBestChampionshipRank.get(id);
         if (currentBest == null || currentBest > rank) {

@@ -18,6 +18,11 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import com.agateau.pixelwheels.stats.GameStats;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Manage which rewards have been unlocked
  *
@@ -25,13 +30,25 @@ package com.agateau.pixelwheels.rewards;
  * reward is unlocked.
  */
 public class RewardManager {
+    private final GameStats mGameStats;
+    private Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
+
+    public RewardManager(GameStats gameStats) {
+        mGameStats = gameStats;
+        addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getBestChampionshipRank("snow") <= 2;
+            }
+        });
+    }
+
     public boolean isTrackUnlocked(String trackId) {
         return isRewardUnlocked(Reward.Category.TRACK, trackId);
     }
 
     public boolean isChampionshipUnlocked(String championshipId) {
-        return championshipId.equals("snow");
-        //return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championshipId);
+        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championshipId);
     }
 
     public boolean isVehicleUnlocked(String vehicleId) {
@@ -39,6 +56,13 @@ public class RewardManager {
     }
 
     private boolean isRewardUnlocked(Reward.Category category, String id) {
-        return true;
+        Reward reward = Reward.get(category, id);
+        RewardRule rule = mRules.get(reward);
+        return rule == null || rule.hasBeenEarned(mGameStats);
+    }
+
+    private void addRule(Reward.Category category, String id, RewardRule rule) {
+        Reward reward = Reward.get(category, id);
+        mRules.put(reward, rule);
     }
 }

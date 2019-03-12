@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
 import com.agateau.ui.ScreenStack;
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
@@ -118,7 +119,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupRewardManager() {
-        mRewardManager = new RewardManager();
+        Assert.check(mGameStats != null, "GameStats must be instantiated first");
+        mRewardManager = new RewardManager(mGameStats);
     }
 
     public void showMainMenu() {
