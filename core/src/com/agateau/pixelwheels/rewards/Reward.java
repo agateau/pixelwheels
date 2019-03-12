@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class Reward {
     private final static HashMap<Category, HashMap<String, Reward>> sInstances = new HashMap<Category, HashMap<String, Reward>>();
 
-    enum Category {
+    public enum Category {
         VEHICLE,
         CHAMPIONSHIP
     }

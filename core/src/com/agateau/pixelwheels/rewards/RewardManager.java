@@ -41,12 +41,6 @@ public class RewardManager {
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
         mChampionships = championships;
-        addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank("snow") <= 2;
-            }
-        });
     }
 
     public boolean isTrackUnlocked(Track track) {
@@ -73,7 +67,7 @@ public class RewardManager {
         return rule == null || rule.hasBeenEarned(mGameStats);
     }
 
-    private void addRule(Reward.Category category, String id, RewardRule rule) {
+    public void addRule(Reward.Category category, String id, RewardRule rule) {
         Reward reward = Reward.get(category, id);
         mRules.put(reward, rule);
     }

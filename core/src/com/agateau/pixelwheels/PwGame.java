@@ -24,7 +24,9 @@ import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
+import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
+import com.agateau.pixelwheels.rewards.RewardRule;
 import com.agateau.pixelwheels.stats.JsonGameStatsIO;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
@@ -122,6 +124,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mGameStats != null, "GameStats must be instantiated first");
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
+        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getBestChampionshipRank("snow") <= 2;
+            }
+        });
     }
 
     public void showMainMenu() {
