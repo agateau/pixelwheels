@@ -31,7 +31,6 @@ public class Reward {
 
     enum Category {
         VEHICLE,
-        TRACK,
         CHAMPIONSHIP
     }
 

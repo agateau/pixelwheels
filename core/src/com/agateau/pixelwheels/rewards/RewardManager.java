@@ -18,7 +18,11 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +35,12 @@ import java.util.Map;
  */
 public class RewardManager {
     private final GameStats mGameStats;
+    private final Array<Championship> mChampionships;
     private Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
 
-    public RewardManager(GameStats gameStats) {
+    public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
+        mChampionships = championships;
         addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
@@ -44,7 +50,15 @@ public class RewardManager {
     }
 
     public boolean isTrackUnlocked(String trackId) {
-        return isRewardUnlocked(Reward.Category.TRACK, trackId);
+        for (Championship championship : mChampionships) {
+            for (Track track : championship.getTracks()) {
+                if (track.getId().equals(trackId)) {
+                    return isChampionshipUnlocked(championship.getId());
+                }
+            }
+        }
+        NLog.e("Track %s does not belong to any championship!", trackId);
+        return false;
     }
 
     public boolean isChampionshipUnlocked(String championshipId) {
