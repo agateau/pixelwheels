@@ -49,20 +49,18 @@ public class RewardManager {
         });
     }
 
-    public boolean isTrackUnlocked(String trackId) {
+    public boolean isTrackUnlocked(Track track) {
         for (Championship championship : mChampionships) {
-            for (Track track : championship.getTracks()) {
-                if (track.getId().equals(trackId)) {
-                    return isChampionshipUnlocked(championship.getId());
-                }
+            if (championship.getTracks().contains(track, true /* identity */)) {
+                return isChampionshipUnlocked(championship);
             }
         }
-        NLog.e("Track %s does not belong to any championship!", trackId);
+        NLog.e("Track %s does not belong to any championship!", track);
         return false;
     }
 
-    public boolean isChampionshipUnlocked(String championshipId) {
-        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championshipId);
+    public boolean isChampionshipUnlocked(Championship championship) {
+        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championship.getId());
     }
 
     public boolean isVehicleUnlocked(String vehicleId) {

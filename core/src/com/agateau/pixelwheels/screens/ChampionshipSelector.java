@@ -43,7 +43,7 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
 
         @Override
         public boolean isItemEnabled(Championship championship) {
-            return mRewardManager.isChampionshipUnlocked(championship.getId());
+            return mRewardManager.isChampionshipUnlocked(championship);
         }
     }
 

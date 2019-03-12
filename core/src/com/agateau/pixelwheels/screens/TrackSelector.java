@@ -41,7 +41,7 @@ public class TrackSelector extends GridMenuItem<Track> {
 
         @Override
         public boolean isItemEnabled(Track track) {
-            return mRewardManager.isTrackUnlocked(track.getId());
+            return mRewardManager.isTrackUnlocked(track);
         }
     }
 
