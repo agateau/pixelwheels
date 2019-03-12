@@ -25,7 +25,7 @@ public class GameStats {
     final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
     final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
 
-    interface IO {
+    public interface IO {
         void setGameStats(GameStats gameStats);
         void load();
         void save();
