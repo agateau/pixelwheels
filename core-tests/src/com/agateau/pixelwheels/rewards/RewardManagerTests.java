@@ -74,7 +74,7 @@ public class RewardManagerTests {
         assertThat(manager.isTrackUnlocked(championships.get(1).getTracks().get(0)), is(false));
     }
 
-    private Array<Championship> createChampionships() {
+    private static Array<Championship> createChampionships() {
         Array<Championship> championships = new Array<Championship>();
         for (int c = 0; c < 2; ++c) {
             String id = "c" + String.valueOf(c);
