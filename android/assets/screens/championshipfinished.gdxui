@@ -8,8 +8,8 @@
             width="500"
             height="320"/>
 
-        <ImageButton id="backButton"
-                    bottomLeft="root.bottomLeft 1 1"
-                    imageName="icon-back"/>
+        <ImageButton id="nextButton"
+                    bottomRight="root.bottomRight -1 1"
+                    imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

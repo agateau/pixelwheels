@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.racescreen.RaceScreen;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.screens.ChampionshipFinishedScreen;
 import com.agateau.pixelwheels.screens.MultiPlayerScreen;
+import com.agateau.pixelwheels.screens.NavStageScreen;
 import com.agateau.pixelwheels.screens.SelectChampionshipScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
@@ -141,9 +142,6 @@ public class ChampionshipMaestro extends Maestro {
                 if (mGameInfo.isLastTrack()) {
                     getGame().onChampionshipFinished(mGameInfo);
                     getGame().replaceScreen(createChampionshipFinishedScreen());
-                    for (Reward reward : getNewlyUnlockedRewards()) {
-                        getGame().pushScreen(new UnlockedRewardScreen(getGame(), reward));
-                    }
                 } else {
                     mGameInfo.selectNextTrack();
                     getGame().replaceScreen(createRaceScreen());
@@ -154,7 +152,20 @@ public class ChampionshipMaestro extends Maestro {
     }
 
     private Screen createChampionshipFinishedScreen() {
-        return new ChampionshipFinishedScreen(getGame(), mGameInfo);
+        final Set<Reward> rewards = getNewlyUnlockedRewards();
+        final NavStageScreen.NextListener navListener = new NavStageScreen.NextListener() {
+            @Override
+            public void onNextPressed() {
+                if (rewards.isEmpty()) {
+                    getGame().showMainMenu();
+                } else {
+                    Reward reward = rewards.iterator().next();
+                    rewards.remove(reward);
+                    getGame().replaceScreen(new UnlockedRewardScreen(getGame(), reward, this));
+                }
+            }
+        };
+        return new ChampionshipFinishedScreen(getGame(), mGameInfo, navListener);
     }
 
     private Set<Reward> getNewlyUnlockedRewards() {

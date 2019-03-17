@@ -26,30 +26,29 @@ import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
-import com.agateau.ui.UiInputActor;
-import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class UnlockedRewardScreen extends PwStageScreen {
+public class UnlockedRewardScreen extends NavStageScreen {
     private final PwGame mGame;
     private final Reward mReward;
+    private final NextListener mNextListener;
 
-    public UnlockedRewardScreen(PwGame game, Reward reward) {
+    public UnlockedRewardScreen(PwGame game, Reward reward, NextListener nextListener) {
         super(game.getAssets().ui);
         mGame = game;
         mReward = reward;
+        mNextListener = nextListener;
         setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new UnlockedRewardScreen(mGame, mReward));
+                mGame.replaceScreen(new UnlockedRewardScreen(mGame, mReward, mNextListener));
             }
         };
     }
@@ -62,20 +61,8 @@ public class UnlockedRewardScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        getStage().addActor(new UiInputActor() {
-            public void onKeyJustPressed(VirtualKey key) {
-                if (key == VirtualKey.TRIGGER) {
-                    next();
-                }
-            }
-        });
-
-        builder.getActor("nextButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                next();
-            }
-        });
+        setupNextButton((Button)builder.getActor("nextButton"));
+        setNavListener(mNextListener);
 
         String title = "";
         String rewardName = "";
@@ -106,11 +93,6 @@ public class UnlockedRewardScreen extends PwStageScreen {
         rewardLabel.pack();
     }
 
-    @Override
-    public void onBackPressed() {
-        next();
-    }
-
     private String getVehicleName(String id) {
         return mGame.getAssets().findVehicleDefById(id).name;
     }
@@ -128,9 +110,5 @@ public class UnlockedRewardScreen extends PwStageScreen {
         Championship championship = mGame.getAssets().findChampionshipById(id);
         Track track = championship.getTracks().get(0);
         return mGame.getAssets().ui.atlas.findRegion("map-screenshots/" + track.getId());
-    }
-
-    private void next() {
-        mGame.popScreen();
     }
 }
