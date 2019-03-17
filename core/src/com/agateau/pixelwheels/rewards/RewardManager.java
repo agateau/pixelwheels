@@ -25,7 +25,9 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Manage which rewards have been unlocked
@@ -37,6 +39,7 @@ public class RewardManager {
     private final GameStats mGameStats;
     private final Array<Championship> mChampionships;
     private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
+    private final Set<Reward> mUnlockedRewards = new HashSet<Reward>();
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
@@ -64,11 +67,23 @@ public class RewardManager {
     private boolean isRewardUnlocked(Reward.Category category, String id) {
         Reward reward = Reward.get(category, id);
         RewardRule rule = mRules.get(reward);
-        return rule == null || rule.hasBeenEarned(mGameStats);
+        return rule == null || mUnlockedRewards.contains(reward);
     }
 
     public void addRule(Reward.Category category, String id, RewardRule rule) {
         Reward reward = Reward.get(category, id);
         mRules.put(reward, rule);
+    }
+
+    public void applyRules() {
+        for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
+            Reward reward = rule.getKey();
+            if (mUnlockedRewards.contains(reward)) {
+                continue;
+            }
+            if (rule.getValue().hasBeenEarned(mGameStats)) {
+                mUnlockedRewards.add(reward);
+            }
+        }
     }
 }

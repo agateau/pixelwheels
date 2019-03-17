@@ -53,6 +53,7 @@ public class RewardManagerTests {
                 return false;
             }
         });
+        manager.applyRules();
         assertThat(manager.isChampionshipUnlocked(championships.get(0)), is(true));
         assertThat(manager.isChampionshipUnlocked(championships.get(1)), is(false));
     }
@@ -68,6 +69,7 @@ public class RewardManagerTests {
                 return false;
             }
         });
+        manager.applyRules();
         assertThat(manager.isTrackUnlocked(championships.get(0).getTracks().get(0)), is(true));
         assertThat(manager.isTrackUnlocked(championships.get(1).getTracks().get(0)), is(false));
     }
