@@ -42,6 +42,10 @@ public class Reward {
         this.id = id;
     }
 
+    public String toString() {
+        return category.toString() + "." + id;
+    }
+
     public static Reward get(Category category, String id) {
         HashMap<String, Reward> map = sInstances.get(category);
         if (map == null) {
