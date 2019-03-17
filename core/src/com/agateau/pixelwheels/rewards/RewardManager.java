@@ -36,7 +36,7 @@ import java.util.Map;
 public class RewardManager {
     private final GameStats mGameStats;
     private final Array<Championship> mChampionships;
-    private Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
+    private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
