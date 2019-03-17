@@ -41,6 +41,13 @@ public class RewardManager {
     private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
     private final Set<Reward> mUnlockedRewards = new HashSet<Reward>();
 
+    public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {
+        @Override
+        public boolean hasBeenEarned(GameStats gameStats) {
+            return true;
+        }
+    };
+
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
         mChampionships = championships;
@@ -64,10 +71,13 @@ public class RewardManager {
         return isRewardUnlocked(Reward.Category.VEHICLE, vehicleId);
     }
 
+    public Set<Reward> getUnlockedRewards() {
+        return mUnlockedRewards;
+    }
+
     private boolean isRewardUnlocked(Reward.Category category, String id) {
         Reward reward = Reward.get(category, id);
-        RewardRule rule = mRules.get(reward);
-        return rule == null || mUnlockedRewards.contains(reward);
+        return mUnlockedRewards.contains(reward);
     }
 
     public void addRule(Reward.Category category, String id, RewardRule rule) {

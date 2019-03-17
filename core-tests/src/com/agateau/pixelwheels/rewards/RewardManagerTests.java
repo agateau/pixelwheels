@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
 
 import org.junit.Rule;
@@ -30,6 +31,10 @@ import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -47,7 +52,10 @@ public class RewardManagerTests {
         GameStats gameStats = new GameStats(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championships.get(1).getId(), new RewardRule() {
+        final String championShipId1 = championships.get(0).getId();
+        final String championShipId2 = championships.get(1).getId();
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return false;
@@ -63,7 +71,10 @@ public class RewardManagerTests {
         GameStats gameStats = new GameStats(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championships.get(1).getId(), new RewardRule() {
+        final String championShipId1 = championships.get(0).getId();
+        final String championShipId2 = championships.get(1).getId();
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return false;
@@ -72,6 +83,36 @@ public class RewardManagerTests {
         manager.applyRules();
         assertThat(manager.isTrackUnlocked(championships.get(0).getTracks().get(0)), is(true));
         assertThat(manager.isTrackUnlocked(championships.get(1).getTracks().get(0)), is(false));
+    }
+
+    @Test
+    public void testGetUnlockedRewards() {
+        // GIVEN a RewardManager with 2 championships, ch2 is locked
+        GameStats gameStats = new GameStats(mStatsIO);
+        Array<Championship> championships = createChampionships();
+        RewardManager manager = new RewardManager(gameStats, championships);
+        final String championShipId1 = championships.get(0).getId();
+        final String championShipId2 = championships.get(1).getId();
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getBestChampionshipRank(championShipId2) <= 2;
+            }
+        });
+        manager.applyRules();
+
+        // THEN unlocked rewards contains only ch1
+        Reward ch1Reward = Reward.get(Reward.Category.CHAMPIONSHIP, championShipId1);
+        Reward ch2Reward = Reward.get(Reward.Category.CHAMPIONSHIP, championShipId2);
+        assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward)));
+
+        // WHEN I unlock ch2
+        gameStats.onChampionshipFinished(championShipId2, 2);
+
+        // THEN unlocked rewards contains ch1 and ch2
+        manager.applyRules();
+        assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward, ch2Reward)));
     }
 
     private static Array<Championship> createChampionships() {

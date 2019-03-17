@@ -125,6 +125,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
 
+        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
         mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
@@ -211,6 +212,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
         mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
+        mRewardManager.applyRules();
     }
 
     @Override
