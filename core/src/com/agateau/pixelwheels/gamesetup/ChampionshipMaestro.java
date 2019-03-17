@@ -22,22 +22,29 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.racescreen.RaceScreen;
+import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.screens.ChampionshipFinishedScreen;
 import com.agateau.pixelwheels.screens.MultiPlayerScreen;
 import com.agateau.pixelwheels.screens.SelectChampionshipScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
+import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Handle a championship game
  */
 public class ChampionshipMaestro extends Maestro {
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
+    private final Set<Reward> mAlreadyUnlockedRewards;
     private ChampionshipGameInfo mGameInfo;
 
     public ChampionshipMaestro(PwGame game, PlayerCount playerCount) {
         super(game, playerCount);
+        mAlreadyUnlockedRewards = new HashSet<Reward>(game.getRewardManager().getUnlockedRewards());
         mGameInfoBuilder = new ChampionshipGameInfo.Builder(getGame().getAssets().vehicleDefs, getGame().getConfig());
     }
 
@@ -132,8 +139,11 @@ public class ChampionshipMaestro extends Maestro {
             public void onNextTrackPressed() {
                 mGameInfo.sortEntrants();
                 if (mGameInfo.isLastTrack()) {
-                    getGame().replaceScreen(createChampionshipFinishedScreen());
                     getGame().onChampionshipFinished(mGameInfo);
+                    getGame().replaceScreen(createChampionshipFinishedScreen());
+                    for (Reward reward : getNewlyUnlockedRewards()) {
+                        getGame().pushScreen(new UnlockedRewardScreen(getGame(), reward));
+                    }
                 } else {
                     mGameInfo.selectNextTrack();
                     getGame().replaceScreen(createRaceScreen());
@@ -145,5 +155,11 @@ public class ChampionshipMaestro extends Maestro {
 
     private Screen createChampionshipFinishedScreen() {
         return new ChampionshipFinishedScreen(getGame(), mGameInfo);
+    }
+
+    private Set<Reward> getNewlyUnlockedRewards() {
+        Set<Reward> unlockedRewards = new HashSet<Reward>(getGame().getRewardManager().getUnlockedRewards());
+        unlockedRewards.removeAll(mAlreadyUnlockedRewards);
+        return unlockedRewards;
     }
 }

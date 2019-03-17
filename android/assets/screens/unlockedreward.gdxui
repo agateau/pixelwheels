@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" spacing="20">
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -2" />
+
+        <Image id="rewardImage" center="root.center 0 1" />
+        <Label id="rewardLabel" topCenter="rewardImage.bottomCenter 0 -1" />
+
+        <ImageButton id="nextButton"
+                    bottomRight="root.bottomRight -1 1"
+                    imageName="icon-next"/>
+    </AnchorGroup>
+</gdxui>
