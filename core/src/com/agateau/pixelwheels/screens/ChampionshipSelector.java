@@ -37,8 +37,7 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
     private class Renderer extends TextureRegionItemRendererAdapter<Championship> {
         @Override
         protected TextureRegion getItemRegion(Championship championship) {
-            Track track = championship.getTracks().get(0);
-            return mAssets.ui.atlas.findRegion("map-screenshots/" + track.getId());
+            return mAssets.getChampionshipRegion(championship);
         }
 
         @Override

@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Championship;
-import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.RefreshHelper;
@@ -64,51 +63,44 @@ public class UnlockedRewardScreen extends NavStageScreen {
         setupNextButton((Button)builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
-        String title = "";
-        String rewardName = "";
-        TextureRegion rewardRegion = null;
         switch (mReward.category) {
             case VEHICLE:
-                title = "New vehicle unlocked!";
-                rewardName = getVehicleName(mReward.id);
-                rewardRegion = getVehicleRegion(mReward.id);
+                setupVehicleReward(builder, mReward.id);
                 break;
             case CHAMPIONSHIP:
-                title = "New championship unlocked!";
-                rewardName = getChampionshipName(mReward.id);
-                rewardRegion = getChampionshipRegion(mReward.id);
+                setupChampionshipReward(builder, mReward.id);
                 break;
         }
+    }
 
+    private void setupVehicleReward(UiBuilder builder, String id) {
+        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(id);
+
+        setupRewardDetails(builder, "New vehicle unlocked!",
+                mGame.getAssets().getVehicleRegion(vehicleDef),
+                vehicleDef.name);
+    }
+
+    private void setupChampionshipReward(UiBuilder builder, String id) {
+        Championship championship = mGame.getAssets().findChampionshipById(id);
+
+        setupRewardDetails(builder, "New championship unlocked!",
+                mGame.getAssets().getChampionshipRegion(championship),
+                championship.getName());
+    }
+
+    private void setupRewardDetails(UiBuilder builder, String title, TextureRegion rewardRegion, String rewardName) {
         Label titleLabel = builder.getActor("titleLabel");
+        Image rewardImage = builder.getActor("rewardImage");
+        Label rewardLabel = builder.getActor("rewardLabel");
+
         titleLabel.setText(title);
         titleLabel.pack();
 
-        Image rewardImage = builder.getActor("rewardImage");
         rewardImage.setDrawable(new TextureRegionDrawable(rewardRegion));
         rewardImage.pack();
 
-        Label rewardLabel = builder.getActor("rewardLabel");
         rewardLabel.setText(rewardName);
         rewardLabel.pack();
-    }
-
-    private String getVehicleName(String id) {
-        return mGame.getAssets().findVehicleDefById(id).name;
-    }
-
-    private String getChampionshipName(String id) {
-        return mGame.getAssets().findChampionshipById(id).getName();
-    }
-
-    private TextureRegion getVehicleRegion(String id) {
-        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(id);
-        return mGame.getAssets().findRegion("vehicles/" + vehicleDef.mainImage);
-    }
-
-    private TextureRegion getChampionshipRegion(String id) {
-        Championship championship = mGame.getAssets().findChampionshipById(id);
-        Track track = championship.getTracks().get(0);
-        return mGame.getAssets().ui.atlas.findRegion("map-screenshots/" + track.getId());
     }
 }

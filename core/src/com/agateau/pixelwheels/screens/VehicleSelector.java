@@ -34,7 +34,7 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private class Renderer extends TextureRegionItemRendererAdapter<VehicleDef> {
         @Override
         protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
-            return mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
+            return mAssets.getVehicleRegion(vehicleDef);
         }
     }
 

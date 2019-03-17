@@ -187,6 +187,15 @@ public class Assets {
         return obj;
     }
 
+    public TextureRegion getVehicleRegion(VehicleDef vehicleDef) {
+        return findRegion("vehicles/" + vehicleDef.mainImage);
+    }
+
+    public TextureRegion getChampionshipRegion(Championship championship) {
+        Track track = championship.getTracks().get(0);
+        return ui.atlas.findRegion("map-screenshots/" + track.getId());
+    }
+
     private void loadVehicleDefinitions() {
         for (String id : VEHICLE_IDS) {
             this.vehicleDefs.add(VehicleIO.get(id));
