@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
@@ -30,11 +31,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class TrackSelector extends GridMenuItem<Track> {
     private Assets mAssets;
+    private RewardManager mRewardManager;
 
     private class Renderer extends TextureRegionItemRendererAdapter<Track> {
         @Override
         protected TextureRegion getItemRegion(Track track) {
             return mAssets.ui.atlas.findRegion("map-screenshots/" + track.getId());
+        }
+
+        @Override
+        public boolean isItemEnabled(Track track) {
+            return mRewardManager.isTrackUnlocked(track);
         }
     }
 
@@ -42,8 +49,9 @@ public class TrackSelector extends GridMenuItem<Track> {
         super(menu);
     }
 
-    public void init(Assets assets) {
+    public void init(Assets assets, RewardManager rewardManager) {
         mAssets = assets;
+        mRewardManager = rewardManager;
         setItemSize(160, 160);
         setItemRenderer(new Renderer());
         setItems(mAssets.tracks);

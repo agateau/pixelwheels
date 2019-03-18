@@ -20,6 +20,7 @@ package com.agateau.ui;
 
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.utils.Assert;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -50,6 +51,13 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
         updateRenderInfo(width, height, region);
         float rWidth = region.getRegionWidth();
         float rHeight = region.getRegionHeight();
+        Color color = batch.getColor();
+        float alpha = color.a;
+        boolean enabled = isItemEnabled(item);
+        if (!enabled) {
+            color.a *= 0.3f;
+            batch.setColor(color.r, color.g, color.b, color.a);
+        }
         batch.draw(region,
                 x + (width - rWidth) / 2, y + (height - rHeight) / 2, // pos
                 rWidth / 2, rHeight / 2, // origin
@@ -57,6 +65,15 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
                 mScale, mScale, // scale
                 mAngle // rotation
         );
+        if (!enabled) {
+            color.a = alpha;
+            batch.setColor(color.r, color.g, color.b, color.a);
+        }
+    }
+
+    @Override
+    public boolean isItemEnabled(T item) {
+        return true;
     }
 
     protected abstract TextureRegion getItemRegion(T item);

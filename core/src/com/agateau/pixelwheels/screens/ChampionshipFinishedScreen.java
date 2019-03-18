@@ -29,15 +29,13 @@ import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Comparator;
 import java.util.Locale;
 
-public class ChampionshipFinishedScreen extends PwStageScreen {
+public class ChampionshipFinishedScreen extends NavStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
     private final TableRowCreator mTableRowCreator = new TableRowCreator() {
@@ -49,22 +47,23 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
             table.add(values[3], style).right();
         }
     };
+    private final NextListener mNextListener;
 
-    public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo) {
+    public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;
-        Array<GameInfo.Entrant> entrants = getSortedEntrants();
-        setupUi(entrants);
+        mNextListener = nextListener;
+        setupUi();
         new RefreshHelper(getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new ChampionshipFinishedScreen(mGame, mGameInfo));
+                mGame.replaceScreen(new ChampionshipFinishedScreen(mGame, mGameInfo, mNextListener));
             }
         };
     }
 
-    private void setupUi(Array<GameInfo.Entrant> entrants) {
+    private void setupUi() {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
@@ -72,15 +71,11 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        setupNextButton((Button)builder.getActor("nextButton"));
+        setNavListener(mNextListener);
 
         Table table = builder.getActor("entrantTable");
-        fillEntrantTable(table, entrants);
+        fillEntrantTable(table, mGameInfo.getEntrants());
     }
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
@@ -97,26 +92,5 @@ public class ChampionshipFinishedScreen extends PwStageScreen {
                     StringUtils.formatRaceTime(entrant.getRaceTime())
             );
         }
-    }
-
-    private Array<GameInfo.Entrant> getSortedEntrants() {
-        Array<GameInfo.Entrant> entrants = mGameInfo.getEntrants();
-        entrants.sort(new Comparator<GameInfo.Entrant>() {
-            @Override
-            public int compare(GameInfo.Entrant e1, GameInfo.Entrant e2) {
-                int cmp = -Integer.compare(e1.getScore(), e2.getScore());
-                if (cmp != 0) {
-                    return cmp;
-                }
-                // If it's a tie, the fastest gets the best place
-                return Float.compare(e1.getRaceTime(), e2.getRaceTime());
-            }
-        });
-        return entrants;
-    }
-
-    @Override
-    public void onBackPressed() {
-        mGame.showMainMenu();
     }
 }

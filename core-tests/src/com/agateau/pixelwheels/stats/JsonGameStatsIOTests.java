@@ -56,6 +56,8 @@ public class JsonGameStatsIOTests {
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
+        gameStats.onChampionshipFinished("c1", 1);
+        gameStats.onChampionshipFinished("c2", 2);
         assertTrue(testFile.exists());
 
         GameStats gameStats2 = new GameStats(io);
@@ -65,6 +67,8 @@ public class JsonGameStatsIOTests {
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
+        assertThat(gameStats2.mBestChampionshipRank.get("c1"), is(1));
+        assertThat(gameStats2.mBestChampionshipRank.get("c2"), is(2));
     }
 
     private void checkRecords(TrackStats stats, int rank, float expectedLap) {

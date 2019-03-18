@@ -22,7 +22,10 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Comparator;
 
 /**
  * Details about the game to start
@@ -129,5 +132,30 @@ public abstract class GameInfo {
 
     public Array<Entrant> getEntrants() {
         return mEntrants;
+    }
+
+    public void sortEntrants() {
+        mEntrants.sort(new Comparator<Entrant>() {
+            @Override
+            public int compare(GameInfo.Entrant e1, GameInfo.Entrant e2) {
+                int cmp = -Integer.compare(e1.getScore(), e2.getScore());
+                if (cmp != 0) {
+                    return cmp;
+                }
+                // If it's a tie, the fastest gets the best place
+                return Float.compare(e1.getRaceTime(), e2.getRaceTime());
+            }
+        });
+    }
+
+    public int getBestRank() {
+        for (int idx = 0; idx < mEntrants.size; ++idx) {
+            GameInfo.Entrant entrant = mEntrants.get(idx);
+            if (entrant.isPlayer()) {
+                return idx;
+            }
+        }
+        NLog.e("No player entrants found!");
+        return Integer.MAX_VALUE;
     }
 }

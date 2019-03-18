@@ -49,4 +49,18 @@ public class GameStatsTests {
         TrackStats trackStats2 = stats.getTrackStats(trackId);
         assertThat(trackStats, is(trackStats2));
     }
+
+    @Test
+    public void testOnChampionshipFinished() {
+        final String championshipId1 = "c1";
+        final String championshipId2 = "c2";
+        GameStats stats = new GameStats(mStatsIO);
+        stats.onChampionshipFinished(championshipId1, 4);
+        stats.onChampionshipFinished(championshipId1, 3);
+        stats.onChampionshipFinished(championshipId2, 2);
+        stats.onChampionshipFinished(championshipId2, 4);
+
+        assertThat(stats.mBestChampionshipRank.get(championshipId1), is(3));
+        assertThat(stats.mBestChampionshipRank.get(championshipId2), is(2));
+    }
 }

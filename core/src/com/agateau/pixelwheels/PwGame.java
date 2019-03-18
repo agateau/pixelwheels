@@ -19,10 +19,14 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
+import com.agateau.pixelwheels.rewards.Reward;
+import com.agateau.pixelwheels.rewards.RewardManager;
+import com.agateau.pixelwheels.rewards.RewardRule;
 import com.agateau.pixelwheels.stats.JsonGameStatsIO;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
@@ -30,6 +34,7 @@ import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
 import com.agateau.ui.ScreenStack;
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
@@ -57,6 +62,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
     private GameStats mGameStats;
+    private RewardManager mRewardManager;
 
     public Assets getAssets() {
         return mAssets;
@@ -64,6 +70,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public AudioManager getAudioManager() {
         return mAudioManager;
+    }
+
+    public RewardManager getRewardManager() {
+        return mRewardManager;
     }
 
     @Override
@@ -79,6 +89,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAssets = new Assets();
         setupConfig();
         setupTrackStats();
+        setupRewardManager();
         Box2D.init();
         hideMouseCursor();
         setupDisplay();
@@ -107,6 +118,23 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private void setupTrackStats() {
         JsonGameStatsIO io = new JsonGameStatsIO(FileUtils.getUserWritableFile("gamestats.json"));
         mGameStats = new GameStats(io);
+    }
+
+    private void setupRewardManager() {
+        Assert.check(mGameStats != null, "GameStats must be instantiated first");
+        Assert.check(mAssets != null, "Assets must be instantiated first");
+        mRewardManager = new RewardManager(mGameStats, mAssets.championships);
+
+        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
+        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getBestChampionshipRank("snow") <= 2;
+            }
+        });
+
+        // Apply rules to ensure we know which rewards have already been unlocked
+        mRewardManager.applyRules();
     }
 
     public void showMainMenu() {
@@ -180,6 +208,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         } else {
             Gdx.graphics.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         }
+    }
+
+    public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
+        mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
+        mRewardManager.applyRules();
     }
 
     @Override

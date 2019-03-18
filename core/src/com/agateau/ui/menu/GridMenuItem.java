@@ -58,6 +58,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Rectangle getItemRectangle(float width, float height, T item);
 
         void render(Batch batch, float x, float y, float width, float height, T item);
+
+        boolean isItemEnabled(T item);
     }
 
     public interface SelectionListener<T> {
@@ -122,11 +124,19 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             if (mSelectionListener != null) {
                 mSelectionListener.selectedChanged(null, -1);
             }
+            return;
         }
         Assert.check(index < mItems.size, "Invalid index value");
+        T item = mItems.get(index);
+        if (!mRenderer.isItemEnabled(item)) {
+            mSelectedIndex = -1;
+            if (mSelectionListener != null) {
+                mSelectionListener.selectedChanged(null, -1);
+            }
+            return;
+        }
         mSelectedIndex = index;
         if (mSelectionListener != null) {
-            T item = mItems.get(index);
             mSelectionListener.selectedChanged(item, index);
         }
         setCurrentIndex(index);

@@ -117,7 +117,7 @@ public class SelectTrackScreen extends PwStageScreen {
 
         mTrackSelector = new TrackSelector(menu);
         mTrackSelector.setColumnCount(4);
-        mTrackSelector.init(assets);
+        mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
 
@@ -147,6 +147,9 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void next() {
+        if (mTrackSelector.getSelected() == null) {
+            return;
+        }
         saveSelectedMap();
         mListener.onTrackSelected(mTrackSelector.getCurrent());
     }
