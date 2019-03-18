@@ -73,7 +73,7 @@ public class DebugScreen extends PwStageScreen {
 
         mCurrentGroup = tabMenuItem.addPage("Race");
         addRange("Viewport width", "viewportWidth", 20, 800, 10);
-        addRange("Racer count", "racerCount", 1, 8);
+        addRange("Racer count", "racerCount", 1, 6);
         addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addRange("Border restitution", "borderRestitution", 1, 50);
 
