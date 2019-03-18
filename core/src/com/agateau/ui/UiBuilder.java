@@ -21,6 +21,8 @@ package com.agateau.ui;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
+import com.agateau.ui.animscript.AnimScript;
+import com.agateau.ui.animscript.AnimScriptLoader;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
@@ -59,6 +61,7 @@ public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
     private final Set<String> mVariables = new HashSet<String>();
+    private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
 
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
     private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
@@ -168,6 +171,9 @@ public class UiBuilder {
                 applyWidgetProperties((Widget)actor, element);
             }
             applyActorProperties(actor, element, parentActor);
+            if (mAnimScriptloader != null) {
+                createActorActions(actor, element);
+            }
             String id = element.getAttribute("id", null);
             if (id != null) {
                 if (mActorForId.containsKey(id)) {
@@ -497,6 +503,18 @@ public class UiBuilder {
             return "";
         }
         return text.replace("\\n", "\n");
+    }
+
+    private void createActorActions(Actor actor, XmlReader.Element element) {
+        for (XmlReader.Element child: element.getChildrenByName("Action")) {
+            String definition = child.getText();
+            float duration = child.getFloatAttribute("duration", -1);
+            if (duration < 0) {
+                throw new RuntimeException("Missing 'duration' attribute for action '" + definition + "'");
+            }
+            AnimScript script = mAnimScriptloader.load(definition);
+            actor.addAction(script.createAction(1, 1, duration));
+        }
     }
 
     private static int parseAlign(XmlReader.Element element) {

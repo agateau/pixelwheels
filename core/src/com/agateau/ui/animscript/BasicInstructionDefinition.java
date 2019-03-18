@@ -1,0 +1,54 @@
+/*
+ * Copyright 2019 Aurélien Gâteau <mail@agateau.com>
+ *
+ * This file is part of Pixel Wheels.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+package com.agateau.ui.animscript;
+
+import java.io.StreamTokenizer;
+import java.lang.reflect.Method;
+
+class BasicInstructionDefinition implements InstructionDefinition {
+    private Object mInstance;
+    private Method mMethod;
+    private ArgumentDefinition<?>[] mArgumentDefinitions;
+
+    public BasicInstructionDefinition(Object instance, Method method, ArgumentDefinition<?>... argumentDefinitions) {
+        mInstance = instance;
+        mMethod = method;
+        mArgumentDefinitions = argumentDefinitions;
+    }
+
+    public BasicInstructionDefinition(Method method, ArgumentDefinition<?>... argumentDefinitions) {
+        mInstance = null;
+        mMethod = method;
+        mArgumentDefinitions = argumentDefinitions;
+    }
+
+    /* (non-Javadoc)
+     * @see com.agateau.ui.animscript.InstructionDefinition#parse(java.io.StreamTokenizer)
+     */
+    @Override
+    public Instruction parse(StreamTokenizer tokenizer) {
+        Argument[] args = new Argument[mArgumentDefinitions.length];
+        for (int idx = 0; idx < mArgumentDefinitions.length; ++idx) {
+            ArgumentDefinition<?> def = mArgumentDefinitions[idx];
+            assert(def != null);
+            args[idx] = def.parse(tokenizer);
+        }
+        return new BasicInstruction(mInstance, mMethod, args);
+    }
+}
