@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.utils.CollectionUtils;
+
 import java.util.HashMap;
 
 public class GameStats {
@@ -57,11 +59,8 @@ public class GameStats {
     }
 
     public int getBestChampionshipRank(String id) {
-        Integer rank = mBestChampionshipRank.get(id);
-        if (rank == null) {
-            return Integer.MAX_VALUE;
-        }
-        return rank;
+        //noinspection ConstantConditions
+        return CollectionUtils.getOrDefault(mBestChampionshipRank, id, Integer.MAX_VALUE);
     }
 
     public void onChampionshipFinished(String id, int rank) {
@@ -84,7 +83,7 @@ public class GameStats {
     }
 
     public int getEventCount(Event event) {
-        Integer count = mEvents.get(event.toString());
-        return count == null ? 0 : count;
+        //noinspection ConstantConditions
+        return CollectionUtils.getOrDefault(mEvents, event.toString(), 0);
     }
 }
