@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.stats.EventRecorder;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.racer.AIPilot;
@@ -169,6 +170,10 @@ public class GameWorld implements ContactListener, Disposable {
             return 0;
         }
         return (getRacerRank(racer) - 1) / (float)(mRacers.size - 1);
+    }
+
+    public EventRecorder getEventRecorder() {
+        return mGame.getEventRecorder();
     }
 
     /**

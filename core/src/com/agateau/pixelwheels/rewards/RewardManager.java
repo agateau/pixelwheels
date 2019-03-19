@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
@@ -67,8 +68,8 @@ public class RewardManager {
         return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championship.getId());
     }
 
-    public boolean isVehicleUnlocked(String vehicleId) {
-        return isRewardUnlocked(Reward.Category.VEHICLE, vehicleId);
+    public boolean isVehicleUnlocked(VehicleDef vehicleDef) {
+        return isRewardUnlocked(Reward.Category.VEHICLE, vehicleDef.id);
     }
 
     public Set<Reward> getUnlockedRewards() {

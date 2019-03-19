@@ -27,11 +27,14 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
+import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Set;
 
 /**
  * Stores all assets
@@ -45,6 +48,7 @@ public class Assets {
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
 
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "rocket" };
+    private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS = CollectionUtils.newSet("red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<Track> tracks = new Array<Track>(new Track[]{
@@ -179,6 +183,10 @@ public class Assets {
             }
         }
         return null;
+    }
+
+    public boolean isVehicleAlwaysUnlocked(VehicleDef vehicleDef) {
+        return ALWAYS_UNLOCKED_VEHICLE_IDS.contains(vehicleDef.id);
     }
 
     public AnimationObject createExplosion(AudioManager audioManager, float x, float y) {

@@ -27,12 +27,14 @@ import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.rewards.RewardRule;
+import com.agateau.pixelwheels.stats.EventRecorder;
 import com.agateau.pixelwheels.stats.JsonGameStatsIO;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -125,6 +127,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
 
+        // Championship rules
         mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
         mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
             @Override
@@ -132,6 +135,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
                 return gameStats.getBestChampionshipRank("snow") <= 2;
             }
         });
+        // Vehicle rules
+        for (VehicleDef vehicleDef : mAssets.vehicleDefs) {
+            if (mAssets.isVehicleAlwaysUnlocked(vehicleDef)) {
+                mRewardManager.addRule(Reward.Category.VEHICLE, vehicleDef.id, RewardManager.ALWAYS_UNLOCKED);
+            }
+        }
 
         // Apply rules to ensure we know which rewards have already been unlocked
         mRewardManager.applyRules();
@@ -218,5 +227,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     @Override
     public void onGameConfigChanged() {
         mAudioManager.setMuted(!mGameConfig.audio);
+    }
+
+    public EventRecorder getEventRecorder() {
+        return mGameStats;
     }
 }

@@ -95,7 +95,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void createVehicleSelector(Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
-        mVehicleSelector.init(assets);
+        mVehicleSelector.init(assets, mGame.getRewardManager());
         String id = mGame.getConfig().vehicles[0];
         mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);
@@ -126,8 +126,11 @@ public class SelectVehicleScreen extends PwStageScreen {
     }
 
     private void next() {
-        String vehicleId = mVehicleSelector.getSelectedId();
-        GameInfo.Player player = new GameInfo.Player(0, vehicleId);
+        VehicleDef vehicleDef = mVehicleSelector.getSelected();
+        if (vehicleDef == null) {
+            return;
+        }
+        GameInfo.Player player = new GameInfo.Player(0, vehicleDef.id);
         mListener.onPlayerSelected(player);
     }
 }
