@@ -20,10 +20,11 @@ package com.agateau.pixelwheels.stats;
 
 import java.util.HashMap;
 
-public class GameStats {
+public class GameStats implements EventRecorder {
     private final transient IO mIO;
     final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
     final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
+    final HashMap<String, Integer> mEvents = new HashMap<String, Integer>();
 
     public interface IO {
         void setGameStats(GameStats gameStats);
@@ -65,5 +66,22 @@ public class GameStats {
             mBestChampionshipRank.put(id, rank);
             mIO.save();
         }
+    }
+
+    @Override
+    public void recordEvent(Event event) {
+        String id = event.toString();
+        Integer count = mEvents.get(id);
+        if (count == null) {
+            count = 0;
+        }
+        ++count;
+        mEvents.put(id, count);
+        mIO.save();
+    }
+
+    public int getEventCount(Event event) {
+        Integer count = mEvents.get(event.toString());
+        return count == null ? 0 : count;
     }
 }
