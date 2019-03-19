@@ -24,17 +24,14 @@ import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
-import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
-import com.agateau.pixelwheels.rewards.RewardRule;
-import com.agateau.pixelwheels.stats.EventRecorder;
-import com.agateau.pixelwheels.stats.JsonGameStatsIO;
-import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
-import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.pixelwheels.stats.EventRecorder;
+import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.stats.JsonGameStatsIO;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -126,28 +123,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mGameStats != null, "GameStats must be instantiated first");
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
-
-        // Championship rules
-        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
-        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank("snow") <= 2;
-            }
-        });
-        // Vehicle rules
-        for (VehicleDef vehicleDef : mAssets.vehicleDefs) {
-            if (mAssets.isVehicleAlwaysUnlocked(vehicleDef)) {
-                mRewardManager.addRule(Reward.Category.VEHICLE, vehicleDef.id, RewardManager.ALWAYS_UNLOCKED);
-            }
-        }
-        mRewardManager.addRule(Reward.Category.VEHICLE, "rocket", new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(EventRecorder.Event.MISSILE_HIT) >= 10;
-            }
-        });
-
+        RewardManagerSetup.createRules(mRewardManager, mAssets.vehicleDefs);
         // Apply rules to ensure we know which rewards have already been unlocked
         mRewardManager.applyRules();
     }
@@ -235,7 +211,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAudioManager.setMuted(!mGameConfig.audio);
     }
 
-    public EventRecorder getEventRecorder() {
+    EventRecorder getEventRecorder() {
         return mGameStats;
     }
 }
