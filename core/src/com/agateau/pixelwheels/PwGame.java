@@ -29,7 +29,6 @@ import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
-import com.agateau.pixelwheels.stats.EventRecorder;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.JsonGameStatsIO;
 import com.agateau.ui.ScreenStack;
@@ -209,9 +208,5 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     @Override
     public void onGameConfigChanged() {
         mAudioManager.setMuted(!mGameConfig.audio);
-    }
-
-    EventRecorder getEventRecorder() {
-        return mGameStats;
     }
 }

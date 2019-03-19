@@ -21,7 +21,6 @@ package com.agateau.pixelwheels;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.rewards.RewardRule;
-import com.agateau.pixelwheels.stats.EventRecorder;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.CollectionUtils;
@@ -54,7 +53,7 @@ class RewardManagerSetup {
         rewardManager.addRule(Reward.Category.VEHICLE, "rocket", new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(EventRecorder.Event.MISSILE_HIT) >= 10;
+                return gameStats.getEventCount(GameStats.Event.MISSILE_HIT) >= 10;
             }
         });
 

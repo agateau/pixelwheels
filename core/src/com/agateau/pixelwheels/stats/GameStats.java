@@ -20,11 +20,15 @@ package com.agateau.pixelwheels.stats;
 
 import java.util.HashMap;
 
-public class GameStats implements EventRecorder {
+public class GameStats {
     private final transient IO mIO;
     final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
     final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
     final HashMap<String, Integer> mEvents = new HashMap<String, Integer>();
+
+    public enum Event {
+        MISSILE_HIT
+    }
 
     public interface IO {
         void setGameStats(GameStats gameStats);
@@ -68,7 +72,6 @@ public class GameStats implements EventRecorder {
         }
     }
 
-    @Override
     public void recordEvent(Event event) {
         String id = event.toString();
         Integer count = mEvents.get(id);
