@@ -60,7 +60,8 @@ public class JsonGameStatsIO implements GameStats.IO {
             mGameStats.addTrack(trackId);
             loadTrackStats(mGameStats.getTrackStats(trackId), kv.getValue().getAsJsonObject());
         }
-        loadBestChampionshipRank(root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(mGameStats.mEvents, root.getAsJsonObject("events"));
     }
 
     private void loadTrackStats(TrackStats trackStats, JsonObject object) {
@@ -68,15 +69,15 @@ public class JsonGameStatsIO implements GameStats.IO {
         loadResults(trackStats.mTotalRecords, object.getAsJsonArray("total"));
     }
 
-    private void loadBestChampionshipRank(JsonObject object) {
-        mGameStats.mBestChampionshipRank.clear();
+    private static void loadStringIntMap(Map<String, Integer> map, JsonObject object) {
+        map.clear();
         if (object == null) {
             return;
         }
         for (Map.Entry<String, JsonElement> kv : object.entrySet()) {
             String id = kv.getKey();
-            int rank = kv.getValue().getAsInt();
-            mGameStats.mBestChampionshipRank.put(id, rank);
+            int value = kv.getValue().getAsInt();
+            map.put(id, value);
         }
     }
 
@@ -99,6 +100,7 @@ public class JsonGameStatsIO implements GameStats.IO {
         }
 
         root.add("bestChampionshipRank", mGson.toJsonTree(mGameStats.mBestChampionshipRank));
+        root.add("events", mGson.toJsonTree(mGameStats.mEvents));
         String json = mGson.toJson(root);
         mHandle.writeString(json, false /* append */);
     }
