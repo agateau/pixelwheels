@@ -141,6 +141,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
                 mRewardManager.addRule(Reward.Category.VEHICLE, vehicleDef.id, RewardManager.ALWAYS_UNLOCKED);
             }
         }
+        mRewardManager.addRule(Reward.Category.VEHICLE, "rocket", new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getEventCount(EventRecorder.Event.MISSILE_HIT) >= 10;
+            }
+        });
 
         // Apply rules to ensure we know which rewards have already been unlocked
         mRewardManager.applyRules();
