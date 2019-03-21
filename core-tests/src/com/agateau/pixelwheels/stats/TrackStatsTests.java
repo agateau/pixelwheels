@@ -37,14 +37,14 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 @RunWith(JUnit4.class)
 public class TrackStatsTests {
     @Mock
-    private GameStats.IO mStatsIO;
+    private GameStats mStats;
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testInit() {
-        TrackStats trackStats = new TrackStats(mStatsIO);
+        TrackStats trackStats = new TrackStats(mStats);
 
         ArrayList<TrackResult> records;
 
@@ -56,15 +56,15 @@ public class TrackStatsTests {
 
     @Test
     public void testAddResultCausesSaving() {
-        TrackStats trackStats = new TrackStats(mStatsIO);
+        TrackStats trackStats = new TrackStats(mStats);
         int row = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", 12));
         assertThat(row, is(0));
-        verify(mStatsIO).save();
+        verify(mStats).save();
     }
 
     @Test
     public void testAddResults() {
-        TrackStats trackStats = new TrackStats(mStatsIO);
+        TrackStats trackStats = new TrackStats(mStats);
 
         checkAddResult(trackStats, 12, 0); // 12
         checkAddResult(trackStats, 14, 1); // 12, 14
@@ -73,13 +73,13 @@ public class TrackStatsTests {
     }
 
     private void checkAddResult(TrackStats trackStats, float value, int expectedRank) {
-        clearInvocations(mStatsIO);
+        clearInvocations(mStats);
         int rank = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", value));
         assertThat(rank, is(expectedRank));
         if (rank >= 0) {
-            verify(mStatsIO).save();
+            verify(mStats).save();
         } else {
-            verifyZeroInteractions(mStatsIO);
+            verifyZeroInteractions(mStats);
         }
     }
 }

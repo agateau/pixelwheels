@@ -88,7 +88,6 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     }
 
     Set<Reward> getNewlyUnlockedRewards() {
-        getGame().getRewardManager().applyRules();
         Set<Reward> unlockedRewards = new HashSet<Reward>(getGame().getRewardManager().getUnlockedRewards());
         unlockedRewards.removeAll(mAlreadyUnlockedRewards);
         if (!unlockedRewards.isEmpty()) {

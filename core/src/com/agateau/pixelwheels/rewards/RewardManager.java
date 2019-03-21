@@ -41,6 +41,7 @@ public class RewardManager {
     private final Array<Championship> mChampionships;
     private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
     private final Set<Reward> mUnlockedRewards = new HashSet<Reward>();
+    private boolean mNeedApplyRules = true;
 
     public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {
         @Override
@@ -51,6 +52,12 @@ public class RewardManager {
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
+        mGameStats.setListener(new GameStats.Listener() {
+            @Override
+            public void onChanged() {
+                mNeedApplyRules = true;
+            }
+        });
         mChampionships = championships;
     }
 
@@ -73,12 +80,16 @@ public class RewardManager {
     }
 
     public Set<Reward> getUnlockedRewards() {
+        if (mNeedApplyRules) {
+            applyRules();
+            mNeedApplyRules = false;
+        }
         return mUnlockedRewards;
     }
 
     private boolean isRewardUnlocked(Reward.Category category, String id) {
         Reward reward = Reward.get(category, id);
-        return mUnlockedRewards.contains(reward);
+        return getUnlockedRewards().contains(reward);
     }
 
     public void addRule(Reward.Category category, String id, RewardRule rule) {
@@ -86,7 +97,7 @@ public class RewardManager {
         mRules.put(reward, rule);
     }
 
-    public void applyRules() {
+    private void applyRules() {
         for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
             Reward reward = rule.getKey();
             if (mUnlockedRewards.contains(reward)) {

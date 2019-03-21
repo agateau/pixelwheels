@@ -33,14 +33,14 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnit4.class)
-public class JsonGameStatsIOTests {
+public class JsonGameStatsImplIOTests {
     @Rule
     public TemporaryFolder mTemporaryFolder = new TemporaryFolder();
 
     @Test
     public void testNoRecords() {
-        JsonGameStatsIO io = new JsonGameStatsIO(new FileHandle("/doesnotexist"));
-        GameStats stats = new GameStats(io);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(new FileHandle("/doesnotexist"));
+        GameStatsImpl stats = new GameStatsImpl(io);
         assertTrue(stats.mTrackStats.isEmpty());
     }
 
@@ -49,8 +49,8 @@ public class JsonGameStatsIOTests {
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
         assertTrue(!testFile.exists());
 
-        JsonGameStatsIO io = new JsonGameStatsIO(testFile);
-        GameStats gameStats = new GameStats(io);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
+        GameStats gameStats = new GameStatsImpl(io);
         gameStats.addTrack("t");
         TrackStats stats = gameStats.getTrackStats("t");
         addResult(stats, 12);
@@ -62,15 +62,15 @@ public class JsonGameStatsIOTests {
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         assertTrue(testFile.exists());
 
-        GameStats gameStats2 = new GameStats(io);
+        GameStatsImpl gameStats2 = new GameStatsImpl(io);
         assertTrue(gameStats2.mTrackStats.containsKey("t"));
         assertThat(gameStats2.mTrackStats.size(), is(1));
         TrackStats stats2 = gameStats2.getTrackStats("t");
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
-        assertThat(gameStats2.mBestChampionshipRank.get("c1"), is(1));
-        assertThat(gameStats2.mBestChampionshipRank.get("c2"), is(2));
+        assertThat(gameStats2.getBestChampionshipRank("c1"), is(1));
+        assertThat(gameStats2.getBestChampionshipRank("c2"), is(2));
         assertThat(gameStats2.getEventCount(GameStats.Event.MISSILE_HIT), is(2));
     }
 

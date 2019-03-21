@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
 
@@ -32,24 +33,20 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
 public class RewardManagerTests {
     @Mock
-    private GameStats.IO mStatsIO;
+    private GameStatsImpl.IO mStatsIO;
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testIsChampionshipUnlocked() {
-        GameStats gameStats = new GameStats(mStatsIO);
+        GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
         final String championShipId1 = championships.get(0).getId();
@@ -61,14 +58,14 @@ public class RewardManagerTests {
                 return false;
             }
         });
-        manager.applyRules();
+        //manager.applyRules();
         assertThat(manager.isChampionshipUnlocked(championships.get(0)), is(true));
         assertThat(manager.isChampionshipUnlocked(championships.get(1)), is(false));
     }
 
     @Test
     public void testIsTrackUnlocked() {
-        GameStats gameStats = new GameStats(mStatsIO);
+        GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
         final String championShipId1 = championships.get(0).getId();
@@ -80,7 +77,7 @@ public class RewardManagerTests {
                 return false;
             }
         });
-        manager.applyRules();
+        //manager.applyRules();
         assertThat(manager.isTrackUnlocked(championships.get(0).getTracks().get(0)), is(true));
         assertThat(manager.isTrackUnlocked(championships.get(1).getTracks().get(0)), is(false));
     }
@@ -88,7 +85,7 @@ public class RewardManagerTests {
     @Test
     public void testGetUnlockedRewards() {
         // GIVEN a RewardManager with 2 championships, ch2 is locked
-        GameStats gameStats = new GameStats(mStatsIO);
+        GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
         final String championShipId1 = championships.get(0).getId();
@@ -100,7 +97,6 @@ public class RewardManagerTests {
                 return gameStats.getBestChampionshipRank(championShipId2) <= 2;
             }
         });
-        manager.applyRules();
 
         // THEN unlocked rewards contains only ch1
         Reward ch1Reward = Reward.get(Reward.Category.CHAMPIONSHIP, championShipId1);
@@ -111,7 +107,6 @@ public class RewardManagerTests {
         gameStats.onChampionshipFinished(championShipId2, 2);
 
         // THEN unlocked rewards contains ch1 and ch2
-        manager.applyRules();
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward, ch2Reward)));
     }
 

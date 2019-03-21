@@ -18,72 +18,28 @@
  */
 package com.agateau.pixelwheels.stats;
 
-import com.agateau.utils.CollectionUtils;
-
-import java.util.HashMap;
-
-public class GameStats {
-    private final transient IO mIO;
-    final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
-    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
-    final HashMap<String, Integer> mEvents = new HashMap<String, Integer>();
-
+public interface GameStats {
     public enum Event {
         MISSILE_HIT
     }
 
-    public interface IO {
-        void setGameStats(GameStats gameStats);
-        void load();
-        void save();
+    public interface Listener {
+        void onChanged();
     }
 
-    public GameStats(IO io) {
-        mIO = io;
-        mIO.setGameStats(this);
-        mIO.load();
-    }
+    void setListener(Listener listener);
 
-    public TrackStats getTrackStats(String trackId) {
-        TrackStats stats = mTrackStats.get(trackId);
-        if (stats == null) {
-            stats = addTrack(trackId);
-        }
-        return stats;
-    }
+    TrackStats addTrack(String trackId);
 
-    TrackStats addTrack(String trackId) {
-        TrackStats stats = new TrackStats(mIO);
-        mTrackStats.put(trackId, stats);
-        return stats;
-    }
+    TrackStats getTrackStats(String trackId);
 
-    public int getBestChampionshipRank(String id) {
-        //noinspection ConstantConditions
-        return CollectionUtils.getOrDefault(mBestChampionshipRank, id, Integer.MAX_VALUE);
-    }
+    int getBestChampionshipRank(String id);
 
-    public void onChampionshipFinished(String id, int rank) {
-        Integer currentBest = mBestChampionshipRank.get(id);
-        if (currentBest == null || currentBest > rank) {
-            mBestChampionshipRank.put(id, rank);
-            mIO.save();
-        }
-    }
+    void onChampionshipFinished(String id, int rank);
 
-    public void recordEvent(Event event) {
-        String id = event.toString();
-        Integer count = mEvents.get(id);
-        if (count == null) {
-            count = 0;
-        }
-        ++count;
-        mEvents.put(id, count);
-        mIO.save();
-    }
+    void recordEvent(Event event);
 
-    public int getEventCount(Event event) {
-        //noinspection ConstantConditions
-        return CollectionUtils.getOrDefault(mEvents, event.toString(), 0);
-    }
+    int getEventCount(Event event);
+
+    void save();
 }

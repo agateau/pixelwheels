@@ -30,7 +30,8 @@ import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
-import com.agateau.pixelwheels.stats.JsonGameStatsIO;
+import com.agateau.pixelwheels.stats.GameStatsImpl;
+import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -114,8 +115,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        JsonGameStatsIO io = new JsonGameStatsIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStats(io);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
+        mGameStats = new GameStatsImpl(io);
     }
 
     private void setupRewardManager() {
@@ -123,8 +124,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
         RewardManagerSetup.createRules(mRewardManager, mAssets.vehicleDefs);
-        // Apply rules to ensure we know which rewards have already been unlocked
-        mRewardManager.applyRules();
     }
 
     public void showMainMenu() {
@@ -202,7 +201,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
         mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
-        mRewardManager.applyRules();
     }
 
     @Override

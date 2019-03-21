@@ -30,17 +30,17 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class JsonGameStatsIO implements GameStats.IO {
+public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
-    private GameStats mGameStats;
+    private GameStatsImpl mGameStats;
     private Gson mGson = new GsonBuilder().setPrettyPrinting().create();
 
-    public JsonGameStatsIO(FileHandle handle) {
+    public JsonGameStatsImplIO(FileHandle handle) {
         mHandle = handle;
     }
 
     @Override
-    public void setGameStats(GameStats gameStats) {
+    public void setGameStats(GameStatsImpl gameStats) {
         mGameStats = gameStats;
     }
 
