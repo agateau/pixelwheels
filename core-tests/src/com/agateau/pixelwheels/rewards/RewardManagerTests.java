@@ -88,23 +88,23 @@ public class RewardManagerTests {
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
-        final String championShipId1 = championships.get(0).getId();
-        final String championShipId2 = championships.get(1).getId();
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
+        final Championship ch1 = championships.get(0);
+        final Championship ch2 = championships.get(1);
+        manager.addRule(Reward.Category.CHAMPIONSHIP, ch1.getId(), RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.Category.CHAMPIONSHIP, ch2.getId(), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank(championShipId2) <= 2;
+                return gameStats.getBestChampionshipRank(ch1) <= 2;
             }
         });
 
         // THEN unlocked rewards contains only ch1
-        Reward ch1Reward = Reward.get(Reward.Category.CHAMPIONSHIP, championShipId1);
-        Reward ch2Reward = Reward.get(Reward.Category.CHAMPIONSHIP, championShipId2);
+        Reward ch1Reward = Reward.get(Reward.Category.CHAMPIONSHIP, ch1.getId());
+        Reward ch2Reward = Reward.get(Reward.Category.CHAMPIONSHIP, ch2.getId());
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward)));
 
         // WHEN I unlock ch2
-        gameStats.onChampionshipFinished(championShipId2, 2);
+        gameStats.onChampionshipFinished(ch1, 2);
 
         // THEN unlocked rewards contains ch1 and ch2
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward, ch2Reward)));

@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.rewards.RewardRule;
@@ -34,17 +35,21 @@ import java.util.Set;
 class RewardManagerSetup {
     private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS = CollectionUtils.newSet("red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
-    static void createRules(RewardManager rewardManager, Array<VehicleDef> vehicleDefs) {
+    static void createChampionshipRules(RewardManager rewardManager, Array<Championship> championships) {
+        rewardManager.addRule(Reward.Category.CHAMPIONSHIP, championships.first().getId(), RewardManager.ALWAYS_UNLOCKED);
 
-        // Championship rules
-        rewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
-        rewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank("snow") <= 2;
-            }
-        });
-        // Vehicle rules
+        for (int idx = 1; idx < championships.size; ++idx) {
+            final Championship previous = championships.get(idx - 1);
+            rewardManager.addRule(Reward.Category.CHAMPIONSHIP, championships.get(idx).getId(), new RewardRule() {
+                @Override
+                public boolean hasBeenEarned(GameStats gameStats) {
+                    return gameStats.getBestChampionshipRank(previous) <= 2;
+                }
+            });
+        }
+    }
+
+    static void createVehicleRules(RewardManager rewardManager, Array<VehicleDef> vehicleDefs) {
         for (VehicleDef vehicleDef : vehicleDefs) {
             if (ALWAYS_UNLOCKED_VEHICLE_IDS.contains(vehicleDef.id)) {
                 rewardManager.addRule(Reward.Category.VEHICLE, vehicleDef.id, RewardManager.ALWAYS_UNLOCKED);

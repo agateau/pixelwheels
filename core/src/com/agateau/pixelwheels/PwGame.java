@@ -123,7 +123,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mGameStats != null, "GameStats must be instantiated first");
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
-        RewardManagerSetup.createRules(mRewardManager, mAssets.vehicleDefs);
+        RewardManagerSetup.createChampionshipRules(mRewardManager, mAssets.championships);
+        RewardManagerSetup.createVehicleRules(mRewardManager, mAssets.vehicleDefs);
     }
 
     public void showMainMenu() {
@@ -200,7 +201,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
-        mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
+        mGameStats.onChampionshipFinished(gameInfo.getChampionship(), gameInfo.getBestRank());
     }
 
     @Override

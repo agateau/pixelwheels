@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.map.Championship;
 import com.badlogic.gdx.files.FileHandle;
 
 import org.junit.Rule;
@@ -46,6 +47,8 @@ public class JsonGameStatsImplIOTests {
 
     @Test
     public void testIO() {
+        Championship ch1 = new Championship("ch1", "champ1");
+        Championship ch2 = new Championship("ch2", "champ2");
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
         assertTrue(!testFile.exists());
 
@@ -56,8 +59,8 @@ public class JsonGameStatsImplIOTests {
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
-        gameStats.onChampionshipFinished("c1", 1);
-        gameStats.onChampionshipFinished("c2", 2);
+        gameStats.onChampionshipFinished(ch1, 1);
+        gameStats.onChampionshipFinished(ch2, 2);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         assertTrue(testFile.exists());
@@ -69,8 +72,8 @@ public class JsonGameStatsImplIOTests {
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
-        assertThat(gameStats2.getBestChampionshipRank("c1"), is(1));
-        assertThat(gameStats2.getBestChampionshipRank("c2"), is(2));
+        assertThat(gameStats2.getBestChampionshipRank(ch1), is(1));
+        assertThat(gameStats2.getBestChampionshipRank(ch2), is(2));
         assertThat(gameStats2.getEventCount(GameStats.Event.MISSILE_HIT), is(2));
     }
 

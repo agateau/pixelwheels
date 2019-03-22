@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.map.Championship;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,17 +55,17 @@ public class GameStatsImplTests {
 
     @Test
     public void testOnChampionshipFinished() {
-        final String championshipId1 = "c1";
-        final String championshipId2 = "c2";
+        Championship ch1 = new Championship("ch1", "champ1");
+        Championship ch2 = new Championship("ch2", "champ2");
         GameStats stats = new GameStatsImpl(mStatsIO);
-        stats.onChampionshipFinished(championshipId1, 4);
+        stats.onChampionshipFinished(ch1, 4);
         verify(mStatsIO).save();
 
-        stats.onChampionshipFinished(championshipId1, 3);
-        stats.onChampionshipFinished(championshipId2, 2);
-        stats.onChampionshipFinished(championshipId2, 4);
+        stats.onChampionshipFinished(ch1, 3);
+        stats.onChampionshipFinished(ch2, 2);
+        stats.onChampionshipFinished(ch2, 4);
 
-        assertThat(stats.getBestChampionshipRank(championshipId1), is(3));
-        assertThat(stats.getBestChampionshipRank(championshipId2), is(2));
+        assertThat(stats.getBestChampionshipRank(ch1), is(3));
+        assertThat(stats.getBestChampionshipRank(ch2), is(2));
     }
 }

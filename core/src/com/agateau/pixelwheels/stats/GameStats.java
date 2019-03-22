@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.map.Championship;
+
 public interface GameStats {
     public enum Event {
         MISSILE_HIT
@@ -33,9 +35,9 @@ public interface GameStats {
 
     TrackStats getTrackStats(String trackId);
 
-    int getBestChampionshipRank(String id);
+    int getBestChampionshipRank(Championship championship);
 
-    void onChampionshipFinished(String id, int rank);
+    void onChampionshipFinished(Championship championship, int rank);
 
     void recordEvent(Event event);
 
