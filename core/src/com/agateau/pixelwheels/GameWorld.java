@@ -334,7 +334,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void addPool(BonusPool pool, float[] counts) {
-        pool.setCounts(new float[]{2, 1, 0});
+        pool.setCounts(counts);
         mBonusPools.add(pool);
     }
 
