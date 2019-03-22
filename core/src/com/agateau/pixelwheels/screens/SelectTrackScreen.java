@@ -157,7 +157,7 @@ public class SelectTrackScreen extends PwStageScreen {
     private void updateTrackRecords(Track track) {
         mTrackNameLabel.setText(track.getMapName());
         mTrackNameLabel.pack();
-        TrackStats stats = mGame.getGameStats().getTrackStats(track.getId());
+        TrackStats stats = mGame.getGameStats().getTrackStats(track);
         updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
         updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
         root.layout();

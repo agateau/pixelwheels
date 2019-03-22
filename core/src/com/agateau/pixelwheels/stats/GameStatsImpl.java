@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.stats;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 import com.agateau.utils.CollectionUtils;
 
 import java.util.HashMap;
@@ -48,18 +49,12 @@ public class GameStatsImpl implements GameStats {
     }
 
     @Override
-    public TrackStats getTrackStats(String trackId) {
-        TrackStats stats = mTrackStats.get(trackId);
+    public TrackStats getTrackStats(Track track) {
+        TrackStats stats = mTrackStats.get(track.getId());
         if (stats == null) {
-            stats = addTrack(trackId);
+            stats = new TrackStats(this);
+            mTrackStats.put(track.getId(), stats);
         }
-        return stats;
-    }
-
-    @Override
-    public TrackStats addTrack(String trackId) {
-        TrackStats stats = new TrackStats(this);
-        mTrackStats.put(trackId, stats);
         return stats;
     }
 

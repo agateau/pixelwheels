@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.stats;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,12 +45,12 @@ public class GameStatsImplTests {
 
     @Test
     public void testInit() {
-        final String trackId = "t";
+        final Track track = new Track("t", "Track");
         GameStats stats = new GameStatsImpl(mStatsIO);
-        TrackStats trackStats = stats.getTrackStats(trackId);
+        TrackStats trackStats = stats.getTrackStats(track);
         assertThat(trackStats, is(not(nullValue())));
 
-        TrackStats trackStats2 = stats.getTrackStats(trackId);
+        TrackStats trackStats2 = stats.getTrackStats(track);
         assertThat(trackStats, is(trackStats2));
     }
 

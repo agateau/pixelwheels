@@ -252,7 +252,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void onFinished() {
-        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack.getId());
+        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack);
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             racer.markRaceFinished();

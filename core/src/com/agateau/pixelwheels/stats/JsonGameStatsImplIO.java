@@ -57,8 +57,9 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
         JsonObject trackStatsObject = root.getAsJsonObject("trackStats");
         for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
             String trackId = kv.getKey();
-            mGameStats.addTrack(trackId);
-            loadTrackStats(mGameStats.getTrackStats(trackId), kv.getValue().getAsJsonObject());
+            TrackStats trackStats = new TrackStats(mGameStats);
+            mGameStats.mTrackStats.put(trackId, trackStats);
+            loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
         }
         loadStringIntMap(mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
         loadStringIntMap(mGameStats.mEvents, root.getAsJsonObject("events"));

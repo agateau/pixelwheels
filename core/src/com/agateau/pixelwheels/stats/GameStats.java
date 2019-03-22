@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.stats;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 
 public interface GameStats {
     public enum Event {
@@ -31,9 +32,7 @@ public interface GameStats {
 
     void setListener(Listener listener);
 
-    TrackStats addTrack(String trackId);
-
-    TrackStats getTrackStats(String trackId);
+    TrackStats getTrackStats(Track track);
 
     int getBestChampionshipRank(Championship championship);
 

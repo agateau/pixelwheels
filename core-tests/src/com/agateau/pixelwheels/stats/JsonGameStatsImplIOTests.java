@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.stats;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.files.FileHandle;
 
 import org.junit.Rule;
@@ -47,6 +48,7 @@ public class JsonGameStatsImplIOTests {
 
     @Test
     public void testIO() {
+        Track track = new Track("t", "track");
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
@@ -54,8 +56,7 @@ public class JsonGameStatsImplIOTests {
 
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
         GameStats gameStats = new GameStatsImpl(io);
-        gameStats.addTrack("t");
-        TrackStats stats = gameStats.getTrackStats("t");
+        TrackStats stats = gameStats.getTrackStats(track);
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
@@ -68,7 +69,7 @@ public class JsonGameStatsImplIOTests {
         GameStatsImpl gameStats2 = new GameStatsImpl(io);
         assertTrue(gameStats2.mTrackStats.containsKey("t"));
         assertThat(gameStats2.mTrackStats.size(), is(1));
-        TrackStats stats2 = gameStats2.getTrackStats("t");
+        TrackStats stats2 = gameStats2.getTrackStats(track);
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
