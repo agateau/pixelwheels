@@ -31,46 +31,33 @@ import java.util.HashMap;
  * This ensures there is only one instance of each reward.
  */
 public class Reward {
-    private final static HashMap<Category, HashMap<String, Reward>> sInstances = new HashMap<Category, HashMap<String, Reward>>();
+    private final static HashMap<Object, Reward> sInstances = new HashMap<Object, Reward>();
 
-    public enum Category {
-        VEHICLE,
-        CHAMPIONSHIP
-    }
+    public final Object prize;
 
-    public final Category category;
-    public final String id;
-
-    private Reward(Category category, String id) {
-        this.category = category;
-        this.id = id;
+    private Reward(Object prize) {
+        this.prize = prize;
     }
 
     public String toString() {
-        return category.toString() + "." + id;
+        return "reward(" + prize.toString() + ")";
     }
 
-    public static Reward get(Category category, String id) {
-        HashMap<String, Reward> map = sInstances.get(category);
-        if (map == null) {
-            map = new HashMap<String, Reward>();
-            sInstances.put(category, map);
-        }
-        Reward reward = map.get(id);
+    private static Reward internalGet(Object object) {
+        Assert.check(object != null, "Can't find or create a reward for a null object");
+        Reward reward = sInstances.get(object);
         if (reward == null) {
-            reward = new Reward(category, id);
-            map.put(id, reward);
+            reward = new Reward(object);
+            sInstances.put(object, reward);
         }
         return reward;
     }
 
     public static Reward get(Championship championship) {
-        Assert.check(championship != null, "Can't find a reward for a null championship");
-        return get(Category.CHAMPIONSHIP, championship.getId());
+        return internalGet(championship);
     }
 
     public static Reward get(VehicleDef vehicleDef) {
-        Assert.check(vehicleDef != null, "Can't find a reward for a null vehicle");
-        return get(Category.VEHICLE, vehicleDef.id);
+        return internalGet(vehicleDef);
     }
 }

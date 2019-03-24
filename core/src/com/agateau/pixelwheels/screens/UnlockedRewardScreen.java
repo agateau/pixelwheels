@@ -63,27 +63,22 @@ public class UnlockedRewardScreen extends NavStageScreen {
         setupNextButton((Button)builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
-        switch (mReward.category) {
-            case VEHICLE:
-                setupVehicleReward(builder, mReward.id);
-                break;
-            case CHAMPIONSHIP:
-                setupChampionshipReward(builder, mReward.id);
-                break;
+        if (mReward.prize instanceof VehicleDef) {
+            setupVehicleReward(builder, (VehicleDef)(mReward.prize));
+        } else if (mReward.prize instanceof Championship) {
+            setupChampionshipReward(builder, (Championship)(mReward.prize));
+        } else {
+            throw new RuntimeException("Don't know how to show reward for " + mReward.prize);
         }
     }
 
-    private void setupVehicleReward(UiBuilder builder, String id) {
-        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(id);
-
+    private void setupVehicleReward(UiBuilder builder, VehicleDef vehicleDef) {
         setupRewardDetails(builder, "New vehicle unlocked!",
                 mGame.getAssets().getVehicleRegion(vehicleDef),
                 vehicleDef.name);
     }
 
-    private void setupChampionshipReward(UiBuilder builder, String id) {
-        Championship championship = mGame.getAssets().findChampionshipById(id);
-
+    private void setupChampionshipReward(UiBuilder builder, Championship championship) {
         setupRewardDetails(builder, "New championship unlocked!",
                 mGame.getAssets().getChampionshipRegion(championship),
                 championship.getName());
