@@ -9,9 +9,9 @@ VEHICLES_SUBDIR := sprites/vehicles
 # Path to aseprite or libresprite
 ASEPRITE ?= aseprite
 
-all: hud anims stills vehicles tiles helicopter ui
+all: hud anims stills vehicles tiles helicopter ui map-icons
 
-clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui
+clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui clean-map-icons
 
 #- Hud ------------------------------------------------------------------------
 # Just enough to trigger the target
@@ -105,3 +105,16 @@ $(OUT_DIR)/ui/%.png: ui/%.ase
 
 clean-ui:
 	rm -f $(OUT_UI_IMAGES)
+
+#- Map icons ------------------------------------------------------------------
+MAP_ICONS := $(wildcard ui/map-icons/*.ase)
+OUT_MAP_ICONS := $(MAP_ICONS:%.ase=$(OUT_DIR)/%.png)
+
+map-icons: $(OUT_MAP_ICONS)
+
+$(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
+	mkdir -p $(OUT_DIR)/ui/map-icons
+	$(ASEPRITE) --batch $< --save-as $@
+
+clean-map-icons:
+	rm -f $(OUT_MAP_ICONS_IMAGES)

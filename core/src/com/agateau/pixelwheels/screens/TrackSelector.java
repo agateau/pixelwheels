@@ -36,7 +36,7 @@ public class TrackSelector extends GridMenuItem<Track> {
     private class Renderer extends TextureRegionItemRendererAdapter<Track> {
         @Override
         protected TextureRegion getItemRegion(Track track) {
-            return mAssets.ui.atlas.findRegion("map-screenshots/" + track.getId());
+            return mAssets.ui.atlas.findRegion("map-icons/" + track.getId());
         }
 
         @Override
