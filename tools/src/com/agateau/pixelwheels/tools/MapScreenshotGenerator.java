@@ -100,7 +100,7 @@ public class MapScreenshotGenerator {
         int srcW = src.getWidth();
         int srcH = src.getHeight();
 
-        float ratio = (float)SHOT_SIZE / Math.min(srcW, srcH);
+        float ratio = (float)SHOT_SIZE / Math.max(srcW, srcH);
         int dstW = (int) (srcW * ratio);
         int dstH = (int) (srcH * ratio);
 
