@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -95,7 +95,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void createVehicleSelector(Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
-        mVehicleSelector.init(assets);
+        mVehicleSelector.init(assets, mGame.getRewardManager());
         String id = mGame.getConfig().vehicles[0];
         mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);
@@ -126,8 +126,11 @@ public class SelectVehicleScreen extends PwStageScreen {
     }
 
     private void next() {
-        String vehicleId = mVehicleSelector.getSelectedId();
-        GameInfo.Player player = new GameInfo.Player(0, vehicleId);
+        VehicleDef vehicleDef = mVehicleSelector.getSelected();
+        if (vehicleDef == null) {
+            return;
+        }
+        GameInfo.Player player = new GameInfo.Player(0, vehicleDef.id);
         mListener.onPlayerSelected(player);
     }
 }

@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -18,6 +18,10 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.utils.Assert;
+
 import java.util.HashMap;
 
 /**
@@ -27,36 +31,33 @@ import java.util.HashMap;
  * This ensures there is only one instance of each reward.
  */
 public class Reward {
-    private final static HashMap<Category, HashMap<String, Reward>> sInstances = new HashMap<Category, HashMap<String, Reward>>();
+    private final static HashMap<Object, Reward> sInstances = new HashMap<Object, Reward>();
 
-    public enum Category {
-        VEHICLE,
-        CHAMPIONSHIP
-    }
+    public final Object prize;
 
-    public final Category category;
-    public final String id;
-
-    private Reward(Category category, String id) {
-        this.category = category;
-        this.id = id;
+    private Reward(Object prize) {
+        this.prize = prize;
     }
 
     public String toString() {
-        return category.toString() + "." + id;
+        return "reward(" + prize.toString() + ")";
     }
 
-    public static Reward get(Category category, String id) {
-        HashMap<String, Reward> map = sInstances.get(category);
-        if (map == null) {
-            map = new HashMap<String, Reward>();
-            sInstances.put(category, map);
-        }
-        Reward reward = map.get(id);
+    private static Reward internalGet(Object object) {
+        Assert.check(object != null, "Can't find or create a reward for a null object");
+        Reward reward = sInstances.get(object);
         if (reward == null) {
-            reward = new Reward(category, id);
-            map.put(id, reward);
+            reward = new Reward(object);
+            sInstances.put(object, reward);
         }
         return reward;
+    }
+
+    public static Reward get(Championship championship) {
+        return internalGet(championship);
+    }
+
+    public static Reward get(VehicleDef vehicleDef) {
+        return internalGet(vehicleDef);
     }
 }

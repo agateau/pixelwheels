@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -30,17 +30,17 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class JsonGameStatsIO implements GameStats.IO {
+public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
-    private GameStats mGameStats;
+    private GameStatsImpl mGameStats;
     private Gson mGson = new GsonBuilder().setPrettyPrinting().create();
 
-    public JsonGameStatsIO(FileHandle handle) {
+    public JsonGameStatsImplIO(FileHandle handle) {
         mHandle = handle;
     }
 
     @Override
-    public void setGameStats(GameStats gameStats) {
+    public void setGameStats(GameStatsImpl gameStats) {
         mGameStats = gameStats;
     }
 
@@ -57,10 +57,12 @@ public class JsonGameStatsIO implements GameStats.IO {
         JsonObject trackStatsObject = root.getAsJsonObject("trackStats");
         for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
             String trackId = kv.getKey();
-            mGameStats.addTrack(trackId);
-            loadTrackStats(mGameStats.getTrackStats(trackId), kv.getValue().getAsJsonObject());
+            TrackStats trackStats = new TrackStats(mGameStats);
+            mGameStats.mTrackStats.put(trackId, trackStats);
+            loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
         }
-        loadBestChampionshipRank(root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(mGameStats.mEvents, root.getAsJsonObject("events"));
     }
 
     private void loadTrackStats(TrackStats trackStats, JsonObject object) {
@@ -68,15 +70,15 @@ public class JsonGameStatsIO implements GameStats.IO {
         loadResults(trackStats.mTotalRecords, object.getAsJsonArray("total"));
     }
 
-    private void loadBestChampionshipRank(JsonObject object) {
-        mGameStats.mBestChampionshipRank.clear();
+    private static void loadStringIntMap(Map<String, Integer> map, JsonObject object) {
+        map.clear();
         if (object == null) {
             return;
         }
         for (Map.Entry<String, JsonElement> kv : object.entrySet()) {
             String id = kv.getKey();
-            int rank = kv.getValue().getAsInt();
-            mGameStats.mBestChampionshipRank.put(id, rank);
+            int value = kv.getValue().getAsInt();
+            map.put(id, value);
         }
     }
 
@@ -99,6 +101,7 @@ public class JsonGameStatsIO implements GameStats.IO {
         }
 
         root.add("bestChampionshipRank", mGson.toJsonTree(mGameStats.mBestChampionshipRank));
+        root.add("events", mGson.toJsonTree(mGameStats.mEvents));
         String json = mGson.toJson(root);
         mHandle.writeString(json, false /* append */);
     }

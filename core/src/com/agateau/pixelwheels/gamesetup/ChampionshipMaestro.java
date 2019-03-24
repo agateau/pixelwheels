@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -32,7 +32,6 @@ import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -40,12 +39,10 @@ import java.util.Set;
  */
 public class ChampionshipMaestro extends Maestro {
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
-    private final Set<Reward> mAlreadyUnlockedRewards;
     private ChampionshipGameInfo mGameInfo;
 
     public ChampionshipMaestro(PwGame game, PlayerCount playerCount) {
         super(game, playerCount);
-        mAlreadyUnlockedRewards = new HashSet<Reward>(game.getRewardManager().getUnlockedRewards());
         mGameInfoBuilder = new ChampionshipGameInfo.Builder(getGame().getAssets().vehicleDefs, getGame().getConfig());
     }
 
@@ -144,7 +141,14 @@ public class ChampionshipMaestro extends Maestro {
                     getGame().replaceScreen(createChampionshipFinishedScreen());
                 } else {
                     mGameInfo.selectNextTrack();
-                    getGame().replaceScreen(createRaceScreen());
+                    final Set<Reward> rewards = getNewlyUnlockedRewards();
+                    updateAlreadyUnlockedRewards();
+                    showUnlockedRewardScreen(rewards, new Runnable() {
+                        @Override
+                        public void run() {
+                            getGame().replaceScreen(createRaceScreen());
+                        }
+                    });
                 }
             }
         };
@@ -153,24 +157,18 @@ public class ChampionshipMaestro extends Maestro {
 
     private Screen createChampionshipFinishedScreen() {
         final Set<Reward> rewards = getNewlyUnlockedRewards();
+        updateAlreadyUnlockedRewards();
         final NavStageScreen.NextListener navListener = new NavStageScreen.NextListener() {
             @Override
             public void onNextPressed() {
-                if (rewards.isEmpty()) {
-                    getGame().showMainMenu();
-                } else {
-                    Reward reward = rewards.iterator().next();
-                    rewards.remove(reward);
-                    getGame().replaceScreen(new UnlockedRewardScreen(getGame(), reward, this));
-                }
+                showUnlockedRewardScreen(rewards, new Runnable() {
+                    @Override
+                    public void run() {
+                        getGame().showMainMenu();
+                    }
+                });
             }
         };
         return new ChampionshipFinishedScreen(getGame(), mGameInfo, navListener);
-    }
-
-    private Set<Reward> getNewlyUnlockedRewards() {
-        Set<Reward> unlockedRewards = new HashSet<Reward>(getGame().getRewardManager().getUnlockedRewards());
-        unlockedRewards.removeAll(mAlreadyUnlockedRewards);
-        return unlockedRewards;
     }
 }

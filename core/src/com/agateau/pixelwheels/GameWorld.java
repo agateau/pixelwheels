@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.racer.AIPilot;
@@ -171,6 +172,10 @@ public class GameWorld implements ContactListener, Disposable {
         return (getRacerRank(racer) - 1) / (float)(mRacers.size - 1);
     }
 
+    public GameStats getGameStats() {
+        return mGame.getGameStats();
+    }
+
     /**
      * Sort racers, listing racers which have driven the longest first,
      * so it returns 1 if racer1 has driven less than racer2
@@ -247,7 +252,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void onFinished() {
-        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack.getId());
+        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack);
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             racer.markRaceFinished();
@@ -329,7 +334,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void addPool(BonusPool pool, float[] counts) {
-        pool.setCounts(new float[]{2, 1, 0});
+        pool.setCounts(counts);
         mBonusPools.add(pool);
     }
 

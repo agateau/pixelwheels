@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
@@ -30,11 +31,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private Assets mAssets;
+    private RewardManager mRewardManager;
 
     private class Renderer extends TextureRegionItemRendererAdapter<VehicleDef> {
         @Override
         protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
             return mAssets.getVehicleRegion(vehicleDef);
+        }
+
+        @Override
+        public boolean isItemEnabled(VehicleDef vehicleDef) {
+            return mRewardManager.isVehicleUnlocked(vehicleDef);
         }
     }
 
@@ -42,16 +49,13 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         super(menu);
     }
 
-    public void init(Assets assets) {
+    public void init(Assets assets, RewardManager rewardManager) {
         mAssets = assets;
+        mRewardManager = rewardManager;
         setItemSize(80, 80);
         Renderer renderer = new Renderer();
         renderer.setAngle(90);
         setItemRenderer(renderer);
         setItems(mAssets.vehicleDefs);
-    }
-
-    public String getSelectedId() {
-        return getSelected().id;
     }
 }

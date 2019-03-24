@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class TrackStats {
     private static final int RECORD_COUNT = 3;
 
-    private final GameStats.IO mIO;
+    private final GameStats mGameStats;
     final ArrayList<TrackResult> mLapRecords;
     final ArrayList<TrackResult> mTotalRecords;
 
@@ -32,8 +32,8 @@ public class TrackStats {
         TOTAL
     }
 
-    TrackStats(GameStats.IO io) {
-        mIO = io;
+    TrackStats(GameStats gameStats) {
+        mGameStats = gameStats;
         mLapRecords = new ArrayList<TrackResult>();
         mTotalRecords = new ArrayList<TrackResult>();
     }
@@ -45,7 +45,7 @@ public class TrackStats {
     public int addResult(ResultType resultType, TrackResult result) {
         int rank = addResult(get(resultType), result);
         if (rank != -1) {
-            mIO.save();
+            mGameStats.save();
         }
         return rank;
     }

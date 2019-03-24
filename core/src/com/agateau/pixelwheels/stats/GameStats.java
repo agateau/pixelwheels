@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -18,52 +18,29 @@
  */
 package com.agateau.pixelwheels.stats;
 
-import java.util.HashMap;
+import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
 
-public class GameStats {
-    private final transient IO mIO;
-    final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
-    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
-
-    public interface IO {
-        void setGameStats(GameStats gameStats);
-        void load();
-        void save();
+public interface GameStats {
+    public enum Event {
+        MISSILE_HIT
     }
 
-    public GameStats(IO io) {
-        mIO = io;
-        mIO.setGameStats(this);
-        mIO.load();
+    public interface Listener {
+        void onChanged();
     }
 
-    public TrackStats getTrackStats(String trackId) {
-        TrackStats stats = mTrackStats.get(trackId);
-        if (stats == null) {
-            stats = addTrack(trackId);
-        }
-        return stats;
-    }
+    void setListener(Listener listener);
 
-    TrackStats addTrack(String trackId) {
-        TrackStats stats = new TrackStats(mIO);
-        mTrackStats.put(trackId, stats);
-        return stats;
-    }
+    TrackStats getTrackStats(Track track);
 
-    public int getBestChampionshipRank(String id) {
-        Integer rank = mBestChampionshipRank.get(id);
-        if (rank == null) {
-            return Integer.MAX_VALUE;
-        }
-        return rank;
-    }
+    int getBestChampionshipRank(Championship championship);
 
-    public void onChampionshipFinished(String id, int rank) {
-        Integer currentBest = mBestChampionshipRank.get(id);
-        if (currentBest == null || currentBest > rank) {
-            mBestChampionshipRank.put(id, rank);
-            mIO.save();
-        }
-    }
+    void onChampionshipFinished(Championship championship, int rank);
+
+    void recordEvent(Event event);
+
+    int getEventCount(Event event);
+
+    void save();
 }

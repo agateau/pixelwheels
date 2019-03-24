@@ -1,9 +1,27 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" spacing="20">
-        <Image topCenter="root.topCenter 0 -2" name="title"/>
+        <Image topCenter="root.topCenter 0 -2" name="title">
+            <Action duration="0.5">
+                alpha 0
+                moveBy 400 -0
+                parallel
+                    alpha 1 1
+                    moveBy -400 0 1 pow2In
+                end
+            </Action>
+        </Image>
 
-        <Menu id="menu" width="350" center="root.center 0 -3"/>
+        <Menu id="menu" width="350" center="root.center 0 -3">
+            <Action duration="0.5">
+                alpha 0
+                moveBy -400 0
+                parallel
+                    alpha 1 1
+                    moveBy 400 0 1 pow2In
+                end
+            </Action>
+        </Menu>
 
         <Image bottomRight="root.bottomRight -1 0" name="wip"/>
     </AnchorGroup>

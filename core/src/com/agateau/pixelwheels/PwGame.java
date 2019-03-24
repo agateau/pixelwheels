@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -24,15 +24,14 @@ import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
-import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
-import com.agateau.pixelwheels.rewards.RewardRule;
-import com.agateau.pixelwheels.stats.JsonGameStatsIO;
-import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
+import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.stats.GameStatsImpl;
+import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -116,25 +115,16 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        JsonGameStatsIO io = new JsonGameStatsIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStats(io);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
+        mGameStats = new GameStatsImpl(io);
     }
 
     private void setupRewardManager() {
         Assert.check(mGameStats != null, "GameStats must be instantiated first");
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
-
-        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "snow", RewardManager.ALWAYS_UNLOCKED);
-        mRewardManager.addRule(Reward.Category.CHAMPIONSHIP, "city", new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank("snow") <= 2;
-            }
-        });
-
-        // Apply rules to ensure we know which rewards have already been unlocked
-        mRewardManager.applyRules();
+        RewardManagerSetup.createChampionshipRules(mRewardManager, mAssets.championships);
+        RewardManagerSetup.createVehicleRules(mRewardManager, mAssets);
     }
 
     public void showMainMenu() {
@@ -211,8 +201,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
-        mGameStats.onChampionshipFinished(gameInfo.getChampionship().getId(), gameInfo.getBestRank());
-        mRewardManager.applyRules();
+        mGameStats.onChampionshipFinished(gameInfo.getChampionship(), gameInfo.getBestRank());
     }
 
     @Override

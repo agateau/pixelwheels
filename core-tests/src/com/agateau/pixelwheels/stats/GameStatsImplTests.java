@@ -18,6 +18,9 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Track;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,37 +33,40 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 @RunWith(JUnit4.class)
-public class GameStatsTests {
+public class GameStatsImplTests {
     @Mock
-    private GameStats.IO mStatsIO;
+    private GameStatsImpl.IO mStatsIO;
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testInit() {
-        final String trackId = "t";
-        GameStats stats = new GameStats(mStatsIO);
-        TrackStats trackStats = stats.getTrackStats(trackId);
+        final Track track = new Track("t", "Track");
+        GameStats stats = new GameStatsImpl(mStatsIO);
+        TrackStats trackStats = stats.getTrackStats(track);
         assertThat(trackStats, is(not(nullValue())));
 
-        TrackStats trackStats2 = stats.getTrackStats(trackId);
+        TrackStats trackStats2 = stats.getTrackStats(track);
         assertThat(trackStats, is(trackStats2));
     }
 
     @Test
     public void testOnChampionshipFinished() {
-        final String championshipId1 = "c1";
-        final String championshipId2 = "c2";
-        GameStats stats = new GameStats(mStatsIO);
-        stats.onChampionshipFinished(championshipId1, 4);
-        stats.onChampionshipFinished(championshipId1, 3);
-        stats.onChampionshipFinished(championshipId2, 2);
-        stats.onChampionshipFinished(championshipId2, 4);
+        Championship ch1 = new Championship("ch1", "champ1");
+        Championship ch2 = new Championship("ch2", "champ2");
+        GameStats stats = new GameStatsImpl(mStatsIO);
+        stats.onChampionshipFinished(ch1, 4);
+        verify(mStatsIO).save();
 
-        assertThat(stats.mBestChampionshipRank.get(championshipId1), is(3));
-        assertThat(stats.mBestChampionshipRank.get(championshipId2), is(2));
+        stats.onChampionshipFinished(ch1, 3);
+        stats.onChampionshipFinished(ch2, 2);
+        stats.onChampionshipFinished(ch2, 4);
+
+        assertThat(stats.getBestChampionshipRank(ch1), is(3));
+        assertThat(stats.getBestChampionshipRank(ch2), is(2));
     }
 }

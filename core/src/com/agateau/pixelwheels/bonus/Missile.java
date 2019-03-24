@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -33,6 +33,7 @@ import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundPlayer;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.Color;
@@ -356,6 +357,9 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
         explode();
         if (other instanceof Racer) {
+            if (mShooter.getEntrant().isPlayer()) {
+                mGameWorld.getGameStats().recordEvent(GameStats.Event.MISSILE_HIT);
+            }
             ((Racer)other).spin();
         } else if (other instanceof Explosable) {
             ((Explosable)other).explode();

@@ -20,6 +20,7 @@ package com.agateau.utils;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class CollectionUtils {
@@ -28,5 +29,16 @@ public class CollectionUtils {
         Set<T> set = new HashSet<T>();
         Collections.addAll(set, items);
         return set;
+    }
+
+    /**
+     * Implementation of Map.getOrDefault() which works on Android API < 24
+     */
+    public static <K, V> V getOrDefault(Map<K, V> map, K key, V defaultValue) {
+        V value = map.get(key);
+        if (value != null) {
+            return value;
+        }
+        return map.containsKey(key) ? null : defaultValue;
     }
 }

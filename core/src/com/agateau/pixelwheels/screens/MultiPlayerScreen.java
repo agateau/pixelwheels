@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -108,7 +109,7 @@ public class MultiPlayerScreen extends PwStageScreen {
 
         VehicleSelector selector = new VehicleSelector(menu);
         mVehicleSelectors[idx] = selector;
-        selector.init(assets);
+        selector.init(assets, mGame.getRewardManager());
         selector.setCurrent(assets.findVehicleDefById(vehicleId));
         selector.addListener(new MenuItemListener() {
             @Override
@@ -134,8 +135,11 @@ public class MultiPlayerScreen extends PwStageScreen {
     private void next() {
         Array<GameInfo.Player> players = new Array<GameInfo.Player>();
         for (int idx = 0; idx < mPlayerCount; ++idx) {
-            String id = mVehicleSelectors[idx].getSelectedId();
-            players.add(new GameInfo.Player(idx, id));
+            VehicleDef vehicleDef = mVehicleSelectors[idx].getSelected();
+            if (vehicleDef == null) {
+                return;
+            }
+            players.add(new GameInfo.Player(idx, vehicleDef.id));
         }
 
         mListener.onPlayersSelected(players);

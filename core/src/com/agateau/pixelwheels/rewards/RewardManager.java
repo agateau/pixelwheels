@@ -3,7 +3,7 @@
  *
  * This file is part of Pixel Wheels.
  *
- * Tiny Wheels is free software: you can redistribute it and/or modify it under
+ * Pixel Wheels is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
@@ -40,6 +41,7 @@ public class RewardManager {
     private final Array<Championship> mChampionships;
     private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
     private final Set<Reward> mUnlockedRewards = new HashSet<Reward>();
+    private boolean mNeedApplyRules = true;
 
     public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {
         @Override
@@ -50,6 +52,12 @@ public class RewardManager {
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
+        mGameStats.setListener(new GameStats.Listener() {
+            @Override
+            public void onChanged() {
+                mNeedApplyRules = true;
+            }
+        });
         mChampionships = championships;
     }
 
@@ -64,28 +72,26 @@ public class RewardManager {
     }
 
     public boolean isChampionshipUnlocked(Championship championship) {
-        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championship.getId());
+        return getUnlockedRewards().contains(Reward.get(championship));
     }
 
-    public boolean isVehicleUnlocked(String vehicleId) {
-        return isRewardUnlocked(Reward.Category.VEHICLE, vehicleId);
+    public boolean isVehicleUnlocked(VehicleDef vehicleDef) {
+        return getUnlockedRewards().contains(Reward.get(vehicleDef));
     }
 
     public Set<Reward> getUnlockedRewards() {
+        if (mNeedApplyRules) {
+            applyRules();
+            mNeedApplyRules = false;
+        }
         return mUnlockedRewards;
     }
 
-    private boolean isRewardUnlocked(Reward.Category category, String id) {
-        Reward reward = Reward.get(category, id);
-        return mUnlockedRewards.contains(reward);
-    }
-
-    public void addRule(Reward.Category category, String id, RewardRule rule) {
-        Reward reward = Reward.get(category, id);
+    public void addRule(Reward reward, RewardRule rule) {
         mRules.put(reward, rule);
     }
 
-    public void applyRules() {
+    private void applyRules() {
         for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
             Reward reward = rule.getKey();
             if (mUnlockedRewards.contains(reward)) {
