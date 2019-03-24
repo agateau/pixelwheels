@@ -36,11 +36,11 @@ class RewardManagerSetup {
     private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS = CollectionUtils.newSet("red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
     static void createChampionshipRules(RewardManager rewardManager, Array<Championship> championships) {
-        rewardManager.addRule(Reward.Category.CHAMPIONSHIP, championships.first().getId(), RewardManager.ALWAYS_UNLOCKED);
+        rewardManager.addRule(Reward.get(championships.first()), RewardManager.ALWAYS_UNLOCKED);
 
         for (int idx = 1; idx < championships.size; ++idx) {
             final Championship previous = championships.get(idx - 1);
-            rewardManager.addRule(Reward.Category.CHAMPIONSHIP, championships.get(idx).getId(), new RewardRule() {
+            rewardManager.addRule(Reward.get(championships.get(idx)), new RewardRule() {
                 @Override
                 public boolean hasBeenEarned(GameStats gameStats) {
                     return gameStats.getBestChampionshipRank(previous) <= 2;
@@ -49,18 +49,17 @@ class RewardManagerSetup {
         }
     }
 
-    static void createVehicleRules(RewardManager rewardManager, Array<VehicleDef> vehicleDefs) {
-        for (VehicleDef vehicleDef : vehicleDefs) {
+    static void createVehicleRules(RewardManager rewardManager, Assets assets) {
+        for (VehicleDef vehicleDef : assets.vehicleDefs) {
             if (ALWAYS_UNLOCKED_VEHICLE_IDS.contains(vehicleDef.id)) {
-                rewardManager.addRule(Reward.Category.VEHICLE, vehicleDef.id, RewardManager.ALWAYS_UNLOCKED);
+                rewardManager.addRule(Reward.get(vehicleDef), RewardManager.ALWAYS_UNLOCKED);
             }
         }
-        rewardManager.addRule(Reward.Category.VEHICLE, "rocket", new RewardRule() {
+        rewardManager.addRule(Reward.get(assets.findVehicleDefById("rocket")), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return gameStats.getEventCount(GameStats.Event.MISSILE_HIT) >= 10;
             }
         });
-
     }
 }

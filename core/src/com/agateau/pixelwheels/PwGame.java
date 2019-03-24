@@ -124,7 +124,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Assert.check(mAssets != null, "Assets must be instantiated first");
         mRewardManager = new RewardManager(mGameStats, mAssets.championships);
         RewardManagerSetup.createChampionshipRules(mRewardManager, mAssets.championships);
-        RewardManagerSetup.createVehicleRules(mRewardManager, mAssets.vehicleDefs);
+        RewardManagerSetup.createVehicleRules(mRewardManager, mAssets);
     }
 
     public void showMainMenu() {

@@ -72,11 +72,11 @@ public class RewardManager {
     }
 
     public boolean isChampionshipUnlocked(Championship championship) {
-        return isRewardUnlocked(Reward.Category.CHAMPIONSHIP, championship.getId());
+        return getUnlockedRewards().contains(Reward.get(championship));
     }
 
     public boolean isVehicleUnlocked(VehicleDef vehicleDef) {
-        return isRewardUnlocked(Reward.Category.VEHICLE, vehicleDef.id);
+        return getUnlockedRewards().contains(Reward.get(vehicleDef));
     }
 
     public Set<Reward> getUnlockedRewards() {
@@ -87,13 +87,7 @@ public class RewardManager {
         return mUnlockedRewards;
     }
 
-    private boolean isRewardUnlocked(Reward.Category category, String id) {
-        Reward reward = Reward.get(category, id);
-        return getUnlockedRewards().contains(reward);
-    }
-
-    public void addRule(Reward.Category category, String id, RewardRule rule) {
-        Reward reward = Reward.get(category, id);
+    public void addRule(Reward reward, RewardRule rule) {
         mRules.put(reward, rule);
     }
 

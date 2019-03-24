@@ -49,18 +49,17 @@ public class RewardManagerTests {
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
-        final String championShipId1 = championships.get(0).getId();
-        final String championShipId2 = championships.get(1).getId();
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
+        final Championship championship1 = championships.get(0);
+        final Championship championship2 = championships.get(1);
+        manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.get(championship2), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return false;
             }
         });
-        //manager.applyRules();
-        assertThat(manager.isChampionshipUnlocked(championships.get(0)), is(true));
-        assertThat(manager.isChampionshipUnlocked(championships.get(1)), is(false));
+        assertThat(manager.isChampionshipUnlocked(championship1), is(true));
+        assertThat(manager.isChampionshipUnlocked(championship2), is(false));
     }
 
     @Test
@@ -68,18 +67,17 @@ public class RewardManagerTests {
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
         RewardManager manager = new RewardManager(gameStats, championships);
-        final String championShipId1 = championships.get(0).getId();
-        final String championShipId2 = championships.get(1).getId();
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId1, RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, championShipId2, new RewardRule() {
+        final Championship championship1 = championships.get(0);
+        final Championship championship2 = championships.get(1);
+        manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.get(championship2), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return false;
             }
         });
-        //manager.applyRules();
-        assertThat(manager.isTrackUnlocked(championships.get(0).getTracks().get(0)), is(true));
-        assertThat(manager.isTrackUnlocked(championships.get(1).getTracks().get(0)), is(false));
+        assertThat(manager.isTrackUnlocked(championship1.getTracks().get(0)), is(true));
+        assertThat(manager.isTrackUnlocked(championship2.getTracks().get(0)), is(false));
     }
 
     @Test
@@ -90,8 +88,8 @@ public class RewardManagerTests {
         RewardManager manager = new RewardManager(gameStats, championships);
         final Championship ch1 = championships.get(0);
         final Championship ch2 = championships.get(1);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, ch1.getId(), RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.Category.CHAMPIONSHIP, ch2.getId(), new RewardRule() {
+        manager.addRule(Reward.get(ch1), RewardManager.ALWAYS_UNLOCKED);
+        manager.addRule(Reward.get(ch2), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
                 return gameStats.getBestChampionshipRank(ch1) <= 2;
@@ -99,8 +97,8 @@ public class RewardManagerTests {
         });
 
         // THEN unlocked rewards contains only ch1
-        Reward ch1Reward = Reward.get(Reward.Category.CHAMPIONSHIP, ch1.getId());
-        Reward ch2Reward = Reward.get(Reward.Category.CHAMPIONSHIP, ch2.getId());
+        Reward ch1Reward = Reward.get(ch1);
+        Reward ch2Reward = Reward.get(ch2);
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward)));
 
         // WHEN I unlock ch2

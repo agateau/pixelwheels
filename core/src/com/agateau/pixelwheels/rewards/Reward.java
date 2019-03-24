@@ -18,6 +18,10 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.utils.Assert;
+
 import java.util.HashMap;
 
 /**
@@ -58,5 +62,15 @@ public class Reward {
             map.put(id, reward);
         }
         return reward;
+    }
+
+    public static Reward get(Championship championship) {
+        Assert.check(championship != null, "Can't find a reward for a null championship");
+        return get(Category.CHAMPIONSHIP, championship.getId());
+    }
+
+    public static Reward get(VehicleDef vehicleDef) {
+        Assert.check(vehicleDef != null, "Can't find a reward for a null vehicle");
+        return get(Category.VEHICLE, vehicleDef.id);
     }
 }
