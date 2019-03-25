@@ -60,7 +60,7 @@ class EngineLabScreen extends StageScreen {
 
         Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
-        menu.setDefaultItemWidth(500);
+        menu.setWidth(500);
 
         mSpeedItem = new SliderMenuItem(menu);
         mSpeedItem.setRange(0, 1, 0.01f);
