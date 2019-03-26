@@ -91,7 +91,7 @@ public class MapScreenshotGenerator {
         renderer.setView(camera);
 
         fbo.begin();
-        renderer.render();
+        renderer.render(new int[]{0, 1});
 
         return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
     }
