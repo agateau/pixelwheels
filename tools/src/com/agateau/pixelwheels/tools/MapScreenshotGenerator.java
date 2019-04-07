@@ -49,7 +49,7 @@ public class MapScreenshotGenerator {
                     FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
                     FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
                     for (FileHandle tmxFile : tmxDir.list(".tmx")) {
-                        String shotFileName = shotDir.path() + "/" + tmxFile.nameWithoutExtension() + ".png";
+                        String shotFileName = shotDir.path() + "/" + tmxFile.nameWithoutExtension() + "-generated.png";
                         processFile(shotFileName, tmxFile.path());
                     }
                 }
@@ -91,7 +91,7 @@ public class MapScreenshotGenerator {
         renderer.setView(camera);
 
         fbo.begin();
-        renderer.render();
+        renderer.render(new int[]{0, 1});
 
         return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
     }
@@ -100,7 +100,7 @@ public class MapScreenshotGenerator {
         int srcW = src.getWidth();
         int srcH = src.getHeight();
 
-        float ratio = (float)SHOT_SIZE / Math.min(srcW, srcH);
+        float ratio = (float)SHOT_SIZE / Math.max(srcW, srcH);
         int dstW = (int) (srcW * ratio);
         int dstH = (int) (srcH * ratio);
 
