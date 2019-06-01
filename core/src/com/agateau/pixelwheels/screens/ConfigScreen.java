@@ -34,9 +34,10 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.menu.TabMenuItem;
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
-import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -48,6 +49,17 @@ import com.badlogic.gdx.utils.Array;
  */
 public class ConfigScreen extends PwStageScreen {
     private final PwGame mGame;
+
+    interface GameInputHandlerConfigScreenFactory {
+        Screen createScreen(PwGame game, int playerIdx);
+    }
+
+    private static GameInputHandlerConfigScreenFactory sGamepadConfigScreenFactory = new GameInputHandlerConfigScreenFactory() {
+        @Override
+        public Screen createScreen(PwGame game, int playerIdx) {
+            return new GamepadConfigScreen(game, playerIdx);
+        }
+    };
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -136,8 +148,46 @@ public class ConfigScreen extends PwStageScreen {
         });
     }
 
+    class InputSelectorController {
+        SelectorMenuItem<GameInputHandlerFactory> mSelector;
+        ButtonMenuItem mConfigureButton;
+        int mPlayerIdx;
+
+        void onInputChanged() {
+            GameInputHandlerFactory factory = mSelector.getData();
+            mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
+            mGame.getConfig().flush();
+            updateConfigureButton();
+        }
+
+        void onConfigureClicked() {
+            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerConfigScreenFactory configScreenFactory = getInputConfigScreenFactory(factory);
+            Assert.check(configScreenFactory != null, "No config screen for this game factory");
+            mGame.pushScreen(configScreenFactory.createScreen(mGame, mPlayerIdx));
+        }
+
+        void setStartupState() {
+            GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
+            mSelector.setData(factory);
+            updateConfigureButton();
+        }
+
+        private void updateConfigureButton() {
+            GameInputHandlerFactory factory = mSelector.getData();
+            boolean canBeConfigured = getInputConfigScreenFactory(factory) != null;
+            mConfigureButton.setDisabled(!canBeConfigured);
+        }
+    }
+
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
+        final InputSelectorController controller = new InputSelectorController();
+        controller.mPlayerIdx = idx;
+
         final SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
+        controller.mSelector = selector;
+        final ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
+        controller.mConfigureButton = configureButton;
 
         Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
         for (GameInputHandlerFactory factory : inputFactories) {
@@ -145,16 +195,10 @@ public class ConfigScreen extends PwStageScreen {
         }
 
         group.addItemWithLabel(label + ":", selector);
-        ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
         configureButton.addListener(new MenuItemListener() {
             @Override
             public void triggered() {
-                GameInputHandlerFactory factory = selector.getData();
-                if (factory instanceof GamepadInputHandler.Factory) {
-                    mGame.pushScreen(new GamepadConfigScreen(mGame, idx));
-                } else {
-                    NLog.e("No config screen for factory %s yet", factory.getClass().getName());
-                }
+                controller.onConfigureClicked();
             }
         });
         group.addItemWithLabel("", configureButton);
@@ -162,15 +206,19 @@ public class ConfigScreen extends PwStageScreen {
         selector.getActor().addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                GameInputHandlerFactory factory = selector.getData();
-                mGame.getConfig().setPlayerInputHandlerFactory(idx, factory);
-                mGame.getConfig().flush();
+                controller.onInputChanged();
             }
         });
 
-        // Select current value
-        GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(idx);
-        selector.setData(factory);
+        controller.setStartupState();
+    }
+
+    private GameInputHandlerConfigScreenFactory getInputConfigScreenFactory(GameInputHandlerFactory factory) {
+        if (factory instanceof GamepadInputHandler.Factory) {
+            return sGamepadConfigScreenFactory;
+        } else {
+            return null;
+        }
     }
 
     @Override
