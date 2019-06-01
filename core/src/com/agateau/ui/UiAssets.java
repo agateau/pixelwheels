@@ -38,7 +38,7 @@ public class UiAssets {
 
         loadFonts();
 
-        this.skin.load(Gdx.files.internal("ui/uiskin.json"));
+        this.skin.load(Gdx.files.internal("ui/uiskin.gdxjson"));
 
         this.background = this.atlas.findRegion("background");
     }

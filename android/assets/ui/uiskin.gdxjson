@@ -1,3 +1,7 @@
+/*
+ * This file extension is not .json because it is not valid json (keys are not enclosed in quotes,
+ * and comments are allowed), causing Android Studio to highlight almost every line as an error.
+ */
 {
     com.badlogic.gdx.graphics.Color: {
         green: { a: 1, b: 0, g: 1, r: 0 },
