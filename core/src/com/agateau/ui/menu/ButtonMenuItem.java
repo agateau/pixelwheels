@@ -46,6 +46,9 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
+                if (isDisabled()) {
+                    return;
+                }
                 MenuItemTriggerEvent.fire(ButtonMenuItem.this);
             }
         });
