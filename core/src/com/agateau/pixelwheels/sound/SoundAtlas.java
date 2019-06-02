@@ -58,7 +58,6 @@ public class SoundAtlas {
         if ("".equals(name)) {
             name = file.nameWithoutExtension();
         }
-        NLog.i("Loading sound %s from %s", name, file.path());
         mSounds.put(name, Gdx.audio.newSound(file));
     }
 }
