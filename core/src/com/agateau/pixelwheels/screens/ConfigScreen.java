@@ -150,25 +150,50 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     class InputSelectorController {
-        SelectorMenuItem<GameInputHandlerFactory> mSelector;
-        ButtonMenuItem mConfigureButton;
-        int mPlayerIdx;
+        private final SelectorMenuItem<GameInputHandlerFactory> mSelector;
+        private final ButtonMenuItem mConfigureButton;
+        private final int mPlayerIdx;
 
-        void onInputChanged() {
+        InputSelectorController(SelectorMenuItem<GameInputHandlerFactory> selector, ButtonMenuItem configureButton, int idx) {
+            mSelector = selector;
+            mConfigureButton = configureButton;
+            mPlayerIdx = idx;
+
+            Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
+            for (GameInputHandlerFactory factory : inputFactories) {
+                selector.addEntry(factory.getName(), factory);
+            }
+
+            selector.getActor().addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    onInputChanged();
+                }
+            });
+
+            configureButton.addListener(new MenuItemListener() {
+                @Override
+                public void triggered() {
+                    onConfigureClicked();
+                }
+            });
+        }
+
+        private void onInputChanged() {
             GameInputHandlerFactory factory = mSelector.getData();
             mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
             mGame.getConfig().flush();
             updateConfigureButton();
         }
 
-        void onConfigureClicked() {
+        private void onConfigureClicked() {
             GameInputHandlerFactory factory = mSelector.getData();
             GameInputHandlerConfigScreenFactory configScreenFactory = getInputConfigScreenFactory(factory);
             Assert.check(configScreenFactory != null, "No config screen for this game factory");
             mGame.pushScreen(configScreenFactory.createScreen(mGame, mPlayerIdx));
         }
 
-        void setStartupState() {
+        private void setStartupState() {
             GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
             mSelector.setData(factory);
             updateConfigureButton();
@@ -182,35 +207,13 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
-        final InputSelectorController controller = new InputSelectorController();
-        controller.mPlayerIdx = idx;
-
-        final SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
-        controller.mSelector = selector;
-        final ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
-        controller.mConfigureButton = configureButton;
-
-        Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
-        for (GameInputHandlerFactory factory : inputFactories) {
-            selector.addEntry(factory.getName(), factory);
-        }
-
+        SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
         group.addItemWithLabel(label + ":", selector);
-        configureButton.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                controller.onConfigureClicked();
-            }
-        });
+        
+        ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
         group.addItemWithLabel("", configureButton);
 
-        selector.getActor().addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.onInputChanged();
-            }
-        });
-
+        InputSelectorController controller = new InputSelectorController(selector, configureButton, idx);
         controller.setStartupState();
     }
 
