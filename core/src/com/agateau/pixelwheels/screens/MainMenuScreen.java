@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
@@ -39,7 +40,7 @@ public class MainMenuScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(game, getStage()) {
             @Override
             protected void refresh() {
                 mGame.showMainMenu();

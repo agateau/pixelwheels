@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.utils.StringUtils;
@@ -55,7 +56,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         mGameInfo = gameInfo;
         mNextListener = nextListener;
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new ChampionshipFinishedScreen(mGame, mGameInfo, mNextListener));

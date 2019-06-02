@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
@@ -73,7 +74,7 @@ public class SelectTrackScreen extends PwStageScreen {
         mListener = listener;
         mTableRowCreator.setRowStyle("small");
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new SelectTrackScreen(mGame, mListener));

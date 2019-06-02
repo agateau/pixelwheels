@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
@@ -65,7 +66,7 @@ public class ConfigScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new ConfigScreen(mGame));

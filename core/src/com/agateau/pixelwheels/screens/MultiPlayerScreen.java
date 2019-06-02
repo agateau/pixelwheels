@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
@@ -67,7 +68,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         }
 
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new MultiPlayerScreen(mGame, mListener));

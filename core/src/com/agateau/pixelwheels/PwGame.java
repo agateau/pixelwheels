@@ -104,7 +104,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         super.render();
     }
 
-    public void reloadAssets() {
+    public void refreshAssets() {
         mAssets = new Assets();
     }
 

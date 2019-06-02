@@ -56,6 +56,7 @@ public abstract class RefreshHelper {
                         @Override
                         public void run() {
                             try {
+                                refreshAssets();
                                 refresh();
                             } catch (Exception exc) {
                                 NLog.e("Refresh failed: %s", exc);
@@ -67,6 +68,9 @@ public abstract class RefreshHelper {
                 return false;
             }
         });
+    }
+
+    protected void refreshAssets() {
     }
 
     /**

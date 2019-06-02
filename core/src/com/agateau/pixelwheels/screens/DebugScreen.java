@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -49,7 +50,7 @@ public class DebugScreen extends PwStageScreen {
     public DebugScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new DebugScreen(mGame));

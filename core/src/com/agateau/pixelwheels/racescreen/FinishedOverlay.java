@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.Racer;
@@ -64,7 +65,7 @@ public class FinishedOverlay extends Overlay {
         mGame = game;
         mListener = listener;
         mRacers = racers;
-        new RefreshHelper(this) {
+        new PwRefreshHelper(mGame, this) {
             @Override
             protected void refresh() {
                 setContent(createContent(racers));

@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameMode;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.RefreshHelper;
@@ -41,7 +42,7 @@ public class SelectGameModeScreen extends PwStageScreen {
         mGame = game;
         mPlayerCount = playerCount;
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 mGame.replaceScreen(new SelectGameModeScreen(mGame, mPlayerCount));

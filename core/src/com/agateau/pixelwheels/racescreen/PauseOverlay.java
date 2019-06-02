@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.screens.ConfigScreen;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.RefreshHelper;
@@ -40,7 +41,7 @@ public class PauseOverlay extends Overlay {
         mGame = game;
         mListener = listener;
         mRaceScreen = raceScreen;
-        new RefreshHelper(this) {
+        new PwRefreshHelper(mGame, this) {
             @Override
             protected void refresh() {
                 setContent(createContent());

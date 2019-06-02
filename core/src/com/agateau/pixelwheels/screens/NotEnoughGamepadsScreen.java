@@ -2,6 +2,7 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.ui.RefreshHelper;
@@ -29,7 +30,7 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         mMaestro = maestro;
         mWatcher = watcher;
         setupUi();
-        new RefreshHelper(getStage()) {
+        new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 ScreenStack stack = mGame.getScreenStack();
