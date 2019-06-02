@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" spacing="20">
         <Label id="mainLabel" style="title"
-            topCenter="root.topCenter 0 -2">Configure input</Label>
+            topCenter="root.topCenter 0 -2">Gamepad config</Label>
 
         <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -4"
             labelColumnWidth="150"
