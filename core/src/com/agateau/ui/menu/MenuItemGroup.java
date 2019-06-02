@@ -70,7 +70,12 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public void focusFirstItem() {
-        setCurrentIndex(0);
+        for (MenuItem item : mItems) {
+            if (item.isFocusable()) {
+                setCurrentItem(item);
+                return;
+            }
+        }
     }
 
     public void updateFocusIndicatorBounds() {

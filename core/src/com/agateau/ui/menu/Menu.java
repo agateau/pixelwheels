@@ -158,9 +158,15 @@ public class Menu extends WidgetGroup {
         } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
             mGroup.goUp();
         } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
-            getCurrentItem().goLeft();
+            MenuItem item = getCurrentItem();
+            if (item != null) {
+                item.goLeft();
+            }
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
-            getCurrentItem().goRight();
+            MenuItem item = getCurrentItem();
+            if (item != null) {
+                item.goRight();
+            }
         } else if (mMenuInputHandler.isJustPressed(VirtualKey.TRIGGER)) {
             mGroup.trigger();
         }
