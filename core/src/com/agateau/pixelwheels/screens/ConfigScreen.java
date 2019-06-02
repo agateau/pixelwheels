@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
+import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -59,6 +60,13 @@ public class ConfigScreen extends PwStageScreen {
         @Override
         public Screen createScreen(PwGame game, int playerIdx) {
             return new GamepadConfigScreen(game, playerIdx);
+        }
+    };
+
+    private static GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory = new GameInputHandlerConfigScreenFactory() {
+        @Override
+        public Screen createScreen(PwGame game, int playerIdx) {
+            return new KeyboardConfigScreen(game, playerIdx);
         }
     };
 
@@ -209,7 +217,7 @@ public class ConfigScreen extends PwStageScreen {
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
         SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
         group.addItemWithLabel(label + ":", selector);
-        
+
         ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
         group.addItemWithLabel("", configureButton);
 
@@ -220,6 +228,8 @@ public class ConfigScreen extends PwStageScreen {
     private GameInputHandlerConfigScreenFactory getInputConfigScreenFactory(GameInputHandlerFactory factory) {
         if (factory instanceof GamepadInputHandler.Factory) {
             return sGamepadConfigScreenFactory;
+        } else if (factory instanceof KeyboardInputHandler.Factory) {
+            return sKeyboardConfigScreenFactory;
         } else {
             return null;
         }

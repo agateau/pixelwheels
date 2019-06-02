@@ -59,6 +59,10 @@ public class KeyMapper implements InputMapper {
         mKeyForVirtualKey.put(vkey, keys);
     }
 
+    public Integer[] getKeys(VirtualKey vkey) {
+        return mKeyForVirtualKey.get(vkey);
+    }
+
     public void addKey(VirtualKey vkey, int key) {
         Integer[] keys = mKeyForVirtualKey.get(vkey);
         if (keys == null) {
