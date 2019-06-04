@@ -19,10 +19,10 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;
+import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -34,6 +34,9 @@ import com.badlogic.gdx.utils.Disposable;
 class AudioComponent implements Racer.Component, Disposable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
     private static final float MIN_IMPACT_SPEED = 3;
+
+    private static final float MIN_COLLISION_PITCH = 0.5f;
+    private static final float MAX_COLLISION_PITCH = 2f;
 
     private final AudioManager mAudioManager;
     private final EngineSoundPlayer mEngineSoundPlayer;
@@ -100,6 +103,8 @@ class AudioComponent implements Racer.Component, Disposable {
         if (mJustCollided) {
             mCollisionSoundPlayer.setVolume(maxVolume);
             if (!mCollisionSoundPlayer.isLooping()) {
+                float pitch = MathUtils.random(MIN_COLLISION_PITCH, MAX_COLLISION_PITCH);
+                mCollisionSoundPlayer.setPitch(pitch);
                 mCollisionSoundPlayer.loop();
             }
             mJustCollided = false;
