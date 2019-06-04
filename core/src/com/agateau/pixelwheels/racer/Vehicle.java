@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -42,6 +43,10 @@ import com.badlogic.gdx.utils.Disposable;
 public class Vehicle implements Racer.Component, Disposable {
     private static final float ACCELERATION_DELTA = 1;
     private static final float BRAKING_DELTA = 0.8f;
+    // If the angle in degrees between body and velocity is more than this
+    // and we are on ice, consider that we are "ice drifting"
+    private static final float MIN_ICE_DRIFT_ANGLE = 5;
+    private static final float MIN_ICE_DRIFT_SPEED = 4;
 
     public static class WheelInfo {
         public Wheel wheel;
@@ -172,6 +177,19 @@ public class Vehicle implements Racer.Component, Disposable {
         for (WheelInfo wheelInfo : mWheels) {
             if (wheelInfo.wheel.isDrifting()) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isIceDrifting() {
+        if (getSpeed() < MIN_ICE_DRIFT_SPEED) {
+            return false;
+        }
+        for (WheelInfo wheelInfo : mWheels) {
+            if (wheelInfo.wheel.getMaterial() == Material.ICE) {
+                float delta = AgcMathUtils.angleDelta(mBody.getLinearVelocity().angle(), getAngle());
+                return Math.abs(delta % 180) > MIN_ICE_DRIFT_ANGLE;
             }
         }
         return false;

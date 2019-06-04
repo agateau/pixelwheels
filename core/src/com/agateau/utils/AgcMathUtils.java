@@ -146,4 +146,11 @@ public class AgcMathUtils {
         rect.width += 2 * amount;
         rect.height += 2 * amount;
     }
+
+    /**
+     * Returns the angle in degrees between two angles
+     */
+    public static float angleDelta(float angle1, float angle2) {
+        return normalizeAngle(angle2) - normalizeAngle(angle1);
+    }
 }

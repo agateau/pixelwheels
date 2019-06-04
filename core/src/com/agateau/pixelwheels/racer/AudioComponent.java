@@ -38,6 +38,8 @@ class AudioComponent implements Racer.Component, Disposable {
     private static final float MIN_COLLISION_PITCH = 0.5f;
     private static final float MAX_COLLISION_PITCH = 2f;
 
+    private static final float ICE_DRIFT_PITCH = 0.5f;
+
     private final AudioManager mAudioManager;
     private final EngineSoundPlayer mEngineSoundPlayer;
     private final Racer mRacer;
@@ -69,7 +71,7 @@ class AudioComponent implements Racer.Component, Disposable {
 
     @Override
     public void act(float delta) {
-        if (mRacer.getVehicle().isDrifting()) {
+        if (mRacer.getVehicle().isDrifting() || mRacer.getVehicle().isIceDrifting()) {
             mDriftDuration += delta;
         } else {
             mDriftDuration = 0;
@@ -86,6 +88,7 @@ class AudioComponent implements Racer.Component, Disposable {
 
         if (mDriftDuration > 0) {
             float volume = MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f) * maxVolume;
+            mDriftingSoundPlayer.setPitch(mRacer.getVehicle().isIceDrifting() ? ICE_DRIFT_PITCH : 1f);
             mDriftingSoundPlayer.setVolume(volume * GamePlay.instance.driftVolume);
             if (!mDriftingSoundPlayer.isLooping()) {
                 mDriftingSoundPlayer.loop();
