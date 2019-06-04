@@ -26,6 +26,5 @@ import com.badlogic.gdx.utils.Array;
 public interface GameInputHandlerFactory {
     String getId();
     String getName();
-    String getDescription();
     Array<GameInputHandler> getAllHandlers();
 }

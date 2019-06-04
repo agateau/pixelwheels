@@ -51,11 +51,6 @@ public class TouchInputHandler implements GameInputHandler {
         }
 
         @Override
-        public String getDescription() {
-            return "Use virtual buttons to control your vehicle.";
-        }
-
-        @Override
         public Array<GameInputHandler> getAllHandlers() {
             return mHandlers;
         }

@@ -46,11 +46,6 @@ public class GamepadInputHandler extends KeyboardInputHandler {
         }
 
         @Override
-        public String getDescription() {
-            return "Use D-Pad to drive, button to trigger bonuses.";
-        }
-
-        @Override
         public Array<GameInputHandler> getAllHandlers() {
             return mHandlers;
         }
