@@ -357,9 +357,7 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
         explode();
         if (other instanceof Racer) {
-            if (mShooter.getEntrant().isPlayer()) {
-                mGameWorld.getGameStats().recordEvent(GameStats.Event.MISSILE_HIT);
-            }
+            mShooter.getGameStats().recordEvent(GameStats.Event.MISSILE_HIT);
             ((Racer)other).spin();
         } else if (other instanceof Explosable) {
             ((Explosable)other).explode();

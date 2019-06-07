@@ -25,8 +25,8 @@ import com.agateau.pixelwheels.gameinput.GameInput;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.racescreen.Hud;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
 
 /**
@@ -75,6 +75,11 @@ public class PlayerPilot implements Pilot {
                 mRacer.triggerBonus();
             }
         }
+    }
+
+    @Override
+    public GameStats getGameStats() {
+        return mGameWorld.getGameStats();
     }
 
     public boolean isPauseKeyPressed() {

@@ -21,8 +21,11 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
+import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
@@ -66,6 +69,51 @@ public class AIPilot implements Pilot {
             actBlocked(dt);
             break;
         }
+    }
+
+    static private GameStats sDummyGameStats = new GameStats() {
+        @Override
+        public void setListener(Listener listener) {
+        }
+
+        @Override
+        public TrackStats getTrackStats(Track track) {
+            return null;
+        }
+
+        @Override
+        public int getBestChampionshipRank(Championship championship) {
+            return 0;
+        }
+
+        @Override
+        public void onChampionshipFinished(Championship championship, int rank) {
+        }
+
+        @Override
+        public void recordEvent(Event event) {
+
+        }
+
+        @Override
+        public void recordIntEvent(Event event, int value) {
+
+        }
+
+        @Override
+        public int getEventCount(Event event) {
+            return 0;
+        }
+
+        @Override
+        public void save() {
+
+        }
+    };
+
+    @Override
+    public GameStats getGameStats() {
+        return sDummyGameStats;
     }
 
     private void actNormal(float dt) {

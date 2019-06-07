@@ -293,9 +293,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         mBonus = (Bonus)pool.obtain();
         mBonus.onPicked(this);
-        if (getEntrant().isPlayer()) {
-            mGameWorld.getGameStats().recordEvent(GameStats.Event.PICKED_BONUS);
-        }
+        getGameStats().recordEvent(GameStats.Event.PICKED_BONUS);
     }
 
     public void triggerBonus() {
@@ -352,5 +350,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     @Override
     public String toString() {
         return "<racer pilot=" + mPilot + " vehicle=" + mVehicle + ">";
+    }
+
+    public GameStats getGameStats() {
+        return mPilot.getGameStats();
     }
 }
