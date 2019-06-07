@@ -6,7 +6,7 @@
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="400" style="large"/>
 
-        <Label id="vehicleNameLabel" topCenter="menu.bottomCenter 0 -1" style="title"/>
+        <Label id="vehicleNameLabel" topCenter="menu.bottomCenter 0 -1" style="title" align="center"/>
 
         <ImageButton id="backButton"
             bottomLeft="root.bottomLeft 1 1"

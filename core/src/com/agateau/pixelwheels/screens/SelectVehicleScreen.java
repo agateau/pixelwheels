@@ -113,7 +113,11 @@ public class SelectVehicleScreen extends PwStageScreen {
     }
 
     private void updateVehicleDetails(VehicleDef vehicle) {
-        mVehicleNameLabel.setText(vehicle.name);
+        String text = vehicle.name;
+        if (!mGame.getRewardManager().isVehicleUnlocked(vehicle)) {
+            text += "\n[Locked]";
+        }
+        mVehicleNameLabel.setText(text);
         mVehicleNameLabel.pack();
     }
 
