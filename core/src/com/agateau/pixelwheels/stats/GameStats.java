@@ -23,7 +23,8 @@ import com.agateau.pixelwheels.map.Track;
 
 public interface GameStats {
     public enum Event {
-        MISSILE_HIT
+        MISSILE_HIT,
+        DRIVE_OUTSIDE_ROAD_MS;
     }
 
     public interface Listener {
@@ -39,6 +40,8 @@ public interface GameStats {
     void onChampionshipFinished(Championship championship, int rank);
 
     void recordEvent(Event event);
+
+    void recordIntEvent(Event event, int value);
 
     int getEventCount(Event event);
 
