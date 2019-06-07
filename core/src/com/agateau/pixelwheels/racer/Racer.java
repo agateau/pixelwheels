@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -292,6 +293,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         mBonus = (Bonus)pool.obtain();
         mBonus.onPicked(this);
+        if (getEntrant().isPlayer()) {
+            mGameWorld.getGameStats().recordEvent(GameStats.Event.PICKED_BONUS);
+        }
     }
 
     public void triggerBonus() {

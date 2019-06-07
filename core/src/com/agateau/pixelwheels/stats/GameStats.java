@@ -24,7 +24,8 @@ import com.agateau.pixelwheels.map.Track;
 public interface GameStats {
     public enum Event {
         MISSILE_HIT,
-        DRIVE_OUTSIDE_ROAD_MS;
+        DRIVE_OUTSIDE_ROAD_MS,
+        PICKED_BONUS;
     }
 
     public interface Listener {
