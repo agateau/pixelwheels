@@ -41,6 +41,10 @@ public enum Material {
         return this == DEEP_WATER || this == WATER;
     }
 
+    public boolean isRoad() {
+        return this == ROAD || this == TURBO || this == ICE;
+    }
+
     public float getSpeed() {
         switch (this) {
         case ROAD:

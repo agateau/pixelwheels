@@ -61,5 +61,11 @@ class RewardManagerSetup {
                 return gameStats.getEventCount(GameStats.Event.MISSILE_HIT) >= 10;
             }
         });
+        rewardManager.addRule(Reward.get(assets.findVehicleDefById("harvester")), new RewardRule() {
+            @Override
+            public boolean hasBeenEarned(GameStats gameStats) {
+                return gameStats.getEventCount(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS) >= 4 * 60 * 1000;
+            }
+        });
     }
 }

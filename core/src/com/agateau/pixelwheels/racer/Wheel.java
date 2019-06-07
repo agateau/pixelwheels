@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.map.Material;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -126,7 +127,7 @@ public class Wheel implements Disposable {
 
     @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
-        updateGroundInfo();
+        updateGroundInfo(delta);
         if (!mVehicle.isFlying()) {
             if (mGripEnabled) {
                 updateFriction();
@@ -193,11 +194,15 @@ public class Wheel implements Disposable {
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
     }
 
-    private void updateGroundInfo() {
+    private void updateGroundInfo(float delta) {
         if (mVehicle.isFlying()) {
             mMaterial = Material.AIR;
-        } else {
-            mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
+            return;
+        }
+        mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
+        if (!mMaterial.isRoad()) {
+            int ms = (int)(delta * 1000);
+            mGameWorld.getGameStats().recordIntEvent(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS, ms);
         }
     }
 
