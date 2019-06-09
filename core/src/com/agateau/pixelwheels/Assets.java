@@ -73,6 +73,7 @@ public class Assets {
     public final TextureRegion helicopterBody;
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
+    public final TextureRegion lockedVehicle;
     public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
 
     private final Animation explosion;
@@ -108,6 +109,8 @@ public class Assets {
         this.helicopterBody = this.findRegion("helicopter-body");
         this.helicopterPropeller = this.findRegion("helicopter-propeller");
         this.helicopterPropellerTop = this.findRegion("helicopter-propeller-top");
+
+        this.lockedVehicle = this.findRegion("vehicles/locked");
 
         loadVehicleDefinitions();
         initSoundAtlas();
