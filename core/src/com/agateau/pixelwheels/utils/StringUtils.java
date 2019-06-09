@@ -43,4 +43,8 @@ public class StringUtils {
             return "th";
         }
     }
+
+    public static String format(String fmt, Object... args) {
+        return String.format(Locale.getDefault(), fmt, args);
+    }
 }
