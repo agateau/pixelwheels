@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.map.Material;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -196,9 +197,9 @@ public class Wheel implements Disposable {
     private void updateGroundInfo() {
         if (mVehicle.isFlying()) {
             mMaterial = Material.AIR;
-        } else {
-            mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
+            return;
         }
+        mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
     }
 
     public void setCanDrift(boolean canDrift) {

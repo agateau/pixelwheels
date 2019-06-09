@@ -69,4 +69,43 @@ public class GameStatsImplTests {
         assertThat(stats.getBestChampionshipRank(ch1), is(3));
         assertThat(stats.getBestChampionshipRank(ch2), is(2));
     }
+
+    @Test
+    public void testRecordIntEvent() {
+        // GIVEN empty game stats
+        GameStats stats = new GameStatsImpl(mStatsIO);
+
+        // WHEN a new int event is recorded
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 30);
+
+        // THEN the stats are saved
+        verify(mStatsIO).save();
+    }
+
+
+    @Test
+    public void testRecordIntEventTwice() {
+        // GIVEN empty game stats
+        GameStats stats = new GameStatsImpl(mStatsIO);
+
+        // WHEN two new int events are recorded
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 30);
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 20);
+
+        // THEN the counter has the right value
+        assertThat(stats.getEventCount(GameStats.Event.LEAVING_ROAD), is(50));
+    }
+
+    @Test
+    public void testEventCountDoesNotOverflow() {
+        // GIVEN game stats with an event almost at MAX_VALUE
+        GameStats stats = new GameStatsImpl(mStatsIO);
+        stats.recordIntEvent(GameStats.Event.MISSILE_HIT, Integer.MAX_VALUE - 3);
+
+        // WHEN a new int event is recorded, which would make the counter larger than MAX_VALUE
+        stats.recordIntEvent(GameStats.Event.MISSILE_HIT, 10);
+
+        // THEN the counter is MAX_VALUE
+        assertThat(stats.getEventCount(GameStats.Event.MISSILE_HIT), is(Integer.MAX_VALUE));
+    }
 }

@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.map.Material;
+import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -72,6 +73,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private float mDirection = 0;
     private float mTurboTime = -1;
     private boolean mStopped = false;
+    private Material mMaterial = Material.ROAD;
     private float mSpeedLimiter = 1f;
 
     private Probe mProbe = null;
@@ -263,6 +265,7 @@ public class Vehicle implements Racer.Component, Disposable {
                 applyTurbo(dt);
                 applyPilotCommands();
                 applyGroundEffects(dt);
+                updateMaterial();
             }
         }
         actWheels(dt);
@@ -320,6 +323,14 @@ public class Vehicle implements Racer.Component, Disposable {
             float angle = info.steeringFactor * steerAngle;
             info.wheel.adjustSpeed(speedDelta);
             info.joint.setLimits(angle, angle);
+        }
+    }
+
+    private void updateMaterial() {
+        Material oldMaterial = mMaterial;
+        mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
+        if (!mMaterial.isRoad() && oldMaterial.isRoad()) {
+            mRacer.getGameStats().recordEvent(GameStats.Event.LEAVING_ROAD);
         }
     }
 

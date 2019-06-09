@@ -75,13 +75,22 @@ public class GameStatsImpl implements GameStats {
 
     @Override
     public void recordEvent(Event event) {
+        recordIntEvent(event, 1);
+    }
+
+    @Override
+    public void recordIntEvent(Event event, int value) {
         String id = event.toString();
         Integer count = mEvents.get(id);
         if (count == null) {
             count = 0;
         }
-        ++count;
-        mEvents.put(id, count);
+        int newCount = count + value;
+        if (newCount < count) {
+            // Do not wrap around
+            newCount = Integer.MAX_VALUE;
+        }
+        mEvents.put(id, newCount);
         save();
     }
 
