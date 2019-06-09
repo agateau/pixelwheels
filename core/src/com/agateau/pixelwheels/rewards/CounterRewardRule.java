@@ -24,7 +24,7 @@ import com.agateau.pixelwheels.utils.StringUtils;
 /**
  * A RewardRule for simple counter-based rewards
  */
-public class CounterRewardRule extends RewardRule {
+public class CounterRewardRule implements RewardRule {
     private final GameStats.Event mEvent;
     private final int mCount;
     private final String mUnlockText;

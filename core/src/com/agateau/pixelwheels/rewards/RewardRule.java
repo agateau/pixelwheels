@@ -23,8 +23,8 @@ import com.agateau.pixelwheels.stats.GameStats;
 /**
  * An abstract class to define the rule to unlock a reward
  */
-public abstract class RewardRule {
-    public abstract boolean hasBeenEarned(GameStats gameStats);
+public interface RewardRule {
+    boolean hasBeenEarned(GameStats gameStats);
 
-    public abstract String getUnlockText(GameStats gameStats);
+    String getUnlockText(GameStats gameStats);
 }
