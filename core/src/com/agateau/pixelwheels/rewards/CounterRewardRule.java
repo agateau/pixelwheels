@@ -19,12 +19,31 @@
 package com.agateau.pixelwheels.rewards;
 
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.utils.StringUtils;
 
 /**
- * An abstract class to define the rule to unlock a reward
+ * A RewardRule for simple counter-based rewards
  */
-public abstract class RewardRule {
-    public abstract boolean hasBeenEarned(GameStats gameStats);
+public class CounterRewardRule extends RewardRule {
+    private final GameStats.Event mEvent;
+    private final int mCount;
+    private final String mUnlockText;
 
-    public abstract String getUnlockText(GameStats gameStats);
+    public CounterRewardRule(GameStats.Event event, int count, String unlockText) {
+        mEvent = event;
+        mCount = count;
+        mUnlockText = unlockText;
+    }
+
+    @Override
+    public boolean hasBeenEarned(GameStats gameStats) {
+        return gameStats.getEventCount(mEvent) >= mCount;
+    }
+
+    @Override
+    public String getUnlockText(GameStats gameStats) {
+        int current = gameStats.getEventCount(mEvent);
+        String text = StringUtils.format(mUnlockText, mCount);
+        return StringUtils.format("%s (%d/%d)", text, current, mCount);
+    }
 }

@@ -19,10 +19,12 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.rewards.CounterRewardRule;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.rewards.RewardRule;
 import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
@@ -45,6 +47,11 @@ class RewardManagerSetup {
                 public boolean hasBeenEarned(GameStats gameStats) {
                     return gameStats.getBestChampionshipRank(previous) <= 2;
                 }
+
+                @Override
+                public String getUnlockText(GameStats gameStats) {
+                    return StringUtils.format("Rank 3 or better at %s", previous.getName());
+                }
             });
         }
     }
@@ -55,23 +62,13 @@ class RewardManagerSetup {
                 rewardManager.addRule(Reward.get(vehicleDef), RewardManager.ALWAYS_UNLOCKED);
             }
         }
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("rocket")), new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(GameStats.Event.MISSILE_HIT) >= 10;
-            }
-        });
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("harvester")), new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(GameStats.Event.LEAVING_ROAD) >= 50;
-            }
-        });
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("santa")), new RewardRule() {
-            @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(GameStats.Event.PICKED_BONUS) >= 20;
-            }
-        });
+        rewardManager.addRule(Reward.get(assets.findVehicleDefById("rocket")),
+                new CounterRewardRule(GameStats.Event.MISSILE_HIT, 10, "Hit %d vehicles with a missile"));
+
+        rewardManager.addRule(Reward.get(assets.findVehicleDefById("harvester")),
+                new CounterRewardRule(GameStats.Event.LEAVING_ROAD, 50, "Leave road %d times"));
+
+        rewardManager.addRule(Reward.get(assets.findVehicleDefById("santa")),
+                new CounterRewardRule(GameStats.Event.PICKED_BONUS, 20, "Pick %d bonuses"));
     }
 }

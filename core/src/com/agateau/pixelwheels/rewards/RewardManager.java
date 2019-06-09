@@ -48,6 +48,11 @@ public class RewardManager {
         public boolean hasBeenEarned(GameStats gameStats) {
             return true;
         }
+
+        @Override
+        public String getUnlockText(GameStats gameStats) {
+            return "";
+        }
     };
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
@@ -89,6 +94,14 @@ public class RewardManager {
 
     public void addRule(Reward reward, RewardRule rule) {
         mRules.put(reward, rule);
+    }
+
+    public String getUnlockText(Reward reward) {
+        if (mUnlockedRewards.contains(reward)) {
+            return "";
+        } else {
+            return mRules.get(reward).getUnlockText(mGameStats);
+        }
     }
 
     private void applyRules() {
