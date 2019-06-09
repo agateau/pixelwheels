@@ -64,7 +64,7 @@ class RewardManagerSetup {
         rewardManager.addRule(Reward.get(assets.findVehicleDefById("harvester")), new RewardRule() {
             @Override
             public boolean hasBeenEarned(GameStats gameStats) {
-                return gameStats.getEventCount(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS) >= 4 * 60 * 1000;
+                return gameStats.getEventCount(GameStats.Event.LEAVING_ROAD) >= 50;
             }
         });
         rewardManager.addRule(Reward.get(assets.findVehicleDefById("santa")), new RewardRule() {

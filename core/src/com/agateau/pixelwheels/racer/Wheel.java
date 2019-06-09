@@ -127,7 +127,7 @@ public class Wheel implements Disposable {
 
     @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
-        updateGroundInfo(delta);
+        updateGroundInfo();
         if (!mVehicle.isFlying()) {
             if (mGripEnabled) {
                 updateFriction();
@@ -194,16 +194,12 @@ public class Wheel implements Disposable {
         mBody.applyAngularImpulse(0.1f * mBody.getInertia() * -mBody.getAngularVelocity(), true);
     }
 
-    private void updateGroundInfo(float delta) {
+    private void updateGroundInfo() {
         if (mVehicle.isFlying()) {
             mMaterial = Material.AIR;
             return;
         }
         mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
-        if (!mMaterial.isRoad()) {
-            int ms = (int)(delta * 1000);
-            mGameWorld.getGameStats().recordIntEvent(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS, ms);
-        }
     }
 
     public void setCanDrift(boolean canDrift) {

@@ -76,7 +76,7 @@ public class GameStatsImplTests {
         GameStats stats = new GameStatsImpl(mStatsIO);
 
         // WHEN a new int event is recorded
-        stats.recordIntEvent(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS, 30);
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 30);
 
         // THEN the stats are saved
         verify(mStatsIO).save();
@@ -89,11 +89,11 @@ public class GameStatsImplTests {
         GameStats stats = new GameStatsImpl(mStatsIO);
 
         // WHEN two new int events are recorded
-        stats.recordIntEvent(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS, 30);
-        stats.recordIntEvent(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS, 20);
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 30);
+        stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 20);
 
         // THEN the counter has the right value
-        assertThat(stats.getEventCount(GameStats.Event.DRIVE_OUTSIDE_ROAD_MS), is(50));
+        assertThat(stats.getEventCount(GameStats.Event.LEAVING_ROAD), is(50));
     }
 
     @Test
