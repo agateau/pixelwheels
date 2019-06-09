@@ -36,7 +36,7 @@ public class CounterRewardRule implements RewardRule {
     }
 
     @Override
-    public boolean hasBeenEarned(GameStats gameStats) {
+    public boolean hasBeenUnlocked(GameStats gameStats) {
         return gameStats.getEventCount(mEvent) >= mCount;
     }
 

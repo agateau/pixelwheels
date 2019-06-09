@@ -45,7 +45,7 @@ public class RewardManager {
 
     public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {
         @Override
-        public boolean hasBeenEarned(GameStats gameStats) {
+        public boolean hasBeenUnlocked(GameStats gameStats) {
             return true;
         }
 
@@ -110,7 +110,7 @@ public class RewardManager {
             if (mUnlockedRewards.contains(reward)) {
                 continue;
             }
-            if (rule.getValue().hasBeenEarned(mGameStats)) {
+            if (rule.getValue().hasBeenUnlocked(mGameStats)) {
                 mUnlockedRewards.add(reward);
             }
         }

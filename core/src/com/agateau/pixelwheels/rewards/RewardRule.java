@@ -21,10 +21,10 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.stats.GameStats;
 
 /**
- * An abstract class to define the rule to unlock a reward
+ * Defines the rule to unlock a reward
  */
 public interface RewardRule {
-    boolean hasBeenEarned(GameStats gameStats);
+    boolean hasBeenUnlocked(GameStats gameStats);
 
     String getUnlockText(GameStats gameStats);
 }

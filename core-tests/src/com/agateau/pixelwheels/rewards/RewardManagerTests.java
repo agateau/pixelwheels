@@ -54,7 +54,7 @@ public class RewardManagerTests {
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
         manager.addRule(Reward.get(championship2), new RewardRule() {
             @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
+            public boolean hasBeenUnlocked(GameStats gameStats) {
                 return false;
             }
         });
@@ -72,7 +72,7 @@ public class RewardManagerTests {
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
         manager.addRule(Reward.get(championship2), new RewardRule() {
             @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
+            public boolean hasBeenUnlocked(GameStats gameStats) {
                 return false;
             }
         });
@@ -91,7 +91,7 @@ public class RewardManagerTests {
         manager.addRule(Reward.get(ch1), RewardManager.ALWAYS_UNLOCKED);
         manager.addRule(Reward.get(ch2), new RewardRule() {
             @Override
-            public boolean hasBeenEarned(GameStats gameStats) {
+            public boolean hasBeenUnlocked(GameStats gameStats) {
                 return gameStats.getBestChampionshipRank(ch1) <= 2;
             }
         });

@@ -44,7 +44,7 @@ class RewardManagerSetup {
             final Championship previous = championships.get(idx - 1);
             rewardManager.addRule(Reward.get(championships.get(idx)), new RewardRule() {
                 @Override
-                public boolean hasBeenEarned(GameStats gameStats) {
+                public boolean hasBeenUnlocked(GameStats gameStats) {
                     return gameStats.getBestChampionshipRank(previous) <= 2;
                 }
 
