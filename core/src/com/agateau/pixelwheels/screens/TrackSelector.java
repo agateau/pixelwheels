@@ -36,7 +36,8 @@ public class TrackSelector extends GridMenuItem<Track> {
     private class Renderer extends TextureRegionItemRendererAdapter<Track> {
         @Override
         protected TextureRegion getItemRegion(Track track) {
-            return mAssets.ui.atlas.findRegion("map-icons/" + track.getId());
+            return isItemEnabled(track) ? mAssets.ui.atlas.findRegion("map-icons/" + track.getId())
+                    : mAssets.ui.atlas.findRegion("map-icons/locked");
         }
 
         @Override

@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.map.Championship;
-import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
@@ -37,7 +36,8 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
     private class Renderer extends TextureRegionItemRendererAdapter<Championship> {
         @Override
         protected TextureRegion getItemRegion(Championship championship) {
-            return mAssets.getChampionshipRegion(championship);
+            return isItemEnabled(championship) ? mAssets.getChampionshipRegion(championship)
+                    : mAssets.ui.atlas.findRegion("map-icons/locked");
         }
 
         @Override
