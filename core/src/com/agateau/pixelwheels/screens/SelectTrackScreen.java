@@ -156,11 +156,17 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void updateTrackRecords(Track track) {
-        mTrackNameLabel.setText(track.getMapName());
-        mTrackNameLabel.pack();
-        TrackStats stats = mGame.getGameStats().getTrackStats(track);
-        updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
-        updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
+        if (mGame.getRewardManager().isTrackUnlocked(track)) {
+            mTrackNameLabel.setText(track.getMapName());
+            mTrackNameLabel.pack();
+            TrackStats stats = mGame.getGameStats().getTrackStats(track);
+            updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
+            updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
+        } else {
+            mTrackNameLabel.setText("[Locked]\n" + mGame.getRewardManager().getUnlockText(track));
+            mLapRecordsTable.clearChildren();
+            mTotalRecordsTable.clearChildren();
+        }
         root.layout();
     }
 

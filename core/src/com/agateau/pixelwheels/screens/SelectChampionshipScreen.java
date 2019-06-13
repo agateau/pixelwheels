@@ -126,20 +126,24 @@ public class SelectChampionshipScreen extends PwStageScreen {
 
     private final StringBuilder mStringBuilder = new StringBuilder();
     private void updateChampionshipDetails(Championship championship) {
-        mChampionshipNameLabel.setText(championship.getName());
+        if (mGame.getRewardManager().isChampionshipUnlocked(championship)) {
+            mChampionshipNameLabel.setText(championship.getName());
 
-        mStringBuilder.setLength(0);
-        boolean first = true;
-        for (Track track : championship.getTracks()) {
-            if (first) {
-                first = false;
-            } else {
-                mStringBuilder.append('\n');
+            mStringBuilder.setLength(0);
+            boolean first = true;
+            for (Track track : championship.getTracks()) {
+                if (first) {
+                    first = false;
+                } else {
+                    mStringBuilder.append('\n');
+                }
+                mStringBuilder.append(track.getMapName());
             }
-            mStringBuilder.append(track.getMapName());
+            mChampionshipDetailsLabel.setText(mStringBuilder.toString());
+        } else {
+            mChampionshipNameLabel.setText("[Locked]");
+            mChampionshipDetailsLabel.setText(mGame.getRewardManager().getUnlockText(championship));
         }
-        mChampionshipDetailsLabel.setText(mStringBuilder.toString());
-
         mChampionshipNameLabel.pack();
         mChampionshipDetailsLabel.pack();
     }

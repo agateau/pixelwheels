@@ -72,8 +72,13 @@ public class RewardManager {
                 return isChampionshipUnlocked(championship);
             }
         }
-        NLog.e("Track %s does not belong to any championship!", track);
-        return false;
+        Championship championship = findTrackChampionship(track);
+        if (championship == null) {
+            NLog.e("Track %s does not belong to any championship!", track);
+            return false;
+        } else {
+            return isChampionshipUnlocked(championship);
+        }
     }
 
     public boolean isChampionshipUnlocked(Championship championship) {
@@ -96,6 +101,15 @@ public class RewardManager {
         mRules.put(reward, rule);
     }
 
+    public String getUnlockText(Track track) {
+        Championship championship = findTrackChampionship(track);
+        return getUnlockText(Reward.get(championship));
+    }
+
+    public String getUnlockText(Championship championship) {
+        return getUnlockText(Reward.get(championship));
+    }
+
     public String getUnlockText(Reward reward) {
         if (mUnlockedRewards.contains(reward)) {
             return "";
@@ -114,5 +128,14 @@ public class RewardManager {
                 mUnlockedRewards.add(reward);
             }
         }
+    }
+
+    private Championship findTrackChampionship(Track track) {
+        for (Championship championship : mChampionships) {
+            if (championship.getTracks().contains(track, true /* identity */)) {
+                return championship;
+            }
+        }
+        return null;
     }
 }
