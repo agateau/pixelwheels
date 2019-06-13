@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.rewards;
 
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
@@ -110,7 +111,11 @@ public class RewardManager {
         return getUnlockText(Reward.get(championship));
     }
 
-    public String getUnlockText(Reward reward) {
+    public String getUnlockText(VehicleDef vehicle) {
+        return getUnlockText(Reward.get(vehicle));
+    }
+
+    private String getUnlockText(Reward reward) {
         if (mUnlockedRewards.contains(reward)) {
             return "";
         } else {

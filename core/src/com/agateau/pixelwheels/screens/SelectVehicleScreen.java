@@ -22,8 +22,6 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.rewards.Reward;
-import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
@@ -120,7 +118,7 @@ public class SelectVehicleScreen extends PwStageScreen {
         if (mGame.getRewardManager().isVehicleUnlocked(vehicle)) {
             text = vehicle.name;
         } else {
-            String unlockText = mGame.getRewardManager().getUnlockText(Reward.get(vehicle));
+            String unlockText = mGame.getRewardManager().getUnlockText(vehicle);
             text = StringUtils.format("[Locked]\n\n%s", unlockText);
         }
         mVehicleNameLabel.setText(text);
