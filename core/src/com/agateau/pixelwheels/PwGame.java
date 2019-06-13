@@ -104,8 +104,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         super.render();
     }
 
-    public void refreshAssets() {
+    void refreshAssets() {
         mAssets = new Assets();
+        // Tracks and championship have been recreated, need to recreate reward manager
+        setupRewardManager();
     }
 
     private void setupConfig() {
