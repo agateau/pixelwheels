@@ -49,6 +49,10 @@ class FocusIndicator {
         }
         int padding = mMenuStyle.focusPadding;
         float oldA = DrawUtils.setBatchAlpha(batch, batch.getColor().a * mAlpha);
+        x = MathUtils.floor(x);
+        y = MathUtils.floor(y);
+        width = MathUtils.ceil(width);
+        height = MathUtils.ceil(height);
         mMenuStyle.focus.draw(batch, x - padding, y - padding, width + 2 * padding, height + 2 * padding);
         DrawUtils.setBatchAlpha(batch, oldA);
     }
