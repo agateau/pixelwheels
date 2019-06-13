@@ -37,7 +37,7 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
         @Override
         protected TextureRegion getItemRegion(Championship championship) {
             return isItemEnabled(championship) ? mAssets.getChampionshipRegion(championship)
-                    : mAssets.ui.atlas.findRegion("map-icons/locked");
+                    : mAssets.getLockedTrackRegion();
         }
 
         @Override

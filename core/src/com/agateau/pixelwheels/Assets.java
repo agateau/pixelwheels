@@ -196,7 +196,15 @@ public class Assets {
 
     public TextureRegion getChampionshipRegion(Championship championship) {
         Track track = championship.getTracks().get(0);
-        return ui.atlas.findRegion("map-screenshots/" + track.getId());
+        return getTrackRegion(track);
+    }
+
+    public TextureRegion getTrackRegion(Track track) {
+        return ui.atlas.findRegion("map-icons/" + track.getId());
+    }
+
+    public TextureRegion getLockedTrackRegion() {
+        return ui.atlas.findRegion("map-icons/locked");
     }
 
     private void loadVehicleDefinitions() {
