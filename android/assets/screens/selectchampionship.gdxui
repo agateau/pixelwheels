@@ -6,7 +6,7 @@
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="400"/>
 
-        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -2" style="title"/>
+        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -2"/>
 
         <Label id="championshipDetailsLabel" topCenter="championshipNameLabel.bottomCenter 0 -1"/>
 
