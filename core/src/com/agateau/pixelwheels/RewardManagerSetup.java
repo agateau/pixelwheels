@@ -50,7 +50,7 @@ class RewardManagerSetup {
 
                 @Override
                 public String getUnlockText(GameStats gameStats) {
-                    return StringUtils.format("Rank 3 or better at %s", previous.getName());
+                    return StringUtils.format("Rank 3 or better at %s championship", previous.getName());
                 }
             });
         }
