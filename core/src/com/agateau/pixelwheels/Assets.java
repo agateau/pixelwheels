@@ -49,8 +49,8 @@ public class Assets {
     public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
     public final Array<Track> tracks = new Array<Track>(new Track[]{
             new Track("race", "Let it Snow"),
-            new Track("snow2", "More Snow!"),
-            new Track("be", "City"),
+            new Track("snow2", "Don't slip!"),
+            new Track("be", "Blocky Town"),
             new Track("tiny-sur-mer", "Tiny sur Mer"),
     });
     public final Array<Championship> championships = new Array<Championship>();
@@ -137,11 +137,11 @@ public class Assets {
     }
 
     private void initChampionships() {
-        championships.add(new Championship("snow", "Snow")
+        championships.add(new Championship("snow", "Square Mountains")
                 .addTrack(findTrackById("race"))
                 .addTrack(findTrackById("snow2")));
 
-        championships.add(new Championship("city", "City")
+        championships.add(new Championship("city", "Pix Cities")
                 .addTrack(findTrackById("be"))
                 .addTrack(findTrackById("tiny-sur-mer")));
     }
