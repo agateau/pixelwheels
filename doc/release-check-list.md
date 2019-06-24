@@ -23,6 +23,8 @@
 - Test on computer
 - Test on device
 
+- Upload apk on Google Play
+
 - Tag and push
 
     make tagpush
@@ -45,7 +47,6 @@
 
 # Google Play
 
-- Upload apk
 - Update Google Play page
 - Publish
 
