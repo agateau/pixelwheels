@@ -8,8 +8,8 @@
 
 - 3 new vehicles: Rocket, Harvester and 2CV!
 
-- A locking system has been added: some vehicles and the second championship(
-  Pix Cities) must now be unlocked.
+- A locking system has been added: some vehicles and the second championship
+  (Pix Cities) must now be unlocked.
 
 #### Changed
 
@@ -18,7 +18,7 @@
 - Multiplayer is now all on one screen: the camera zooms out so that all
   players are visible.
 
-- Tracks are not represented using a hand-made icon, instead of screenshots.
+- Tracks are now represented using a hand-made icon, instead of screenshots.
   This looks sharper and makes life easier for F-Droid packagers.
 
 - Selecting keyboard "config" now shows which keys are used.
