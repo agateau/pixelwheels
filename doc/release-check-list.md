@@ -49,6 +49,9 @@
 - Update Google Play page
 - Publish
 
+# F-Droid
+- Get the F-Droid version updated
+
 # Spread
 
 - Post on:
