@@ -69,7 +69,7 @@ public class VehicleCreator {
               We have to swap coordinates to take this into account.
              */
             float wheelY = axle.width * U / 2;
-            float wheelX = (axle.y - mainRegion.getRegionWidth() / 2) * U;
+            float wheelX = (axle.y - mainRegion.getRegionWidth() / 2f) * U;
             float drive = maxDrivingForce * axle.drive;
 
             // Left wheel

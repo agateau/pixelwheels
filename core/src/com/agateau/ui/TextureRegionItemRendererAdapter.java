@@ -66,7 +66,7 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
 
     protected abstract TextureRegion getItemRegion(T item);
 
-    private void updateRenderInfo(float width, float height, TextureRegion region) {
+    protected void updateRenderInfo(float width, float height, TextureRegion region) {
         float rWidth = region.getRegionWidth();
         float rHeight = region.getRegionHeight();
         if (mAngle % 180 > 0) {
@@ -83,5 +83,13 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
         mRectangle.height = rHeight * mScale;
         mRectangle.x = (width - mRectangle.width) / 2;
         mRectangle.y = (height - mRectangle.height) / 2;
+    }
+
+    public float getScale() {
+        return mScale;
+    }
+
+    public float getAngle() {
+        return mAngle;
     }
 }

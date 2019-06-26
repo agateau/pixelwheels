@@ -22,9 +22,9 @@ package com.agateau.pixelwheels.vehicledef;
  * Definition of a vehicle axle
  */
 public class AxleDef {
-    float width;
-    float y;
-    float steer;
-    float drive;
-    boolean drift;
+    public float width;
+    public float y;
+    public float steer;
+    public float drive;
+    public boolean drift;
 }

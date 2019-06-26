@@ -20,10 +20,12 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.rewards.RewardManager;
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.TextureRegionItemRendererAdapter;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -34,6 +36,12 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private RewardManager mRewardManager;
 
     private class Renderer extends TextureRegionItemRendererAdapter<VehicleDef> {
+        private final VehicleDrawer mVehicleDrawer;
+
+        private Renderer() {
+            mVehicleDrawer = new VehicleDrawer(mAssets);
+        }
+
         @Override
         protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
             return isItemEnabled(vehicleDef) ? mAssets.getVehicleRegion(vehicleDef) : mAssets.lockedVehicle;
@@ -42,6 +50,23 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         @Override
         public boolean isItemEnabled(VehicleDef vehicleDef) {
             return mRewardManager.isVehicleUnlocked(vehicleDef);
+        }
+
+        @Override
+        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
+            TextureRegion region = getItemRegion(vehicleDef);
+            updateRenderInfo(width, height, region);
+
+            if (isItemEnabled(vehicleDef)) {
+                mVehicleDrawer.vehicleDef = vehicleDef;
+                mVehicleDrawer.center.x = x + width / 2;
+                mVehicleDrawer.center.y = y + height / 2;
+                mVehicleDrawer.scale = getScale();
+                mVehicleDrawer.angle = getAngle();
+                mVehicleDrawer.draw(batch);
+            } else {
+                DrawUtils.drawCentered(batch, region, x + width / 2, y + height / 2, getScale(), getAngle());
+            }
         }
     }
 

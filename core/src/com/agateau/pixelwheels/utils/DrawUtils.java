@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -42,5 +43,20 @@ public class DrawUtils {
         color.a = alpha;
         batch.setColor(color);
         return old;
+    }
+
+    public static void drawCentered(Batch batch, TextureRegion region, Vector2 center, float scale, float angle) {
+        drawCentered(batch, region, center.x, center.y, scale, angle);
+    }
+
+    public static void drawCentered(Batch batch, TextureRegion region, float x, float y, float scale, float angle) {
+        float width = region.getRegionWidth();
+        float height = region.getRegionHeight();
+        batch.draw(region,
+                x - width / 2, y - height / 2, // pos
+                width / 2, height / 2, // origin
+                width, height,
+                scale, scale,
+                angle);
     }
 }
