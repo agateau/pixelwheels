@@ -19,9 +19,11 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.AxleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -48,6 +50,8 @@ class VehicleDrawer {
         TextureRegion region = mAssets.getVehicleRegion(vehicleDef);
         float axleXOrigin = -region.getRegionWidth() / 2f;
 
+        drawShadow(batch, region);
+
         for (AxleDef axle : vehicleDef.axles) {
             // axleX is based on axle.y because the vehicle texture faces right, but the axle
             // definition faces top
@@ -63,5 +67,13 @@ class VehicleDrawer {
     private void drawWheel(Batch batch, float wx, float wy) {
         sWheelPos.set(wx, wy).scl(scale).rotate(angle).add(center);
         DrawUtils.drawCentered(batch, mAssets.wheel, sWheelPos, scale, angle);
+    }
+
+    private void drawShadow(Batch batch, TextureRegion region) {
+        Color old = batch.getColor();
+        float offset = BodyRegionDrawer.SHADOW_OFFSET_PX;
+        batch.setColor(0, 0, 0, BodyRegionDrawer.SHADOW_ALPHA);
+        DrawUtils.drawCentered(batch, region, center.x + offset, center.y - offset, scale, angle);
+        batch.setColor(old);
     }
 }
