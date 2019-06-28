@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "26.0.2"
-    compileSdkVersion 26
+    buildToolsVersion "28.0.3"
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
     }
