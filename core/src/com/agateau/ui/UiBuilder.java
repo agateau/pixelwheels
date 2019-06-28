@@ -175,10 +175,12 @@ public class UiBuilder {
                 continue;
             }
             Actor actor = createActorForElement(element);
+            if (actor == null) {
+                throw new SyntaxException("Failed to create actor for element: " + element);
+            }
             if (idx == 0) {
                 firstActor = actor;
             }
-            assert(actor != null);
             if (actor instanceof Widget) {
                 applyWidgetProperties((Widget)actor, element);
             }
@@ -187,7 +189,7 @@ public class UiBuilder {
             String id = element.getAttribute("id", null);
             if (id != null) {
                 if (mActorForId.containsKey(id)) {
-                    throw new RuntimeException("Duplicate ids: " + id);
+                    throw new SyntaxException("Duplicate ids: " + id);
                 }
                 mActorForId.put(id, actor);
             }
@@ -247,7 +249,7 @@ public class UiBuilder {
         if (factory != null) {
             return factory.createActor(this, element);
         }
-        throw new RuntimeException("Unknown UI element type: " + name);
+        throw new SyntaxException("Unknown UI element type: " + name);
     }
 
     private Image createImage(XmlReader.Element element) {
@@ -335,7 +337,7 @@ public class UiBuilder {
         return group;
     }
 
-    private Label createLabel(XmlReader.Element element) {
+    private Label createLabel(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
@@ -361,7 +363,7 @@ public class UiBuilder {
         return pane;
     }
 
-    private VerticalGroup createVerticalGroup(XmlReader.Element element) {
+    private VerticalGroup createVerticalGroup(XmlReader.Element element) throws SyntaxException {
         VerticalGroup group = new VerticalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         int align = parseAlign(element);
@@ -500,7 +502,7 @@ public class UiBuilder {
             }
         }
         if (rule.referenceAnchor == null) {
-            throw new RuntimeException("Invalid anchor name: '" + tokens[1] + "'");
+            throw new SyntaxException("Invalid anchor name: '" + tokens[1] + "'");
         }
         if (tokens.length == 3) {
             rule.hSpace = Float.parseFloat(tokens[1]) * spacing;
@@ -520,19 +522,19 @@ public class UiBuilder {
         return text.replace("\\n", "\n");
     }
 
-    private void createActorActions(Actor actor, XmlReader.Element element) {
+    private void createActorActions(Actor actor, XmlReader.Element element) throws SyntaxException {
         for (XmlReader.Element child: element.getChildrenByName("Action")) {
             String definition = child.getText();
             float duration = child.getFloatAttribute("duration", -1);
             if (duration < 0) {
-                throw new RuntimeException("Missing 'duration' attribute for action '" + definition + "'");
+                throw new SyntaxException("Missing 'duration' attribute for action '" + definition + "'");
             }
             AnimScript script = mAnimScriptloader.load(definition);
             actor.addAction(script.createAction(1, 1, duration));
         }
     }
 
-    private static int parseAlign(XmlReader.Element element) {
+    private static int parseAlign(XmlReader.Element element) throws SyntaxException {
         String alignText = element.getAttribute("align", "");
         if (alignText.isEmpty()) {
             return -1;
@@ -556,7 +558,7 @@ public class UiBuilder {
         } else if (alignText.equals("bottomRight")) {
             return Align.bottomRight;
         } else {
-            throw new RuntimeException("Unknown value of 'align': " + alignText);
+            throw new SyntaxException("Unknown value of 'align': " + alignText);
         }
     }
 }
