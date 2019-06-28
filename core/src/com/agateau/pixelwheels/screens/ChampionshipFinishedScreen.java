@@ -23,16 +23,21 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.utils.StringUtils;
+import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.utils.UiUtils;
-import com.agateau.ui.RefreshHelper;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.XmlReader;
 
 import java.util.Locale;
 
@@ -45,10 +50,29 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             table.add(values[0], style).right().padRight(24);
             table.add(values[1], style).left().expandX().padRight(24);
             table.add(values[2], style).right().padRight(24);
-            table.add(values[3], style).right();
         }
     };
     private final NextListener mNextListener;
+
+    private static class VehicleActor extends Actor {
+        private final VehicleDrawer mDrawer;
+
+        public VehicleActor(Assets assets) {
+            mDrawer = new VehicleDrawer(assets);
+            mDrawer.angle = 90;
+        }
+
+        public void setVehicleDef(VehicleDef vehicleDef) {
+            mDrawer.vehicleDef = vehicleDef;
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            mDrawer.center.x = getX();
+            mDrawer.center.y = getY();
+            mDrawer.draw(batch);
+        }
+    }
 
     public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
         super(game.getAssets().ui);
@@ -65,8 +89,14 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     }
 
     private void setupUi() {
-        Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        final Assets assets = mGame.getAssets();
+        UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
+        builder.registerActorFactory("Vehicle", new UiBuilder.ActorFactory() {
+            @Override
+            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
+                return new VehicleActor(assets);
+            }
+        });
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
         root.setFillParent(true);
@@ -77,6 +107,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
         Table table = builder.getActor("entrantTable");
         fillEntrantTable(table, mGameInfo.getEntrants());
+
+        fillPodium(builder, mGameInfo.getEntrants());
     }
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
@@ -89,9 +121,18 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     entrant.getVehicleId(),
-                    String.valueOf(entrant.getScore()),
-                    StringUtils.formatRaceTime(entrant.getRaceTime())
+                    String.valueOf(entrant.getScore())
             );
+        }
+    }
+
+    private void fillPodium(UiBuilder builder, Array<GameInfo.Entrant> entrants) {
+        Assets assets = mGame.getAssets();
+        for (int idx = 0; idx < 3; ++idx) {
+            GameInfo.Entrant entrant = entrants.get(idx);
+            VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
+            VehicleActor actor = builder.getActor("vehicle" + idx);
+            actor.setVehicleDef(vehicleDef);
         }
     }
 }

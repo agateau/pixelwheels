@@ -4,9 +4,13 @@
         <Label id="mainLabel" style="title"
                topCenter="root.topCenter 0 -2">Championship Finished!</Label>
 
-        <Table id="entrantTable" center="root.center"
-            width="500"
+        <Table id="entrantTable" centerLeft="root.centerLeft 1 0"
+            width="340"
             height="320"/>
+
+        <Vehicle id="vehicle0" center="root.centerRight -12 4"/>
+        <Vehicle id="vehicle1" center="vehicle0.center -4 -3"/>
+        <Vehicle id="vehicle2" center="vehicle0.center 4 -6"/>
 
         <ImageButton id="nextButton"
                     bottomRight="root.bottomRight -1 1"
