@@ -99,7 +99,7 @@ public class UiBuilder {
     };
 
     public static class SyntaxException extends Exception {
-        public SyntaxException(String message) {
+        SyntaxException(String message) {
             super(message);
         }
     }
@@ -183,9 +183,7 @@ public class UiBuilder {
                 applyWidgetProperties((Widget)actor, element);
             }
             applyActorProperties(actor, element, parentActor);
-            if (mAnimScriptloader != null) {
-                createActorActions(actor, element);
-            }
+            createActorActions(actor, element);
             String id = element.getAttribute("id", null);
             if (id != null) {
                 if (mActorForId.containsKey(id)) {
@@ -216,7 +214,7 @@ public class UiBuilder {
         return obj;
     }
 
-    protected Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
+    private Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
         if (name.equals("Image")) {
             return createImage(element);
@@ -252,7 +250,7 @@ public class UiBuilder {
         throw new RuntimeException("Unknown UI element type: " + name);
     }
 
-    protected Image createImage(XmlReader.Element element) {
+    private Image createImage(XmlReader.Element element) {
         Image image = new Image();
         TextureAtlas atlas = getAtlasForElement(element);
         String attr = element.getAttribute("name", "");
@@ -303,7 +301,7 @@ public class UiBuilder {
         }
     }
 
-    protected ImageButton createImageButton(XmlReader.Element element) {
+    private ImageButton createImageButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
         String imageName = element.getAttribute("imageName", "");
@@ -319,25 +317,25 @@ public class UiBuilder {
         return button;
     }
 
-    protected TextButton createTextButton(XmlReader.Element element) {
+    private TextButton createTextButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         return new TextButton(text, mSkin, styleName);
     }
 
     @SuppressWarnings("UnusedParameters")
-    protected Group createGroup(XmlReader.Element element) {
+    private Group createGroup(XmlReader.Element element) {
         return new Group();
     }
 
-    protected AnchorGroup createAnchorGroup(XmlReader.Element element) {
+    private AnchorGroup createAnchorGroup(XmlReader.Element element) {
         float spacing = element.getFloatAttribute("spacing", 1);
         AnchorGroup group = new AnchorGroup();
         group.setSpacing(spacing);
         return group;
     }
 
-    protected Label createLabel(XmlReader.Element element) {
+    private Label createLabel(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
@@ -348,7 +346,7 @@ public class UiBuilder {
         return label;
     }
 
-    protected ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
+    private ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "");
         ScrollPane pane;
         if (styleName.isEmpty()) {
@@ -358,12 +356,12 @@ public class UiBuilder {
         }
         Actor child = doBuild(element, null);
         if (child != null) {
-            pane.setWidget(child);
+            pane.setActor(child);
         }
         return pane;
     }
 
-    protected VerticalGroup createVerticalGroup(XmlReader.Element element) {
+    private VerticalGroup createVerticalGroup(XmlReader.Element element) {
         VerticalGroup group = new VerticalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         int align = parseAlign(element);
@@ -373,23 +371,24 @@ public class UiBuilder {
         return group;
     }
 
-    protected HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
+    private HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
         HorizontalGroup group = new HorizontalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         return group;
     }
 
-    protected Table createTable(XmlReader.Element element) {
+    @SuppressWarnings("UnusedParameters")
+    private Table createTable(XmlReader.Element element) {
         return new Table(mSkin);
     }
 
-    protected CheckBox createCheckBox(XmlReader.Element element) {
+    private CheckBox createCheckBox(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = element.getText();
         return new CheckBox(text, mSkin, styleName);
     }
 
-    protected Menu createMenu(XmlReader.Element element) {
+    private Menu createMenu(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
         float width = element.getIntAttribute("labelColumnWidth", 0);
@@ -399,17 +398,16 @@ public class UiBuilder {
         return menu;
     }
 
-    protected MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
+    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
         Menu menu = createMenu(element);
-        MenuScrollPane pane = new MenuScrollPane(menu);
-        return pane;
+        return new MenuScrollPane(menu);
     }
 
-    protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {
+    private void applyWidgetProperties(Widget widget, XmlReader.Element element) {
         widget.setFillParent(element.getBooleanAttribute("fillParent", false));
     }
 
-    protected void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) throws SyntaxException {
+    private void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) throws SyntaxException {
         AnchorGroup anchorGroup = null;
         if (parentActor != null) {
             parentActor.addActor(actor);
