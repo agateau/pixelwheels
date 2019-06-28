@@ -27,6 +27,7 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -97,6 +98,12 @@ public class UiBuilder {
         Anchor.BOTTOM_RIGHT
     };
 
+    public static class SyntaxException extends Exception {
+        public SyntaxException(String message) {
+            super(message);
+        }
+    }
+
     public UiBuilder(TextureAtlas atlas, Skin skin) {
         mAtlas = atlas;
         mSkin = skin;
@@ -122,7 +129,12 @@ public class UiBuilder {
 
     public Actor build(XmlReader.Element parentElement, Group parentActor) {
         mActorForId.clear();
-        return doBuild(parentElement, parentActor);
+        try {
+            return doBuild(parentElement, parentActor);
+        } catch (SyntaxException e) {
+            NLog.e("Parse error: " + e.getMessage());
+            return null;
+        }
     }
 
     public TextureAtlas getAtlas() {
@@ -137,7 +149,7 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor) {
+    private Actor doBuild(XmlReader.Element parentElement, Group parentActor) throws SyntaxException {
         Actor firstActor = null;
         for (int idx=0, size = parentElement.getChildCount(); idx < size; ++idx) {
             XmlReader.Element element = parentElement.getChild(idx);
@@ -204,7 +216,7 @@ public class UiBuilder {
         return obj;
     }
 
-    protected Actor createActorForElement(XmlReader.Element element) {
+    protected Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
         if (name.equals("Image")) {
             return createImage(element);
@@ -336,7 +348,7 @@ public class UiBuilder {
         return label;
     }
 
-    protected ScrollPane createScrollPane(XmlReader.Element element) {
+    protected ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "");
         ScrollPane pane;
         if (styleName.isEmpty()) {
@@ -397,7 +409,7 @@ public class UiBuilder {
         widget.setFillParent(element.getBooleanAttribute("fillParent", false));
     }
 
-    protected void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) {
+    protected void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) throws SyntaxException {
         AnchorGroup anchorGroup = null;
         if (parentActor != null) {
             parentActor.addActor(actor);
@@ -456,7 +468,7 @@ public class UiBuilder {
             attr = element.getAttribute(anchorName, "");
             if (!attr.isEmpty()) {
                 if (anchorGroup == null) {
-                    throw new RuntimeException("Parent of " + actor + " is not an anchor group");
+                    throw new SyntaxException("Parent of " + actor + " is not an anchor group");
                 }
                 PositionRule rule = parseRule(attr, anchorGroup.getSpacing());
                 rule.target = actor;
@@ -472,11 +484,16 @@ public class UiBuilder {
      * @param spacing how many pixels a space of 1 represents
      * @return a PositionRule
      */
-    private PositionRule parseRule(String txt, float spacing) {
+    private PositionRule parseRule(String txt, float spacing) throws SyntaxException {
         PositionRule rule = new PositionRule();
         String[] tokens = txt.split(" +");
-        assert(tokens.length == 1 || tokens.length == 3);
+        if (tokens.length != 1 && tokens.length != 3) {
+            throw new SyntaxException("Invalid rule syntax: " + txt);
+        }
         String[] tokens2 = tokens[0].split("\\.");
+        if (tokens2.length != 2) {
+            throw new SyntaxException("reference should be of the form <id>.<anchor>: " + txt);
+        }
         rule.reference = getActor(tokens2[0]);
         for (int idx = 0, size = ANCHOR_NAMES.length; idx < size; ++idx) {
             if (tokens2[1].equals(ANCHOR_NAMES[idx])) {
