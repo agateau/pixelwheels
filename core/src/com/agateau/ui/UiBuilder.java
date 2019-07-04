@@ -333,7 +333,7 @@ public class UiBuilder {
     private AnchorGroup createAnchorGroup(XmlReader.Element element) {
         float spacing = element.getFloatAttribute("spacing", 1);
         AnchorGroup group = new AnchorGroup();
-        group.setSpacing(spacing);
+        group.setGridSize(spacing);
         return group;
     }
 
@@ -470,7 +470,7 @@ public class UiBuilder {
                 if (anchorGroup == null) {
                     throw new SyntaxException("Parent of " + actor + " is not an anchor group");
                 }
-                PositionRule rule = parseRule(attr, anchorGroup.getSpacing());
+                PositionRule rule = parseRule(attr, anchorGroup.getGridSize());
                 rule.target = actor;
                 rule.targetAnchor = ANCHORS[idx];
                 anchorGroup.addRule(rule);
@@ -481,10 +481,10 @@ public class UiBuilder {
     /**
      * Parse a string of the form "$actorId $anchorName [$xOffset $yOffset]"
      * @param txt the string to parse
-     * @param spacing how many pixels a space of 1 represents
+     * @param gridSize how many pixels a grid cell of 1 represents
      * @return a PositionRule
      */
-    private PositionRule parseRule(String txt, float spacing) throws SyntaxException {
+    private PositionRule parseRule(String txt, float gridSize) throws SyntaxException {
         PositionRule rule = new PositionRule();
         String[] tokens = txt.split(" +");
         if (tokens.length != 1 && tokens.length != 3) {
@@ -505,8 +505,8 @@ public class UiBuilder {
             throw new SyntaxException("Invalid anchor name: '" + tokens[1] + "'");
         }
         if (tokens.length == 3) {
-            rule.hSpace = Float.parseFloat(tokens[1]) * spacing;
-            rule.vSpace = Float.parseFloat(tokens[2]) * spacing;
+            rule.hSpace = Float.parseFloat(tokens[1]) * gridSize;
+            rule.vSpace = Float.parseFloat(tokens[2]) * gridSize;
         }
         return rule;
     }
