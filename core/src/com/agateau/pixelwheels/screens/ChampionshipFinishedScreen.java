@@ -23,19 +23,21 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 
@@ -74,6 +76,34 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         }
     }
 
+    private static class RoadActor extends Actor {
+        private final float mPixelsPerSecond;
+        private final TiledDrawable mDrawable;
+        private float mOffset = 0;
+
+        public RoadActor(Assets assets, float pixelsPerSecond) {
+            mDrawable = new TiledDrawable(assets.ui.atlas.findRegion("road"));
+            mPixelsPerSecond = pixelsPerSecond;
+        }
+
+        @Override
+        public void act(float delta) {
+            super.act(delta);
+            float tileHeight = mDrawable.getMinHeight();
+            mOffset = AgcMathUtils.modulo(mOffset + delta * mPixelsPerSecond, tileHeight);
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            Color color = getColor();
+            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+            float tileHeight = mDrawable.getMinHeight();
+            float origY = MathUtils.floor(getY() + mOffset);
+            mDrawable.draw(batch, getX(), origY - tileHeight, getWidth(), tileHeight);
+            mDrawable.draw(batch, getX(), origY, getWidth(), getHeight() - mOffset);
+        }
+    }
+
     public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
         super(game.getAssets().ui);
         mGame = game;
@@ -90,15 +120,26 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void setupUi() {
         final Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
+        final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
         builder.registerActorFactory("Vehicle", new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
                 return new VehicleActor(assets);
             }
         });
+        builder.registerActorFactory("Road", new UiBuilder.ActorFactory() {
+            @Override
+            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
+                float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
+                return new RoadActor(assets, pixelsPerSecond);
+            }
+        });
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
+        if (root == null) {
+            NLog.e("Failed to create ui");
+            return;
+        }
         root.setFillParent(true);
         getStage().addActor(root);
 

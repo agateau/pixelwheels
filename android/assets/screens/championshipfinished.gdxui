@@ -1,19 +1,66 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20px">
-        <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -2">Championship Finished!</Label>
 
-        <Table id="entrantTable" centerLeft="root.centerLeft 1 0"
-            width="340"
-            height="320"/>
+        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="24g" pixelsPerSecond="-180">
+            <Action duration="0.5">
+                alpha 0
+                alpha 1 1 pow2Out
+            </Action>
+        </Road>
+        <Group id="animRoot" center="road.center">
+            <Vehicle id="vehicle0" x="0" y="2g">
+                <Action duration="1.5">
+                    moveBy 0 -20g
+                    delay 0.8
+                    moveBy 0 20g 0.2 pow2Out
+                </Action>
+            </Vehicle>
+            <Vehicle id="vehicle1" x="-5g" y="-2g">
+                <Action duration="1.5">
+                    moveBy 0 -20g
+                    delay 0.6
+                    moveBy 0 20g 0.2 pow2Out
+                </Action>
+            </Vehicle>
+            <Vehicle id="vehicle2" x="5g" y="-6g">
+                <Action duration="1.5">
+                    moveBy 0 -20g
+                    delay 0.4
+                    moveBy 0 20g 0.2 pow2Out
+                </Action>
+            </Vehicle>
+        </Group>
 
-        <Vehicle id="vehicle0" center="root.centerRight -12 4"/>
-        <Vehicle id="vehicle1" center="vehicle0.center -4 -3"/>
-        <Vehicle id="vehicle2" center="vehicle0.center 4 -6"/>
+        <Group id="leftColumn" topLeft="root.topLeft 2g -1g">
+            <Label id="mainLabel" style="title"
+                x="4g" y="-2g">Championship
+                <Action duration="0.2">
+                    moveBy -80g 0
+                    moveBy 80g 0 1 pow2Out
+                </Action>
+            </Label>
+            <Label style="title" x="8g" y="-4g">Finished!
+                <Action duration="0.5">
+                    moveBy 120g 0
+                    delay 0.5
+                    moveBy -120g 0 1 pow2Out
+                </Action>
+            </Label>
+        </Group>
+
+        <Table id="entrantTable" centerLeft="root.centerLeft 2g -1g"
+            width="17g"
+            height="16g">
+            <Action duration="2">
+                alpha 0
+                delay 0.5
+                alpha 1 0.5 pow2Out
+            </Action>
+        </Table>
 
         <ImageButton id="nextButton"
-                    bottomRight="root.bottomRight -1 1"
+                    bottomRight="root.bottomRight -1g 1g"
                     imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>
