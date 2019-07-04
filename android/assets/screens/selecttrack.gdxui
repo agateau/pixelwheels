@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gdxui>
-    <AnchorGroup id="root" spacing="20">
+    <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1">Select Track</Label>
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="800" height="400"/>

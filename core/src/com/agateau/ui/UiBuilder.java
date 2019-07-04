@@ -63,6 +63,7 @@ public class UiBuilder {
 
     private final Set<String> mVariables = new HashSet<String>();
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
+    private final DimensionParser mDimParser = new DimensionParser();
 
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
     private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
@@ -331,9 +332,9 @@ public class UiBuilder {
     }
 
     private AnchorGroup createAnchorGroup(XmlReader.Element element) {
-        float spacing = element.getFloatAttribute("spacing", 1);
+        mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
         AnchorGroup group = new AnchorGroup();
-        group.setGridSize(spacing);
+        group.setGridSize(mDimParser.gridSize);
         return group;
     }
 
@@ -419,27 +420,27 @@ public class UiBuilder {
         }
         String attr = element.getAttribute("x", "");
         if (!attr.isEmpty()) {
-            actor.setX(Float.parseFloat(attr));
+            actor.setX(mDimParser.parse(attr));
         }
         attr = element.getAttribute("y", "");
         if (!attr.isEmpty()) {
-            actor.setY(Float.parseFloat(attr));
+            actor.setY(mDimParser.parse(attr));
         }
         attr = element.getAttribute("width", "");
         if (!attr.isEmpty()) {
-            actor.setWidth(Float.parseFloat(attr));
+            actor.setWidth(mDimParser.parse(attr));
         }
         attr = element.getAttribute("height", "");
         if (!attr.isEmpty()) {
-            actor.setHeight(Float.parseFloat(attr));
+            actor.setHeight(mDimParser.parse(attr));
         }
         attr = element.getAttribute("originX", "");
         if (!attr.isEmpty()) {
-            actor.setOriginX(Float.parseFloat(attr));
+            actor.setOriginX(mDimParser.parse(attr));
         }
         attr = element.getAttribute("originY", "");
         if (!attr.isEmpty()) {
-            actor.setOriginY(Float.parseFloat(attr));
+            actor.setOriginY(mDimParser.parse(attr));
         }
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
@@ -470,7 +471,7 @@ public class UiBuilder {
                 if (anchorGroup == null) {
                     throw new SyntaxException("Parent of " + actor + " is not an anchor group");
                 }
-                PositionRule rule = parseRule(attr, anchorGroup.getGridSize());
+                PositionRule rule = parseRule(attr);
                 rule.target = actor;
                 rule.targetAnchor = ANCHORS[idx];
                 anchorGroup.addRule(rule);
@@ -481,10 +482,9 @@ public class UiBuilder {
     /**
      * Parse a string of the form "$actorId $anchorName [$xOffset $yOffset]"
      * @param txt the string to parse
-     * @param gridSize how many pixels a grid cell of 1 represents
      * @return a PositionRule
      */
-    private PositionRule parseRule(String txt, float gridSize) throws SyntaxException {
+    private PositionRule parseRule(String txt) throws SyntaxException {
         PositionRule rule = new PositionRule();
         String[] tokens = txt.split(" +");
         if (tokens.length != 1 && tokens.length != 3) {
@@ -505,8 +505,8 @@ public class UiBuilder {
             throw new SyntaxException("Invalid anchor name: '" + tokens[1] + "'");
         }
         if (tokens.length == 3) {
-            rule.hSpace = Float.parseFloat(tokens[1]) * gridSize;
-            rule.vSpace = Float.parseFloat(tokens[2]) * gridSize;
+            rule.hSpace = mDimParser.parse(tokens[1], DimensionParser.Unit.GRID);
+            rule.vSpace = mDimParser.parse(tokens[2], DimensionParser.Unit.GRID);
         }
         return rule;
     }
@@ -530,7 +530,7 @@ public class UiBuilder {
                 throw new SyntaxException("Missing 'duration' attribute for action '" + definition + "'");
             }
             AnimScript script = mAnimScriptloader.load(definition);
-            actor.addAction(script.createAction(1, 1, duration));
+            actor.addAction(script.createAction(mDimParser.gridSize, mDimParser.gridSize, duration));
         }
     }
 

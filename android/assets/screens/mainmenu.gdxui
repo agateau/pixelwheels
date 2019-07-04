@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gdxui>
-    <AnchorGroup id="root" spacing="20">
+    <AnchorGroup id="root" gridSize="20">
         <Image topCenter="root.topCenter 0 -2" name="title">
             <Action duration="0.5">
                 alpha 0
