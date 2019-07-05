@@ -18,6 +18,8 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+
 import java.io.StreamTokenizer;
 
 public abstract class ArgumentDefinition<T> {
@@ -29,5 +31,5 @@ public abstract class ArgumentDefinition<T> {
         this.defaultValue = defaultValue;
     }
 
-    public abstract Argument parse(StreamTokenizer tokenizer);
+    public abstract Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser);
 }

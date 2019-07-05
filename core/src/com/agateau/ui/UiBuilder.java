@@ -529,8 +529,8 @@ public class UiBuilder {
             if (duration < 0) {
                 throw new SyntaxException("Missing 'duration' attribute for action '" + definition + "'");
             }
-            AnimScript script = mAnimScriptloader.load(definition);
-            actor.addAction(script.createAction(mDimParser.gridSize, mDimParser.gridSize, duration));
+            AnimScript script = mAnimScriptloader.load(definition, mDimParser);
+            actor.addAction(script.createAction(duration));
         }
     }
 

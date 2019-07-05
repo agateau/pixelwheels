@@ -36,13 +36,7 @@ class FloatArgument extends Argument {
 
     @Override
     public Object computeValue(Context context) {
-        if (mDomain == FloatArgumentDefinition.Domain.Width) {
-            return mValue * context.width;
-        }
-        if (mDomain == FloatArgumentDefinition.Domain.Height) {
-            return mValue * context.height;
-        }
-        if (mDomain == FloatArgumentDefinition.Domain.Duration) {
+        if (mDomain == FloatArgumentDefinition.Domain.DURATION) {
             return mValue * context.duration;
         }
         return mValue;

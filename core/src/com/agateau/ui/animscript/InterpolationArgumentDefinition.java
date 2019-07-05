@@ -23,6 +23,7 @@ import java.io.StreamTokenizer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.math.Interpolation;
 
 public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpolation> {
@@ -75,7 +76,7 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer) {
+    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {

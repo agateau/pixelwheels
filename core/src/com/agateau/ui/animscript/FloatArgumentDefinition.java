@@ -18,15 +18,17 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+import com.agateau.utils.Assert;
+
 import java.io.IOException;
 import java.io.StreamTokenizer;
 
 class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     enum Domain {
-        Width,
-        Height,
-        Duration,
-        Scalar
+        DIMENSION,
+        DURATION,
+        SCALAR
     }
 
     private FloatArgumentDefinition.Domain mDomain;
@@ -42,7 +44,7 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer) {
+    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
@@ -50,10 +52,14 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
             throw new RuntimeException();
         }
         float value;
-        if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
-            value = (float)tokenizer.nval;
+        if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
+            if (mDomain == Domain.DIMENSION) {
+                value = dimParser.parse(tokenizer.sval, DimensionParser.Unit.PIXEL);
+            } else {
+                value = Float.parseFloat(tokenizer.sval);
+            }
         } else {
-            assert(this.defaultValue != null);
+            Assert.check(this.defaultValue != null, "No value set for this argument, which has no default value");
             tokenizer.pushBack();
             value = this.defaultValue;
         }

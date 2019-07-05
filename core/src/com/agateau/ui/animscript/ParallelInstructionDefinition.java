@@ -21,6 +21,7 @@ package com.agateau.ui.animscript;
 import java.io.IOException;
 import java.io.StreamTokenizer;
 
+import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Array;
 
 public class ParallelInstructionDefinition implements InstructionDefinition {
@@ -31,8 +32,8 @@ public class ParallelInstructionDefinition implements InstructionDefinition {
     }
 
     @Override
-    public Instruction parse(StreamTokenizer tokenizer) throws IOException {
-        Array<Instruction> lst = mLoader.tokenize(tokenizer, "end");
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws IOException {
+        Array<Instruction> lst = mLoader.tokenize(tokenizer, "end", dimParser);
         return new ParallelInstruction(lst);
     }
 }

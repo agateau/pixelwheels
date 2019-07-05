@@ -26,6 +26,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -36,55 +37,55 @@ public class AnimScriptLoader {
 
     public AnimScriptLoader() {
         registerAction("moveTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Width),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Height),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("moveBy",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Width),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Height),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("rotateTo",
-            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Scalar),
-            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
             new InterpolationArgumentDefinition(Interpolation.linear)
            );
         registerAction("rotateBy",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Scalar),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("scaleTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Scalar),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Scalar),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("sizeTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Width),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Height),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("alpha",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Scalar),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration, 0),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
         registerAction("delay",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.Duration)
+                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION)
                       );
         mInstructionDefinitionMap.put("parallel", new ParallelInstructionDefinition(this));
         mInstructionDefinitionMap.put("repeat", new RepeatInstructionDefinition(this));
     }
 
-    public AnimScript load(String definition) {
+    public AnimScript load(String definition, DimensionParser dimParser) {
         Reader reader = new StringReader(definition);
         try {
-            return load(reader);
+            return load(reader, dimParser);
         } catch (IOException e) {
             Gdx.app.error("AnimScript", "Failed to parse `" + definition + "`");
             e.printStackTrace();
@@ -92,17 +93,29 @@ public class AnimScriptLoader {
         }
     }
 
-    public AnimScript load(Reader reader) throws IOException {
+    public AnimScript load(Reader reader, DimensionParser dimParser) throws IOException {
         StreamTokenizer tokenizer = new StreamTokenizer(reader);
         tokenizer.eolIsSignificant(true);
         tokenizer.slashSlashComments(true);
         tokenizer.slashStarComments(true);
-        tokenizer.parseNumbers();
-        Array<Instruction> lst = tokenize(tokenizer, null);
+        // We want to parse numbers ourselves for dimensions: "100px" should be a string token, not
+        // a "100" float token followed by a "px" string token
+        // Unfortunately you can't really disable StreamTokenizer number parsing without resetting
+        // the syntax and redefining all chars
+        tokenizer.resetSyntax();
+        tokenizer.whitespaceChars(0, ' ');
+        tokenizer.wordChars('-', '-');
+        tokenizer.wordChars('a', 'z');
+        tokenizer.wordChars('A', 'Z');
+        tokenizer.wordChars('0', '9');
+        tokenizer.commentChar('/');
+        tokenizer.quoteChar('"');
+        tokenizer.quoteChar('\'');
+        Array<Instruction> lst = tokenize(tokenizer, null, dimParser);
         return new AnimScript(lst);
     }
 
-    public Array<Instruction> tokenize(StreamTokenizer tokenizer, String end) throws IOException {
+    Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser) throws IOException {
         Array<Instruction> lst = new Array<Instruction>();
         do {
             while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {
@@ -120,7 +133,7 @@ public class AnimScriptLoader {
             }
             InstructionDefinition def = mInstructionDefinitionMap.get(cmd);
             assert(def != null);
-            Instruction instruction = def.parse(tokenizer);
+            Instruction instruction = def.parse(tokenizer, dimParser);
             lst.add(instruction);
         } while (tokenizer.ttype != StreamTokenizer.TT_EOF);
         return lst;

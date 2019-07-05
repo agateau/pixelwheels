@@ -21,6 +21,7 @@ package com.agateau.ui.animscript;
 import java.io.IOException;
 import java.io.StreamTokenizer;
 
+import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Array;
 
 public class RepeatInstructionDefinition implements InstructionDefinition {
@@ -31,9 +32,9 @@ public class RepeatInstructionDefinition implements InstructionDefinition {
     }
 
     @Override
-    public Instruction parse(StreamTokenizer tokenizer) throws IOException {
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws IOException {
         int count = parseCount(tokenizer);
-        Array<Instruction> lst = mLoader.tokenize(tokenizer, "end");
+        Array<Instruction> lst = mLoader.tokenize(tokenizer, "end", dimParser);
         return new RepeatInstruction(lst, count);
     }
 
