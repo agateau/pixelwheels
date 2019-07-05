@@ -139,7 +139,7 @@ public class AnimScriptLoader {
         return lst;
     }
 
-    public void registerStaticMethod(String name, Class<?> methodClass, String methodName, ArgumentDefinition<?>... types) {
+    private void registerStaticMethod(String name, Class<?> methodClass, String methodName, ArgumentDefinition<?>... types) {
         Method method = getMethod(methodClass, methodName, types);
         mInstructionDefinitionMap.put(name, new BasicInstructionDefinition(method, types));
     }
@@ -150,7 +150,7 @@ public class AnimScriptLoader {
     }
 
     private static Method getMethod(Class<?> methodClass, String name, ArgumentDefinition<?>... types) {
-        Class<?> args[] = new Class<?>[types.length];
+        Class<?>[] args = new Class<?>[types.length];
         for (int idx = 0; idx < types.length; ++idx) {
             args[idx] = types[idx].javaType;
         }

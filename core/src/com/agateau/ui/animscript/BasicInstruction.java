@@ -25,11 +25,11 @@ import com.agateau.ui.animscript.AnimScript.Context;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 class BasicInstruction implements Instruction {
-    Object mObject;
-    Method mMethod;
-    Argument[] mArgs;
+    private Object mObject;
+    private Method mMethod;
+    private Argument[] mArgs;
 
-    public BasicInstruction(Object object, Method method, Argument[] args) {
+    BasicInstruction(Object object, Method method, Argument[] args) {
         mObject = object;
         mMethod = method;
         mArgs = args;
