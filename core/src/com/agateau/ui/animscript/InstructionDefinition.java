@@ -25,6 +25,6 @@ import java.io.StreamTokenizer;
 
 interface InstructionDefinition {
 
-    public abstract Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws IOException;
+    public abstract Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
 
 }

@@ -32,7 +32,7 @@ public class ParallelInstructionDefinition implements InstructionDefinition {
     }
 
     @Override
-    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws IOException {
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         Array<Instruction> lst = mLoader.tokenize(tokenizer, "end", dimParser);
         return new ParallelInstruction(lst);
     }

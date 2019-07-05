@@ -76,21 +76,23 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) {
+    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "Missing token for argument");
         }
         Interpolation value;
         if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
             value = sMap.get(tokenizer.sval);
-            assert(value != null);
-        } else {
-            assert(this.defaultValue != null);
+            if (value == null) {
+                throw new AnimScriptLoader.SyntaxException(tokenizer, "Invalid interpolation value " + tokenizer.sval);
+            }
+        } else if (this.defaultValue != null) {
             tokenizer.pushBack();
             value = this.defaultValue;
+        } else {
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
         }
         return new BasicArgument(Interpolation.class, value);
     }

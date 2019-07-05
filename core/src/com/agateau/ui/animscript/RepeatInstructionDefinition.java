@@ -32,20 +32,24 @@ public class RepeatInstructionDefinition implements InstructionDefinition {
     }
 
     @Override
-    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws IOException {
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         int count = parseCount(tokenizer);
         Array<Instruction> lst = mLoader.tokenize(tokenizer, "end", dimParser);
         return new RepeatInstruction(lst, count);
     }
 
-    private int parseCount(StreamTokenizer tokenizer) throws IOException {
-        tokenizer.nextToken();
+    private int parseCount(StreamTokenizer tokenizer) throws AnimScriptLoader.SyntaxException {
+        try {
+            tokenizer.nextToken();
+        } catch (IOException e) {
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "Missing count argument");
+        }
         if (tokenizer.ttype == StreamTokenizer.TT_EOL) {
             return 0;
         }
         if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
             return (int)tokenizer.nval;
         }
-        throw new RuntimeException("Error in repeat instruction: '" + tokenizer.sval + "' is not a valid repeat count");
+        throw new AnimScriptLoader.SyntaxException(tokenizer, "Error in repeat instruction: '" + tokenizer.sval + "' is not a valid repeat count");
     }
 }

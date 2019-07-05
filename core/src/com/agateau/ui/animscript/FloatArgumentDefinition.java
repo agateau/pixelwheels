@@ -19,7 +19,6 @@
 package com.agateau.ui.animscript;
 
 import com.agateau.ui.DimensionParser;
-import com.agateau.utils.Assert;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -44,12 +43,11 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) {
+    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "Missing token for argument");
         }
         float value;
         if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
@@ -58,10 +56,11 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
             } else {
                 value = Float.parseFloat(tokenizer.sval);
             }
-        } else {
-            Assert.check(this.defaultValue != null, "No value set for this argument, which has no default value");
+        } else if (this.defaultValue != null) {
             tokenizer.pushBack();
             value = this.defaultValue;
+        } else {
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
         }
         return new FloatArgument(mDomain, value);
     }

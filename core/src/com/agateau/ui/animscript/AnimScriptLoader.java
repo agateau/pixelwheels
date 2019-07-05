@@ -18,22 +18,28 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Array;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
-import com.agateau.ui.DimensionParser;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Array;
 
 public class AnimScriptLoader {
     private Map<String, InstructionDefinition> mInstructionDefinitionMap = new HashMap<String, InstructionDefinition>();
+
+    public static class SyntaxException extends Exception {
+        SyntaxException(StreamTokenizer tokenizer, String message) {
+            super(String.format(Locale.US, "line %d: %s", tokenizer.lineno(), message));
+        }
+    }
 
     public AnimScriptLoader() {
         registerAction("moveTo",
@@ -82,18 +88,12 @@ public class AnimScriptLoader {
         mInstructionDefinitionMap.put("repeat", new RepeatInstructionDefinition(this));
     }
 
-    public AnimScript load(String definition, DimensionParser dimParser) {
+    public AnimScript load(String definition, DimensionParser dimParser) throws SyntaxException {
         Reader reader = new StringReader(definition);
-        try {
-            return load(reader, dimParser);
-        } catch (IOException e) {
-            Gdx.app.error("AnimScript", "Failed to parse `" + definition + "`");
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        return load(reader, dimParser);
     }
 
-    public AnimScript load(Reader reader, DimensionParser dimParser) throws IOException {
+    private AnimScript load(Reader reader, DimensionParser dimParser) throws SyntaxException {
         StreamTokenizer tokenizer = new StreamTokenizer(reader);
         tokenizer.eolIsSignificant(true);
         tokenizer.slashSlashComments(true);
@@ -105,6 +105,7 @@ public class AnimScriptLoader {
         tokenizer.resetSyntax();
         tokenizer.whitespaceChars(0, ' ');
         tokenizer.wordChars('-', '-');
+        tokenizer.wordChars('.', '.');
         tokenizer.wordChars('a', 'z');
         tokenizer.wordChars('A', 'Z');
         tokenizer.wordChars('0', '9');
@@ -115,16 +116,20 @@ public class AnimScriptLoader {
         return new AnimScript(lst);
     }
 
-    Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser) throws IOException {
+    Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser) throws SyntaxException {
         Array<Instruction> lst = new Array<Instruction>();
         do {
-            while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {
+            try {
+                while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {
+                }
+            } catch (IOException e) {
+                throw new SyntaxException(tokenizer, "Unexpected end of line");
             }
             if (tokenizer.ttype == StreamTokenizer.TT_EOF) {
                 break;
             }
             if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
-                throw new RuntimeException(String.format("line %d: Unexpected token type %d, (sval='%s')", tokenizer.lineno(), tokenizer.ttype, tokenizer.sval));
+                throw new SyntaxException(tokenizer, String.format("Unexpected token type %d, (sval='%s')", tokenizer.ttype, tokenizer.sval));
             }
             String cmd = tokenizer.sval;
             assert(cmd != null);
@@ -132,7 +137,9 @@ public class AnimScriptLoader {
                 break;
             }
             InstructionDefinition def = mInstructionDefinitionMap.get(cmd);
-            assert(def != null);
+            if (def == null) {
+                throw new SyntaxException(tokenizer, "Unknown command '" + cmd + "'");
+            }
             Instruction instruction = def.parse(tokenizer, dimParser);
             lst.add(instruction);
         } while (tokenizer.ttype != StreamTokenizer.TT_EOF);
