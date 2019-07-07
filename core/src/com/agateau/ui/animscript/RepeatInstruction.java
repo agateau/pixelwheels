@@ -18,7 +18,6 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.animscript.AnimScript.Context;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
@@ -35,16 +34,16 @@ public class RepeatInstruction implements Instruction {
     }
 
     @Override
-    public Action run(Context context) {
+    public Action run() {
         Action action;
         if (mInstructions.size > 1) {
             SequenceAction seq = Actions.sequence();
             for (Instruction instruction: mInstructions) {
-                seq.addAction(instruction.run(context));
+                seq.addAction(instruction.run());
             }
             action = seq;
         } else {
-            action = mInstructions.get(0).run(context);
+            action = mInstructions.get(0).run();
         }
         return Actions.repeat(mCount == 0 ? RepeatAction.FOREVER : mCount, action);
     }

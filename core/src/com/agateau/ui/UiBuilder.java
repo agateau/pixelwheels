@@ -525,10 +525,6 @@ public class UiBuilder {
     private void createActorActions(Actor actor, XmlReader.Element element) throws SyntaxException {
         for (XmlReader.Element child: element.getChildrenByName("Action")) {
             String definition = child.getText();
-            float duration = child.getFloatAttribute("duration", -1);
-            if (duration < 0) {
-                throw new SyntaxException("Missing 'duration' attribute for action '" + definition + "'");
-            }
             AnimScript script = null;
             try {
                 script = mAnimScriptloader.load(definition, mDimParser);
@@ -536,7 +532,7 @@ public class UiBuilder {
                 NLog.e("Failed to parse:\n" + definition + "\n\n%s", e);
                 continue;
             }
-            actor.addAction(script.createAction(duration));
+            actor.addAction(script.createAction());
         }
     }
 

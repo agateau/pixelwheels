@@ -18,9 +18,7 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.animscript.AnimScript.Context;
-
 abstract class Argument {
     public abstract Class<?> getClassType();
-    public abstract Object computeValue(Context context);
+    public abstract Object computeValue();
 }

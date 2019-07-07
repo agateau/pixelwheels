@@ -18,33 +18,25 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 
 public class AnimScript {
-    public static class Context {
-        float duration;
-    }
-
     private Array<Instruction> mInstructions;
 
     public AnimScript(Array<Instruction> instructions) {
         mInstructions = instructions;
     }
 
-    public Action createAction(float duration) {
-        Context context = new Context();
-        context.duration = duration;
-
+    public Action createAction() {
         if (mInstructions.size == 1) {
-            return mInstructions.get(0).run(context);
+            return mInstructions.get(0).run();
         }
         SequenceAction action = Actions.sequence();
         for (Instruction instruction: mInstructions) {
-            action.addAction(instruction.run(context));
+            action.addAction(instruction.run());
         }
         return action;
     }

@@ -2,23 +2,23 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Image topCenter="root.topCenter 0 -2" name="title">
-            <Action duration="0.5">
+            <Action>
                 alpha 0
                 moveBy 20g -0
                 parallel
-                    alpha 1 1
-                    moveBy -20g 0 1 pow2In
+                    alpha 1 0.5
+                    moveBy -20g 0 0.5 pow2In
                 end
             </Action>
         </Image>
 
         <Menu id="menu" width="350" center="root.center 0 -3">
-            <Action duration="0.5">
+            <Action>
                 alpha 0
                 moveBy -20g 0
                 parallel
-                    alpha 1 1
-                    moveBy 20g 0 1 pow2In
+                    alpha 1 0.5
+                    moveBy 20g 0 0.5 pow2In
                 end
             </Action>
         </Menu>

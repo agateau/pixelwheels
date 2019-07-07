@@ -18,7 +18,6 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.animscript.AnimScript.Context;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
@@ -32,10 +31,10 @@ public class ParallelInstruction implements Instruction {
     }
 
     @Override
-    public Action run(Context context) {
+    public Action run() {
         ParallelAction action = Actions.parallel();
         for (Instruction instruction: mInstructions) {
-            action.addAction(instruction.run(context));
+            action.addAction(instruction.run());
         }
         return action;
     }

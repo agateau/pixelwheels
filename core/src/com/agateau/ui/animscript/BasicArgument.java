@@ -18,8 +18,6 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.animscript.AnimScript.Context;
-
 public class BasicArgument extends Argument {
     private Class<?> mClassType;
     private Object mValue;
@@ -35,7 +33,7 @@ public class BasicArgument extends Argument {
     }
 
     @Override
-    public Object computeValue(Context context) {
+    public Object computeValue() {
         return mValue;
     }
 }

@@ -3,30 +3,31 @@
     <AnchorGroup id="root" gridSize="20px">
 
         <Road id="road" bottomLeft="root.bottomCenter" width="302" height="24g" pixelsPerSecond="-180">
-            <Action duration="0.5">
+            <Action>
                 alpha 0
+                delay 0.5
                 alpha 1 1 pow2Out
             </Action>
         </Road>
         <Group id="animRoot" center="road.center">
             <Vehicle id="vehicle0" x="0" y="2g">
-                <Action duration="1.5">
+                <Action>
                     moveBy 0 -20g
-                    delay 0.8
+                    delay 1.8
                     moveBy 0 20g 0.2 pow2Out
                 </Action>
             </Vehicle>
             <Vehicle id="vehicle1" x="-5g" y="-2g">
-                <Action duration="1.5">
+                <Action>
                     moveBy 0 -20g
-                    delay 0.6
+                    delay 1.6
                     moveBy 0 20g 0.2 pow2Out
                 </Action>
             </Vehicle>
             <Vehicle id="vehicle2" x="5g" y="-6g">
-                <Action duration="1.5">
+                <Action>
                     moveBy 0 -20g
-                    delay 0.4
+                    delay 1.4
                     moveBy 0 20g 0.2 pow2Out
                 </Action>
             </Vehicle>
@@ -35,13 +36,13 @@
         <Group id="leftColumn" topLeft="root.topLeft 2g -1g">
             <Label id="mainLabel" style="title"
                 x="4g" y="-2g">Championship
-                <Action duration="0.2">
+                <Action>
                     moveBy -80g 0
                     moveBy 80g 0 1 pow2Out
                 </Action>
             </Label>
             <Label style="title" x="8g" y="-4g">Finished!
-                <Action duration="0.5">
+                <Action>
                     moveBy 120g 0
                     delay 0.5
                     moveBy -120g 0 1 pow2Out
@@ -52,9 +53,9 @@
         <Table id="entrantTable" centerLeft="root.centerLeft 2g -1g"
             width="17g"
             height="16g">
-            <Action duration="2">
+            <Action>
                 alpha 0
-                delay 0.5
+                delay 2
                 alpha 1 0.5 pow2Out
             </Action>
         </Table>
