@@ -70,8 +70,11 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
+            Color color = getColor();
+            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
             mDrawer.center.x = getX();
             mDrawer.center.y = getY();
+            mDrawer.angle = 90 + getRotation();
             mDrawer.draw(batch);
         }
     }
