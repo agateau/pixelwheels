@@ -36,12 +36,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 
 import java.util.Locale;
+
+import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
 
 public class ChampionshipFinishedScreen extends NavStageScreen {
     private final PwGame mGame;
@@ -107,6 +110,32 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         }
     }
 
+    private static class ShadowActor extends Actor {
+        private final Image mSource;
+        private final float mOffset;
+
+        public ShadowActor(Image source, float offset) {
+            mSource = source;
+            mOffset = offset;
+        }
+
+        @Override
+        public void act(float delta) {
+            super.act(delta);
+            mSource.setZIndex(getZIndex() + 1);
+            setX(mSource.getX() + mOffset);
+            setY(mSource.getY() - mOffset);
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            batch.setColor(0, 0, 0, SHADOW_ALPHA);
+            mSource.getDrawable().draw(batch,
+                    getX(), getY(),
+                    mSource.getWidth(), mSource.getHeight());
+        }
+    }
+
     public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
         super(game.getAssets().ui);
         mGame = game;
@@ -135,6 +164,18 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
                 float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
                 return new RoadActor(assets, pixelsPerSecond);
+            }
+        });
+        builder.registerActorFactory("Shadow", new UiBuilder.ActorFactory() {
+            @Override
+            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws UiBuilder.SyntaxException {
+                String sourceId = element.getAttribute("source", null);
+                if (sourceId == null) {
+                    throw new UiBuilder.SyntaxException("Missing 'source' attribute");
+                }
+                Image source = uiBuilder.getActor(sourceId);
+                float offset = element.getFloatAttribute("offset", 12);
+                return new ShadowActor(source, offset);
             }
         });
 

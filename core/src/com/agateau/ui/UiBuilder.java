@@ -73,7 +73,7 @@ public class UiBuilder {
     private Map<String, TextureAtlas> mAtlasMap = new HashMap<String, TextureAtlas>();
 
     public interface ActorFactory {
-        Actor createActor(UiBuilder uiBuilder, XmlReader.Element element);
+        Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -100,7 +100,7 @@ public class UiBuilder {
     };
 
     public static class SyntaxException extends Exception {
-        SyntaxException(String message) {
+        public SyntaxException(String message) {
             super(message);
         }
     }
