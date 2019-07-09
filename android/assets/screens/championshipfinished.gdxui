@@ -10,25 +10,75 @@
             </Action>
         </Road>
         <Group id="animRoot" center="road.center">
+            <Image id="finished-1" name="championship-finished-1" originX="48px" y="5g">
+                <Action>
+                    moveBy 0 -24g
+                    delay 3.5
+                    moveBy 0 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-1" offset="18" />
             <Vehicle id="vehicle0" x="0" y="2g">
                 <Action>
-                    moveBy 0 -20g
-                    delay 1.8
-                    moveBy 0 20g 0.2 pow2Out
+                    moveBy 0 -24g
+                    delay 3.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
                 </Action>
             </Vehicle>
+
+            <Image id="finished-2" name="championship-finished-2" x="-5g" originX="48px" y="1g">
+                <Action>
+                    moveBy -20g -24g
+                    delay 2.5
+                    moveBy 20g 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-2" offset="18" />
             <Vehicle id="vehicle1" x="-5g" y="-2g">
                 <Action>
-                    moveBy 0 -20g
-                    delay 1.6
-                    moveBy 0 20g 0.2 pow2Out
+                    moveBy 0 -24g
+                    delay 2.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
                 </Action>
             </Vehicle>
+
+            <Image id="finished-3" name="championship-finished-3" x="5g" originX="48px" y="-3g">
+                <Action>
+                    moveBy 20g -24g
+                    delay 1.5
+                    moveBy -20g 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-3" offset="18" />
             <Vehicle id="vehicle2" x="5g" y="-6g">
                 <Action>
-                    moveBy 0 -20g
-                    delay 1.4
-                    moveBy 0 20g 0.2 pow2Out
+                    moveBy 0 -24g
+                    delay 1.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
                 </Action>
             </Vehicle>
         </Group>
@@ -55,7 +105,7 @@
             height="16g">
             <Action>
                 alpha 0
-                delay 2
+                delay 4
                 alpha 1 0.5 pow2Out
             </Action>
         </Table>
