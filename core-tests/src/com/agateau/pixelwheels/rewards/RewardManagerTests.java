@@ -57,6 +57,10 @@ public class RewardManagerTests {
             public boolean hasBeenUnlocked(GameStats gameStats) {
                 return false;
             }
+            @Override
+            public String getUnlockText(GameStats gameStats) {
+                return "";
+            }
         });
         assertThat(manager.isChampionshipUnlocked(championship1), is(true));
         assertThat(manager.isChampionshipUnlocked(championship2), is(false));
@@ -74,6 +78,10 @@ public class RewardManagerTests {
             @Override
             public boolean hasBeenUnlocked(GameStats gameStats) {
                 return false;
+            }
+            @Override
+            public String getUnlockText(GameStats gameStats) {
+                return "";
             }
         });
         assertThat(manager.isTrackUnlocked(championship1.getTracks().get(0)), is(true));
@@ -93,6 +101,10 @@ public class RewardManagerTests {
             @Override
             public boolean hasBeenUnlocked(GameStats gameStats) {
                 return gameStats.getBestChampionshipRank(ch1) <= 2;
+            }
+            @Override
+            public String getUnlockText(GameStats gameStats) {
+                return "";
             }
         });
 
