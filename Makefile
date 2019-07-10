@@ -110,4 +110,8 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear com.agateau.tinywheels.android"
 
-.PHONY: tools build
+check:
+	@$(GRADLEW) check
+	@$(GRADLEW) test
+
+.PHONY: check tools build
