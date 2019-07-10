@@ -32,17 +32,11 @@ public class AgcMathUtils {
      * Wrap angles if they are less than 0 or greater than 360
      */
     public static float normalizeAngle(float angle) {
-        while (angle < 0) {
-            angle += 360;
-        }
-        return angle % 360;
+        return modulo(angle, 360);
     }
 
     public static float normalizeAngleRad(float angle) {
-        while (angle < 0) {
-            angle += MathUtils.PI2;
-        }
-        return angle % MathUtils.PI2;
+        return modulo(angle, MathUtils.PI2);
     }
 
     /**
@@ -152,5 +146,18 @@ public class AgcMathUtils {
      */
     public static float angleDelta(float angle1, float angle2) {
         return normalizeAngle(angle2) - normalizeAngle(angle1);
+    }
+
+    /**
+     * A modulo which works with negative values, so calling
+     * modulo(4, 3) == 1
+     * modulo(-1, 3) == 2
+     *
+     */
+    public static float modulo(float value, float divisor) {
+        while (value < 0) {
+            value += divisor;
+        }
+        return value % divisor;
     }
 }

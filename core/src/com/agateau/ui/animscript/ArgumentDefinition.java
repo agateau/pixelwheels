@@ -18,16 +18,18 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+
 import java.io.StreamTokenizer;
 
 public abstract class ArgumentDefinition<T> {
-    public final Class<?> javaType;
-    public final T defaultValue;
+    final Class<?> javaType;
+    final T defaultValue;
 
     ArgumentDefinition(Class<?> javaType, T defaultValue) {
         this.javaType = javaType;
         this.defaultValue = defaultValue;
     }
 
-    public abstract Argument parse(StreamTokenizer tokenizer);
+    public abstract Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
 }

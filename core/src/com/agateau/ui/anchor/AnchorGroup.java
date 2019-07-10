@@ -26,16 +26,16 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Iterator;
 
 public class AnchorGroup extends WidgetGroup {
-    private float mSpacing = 1;
+    private float mGridSize = 1;
 
     private Array<AnchorRule> mRules = new Array<AnchorRule>();
 
-    public void setSpacing(float spacing) {
-        mSpacing = spacing;
+    public void setGridSize(float gridSize) {
+        mGridSize = gridSize;
     }
 
-    public float getSpacing() {
-        return mSpacing;
+    public float getGridSize() {
+        return mGridSize;
     }
 
     public void addPositionRule(Actor target, Anchor targetAnchor, Actor reference, Anchor referenceAnchor) {
@@ -48,8 +48,8 @@ public class AnchorGroup extends WidgetGroup {
         rule.targetAnchor = targetAnchor;
         rule.reference = reference;
         rule.referenceAnchor = referenceAnchor;
-        rule.hSpace = hSpace * mSpacing;
-        rule.vSpace = vSpace * mSpacing;
+        rule.hSpace = hSpace * mGridSize;
+        rule.vSpace = vSpace * mGridSize;
         addRule(rule);
     }
 
@@ -59,7 +59,7 @@ public class AnchorGroup extends WidgetGroup {
 
     public void addSizeRule(Actor target, Actor reference, float hPercent, float vPercent, float hSpace, float vSpace) {
         SizeRule rule = new SizeRule(target, reference, hPercent, vPercent);
-        rule.setPadding(hSpace * mSpacing, vSpace * mSpacing);
+        rule.setPadding(hSpace * mGridSize, vSpace * mGridSize);
         addRule(rule);
     }
 

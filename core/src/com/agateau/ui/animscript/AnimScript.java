@@ -24,30 +24,19 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 
 public class AnimScript {
-    public static class Context {
-        float width;
-        float height;
-        float duration;
-    }
-
     private Array<Instruction> mInstructions;
 
     public AnimScript(Array<Instruction> instructions) {
         mInstructions = instructions;
     }
 
-    public Action createAction(float width, float height, float duration) {
-        Context context = new Context();
-        context.width = width;
-        context.height = height;
-        context.duration = duration;
-
+    public Action createAction() {
         if (mInstructions.size == 1) {
-            return mInstructions.get(0).run(context);
+            return mInstructions.get(0).run();
         }
         SequenceAction action = Actions.sequence();
         for (Instruction instruction: mInstructions) {
-            action.addAction(instruction.run(context));
+            action.addAction(instruction.run());
         }
         return action;
     }

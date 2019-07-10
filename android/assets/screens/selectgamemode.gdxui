@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gdxui>
-    <AnchorGroup id="root" spacing="20">
+    <AnchorGroup id="root" gridSize="20">
         <Label id="mainLabel" style="title"
             topCenter="root.topCenter 0 -2">Select Game Mode</Label>
 

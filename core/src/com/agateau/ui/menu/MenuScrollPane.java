@@ -51,7 +51,7 @@ public class MenuScrollPane extends ScrollPane {
     }
 
     public void setMenu(Menu menu) {
-        setWidget(menu);
+        setActor(menu);
         mMenu = menu;
         mMenu.addListener(mListener);
     }

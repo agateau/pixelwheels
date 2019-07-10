@@ -18,15 +18,16 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+
 import java.io.IOException;
 import java.io.StreamTokenizer;
 
 class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     enum Domain {
-        Width,
-        Height,
-        Duration,
-        Scalar
+        DIMENSION,
+        DURATION,
+        SCALAR
     }
 
     private FloatArgumentDefinition.Domain mDomain;
@@ -42,21 +43,25 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer) {
+    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "Missing token for argument");
         }
         float value;
-        if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
-            value = (float)tokenizer.nval;
-        } else {
-            assert(this.defaultValue != null);
+        if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
+            if (mDomain == Domain.DIMENSION) {
+                value = dimParser.parse(tokenizer.sval, DimensionParser.Unit.PIXEL);
+            } else {
+                value = Float.parseFloat(tokenizer.sval);
+            }
+        } else if (this.defaultValue != null) {
             tokenizer.pushBack();
             value = this.defaultValue;
+        } else {
+            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
         }
-        return new FloatArgument(mDomain, value);
+        return new FloatArgument(value);
     }
 }

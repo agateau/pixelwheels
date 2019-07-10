@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels;
 
+import static java.lang.System.getenv;
+
 /**
  * Global game constants
  */
@@ -34,4 +36,11 @@ public class Constants {
     public static final float MIN_ANGLE_FOR_MAX_CAMERA_ROTATION_SPEED = 15;
 
     public static final int MAX_PLAYERS = 2;
+
+    public static final String DEBUG_SCREEN;
+
+    static {
+        String value = getenv("PW_DEBUG_SCREEN");
+        DEBUG_SCREEN = value == null ? "" : value;
+    }
 }

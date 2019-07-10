@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.gamesetup;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Championship;
@@ -114,7 +115,11 @@ public class ChampionshipMaestro extends Maestro {
 
     private void startChampionship() {
         mGameInfo = mGameInfoBuilder.build();
-        getGame().replaceScreen(createRaceScreen());
+        if (Constants.DEBUG_SCREEN.equals("ChampionshipFinished")) {
+            getGame().pushScreen(new ChampionshipFinishedScreen(getGame(), mGameInfo, null));
+        } else {
+            getGame().replaceScreen(createRaceScreen());
+        }
     }
 
     private Screen createRaceScreen() {

@@ -1,15 +1,117 @@
 <?xml version="1.0"?>
 <gdxui>
-    <AnchorGroup id="root" spacing="20">
-        <Label id="mainLabel" style="title"
-               topCenter="root.topCenter 0 -2">Championship Finished!</Label>
+    <AnchorGroup id="root" gridSize="20px">
 
-        <Table id="entrantTable" center="root.center"
-            width="500"
-            height="320"/>
+        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="24g" pixelsPerSecond="-180">
+            <Action>
+                alpha 0
+                delay 0.5
+                alpha 1 1 pow2Out
+            </Action>
+        </Road>
+        <Group id="animRoot" center="road.center">
+            <Image id="finished-1" name="championship-finished-1" originX="48px" y="5g">
+                <Action>
+                    moveBy 0 -24g
+                    delay 3.5
+                    moveBy 0 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-1" offset="18" />
+            <Vehicle id="vehicle0" x="0" y="2g">
+                <Action>
+                    moveBy 0 -24g
+                    delay 3.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
+                </Action>
+            </Vehicle>
+
+            <Image id="finished-2" name="championship-finished-2" x="-5g" originX="48px" y="1g">
+                <Action>
+                    moveBy -20g -24g
+                    delay 2.5
+                    moveBy 20g 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-2" offset="18" />
+            <Vehicle id="vehicle1" x="-5g" y="-2g">
+                <Action>
+                    moveBy 0 -24g
+                    delay 2.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
+                </Action>
+            </Vehicle>
+
+            <Image id="finished-3" name="championship-finished-3" x="5g" originX="48px" y="-3g">
+                <Action>
+                    moveBy 20g -24g
+                    delay 1.5
+                    moveBy -20g 24g 0.6 exp10Out
+                    repeat
+                        moveBy 2 0 0.5
+                        moveBy -2 0 0.5
+                    end
+                </Action>
+            </Image>
+            <Shadow source="finished-3" offset="18" />
+            <Vehicle id="vehicle2" x="5g" y="-6g">
+                <Action>
+                    moveBy 0 -24g
+                    delay 1.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                        moveBy 1 0 0.5
+                        moveBy -1 0 0.5
+                    end
+                </Action>
+            </Vehicle>
+        </Group>
+
+        <Group id="leftColumn" topLeft="root.topLeft 2g -1g">
+            <Label id="mainLabel" style="title"
+                x="4g" y="-2g">Championship
+                <Action>
+                    moveBy -80g 0
+                    moveBy 80g 0 1 pow2Out
+                </Action>
+            </Label>
+            <Label style="title" x="8g" y="-4g">Finished!
+                <Action>
+                    moveBy 120g 0
+                    delay 0.5
+                    moveBy -120g 0 1 pow2Out
+                </Action>
+            </Label>
+        </Group>
+
+        <Table id="entrantTable" centerLeft="root.centerLeft 2g -1g"
+            width="17g"
+            height="16g">
+            <Action>
+                alpha 0
+                delay 4
+                alpha 1 0.5 pow2Out
+            </Action>
+        </Table>
 
         <ImageButton id="nextButton"
-                    bottomRight="root.bottomRight -1 1"
+                    bottomRight="root.bottomRight -1g 1g"
                     imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

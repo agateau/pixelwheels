@@ -27,6 +27,7 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -62,6 +63,7 @@ public class UiBuilder {
 
     private final Set<String> mVariables = new HashSet<String>();
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
+    private final DimensionParser mDimParser = new DimensionParser();
 
     private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
     private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
@@ -71,7 +73,7 @@ public class UiBuilder {
     private Map<String, TextureAtlas> mAtlasMap = new HashMap<String, TextureAtlas>();
 
     public interface ActorFactory {
-        Actor createActor(UiBuilder uiBuilder, XmlReader.Element element);
+        Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -96,6 +98,12 @@ public class UiBuilder {
         Anchor.BOTTOM_CENTER,
         Anchor.BOTTOM_RIGHT
     };
+
+    public static class SyntaxException extends Exception {
+        public SyntaxException(String message) {
+            super(message);
+        }
+    }
 
     public UiBuilder(TextureAtlas atlas, Skin skin) {
         mAtlas = atlas;
@@ -122,7 +130,12 @@ public class UiBuilder {
 
     public Actor build(XmlReader.Element parentElement, Group parentActor) {
         mActorForId.clear();
-        return doBuild(parentElement, parentActor);
+        try {
+            return doBuild(parentElement, parentActor);
+        } catch (SyntaxException e) {
+            NLog.e("Parse error: " + e.getMessage());
+            return null;
+        }
     }
 
     public TextureAtlas getAtlas() {
@@ -137,7 +150,7 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor) {
+    private Actor doBuild(XmlReader.Element parentElement, Group parentActor) throws SyntaxException {
         Actor firstActor = null;
         for (int idx=0, size = parentElement.getChildCount(); idx < size; ++idx) {
             XmlReader.Element element = parentElement.getChild(idx);
@@ -163,21 +176,21 @@ public class UiBuilder {
                 continue;
             }
             Actor actor = createActorForElement(element);
+            if (actor == null) {
+                throw new SyntaxException("Failed to create actor for element: " + element);
+            }
             if (idx == 0) {
                 firstActor = actor;
             }
-            assert(actor != null);
             if (actor instanceof Widget) {
                 applyWidgetProperties((Widget)actor, element);
             }
             applyActorProperties(actor, element, parentActor);
-            if (mAnimScriptloader != null) {
-                createActorActions(actor, element);
-            }
+            createActorActions(actor, element);
             String id = element.getAttribute("id", null);
             if (id != null) {
                 if (mActorForId.containsKey(id)) {
-                    throw new RuntimeException("Duplicate ids: " + id);
+                    throw new SyntaxException("Duplicate ids: " + id);
                 }
                 mActorForId.put(id, actor);
             }
@@ -204,7 +217,7 @@ public class UiBuilder {
         return obj;
     }
 
-    protected Actor createActorForElement(XmlReader.Element element) {
+    private Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
         if (name.equals("Image")) {
             return createImage(element);
@@ -237,10 +250,10 @@ public class UiBuilder {
         if (factory != null) {
             return factory.createActor(this, element);
         }
-        throw new RuntimeException("Unknown UI element type: " + name);
+        throw new SyntaxException("Unknown UI element type: " + name);
     }
 
-    protected Image createImage(XmlReader.Element element) {
+    private Image createImage(XmlReader.Element element) {
         Image image = new Image();
         TextureAtlas atlas = getAtlasForElement(element);
         String attr = element.getAttribute("name", "");
@@ -291,7 +304,7 @@ public class UiBuilder {
         }
     }
 
-    protected ImageButton createImageButton(XmlReader.Element element) {
+    private ImageButton createImageButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
         String imageName = element.getAttribute("imageName", "");
@@ -307,25 +320,25 @@ public class UiBuilder {
         return button;
     }
 
-    protected TextButton createTextButton(XmlReader.Element element) {
+    private TextButton createTextButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         return new TextButton(text, mSkin, styleName);
     }
 
     @SuppressWarnings("UnusedParameters")
-    protected Group createGroup(XmlReader.Element element) {
+    private Group createGroup(XmlReader.Element element) {
         return new Group();
     }
 
-    protected AnchorGroup createAnchorGroup(XmlReader.Element element) {
-        float spacing = element.getFloatAttribute("spacing", 1);
+    private AnchorGroup createAnchorGroup(XmlReader.Element element) {
+        mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
         AnchorGroup group = new AnchorGroup();
-        group.setSpacing(spacing);
+        group.setGridSize(mDimParser.gridSize);
         return group;
     }
 
-    protected Label createLabel(XmlReader.Element element) {
+    private Label createLabel(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         String text = processText(element.getText());
         Label label = new Label(text, mSkin, styleName);
@@ -336,7 +349,7 @@ public class UiBuilder {
         return label;
     }
 
-    protected ScrollPane createScrollPane(XmlReader.Element element) {
+    private ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "");
         ScrollPane pane;
         if (styleName.isEmpty()) {
@@ -346,12 +359,12 @@ public class UiBuilder {
         }
         Actor child = doBuild(element, null);
         if (child != null) {
-            pane.setWidget(child);
+            pane.setActor(child);
         }
         return pane;
     }
 
-    protected VerticalGroup createVerticalGroup(XmlReader.Element element) {
+    private VerticalGroup createVerticalGroup(XmlReader.Element element) throws SyntaxException {
         VerticalGroup group = new VerticalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         int align = parseAlign(element);
@@ -361,23 +374,24 @@ public class UiBuilder {
         return group;
     }
 
-    protected HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
+    private HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
         HorizontalGroup group = new HorizontalGroup();
         group.space(element.getFloatAttribute("spacing", 0));
         return group;
     }
 
-    protected Table createTable(XmlReader.Element element) {
+    @SuppressWarnings("UnusedParameters")
+    private Table createTable(XmlReader.Element element) {
         return new Table(mSkin);
     }
 
-    protected CheckBox createCheckBox(XmlReader.Element element) {
+    private CheckBox createCheckBox(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         String text = element.getText();
         return new CheckBox(text, mSkin, styleName);
     }
 
-    protected Menu createMenu(XmlReader.Element element) {
+    private Menu createMenu(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
         float width = element.getIntAttribute("labelColumnWidth", 0);
@@ -387,17 +401,16 @@ public class UiBuilder {
         return menu;
     }
 
-    protected MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
+    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
         Menu menu = createMenu(element);
-        MenuScrollPane pane = new MenuScrollPane(menu);
-        return pane;
+        return new MenuScrollPane(menu);
     }
 
-    protected void applyWidgetProperties(Widget widget, XmlReader.Element element) {
+    private void applyWidgetProperties(Widget widget, XmlReader.Element element) {
         widget.setFillParent(element.getBooleanAttribute("fillParent", false));
     }
 
-    protected void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) {
+    private void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) throws SyntaxException {
         AnchorGroup anchorGroup = null;
         if (parentActor != null) {
             parentActor.addActor(actor);
@@ -407,27 +420,29 @@ public class UiBuilder {
         }
         String attr = element.getAttribute("x", "");
         if (!attr.isEmpty()) {
-            actor.setX(Float.parseFloat(attr));
+            actor.setX(mDimParser.parse(attr));
         }
         attr = element.getAttribute("y", "");
         if (!attr.isEmpty()) {
-            actor.setY(Float.parseFloat(attr));
+            actor.setY(mDimParser.parse(attr));
         }
         attr = element.getAttribute("width", "");
         if (!attr.isEmpty()) {
-            actor.setWidth(Float.parseFloat(attr));
+            actor.setWidth(mDimParser.parse(attr));
         }
         attr = element.getAttribute("height", "");
         if (!attr.isEmpty()) {
-            actor.setHeight(Float.parseFloat(attr));
+            actor.setHeight(mDimParser.parse(attr));
         }
         attr = element.getAttribute("originX", "");
         if (!attr.isEmpty()) {
-            actor.setOriginX(Float.parseFloat(attr));
+            actor.setOriginX(mDimParser.parse(attr));
+            actor.setX(actor.getX() - actor.getOriginX());
         }
         attr = element.getAttribute("originY", "");
         if (!attr.isEmpty()) {
-            actor.setOriginY(Float.parseFloat(attr));
+            actor.setOriginY(mDimParser.parse(attr));
+            actor.setY(actor.getY() - actor.getOriginY());
         }
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
@@ -456,9 +471,9 @@ public class UiBuilder {
             attr = element.getAttribute(anchorName, "");
             if (!attr.isEmpty()) {
                 if (anchorGroup == null) {
-                    throw new RuntimeException("Parent of " + actor + " is not an anchor group");
+                    throw new SyntaxException("Parent of " + actor + " is not an anchor group");
                 }
-                PositionRule rule = parseRule(attr, anchorGroup.getSpacing());
+                PositionRule rule = parseRule(attr);
                 rule.target = actor;
                 rule.targetAnchor = ANCHORS[idx];
                 anchorGroup.addRule(rule);
@@ -469,14 +484,18 @@ public class UiBuilder {
     /**
      * Parse a string of the form "$actorId $anchorName [$xOffset $yOffset]"
      * @param txt the string to parse
-     * @param spacing how many pixels a space of 1 represents
      * @return a PositionRule
      */
-    private PositionRule parseRule(String txt, float spacing) {
+    private PositionRule parseRule(String txt) throws SyntaxException {
         PositionRule rule = new PositionRule();
         String[] tokens = txt.split(" +");
-        assert(tokens.length == 1 || tokens.length == 3);
+        if (tokens.length != 1 && tokens.length != 3) {
+            throw new SyntaxException("Invalid rule syntax: " + txt);
+        }
         String[] tokens2 = tokens[0].split("\\.");
+        if (tokens2.length != 2) {
+            throw new SyntaxException("reference should be of the form <id>.<anchor>: " + txt);
+        }
         rule.reference = getActor(tokens2[0]);
         for (int idx = 0, size = ANCHOR_NAMES.length; idx < size; ++idx) {
             if (tokens2[1].equals(ANCHOR_NAMES[idx])) {
@@ -485,11 +504,11 @@ public class UiBuilder {
             }
         }
         if (rule.referenceAnchor == null) {
-            throw new RuntimeException("Invalid anchor name: '" + tokens[1] + "'");
+            throw new SyntaxException("Invalid anchor name: '" + tokens[1] + "'");
         }
         if (tokens.length == 3) {
-            rule.hSpace = Float.parseFloat(tokens[1]) * spacing;
-            rule.vSpace = Float.parseFloat(tokens[2]) * spacing;
+            rule.hSpace = mDimParser.parse(tokens[1], DimensionParser.Unit.GRID);
+            rule.vSpace = mDimParser.parse(tokens[2], DimensionParser.Unit.GRID);
         }
         return rule;
     }
@@ -505,19 +524,21 @@ public class UiBuilder {
         return text.replace("\\n", "\n");
     }
 
-    private void createActorActions(Actor actor, XmlReader.Element element) {
+    private void createActorActions(Actor actor, XmlReader.Element element) throws SyntaxException {
         for (XmlReader.Element child: element.getChildrenByName("Action")) {
             String definition = child.getText();
-            float duration = child.getFloatAttribute("duration", -1);
-            if (duration < 0) {
-                throw new RuntimeException("Missing 'duration' attribute for action '" + definition + "'");
+            AnimScript script = null;
+            try {
+                script = mAnimScriptloader.load(definition, mDimParser);
+            } catch (AnimScriptLoader.SyntaxException e) {
+                NLog.e("Failed to parse:\n" + definition + "\n\n%s", e);
+                continue;
             }
-            AnimScript script = mAnimScriptloader.load(definition);
-            actor.addAction(script.createAction(1, 1, duration));
+            actor.addAction(script.createAction());
         }
     }
 
-    private static int parseAlign(XmlReader.Element element) {
+    private static int parseAlign(XmlReader.Element element) throws SyntaxException {
         String alignText = element.getAttribute("align", "");
         if (alignText.isEmpty()) {
             return -1;
@@ -541,7 +562,7 @@ public class UiBuilder {
         } else if (alignText.equals("bottomRight")) {
             return Align.bottomRight;
         } else {
-            throw new RuntimeException("Unknown value of 'align': " + alignText);
+            throw new SyntaxException("Unknown value of 'align': " + alignText);
         }
     }
 }

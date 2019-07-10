@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gdxui>
-    <AnchorGroup id="root" spacing="20">
+    <AnchorGroup id="root" gridSize="20">
         <Table id="scrollableTable"
             center="root.center 0 2"
             width="650"

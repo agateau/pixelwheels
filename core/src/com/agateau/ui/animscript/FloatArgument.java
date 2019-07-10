@@ -18,14 +18,10 @@
  */
 package com.agateau.ui.animscript;
 
-import com.agateau.ui.animscript.AnimScript.Context;
-
 class FloatArgument extends Argument {
-    private FloatArgumentDefinition.Domain mDomain;
     private float mValue;
 
-    public FloatArgument(FloatArgumentDefinition.Domain d, float v) {
-        mDomain = d;
+    public FloatArgument(float v) {
         mValue = v;
     }
 
@@ -35,16 +31,7 @@ class FloatArgument extends Argument {
     }
 
     @Override
-    public Object computeValue(Context context) {
-        if (mDomain == FloatArgumentDefinition.Domain.Width) {
-            return mValue * context.width;
-        }
-        if (mDomain == FloatArgumentDefinition.Domain.Height) {
-            return mValue * context.height;
-        }
-        if (mDomain == FloatArgumentDefinition.Domain.Duration) {
-            return mValue * context.duration;
-        }
+    public Object computeValue() {
         return mValue;
     }
 }

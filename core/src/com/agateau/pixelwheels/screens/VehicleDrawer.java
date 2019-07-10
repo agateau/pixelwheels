@@ -35,10 +35,10 @@ import com.badlogic.gdx.math.Vector2;
 class VehicleDrawer {
     private final Assets mAssets;
     public VehicleDef vehicleDef;
-    public final Vector2 center = new Vector2();
+    public final Vector2 center = new Vector2(0, 0);
 
-    public float scale;
-    public float angle;
+    public float scale = 1;
+    public float angle = 0;
 
     VehicleDrawer(Assets assets) {
         mAssets = assets;

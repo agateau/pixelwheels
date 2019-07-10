@@ -18,6 +18,8 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+
 import java.io.StreamTokenizer;
 import java.lang.reflect.Method;
 
@@ -42,12 +44,12 @@ class BasicInstructionDefinition implements InstructionDefinition {
      * @see com.agateau.ui.animscript.InstructionDefinition#parse(java.io.StreamTokenizer)
      */
     @Override
-    public Instruction parse(StreamTokenizer tokenizer) {
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         Argument[] args = new Argument[mArgumentDefinitions.length];
         for (int idx = 0; idx < mArgumentDefinitions.length; ++idx) {
             ArgumentDefinition<?> def = mArgumentDefinitions[idx];
             assert(def != null);
-            args[idx] = def.parse(tokenizer);
+            args[idx] = def.parse(tokenizer, dimParser);
         }
         return new BasicInstruction(mInstance, mMethod, args);
     }

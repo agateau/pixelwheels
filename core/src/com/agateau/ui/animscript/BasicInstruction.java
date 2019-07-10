@@ -18,18 +18,17 @@
  */
 package com.agateau.ui.animscript;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.agateau.ui.animscript.AnimScript.Context;
-import com.badlogic.gdx.scenes.scene2d.Action;
-
 class BasicInstruction implements Instruction {
-    Object mObject;
-    Method mMethod;
-    Argument[] mArgs;
+    private Object mObject;
+    private Method mMethod;
+    private Argument[] mArgs;
 
-    public BasicInstruction(Object object, Method method, Argument[] args) {
+    BasicInstruction(Object object, Method method, Argument[] args) {
         mObject = object;
         mMethod = method;
         mArgs = args;
@@ -39,11 +38,11 @@ class BasicInstruction implements Instruction {
      * @see com.agateau.ui.animscript.Instruction#run(com.agateau.burgerparty.utils.AnimScript.Context)
      */
     @Override
-    public Action run(Context context) {
+    public Action run() {
         Object[] objectArgs = new Object[mArgs.length];
         for (int idx=0; idx < mArgs.length; ++idx) {
             Argument arg = mArgs[idx];
-            objectArgs[idx] = arg.computeValue(context);
+            objectArgs[idx] = arg.computeValue();
         }
         try {
             return (Action)mMethod.invoke(mObject, objectArgs);
