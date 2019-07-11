@@ -94,7 +94,7 @@ apk:
 	@$(GRADLEW) android:assembleRelease
 	@echo Moving .apk
 	@mkdir -p $(ARCHIVE_DIR)
-	@mv android/build/outputs/apk/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
+	@mv android/build/outputs/apk/release/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
 
 tag:
 	git tag -f -m "Pixel Wheels $(VERSION)" $(VERSION)

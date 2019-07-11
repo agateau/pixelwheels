@@ -14,8 +14,6 @@ android {
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['libs']
         }
-
-        instrumentTest.setRoot('tests')
     }
     signingConfigs {
         apply from: 'signing.gradle', to: release
