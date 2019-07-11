@@ -3,6 +3,8 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
+        minSdkVersion 19
+        targetSdkVersion 28
     }
     sourceSets {
         main {
