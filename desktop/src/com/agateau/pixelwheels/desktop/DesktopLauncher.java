@@ -29,6 +29,7 @@ public class DesktopLauncher {
     public static void main (String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
+        config.setWindowIcon("desktop-icon/desktop-icon.png");
         config.setTitle("Pixel Wheels");
         config.setPreferencesConfig(".config/agateau.com", Files.FileType.External);
         config.useVsync(true);
