@@ -20,11 +20,8 @@ package com.agateau.ui.animscript;
 
 import com.agateau.ui.DimensionParser;
 
-import java.io.IOException;
 import java.io.StreamTokenizer;
 
 interface InstructionDefinition {
-
-    public abstract Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
-
+    Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
 }

@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.Array;
 public class ParallelInstruction implements Instruction {
     private Array<Instruction> mInstructions;
 
-    public ParallelInstruction(Array<Instruction> instructions) {
+    ParallelInstruction(Array<Instruction> instructions) {
         mInstructions = instructions;
     }
 

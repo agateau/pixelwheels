@@ -28,7 +28,7 @@ public class RepeatInstruction implements Instruction {
     private Array<Instruction> mInstructions;
     private int mCount;
 
-    public RepeatInstruction(Array<Instruction> instructions, int count) {
+    RepeatInstruction(Array<Instruction> instructions, int count) {
         mInstructions = instructions;
         mCount = count;
     }

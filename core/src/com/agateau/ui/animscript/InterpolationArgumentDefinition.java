@@ -28,9 +28,9 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpolation> {
 
-    private static Map<String, Interpolation> sMap = new HashMap<String, Interpolation>();
+    private static Map<String, Interpolation> sMap = new HashMap<>();
 
-    private static void initMap() {
+    static {
         sMap.put("bounce", Interpolation.bounce);
         sMap.put("bounceIn", Interpolation.bounceIn);
         sMap.put("bounceOut", Interpolation.bounceOut);
@@ -70,9 +70,6 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
 
     InterpolationArgumentDefinition(Interpolation defaultValue) {
         super(Interpolation.class, defaultValue);
-        if (sMap.isEmpty()) {
-            initMap();
-        }
     }
 
     @Override
@@ -96,5 +93,4 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
         }
         return value;
     }
-
 }

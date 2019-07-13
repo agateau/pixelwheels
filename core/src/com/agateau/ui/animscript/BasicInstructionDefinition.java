@@ -28,13 +28,13 @@ class BasicInstructionDefinition implements InstructionDefinition {
     private Method mMethod;
     private ArgumentDefinition<?>[] mArgumentDefinitions;
 
-    public BasicInstructionDefinition(Object instance, Method method, ArgumentDefinition<?>... argumentDefinitions) {
+    BasicInstructionDefinition(Object instance, Method method, ArgumentDefinition<?>... argumentDefinitions) {
         mInstance = instance;
         mMethod = method;
         mArgumentDefinitions = argumentDefinitions;
     }
 
-    public BasicInstructionDefinition(Method method, ArgumentDefinition<?>... argumentDefinitions) {
+    BasicInstructionDefinition(Method method, ArgumentDefinition<?>... argumentDefinitions) {
         mInstance = null;
         mMethod = method;
         mArgumentDefinitions = argumentDefinitions;

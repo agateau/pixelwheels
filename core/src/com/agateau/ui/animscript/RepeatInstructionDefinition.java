@@ -27,7 +27,7 @@ import com.badlogic.gdx.utils.Array;
 public class RepeatInstructionDefinition implements InstructionDefinition {
     private AnimScriptLoader mLoader;
 
-    public RepeatInstructionDefinition(AnimScriptLoader loader) {
+    RepeatInstructionDefinition(AnimScriptLoader loader) {
         mLoader = loader;
     }
 

@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.Array;
 public class AnimScript {
     private Array<Instruction> mInstructions;
 
-    public AnimScript(Array<Instruction> instructions) {
+    AnimScript(Array<Instruction> instructions) {
         mInstructions = instructions;
     }
 

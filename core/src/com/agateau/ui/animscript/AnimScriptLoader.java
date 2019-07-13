@@ -33,7 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class AnimScriptLoader {
-    private Map<String, InstructionDefinition> mInstructionDefinitionMap = new HashMap<String, InstructionDefinition>();
+    private Map<String, InstructionDefinition> mInstructionDefinitionMap = new HashMap<>();
 
     public static class SyntaxException extends Exception {
         SyntaxException(StreamTokenizer tokenizer, String message) {
@@ -124,7 +124,7 @@ public class AnimScriptLoader {
     }
 
     Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser) throws SyntaxException {
-        Array<Instruction> lst = new Array<Instruction>();
+        Array<Instruction> lst = new Array<>();
         do {
             try {
                 while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {

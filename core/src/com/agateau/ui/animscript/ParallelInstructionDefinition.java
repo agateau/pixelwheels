@@ -18,16 +18,15 @@
  */
 package com.agateau.ui.animscript;
 
-import java.io.IOException;
-import java.io.StreamTokenizer;
-
 import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Array;
+
+import java.io.StreamTokenizer;
 
 public class ParallelInstructionDefinition implements InstructionDefinition {
     private AnimScriptLoader mLoader;
 
-    public ParallelInstructionDefinition(AnimScriptLoader loader) {
+    ParallelInstructionDefinition(AnimScriptLoader loader) {
         mLoader = loader;
     }
 
