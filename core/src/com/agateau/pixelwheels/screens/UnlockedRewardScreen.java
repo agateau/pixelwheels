@@ -19,14 +19,15 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -51,6 +52,28 @@ public class UnlockedRewardScreen extends NavStageScreen {
                 mGame.replaceScreen(new UnlockedRewardScreen(mGame, mReward, mNextListener));
             }
         };
+    }
+
+    public static UnlockedRewardScreen createDebugScreen(PwGame game) {
+        String[] tokens = Constants.DEBUG_SCREEN.split(":");
+        Assert.check(tokens.length == 2, "Expected one `:` in PW_DEBUG_SCREEN");
+        Reward reward;
+        String id = tokens[1];
+        switch (tokens[0]) {
+            case "UnlockedVehicle":
+                reward = Reward.get(game.getAssets().findVehicleDefById(id));
+                break;
+            case "UnlockedChampionship":
+                reward = Reward.get(game.getAssets().findChampionshipById(id));
+                break;
+            default:
+                throw new RuntimeException("Invalid value for reward type");
+        }
+        return new UnlockedRewardScreen(game, reward, new NavStageScreen.NextListener() {
+            @Override
+            public void onNextPressed() {
+            }
+        });
     }
 
     private void setupUi() {

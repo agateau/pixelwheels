@@ -6,3 +6,5 @@ This environment variable can be set to one of the following values to test a
 specific screen:
 
 - `ChampionshipFinished`: championship finished
+- `UnlockedVehicle:<id>`: unlocked screen for vehicle `<id>`
+- `UnlockedChampionship:<id>`: unlocked screen for championship `<id>`

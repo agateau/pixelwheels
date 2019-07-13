@@ -24,9 +24,12 @@ import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
+import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
+import com.agateau.pixelwheels.screens.NavStageScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
+import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
@@ -131,7 +134,13 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public void showMainMenu() {
         mScreenStack.clear();
-        mScreenStack.push(new MainMenuScreen(this));
+        Screen screen;
+        if (Constants.DEBUG_SCREEN.startsWith("Unlocked")) {
+            screen = UnlockedRewardScreen.createDebugScreen(this);
+        } else {
+            screen = new MainMenuScreen(this);
+        }
+        mScreenStack.push(screen);
     }
 
     public void showQuickRace(PlayerCount playerCount) {
