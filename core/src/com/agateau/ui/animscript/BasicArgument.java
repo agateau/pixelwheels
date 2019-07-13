@@ -19,17 +19,10 @@
 package com.agateau.ui.animscript;
 
 public class BasicArgument extends Argument {
-    private Class<?> mClassType;
     private Object mValue;
 
-    BasicArgument(Class<?> classType, Object value) {
-        mClassType = classType;
+    BasicArgument(Object value) {
         mValue = value;
-    }
-
-    @Override
-    public Class<?> getClassType() {
-        return mClassType;
     }
 
     @Override

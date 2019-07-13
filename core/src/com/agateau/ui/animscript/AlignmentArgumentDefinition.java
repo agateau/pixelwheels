@@ -59,6 +59,6 @@ class AlignmentArgumentDefinition extends ArgumentDefinition<Integer> {
         if (value == null) {
             throw new AnimScriptLoader.SyntaxException(tokenizer, "Invalid alignment value: " + tokenizer.sval);
         }
-        return new BasicArgument(Integer.class, value);
+        return new BasicArgument(value);
     }
 }

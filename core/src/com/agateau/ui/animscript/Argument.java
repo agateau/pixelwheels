@@ -19,6 +19,5 @@
 package com.agateau.ui.animscript;
 
 abstract class Argument {
-    public abstract Class<?> getClassType();
     public abstract Object computeValue();
 }

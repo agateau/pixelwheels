@@ -62,6 +62,6 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
         } else {
             throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
         }
-        return new FloatArgument(value);
+        return new BasicArgument(value);
     }
 }
