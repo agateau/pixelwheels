@@ -43,7 +43,7 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
@@ -62,6 +62,6 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
         } else {
             throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
         }
-        return new BasicArgument(value);
+        return value;
     }
 }

@@ -31,5 +31,5 @@ public abstract class ArgumentDefinition<T> {
         this.defaultValue = defaultValue;
     }
 
-    public abstract Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
+    public abstract Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
 }

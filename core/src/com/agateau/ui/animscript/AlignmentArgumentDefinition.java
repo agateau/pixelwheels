@@ -46,7 +46,7 @@ class AlignmentArgumentDefinition extends ArgumentDefinition<Integer> {
     }
 
     @Override
-    public Argument parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
@@ -59,6 +59,6 @@ class AlignmentArgumentDefinition extends ArgumentDefinition<Integer> {
         if (value == null) {
             throw new AnimScriptLoader.SyntaxException(tokenizer, "Invalid alignment value: " + tokenizer.sval);
         }
-        return new BasicArgument(value);
+        return value;
     }
 }

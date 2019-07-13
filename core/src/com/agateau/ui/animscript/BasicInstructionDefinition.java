@@ -45,7 +45,7 @@ class BasicInstructionDefinition implements InstructionDefinition {
      */
     @Override
     public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
-        Argument[] args = new Argument[mArgumentDefinitions.length];
+        Object[] args = new Object[mArgumentDefinitions.length];
         for (int idx = 0; idx < mArgumentDefinitions.length; ++idx) {
             ArgumentDefinition<?> def = mArgumentDefinitions[idx];
             assert(def != null);

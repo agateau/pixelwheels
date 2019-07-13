@@ -26,9 +26,9 @@ import java.lang.reflect.Method;
 class BasicInstruction implements Instruction {
     private Object mObject;
     private Method mMethod;
-    private Argument[] mArgs;
+    private Object[] mArgs;
 
-    BasicInstruction(Object object, Method method, Argument[] args) {
+    BasicInstruction(Object object, Method method, Object[] args) {
         mObject = object;
         mMethod = method;
         mArgs = args;
@@ -39,13 +39,8 @@ class BasicInstruction implements Instruction {
      */
     @Override
     public Action run() {
-        Object[] objectArgs = new Object[mArgs.length];
-        for (int idx=0; idx < mArgs.length; ++idx) {
-            Argument arg = mArgs[idx];
-            objectArgs[idx] = arg.computeValue();
-        }
         try {
-            return (Action)mMethod.invoke(mObject, objectArgs);
+            return (Action)mMethod.invoke(mObject, mArgs);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException();
