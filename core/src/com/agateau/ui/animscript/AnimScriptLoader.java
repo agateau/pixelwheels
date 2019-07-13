@@ -48,6 +48,13 @@ public class AnimScriptLoader {
                        new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                        new InterpolationArgumentDefinition(Interpolation.linear)
                       );
+        registerAction("moveToAligned",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new AlignmentArgumentDefinition(),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear)
+        );
         registerAction("moveBy",
                        new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
                        new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
