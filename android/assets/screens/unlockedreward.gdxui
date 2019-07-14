@@ -3,15 +3,33 @@
     <AnchorGroup id="root" gridSize="20px">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -2g" />
 
-        <Group id="rewardContainer" center="root.center 0 1g">
-            <Image id="rewardImage">
-            <Action>
-                moveToAligned 0 0 bottomCenter
-                moveBy -20g 0
-                moveBy 20g 0 0.5 pow2Out
-            </Action>
-            </Image>
-        </Group>
+        <Ifdef var="vehicle">
+            <Group id="rewardContainer" center="root.center 0 1g">
+                <Image id="vehicleImage">
+                    <Action>
+                        moveToAligned 0 0 bottomCenter
+                        moveBy -30g 0
+                        moveBy 30g 0 0.5 pow2Out
+                    </Action>
+                </Image>
+            </Group>
+        </Ifdef>
+        <Else>
+            <Group id="rewardContainer" center="root.center 0 -1g">
+                <Image id="championshipImage">
+                    <Action>
+                        moveToAligned 0 0 bottomCenter
+                        alpha 0
+                        scaleTo 10 10
+                        parallel
+                            alpha 1 0.5
+                            rotateBy 360 0.5
+                            scaleTo 1 1 0.5 pow4In
+                        end
+                    </Action>
+                </Image>
+            </Group>
+        </Else>
         <Label id="rewardLabel" topCenter="rewardContainer.bottomCenter 0 -1g">
             <Action>
                 alpha 0

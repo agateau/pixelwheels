@@ -29,11 +29,11 @@ import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 
 public class UnlockedRewardScreen extends NavStageScreen {
     private final PwGame mGame;
@@ -78,7 +78,11 @@ public class UnlockedRewardScreen extends NavStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
+        boolean isVehicle = mReward.prize instanceof VehicleDef;
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        if (isVehicle) {
+            builder.defineVariable("vehicle");
+        }
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/unlockedreward.gdxui"));
         root.setFillParent(true);
@@ -87,7 +91,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
         setupNextButton((Button)builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
-        if (mReward.prize instanceof VehicleDef) {
+        if (isVehicle) {
             setupVehicleReward(builder, (VehicleDef)(mReward.prize));
         } else if (mReward.prize instanceof Championship) {
             setupChampionshipReward(builder, (Championship)(mReward.prize));
@@ -97,27 +101,28 @@ public class UnlockedRewardScreen extends NavStageScreen {
     }
 
     private void setupVehicleReward(UiBuilder builder, VehicleDef vehicleDef) {
+        Image image = builder.getActor("vehicleImage");
+        image.setDrawable(new TextureRegionDrawable(mGame.getAssets().getVehicleRegion(vehicleDef)));
+        image.pack();
         setupRewardDetails(builder, "New vehicle unlocked!",
-                mGame.getAssets().getVehicleRegion(vehicleDef),
                 vehicleDef.name);
     }
 
     private void setupChampionshipReward(UiBuilder builder, Championship championship) {
+        Image image = builder.getActor("championshipImage");
+        image.setDrawable(new TextureRegionDrawable(mGame.getAssets().getChampionshipRegion(championship)));
+        image.pack();
+        image.setOrigin(Align.center);
         setupRewardDetails(builder, "New championship unlocked!",
-                mGame.getAssets().getChampionshipRegion(championship),
                 championship.getName());
     }
 
-    private void setupRewardDetails(UiBuilder builder, String title, TextureRegion rewardRegion, String rewardName) {
+    private void setupRewardDetails(UiBuilder builder, String title, String rewardName) {
         Label titleLabel = builder.getActor("titleLabel");
-        Image rewardImage = builder.getActor("rewardImage");
         Label rewardLabel = builder.getActor("rewardLabel");
 
         titleLabel.setText(title);
         titleLabel.pack();
-
-        rewardImage.setDrawable(new TextureRegionDrawable(rewardRegion));
-        rewardImage.pack();
 
         rewardLabel.setText(rewardName);
         rewardLabel.pack();
