@@ -265,6 +265,7 @@ public class UiBuilder {
                 initImageFromRegionName(image, atlas, attr, tiled);
             }
         }
+        image.pack();
         return image;
     }
 
@@ -437,12 +438,10 @@ public class UiBuilder {
         attr = element.getAttribute("originX", "");
         if (!attr.isEmpty()) {
             actor.setOriginX(mDimParser.parse(attr));
-            actor.setX(actor.getX() - actor.getOriginX());
         }
         attr = element.getAttribute("originY", "");
         if (!attr.isEmpty()) {
             actor.setOriginY(mDimParser.parse(attr));
-            actor.setY(actor.getY() - actor.getOriginY());
         }
         attr = element.getAttribute("visible", "");
         if (!attr.isEmpty()) {
