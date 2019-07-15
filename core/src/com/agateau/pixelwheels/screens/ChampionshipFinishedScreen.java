@@ -35,12 +35,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.XmlReader;
 
 import java.util.Locale;
 
@@ -64,7 +62,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         private final TiledDrawable mDrawable;
         private float mOffset = 0;
 
-        public RoadActor(Assets assets, float pixelsPerSecond) {
+        RoadActor(Assets assets, float pixelsPerSecond) {
             mDrawable = new TiledDrawable(assets.ui.atlas.findRegion("road"));
             mPixelsPerSecond = pixelsPerSecond;
         }
@@ -91,7 +89,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         private final Image mSource;
         private final float mOffset;
 
-        public ShadowActor(Image source, float offset) {
+        ShadowActor(Image source, float offset) {
             mSource = source;
             mOffset = offset;
         }
@@ -131,24 +129,18 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         final Assets assets = mGame.getAssets();
         final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
         VehicleActor.register(builder, assets);
-        builder.registerActorFactory("Road", new UiBuilder.ActorFactory() {
-            @Override
-            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
-                float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
-                return new RoadActor(assets, pixelsPerSecond);
-            }
+        builder.registerActorFactory("Road", (uiBuilder, element) -> {
+            float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
+            return new RoadActor(assets, pixelsPerSecond);
         });
-        builder.registerActorFactory("Shadow", new UiBuilder.ActorFactory() {
-            @Override
-            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws UiBuilder.SyntaxException {
-                String sourceId = element.getAttribute("source", null);
-                if (sourceId == null) {
-                    throw new UiBuilder.SyntaxException("Missing 'source' attribute");
-                }
-                Image source = uiBuilder.getActor(sourceId);
-                float offset = element.getFloatAttribute("offset", 12);
-                return new ShadowActor(source, offset);
+        builder.registerActorFactory("Shadow", (uiBuilder, element) -> {
+            String sourceId = element.getAttribute("source", null);
+            if (sourceId == null) {
+                throw new UiBuilder.SyntaxException("Missing 'source' attribute");
             }
+            Image source = uiBuilder.getActor(sourceId);
+            float offset = element.getFloatAttribute("offset", 12);
+            return new ShadowActor(source, offset);
         });
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
@@ -159,7 +151,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        setupNextButton((Button)builder.getActor("nextButton"));
+        setupNextButton(builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
         Table table = builder.getActor("entrantTable");
