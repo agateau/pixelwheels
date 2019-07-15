@@ -59,29 +59,6 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     };
     private final NextListener mNextListener;
 
-    private static class VehicleActor extends Actor {
-        private final VehicleDrawer mDrawer;
-
-        public VehicleActor(Assets assets) {
-            mDrawer = new VehicleDrawer(assets);
-            mDrawer.angle = 90;
-        }
-
-        public void setVehicleDef(VehicleDef vehicleDef) {
-            mDrawer.vehicleDef = vehicleDef;
-        }
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            Color color = getColor();
-            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-            mDrawer.center.x = getX();
-            mDrawer.center.y = getY();
-            mDrawer.angle = 90 + getRotation();
-            mDrawer.draw(batch);
-        }
-    }
-
     private static class RoadActor extends Actor {
         private final float mPixelsPerSecond;
         private final TiledDrawable mDrawable;
@@ -153,12 +130,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     private void setupUi() {
         final Assets assets = mGame.getAssets();
         final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
-        builder.registerActorFactory("Vehicle", new UiBuilder.ActorFactory() {
-            @Override
-            public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
-                return new VehicleActor(assets);
-            }
-        });
+        VehicleActor.register(builder, assets);
         builder.registerActorFactory("Road", new UiBuilder.ActorFactory() {
             @Override
             public Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) {
