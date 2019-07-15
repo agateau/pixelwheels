@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20px">
 
-        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="24g" pixelsPerSecond="-180">
+        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="24g" pixelsPerSecond="180">
             <Action>
                 alpha 0
                 delay 0.5

@@ -20,18 +20,27 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
+/**
+ * An actor to draw tiled images, without gaps between tiles when zoomed
+ */
 class ScrollableTiledImage extends Actor {
     private final float mPixelsPerSecond;
-    private final Drawable mDrawable;
+    private final TiledDrawable mDrawable;
+    private FrameBuffer mFrameBuffer;
+
     private float mOffset = 0;
 
-    ScrollableTiledImage(Drawable drawable, float pixelsPerSecond) {
-        mDrawable = drawable;
+    ScrollableTiledImage(TextureRegion region, float pixelsPerSecond) {
+        mDrawable = new TiledDrawable(region);
         mPixelsPerSecond = pixelsPerSecond;
     }
 
@@ -44,11 +53,43 @@ class ScrollableTiledImage extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        ensureFrameBufferOK();
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-        float tileHeight = mDrawable.getMinHeight();
-        float origY = MathUtils.floor(getY() + mOffset);
-        mDrawable.draw(batch, getX(), origY - tileHeight, getWidth(), tileHeight);
-        mDrawable.draw(batch, getX(), origY, getWidth(), getHeight() - mOffset);
+        batch.draw(mFrameBuffer.getColorBufferTexture(),
+                // dst
+                getX(), getY(),
+                // origin
+                0, 0,
+                // dst size
+                getWidth(), getHeight(),
+                // scale
+                1, 1,
+                // rotation
+                0,
+                // src
+                0, (int)mOffset, (int)getWidth(), (int)getHeight(),
+                // flips
+                false, true
+                );
+    }
+
+    private void ensureFrameBufferOK() {
+        int width = (int) (getWidth() + mDrawable.getMinWidth());
+        int height = (int) (getHeight() + mDrawable.getMinHeight());
+        if (mFrameBuffer != null && mFrameBuffer.getWidth() == width && mFrameBuffer.getHeight() == height) {
+            return;
+        }
+        mFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false /* hasDepth */);
+
+        SpriteBatch batch = new SpriteBatch();
+        batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, width, height));
+
+        mFrameBuffer.begin();
+        batch.begin();
+        mDrawable.draw(batch, 0, 0, width, height);
+        batch.end();
+        mFrameBuffer.end();
+        batch.dispose();
     }
 }

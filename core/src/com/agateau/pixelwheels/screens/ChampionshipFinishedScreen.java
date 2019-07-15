@@ -34,7 +34,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Locale;
@@ -100,7 +99,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         VehicleActor.register(builder, assets);
         builder.registerActorFactory("Road", (uiBuilder, element) -> {
             float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
-            return new ScrollableTiledImage(new TiledDrawable(assets.ui.atlas.findRegion("road")), pixelsPerSecond);
+            return new ScrollableTiledImage(assets.ui.atlas.findRegion("road"), pixelsPerSecond);
         });
         builder.registerActorFactory("Shadow", (uiBuilder, element) -> {
             String sourceId = element.getAttribute("source", null);
