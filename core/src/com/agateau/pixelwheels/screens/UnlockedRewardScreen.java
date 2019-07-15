@@ -29,7 +29,6 @@ import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -80,6 +79,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
         Assets assets = mGame.getAssets();
         boolean isVehicle = mReward.prize instanceof VehicleDef;
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        VehicleActor.register(builder, assets);
         if (isVehicle) {
             builder.defineVariable("vehicle");
         }
@@ -88,7 +88,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        setupNextButton((Button)builder.getActor("nextButton"));
+        setupNextButton(builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
         if (isVehicle) {
@@ -101,11 +101,9 @@ public class UnlockedRewardScreen extends NavStageScreen {
     }
 
     private void setupVehicleReward(UiBuilder builder, VehicleDef vehicleDef) {
-        Image image = builder.getActor("vehicleImage");
-        image.setDrawable(new TextureRegionDrawable(mGame.getAssets().getVehicleRegion(vehicleDef)));
-        image.pack();
-        setupRewardDetails(builder, "New vehicle unlocked!",
-                vehicleDef.name);
+        VehicleActor vehicle = builder.getActor("vehicle");
+        vehicle.setVehicleDef(vehicleDef);
+        setupRewardDetails(builder, "New vehicle unlocked!", vehicleDef.name);
     }
 
     private void setupChampionshipReward(UiBuilder builder, Championship championship) {
@@ -113,8 +111,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
         image.setDrawable(new TextureRegionDrawable(mGame.getAssets().getChampionshipRegion(championship)));
         image.pack();
         image.setOrigin(Align.center);
-        setupRewardDetails(builder, "New championship unlocked!",
-                championship.getName());
+        setupRewardDetails(builder, "New championship unlocked!", championship.getName());
     }
 
     private void setupRewardDetails(UiBuilder builder, String title, String rewardName) {

@@ -5,13 +5,12 @@
 
         <Ifdef var="vehicle">
             <Group id="rewardContainer" center="root.center 0 1g">
-                <Image id="vehicleImage">
+                <Vehicle id="vehicle">
                     <Action>
-                        moveToAligned 0 0 bottomCenter
-                        moveBy -30g 0
-                        moveBy 30g 0 0.5 pow2Out
+                        moveBy -0 -20g
+                        moveBy 0 22g 0.5 pow2Out
                     </Action>
-                </Image>
+                </Vehicle>
             </Group>
         </Ifdef>
         <Else>
