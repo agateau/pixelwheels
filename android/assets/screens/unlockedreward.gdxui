@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20px">
-        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -2g" />
+        <Group topCenter="root.topCenter 0 -2g">
+            <Label id="titleLabel" style="title">
+                <Action>
+                    moveToAligned 0 0 topCenter
+                    moveBy 30g 0
+                    moveBy -30g 0 0.5 pow3Out
+                </Action>
+            </Label>
+        </Group>
 
         <Ifdef var="vehicle">
             <Group id="rewardContainer" center="root.center 0 1g">
