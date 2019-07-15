@@ -28,12 +28,9 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -56,34 +53,6 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         }
     };
     private final NextListener mNextListener;
-
-    private static class RoadActor extends Actor {
-        private final float mPixelsPerSecond;
-        private final TiledDrawable mDrawable;
-        private float mOffset = 0;
-
-        RoadActor(Assets assets, float pixelsPerSecond) {
-            mDrawable = new TiledDrawable(assets.ui.atlas.findRegion("road"));
-            mPixelsPerSecond = pixelsPerSecond;
-        }
-
-        @Override
-        public void act(float delta) {
-            super.act(delta);
-            float tileHeight = mDrawable.getMinHeight();
-            mOffset = AgcMathUtils.modulo(mOffset + delta * mPixelsPerSecond, tileHeight);
-        }
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            Color color = getColor();
-            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-            float tileHeight = mDrawable.getMinHeight();
-            float origY = MathUtils.floor(getY() + mOffset);
-            mDrawable.draw(batch, getX(), origY - tileHeight, getWidth(), tileHeight);
-            mDrawable.draw(batch, getX(), origY, getWidth(), getHeight() - mOffset);
-        }
-    }
 
     private static class ShadowActor extends Actor {
         private final Image mSource;
@@ -131,7 +100,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         VehicleActor.register(builder, assets);
         builder.registerActorFactory("Road", (uiBuilder, element) -> {
             float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
-            return new RoadActor(assets, pixelsPerSecond);
+            return new ScrollableTiledImage(new TiledDrawable(assets.ui.atlas.findRegion("road")), pixelsPerSecond);
         });
         builder.registerActorFactory("Shadow", (uiBuilder, element) -> {
             String sourceId = element.getAttribute("source", null);
