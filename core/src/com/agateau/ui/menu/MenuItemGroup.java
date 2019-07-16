@@ -359,7 +359,7 @@ public class MenuItemGroup implements MenuItem {
     /**
      * Returns the item at x, y (relative to mGroup), if any
      */
-    private Rectangle mActorRectangle = new Rectangle();
+    private final Rectangle mActorRectangle = new Rectangle();
     private MenuItem getItemAt(float x, float y) {
         for (MenuItem item : mItems) {
             if (!isItemVisible(item)) {

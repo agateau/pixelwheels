@@ -38,7 +38,7 @@ public class ClosestBodyFinder implements RayCastCallback {
     private float mFraction;
 
     // Work vars
-    private Vector2 mTmp = new Vector2();
+    private final Vector2 mTmp = new Vector2();
 
     public interface BodyFilter {
         boolean acceptBody(Body body);

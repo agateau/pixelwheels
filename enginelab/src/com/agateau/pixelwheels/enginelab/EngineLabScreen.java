@@ -38,12 +38,12 @@ import java.util.Locale;
  * Main screen for EngineLab
  */
 class EngineLabScreen extends StageScreen {
-    private Skin mSkin;
+    private final Skin mSkin;
     private EngineSoundPlayer mEngineSoundPlayer;
     private SliderMenuItem mSpeedItem;
 
     private SliderMenuItem mPitchItem;
-    private Array<SliderMenuItem> mVolumeItems = new Array<>();
+    private final Array<SliderMenuItem> mVolumeItems = new Array<>();
 
     public EngineLabScreen() {
         super(new ScreenViewport());

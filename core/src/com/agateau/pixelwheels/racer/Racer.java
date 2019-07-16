@@ -224,7 +224,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
      * Simplifies collisions between vehicles to make the game easier to play:
      * bump them but do not change their direction
      */
-    private Vector2 mTmp = new Vector2();
+    private final Vector2 mTmp = new Vector2();
     private void applySimplifiedRacerCollision(Racer other) {
         Body body1 = getVehicle().getBody();
         Body body2 = other.getVehicle().getBody();

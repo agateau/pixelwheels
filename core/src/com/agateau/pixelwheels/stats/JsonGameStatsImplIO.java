@@ -33,7 +33,7 @@ import java.util.Map;
 public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
     private GameStatsImpl mGameStats;
-    private Gson mGson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson mGson = new GsonBuilder().setPrettyPrinting().create();
 
     public JsonGameStatsImplIO(FileHandle handle) {
         mHandle = handle;

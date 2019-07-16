@@ -28,7 +28,7 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpolation> {
 
-    private static Map<String, Interpolation> sMap = new HashMap<>();
+    private static final Map<String, Interpolation> sMap = new HashMap<>();
 
     static {
         sMap.put("bounce", Interpolation.bounce);

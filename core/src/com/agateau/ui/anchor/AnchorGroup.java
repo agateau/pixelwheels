@@ -28,7 +28,7 @@ import java.util.Iterator;
 public class AnchorGroup extends WidgetGroup {
     private float mGridSize = 1;
 
-    private Array<AnchorRule> mRules = new Array<>();
+    private final Array<AnchorRule> mRules = new Array<>();
 
     public void setGridSize(float gridSize) {
         mGridSize = gridSize;

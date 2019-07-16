@@ -54,8 +54,8 @@ public class TabMenuItem extends Actor implements MenuItem {
     private final Array<Page> mPages = new Array<>();
     private final Rectangle mFocusRectangle = new Rectangle();
 
-    private BitmapFont mFont;
-    private TabMenuItemStyle mStyle;
+    private final BitmapFont mFont;
+    private final TabMenuItemStyle mStyle;
 
     private int mCurrentTab = 0;
 

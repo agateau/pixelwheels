@@ -63,13 +63,13 @@ public class RaceScreen extends ScreenAdapter {
 
     private Hud mHud;
     private HudContent mHudContent;
-    private ScreenViewport mHudViewport = new ScreenViewport();
+    private final ScreenViewport mHudViewport = new ScreenViewport();
     private final Stage mHudStage;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
-    private PerformanceCounter mGameWorldPerformanceCounter;
-    private PerformanceCounter mRendererPerformanceCounter;
-    private PerformanceCounter mOverallPerformanceCounter;
+    private final PerformanceCounter mGameWorldPerformanceCounter;
+    private final PerformanceCounter mRendererPerformanceCounter;
+    private final PerformanceCounter mOverallPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
     private boolean mFirstRender = true;

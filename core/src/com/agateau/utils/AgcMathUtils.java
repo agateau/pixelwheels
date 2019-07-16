@@ -23,7 +23,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class AgcMathUtils {
-    private static Vector2 sTmpVector = new Vector2();
+    private static final Vector2 sTmpVector = new Vector2();
 
     public static final float msToKmh = 3600 / 1000f;
     public static final float kmhToMs = 1 / msToKmh;

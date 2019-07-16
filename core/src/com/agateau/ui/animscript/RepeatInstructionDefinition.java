@@ -25,7 +25,7 @@ import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Array;
 
 public class RepeatInstructionDefinition implements InstructionDefinition {
-    private AnimScriptLoader mLoader;
+    private final AnimScriptLoader mLoader;
 
     RepeatInstructionDefinition(AnimScriptLoader loader) {
         mLoader = loader;

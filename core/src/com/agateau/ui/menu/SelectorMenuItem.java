@@ -39,7 +39,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
 
     private Label mMainLabel;
 
-    private Array<Entry<T>> mEntries = new Array<>();
+    private final Array<Entry<T>> mEntries = new Array<>();
     private int mCurrentIndex = 0;
 
     public SelectorMenuItem(Menu menu) {

@@ -24,9 +24,9 @@ import java.io.StreamTokenizer;
 import java.lang.reflect.Method;
 
 class BasicInstructionDefinition implements InstructionDefinition {
-    private Object mInstance;
-    private Method mMethod;
-    private ArgumentDefinition<?>[] mArgumentDefinitions;
+    private final Object mInstance;
+    private final Method mMethod;
+    private final ArgumentDefinition<?>[] mArgumentDefinitions;
 
     BasicInstructionDefinition(Object instance, Method method, ArgumentDefinition<?>... argumentDefinitions) {
         mInstance = instance;

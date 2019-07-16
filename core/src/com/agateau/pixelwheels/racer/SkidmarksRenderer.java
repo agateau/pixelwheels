@@ -86,7 +86,7 @@ public class SkidmarksRenderer {
         }
     }
 
-    private float[] mVertices = new float[4 * 5];
+    private final float[] mVertices = new float[4 * 5];
     private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha1, float alpha2) {
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha1);

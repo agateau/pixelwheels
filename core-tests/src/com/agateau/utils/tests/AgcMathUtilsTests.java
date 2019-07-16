@@ -36,9 +36,9 @@ public class AgcMathUtilsTests {
     @Test
     public void testArrayLerp() {
         class ArrayLerpData {
-            float[] array;
-            float k;
-            float expected;
+            final float[] array;
+            final float k;
+            final float expected;
             ArrayLerpData(float[] array, float k, float expected) {
                 this.array = array;
                 this.k = k;

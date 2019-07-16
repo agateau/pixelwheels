@@ -28,8 +28,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * A screen with a stage covering it
  */
 public abstract class StageScreen extends ScreenAdapter {
-    private Stage mStage;
-    private Viewport mViewport;
+    private final Stage mStage;
+    private final Viewport mViewport;
 
     public StageScreen(Viewport viewport) {
         mViewport = viewport;

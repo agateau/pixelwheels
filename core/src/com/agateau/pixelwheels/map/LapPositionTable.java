@@ -30,8 +30,8 @@ public class LapPositionTable {
     private final Array<LapSection> mSections = new Array<>();
 
     private static class LapSection {
-        private int mSectionId;
-        private Polygon mPolygon;
+        private final int mSectionId;
+        private final Polygon mPolygon;
         private final Warper mWarper = new Warper();
 
         public LapSection(int sectionId, Polygon polygon) {

@@ -56,7 +56,7 @@ public class TouchInputHandler implements GameInputHandler {
         }
     }
 
-    private GameInput mInput = new GameInput();
+    private final GameInput mInput = new GameInput();
     private PieButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
 
     @Override

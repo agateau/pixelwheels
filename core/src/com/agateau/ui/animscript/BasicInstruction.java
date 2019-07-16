@@ -24,9 +24,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 class BasicInstruction implements Instruction {
-    private Object mObject;
-    private Method mMethod;
-    private Object[] mArgs;
+    private final Object mObject;
+    private final Method mMethod;
+    private final Object[] mArgs;
 
     BasicInstruction(Object object, Method method, Object[] args) {
         mObject = object;

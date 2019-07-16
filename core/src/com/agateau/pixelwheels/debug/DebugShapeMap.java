@@ -29,7 +29,7 @@ public class DebugShapeMap {
     public interface Shape {
         void draw(ShapeRenderer renderer);
     }
-    private static HashMap<Object, Shape> sMap = new HashMap<>();
+    private static final HashMap<Object, Shape> sMap = new HashMap<>();
 
     public static HashMap<Object, Shape> getMap() {
         return sMap;

@@ -25,8 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 
 public class RepeatInstruction implements Instruction {
-    private Array<Instruction> mInstructions;
-    private int mCount;
+    private final Array<Instruction> mInstructions;
+    private final int mCount;
 
     RepeatInstruction(Array<Instruction> instructions, int count) {
         mInstructions = instructions;

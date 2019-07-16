@@ -43,7 +43,7 @@ public class MissileGuidingSystem {
         mBody.setTransform(mBody.getWorldCenter(), angle);
     }
 
-    private Vector2 mTmp = new Vector2();
+    private final Vector2 mTmp = new Vector2();
     private float computeAngle(Vector2 target) {
         /*
                        x target

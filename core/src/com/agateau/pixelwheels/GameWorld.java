@@ -80,7 +80,7 @@ public class GameWorld implements ContactListener, Disposable {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
-    private Array<BonusPool> mBonusPools = new Array<>();
+    private final Array<BonusPool> mBonusPools = new Array<>();
 
     private final Array<Racer> mRacers = new Array<>();
     private final Array<Racer> mPlayerRacers = new Array<>();
@@ -171,7 +171,7 @@ public class GameWorld implements ContactListener, Disposable {
      * Sort racers, listing racers which have driven the longest first,
      * so it returns 1 if racer1 has driven less than racer2
      */
-    private static Comparator<Racer> sRacerComparator = (racer1, racer2) -> {
+    private static final Comparator<Racer> sRacerComparator = (racer1, racer2) -> {
         LapPositionComponent c1 = racer1.getLapPositionComponent();
         LapPositionComponent c2 = racer2.getLapPositionComponent();
         if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {

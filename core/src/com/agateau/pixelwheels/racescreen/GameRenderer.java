@@ -48,16 +48,16 @@ public class GameRenderer {
     private final GameWorld mWorld;
     private final CameraUpdater mCameraUpdater;
 
-    private int[] mBackgroundLayerFirstIndexes = { 0 };
-    private int[] mExtraBackgroundLayerIndexes;
-    private int[] mForegroundLayerIndexes;
+    private final int[] mBackgroundLayerFirstIndexes = { 0 };
+    private final int[] mExtraBackgroundLayerIndexes;
+    private final int[] mForegroundLayerIndexes;
 
     private int mScreenX;
     private int mScreenY;
     private int mScreenWidth;
     private int mScreenHeight;
-    private PerformanceCounter mTilePerformanceCounter;
-    private PerformanceCounter mGameObjectPerformanceCounter;
+    private final PerformanceCounter mTilePerformanceCounter;
+    private final PerformanceCounter mGameObjectPerformanceCounter;
 
     public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();

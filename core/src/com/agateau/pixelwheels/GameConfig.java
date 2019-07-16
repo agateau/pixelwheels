@@ -52,7 +52,7 @@ public class GameConfig {
     private final GameInputHandler[] mPlayerInputHandlers = new GameInputHandler[Constants.MAX_PLAYERS];
 
     private final Preferences mPreferences;
-    private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<>();
+    private final ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<>();
 
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("pixelwheels.conf");

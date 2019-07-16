@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.Array;
 import java.io.StreamTokenizer;
 
 public class ParallelInstructionDefinition implements InstructionDefinition {
-    private AnimScriptLoader mLoader;
+    private final AnimScriptLoader mLoader;
 
     ParallelInstructionDefinition(AnimScriptLoader loader) {
         mLoader = loader;

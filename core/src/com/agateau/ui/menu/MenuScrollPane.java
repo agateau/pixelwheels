@@ -31,7 +31,7 @@ public class MenuScrollPane extends ScrollPane {
     private Menu mMenu;
     private final Vector2 mTmp = new Vector2();
 
-    private ChangeListener mListener = new ChangeListener() {
+    private final ChangeListener mListener = new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
             layout();

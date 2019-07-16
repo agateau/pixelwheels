@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
 class TabbedMenuScreen extends StageScreen {
-    private Skin mSkin;
+    private final Skin mSkin;
 
     TabbedMenuScreen() {
         super(new ScalingViewport(Scaling.fit, 800, 480));

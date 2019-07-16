@@ -36,7 +36,7 @@ public class Hud {
 
     private final float BUTTON_SIZE_PX;
 
-    private AnchorGroup mRoot;
+    private final AnchorGroup mRoot;
     private float mZoom;
 
     public Hud(Assets assets, Stage stage) {

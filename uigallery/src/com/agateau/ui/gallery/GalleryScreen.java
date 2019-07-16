@@ -47,8 +47,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 
 class GalleryScreen extends StageScreen {
-    private TextureAtlas mAtlas;
-    private Skin mSkin;
+    private final TextureAtlas mAtlas;
+    private final Skin mSkin;
 
     GalleryScreen() {
         super(new ScreenViewport());

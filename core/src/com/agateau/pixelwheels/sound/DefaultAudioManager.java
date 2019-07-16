@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference;
  */
 public class DefaultAudioManager implements AudioManager {
     private boolean mMuted = false;
-    private Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();
+    private final Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();
 
     public boolean isMuted() {
         return mMuted;

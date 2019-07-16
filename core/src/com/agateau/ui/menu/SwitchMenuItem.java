@@ -37,8 +37,8 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     private final Rectangle mFocusRectangle = new Rectangle();
     private final FocusIndicator mFocusIndicator;
 
-    private BitmapFont mFont;
-    private SwitchMenuItemStyle mStyle;
+    private final BitmapFont mFont;
+    private final SwitchMenuItemStyle mStyle;
 
     private boolean mChecked = false;
     private float mXOffset = 0;

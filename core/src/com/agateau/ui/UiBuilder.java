@@ -65,12 +65,12 @@ public class UiBuilder {
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
 
-    private Map<String, Actor> mActorForId = new HashMap<>();
-    private Map<String, ActorFactory> mFactoryForName = new HashMap<>();
-    private TextureAtlas mAtlas;
-    private Skin mSkin;
+    private final Map<String, Actor> mActorForId = new HashMap<>();
+    private final Map<String, ActorFactory> mFactoryForName = new HashMap<>();
+    private final TextureAtlas mAtlas;
+    private final Skin mSkin;
     private Actor mLastAddedActor;
-    private Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
+    private final Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;

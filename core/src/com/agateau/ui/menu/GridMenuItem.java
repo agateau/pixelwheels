@@ -39,7 +39,7 @@ import com.badlogic.gdx.utils.Array;
 public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mFocusRectangle = new Rectangle();
-    private GridMenuItemStyle mStyle;
+    private final GridMenuItemStyle mStyle;
     private Array<T> mItems;
     private final Array<FocusIndicator> mFocusIndicators = new Array<>();
     private int mSelectedIndex = -1;

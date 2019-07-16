@@ -31,7 +31,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
     private static final float MIN_ZOOM = 0.6f;
     private static final float MAX_ZOOM = 2.1f;
 
-    private Vector2 sDelta = new Vector2();
+    private final Vector2 sDelta = new Vector2();
 
     SinglePlayerCameraUpdater(GameWorld world) {
         super(world);

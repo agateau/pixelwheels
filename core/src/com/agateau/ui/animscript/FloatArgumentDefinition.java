@@ -30,7 +30,7 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
         SCALAR
     }
 
-    private FloatArgumentDefinition.Domain mDomain;
+    private final FloatArgumentDefinition.Domain mDomain;
 
     FloatArgumentDefinition(FloatArgumentDefinition.Domain domain) {
         super(Float.TYPE, null);

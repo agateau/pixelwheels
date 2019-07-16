@@ -36,7 +36,7 @@ public class Menu extends WidgetGroup {
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final MenuItemGroup mGroup;
     private final Skin mSkin;
-    private MenuStyle mStyle;
+    private final MenuStyle mStyle;
 
     private float mLabelColumnWidth;
 

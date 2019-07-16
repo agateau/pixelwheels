@@ -192,7 +192,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         moveTowardEndPosition(delta);
     }
 
-    private Vector2 mDelta = new Vector2();
+    private final Vector2 mDelta = new Vector2();
     private void moveTowardEndPosition(float delta) {
         mDelta.set(mEndPosition).sub(mPosition);
         float speed;

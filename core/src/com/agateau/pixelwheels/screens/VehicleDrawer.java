@@ -44,7 +44,7 @@ class VehicleDrawer {
         mAssets = assets;
     }
 
-    private Vector2 sWheelPos = new Vector2();
+    private final Vector2 sWheelPos = new Vector2();
 
     public void draw(Batch batch) {
         TextureRegion region = mAssets.getVehicleRegion(vehicleDef);

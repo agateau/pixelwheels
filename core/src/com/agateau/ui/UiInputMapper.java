@@ -24,8 +24,8 @@ import com.badlogic.gdx.Preferences;
  * Responds to input from keyboard or gamepad
  */
 public class UiInputMapper implements InputMapper {
-    private KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
-    private GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.getInstance(0);
+    private final KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
+    private final GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.getInstance(0);
 
     private static UiInputMapper sInstance;
 

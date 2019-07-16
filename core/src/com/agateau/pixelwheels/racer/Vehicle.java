@@ -78,7 +78,7 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private Probe mProbe = null;
 
-    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
+    private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, Array<Shape2D> shapes, float angle) {
         mGameWorld = gameWorld;

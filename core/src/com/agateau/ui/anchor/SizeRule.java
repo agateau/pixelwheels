@@ -27,10 +27,10 @@ public class SizeRule implements AnchorRule {
     public static final float KEEP_RATIO = -1;
     public static final float IGNORE = -2;
 
-    private Actor mTarget;
-    private Actor mReference;
-    private float mWidthPercent;
-    private float mHeightPercent;
+    private final Actor mTarget;
+    private final Actor mReference;
+    private final float mWidthPercent;
+    private final float mHeightPercent;
 
     private float mWidthPadding = 0;
     private float mHeightPadding = 0;

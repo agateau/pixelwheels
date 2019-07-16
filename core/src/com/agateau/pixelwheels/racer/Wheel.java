@@ -82,10 +82,10 @@ public class Wheel implements Disposable {
     };
     private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
 
-    private Body mBody;
-    private GameWorld mGameWorld;
-    private TextureRegion mRegion;
-    private Vehicle mVehicle;
+    private final Body mBody;
+    private final GameWorld mGameWorld;
+    private final TextureRegion mRegion;
+    private final Vehicle mVehicle;
     private boolean mCanDrift = false;
     private float mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
     private boolean mGripEnabled = true;

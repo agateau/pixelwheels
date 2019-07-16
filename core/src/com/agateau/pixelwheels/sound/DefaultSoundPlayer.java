@@ -29,7 +29,7 @@ class DefaultSoundPlayer implements SoundPlayer {
     private boolean mLooping = false;
     private float mVolume = 1;
     private float mPitch = 1;
-    private float mPan = 0;
+    private final float mPan = 0;
     private boolean mMuted = false;
 
     public DefaultSoundPlayer(Sound sound) {

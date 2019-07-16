@@ -57,7 +57,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private final ScreenStack mScreenStack = new ScreenStack(this);
     private Maestro mMaestro;
     private GameConfig mGameConfig;
-    private AudioManager mAudioManager = new DefaultAudioManager();
+    private final AudioManager mAudioManager = new DefaultAudioManager();
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;

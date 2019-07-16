@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class AlignmentArgumentDefinition extends ArgumentDefinition<Integer> {
-    private static Map<String, Integer> sMap = new HashMap<>();
+    private static final Map<String, Integer> sMap = new HashMap<>();
 
     static {
         sMap.put("bottomLeft", Align.bottomLeft);

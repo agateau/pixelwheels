@@ -38,7 +38,7 @@ public class VehicleCreator {
         mAssets = assets;
     }
 
-    private Vector2 sWheelPos = new Vector2();
+    private final Vector2 sWheelPos = new Vector2();
     public Vehicle create(VehicleDef vehicleDef, Vector2 position, float angle) {
         final float U = Constants.UNIT_FOR_PIXEL;
         float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;

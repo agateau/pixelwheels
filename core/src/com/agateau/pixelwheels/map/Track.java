@@ -57,7 +57,7 @@ public class Track implements Disposable {
     private final WaypointStore mWaypointStore = new WaypointStore();
     private float mTileWidth;
     private float mTileHeight;
-    private Array<MapObject> mBorderObjects = new Array<>();
+    private final Array<MapObject> mBorderObjects = new Array<>();
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 

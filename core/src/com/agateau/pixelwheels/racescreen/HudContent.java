@@ -167,7 +167,7 @@ public class HudContent {
         mCountDownLabel.setText(text);
     }
 
-    private static StringBuilder sDebugSB = new StringBuilder();
+    private static final StringBuilder sDebugSB = new StringBuilder();
     private void updateDebugLabel() {
         sDebugSB.setLength(0);
         sDebugSB.append("objCount: ").append(mGameWorld.getActiveGameObjects().size).append('\n');

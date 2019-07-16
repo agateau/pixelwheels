@@ -47,7 +47,7 @@ public class BonusSpot extends GameObjectAdapter {
     private final float mY;
     private final Body mBody;
     private float mDisabledTimeout = 0;
-    private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+    private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
     private boolean mJustPicked = false;
 
     public BonusSpot(Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {

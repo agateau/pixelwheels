@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 
 public class AnimScript {
-    private Array<Instruction> mInstructions;
+    private final Array<Instruction> mInstructions;
 
     AnimScript(Array<Instruction> instructions) {
         mInstructions = instructions;

@@ -46,7 +46,7 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
 
     }
 
-    private static StringBuilder sStringBuilder = new StringBuilder();
+    private static final StringBuilder sStringBuilder = new StringBuilder();
     public void updateMissingGamepads() {
         sStringBuilder.setLength(0);
         IntArray missingGamepads = mWatcher.getMissingGamepads();

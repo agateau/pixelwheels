@@ -67,7 +67,7 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     private final InputMapper mInputMapper;
-    private GameInput mInput = new GameInput();
+    private final GameInput mInput = new GameInput();
 
     KeyboardInputHandler(InputMapper inputMapper) {
         mInputMapper = inputMapper;

@@ -56,9 +56,9 @@ public class ConfigScreen extends PwStageScreen {
         Screen createScreen(PwGame game, int playerIdx);
     }
 
-    private static GameInputHandlerConfigScreenFactory sGamepadConfigScreenFactory = (game, playerIdx) -> new GamepadConfigScreen(game, playerIdx);
+    private static final GameInputHandlerConfigScreenFactory sGamepadConfigScreenFactory = (game, playerIdx) -> new GamepadConfigScreen(game, playerIdx);
 
-    private static GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory = (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
+    private static final GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory = (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);

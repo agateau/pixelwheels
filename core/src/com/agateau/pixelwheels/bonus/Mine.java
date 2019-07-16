@@ -59,7 +59,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     private Assets mAssets;
     private Racer mOwner;
     private BodyDef mBodyDef;
-    private WeldJointDef mJointDef = new WeldJointDef();
+    private final WeldJointDef mJointDef = new WeldJointDef();
     private CircleShape mShape;
 
     private Body mBody;
@@ -134,7 +134,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mTime += delta;
     }
 
-    private BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
+    private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
     @Override
     public void draw(Batch batch, ZLevel zLevel) {
         mBodyRegionDrawer.setBatch(batch);

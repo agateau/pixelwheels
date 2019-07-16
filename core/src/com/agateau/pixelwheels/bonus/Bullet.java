@@ -64,7 +64,7 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     private Body mBody;
     private boolean mJustShot = false;
 
-    private BodyRegionDrawer mDrawer = new BodyRegionDrawer();
+    private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
 
     public static Bullet create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter, float originX, float originY, float angle) {
         Bullet object = sPool.obtain();
