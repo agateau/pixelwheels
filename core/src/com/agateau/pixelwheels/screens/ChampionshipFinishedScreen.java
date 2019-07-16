@@ -30,6 +30,7 @@ import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -84,7 +85,11 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         mGame = game;
         mGameInfo = gameInfo;
         mNextListener = nextListener;
-        setupUi();
+        if (isPlayerOnPodium()) {
+            setupPodiumUi();
+        } else {
+            setupNoPodiumUi();
+        }
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
@@ -93,14 +98,26 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         };
     }
 
-    private void setupUi() {
+    private boolean isPlayerOnPodium() {
+        for (int idx = 0; idx < 3; ++idx) {
+            GameInfo.Entrant entrant = mGameInfo.getEntrants().get(idx);
+            if (entrant.isPlayer()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setupPodiumUi() {
         final Assets assets = mGame.getAssets();
         final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
         VehicleActor.register(builder, assets);
+
         builder.registerActorFactory("Road", (uiBuilder, element) -> {
             float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
             return new ScrollableTiledImage(assets.ui.atlas.findRegion("road"), pixelsPerSecond);
         });
+
         builder.registerActorFactory("Shadow", (uiBuilder, element) -> {
             String sourceId = element.getAttribute("source", null);
             if (sourceId == null) {
@@ -111,10 +128,23 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             return new ShadowActor(source, offset);
         });
 
-        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/championshipfinished.gdxui"));
+        if (!setupCommonUi(builder, FileUtils.assets("screens/championshipfinished-podium.gdxui"))) {
+            return;
+        }
+        fillPodium(builder, mGameInfo.getEntrants());
+    }
+
+    private void setupNoPodiumUi() {
+        final Assets assets = mGame.getAssets();
+        final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
+        setupCommonUi(builder, FileUtils.assets("screens/championshipfinished-nopodium.gdxui"));
+    }
+
+    private boolean setupCommonUi(UiBuilder builder, FileHandle uiFileHandle) {
+        AnchorGroup root = (AnchorGroup) builder.build(uiFileHandle);
         if (root == null) {
             NLog.e("Failed to create ui");
-            return;
+            return false;
         }
         root.setFillParent(true);
         getStage().addActor(root);
@@ -125,7 +155,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         Table table = builder.getActor("entrantTable");
         fillEntrantTable(table, mGameInfo.getEntrants());
 
-        fillPodium(builder, mGameInfo.getEntrants());
+        return true;
     }
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {

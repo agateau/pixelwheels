@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" gridSize="20px">
+        <Group topCenter="root.topCenter 0 -1g">
+            <Label id="mainLabel" style="title">Championship
+                <Action>
+                    moveToAligned 0 0 topCenter
+                    moveBy -80g 0
+                    moveBy 80g 0 1 pow2Out
+                </Action>
+            </Label>
+            <Label style="title">Finished!
+                <Action>
+                    moveToAligned 0 -2g topCenter
+                    moveBy 120g 0
+                    delay 0.5
+                    moveBy -120g 0 1 pow2Out
+                </Action>
+            </Label>
+        </Group>
+
+        <Table id="entrantTable" center="root.center 0 -1g"
+            width="17g"
+            height="16g">
+            <Action>
+                alpha 0
+                delay 1.5
+                alpha 1 0.5 pow2Out
+            </Action>
+        </Table>
+
+        <ImageButton id="nextButton"
+                    bottomRight="root.bottomRight -1g 1g"
+                    imageName="icon-next"/>
+    </AnchorGroup>
+</gdxui>
