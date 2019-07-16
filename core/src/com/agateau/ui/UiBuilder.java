@@ -219,32 +219,33 @@ public class UiBuilder {
 
     private Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
-        if (name.equals("Image")) {
-            return createImage(element);
-        } else if (name.equals("ImageButton")) {
-            return createImageButton(element);
-        } else if (name.equals("TextButton")) {
-            return createTextButton(element);
-        } else if (name.equals("Group")) {
-            return createGroup(element);
-        } else if (name.equals("AnchorGroup")) {
-            return createAnchorGroup(element);
-        } else if (name.equals("Label")) {
-            return createLabel(element);
-        } else if (name.equals("ScrollPane")) {
-            return createScrollPane(element);
-        } else if (name.equals("VerticalGroup")) {
-            return createVerticalGroup(element);
-        } else if (name.equals("HorizontalGroup")) {
-            return createHorizontalGroup(element);
-        } else if (name.equals("CheckBox")) {
-            return createCheckBox(element);
-        } else if (name.equals("Menu")) {
-            return createMenu(element);
-        } else if (name.equals("MenuScrollPane")) {
-            return createMenuScrollPane(element);
-        } else if (name.equals("Table")) {
-            return createTable(element);
+        switch (name) {
+            case "Image":
+                return createImage(element);
+            case "ImageButton":
+                return createImageButton(element);
+            case "TextButton":
+                return createTextButton(element);
+            case "Group":
+                return createGroup(element);
+            case "AnchorGroup":
+                return createAnchorGroup(element);
+            case "Label":
+                return createLabel(element);
+            case "ScrollPane":
+                return createScrollPane(element);
+            case "VerticalGroup":
+                return createVerticalGroup(element);
+            case "HorizontalGroup":
+                return createHorizontalGroup(element);
+            case "CheckBox":
+                return createCheckBox(element);
+            case "Menu":
+                return createMenu(element);
+            case "MenuScrollPane":
+                return createMenuScrollPane(element);
+            case "Table":
+                return createTable(element);
         }
         ActorFactory factory = mFactoryForName.get(name);
         if (factory != null) {
@@ -523,10 +524,10 @@ public class UiBuilder {
         return text.replace("\\n", "\n");
     }
 
-    private void createActorActions(Actor actor, XmlReader.Element element) throws SyntaxException {
+    private void createActorActions(Actor actor, XmlReader.Element element) {
         for (XmlReader.Element child: element.getChildrenByName("Action")) {
             String definition = child.getText();
-            AnimScript script = null;
+            AnimScript script;
             try {
                 script = mAnimScriptloader.load(definition, mDimParser);
             } catch (AnimScriptLoader.SyntaxException e) {
@@ -542,26 +543,27 @@ public class UiBuilder {
         if (alignText.isEmpty()) {
             return -1;
         }
-        if (alignText.equals("center")) {
-            return Align.center;
-        } else if (alignText.equals("centerLeft")) {
-            return Align.left;
-        } else if (alignText.equals("centerRight")) {
-            return Align.right;
-        } else if (alignText.equals("topLeft")) {
-            return Align.topLeft;
-        } else if (alignText.equals("topCenter")) {
-            return Align.top;
-        } else if (alignText.equals("topRight")) {
-            return Align.topRight;
-        } else if (alignText.equals("bottomLeft")) {
-            return Align.bottomLeft;
-        } else if (alignText.equals("bottomCenter")) {
-            return Align.bottom;
-        } else if (alignText.equals("bottomRight")) {
-            return Align.bottomRight;
-        } else {
-            throw new SyntaxException("Unknown value of 'align': " + alignText);
+        switch (alignText) {
+            case "center":
+                return Align.center;
+            case "centerLeft":
+                return Align.left;
+            case "centerRight":
+                return Align.right;
+            case "topLeft":
+                return Align.topLeft;
+            case "topCenter":
+                return Align.top;
+            case "topRight":
+                return Align.topRight;
+            case "bottomLeft":
+                return Align.bottomLeft;
+            case "bottomCenter":
+                return Align.bottom;
+            case "bottomRight":
+                return Align.bottomRight;
+            default:
+                throw new SyntaxException("Unknown value of 'align': " + alignText);
         }
     }
 }
