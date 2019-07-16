@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.ui.GamepadInputMappers;
-import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.IntArray;
 

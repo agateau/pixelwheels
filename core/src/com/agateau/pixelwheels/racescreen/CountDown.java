@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.racescreen;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 
 /**

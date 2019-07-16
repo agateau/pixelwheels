@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.GamePlay;
-import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.racescreen;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**

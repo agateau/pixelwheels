@@ -25,8 +25,6 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Comparator;
-
 /**
  * Details about the game to start
  */

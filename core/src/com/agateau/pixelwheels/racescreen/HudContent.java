@@ -36,7 +36,6 @@ import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
 
-import java.util.Locale;
 import java.util.Map;
 
 /**

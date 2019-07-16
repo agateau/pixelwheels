@@ -5,7 +5,6 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.gamesetup.Maestro;
-import com.agateau.ui.RefreshHelper;
 import com.agateau.ui.ScreenStack;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
