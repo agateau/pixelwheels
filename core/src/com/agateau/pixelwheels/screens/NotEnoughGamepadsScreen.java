@@ -22,7 +22,6 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
     private final Maestro mMaestro;
     private final GamepadInputWatcher mWatcher;
     private Label mLabel;
-    private AnchorGroup mRoot;
 
     public NotEnoughGamepadsScreen(PwGame game, Maestro maestro, GamepadInputWatcher watcher) {
         super(game.getAssets().ui);
@@ -66,9 +65,9 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        mRoot = (AnchorGroup)builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
-        mRoot.setFillParent(true);
-        getStage().addActor(mRoot);
+        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
+        root.setFillParent(true);
+        getStage().addActor(root);
 
         mLabel = builder.getActor("gamepadsLabel");
 
