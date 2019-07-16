@@ -29,7 +29,6 @@ import com.agateau.pixelwheels.screens.MultiPlayerScreen;
 import com.agateau.pixelwheels.screens.NavStageScreen;
 import com.agateau.pixelwheels.screens.SelectChampionshipScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
-import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
@@ -69,7 +68,7 @@ public class ChampionshipMaestro extends Maestro {
 
             @Override
             public void onPlayerSelected(GameInfo.Player player) {
-                Array<GameInfo.Player> players = new Array<GameInfo.Player>();
+                Array<GameInfo.Player> players = new Array<>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
                 startChampionship();
@@ -146,12 +145,7 @@ public class ChampionshipMaestro extends Maestro {
                     mGameInfo.selectNextTrack();
                     final Set<Reward> rewards = getNewlyUnlockedRewards();
                     updateAlreadyUnlockedRewards();
-                    showUnlockedRewardScreen(rewards, new Runnable() {
-                        @Override
-                        public void run() {
-                            getGame().replaceScreen(createRaceScreen());
-                        }
-                    });
+                    showUnlockedRewardScreen(rewards, () -> getGame().replaceScreen(createRaceScreen()));
                 }
             }
         };
@@ -164,12 +158,7 @@ public class ChampionshipMaestro extends Maestro {
         final NavStageScreen.NextListener navListener = new NavStageScreen.NextListener() {
             @Override
             public void onNextPressed() {
-                showUnlockedRewardScreen(rewards, new Runnable() {
-                    @Override
-                    public void run() {
-                        getGame().showMainMenu();
-                    }
-                });
+                showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
             }
         };
         return new ChampionshipFinishedScreen(getGame(), mGameInfo, navListener);
