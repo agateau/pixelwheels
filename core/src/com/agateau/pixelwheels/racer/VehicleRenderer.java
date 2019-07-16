@@ -39,7 +39,7 @@ public class VehicleRenderer implements Renderer {
     private static final Color IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
     private final Assets mAssets;
     private final Vehicle mVehicle;
-    private final Array<Renderer> mRenderers = new Array<Renderer>();
+    private final Array<Renderer> mRenderers = new Array<>();
     private final SkidmarksRenderer mSkidmarksRenderer;
     private float mTime = 0;
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();

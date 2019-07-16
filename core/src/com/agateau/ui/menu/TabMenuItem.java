@@ -51,7 +51,7 @@ public class TabMenuItem extends Actor implements MenuItem {
             this.tabWidth = tabWidth;
         }
     }
-    private final Array<Page> mPages = new Array<Page>();
+    private final Array<Page> mPages = new Array<>();
     private final Rectangle mFocusRectangle = new Rectangle();
 
     private BitmapFont mFont;

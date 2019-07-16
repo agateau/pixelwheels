@@ -100,7 +100,7 @@ class GalleryScreen extends StageScreen {
             }
         });
 
-        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem<Integer>(menu);
+        SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem<>(menu);
         selectorMenuItem.addEntry("Keyboard", 12);
         selectorMenuItem.addEntry("Joystick", 24);
         selectorMenuItem.addEntry("Mind", 36);
@@ -137,7 +137,7 @@ class GalleryScreen extends StageScreen {
     }
 
     private GridMenuItem<TextureRegion> createGridMenuItem(Menu menu) {
-        Array<TextureRegion> items = new Array<TextureRegion>();
+        Array<TextureRegion> items = new Array<>();
         items.add(mAtlas.findRegion("icon-back"));
         items.add(mAtlas.findRegion("icon-restart"));
         items.add(mAtlas.findRegion("rectbutton"));
@@ -147,7 +147,7 @@ class GalleryScreen extends StageScreen {
         items.add(mAtlas.findRegion("icon-config"));
         items.add(mAtlas.findRegion("icon-debug"));
 
-        GridMenuItem<TextureRegion> gridMenuItem = new GridMenuItem<TextureRegion>(menu);
+        GridMenuItem<TextureRegion> gridMenuItem = new GridMenuItem<>(menu);
         gridMenuItem.setItemSize(70, 80);
         gridMenuItem.setItemRenderer(new TextureRegionItemRenderer());
         gridMenuItem.setItems(items);

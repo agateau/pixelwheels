@@ -36,7 +36,7 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
     private final GamepadInputWatcher mGamepadInputWatcher;
-    private final Set<Reward> mAlreadyUnlockedRewards = new HashSet<Reward>();
+    private final Set<Reward> mAlreadyUnlockedRewards = new HashSet<>();
 
     private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
 
@@ -88,7 +88,7 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     }
 
     Set<Reward> getNewlyUnlockedRewards() {
-        Set<Reward> unlockedRewards = new HashSet<Reward>(getGame().getRewardManager().getUnlockedRewards());
+        Set<Reward> unlockedRewards = new HashSet<>(getGame().getRewardManager().getUnlockedRewards());
         unlockedRewards.removeAll(mAlreadyUnlockedRewards);
         if (!unlockedRewards.isEmpty()) {
             NLog.i("Unlocked rewards: %s", unlockedRewards);

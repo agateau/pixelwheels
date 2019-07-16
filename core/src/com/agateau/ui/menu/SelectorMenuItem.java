@@ -39,7 +39,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
 
     private Label mMainLabel;
 
-    private Array<Entry<T>> mEntries = new Array<Entry<T>>();
+    private Array<Entry<T>> mEntries = new Array<>();
     private int mCurrentIndex = 0;
 
     public SelectorMenuItem(Menu menu) {
@@ -81,7 +81,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     public void addEntry(String text, T data) {
-        mEntries.add(new Entry<T>(text, data));
+        mEntries.add(new Entry<>(text, data));
     }
 
     public T getData() {

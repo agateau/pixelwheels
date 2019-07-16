@@ -26,7 +26,7 @@ import java.util.Set;
 public class CollectionUtils {
 
     public static <T> Set<T> newSet(T... items) {
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<>();
         Collections.addAll(set, items);
         return set;
     }

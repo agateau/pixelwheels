@@ -48,8 +48,8 @@ public class HudContent {
     private final Hud mHud;
     private PerformanceCounters mPerformanceCounters = null;
 
-    private final Array<Label> mRankLabels = new Array<Label>();
-    private final Array<Label> mLapLabels = new Array<Label>();
+    private final Array<Label> mRankLabels = new Array<>();
+    private final Array<Label> mLapLabels = new Array<>();
     private final Label mCountDownLabel;
     private Label mDebugLabel = null;
 

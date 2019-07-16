@@ -215,7 +215,7 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
-        SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<GameInputHandlerFactory>(menu);
+        SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<>(menu);
         group.addItemWithLabel(label + ":", selector);
 
         ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");

@@ -52,7 +52,7 @@ public class WaypointStore {
         }
     }
 
-    private Array<WaypointInfo> mWaypointInfos = new Array<WaypointInfo>();
+    private Array<WaypointInfo> mWaypointInfos = new Array<>();
 
     public void read(MapLayer layer, LapPositionTable lapPositionTable) {
         final float U = Constants.UNIT_FOR_PIXEL;

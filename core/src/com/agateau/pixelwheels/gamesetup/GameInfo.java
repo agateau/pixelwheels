@@ -31,7 +31,7 @@ import java.util.Comparator;
  * Details about the game to start
  */
 public abstract class GameInfo {
-    private final Array<Entrant> mEntrants = new Array<Entrant>();
+    private final Array<Entrant> mEntrants = new Array<>();
 
     public static abstract class Builder<T extends GameInfo> {
         final Array<VehicleDef> mVehicleDefs;
@@ -51,7 +51,7 @@ public abstract class GameInfo {
         public abstract T build();
 
         void createEntrants(GameInfo gameInfo) {
-            Array<String> vehicleIds = new Array<String>();
+            Array<String> vehicleIds = new Array<>();
             for (VehicleDef vehicleDef : mVehicleDefs) {
                 vehicleIds.add(vehicleDef.id);
             }

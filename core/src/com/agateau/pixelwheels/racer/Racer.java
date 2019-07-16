@@ -53,8 +53,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
     private final AudioComponent mAudioComponent;
-    private final Array<Component> mComponents = new Array<Component>();
-    private final Array<Collidable> mCollidableComponents = new Array<Collidable>();
+    private final Array<Component> mComponents = new Array<>();
+    private final Array<Collidable> mCollidableComponents = new Array<>();
     private final GameInfo.Entrant mEntrant;
 
     private Pilot mPilot;

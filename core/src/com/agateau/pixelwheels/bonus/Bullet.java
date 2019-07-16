@@ -50,7 +50,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A player bullet
  */
 public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
-    private static final ReflectionPool<Bullet> sPool = new ReflectionPool<Bullet>(Bullet.class);
+    private static final ReflectionPool<Bullet> sPool = new ReflectionPool<>(Bullet.class);
 
     private static final float IMPULSE = 160;
 

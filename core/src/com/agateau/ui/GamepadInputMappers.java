@@ -33,7 +33,7 @@ public class GamepadInputMappers {
     }
 
     private final GamepadInputMapper[] mMappers = new GamepadInputMapper[MAX_GAMEPAD_COUNT];
-    private final DelayedRemovalArray<Listener> mListeners = new DelayedRemovalArray<Listener>(0);
+    private final DelayedRemovalArray<Listener> mListeners = new DelayedRemovalArray<>(0);
 
     private static GamepadInputMappers sInstance;
 

@@ -41,9 +41,9 @@ public class GameInputHandlerFactories {
 
     public static Map<String, Array<GameInputHandler>> getInputHandlersByIds() {
         init();
-        Map<String, Array<GameInputHandler>> map = new HashMap<String, Array<GameInputHandler>>();
+        Map<String, Array<GameInputHandler>> map = new HashMap<>();
         for (GameInputHandlerFactory factory : mFactories) {
-            map.put(factory.getId(), new Array<GameInputHandler>(factory.getAllHandlers()));
+            map.put(factory.getId(), new Array<>(factory.getAllHandlers()));
         }
         return map;
     }
@@ -76,7 +76,7 @@ public class GameInputHandlerFactories {
         if (mFactories != null) {
             return;
         }
-        mFactories = new Array<GameInputHandlerFactory>();
+        mFactories = new Array<>();
         if (hasKeyboard()) {
             mFactories.add(new KeyboardInputHandler.Factory());
         }

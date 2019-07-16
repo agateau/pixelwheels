@@ -121,7 +121,7 @@ public class RewardManagerTests {
     }
 
     private static Array<Championship> createChampionships() {
-        Array<Championship> championships = new Array<Championship>();
+        Array<Championship> championships = new Array<>();
         for (int c = 0; c < 2; ++c) {
             String id = "c" + c;
             String name = "Champ" + c;

@@ -43,7 +43,7 @@ class EngineLabScreen extends StageScreen {
     private SliderMenuItem mSpeedItem;
 
     private SliderMenuItem mPitchItem;
-    private Array<SliderMenuItem> mVolumeItems = new Array<SliderMenuItem>();
+    private Array<SliderMenuItem> mVolumeItems = new Array<>();
 
     public EngineLabScreen() {
         super(new ScreenViewport());

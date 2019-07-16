@@ -41,7 +41,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Rectangle mFocusRectangle = new Rectangle();
     private GridMenuItemStyle mStyle;
     private Array<T> mItems;
-    private final Array<FocusIndicator> mFocusIndicators = new Array<FocusIndicator>();
+    private final Array<FocusIndicator> mFocusIndicators = new Array<>();
     private int mSelectedIndex = -1;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;

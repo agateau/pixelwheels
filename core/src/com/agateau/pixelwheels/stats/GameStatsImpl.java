@@ -27,9 +27,9 @@ import java.util.HashMap;
 public class GameStatsImpl implements GameStats {
     private final transient IO mIO;
     private transient Listener mListener;
-    final HashMap<String, TrackStats> mTrackStats = new HashMap<String, TrackStats>();
-    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<String, Integer>();
-    final HashMap<String, Integer> mEvents = new HashMap<String, Integer>();
+    final HashMap<String, TrackStats> mTrackStats = new HashMap<>();
+    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<>();
+    final HashMap<String, Integer> mEvents = new HashMap<>();
 
     public interface IO {
         void setGameStats(GameStatsImpl gameStats);

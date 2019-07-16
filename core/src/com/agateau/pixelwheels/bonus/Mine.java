@@ -50,7 +50,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A mine on the road
  */
 public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
-    private static final ReflectionPool<Mine> sPool = new ReflectionPool<Mine>(Mine.class);
+    private static final ReflectionPool<Mine> sPool = new ReflectionPool<>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;
 

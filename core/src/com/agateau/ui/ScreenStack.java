@@ -26,7 +26,7 @@ import java.util.Stack;
 
 public class ScreenStack {
     private final Game mGame;
-    private final Stack<Screen> mStack = new Stack<Screen>();
+    private final Stack<Screen> mStack = new Stack<>();
     private Screen mBlockingScreen;
 
     public ScreenStack(Game game) {

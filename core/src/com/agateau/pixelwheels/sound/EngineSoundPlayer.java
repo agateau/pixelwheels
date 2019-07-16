@@ -32,7 +32,7 @@ public class EngineSoundPlayer {
     public static final float MAX_PITCH = 2f;
     private float mPitch = MIN_PITCH;
 
-    private final Array<SoundPlayer> mSoundPlayers = new Array<SoundPlayer>();
+    private final Array<SoundPlayer> mSoundPlayers = new Array<>();
 
     public int getSoundCount() {
         return mSoundPlayers.size;

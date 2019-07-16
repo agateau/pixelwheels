@@ -40,8 +40,8 @@ import java.util.Set;
 public class RewardManager {
     private final GameStats mGameStats;
     private final Array<Championship> mChampionships;
-    private final Map<Reward, RewardRule> mRules = new HashMap<Reward, RewardRule>();
-    private final Set<Reward> mUnlockedRewards = new HashSet<Reward>();
+    private final Map<Reward, RewardRule> mRules = new HashMap<>();
+    private final Set<Reward> mUnlockedRewards = new HashSet<>();
     private boolean mNeedApplyRules = true;
 
     public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {

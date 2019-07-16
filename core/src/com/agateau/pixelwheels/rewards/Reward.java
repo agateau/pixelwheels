@@ -31,7 +31,7 @@ import java.util.HashMap;
  * This ensures there is only one instance of each reward.
  */
 public class Reward {
-    private final static HashMap<Object, Reward> sInstances = new HashMap<Object, Reward>();
+    private final static HashMap<Object, Reward> sInstances = new HashMap<>();
 
     public final Object prize;
 

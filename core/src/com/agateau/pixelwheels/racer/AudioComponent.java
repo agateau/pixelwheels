@@ -46,7 +46,7 @@ class AudioComponent implements Racer.Component, Disposable {
     private final SoundPlayer mDriftingSoundPlayer;
     private final SoundPlayer mTurboSoundPlayer;
     private final SoundPlayer mCollisionSoundPlayer;
-    private final Array<SoundPlayer> mSoundPlayers = new Array<SoundPlayer>();
+    private final Array<SoundPlayer> mSoundPlayers = new Array<>();
     private float mDriftDuration = 0;
     private boolean mTurboTriggered = false;
     private boolean mJustCollided = false;

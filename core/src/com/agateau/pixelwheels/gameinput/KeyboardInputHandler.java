@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public class KeyboardInputHandler implements GameInputHandler {
     public static class Factory implements GameInputHandlerFactory {
-        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+        final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
             mHandlers.add(new KeyboardInputHandler(KeyMapper.getDefaultInstance()));

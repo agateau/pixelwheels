@@ -23,7 +23,7 @@ import java.util.Vector;
 import com.badlogic.gdx.Application;
 
 public class NLog {
-    private static Vector<Printer> sPrinters = new Vector<Printer>();
+    private static Vector<Printer> sPrinters = new Vector<>();
     private static int sStackDepth = -1;
 
     public interface Printer {

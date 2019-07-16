@@ -57,7 +57,7 @@ public class Track implements Disposable {
     private final WaypointStore mWaypointStore = new WaypointStore();
     private float mTileWidth;
     private float mTileHeight;
-    private Array<MapObject> mBorderObjects = new Array<MapObject>();
+    private Array<MapObject> mBorderObjects = new Array<>();
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 
@@ -99,7 +99,7 @@ public class Track implements Disposable {
     }
 
     private Array<TiledMapTileLayer> findLayersMatching(String match) {
-        Array<TiledMapTileLayer> array = new Array<TiledMapTileLayer>();
+        Array<TiledMapTileLayer> array = new Array<>();
         for (int idx = 0; idx < mMap.getLayers().getCount(); ++idx) {
             MapLayer layer = mMap.getLayers().get(idx);
             if (layer.getName().startsWith(match)) {
@@ -241,7 +241,7 @@ public class Track implements Disposable {
     }
 
     public Array<Vector2> findStartTilePositions() {
-        Array<Vector2> lst = new Array<Vector2>();
+        Array<Vector2> lst = new Array<>();
         TiledMapTileLayer groundLayer = mBackgroundLayers.get(0);
         for (int ty = 0; ty < groundLayer.getHeight(); ++ty) {
             for (int tx = 0; tx < groundLayer.getWidth(); ++tx) {
@@ -263,7 +263,7 @@ public class Track implements Disposable {
         final float U = Constants.UNIT_FOR_PIXEL;
         MapLayer layer = mMap.getLayers().get("BonusSpots");
         Assert.check(layer != null, "No BonusSpots layer");
-        Array<Vector2> lst = new Array<Vector2>();
+        Array<Vector2> lst = new Array<>();
 
         for (MapObject object : layer.getObjects()) {
             if (!(object instanceof EllipseMapObject)) {

@@ -54,9 +54,9 @@ public class LapPositionTableIO {
         Assert.check(layer != null, "No 'Sections' layer found");
         MapObjects objects = layer.getObjects();
 
-        Array<Line> lines = new Array<Line>();
+        Array<Line> lines = new Array<>();
         lines.ensureCapacity(objects.getCount());
-        Set<String> names = new HashSet<String>();
+        Set<String> names = new HashSet<>();
         for (MapObject obj : objects) {
             String name = obj.getName();
             Assert.check(!name.isEmpty(), "Section line is missing a name");

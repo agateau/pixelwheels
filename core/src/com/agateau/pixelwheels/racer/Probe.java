@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class Probe implements Racer.Component {
     protected final KeyValueWriter mWriter;
     private float mLogTime = 0;
-    private HashMap<String, Object> mValues = new HashMap<String, Object>();
+    private HashMap<String, Object> mValues = new HashMap<>();
 
     Probe(String fileName) {
         mWriter = new KeyValueWriter(FileUtils.getUserWritableFile(fileName));

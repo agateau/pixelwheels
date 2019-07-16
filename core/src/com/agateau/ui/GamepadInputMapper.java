@@ -59,9 +59,9 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private Controller mController;
 
-    private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<VirtualKey, KeyState>();
+    private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<>();
 
-    private final HashMap<GamepadButton,Integer> mButtonCodes = new HashMap<GamepadButton, Integer>();
+    private final HashMap<GamepadButton,Integer> mButtonCodes = new HashMap<>();
 
     private WeakReference<Listener> mListenerRef;
 
@@ -99,7 +99,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     public void setListener(Listener listener) {
-        mListenerRef = new WeakReference<Listener>(listener);
+        mListenerRef = new WeakReference<>(listener);
     }
 
     @Override

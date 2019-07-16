@@ -44,9 +44,9 @@ public class MenuItemGroup implements MenuItem {
         Label label = null;
         boolean visible = true;
     }
-    private final Array<MenuItem> mItems = new Array<MenuItem>();
-    private final HashMap<Actor, MenuItem> mItemForActor = new HashMap<Actor, MenuItem>();
-    private final HashMap<MenuItem, ItemInfo> mInfoForItem = new HashMap<MenuItem, ItemInfo>();
+    private final Array<MenuItem> mItems = new Array<>();
+    private final HashMap<Actor, MenuItem> mItemForActor = new HashMap<>();
+    private final HashMap<MenuItem, ItemInfo> mInfoForItem = new HashMap<>();
 
     private int mCurrentIndex = -1;
 

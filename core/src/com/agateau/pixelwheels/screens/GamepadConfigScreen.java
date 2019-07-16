@@ -43,7 +43,7 @@ public class GamepadConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
     private final GamepadInputMapper mInputMapper;
-    private final Array<GamepadButtonItemController> mButtonControllers = new Array<GamepadButtonItemController>();
+    private final Array<GamepadButtonItemController> mButtonControllers = new Array<>();
 
     private GamepadButtonItemController mEditingController;
 

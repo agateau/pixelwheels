@@ -134,7 +134,7 @@ public class MultiPlayerScreen extends PwStageScreen {
     }
 
     private void next() {
-        Array<GameInfo.Player> players = new Array<GameInfo.Player>();
+        Array<GameInfo.Player> players = new Array<>();
         for (int idx = 0; idx < mPlayerCount; ++idx) {
             VehicleDef vehicleDef = mVehicleSelectors[idx].getSelected();
             if (vehicleDef == null) {

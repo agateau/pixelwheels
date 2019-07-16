@@ -61,16 +61,16 @@ import java.util.Set;
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
-    private final Set<String> mVariables = new HashSet<String>();
+    private final Set<String> mVariables = new HashSet<>();
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
 
-    private Map<String, Actor> mActorForId = new HashMap<String, Actor>();
-    private Map<String, ActorFactory> mFactoryForName = new HashMap<String, ActorFactory>();
+    private Map<String, Actor> mActorForId = new HashMap<>();
+    private Map<String, ActorFactory> mFactoryForName = new HashMap<>();
     private TextureAtlas mAtlas;
     private Skin mSkin;
     private Actor mLastAddedActor;
-    private Map<String, TextureAtlas> mAtlasMap = new HashMap<String, TextureAtlas>();
+    private Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;

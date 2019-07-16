@@ -48,7 +48,7 @@ public class FinishedOverlay extends Overlay {
     private final PwGame mGame;
     private final RaceScreen.Listener mListener;
     private final Array<Racer> mRacers;
-    private final Array<Racer> mRecordBreakers = new Array<Racer>();
+    private final Array<Racer> mRecordBreakers = new Array<>();
     private final TableRowCreator mTableRowCreator = new TableRowCreator() {
         @Override
         protected void createCells(Table table, String style, String... values) {

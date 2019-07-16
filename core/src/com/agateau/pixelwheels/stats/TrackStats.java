@@ -34,8 +34,8 @@ public class TrackStats {
 
     TrackStats(GameStats gameStats) {
         mGameStats = gameStats;
-        mLapRecords = new ArrayList<TrackResult>();
-        mTotalRecords = new ArrayList<TrackResult>();
+        mLapRecords = new ArrayList<>();
+        mTotalRecords = new ArrayList<>();
     }
 
     public ArrayList<TrackResult> get(ResultType resultType) {

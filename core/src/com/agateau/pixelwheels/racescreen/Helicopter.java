@@ -63,7 +63,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         RECOVERING,
         LEAVING
     }
-    private static final ReflectionPool<Helicopter> sPool = new ReflectionPool<Helicopter>(Helicopter.class);
+    private static final ReflectionPool<Helicopter> sPool = new ReflectionPool<>(Helicopter.class);
 
     private SoundPlayer mSoundPlayer;
     private FrameBuffer mFrameBuffer;

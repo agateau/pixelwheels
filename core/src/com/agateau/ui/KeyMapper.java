@@ -29,7 +29,7 @@ import java.util.HashMap;
  * Implementation of InputMapper for keyboards
  */
 public class KeyMapper implements InputMapper {
-    private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<VirtualKey, Integer[]>();
+    private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<>();
 
     private static final KeyMapper sDefaultInstance = new KeyMapper();
 

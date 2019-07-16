@@ -39,7 +39,7 @@ public class DebugStringMap {
             PERCENT_VALUES[row] = builder.toString();
         }
     }
-    private static HashMap<String, String> sMap = new HashMap<String, String>();
+    private static HashMap<String, String> sMap = new HashMap<>();
 
     public static HashMap<String, String> getMap() {
         return sMap;

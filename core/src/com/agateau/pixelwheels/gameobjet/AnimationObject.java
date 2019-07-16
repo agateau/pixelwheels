@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A generic short-animation game object
  */
 public class AnimationObject extends GameObjectAdapter implements Pool.Poolable, Disposable {
-    private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<AnimationObject>(AnimationObject.class);
+    private static ReflectionPool<AnimationObject> sPool = new ReflectionPool<>(AnimationObject.class);
     private float mTime;
     private Animation<TextureRegion> mAnimation;
     private float mPosX;

@@ -27,7 +27,7 @@ import com.badlogic.gdx.utils.Array;
 public class GamepadInputHandler extends KeyboardInputHandler {
 
     public static class Factory implements GameInputHandlerFactory {
-        final Array<GameInputHandler> mHandlers = new Array<GameInputHandler>();
+        final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
             for (GamepadInputMapper inputMapper : GamepadInputMapper.getInstances()) {

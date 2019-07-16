@@ -60,7 +60,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private Racer mRacer;
 
     private final TextureRegion mRegion;
-    private final Array<WheelInfo> mWheels = new Array<WheelInfo>();
+    private final Array<WheelInfo> mWheels = new Array<>();
     private String mId;
     private String mName;
 
@@ -78,7 +78,7 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private Probe mProbe = null;
 
-    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<Long, Float>(8);
+    private ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
     public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, Array<Shape2D> shapes, float angle) {
         mGameWorld = gameWorld;

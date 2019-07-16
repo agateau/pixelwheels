@@ -30,7 +30,7 @@ import java.util.HashMap;
  * - cache the found regions
  */
 public class StrictTextureAtlas extends TextureAtlas {
-    private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<String, TextureAtlas.AtlasRegion>();
+    private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<>();
 
     public StrictTextureAtlas(FileHandle handle) {
         super(handle);

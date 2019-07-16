@@ -63,7 +63,7 @@ public class QuickRaceMaestro extends Maestro {
 
             @Override
             public void onPlayerSelected(GameInfo.Player player) {
-                Array<GameInfo.Player> players = new Array<GameInfo.Player>();
+                Array<GameInfo.Player> players = new Array<>();
                 players.add(player);
                 mGameInfoBuilder.setPlayers(players);
                 getGame().replaceScreen(createRaceScreen());

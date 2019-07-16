@@ -31,7 +31,7 @@ import java.util.HashMap;
  */
 public class SoundAtlas {
     private final FileHandle mRootDir;
-    private final HashMap<String, Sound> mSounds = new HashMap<String, Sound>();
+    private final HashMap<String, Sound> mSounds = new HashMap<>();
 
     public SoundAtlas(FileHandle rootDir) {
         mRootDir = rootDir;

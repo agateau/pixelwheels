@@ -27,7 +27,7 @@ import com.agateau.utils.Assert;
  * Can provide the position within a lap based on x, y (in tile pixels)
  */
 public class LapPositionTable {
-    private final Array<LapSection> mSections = new Array<LapSection>();
+    private final Array<LapSection> mSections = new Array<>();
 
     private static class LapSection {
         private int mSectionId;

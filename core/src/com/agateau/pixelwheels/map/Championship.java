@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.Array;
 public class Championship {
     private final String mId;
     private final String mName;
-    private final Array<Track> mTracks = new Array<Track>();
+    private final Array<Track> mTracks = new Array<>();
 
     public Championship(String id, String name) {
         mId = id;

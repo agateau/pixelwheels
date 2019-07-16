@@ -60,7 +60,7 @@ import com.badlogic.gdx.utils.ReflectionPool;
  * A player bullet
  */
 public class Missile extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
-    private static final ReflectionPool<Missile> sPool = new ReflectionPool<Missile>(Missile.class);
+    private static final ReflectionPool<Missile> sPool = new ReflectionPool<>(Missile.class);
 
     private static final float WIDTH = 44;
     private static final float HEIGHT = 13;
