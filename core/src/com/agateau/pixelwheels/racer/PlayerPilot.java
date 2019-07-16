@@ -49,12 +49,7 @@ public class PlayerPilot implements Pilot {
         mPlayerIndex = playerIndex;
         updateInputHandler();
 
-        mGameConfig.addListener(new GameConfig.ChangeListener() {
-            @Override
-            public void onGameConfigChanged() {
-                updateInputHandler();
-            }
-        });
+        mGameConfig.addListener(() -> updateInputHandler());
     }
 
     public void createHudButtons(Hud hud) {

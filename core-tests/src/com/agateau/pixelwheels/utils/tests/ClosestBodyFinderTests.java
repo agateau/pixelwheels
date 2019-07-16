@@ -74,12 +74,7 @@ public class ClosestBodyFinderTests {
         final Body ignoredBody = createSquareBody(world, 1, 1);
         Body acceptedBody = createSquareBody(world, 3, 3);
 
-        finder.setBodyFilter(new ClosestBodyFinder.BodyFilter() {
-            @Override
-            public boolean acceptBody(Body body) {
-                return body != ignoredBody;
-            }
-        });
+        finder.setBodyFilter(body -> body != ignoredBody);
 
         Body found = finder.find(world, new Vector2(0, 0), 45);
         assertEquals(acceptedBody, found);

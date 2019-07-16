@@ -58,12 +58,7 @@ public class RewardManager {
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
-        mGameStats.setListener(new GameStats.Listener() {
-            @Override
-            public void onChanged() {
-                mNeedApplyRules = true;
-            }
-        });
+        mGameStats.setListener(() -> mNeedApplyRules = true);
         mChampionships = championships;
     }
 

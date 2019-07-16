@@ -72,16 +72,13 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
 
     private final Vector2 mRayCastOrigin = new Vector2();
 
-    private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
-        @Override
-        public void draw(ShapeRenderer renderer) {
-            float angle = mRacer.getVehicle().getAngle();
-            renderer.begin(ShapeRenderer.ShapeType.Line);
-            renderer.setColor(1, 0, 0, 1);
-            renderer.line(mRayCastOrigin, mClosestRacerFinder.getLeftVertex(mRayCastOrigin, angle));
-            renderer.line(mRayCastOrigin, mClosestRacerFinder.getRightVertex(mRayCastOrigin, angle));
-            renderer.end();
-        }
+    private final DebugShapeMap.Shape mDebugShape = renderer -> {
+        float angle = mRacer.getVehicle().getAngle();
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(1, 0, 0, 1);
+        renderer.line(mRayCastOrigin, mClosestRacerFinder.getLeftVertex(mRayCastOrigin, angle));
+        renderer.line(mRayCastOrigin, mClosestRacerFinder.getRightVertex(mRayCastOrigin, angle));
+        renderer.end();
     };
 
     public GunBonus() {

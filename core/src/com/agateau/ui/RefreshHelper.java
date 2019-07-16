@@ -52,15 +52,12 @@ public abstract class RefreshHelper {
             public boolean keyUp(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.F5) {
                     NLog.i("Refreshing");
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                refreshAssets();
-                                refresh();
-                            } catch (Exception exc) {
-                                NLog.e("Refresh failed: %s", exc);
-                            }
+                    Gdx.app.postRunnable(() -> {
+                        try {
+                            refreshAssets();
+                            refresh();
+                        } catch (Exception exc) {
+                            NLog.e("Refresh failed: %s", exc);
                         }
                     });
                     return true;

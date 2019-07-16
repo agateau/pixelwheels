@@ -123,12 +123,7 @@ public class QuickRaceMaestro extends Maestro {
                 stopGamepadInputWatcher();
                 final Set<Reward> rewards = getNewlyUnlockedRewards();
                 updateAlreadyUnlockedRewards();
-                showUnlockedRewardScreen(rewards, new Runnable() {
-                    @Override
-                    public void run() {
-                        getGame().showMainMenu();
-                    }
-                });
+                showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
             }
         };
         QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
