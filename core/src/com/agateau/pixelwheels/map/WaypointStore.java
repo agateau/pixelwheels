@@ -42,13 +42,7 @@ public class WaypointStore {
         @Override
         public int compareTo(Object o) {
             WaypointInfo other = (WaypointInfo) o;
-            if (lapDistance < other.lapDistance) {
-                return -1;
-            } else if (lapDistance == other.lapDistance) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return Float.compare(lapDistance, other.lapDistance);
         }
     }
 
