@@ -58,16 +58,8 @@ public class BonusPool<T extends Bonus> extends ReflectionPool<T> {
         return AgcMathUtils.arrayLerp(mCounts, normalizedRank);
     }
 
-    public Assets getAssets() {
-        return null;
-    }
-
     public GameWorld getGameWorld() {
         return mGameWorld;
-    }
-
-    public AudioManager getAudioManager() {
-        return null;
     }
 
     @Override
