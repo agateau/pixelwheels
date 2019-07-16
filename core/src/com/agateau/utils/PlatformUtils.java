@@ -25,7 +25,7 @@ import com.badlogic.gdx.Gdx;
  * Utility methods to deal with the platform
  */
 public class PlatformUtils {
-    private static enum UiType {
+    private enum UiType {
         BUTTONS,
         TOUCH
     }

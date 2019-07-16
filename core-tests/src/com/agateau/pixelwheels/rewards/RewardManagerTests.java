@@ -123,14 +123,14 @@ public class RewardManagerTests {
     private static Array<Championship> createChampionships() {
         Array<Championship> championships = new Array<Championship>();
         for (int c = 0; c < 2; ++c) {
-            String id = "c" + String.valueOf(c);
-            String name = "Champ" + String.valueOf(c);
+            String id = "c" + c;
+            String name = "Champ" + c;
             Championship championship = new Championship(id, name);
             championships.add(championship);
 
             for (int t = 0; t < 3; ++t) {
-                String trackId = "t" + String.valueOf(t);
-                String trackName = "Track" + String.valueOf(t);
+                String trackId = "t" + t;
+                String trackName = "Track" + t;
                 Track track = new Track(trackId, trackName);
                 championship.addTrack(track);
             }

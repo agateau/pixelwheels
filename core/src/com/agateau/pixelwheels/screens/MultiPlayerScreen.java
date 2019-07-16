@@ -104,9 +104,9 @@ public class MultiPlayerScreen extends PwStageScreen {
         GameConfig gameConfig = mGame.getConfig();
         String vehicleId = gameConfig.vehicles[idx];
 
-        Menu menu = builder.getActor("menu" + String.valueOf(idx + 1));
+        Menu menu = builder.getActor("menu" + (idx + 1));
 
-        final Label readyLabel = builder.getActor("ready" + String.valueOf(idx + 1));
+        final Label readyLabel = builder.getActor("ready" + (idx + 1));
 
         VehicleSelector selector = new VehicleSelector(menu);
         mVehicleSelectors[idx] = selector;

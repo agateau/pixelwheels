@@ -101,7 +101,7 @@ public class ConfigScreen extends PwStageScreen {
 
             if (PlatformUtils.isDesktop()) {
                 for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                    setupInputSelector(menu, group, "Input " + String.valueOf(idx + 1), idx);
+                    setupInputSelector(menu, group, "Input " + (idx + 1), idx);
                 }
             } else {
                 setupInputSelector(menu, group, "Input", 0);

@@ -102,7 +102,7 @@ public class RaceScreen extends ScreenAdapter {
         if (Debug.instance.showDebugLayer) {
             int idx = 0;
             for (Racer racer : mGameWorld.getPlayerRacers()) {
-                DebugShapeMap.getMap().put("racer" + String.valueOf(idx), new RacerDebugShape(racer, track));
+                DebugShapeMap.getMap().put("racer" + idx, new RacerDebugShape(racer, track));
                 ++idx;
             }
         }

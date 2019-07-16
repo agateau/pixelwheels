@@ -165,10 +165,10 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void fillBestRow(UiBuilder builder, int row, int rank, String text) {
-        Image image = builder.getActor("bestImage" + String.valueOf(row));
-        Label label = builder.getActor("bestLabel" + String.valueOf(row));
+        Image image = builder.getActor("bestImage" + row);
+        Label label = builder.getActor("bestLabel" + row);
 
-        TextureRegion region = mGame.getAssets().ui.atlas.findRegion("best-" + String.valueOf(rank + 1));
+        TextureRegion region = mGame.getAssets().ui.atlas.findRegion("best-" + (rank + 1));
         image.setDrawable(new TextureRegionDrawable(region));
         image.pack();
 

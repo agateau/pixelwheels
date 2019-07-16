@@ -22,13 +22,13 @@ import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 
 public interface GameStats {
-    public enum Event {
+    enum Event {
         MISSILE_HIT,
         LEAVING_ROAD,
-        PICKED_BONUS;
+        PICKED_BONUS
     }
 
-    public interface Listener {
+    interface Listener {
         void onChanged();
     }
 

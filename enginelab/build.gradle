@@ -4,7 +4,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "EngineLab"
-project.ext.assetsDir = new File("../android/assets");
+project.ext.assetsDir = new File("../android/assets")
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName

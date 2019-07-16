@@ -99,7 +99,7 @@ public class NLog {
     }
 
     private static void initStackDepth() {
-        final StackTraceElement lst[] = Thread.currentThread().getStackTrace();
+        final StackTraceElement[] lst = Thread.currentThread().getStackTrace();
         for (int i = 0, n = lst.length; i < n; ++i) {
             if (lst[i].getMethodName().equals("initStackDepth")) {
                 sStackDepth = i;
