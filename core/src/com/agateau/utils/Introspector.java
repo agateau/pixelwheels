@@ -67,12 +67,16 @@ public class Introspector {
                 NLog.e("Field '%s' is of type '%s', but XML expected '%s', skipping", name, fieldType, type);
                 continue;
             }
-            if (type.equals("int")) {
-                set(name, Integer.valueOf(value));
-            } else if (type.equals("boolean")) {
-                set(name, Boolean.valueOf(value));
-            } else if (type.equals("float")) {
-                set(name, Float.valueOf(value));
+            switch (type) {
+                case "int":
+                    set(name, Integer.valueOf(value));
+                    break;
+                case "boolean":
+                    set(name, Boolean.valueOf(value));
+                    break;
+                case "float":
+                    set(name, Float.valueOf(value));
+                    break;
             }
         }
     }
