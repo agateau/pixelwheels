@@ -29,6 +29,6 @@ public class VehicleDef {
     public String name;
     public float speed;
     public String mainImage;
-    public Array<AxleDef> axles = new Array<AxleDef>();
-    public Array<Shape2D> shapes = new Array<Shape2D>();
+    public Array<AxleDef> axles = new Array<>();
+    public Array<Shape2D> shapes = new Array<>();
 }

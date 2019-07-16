@@ -80,13 +80,13 @@ public class GameWorld implements ContactListener, Disposable {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
-    private Array<BonusPool> mBonusPools = new Array<BonusPool>();
+    private Array<BonusPool> mBonusPools = new Array<>();
 
-    private final Array<Racer> mRacers = new Array<Racer>();
-    private final Array<Racer> mPlayerRacers = new Array<Racer>();
+    private final Array<Racer> mRacers = new Array<>();
+    private final Array<Racer> mPlayerRacers = new Array<>();
     private State mState = State.COUNTDOWN;
 
-    private final Array<GameObject> mActiveGameObjects = new Array<GameObject>();
+    private final Array<GameObject> mActiveGameObjects = new Array<>();
 
     private final PerformanceCounter mBox2DPerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
@@ -131,21 +131,12 @@ public class GameWorld implements ContactListener, Disposable {
         return mBonusPools;
     }
 
-    public Vehicle getPlayerVehicle(int id) {
-        return mPlayerRacers.get(id).getVehicle();
-    }
-
     public Array<GameObject> getActiveGameObjects() {
         return  mActiveGameObjects;
     }
 
     public void addGameObject(GameObject object) {
         mActiveGameObjects.add(object);
-    }
-
-    public int getPlayerRank(int playerId) {
-        Racer racer = mPlayerRacers.get(playerId);
-        return getRacerRank(racer);
     }
 
     public CountDown getCountDown() {
@@ -180,27 +171,24 @@ public class GameWorld implements ContactListener, Disposable {
      * Sort racers, listing racers which have driven the longest first,
      * so it returns 1 if racer1 has driven less than racer2
      */
-    private static Comparator<Racer> sRacerComparator = new Comparator<Racer>() {
-        @Override
-        public int compare(Racer racer1, Racer racer2) {
-            LapPositionComponent c1 = racer1.getLapPositionComponent();
-            LapPositionComponent c2 = racer2.getLapPositionComponent();
-            if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
-                return 1;
-            }
-            if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
-                return -1;
-            }
-            if (c1.getLapCount() < c2.getLapCount()) {
-                return 1;
-            }
-            if (c1.getLapCount() > c2.getLapCount()) {
-                return -1;
-            }
-            float d1 = c1.getLapDistance();
-            float d2 = c2.getLapDistance();
-            return Float.compare(d2, d1);
+    private static Comparator<Racer> sRacerComparator = (racer1, racer2) -> {
+        LapPositionComponent c1 = racer1.getLapPositionComponent();
+        LapPositionComponent c2 = racer2.getLapPositionComponent();
+        if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
+            return 1;
         }
+        if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
+            return -1;
+        }
+        if (c1.getLapCount() < c2.getLapCount()) {
+            return 1;
+        }
+        if (c1.getLapCount() > c2.getLapCount()) {
+            return -1;
+        }
+        float d1 = c1.getLapDistance();
+        float d2 = c2.getLapDistance();
+        return Float.compare(d2, d1);
     };
 
     public void act(float delta) {
@@ -323,13 +311,13 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     private void setupBonusPools() {
-        addPool(new BonusPool<GunBonus>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+        addPool(new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
                 new float[]{0, 1, 1});
-        addPool(new BonusPool<MineBonus>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+        addPool(new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
                 new float[]{2, 1, 0});
-        addPool(new BonusPool<TurboBonus>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+        addPool(new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
                 new float[]{0, 1, 2});
-        addPool(new BonusPool<MissileBonus>(MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+        addPool(new BonusPool<>(MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
                 new float[]{0, 1, 1});
     }
 

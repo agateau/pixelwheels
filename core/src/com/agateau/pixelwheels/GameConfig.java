@@ -52,7 +52,7 @@ public class GameConfig {
     private final GameInputHandler[] mPlayerInputHandlers = new GameInputHandler[Constants.MAX_PLAYERS];
 
     private final Preferences mPreferences;
-    private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<WeakReference<ChangeListener>>();
+    private ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<>();
 
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("pixelwheels.conf");
@@ -71,8 +71,8 @@ public class GameConfig {
         }
 
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + String.valueOf(idx), PrefConstants.INPUT_DEFAULT);
-            this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx));
+            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + idx, PrefConstants.INPUT_DEFAULT);
+            this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + idx);
         }
 
         this.track = mPreferences.getString(PrefConstants.TRACK_ID);
@@ -82,7 +82,7 @@ public class GameConfig {
     }
 
     public void addListener(ChangeListener listener) {
-        mListeners.add(new WeakReference<ChangeListener>(listener));
+        mListeners.add(new WeakReference<>(listener));
     }
 
     public void flush() {
@@ -91,9 +91,9 @@ public class GameConfig {
 
         mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
-            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + String.valueOf(idx),
+            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + idx,
                     this.vehicles[idx]);
-            mPreferences.putString(PrefConstants.INPUT_PREFIX + String.valueOf(idx),
+            mPreferences.putString(PrefConstants.INPUT_PREFIX + idx,
                     mPlayerInputFactoryIds[idx]);
         }
 
@@ -117,7 +117,7 @@ public class GameConfig {
     }
 
     public GameInputHandler getPlayerInputHandler(int index) {
-        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + String.valueOf(index));
+        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + index);
         return mPlayerInputHandlers[index];
     }
 
@@ -131,7 +131,7 @@ public class GameConfig {
     }
 
     public void savePlayerInputHandlerConfig(int index) {
-        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + String.valueOf(index));
+        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + index);
         GameInputHandler handler = mPlayerInputHandlers[index];
         if (handler == null) {
             return;
@@ -143,7 +143,7 @@ public class GameConfig {
     private String getInputPrefix(int idx) {
         // Include the factory id to ensure there are no configuration clashes when switching
         // between input handlers
-        return PrefConstants.INPUT_PREFIX + String.valueOf(idx) + "." + mPlayerInputFactoryIds[idx] + ".";
+        return PrefConstants.INPUT_PREFIX + idx + "." + mPlayerInputFactoryIds[idx] + ".";
     }
 
     private void setupInputHandlers() {

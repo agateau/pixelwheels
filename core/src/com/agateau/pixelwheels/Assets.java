@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
 import com.agateau.ui.StrictTextureAtlas;
@@ -46,14 +47,14 @@ public class Assets {
 
     private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "rocket" };
 
-    public final Array<VehicleDef> vehicleDefs = new Array<VehicleDef>();
-    public final Array<Track> tracks = new Array<Track>(new Track[]{
+    public final Array<VehicleDef> vehicleDefs = new Array<>();
+    public final Array<Track> tracks = new Array<>(new Track[]{
             new Track("race", "Let it Snow"),
             new Track("snow2", "Don't slip!"),
             new Track("be", "Blocky Town"),
             new Track("tiny-sur-mer", "Tiny sur Mer"),
     });
-    public final Array<Championship> championships = new Array<Championship>();
+    public final Array<Championship> championships = new Array<>();
     public final UiAssets ui = new UiAssets();
 
     public final TextureRegion wheel;
@@ -76,7 +77,7 @@ public class Assets {
     public final TextureRegion lockedVehicle;
     public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
 
-    private final Animation explosion;
+    private final Animation<TextureRegion> explosion;
 
     Assets() {
         if (GamePlay.instance.showTestTrack) {
@@ -85,16 +86,16 @@ public class Assets {
 
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
-        this.explosion = new Animation<TextureRegion>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
-        this.impact = new Animation<TextureRegion>(IMPACT_FRAME_DURATION, this.atlas.findRegions("impact"));
-        this.mine = new Animation<TextureRegion>(MINE_FRAME_DURATION, this.atlas.findRegions("mine"));
+        this.explosion = new Animation<>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
+        this.impact = new Animation<>(IMPACT_FRAME_DURATION, this.atlas.findRegions("impact"));
+        this.mine = new Animation<>(MINE_FRAME_DURATION, this.atlas.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
-        this.turbo = new Animation<TextureRegion>(TURBO_FRAME_DURATION, this.atlas.findRegions("bonus-turbo"));
-        this.turboFlame = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
+        this.turbo = new Animation<>(TURBO_FRAME_DURATION, this.atlas.findRegions("bonus-turbo"));
+        this.turboFlame = new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        this.splash = new Animation<TextureRegion>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("splash"));
+        this.splash = new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("splash"));
         this.gift = findRegion("gift");
-        this.gunAnimation = new Animation<TextureRegion>(0.1f / 3, this.atlas.findRegions("bonus-gun"));
+        this.gunAnimation = new Animation<>(0.1f / 3, this.atlas.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");
 
         // Fix white-pixel to avoid fading borders
@@ -119,8 +120,8 @@ public class Assets {
 
     private void initSoundAtlas() {
         for (int i = 0; i < 5; ++i) {
-            String name = String.format("engine-%d", i);
-            String filename = String.format("loop_%d_0.wav", i + 1);
+            String name = StringUtils.format("engine-%d", i);
+            String filename = StringUtils.format("loop_%d_0.wav", i + 1);
             this.soundAtlas.load(filename, name);
         }
         this.soundAtlas.load("drifting.wav");
