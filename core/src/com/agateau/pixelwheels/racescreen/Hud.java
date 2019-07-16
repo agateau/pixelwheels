@@ -30,9 +30,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Hud showing player info during race
  */
 public class Hud {
-    private final static float BUTTON_SIZE_INCH = 3f / 2.54f; // 3 cm
+    private static final float BUTTON_SIZE_INCH = 3f / 2.54f; // 3 cm
     // See Android doc for DisplayMetrics.density
-    private final static float DIP_DPI = 160;
+    private static final float DIP_DPI = 160;
 
     private final float BUTTON_SIZE_PX;
 

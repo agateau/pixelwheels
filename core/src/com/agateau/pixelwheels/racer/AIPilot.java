@@ -71,7 +71,7 @@ public class AIPilot implements Pilot {
         }
     }
 
-    static private final GameStats sDummyGameStats = new GameStats() {
+    private static final GameStats sDummyGameStats = new GameStats() {
         @Override
         public void setListener(Listener listener) {
         }

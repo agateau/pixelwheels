@@ -31,10 +31,10 @@ import com.agateau.utils.AgcMathUtils;
  * Render a circular array of skidmarks
  */
 public class SkidmarksRenderer {
-    private final static float SKIDMARK_WIDTH = 7 * Constants.UNIT_FOR_PIXEL;
-    private final static float SKIDMARK_ALPHA_INC = 0.05f;
-    private final static float SKIDMARK_ALPHA_MIN = 0.1f;
-    private final static float SKIDMARK_ALPHA_MAX = 0.4f;
+    private static final float SKIDMARK_WIDTH = 7 * Constants.UNIT_FOR_PIXEL;
+    private static final float SKIDMARK_ALPHA_INC = 0.05f;
+    private static final float SKIDMARK_ALPHA_MIN = 0.1f;
+    private static final float SKIDMARK_ALPHA_MAX = 0.4f;
 
     private final Assets mAssets;
 

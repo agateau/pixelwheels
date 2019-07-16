@@ -67,5 +67,5 @@ public abstract class CircularArray<T> {
         return element;
     }
 
-    abstract protected T createInstance();
+    protected abstract T createInstance();
 }

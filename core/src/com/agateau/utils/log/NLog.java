@@ -78,7 +78,7 @@ public class NLog {
         sPrinters.add(printer);
     }
 
-    private synchronized static void print(int level, Object obj, Object...args) {
+    private static synchronized void print(int level, Object obj, Object...args) {
         if (sStackDepth < 0) {
             initStackDepth();
         }

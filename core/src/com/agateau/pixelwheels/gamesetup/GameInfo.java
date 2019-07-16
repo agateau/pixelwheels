@@ -33,7 +33,7 @@ import java.util.Comparator;
 public abstract class GameInfo {
     private final Array<Entrant> mEntrants = new Array<>();
 
-    public static abstract class Builder<T extends GameInfo> {
+    public abstract static class Builder<T extends GameInfo> {
         final Array<VehicleDef> mVehicleDefs;
         final GameConfig mGameConfig;
         Array<Player> mPlayers;

@@ -29,5 +29,5 @@ public class Debug {
     public boolean showHudDebugLines = false;
     public boolean oneLapOnly = false;
 
-    public final static Debug instance = new Debug();
+    public static final Debug instance = new Debug();
 }
