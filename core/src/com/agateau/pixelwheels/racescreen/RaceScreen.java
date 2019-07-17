@@ -53,8 +53,16 @@ public class RaceScreen extends ScreenAdapter {
         void onQuitPressed();
         void onNextTrackPressed();
     }
+
+    public enum PauseButtons {
+        ALL,
+        NO_RESTART
+    }
+
     private final PwGame mGame;
     private final Listener mListener;
+    private final PauseButtons mPauseButtons;
+
     private final GameWorld mGameWorld;
     private final Color mBackgroundColor;
 
@@ -74,10 +82,11 @@ public class RaceScreen extends ScreenAdapter {
 
     private boolean mFirstRender = true;
 
-    public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo) {
+    public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo, PauseButtons pauseButtons) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mListener = listener;
+        mPauseButtons = pauseButtons;
 
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
@@ -268,5 +277,9 @@ public class RaceScreen extends ScreenAdapter {
         // only case where Track.dispose() is called *after* the same
         // Track instance has been inited.
         mGameWorld.forgetTrack();
+    }
+
+    public PauseButtons getPauseButtons() {
+        return mPauseButtons;
     }
 }

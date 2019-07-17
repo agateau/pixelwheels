@@ -127,6 +127,6 @@ public class QuickRaceMaestro extends Maestro {
             }
         };
         QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
-        return new RaceScreen(getGame(), listener, gameInfo);
+        return new RaceScreen(getGame(), listener, gameInfo, RaceScreen.PauseButtons.ALL);
     }
 }

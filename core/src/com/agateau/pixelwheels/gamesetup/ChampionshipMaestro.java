@@ -130,8 +130,7 @@ public class ChampionshipMaestro extends Maestro {
         RaceScreen.Listener listener = new RaceScreen.Listener() {
             @Override
             public void onRestartPressed() {
-                ((RaceScreen)getGame().getScreen()).forgetTrack();
-                getGame().replaceScreen(createRaceScreen());
+                throw new RuntimeException("Restart should not be called in championship mode");
             }
 
             @Override
@@ -154,7 +153,7 @@ public class ChampionshipMaestro extends Maestro {
                 }
             }
         };
-        return new RaceScreen(getGame(), listener, mGameInfo);
+        return new RaceScreen(getGame(), listener, mGameInfo, RaceScreen.PauseButtons.NO_RESTART);
     }
 
     private Screen createChampionshipFinishedScreen() {

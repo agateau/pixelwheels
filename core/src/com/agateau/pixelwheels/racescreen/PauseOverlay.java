@@ -61,12 +61,14 @@ public class PauseOverlay extends Overlay {
                 mRaceScreen.resumeRace();
             }
         });
-        menu.addButton("Restart").addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                mListener.onRestartPressed();
-            }
-        });
+        if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
+            menu.addButton("Restart").addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    mListener.onRestartPressed();
+                }
+            });
+        }
         menu.addButton("Quit to Menu").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
