@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.racer.Pilot;
 import com.agateau.pixelwheels.racer.PlayerPilot;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.RacerDebugShape;
+import com.agateau.pixelwheels.screens.ConfigScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -232,7 +233,7 @@ public class RaceScreen extends ScreenAdapter {
 
     private void pauseRace() {
         mGame.getAudioManager().setMuted(true);
-        mPauseOverlay = new PauseOverlay(mGame, mListener, this);
+        mPauseOverlay = new PauseOverlay(mGame, this);
         mHudStage.addActor(mPauseOverlay);
     }
 
@@ -240,6 +241,18 @@ public class RaceScreen extends ScreenAdapter {
         mPauseOverlay.remove();
         mPauseOverlay = null;
         mGame.getAudioManager().setMuted(!mGame.getConfig().audio);
+    }
+
+    void onRestartPressed() {
+        mListener.onRestartPressed();
+    }
+
+    void onQuitPressed() {
+        mListener.onQuitPressed();
+    }
+
+    void onSettingsPressed() {
+        mGame.pushScreen(new ConfigScreen(mGame));
     }
 
     @Override

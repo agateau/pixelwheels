@@ -20,9 +20,8 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.pixelwheels.screens.ConfigScreen;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.UiBuilder;
+import com.agateau.ui.menu.Menu;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -32,13 +31,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  */
 public class PauseOverlay extends Overlay {
     private final PwGame mGame;
-    private final RaceScreen.Listener mListener;
     private final RaceScreen mRaceScreen;
 
-    public PauseOverlay(PwGame game, RaceScreen.Listener listener, RaceScreen raceScreen) {
+    public PauseOverlay(PwGame game, RaceScreen raceScreen) {
         super(game.getAssets().dot);
         mGame = game;
-        mListener = listener;
         mRaceScreen = raceScreen;
         new PwRefreshHelper(mGame, this) {
             @Override
@@ -65,20 +62,20 @@ public class PauseOverlay extends Overlay {
             menu.addButton("Restart").addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    mListener.onRestartPressed();
+                    mRaceScreen.onRestartPressed();
                 }
             });
         }
         menu.addButton("Quit to Menu").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mListener.onQuitPressed();
+                mRaceScreen.onQuitPressed();
             }
         });
         menu.addButton("Settings").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mGame.pushScreen(new ConfigScreen(mGame));
+                mRaceScreen.onSettingsPressed();
             }
         });
         return content;
