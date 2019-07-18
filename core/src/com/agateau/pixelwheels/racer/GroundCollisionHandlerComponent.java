@@ -47,10 +47,10 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
 
     public enum State {
         NORMAL,
-        FALLING,
-        LIFTING,
-        RECOVERING,
-        DROPPING
+        FALLING, // Falling in a hole/water
+        LIFTING, // Getting lifted by the helicopter
+        RECOVERING, // Carried by the helicopter
+        DROPPING // Dropping from the helicopter
     }
 
     private State mState = State.NORMAL;
@@ -91,12 +91,12 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void actNormal() {
-        if (mGameWorld.getTrack().getMaterialAt(mVehicle.getPosition()).isHole()) {
-            startFalling();
+        if (isInHole()) {
+            switchToFallingState();
         }
     }
 
-    private void startFalling() {
+    private void switchToFallingState() {
         mHelicopter = Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getTrack(), mVehicle.getPosition(), mVehicle.getAngle());
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
@@ -121,12 +121,12 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         mTime += delta;
         if (mTime >= LIFTING_DELAY) {
             mTime = LIFTING_DELAY;
-            startRecovering();
+            switchToRecoveringState();
         }
         mVehicle.setZ(Interpolation.pow2.apply(mTime / LIFTING_DELAY));
     }
 
-    private void startRecovering() {
+    private void switchToRecoveringState() {
         mState = State.RECOVERING;
         float distance = mLapPositionComponent.getLapDistance();
         mDropPoint = mTrack.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
@@ -166,10 +166,18 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         mVehicle.setZ(Interpolation.bounceOut.apply(1, 0, mTime / LIFTING_DELAY));
         if (mTime >= LIFTING_DELAY) {
             mTime = LIFTING_DELAY;
-            mHelicopter.leave();
-            mVehicle.setZ(0);
-            mVehicle.setStopped(false);
-            mState = State.NORMAL;
+            switchToNormalState();
         }
+    }
+
+    private void switchToNormalState() {
+        mHelicopter.leave();
+        mVehicle.setZ(0);
+        mVehicle.setStopped(false);
+        mState = State.NORMAL;
+    }
+
+    private boolean isInHole() {
+        return mGameWorld.getTrack().getMaterialAt(mVehicle.getPosition()).isHole();
     }
 }
