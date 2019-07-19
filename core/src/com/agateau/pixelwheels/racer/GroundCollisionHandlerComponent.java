@@ -20,8 +20,8 @@ package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.GameWorld;
-import com.agateau.pixelwheels.racescreen.Helicopter;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.racescreen.Helicopter;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -48,6 +48,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     public enum State {
         NORMAL,
         FALLING, // Falling in a hole/water
+        CLIMBING, // Getting out of the hole/water before needing the helicopter
         LIFTING, // Getting lifted by the helicopter
         RECOVERING, // Carried by the helicopter
         DROPPING // Dropping from the helicopter
@@ -78,6 +79,9 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         case FALLING:
             actFalling(delta);
             break;
+        case CLIMBING:
+            actClimbing(delta);
+            break;
         case LIFTING:
             actLifting(delta);
             break;
@@ -101,19 +105,41 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
-        mRacer.looseBonus();
-        mVehicle.setStopped(true);
     }
 
     private void actFalling(float delta) {
-        if (mTime < LIFTING_DELAY) {
-            mTime += delta;
-        }
+        mTime = Math.min(mTime + delta, LIFTING_DELAY);
         mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
         mHelicopter.setEndPosition(mVehicle.getPosition());
+
+        if (!isInHole()) {
+            switchToClimbingState();
+            return;
+        }
+
         if (mHelicopter.isReadyToRecover()) {
             mState = State.LIFTING;
             mTime = 0;
+            mVehicle.setStopped(true);
+            mRacer.looseBonus();
+        }
+    }
+
+    private void switchToClimbingState() {
+        mState = State.CLIMBING;
+    }
+
+    private void actClimbing(float delta) {
+        mTime = Math.max(mTime - delta, 0);
+        mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
+
+        if (mTime == 0) {
+            switchToNormalState();
+            return;
+        }
+
+        if (isInHole()) {
+            switchToFallingState();
         }
     }
 
