@@ -221,7 +221,7 @@ public class RaceScreen extends ScreenAdapter {
         super.resize(width, height);
         float upp = PwStageScreen.getUnitsPerPixel();
         mHudViewport.setUnitsPerPixel(upp);
-        mGameRenderer.setScreenRect(0, 0, width, height);
+        mGameRenderer.setScreenSize(width, height);
         mHud.setScreenRect(0, 0, (int)(width * upp), (int)(height * upp));
         mHudViewport.update(width, height, true);
     }
