@@ -37,6 +37,11 @@ public class LapPositionComponent implements Racer.Component {
     private final LapPosition mLapPosition = new LapPosition();
     private boolean mHasFinishedRace = false;
 
+    // Should we take into account the next time the vehicle passes the start line?
+    // Starts at true because at the start of the race vehicles pass the line
+    // Set to true again when we pass the line backward
+    private boolean mSkipNextFinishLine = true;
+
     public LapPositionComponent(Track track, Vehicle vehicle) {
         mTrack = track;
         mVehicle = vehicle;
@@ -83,11 +88,12 @@ public class LapPositionComponent implements Racer.Component {
             return;
         }
         mLapPosition.copy(pos);
-        if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
-            if (mLapCount >= 1) {
-                // Check lap count before calling onLapCompleted() because we get there when we
-                // first cross the line at start time and we don't want to count this as a
-                // completed lap.
+        final boolean crossedFinishLine = mLapPosition.getSectionId() == 0 && oldSectionId > 1;
+        final boolean crossedFinishLineBackward = mLapPosition.getSectionId() > 1 && oldSectionId == 0;
+        if (crossedFinishLine) {
+            if (mSkipNextFinishLine) {
+                mSkipNextFinishLine = false;
+            } else {
                 onLapCompleted();
             }
             ++mLapCount;
@@ -95,13 +101,14 @@ public class LapPositionComponent implements Racer.Component {
                 --mLapCount;
                 mHasFinishedRace = true;
             }
-        } else if (mLapPosition.getSectionId() > 1 && oldSectionId == 0) {
+        } else if (crossedFinishLineBackward) {
             --mLapCount;
+            mSkipNextFinishLine = true;
         }
     }
 
     private void onLapCompleted() {
-        if (mBestLapTime < 0 || mLapTime < mBestLapTime) {
+        if (!hasBestLapTime() || mLapTime < mBestLapTime) {
             mBestLapTime = mLapTime;
         }
         mLapTime = 0;
@@ -118,9 +125,14 @@ public class LapPositionComponent implements Racer.Component {
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
         mTotalTime = mTotalTime / percentageDone;
-        if (mBestLapTime < 0) {
+        if (!hasBestLapTime()) {
             mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
         }
         mHasFinishedRace = true;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean hasBestLapTime() {
+        return mBestLapTime > 0;
     }
 }
