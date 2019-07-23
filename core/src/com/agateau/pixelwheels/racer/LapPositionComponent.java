@@ -83,7 +83,9 @@ public class LapPositionComponent implements Racer.Component {
             return;
         }
         mLapPosition.copy(pos);
-        if (mLapPosition.getSectionId() == 0 && oldSectionId > 1) {
+        final boolean passedStartLine = mLapPosition.getSectionId() == 0 && oldSectionId > 1;
+        final boolean passedStartLineBackward = mLapPosition.getSectionId() > 1 && oldSectionId == 0;
+        if (passedStartLine) {
             if (mLapCount >= 1) {
                 // Check lap count before calling onLapCompleted() because we get there when we
                 // first cross the line at start time and we don't want to count this as a
@@ -95,13 +97,13 @@ public class LapPositionComponent implements Racer.Component {
                 --mLapCount;
                 mHasFinishedRace = true;
             }
-        } else if (mLapPosition.getSectionId() > 1 && oldSectionId == 0) {
+        } else if (passedStartLineBackward) {
             --mLapCount;
         }
     }
 
     private void onLapCompleted() {
-        if (mBestLapTime < 0 || mLapTime < mBestLapTime) {
+        if (!hasBestLapTime() || mLapTime < mBestLapTime) {
             mBestLapTime = mLapTime;
         }
         mLapTime = 0;
@@ -118,9 +120,14 @@ public class LapPositionComponent implements Racer.Component {
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
         mTotalTime = mTotalTime / percentageDone;
-        if (mBestLapTime < 0) {
+        if (!hasBestLapTime()) {
             mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
         }
         mHasFinishedRace = true;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean hasBestLapTime() {
+        return mBestLapTime > 0;
     }
 }
