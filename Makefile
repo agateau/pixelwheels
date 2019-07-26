@@ -38,7 +38,7 @@ tools: $(TOOLS_JAR)
 run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
-packer: tools
+packer: tools assets
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.Packer
 
 mapscreenshotgenerator: tools
