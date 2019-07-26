@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+"""
+Add padding around tiles to avoid texture bleeding.
+"""
+import argparse
+import sys
+
+from collections import namedtuple
+
+from PIL import Image, ImageDraw
+
+import pafx
+
+Config = namedtuple("Config", ("tile_size", "padding"))
+
+
+def compute_columns_rows(config, image_size):
+    columns = image_size[0] // config.tile_size
+    rows = image_size[1] // config.tile_size
+    return columns, rows
+
+
+def compute_output_size(config, columns, rows):
+    out_tile_size = config.tile_size + config.padding * 2
+    return columns * out_tile_size, rows * out_tile_size
+
+
+def copy_row(output_image, dst, input_image, src, width):
+    left, top = src
+    row = input_image.crop((left, top, left + width, top + 1))
+    output_image.paste(row, dst)
+
+
+def copy_column(output_image, dst, input_image, src, height):
+    left, top = src
+    column = input_image.crop((left, top, left + 1, top + height))
+    output_image.paste(column, dst)
+
+
+def copy_tile(output_image, input_image, config, column, row):
+    out_tile_size = config.tile_size + config.padding * 2
+
+    left, top = column * config.tile_size, row * config.tile_size
+    bottom, right = top + config.tile_size, left + config.tile_size
+    tile = input_image.crop((left, top, right, bottom))
+
+    dst = (column * out_tile_size + config.padding,
+           row * out_tile_size + config.padding)
+    output_image.paste(tile, dst)
+
+    for p in range(config.padding):
+        copy_row(output_image, (dst[0], dst[1] - p - 1),
+                 input_image, (left, top), config.tile_size)
+
+        copy_row(output_image, (dst[0], dst[1] + config.tile_size + p),
+                 input_image, (left, top + config.tile_size - 1), config.tile_size)
+
+        copy_column(output_image, (dst[0] - p - 1, dst[1]),
+                    input_image, (left, top), config.tile_size)
+
+        copy_column(output_image, (dst[0] + config.tile_size + p, dst[1]),
+                    input_image, (left + config.tile_size - 1, top), config.tile_size)
+
+    draw = ImageDraw.Draw(output_image)
+    corners = [
+            (0, 0),
+            (1, 0),
+            (0, 1),
+            (1, 1),
+    ]
+    for x, y in corners:
+        src = (left + x * (config.tile_size - 1),
+               top + y * (config.tile_size - 1))
+        color = input_image.getpixel(src)
+        dst_x = dst[0] + (config.tile_size if x == 1 else -config.padding)
+        dst_y = dst[1] + (config.tile_size if y == 1 else -config.padding)
+        draw.rectangle((dst_x, dst_y, dst_x + config.padding, dst_y + config.padding),
+                       fill=color)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.description = __doc__
+
+    parser.add_argument("-p", "--padding", type=int, required=True,
+                        help="Number of pixels around each tile", metavar="PADDING")
+
+    parser.add_argument("-t", "--tilesize", dest="tile_size", type=int,
+                        required=True,
+                        help="Tile size of the input image", metavar="TILESIZE")
+
+    parser.add_argument("-o", "--output",
+                        help="Store image in IMAGE instead of sending it to stdout")
+
+    args = parser.parse_args()
+    config = Config(tile_size=args.tile_size, padding=args.padding)
+
+    input_image = Image.open(sys.stdin.buffer)
+
+    columns, rows = compute_columns_rows(config, input_image.size)
+    output_size = compute_output_size(config, columns, rows)
+
+    output_image = pafx.clone_format(input_image, output_size)
+
+    for row in range(rows):
+        for column in range(columns):
+            copy_tile(output_image, input_image, config, column, row)
+
+    if args.output:
+        output_image.save(args.output)
+    else:
+        output_image.save(sys.stdout.buffer, format="png")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+# vi: ts=4 sw=4 et

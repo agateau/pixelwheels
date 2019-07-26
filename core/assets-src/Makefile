@@ -2,6 +2,8 @@ export PATH := $(PWD)/../../bin:$(PATH)
 
 OUT_DIR ?= ../assets
 
+TOOLS_DIR ?= ../../tools
+
 FINAL_OUT_DIR ?= ../../android/assets
 
 VEHICLES_SUBDIR := sprites/vehicles
@@ -87,7 +89,8 @@ $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	convert -alpha set -channel RGBA \
 		-fill '#22203460' -opaque '#ff00ff' \
 		-fill '#ffffff20' -opaque '#00ffff' \
-		$(TMP_PNG) $@
+		$(TMP_PNG) - \
+	| $(TOOLS_DIR)/pad-map-tiles --padding 2 --tilesize 64 --output $@
 	rm $(TMP_PNG)
 
 clean-tiles:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="58">
- <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="210" columns="15">
-  <image source="snow.png" width="960" height="896"/>
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="210" columns="15">
+  <image source="snow.png" width="1020" height="952"/>
   <tile id="5">
    <properties>
     <property name="start" value="true"/>
