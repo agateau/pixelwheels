@@ -18,7 +18,7 @@
 
     Check signing key is in android/signing.gradle
 
-    make clean assets packer check dist apk
+    make clean-dist
 
 - Test on computer
 - Test on device

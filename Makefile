@@ -71,7 +71,7 @@ clean-packr:
 	rm -rf $(PACKR_OUT_DIR)
 
 # Dist
-dist: build
+desktop-dist: build
 	@rm -rf $(DIST_OUT_DIR)
 	@mkdir -p $(DIST_OUT_DIR)
 
@@ -88,14 +88,18 @@ dist: build
 	@mkdir -p $(ARCHIVE_DIR)
 	@mv $(DIST_OUT_DIR).zip $(ARCHIVE_DIR)
 
-# apk
-apk:
+apk-dist:
 	@echo Creating .apk
 	@$(GRADLEW) android:assembleRelease
 	@echo Moving .apk
 	@mkdir -p $(ARCHIVE_DIR)
 	@mv android/build/outputs/apk/release/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
 
+dist: assets packer check desktop-dist apk-dist
+
+clean-dist: clean dist
+
+# Tag
 tag:
 	git tag -f -m "Pixel Wheels $(VERSION)" $(VERSION)
 
@@ -103,6 +107,7 @@ tagpush: tag
 	git push
 	git push --tags
 
+# Cleaning conf
 clean-desktop-conf:
 	rm -f ~/.config/agateau.com/pixelwheels.conf
 	rm -rf ~/.local/share/pixelwheels
@@ -114,4 +119,4 @@ check:
 	@$(GRADLEW) check
 	@$(GRADLEW) test
 
-.PHONY: check tools build
+.PHONY: desktop-dist apk-dist dist clean-dist tag tagpush check tools build release-archives
