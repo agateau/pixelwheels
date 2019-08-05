@@ -74,3 +74,6 @@ build/
 packr-out
 dist-out
 /archives
+
+## Fastlane
+fastlane/google-play-api.json

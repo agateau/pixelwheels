@@ -1,0 +1,3 @@
+- Steering is more progressive, making it easier to make small direction adjustments.
+- Skidmarks disappear more progressively now.
+- Fix screen shaking too much when spinning with rotate camera is disabled.

@@ -1,0 +1,4 @@
+- Pixel Wheels now remembers the best lap and best total time for each track and shows you a congratulation message when you reach the top 3 in either categories.
+- Sounds have been added to the start up countdown.
+- The faster the vehicle is driving the more zoomed out the view is, giving you more time to anticipate the track.
+- The screens to select vehicles, tracks and championships now show the name of the selected element. Furthermore, the track selection screen shows the track records.

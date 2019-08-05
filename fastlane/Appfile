@@ -1,0 +1,3 @@
+# Must be created locally
+json_key_file("google-play-api.json")
+package_name("com.agateau.tinywheels.android") # e.g. com.krausefx.app

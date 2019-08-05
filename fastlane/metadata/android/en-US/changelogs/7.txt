@@ -1,0 +1,4 @@
+- Championships! A first rough version of championships has been added: since there are 4 tracks in Pixel Wheels at the moment, they have been grouped in 2 championships of 2 tracks each.
+- The volumes of the sound effects have been adjusted to avoid cacophony.
+- There is now a 3 second countdown at the start of each race.
+- In score tables, player rows now use different colors.

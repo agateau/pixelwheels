@@ -1,0 +1,5 @@
+Added 3 vehicles, and a locking system: some vehicles and the second championship (Pix Cities) must now be unlocked.
+
+Tracks and championships now have nicer names.
+
+Many small improvements on sound, map layouts, animations in the UI

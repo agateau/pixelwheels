@@ -1,0 +1,7 @@
+- New bonus: the homing missile!
+- Enabled gamepad support on Android.
+- Camera does not rotate to follow player vehicle anymore.
+- Improved touch control.
+- Bonus crates are bigger now, making them easier to grab.
+- Reduced turbo and maximum speed a bit.
+- You can now destroy mines (and missiles!) using the gun. This also means that when you picked a mine bonus but you haven't dropped it yet, it can protect you from one gun bullet or missile.
