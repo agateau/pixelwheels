@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.13.0 - 2019-08-07
+
+### For players
+
+#### Added
+
+- A nice animation has been added when you finish a championship in the top 3.
+
+- On Desktop, Pixel Wheels window now has a proper icon.
+
+#### Changed
+
+- The Harvester has been tuned to be easier to drive.
+
+- The unlocked reward animation has been improved. Vehicles and championships
+  now use different animations.
+
+- It's no longer possible to get an impossibly short best lap time by
+  backtracking after crossing the finish line (Bug #21)
+
+- If a vehicle crosses deep water but has enough momentum to reach the other
+  side, it no longer sinks.
+
+- In championship mode the pause overlay does not contain a "Restart" button
+  anymore.
+
+- Corners of the Android launcher icon are now rounded.
+
+### For developers
+
+#### Added
+
+- Added a way to quickly test ChampionshipFinishedScreen and
+  UnlockedRewardScreen (see docs/debug.md)
+
+- Started using Fastlane to update Google Play and F-Droid pages.
+
+- Added a `check` Makefile target to run tests and linters. Made it part of the
+  release check list to avoid shipping with tests which do not even compile...
+
+#### Changed
+
+- A bunch of updates have been done: Java 1.8, Gradle 4.10.2 (5.1 breaks too
+  many things for now), targetSdkVersion 28
+
 ## 0.12.0 - 2019-06-17
 
 ### For players

@@ -1,0 +1,9 @@
+A nice animation has been added when you finish a championship in the top 3.
+
+The Harvester has been tuned to be easier to drive.
+
+The unlocked reward animation has been improved.
+
+It's no longer possible to get an impossibly short best lap time by backtracking after crossing the finish line (Bug #21)
+
+If a vehicle crosses deep water but has enough momentum to reach the other side, it no longer sinks.
