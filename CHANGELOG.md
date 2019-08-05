@@ -28,6 +28,9 @@
 
 - Corners of the Android launcher icon are now rounded.
 
+- Fixed the bug which caused white vertical lines to show up from time to time
+  on the road.
+
 ### For developers
 
 #### Added
