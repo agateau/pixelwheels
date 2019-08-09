@@ -26,16 +26,11 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -47,18 +42,18 @@ public class GameRenderer {
     private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
-    private final Batch mScreenBatch;
+    private final Batch mBatch;
     private final OrthographicCamera mCamera;
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final GameWorld mWorld;
     private final CameraUpdater mCameraUpdater;
-    private final FrameBuffer mFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, PwStageScreen.WIDTH, PwStageScreen.HEIGHT, false /* hasDepth */);
-    private final Batch mBatch = new SpriteBatch();
 
     private final int[] mBackgroundLayerFirstIndexes = { 0 };
     private final int[] mExtraBackgroundLayerIndexes;
     private final int[] mForegroundLayerIndexes;
 
+    private int mScreenX;
+    private int mScreenY;
     private int mScreenWidth;
     private int mScreenHeight;
     private final PerformanceCounter mTilePerformanceCounter;
@@ -73,7 +68,7 @@ public class GameRenderer {
         mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
         mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
 
-        mScreenBatch = batch;
+        mBatch = batch;
         mCamera = new OrthographicCamera();
         boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
         mCameraUpdater = singlePlayer ? new SinglePlayerCameraUpdater(mWorld) : new MultiPlayerCameraUpdater(mWorld);
@@ -83,13 +78,14 @@ public class GameRenderer {
         mGameObjectPerformanceCounter = counters.add("- g.o.");
 
         mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
-
-        mCameraUpdater.init(mCamera, PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
     }
 
-    public void setScreenSize(int width, int height) {
+    public void setScreenRect(int x, int y, int width, int height) {
+        mScreenX = x;
+        mScreenY = y;
         mScreenWidth = width;
         mScreenHeight = height;
+        mCameraUpdater.init(mCamera, width, height);
     }
 
     public void onAboutToStart() {
@@ -97,8 +93,7 @@ public class GameRenderer {
     }
 
     public void render(float delta) {
-        mFrameBuffer.begin();
-        Gdx.gl.glViewport(0, 0, mFrameBuffer.getWidth(), mFrameBuffer.getHeight());
+        Gdx.gl.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
 
@@ -162,29 +157,6 @@ public class GameRenderer {
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
         }
-        mFrameBuffer.end();
-        renderToScreen();
-    }
-
-    private void renderToScreen() {
-        mScreenBatch.begin();
-        mScreenBatch.draw(mFrameBuffer.getColorBufferTexture(),
-                // dst
-                0, 0,
-                // origin
-                0, 0,
-                // dst size
-                mScreenWidth, mScreenHeight,
-                // scale
-                1, 1,
-                // rotation
-                0,
-                // src
-                0, 0, mFrameBuffer.getWidth(), mFrameBuffer.getHeight(),
-                // flips
-                false, true
-                );
-        mScreenBatch.end();
     }
 
     private void updateCamera(float delta) {
@@ -192,9 +164,9 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        float width = MathUtils.floor(mCamera.viewportWidth * mCamera.zoom);
-        float height = MathUtils.floor(mCamera.viewportHeight * mCamera.zoom);
+        float width = mCamera.viewportWidth * mCamera.zoom;
+        float height = mCamera.viewportHeight * mCamera.zoom;
         mRenderer.setView(mCamera.combined,
-                MathUtils.floor(mCamera.position.x - width / 2), MathUtils.floor(mCamera.position.y - height / 2), width, height);
+                mCamera.position.x - width / 2, mCamera.position.y - height / 2, width, height);
     }
 }
