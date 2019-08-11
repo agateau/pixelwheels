@@ -12,6 +12,7 @@
 
 - Update changelog
     vi CHANGELOG.md
+    vi fastlane/metadata/android/en-US/changelogs/$version.txt
     git commit
 
 - Build archives
@@ -23,7 +24,13 @@
 - Test on computer
 - Test on device
 
+- Update screenshots in fastlane/metadata/android/en-US/images/
+
 - Upload apk on Google Play
+
+    Check api file is in fastlane/google-play-api.json
+
+    fastlane supply --track beta --apk archives/pixelwheels-$version.apk
 
 - Tag and push
 
@@ -32,10 +39,6 @@
 # Upload archives
 
 - Upload archives
-
-# Prepare spread
-
-- Take screenshots
 
 # Game page
 
