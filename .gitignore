@@ -28,6 +28,8 @@ www-test/
 android/libs/armeabi/
 android/libs/armeabi-v7a/
 android/libs/x86/
+android/libs/arm64-v8a/
+android/libs/x86_64/
 android/gen/
 android/manifest-merger-release-report.txt
 .idea/
