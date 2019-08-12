@@ -2,7 +2,9 @@
 
 Pixel Wheels is a retro top-down race game.
 
-You can play Pixel Wheels alone or with a friend in split-screen.
+You can play Pixel Wheels alone or with a friend.
+
+![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/mine-drop.png)
 
 It runs on Linux, macOS, Windows and Android.
 
@@ -14,10 +16,16 @@ graphics, sounds, gameplay...
 
 ## I don't care, I want to try it anyway
 
-Great! The simplest way to give it a try is to get a binary for your platform
-from [Pixel Wheels home page][pw].
+Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels
+home page][pw].
+
+For Android you can install Pixel Wheels from [F-Droid][fd] or [Google
+Play][gplay].
 
 [pw]: http://agateau.com/projects/pixelwheels
+[fd]: https://f-droid.org/fr/packages/com.agateau.tinywheels.android/
+[gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
+
 
 ## I think it would be much better if it did X, Y or Z! Please make it happen!
 
