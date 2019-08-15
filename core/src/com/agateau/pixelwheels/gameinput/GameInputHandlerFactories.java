@@ -80,7 +80,8 @@ public class GameInputHandlerFactories {
             mFactories.add(new KeyboardInputHandler.Factory());
         }
         if (hasMultitouch()) {
-            mFactories.add(new TouchInputHandler.Factory());
+            mFactories.add(new PieTouchInputHandler.Factory());
+            mFactories.add(new SidesTouchInputHandler.Factory());
         }
         mFactories.add(new GamepadInputHandler.Factory());
     }

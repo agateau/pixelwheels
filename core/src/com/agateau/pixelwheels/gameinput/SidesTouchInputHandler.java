@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2019 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -19,35 +19,36 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.racescreen.Hud;
-import com.agateau.pixelwheels.racescreen.PieButton;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.racescreen.Hud;
+import com.agateau.pixelwheels.racescreen.HudButton;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Handle inputs with touch screen only
+ * Handle input using buttons on the sides
  */
-public class TouchInputHandler implements GameInputHandler {
+public class SidesTouchInputHandler implements GameInputHandler {
+    private final GameInput mInput = new GameInput();
+    private HudButton mLeftButton, mRightButton, mBonusButton;
+
     public static class Factory implements GameInputHandlerFactory {
         final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
-            mHandlers.add(new TouchInputHandler());
+            mHandlers.add(new SidesTouchInputHandler());
         }
 
         @Override
         public String getId() {
-            return "touch";
+            return "sides";
         }
 
         @Override
         public String getName() {
-            return "Touch";
+            return "Side buttons";
         }
 
         @Override
@@ -56,23 +57,14 @@ public class TouchInputHandler implements GameInputHandler {
         }
     }
 
-    private final GameInput mInput = new GameInput();
-    private PieButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
-
     @Override
     public GameInput getGameInput() {
-        mInput.braking = mBrakeButton.isPressed();
+        mInput.braking = isBraking();
         mInput.accelerating = !mInput.braking;
-        if (mLeftButton.isPressed()) {
-            mInput.direction += GamePlay.instance.steeringStep;
-        } else if (mRightButton.isPressed()) {
-            mInput.direction -= GamePlay.instance.steeringStep;
-        } else {
-            mInput.direction = 0;
+        if (!mInput.braking) {
+            mInput.direction = TouchInputUtils.applyDirectionInput(mLeftButton, mRightButton, mInput.direction);
         }
-        mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
         mInput.triggeringBonus = mBonusButton.isPressed();
-
         return mInput;
     }
 
@@ -88,36 +80,29 @@ public class TouchInputHandler implements GameInputHandler {
 
     @Override
     public void createHudButtons(Assets assets, Hud hud) {
-        final float radius = 132;
-        mLeftButton = new PieButton(assets, hud, "left");
-        mLeftButton.setSector(45, 90);
-        mLeftButton.setRadius(radius);
-        mRightButton = new PieButton(assets, hud, "right");
-        mRightButton.setSector(0, 45);
-        mRightButton.setRadius(radius);
-        mBonusButton = new PieButton(assets, hud, "action");
-        mBonusButton.setSector(90, 135);
-        mBonusButton.setRadius(radius);
-        mBrakeButton = new PieButton(assets, hud, "brake");
-        mBrakeButton.setSector(135, 180);
-        mBrakeButton.setRadius(radius);
+        mLeftButton = new HudButton(assets, hud, "sides-left");
+        mRightButton = new HudButton(assets, hud, "sides-right");
+        mBonusButton = new HudButton(assets, hud, "sides-action");
 
         AnchorGroup root = hud.getRoot();
 
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
-        root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
+        root.addPositionRule(mRightButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
 
-        root.addPositionRule(mBrakeButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
-        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
+        root.addPositionRule(mBonusButton, Anchor.CENTER_RIGHT, root, Anchor.CENTER_RIGHT);
     }
 
     @Override
     public void setBonus(Bonus bonus) {
-        mBonusButton.setEnabled(bonus != null);
+        mBonusButton.setVisible(bonus != null);
     }
 
     @Override
     public boolean isAvailable() {
         return true;
+    }
+
+    private boolean isBraking() {
+        return mLeftButton.isPressed() && mRightButton.isPressed();
     }
 }

@@ -4,6 +4,7 @@ android/assets/ui/uiskin.atlas
 android/assets/ui/uiskin.png
 
 core/assets/
+core/assets-src/sprites/hud/*.png
 
 ## Java
 
