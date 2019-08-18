@@ -98,6 +98,7 @@ public class PieTouchInputHandler implements GameInputHandler {
         mBonusButton = new PieButton(assets, hud, "pie-action");
         mBonusButton.setSector(90, 135);
         mBonusButton.setRadius(radius);
+        mBonusButton.setEnabled(false);
         mBrakeButton = new PieButton(assets, hud, "pie-brake");
         mBrakeButton.setSector(135, 180);
         mBrakeButton.setRadius(radius);
