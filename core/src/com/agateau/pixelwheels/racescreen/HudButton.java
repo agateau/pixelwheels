@@ -23,14 +23,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Indicate an input zone on the hud
  */
-public class HudButton extends Actor {
+public class HudButton extends Widget {
     private static final float BUTTON_OPACITY = 0.5f;
     private static final float DISABLED_BUTTON_OPACITY = 0.2f;
 
@@ -49,11 +49,6 @@ public class HudButton extends Actor {
         setTouchable(Touchable.enabled);
         mClickListener = new ClickListener();
         addListener(mClickListener);
-    }
-
-    @Override
-    public void act(float dt) {
-        updateSize();
     }
 
     public boolean isPressed() {
@@ -86,8 +81,9 @@ public class HudButton extends Actor {
         batch.setColor(color);
     }
 
-    private void updateSize() {
-        setWidth(mRegions[0].getRegionWidth() * mHud.getZoom());
-        setHeight(mRegions[0].getRegionHeight() * mHud.getZoom());
+    @Override
+    public void validate() {
+        setSize(mRegions[0].getRegionWidth() * mHud.getZoom(),
+                mRegions[0].getRegionHeight() * mHud.getZoom());
     }
 }
