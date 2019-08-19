@@ -84,12 +84,12 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
         mEntries.add(new Entry<>(text, data));
     }
 
-    public T getData() {
+    public T getCurrentData() {
         Entry<T> entry = mEntries.get(mCurrentIndex);
         return entry.data;
     }
 
-    public void setData(T data) {
+    public void setCurrentData(T data) {
         for (int idx = 0; idx < mEntries.size; ++idx) {
             if (mEntries.get(idx).data == data) {
                 setCurrentIndex(idx);

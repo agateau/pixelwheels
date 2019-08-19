@@ -177,14 +177,14 @@ public class ConfigScreen extends PwStageScreen {
         }
 
         private void onInputChanged() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
             mGame.getConfig().flush();
             updateConfigureButton();
         }
 
         private void onConfigureClicked() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             GameInputHandlerConfigScreenFactory configScreenFactory = getInputConfigScreenFactory(factory);
             Assert.check(configScreenFactory != null, "No config screen for this game factory");
             mGame.pushScreen(configScreenFactory.createScreen(mGame, mPlayerIdx));
@@ -192,12 +192,12 @@ public class ConfigScreen extends PwStageScreen {
 
         private void setStartupState() {
             GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
-            mSelector.setData(factory);
+            mSelector.setCurrentData(factory);
             updateConfigureButton();
         }
 
         private void updateConfigureButton() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             boolean canBeConfigured = getInputConfigScreenFactory(factory) != null;
             mConfigureButton.setDisabled(!canBeConfigured);
         }
