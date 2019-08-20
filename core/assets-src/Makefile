@@ -11,9 +11,9 @@ VEHICLES_SUBDIR := sprites/vehicles
 # Path to aseprite or libresprite
 ASEPRITE ?= aseprite
 
-all: hud anims stills vehicles tiles helicopter ui map-icons
+all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 
-clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui clean-map-icons
+clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui clean-map-icons clean-input-icons
 
 #- Hud ------------------------------------------------------------------------
 # Just enough to trigger the target
@@ -125,4 +125,19 @@ $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	$(ASEPRITE) --batch $< --save-as $@
 
 clean-map-icons:
-	rm -f $(OUT_MAP_ICONS_IMAGES)
+	rm -f $(OUT_MAP_ICONS)
+
+#- Input icons ----------------------------------------------------------------
+INPUT_ICONS := ui/input-icons/input-icons.ase
+OUT_INPUT_ICONS_DIR := $(OUT_DIR)/ui/input-icons
+
+input-icons: $(OUT_INPUT_ICONS_DIR)/sides.png
+
+$(OUT_INPUT_ICONS_DIR)/sides.png: $(INPUT_ICONS)
+	mkdir -p $(OUT_INPUT_ICONS_DIR)
+
+	$(ASEPRITE) --batch --split-slices $< \
+		--filename-format "$(OUT_INPUT_ICONS_DIR)/{slice}.{extension}" --save-as whatever.png
+
+clean-input-icons:
+	rm -rf $(OUT_INPUT_ICONS_DIR)
