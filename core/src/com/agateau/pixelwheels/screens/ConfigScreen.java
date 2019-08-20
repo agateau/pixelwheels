@@ -26,6 +26,7 @@ import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.ui.UiAssets;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
@@ -43,6 +44,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -156,9 +159,12 @@ public class ConfigScreen extends PwStageScreen {
             mConfigureButton = configureButton;
             mPlayerIdx = idx;
 
+            UiAssets uiAssets = mGame.getAssets().ui;
             Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
             for (GameInputHandlerFactory factory : inputFactories) {
-                selector.addEntry(factory.getName(), factory);
+                String iconName = "input-icons/" + factory.getId();
+                Drawable drawable = new TextureRegionDrawable(uiAssets.atlas.findRegion(iconName));
+                selector.addEntry(drawable, factory.getName(), factory);
             }
 
             selector.getActor().addListener(new ChangeListener() {
@@ -177,14 +183,14 @@ public class ConfigScreen extends PwStageScreen {
         }
 
         private void onInputChanged() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
             mGame.getConfig().flush();
             updateConfigureButton();
         }
 
         private void onConfigureClicked() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             GameInputHandlerConfigScreenFactory configScreenFactory = getInputConfigScreenFactory(factory);
             Assert.check(configScreenFactory != null, "No config screen for this game factory");
             mGame.pushScreen(configScreenFactory.createScreen(mGame, mPlayerIdx));
@@ -192,12 +198,12 @@ public class ConfigScreen extends PwStageScreen {
 
         private void setStartupState() {
             GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
-            mSelector.setData(factory);
+            mSelector.setCurrentData(factory);
             updateConfigureButton();
         }
 
         private void updateConfigureButton() {
-            GameInputHandlerFactory factory = mSelector.getData();
+            GameInputHandlerFactory factory = mSelector.getCurrentData();
             boolean canBeConfigured = getInputConfigScreenFactory(factory) != null;
             mConfigureButton.setDisabled(!canBeConfigured);
         }

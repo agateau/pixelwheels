@@ -19,7 +19,10 @@
 package com.agateau.ui.menu;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
@@ -28,15 +31,19 @@ import com.badlogic.gdx.utils.Array;
  */
 public class SelectorMenuItem<T> extends RangeMenuItem {
     private static class Entry<T> {
+        final Drawable drawable;
         final String text;
         final T data;
 
-        Entry(String text, T value) {
+        Entry(Drawable drawable, String text, T value) {
+            this.drawable = drawable;
             this.text = text;
             this.data = value;
         }
     }
 
+    private HorizontalGroup mGroup;
+    private Image mMainImage;
     private Label mMainLabel;
 
     private final Array<Entry<T>> mEntries = new Array<>();
@@ -49,9 +56,16 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
 
     @Override
     protected Actor createMainActor(Menu menu) {
+        mGroup = new HorizontalGroup();
+        mGroup.align(Align.center);
+        mMainImage = new Image();
         mMainLabel = new Label("", menu.getSkin());
         mMainLabel.setAlignment(Align.center);
-        return mMainLabel;
+
+        mGroup.addActor(mMainImage);
+        mGroup.space(12);
+        mGroup.addActor(mMainLabel);
+        return mGroup;
     }
 
     @Override
@@ -59,7 +73,10 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
         if (mMainLabel == null) {
             return;
         }
-        mMainLabel.setText(mEntries.get(mCurrentIndex).text);
+        Entry<T> entry = mEntries.get(mCurrentIndex);
+        mMainImage.setDrawable(entry.drawable);
+        mMainLabel.setText(entry.text);
+        mGroup.pack();
     }
 
     @Override
@@ -81,15 +98,19 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     public void addEntry(String text, T data) {
-        mEntries.add(new Entry<>(text, data));
+        mEntries.add(new Entry<>(null, text, data));
     }
 
-    public T getData() {
+    public void addEntry(Drawable drawable, String text, T data) {
+        mEntries.add(new Entry<>(drawable, text, data));
+    }
+
+    public T getCurrentData() {
         Entry<T> entry = mEntries.get(mCurrentIndex);
         return entry.data;
     }
 
-    public void setData(T data) {
+    public void setCurrentData(T data) {
         for (int idx = 0; idx < mEntries.size; ++idx) {
             if (mEntries.get(idx).data == data) {
                 setCurrentIndex(idx);

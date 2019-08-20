@@ -12,7 +12,6 @@ import pafx
 
 Button = namedtuple("Button", ("name", "anchor", "size"))
 
-
 DST_DIR = os.path.abspath(sys.argv[1])
 DEPTH_COLOR = '#595652'
 OUTLINE_COLOR = 'black'
@@ -22,15 +21,22 @@ DOWN_DEPTH = 1
 
 OUTLINE_SIZE = 1
 
-FINAL_SIZE = (132, 132 + NORMAL_DEPTH)
+PIE_FINAL_SIZE = (132 + 2 * OUTLINE_SIZE, 132 + NORMAL_DEPTH)
+
+SIDES_FINAL_SIZE = (160 + 2 * OUTLINE_SIZE, 132 + NORMAL_DEPTH)
 
 PAUSE_SIZE = (80, 80 + NORMAL_DEPTH)
 
 BUTTONS = [
-    Button('action', pafx.TOP_RIGHT, FINAL_SIZE),
-    Button('brake', pafx.BOTTOM_LEFT, FINAL_SIZE),
-    Button('left', pafx.TOP_LEFT, FINAL_SIZE),
-    Button('right', pafx.BOTTOM_RIGHT, FINAL_SIZE),
+    Button('pie-action', pafx.TOP_RIGHT, PIE_FINAL_SIZE),
+    Button('pie-brake', pafx.BOTTOM_LEFT, PIE_FINAL_SIZE),
+    Button('pie-left', pafx.TOP_LEFT, PIE_FINAL_SIZE),
+    Button('pie-right', pafx.BOTTOM_RIGHT, PIE_FINAL_SIZE),
+
+    Button('sides-left', pafx.BOTTOM_LEFT, SIDES_FINAL_SIZE),
+    Button('sides-right', pafx.BOTTOM_RIGHT, SIDES_FINAL_SIZE),
+    Button('sides-action', pafx.CENTER_RIGHT, SIDES_FINAL_SIZE),
+
     Button('pause', pafx.CENTER, PAUSE_SIZE),
 ]
 
@@ -67,6 +73,9 @@ def create_buttons(src, name, anchor=pafx.CENTER, final_size=None):
 
 def main():
     os.chdir(os.path.dirname(sys.argv[0]))
+
+    Image.open('hud-sides-left.png') \
+        .transpose(Image.FLIP_LEFT_RIGHT).save('hud-sides-right.png')
 
     for button in BUTTONS:
         print('Processing "{}"'.format(button.name))

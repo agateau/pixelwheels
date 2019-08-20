@@ -11,18 +11,23 @@ VEHICLES_SUBDIR := sprites/vehicles
 # Path to aseprite or libresprite
 ASEPRITE ?= aseprite
 
-all: hud anims stills vehicles tiles helicopter ui map-icons
+all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 
-clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui clean-map-icons
+clean: clean-anims clean-stills clean-vehicles clean-tiles clean-helicopter clean-ui clean-map-icons clean-input-icons
 
 #- Hud ------------------------------------------------------------------------
 # Just enough to trigger the target
 hud: $(OUT_DIR)/sprites/hud-pause.png
 
-$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud.py
+$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud-sides-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
+
 	$(ASEPRITE) --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
 		--filename-format '{path}/hud-{layer}.{extension}' --save-as sprites/hud/whatever.png
+
+	$(ASEPRITE) --batch --split-slices sprites/hud/hud-sides-buttons.ase \
+		--filename-format '{path}/{slice}.{extension}' --save-as sprites/hud/whatever.png
+
 	sprites/hud/hud.py $(OUT_DIR)/sprites
 
 #- Still images ---------------------------------------------------------------
@@ -120,4 +125,19 @@ $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	$(ASEPRITE) --batch $< --save-as $@
 
 clean-map-icons:
-	rm -f $(OUT_MAP_ICONS_IMAGES)
+	rm -f $(OUT_MAP_ICONS)
+
+#- Input icons ----------------------------------------------------------------
+INPUT_ICONS := ui/input-icons/input-icons.ase
+OUT_INPUT_ICONS_DIR := $(OUT_DIR)/ui/input-icons
+
+input-icons: $(OUT_INPUT_ICONS_DIR)/sides.png
+
+$(OUT_INPUT_ICONS_DIR)/sides.png: $(INPUT_ICONS)
+	mkdir -p $(OUT_INPUT_ICONS_DIR)
+
+	$(ASEPRITE) --batch --split-slices $< \
+		--filename-format "$(OUT_INPUT_ICONS_DIR)/{slice}.{extension}" --save-as whatever.png
+
+clean-input-icons:
+	rm -rf $(OUT_INPUT_ICONS_DIR)
