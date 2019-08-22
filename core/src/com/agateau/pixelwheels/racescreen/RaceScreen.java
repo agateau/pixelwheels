@@ -240,10 +240,11 @@ public class RaceScreen extends ScreenAdapter {
     public void resumeRace() {
         mPauseOverlay.remove();
         mPauseOverlay = null;
-        mGame.getAudioManager().setMuted(!mGame.getConfig().audio);
+        unmuteIfNecessary();
     }
 
     void onRestartPressed() {
+        unmuteIfNecessary();
         mListener.onRestartPressed();
     }
 
@@ -253,6 +254,10 @@ public class RaceScreen extends ScreenAdapter {
 
     void onSettingsPressed() {
         mGame.pushScreen(new ConfigScreen(mGame));
+    }
+
+    private void unmuteIfNecessary() {
+        mGame.getAudioManager().setMuted(!mGame.getConfig().audio);
     }
 
     @Override
