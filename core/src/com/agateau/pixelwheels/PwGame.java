@@ -26,6 +26,7 @@ import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
+import com.agateau.pixelwheels.screens.MouseCursorManager;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
@@ -45,8 +46,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 /**
@@ -58,6 +57,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private final AudioManager mAudioManager = new DefaultAudioManager();
+    private MouseCursorManager mMouseCursorManager;
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
@@ -87,11 +87,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mDebugIntrospector.load();
 
         mAssets = new Assets();
+        mMouseCursorManager = new MouseCursorManager();
         setupConfig();
         setupTrackStats();
         setupRewardManager();
         Box2D.init();
-        hideMouseCursor();
         setupDisplay();
         showMainMenu();
     }
@@ -102,6 +102,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             String path = ScreenshotCreator.saveScreenshot();
             NLog.i("Screenshot saved in %s", path);
         }
+        mMouseCursorManager.act();
         super.render();
     }
 
@@ -109,6 +110,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAssets = new Assets();
         // Tracks and championship have been recreated, need to recreate reward manager
         setupRewardManager();
+        mMouseCursorManager.refreshAssets();
     }
 
     private void setupConfig() {
@@ -181,16 +183,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public void popScreen() {
         mScreenStack.pop();
-    }
-
-    private void hideMouseCursor() {
-        Pixmap pixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 0);
-        pixmap.fill();
-        Cursor cursor = Gdx.graphics.newCursor(pixmap, 0, 0);
-        if (cursor != null) {
-            Gdx.graphics.setCursor(cursor);
-        }
     }
 
     private void setupDisplay() {
