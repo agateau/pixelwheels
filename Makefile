@@ -1,6 +1,10 @@
 DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
 TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
-GRADLEW=./gradlew --offline
+GRADLEW=./gradlew
+ifdef OFFLINE
+	GRADLEW=./gradlew --offline
+endif
+
 GAME_CP=com.agateau.pixelwheels
 EXECUTABLE=pixelwheels
 
