@@ -92,6 +92,14 @@ public class MainMenuScreen extends PwStageScreen {
                 mGame.pushScreen(new ConfigScreen(mGame));
             }
         });
+        if (desktop) {
+            menu.addButton("QUIT").addListener(new MenuItemListener() {
+                @Override
+                public void triggered() {
+                    Gdx.app.exit();
+                }
+            });
+        }
     }
 
     @Override

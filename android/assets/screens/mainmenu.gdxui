@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
-        <Image topCenter="root.topCenter 0 -2" name="title">
+        <Image topCenter="root.topCenter 0 -1" name="title">
             <Action>
                 alpha 0
                 moveBy 20g -0
