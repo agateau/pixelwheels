@@ -22,10 +22,12 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.VersionInfo;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
@@ -50,6 +52,7 @@ import com.badlogic.gdx.utils.Array;
 
 /** The config screen */
 public class ConfigScreen extends PwStageScreen {
+    private static final String WEBSITE_URL = "https://agateau.com/support/";
     private final PwGame mGame;
 
     interface GameInputHandlerConfigScreenFactory {
@@ -133,6 +136,31 @@ public class ConfigScreen extends PwStageScreen {
                                 });
                 group.addItemWithLabel("Fullscreen:", fullscreenSwitch);
             }
+        }
+
+        {
+            MenuItemGroup group = tab.addPage("About");
+            group.setWidth(400);
+            group.addLabel(StringUtils.format("Pixel Wheels %s", VersionInfo.VERSION));
+            group.addButton("CREDITS")
+                    .addListener(
+                            new ClickListener() {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    mGame.pushScreen(new CreditsScreen(mGame));
+                                }
+                            });
+            // This is a ugly hack, but it should do for now
+            group.addLabel(
+                    "Pixel Wheels is free, but you can support its\ndevelopment in various ways.");
+            group.addButton("VISIT SUPPORT PAGE")
+                    .addListener(
+                            new ClickListener() {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    PlatformUtils.openURI(WEBSITE_URL);
+                                }
+                            });
         }
 
         {

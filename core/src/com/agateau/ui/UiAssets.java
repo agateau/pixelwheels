@@ -45,8 +45,14 @@ public class UiAssets {
 
     private void loadFonts() {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-        this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", 28));
-        this.skin.add("title-font", loadFont("fonts/Aero.ttf", 32));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 28;
+        parameter.characters += "•";
+        this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 32;
+        this.skin.add("title-font", loadFont("fonts/Aero.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;
@@ -84,13 +90,6 @@ public class UiAssets {
         parameter.characters = "123GO!";
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-countdown-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-    }
-
-    private BitmapFont loadFont(String name, int size) {
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
-                new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = size;
-        return loadFont(name, parameter);
     }
 
     private BitmapFont loadFont(
