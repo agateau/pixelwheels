@@ -1,9 +1,31 @@
 apply plugin: "java"
 
+task generateVersionInfoClass {
+    doFirst {
+        def outputDir = file("$buildDir/../generated/com/agateau/pixelwheels")
+
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(file('../version.properties')))
+
+        if (!outputDir.exists()) {
+            outputDir.mkdirs()
+        }
+
+        def version = versionProps["VERSION"]
+        def src = "// Generated file, do not edit!\n" \
+            + "package com.agateau.pixelwheels;\n" \
+            + "public class VersionInfo {\n" \
+            + "    public static final String VERSION = \"$version\";\n" \
+            + "}\n"
+        new File(outputDir, "VersionInfo.java").write(src)
+    }
+}
+
 sourceCompatibility = JavaVersion.VERSION_1_8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-sourceSets.main.java.srcDirs = [ "src/" ]
+compileJava.dependsOn(generateVersionInfoClass)
+sourceSets.main.java.srcDirs = [ "src/", "generated/" ]
 
 
 eclipse.project {
