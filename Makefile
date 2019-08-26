@@ -4,10 +4,10 @@ GRADLEW=./gradlew --offline
 GAME_CP=com.agateau.pixelwheels
 EXECUTABLE=pixelwheels
 
+include version.properties
+
 PACKR=tools/packr.jar
 PACKR_OUT_DIR=packr-out
-
-VERSION=0.13.0
 
 DIST_OUT_BASE_DIR=dist-out
 DIST_NAME=$(EXECUTABLE)-$(VERSION)

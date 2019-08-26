@@ -7,8 +7,8 @@
     git status
 
 - Bump version number
-    - Makefile
-    - android/AndroidManifest.xml
+
+    vi version.properties
 
 - Update changelog
     vi CHANGELOG.md
