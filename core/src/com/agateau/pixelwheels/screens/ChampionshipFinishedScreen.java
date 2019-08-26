@@ -163,11 +163,12 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         mTableRowCreator.addHeaderRow("#", "Racer", "Score", "Total Time");
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
+            VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(entrant.getVehicleId());
             String style = UiUtils.getEntrantRowStyle(entrant);
             mTableRowCreator.setRowStyle(style);
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
-                    entrant.getVehicleId(),
+                    vehicleDef.name,
                     String.valueOf(entrant.getScore())
             );
         }
