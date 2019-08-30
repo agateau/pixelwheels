@@ -85,7 +85,7 @@ public class SidesTouchInputHandler implements GameInputHandler {
         mBonusButton = new HudButton(assets, hud, "sides-action");
         mBonusButton.setVisible(false);
 
-        AnchorGroup root = hud.getRoot();
+        AnchorGroup root = hud.getInputUiContainer();
 
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
         root.addPositionRule(mRightButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);

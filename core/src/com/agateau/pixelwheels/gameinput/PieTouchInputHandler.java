@@ -103,7 +103,7 @@ public class PieTouchInputHandler implements GameInputHandler {
         mBrakeButton.setSector(135, 180);
         mBrakeButton.setRadius(radius);
 
-        AnchorGroup root = hud.getRoot();
+        AnchorGroup root = hud.getInputUiContainer();
 
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
         root.addPositionRule(mRightButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);

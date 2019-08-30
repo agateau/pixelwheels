@@ -53,6 +53,7 @@ public class PlayerPilot implements Pilot {
     }
 
     public void createHudButtons(Hud hud) {
+        hud.deleteInputUiContainer();
         mInputHandler.createHudButtons(mAssets, hud);
     }
 

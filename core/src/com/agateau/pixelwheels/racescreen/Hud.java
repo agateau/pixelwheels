@@ -35,6 +35,7 @@ public class Hud {
     private final float BUTTON_SIZE_PX;
 
     private final AnchorGroup mRoot;
+    private AnchorGroup mInputUiContainer;
     private float mZoom;
 
     public Hud(Assets assets, Stage stage) {
@@ -46,6 +47,29 @@ public class Hud {
 
     public AnchorGroup getRoot() {
         return mRoot;
+    }
+
+    public void deleteInputUiContainer() {
+        if (mInputUiContainer == null) {
+            return;
+        }
+        mInputUiContainer.remove();
+        mInputUiContainer = null;
+    }
+
+    /**
+     * Returns an AnchorGroup into which input code should create its UI if it has any.
+     * It is important to create the UI in this container rather than in getRoot(), because
+     * it makes it possible to remove all the UI when switching between input modes by
+     * calling deleteInputUiContainer()
+     */
+    public AnchorGroup getInputUiContainer() {
+        if (mInputUiContainer == null) {
+            mInputUiContainer = new AnchorGroup();
+            mRoot.addActor(mInputUiContainer);
+            mInputUiContainer.setFillParent(true);
+        }
+        return mInputUiContainer;
     }
 
     @SuppressWarnings("SameParameterValue")

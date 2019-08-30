@@ -82,6 +82,7 @@ public class RaceScreen extends ScreenAdapter {
     private PauseOverlay mPauseOverlay = null;
 
     private boolean mFirstRender = true;
+    private boolean mConfigVisible = false;
 
     public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo, PauseButtons pauseButtons) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
@@ -129,6 +130,10 @@ public class RaceScreen extends ScreenAdapter {
             });
         }
 
+        createInputUi();
+    }
+
+    private void createInputUi() {
         // Touch screen is single player only, so it's fine to only do this for the first player
         Racer racer = mGameWorld.getPlayerRacer(0);
         Pilot pilot = racer.getPilot();
@@ -253,6 +258,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     void onSettingsPressed() {
+        mConfigVisible = true;
         mGame.pushScreen(new ConfigScreen(mGame));
     }
 
@@ -264,6 +270,11 @@ public class RaceScreen extends ScreenAdapter {
     public void show() {
         super.show();
         Gdx.input.setInputProcessor(mHudStage);
+        if (mConfigVisible) {
+            // We are back from the config screen
+            mConfigVisible = false;
+            createInputUi();
+        }
     }
 
     @Override
