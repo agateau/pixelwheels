@@ -118,9 +118,9 @@ public class ChampionshipMaestro extends Maestro {
             // Players are always last at the beginning, move the last player to the top
             GameInfo.Entrant player = mGameInfo.getEntrants().pop();
             mGameInfo.getEntrants().insert(0, player);
-            getGame().pushScreen(new ChampionshipFinishedScreen(getGame(), mGameInfo, null));
+            getGame().replaceScreen(createChampionshipFinishedScreen());
         } else if (Constants.DEBUG_SCREEN.equals("ChampionshipFinished:nopodium")) {
-            getGame().pushScreen(new ChampionshipFinishedScreen(getGame(), mGameInfo, null));
+            getGame().replaceScreen(createChampionshipFinishedScreen());
         } else {
             getGame().replaceScreen(createRaceScreen());
         }
