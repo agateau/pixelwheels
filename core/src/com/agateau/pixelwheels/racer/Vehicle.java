@@ -197,6 +197,15 @@ public class Vehicle implements Racer.Component, Disposable {
         return false;
     }
 
+    boolean isOnWater() {
+        for (WheelInfo wheelInfo : mWheels) {
+            if (wheelInfo.wheel.getMaterial() == Material.WATER) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * speedLimiter is a percentage. Set it to 0.9 to make the vehicle drive at 90% of its maximum speed
      */

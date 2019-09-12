@@ -135,6 +135,7 @@ public class Assets {
         this.soundAtlas.load("missile.wav");
         this.soundAtlas.load("countdown1.wav");
         this.soundAtlas.load("countdown2.wav");
+        this.soundAtlas.load("splash.wav");
     }
 
     private void initChampionships() {

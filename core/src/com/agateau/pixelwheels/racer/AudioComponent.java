@@ -46,6 +46,7 @@ class AudioComponent implements Racer.Component, Disposable {
     private final SoundPlayer mDriftingSoundPlayer;
     private final SoundPlayer mTurboSoundPlayer;
     private final SoundPlayer mCollisionSoundPlayer;
+    private final SoundPlayer mSplashSoundPlayer;
     private final Array<SoundPlayer> mSoundPlayers = new Array<>();
     private float mDriftDuration = 0;
     private boolean mTurboTriggered = false;
@@ -61,6 +62,7 @@ class AudioComponent implements Racer.Component, Disposable {
         mDriftingSoundPlayer = audioManager.createSoundPlayer(atlas.get("drifting"));
         mTurboSoundPlayer = audioManager.createSoundPlayer(atlas.get("turbo"));
         mCollisionSoundPlayer = audioManager.createSoundPlayer(atlas.get("collision"));
+        mSplashSoundPlayer = audioManager.createSoundPlayer(atlas.get("splash"));
         mSoundPlayers.addAll(mDriftingSoundPlayer, mTurboSoundPlayer, mCollisionSoundPlayer);
         mRacer = racer;
     }
@@ -113,6 +115,15 @@ class AudioComponent implements Racer.Component, Disposable {
             mJustCollided = false;
         } else {
             mCollisionSoundPlayer.stop();
+        }
+
+        if (mRacer.getVehicle().isOnWater()) {
+            mSplashSoundPlayer.setVolume(normSpeed * maxVolume);
+            if (!mSplashSoundPlayer.isLooping()) {
+                mSplashSoundPlayer.loop();
+            }
+        } else {
+            mSplashSoundPlayer.stop();
         }
     }
 
