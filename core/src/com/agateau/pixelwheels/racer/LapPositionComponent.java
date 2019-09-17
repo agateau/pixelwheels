@@ -27,6 +27,11 @@ import com.agateau.utils.log.NLog;
  * A component to track the racer time
  */
 public class LapPositionComponent implements Racer.Component {
+    public enum Status {
+        RACING,
+        COMPLETED, // Crossed the finished line, or was an AI currently racing when the last human finished
+        DID_NOT_START // Had not yet crossed the start line when the last human finished!
+    }
     private final Track mTrack;
     private final Vehicle mVehicle;
 
@@ -35,7 +40,7 @@ public class LapPositionComponent implements Racer.Component {
     private float mLapTime = 0;
     private int mLapCount = 0;
     private final LapPosition mLapPosition = new LapPosition();
-    private boolean mHasFinishedRace = false;
+    private Status mStatus = Status.RACING;
 
     // Should we take into account the next time the vehicle passes the start line?
     // Starts at true because at the start of the race vehicles pass the line
@@ -49,7 +54,7 @@ public class LapPositionComponent implements Racer.Component {
 
     @Override
     public void act(float delta) {
-        if (mHasFinishedRace) {
+        if (mStatus != Status.RACING) {
             return;
         }
         mTotalTime += delta;
@@ -74,7 +79,11 @@ public class LapPositionComponent implements Racer.Component {
     }
 
     public boolean hasFinishedRace() {
-        return mHasFinishedRace;
+        return mStatus != Status.RACING;
+    }
+
+    public Status getStatus() {
+        return mStatus;
     }
 
     private void updatePosition() {
@@ -99,7 +108,7 @@ public class LapPositionComponent implements Racer.Component {
             ++mLapCount;
             if (mLapCount > mTrack.getTotalLapCount()) {
                 --mLapCount;
-                mHasFinishedRace = true;
+                mStatus = Status.COMPLETED;
             }
         } else if (crossedFinishLineBackward) {
             --mLapCount;
@@ -115,9 +124,19 @@ public class LapPositionComponent implements Racer.Component {
     }
 
     public void markRaceFinished() {
-        if (mHasFinishedRace) {
+        if (mStatus != Status.RACING) {
             return;
         }
+
+        if (mLapCount == 0) {
+            // This vehicle did not really start!
+            mTotalTime = Float.MAX_VALUE;
+            mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
+            mStatus = Status.DID_NOT_START;
+            return;
+        }
+
+        mStatus = Status.COMPLETED;
         // Completing one lap represents that percentage of the race
         float lapPercent = 1f / mTrack.getTotalLapCount();
 
@@ -128,7 +147,6 @@ public class LapPositionComponent implements Racer.Component {
         if (!hasBestLapTime()) {
             mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
         }
-        mHasFinishedRace = true;
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")

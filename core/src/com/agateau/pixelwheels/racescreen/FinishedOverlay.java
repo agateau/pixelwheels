@@ -120,11 +120,20 @@ public class FinishedOverlay extends Overlay {
             String style = UiUtils.getEntrantRowStyle(racer.getEntrant());
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
             mTableRowCreator.setRowStyle(style);
+            String bestLapTime;
+            String totalTime;
+            if (lapPositionComponent.getStatus() == LapPositionComponent.Status.DID_NOT_START) {
+                bestLapTime = "-";
+                totalTime = "-";
+            } else {
+                bestLapTime = StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime());
+                totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
+            }
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     racer.getVehicle().getName(),
-                    StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime()),
-                    StringUtils.formatRaceTime(lapPositionComponent.getTotalTime()),
+                    bestLapTime,
+                    totalTime,
                     String.valueOf(racer.getEntrant().getScore())
             );
         }
