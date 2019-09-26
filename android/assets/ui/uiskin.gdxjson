@@ -94,6 +94,12 @@
         },
         menuTitle: {
             font: title-font
+        },
+        version: {
+            font: tiny-font,
+            fontColor: {
+                r: 1, g: 1, b: 1, a: 0.6
+            }
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

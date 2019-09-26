@@ -23,6 +23,8 @@
             </Action>
         </Menu>
 
+        <Label id="version" bottomLeft="root.bottomLeft" style="version"/>
+
         <Image bottomRight="root.bottomRight -1 0" name="wip"/>
     </AnchorGroup>
 </gdxui>

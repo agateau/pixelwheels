@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.VersionInfo;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -28,6 +29,7 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
  * Main menu, shown at startup
@@ -100,6 +102,10 @@ public class MainMenuScreen extends PwStageScreen {
                 }
             });
         }
+
+        Label versionLabel = builder.getActor("version");
+        versionLabel.setText("V" + VersionInfo.VERSION);
+        versionLabel.pack();
     }
 
     @Override
