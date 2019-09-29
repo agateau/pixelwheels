@@ -1,8 +1,17 @@
 #!/bin/sh
 set -e
-ASEPRITE_VERSION=$1
+ASEPRITE_VERSION=1.2.13
 
 ASEPRITE_URL=https://github.com/aseprite/aseprite/releases/download/v$ASEPRITE_VERSION/Aseprite-v$ASEPRITE_VERSION-Source.zip \
+
+if [ "$1" = "-h" -o "$1" = "--help" -o -z "$1" ]; then
+    echo "Usage: download-aseprite <src-dir>"
+    exit 1
+fi
+SRC_DIR="$1"
+
+mkdir -p "$SRC_DIR"
+cd "$SRC_DIR"
 
 curl --location $ASEPRITE_URL > aseprite.zip
 unzip -q aseprite.zip

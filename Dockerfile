@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 
 COPY tools/aseprite/install-aseprite-dependencies bin
-ENV ASEPRITE_VERSION 1.2.13
 
 RUN apt-get update \
     && install-aseprite-dependencies \
@@ -14,12 +13,15 @@ RUN apt-get update \
         python3-setuptools \
         zip
 
-COPY tools/aseprite/download-aseprite /bin
-WORKDIR /src/aseprite
-RUN download-aseprite $ASEPRITE_VERSION
+COPY \
+    tools/aseprite/download-aseprite \
+    tools/aseprite/build-aseprite \
+    /bin/
 
-COPY tools/aseprite/build-aseprite /bin
-RUN build-aseprite
+WORKDIR /src/aseprite
+RUN download-aseprite . \
+    && build-aseprite . /usr/local \
+    && rm -rf /src/aseprite
 
 COPY requirements.txt /src
 RUN pip3 install -r /src/requirements.txt
