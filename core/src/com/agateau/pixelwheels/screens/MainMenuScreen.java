@@ -104,7 +104,7 @@ public class MainMenuScreen extends PwStageScreen {
         }
 
         Label versionLabel = builder.getActor("version");
-        versionLabel.setText("V" + VersionInfo.VERSION);
+        versionLabel.setText("ver. " + VersionInfo.VERSION);
         versionLabel.pack();
     }
 

@@ -96,9 +96,9 @@
             font: title-font
         },
         version: {
-            font: tiny-font,
+            font: tiny-bold-font,
             fontColor: {
-                r: 1, g: 1, b: 1, a: 0.6
+                r: 0.247, g: 0.157, b: 0.196, a: 1
             }
         }
     },

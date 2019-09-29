@@ -54,6 +54,10 @@ public class UiAssets {
         this.skin.add("tiny-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 12;
+        this.skin.add("tiny-bold-font", loadFont("fonts/Xolonium-Bold.ttf", parameter));
+
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 20;
         parameter.borderWidth = 0.5f;
         this.skin.add("small-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));

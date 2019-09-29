@@ -23,8 +23,8 @@
             </Action>
         </Menu>
 
-        <Label id="version" bottomLeft="root.bottomLeft" style="version"/>
+        <Image id="road-sign" bottomRight="root.bottomRight -1 0" name="version-number-road-sign"/>
 
-        <Image bottomRight="root.bottomRight -1 0" name="wip"/>
+        <Label id="version" topCenter="road-sign.topCenter 0 -10px" style="version" align="center"/>
     </AnchorGroup>
 </gdxui>
