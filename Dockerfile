@@ -23,11 +23,11 @@ RUN apt-get update \
         python3-setuptools \
         zip
 
-COPY download-aseprite /bin
+COPY tools/aseprite/download-aseprite /bin
 WORKDIR /src/aseprite
 RUN download-aseprite $ASEPRITE_VERSION
 
-COPY build-aseprite /bin
+COPY tools/aseprite/build-aseprite /bin
 RUN build-aseprite
 
 COPY requirements.txt /src

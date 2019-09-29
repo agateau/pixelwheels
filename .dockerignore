@@ -1,0 +1,4 @@
+*
+!ci/*
+!tools/aseprite/*
+!requirements.txt

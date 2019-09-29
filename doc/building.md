@@ -14,7 +14,7 @@ Building Pixel Wheels requires the following components:
 
 You can install PAFX and Pillow with:
 
-    pip3 install -r ci/requirements.txt
+    pip3 install -r requirements.txt
 
 ## Assets
 
