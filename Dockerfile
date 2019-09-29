@@ -1,19 +1,10 @@
 FROM ubuntu:18.04
 
+COPY tools/aseprite/install-aseprite-dependencies bin
 ENV ASEPRITE_VERSION 1.2.13
 
 RUN apt-get update \
-    && echo "Aseprite dependencies" \
-    && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        cmake \
-        curl \
-        g++ \
-        libx11-dev \
-        libxcursor-dev \
-        ninja-build \
-        unzip \
-    && echo "Other dependencies" \
+    && install-aseprite-dependencies \
     && apt-get install -y --no-install-recommends \
         git \
         imagemagick \
