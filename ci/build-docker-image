@@ -1,4 +1,4 @@
 #!/bin/sh
 set -e
 cd $(dirname $0)
-docker build -t pixelwheels .
+docker build -t pixelwheels ..

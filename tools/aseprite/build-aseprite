@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "-h" -o "$1" = "--help" \
+        -o -z "$1" -o -z "$2" ]
+then
+    echo "Usage: build-aseprite <src-dir> <install-dir>"
+    exit 1
+fi
+
+SRC_DIR="$1"
+INSTALL_DIR="$2"
+
+cd "$SRC_DIR"
+if [ ! -e CMakeLists.txt ] ; then
+    echo "Looks like '$PWD' is not a source tree"
+    exit 1
+fi
+
+mkdir -p "$INSTALL_DIR"
+
+mkdir -p build
+cd build
+cmake "-DCMAKE_INSTALL_PREFIX=$INSTALL_DIR" \
+    -DENABLE_UI=OFF \
+    -DCMAKE_BUILD_TYPE=MinSizeRel \
+    -G Ninja ..
+
+ninja aseprite
+ninja install
