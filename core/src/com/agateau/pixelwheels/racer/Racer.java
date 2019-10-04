@@ -81,6 +81,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()
                     || mGroundCollisionHandlerComponent.getState() != GroundCollisionHandlerComponent.State.NORMAL) {
                 mVehicle.setAccelerating(false);
+                mVehicle.setBraking(false);
             } else {
                 mPilot.act(delta);
             }
