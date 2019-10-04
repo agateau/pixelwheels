@@ -28,6 +28,7 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class CountDown {
     private static final int START = 3;
+    private static final float TICK_DURATION = 0.75f;
 
     private final GameWorld mGameWorld;
     private final AudioManager mAudioManager;
@@ -60,7 +61,7 @@ public class CountDown {
             return;
         }
         int oldValue = getValue();
-        mTime -= delta;
+        mTime -= delta / TICK_DURATION;
         int newValue = getValue();
         if ((oldValue != newValue && newValue >= 0) || mFirstCall) {
             mFirstCall = false;
