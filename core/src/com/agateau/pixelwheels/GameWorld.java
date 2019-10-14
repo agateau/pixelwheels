@@ -312,13 +312,13 @@ public class GameWorld implements ContactListener, Disposable {
 
     private void setupBonusPools() {
         addPool(new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0, 1, 1});
+                new float[]{0.2f, 1.0f, 1.0f});
         addPool(new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{2, 1, 0});
+                new float[]{2.0f, 1.0f, 0.5f});
         addPool(new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0, 1, 2});
+                new float[]{0.1f, 1.0f, 2.0f});
         addPool(new BonusPool<>(MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0, 1, 1});
+                new float[]{0.2f, 1.0f, 1.0f});
     }
 
     private void addPool(BonusPool pool, float[] counts) {
