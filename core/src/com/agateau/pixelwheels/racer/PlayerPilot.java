@@ -40,6 +40,7 @@ public class PlayerPilot implements Pilot {
     private final int mPlayerIndex;
 
     private GameInputHandler mInputHandler;
+    private boolean mLastTriggering = false;
 
     public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer, GameConfig gameConfig, int playerIndex) {
         mAssets = assets;
@@ -67,9 +68,10 @@ public class PlayerPilot implements Pilot {
             vehicle.setDirection(input.direction);
             vehicle.setAccelerating(input.accelerating);
             vehicle.setBraking(input.braking);
-            if (input.triggeringBonus) {
+            if (input.triggeringBonus && !mLastTriggering) {
                 mRacer.triggerBonus();
             }
+            mLastTriggering = input.triggeringBonus;
         }
     }
 
