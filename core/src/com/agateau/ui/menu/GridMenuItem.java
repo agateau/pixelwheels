@@ -65,6 +65,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public interface SelectionListener<T> {
         void selectedChanged(T item, int index);
         void currentChanged(T item, int index);
+        void confirmSelection();
     }
 
     public static class GridMenuItemStyle {
@@ -132,6 +133,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             mSelectedIndex = -1;
             if (mSelectionListener != null) {
                 mSelectionListener.selectedChanged(null, -1);
+            }
+            return;
+        }
+        // Selection does not change, consider this as a confirmation
+        if (mSelectedIndex == index) {
+            if (mSelectionListener != null) {
+                mSelectionListener.confirmSelection();
             }
             return;
         }

@@ -133,6 +133,11 @@ public class SelectTrackScreen extends PwStageScreen {
             public void currentChanged(Track track, int index) {
                 updateTrackRecords(track);
             }
+
+            @Override
+            public void confirmSelection() {
+                next();
+            }
         });
     }
 

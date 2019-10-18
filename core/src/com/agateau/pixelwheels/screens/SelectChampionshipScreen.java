@@ -120,6 +120,11 @@ public class SelectChampionshipScreen extends PwStageScreen {
             public void currentChanged(Championship championship, int index) {
                 updateChampionshipDetails(championship);
             }
+
+            @Override
+            public void confirmSelection() {
+                next();
+            }
         });
     }
 
