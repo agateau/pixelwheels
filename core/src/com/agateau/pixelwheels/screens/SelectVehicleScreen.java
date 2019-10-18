@@ -110,6 +110,11 @@ public class SelectVehicleScreen extends PwStageScreen {
             public void currentChanged(VehicleDef vehicle, int index) {
                 updateVehicleDetails(vehicle);
             }
+
+            @Override
+            public void confirmSelection() {
+                next();
+            }
         });
     }
 
