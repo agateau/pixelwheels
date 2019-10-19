@@ -147,7 +147,7 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void next() {
-        if (mTrackSelector.getSelected() == null) {
+        if (mTrackSelector.getCurrent() == null) {
             return;
         }
         saveSelectedMap();
