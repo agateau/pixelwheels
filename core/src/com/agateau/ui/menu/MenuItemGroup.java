@@ -119,7 +119,7 @@ public class MenuItemGroup implements MenuItem {
 
     @Override
     public boolean goDown() {
-        if (getCurrentItem().goDown()) {
+        if (getCurrentItem() != null && getCurrentItem().goDown()) {
             return true;
         }
         return adjustIndex(mCurrentIndex, 1);
@@ -127,7 +127,7 @@ public class MenuItemGroup implements MenuItem {
 
     @Override
     public boolean goUp() {
-        if (getCurrentItem().goUp()) {
+        if (getCurrentItem() != null && getCurrentItem().goUp()) {
             return true;
         }
         return adjustIndex(mCurrentIndex, -1);
