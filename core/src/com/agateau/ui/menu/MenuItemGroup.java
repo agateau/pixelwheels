@@ -66,6 +66,11 @@ public class MenuItemGroup implements MenuItem {
                 }
                 return false;
             }
+
+            @Override
+            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                menu.setCurrentItem(MenuItemGroup.this);
+            }
         });
     }
 
@@ -176,8 +181,10 @@ public class MenuItemGroup implements MenuItem {
             setCurrentIndex(-1);
             return;
         }
+        if (getCurrentItem() instanceof MenuItemGroup)
+            ((MenuItemGroup)getCurrentItem()).setCurrentItem(item);
         int index = getItemIndex(item);
-        Assert.check(index != -1, "Invalid item");
+        if (index == -1) return;
         setCurrentIndex(index);
     }
 

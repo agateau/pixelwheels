@@ -79,7 +79,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 if (pointer == 0 && button != 0) {
                     return false;
                 }
-                GridMenuItem.this.touchDown(x, y);
+                GridMenuItem.this.handlePointer(x, y, true);
+                return true;
+            }
+
+            @Override
+            public boolean mouseMoved (InputEvent event, float x, float y) {
+                GridMenuItem.this.handlePointer(x, y, false);
                 return true;
             }
         });
@@ -362,7 +368,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 : 0;
     }
 
-    private void touchDown(float touchX, float touchY) {
+    private void handlePointer(float touchX, float touchY, boolean doTrigger) {
         if (mItems.size == 0) {
             return;
         }
@@ -382,7 +388,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             setCurrentIndex(idx);
-            trigger();
+            if (doTrigger)
+                trigger();
         }
     }
 }

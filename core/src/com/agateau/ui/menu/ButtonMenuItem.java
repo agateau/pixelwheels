@@ -51,6 +51,11 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
                 }
                 MenuItemTriggerEvent.fire(ButtonMenuItem.this);
             }
+
+            @Override
+            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                menu.setCurrentItem(ButtonMenuItem.this);
+            }
         });
     }
 
