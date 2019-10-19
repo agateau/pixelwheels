@@ -28,6 +28,8 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 /**
  * Select between quick race, championship...
@@ -77,6 +79,13 @@ public class SelectGameModeScreen extends PwStageScreen {
         if (mGame.getConfig().gameMode == GameMode.CHAMPIONSHIP) {
             menu.setCurrentItem(championshipItem);
         }
+
+        builder.getActor("backButton").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
