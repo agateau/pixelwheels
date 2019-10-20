@@ -158,9 +158,9 @@ public class SelectChampionshipScreen extends PwStageScreen {
     }
 
     private void next() {
-        if (mChampionshipSelector.getSelected() == null) {
+        if (mChampionshipSelector.getCurrent() == null) {
             return;
         }
-        mListener.onChampionshipSelected(mChampionshipSelector.getSelected());
+        mListener.onChampionshipSelected(mChampionshipSelector.getCurrent());
     }
 }

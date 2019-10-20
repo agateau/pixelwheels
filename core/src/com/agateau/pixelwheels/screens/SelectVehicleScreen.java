@@ -136,7 +136,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     }
 
     private void next() {
-        VehicleDef vehicleDef = mVehicleSelector.getSelected();
+        VehicleDef vehicleDef = mVehicleSelector.getCurrent();
         if (vehicleDef == null) {
             return;
         }
