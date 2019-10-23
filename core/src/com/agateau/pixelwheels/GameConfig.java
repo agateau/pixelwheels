@@ -27,14 +27,11 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * The game configuration
- */
+/** The game configuration */
 public class GameConfig {
     public interface ChangeListener {
         void onGameConfigChanged();
@@ -49,7 +46,8 @@ public class GameConfig {
     public String championship;
 
     private final String[] mPlayerInputFactoryIds = new String[Constants.MAX_PLAYERS];
-    private final GameInputHandler[] mPlayerInputHandlers = new GameInputHandler[Constants.MAX_PLAYERS];
+    private final GameInputHandler[] mPlayerInputHandlers =
+            new GameInputHandler[Constants.MAX_PLAYERS];
 
     private final Preferences mPreferences;
     private final ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<>();
@@ -71,7 +69,9 @@ public class GameConfig {
         }
 
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            mPlayerInputFactoryIds[idx] = mPreferences.getString(PrefConstants.INPUT_PREFIX + idx, PrefConstants.INPUT_DEFAULT);
+            mPlayerInputFactoryIds[idx] =
+                    mPreferences.getString(
+                            PrefConstants.INPUT_PREFIX + idx, PrefConstants.INPUT_DEFAULT);
             this.vehicles[idx] = mPreferences.getString(PrefConstants.VEHICLE_ID_PREFIX + idx);
         }
 
@@ -91,10 +91,8 @@ public class GameConfig {
 
         mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
-            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + idx,
-                    this.vehicles[idx]);
-            mPreferences.putString(PrefConstants.INPUT_PREFIX + idx,
-                    mPlayerInputFactoryIds[idx]);
+            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + idx, this.vehicles[idx]);
+            mPreferences.putString(PrefConstants.INPUT_PREFIX + idx, mPlayerInputFactoryIds[idx]);
         }
 
         mPreferences.putString(PrefConstants.TRACK_ID, this.track);
@@ -117,7 +115,9 @@ public class GameConfig {
     }
 
     public GameInputHandler getPlayerInputHandler(int index) {
-        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + index);
+        Assert.check(
+                index < mPlayerInputHandlers.length,
+                "Not enough input handlers for index " + index);
         return mPlayerInputHandlers[index];
     }
 
@@ -131,7 +131,9 @@ public class GameConfig {
     }
 
     public void savePlayerInputHandlerConfig(int index) {
-        Assert.check(index < mPlayerInputHandlers.length, "Not enough input handlers for index " + index);
+        Assert.check(
+                index < mPlayerInputHandlers.length,
+                "Not enough input handlers for index " + index);
         GameInputHandler handler = mPlayerInputHandlers[index];
         if (handler == null) {
             return;
@@ -147,7 +149,8 @@ public class GameConfig {
     }
 
     private void setupInputHandlers() {
-        Map<String, Array<GameInputHandler>> inputHandlersByIds = GameInputHandlerFactories.getInputHandlersByIds();
+        Map<String, Array<GameInputHandler>> inputHandlersByIds =
+                GameInputHandlerFactories.getInputHandlersByIds();
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
             mPlayerInputHandlers[idx] = null;
             String id = mPlayerInputFactoryIds[idx];

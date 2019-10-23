@@ -37,13 +37,10 @@ public class LabelMenuItem implements MenuItem {
     }
 
     @Override
-    public void setFocused(boolean focused) {
-    }
+    public void setFocused(boolean focused) {}
 
     @Override
-    public void trigger() {
-
-    }
+    public void trigger() {}
 
     @Override
     public boolean goUp() {
@@ -56,14 +53,10 @@ public class LabelMenuItem implements MenuItem {
     }
 
     @Override
-    public void goLeft() {
-
-    }
+    public void goLeft() {}
 
     @Override
-    public void goRight() {
-
-    }
+    public void goRight() {}
 
     @Override
     public Rectangle getFocusRectangle() {

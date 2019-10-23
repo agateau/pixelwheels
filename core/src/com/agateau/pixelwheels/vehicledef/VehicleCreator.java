@@ -26,9 +26,7 @@ import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Create a Vehicle from VehicleIO data
- */
+/** Create a Vehicle from VehicleIO data */
 public class VehicleCreator {
     private final GameWorld mGameWorld;
     private final Assets mAssets;
@@ -39,6 +37,7 @@ public class VehicleCreator {
     }
 
     private final Vector2 sWheelPos = new Vector2();
+
     public Vehicle create(VehicleDef vehicleDef, Vector2 position, float angle) {
         final float U = Constants.UNIT_FOR_PIXEL;
         float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
@@ -46,28 +45,30 @@ public class VehicleCreator {
         TextureRegion mainRegion = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
         TextureRegion wheelRegion = mAssets.wheel;
 
-        Vehicle vehicle = new Vehicle(mainRegion, mGameWorld, position.x, position.y, vehicleDef.shapes, angle);
+        Vehicle vehicle =
+                new Vehicle(
+                        mainRegion, mGameWorld, position.x, position.y, vehicleDef.shapes, angle);
         vehicle.setName(vehicleDef.name);
         vehicle.setId(vehicleDef.id);
 
         for (AxleDef axle : vehicleDef.axles) {
             /*
-              axle assumes the vehicle is facing top, like this:
+             axle assumes the vehicle is facing top, like this:
 
-               ____
-              /    \
-             []----[] ^
-              |    |  |
-              |    |  | axle.y
-             []----[] |
-              |____|  |
+              ____
+             /    \
+            []----[] ^
+             |    |  |
+             |    |  | axle.y
+            []----[] |
+             |____|  |
 
-              <---->
-               axle.width
+             <---->
+              axle.width
 
-              The body, on the other hand, assumes that if angle is 0, the vehicle is facing right.
-              We have to swap coordinates to take this into account.
-             */
+             The body, on the other hand, assumes that if angle is 0, the vehicle is facing right.
+             We have to swap coordinates to take this into account.
+            */
             float wheelY = axle.width * U / 2;
             float wheelX = (axle.y - mainRegion.getRegionWidth() / 2f) * U;
             float drive = maxDrivingForce * axle.drive;
@@ -83,7 +84,14 @@ public class VehicleCreator {
         return vehicle;
     }
 
-    private void createWheel(Vehicle vehicle, TextureRegion region, float x, float y, AxleDef axle, float drive, float angle) {
+    private void createWheel(
+            Vehicle vehicle,
+            TextureRegion region,
+            float x,
+            float y,
+            AxleDef axle,
+            float drive,
+            float angle) {
         Vehicle.WheelInfo info = vehicle.addWheel(region, x, y, angle);
         info.steeringFactor = axle.steer;
         info.wheel.setCanDrift(axle.drift);

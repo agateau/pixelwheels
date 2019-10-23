@@ -27,7 +27,8 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * An helper class to find the closest body using a raycast
  *
- * World is not passed to the constructor to make it easier for the class to be used in a poolable object
+ * <p>World is not passed to the constructor to make it easier for the class to be used in a
+ * poolable object
  */
 public class ClosestBodyFinder implements RayCastCallback {
     private static final float ANGLE_BETWEEN_RAYS = 3;

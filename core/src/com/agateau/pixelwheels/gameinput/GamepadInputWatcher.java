@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.IntArray;
 public class GamepadInputWatcher {
     public interface Listener {
         void onNotEnoughGamepads();
+
         void onEnoughGamepads();
     }
 
@@ -37,17 +38,19 @@ public class GamepadInputWatcher {
     public GamepadInputWatcher(GameConfig gameConfig, Listener listener) {
         mGameConfig = gameConfig;
         mListener = listener;
-        GamepadInputMappers.getInstance().addListener(new GamepadInputMappers.Listener() {
-            @Override
-            public void onGamepadConnected() {
-                GamepadInputWatcher.this.onGamepadConnected();
-            }
+        GamepadInputMappers.getInstance()
+                .addListener(
+                        new GamepadInputMappers.Listener() {
+                            @Override
+                            public void onGamepadConnected() {
+                                GamepadInputWatcher.this.onGamepadConnected();
+                            }
 
-            @Override
-            public void onGamepadDisconnected() {
-                GamepadInputWatcher.this.onGamepadDisconnected();
-            }
-        });
+                            @Override
+                            public void onGamepadDisconnected() {
+                                GamepadInputWatcher.this.onGamepadDisconnected();
+                            }
+                        });
     }
 
     public int getInputCount() {

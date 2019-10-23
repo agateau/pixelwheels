@@ -26,9 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-/**
- * Utility methods to help work with Scene2d
- */
+/** Utility methods to help work with Scene2d */
 public class Scene2dUtils {
     private static final float FAKE_TOUCH_DELAY = 0.1f;
 
@@ -62,7 +60,8 @@ public class Scene2dUtils {
         clicker.click(target);
     }
 
-    public static void fireTouchEvent(Actor target, float stageX, float stageY, InputEvent.Type type) {
+    public static void fireTouchEvent(
+            Actor target, float stageX, float stageY, InputEvent.Type type) {
         InputEvent event = Pools.obtain(InputEvent.class);
         event.setType(type);
         event.setStage(target.getStage());

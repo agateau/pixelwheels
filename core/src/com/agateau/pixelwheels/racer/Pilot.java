@@ -20,9 +20,7 @@ package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.stats.GameStats;
 
-/**
- * A Pilot
- */
+/** A Pilot */
 public interface Pilot extends Racer.Component {
     GameStats getGameStats();
 }

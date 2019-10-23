@@ -19,17 +19,17 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.Explosable;
-import com.agateau.pixelwheels.utils.BodyRegionDrawer;
-import com.agateau.pixelwheels.utils.Box2DUtils;
-import com.agateau.pixelwheels.racescreen.Collidable;
-import com.agateau.pixelwheels.racescreen.CollisionCategories;
-import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
+import com.agateau.pixelwheels.racescreen.Collidable;
+import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.utils.BodyRegionDrawer;
+import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -46,10 +46,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * A mine on the road
- */
-public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
+/** A mine on the road */
+public class Mine extends GameObjectAdapter
+        implements Collidable, Pool.Poolable, Disposable, Explosable {
     private static final ReflectionPool<Mine> sPool = new ReflectionPool<>(Mine.class);
 
     private static final float MINE_RADIUS = 0.8f;
@@ -68,7 +67,8 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
 
     private static final Vector2 sTmp = new Vector2();
 
-    public static Mine create(GameWorld gameWorld, Assets assets, AudioManager audioManager, Racer owner) {
+    public static Mine create(
+            GameWorld gameWorld, Assets assets, AudioManager audioManager, Racer owner) {
         Mine mine = sPool.obtain();
         if (mine.mBodyDef == null) {
             mine.firstInit(assets);
@@ -90,9 +90,12 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         mine.mBody.setUserData(mine);
         mine.mBody.setType(BodyDef.BodyType.DynamicBody);
 
-        Box2DUtils.setCollisionInfo(mine.mBody, CollisionCategories.EXPLOSABLE,
-                CollisionCategories.WALL | CollisionCategories.RACER
-                | CollisionCategories.RACER_BULLET);
+        Box2DUtils.setCollisionInfo(
+                mine.mBody,
+                CollisionCategories.EXPLOSABLE,
+                CollisionCategories.WALL
+                        | CollisionCategories.RACER
+                        | CollisionCategories.RACER_BULLET);
 
         gameWorld.addGameObject(mine);
 
@@ -113,7 +116,8 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
         Body vehicleBody = mOwner.getVehicle().getBody();
         mJointDef.bodyA = mOwner.getVehicle().getBody();
         mJointDef.bodyB = mBody;
-        mJointDef.localAnchorA.set(vehicleBody.getLocalCenter().add(-mOwner.getVehicle().getWidth(), 0));
+        mJointDef.localAnchorA.set(
+                vehicleBody.getLocalCenter().add(-mOwner.getVehicle().getWidth(), 0));
         mJointDef.localAnchorB.set(mBody.getLocalCenter());
         mJoint = mGameWorld.getBox2DWorld().createJoint(mJointDef);
     }
@@ -135,6 +139,7 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
     }
 
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
+
     @Override
     public void draw(Batch batch, ZLevel zLevel) {
         mBodyRegionDrawer.setBatch(batch);
@@ -182,23 +187,17 @@ public class Mine extends GameObjectAdapter implements Collidable, Pool.Poolable
             return;
         }
         explode();
-        ((Racer)other).spin();
+        ((Racer) other).spin();
     }
 
     @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
+    public void endContact(Contact contact, Fixture otherFixture) {}
 
     @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-
-    }
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {}
 
     @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 
     public void drop() {
         mGameWorld.getBox2DWorld().destroyJoint(mJoint);

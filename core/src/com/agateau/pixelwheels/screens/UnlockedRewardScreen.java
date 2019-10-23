@@ -68,11 +68,13 @@ public class UnlockedRewardScreen extends NavStageScreen {
             default:
                 throw new RuntimeException("Invalid value for reward type");
         }
-        return new UnlockedRewardScreen(game, reward, new NavStageScreen.NextListener() {
-            @Override
-            public void onNextPressed() {
-            }
-        });
+        return new UnlockedRewardScreen(
+                game,
+                reward,
+                new NavStageScreen.NextListener() {
+                    @Override
+                    public void onNextPressed() {}
+                });
     }
 
     private void setupUi() {
@@ -84,7 +86,8 @@ public class UnlockedRewardScreen extends NavStageScreen {
             builder.defineVariable("vehicle");
         }
 
-        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/unlockedreward.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/unlockedreward.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -92,9 +95,9 @@ public class UnlockedRewardScreen extends NavStageScreen {
         setNavListener(mNextListener);
 
         if (isVehicle) {
-            setupVehicleReward(builder, (VehicleDef)(mReward.prize));
+            setupVehicleReward(builder, (VehicleDef) (mReward.prize));
         } else if (mReward.prize instanceof Championship) {
-            setupChampionshipReward(builder, (Championship)(mReward.prize));
+            setupChampionshipReward(builder, (Championship) (mReward.prize));
         } else {
             throw new RuntimeException("Don't know how to show reward for " + mReward.prize);
         }
@@ -108,7 +111,8 @@ public class UnlockedRewardScreen extends NavStageScreen {
 
     private void setupChampionshipReward(UiBuilder builder, Championship championship) {
         Image image = builder.getActor("championshipImage");
-        image.setDrawable(new TextureRegionDrawable(mGame.getAssets().getChampionshipRegion(championship)));
+        image.setDrawable(
+                new TextureRegionDrawable(mGame.getAssets().getChampionshipRegion(championship)));
         image.pack();
         image.setOrigin(Align.center);
         setupRewardDetails(builder, "New championship unlocked!", championship.getName());

@@ -30,9 +30,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Handle keyboard input, for desktop mode
- */
+/** Handle keyboard input, for desktop mode */
 public class KeyboardInputHandler implements GameInputHandler {
     public static class Factory implements GameInputHandlerFactory {
         final Array<GameInputHandler> mHandlers = new Array<>();
@@ -101,12 +99,10 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void createHudButtons(Assets assets, Hud hud) {
-    }
+    public void createHudButtons(Assets assets, Hud hud) {}
 
     @Override
-    public void setBonus(Bonus bonus) {
-    }
+    public void setBonus(Bonus bonus) {}
 
     @Override
     public boolean isAvailable() {

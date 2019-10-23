@@ -20,14 +20,11 @@ package com.agateau.utils;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;
 
-/**
- * A class to write data in CSV format
- */
+/** A class to write data in CSV format */
 public class CsvWriter {
     private final Writer mWriter;
     private char mFieldSeparator = ';';

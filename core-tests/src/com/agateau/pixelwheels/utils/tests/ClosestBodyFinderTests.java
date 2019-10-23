@@ -18,19 +18,18 @@
  */
 package com.agateau.pixelwheels.utils.tests;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
+
 import com.agateau.pixelwheels.utils.ClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNull;
 
 @RunWith(JUnit4.class)
 public class ClosestBodyFinderTests {

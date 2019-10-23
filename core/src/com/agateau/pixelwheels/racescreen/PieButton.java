@@ -22,17 +22,13 @@ import com.agateau.pixelwheels.Assets;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-/**
- * Indicate an input zone on the hud
- */
+/** Indicate an input zone on the hud */
 public class PieButton extends HudButton {
     private float mFrom = 0f;
     private float mTo = 90f;
     private float mRadius = 100;
 
-    /**
-     * name is a string like "left" or "right"
-     */
+    /** name is a string like "left" or "right" */
     public PieButton(Assets assets, Hud hud, String name) {
         super(assets, hud, name);
     }

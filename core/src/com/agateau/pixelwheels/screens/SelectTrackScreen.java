@@ -37,13 +37,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Select your track
- */
+/** Select your track */
 public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
@@ -53,17 +50,19 @@ public class SelectTrackScreen extends PwStageScreen {
     private Table mTotalRecordsTable;
     private AnchorGroup root;
 
-    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
-        @Override
-        protected void createCells(Table table, String style, String... values) {
-            table.add(values[0], style).right().padRight(12);
-            table.add(values[1], style).left().growX().padRight(12);
-            table.add(values[2], style).right();
-        }
-    };
+    private final TableRowCreator mTableRowCreator =
+            new TableRowCreator() {
+                @Override
+                protected void createCells(Table table, String style, String... values) {
+                    table.add(values[0], style).right().padRight(12);
+                    table.add(values[1], style).left().growX().padRight(12);
+                    table.add(values[2], style).right();
+                }
+            };
 
     public interface Listener {
         void onBackPressed();
+
         void onTrackSelected(Track track);
     }
 
@@ -84,7 +83,7 @@ public class SelectTrackScreen extends PwStageScreen {
     private void setupUi() {
         UiBuilder builder = UiUtils.createUiBuilder(mGame.getAssets());
 
-        root = (AnchorGroup)builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
+        root = (AnchorGroup) builder.build(FileUtils.assets("screens/selecttrack.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -97,19 +96,23 @@ public class SelectTrackScreen extends PwStageScreen {
         createTrackSelector(menu);
         updateTrackRecords(mTrackSelector.getCurrent());
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
 
-        builder.getActor("nextButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                next();
-            }
-        });
+        builder.getActor("nextButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                next();
+                            }
+                        });
     }
 
     private void createTrackSelector(Menu menu) {
@@ -121,24 +124,25 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
 
-        mTrackSelector.setSelectionListener(new GridMenuItem.SelectionListener<Track>() {
-            @Override
-            public void selectedChanged(Track item, int index) {
-                if (PlatformUtils.isButtonsUi()) {
-                    next();
-                }
-            }
+        mTrackSelector.setSelectionListener(
+                new GridMenuItem.SelectionListener<Track>() {
+                    @Override
+                    public void selectedChanged(Track item, int index) {
+                        if (PlatformUtils.isButtonsUi()) {
+                            next();
+                        }
+                    }
 
-            @Override
-            public void currentChanged(Track track, int index) {
-                updateTrackRecords(track);
-            }
+                    @Override
+                    public void currentChanged(Track track, int index) {
+                        updateTrackRecords(track);
+                    }
 
-            @Override
-            public void confirmSelection() {
-                next();
-            }
-        });
+                    @Override
+                    public void confirmSelection() {
+                        next();
+                    }
+                });
     }
 
     @Override

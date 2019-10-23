@@ -25,9 +25,7 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Details about the game to start
- */
+/** Details about the game to start */
 public abstract class GameInfo {
     private final Array<Entrant> mEntrants = new Array<>();
 
@@ -133,14 +131,15 @@ public abstract class GameInfo {
     }
 
     public void sortEntrants() {
-        mEntrants.sort((e1, e2) -> {
-            int cmp = -Integer.compare(e1.getScore(), e2.getScore());
-            if (cmp != 0) {
-                return cmp;
-            }
-            // If it's a tie, the fastest gets the best place
-            return Float.compare(e1.getRaceTime(), e2.getRaceTime());
-        });
+        mEntrants.sort(
+                (e1, e2) -> {
+                    int cmp = -Integer.compare(e1.getScore(), e2.getScore());
+                    if (cmp != 0) {
+                        return cmp;
+                    }
+                    // If it's a tie, the fastest gets the best place
+                    return Float.compare(e1.getRaceTime(), e2.getRaceTime());
+                });
     }
 
     public int getBestRank() {

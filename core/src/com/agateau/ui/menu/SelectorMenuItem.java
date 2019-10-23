@@ -26,9 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * An item to pick a text from a selection
- */
+/** An item to pick a text from a selection */
 public class SelectorMenuItem<T> extends RangeMenuItem {
     private static class Entry<T> {
         final Drawable drawable;

@@ -29,9 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
-/**
- * A Menu item to select int values
- */
+/** A Menu item to select int values */
 public class SliderMenuItem extends RangeMenuItem {
     private static final float NO_DIVISOR = -1;
 
@@ -50,24 +48,26 @@ public class SliderMenuItem extends RangeMenuItem {
             mMenuItem = menuItem;
             setTouchable(Touchable.enabled);
 
-            addCaptureListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    mMenuItem.onSliderChanged(computePercent(x));
-                    return true;
-                }
+            addCaptureListener(
+                    new InputListener() {
+                        @Override
+                        public boolean touchDown(
+                                InputEvent event, float x, float y, int pointer, int button) {
+                            mMenuItem.onSliderChanged(computePercent(x));
+                            return true;
+                        }
 
-                @Override
-                public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                    mMenuItem.onSliderChanged(computePercent(x));
-                }
+                        @Override
+                        public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                            mMenuItem.onSliderChanged(computePercent(x));
+                        }
 
-                private float computePercent(float x) {
-                    float handleWidth = mStyle.handle.getMinWidth();
-                    float fullWidth = getWidth() - mStyle.framePadding * 2 - handleWidth;
-                    return (x - mStyle.framePadding - handleWidth / 2) / fullWidth;
-                }
-            });
+                        private float computePercent(float x) {
+                            float handleWidth = mStyle.handle.getMinWidth();
+                            float fullWidth = getWidth() - mStyle.framePadding * 2 - handleWidth;
+                            return (x - mStyle.framePadding - handleWidth / 2) / fullWidth;
+                        }
+                    });
         }
 
         @Override
@@ -79,7 +79,7 @@ public class SliderMenuItem extends RangeMenuItem {
             mStyle.handle.draw(batch, handleX, getY(), handleWidth, getHeight());
 
             float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-            mFont.draw(batch, mText, getX(), y, getWidth(), Align.center, /* wrap= */false);
+            mFont.draw(batch, mText, getX(), y, getWidth(), Align.center, /* wrap= */ false);
         }
 
         public void setPercent(float percent) {
@@ -121,8 +121,8 @@ public class SliderMenuItem extends RangeMenuItem {
     public void setRange(float min, float max, float stepSize) {
         mStepSize = 1;
         mDivisor = 1 / stepSize;
-        mMin = (int)(min * mDivisor);
-        mMax = (int)(max * mDivisor);
+        mMin = (int) (min * mDivisor);
+        mMax = (int) (max * mDivisor);
         setIntValue(getIntValue());
     }
 
@@ -140,7 +140,7 @@ public class SliderMenuItem extends RangeMenuItem {
     }
 
     public void setFloatValue(float value) {
-        setIntValue((int)(value * mDivisor));
+        setIntValue((int) (value * mDivisor));
     }
 
     public float getFloatValue() {
@@ -158,7 +158,7 @@ public class SliderMenuItem extends RangeMenuItem {
         if (mMainActor == null) {
             return;
         }
-        mMainActor.setPercent((mValue - mMin) / (float)(mMax - mMin));
+        mMainActor.setPercent((mValue - mMin) / (float) (mMax - mMin));
         mMainActor.setText(formatValue(getIntValue()));
     }
 
@@ -185,7 +185,7 @@ public class SliderMenuItem extends RangeMenuItem {
     }
 
     private void onSliderChanged(float percent) {
-        setIntValue(mMin + (int)(percent * (mMax - mMin)));
+        setIntValue(mMin + (int) (percent * (mMax - mMin)));
         fireChangeEvent();
     }
 }

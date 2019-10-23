@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -36,22 +38,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Locale;
-
-import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
 
 public class ChampionshipFinishedScreen extends NavStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
-    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
-        @Override
-        protected void createCells(Table table, String style, String... values) {
-            table.add(values[0], style).right().padRight(24);
-            table.add(values[1], style).left().expandX().padRight(24);
-            table.add(values[2], style).right().padRight(24);
-        }
-    };
+    private final TableRowCreator mTableRowCreator =
+            new TableRowCreator() {
+                @Override
+                protected void createCells(Table table, String style, String... values) {
+                    table.add(values[0], style).right().padRight(24);
+                    table.add(values[1], style).left().expandX().padRight(24);
+                    table.add(values[2], style).right().padRight(24);
+                }
+            };
     private final NextListener mNextListener;
 
     private static class ShadowActor extends Actor {
@@ -74,13 +74,13 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         @Override
         public void draw(Batch batch, float parentAlpha) {
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
-            mSource.getDrawable().draw(batch,
-                    getX(), getY(),
-                    mSource.getWidth(), mSource.getHeight());
+            mSource.getDrawable()
+                    .draw(batch, getX(), getY(), mSource.getWidth(), mSource.getHeight());
         }
     }
 
-    public ChampionshipFinishedScreen(PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
+    public ChampionshipFinishedScreen(
+            PwGame game, ChampionshipGameInfo gameInfo, NextListener nextListener) {
         super(game.getAssets().ui);
         mGame = game;
         mGameInfo = gameInfo;
@@ -93,7 +93,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new ChampionshipFinishedScreen(mGame, mGameInfo, mNextListener));
+                mGame.replaceScreen(
+                        new ChampionshipFinishedScreen(mGame, mGameInfo, mNextListener));
             }
         };
     }
@@ -113,22 +114,28 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         final UiBuilder builder = new UiBuilder(assets.ui.atlas, assets.ui.skin);
         VehicleActor.register(builder, assets);
 
-        builder.registerActorFactory("Road", (uiBuilder, element) -> {
-            float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
-            return new ScrollableTiledImage(assets.ui.atlas.findRegion("road"), pixelsPerSecond);
-        });
+        builder.registerActorFactory(
+                "Road",
+                (uiBuilder, element) -> {
+                    float pixelsPerSecond = element.getFloatAttribute("pixelsPerSecond", 0);
+                    return new ScrollableTiledImage(
+                            assets.ui.atlas.findRegion("road"), pixelsPerSecond);
+                });
 
-        builder.registerActorFactory("Shadow", (uiBuilder, element) -> {
-            String sourceId = element.getAttribute("source", null);
-            if (sourceId == null) {
-                throw new UiBuilder.SyntaxException("Missing 'source' attribute");
-            }
-            Image source = uiBuilder.getActor(sourceId);
-            float offset = element.getFloatAttribute("offset", 12);
-            return new ShadowActor(source, offset);
-        });
+        builder.registerActorFactory(
+                "Shadow",
+                (uiBuilder, element) -> {
+                    String sourceId = element.getAttribute("source", null);
+                    if (sourceId == null) {
+                        throw new UiBuilder.SyntaxException("Missing 'source' attribute");
+                    }
+                    Image source = uiBuilder.getActor(sourceId);
+                    float offset = element.getFloatAttribute("offset", 12);
+                    return new ShadowActor(source, offset);
+                });
 
-        if (!setupCommonUi(builder, FileUtils.assets("screens/championshipfinished-podium.gdxui"))) {
+        if (!setupCommonUi(
+                builder, FileUtils.assets("screens/championshipfinished-podium.gdxui"))) {
             return;
         }
         fillPodium(builder, mGameInfo.getEntrants());
@@ -169,8 +176,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     vehicleDef.name,
-                    String.valueOf(entrant.getScore())
-            );
+                    String.valueOf(entrant.getScore()));
         }
     }
 

@@ -38,7 +38,7 @@ public class RepeatInstruction implements Instruction {
         Action action;
         if (mInstructions.size > 1) {
             SequenceAction seq = Actions.sequence();
-            for (Instruction instruction: mInstructions) {
+            for (Instruction instruction : mInstructions) {
                 seq.addAction(instruction.run());
             }
             action = seq;

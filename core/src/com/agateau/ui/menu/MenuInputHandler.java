@@ -25,18 +25,19 @@ import com.agateau.ui.VirtualKey;
 /**
  * Monitor input events for the menu
  *
- * Provides an API similar to Gdx.input but works with {@link VirtualKey}.
- * Handles key repeat.
+ * <p>Provides an API similar to Gdx.input but works with {@link VirtualKey}. Handles key repeat.
  */
 public class MenuInputHandler {
     private static final float REPEAT_DELAY = 0.6f;
     private static final float REPEAT_RATE = 0.025f;
+
     private enum State {
         STARTING,
         NORMAL,
         KEY_DOWN,
         REPEATING
     }
+
     private InputMapper mInputMapper = UiInputMapper.getInstance();
     private State mState = State.STARTING;
 
@@ -45,7 +46,9 @@ public class MenuInputHandler {
     private float mRepeatDelay = 0;
 
     /**
-     * Returns true if the key is being pressed. If the key is held down, this will return true at regular intervals, like an auto-repeat keyboard
+     * Returns true if the key is being pressed. If the key is held down, this will return true at
+     * regular intervals, like an auto-repeat keyboard
+     *
      * @param vkey the key to check
      * @return True if the key is being pressed
      */
@@ -55,6 +58,7 @@ public class MenuInputHandler {
 
     /**
      * Returns true if the key has been pressed, then released
+     *
      * @param vkey the key to check
      * @return True if the key has been pressed, then released
      */

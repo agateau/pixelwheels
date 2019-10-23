@@ -22,12 +22,9 @@ import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
-
 import java.util.HashMap;
 
-/**
- * Provides access to sound by name
- */
+/** Provides access to sound by name */
 public class SoundAtlas {
     private final FileHandle mRootDir;
     private final HashMap<String, Sound> mSounds = new HashMap<>();
@@ -51,6 +48,7 @@ public class SoundAtlas {
     public void load(String filename) {
         load(filename, "");
     }
+
     public void load(String filename, String name) {
         FileHandle file = mRootDir.child(filename);
         Assert.check(file.exists(), "No sound named " + filename + " in " + mRootDir.path());

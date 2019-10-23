@@ -31,19 +31,18 @@ import com.agateau.pixelwheels.screens.SelectChampionshipScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Set;
 
-/**
- * Handle a championship game
- */
+/** Handle a championship game */
 public class ChampionshipMaestro extends Maestro {
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
     private ChampionshipGameInfo mGameInfo;
 
     public ChampionshipMaestro(PwGame game, PlayerCount playerCount) {
         super(game, playerCount);
-        mGameInfoBuilder = new ChampionshipGameInfo.Builder(getGame().getAssets().vehicleDefs, getGame().getConfig());
+        mGameInfoBuilder =
+                new ChampionshipGameInfo.Builder(
+                        getGame().getAssets().vehicleDefs, getGame().getConfig());
     }
 
     @Override
@@ -60,54 +59,57 @@ public class ChampionshipMaestro extends Maestro {
     }
 
     private Screen createOnePlayerVehicleScreen() {
-        SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                getGame().replaceScreen(createChampionshipScreen());
-            }
+        SelectVehicleScreen.Listener listener =
+                new SelectVehicleScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        getGame().replaceScreen(createChampionshipScreen());
+                    }
 
-            @Override
-            public void onPlayerSelected(GameInfo.Player player) {
-                Array<GameInfo.Player> players = new Array<>();
-                players.add(player);
-                mGameInfoBuilder.setPlayers(players);
-                startChampionship();
-            }
-        };
+                    @Override
+                    public void onPlayerSelected(GameInfo.Player player) {
+                        Array<GameInfo.Player> players = new Array<>();
+                        players.add(player);
+                        mGameInfoBuilder.setPlayers(players);
+                        startChampionship();
+                    }
+                };
         return new SelectVehicleScreen(getGame(), listener);
     }
 
     private Screen createMultiPlayerVehicleScreen() {
-        MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                getGame().replaceScreen(createChampionshipScreen());
-            }
+        MultiPlayerScreen.Listener listener =
+                new MultiPlayerScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        getGame().replaceScreen(createChampionshipScreen());
+                    }
 
-            @Override
-            public void onPlayersSelected(Array<GameInfo.Player> players) {
-                mGameInfoBuilder.setPlayers(players);
-                startChampionship();
-            }
-        };
+                    @Override
+                    public void onPlayersSelected(Array<GameInfo.Player> players) {
+                        mGameInfoBuilder.setPlayers(players);
+                        startChampionship();
+                    }
+                };
         return new MultiPlayerScreen(getGame(), listener);
     }
 
     private Screen createChampionshipScreen() {
         final GameConfig gameConfig = getGame().getConfig();
-        SelectChampionshipScreen.Listener listener = new SelectChampionshipScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                stopGamepadInputWatcher();
-                getGame().popScreen();
-            }
+        SelectChampionshipScreen.Listener listener =
+                new SelectChampionshipScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        stopGamepadInputWatcher();
+                        getGame().popScreen();
+                    }
 
-            @Override
-            public void onChampionshipSelected(Championship championship) {
-                mGameInfoBuilder.setChampionship(championship);
-                getGame().replaceScreen(createSelectVehicleScreen());
-            }
-        };
+                    @Override
+                    public void onChampionshipSelected(Championship championship) {
+                        mGameInfoBuilder.setChampionship(championship);
+                        getGame().replaceScreen(createSelectVehicleScreen());
+                    }
+                };
 
         return new SelectChampionshipScreen(getGame(), listener, gameConfig.championship);
     }
@@ -127,44 +129,48 @@ public class ChampionshipMaestro extends Maestro {
     }
 
     private Screen createRaceScreen() {
-        RaceScreen.Listener listener = new RaceScreen.Listener() {
-            @Override
-            public void onRestartPressed() {
-                throw new RuntimeException("Restart should not be called in championship mode");
-            }
+        RaceScreen.Listener listener =
+                new RaceScreen.Listener() {
+                    @Override
+                    public void onRestartPressed() {
+                        throw new RuntimeException(
+                                "Restart should not be called in championship mode");
+                    }
 
-            @Override
-            public void onQuitPressed() {
-                stopGamepadInputWatcher();
-                getGame().showMainMenu();
-            }
+                    @Override
+                    public void onQuitPressed() {
+                        stopGamepadInputWatcher();
+                        getGame().showMainMenu();
+                    }
 
-            @Override
-            public void onNextTrackPressed() {
-                mGameInfo.sortEntrants();
-                if (mGameInfo.isLastTrack()) {
-                    getGame().onChampionshipFinished(mGameInfo);
-                    getGame().replaceScreen(createChampionshipFinishedScreen());
-                } else {
-                    mGameInfo.selectNextTrack();
-                    final Set<Reward> rewards = getNewlyUnlockedRewards();
-                    updateAlreadyUnlockedRewards();
-                    showUnlockedRewardScreen(rewards, () -> getGame().replaceScreen(createRaceScreen()));
-                }
-            }
-        };
+                    @Override
+                    public void onNextTrackPressed() {
+                        mGameInfo.sortEntrants();
+                        if (mGameInfo.isLastTrack()) {
+                            getGame().onChampionshipFinished(mGameInfo);
+                            getGame().replaceScreen(createChampionshipFinishedScreen());
+                        } else {
+                            mGameInfo.selectNextTrack();
+                            final Set<Reward> rewards = getNewlyUnlockedRewards();
+                            updateAlreadyUnlockedRewards();
+                            showUnlockedRewardScreen(
+                                    rewards, () -> getGame().replaceScreen(createRaceScreen()));
+                        }
+                    }
+                };
         return new RaceScreen(getGame(), listener, mGameInfo, RaceScreen.PauseButtons.NO_RESTART);
     }
 
     private Screen createChampionshipFinishedScreen() {
         final Set<Reward> rewards = getNewlyUnlockedRewards();
         updateAlreadyUnlockedRewards();
-        final NavStageScreen.NextListener navListener = new NavStageScreen.NextListener() {
-            @Override
-            public void onNextPressed() {
-                showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
-            }
-        };
+        final NavStageScreen.NextListener navListener =
+                new NavStageScreen.NextListener() {
+                    @Override
+                    public void onNextPressed() {
+                        showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
+                    }
+                };
         return new ChampionshipFinishedScreen(getGame(), mGameInfo, navListener);
     }
 }

@@ -24,20 +24,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-/**
- * A ScrollPane which can track the current item of a menu
- */
+/** A ScrollPane which can track the current item of a menu */
 public class MenuScrollPane extends ScrollPane {
     private Menu mMenu;
     private final Vector2 mTmp = new Vector2();
 
-    private final ChangeListener mListener = new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent event, Actor actor) {
-            layout();
-            ensureItemVisible();
-        }
-    };
+    private final ChangeListener mListener =
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    layout();
+                    ensureItemVisible();
+                }
+            };
 
     public MenuScrollPane(Menu menu) {
         super(null);
@@ -67,6 +66,10 @@ public class MenuScrollPane extends ScrollPane {
         Rectangle rect = item.getFocusRectangle();
         mTmp.set(rect.x, rect.y);
         item.getActor().localToAscendantCoordinates(mMenu, mTmp);
-        scrollTo(mTmp.x - style.focusPadding, mTmp.y - style.focusPadding, rect.width + 2 * style.focusPadding, rect.height + 2 * style.focusPadding);
+        scrollTo(
+                mTmp.x - style.focusPadding,
+                mTmp.y - style.focusPadding,
+                rect.width + 2 * style.focusPadding,
+                rect.height + 2 * style.focusPadding);
     }
 }

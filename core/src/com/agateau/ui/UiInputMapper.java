@@ -20,17 +20,14 @@ package com.agateau.ui;
 
 import com.badlogic.gdx.Preferences;
 
-/**
- * Responds to input from keyboard or gamepad
- */
+/** Responds to input from keyboard or gamepad */
 public class UiInputMapper implements InputMapper {
     private final KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
     private final GamepadInputMapper mGamepadInputMapper = GamepadInputMapper.getInstance(0);
 
     private static UiInputMapper sInstance;
 
-    private UiInputMapper() {
-    }
+    private UiInputMapper() {}
 
     public static UiInputMapper getInstance() {
         if (sInstance == null) {
@@ -50,14 +47,10 @@ public class UiInputMapper implements InputMapper {
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
-
-    }
+    public void loadConfig(Preferences preferences, String prefix) {}
 
     @Override
-    public void saveConfig(Preferences preferences, String prefix) {
-
-    }
+    public void saveConfig(Preferences preferences, String prefix) {}
 
     @Override
     public boolean isAvailable() {

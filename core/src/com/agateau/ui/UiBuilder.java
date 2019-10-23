@@ -52,7 +52,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.XmlReader;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -124,7 +123,7 @@ public class UiBuilder {
 
     public Actor build(FileHandle handle, Group parentActor) {
         XmlReader.Element element = FileUtils.parseXml(handle);
-        assert(element != null);
+        assert (element != null);
         return build(element, parentActor);
     }
 
@@ -150,9 +149,10 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor) throws SyntaxException {
+    private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
+            throws SyntaxException {
         Actor firstActor = null;
-        for (int idx=0, size = parentElement.getChildCount(); idx < size; ++idx) {
+        for (int idx = 0, size = parentElement.getChildCount(); idx < size; ++idx) {
             XmlReader.Element element = parentElement.getChild(idx);
             if (element.getName().equals("Action")) {
                 continue;
@@ -183,7 +183,7 @@ public class UiBuilder {
                 firstActor = actor;
             }
             if (actor instanceof Widget) {
-                applyWidgetProperties((Widget)actor, element);
+                applyWidgetProperties((Widget) actor, element);
             }
             applyActorProperties(actor, element, parentActor);
             createActorActions(actor, element);
@@ -195,7 +195,7 @@ public class UiBuilder {
                 mActorForId.put(id, actor);
             }
             if (actor instanceof Group && !(actor instanceof ScrollPane)) {
-                doBuild(element, (Group)actor);
+                doBuild(element, (Group) actor);
             }
             mLastAddedActor = actor;
         }
@@ -213,7 +213,7 @@ public class UiBuilder {
             throw new RuntimeException("No actor with id '" + id + "'");
         }
         @SuppressWarnings("unchecked")
-        T obj = (T)actor;
+        T obj = (T) actor;
         return obj;
     }
 
@@ -288,7 +288,8 @@ public class UiBuilder {
         image.setDrawable(new NinePatchDrawable(patch));
     }
 
-    private void initImageFromRegionName(Image image, TextureAtlas atlas, String name, boolean tiled) {
+    private void initImageFromRegionName(
+            Image image, TextureAtlas atlas, String name, boolean tiled) {
         TextureRegion region = atlas.findRegion(name);
         Assert.check(region != null, "No region named " + name);
         Drawable drawable;
@@ -308,7 +309,9 @@ public class UiBuilder {
 
     private ImageButton createImageButton(XmlReader.Element element) {
         String styleName = element.getAttribute("style", "default");
-        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
+        ImageButton.ImageButtonStyle style =
+                new ImageButton.ImageButtonStyle(
+                        mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
         String imageName = element.getAttribute("imageName", "");
         if (!imageName.isEmpty()) {
             style.imageUp = mSkin.getDrawable(imageName);
@@ -412,12 +415,13 @@ public class UiBuilder {
         widget.setFillParent(element.getBooleanAttribute("fillParent", false));
     }
 
-    private void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor) throws SyntaxException {
+    private void applyActorProperties(Actor actor, XmlReader.Element element, Group parentActor)
+            throws SyntaxException {
         AnchorGroup anchorGroup = null;
         if (parentActor != null) {
             parentActor.addActor(actor);
             if (parentActor instanceof AnchorGroup) {
-                anchorGroup = (AnchorGroup)parentActor;
+                anchorGroup = (AnchorGroup) parentActor;
             }
         }
         String attr = element.getAttribute("x", "");
@@ -455,7 +459,7 @@ public class UiBuilder {
         attr = element.getAttribute("debug", "");
         if (!attr.isEmpty()) {
             if (actor instanceof Group) {
-                Group group = (Group)actor;
+                Group group = (Group) actor;
                 attr = attr.toLowerCase();
                 if (attr.equals("true")) {
                     group.debug();
@@ -483,6 +487,7 @@ public class UiBuilder {
 
     /**
      * Parse a string of the form "$actorId $anchorName [$xOffset $yOffset]"
+     *
      * @param txt the string to parse
      * @return a PositionRule
      */
@@ -525,7 +530,7 @@ public class UiBuilder {
     }
 
     private void createActorActions(Actor actor, XmlReader.Element element) {
-        for (XmlReader.Element child: element.getChildrenByName("Action")) {
+        for (XmlReader.Element child : element.getChildrenByName("Action")) {
             String definition = child.getText();
             AnimScript script;
             try {

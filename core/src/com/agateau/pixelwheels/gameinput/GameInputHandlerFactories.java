@@ -23,13 +23,10 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Provides input handlers
- */
+/** Provides input handlers */
 public class GameInputHandlerFactories {
     private static Array<GameInputHandlerFactory> mFactories;
 
@@ -68,7 +65,8 @@ public class GameInputHandlerFactories {
     }
 
     public static boolean hasMultitouch() {
-        return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen) || GamePlay.instance.alwaysShowTouchInput;
+        return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)
+                || GamePlay.instance.alwaysShowTouchInput;
     }
 
     private static void init() {

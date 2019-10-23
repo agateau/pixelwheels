@@ -20,14 +20,11 @@ package com.agateau.utils;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;
 
-/**
- * A class to write data as key=value
- */
+/** A class to write data as key=value */
 public class KeyValueWriter {
     private final Writer mWriter;
     private char mFieldSeparator = ';';

@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.gameobjet;
 
-/**
- * Filter a GameObject to "clip" it if it is too far
- */
+/** Filter a GameObject to "clip" it if it is too far */
 public interface AudioClipper {
     float clip(GameObject gameObject);
 }

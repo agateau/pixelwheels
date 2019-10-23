@@ -38,7 +38,7 @@ public abstract class CommandLineApplication extends LwjglApplication {
 
     public CommandLineApplication(String title, String[] arguments) {
         super(new AppAdapter(), createConfig(title));
-        AppAdapter appAdapter = (AppAdapter)getApplicationListener();
+        AppAdapter appAdapter = (AppAdapter) getApplicationListener();
         appAdapter.mApp = this;
         appAdapter.mArguments = arguments;
     }

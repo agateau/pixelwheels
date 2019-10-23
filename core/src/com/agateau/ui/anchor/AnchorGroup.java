@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Iterator;
 
 public class AnchorGroup extends WidgetGroup {
@@ -38,11 +37,18 @@ public class AnchorGroup extends WidgetGroup {
         return mGridSize;
     }
 
-    public void addPositionRule(Actor target, Anchor targetAnchor, Actor reference, Anchor referenceAnchor) {
+    public void addPositionRule(
+            Actor target, Anchor targetAnchor, Actor reference, Anchor referenceAnchor) {
         addPositionRule(target, targetAnchor, reference, referenceAnchor, 0, 0);
     }
 
-    public void addPositionRule(Actor target, Anchor targetAnchor, Actor reference, Anchor referenceAnchor, float hSpace, float vSpace) {
+    public void addPositionRule(
+            Actor target,
+            Anchor targetAnchor,
+            Actor reference,
+            Anchor referenceAnchor,
+            float hSpace,
+            float vSpace) {
         PositionRule rule = new PositionRule();
         rule.target = target;
         rule.targetAnchor = targetAnchor;
@@ -57,7 +63,13 @@ public class AnchorGroup extends WidgetGroup {
         addSizeRule(target, reference, hPercent, vPercent, 0, 0);
     }
 
-    public void addSizeRule(Actor target, Actor reference, float hPercent, float vPercent, float hSpace, float vSpace) {
+    public void addSizeRule(
+            Actor target,
+            Actor reference,
+            float hPercent,
+            float vPercent,
+            float hSpace,
+            float vSpace) {
         SizeRule rule = new SizeRule(target, reference, hPercent, vPercent);
         rule.setPadding(hSpace * mGridSize, vSpace * mGridSize);
         addRule(rule);
@@ -73,7 +85,7 @@ public class AnchorGroup extends WidgetGroup {
 
     public void removeRulesForActor(Actor actor) {
         Iterator<AnchorRule> it = mRules.iterator();
-        for (; it.hasNext();) {
+        for (; it.hasNext(); ) {
             AnchorRule rule = it.next();
             if (rule.getTarget() == actor) {
                 it.remove();
@@ -89,7 +101,7 @@ public class AnchorGroup extends WidgetGroup {
                 ((Layout) actor).validate();
             }
         }
-        for (AnchorRule rule: mRules) {
+        for (AnchorRule rule : mRules) {
             rule.apply();
         }
     }

@@ -1,8 +1,6 @@
 package com.agateau.pixelwheels.gameobjet;
 
-/**
- * Objects which can be exploded
- */
+/** Objects which can be exploded */
 public interface Explosable {
     void explode();
 }

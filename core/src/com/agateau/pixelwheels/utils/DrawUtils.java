@@ -24,9 +24,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Utilities to draw shapes
- */
+/** Utilities to draw shapes */
 public class DrawUtils {
     public static void drawCross(ShapeRenderer renderer, Vector2 pos, float radius) {
         drawCross(renderer, pos.x, pos.y, radius);
@@ -45,18 +43,25 @@ public class DrawUtils {
         return old;
     }
 
-    public static void drawCentered(Batch batch, TextureRegion region, Vector2 center, float scale, float angle) {
+    public static void drawCentered(
+            Batch batch, TextureRegion region, Vector2 center, float scale, float angle) {
         drawCentered(batch, region, center.x, center.y, scale, angle);
     }
 
-    public static void drawCentered(Batch batch, TextureRegion region, float x, float y, float scale, float angle) {
+    public static void drawCentered(
+            Batch batch, TextureRegion region, float x, float y, float scale, float angle) {
         float width = region.getRegionWidth();
         float height = region.getRegionHeight();
-        batch.draw(region,
-                x - width / 2, y - height / 2, // pos
-                width / 2, height / 2, // origin
-                width, height,
-                scale, scale,
+        batch.draw(
+                region,
+                x - width / 2,
+                y - height / 2, // pos
+                width / 2,
+                height / 2, // origin
+                width,
+                height,
+                scale,
+                scale,
                 angle);
     }
 }

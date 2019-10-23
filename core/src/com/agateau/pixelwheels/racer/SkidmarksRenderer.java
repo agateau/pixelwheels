@@ -20,16 +20,14 @@ package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.utils.AgcMathUtils;
+import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.agateau.utils.CircularArray;
-import com.agateau.utils.AgcMathUtils;
 
-/**
- * Render a circular array of skidmarks
- */
+/** Render a circular array of skidmarks */
 public class SkidmarksRenderer {
     private static final float SKIDMARK_WIDTH = 7 * Constants.UNIT_FOR_PIXEL;
     private static final float SKIDMARK_ALPHA_INC = 0.05f;
@@ -76,7 +74,11 @@ public class SkidmarksRenderer {
                 Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
                 mThickX2 = thickness.x;
                 mThickY2 = thickness.y;
-                drawSkidmark(batch, pos1, pos2, alpha * mark1.getOpacity(),
+                drawSkidmark(
+                        batch,
+                        pos1,
+                        pos2,
+                        alpha * mark1.getOpacity(),
                         (alpha + SKIDMARK_ALPHA_INC) * mark2.getOpacity());
                 alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
             } else {
@@ -87,6 +89,7 @@ public class SkidmarksRenderer {
     }
 
     private final float[] mVertices = new float[4 * 5];
+
     private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha1, float alpha2) {
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha1);
@@ -131,6 +134,6 @@ public class SkidmarksRenderer {
         mVertices[idx++] = y;
         mVertices[idx++] = c;
         mVertices[idx++] = u;
-        mVertices[idx  ] = v;
+        mVertices[idx] = v;
     }
 }

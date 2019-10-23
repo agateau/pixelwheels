@@ -32,12 +32,9 @@ import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Locale;
 
-/**
- * Configure an input device
- */
+/** Configure an input device */
 public class GamepadConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
@@ -51,15 +48,17 @@ public class GamepadConfigScreen extends PwStageScreen {
         private final GamepadInputMapper.GamepadButton mButtonId;
         private boolean mEditing = false;
 
-        GamepadButtonItemController(ButtonMenuItem menuItem, GamepadInputMapper.GamepadButton buttonId) {
+        GamepadButtonItemController(
+                ButtonMenuItem menuItem, GamepadInputMapper.GamepadButton buttonId) {
             mMenuItem = menuItem;
             mButtonId = buttonId;
-            mMenuItem.addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    startEditing(GamepadButtonItemController.this);
-                }
-            });
+            mMenuItem.addListener(
+                    new MenuItemListener() {
+                        @Override
+                        public void triggered() {
+                            startEditing(GamepadButtonItemController.this);
+                        }
+                    });
             updateText();
         }
 
@@ -90,7 +89,8 @@ public class GamepadConfigScreen extends PwStageScreen {
         super(game.getAssets().ui);
         mGame = game;
         mPlayerIdx = playerIdx;
-        GamepadInputHandler handler = (GamepadInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
+        GamepadInputHandler handler =
+                (GamepadInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
         mInputMapper = (GamepadInputMapper) handler.getInputMapper();
         new PwRefreshHelper(mGame, getStage()) {
             @Override
@@ -104,7 +104,8 @@ public class GamepadConfigScreen extends PwStageScreen {
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/gamepadconfig.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/gamepadconfig.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -113,18 +114,21 @@ public class GamepadConfigScreen extends PwStageScreen {
         createButton(menu, "Trigger:", GamepadInputMapper.GamepadButton.TRIGGER);
         createButton(menu, "Back:", GamepadInputMapper.GamepadButton.BACK);
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     private void createButton(Menu menu, String label, GamepadInputMapper.GamepadButton buttonId) {
         ButtonMenuItem buttonItem = new ButtonMenuItem(menu, "");
         menu.addItemWithLabel(label, buttonItem);
-        GamepadButtonItemController controller = new GamepadButtonItemController(buttonItem, buttonId);
+        GamepadButtonItemController controller =
+                new GamepadButtonItemController(buttonItem, buttonId);
         mButtonControllers.add(controller);
     }
 
@@ -152,6 +156,5 @@ public class GamepadConfigScreen extends PwStageScreen {
     private void saveConfig() {
         GameConfig config = mGame.getConfig();
         config.savePlayerInputHandlerConfig(mPlayerIdx);
-
     }
 }

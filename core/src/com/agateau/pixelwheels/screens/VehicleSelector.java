@@ -28,9 +28,7 @@ import com.agateau.ui.menu.Menu;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/**
- * A menu item to select a vehicle
- */
+/** A menu item to select a vehicle */
 public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private Assets mAssets;
     private RewardManager mRewardManager;
@@ -44,7 +42,9 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
 
         @Override
         protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
-            return isItemEnabled(vehicleDef) ? mAssets.getVehicleRegion(vehicleDef) : mAssets.lockedVehicle;
+            return isItemEnabled(vehicleDef)
+                    ? mAssets.getVehicleRegion(vehicleDef)
+                    : mAssets.lockedVehicle;
         }
 
         @Override
@@ -53,7 +53,8 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         }
 
         @Override
-        public void render(Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
+        public void render(
+                Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
             TextureRegion region = getItemRegion(vehicleDef);
             updateRenderInfo(width, height, region);
 
@@ -65,7 +66,8 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
                 mVehicleDrawer.angle = getAngle();
                 mVehicleDrawer.draw(batch);
             } else {
-                DrawUtils.drawCentered(batch, region, x + width / 2, y + height / 2, getScale(), getAngle());
+                DrawUtils.drawCentered(
+                        batch, region, x + width / 2, y + height / 2, getScale(), getAngle());
             }
         }
     }

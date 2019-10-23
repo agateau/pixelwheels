@@ -19,16 +19,14 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.utils.OrientedPoint;
-import com.agateau.pixelwheels.map.WaypointStore;
-import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-/**
- * Draw racer-related debug shapes
- */
+/** Draw racer-related debug shapes */
 public class RacerDebugShape implements DebugShapeMap.Shape {
     private final Racer mRacer;
     private final Track mTrack;
@@ -56,7 +54,8 @@ public class RacerDebugShape implements DebugShapeMap.Shape {
         int nextIdx = store.getWaypointIndex(lapDistance);
         int prevIdx = store.getPreviousIndex(nextIdx);
 
-        OrientedPoint point = store.getValidPosition(mRacer.getVehicle().getBody().getWorldCenter(), lapDistance);
+        OrientedPoint point =
+                store.getValidPosition(mRacer.getVehicle().getBody().getWorldCenter(), lapDistance);
 
         renderer.begin(ShapeRenderer.ShapeType.Line);
         float radius = 10 * Constants.UNIT_FOR_PIXEL;

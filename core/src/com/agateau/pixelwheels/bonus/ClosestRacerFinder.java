@@ -56,7 +56,7 @@ public class ClosestRacerFinder {
         if (body == null) {
             return null;
         } else {
-            return (Racer)body.getUserData();
+            return (Racer) body.getUserData();
         }
     }
 

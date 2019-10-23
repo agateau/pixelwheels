@@ -32,10 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * A MenuItem to display a grid of custom elements
- */
-
+/** A MenuItem to display a grid of custom elements */
 public class GridMenuItem<T> extends Widget implements MenuItem {
     private final Menu mMenu;
     private final Rectangle mFocusRectangle = new Rectangle();
@@ -52,9 +49,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemHeight = 0;
 
     public interface ItemRenderer<T> {
-        /**
-         * Returns a rectangle relative to the bottom-left corner of the grid
-         */
+        /** Returns a rectangle relative to the bottom-left corner of the grid */
         Rectangle getItemRectangle(float width, float height, T item);
 
         void render(Batch batch, float x, float y, float width, float height, T item);
@@ -64,7 +59,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public interface SelectionListener<T> {
         void selectedChanged(T item, int index);
+
         void currentChanged(T item, int index);
+
         void confirmSelection();
     }
 
@@ -75,28 +72,30 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public GridMenuItem(Menu menu) {
         mMenu = menu;
         mStyle = mMenu.getSkin().get(GridMenuItemStyle.class);
-        addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (pointer == 0 && button != 0) {
-                    return false;
-                }
-                int idx = getIndexAt(x, y);
-                if (idx >= 0) {
-                    setCurrentIndex(idx);
-                    trigger();
-                }
-                return true;
-            }
+        addListener(
+                new InputListener() {
+                    public boolean touchDown(
+                            InputEvent event, float x, float y, int pointer, int button) {
+                        if (pointer == 0 && button != 0) {
+                            return false;
+                        }
+                        int idx = getIndexAt(x, y);
+                        if (idx >= 0) {
+                            setCurrentIndex(idx);
+                            trigger();
+                        }
+                        return true;
+                    }
 
-            @Override
-            public boolean mouseMoved (InputEvent event, float x, float y) {
-                int idx = getIndexAt(x, y);
-                if (idx >= 0) {
-                    setCurrentIndex(idx);
-                }
-                return true;
-            }
-        });
+                    @Override
+                    public boolean mouseMoved(InputEvent event, float x, float y) {
+                        int idx = getIndexAt(x, y);
+                        if (idx >= 0) {
+                            setCurrentIndex(idx);
+                        }
+                        return true;
+                    }
+                });
     }
 
     public void setSelectionListener(SelectionListener<T> selectionListener) {
@@ -180,6 +179,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     public T getSelected() {
         return mSelectedIndex >= 0 ? mItems.get(mSelectedIndex) : null;
     }
+
     public T getCurrent() {
         return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
     }
@@ -236,7 +236,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         if (mItems == null || mColumnCount == 0) {
             return 0;
         }
-        int rowCount = MathUtils.ceil(mItems.size / (float)mColumnCount);
+        int rowCount = MathUtils.ceil(mItems.size / (float) mColumnCount);
         return mItemHeight * rowCount;
     }
 
@@ -276,12 +276,17 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
 
             FocusIndicator focusIndicator = mFocusIndicators.get(idx);
-            focusIndicator.draw(batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+            focusIndicator.draw(
+                    batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
 
             if (idx == mSelectedIndex) {
                 int padding = mMenu.getMenuStyle().focusPadding;
-                mStyle.selected.draw(batch, getX() + x + rect.x - padding, getY() + y + rect.y - padding,
-                        rect.width + 2 * padding, rect.height + 2 * padding);
+                mStyle.selected.draw(
+                        batch,
+                        getX() + x + rect.x - padding,
+                        getY() + y + rect.y - padding,
+                        rect.width + 2 * padding,
+                        rect.height + 2 * padding);
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
 
@@ -374,13 +379,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     /// Private
-    /**
-     * Horizontal spacing between items
-     */
+    /** Horizontal spacing between items */
     private float getItemSpacing() {
-        return mColumnCount > 1
-                ? (getWidth() - mItemWidth * mColumnCount) / (mColumnCount - 1)
-                : 0;
+        return mColumnCount > 1 ? (getWidth() - mItemWidth * mColumnCount) / (mColumnCount - 1) : 0;
     }
 
     private int getIndexAt(float touchX, float touchY) {

@@ -26,7 +26,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -61,7 +60,8 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
             mGameStats.mTrackStats.put(trackId, trackStats);
             loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
         }
-        loadStringIntMap(mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(
+                mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
         loadStringIntMap(mGameStats.mEvents, root.getAsJsonObject("events"));
     }
 

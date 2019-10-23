@@ -33,14 +33,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Select the championship
- */
+/** Select the championship */
 public class SelectChampionshipScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
+
         void onChampionshipSelected(Championship championship);
     }
+
     private final PwGame mGame;
     private final Listener mListener;
     private Label mChampionshipNameLabel;
@@ -73,7 +73,8 @@ public class SelectChampionshipScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectchampionship.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/selectchampionship.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -85,19 +86,23 @@ public class SelectChampionshipScreen extends PwStageScreen {
         createChampionshipSelector(championship, menu);
         updateChampionshipDetails(championship);
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
 
-        builder.getActor("nextButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                next();
-            }
-        });
+        builder.getActor("nextButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                next();
+                            }
+                        });
     }
 
     private void createChampionshipSelector(Championship championship, Menu menu) {
@@ -108,27 +113,29 @@ public class SelectChampionshipScreen extends PwStageScreen {
         mChampionshipSelector.setCurrent(championship);
         menu.addItem(mChampionshipSelector);
 
-        mChampionshipSelector.setSelectionListener(new GridMenuItem.SelectionListener<Championship>() {
-            @Override
-            public void selectedChanged(Championship item, int index) {
-                if (PlatformUtils.isButtonsUi()) {
-                    next();
-                }
-            }
+        mChampionshipSelector.setSelectionListener(
+                new GridMenuItem.SelectionListener<Championship>() {
+                    @Override
+                    public void selectedChanged(Championship item, int index) {
+                        if (PlatformUtils.isButtonsUi()) {
+                            next();
+                        }
+                    }
 
-            @Override
-            public void currentChanged(Championship championship, int index) {
-                updateChampionshipDetails(championship);
-            }
+                    @Override
+                    public void currentChanged(Championship championship, int index) {
+                        updateChampionshipDetails(championship);
+                    }
 
-            @Override
-            public void confirmSelection() {
-                next();
-            }
-        });
+                    @Override
+                    public void confirmSelection() {
+                        next();
+                    }
+                });
     }
 
     private final StringBuilder mStringBuilder = new StringBuilder();
+
     private void updateChampionshipDetails(Championship championship) {
         if (mGame.getRewardManager().isChampionshipUnlocked(championship)) {
             mChampionshipNameLabel.setText(championship.getName());

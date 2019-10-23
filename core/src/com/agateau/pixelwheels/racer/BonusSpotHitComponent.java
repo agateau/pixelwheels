@@ -25,9 +25,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-/**
- * Handles hitting a bonus spot
- */
+/** Handles hitting a bonus spot */
 public class BonusSpotHitComponent implements Racer.Component, Collidable {
     private final Racer mRacer;
     private boolean mMustSelectBonus = false;
@@ -40,7 +38,7 @@ public class BonusSpotHitComponent implements Racer.Component, Collidable {
     public void beginContact(Contact contact, Fixture otherFixture) {
         Object other = otherFixture.getBody().getUserData();
         if (other instanceof BonusSpot) {
-            BonusSpot spot = (BonusSpot)other;
+            BonusSpot spot = (BonusSpot) other;
             spot.pickBonus();
             if (mRacer.getBonus() == null) {
                 // Do not call selectBonus() from here: it would make it harder for bonus code to
@@ -52,19 +50,13 @@ public class BonusSpotHitComponent implements Racer.Component, Collidable {
     }
 
     @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
+    public void endContact(Contact contact, Fixture otherFixture) {}
 
     @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-
-    }
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {}
 
     @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 
     @Override
     public void act(float delta) {

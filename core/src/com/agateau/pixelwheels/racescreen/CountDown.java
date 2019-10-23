@@ -23,9 +23,7 @@ import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.badlogic.gdx.math.MathUtils;
 
-/**
- * Handles the non-visible part of the count down
- */
+/** Handles the non-visible part of the count down */
 public class CountDown {
     private static final int START = 3;
     private static final float TICK_DURATION = 0.75f;

@@ -56,10 +56,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * A player bullet
- */
-public class Missile extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable, Explosable {
+/** A player bullet */
+public class Missile extends GameObjectAdapter
+        implements Collidable, Pool.Poolable, Disposable, Explosable {
     private static final ReflectionPool<Missile> sPool = new ReflectionPool<>(Missile.class);
 
     private static final float WIDTH = 44;
@@ -89,19 +88,20 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     private final MissileGuidingSystem mGuidingSystem = new MissileGuidingSystem();
     private Assets mAssets;
 
-    private final DebugShapeMap.Shape mDebugShape = new DebugShapeMap.Shape() {
-        @Override
-        public void draw(ShapeRenderer renderer) {
-            renderer.begin(ShapeRenderer.ShapeType.Line);
-            renderer.setColor(1, 0, 0, 1);
+    private final DebugShapeMap.Shape mDebugShape =
+            new DebugShapeMap.Shape() {
+                @Override
+                public void draw(ShapeRenderer renderer) {
+                    renderer.begin(ShapeRenderer.ShapeType.Line);
+                    renderer.setColor(1, 0, 0, 1);
 
-            Vector2 origin = mBody.getWorldCenter();
-            float angle = mBody.getAngle() * MathUtils.radDeg;
-            renderer.line(origin, mRacerFinder.getLeftVertex(origin, angle));
-            renderer.line(origin, mRacerFinder.getRightVertex(origin, angle));
-            renderer.end();
-        }
-    };
+                    Vector2 origin = mBody.getWorldCenter();
+                    float angle = mBody.getAngle() * MathUtils.radDeg;
+                    renderer.line(origin, mRacerFinder.getLeftVertex(origin, angle));
+                    renderer.line(origin, mRacerFinder.getRightVertex(origin, angle));
+                    renderer.end();
+                }
+            };
 
     // Init-at-pool-reuse fields
     private GameWorld mGameWorld;
@@ -120,11 +120,11 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         mBodyDef.type = BodyDef.BodyType.DynamicBody;
         mBodyDef.bullet = true;
         mShape.setAsBox(
-                WIDTH * Constants.UNIT_FOR_PIXEL / 2,
-                HEIGHT * Constants.UNIT_FOR_PIXEL / 2);
+                WIDTH * Constants.UNIT_FOR_PIXEL / 2, HEIGHT * Constants.UNIT_FOR_PIXEL / 2);
     }
 
-    public static Missile create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
+    public static Missile create(
+            Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter) {
         Missile object = sPool.obtain();
         object.mAssets = assets;
         object.mGameWorld = gameWorld;
@@ -139,8 +139,12 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         object.mBody = gameWorld.getBox2DWorld().createBody(object.mBodyDef);
         object.mBody.createFixture(object.mShape, WAITING_DENSITY);
         object.mBody.setUserData(object);
-        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.EXPLOSABLE);
+        Box2DUtils.setCollisionInfo(
+                object.mBody,
+                CollisionCategories.RACER_BULLET,
+                CollisionCategories.WALL
+                        | CollisionCategories.RACER
+                        | CollisionCategories.EXPLOSABLE);
 
         object.mStatus = Status.WAITING;
         object.mNeedShootSound = false;
@@ -243,7 +247,9 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
 
     private void findTarget() {
         World world = mGameWorld.getBox2DWorld();
-        mTarget = mRacerFinder.find(world, mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
+        mTarget =
+                mRacerFinder.find(
+                        world, mBody.getWorldCenter(), mBody.getAngle() * MathUtils.radDeg);
     }
 
     @Override
@@ -285,11 +291,16 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         float refH = Constants.UNIT_FOR_PIXEL * -WIDTH / 2;
         float x = center.x + refH * MathUtils.cos(angle);
         float y = center.y + refH * MathUtils.sin(angle);
-        batch.draw(region,
-                x - w / 2, y - h, // pos
-                w / 2, h, // origin
-                w, h, // size
-                1, 1, // scale
+        batch.draw(
+                region,
+                x - w / 2,
+                y - h, // pos
+                w / 2,
+                h, // origin
+                w,
+                h, // size
+                1,
+                1, // scale
                 angle * MathUtils.radDeg - 90);
     }
 
@@ -333,12 +344,10 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
     }
 
     @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-    }
+    public void beginContact(Contact contact, Fixture otherFixture) {}
 
     @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-    }
+    public void endContact(Contact contact, Fixture otherFixture) {}
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
@@ -358,14 +367,12 @@ public class Missile extends GameObjectAdapter implements Collidable, Pool.Poola
         explode();
         if (other instanceof Racer) {
             mShooter.getGameStats().recordEvent(GameStats.Event.MISSILE_HIT);
-            ((Racer)other).spin();
+            ((Racer) other).spin();
         } else if (other instanceof Explosable) {
-            ((Explosable)other).explode();
+            ((Explosable) other).explode();
         }
     }
 
     @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 }

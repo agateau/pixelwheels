@@ -25,9 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 
-/**
- * A generic overlay display
- */
+/** A generic overlay display */
 public class Overlay extends WidgetGroup {
     private static final float IN_DURATION = 0.5f;
     private Actor mContent;
@@ -58,7 +56,8 @@ public class Overlay extends WidgetGroup {
 
         if (mContent.getParent() == null) {
             // First time mContent is layouted, position on it above the screen and add an animation
-            // to make it fall down (can't do it in setContent() because we don't know the screen size at
+            // to make it fall down (can't do it in setContent() because we don't know the screen
+            // size at
             // this moment)
             mContent.setPosition(0, getHeight());
             mContent.addAction(Actions.moveTo(0, 0, IN_DURATION, Interpolation.swingOut));

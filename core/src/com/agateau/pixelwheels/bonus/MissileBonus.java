@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.bonus;
 import com.agateau.pixelwheels.racer.Racer;
 import com.badlogic.gdx.utils.Pool;
 
-/**
- * A missile bonus
- */
+/** A missile bonus */
 public class MissileBonus extends BonusAdapter implements Pool.Poolable {
     private Missile mMissile;
 

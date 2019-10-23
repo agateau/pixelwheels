@@ -19,7 +19,6 @@
 package com.agateau.ui.animscript;
 
 import com.agateau.ui.DimensionParser;
-
 import java.io.IOException;
 import java.io.StreamTokenizer;
 
@@ -43,7 +42,8 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
     }
 
     @Override
-    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser)
+            throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
@@ -60,7 +60,8 @@ class FloatArgumentDefinition extends ArgumentDefinition<Float> {
             tokenizer.pushBack();
             value = this.defaultValue;
         } else {
-            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
+            throw new AnimScriptLoader.SyntaxException(
+                    tokenizer, "No value set for this argument, which has no default value");
         }
         return value;
     }

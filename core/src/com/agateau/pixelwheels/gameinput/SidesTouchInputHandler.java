@@ -27,9 +27,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Handle input using buttons on the sides
- */
+/** Handle input using buttons on the sides */
 public class SidesTouchInputHandler implements GameInputHandler {
     private final GameInput mInput = new GameInput();
     private HudButton mLeftButton, mRightButton, mBonusButton;
@@ -62,21 +60,19 @@ public class SidesTouchInputHandler implements GameInputHandler {
         mInput.braking = isBraking();
         mInput.accelerating = !mInput.braking;
         if (!mInput.braking) {
-            mInput.direction = TouchInputUtils.applyDirectionInput(mLeftButton, mRightButton, mInput.direction);
+            mInput.direction =
+                    TouchInputUtils.applyDirectionInput(
+                            mLeftButton, mRightButton, mInput.direction);
         }
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
-
-    }
+    public void loadConfig(Preferences preferences, String prefix) {}
 
     @Override
-    public void saveConfig(Preferences preferences, String prefix) {
-
-    }
+    public void saveConfig(Preferences preferences, String prefix) {}
 
     @Override
     public void createHudButtons(Assets assets, Hud hud) {

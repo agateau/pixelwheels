@@ -31,9 +31,7 @@ public class CollectionUtils {
         return set;
     }
 
-    /**
-     * Implementation of Map.getOrDefault() which works on Android API < 24
-     */
+    /** Implementation of Map.getOrDefault() which works on Android API < 24 */
     public static <K, V> V getOrDefault(Map<K, V> map, K key, V defaultValue) {
         V value = map.get(key);
         if (value != null) {

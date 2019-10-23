@@ -29,9 +29,7 @@ import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Holds all the waypoints used by AI players
- */
+/** Holds all the waypoints used by AI players */
 public class WaypointStore {
     private static final OrientedPoint tmpPoint = new OrientedPoint();
 
@@ -52,7 +50,11 @@ public class WaypointStore {
         final float U = Constants.UNIT_FOR_PIXEL;
 
         for (MapObject object : layer.getObjects()) {
-            Assert.check(object instanceof EllipseMapObject, "Waypoints layer should contains only ellipses. " + object + " is not an ellipse.");
+            Assert.check(
+                    object instanceof EllipseMapObject,
+                    "Waypoints layer should contains only ellipses. "
+                            + object
+                            + " is not an ellipse.");
             Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
             final LapPosition pos = lapPositionTable.get((int) ellipse.x, (int) ellipse.y);
             WaypointInfo info = new WaypointInfo();

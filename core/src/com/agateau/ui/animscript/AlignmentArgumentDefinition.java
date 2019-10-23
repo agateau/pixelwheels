@@ -20,7 +20,6 @@ package com.agateau.ui.animscript;
 
 import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Align;
-
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.HashMap;
@@ -46,18 +45,21 @@ class AlignmentArgumentDefinition extends ArgumentDefinition<Integer> {
     }
 
     @Override
-    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser)
+            throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
             throw new AnimScriptLoader.SyntaxException(tokenizer, "Missing token for argument");
         }
         if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
-            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
+            throw new AnimScriptLoader.SyntaxException(
+                    tokenizer, "No value set for this argument, which has no default value");
         }
         Integer value = sMap.get(tokenizer.sval);
         if (value == null) {
-            throw new AnimScriptLoader.SyntaxException(tokenizer, "Invalid alignment value: " + tokenizer.sval);
+            throw new AnimScriptLoader.SyntaxException(
+                    tokenizer, "Invalid alignment value: " + tokenizer.sval);
         }
         return value;
     }

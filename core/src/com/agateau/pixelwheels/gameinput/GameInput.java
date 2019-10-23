@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.gameinput;
 
-/**
- * A plain struct which can be updated by a GameInputHandler
- */
+/** A plain struct which can be updated by a GameInputHandler */
 public class GameInput {
     public boolean braking = false;
     public boolean accelerating = false;

@@ -28,9 +28,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-/**
- * Make a vehicle spin on itself for a full circle
- */
+/** Make a vehicle spin on itself for a full circle */
 public class SpinningComponent implements Racer.Component, Collidable {
     private static final float MIN_ANGULAR_VELOCITY = 1f;
     private static final float MAX_ANGULAR_VELOCITY = 15f;
@@ -66,7 +64,8 @@ public class SpinningComponent implements Racer.Component, Collidable {
         Body body = mVehicle.getBody();
 
         // Slow down
-        body.applyLinearImpulse(body.getLinearVelocity().nor().scl(-body.getMass()), body.getWorldCenter(), true);
+        body.applyLinearImpulse(
+                body.getLinearVelocity().nor().scl(-body.getMass()), body.getWorldCenter(), true);
 
         // Spin
         float nextAngle = body.getAngle() + body.getAngularVelocity() * GameWorld.BOX2D_TIME_STEP;
@@ -78,9 +77,13 @@ public class SpinningComponent implements Racer.Component, Collidable {
         float totalRotation = mTargetBodyAngle - nextAngle;
         float desiredAngularVelocity = totalRotation / GameWorld.BOX2D_TIME_STEP;
         if (desiredAngularVelocity < 0) {
-            desiredAngularVelocity = MathUtils.clamp(desiredAngularVelocity, -MAX_ANGULAR_VELOCITY, -MIN_ANGULAR_VELOCITY);
+            desiredAngularVelocity =
+                    MathUtils.clamp(
+                            desiredAngularVelocity, -MAX_ANGULAR_VELOCITY, -MIN_ANGULAR_VELOCITY);
         } else {
-            desiredAngularVelocity = MathUtils.clamp(desiredAngularVelocity, MIN_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY);
+            desiredAngularVelocity =
+                    MathUtils.clamp(
+                            desiredAngularVelocity, MIN_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY);
         }
         float impulse = body.getInertia() * (desiredAngularVelocity - body.getAngularVelocity());
         body.applyAngularImpulse(impulse, true);
@@ -110,17 +113,11 @@ public class SpinningComponent implements Racer.Component, Collidable {
     }
 
     @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-
-    }
+    public void endContact(Contact contact, Fixture otherFixture) {}
 
     @Override
-    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-
-    }
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {}
 
     @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 }

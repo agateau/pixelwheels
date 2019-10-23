@@ -22,16 +22,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-/**
- * Demonstrate/test tabbed menus
- */
+/** Demonstrate/test tabbed menus */
 public class TabbedMenu extends Game {
     @Override
     public void create() {
         setScreen(new TabbedMenuScreen());
     }
 
-    public static void main (String[] arg) {
+    public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 800;
         config.height = 480;

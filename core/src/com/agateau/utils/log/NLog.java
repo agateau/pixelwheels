@@ -18,9 +18,8 @@
  */
 package com.agateau.utils.log;
 
-import java.util.Vector;
-
 import com.badlogic.gdx.Application;
+import java.util.Vector;
 
 public class NLog {
     private static final Vector<Printer> sPrinters = new Vector<>();
@@ -30,9 +29,7 @@ public class NLog {
         void print(int level, String tag, String message);
     }
 
-    /**
-     * Implementation of Printer which logs to System.err
-     */
+    /** Implementation of Printer which logs to System.err */
     public static class DefaultPrinter implements Printer {
         final long mStartTime;
 
@@ -55,15 +52,15 @@ public class NLog {
         }
     }
 
-    public static void d(Object obj, Object...args) {
+    public static void d(Object obj, Object... args) {
         print(Application.LOG_DEBUG, obj, args);
     }
 
-    public static void i(Object obj, Object...args) {
+    public static void i(Object obj, Object... args) {
         print(Application.LOG_INFO, obj, args);
     }
 
-    public static void e(Object obj, Object...args) {
+    public static void e(Object obj, Object... args) {
         print(Application.LOG_ERROR, obj, args);
     }
 
@@ -78,7 +75,7 @@ public class NLog {
         sPrinters.add(printer);
     }
 
-    private static synchronized void print(int level, Object obj, Object...args) {
+    private static synchronized void print(int level, Object obj, Object... args) {
         if (sStackDepth < 0) {
             initStackDepth();
         }
@@ -93,7 +90,7 @@ public class NLog {
         if (sPrinters.isEmpty()) {
             sPrinters.add(new DefaultPrinter());
         }
-        for (Printer printer: sPrinters) {
+        for (Printer printer : sPrinters) {
             printer.print(level, tag, message);
         }
     }
@@ -109,11 +106,11 @@ public class NLog {
     }
 
     private static String getCallerMethod() {
-        final StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[sStackDepth + 3];
+        final StackTraceElement stackTraceElement =
+                Thread.currentThread().getStackTrace()[sStackDepth + 3];
         final String fullClassName = stackTraceElement.getClassName();
         final String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
         final String method = stackTraceElement.getMethodName();
         return className + "." + method;
     }
-
 }

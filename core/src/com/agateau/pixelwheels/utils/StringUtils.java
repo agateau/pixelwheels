@@ -20,27 +20,25 @@ package com.agateau.pixelwheels.utils;
 
 import java.util.Locale;
 
-/**
- * String format utils
- */
+/** String format utils */
 public class StringUtils {
     public static String formatRaceTime(float time) {
-        int minutes = (int)(time / 60);
-        int seconds = (int)(time) % 60;
-        int fracs = (int)(time * 100) % 100;
+        int minutes = (int) (time / 60);
+        int seconds = (int) (time) % 60;
+        int fracs = (int) (time * 100) % 100;
         return String.format(Locale.US, "%d:%02d.%02d", minutes, seconds, fracs);
     }
 
     public static String getRankSuffix(int rank) {
         switch (rank) {
-        case 1:
-            return "st";
-        case 2:
-            return "nd";
-        case 3:
-            return "rd";
-        default:
-            return "th";
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
         }
     }
 

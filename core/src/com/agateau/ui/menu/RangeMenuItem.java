@@ -32,9 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-/**
- * Base class for all menu items with plus|minus buttons and a UI between those
- */
+/** Base class for all menu items with plus|minus buttons and a UI between those */
 abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     private final Menu mMenu;
     private final Button mLeftButton;
@@ -57,31 +55,35 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         mStyle = menu.getSkin().get(RangeMenuItemStyle.class);
 
         mLeftButton = createButton(mStyle.decIcon, menu.getSkin());
-        mLeftButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                decrease();
-                fireChangeEvent();
-            }
-        });
+        mLeftButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        decrease();
+                        fireChangeEvent();
+                    }
+                });
 
         mRightButton = createButton(mStyle.incIcon, menu.getSkin());
-        mRightButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                increase();
-                fireChangeEvent();
-            }
-        });
+        mRightButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        increase();
+                        fireChangeEvent();
+                    }
+                });
 
         setHeight(mLeftButton.getPrefHeight());
 
-        addListener(new ClickListener() {
-            @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                menu.setCurrentItem(RangeMenuItem.this);
-            }
-        });
+        addListener(
+                new ClickListener() {
+                    @Override
+                    public void enter(
+                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        menu.setCurrentItem(RangeMenuItem.this);
+                    }
+                });
     }
 
     protected void fireChangeEvent() {
@@ -95,13 +97,18 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
             float padding = mStyle.framePadding;
             float buttonSize = getHeight() - 2 * padding;
             addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT, padding, -padding);
-            addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
+            addPositionRule(
+                    mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
             mLeftButton.setSize(buttonSize, buttonSize);
             mRightButton.setSize(buttonSize, buttonSize);
 
             addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
-            addRule(new EdgeRule(mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
-            addRule(new EdgeRule(mMainActor, EdgeRule.Edge.BOTTOM, mRightButton, EdgeRule.Edge.BOTTOM));
+            addRule(
+                    new EdgeRule(
+                            mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
+            addRule(
+                    new EdgeRule(
+                            mMainActor, EdgeRule.Edge.BOTTOM, mRightButton, EdgeRule.Edge.BOTTOM));
 
             updateMainActor();
         }
@@ -121,24 +128,16 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 
-    /**
-     * Must create the actor to show between the left and right buttons
-     */
+    /** Must create the actor to show between the left and right buttons */
     protected abstract Actor createMainActor(Menu menu);
 
-    /**
-     * Called when main actor must be updated because value changed
-     */
+    /** Called when main actor must be updated because value changed */
     public abstract void updateMainActor();
 
-    /**
-     * Called when the user clicks on the decrease button
-     */
+    /** Called when the user clicks on the decrease button */
     protected abstract void decrease();
 
-    /**
-     * Called when the user clicks on the increase button
-     */
+    /** Called when the user clicks on the increase button */
     protected abstract void increase();
 
     @Override
@@ -157,9 +156,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     @Override
-    public void trigger() {
-
-    }
+    public void trigger() {}
 
     @Override
     public boolean goUp() {
@@ -196,7 +193,8 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
     }
 
     private static Button createButton(Drawable drawable, Skin skin) {
-        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get(ImageButton.ImageButtonStyle.class));
+        ImageButton.ImageButtonStyle style =
+                new ImageButton.ImageButtonStyle(skin.get(ImageButton.ImageButtonStyle.class));
         style.imageUp = drawable;
         return new ImageButton(style);
     }

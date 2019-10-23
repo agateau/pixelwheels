@@ -48,9 +48,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * The config screen
- */
+/** The config screen */
 public class ConfigScreen extends PwStageScreen {
     private final PwGame mGame;
 
@@ -58,9 +56,11 @@ public class ConfigScreen extends PwStageScreen {
         Screen createScreen(PwGame game, int playerIdx);
     }
 
-    private static final GameInputHandlerConfigScreenFactory sGamepadConfigScreenFactory = (game, playerIdx) -> new GamepadConfigScreen(game, playerIdx);
+    private static final GameInputHandlerConfigScreenFactory sGamepadConfigScreenFactory =
+            (game, playerIdx) -> new GamepadConfigScreen(game, playerIdx);
 
-    private static final GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory = (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
+    private static final GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory =
+            (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -79,7 +79,7 @@ public class ConfigScreen extends PwStageScreen {
 
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/config.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/config.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -105,26 +105,32 @@ public class ConfigScreen extends PwStageScreen {
 
             final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
             audioSwitch.setChecked(gameConfig.audio);
-            audioSwitch.getActor().addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    gameConfig.audio = audioSwitch.isChecked();
-                    gameConfig.flush();
-                }
-            });
+            audioSwitch
+                    .getActor()
+                    .addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ChangeEvent event, Actor actor) {
+                                    gameConfig.audio = audioSwitch.isChecked();
+                                    gameConfig.flush();
+                                }
+                            });
             group.addItemWithLabel("Audio:", audioSwitch);
 
             if (PlatformUtils.isDesktop()) {
                 final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
                 fullscreenSwitch.setChecked(gameConfig.fullscreen);
-                fullscreenSwitch.getActor().addListener(new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent event, Actor actor) {
-                        gameConfig.fullscreen = fullscreenSwitch.isChecked();
-                        mGame.setFullscreen(gameConfig.fullscreen);
-                        gameConfig.flush();
-                    }
-                });
+                fullscreenSwitch
+                        .getActor()
+                        .addListener(
+                                new ChangeListener() {
+                                    @Override
+                                    public void changed(ChangeEvent event, Actor actor) {
+                                        gameConfig.fullscreen = fullscreenSwitch.isChecked();
+                                        mGame.setFullscreen(gameConfig.fullscreen);
+                                        gameConfig.flush();
+                                    }
+                                });
                 group.addItemWithLabel("Fullscreen:", fullscreenSwitch);
             }
         }
@@ -132,21 +138,26 @@ public class ConfigScreen extends PwStageScreen {
         {
             MenuItemGroup group = tab.addPage("Misc");
             ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
-            developerButton.getActor().addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    mGame.pushScreen(new DebugScreen(mGame));
-                }
-            });
+            developerButton
+                    .getActor()
+                    .addListener(
+                            new ClickListener() {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    mGame.pushScreen(new DebugScreen(mGame));
+                                }
+                            });
             group.addItemWithLabel("Internal:", developerButton);
         }
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     class InputSelectorController {
@@ -154,32 +165,39 @@ public class ConfigScreen extends PwStageScreen {
         private final ButtonMenuItem mConfigureButton;
         private final int mPlayerIdx;
 
-        InputSelectorController(SelectorMenuItem<GameInputHandlerFactory> selector, ButtonMenuItem configureButton, int idx) {
+        InputSelectorController(
+                SelectorMenuItem<GameInputHandlerFactory> selector,
+                ButtonMenuItem configureButton,
+                int idx) {
             mSelector = selector;
             mConfigureButton = configureButton;
             mPlayerIdx = idx;
 
             UiAssets uiAssets = mGame.getAssets().ui;
-            Array<GameInputHandlerFactory> inputFactories = GameInputHandlerFactories.getAvailableFactories();
+            Array<GameInputHandlerFactory> inputFactories =
+                    GameInputHandlerFactories.getAvailableFactories();
             for (GameInputHandlerFactory factory : inputFactories) {
                 String iconName = "input-icons/" + factory.getId();
                 Drawable drawable = new TextureRegionDrawable(uiAssets.atlas.findRegion(iconName));
                 selector.addEntry(drawable, factory.getName(), factory);
             }
 
-            selector.getActor().addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    onInputChanged();
-                }
-            });
+            selector.getActor()
+                    .addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ChangeEvent event, Actor actor) {
+                                    onInputChanged();
+                                }
+                            });
 
-            configureButton.addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    onConfigureClicked();
-                }
-            });
+            configureButton.addListener(
+                    new MenuItemListener() {
+                        @Override
+                        public void triggered() {
+                            onConfigureClicked();
+                        }
+                    });
         }
 
         private void onInputChanged() {
@@ -191,13 +209,15 @@ public class ConfigScreen extends PwStageScreen {
 
         private void onConfigureClicked() {
             GameInputHandlerFactory factory = mSelector.getCurrentData();
-            GameInputHandlerConfigScreenFactory configScreenFactory = getInputConfigScreenFactory(factory);
+            GameInputHandlerConfigScreenFactory configScreenFactory =
+                    getInputConfigScreenFactory(factory);
             Assert.check(configScreenFactory != null, "No config screen for this game factory");
             mGame.pushScreen(configScreenFactory.createScreen(mGame, mPlayerIdx));
         }
 
         private void setStartupState() {
-            GameInputHandlerFactory factory = mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
+            GameInputHandlerFactory factory =
+                    mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
             mSelector.setCurrentData(factory);
             updateConfigureButton();
         }
@@ -216,11 +236,13 @@ public class ConfigScreen extends PwStageScreen {
         ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
         group.addItemWithLabel("", configureButton);
 
-        InputSelectorController controller = new InputSelectorController(selector, configureButton, idx);
+        InputSelectorController controller =
+                new InputSelectorController(selector, configureButton, idx);
         controller.setStartupState();
     }
 
-    private GameInputHandlerConfigScreenFactory getInputConfigScreenFactory(GameInputHandlerFactory factory) {
+    private GameInputHandlerConfigScreenFactory getInputConfigScreenFactory(
+            GameInputHandlerFactory factory) {
         if (factory instanceof GamepadInputHandler.Factory) {
             return sGamepadConfigScreenFactory;
         } else if (factory instanceof KeyboardInputHandler.Factory) {

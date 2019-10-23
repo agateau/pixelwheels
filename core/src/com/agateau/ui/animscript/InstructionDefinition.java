@@ -19,9 +19,9 @@
 package com.agateau.ui.animscript;
 
 import com.agateau.ui.DimensionParser;
-
 import java.io.StreamTokenizer;
 
 interface InstructionDefinition {
-    Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException;
+    Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser)
+            throws AnimScriptLoader.SyntaxException;
 }

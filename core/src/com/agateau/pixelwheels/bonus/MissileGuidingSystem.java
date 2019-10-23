@@ -44,16 +44,17 @@ public class MissileGuidingSystem {
     }
 
     private final Vector2 mTmp = new Vector2();
+
     private float computeAngle(Vector2 target) {
         /*
-                       x target
-               ,
-              /
-             x body.worldCenter
-            /
-           '
+                      x target
+              ,
+             /
+            x body.worldCenter
+           /
+          '
 
-         */
+        */
         mTmp.set(target).sub(mBody.getWorldCenter());
         float bodyAngle = AgcMathUtils.normalizeAnglePiRad(mBody.getAngle());
         float desiredAngle = AgcMathUtils.normalizeAnglePiRad(mTmp.angleRad());

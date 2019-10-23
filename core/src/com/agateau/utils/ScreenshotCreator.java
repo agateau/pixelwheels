@@ -24,7 +24,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
@@ -56,7 +55,8 @@ public class ScreenshotCreator {
         if (sPixmap == null) {
             init();
         }
-        Gdx.gl.glReadPixels(0, 0, width, height, GL20.GL_RGB, GL20.GL_UNSIGNED_BYTE, sPixmap.getPixels());
+        Gdx.gl.glReadPixels(
+                0, 0, width, height, GL20.GL_RGB, GL20.GL_UNSIGNED_BYTE, sPixmap.getPixels());
         return sPixmap;
     }
 
@@ -65,7 +65,7 @@ public class ScreenshotCreator {
         int height = Gdx.graphics.getHeight();
         sPixmap = new Pixmap(width, height, Pixmap.Format.RGB888);
         // Guess at deflated size
-        sPNG = new PixmapIO.PNG((int)(width * height * 1.5f));
+        sPNG = new PixmapIO.PNG((int) (width * height * 1.5f));
     }
 
     private static FileHandle generateFileHandle() {

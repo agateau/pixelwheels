@@ -33,11 +33,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 
-/**
- * A wheel
- */
+/** A wheel */
 public class Wheel implements Disposable {
-    private static final float DRIFT_IMPULSE_REDUCTION = 0.5f; // Limit how much of the lateral velocity is killed when drifting
+    private static final float DRIFT_IMPULSE_REDUCTION =
+            0.5f; // Limit how much of the lateral velocity is killed when drifting
     private static final float DRAG_FACTOR = 1;
     private static final int SKIDMARK_INTERVAL = 3;
     private static final float SKIDMARK_LIFETIME = 10f;
@@ -73,12 +72,13 @@ public class Wheel implements Disposable {
         }
     }
 
-    private final CircularArray<Skidmark> mSkidmarks = new CircularArray<Skidmark>(GamePlay.instance.maxSkidmarks) {
-        @Override
-        protected Skidmark createInstance() {
-            return new Skidmark();
-        }
-    };
+    private final CircularArray<Skidmark> mSkidmarks =
+            new CircularArray<Skidmark>(GamePlay.instance.maxSkidmarks) {
+                @Override
+                protected Skidmark createInstance() {
+                    return new Skidmark();
+                }
+            };
     private int mSkidmarkCount = 0; // Used to limit the number of skidmarks created
 
     private final Body mBody;
@@ -91,7 +91,13 @@ public class Wheel implements Disposable {
     private Material mMaterial = Material.ROAD;
     private boolean mDrifting = false;
 
-    public Wheel(GameWorld gameWorld, Vehicle vehicle, TextureRegion region, float posX, float posY, float angle) {
+    public Wheel(
+            GameWorld gameWorld,
+            Vehicle vehicle,
+            TextureRegion region,
+            float posX,
+            float posY,
+            float angle) {
         mGameWorld = gameWorld;
         mVehicle = vehicle;
         mRegion = region;
@@ -134,7 +140,8 @@ public class Wheel implements Disposable {
             Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
         }
         for (int idx = mSkidmarks.getBeginIndex(), end = mSkidmarks.getEndIndex();
-                idx != end; idx = mSkidmarks.getNextIndex(idx)) {
+                idx != end;
+                idx = mSkidmarks.getNextIndex(idx)) {
             mSkidmarks.get(idx).act(delta);
         }
     }
@@ -157,23 +164,29 @@ public class Wheel implements Disposable {
         }
         final float currentSpeed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
 
-        final float limit = 1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
+        final float limit =
+                1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;
         float angle = mBody.getAngle();
         Vector2 pos = mBody.getWorldCenter();
-        mBody.applyForce(force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
+        mBody.applyForce(
+                force * MathUtils.cos(angle), force * MathUtils.sin(angle), pos.x, pos.y, true);
     }
 
     public long getCellId() {
-        return mGameWorld.getTrack().getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
+        return mGameWorld
+                .getTrack()
+                .getCellIdAt(mBody.getWorldCenter().x, mBody.getWorldCenter().y);
     }
 
     private void updateFriction() {
         // Kill lateral velocity
-        Vector2 impulse = Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass()).scl(mMaterial.getGrip());
-        float maxImpulse = (float)GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 0.2f : 1);
+        Vector2 impulse =
+                Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass()).scl(mMaterial.getGrip());
+        float maxImpulse =
+                (float) GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 0.2f : 1);
         if (mMaterial != Material.ICE && mCanDrift && impulse.len() > maxImpulse) {
             // Drift
             mDrifting = true;

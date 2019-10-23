@@ -20,9 +20,7 @@ package com.agateau.ui;
 
 import com.badlogic.gdx.Preferences;
 
-/**
- * Turn events of an input device into virtual keys
- */
+/** Turn events of an input device into virtual keys */
 public interface InputMapper {
     boolean isKeyPressed(VirtualKey vkey);
 

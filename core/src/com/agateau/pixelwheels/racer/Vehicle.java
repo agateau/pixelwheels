@@ -38,9 +38,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.Disposable;
 
-/**
- * Represents a car on the world
- */
+/** Represents a car on the world */
 public class Vehicle implements Racer.Component, Disposable {
     private static final float ACCELERATION_DELTA = 1;
     private static final float BRAKING_DELTA = 0.8f;
@@ -80,7 +78,13 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
-    public Vehicle(TextureRegion region, GameWorld gameWorld, float originX, float originY, Array<Shape2D> shapes, float angle) {
+    public Vehicle(
+            TextureRegion region,
+            GameWorld gameWorld,
+            float originX,
+            float originY,
+            Array<Shape2D> shapes,
+            float angle) {
         mGameWorld = gameWorld;
 
         // Main
@@ -122,13 +126,14 @@ public class Vehicle implements Racer.Component, Disposable {
         body.setUserData(mBody.getUserData());
 
         RevoluteJointDef jointDef = new RevoluteJointDef();
-        // Call initialize() instead of defining bodies and anchors manually. Defining anchors manually
+        // Call initialize() instead of defining bodies and anchors manually. Defining anchors
+        // manually
         // causes Box2D to move the car a bit while it solves the constraints defined by the joints
         jointDef.initialize(mBody, body, body.getPosition());
         jointDef.lowerAngle = 0;
         jointDef.upperAngle = 0;
         jointDef.enableLimit = true;
-        info.joint = (RevoluteJoint)mGameWorld.getBox2DWorld().createJoint(jointDef);
+        info.joint = (RevoluteJoint) mGameWorld.getBox2DWorld().createJoint(jointDef);
 
         return info;
     }
@@ -190,7 +195,8 @@ public class Vehicle implements Racer.Component, Disposable {
         }
         for (WheelInfo wheelInfo : mWheels) {
             if (wheelInfo.wheel.getMaterial() == Material.ICE) {
-                float delta = AgcMathUtils.angleDelta(mBody.getLinearVelocity().angle(), getAngle());
+                float delta =
+                        AgcMathUtils.angleDelta(mBody.getLinearVelocity().angle(), getAngle());
                 return Math.abs(delta % 180) > MIN_ICE_DRIFT_ANGLE;
             }
         }
@@ -207,15 +213,14 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     /**
-     * speedLimiter is a percentage. Set it to 0.9 to make the vehicle drive at 90% of its maximum speed
+     * speedLimiter is a percentage. Set it to 0.9 to make the vehicle drive at 90% of its maximum
+     * speed
      */
     public void setSpeedLimiter(float speedLimiter) {
         mSpeedLimiter = speedLimiter;
     }
 
-    /**
-     * Returns the angle the car is facing
-     */
+    /** Returns the angle the car is facing */
     public float getAngle() {
         return AgcMathUtils.normalizeAngle(mBody.getAngle() * MathUtils.radiansToDegrees);
     }
@@ -254,10 +259,7 @@ public class Vehicle implements Racer.Component, Disposable {
         mZ = z;
     }
 
-    /**
-     * Call this when the vehicle needs to stop as soon as possible
-     * For example because it fell
-     */
+    /** Call this when the vehicle needs to stop as soon as possible For example because it fell */
     public void setStopped(boolean stopped) {
         if (stopped) {
             mTurboTime = -1;
@@ -282,13 +284,12 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private void actStopping(float dt) {
         Vector2 invVelocity = mBody.getLinearVelocity().scl(-0.1f);
-        mBody.applyForce(invVelocity.scl(mBody.getMass()).scl(1 / dt), mBody.getWorldCenter(), true);
+        mBody.applyForce(
+                invVelocity.scl(mBody.getMass()).scl(1 / dt), mBody.getWorldCenter(), true);
     }
 
     /**
-     * Apply ground effects on the vehicle:
-     * - trigger turbo when driving on turbo tiles
-     * - apply drag
+     * Apply ground effects on the vehicle: - trigger turbo when driving on turbo tiles - apply drag
      */
     private void applyGroundEffects(float dt) {
         final GamePlay GP = GamePlay.instance;
@@ -313,9 +314,7 @@ public class Vehicle implements Racer.Component, Disposable {
         }
     }
 
-    /**
-     * Apply pilot commands to the wheels
-     */
+    /** Apply pilot commands to the wheels */
     private void applyPilotCommands() {
         float speedDelta = 0;
         if (mGameWorld.getState() == GameWorld.State.RUNNING) {
@@ -350,6 +349,7 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     private final Vector2 mDirectionVector = new Vector2();
+
     private Vector2 computeDirectionVector(float strength) {
         return mDirectionVector.set(strength, 0).rotateRad(mBody.getAngle());
     }
@@ -358,11 +358,13 @@ public class Vehicle implements Racer.Component, Disposable {
         final GamePlay GP = GamePlay.instance;
 
         if (mTurboTime == 0) {
-            mBody.applyLinearImpulse(computeDirectionVector(GP.turboStrength / 6), mBody.getWorldCenter(), true);
+            mBody.applyLinearImpulse(
+                    computeDirectionVector(GP.turboStrength / 6), mBody.getWorldCenter(), true);
         }
         if (mTurboTime >= 0) {
             mTurboTime += dt;
-            mBody.applyForce(computeDirectionVector(GP.turboStrength), mBody.getWorldCenter(), true);
+            mBody.applyForce(
+                    computeDirectionVector(GP.turboStrength), mBody.getWorldCenter(), true);
             if (mTurboTime > GP.turboDuration) {
                 mTurboTime = -1;
             }
@@ -472,7 +474,8 @@ public class Vehicle implements Racer.Component, Disposable {
     private void applyCollisionInfo() {
         Box2DUtils.setCollisionInfo(mBody, mCollisionCategoryBits, mCollisionMaskBits);
         for (WheelInfo info : mWheels) {
-            Box2DUtils.setCollisionInfo(info.wheel.getBody(), mCollisionCategoryBits, mCollisionMaskBits);
+            Box2DUtils.setCollisionInfo(
+                    info.wheel.getBody(), mCollisionCategoryBits, mCollisionMaskBits);
         }
     }
 

@@ -22,7 +22,6 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlWriter;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -64,7 +63,9 @@ public class Introspector {
             }
             String fieldType = field.getType().toString();
             if (!fieldType.equals(type)) {
-                NLog.e("Field '%s' is of type '%s', but XML expected '%s', skipping", name, fieldType, type);
+                NLog.e(
+                        "Field '%s' is of type '%s', but XML expected '%s', skipping",
+                        name, fieldType, type);
                 continue;
             }
             switch (type) {
@@ -122,7 +123,7 @@ public class Introspector {
     private <T> T getFrom(Object object, String key) {
         try {
             Field field = mClass.getField(key);
-            return (T)field.get(object);
+            return (T) field.get(object);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException("get(" + key + ") failed. " + e);

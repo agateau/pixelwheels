@@ -33,9 +33,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Configure a keyboard input device
- */
+/** Configure a keyboard input device */
 public class KeyboardConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
@@ -55,12 +53,14 @@ public class KeyboardConfigScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        KeyboardInputHandler handler = (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
+        KeyboardInputHandler handler =
+                (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
         Assert.check(handler != null, "input handler is not a KeyboardInputHandler");
         KeyMapper mapper = (KeyMapper) handler.getInputMapper();
         Assert.check(mapper != null, "input mapper is not a KeyMapper");
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/keyboardconfig.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/keyboardconfig.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -71,12 +71,14 @@ public class KeyboardConfigScreen extends PwStageScreen {
         createLabelItem(menu, "Brake:", mapper.getKeys(VirtualKey.DOWN));
         createLabelItem(menu, "Trigger:", mapper.getKeys(VirtualKey.TRIGGER));
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     private void createLabelItem(Menu menu, String text, Integer[] keys) {

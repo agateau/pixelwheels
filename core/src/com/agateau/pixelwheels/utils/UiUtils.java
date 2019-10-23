@@ -7,7 +7,7 @@ import com.agateau.ui.UiBuilder;
 public class UiUtils {
     public static String getEntrantRowStyle(GameInfo.Entrant entrant) {
         if (entrant.isPlayer()) {
-            int index = ((GameInfo.Player)entrant).getIndex();
+            int index = ((GameInfo.Player) entrant).getIndex();
             return "player" + index + "ScoreRow";
         } else {
             return "scoreRow";

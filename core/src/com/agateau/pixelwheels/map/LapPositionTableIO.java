@@ -29,7 +29,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +44,7 @@ public class LapPositionTableIO {
 
         @Override
         public int compareTo(Object o) {
-            return Float.compare(order, ((Line)o).order);
+            return Float.compare(order, ((Line) o).order);
         }
     }
 
@@ -69,10 +68,17 @@ public class LapPositionTableIO {
             } catch (NumberFormatException e) {
                 throw new RuntimeException("Invalid section name " + name);
             }
-            Assert.check(obj instanceof PolylineMapObject, "'Sections' layer should only contain PolylineMapObjects");
-            Polyline polyline = ((PolylineMapObject)obj).getPolyline();
+            Assert.check(
+                    obj instanceof PolylineMapObject,
+                    "'Sections' layer should only contain PolylineMapObjects");
+            Polyline polyline = ((PolylineMapObject) obj).getPolyline();
             float[] vertices = polyline.getTransformedVertices();
-            Assert.check(vertices.length == 4, "Polyline with name " + order + "should have 2 points, not " + (vertices.length / 2));
+            Assert.check(
+                    vertices.length == 4,
+                    "Polyline with name "
+                            + order
+                            + "should have 2 points, not "
+                            + (vertices.length / 2));
             Line line = new Line();
             line.x1 = vertices[0];
             line.y1 = vertices[1];
@@ -110,9 +116,9 @@ public class LapPositionTableIO {
                 if (pos == null) {
                     color = 0;
                 } else {
-                    int r = (int)((1 - Math.abs(pos.getCenterDistance())) * 255);
+                    int r = (int) ((1 - Math.abs(pos.getCenterDistance())) * 255);
                     int g = pos.getSectionId() * 255 / table.getSectionCount();
-                    int b = (int)(pos.getSectionDistance() * 255);
+                    int b = (int) (pos.getSectionDistance() * 255);
                     color = (r << 24) | (g << 16) | (b << 8) | 0xff;
                 }
                 pixmap.drawPixel(x, height - 1 - y, color);

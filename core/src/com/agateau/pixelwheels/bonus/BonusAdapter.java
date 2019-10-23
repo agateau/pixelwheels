@@ -24,9 +24,7 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * An adapter for the Bonus class
- */
+/** An adapter for the Bonus class */
 public abstract class BonusAdapter implements Bonus {
     protected Racer mRacer;
 
@@ -36,7 +34,11 @@ public abstract class BonusAdapter implements Bonus {
     protected AudioManager mAudioManager;
 
     @Override
-    public void init(ReflectionPool<? extends Bonus> pool, Assets assets, GameWorld gameWorld, AudioManager audioManager) {
+    public void init(
+            ReflectionPool<? extends Bonus> pool,
+            Assets assets,
+            GameWorld gameWorld,
+            AudioManager audioManager) {
         mPool = pool;
         mAssets = assets;
         mGameWorld = gameWorld;
@@ -54,21 +56,14 @@ public abstract class BonusAdapter implements Bonus {
     }
 
     @Override
-    public void onOwnerHit() {
-    }
+    public void onOwnerHit() {}
 
     @Override
-    public void trigger() {
-
-    }
+    public void trigger() {}
 
     @Override
-    public void act(float delta) {
-
-    }
+    public void act(float delta) {}
 
     @Override
-    public void aiAct(float delta) {
-
-    }
+    public void aiAct(float delta) {}
 }

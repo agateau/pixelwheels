@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.utils;
 
-/**
- * Represents a position and an angle
- */
+/** Represents a position and an angle */
 public class OrientedPoint {
     public float x = 0;
     public float y = 0;

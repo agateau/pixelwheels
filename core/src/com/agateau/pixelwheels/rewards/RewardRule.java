@@ -20,9 +20,7 @@ package com.agateau.pixelwheels.rewards;
 
 import com.agateau.pixelwheels.stats.GameStats;
 
-/**
- * Defines the rule to unlock a reward
- */
+/** Defines the rule to unlock a reward */
 public interface RewardRule {
     boolean hasBeenUnlocked(GameStats gameStats);
 

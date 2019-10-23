@@ -21,14 +21,13 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.Assert;
-
 import java.util.HashMap;
 
 /**
  * A POJO representing a reward
  *
- * Instances cannot be directly created: get them through the get() static method.
- * This ensures there is only one instance of each reward.
+ * <p>Instances cannot be directly created: get them through the get() static method. This ensures
+ * there is only one instance of each reward.
  */
 public class Reward {
     private static final HashMap<Object, Reward> sInstances = new HashMap<>();

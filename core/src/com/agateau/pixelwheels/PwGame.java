@@ -48,9 +48,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
-/**
- * The game
- */
+/** The game */
 public class PwGame extends Game implements GameConfig.ChangeListener {
     private Assets mAssets;
     private final ScreenStack mScreenStack = new ScreenStack(this);
@@ -78,10 +76,14 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void create() {
-        mGamePlayIntrospector = new Introspector(GamePlay.instance, new GamePlay(),
-                FileUtils.getUserWritableFile("gameplay.xml"));
-        mDebugIntrospector = new Introspector(Debug.instance, new Debug(),
-                FileUtils.getUserWritableFile("debug.xml"));
+        mGamePlayIntrospector =
+                new Introspector(
+                        GamePlay.instance,
+                        new GamePlay(),
+                        FileUtils.getUserWritableFile("gameplay.xml"));
+        mDebugIntrospector =
+                new Introspector(
+                        Debug.instance, new Debug(), FileUtils.getUserWritableFile("debug.xml"));
 
         mGamePlayIntrospector.load();
         mDebugIntrospector.load();
@@ -120,7 +122,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        JsonGameStatsImplIO io = new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
+        JsonGameStatsImplIO io =
+                new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
         mGameStats = new GameStatsImpl(io);
     }
 

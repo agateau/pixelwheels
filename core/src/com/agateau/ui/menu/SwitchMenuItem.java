@@ -29,9 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
-/**
- * An item to select a boolean value
- */
+/** An item to select a boolean value */
 public class SwitchMenuItem extends Actor implements MenuItem {
     private static final float SWITCH_SPEED = 10;
     private final Rectangle mFocusRectangle = new Rectangle();
@@ -59,17 +57,19 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         setSize(mStyle.frame.getMinWidth() * 2, mStyle.frame.getMinHeight());
 
-        addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                trigger();
-            }
+        addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        trigger();
+                    }
 
-            @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                menu.setCurrentItem(SwitchMenuItem.this);
-            }
-        });
+                    @Override
+                    public void enter(
+                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        menu.setCurrentItem(SwitchMenuItem.this);
+                    }
+                });
     }
 
     public boolean isChecked() {
@@ -124,7 +124,6 @@ public class SwitchMenuItem extends Actor implements MenuItem {
         if (!mChecked) {
             trigger();
         }
-
     }
 
     @Override
@@ -163,12 +162,31 @@ public class SwitchMenuItem extends Actor implements MenuItem {
         float padding = mStyle.framePadding;
         float handleWidth = (getWidth() - 2 * padding) / 2;
         float x = handleWidth * mXOffset;
-        handle.draw(batch, getX() + x + padding, getY() + padding, handleWidth, getHeight() - 2 * padding);
+        handle.draw(
+                batch,
+                getX() + x + padding,
+                getY() + padding,
+                handleWidth,
+                getHeight() - 2 * padding);
 
         // Draw text
         float y = getY() + (mFont.getCapHeight() + getHeight()) / 2;
-        mFont.draw(batch, formatValue(false), getX() + padding, y, handleWidth, Align.center, /* wrap= */false);
-        mFont.draw(batch, formatValue(true), getX() + padding + handleWidth, y, handleWidth, Align.center, /* wrap= */false);
+        mFont.draw(
+                batch,
+                formatValue(false),
+                getX() + padding,
+                y,
+                handleWidth,
+                Align.center,
+                /* wrap= */ false);
+        mFont.draw(
+                batch,
+                formatValue(true),
+                getX() + padding + handleWidth,
+                y,
+                handleWidth,
+                Align.center,
+                /* wrap= */ false);
     }
 
     protected String formatValue(boolean value) {

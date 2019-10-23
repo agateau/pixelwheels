@@ -42,9 +42,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
-/**
- * A racer
- */
+/** A racer */
 public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
@@ -66,6 +64,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     public static class RecordRanks {
         public int lapRecordRank = -1;
         public int totalRecordRank = -1;
+
         public boolean brokeRecord() {
             return lapRecordRank > -1 || totalRecordRank > -1;
         }
@@ -78,8 +77,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private class PilotSupervisorComponent implements Component {
         @Override
         public void act(float delta) {
-            if (mLapPositionComponent.hasFinishedRace() || mSpinningComponent.isActive()
-                    || mGroundCollisionHandlerComponent.getState() != GroundCollisionHandlerComponent.State.NORMAL) {
+            if (mLapPositionComponent.hasFinishedRace()
+                    || mSpinningComponent.isActive()
+                    || mGroundCollisionHandlerComponent.getState()
+                            != GroundCollisionHandlerComponent.State.NORMAL) {
                 mVehicle.setAccelerating(false);
                 mVehicle.setBraking(false);
             } else {
@@ -88,26 +89,31 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
-    public Racer(Assets assets, AudioManager audioManager, GameWorld gameWorld, Vehicle vehicle, GameInfo.Entrant entrant) {
+    public Racer(
+            Assets assets,
+            AudioManager audioManager,
+            GameWorld gameWorld,
+            Vehicle vehicle,
+            GameInfo.Entrant entrant) {
         mGameWorld = gameWorld;
         mLapPositionComponent = new LapPositionComponent(gameWorld.getTrack(), vehicle);
         mSpinningComponent = new SpinningComponent(vehicle);
 
         mVehicle = vehicle;
         mVehicle.setRacer(this);
-        mVehicle.setCollisionInfo(CollisionCategories.RACER,
+        mVehicle.setCollisionInfo(
+                CollisionCategories.RACER,
                 CollisionCategories.WALL
-                | CollisionCategories.RACER | CollisionCategories.RACER_BULLET
-                | CollisionCategories.EXPLOSABLE);
+                        | CollisionCategories.RACER
+                        | CollisionCategories.RACER_BULLET
+                        | CollisionCategories.EXPLOSABLE);
 
         mEntrant = entrant;
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
-        mGroundCollisionHandlerComponent = new GroundCollisionHandlerComponent(
-                assets,
-                mGameWorld,
-                this,
-                mLapPositionComponent);
+        mGroundCollisionHandlerComponent =
+                new GroundCollisionHandlerComponent(
+                        assets, mGameWorld, this, mLapPositionComponent);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 
@@ -131,7 +137,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private void addComponent(Component component) {
         mComponents.add(component);
         if (component instanceof Collidable) {
-            mCollidableComponents.add((Collidable)component);
+            mCollidableComponents.add((Collidable) component);
         }
     }
 
@@ -180,10 +186,9 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     /**
-     * Returns the angle the camera should use to follow the vehicle.
-     * This is the same as Vehicle.getAngle() except when spinning,
-     * in which case we return the original angle, to avoid too much
-     * camera shaking, especially when "rotate screen" option is off.
+     * Returns the angle the camera should use to follow the vehicle. This is the same as
+     * Vehicle.getAngle() except when spinning, in which case we return the original angle, to avoid
+     * too much camera shaking, especially when "rotate screen" option is off.
      */
     public float getCameraAngle() {
         if (mSpinningComponent.isActive()) {
@@ -222,10 +227,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     /**
-     * Simplifies collisions between vehicles to make the game easier to play:
-     * bump them but do not change their direction
+     * Simplifies collisions between vehicles to make the game easier to play: bump them but do not
+     * change their direction
      */
     private final Vector2 mTmp = new Vector2();
+
     private void applySimplifiedRacerCollision(Racer other) {
         Body body1 = getVehicle().getBody();
         Body body2 = other.getVehicle().getBody();
@@ -233,7 +239,10 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mTmp.set(body2.getLinearVelocity()).sub(body1.getLinearVelocity());
         float deltaV = mTmp.len();
 
-        final float k = GamePlay.instance.simplifiedCollisionKFactor * MathUtils.clamp(deltaV / GamePlay.instance.simplifiedCollisionMaxDeltaV, 0, 1);
+        final float k =
+                GamePlay.instance.simplifiedCollisionKFactor
+                        * MathUtils.clamp(
+                                deltaV / GamePlay.instance.simplifiedCollisionMaxDeltaV, 0, 1);
         mTmp.set(body2.getWorldCenter()).sub(body1.getWorldCenter()).nor().scl(k);
 
         body2.applyLinearImpulse(mTmp, body2.getWorldCenter(), true);
@@ -292,7 +301,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
             pool = pools.get(pools.size - 1);
         }
 
-        mBonus = (Bonus)pool.obtain();
+        mBonus = (Bonus) pool.obtain();
         mBonus.onPicked(this);
         getGameStats().recordEvent(GameStats.Event.PICKED_BONUS);
     }
@@ -304,16 +313,12 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mBonus.trigger();
     }
 
-    /**
-     * Called by bonuses when they are done
-     */
+    /** Called by bonuses when they are done */
     public void resetBonus() {
         mBonus = null;
     }
 
-    /**
-     * Called when something bad happens to the racer, causing her to loose her bonus
-     */
+    /** Called when something bad happens to the racer, causing her to loose her bonus */
     public void looseBonus() {
         if (mBonus != null) {
             mBonus.onOwnerHit();

@@ -67,7 +67,7 @@ public class UiAssets {
         parameter.size = 28;
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-        parameter.size = (int)(parameter.size * SMALL_HUD_RATIO);
+        parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         // hud-rank-font
@@ -76,7 +76,7 @@ public class UiAssets {
         parameter.characters = "1234567890thsrdneméèP:";
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
-        parameter.size = (int)(parameter.size * SMALL_HUD_RATIO);
+        parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -87,12 +87,14 @@ public class UiAssets {
     }
 
     private BitmapFont loadFont(String name, int size) {
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+                new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
         return loadFont(name, parameter);
     }
 
-    private BitmapFont loadFont(String name, FreeTypeFontGenerator.FreeTypeFontParameter parameter) {
+    private BitmapFont loadFont(
+            String name, FreeTypeFontGenerator.FreeTypeFontParameter parameter) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(name));
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();

@@ -28,31 +28,34 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Set;
 
-/**
- * Helper class to create the reward manager rules
- */
+/** Helper class to create the reward manager rules */
 class RewardManagerSetup {
-    private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS = CollectionUtils.newSet("red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
+    private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS =
+            CollectionUtils.newSet(
+                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
-    static void createChampionshipRules(RewardManager rewardManager, Array<Championship> championships) {
+    static void createChampionshipRules(
+            RewardManager rewardManager, Array<Championship> championships) {
         rewardManager.addRule(Reward.get(championships.first()), RewardManager.ALWAYS_UNLOCKED);
 
         for (int idx = 1; idx < championships.size; ++idx) {
             final Championship previous = championships.get(idx - 1);
-            rewardManager.addRule(Reward.get(championships.get(idx)), new RewardRule() {
-                @Override
-                public boolean hasBeenUnlocked(GameStats gameStats) {
-                    return gameStats.getBestChampionshipRank(previous) <= 2;
-                }
+            rewardManager.addRule(
+                    Reward.get(championships.get(idx)),
+                    new RewardRule() {
+                        @Override
+                        public boolean hasBeenUnlocked(GameStats gameStats) {
+                            return gameStats.getBestChampionshipRank(previous) <= 2;
+                        }
 
-                @Override
-                public String getUnlockText(GameStats gameStats) {
-                    return StringUtils.format("Rank 3 or better at %s championship", previous.getName());
-                }
-            });
+                        @Override
+                        public String getUnlockText(GameStats gameStats) {
+                            return StringUtils.format(
+                                    "Rank 3 or better at %s championship", previous.getName());
+                        }
+                    });
         }
     }
 
@@ -62,13 +65,17 @@ class RewardManagerSetup {
                 rewardManager.addRule(Reward.get(vehicleDef), RewardManager.ALWAYS_UNLOCKED);
             }
         }
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("rocket")),
-                new CounterRewardRule(GameStats.Event.MISSILE_HIT, 10, "Hit %d vehicles with a missile"));
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("rocket")),
+                new CounterRewardRule(
+                        GameStats.Event.MISSILE_HIT, 10, "Hit %d vehicles with a missile"));
 
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("harvester")),
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("harvester")),
                 new CounterRewardRule(GameStats.Event.LEAVING_ROAD, 50, "Leave road %d times"));
 
-        rewardManager.addRule(Reward.get(assets.findVehicleDefById("santa")),
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("santa")),
                 new CounterRewardRule(GameStats.Event.PICKED_BONUS, 20, "Pick %d bonuses"));
     }
 }

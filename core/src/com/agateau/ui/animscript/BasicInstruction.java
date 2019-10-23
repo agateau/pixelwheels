@@ -19,7 +19,6 @@
 package com.agateau.ui.animscript;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -40,7 +39,7 @@ class BasicInstruction implements Instruction {
     @Override
     public Action run() {
         try {
-            return (Action)mMethod.invoke(mObject, mArgs);
+            return (Action) mMethod.invoke(mObject, mArgs);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException();

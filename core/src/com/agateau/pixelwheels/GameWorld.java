@@ -27,9 +27,6 @@ import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
-import com.agateau.pixelwheels.stats.GameStats;
-import com.agateau.pixelwheels.stats.TrackResult;
-import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.PlayerPilot;
@@ -39,6 +36,9 @@ import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.racescreen.CountDown;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.stats.GameStats;
+import com.agateau.pixelwheels.stats.TrackResult;
+import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleCreator;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
@@ -56,12 +56,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.Sort;
-
 import java.util.Comparator;
 
-/**
- * Contains all the information and objects running in the world
- */
+/** Contains all the information and objects running in the world */
 public class GameWorld implements ContactListener, Disposable {
     public enum State {
         COUNTDOWN,
@@ -69,7 +66,7 @@ public class GameWorld implements ContactListener, Disposable {
         FINISHED
     }
 
-    public static final float BOX2D_TIME_STEP = 1f/60f;
+    public static final float BOX2D_TIME_STEP = 1f / 60f;
     public static final int VELOCITY_ITERATIONS = 6;
     public static final int POSITION_ITERATIONS = 2;
 
@@ -132,7 +129,7 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     public Array<GameObject> getActiveGameObjects() {
-        return  mActiveGameObjects;
+        return mActiveGameObjects;
     }
 
     public void addGameObject(GameObject object) {
@@ -153,14 +150,14 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     /**
-     * Normalized rank goes from 0 to 1, where 0 is for the first racer and 1 is for the last one
-     * If there is only one racer, returns 0
+     * Normalized rank goes from 0 to 1, where 0 is for the first racer and 1 is for the last one If
+     * there is only one racer, returns 0
      */
     public float getRacerNormalizedRank(Racer racer) {
         if (mRacers.size == 1) {
             return 0;
         }
-        return (getRacerRank(racer) - 1) / (float)(mRacers.size - 1);
+        return (getRacerRank(racer) - 1) / (float) (mRacers.size - 1);
     }
 
     public GameStats getGameStats() {
@@ -168,28 +165,29 @@ public class GameWorld implements ContactListener, Disposable {
     }
 
     /**
-     * Sort racers, listing racers which have driven the longest first,
-     * so it returns 1 if racer1 has driven less than racer2
+     * Sort racers, listing racers which have driven the longest first, so it returns 1 if racer1
+     * has driven less than racer2
      */
-    private static final Comparator<Racer> sRacerComparator = (racer1, racer2) -> {
-        LapPositionComponent c1 = racer1.getLapPositionComponent();
-        LapPositionComponent c2 = racer2.getLapPositionComponent();
-        if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
-            return 1;
-        }
-        if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
-            return -1;
-        }
-        if (c1.getLapCount() < c2.getLapCount()) {
-            return 1;
-        }
-        if (c1.getLapCount() > c2.getLapCount()) {
-            return -1;
-        }
-        float d1 = c1.getLapDistance();
-        float d2 = c2.getLapDistance();
-        return Float.compare(d2, d1);
-    };
+    private static final Comparator<Racer> sRacerComparator =
+            (racer1, racer2) -> {
+                LapPositionComponent c1 = racer1.getLapPositionComponent();
+                LapPositionComponent c2 = racer2.getLapPositionComponent();
+                if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
+                    return 1;
+                }
+                if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
+                    return -1;
+                }
+                if (c1.getLapCount() < c2.getLapCount()) {
+                    return 1;
+                }
+                if (c1.getLapCount() > c2.getLapCount()) {
+                    return -1;
+                }
+                float d1 = c1.getLapDistance();
+                float d2 = c2.getLapDistance();
+                return Float.compare(d2, d1);
+            };
 
     public void act(float delta) {
         mCountDown.act(delta);
@@ -256,10 +254,14 @@ public class GameWorld implements ContactListener, Disposable {
                 Racer.RecordRanks ranks = racer.getRecordRanks();
                 // TODO find another way to get the name
                 String name = racer.getVehicle().getName();
-                ranks.lapRecordRank = stats.addResult(TrackStats.ResultType.LAP,
-                        new TrackResult(name, lapPositionComponent.getBestLapTime()));
-                ranks.totalRecordRank = stats.addResult(TrackStats.ResultType.TOTAL,
-                        new TrackResult(name, lapPositionComponent.getTotalTime()));
+                ranks.lapRecordRank =
+                        stats.addResult(
+                                TrackStats.ResultType.LAP,
+                                new TrackResult(name, lapPositionComponent.getBestLapTime()));
+                ranks.totalRecordRank =
+                        stats.addResult(
+                                TrackStats.ResultType.TOTAL,
+                                new TrackResult(name, lapPositionComponent.getTotalTime()));
             }
         }
     }
@@ -280,8 +282,9 @@ public class GameWorld implements ContactListener, Disposable {
             Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
             Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant.isPlayer()) {
-                GameInfo.Player player = (GameInfo.Player)entrant;
-                PlayerPilot pilot = new PlayerPilot(assets, this, racer, mGame.getConfig(), player.getIndex());
+                GameInfo.Player player = (GameInfo.Player) entrant;
+                PlayerPilot pilot =
+                        new PlayerPilot(assets, this, racer, mGame.getConfig(), player.getIndex());
                 racer.setPilot(pilot);
                 mPlayerRacers.add(racer);
             } else {
@@ -295,7 +298,9 @@ public class GameWorld implements ContactListener, Disposable {
     private void setupRoadBorders() {
         for (MapObject object : mTrack.getBorderObjects()) {
             Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
-            Box2DUtils.setCollisionInfo(body, CollisionCategories.WALL,
+            Box2DUtils.setCollisionInfo(
+                    body,
+                    CollisionCategories.WALL,
                     CollisionCategories.RACER
                             | CollisionCategories.EXPLOSABLE
                             | CollisionCategories.RACER_BULLET);
@@ -305,20 +310,26 @@ public class GameWorld implements ContactListener, Disposable {
 
     private void setupBonusSpots() {
         for (Vector2 pos : mTrack.findBonusSpotPositions()) {
-            BonusSpot spot = new BonusSpot(mGame.getAssets(), mGame.getAudioManager(), this, pos.x, pos.y);
+            BonusSpot spot =
+                    new BonusSpot(mGame.getAssets(), mGame.getAudioManager(), this, pos.x, pos.y);
             addGameObject(spot);
         }
     }
 
     private void setupBonusPools() {
-        addPool(new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0.2f, 1.0f, 1.0f});
-        addPool(new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{2.0f, 1.0f, 0.5f});
-        addPool(new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0.1f, 1.0f, 2.0f});
-        addPool(new BonusPool<>(MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[]{0.2f, 1.0f, 1.0f});
+        addPool(
+                new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+                new float[] {0.2f, 1.0f, 1.0f});
+        addPool(
+                new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+                new float[] {2.0f, 1.0f, 0.5f});
+        addPool(
+                new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+                new float[] {0.1f, 1.0f, 2.0f});
+        addPool(
+                new BonusPool<>(
+                        MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
+                new float[] {0.2f, 1.0f, 1.0f});
     }
 
     private void addPool(BonusPool pool, float[] counts) {
@@ -408,5 +419,4 @@ public class GameWorld implements ContactListener, Disposable {
     public void forgetTrack() {
         mTrack = null;
     }
-
 }

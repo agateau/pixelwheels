@@ -31,9 +31,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-/**
- * Loads a TMX file and creates a screenshot of it as a PNG file
- */
+/** Loads a TMX file and creates a screenshot of it as a PNG file */
 public class MapScreenshotGenerator {
     private static final int SHOT_SIZE = 150;
 
@@ -49,7 +47,11 @@ public class MapScreenshotGenerator {
                     FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
                     FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
                     for (FileHandle tmxFile : tmxDir.list(".tmx")) {
-                        String shotFileName = shotDir.path() + "/" + tmxFile.nameWithoutExtension() + "-generated.png";
+                        String shotFileName =
+                                shotDir.path()
+                                        + "/"
+                                        + tmxFile.nameWithoutExtension()
+                                        + "-generated.png";
                         processFile(shotFileName, tmxFile.path());
                     }
                 }
@@ -83,7 +85,8 @@ public class MapScreenshotGenerator {
         int mapWidth = (int) (layer.getWidth() * layer.getTileWidth());
         int mapHeight = (int) (layer.getHeight() * layer.getTileHeight());
 
-        FrameBuffer fbo = new FrameBuffer(Pixmap.Format.RGB888, mapWidth, mapHeight, false /* hasDepth */);
+        FrameBuffer fbo =
+                new FrameBuffer(Pixmap.Format.RGB888, mapWidth, mapHeight, false /* hasDepth */);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map);
 
         OrthographicCamera camera = new OrthographicCamera();
@@ -91,7 +94,7 @@ public class MapScreenshotGenerator {
         renderer.setView(camera);
 
         fbo.begin();
-        renderer.render(new int[]{0, 1});
+        renderer.render(new int[] {0, 1});
 
         return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
     }
@@ -100,15 +103,14 @@ public class MapScreenshotGenerator {
         int srcW = src.getWidth();
         int srcH = src.getHeight();
 
-        float ratio = (float)SHOT_SIZE / Math.max(srcW, srcH);
+        float ratio = (float) SHOT_SIZE / Math.max(srcW, srcH);
         int dstW = (int) (srcW * ratio);
         int dstH = (int) (srcH * ratio);
 
         Pixmap dst = new Pixmap(SHOT_SIZE, SHOT_SIZE, src.getFormat());
         dst.setFilter(Pixmap.Filter.BiLinear);
-        dst.drawPixmap(src,
-                0, 0, srcW, srcH,
-                (SHOT_SIZE - dstW) / 2, (SHOT_SIZE - dstH) / 2, dstW, dstH);
+        dst.drawPixmap(
+                src, 0, 0, srcW, srcH, (SHOT_SIZE - dstW) / 2, (SHOT_SIZE - dstH) / 2, dstW, dstH);
         return dst;
     }
 }

@@ -20,21 +20,15 @@ package com.agateau.pixelwheels.sound;
 
 import com.badlogic.gdx.audio.Sound;
 
-/**
- * Create audio objects
- */
+/** Create audio objects */
 public interface AudioManager {
     boolean isMuted();
 
     void setMuted(boolean muted);
 
-    /**
-     * Basic method for simple sounds
-     */
+    /** Basic method for simple sounds */
     void play(Sound sound, float volume);
 
-    /**
-     * Create a SoundPlayer, for more advanced controls
-     */
+    /** Create a SoundPlayer, for more advanced controls */
     SoundPlayer createSoundPlayer(Sound sound);
 }

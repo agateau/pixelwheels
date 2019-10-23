@@ -21,12 +21,9 @@ package com.agateau.pixelwheels.sound;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Locale;
 
-/**
- * Simulates the sound of a vehicle engine
- */
+/** Simulates the sound of a vehicle engine */
 public class EngineSoundPlayer {
     public static final float MIN_PITCH = 0.5f;
     public static final float MAX_PITCH = 2f;
@@ -47,7 +44,7 @@ public class EngineSoundPlayer {
     }
 
     public EngineSoundPlayer(SoundAtlas atlas, AudioManager audioManager) {
-        for (int i = 0;; ++i) {
+        for (int i = 0; ; ++i) {
             String name = String.format(Locale.US, "engine-%d", i);
             if (!atlas.contains(name)) {
                 break;

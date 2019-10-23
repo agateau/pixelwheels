@@ -21,14 +21,9 @@ package com.agateau.ui;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashMap;
 
-/**
- * An atlas which:
- * - fails immediately when it does not find a region
- * - cache the found regions
- */
+/** An atlas which: - fails immediately when it does not find a region - cache the found regions */
 public class StrictTextureAtlas extends TextureAtlas {
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<>();
 
@@ -44,7 +39,8 @@ public class StrictTextureAtlas extends TextureAtlas {
         }
         region = super.findRegion(name);
         if (region == null) {
-            throw new RuntimeException("Failed to load a texture region named '" + name + "' from atlas " + this);
+            throw new RuntimeException(
+                    "Failed to load a texture region named '" + name + "' from atlas " + this);
         }
         mRegions.put(name, region);
         return region;
@@ -54,7 +50,8 @@ public class StrictTextureAtlas extends TextureAtlas {
     public Array<AtlasRegion> findRegions(String name) {
         Array<TextureAtlas.AtlasRegion> lst = super.findRegions(name);
         if (lst.size == 0) {
-            throw new RuntimeException("Failed to load an array of regions named '" + name + "' from atlas " + this);
+            throw new RuntimeException(
+                    "Failed to load an array of regions named '" + name + "' from atlas " + this);
         }
         return lst;
     }

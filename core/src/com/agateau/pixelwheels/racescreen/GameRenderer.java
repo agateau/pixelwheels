@@ -35,9 +35,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 
-/**
- * Responsible for rendering the game world
- */
+/** Responsible for rendering the game world */
 public class GameRenderer {
     private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
@@ -48,7 +46,7 @@ public class GameRenderer {
     private final GameWorld mWorld;
     private final CameraUpdater mCameraUpdater;
 
-    private final int[] mBackgroundLayerFirstIndexes = { 0 };
+    private final int[] mBackgroundLayerFirstIndexes = {0};
     private final int[] mExtraBackgroundLayerIndexes;
     private final int[] mForegroundLayerIndexes;
 
@@ -71,8 +69,12 @@ public class GameRenderer {
         mBatch = batch;
         mCamera = new OrthographicCamera();
         boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
-        mCameraUpdater = singlePlayer ? new SinglePlayerCameraUpdater(mWorld) : new MultiPlayerCameraUpdater(mWorld);
-        mRenderer = new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
+        mCameraUpdater =
+                singlePlayer
+                        ? new SinglePlayerCameraUpdater(mWorld)
+                        : new MultiPlayerCameraUpdater(mWorld);
+        mRenderer =
+                new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
@@ -139,7 +141,8 @@ public class GameRenderer {
                 float mapHeight = mTrack.getMapHeight();
                 for (float y = 0; y < mapHeight; y += tileH) {
                     for (float x = 0; x < mapWidth; x += tileW) {
-                        mShapeRenderer.rect(x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
+                        mShapeRenderer.rect(
+                                x, y, Constants.UNIT_FOR_PIXEL, Constants.UNIT_FOR_PIXEL);
                     }
                 }
                 mShapeRenderer.end();
@@ -166,7 +169,11 @@ public class GameRenderer {
     private void updateMapRendererCamera() {
         float width = mCamera.viewportWidth * mCamera.zoom;
         float height = mCamera.viewportHeight * mCamera.zoom;
-        mRenderer.setView(mCamera.combined,
-                mCamera.position.x - width / 2, mCamera.position.y - height / 2, width, height);
+        mRenderer.setView(
+                mCamera.combined,
+                mCamera.position.x - width / 2,
+                mCamera.position.y - height / 2,
+                width,
+                height);
     }
 }

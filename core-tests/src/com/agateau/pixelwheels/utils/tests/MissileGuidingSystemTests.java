@@ -18,23 +18,22 @@
  */
 package com.agateau.pixelwheels.utils.tests;
 
+import static com.agateau.pixelwheels.Constants.UNIT_FOR_PIXEL;
+import static com.agateau.pixelwheels.GameWorld.BOX2D_TIME_STEP;
+import static com.agateau.pixelwheels.GameWorld.POSITION_ITERATIONS;
+import static com.agateau.pixelwheels.GameWorld.VELOCITY_ITERATIONS;
+import static junit.framework.Assert.assertEquals;
+
 import com.agateau.pixelwheels.bonus.MissileGuidingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import static com.agateau.pixelwheels.Constants.UNIT_FOR_PIXEL;
-import static com.agateau.pixelwheels.GameWorld.BOX2D_TIME_STEP;
-import static com.agateau.pixelwheels.GameWorld.POSITION_ITERATIONS;
-import static com.agateau.pixelwheels.GameWorld.VELOCITY_ITERATIONS;
-import static junit.framework.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class MissileGuidingSystemTests {
@@ -44,6 +43,7 @@ public class MissileGuidingSystemTests {
 
     interface WorldCallback {
         void act();
+
         boolean isDone();
     }
 
@@ -68,18 +68,21 @@ public class MissileGuidingSystemTests {
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
 
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                float velocity = body.getLinearVelocity().len();
-                Assert.assertTrue(velocity <= MissileGuidingSystem.MAX_SPEED);
-                guidingSystem.act(null);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, end);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        float velocity = body.getLinearVelocity().len();
+                        Assert.assertTrue(velocity <= MissileGuidingSystem.MAX_SPEED);
+                        guidingSystem.act(null);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, end);
+                    }
+                });
         assertEquals(0f, body.getAngle());
     }
 
@@ -91,16 +94,19 @@ public class MissileGuidingSystemTests {
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                guidingSystem.act(target);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, target);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        guidingSystem.act(target);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, target);
+                    }
+                });
     }
 
     @Test
@@ -111,16 +117,19 @@ public class MissileGuidingSystemTests {
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                guidingSystem.act(target);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, target);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        guidingSystem.act(target);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, target);
+                    }
+                });
     }
 
     @Test
@@ -131,16 +140,19 @@ public class MissileGuidingSystemTests {
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                guidingSystem.act(target);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, target);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        guidingSystem.act(target);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, target);
+                    }
+                });
     }
 
     @Test
@@ -151,16 +163,19 @@ public class MissileGuidingSystemTests {
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                guidingSystem.act(target);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, target);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        guidingSystem.act(target);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, target);
+                    }
+                });
     }
 
     @Test
@@ -171,17 +186,20 @@ public class MissileGuidingSystemTests {
 
         final MissileGuidingSystem guidingSystem = new MissileGuidingSystem();
         guidingSystem.init(body);
-        iterate(world, new WorldCallback() {
-            @Override
-            public void act() {
-                target.y += 4 * UNIT_FOR_PIXEL;
-                guidingSystem.act(target);
-            }
-            @Override
-            public boolean isDone() {
-                return hasBodyReachedPoint(body, target);
-            }
-        });
+        iterate(
+                world,
+                new WorldCallback() {
+                    @Override
+                    public void act() {
+                        target.y += 4 * UNIT_FOR_PIXEL;
+                        guidingSystem.act(target);
+                    }
+
+                    @Override
+                    public boolean isDone() {
+                        return hasBodyReachedPoint(body, target);
+                    }
+                });
     }
 
     private boolean hasBodyReachedPoint(Body body, Vector2 target) {

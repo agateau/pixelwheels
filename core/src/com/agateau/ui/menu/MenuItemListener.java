@@ -21,9 +21,7 @@ package com.agateau.ui.menu;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 
-/**
- * Listener for a MenuItem
- */
+/** Listener for a MenuItem */
 public abstract class MenuItemListener implements EventListener {
     public abstract void triggered();
 

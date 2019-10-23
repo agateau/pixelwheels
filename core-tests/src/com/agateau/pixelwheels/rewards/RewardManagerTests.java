@@ -18,13 +18,15 @@
  */
 package com.agateau.pixelwheels.rewards;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,16 +35,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
 @RunWith(JUnit4.class)
 public class RewardManagerTests {
-    @Mock
-    private GameStatsImpl.IO mStatsIO;
+    @Mock private GameStatsImpl.IO mStatsIO;
 
-    @Rule
-    public MockitoRule mMockitoRule = MockitoJUnit.rule();
+    @Rule public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testIsChampionshipUnlocked() {
@@ -52,16 +49,19 @@ public class RewardManagerTests {
         final Championship championship1 = championships.get(0);
         final Championship championship2 = championships.get(1);
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.get(championship2), new RewardRule() {
-            @Override
-            public boolean hasBeenUnlocked(GameStats gameStats) {
-                return false;
-            }
-            @Override
-            public String getUnlockText(GameStats gameStats) {
-                return "";
-            }
-        });
+        manager.addRule(
+                Reward.get(championship2),
+                new RewardRule() {
+                    @Override
+                    public boolean hasBeenUnlocked(GameStats gameStats) {
+                        return false;
+                    }
+
+                    @Override
+                    public String getUnlockText(GameStats gameStats) {
+                        return "";
+                    }
+                });
         assertThat(manager.isChampionshipUnlocked(championship1), is(true));
         assertThat(manager.isChampionshipUnlocked(championship2), is(false));
     }
@@ -74,16 +74,19 @@ public class RewardManagerTests {
         final Championship championship1 = championships.get(0);
         final Championship championship2 = championships.get(1);
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.get(championship2), new RewardRule() {
-            @Override
-            public boolean hasBeenUnlocked(GameStats gameStats) {
-                return false;
-            }
-            @Override
-            public String getUnlockText(GameStats gameStats) {
-                return "";
-            }
-        });
+        manager.addRule(
+                Reward.get(championship2),
+                new RewardRule() {
+                    @Override
+                    public boolean hasBeenUnlocked(GameStats gameStats) {
+                        return false;
+                    }
+
+                    @Override
+                    public String getUnlockText(GameStats gameStats) {
+                        return "";
+                    }
+                });
         assertThat(manager.isTrackUnlocked(championship1.getTracks().get(0)), is(true));
         assertThat(manager.isTrackUnlocked(championship2.getTracks().get(0)), is(false));
     }
@@ -97,16 +100,19 @@ public class RewardManagerTests {
         final Championship ch1 = championships.get(0);
         final Championship ch2 = championships.get(1);
         manager.addRule(Reward.get(ch1), RewardManager.ALWAYS_UNLOCKED);
-        manager.addRule(Reward.get(ch2), new RewardRule() {
-            @Override
-            public boolean hasBeenUnlocked(GameStats gameStats) {
-                return gameStats.getBestChampionshipRank(ch1) <= 2;
-            }
-            @Override
-            public String getUnlockText(GameStats gameStats) {
-                return "";
-            }
-        });
+        manager.addRule(
+                Reward.get(ch2),
+                new RewardRule() {
+                    @Override
+                    public boolean hasBeenUnlocked(GameStats gameStats) {
+                        return gameStats.getBestChampionshipRank(ch1) <= 2;
+                    }
+
+                    @Override
+                    public String getUnlockText(GameStats gameStats) {
+                        return "";
+                    }
+                });
 
         // THEN unlocked rewards contains only ch1
         Reward ch1Reward = Reward.get(ch1);

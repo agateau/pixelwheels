@@ -28,7 +28,7 @@ public class EngineLab extends Game {
         setScreen(new EngineLabScreen());
     }
 
-    public static void main (String[] arg) {
+    public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 800;
         config.height = 600;

@@ -23,15 +23,16 @@ import com.agateau.pixelwheels.map.LapPosition;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.utils.log.NLog;
 
-/**
- * A component to track the racer time
- */
+/** A component to track the racer time */
 public class LapPositionComponent implements Racer.Component {
     public enum Status {
         RACING,
-        COMPLETED, // Crossed the finished line, or was an AI currently racing when the last human finished
-        DID_NOT_START // Had not yet crossed the start line when the last human finished!
+        /** Crossed the finished line, or was an AI currently racing when the last human finished */
+        COMPLETED,
+        /** Had not yet crossed the start line when the last human finished! */
+        DID_NOT_START
     }
+
     private final Track mTrack;
     private final Vehicle mVehicle;
 
@@ -89,8 +90,8 @@ public class LapPositionComponent implements Racer.Component {
     private void updatePosition() {
         final int oldSectionId = mLapPosition.getSectionId();
         final float PFU = 1 / Constants.UNIT_FOR_PIXEL;
-        final int pixelX = (int)(PFU * mVehicle.getX());
-        final int pixelY = (int)(PFU * mVehicle.getY());
+        final int pixelX = (int) (PFU * mVehicle.getX());
+        final int pixelY = (int) (PFU * mVehicle.getY());
         final LapPosition pos = mTrack.getLapPositionTable().get(pixelX, pixelY);
         if (pos == null) {
             NLog.e("No LapPosition at pixel " + pixelX + " x " + pixelY);
@@ -98,7 +99,8 @@ public class LapPositionComponent implements Racer.Component {
         }
         mLapPosition.copy(pos);
         final boolean crossedFinishLine = mLapPosition.getSectionId() == 0 && oldSectionId > 1;
-        final boolean crossedFinishLineBackward = mLapPosition.getSectionId() > 1 && oldSectionId == 0;
+        final boolean crossedFinishLineBackward =
+                mLapPosition.getSectionId() > 1 && oldSectionId == 0;
         if (crossedFinishLine) {
             if (mSkipNextFinishLine) {
                 mSkipNextFinishLine = false;
@@ -140,7 +142,10 @@ public class LapPositionComponent implements Racer.Component {
         // Completing one lap represents that percentage of the race
         float lapPercent = 1f / mTrack.getTotalLapCount();
 
-        float lastLapPercent = mLapPosition.getLapDistance() / mTrack.getLapPositionTable().getSectionCount() * lapPercent;
+        float lastLapPercent =
+                mLapPosition.getLapDistance()
+                        / mTrack.getLapPositionTable().getSectionCount()
+                        * lapPercent;
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
         mTotalTime = mTotalTime / percentageDone;

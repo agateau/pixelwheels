@@ -33,13 +33,14 @@ public abstract class RefreshHelper {
     }
 
     public RefreshHelper(Group group) {
-        Actor helperActor = new Actor() {
-            @Override
-            public void setStage(Stage stage) {
-                super.setStage(stage);
-                installEventListener(stage);
-            }
-        };
+        Actor helperActor =
+                new Actor() {
+                    @Override
+                    public void setStage(Stage stage) {
+                        super.setStage(stage);
+                        installEventListener(stage);
+                    }
+                };
         group.addActor(helperActor);
     }
 
@@ -47,31 +48,30 @@ public abstract class RefreshHelper {
         if (stage == null) {
             return;
         }
-        stage.addListener(new InputListener() {
-            @Override
-            public boolean keyUp(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.F5) {
-                    NLog.i("Refreshing");
-                    Gdx.app.postRunnable(() -> {
-                        try {
-                            refreshAssets();
-                            refresh();
-                        } catch (Exception exc) {
-                            NLog.e("Refresh failed: %s", exc);
+        stage.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean keyUp(InputEvent event, int keycode) {
+                        if (keycode == Input.Keys.F5) {
+                            NLog.i("Refreshing");
+                            Gdx.app.postRunnable(
+                                    () -> {
+                                        try {
+                                            refreshAssets();
+                                            refresh();
+                                        } catch (Exception exc) {
+                                            NLog.e("Refresh failed: %s", exc);
+                                        }
+                                    });
+                            return true;
                         }
-                    });
-                    return true;
-                }
-                return false;
-            }
-        });
+                        return false;
+                    }
+                });
     }
 
-    protected void refreshAssets() {
-    }
+    protected void refreshAssets() {}
 
-    /**
-     * Implementation of this method must do the refresh
-     */
+    /** Implementation of this method must do the refresh */
     protected abstract void refresh();
 }

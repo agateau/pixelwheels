@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
-/**
- * Customization of the gameplay
- */
+/** Customization of the gameplay */
 public class GamePlay {
     public int racerCount = 6;
     public int maxDrivingForce = 50;
@@ -46,7 +44,8 @@ public class GamePlay {
     public int turboStrength = 200;
     public float turboDuration = 0.5f;
 
-    // When an AI is better ranked than a player, set its max speed to this percent of the best max speed
+    // When an AI is better ranked than a player, set its max speed to this percent of the best max
+    // speed
     public float aiSpeedLimiter = 0.8f;
 
     public boolean alwaysShowTouchInput = false;

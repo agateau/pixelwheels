@@ -35,7 +35,7 @@ public class AnimScript {
             return mInstructions.get(0).run();
         }
         SequenceAction action = Actions.sequence();
-        for (Instruction instruction: mInstructions) {
+        for (Instruction instruction : mInstructions) {
             action.addAction(instruction.run());
         }
         return action;

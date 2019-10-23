@@ -29,9 +29,7 @@ import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.VirtualKey;
 
-/**
- * A pilot controlled by the player
- */
+/** A pilot controlled by the player */
 public class PlayerPilot implements Pilot {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
@@ -42,7 +40,12 @@ public class PlayerPilot implements Pilot {
     private GameInputHandler mInputHandler;
     private boolean mLastTriggering = false;
 
-    public PlayerPilot(Assets assets, GameWorld gameWorld, Racer racer, GameConfig gameConfig, int playerIndex) {
+    public PlayerPilot(
+            Assets assets,
+            GameWorld gameWorld,
+            Racer racer,
+            GameConfig gameConfig,
+            int playerIndex) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
@@ -84,7 +87,7 @@ public class PlayerPilot implements Pilot {
         if (!(mInputHandler instanceof KeyboardInputHandler)) {
             return false;
         }
-        InputMapper inputMapper = ((KeyboardInputHandler)mInputHandler).getInputMapper();
+        InputMapper inputMapper = ((KeyboardInputHandler) mInputHandler).getInputMapper();
         return inputMapper.isKeyJustPressed(VirtualKey.BACK);
     }
 

@@ -21,7 +21,6 @@ package com.agateau.ui;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-
 import java.util.Stack;
 
 public class ScreenStack {
@@ -59,8 +58,8 @@ public class ScreenStack {
     }
 
     /**
-     * A blocking screen override the normal stack, once a blocking screen is shown,
-     * screens from the stack won't be shown unless hideBlockingScreen() is called.
+     * A blocking screen override the normal stack, once a blocking screen is shown, screens from
+     * the stack won't be shown unless hideBlockingScreen() is called.
      */
     public void showBlockingScreen(Screen screen) {
         Assert.check(mBlockingScreen == null, "There is already a blocking screen");

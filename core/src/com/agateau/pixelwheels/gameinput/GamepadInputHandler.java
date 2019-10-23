@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.gameinput;
 import com.agateau.ui.GamepadInputMapper;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Handle gamepad input, for desktop mode
- */
+/** Handle gamepad input, for desktop mode */
 public class GamepadInputHandler extends KeyboardInputHandler {
 
     public static class Factory implements GameInputHandlerFactory {

@@ -28,22 +28,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashMap;
 
 public class MenuItemGroup implements MenuItem {
     private final Menu mMenu;
-    private final WidgetGroup mGroup = new WidgetGroup() {
-        @Override
-        public void layout() {
-            layoutItems();
-        }
-    };
+    private final WidgetGroup mGroup =
+            new WidgetGroup() {
+                @Override
+                public void layout() {
+                    layoutItems();
+                }
+            };
 
     private static class ItemInfo {
         Label label = null;
         boolean visible = true;
     }
+
     private final Array<MenuItem> mItems = new Array<>();
     private final HashMap<Actor, MenuItem> mItemForActor = new HashMap<>();
     private final HashMap<MenuItem, ItemInfo> mInfoForItem = new HashMap<>();
@@ -58,20 +59,23 @@ public class MenuItemGroup implements MenuItem {
 
     public MenuItemGroup(Menu menu) {
         mMenu = menu;
-        mGroup.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                MenuItem item = getItemAt(x, y);
-                if (item != null) {
-                    setCurrentItem(item);
-                }
-                return false;
-            }
+        mGroup.addListener(
+                new InputListener() {
+                    public boolean touchDown(
+                            InputEvent event, float x, float y, int pointer, int button) {
+                        MenuItem item = getItemAt(x, y);
+                        if (item != null) {
+                            setCurrentItem(item);
+                        }
+                        return false;
+                    }
 
-            @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                menu.setCurrentItem(MenuItemGroup.this);
-            }
-        });
+                    @Override
+                    public void enter(
+                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        menu.setCurrentItem(MenuItemGroup.this);
+                    }
+                });
     }
 
     public void focusFirstItem() {
@@ -155,6 +159,7 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private final Rectangle mFocusRect = new Rectangle();
+
     @Override
     public Rectangle getFocusRectangle() {
         MenuItem item = getCurrentItem();
@@ -182,7 +187,7 @@ public class MenuItemGroup implements MenuItem {
             return;
         }
         if (getCurrentItem() instanceof MenuItemGroup)
-            ((MenuItemGroup)getCurrentItem()).setCurrentItem(item);
+            ((MenuItemGroup) getCurrentItem()).setCurrentItem(item);
         int index = getItemIndex(item);
         if (index == -1) return;
         setCurrentIndex(index);
@@ -246,7 +251,8 @@ public class MenuItemGroup implements MenuItem {
         for (int idx = startIndex + delta; idx >= 0 && idx < size; idx += delta) {
             MenuItem item = mItems.get(idx);
             if (item.isFocusable() && isItemVisible(item)) {
-                setCurrentIndex(idx, delta > 0 ? SetCurrentHint.FROM_TOP : SetCurrentHint.FROM_BOTTOM);
+                setCurrentIndex(
+                        idx, delta > 0 ? SetCurrentHint.FROM_TOP : SetCurrentHint.FROM_BOTTOM);
                 return true;
             }
         }
@@ -348,7 +354,7 @@ public class MenuItemGroup implements MenuItem {
             item.setFocused(true);
 
             if (item instanceof MenuItemGroup) {
-                MenuItemGroup group = (MenuItemGroup)item;
+                MenuItemGroup group = (MenuItemGroup) item;
                 switch (hint) {
                     case NONE:
                         break;
@@ -363,10 +369,9 @@ public class MenuItemGroup implements MenuItem {
         }
     }
 
-    /**
-     * Returns the item at x, y (relative to mGroup), if any
-     */
+    /** Returns the item at x, y (relative to mGroup), if any */
     private final Rectangle mActorRectangle = new Rectangle();
+
     private MenuItem getItemAt(float x, float y) {
         for (MenuItem item : mItems) {
             if (!isItemVisible(item)) {
@@ -374,7 +379,8 @@ public class MenuItemGroup implements MenuItem {
             }
             Actor actor = item.getActor();
             // We do not use the item focus rect because it might only represent a part of the item
-            // For example the focus rect of a GridMenuItem is the currently selected cell of the grid
+            // For example the focus rect of a GridMenuItem is the currently selected cell of the
+            // grid
             mActorRectangle.set(0, 0, actor.getWidth(), actor.getHeight());
             for (; actor != mGroup && actor != null; actor = actor.getParent()) {
                 mActorRectangle.x += actor.getX();

@@ -20,9 +20,7 @@ package com.agateau.pixelwheels.sound;
 
 import com.badlogic.gdx.audio.Sound;
 
-/**
- * Implementation of SoundPlayer based on libgdx
- */
+/** Implementation of SoundPlayer based on libgdx */
 class DefaultSoundPlayer implements SoundPlayer {
     private final Sound mSound;
     private long mId = -1;

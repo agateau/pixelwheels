@@ -24,11 +24,13 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * A bonus. When the bonus is done, it must call Racer.resetBonus().
- */
+/** A bonus. When the bonus is done, it must call Racer.resetBonus(). */
 public interface Bonus {
-    void init(ReflectionPool<? extends Bonus> pool, Assets assets, GameWorld gameWorld, AudioManager audioManager);
+    void init(
+            ReflectionPool<? extends Bonus> pool,
+            Assets assets,
+            GameWorld gameWorld,
+            AudioManager audioManager);
 
     /**
      * Called when a Racer picked the bonus. Should store the racer parameter for future use, such
@@ -36,20 +38,14 @@ public interface Bonus {
      */
     void onPicked(Racer racer);
 
-    /**
-     * Called when a Racer is hit while carrying a bonus.
-     */
+    /** Called when a Racer is hit while carrying a bonus. */
     void onOwnerHit();
 
     void trigger();
 
-    /**
-     * Called by the racer as long as it owns the bonus.
-     */
+    /** Called by the racer as long as it owns the bonus. */
     void act(float delta);
 
-    /**
-     * Implements behavior of the AI when it owns this bonus
-     */
+    /** Implements behavior of the AI when it owns this bonus */
     void aiAct(float delta);
 }

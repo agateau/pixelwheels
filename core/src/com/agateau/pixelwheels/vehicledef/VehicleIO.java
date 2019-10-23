@@ -18,16 +18,16 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
+import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.utils.XmlReader;
-import com.agateau.utils.FileUtils;
 
 /**
- * Read vehicle XML files and returns POJO for them
- * Width and height are swapped, because vehicles are drawn vertically but body is horizontal
+ * Read vehicle XML files and returns POJO for them Width and height are swapped, because vehicles
+ * are drawn vertically but body is horizontal
  */
 public class VehicleIO {
     public static VehicleDef get(String id) {
@@ -79,7 +79,8 @@ public class VehicleIO {
         return data;
     }
 
-    private static Shape2D loadShape(XmlReader.Element element, float vehicleWidth, float vehicleHeight) {
+    private static Shape2D loadShape(
+            XmlReader.Element element, float vehicleWidth, float vehicleHeight) {
         String type = element.getName();
         if (type.equals("octogon")) {
             float width = element.getFloatAttribute("height");
@@ -88,16 +89,25 @@ public class VehicleIO {
             float y = element.getFloatAttribute("x", (vehicleHeight - height) / 2);
             float corner = element.getFloatAttribute("corner", 0);
             Polygon polygon = new Polygon();
-            polygon.setVertices(new float[]{
-                    width / 2 - corner, -height / 2,
-                    width / 2, -height / 2 + corner,
-                    width / 2, height / 2 - corner,
-                    width / 2 - corner, height / 2,
-                    -width / 2 + corner, height / 2,
-                    -width / 2, height / 2 - corner,
-                    -width / 2, -height / 2 + corner,
-                    -width / 2 + corner, -height / 2
-            });
+            polygon.setVertices(
+                    new float[] {
+                        width / 2 - corner,
+                        -height / 2,
+                        width / 2,
+                        -height / 2 + corner,
+                        width / 2,
+                        height / 2 - corner,
+                        width / 2 - corner,
+                        height / 2,
+                        -width / 2 + corner,
+                        height / 2,
+                        -width / 2,
+                        height / 2 - corner,
+                        -width / 2,
+                        -height / 2 + corner,
+                        -width / 2 + corner,
+                        -height / 2
+                    });
             polygon.translate(x - (vehicleWidth - width) / 2, y - (vehicleHeight - height) / 2);
             return polygon;
         } else if (type.equals("trapezoid")) {
@@ -108,12 +118,13 @@ public class VehicleIO {
             float x = element.getFloatAttribute("y", (vehicleWidth - width) / 2);
             float y = element.getFloatAttribute("x", (vehicleHeight - height) / 2);
             Polygon polygon = new Polygon();
-            polygon.setVertices(new float[]{
-                    width / 2, topHeight / 2,
-                    -width / 2, bottomHeight / 2,
-                    -width / 2, -bottomHeight / 2,
-                    width / 2, -topHeight / 2,
-            });
+            polygon.setVertices(
+                    new float[] {
+                        width / 2, topHeight / 2,
+                        -width / 2, bottomHeight / 2,
+                        -width / 2, -bottomHeight / 2,
+                        width / 2, -topHeight / 2,
+                    });
             polygon.translate(x - (vehicleWidth - width) / 2, y - (vehicleHeight - height) / 2);
             return polygon;
         } else {

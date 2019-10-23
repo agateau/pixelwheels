@@ -46,9 +46,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * A player bullet
- */
+/** A player bullet */
 public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolable, Disposable {
     private static final ReflectionPool<Bullet> sPool = new ReflectionPool<>(Bullet.class);
 
@@ -66,7 +64,14 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
 
-    public static Bullet create(Assets assets, GameWorld gameWorld, AudioManager audioManager, Racer shooter, float originX, float originY, float angle) {
+    public static Bullet create(
+            Assets assets,
+            GameWorld gameWorld,
+            AudioManager audioManager,
+            Racer shooter,
+            float originX,
+            float originY,
+            float angle) {
         Bullet object = sPool.obtain();
         if (object.mBodyDef == null) {
             object.firstInit(assets);
@@ -82,10 +87,19 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
         object.mBody = gameWorld.getBox2DWorld().createBody(object.mBodyDef);
         object.mBody.createFixture(object.mShape, 0f);
         object.mBody.setUserData(object);
-        object.mBody.applyLinearImpulse(IMPULSE * MathUtils.cosDeg(angle), IMPULSE * MathUtils.sinDeg(angle), originX, originY, true);
+        object.mBody.applyLinearImpulse(
+                IMPULSE * MathUtils.cosDeg(angle),
+                IMPULSE * MathUtils.sinDeg(angle),
+                originX,
+                originY,
+                true);
 
-        Box2DUtils.setCollisionInfo(object.mBody, CollisionCategories.RACER_BULLET,
-                CollisionCategories.WALL | CollisionCategories.RACER | CollisionCategories.EXPLOSABLE);
+        Box2DUtils.setCollisionInfo(
+                object.mBody,
+                CollisionCategories.RACER_BULLET,
+                CollisionCategories.WALL
+                        | CollisionCategories.RACER
+                        | CollisionCategories.EXPLOSABLE);
         return object;
     }
 
@@ -113,8 +127,7 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     }
 
     @Override
-    public void act(float delta) {
-    }
+    public void act(float delta) {}
 
     @Override
     public void draw(Batch batch, ZLevel zLevel) {
@@ -151,12 +164,10 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     }
 
     @Override
-    public void beginContact(Contact contact, Fixture otherFixture) {
-    }
+    public void beginContact(Contact contact, Fixture otherFixture) {}
 
     @Override
-    public void endContact(Contact contact, Fixture otherFixture) {
-    }
+    public void endContact(Contact contact, Fixture otherFixture) {}
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
@@ -171,14 +182,12 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
         explode();
         if (other instanceof Racer) {
-            ((Racer)other).spin();
+            ((Racer) other).spin();
         } else if (other instanceof Explosable) {
-            ((Explosable)other).explode();
+            ((Explosable) other).explode();
         }
     }
 
     @Override
-    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {
-
-    }
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 }

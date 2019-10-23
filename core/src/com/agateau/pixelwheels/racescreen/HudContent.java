@@ -35,12 +35,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
-
 import java.util.Map;
 
-/**
- * Various labels and actors shown on the hud
- */
+/** Various labels and actors shown on the hud */
 public class HudContent {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
@@ -167,23 +164,21 @@ public class HudContent {
     }
 
     private static final StringBuilder sDebugSB = new StringBuilder();
+
     private void updateDebugLabel() {
         sDebugSB.setLength(0);
         sDebugSB.append("objCount: ").append(mGameWorld.getActiveGameObjects().size).append('\n');
         sDebugSB.append("FPS: ").append(Gdx.graphics.getFramesPerSecond()).append('\n');
         for (PerformanceCounter counter : mPerformanceCounters.counters) {
-            sDebugSB.append(counter.name).append(": ")
+            sDebugSB.append(counter.name)
+                    .append(": ")
                     .append(String.valueOf((int) (counter.time.value * 1000)))
                     .append(" | ")
                     .append(String.valueOf((int) (counter.load.value * 100)))
-                    .append("%\n")
-            ;
+                    .append("%\n");
         }
         for (Map.Entry<String, String> entry : DebugStringMap.getMap().entrySet()) {
-            sDebugSB.append(entry.getKey())
-                    .append(": ")
-                    .append(entry.getValue())
-                    .append("\n");
+            sDebugSB.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
         }
         mDebugLabel.setText(sDebugSB);
     }

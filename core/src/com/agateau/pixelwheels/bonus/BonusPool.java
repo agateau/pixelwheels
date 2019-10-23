@@ -24,9 +24,7 @@ import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * Pool of bonus instances
- */
+/** Pool of bonus instances */
 public class BonusPool<T extends Bonus> extends ReflectionPool<T> {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
@@ -41,18 +39,17 @@ public class BonusPool<T extends Bonus> extends ReflectionPool<T> {
     }
 
     /**
-     * Defines how often the bonus may be picked up
-     * This is used by getCountForNormalizedRank so the array is a set of values where the lowest is
-     * used for normalizedRank == 0 and the highest for normalizedRank == 1
+     * Defines how often the bonus may be picked up This is used by getCountForNormalizedRank so the
+     * array is a set of values where the lowest is used for normalizedRank == 0 and the highest for
+     * normalizedRank == 1
      */
     public void setCounts(float[] counts) {
         mCounts = counts;
     }
 
     /**
-     * How many times the bonus may be picked up
-     * normalizedRank goes from 0 to 1, so when racer is 1st, normalizedRank is 0, when racer is
-     * last, normalizedRank is 1
+     * How many times the bonus may be picked up normalizedRank goes from 0 to 1, so when racer is
+     * 1st, normalizedRank is 0, when racer is last, normalizedRank is 1
      */
     public float getCountForNormalizedRank(float normalizedRank) {
         return AgcMathUtils.arrayLerp(mCounts, normalizedRank);

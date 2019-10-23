@@ -19,16 +19,14 @@
 package com.agateau.pixelwheels.debug;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import java.util.HashMap;
 
-/**
- * An helper class to register global debug shape drawers
- */
+/** An helper class to register global debug shape drawers */
 public class DebugShapeMap {
     public interface Shape {
         void draw(ShapeRenderer renderer);
     }
+
     private static final HashMap<Object, Shape> sMap = new HashMap<>();
 
     public static HashMap<Object, Shape> getMap() {
