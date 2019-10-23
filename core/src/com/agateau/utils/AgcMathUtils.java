@@ -28,9 +28,7 @@ public class AgcMathUtils {
     public static final float msToKmh = 3600 / 1000f;
     public static final float kmhToMs = 1 / msToKmh;
 
-    /**
-     * Wrap angles if they are less than 0 or greater than 360
-     */
+    /** Wrap angles if they are less than 0 or greater than 360 */
     public static float normalizeAngle(float angle) {
         return modulo(angle, 360);
     }
@@ -39,9 +37,7 @@ public class AgcMathUtils {
         return modulo(angle, MathUtils.PI2);
     }
 
-    /**
-     * Wrap angles so that they are between -180 and 180
-     */
+    /** Wrap angles so that they are between -180 and 180 */
     public static float normalizeAngle180(float angle) {
         angle = normalizeAngle(angle);
         if (angle > 180) {
@@ -62,11 +58,8 @@ public class AgcMathUtils {
      * Pick a value from array, interpolating linearly between its elements. For example, assuming
      * array = [0, 1, 4]
      *
-     * arrayLerp(array, 0) => 0
-     * arrayLerp(array, 0.25) => 0.5
-     * arrayLerp(array, 0.5) => 1
-     * arrayLerp(array, 0.75) => 2.5
-     * arrayLerp(array, 1) => 4
+     * <p>arrayLerp(array, 0) => 0 arrayLerp(array, 0.25) => 0.5 arrayLerp(array, 0.5) => 1
+     * arrayLerp(array, 0.75) => 2.5 arrayLerp(array, 1) => 4
      */
     public static float arrayLerp(float[] array, float k) {
         k = MathUtils.clamp(k, 0, 1);
@@ -82,7 +75,7 @@ public class AgcMathUtils {
      * Compute the vector corresponding to the width side of a rectangle whose length side is made
      * of @p pos1 to @p pos2, with a width of @p width
      *
-     * Always return the same vector
+     * <p>Always return the same vector
      */
     public static Vector2 computeWidthVector(Vector2 pos1, Vector2 pos2, float width) {
         sTmpVector.set(pos2).sub(pos1).nor();
@@ -94,12 +87,7 @@ public class AgcMathUtils {
     /**
      * Compute the projection of A on the segment defined by P1 and P2
      *
-     *      + A
-     *     /
-     *    /
-     *   /
-     *  +---+----------+
-     *  P1  H          P2
+     * <p>+ A / / / +---+----------+ P1 H P2
      *
      * @param a the point to project
      * @param pos1 start of segment
@@ -118,22 +106,14 @@ public class AgcMathUtils {
     }
 
     /**
-     * Returns the angle in degrees between the X axis and the P1, P2 vector
-     *     + P2
-     *    /
-     *   /
-     *  /
-     * +-------------->
-     * P1
+     * Returns the angle in degrees between the X axis and the P1, P2 vector + P2 / / /
+     * +--------------> P1
      */
     public static float segmentAngle(Vector2 pos1, Vector2 pos2) {
-        return (float)Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
+        return (float) Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
     }
 
-    /**
-     * Grows @p rect in all directions by @p amount. A negative value
-     * will shrink it.
-     */
+    /** Grows @p rect in all directions by @p amount. A negative value will shrink it. */
     public static void adjustRectangle(Rectangle rect, float amount) {
         rect.x -= amount;
         rect.y -= amount;
@@ -141,18 +121,13 @@ public class AgcMathUtils {
         rect.height += 2 * amount;
     }
 
-    /**
-     * Returns the angle in degrees between two angles
-     */
+    /** Returns the angle in degrees between two angles */
     public static float angleDelta(float angle1, float angle2) {
         return normalizeAngle(angle2) - normalizeAngle(angle1);
     }
 
     /**
-     * A modulo which works with negative values, so calling
-     * modulo(4, 3) == 1
-     * modulo(-1, 3) == 2
-     *
+     * A modulo which works with negative values, so calling modulo(4, 3) == 1 modulo(-1, 3) == 2
      */
     public static float modulo(float value, float divisor) {
         while (value < 0) {

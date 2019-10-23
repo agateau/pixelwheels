@@ -44,7 +44,8 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
         Vehicle vehicle = racer.getVehicle();
 
         // Compute viewport size
-        mNextCameraInfo.zoom = MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
+        mNextCameraInfo.zoom =
+                MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
         limitZoomChange(delta);
         float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
         float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
@@ -53,7 +54,10 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0).rotate(racer.getCameraAngle()).add(vehicle.getPosition()).sub(mCameraInfo.position);
+        sDelta.set(advance, 0)
+                .rotate(racer.getCameraAngle())
+                .add(vehicle.getPosition())
+                .sub(mCameraInfo.position);
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
         if (!immediate) {
             sDelta.limit(MAX_CAMERA_DELTA * delta);

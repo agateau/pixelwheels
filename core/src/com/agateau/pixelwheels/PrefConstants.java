@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
-/**
- * Holds all the preference constants
- */
+/** Holds all the preference constants */
 public class PrefConstants {
     public static final String INPUT_PREFIX = "input.";
     public static final String INPUT_DEFAULT = "";

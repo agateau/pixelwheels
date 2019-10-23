@@ -24,9 +24,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-/**
- * A screen with a stage covering it
- */
+/** A screen with a stage covering it */
 public abstract class StageScreen extends ScreenAdapter {
     private final Stage mStage;
     private final Viewport mViewport;
@@ -64,14 +62,12 @@ public abstract class StageScreen extends ScreenAdapter {
     }
 
     /**
-     * This method is called when the player wants to go back to the previous screen
-     * It is called automatically for global "back" shortcuts, but class users can call it
-     * themselves for example from the ClickListener of a Back button
+     * This method is called when the player wants to go back to the previous screen It is called
+     * automatically for global "back" shortcuts, but class users can call it themselves for example
+     * from the ClickListener of a Back button
      */
     public abstract void onBackPressed();
 
-    /**
-     * Must return true if the user pressed a key or activated a control to go back
-     */
+    /** Must return true if the user pressed a key or activated a control to go back */
     public abstract boolean isBackKeyPressed();
 }

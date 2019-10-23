@@ -32,9 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * An item to create tabbed content in a menu
- */
+/** An item to create tabbed content in a menu */
 public class TabMenuItem extends Actor implements MenuItem {
     private final FocusIndicator mFocusIndicator;
     private final Menu mMenu;
@@ -51,6 +49,7 @@ public class TabMenuItem extends Actor implements MenuItem {
             this.tabWidth = tabWidth;
         }
     }
+
     private final Array<Page> mPages = new Array<>();
     private final Rectangle mFocusRectangle = new Rectangle();
 
@@ -76,24 +75,26 @@ public class TabMenuItem extends Actor implements MenuItem {
 
         setTouchable(Touchable.enabled);
 
-        addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                float tabRight = mStyle.framePadding;
-                for (int idx = 0; idx < mPages.size; ++idx) {
-                    tabRight += mPages.get(idx).tabWidth;
-                    if (x < tabRight) {
-                        setCurrentTab(idx);
-                        return;
+        addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        float tabRight = mStyle.framePadding;
+                        for (int idx = 0; idx < mPages.size; ++idx) {
+                            tabRight += mPages.get(idx).tabWidth;
+                            if (x < tabRight) {
+                                setCurrentTab(idx);
+                                return;
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                menu.setCurrentItem(TabMenuItem.this);
-            }
-        });
+                    @Override
+                    public void enter(
+                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        menu.setCurrentItem(TabMenuItem.this);
+                    }
+                });
     }
 
     public MenuItemGroup addPage(String name) {
@@ -132,9 +133,7 @@ public class TabMenuItem extends Actor implements MenuItem {
     }
 
     @Override
-    public void trigger() {
-
-    }
+    public void trigger() {}
 
     @Override
     public boolean goUp() {
@@ -193,7 +192,8 @@ public class TabMenuItem extends Actor implements MenuItem {
     private void drawFrame(Batch batch) {
         float distance = getDistanceToLeftEdge();
         drawFrameBorder(batch, mStyle.leftTabBorder, getX() - distance, distance);
-        drawFrameBorder(batch, mStyle.rightTabBorder, getRight(), getStage().getWidth() - getRight());
+        drawFrameBorder(
+                batch, mStyle.rightTabBorder, getRight(), getStage().getWidth() - getRight());
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 
@@ -216,8 +216,12 @@ public class TabMenuItem extends Actor implements MenuItem {
             x += mPages.get(idx).tabWidth;
         }
         float handleWidth = mPages.get(mCurrentTab).tabWidth;
-        mStyle.handle.draw(batch, getX() + x, getY() + framePadding,
-                handleWidth, getHeight() - 2 * framePadding);
+        mStyle.handle.draw(
+                batch,
+                getX() + x,
+                getY() + framePadding,
+                handleWidth,
+                getHeight() - 2 * framePadding);
     }
 
     private void drawText(Batch batch) {
@@ -226,7 +230,7 @@ public class TabMenuItem extends Actor implements MenuItem {
         for (int idx = 0; idx < mPages.size; ++idx) {
             String name = mPages.get(idx).name;
             float tabWidth = mPages.get(idx).tabWidth;
-            mFont.draw(batch, name, getX() + x, y, tabWidth, Align.center, /* wrap= */false);
+            mFont.draw(batch, name, getX() + x, y, tabWidth, Align.center, /* wrap= */ false);
             x += tabWidth;
         }
     }

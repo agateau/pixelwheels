@@ -29,11 +29,10 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-/**
- * A generic short-animation game object
- */
+/** A generic short-animation game object */
 public class AnimationObject extends GameObjectAdapter implements Pool.Poolable, Disposable {
-    private static final ReflectionPool<AnimationObject> sPool = new ReflectionPool<>(AnimationObject.class);
+    private static final ReflectionPool<AnimationObject> sPool =
+            new ReflectionPool<>(AnimationObject.class);
     private float mTime;
     private Animation<TextureRegion> mAnimation;
     private float mPosX;
@@ -43,8 +42,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     private AudioManager mAudioManager;
 
     @Override
-    public void reset() {
-    }
+    public void reset() {}
 
     @Override
     public void dispose() {
@@ -71,7 +69,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
             TextureRegion region = mAnimation.getKeyFrame(mTime);
             float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
             float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            batch.draw(region, mPosX - w / 2, mPosY - h / 2 , w, h);
+            batch.draw(region, mPosX - w / 2, mPosY - h / 2, w, h);
         }
     }
 
@@ -99,10 +97,13 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         mSound = sound;
     }
 
-    public static AnimationObject create(Animation<TextureRegion> animation, float posX, float posY) {
+    public static AnimationObject create(
+            Animation<TextureRegion> animation, float posX, float posY) {
         return create(animation, posX, posY, 0);
     }
-    public static AnimationObject create(Animation<TextureRegion> animation, float posX, float posY, float delay) {
+
+    public static AnimationObject create(
+            Animation<TextureRegion> animation, float posX, float posY, float delay) {
         AnimationObject obj = sPool.obtain();
         obj.mTime = -delay;
         obj.mAnimation = animation;

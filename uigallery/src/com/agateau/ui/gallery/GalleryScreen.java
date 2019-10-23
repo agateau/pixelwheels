@@ -42,10 +42,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-/**
- * The main screen of the gallery
- */
-
+/** The main screen of the gallery */
 class GalleryScreen extends StageScreen {
     private final TextureAtlas mAtlas;
     private final Skin mSkin;
@@ -66,26 +63,32 @@ class GalleryScreen extends StageScreen {
         final Menu menu = new Menu(mSkin);
         menu.setLabelColumnWidth(200);
         menu.setWidth(500);
-        menu.addButton("Button A").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                NLog.e("Button A clicked");
-            }
-        });
-        menu.addButton("Button B").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                NLog.e("Button B clicked");
-            }
-        });
+        menu.addButton("Button A")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                NLog.e("Button A clicked");
+                            }
+                        });
+        menu.addButton("Button B")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                NLog.e("Button B clicked");
+                            }
+                        });
         final MenuItemGroup hiddenGroup = new MenuItemGroup(menu);
-        menu.addButton("Toggle Hidden Group").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                boolean visible = menu.isItemVisible(hiddenGroup);
-                menu.setItemVisible(hiddenGroup, !visible);
-            }
-        });
+        menu.addButton("Toggle Hidden Group")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                boolean visible = menu.isItemVisible(hiddenGroup);
+                                menu.setItemVisible(hiddenGroup, !visible);
+                            }
+                        });
         hiddenGroup.addTitleLabel("Hidden item");
         hiddenGroup.addButton("I was hidden");
         menu.addItem(hiddenGroup);
@@ -93,12 +96,16 @@ class GalleryScreen extends StageScreen {
 
         menu.addTitleLabel("Two columns");
         final SwitchMenuItem switchMenuItem = new SwitchMenuItem(menu);
-        menu.addItemWithLabel("Super Power", switchMenuItem).addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                NLog.d("Switch changed to %s", switchMenuItem.isChecked() ? "ON" : "OFF");
-            }
-        });
+        menu.addItemWithLabel("Super Power", switchMenuItem)
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                NLog.d(
+                                        "Switch changed to %s",
+                                        switchMenuItem.isChecked() ? "ON" : "OFF");
+                            }
+                        });
 
         SelectorMenuItem<Integer> selectorMenuItem = new SelectorMenuItem<>(menu);
         selectorMenuItem.addEntry("Keyboard", 12);
@@ -118,19 +125,23 @@ class GalleryScreen extends StageScreen {
 
         final GridMenuItem<TextureRegion> gridMenuItem = createGridMenuItem(menu);
         menu.addItem(gridMenuItem);
-        menu.addButton("Add column").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                gridMenuItem.setColumnCount(gridMenuItem.getColumnCount() + 1);
-            }
-        });
+        menu.addButton("Add column")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                gridMenuItem.setColumnCount(gridMenuItem.getColumnCount() + 1);
+                            }
+                        });
 
-        menu.addButton("Quit").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                Gdx.app.exit();
-            }
-        });
+        menu.addButton("Quit")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                Gdx.app.exit();
+                            }
+                        });
 
         root.addSizeRule(menu, root, SizeRule.IGNORE, 1);
         root.addPositionRule(menu, Anchor.TOP_CENTER, root, Anchor.TOP_CENTER);

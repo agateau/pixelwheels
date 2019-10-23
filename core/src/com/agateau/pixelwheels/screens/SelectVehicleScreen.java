@@ -35,14 +35,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Select your vehicle
- */
+/** Select your vehicle */
 public class SelectVehicleScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
+
         void onPlayerSelected(GameInfo.Player player);
     }
+
     private final PwGame mGame;
     private final Listener mListener;
     private VehicleSelector mVehicleSelector;
@@ -65,7 +65,8 @@ public class SelectVehicleScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = UiUtils.createUiBuilder(assets);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -75,19 +76,23 @@ public class SelectVehicleScreen extends PwStageScreen {
         createVehicleSelector(menu);
         updateVehicleDetails(mVehicleSelector.getCurrent());
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
 
-        builder.getActor("nextButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                next();
-            }
-        });
+        builder.getActor("nextButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                next();
+                            }
+                        });
     }
 
     private void createVehicleSelector(Menu menu) {
@@ -98,24 +103,25 @@ public class SelectVehicleScreen extends PwStageScreen {
         mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);
 
-        mVehicleSelector.setSelectionListener(new GridMenuItem.SelectionListener<VehicleDef>() {
-            @Override
-            public void selectedChanged(VehicleDef item, int index) {
-                if (PlatformUtils.isButtonsUi()) {
-                    next();
-                }
-            }
+        mVehicleSelector.setSelectionListener(
+                new GridMenuItem.SelectionListener<VehicleDef>() {
+                    @Override
+                    public void selectedChanged(VehicleDef item, int index) {
+                        if (PlatformUtils.isButtonsUi()) {
+                            next();
+                        }
+                    }
 
-            @Override
-            public void currentChanged(VehicleDef vehicle, int index) {
-                updateVehicleDetails(vehicle);
-            }
+                    @Override
+                    public void currentChanged(VehicleDef vehicle, int index) {
+                        updateVehicleDetails(vehicle);
+                    }
 
-            @Override
-            public void confirmSelection() {
-                next();
-            }
-        });
+                    @Override
+                    public void confirmSelection() {
+                        next();
+                    }
+                });
     }
 
     private void updateVehicleDetails(VehicleDef vehicle) {

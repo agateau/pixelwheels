@@ -28,9 +28,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
-/**
- * A component to play the racer audio
- */
+/** A component to play the racer audio */
 class AudioComponent implements Racer.Component, Disposable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
     private static final float MIN_IMPACT_SPEED = 3;
@@ -89,8 +87,11 @@ class AudioComponent implements Racer.Component, Disposable {
         }
 
         if (mDriftDuration > 0) {
-            float volume = MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f) * maxVolume;
-            mDriftingSoundPlayer.setPitch(mRacer.getVehicle().isIceDrifting() ? ICE_DRIFT_PITCH : 1f);
+            float volume =
+                    MathUtils.clamp(mDriftDuration / FULL_VOLUME_DRIFT_DURATION, 0f, 1f)
+                            * maxVolume;
+            mDriftingSoundPlayer.setPitch(
+                    mRacer.getVehicle().isIceDrifting() ? ICE_DRIFT_PITCH : 1f);
             mDriftingSoundPlayer.setVolume(volume * GamePlay.instance.driftVolume);
             if (!mDriftingSoundPlayer.isLooping()) {
                 mDriftingSoundPlayer.loop();

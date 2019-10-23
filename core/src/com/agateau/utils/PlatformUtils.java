@@ -21,9 +21,7 @@ package com.agateau.utils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 
-/**
- * Utility methods to deal with the platform
- */
+/** Utility methods to deal with the platform */
 public class PlatformUtils {
     private enum UiType {
         BUTTONS,

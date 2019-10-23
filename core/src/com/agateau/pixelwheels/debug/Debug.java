@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.debug;
 
-/**
- * Debug options
- */
+/** Debug options */
 public class Debug {
     public boolean showDebugHud = false;
     public boolean showDebugLayer = false;

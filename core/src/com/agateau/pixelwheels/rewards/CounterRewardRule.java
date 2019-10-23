@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 
-/**
- * A RewardRule for simple counter-based rewards
- */
+/** A RewardRule for simple counter-based rewards */
 public class CounterRewardRule implements RewardRule {
     private final GameStats.Event mEvent;
     private final int mCount;

@@ -18,12 +18,10 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.math.Shape2D;
+import com.badlogic.gdx.utils.Array;
 
-/**
- * Definition of a vehicle
- */
+/** Definition of a vehicle */
 public class VehicleDef {
     public String id;
     public String name;

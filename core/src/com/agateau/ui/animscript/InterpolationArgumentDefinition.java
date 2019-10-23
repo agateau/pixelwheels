@@ -18,13 +18,12 @@
  */
 package com.agateau.ui.animscript;
 
+import com.agateau.ui.DimensionParser;
+import com.badlogic.gdx.math.Interpolation;
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.agateau.ui.DimensionParser;
-import com.badlogic.gdx.math.Interpolation;
 
 public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpolation> {
 
@@ -73,7 +72,8 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
     }
 
     @Override
-    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Object parse(StreamTokenizer tokenizer, DimensionParser dimParser)
+            throws AnimScriptLoader.SyntaxException {
         try {
             tokenizer.nextToken();
         } catch (IOException e) {
@@ -83,13 +83,15 @@ public class InterpolationArgumentDefinition extends ArgumentDefinition<Interpol
         if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
             value = sMap.get(tokenizer.sval);
             if (value == null) {
-                throw new AnimScriptLoader.SyntaxException(tokenizer, "Invalid interpolation value " + tokenizer.sval);
+                throw new AnimScriptLoader.SyntaxException(
+                        tokenizer, "Invalid interpolation value " + tokenizer.sval);
             }
         } else if (this.defaultValue != null) {
             tokenizer.pushBack();
             value = this.defaultValue;
         } else {
-            throw new AnimScriptLoader.SyntaxException(tokenizer, "No value set for this argument, which has no default value");
+            throw new AnimScriptLoader.SyntaxException(
+                    tokenizer, "No value set for this argument, which has no default value");
         }
         return value;
     }

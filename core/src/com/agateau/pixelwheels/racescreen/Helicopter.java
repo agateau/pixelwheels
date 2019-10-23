@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
+import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.ZLevel;
@@ -42,12 +44,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
 
-import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
-
-/**
- * The rescue helicopter which comes to pick up fallen vehicles
- */
-
+/** The rescue helicopter which comes to pick up fallen vehicles */
 public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disposable {
     private static final float SHADOW_OFFSET = 80;
     private static final Vector2 BODY_CENTER = new Vector2(30, (111 - 35));
@@ -63,6 +60,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         RECOVERING,
         LEAVING
     }
+
     private static final ReflectionPool<Helicopter> sPool = new ReflectionPool<>(Helicopter.class);
 
     private SoundPlayer mSoundPlayer;
@@ -81,7 +79,12 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private float mTime;
     private State mState;
 
-    public static Helicopter create(Assets assets, AudioManager audioManager, Track track, Vector2 vehiclePosition, float vehicleAngle) {
+    public static Helicopter create(
+            Assets assets,
+            AudioManager audioManager,
+            Track track,
+            Vector2 vehiclePosition,
+            float vehicleAngle) {
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
@@ -89,7 +92,8 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         float mapHeight = track.getMapHeight() * track.getTileHeight();
 
         if (object.mSoundPlayer == null) {
-            object.mSoundPlayer = audioManager.createSoundPlayer(assets.soundAtlas.get("helicopter"));
+            object.mSoundPlayer =
+                    audioManager.createSoundPlayer(assets.soundAtlas.get("helicopter"));
         }
         object.mBodyRegion = assets.helicopterBody;
         object.mPropellerRegion = assets.helicopterPropeller;
@@ -106,19 +110,23 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
 
         if (object.mFrameBuffer == null) {
             int bufferWidth = object.mPropellerRegion.getRegionWidth();
-            int bufferHeight = object.mPropellerRegion.getRegionHeight() / 2 + (int)BODY_CENTER.y;
-            object.mFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, bufferWidth, bufferHeight, false /* hasDepth */);
+            int bufferHeight = object.mPropellerRegion.getRegionHeight() / 2 + (int) BODY_CENTER.y;
+            object.mFrameBuffer =
+                    new FrameBuffer(
+                            Pixmap.Format.RGBA8888,
+                            bufferWidth,
+                            bufferHeight,
+                            false /* hasDepth */);
             object.mFrameBufferBatch = new SpriteBatch();
-            object.mFrameBufferBatch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, bufferWidth, bufferHeight));
+            object.mFrameBufferBatch.setProjectionMatrix(
+                    new Matrix4().setToOrtho2D(0, 0, bufferWidth, bufferHeight));
         }
 
         return object;
     }
 
     @Override
-    public void reset() {
-
-    }
+    public void reset() {}
 
     @Override
     public void dispose() {
@@ -154,14 +162,14 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         mTime += delta;
         updateFrameBuffer();
         switch (mState) {
-        case ARRIVING:
-            actArriving(delta);
-            break;
-        case RECOVERING:
-            break;
-        case LEAVING:
-            actLeaving(delta);
-            break;
+            case ARRIVING:
+                actArriving(delta);
+                break;
+            case RECOVERING:
+                break;
+            case LEAVING:
+                actLeaving(delta);
+                break;
         }
     }
 
@@ -193,6 +201,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     private final Vector2 mDelta = new Vector2();
+
     private void moveTowardEndPosition(float delta) {
         mDelta.set(mEndPosition).sub(mPosition);
         float speed;
@@ -238,23 +247,26 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        mFrameBufferBatch.draw(
-                mBodyRegion,
-                propellerW / 2 - BODY_CENTER.x, 0,
-                w, h);
+        mFrameBufferBatch.draw(mBodyRegion, propellerW / 2 - BODY_CENTER.x, 0, w, h);
 
         mFrameBufferBatch.draw(
                 mPropellerRegion,
-                0, BODY_CENTER.y - propellerH / 2, // position
-                propellerW / 2, propellerH / 2, // origin
-                propellerW, propellerH, // size
-                1, 1, // scale
+                0,
+                BODY_CENTER.y - propellerH / 2, // position
+                propellerW / 2,
+                propellerH / 2, // origin
+                propellerW,
+                propellerH, // size
+                1,
+                1, // scale
                 (mTime * PROPELLER_SPEED) % 360);
 
         mFrameBufferBatch.draw(
                 mPropellerTopRegion,
-                propellerW / 2 - propellerTopW / 2, BODY_CENTER.y - propellerTopH / 2,
-                propellerTopW, propellerTopH);
+                propellerW / 2 - propellerTopW / 2,
+                BODY_CENTER.y - propellerTopH / 2,
+                propellerTopW,
+                propellerTopH);
 
         mFrameBufferBatch.end();
         mFrameBuffer.end();
@@ -265,21 +277,30 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         int w = mFrameBuffer.getWidth();
         int h = mFrameBuffer.getHeight();
         Texture texture = mFrameBuffer.getColorBufferTexture();
-        batch.draw(texture,
+        batch.draw(
+                texture,
                 // dst
-                getX() - w * U / 2 + offset, getY() - BODY_CENTER.y * U - offset,
+                getX() - w * U / 2 + offset,
+                getY() - BODY_CENTER.y * U - offset,
                 // origin
-                w * U / 2, BODY_CENTER.y * U,
+                w * U / 2,
+                BODY_CENTER.y * U,
                 // dst size
-                w * U, h * U,
+                w * U,
+                h * U,
                 // scale
-                1, 1,
+                1,
+                1,
                 // rotation
                 mAngle - 90,
                 // src
-                0, 0, w, h,
+                0,
+                0,
+                w,
+                h,
                 // flips
-                false, true);
+                false,
+                true);
     }
 
     @Override

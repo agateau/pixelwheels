@@ -22,12 +22,9 @@ import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
-
 import java.util.HashMap;
 
-/**
- * Implementation of InputMapper for keyboards
- */
+/** Implementation of InputMapper for keyboards */
 public class KeyMapper implements InputMapper {
     private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<>();
 
@@ -42,17 +39,17 @@ public class KeyMapper implements InputMapper {
         setKey(VirtualKey.RIGHT, Input.Keys.RIGHT);
         setKey(VirtualKey.UP, Input.Keys.UP);
         setKey(VirtualKey.DOWN, Input.Keys.DOWN);
-        setKeys(VirtualKey.TRIGGER, new Integer[]{Input.Keys.SPACE, Input.Keys.ENTER});
+        setKeys(VirtualKey.TRIGGER, new Integer[] {Input.Keys.SPACE, Input.Keys.ENTER});
         if (PlatformUtils.isDesktop()) {
             // Do not use BACK on Desktop, it causes invalid enum value errors with lwjgl3
             setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
         } else {
-            setKeys(VirtualKey.BACK, new Integer[]{Input.Keys.ESCAPE, Input.Keys.BACK});
+            setKeys(VirtualKey.BACK, new Integer[] {Input.Keys.ESCAPE, Input.Keys.BACK});
         }
     }
 
     public void setKey(VirtualKey vkey, int key) {
-        setKeys(vkey, new Integer[]{key});
+        setKeys(vkey, new Integer[] {key});
     }
 
     public void setKeys(VirtualKey vkey, Integer[] keys) {
@@ -98,14 +95,10 @@ public class KeyMapper implements InputMapper {
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
-
-    }
+    public void loadConfig(Preferences preferences, String prefix) {}
 
     @Override
-    public void saveConfig(Preferences preferences, String prefix) {
-
-    }
+    public void saveConfig(Preferences preferences, String prefix) {}
 
     @Override
     public boolean isAvailable() {

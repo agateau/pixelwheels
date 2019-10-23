@@ -38,14 +38,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Select player vehicles
- */
+/** Select player vehicles */
 public class MultiPlayerScreen extends PwStageScreen {
     public interface Listener {
         void onBackPressed();
+
         void onPlayersSelected(Array<GameInfo.Player> players);
     }
+
     private final PwGame mGame;
     private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
     private final Listener mListener;
@@ -62,7 +62,7 @@ public class MultiPlayerScreen extends PwStageScreen {
 
         for (int idx = 0; idx < mPlayerCount; ++idx) {
             GameInputHandler inputHandler = mGame.getConfig().getPlayerInputHandler(idx);
-            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler)inputHandler;
+            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler) inputHandler;
             mInputMappers[idx] = keyboardInputHandler.getInputMapper();
         }
 
@@ -79,19 +79,22 @@ public class MultiPlayerScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         createVehicleSelector(builder, assets, 0);
         createVehicleSelector(builder, assets, 1);
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     @Override
@@ -111,13 +114,14 @@ public class MultiPlayerScreen extends PwStageScreen {
         mVehicleSelectors[idx] = selector;
         selector.init(assets, mGame.getRewardManager());
         selector.setCurrent(assets.findVehicleDefById(vehicleId));
-        selector.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                readyLabel.setVisible(true);
-                nextIfPossible();
-            }
-        });
+        selector.addListener(
+                new MenuItemListener() {
+                    @Override
+                    public void triggered() {
+                        readyLabel.setVisible(true);
+                        nextIfPossible();
+                    }
+                });
 
         menu.setInputMapper(mInputMappers[idx]);
         menu.addItem(selector);

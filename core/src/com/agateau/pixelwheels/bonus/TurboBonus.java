@@ -30,34 +30,38 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool;
 
-/**
- * A turbo bonus
- */
+/** A turbo bonus */
 public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     private boolean mTriggered = false;
     private float mAnimationTime;
 
-    private final Renderer mBonusRenderer = new Renderer() {
-        @Override
-        public void draw(Batch batch, ZLevel zLevel) {
-            TextureRegion region = mAssets.turbo.getKeyFrame(mAnimationTime, true);
-            Vehicle vehicle = mRacer.getVehicle();
-            Body body = vehicle.getBody();
-            Vector2 center = body.getPosition();
-            float angle = body.getAngle() * MathUtils.radiansToDegrees;
-            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            float refH = -vehicle.getWidth() / 3;
-            float x = center.x + refH * MathUtils.cosDeg(angle);
-            float y = center.y + refH * MathUtils.sinDeg(angle);
-            batch.draw(region,
-                    x - w / 2, y - h / 2, // pos
-                    w / 2, h / 2, // origin
-                    w, h, // size
-                    1, 1, // scale
-                    angle - 90);
-        }
-    };
+    private final Renderer mBonusRenderer =
+            new Renderer() {
+                @Override
+                public void draw(Batch batch, ZLevel zLevel) {
+                    TextureRegion region = mAssets.turbo.getKeyFrame(mAnimationTime, true);
+                    Vehicle vehicle = mRacer.getVehicle();
+                    Body body = vehicle.getBody();
+                    Vector2 center = body.getPosition();
+                    float angle = body.getAngle() * MathUtils.radiansToDegrees;
+                    float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+                    float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+                    float refH = -vehicle.getWidth() / 3;
+                    float x = center.x + refH * MathUtils.cosDeg(angle);
+                    float y = center.y + refH * MathUtils.sinDeg(angle);
+                    batch.draw(
+                            region,
+                            x - w / 2,
+                            y - h / 2, // pos
+                            w / 2,
+                            h / 2, // origin
+                            w,
+                            h, // size
+                            1,
+                            1, // scale
+                            angle - 90);
+                }
+            };
 
     public TurboBonus() {
         reset();

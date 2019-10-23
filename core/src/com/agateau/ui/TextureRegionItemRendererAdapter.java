@@ -24,9 +24,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-/**
- * Generic implementation of GridMenuItem.ItemRenderer for a TextureRegion
- */
+/** Generic implementation of GridMenuItem.ItemRenderer for a TextureRegion */
 public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuItem.ItemRenderer<T> {
     private final Rectangle mRectangle = new Rectangle();
     private float mScale = 1;
@@ -50,13 +48,18 @@ public abstract class TextureRegionItemRendererAdapter<T> implements GridMenuIte
         updateRenderInfo(width, height, region);
         float rWidth = region.getRegionWidth();
         float rHeight = region.getRegionHeight();
-        batch.draw(region,
-                x + (width - rWidth) / 2, y + (height - rHeight) / 2, // pos
-                rWidth / 2, rHeight / 2, // origin
-                rWidth, rHeight, // width
-                mScale, mScale, // scale
+        batch.draw(
+                region,
+                x + (width - rWidth) / 2,
+                y + (height - rHeight) / 2, // pos
+                rWidth / 2,
+                rHeight / 2, // origin
+                rWidth,
+                rHeight, // width
+                mScale,
+                mScale, // scale
                 mAngle // rotation
-        );
+                );
     }
 
     @Override

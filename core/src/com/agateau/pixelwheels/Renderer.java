@@ -20,9 +20,7 @@ package com.agateau.pixelwheels;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-/**
- * Things which can be rendered
- */
+/** Things which can be rendered */
 public interface Renderer {
     void draw(Batch batch, ZLevel zLevel);
 }

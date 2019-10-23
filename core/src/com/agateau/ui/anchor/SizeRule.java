@@ -20,9 +20,7 @@ package com.agateau.ui.anchor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-/**
- * A rule to adjust the size of an actor relative to another
- */
+/** A rule to adjust the size of an actor relative to another */
 public class SizeRule implements AnchorRule {
     public static final float KEEP_RATIO = -1;
     public static final float IGNORE = -2;

@@ -24,9 +24,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-/**
- * Hud showing player info during race
- */
+/** Hud showing player info during race */
 public class Hud {
     private static final float BUTTON_SIZE_INCH = 3f / 2.54f; // 3 cm
     // See Android doc for DisplayMetrics.density
@@ -58,10 +56,10 @@ public class Hud {
     }
 
     /**
-     * Returns an AnchorGroup into which input code should create its UI if it has any.
-     * It is important to create the UI in this container rather than in getRoot(), because
-     * it makes it possible to remove all the UI when switching between input modes by
-     * calling deleteInputUiContainer()
+     * Returns an AnchorGroup into which input code should create its UI if it has any. It is
+     * important to create the UI in this container rather than in getRoot(), because it makes it
+     * possible to remove all the UI when switching between input modes by calling
+     * deleteInputUiContainer()
      */
     public AnchorGroup getInputUiContainer() {
         if (mInputUiContainer == null) {

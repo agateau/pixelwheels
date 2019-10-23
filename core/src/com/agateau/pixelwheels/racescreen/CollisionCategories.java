@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
-/**
- * Collision categories for Box2D fixtures
- */
+/** Collision categories for Box2D fixtures */
 public class CollisionCategories {
     public static final int WALL = 1;
     public static final int RACER = 2;

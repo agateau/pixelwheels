@@ -51,7 +51,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class RaceScreen extends ScreenAdapter {
     public interface Listener {
         void onRestartPressed();
+
         void onQuitPressed();
+
         void onNextTrackPressed();
     }
 
@@ -84,7 +86,8 @@ public class RaceScreen extends ScreenAdapter {
     private boolean mFirstRender = true;
     private boolean mConfigVisible = false;
 
-    public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo, PauseButtons pauseButtons) {
+    public RaceScreen(
+            PwGame game, Listener listener, GameInfo gameInfo, PauseButtons pauseButtons) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mListener = listener;
@@ -123,11 +126,12 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         if (GameInputHandlerFactories.hasMultitouch()) {
-            mHudContent.createPauseButton(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    pauseRace();
-                }
-            });
+            mHudContent.createPauseButton(
+                    new ClickListener() {
+                        public void clicked(InputEvent event, float x, float y) {
+                            pauseRace();
+                        }
+                    });
         }
 
         createInputUi();
@@ -152,7 +156,7 @@ public class RaceScreen extends ScreenAdapter {
                 float d2 = dx * dx + dy * dy;
                 distance2 = Math.min(d2, distance2);
             }
-            return 1f - (float)Math.sqrt(distance2) / maxDistance;
+            return 1f - (float) Math.sqrt(distance2) / maxDistance;
         };
     }
 
@@ -212,13 +216,13 @@ public class RaceScreen extends ScreenAdapter {
 
     private boolean isPauseKeyPressed() {
         for (Racer racer : mGameWorld.getPlayerRacers()) {
-            PlayerPilot pilot = (PlayerPilot)racer.getPilot();
+            PlayerPilot pilot = (PlayerPilot) racer.getPilot();
             if (pilot.isPauseKeyPressed()) {
                 return true;
             }
         }
-        return Gdx.input.isKeyJustPressed(Input.Keys.P) ||
-                Gdx.input.isKeyJustPressed(Input.Keys.BACK);
+        return Gdx.input.isKeyJustPressed(Input.Keys.P)
+                || Gdx.input.isKeyJustPressed(Input.Keys.BACK);
     }
 
     @Override
@@ -227,7 +231,7 @@ public class RaceScreen extends ScreenAdapter {
         float upp = PwStageScreen.getUnitsPerPixel();
         mHudViewport.setUnitsPerPixel(upp);
         mGameRenderer.setScreenRect(0, 0, width, height);
-        mHud.setScreenRect(0, 0, (int)(width * upp), (int)(height * upp));
+        mHud.setScreenRect(0, 0, (int) (width * upp), (int) (height * upp));
         mHudViewport.update(width, height, true);
     }
 

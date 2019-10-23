@@ -28,12 +28,10 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Select between quick race, championship...
- */
+/** Select between quick race, championship... */
 public class SelectGameModeScreen extends PwStageScreen {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
@@ -54,38 +52,44 @@ public class SelectGameModeScreen extends PwStageScreen {
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/selectgamemode.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/selectgamemode.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mGame.getConfig().gameMode = GameMode.QUICK_RACE;
-                mGame.getConfig().flush();
-                mGame.showQuickRace(mPlayerCount);
-            }
-        });
+        menu.addButton("QUICK RACE")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                mGame.getConfig().gameMode = GameMode.QUICK_RACE;
+                                mGame.getConfig().flush();
+                                mGame.showQuickRace(mPlayerCount);
+                            }
+                        });
         MenuItem championshipItem = menu.addButton("CHAMPIONSHIP");
-        championshipItem.addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mGame.getConfig().gameMode = GameMode.CHAMPIONSHIP;
-                mGame.getConfig().flush();
-                mGame.showChampionship(mPlayerCount);
-            }
-        });
+        championshipItem.addListener(
+                new MenuItemListener() {
+                    @Override
+                    public void triggered() {
+                        mGame.getConfig().gameMode = GameMode.CHAMPIONSHIP;
+                        mGame.getConfig().flush();
+                        mGame.showChampionship(mPlayerCount);
+                    }
+                });
         if (mGame.getConfig().gameMode == GameMode.CHAMPIONSHIP) {
             menu.setCurrentItem(championshipItem);
         }
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     @Override

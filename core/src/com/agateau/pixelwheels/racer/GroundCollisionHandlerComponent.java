@@ -27,9 +27,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Handles collisions
- */
+/** Handles collisions */
 public class GroundCollisionHandlerComponent implements Racer.Component {
     private static final float LIFTING_DELAY = 0.5f;
     private static final float MAX_RECOVERING_SPEED = 20;
@@ -57,7 +55,11 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private State mState = State.NORMAL;
     private float mTime;
 
-    public GroundCollisionHandlerComponent(Assets assets, GameWorld gameWorld, Racer racer, LapPositionComponent lapPositionComponent) {
+    public GroundCollisionHandlerComponent(
+            Assets assets,
+            GameWorld gameWorld,
+            Racer racer,
+            LapPositionComponent lapPositionComponent) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mRacer = racer;
@@ -73,24 +75,24 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     @Override
     public void act(float delta) {
         switch (mState) {
-        case NORMAL:
-            actNormal();
-            break;
-        case FALLING:
-            actFalling(delta);
-            break;
-        case CLIMBING:
-            actClimbing(delta);
-            break;
-        case LIFTING:
-            actLifting(delta);
-            break;
-        case RECOVERING:
-            actRecovering(delta);
-            break;
-        case DROPPING:
-            actDropping(delta);
-            break;
+            case NORMAL:
+                actNormal();
+                break;
+            case FALLING:
+                actFalling(delta);
+                break;
+            case CLIMBING:
+                actClimbing(delta);
+                break;
+            case LIFTING:
+                actLifting(delta);
+                break;
+            case RECOVERING:
+                actRecovering(delta);
+                break;
+            case DROPPING:
+                actDropping(delta);
+                break;
         }
     }
 
@@ -101,7 +103,13 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void switchToFallingState() {
-        mHelicopter = Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getTrack(), mVehicle.getPosition(), mVehicle.getAngle());
+        mHelicopter =
+                Helicopter.create(
+                        mAssets,
+                        mRacer.getAudioManager(),
+                        mGameWorld.getTrack(),
+                        mVehicle.getPosition(),
+                        mVehicle.getAngle());
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
@@ -162,14 +170,21 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
         final float POSITION_TOLERANCE = 0.1f;
         final float ANGLE_TOLERANCE = MathUtils.degreesToRadians;
 
-        mVelocity.set(mDropPoint.x, mDropPoint.y).sub(mVehicle.getBody().getPosition()).scl(1 / delta);
+        mVelocity
+                .set(mDropPoint.x, mDropPoint.y)
+                .sub(mVehicle.getBody().getPosition())
+                .scl(1 / delta);
         float speed = mVelocity.len();
         if (speed > MAX_RECOVERING_SPEED) {
             mVelocity.scl(MAX_RECOVERING_SPEED / speed);
         }
 
-        float angularVelocity = MathUtils.clamp((mDropPoint.angle - mVehicle.getAngle()) / delta,
-                -MAX_RECOVERING_ROTATION_SPEED, MAX_RECOVERING_ROTATION_SPEED) * MathUtils.degreesToRadians;
+        float angularVelocity =
+                MathUtils.clamp(
+                                (mDropPoint.angle - mVehicle.getAngle()) / delta,
+                                -MAX_RECOVERING_ROTATION_SPEED,
+                                MAX_RECOVERING_ROTATION_SPEED)
+                        * MathUtils.degreesToRadians;
 
         boolean posOK = MathUtils.isZero(speed * delta, POSITION_TOLERANCE);
         boolean angleOK = MathUtils.isZero(angularVelocity * delta, ANGLE_TOLERANCE);

@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.stats;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.utils.CollectionUtils;
-
 import java.util.HashMap;
 
 public class GameStatsImpl implements GameStats {
@@ -33,7 +32,9 @@ public class GameStatsImpl implements GameStats {
 
     public interface IO {
         void setGameStats(GameStatsImpl gameStats);
+
         void load();
+
         void save();
     }
 
@@ -61,7 +62,8 @@ public class GameStatsImpl implements GameStats {
     @Override
     public int getBestChampionshipRank(Championship championship) {
         //noinspection ConstantConditions
-        return CollectionUtils.getOrDefault(mBestChampionshipRank, championship.getId(), Integer.MAX_VALUE);
+        return CollectionUtils.getOrDefault(
+                mBestChampionshipRank, championship.getId(), Integer.MAX_VALUE);
     }
 
     @Override

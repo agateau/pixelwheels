@@ -37,27 +37,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Locale;
 
-/**
- * Appears on top of RaceScreen at the end of the race
- */
+/** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
     private final PwGame mGame;
     private final RaceScreen.Listener mListener;
     private final Array<Racer> mRacers;
     private final Array<Racer> mRecordBreakers = new Array<>();
-    private final TableRowCreator mTableRowCreator = new TableRowCreator() {
-        @Override
-        protected void createCells(Table table, String style, String... values) {
-            table.add(values[0], style).right().padRight(24);
-            table.add(values[1], style).left().expandX();
-            table.add(values[2], style).right().padRight(24);
-            table.add(values[3], style).right().padRight(24);
-            table.add(values[4], style).right();
-        }
-    };
+    private final TableRowCreator mTableRowCreator =
+            new TableRowCreator() {
+                @Override
+                protected void createCells(Table table, String style, String... values) {
+                    table.add(values[0], style).right().padRight(24);
+                    table.add(values[1], style).left().expandX();
+                    table.add(values[2], style).right().padRight(24);
+                    table.add(values[3], style).right().padRight(24);
+                    table.add(values[4], style).right();
+                }
+            };
 
     public FinishedOverlay(PwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
         super(game.getAssets().dot);
@@ -104,12 +102,14 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void fillMenu(Menu menu) {
-        menu.addButton("OK").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mListener.onNextTrackPressed();
-            }
-        });
+        menu.addButton("OK")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                mListener.onNextTrackPressed();
+                            }
+                        });
     }
 
     private void fillTable(Table table) {
@@ -134,14 +134,13 @@ public class FinishedOverlay extends Overlay {
                     racer.getVehicle().getName(),
                     bestLapTime,
                     totalTime,
-                    String.valueOf(racer.getEntrant().getScore())
-            );
+                    String.valueOf(racer.getEntrant().getScore()));
         }
     }
 
     private Actor createRecordBreakerContent() {
         Racer racer = mRecordBreakers.pop();
-        GameInfo.Player player = (GameInfo.Player)racer.getEntrant();
+        GameInfo.Player player = (GameInfo.Player) racer.getEntrant();
         Racer.RecordRanks ranks = racer.getRecordRanks();
 
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
@@ -149,7 +148,8 @@ public class FinishedOverlay extends Overlay {
 
         Label titleLabel = builder.getActor("titleLabel");
 
-        String title = String.format(Locale.US, "Congratulations player %d!", player.getIndex() + 1);
+        String title =
+                String.format(Locale.US, "Congratulations player %d!", player.getIndex() + 1);
         if (ranks.lapRecordRank >= 0) {
             fillBestRow(builder, 1, ranks.lapRecordRank, "Best lap");
         }
@@ -162,12 +162,14 @@ public class FinishedOverlay extends Overlay {
         titleLabel.pack();
 
         Menu menu = builder.getActor("menu");
-        menu.addButton("OK").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                onRecordBreakerOK();
-            }
-        });
+        menu.addButton("OK")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                onRecordBreakerOK();
+                            }
+                        });
 
         return content;
     }

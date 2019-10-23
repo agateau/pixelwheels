@@ -24,7 +24,6 @@ import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,8 +32,8 @@ import java.util.Set;
 /**
  * Manage which rewards have been unlocked
  *
- * Contains a set of rules applied against the game stats. These rules decide if a
- * reward is unlocked.
+ * <p>Contains a set of rules applied against the game stats. These rules decide if a reward is
+ * unlocked.
  */
 public class RewardManager {
     private final GameStats mGameStats;
@@ -43,17 +42,18 @@ public class RewardManager {
     private final Set<Reward> mUnlockedRewards = new HashSet<>();
     private boolean mNeedApplyRules = true;
 
-    public static final RewardRule ALWAYS_UNLOCKED = new RewardRule() {
-        @Override
-        public boolean hasBeenUnlocked(GameStats gameStats) {
-            return true;
-        }
+    public static final RewardRule ALWAYS_UNLOCKED =
+            new RewardRule() {
+                @Override
+                public boolean hasBeenUnlocked(GameStats gameStats) {
+                    return true;
+                }
 
-        @Override
-        public String getUnlockText(GameStats gameStats) {
-            return "";
-        }
-    };
+                @Override
+                public String getUnlockText(GameStats gameStats) {
+                    return "";
+                }
+            };
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;

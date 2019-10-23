@@ -34,9 +34,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Stores all assets
- */
+/** Stores all assets */
 public class Assets {
 
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
@@ -45,15 +43,19 @@ public class Assets {
     private static final float TURBO_FRAME_DURATION = 0.1f;
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
 
-    private static final String[] VEHICLE_IDS = { "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "rocket" };
+    private static final String[] VEHICLE_IDS = {
+        "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "rocket"
+    };
 
     public final Array<VehicleDef> vehicleDefs = new Array<>();
-    public final Array<Track> tracks = new Array<>(new Track[]{
-            new Track("race", "Let it Snow"),
-            new Track("snow2", "Don't slip!"),
-            new Track("be", "Blocky Town"),
-            new Track("tiny-sur-mer", "Tiny sur Mer"),
-    });
+    public final Array<Track> tracks =
+            new Array<>(
+                    new Track[] {
+                        new Track("race", "Let it Snow"),
+                        new Track("snow2", "Don't slip!"),
+                        new Track("be", "Blocky Town"),
+                        new Track("tiny-sur-mer", "Tiny sur Mer"),
+                    });
     public final Array<Championship> championships = new Array<>();
     public final UiAssets ui = new UiAssets();
 
@@ -86,12 +88,14 @@ public class Assets {
 
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
-        this.explosion = new Animation<>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
+        this.explosion =
+                new Animation<>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
         this.impact = new Animation<>(IMPACT_FRAME_DURATION, this.atlas.findRegions("impact"));
         this.mine = new Animation<>(MINE_FRAME_DURATION, this.atlas.findRegions("mine"));
         this.mine.setPlayMode(Animation.PlayMode.LOOP);
         this.turbo = new Animation<>(TURBO_FRAME_DURATION, this.atlas.findRegions("bonus-turbo"));
-        this.turboFlame = new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
+        this.turboFlame =
+                new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         this.splash = new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("splash"));
         this.gift = findRegion("gift");
@@ -139,13 +143,15 @@ public class Assets {
     }
 
     private void initChampionships() {
-        championships.add(new Championship("snow", "Square Mountains")
-                .addTrack(findTrackById("race"))
-                .addTrack(findTrackById("snow2")));
+        championships.add(
+                new Championship("snow", "Square Mountains")
+                        .addTrack(findTrackById("race"))
+                        .addTrack(findTrackById("snow2")));
 
-        championships.add(new Championship("city", "Pix Cities")
-                .addTrack(findTrackById("be"))
-                .addTrack(findTrackById("tiny-sur-mer")));
+        championships.add(
+                new Championship("city", "Pix Cities")
+                        .addTrack(findTrackById("be"))
+                        .addTrack(findTrackById("tiny-sur-mer")));
     }
 
     private static void removeBorders(TextureRegion region) {

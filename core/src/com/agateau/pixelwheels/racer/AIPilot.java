@@ -18,9 +18,9 @@
  */
 package com.agateau.pixelwheels.racer;
 
-import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
@@ -31,9 +31,7 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * An AI pilot
- */
+/** An AI pilot */
 public class AIPilot implements Pilot {
     private static final float MIN_NORMAL_SPEED = 1;
     private static final float MAX_BLOCKED_DURATION = 1;
@@ -58,58 +56,52 @@ public class AIPilot implements Pilot {
     }
 
     private final Vector2 mTargetVector = new Vector2();
+
     @Override
     public void act(float dt) {
         handleBonus(dt);
         switch (mState) {
-        case NORMAL:
-            actNormal(dt);
-            break;
-        case BLOCKED:
-            actBlocked(dt);
-            break;
+            case NORMAL:
+                actNormal(dt);
+                break;
+            case BLOCKED:
+                actBlocked(dt);
+                break;
         }
     }
 
-    private static final GameStats sDummyGameStats = new GameStats() {
-        @Override
-        public void setListener(Listener listener) {
-        }
+    private static final GameStats sDummyGameStats =
+            new GameStats() {
+                @Override
+                public void setListener(Listener listener) {}
 
-        @Override
-        public TrackStats getTrackStats(Track track) {
-            return null;
-        }
+                @Override
+                public TrackStats getTrackStats(Track track) {
+                    return null;
+                }
 
-        @Override
-        public int getBestChampionshipRank(Championship championship) {
-            return 0;
-        }
+                @Override
+                public int getBestChampionshipRank(Championship championship) {
+                    return 0;
+                }
 
-        @Override
-        public void onChampionshipFinished(Championship championship, int rank) {
-        }
+                @Override
+                public void onChampionshipFinished(Championship championship, int rank) {}
 
-        @Override
-        public void recordEvent(Event event) {
+                @Override
+                public void recordEvent(Event event) {}
 
-        }
+                @Override
+                public void recordIntEvent(Event event, int value) {}
 
-        @Override
-        public void recordIntEvent(Event event, int value) {
+                @Override
+                public int getEventCount(Event event) {
+                    return 0;
+                }
 
-        }
-
-        @Override
-        public int getEventCount(Event event) {
-            return 0;
-        }
-
-        @Override
-        public void save() {
-
-        }
-    };
+                @Override
+                public void save() {}
+            };
 
     @Override
     public GameStats getGameStats() {

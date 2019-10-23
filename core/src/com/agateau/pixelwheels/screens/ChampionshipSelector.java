@@ -26,9 +26,7 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/**
- * A menu item to select a championship
- */
+/** A menu item to select a championship */
 public class ChampionshipSelector extends GridMenuItem<Championship> {
     private Assets mAssets;
     private RewardManager mRewardManager;
@@ -36,7 +34,8 @@ public class ChampionshipSelector extends GridMenuItem<Championship> {
     private class Renderer extends TextureRegionItemRendererAdapter<Championship> {
         @Override
         protected TextureRegion getItemRegion(Championship championship) {
-            return isItemEnabled(championship) ? mAssets.getChampionshipRegion(championship)
+            return isItemEnabled(championship)
+                    ? mAssets.getChampionshipRegion(championship)
                     : mAssets.getLockedTrackRegion();
         }
 

@@ -27,9 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * Indicate an input zone on the hud
- */
+/** Indicate an input zone on the hud */
 public class HudButton extends Widget {
     private static final float BUTTON_OPACITY = 0.5f;
     private static final float DISABLED_BUTTON_OPACITY = 0.2f;
@@ -39,9 +37,7 @@ public class HudButton extends Widget {
     private final ClickListener mClickListener;
     private boolean mEnabled = true;
 
-    /**
-     * name is a string like "left" or "right"
-     */
+    /** name is a string like "left" or "right" */
     public HudButton(Assets assets, Hud hud, String name) {
         mHud = hud;
         mRegions[0] = assets.findRegion("hud-" + name);
@@ -74,8 +70,8 @@ public class HudButton extends Widget {
                 mRegions[isPressed() ? 1 : 0],
                 MathUtils.round(getX()),
                 MathUtils.round(getY()),
-                getWidth(), getHeight()
-        );
+                getWidth(),
+                getHeight());
 
         color.a = oldA;
         batch.setColor(color);
@@ -83,7 +79,8 @@ public class HudButton extends Widget {
 
     @Override
     public void validate() {
-        setSize(mRegions[0].getRegionWidth() * mHud.getZoom(),
+        setSize(
+                mRegions[0].getRegionWidth() * mHud.getZoom(),
                 mRegions[0].getRegionHeight() * mHud.getZoom());
     }
 }

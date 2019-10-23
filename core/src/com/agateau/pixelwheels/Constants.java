@@ -20,9 +20,7 @@ package com.agateau.pixelwheels;
 
 import static java.lang.System.getenv;
 
-/**
- * Global game constants
- */
+/** Global game constants */
 public class Constants {
     public static final float UNIT_FOR_PIXEL = 1f / 20f;
     public static final float CAMERA_ADVANCE_PERCENT = 0.25f;

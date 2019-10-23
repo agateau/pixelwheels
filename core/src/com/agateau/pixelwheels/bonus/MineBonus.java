@@ -22,9 +22,7 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
 
-/**
- * A mine which can be dropped behind the racer
- */
+/** A mine which can be dropped behind the racer */
 public class MineBonus extends BonusAdapter implements Pool.Poolable {
     private static final float AI_KEEP_BONUS_MIN_TIME = 2f;
     private static final float AI_KEEP_BONUS_MAX_TIME = 5f;

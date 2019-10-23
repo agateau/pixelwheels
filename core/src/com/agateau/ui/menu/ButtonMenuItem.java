@@ -27,9 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * A clickable menu item
- */
+/** A clickable menu item */
 public class ButtonMenuItem extends TextButton implements MenuItem {
     private final Rectangle mRect = new Rectangle();
 
@@ -43,20 +41,22 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         super(text, skin);
         mFocusIndicator = new FocusIndicator(menu);
 
-        addListener(new ClickListener() {
-            @Override
-            public void clicked (InputEvent event, float x, float y) {
-                if (isDisabled()) {
-                    return;
-                }
-                MenuItemTriggerEvent.fire(ButtonMenuItem.this);
-            }
+        addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        if (isDisabled()) {
+                            return;
+                        }
+                        MenuItemTriggerEvent.fire(ButtonMenuItem.this);
+                    }
 
-            @Override
-            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                menu.setCurrentItem(ButtonMenuItem.this);
-            }
-        });
+                    @Override
+                    public void enter(
+                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        menu.setCurrentItem(ButtonMenuItem.this);
+                    }
+                });
     }
 
     @Override
@@ -85,14 +85,10 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     }
 
     @Override
-    public void goLeft() {
-
-    }
+    public void goLeft() {}
 
     @Override
-    public void goRight() {
-
-    }
+    public void goRight() {}
 
     @Override
     public Rectangle getFocusRectangle() {

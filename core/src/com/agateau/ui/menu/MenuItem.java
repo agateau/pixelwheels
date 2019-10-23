@@ -22,9 +22,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 
-/**
- * A MenuItem in a Menu
- */
+/** A MenuItem in a Menu */
 public interface MenuItem {
     Actor getActor();
 
@@ -36,26 +34,31 @@ public interface MenuItem {
 
     /**
      * Called when the user presses the Up virtual key
+     *
      * @return true if handled
      */
     boolean goUp();
     /**
      * Called when the user presses the Down virtual key
+     *
      * @return true if handled
      */
     boolean goDown();
+
     void goLeft();
+
     void goRight();
 
     /**
      * Returns the coordinates of the focus rectangle in the item actor coordinates
+     *
      * @return the focus rectangle
      */
     Rectangle getFocusRectangle();
 
     /**
-     * If ratio is > 0, item width will be set to parentWidth * ratio
-     * If ratio is 0, item width won't be changed
+     * If ratio is > 0, item width will be set to parentWidth * ratio If ratio is 0, item width
+     * won't be changed
      */
     float getParentWidthRatio();
 

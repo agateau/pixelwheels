@@ -25,13 +25,10 @@ import com.agateau.pixelwheels.screens.NavStageScreen;
 import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.utils.log.NLog;
-
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Orchestrate changes between screens for a game
- */
+/** Orchestrate changes between screens for a game */
 public abstract class Maestro implements GamepadInputWatcher.Listener {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
@@ -69,7 +66,8 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     public void onNotEnoughGamepads() {
         NLog.e("There aren't enough connected gamepads");
         if (mNotEnoughGamepadsScreen == null) {
-            mNotEnoughGamepadsScreen = new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
+            mNotEnoughGamepadsScreen =
+                    new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
             mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
         } else {
             mNotEnoughGamepadsScreen.updateMissingGamepads();
@@ -88,7 +86,8 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     }
 
     Set<Reward> getNewlyUnlockedRewards() {
-        Set<Reward> unlockedRewards = new HashSet<>(getGame().getRewardManager().getUnlockedRewards());
+        Set<Reward> unlockedRewards =
+                new HashSet<>(getGame().getRewardManager().getUnlockedRewards());
         unlockedRewards.removeAll(mAlreadyUnlockedRewards);
         if (!unlockedRewards.isEmpty()) {
             NLog.i("Unlocked rewards: %s", unlockedRewards);
@@ -107,12 +106,13 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
         }
         Reward reward = rewards.iterator().next();
         rewards.remove(reward);
-        final NavStageScreen.NextListener navListener = new NavStageScreen.NextListener() {
-            @Override
-            public void onNextPressed() {
-                showUnlockedRewardScreen(rewards, doAfterLastReward);
-            }
-        };
+        final NavStageScreen.NextListener navListener =
+                new NavStageScreen.NextListener() {
+                    @Override
+                    public void onNextPressed() {
+                        showUnlockedRewardScreen(rewards, doAfterLastReward);
+                    }
+                };
         getGame().replaceScreen(new UnlockedRewardScreen(getGame(), reward, navListener));
     }
 }

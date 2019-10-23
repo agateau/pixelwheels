@@ -29,6 +29,7 @@ public class GamepadInputMappers {
 
     public interface Listener {
         void onGamepadConnected();
+
         void onGamepadDisconnected();
     }
 
@@ -36,7 +37,6 @@ public class GamepadInputMappers {
     private final DelayedRemovalArray<Listener> mListeners = new DelayedRemovalArray<>(0);
 
     private static GamepadInputMappers sInstance;
-
 
     public static GamepadInputMappers getInstance() {
         if (sInstance == null) {
@@ -67,36 +67,37 @@ public class GamepadInputMappers {
             mMappers[idx] = new GamepadInputMapper(controller);
         }
 
-        Controllers.addListener(new ControllerAdapter() {
-            @Override
-            public void connected(Controller controller) {
-                for(GamepadInputMapper mapper : mMappers) {
-                    if (mapper.getController() == null) {
-                        mapper.setController(controller);
-                        break;
+        Controllers.addListener(
+                new ControllerAdapter() {
+                    @Override
+                    public void connected(Controller controller) {
+                        for (GamepadInputMapper mapper : mMappers) {
+                            if (mapper.getController() == null) {
+                                mapper.setController(controller);
+                                break;
+                            }
+                        }
+                        mListeners.begin();
+                        for (Listener listener : mListeners) {
+                            listener.onGamepadConnected();
+                        }
+                        mListeners.end();
                     }
-                }
-                mListeners.begin();
-                for (Listener listener : mListeners) {
-                    listener.onGamepadConnected();
-                }
-                mListeners.end();
-            }
 
-            @Override
-            public void disconnected(Controller controller) {
-                for(GamepadInputMapper mapper : mMappers) {
-                    if (mapper.getController() == controller) {
-                        mapper.setController(null);
-                        break;
+                    @Override
+                    public void disconnected(Controller controller) {
+                        for (GamepadInputMapper mapper : mMappers) {
+                            if (mapper.getController() == controller) {
+                                mapper.setController(null);
+                                break;
+                            }
+                        }
+                        mListeners.begin();
+                        for (Listener listener : mListeners) {
+                            listener.onGamepadDisconnected();
+                        }
+                        mListeners.end();
                     }
-                }
-                mListeners.begin();
-                for (Listener listener : mListeners) {
-                    listener.onGamepadDisconnected();
-                }
-                mListeners.end();
-            }
-        });
+                });
     }
 }

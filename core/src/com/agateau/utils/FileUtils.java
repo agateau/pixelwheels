@@ -23,10 +23,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 
-import java.io.IOException;
-
 public class FileUtils {
     public static String appName = "unnamed";
+
     public static FileHandle getUserWritableFile(String name) {
         FileHandle handle;
         if (PlatformUtils.isDesktop()) {

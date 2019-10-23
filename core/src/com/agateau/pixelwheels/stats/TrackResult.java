@@ -22,7 +22,6 @@ public class TrackResult {
     public final String vehicle;
     public final float value;
 
-
     public TrackResult(String vehicle, float value) {
         this.vehicle = vehicle;
         this.value = value;

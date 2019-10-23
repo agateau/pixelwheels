@@ -31,9 +31,7 @@ import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-/**
- * Main menu, shown at startup
- */
+/** Main menu, shown at startup */
 public class MainMenuScreen extends PwStageScreen {
     private final PwGame mGame;
 
@@ -56,51 +54,65 @@ public class MainMenuScreen extends PwStageScreen {
             builder.defineVariable("desktop");
         }
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/mainmenu.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/mainmenu.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
         if (desktop) {
-            menu.addButton("ONE PLAYER").addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.ONE));
-                }
-            });
-            menu.addButton("MULTI PLAYER").addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    mGame.pushScreen(new SelectGameModeScreen(mGame, PlayerCount.MULTI));
-                }
-            });
+            menu.addButton("ONE PLAYER")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.pushScreen(
+                                            new SelectGameModeScreen(mGame, PlayerCount.ONE));
+                                }
+                            });
+            menu.addButton("MULTI PLAYER")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.pushScreen(
+                                            new SelectGameModeScreen(mGame, PlayerCount.MULTI));
+                                }
+                            });
         } else {
-            menu.addButton("QUICK RACE").addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    mGame.showQuickRace(PlayerCount.ONE);
-                }
-            });
-            menu.addButton("CHAMPIONSHIP").addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    mGame.showChampionship(PlayerCount.ONE);
-                }
-            });
+            menu.addButton("QUICK RACE")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.showQuickRace(PlayerCount.ONE);
+                                }
+                            });
+            menu.addButton("CHAMPIONSHIP")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.showChampionship(PlayerCount.ONE);
+                                }
+                            });
         }
-        menu.addButton("SETTINGS").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mGame.pushScreen(new ConfigScreen(mGame));
-            }
-        });
+        menu.addButton("SETTINGS")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                mGame.pushScreen(new ConfigScreen(mGame));
+                            }
+                        });
         if (desktop) {
-            menu.addButton("QUIT").addListener(new MenuItemListener() {
-                @Override
-                public void triggered() {
-                    Gdx.app.exit();
-                }
-            });
+            menu.addButton("QUIT")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    Gdx.app.exit();
+                                }
+                            });
         }
 
         Label versionLabel = builder.getActor("version");

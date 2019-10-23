@@ -93,7 +93,10 @@ abstract class CameraUpdater {
             return;
         }
         float zoomDelta = MAX_ZOOM_DELTA * delta;
-        mNextCameraInfo.zoom = MathUtils.clamp(mNextCameraInfo.zoom,
-                mCameraInfo.zoom - zoomDelta, mCameraInfo.zoom + zoomDelta);
+        mNextCameraInfo.zoom =
+                MathUtils.clamp(
+                        mNextCameraInfo.zoom,
+                        mCameraInfo.zoom - zoomDelta,
+                        mCameraInfo.zoom + zoomDelta);
     }
 }

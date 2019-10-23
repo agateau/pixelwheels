@@ -19,10 +19,10 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.ZLevel;
-import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.Renderer;
+import com.agateau.pixelwheels.ZLevel;
+import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -32,9 +32,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Renders a vehicle
- */
+/** Renders a vehicle */
 public class VehicleRenderer implements Renderer {
     private static final Color IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
     private final Assets mAssets;
@@ -66,7 +64,7 @@ public class VehicleRenderer implements Renderer {
         mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
         mTime += Gdx.app.getGraphics().getDeltaTime();
         if (zLevel == ZLevel.GROUND) {
-            for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+            for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
             }
 
@@ -74,7 +72,8 @@ public class VehicleRenderer implements Renderer {
             if (!mVehicle.isFalling()) {
                 for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                     if (info.wheel.getMaterial().isWater()) {
-                        mBodyRegionDrawer.draw(info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
+                        mBodyRegionDrawer.draw(
+                                info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                     }
                 }
                 mBodyRegionDrawer.drawShadow(mVehicle.getBody(), mVehicle.getRegion());
@@ -94,9 +93,10 @@ public class VehicleRenderer implements Renderer {
             mBatchColor.lerp(Color.WHITE, k);
             batch.setColor(mBatchColor);
         } else {
-            // Do not draw the wheels when falling: when the body is painted with alpha < 1 the wheels are visible
+            // Do not draw the wheels when falling: when the body is painted with alpha < 1 the
+            // wheels are visible
             // through it and it looks ugly
-            for(Vehicle.WheelInfo info: mVehicle.getWheelInfos()) {
+            for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                 mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
             }
         }
@@ -125,11 +125,16 @@ public class VehicleRenderer implements Renderer {
         float refH = -mVehicle.getWidth() / 2;
         float x = center.x + refH * MathUtils.cosDeg(angle);
         float y = center.y + refH * MathUtils.sinDeg(angle);
-        batch.draw(region,
-                x - w / 2, y - h, // pos
-                w / 2, h, // origin
-                w, h, // size
-                1, 1, // scale
+        batch.draw(
+                region,
+                x - w / 2,
+                y - h, // pos
+                w / 2,
+                h, // origin
+                w,
+                h, // size
+                1,
+                1, // scale
                 angle - 90);
     }
 }

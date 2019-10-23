@@ -27,18 +27,16 @@ import com.agateau.pixelwheels.screens.SelectTrackScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.Set;
 
-/**
- * Handle a quick race game
- */
+/** Handle a quick race game */
 public class QuickRaceMaestro extends Maestro {
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
 
     public QuickRaceMaestro(PwGame game, PlayerCount playerCount) {
         super(game, playerCount);
-        mGameInfoBuilder = new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
+        mGameInfoBuilder =
+                new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
     }
 
     @Override
@@ -55,77 +53,82 @@ public class QuickRaceMaestro extends Maestro {
     }
 
     private Screen createOnePlayerVehicleScreen() {
-        SelectVehicleScreen.Listener listener = new SelectVehicleScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                getGame().replaceScreen(createSelectTrackScreen());
-            }
+        SelectVehicleScreen.Listener listener =
+                new SelectVehicleScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        getGame().replaceScreen(createSelectTrackScreen());
+                    }
 
-            @Override
-            public void onPlayerSelected(GameInfo.Player player) {
-                Array<GameInfo.Player> players = new Array<>();
-                players.add(player);
-                mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createRaceScreen());
-            }
-        };
+                    @Override
+                    public void onPlayerSelected(GameInfo.Player player) {
+                        Array<GameInfo.Player> players = new Array<>();
+                        players.add(player);
+                        mGameInfoBuilder.setPlayers(players);
+                        getGame().replaceScreen(createRaceScreen());
+                    }
+                };
         return new SelectVehicleScreen(getGame(), listener);
     }
 
     private Screen createMultiPlayerVehicleScreen() {
-        MultiPlayerScreen.Listener listener = new MultiPlayerScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                getGame().replaceScreen(createSelectTrackScreen());
-            }
+        MultiPlayerScreen.Listener listener =
+                new MultiPlayerScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        getGame().replaceScreen(createSelectTrackScreen());
+                    }
 
-            @Override
-            public void onPlayersSelected(Array<GameInfo.Player> players) {
-                mGameInfoBuilder.setPlayers(players);
-                getGame().replaceScreen(createRaceScreen());
-            }
-        };
+                    @Override
+                    public void onPlayersSelected(Array<GameInfo.Player> players) {
+                        mGameInfoBuilder.setPlayers(players);
+                        getGame().replaceScreen(createRaceScreen());
+                    }
+                };
         return new MultiPlayerScreen(getGame(), listener);
     }
 
     private Screen createSelectTrackScreen() {
-        SelectTrackScreen.Listener listener = new SelectTrackScreen.Listener() {
-            @Override
-            public void onBackPressed() {
-                stopGamepadInputWatcher();
-                getGame().popScreen();
-            }
-            @Override
-            public void onTrackSelected(Track track) {
-                mGameInfoBuilder.setTrack(track);
-                getGame().replaceScreen(createSelectVehicleScreen());
-            }
-        };
+        SelectTrackScreen.Listener listener =
+                new SelectTrackScreen.Listener() {
+                    @Override
+                    public void onBackPressed() {
+                        stopGamepadInputWatcher();
+                        getGame().popScreen();
+                    }
+
+                    @Override
+                    public void onTrackSelected(Track track) {
+                        mGameInfoBuilder.setTrack(track);
+                        getGame().replaceScreen(createSelectVehicleScreen());
+                    }
+                };
         return new SelectTrackScreen(getGame(), listener);
     }
 
     private Screen createRaceScreen() {
-        RaceScreen.Listener listener = new RaceScreen.Listener() {
-            @Override
-            public void onRestartPressed() {
-                ((RaceScreen)getGame().getScreen()).forgetTrack();
-                getGame().replaceScreen(createRaceScreen());
-            }
+        RaceScreen.Listener listener =
+                new RaceScreen.Listener() {
+                    @Override
+                    public void onRestartPressed() {
+                        ((RaceScreen) getGame().getScreen()).forgetTrack();
+                        getGame().replaceScreen(createRaceScreen());
+                    }
 
-            @Override
-            public void onQuitPressed() {
-                stopGamepadInputWatcher();
-                getGame().showMainMenu();
-            }
+                    @Override
+                    public void onQuitPressed() {
+                        stopGamepadInputWatcher();
+                        getGame().showMainMenu();
+                    }
 
-            @Override
-            public void onNextTrackPressed() {
-                stopGamepadInputWatcher();
-                final Set<Reward> rewards = getNewlyUnlockedRewards();
-                updateAlreadyUnlockedRewards();
-                showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
-            }
-        };
+                    @Override
+                    public void onNextTrackPressed() {
+                        stopGamepadInputWatcher();
+                        final Set<Reward> rewards = getNewlyUnlockedRewards();
+                        updateAlreadyUnlockedRewards();
+                        showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
+                    }
+                };
         QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
         return new RaceScreen(getGame(), listener, gameInfo, RaceScreen.PauseButtons.ALL);
     }

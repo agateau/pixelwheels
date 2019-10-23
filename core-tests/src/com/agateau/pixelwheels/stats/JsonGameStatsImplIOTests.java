@@ -18,26 +18,23 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.files.FileHandle;
-
+import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.ArrayList;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 @RunWith(JUnit4.class)
 public class JsonGameStatsImplIOTests {
-    @Rule
-    public TemporaryFolder mTemporaryFolder = new TemporaryFolder();
+    @Rule public TemporaryFolder mTemporaryFolder = new TemporaryFolder();
 
     @Test
     public void testNoRecords() {

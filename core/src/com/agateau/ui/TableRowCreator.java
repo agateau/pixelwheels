@@ -23,8 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 /**
  * An helper class to fill a table with rows
  *
- * addHeaderRow and addContentRow should always be called with
- * the same number of values.
+ * <p>addHeaderRow and addContentRow should always be called with the same number of values.
  */
 public abstract class TableRowCreator {
     private static final String HEADER_STYLE = "tableHeaderRow";
@@ -32,10 +31,7 @@ public abstract class TableRowCreator {
 
     private String mNextStyle = "";
 
-    /**
-     * Must create cells in @p table using the table.add() method
-     *
-     */
+    /** Must create cells in @p table using the table.add() method */
     protected abstract void createCells(Table table, String style, String... values);
 
     public void setTable(Table table) {
@@ -47,18 +43,14 @@ public abstract class TableRowCreator {
         return this;
     }
 
-    /**
-     * Add a content row
-     */
+    /** Add a content row */
     public TableRowCreator addRow(String... values) {
         createCells(mTable, mNextStyle, values);
         mTable.row();
         return this;
     }
 
-    /**
-     * Add an header row
-     */
+    /** Add an header row */
     public void addHeaderRow(String... values) {
         setRowStyle(HEADER_STYLE);
         addRow(values);

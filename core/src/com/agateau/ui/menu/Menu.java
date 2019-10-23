@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 /**
  * A keyboard and game controller friendly menu system
  *
- * Sends ChangeEvent when the current item changes.
+ * <p>Sends ChangeEvent when the current item changes.
  */
 public class Menu extends WidgetGroup {
     private static final float LABEL_COLUMN_WIDTH = 120;
@@ -45,8 +45,7 @@ public class Menu extends WidgetGroup {
         public int spacing;
         public int focusPadding;
 
-        public MenuStyle() {
-        }
+        public MenuStyle() {}
     }
 
     public Menu(Skin skin) {
@@ -89,6 +88,7 @@ public class Menu extends WidgetGroup {
 
     /**
      * Add a plain label in the menu
+     *
      * @return The created label
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -98,6 +98,7 @@ public class Menu extends WidgetGroup {
 
     /**
      * Add a "title" label in the menu (uses the "menuTitle" label style)
+     *
      * @return The created label
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -105,22 +106,19 @@ public class Menu extends WidgetGroup {
         return mGroup.addTitleLabel(text);
     }
 
-    /**
-     * Add a full-width item
-     */
+    /** Add a full-width item */
     @SuppressWarnings("UnusedReturnValue")
     public MenuItem addItem(MenuItem item) {
         return mGroup.addItem(item);
     }
 
-    /**
-     * Add a [label - item] row
-     */
+    /** Add a [label - item] row */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
         return mGroup.addItemWithLabel(labelText, item);
     }
 
     private boolean mFirstLayout = true;
+
     @Override
     public void layout() {
         super.layout();
@@ -136,8 +134,8 @@ public class Menu extends WidgetGroup {
     private void updateGroupBounds() {
         Actor actor = mGroup.getActor();
         actor.setWidth(getWidth() - 2 * mStyle.focusPadding);
-        ((Layout)actor).invalidate();
-        ((Layout)actor).validate();
+        ((Layout) actor).invalidate();
+        ((Layout) actor).validate();
         actor.setPosition(mStyle.focusPadding, mStyle.focusPadding);
     }
 

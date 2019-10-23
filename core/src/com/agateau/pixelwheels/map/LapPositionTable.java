@@ -18,14 +18,12 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.agateau.utils.Assert;
 
-/**
- * Can provide the position within a lap based on x, y (in tile pixels)
- */
+/** Can provide the position within a lap based on x, y (in tile pixels) */
 public class LapPositionTable {
     private final Array<LapSection> mSections = new Array<>();
 
@@ -39,22 +37,23 @@ public class LapPositionTable {
             mPolygon = polygon;
             float[] vertices = mPolygon.getTransformedVertices();
             int verticeCount = vertices.length / 2;
-            Assert.check(verticeCount == 4, "Polygon " + sectionId + " must have 4 vertices, not " + verticeCount);
+            Assert.check(
+                    verticeCount == 4,
+                    "Polygon " + sectionId + " must have 4 vertices, not " + verticeCount);
             mWarper.setSource(
                     vertices[0], vertices[1],
                     vertices[2], vertices[3],
                     vertices[4], vertices[5],
-                    vertices[6], vertices[7]
-            );
+                    vertices[6], vertices[7]);
             mWarper.setDestination(
                     0, -1,
                     1, -1,
                     1, 1,
-                    0, 1
-            );
+                    0, 1);
         }
 
         private final LapPosition mLapPosition = new LapPosition();
+
         public LapPosition computePosition(float x, float y) {
             Vector2 out = mWarper.warp(x, y);
             mLapPosition.init(mSectionId, mPolygon, x, y, out.x);

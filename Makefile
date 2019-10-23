@@ -103,6 +103,13 @@ dist: assets packer check desktop-dist apk-dist
 
 clean-dist: clean dist
 
+# coding style
+codingstyle-check:
+	tools/apply-codingstyle --check
+
+codingstyle-apply:
+	tools/apply-codingstyle
+
 # Tag
 tag:
 	git tag -f -m "Pixel Wheels $(VERSION)" $(VERSION)

@@ -18,9 +18,14 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,19 +34,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-
 @RunWith(JUnit4.class)
 public class GameStatsImplTests {
-    @Mock
-    private GameStatsImpl.IO mStatsIO;
+    @Mock private GameStatsImpl.IO mStatsIO;
 
-    @Rule
-    public MockitoRule mMockitoRule = MockitoJUnit.rule();
+    @Rule public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testInit() {
@@ -81,7 +78,6 @@ public class GameStatsImplTests {
         // THEN the stats are saved
         verify(mStatsIO).save();
     }
-
 
     @Test
     public void testRecordIntEventTwice() {

@@ -20,12 +20,9 @@ package com.agateau.pixelwheels.sound;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
-
 import java.lang.ref.WeakReference;
 
-/**
- * Default implementation of AudioManager
- */
+/** Default implementation of AudioManager */
 public class DefaultAudioManager implements AudioManager {
     private boolean mMuted = false;
     private final Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();

@@ -22,9 +22,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-/**
- * A rule to position an actor relative to another
- */
+/** A rule to position an actor relative to another */
 public class PositionRule implements AnchorRule {
     public Actor target;
     public Anchor targetAnchor;
@@ -41,9 +39,10 @@ public class PositionRule implements AnchorRule {
     @Override
     public void apply() {
         // Compute reference position
-        Vector2 referencePos = new Vector2(
-            reference.getWidth() * referenceAnchor.hPercent,
-            reference.getHeight() * referenceAnchor.vPercent);
+        Vector2 referencePos =
+                new Vector2(
+                        reference.getWidth() * referenceAnchor.hPercent,
+                        reference.getHeight() * referenceAnchor.vPercent);
 
         Vector2 stagePos = reference.localToStageCoordinates(referencePos);
 
@@ -60,8 +59,8 @@ public class PositionRule implements AnchorRule {
         // Apply target offset (If right-aligned, hPercent is 100% => -width * scale.
         // If centered, hPercent is 50% => -width * scale / 2)
         targetPos.add(
-            -target.getWidth() * target.getScaleX() * targetAnchor.hPercent,
-            -target.getHeight() * target.getScaleY() * targetAnchor.vPercent);
+                -target.getWidth() * target.getScaleX() * targetAnchor.hPercent,
+                -target.getHeight() * target.getScaleY() * targetAnchor.vPercent);
 
         target.setPosition(MathUtils.floor(targetPos.x), MathUtils.floor(targetPos.y));
     }

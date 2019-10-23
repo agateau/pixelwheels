@@ -22,5 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public interface AnchorRule {
     Actor getTarget();
+
     void apply();
 }

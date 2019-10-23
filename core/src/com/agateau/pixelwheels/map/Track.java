@@ -39,9 +39,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
-/**
- * The map of the current game
- */
+/** The map of the current game */
 public class Track implements Disposable {
     private static final int CELL_ID_ROW_STRIDE = 10000;
 
@@ -103,7 +101,7 @@ public class Track implements Disposable {
         for (int idx = 0; idx < mMap.getLayers().getCount(); ++idx) {
             MapLayer layer = mMap.getLayers().get(idx);
             if (layer.getName().startsWith(match)) {
-                array.add((TiledMapTileLayer)layer);
+                array.add((TiledMapTileLayer) layer);
             }
         }
         return array;
@@ -213,8 +211,8 @@ public class Track implements Disposable {
     }
 
     /**
-     * Returns a "cell id" for the given screen coordinates
-     * A cell id is a long representing the combination of x and y in map coordinates
+     * Returns a "cell id" for the given screen coordinates A cell id is a long representing the
+     * combination of x and y in map coordinates
      */
     public long getCellIdAt(float x, float y) {
         int tx = MathUtils.floor(x / mTileWidth);
@@ -267,7 +265,10 @@ public class Track implements Disposable {
 
         for (MapObject object : layer.getObjects()) {
             if (!(object instanceof EllipseMapObject)) {
-                throw new RuntimeException("BonusSpots layer should contains only ellipses. " + object + " is not an ellipse.");
+                throw new RuntimeException(
+                        "BonusSpots layer should contains only ellipses. "
+                                + object
+                                + " is not an ellipse.");
             }
             Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
             Vector2 pos = new Vector2(ellipse.x * U, ellipse.y * U);

@@ -29,9 +29,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 
-/**
- * Utilities to work with Tiled maps
- */
+/** Utilities to work with Tiled maps */
 public class MapUtils {
     @SuppressWarnings("unused")
     public static float getFloatProperty(MapProperties properties, String key, float defaultValue) {
@@ -42,7 +40,8 @@ public class MapUtils {
         return Float.valueOf(value.toString());
     }
 
-    public static boolean getBooleanProperty(MapProperties properties, String key, boolean defaultValue) {
+    public static boolean getBooleanProperty(
+            MapProperties properties, String key, boolean defaultValue) {
         Object value = properties.get(key);
         if (value == null) {
             return defaultValue;
@@ -51,7 +50,7 @@ public class MapUtils {
         if (v.equals("true")) {
             return true;
         } else if (v.equals("false")) {
-            return  false;
+            return false;
         }
         NLog.e("invalid boolean value: %s", v);
         return defaultValue;
@@ -61,12 +60,17 @@ public class MapUtils {
         final float U = Constants.UNIT_FOR_PIXEL;
         for (MapObject object : layer.getObjects()) {
             if (object instanceof PolygonMapObject) {
-                float[] vertices = ((PolygonMapObject)object).getPolygon().getTransformedVertices();
+                float[] vertices =
+                        ((PolygonMapObject) object).getPolygon().getTransformedVertices();
                 for (int idx = 2; idx < vertices.length; idx += 2) {
-                    renderer.line(vertices[idx - 2] * U, vertices[idx - 1] * U, vertices[idx] * U, vertices[idx + 1] * U);
+                    renderer.line(
+                            vertices[idx - 2] * U,
+                            vertices[idx - 1] * U,
+                            vertices[idx] * U,
+                            vertices[idx + 1] * U);
                 }
             } else if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject)object).getRectangle();
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 renderer.rect(rect.x * U, rect.y * U, rect.width * U, rect.height * U);
             }
         }

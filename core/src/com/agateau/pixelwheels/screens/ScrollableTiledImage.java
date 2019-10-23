@@ -29,9 +29,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
-/**
- * An actor to draw tiled images, without gaps between tiles when zoomed
- */
+/** An actor to draw tiled images, without gaps between tiles when zoomed */
 class ScrollableTiledImage extends Actor {
     private final float mPixelsPerSecond;
     private final TiledDrawable mDrawable;
@@ -56,28 +54,38 @@ class ScrollableTiledImage extends Actor {
         ensureFrameBufferOK();
         Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-        batch.draw(mFrameBuffer.getColorBufferTexture(),
+        batch.draw(
+                mFrameBuffer.getColorBufferTexture(),
                 // dst
-                getX(), getY(),
+                getX(),
+                getY(),
                 // origin
-                0, 0,
+                0,
+                0,
                 // dst size
-                getWidth(), getHeight(),
+                getWidth(),
+                getHeight(),
                 // scale
-                1, 1,
+                1,
+                1,
                 // rotation
                 0,
                 // src
-                0, (int)mOffset, (int)getWidth(), (int)getHeight(),
+                0,
+                (int) mOffset,
+                (int) getWidth(),
+                (int) getHeight(),
                 // flips
-                false, true
-                );
+                false,
+                true);
     }
 
     private void ensureFrameBufferOK() {
         int width = (int) (getWidth() + mDrawable.getMinWidth());
         int height = (int) (getHeight() + mDrawable.getMinHeight());
-        if (mFrameBuffer != null && mFrameBuffer.getWidth() == width && mFrameBuffer.getHeight() == height) {
+        if (mFrameBuffer != null
+                && mFrameBuffer.getWidth() == width
+                && mFrameBuffer.getHeight() == height) {
             return;
         }
         mFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false /* hasDepth */);

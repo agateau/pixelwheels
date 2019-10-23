@@ -27,9 +27,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Handle input using pie buttons in the bottom left and right corners
- */
+/** Handle input using pie buttons in the bottom left and right corners */
 public class PieTouchInputHandler implements GameInputHandler {
     private final GameInput mInput = new GameInput();
     private PieButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
@@ -61,20 +59,17 @@ public class PieTouchInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = mBrakeButton.isPressed();
         mInput.accelerating = !mInput.braking;
-        mInput.direction = TouchInputUtils.applyDirectionInput(mLeftButton, mRightButton, mInput.direction);
+        mInput.direction =
+                TouchInputUtils.applyDirectionInput(mLeftButton, mRightButton, mInput.direction);
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
-
-    }
+    public void loadConfig(Preferences preferences, String prefix) {}
 
     @Override
-    public void saveConfig(Preferences preferences, String prefix) {
-
-    }
+    public void saveConfig(Preferences preferences, String prefix) {}
 
     @Override
     public void setBonus(Bonus bonus) {

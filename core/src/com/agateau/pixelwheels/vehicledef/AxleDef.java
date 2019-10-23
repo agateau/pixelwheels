@@ -18,9 +18,7 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
-/**
- * Definition of a vehicle axle
- */
+/** Definition of a vehicle axle */
 public class AxleDef {
     public float width;
     public float y;

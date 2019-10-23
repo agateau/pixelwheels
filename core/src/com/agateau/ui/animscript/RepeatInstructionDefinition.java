@@ -18,11 +18,10 @@
  */
 package com.agateau.ui.animscript;
 
-import java.io.IOException;
-import java.io.StreamTokenizer;
-
 import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.utils.Array;
+import java.io.IOException;
+import java.io.StreamTokenizer;
 
 public class RepeatInstructionDefinition implements InstructionDefinition {
     private final AnimScriptLoader mLoader;
@@ -32,7 +31,8 @@ public class RepeatInstructionDefinition implements InstructionDefinition {
     }
 
     @Override
-    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser) throws AnimScriptLoader.SyntaxException {
+    public Instruction parse(StreamTokenizer tokenizer, DimensionParser dimParser)
+            throws AnimScriptLoader.SyntaxException {
         int count = parseCount(tokenizer);
         Array<Instruction> lst = mLoader.tokenize(tokenizer, "end", dimParser);
         return new RepeatInstruction(lst, count);
@@ -48,8 +48,12 @@ public class RepeatInstructionDefinition implements InstructionDefinition {
             return 0;
         }
         if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
-            return (int)tokenizer.nval;
+            return (int) tokenizer.nval;
         }
-        throw new AnimScriptLoader.SyntaxException(tokenizer, "Error in repeat instruction: '" + tokenizer.sval + "' is not a valid repeat count");
+        throw new AnimScriptLoader.SyntaxException(
+                tokenizer,
+                "Error in repeat instruction: '"
+                        + tokenizer.sval
+                        + "' is not a valid repeat count");
     }
 }

@@ -22,7 +22,6 @@ import com.agateau.ui.DimensionParser;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
@@ -42,55 +41,54 @@ public class AnimScriptLoader {
     }
 
     public AnimScriptLoader() {
-        registerAction("moveTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("moveToAligned",
+        registerAction(
+                "moveTo",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "moveToAligned",
                 new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
                 new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
                 new AlignmentArgumentDefinition(),
                 new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                new InterpolationArgumentDefinition(Interpolation.linear)
-        );
-        registerAction("moveBy",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("rotateTo",
-            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
-            new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-            new InterpolationArgumentDefinition(Interpolation.linear)
-           );
-        registerAction("rotateBy",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("scaleTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("sizeTo",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("alpha",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
-                       new InterpolationArgumentDefinition(Interpolation.linear)
-                      );
-        registerAction("delay",
-                       new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION)
-                      );
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "moveBy",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "rotateTo",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "rotateBy",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "scaleTo",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "sizeTo",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DIMENSION),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "alpha",
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
+                new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
+                new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction(
+                "delay", new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION));
         mInstructionDefinitionMap.put("parallel", new ParallelInstructionDefinition(this));
         mInstructionDefinitionMap.put("repeat", new RepeatInstructionDefinition(this));
     }
@@ -123,12 +121,12 @@ public class AnimScriptLoader {
         return new AnimScript(lst);
     }
 
-    Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser) throws SyntaxException {
+    Array<Instruction> tokenize(StreamTokenizer tokenizer, String end, DimensionParser dimParser)
+            throws SyntaxException {
         Array<Instruction> lst = new Array<>();
         do {
             try {
-                while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {
-                }
+                while (tokenizer.nextToken() == StreamTokenizer.TT_EOL) {}
             } catch (IOException e) {
                 throw new SyntaxException(tokenizer, "Unexpected end of line");
             }
@@ -136,10 +134,14 @@ public class AnimScriptLoader {
                 break;
             }
             if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
-                throw new SyntaxException(tokenizer, String.format("Unexpected token type %d, (sval='%s')", tokenizer.ttype, tokenizer.sval));
+                throw new SyntaxException(
+                        tokenizer,
+                        String.format(
+                                "Unexpected token type %d, (sval='%s')",
+                                tokenizer.ttype, tokenizer.sval));
             }
             String cmd = tokenizer.sval;
-            assert(cmd != null);
+            assert (cmd != null);
             if (end != null && cmd.equals(end)) {
                 break;
             }
@@ -153,17 +155,20 @@ public class AnimScriptLoader {
         return lst;
     }
 
-    private void registerStaticMethod(String name, Class<?> methodClass, String methodName, ArgumentDefinition<?>... types) {
+    private void registerStaticMethod(
+            String name, Class<?> methodClass, String methodName, ArgumentDefinition<?>... types) {
         Method method = getMethod(methodClass, methodName, types);
         mInstructionDefinitionMap.put(name, new BasicInstructionDefinition(method, types));
     }
 
-    public void registerMemberMethod(String name, Object object, String methodName, ArgumentDefinition<?>... types) {
+    public void registerMemberMethod(
+            String name, Object object, String methodName, ArgumentDefinition<?>... types) {
         Method method = getMethod(object.getClass(), methodName, types);
         mInstructionDefinitionMap.put(name, new BasicInstructionDefinition(object, method, types));
     }
 
-    private static Method getMethod(Class<?> methodClass, String name, ArgumentDefinition<?>... types) {
+    private static Method getMethod(
+            Class<?> methodClass, String name, ArgumentDefinition<?>... types) {
         Class<?>[] args = new Class<?>[types.length];
         for (int idx = 0; idx < types.length; ++idx) {
             args[idx] = types[idx].javaType;

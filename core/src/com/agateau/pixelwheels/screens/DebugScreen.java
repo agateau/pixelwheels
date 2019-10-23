@@ -34,9 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/**
- * The debug screen
- */
+/** The debug screen */
 public class DebugScreen extends PwStageScreen {
     private final PwGame mGame;
     private MenuItemGroup mCurrentGroup;
@@ -61,7 +59,7 @@ public class DebugScreen extends PwStageScreen {
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
-        AnchorGroup root = (AnchorGroup)builder.build(FileUtils.assets("screens/debug.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/debug.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -108,12 +106,14 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
 
-        builder.getActor("backButton").addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onBackPressed();
-            }
-        });
+        builder.getActor("backButton")
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                onBackPressed();
+                            }
+                        });
     }
 
     private void addTitle(String text) {
@@ -128,13 +128,14 @@ public class DebugScreen extends PwStageScreen {
         item.setChecked(checked);
         mCurrentGroup.addItemWithLabel(text, item);
 
-        item.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                boolean value = item.isChecked();
-                introspector.set(keyName, value);
-            }
-        });
+        item.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        boolean value = item.isChecked();
+                        introspector.set(keyName, value);
+                    }
+                });
     }
 
     private void addRange(String text, final String keyName, int min, int max) {
@@ -144,17 +145,19 @@ public class DebugScreen extends PwStageScreen {
     private void addRange(String text, final String keyName, int min, int max, int stepSize) {
         final Introspector introspector = mCurrentIntrospector;
 
-        final DebugIntSliderMenuItem item = new DebugIntSliderMenuItem(mMenu, keyName, introspector);
+        final DebugIntSliderMenuItem item =
+                new DebugIntSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max, stepSize);
         item.setIntValue(introspector.getInt(keyName));
-        item.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                int value = item.getIntValue();
-                introspector.setInt(keyName, value);
-                item.updateMainActor();
-            }
-        });
+        item.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        int value = item.getIntValue();
+                        introspector.setInt(keyName, value);
+                        item.updateMainActor();
+                    }
+                });
 
         mCurrentGroup.addItemWithLabel(text, item);
     }
@@ -166,17 +169,19 @@ public class DebugScreen extends PwStageScreen {
     private void addRange(String text, final String keyName, float min, float max, float stepSize) {
         final Introspector introspector = mCurrentIntrospector;
 
-        final DebugFloatSliderMenuItem item = new DebugFloatSliderMenuItem(mMenu, keyName, introspector);
+        final DebugFloatSliderMenuItem item =
+                new DebugFloatSliderMenuItem(mMenu, keyName, introspector);
         item.setRange(min, max, stepSize);
         item.setFloatValue(introspector.getFloat(keyName));
-        item.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                float value = item.getFloatValue();
-                introspector.setFloat(keyName, value);
-                item.updateMainActor();
-            }
-        });
+        item.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        float value = item.getFloatValue();
+                        introspector.setFloat(keyName, value);
+                        item.updateMainActor();
+                    }
+                });
 
         mCurrentGroup.addItemWithLabel(text, item);
     }
@@ -228,7 +233,7 @@ public class DebugScreen extends PwStageScreen {
             float current = mIntrospector.get(mKeyName);
 
             if (ref != current) {
-                int intValue = (int)(ref * getDivisor());
+                int intValue = (int) (ref * getDivisor());
                 text += " (" + super.formatValue(intValue) + ")";
             }
             return text;

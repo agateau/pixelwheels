@@ -19,13 +19,13 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.ZLevel;
-import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
-import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
+import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,9 +35,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-/**
- * The bonus waiting to be hit by a the player
- */
+/** The bonus waiting to be hit by a the player */
 public class BonusSpot extends GameObjectAdapter {
     private static final float DISABLED_TIMEOUT = 5;
     private final TextureRegion mRegion;
@@ -50,7 +48,8 @@ public class BonusSpot extends GameObjectAdapter {
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
     private boolean mJustPicked = false;
 
-    public BonusSpot(Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {
+    public BonusSpot(
+            Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {
         final float U = Constants.UNIT_FOR_PIXEL;
         mAudioManager = audioManager;
         mX = x;

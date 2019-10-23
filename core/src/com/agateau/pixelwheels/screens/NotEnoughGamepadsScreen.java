@@ -13,7 +13,6 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.IntArray;
-
 import java.util.Locale;
 
 public class NotEnoughGamepadsScreen extends PwStageScreen {
@@ -40,11 +39,10 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 
     private static final StringBuilder sStringBuilder = new StringBuilder();
+
     public void updateMissingGamepads() {
         sStringBuilder.setLength(0);
         IntArray missingGamepads = mWatcher.getMissingGamepads();
@@ -64,19 +62,22 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
 
-        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
+        AnchorGroup root =
+                (AnchorGroup) builder.build(FileUtils.assets("screens/notenoughgamepads.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         mLabel = builder.getActor("gamepadsLabel");
 
         Menu menu = builder.getActor("menu");
-        menu.addButton("Main Menu").addListener(new MenuItemListener() {
-            @Override
-            public void triggered() {
-                mMaestro.stopGamepadInputWatcher();
-                mGame.showMainMenu();
-            }
-        });
+        menu.addButton("Main Menu")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                mMaestro.stopGamepadInputWatcher();
+                                mGame.showMainMenu();
+                            }
+                        });
     }
 }

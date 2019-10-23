@@ -18,9 +18,7 @@
  */
 package com.agateau.ui;
 
-/**
- * Keys of input device
- */
+/** Keys of input device */
 public enum VirtualKey {
     UP,
     DOWN,

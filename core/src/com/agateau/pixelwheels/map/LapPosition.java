@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.map;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 
-/**
- * A POJO to store information about the position within a lap
- */
+/** A POJO to store information about the position within a lap */
 public class LapPosition {
     private static final float UNINITIALIZED = -2;
     private int mSectionId = -1;
@@ -33,7 +31,8 @@ public class LapPosition {
     private float mSectionDistance;
     private float mCenterDistance = UNINITIALIZED;
 
-    public void init(int sectionId, Polygon sectionPolygon, float x, float y, float sectionDistance) {
+    public void init(
+            int sectionId, Polygon sectionPolygon, float x, float y, float sectionDistance) {
         mSectionId = sectionId;
         mSectionPolygon = sectionPolygon;
         mX = x;
@@ -71,20 +70,20 @@ public class LapPosition {
     }
 
     private void computeCenterDistance() {
-            /*
-             ^     V3      L     V2
-             |     ,-------*-----,
-             |    /          M    \_
-            y-   /           *      \_
-             |  /_____________*_______\
-             |  V0             N       V1
-             |
-             +---------------|--------------->
-                             x
+        /*
+         ^     V3      L     V2
+         |     ,-------*-----,
+         |    /          M    \_
+        y-   /           *      \_
+         |  /_____________*_______\
+         |  V0             N       V1
+         |
+         +---------------|--------------->
+                         x
 
-               M coordinates are (x, y)
+           M coordinates are (x, y)
 
-             */
+         */
         float[] vertices = mSectionPolygon.getTransformedVertices();
         float nx = MathUtils.lerp(vertices[0], vertices[2], mSectionDistance);
         float ny = MathUtils.lerp(vertices[1], vertices[3], mSectionDistance);
@@ -92,7 +91,7 @@ public class LapPosition {
         float ly = MathUtils.lerp(vertices[7], vertices[5], mSectionDistance);
         float nlLength = computeLength2(nx, ny, lx, ly);
         float nmLength = computeLength2(nx, ny, mX, mY);
-        mCenterDistance = (float)Math.sqrt(nmLength / nlLength) * 2 - 1;
+        mCenterDistance = (float) Math.sqrt(nmLength / nlLength) * 2 - 1;
     }
 
     private static float computeLength2(float x1, float y1, float x2, float y2) {

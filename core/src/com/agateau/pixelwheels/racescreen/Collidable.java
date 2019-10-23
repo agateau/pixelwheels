@@ -25,7 +25,10 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public interface Collidable {
     void beginContact(Contact contact, Fixture otherFixture);
+
     void endContact(Contact contact, Fixture otherFixture);
+
     void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold);
+
     void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse);
 }

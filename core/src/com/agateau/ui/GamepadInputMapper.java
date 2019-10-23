@@ -22,13 +22,10 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.PovDirection;
-
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-/**
- * An implementation of InputMapper for gamepads
- */
+/** An implementation of InputMapper for gamepads */
 public class GamepadInputMapper extends ControllerAdapter implements InputMapper {
     private static final String TRIGGER_BUTTON_PREF = "trigger";
     private static final String BACK_BUTTON_PREF = "back";
@@ -52,7 +49,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     public interface Listener {
         /**
-         * Returns true if the event has been handled. In this case the internal state of the input mapper won't be updated
+         * Returns true if the event has been handled. In this case the internal state of the input
+         * mapper won't be updated
          */
         boolean onButtonPressed(int buttonCode, boolean pressed);
     }
@@ -61,7 +59,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<>();
 
-    private final HashMap<GamepadButton,Integer> mButtonCodes = new HashMap<>();
+    private final HashMap<GamepadButton, Integer> mButtonCodes = new HashMap<>();
 
     private WeakReference<Listener> mListenerRef;
 
@@ -121,13 +119,15 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     @Override
     public void loadConfig(Preferences preferences, String prefix) {
-        mButtonCodes.put(GamepadButton.TRIGGER, preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1));
+        mButtonCodes.put(
+                GamepadButton.TRIGGER, preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1));
         mButtonCodes.put(GamepadButton.BACK, preferences.getInteger(prefix + BACK_BUTTON_PREF, 2));
     }
 
     @Override
     public void saveConfig(Preferences preferences, String prefix) {
-        preferences.putInteger(prefix + TRIGGER_BUTTON_PREF, mButtonCodes.get(GamepadButton.TRIGGER));
+        preferences.putInteger(
+                prefix + TRIGGER_BUTTON_PREF, mButtonCodes.get(GamepadButton.TRIGGER));
         preferences.putInteger(prefix + BACK_BUTTON_PREF, mButtonCodes.get(GamepadButton.BACK));
     }
 
@@ -155,36 +155,36 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         boolean left = false;
         boolean right = false;
         switch (value) {
-        case center:
-            break;
-        case north:
-            up = true;
-            break;
-        case south:
-            down = true;
-            break;
-        case east:
-            right = true;
-            break;
-        case west:
-            left = true;
-            break;
-        case northEast:
-            up = true;
-            right = true;
-            break;
-        case southEast:
-            down = true;
-            right = true;
-            break;
-        case northWest:
-            up = true;
-            left = true;
-            break;
-        case southWest:
-            down = true;
-            left = true;
-            break;
+            case center:
+                break;
+            case north:
+                up = true;
+                break;
+            case south:
+                down = true;
+                break;
+            case east:
+                right = true;
+                break;
+            case west:
+                left = true;
+                break;
+            case northEast:
+                up = true;
+                right = true;
+                break;
+            case southEast:
+                down = true;
+                right = true;
+                break;
+            case northWest:
+                up = true;
+                left = true;
+                break;
+            case southWest:
+                down = true;
+                left = true;
+                break;
         }
         setKeyJustPressed(VirtualKey.UP, up);
         setKeyJustPressed(VirtualKey.DOWN, down);

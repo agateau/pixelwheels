@@ -20,12 +20,9 @@ package com.agateau.pixelwheels.racer;
 
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.KeyValueWriter;
-
 import java.util.HashMap;
 
-/**
- * A generic probe
- */
+/** A generic probe */
 public class Probe implements Racer.Component {
     protected final KeyValueWriter mWriter;
     private float mLogTime = 0;

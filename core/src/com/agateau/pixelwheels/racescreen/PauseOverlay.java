@@ -26,9 +26,7 @@ import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-/**
- * Appears on top of RaceScreen when paused
- */
+/** Appears on top of RaceScreen when paused */
 public class PauseOverlay extends Overlay {
     private final PwGame mGame;
     private final RaceScreen mRaceScreen;
@@ -52,32 +50,40 @@ public class PauseOverlay extends Overlay {
 
         Menu menu = builder.getActor("menu");
 
-        menu.addButton("Resume").addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                mRaceScreen.resumeRace();
-            }
-        });
+        menu.addButton("Resume")
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                mRaceScreen.resumeRace();
+                            }
+                        });
         if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
-            menu.addButton("Restart").addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    mRaceScreen.onRestartPressed();
-                }
-            });
+            menu.addButton("Restart")
+                    .addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ChangeEvent event, Actor actor) {
+                                    mRaceScreen.onRestartPressed();
+                                }
+                            });
         }
-        menu.addButton("Quit to Menu").addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                mRaceScreen.onQuitPressed();
-            }
-        });
-        menu.addButton("Settings").addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                mRaceScreen.onSettingsPressed();
-            }
-        });
+        menu.addButton("Quit to Menu")
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                mRaceScreen.onQuitPressed();
+                            }
+                        });
+        menu.addButton("Settings")
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                mRaceScreen.onSettingsPressed();
+                            }
+                        });
         return content;
     }
 }

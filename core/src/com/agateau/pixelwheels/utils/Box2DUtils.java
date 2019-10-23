@@ -37,12 +37,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import java.util.Arrays;
 
-/**
- * A set of utility functions for Box2D
- */
+/** A set of utility functions for Box2D */
 public class Box2DUtils {
     public static final float MS_TO_KMH = 3.6f;
     private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
@@ -83,8 +80,8 @@ public class Box2DUtils {
     public static void setCollisionInfo(Body body, int categoryBits, int maskBits) {
         for (Fixture fixture : body.getFixtureList()) {
             Filter filter = fixture.getFilterData();
-            filter.categoryBits = (short)categoryBits;
-            filter.maskBits = (short)maskBits;
+            filter.categoryBits = (short) categoryBits;
+            filter.maskBits = (short) maskBits;
             fixture.setFilterData(filter);
         }
     }
@@ -98,15 +95,15 @@ public class Box2DUtils {
         bodyDef.angle = -rotation * MathUtils.degreesToRadians;
 
         if (object instanceof RectangleMapObject) {
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             /*
-              A          D
-               x--------x
-               |        |
-               x--------x
-              B          C
-             */
+             A          D
+              x--------x
+              |        |
+              x--------x
+             B          C
+            */
             float[] vertices = new float[8];
             // A
             vertices[0] = 0;
@@ -131,7 +128,7 @@ public class Box2DUtils {
             body.createFixture(shape, 1);
             return body;
         } else if (object instanceof PolygonMapObject) {
-            Polygon polygon = ((PolygonMapObject)object).getPolygon();
+            Polygon polygon = ((PolygonMapObject) object).getPolygon();
             float[] vertices = polygon.getVertices().clone();
             scaleVertices(vertices, u);
 
@@ -144,7 +141,7 @@ public class Box2DUtils {
             body.createFixture(shape, 1);
             return body;
         } else if (object instanceof EllipseMapObject) {
-            Ellipse ellipse = ((EllipseMapObject)object).getEllipse();
+            Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
             float radius = ellipse.width * u / 2;
             float x = ellipse.x * u + radius;
             float y = ellipse.y * u + radius;
@@ -167,25 +164,32 @@ public class Box2DUtils {
         }
     }
 
-    /**
-     * Returns vertices for a rectangle of size width x height with truncated corners
-     */
-    public static float[] createOctogon(float width, float height, float cornerWidth, float cornerHeight) {
-        return new float[]{
-                width / 2 - cornerWidth, -height / 2,
-                width / 2, -height / 2 + cornerHeight,
-                width / 2, height / 2 - cornerHeight,
-                width / 2 - cornerWidth, height / 2,
-                -width / 2 + cornerWidth, height / 2,
-                -width / 2, height / 2 - cornerHeight,
-                -width / 2, -height / 2 + cornerHeight,
-                -width / 2 + cornerWidth, -height / 2
+    /** Returns vertices for a rectangle of size width x height with truncated corners */
+    public static float[] createOctogon(
+            float width, float height, float cornerWidth, float cornerHeight) {
+        return new float[] {
+            width / 2 - cornerWidth,
+            -height / 2,
+            width / 2,
+            -height / 2 + cornerHeight,
+            width / 2,
+            height / 2 - cornerHeight,
+            width / 2 - cornerWidth,
+            height / 2,
+            -width / 2 + cornerWidth,
+            height / 2,
+            -width / 2,
+            height / 2 - cornerHeight,
+            -width / 2,
+            -height / 2 + cornerHeight,
+            -width / 2 + cornerWidth,
+            -height / 2
         };
     }
 
     public static Shape createBox2DShape(Shape2D shape2D, float zoomFactor) {
         if (shape2D instanceof Polygon) {
-            float[] polygonVertices = ((Polygon)shape2D).getTransformedVertices();
+            float[] polygonVertices = ((Polygon) shape2D).getTransformedVertices();
             PolygonShape shape = new PolygonShape();
             float[] vertices = Arrays.copyOf(polygonVertices, polygonVertices.length);
             scaleVertices(vertices, zoomFactor);

@@ -31,12 +31,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
 import java.util.Locale;
 
-/**
- * Main screen for EngineLab
- */
+/** Main screen for EngineLab */
 class EngineLabScreen extends StageScreen {
     private final Skin mSkin;
     private EngineSoundPlayer mEngineSoundPlayer;
@@ -94,7 +91,7 @@ class EngineLabScreen extends StageScreen {
     @Override
     public void render(float dt) {
         super.render(dt);
-        mEngineSoundPlayer.play(mSpeedItem.getFloatValue(), /* maxVolume= */1);
+        mEngineSoundPlayer.play(mSpeedItem.getFloatValue(), /* maxVolume= */ 1);
         mPitchItem.setFloatValue(mEngineSoundPlayer.getPitch());
         for (int i = 0; i < mEngineSoundPlayer.getSoundCount(); ++i) {
             mVolumeItems.get(i).setFloatValue(mEngineSoundPlayer.getSoundVolume(i));
@@ -102,9 +99,7 @@ class EngineLabScreen extends StageScreen {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() {}
 
     @Override
     public boolean isBackKeyPressed() {
