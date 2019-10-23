@@ -80,7 +80,20 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 if (pointer == 0 && button != 0) {
                     return false;
                 }
-                GridMenuItem.this.touchDown(x, y);
+                int idx = getIndexAt(x, y);
+                if (idx >= 0) {
+                    setCurrentIndex(idx);
+                    trigger();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean mouseMoved (InputEvent event, float x, float y) {
+                int idx = getIndexAt(x, y);
+                if (idx >= 0) {
+                    setCurrentIndex(idx);
+                }
                 return true;
             }
         });
@@ -370,13 +383,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 : 0;
     }
 
-    private void touchDown(float touchX, float touchY) {
+    private int getIndexAt(float touchX, float touchY) {
         if (mItems.size == 0) {
-            return;
+            return -1;
         }
         if (mItemWidth <= 0 || mItemHeight <= 0) {
             NLog.e("Invalid item size");
-            return;
+            return -1;
         }
         float gridWidth = mItemWidth + getItemSpacing();
         int row = MathUtils.floor((getHeight() - touchY) / mItemHeight);
@@ -385,12 +398,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         float itemX = column * gridWidth;
         if (itemX + mItemWidth < touchX) {
             // Clicked between columns
-            return;
+            return -1;
         }
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
-            setCurrentIndex(idx);
-            trigger();
+            return idx;
+        } else {
+            return -1;
         }
     }
 }

@@ -64,6 +64,11 @@ public class SwitchMenuItem extends Actor implements MenuItem {
             public void clicked(InputEvent event, float x, float y) {
                 trigger();
             }
+
+            @Override
+            public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                menu.setCurrentItem(SwitchMenuItem.this);
+            }
         });
     }
 
