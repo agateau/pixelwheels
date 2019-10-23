@@ -197,7 +197,9 @@ class Warper {
     private final Vector2 mOutput = new Vector2();
 
     public Vector2 warp(float srcX, float srcY) {
-        if (dirty) computeWarp();
+        if (dirty) {
+            computeWarp();
+        }
         Warper.warp(warpMat, srcX, srcY, mOutput);
         return mOutput;
     }

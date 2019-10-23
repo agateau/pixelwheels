@@ -186,10 +186,13 @@ public class MenuItemGroup implements MenuItem {
             setCurrentIndex(-1);
             return;
         }
-        if (getCurrentItem() instanceof MenuItemGroup)
+        if (getCurrentItem() instanceof MenuItemGroup) {
             ((MenuItemGroup) getCurrentItem()).setCurrentItem(item);
+        }
         int index = getItemIndex(item);
-        if (index == -1) return;
+        if (index == -1) {
+            return;
+        }
         setCurrentIndex(index);
     }
 
