@@ -13,7 +13,6 @@
 - Update changelog
     vi CHANGELOG.md
     vi fastlane/metadata/android/en-US/changelogs/$version.txt
-    git commit
 
 - Build archives
 
@@ -25,6 +24,8 @@
 - Test on device
 
 - Update screenshots in fastlane/metadata/android/en-US/images/
+
+- git commit
 
 - Upload apk on Google Play
 
