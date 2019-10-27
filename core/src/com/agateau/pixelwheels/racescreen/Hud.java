@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.racescreen;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -81,6 +82,12 @@ public class Hud {
     }
 
     private void updateZoom() {
+        if (PlatformUtils.isDesktop()) {
+            // Make sure we get sharp screenshots
+            // TODO Check if rounding mZoom to an integer is acceptable on mobile so that we can remove that hack
+            mZoom = 1;
+            return;
+        }
         float pxSize = BUTTON_SIZE_INCH * DIP_DPI * Gdx.graphics.getDensity();
         float upp = PwStageScreen.getUnitsPerPixel();
 
