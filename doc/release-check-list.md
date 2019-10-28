@@ -31,7 +31,7 @@
 
     Check api file is in fastlane/google-play-api.json
 
-    fastlane supply --track beta --apk archives/pixelwheels-$version.apk
+    make fastlane-beta
 
 - Tag and push
 

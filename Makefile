@@ -118,6 +118,10 @@ tagpush: tag
 	git push
 	git push --tags
 
+# Uploading
+fastlane-beta:
+	fastlane supply --track beta --apk archives/pixelwheels-$(VERSION).apk
+
 # Cleaning conf
 clean-desktop-conf:
 	rm -f ~/.config/agateau.com/pixelwheels.conf
@@ -130,4 +134,4 @@ check:
 	@$(GRADLEW) check
 	@$(GRADLEW) test
 
-.PHONY: desktop-dist apk-dist dist clean-dist tag tagpush check tools build release-archives
+.PHONY: desktop-dist apk-dist dist clean-dist tag tagpush fastlane-beta check tools build release-archives
