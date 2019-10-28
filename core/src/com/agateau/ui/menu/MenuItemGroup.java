@@ -64,7 +64,7 @@ public class MenuItemGroup implements MenuItem {
                     public boolean touchDown(
                             InputEvent event, float x, float y, int pointer, int button) {
                         MenuItem item = getItemAt(x, y);
-                        if (item != null) {
+                        if (item != null && item.isFocusable()) {
                             setCurrentItem(item);
                         }
                         return false;
