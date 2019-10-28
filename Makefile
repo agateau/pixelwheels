@@ -130,7 +130,7 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear com.agateau.tinywheels.android"
 
-check:
+check: codingstyle-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
 
