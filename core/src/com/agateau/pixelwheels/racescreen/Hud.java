@@ -84,7 +84,8 @@ public class Hud {
     private void updateZoom() {
         if (PlatformUtils.isDesktop()) {
             // Make sure we get sharp screenshots
-            // TODO Check if rounding mZoom to an integer is acceptable on mobile so that we can remove that hack
+            // TODO Check if rounding mZoom to an integer is acceptable on mobile so that we can
+            // remove that hack
             mZoom = 1;
             return;
         }
