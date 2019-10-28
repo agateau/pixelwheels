@@ -23,7 +23,7 @@ download_formatter() {
 
 create_file_list() {
     local lst=$1
-    find . -name '*.java' | grep -v core/generated > "$lst"
+    find . -name '*.java' | grep -v core/generated | grep -v android/build/generated > "$lst"
 }
 
 usage() {
