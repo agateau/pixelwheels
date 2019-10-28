@@ -1,5 +1,65 @@
 # Changelog
 
+## 0.14.0 - 2019-10-28
+
+### For players
+
+#### Added
+
+- [Mobile] A new touch input mode has been added: "Side buttons". It shows left and right steering buttons in the bottom corners of the screen and a trigger bonus button in the middle right of the screen. Hold left and right simultaneously to go backward.
+
+- [Desktop] The mouse cursor is no longer invisible. It auto-hides after a few seconds (#29).
+
+- [Desktop] The main menu now contains a Quit button.
+
+- There is now a sound when driving in water.
+
+- The road sign in the bottom-right corner of the main menu now shows Pixel Wheels version number.
+
+- Tiny-sur-mer track: Several holes have been plugged and missing fences have been added (#48).
+
+#### Changed
+
+- Startup count down is now slightly faster.
+
+- Adjusted the probabilities of bonuses so that all bonuses have a chance to be selected. You still have more chance to get a mine than a gun or missile when your rank is high.
+
+- Touching or clicking a selected image validates the user choice (By Julien Bolard).
+
+- [Desktop] UI elements now gets focus when hovering over them with the mouse (By Tim Schumacher).
+
+#### Fixed
+
+- Fixed some HUD input buttons not showing until one second on screen.
+
+- Fixed sound not coming back after pressing restart (#22).
+
+- Use the vehicle name instead of the vehicle id in the championship finished screen (#51).
+
+- Do not show negative times in finished overlay (#38).
+
+- Fixed vehicles not slowing down when driving backwards in deep water (#54).
+
+- Activating a bonus requires a button press instead of holding the button (#56, by Tim Schumacher).
+
+- The back button in the game mode selection screen is now clickable (by Tim Schumacher).
+
+- Fixed crash when pressing up/down in the keyboard config screen (by Tim Schumacher).
+
+- Fixed Continue buttons in track and vehicle selection screens not working (by Tim Schumacher).
+
+### For developers
+
+- Added doc explaining how to setup Android Studio run targets.
+
+- Centralized definition of version number in a single file.
+
+- Setup Travis CI to build Pixel Wheels.
+
+- Added scripts to download and build a headless version of Aseprite, usable to render assets.
+
+- Decided to use the AOSP coding style, and set up google-java-format to enforce this.
+
 ## 0.13.0 - 2019-08-07
 
 ### For players
