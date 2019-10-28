@@ -1,0 +1,7 @@
+New input mode: "Side buttons". Shows left and right steering buttons in the bottom corners of the screen and a trigger bonus button in the middle right of the screen. Hold left and right simultaneously to go backward.
+
+Tiny-sur-mer: plugged several holes and added missing fences.
+
+Adjusted the probabilities of bonuses so all bonuses have a chance to be picked. You still have more chance to get a mine than a gun or missile when your rank is high.
+
+Other bug fixes (see changelog).

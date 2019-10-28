@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.1 - 2019-10-28
+
+### For players
+
+#### Fixed
+
+- Fixed crash when clicking on a label item (found out by Google Play automated monkey testing!)
+
 ## 0.14.0 - 2019-10-28
 
 ### For players
