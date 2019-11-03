@@ -57,8 +57,11 @@ public interface MenuItem {
     Rectangle getFocusRectangle();
 
     /**
-     * If ratio is > 0, item width will be set to parentWidth * ratio If ratio is 0, item width
-     * won't be changed
+     * The ratio between the item width and its parent width
+     *
+     * <p>If ratio is greater than 0, item width will be set to parentWidth * ratio
+     *
+     * <p>If ratio is 0, item width won't be changed
      */
     float getParentWidthRatio();
 

@@ -57,9 +57,10 @@ public class Hud {
     }
 
     /**
-     * Returns an AnchorGroup into which input code should create its UI if it has any. It is
-     * important to create the UI in this container rather than in getRoot(), because it makes it
-     * possible to remove all the UI when switching between input modes by calling
+     * Returns an AnchorGroup into which input code should create its UI if it has any.
+     *
+     * <p>It is important to create the UI in this container rather than in getRoot(), because it
+     * makes it possible to remove all the UI when switching between input modes by calling
      * deleteInputUiContainer()
      */
     public AnchorGroup getInputUiContainer() {

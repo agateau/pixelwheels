@@ -62,9 +62,10 @@ public abstract class StageScreen extends ScreenAdapter {
     }
 
     /**
-     * This method is called when the player wants to go back to the previous screen It is called
-     * automatically for global "back" shortcuts, but class users can call it themselves for example
-     * from the ClickListener of a Back button
+     * This method is called when the player wants to go back to the previous screen.
+     *
+     * <p>It is called automatically for global "back" shortcuts, but class users can call it
+     * themselves for example from the ClickListener of a Back button
      */
     public abstract void onBackPressed();
 

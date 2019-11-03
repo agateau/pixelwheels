@@ -26,8 +26,9 @@ import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.utils.XmlReader;
 
 /**
- * Read vehicle XML files and returns POJO for them Width and height are swapped, because vehicles
- * are drawn vertically but body is horizontal
+ * Read vehicle XML files and returns POJO for them.
+ *
+ * <p>Width and height are swapped, because vehicles are drawn vertically but body is horizontal
  */
 public class VehicleIO {
     public static VehicleDef get(String id) {

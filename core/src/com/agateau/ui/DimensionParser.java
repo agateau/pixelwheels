@@ -19,8 +19,9 @@
 package com.agateau.ui;
 
 /**
- * Helper class to parse a dimension string The dimension can be expressed in pixels: 2px or in grid
- * units: 4g
+ * Helper class to parse a dimension string.
+ *
+ * <p>The dimension can be expressed in pixels: 2px or in grid units: 4g
  *
  * <p>The grid size is set through the gridSize public attribute
  */

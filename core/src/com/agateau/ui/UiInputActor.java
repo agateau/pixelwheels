@@ -21,8 +21,9 @@ package com.agateau.ui;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * A fake actor, which can be added to a stage to get event-based access to key press events Add it
- * to the stage and override onKeyJustPressed()
+ * A fake actor, which can be added to a stage to get event-based access to key press events.
+ *
+ * <p>Add it to the stage and override onKeyJustPressed()
  */
 public class UiInputActor extends Actor {
     @Override

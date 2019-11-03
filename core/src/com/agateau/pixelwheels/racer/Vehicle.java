@@ -289,7 +289,12 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     /**
-     * Apply ground effects on the vehicle: - trigger turbo when driving on turbo tiles - apply drag
+     * Apply ground effects on the vehicle:
+     *
+     * <ul>
+     *   <li>trigger turbo when driving on turbo tiles
+     *   <li>apply drag
+     * </ul>
      */
     private void applyGroundEffects(float dt) {
         final GamePlay GP = GamePlay.instance;

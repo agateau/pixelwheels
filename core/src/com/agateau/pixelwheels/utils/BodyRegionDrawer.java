@@ -43,16 +43,20 @@ public class BodyRegionDrawer {
     }
 
     /**
-     * Defines the default Z value for a body. 0 for a ground object 1 for flying object
+     * Defines the default Z value for a body.
      *
-     * <p>Only affects the offset of the shadow
+     * <p>0 for a ground object, 1 for flying object.
+     *
+     * <p>Only affects the offset of the shadow.
      */
     public void setZ(float z) {
         mZ = z;
     }
 
     /**
-     * Defines the scale of the body 1 by default Bigger for bigger objects
+     * Defines the scale of the body.
+     *
+     * <p>1 by default, bigger for bigger objects.
      *
      * <p>Affects the size of the region, and the size and offset of its shadow
      */

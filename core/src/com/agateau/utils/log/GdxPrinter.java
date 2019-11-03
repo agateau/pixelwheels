@@ -21,11 +21,7 @@ package com.agateau.utils.log;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
-/**
- * Implementation of Printer which uses Gdx.app logging facilities
- *
- * @author aurelien
- */
+/** Implementation of Printer using Gdx.app logging facilities */
 public class GdxPrinter implements NLog.Printer {
     private final String mPrefix;
 

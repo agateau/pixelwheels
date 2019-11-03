@@ -19,8 +19,9 @@
 package com.agateau.utils;
 
 /**
- * An array which loops after reaching the end. Adding a new element when the array is full
- * overwrites the first element.
+ * An array which loops after reaching the end.
+ *
+ * <p>Adding a new element when the array is full overwrites the first element.
  *
  * <p>It only makes sense to use this with mutable objects, since the goal is to reuse the existing
  * instances.

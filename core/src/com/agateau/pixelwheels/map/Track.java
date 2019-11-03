@@ -211,8 +211,9 @@ public class Track implements Disposable {
     }
 
     /**
-     * Returns a "cell id" for the given screen coordinates A cell id is a long representing the
-     * combination of x and y in map coordinates
+     * Returns a "cell id" for the given screen coordinates.
+     *
+     * <p>A cell id is a long representing the combination of x and y in map coordinates
      */
     public long getCellIdAt(float x, float y) {
         int tx = MathUtils.floor(x / mTileWidth);

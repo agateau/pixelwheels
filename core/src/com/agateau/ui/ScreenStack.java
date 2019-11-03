@@ -58,7 +58,7 @@ public class ScreenStack {
     }
 
     /**
-     * A blocking screen override the normal stack, once a blocking screen is shown, screens from
+     * A blocking screen overrides the normal stack, once a blocking screen is shown, screens from
      * the stack won't be shown unless hideBlockingScreen() is called.
      */
     public void showBlockingScreen(Screen screen) {

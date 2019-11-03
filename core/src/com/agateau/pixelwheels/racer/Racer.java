@@ -186,9 +186,11 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     /**
-     * Returns the angle the camera should use to follow the vehicle. This is the same as
-     * Vehicle.getAngle() except when spinning, in which case we return the original angle, to avoid
-     * too much camera shaking, especially when "rotate screen" option is off.
+     * Returns the angle the camera should use to follow the vehicle.
+     *
+     * <p>This is the same as Vehicle.getAngle() except when spinning, in which case we return the
+     * original angle, to avoid too much camera shaking, especially when "rotate screen" option is
+     * off.
      */
     public float getCameraAngle() {
         if (mSpinningComponent.isActive()) {

@@ -55,11 +55,17 @@ public class AgcMathUtils {
     }
 
     /**
-     * Pick a value from array, interpolating linearly between its elements. For example, assuming
-     * array = [0, 1, 4]
+     * Pick a value from array, interpolating linearly between its elements.
      *
-     * <p>arrayLerp(array, 0) => 0 arrayLerp(array, 0.25) => 0.5 arrayLerp(array, 0.5) => 1
-     * arrayLerp(array, 0.75) => 2.5 arrayLerp(array, 1) => 4
+     * <p>For example, assuming array = [0, 1, 4]
+     *
+     * <pre>
+     * arrayLerp(array, 0) => 0
+     * arrayLerp(array, 0.25) => 0.5
+     * arrayLerp(array, 0.5) => 1
+     * arrayLerp(array, 0.75) => 2.5
+     * arrayLerp(array, 1) => 4
+     * </pre>
      */
     public static float arrayLerp(float[] array, float k) {
         k = MathUtils.clamp(k, 0, 1);
@@ -87,7 +93,14 @@ public class AgcMathUtils {
     /**
      * Compute the projection of A on the segment defined by P1 and P2
      *
-     * <p>+ A / / / +---+----------+ P1 H P2
+     * <pre>
+     *      + A
+     *     /
+     *    /
+     *   /
+     *  +---+----------+
+     *  P1  H          P2
+     * </pre>
      *
      * @param a the point to project
      * @param pos1 start of segment
@@ -106,8 +119,16 @@ public class AgcMathUtils {
     }
 
     /**
-     * Returns the angle in degrees between the X axis and the P1, P2 vector + P2 / / /
-     * +--------------> P1
+     * Returns the angle in degrees between the X axis and the P1, P2 vector
+     *
+     * <pre>
+     *     + P2
+     *    /
+     *   /
+     *  /
+     * +-------------->
+     * P1
+     * </pre>
      */
     public static float segmentAngle(Vector2 pos1, Vector2 pos2) {
         return (float) Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * MathUtils.radiansToDegrees;
@@ -127,7 +148,12 @@ public class AgcMathUtils {
     }
 
     /**
-     * A modulo which works with negative values, so calling modulo(4, 3) == 1 modulo(-1, 3) == 2
+     * A modulo which works with negative values.
+     *
+     * <pre>
+     * modulo(4, 3) == 1
+     * modulo(-1, 3) == 2
+     * </pre>
      */
     public static float modulo(float value, float divisor) {
         while (value < 0) {

@@ -27,8 +27,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * A stage screen with navigation buttons: - at least a Next button in the bottom-right corner -
- * optionally a Back button in the bottom-left corner
+ * A stage screen with navigation buttons.
+ *
+ * <p>At least a Next button in the bottom-right corner, optionally a Back button in the bottom-left
+ * corner.
  */
 public class NavStageScreen extends PwStageScreen {
     public interface NavListener {
