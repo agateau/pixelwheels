@@ -26,6 +26,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -55,7 +56,6 @@ public class Track implements Disposable {
     private final WaypointStore mWaypointStore = new WaypointStore();
     private float mTileWidth;
     private float mTileHeight;
-    private final Array<MapObject> mBorderObjects = new Array<>();
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 
@@ -73,7 +73,6 @@ public class Track implements Disposable {
         mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();
         findLayers();
-        readBorders();
 
         mTileWidth = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileWidth();
         mTileHeight = Constants.UNIT_FOR_PIXEL * mBackgroundLayers.get(0).getTileHeight();
@@ -143,8 +142,8 @@ public class Track implements Disposable {
         return mBordersLayer;
     }
 
-    public Array<MapObject> getBorderObjects() {
-        return mBorderObjects;
+    public MapObjects getBorderObjects() {
+        return mBordersLayer.getObjects();
     }
 
     public LapPositionTable getLapPositionTable() {
@@ -286,12 +285,6 @@ public class Track implements Disposable {
 
     public OrientedPoint getValidPosition(Vector2 pos, float lapDistance) {
         return mWaypointStore.getValidPosition(pos, lapDistance);
-    }
-
-    private void readBorders() {
-        for (MapObject object : mBordersLayer.getObjects()) {
-            mBorderObjects.add(object);
-        }
     }
 
     @SuppressWarnings("unused")
