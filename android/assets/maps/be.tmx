@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="40" height="80" tilewidth="64" tileheight="64" nextobjectid="50">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="40" height="80" tilewidth="64" tileheight="64" nextobjectid="57">
  <tileset firstgid="1" name="city" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="128" columns="8">
   <image source="city.png" width="544" height="1088"/>
   <tile id="5">
@@ -163,5 +163,14 @@
   <object id="49" x="1151.02" y="4171.29" width="73" height="67">
    <ellipse/>
   </object>
+ </objectgroup>
+ <objectgroup name="Obstacles">
+  <object id="50" type="tyre" x="530.247" y="2944.43" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="51" type="tyre" x="401.176" y="2949.61" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="52" type="tyre" x="463.541" y="2903.51" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="53" type="tyre" x="349.658" y="2898.09" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="54" type="tyre" x="300.851" y="2944.18" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="55" type="tyre" x="349.658" y="3003.84" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="56" type="tyre" x="406.599" y="2846.57" width="59.9037" height="55.2312" rotation="45.2985"/>
  </objectgroup>
 </map>

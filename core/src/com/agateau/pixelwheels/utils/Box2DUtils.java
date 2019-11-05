@@ -23,6 +23,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -44,6 +45,7 @@ public class Box2DUtils {
     public static final float MS_TO_KMH = 3.6f;
     private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
     private static final Vector2 LATERAL_VECTOR = new Vector2(0, 1);
+    private static final Vector2 sTmp = new Vector2();
 
     @SuppressWarnings("unused")
     public static Vector2 getForwardVelocity(Body body) {
@@ -61,6 +63,11 @@ public class Box2DUtils {
     public static void applyDrag(Body body, float factor) {
         Vector2 dragForce = body.getLinearVelocity().scl(-factor);
         body.applyForce(dragForce, body.getWorldCenter(), true);
+    }
+
+    public static void applyCircularDrag(Body body, float factor) {
+        float velocity = -body.getAngularVelocity() * factor;
+        body.applyTorque(velocity, true);
     }
 
     @SuppressWarnings("unused")
@@ -194,6 +201,16 @@ public class Box2DUtils {
             float[] vertices = Arrays.copyOf(polygonVertices, polygonVertices.length);
             scaleVertices(vertices, zoomFactor);
             shape.set(vertices);
+            return shape;
+        } else if (shape2D instanceof Circle) {
+            Circle circleShape2D = (Circle) shape2D;
+
+            CircleShape shape = new CircleShape();
+            sTmp.set(circleShape2D.x, circleShape2D.y).scl(zoomFactor);
+            shape.setPosition(sTmp);
+
+            shape.setRadius(circleShape2D.radius * zoomFactor);
+
             return shape;
         } else {
             throw new RuntimeException("Unsupported Shape2D type " + shape2D);

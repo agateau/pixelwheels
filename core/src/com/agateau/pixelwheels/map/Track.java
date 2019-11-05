@@ -53,6 +53,7 @@ public class Track implements Disposable {
     private Array<TiledMapTileLayer> mBackgroundLayers;
     private Array<TiledMapTileLayer> mForegroundLayers;
     private MapLayer mBordersLayer;
+    private MapLayer mObstaclesLayer;
     private final WaypointStore mWaypointStore = new WaypointStore();
     private float mTileWidth;
     private float mTileHeight;
@@ -93,6 +94,9 @@ public class Track implements Disposable {
 
         mBordersLayer = mMap.getLayers().get("Borders");
         Assert.check(mBordersLayer != null, "No \"Borders\" layer found");
+
+        mObstaclesLayer = mMap.getLayers().get("Obstacles");
+        Assert.check(mBordersLayer != null, "No \"Obstacles\" layer found");
     }
 
     private Array<TiledMapTileLayer> findLayersMatching(String match) {
@@ -144,6 +148,10 @@ public class Track implements Disposable {
 
     public MapObjects getBorderObjects() {
         return mBordersLayer.getObjects();
+    }
+
+    public MapObjects getObstacleObjects() {
+        return mObstaclesLayer.getObjects();
     }
 
     public LapPositionTable getLapPositionTable() {

@@ -31,6 +31,8 @@ import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.obstacles.ObstacleCreator;
+import com.agateau.pixelwheels.obstacles.ObstacleDef;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.PlayerPilot;
@@ -45,6 +47,7 @@ import com.agateau.pixelwheels.vehicledef.VehicleCreator;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -90,6 +93,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupRacers(gameInfo.getEntrants());
         setupRoadBorders();
+        setupObstacles();
         setupBonusSpots();
         setupBonusPools();
     }
@@ -311,6 +315,17 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
                             | CollisionCategories.EXPLOSABLE
                             | CollisionCategories.RACER_BULLET);
             Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
+        }
+    }
+
+    private void setupObstacles() {
+        ObstacleCreator creator = new ObstacleCreator();
+        for (ObstacleDef def : mGame.getAssets().obstacleDefs) {
+            creator.addObstacleDef(def);
+        }
+        for (MapObject object : mTrack.getObstacleObjects()) {
+            Assert.check(object instanceof RectangleMapObject, "Obstacles must be rectangles");
+            creator.create(this, (RectangleMapObject) object);
         }
     }
 
