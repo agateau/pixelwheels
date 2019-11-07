@@ -66,7 +66,7 @@ public class RaceScreen extends ScreenAdapter {
     private final Listener mListener;
     private final PauseButtons mPauseButtons;
 
-    private final GameWorld mGameWorld;
+    private final GameWorldImpl mGameWorld;
     private final Color mBackgroundColor;
 
     private final GameRenderer mGameRenderer;
@@ -95,7 +95,7 @@ public class RaceScreen extends ScreenAdapter {
 
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
-        mGameWorld = new GameWorld(game, gameInfo, mPerformanceCounters);
+        mGameWorld = new GameWorldImpl(game, gameInfo, mPerformanceCounters);
         mBackgroundColor = gameInfo.getTrack().getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
