@@ -24,13 +24,17 @@ import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
-import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -155,7 +159,7 @@ public class GameRenderer {
             mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             mShapeRenderer.setColor(1, 0, 0, 1);
-            MapUtils.renderObjectLayer(mShapeRenderer, mWorld.getTrack().getBordersLayer());
+            renderBorders();
             mShapeRenderer.end();
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
@@ -175,5 +179,25 @@ public class GameRenderer {
                 mCamera.position.y - height / 2,
                 width,
                 height);
+    }
+
+    private void renderBorders() {
+        final float U = Constants.UNIT_FOR_PIXEL;
+        for (MapObject object : mWorld.getTrack().getBordersLayer().getObjects()) {
+            if (object instanceof PolygonMapObject) {
+                float[] vertices =
+                        ((PolygonMapObject) object).getPolygon().getTransformedVertices();
+                for (int idx = 2; idx < vertices.length; idx += 2) {
+                    mShapeRenderer.line(
+                            vertices[idx - 2] * U,
+                            vertices[idx - 1] * U,
+                            vertices[idx] * U,
+                            vertices[idx + 1] * U);
+                }
+            } else if (object instanceof RectangleMapObject) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                mShapeRenderer.rect(rect.x * U, rect.y * U, rect.width * U, rect.height * U);
+            }
+        }
     }
 }
