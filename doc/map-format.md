@@ -14,9 +14,13 @@ One or more background layers, named bgN.
 
 Zero or more foreground layers, named fgN, these are drawn on top of the vehicles.
 
-## Borders
+## Obstacles
 
-A "Borders" object layer containing rectangles, polygons or ellipsis representing the borders of the track.
+An "Obstacles" object layer containing rectangles, polygons or ellipsis representing the borders of the track as well as movable objects on it.
+
+A border is an object with an empty "Type" property. Its boundaries must match static elements such as building drawn in the bgN layers.
+
+An obstacle can move (for example a tyre). Its "Type" property defines the kind of obstacle. If the object area is large enough, multiple instances of the obstacle will be created.
 
 ## Sections
 

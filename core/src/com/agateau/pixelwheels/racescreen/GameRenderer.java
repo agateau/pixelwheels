@@ -24,12 +24,12 @@ import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
+import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -183,7 +183,10 @@ public class GameRenderer {
 
     private void renderBorders() {
         final float U = Constants.UNIT_FOR_PIXEL;
-        for (MapObject object : mWorld.getTrack().getBordersLayer().getObjects()) {
+        for (MapObject object : mWorld.getTrack().getObstacleObjects()) {
+            if (!MapUtils.isBorderObstacle(object)) {
+                return;
+            }
             if (object instanceof PolygonMapObject) {
                 float[] vertices =
                         ((PolygonMapObject) object).getPolygon().getTransformedVertices();

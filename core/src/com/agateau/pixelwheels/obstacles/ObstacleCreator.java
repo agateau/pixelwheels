@@ -19,13 +19,24 @@
 package com.agateau.pixelwheels.obstacles;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.map.MapUtils;
+import com.agateau.pixelwheels.racescreen.CollisionCategories;
+import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.HashMap;
 
+/**
+ * Helper class to create GameObjects and Box2D bodies from the Obstacles layer
+ * of a map
+ */
 public class ObstacleCreator {
     private final HashMap<String, ObstacleDef> mObstacleDefs = new HashMap<>();
     private final HashMap<ObstacleDef, BodyDef> mBodyDefs = new HashMap<>();
@@ -39,18 +50,38 @@ public class ObstacleCreator {
         mBodyDefs.put(obstacleDef, bodyDef);
     }
 
-    public void create(GameWorld gameWorld, RectangleMapObject rectangleMapObject) {
-        String id = rectangleMapObject.getProperties().get("type").toString();
+    public void create(GameWorld gameWorld, MapObject mapObject) {
+        String id = MapUtils.getObstacleId(mapObject);
+        if (id == null) {
+            // Special case: an obstacle with no id is a border
+            createBorder(gameWorld.getBox2DWorld(), mapObject);
+            return;
+        }
         ObstacleDef obstacleDef = mObstacleDefs.get(id);
-
-        Rectangle rectangle = rectangleMapObject.getRectangle();
-        float x = rectangle.getX() + rectangle.getWidth() / 2;
-        float y = rectangle.getY() + rectangle.getHeight() / 2;
-
         BodyDef bodyDef = mBodyDefs.get(obstacleDef);
-        bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
-        Obstacle obstacle =
-                new Obstacle(gameWorld.getBox2DWorld(), obstacleDef, bodyDef);
-        gameWorld.addGameObject(obstacle);
+
+        if (mapObject instanceof RectangleMapObject) {
+            Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
+            float x = rectangle.getX() + rectangle.getWidth() / 2;
+            float y = rectangle.getY() + rectangle.getHeight() / 2;
+
+            bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
+            Obstacle obstacle =
+                    new Obstacle(gameWorld.getBox2DWorld(), obstacleDef, bodyDef);
+            gameWorld.addGameObject(obstacle);
+        } else {
+            throw new RuntimeException("Unsupported MapObject type: " + mapObject);
+        }
+    }
+
+    private static void createBorder(World world, MapObject mapObject) {
+        Body body = Box2DUtils.createStaticBodyForMapObject(world, mapObject);
+        Box2DUtils.setCollisionInfo(
+                body,
+                CollisionCategories.WALL,
+                CollisionCategories.RACER
+                        | CollisionCategories.EXPLOSABLE
+                        | CollisionCategories.RACER_BULLET);
+        Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
     }
 }

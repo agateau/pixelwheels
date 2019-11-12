@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="45" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="99">
- <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="210" spacing="4" margin="2" columns="15">
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="210" columns="15">
   <image source="snow.png" width="1020" height="952"/>
   <terraintypes>
    <terrain name="ice" tile="-1"/>
@@ -272,7 +272,7 @@
    eJztl0FuwjAQRb2lhX1FDwBcoGUDJyAnAAFrUNsLFDgA9M4dSxlpZGVMTGwnQf9JX0ZxEuZn7MnEGAAAAAAAAAAAjzAgvTyo1xbibcpE/F6QlgHju+mfZ/ZrPWxI64CRPfcp1+x3ZcK8Ss+WWb6QGyHzeyAdA8eivL5vflPkdyHmu0Kq/HI9KIyf3M/krRxtfgtl9HnmWMfOfVfOvAb/Ty4+SJ+KRiImbU379q/mZUvakfYxDETEPgvpuSr/liFpHnDfL9I36SdOmFGZ3JmXXt1+RKPLfnm9j5zjw/K49KrVbpdf0ol0jh1sRNx9Ltev1psVzjns/0q6kf7ShpwMrZ4tnXPq1OvU8PdRk/63Tn4tud89Vdh6NDXN+kFZszWv92pYrr6D92XI+8RHVQ5l/rX63YXcx8D3ndn2Xk5Bnd7smahby54FXx8KAAAAAADa4eKZ+wdPw1a/
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
+ <objectgroup name="Obstacles" visible="0">
   <object id="1" x="3684.95" y="732.392" width="67.8003" height="1930.88"/>
   <object id="2" x="232.226" y="316.708" width="53.3204" height="2159.49"/>
   <object id="3" x="1725.06" y="2656.91" width="1943.97" height="34.1114"/>

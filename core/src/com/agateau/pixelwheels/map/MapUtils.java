@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.map;
 
 import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 
@@ -62,5 +63,17 @@ public class MapUtils {
             return Material.ROAD;
         }
         return Material.valueOf(materialName);
+    }
+
+    /**
+     * Returns the ID of an obstacle from the Obstacle layer, or null if it is a border
+     */
+    public static String getObstacleId(MapObject object) {
+        Object value = object.getProperties().get("type");
+        return value == null ? null : value.toString();
+    }
+
+    public static boolean isBorderObstacle(MapObject object) {
+        return getObstacleId(object) == null;
     }
 }

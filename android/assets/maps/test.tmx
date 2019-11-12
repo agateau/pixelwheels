@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="64" tileheight="64">
- <tileset firstgid="1" name="city" tilewidth="64" tileheight="64">
-  <image source="city.png" width="512" height="896"/>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="64" tileheight="64" nextobjectid="8">
+ <tileset firstgid="1" name="city" tilewidth="64" tileheight="64" tilecount="136" columns="8">
+  <image source="city.png" width="544" height="1088"/>
   <tile id="5">
    <properties>
     <property name="start" value="true"/>
    </properties>
   </tile>
  </tileset>
- <layer name="Ground" width="20" height="100">
+ <layer name="bg1" width="20" height="100">
   <data encoding="base64" compression="zlib">
    eJzt2UEKwjAUhOERq5CklyhdiZfK0XqUHs2REhURxPi6+xfDNNBOv31mSZMzB/XVuQT2fXeU1uJkJ3X0IFVv1ObzeT06Bz/3xN9We2rz+R9L71ZLfvHlgL2EDx8+fPjw4cOHDx8+fPjw4cOHDx8+fPjw4cOHDx++3Xwn9z/Z01c+7J2/5P39Qc/739F7Pi9ps+rXLtvG4/53Cuzo++kba4yj1w==
   </data>
  </layer>
- <layer name="Obstacles" width="20" height="100">
+ <layer name="fg1" width="20" height="100">
   <data encoding="base64" compression="zlib">
    eJztzrEJAAAIA0E3c/+tbB0ghcI9pD1Sdb8ObXvpfzwej8fj8Xg8Ho/H4/F4PB6Px+PxeDwej8f73QArFBvQ
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
-  <object x="0" y="0" width="64" height="6400"/>
-  <object x="1216" y="0" width="64" height="6400"/>
-  <object x="64" y="6272" width="1152" height="128"/>
-  <object x="64" y="0" width="1152" height="128"/>
+ <objectgroup name="Obstacles" visible="0">
+  <object id="1" x="0" y="0" width="64" height="6400"/>
+  <object id="2" x="1216" y="0" width="64" height="6400"/>
+  <object id="3" x="64" y="6272" width="1152" height="128"/>
+  <object id="4" x="64" y="0" width="1152" height="128"/>
  </objectgroup>
  <objectgroup name="Sections">
-  <object name="0" x="64" y="6272">
+  <object id="5" name="0" x="64" y="6272">
    <polyline points="0,0 1152,0"/>
   </object>
-  <object name="1" x="64" y="128">
+  <object id="6" name="1" x="64" y="128">
    <polyline points="0,0 1152,0"/>
   </object>
  </objectgroup>
  <objectgroup name="Waypoints">
-  <object x="576" y="256" width="128" height="128">
+  <object id="7" x="576" y="256" width="128" height="128">
    <ellipse/>
   </object>
  </objectgroup>

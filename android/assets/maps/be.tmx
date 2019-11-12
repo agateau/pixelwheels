@@ -33,7 +33,7 @@
    eJzt2DsKhUAQBdFZirswdOsuTYen0KjZDV411IHOC+eDOoYkSarWa6i2a6iefeez3P+U8unuI63x2bJsvxl1OjTS2Jfp0kdFPLsVeW0n+zL2ZezL2Jfp0kdlX6ZLX4f3K2Ij+RtzevbR9mKHvvnPhdxH1qGPdmYr4p6ruvRR15h6r9zsy9iXIbdN3i8Z+zL2ZezL2Jeh90mSJOntAIuJKmM=
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
+ <objectgroup name="Obstacles">
   <object id="1" x="-64" y="0" width="256" height="2496"/>
   <object id="2" x="126.667" y="1.33333" width="2424.67" height="194"/>
   <object id="3" x="1280" y="704" width="576" height="768"/>
@@ -46,6 +46,13 @@
   <object id="10" x="0" y="2496" width="128" height="2112"/>
   <object id="43" x="971.233" y="3392.04" width="435.446" height="15.0389" rotation="45"/>
   <object id="44" x="1536.58" y="2763.18" width="435.446" height="15.0389" rotation="135"/>
+  <object id="50" type="tyre" x="530.247" y="2944.43" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="51" type="tyre" x="401.176" y="2949.61" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="52" type="tyre" x="463.541" y="2903.51" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="53" type="tyre" x="349.658" y="2898.09" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="54" type="tyre" x="300.851" y="2944.18" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="55" type="tyre" x="349.658" y="3003.84" width="59.9037" height="55.2312" rotation="45.2985"/>
+  <object id="56" type="tyre" x="406.599" y="2846.57" width="59.9037" height="55.2312" rotation="45.2985"/>
  </objectgroup>
  <objectgroup name="Sections" visible="0">
   <object id="11" name="0" x="723" y="3266">
@@ -163,14 +170,5 @@
   <object id="49" x="1151.02" y="4171.29" width="73" height="67">
    <ellipse/>
   </object>
- </objectgroup>
- <objectgroup name="Obstacles">
-  <object id="50" type="tyre" x="530.247" y="2944.43" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="51" type="tyre" x="401.176" y="2949.61" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="52" type="tyre" x="463.541" y="2903.51" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="53" type="tyre" x="349.658" y="2898.09" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="54" type="tyre" x="300.851" y="2944.18" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="55" type="tyre" x="349.658" y="3003.84" width="59.9037" height="55.2312" rotation="45.2985"/>
-  <object id="56" type="tyre" x="406.599" y="2846.57" width="59.9037" height="55.2312" rotation="45.2985"/>
  </objectgroup>
 </map>

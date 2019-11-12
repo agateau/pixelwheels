@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.bonus.MissileBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleCreator;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
@@ -92,7 +93,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         mBox2DPerformanceCounter = performanceCounters.add("- box2d");
         mGameObjectPerformanceCounter = performanceCounters.add("- g.o");
         setupRacers(gameInfo.getEntrants());
-        setupRoadBorders();
         setupObstacles();
         setupBonusSpots();
         setupBonusPools();
@@ -305,27 +305,14 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
     }
 
-    private void setupRoadBorders() {
-        for (MapObject object : mTrack.getBorderObjects()) {
-            Body body = Box2DUtils.createStaticBodyForMapObject(mBox2DWorld, object);
-            Box2DUtils.setCollisionInfo(
-                    body,
-                    CollisionCategories.WALL,
-                    CollisionCategories.RACER
-                            | CollisionCategories.EXPLOSABLE
-                            | CollisionCategories.RACER_BULLET);
-            Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
-        }
-    }
-
     private void setupObstacles() {
         ObstacleCreator creator = new ObstacleCreator();
         for (ObstacleDef def : mGame.getAssets().obstacleDefs) {
             creator.addObstacleDef(def);
         }
+
         for (MapObject object : mTrack.getObstacleObjects()) {
-            Assert.check(object instanceof RectangleMapObject, "Obstacles must be rectangles");
-            creator.create(this, (RectangleMapObject) object);
+            creator.create(this, object);
         }
     }
 
