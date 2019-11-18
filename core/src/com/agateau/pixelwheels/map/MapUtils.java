@@ -80,4 +80,12 @@ public class MapUtils {
     public static boolean isBorderObstacle(MapObject object) {
         return getObstacleId(object) == null;
     }
+
+    public static float getObjectRotation(MapObject object) {
+        return object.getProperties().get("rotation", 0f, Float.class);
+    }
+
+    public static void setObjectRotation(MapObject object, float rotation) {
+        object.getProperties().put("rotation", rotation);
+    }
 }

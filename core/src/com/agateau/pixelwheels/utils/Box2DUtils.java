@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.utils;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.map.MapUtils;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
@@ -95,7 +96,7 @@ public class Box2DUtils {
 
     public static Body createStaticBodyForMapObject(World world, MapObject object) {
         final float u = Constants.UNIT_FOR_PIXEL;
-        float rotation = object.getProperties().get("rotation", 0f, Float.class);
+        float rotation = MapUtils.getObjectRotation(object);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
