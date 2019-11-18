@@ -30,7 +30,7 @@
 
 - Startup count down is now slightly faster.
 
-- Adjusted the probabilities of bonuses so that all bonuses have a chance to be selected. You still have more chance to get a mine than a gun or missile when your rank is high.
+- Adjusted the probabilities of bonuses so that all bonuses have a chance to be selected. You still have more chance to get a mine than a gun or missile when your rank is high (#56, by Tim Schumacher).
 
 - Touching or clicking a selected image validates the user choice (By Julien Bolard).
 
