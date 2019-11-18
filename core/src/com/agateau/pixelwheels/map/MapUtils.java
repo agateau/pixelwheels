@@ -73,6 +73,10 @@ public class MapUtils {
         return value == null ? null : value.toString();
     }
 
+    public static void setObstacleId(MapObject object, String id) {
+        object.getProperties().put("type", id);
+    }
+
     public static boolean isBorderObstacle(MapObject object) {
         return getObstacleId(object) == null;
     }
