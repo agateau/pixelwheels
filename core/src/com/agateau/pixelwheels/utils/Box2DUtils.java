@@ -100,7 +100,7 @@ public class Box2DUtils {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.angle = -rotation * MathUtils.degreesToRadians;
+        bodyDef.angle = rotation * MathUtils.degreesToRadians;
 
         if (object instanceof RectangleMapObject) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();

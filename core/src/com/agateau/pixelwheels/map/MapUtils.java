@@ -82,10 +82,10 @@ public class MapUtils {
     }
 
     public static float getObjectRotation(MapObject object) {
-        return object.getProperties().get("rotation", 0f, Float.class);
+        return -object.getProperties().get("rotation", 0f, Float.class);
     }
 
     public static void setObjectRotation(MapObject object, float rotation) {
-        object.getProperties().put("rotation", rotation);
+        object.getProperties().put("rotation", -rotation);
     }
 }
