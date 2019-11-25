@@ -21,8 +21,8 @@ package com.agateau.pixelwheels.map;
 import com.badlogic.gdx.maps.MapObject;
 
 /**
- * Interface for classes which can walk a MapObject by calling a WalkFunction with
- * coordinates inside the object
+ * Interface for classes which can walk a MapObject by calling a WalkFunction with coordinates
+ * inside the object
  */
 public interface MapObjectWalker {
     void setMapObject(MapObject object);

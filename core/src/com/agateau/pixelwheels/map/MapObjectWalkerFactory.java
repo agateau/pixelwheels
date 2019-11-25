@@ -21,9 +21,7 @@ package com.agateau.pixelwheels.map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
-/**
- * Provides instances of MapObjectWalker for a given MapObject
- */
+/** Provides instances of MapObjectWalker for a given MapObject */
 public class MapObjectWalkerFactory {
     private static final RectangleMapObjectWalker sRectangleFiller = new RectangleMapObjectWalker();
 

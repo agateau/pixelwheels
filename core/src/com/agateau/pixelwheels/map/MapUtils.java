@@ -65,9 +65,7 @@ public class MapUtils {
         return Material.valueOf(materialName);
     }
 
-    /**
-     * Returns the ID of an obstacle from the Obstacle layer, or null if it is a border
-     */
+    /** Returns the ID of an obstacle from the Obstacle layer, or null if it is a border */
     public static String getObstacleId(MapObject object) {
         Object value = object.getProperties().get("type");
         return value == null ? null : value.toString();

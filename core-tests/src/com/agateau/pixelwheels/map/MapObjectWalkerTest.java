@@ -18,9 +18,16 @@
  */
 package com.agateau.pixelwheels.map;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector2;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,15 +36,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(JUnit4.class)
 public class MapObjectWalkerTest {
@@ -78,8 +76,8 @@ public class MapObjectWalkerTest {
         float originY = 20;
 
         // GIVEN a RectangleMapObject
-        RectangleMapObject mapObject = new RectangleMapObject(originX, originY,
-                colCount * itemSize, rowCount * itemSize);
+        RectangleMapObject mapObject =
+                new RectangleMapObject(originX, originY, colCount * itemSize, rowCount * itemSize);
 
         // AND a MapObjectWalker
         MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
@@ -115,8 +113,8 @@ public class MapObjectWalkerTest {
         float angle = 45;
 
         // GIVEN a rotated RectangleMapObject
-        RectangleMapObject mapObject = new RectangleMapObject(originX, originY,
-                colCount * itemSize, rowCount * itemSize);
+        RectangleMapObject mapObject =
+                new RectangleMapObject(originX, originY, colCount * itemSize, rowCount * itemSize);
         MapUtils.setObjectRotation(mapObject, angle);
 
         // AND a MapObjectWalker
@@ -143,10 +141,11 @@ public class MapObjectWalkerTest {
             }
         }
 
-    assertThat(vectors, is(expectedVectors));
+        assertThat(vectors, is(expectedVectors));
     }
 
-    private static Set<Vector2> vectorSetFromCaptors(ArgumentCaptor<Float> xArg, ArgumentCaptor<Float> yArg) {
+    private static Set<Vector2> vectorSetFromCaptors(
+            ArgumentCaptor<Float> xArg, ArgumentCaptor<Float> yArg) {
         Set<Vector2> vectors = new HashSet<>();
         List<Float> xList = xArg.getAllValues();
         List<Float> yList = yArg.getAllValues();

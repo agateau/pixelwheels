@@ -30,13 +30,9 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
-
 import java.util.HashMap;
 
-/**
- * Helper class to create GameObjects and Box2D bodies from the Obstacles layer
- * of a map
- */
+/** Helper class to create GameObjects and Box2D bodies from the Obstacles layer of a map */
 public class ObstacleCreator {
     private final HashMap<String, ObstacleDef> mObstacleDefs = new HashMap<>();
     private final HashMap<ObstacleDef, BodyDef> mBodyDefs = new HashMap<>();
@@ -60,12 +56,15 @@ public class ObstacleCreator {
         ObstacleDef obstacleDef = mObstacleDefs.get(id);
         final BodyDef bodyDef = mBodyDefs.get(obstacleDef);
         MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
-        walker.walk(obstacleDef.region.getRegionWidth(), obstacleDef.region.getRegionHeight(), (x, y) -> {
-            bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
-            Obstacle obstacle =
-                    new Obstacle(gameWorld.getBox2DWorld(), obstacleDef, bodyDef);
-            gameWorld.addGameObject(obstacle);
-        });
+        walker.walk(
+                obstacleDef.region.getRegionWidth(),
+                obstacleDef.region.getRegionHeight(),
+                (x, y) -> {
+                    bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
+                    Obstacle obstacle =
+                            new Obstacle(gameWorld.getBox2DWorld(), obstacleDef, bodyDef);
+                    gameWorld.addGameObject(obstacle);
+                });
     }
 
     private static void createBorder(World world, MapObject mapObject) {

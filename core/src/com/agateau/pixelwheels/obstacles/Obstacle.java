@@ -44,7 +44,9 @@ class Obstacle extends GameObjectAdapter implements Disposable {
         mObstacleDef = obstacleDef;
         mBody = box2DWorld.createBody(bodyDef);
         mBody.setType(BodyDef.BodyType.DynamicBody);
-        mBody.createFixture(Box2DUtils.createBox2DShape(obstacleDef.shape, Constants.UNIT_FOR_PIXEL), obstacleDef.density);
+        mBody.createFixture(
+                Box2DUtils.createBox2DShape(obstacleDef.shape, Constants.UNIT_FOR_PIXEL),
+                obstacleDef.density);
 
         Box2DUtils.setCollisionInfo(
                 mBody,

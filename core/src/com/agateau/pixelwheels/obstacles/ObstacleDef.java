@@ -25,7 +25,7 @@ import com.badlogic.gdx.math.Shape2D;
 /**
  * Definition of an obstacle on a track
  *
- * shape is in pixel coordinates
+ * <p>shape is in pixel coordinates
  */
 public class ObstacleDef {
     public String id;
