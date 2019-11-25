@@ -30,12 +30,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -47,14 +47,17 @@ public class MapObjectWalkerTest {
 
     @Test
     public void testCreateOne() {
+        int itemSize = 10;
+        float originX = 10;
+        float originY = 20;
         // GIVEN a RectangleMapObject
-        RectangleMapObject mapObject = new RectangleMapObject(10, 20, 4, 4);
+        RectangleMapObject mapObject = new RectangleMapObject(originX, originY, 8, 8);
 
         // AND a MapObjectWalker
         MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
 
         // WHEN I walk the rectangle
-        walker.walk(12, 12, mWalkFunction);
+        walker.walk(itemSize, itemSize, mWalkFunction);
 
         // THEN a single object is created
         ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
@@ -62,8 +65,8 @@ public class MapObjectWalkerTest {
         verify(mWalkFunction).walk(xArg.capture(), yArg.capture());
 
         // AND the obstacle is in the top-left corner of the rectangle
-        assertThat(xArg.getValue(), is(10f));
-        assertThat(yArg.getValue(), is(20f));
+        assertThat(xArg.getValue(), is(originX + itemSize / 2));
+        assertThat(yArg.getValue(), is(originY + itemSize / 2));
     }
 
     @Test
@@ -89,29 +92,62 @@ public class MapObjectWalkerTest {
         ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
         verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture());
 
-        List<Vector2> vectors = vectorListFromCaptors(xArg, yArg);
-        vectors.sort((o1, o2) -> {
-            if (o1.y != o2.y) {
-                return Float.compare(o1.y, o2.y);
-            }
-            return Float.compare(o1.x, o2.x);
-        });
+        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+        Set<Vector2> expectedVectors = new HashSet<>();
 
         for (int row = 0; row < rowCount; ++row) {
             for (int col = 0; col < colCount; ++col) {
-                int idx = row * colCount + col;
-                assertTrue("index (" + idx + ") should be less than the number of objects (" + vectors.size() + ")",
-                        idx < vectors.size());
-                Vector2 vector = vectors.get(idx);
-
-                assertThat(vector.x, is(originX + col * itemSize));
-                assertThat(vector.y, is(originY + row * itemSize));
+                float x = originX + col * itemSize + itemSize / 2f;
+                float y = originY + row * itemSize + itemSize / 2f;
+                expectedVectors.add(new Vector2(x, y));
             }
         }
+        assertThat(vectors, is(expectedVectors));
     }
 
-    private static List<Vector2> vectorListFromCaptors(ArgumentCaptor<Float> xArg, ArgumentCaptor<Float> yArg) {
-        List<Vector2> vectors = new ArrayList<>();
+    @Test
+    public void testFillRotatedRectangle() {
+        int itemSize = 10;
+        int colCount = 3;
+        int rowCount = 2;
+        float originX = 10;
+        float originY = 20;
+        float angle = 45;
+
+        // GIVEN a rotated RectangleMapObject
+        RectangleMapObject mapObject = new RectangleMapObject(originX, originY,
+                colCount * itemSize, rowCount * itemSize);
+        MapUtils.setObjectRotation(mapObject, angle);
+
+        // AND a MapObjectWalker
+        MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
+
+        // WHEN I walk the rectangle
+        walker.walk(itemSize, itemSize, mWalkFunction);
+
+        // THEN the rectangle is filled with objects
+        ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
+        ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture());
+
+        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+
+        Set<Vector2> expectedVectors = new HashSet<>();
+        float rectHeight = rowCount * itemSize;
+        for (int row = 0; row < rowCount; ++row) {
+            for (int col = 0; col < colCount; ++col) {
+                Vector2 vector = new Vector2(col * itemSize, row * itemSize - rectHeight);
+                vector.add(itemSize / 2, itemSize / 2);
+                vector.rotate(angle).add(originX, originY + rectHeight);
+                expectedVectors.add(vector);
+            }
+        }
+
+    assertThat(vectors, is(expectedVectors));
+    }
+
+    private static Set<Vector2> vectorSetFromCaptors(ArgumentCaptor<Float> xArg, ArgumentCaptor<Float> yArg) {
+        Set<Vector2> vectors = new HashSet<>();
         List<Float> xList = xArg.getAllValues();
         List<Float> yList = yArg.getAllValues();
         for (int idx = 0; idx < xList.size(); ++idx) {

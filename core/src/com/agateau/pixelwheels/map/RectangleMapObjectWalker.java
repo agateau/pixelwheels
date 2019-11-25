@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class RectangleMapObjectWalker implements MapObjectWalker {
     private MapObject mMapObject;
@@ -32,12 +33,19 @@ public class RectangleMapObjectWalker implements MapObjectWalker {
 
     @Override
     public void walk(float stepWidth, float stepHeight, WalkFunction function) {
+        Vector2 vector2 = new Vector2();
+        // Rectangles are in pixel coordinates, with y going up
+        // getX(), getY() returns  the bottom-left corner, but the rotation center
+        // is the top-left corner!
         Rectangle rectangle = ((RectangleMapObject) mMapObject).getRectangle();
+        float angle = MapUtils.getObjectRotation(mMapObject);
+
         float originX = rectangle.getX();
-        float originY = rectangle.getY();
-        for (float y = originY; y < originY + rectangle.getHeight(); y += stepHeight) {
-            for (float x = originX; x < originX + rectangle.getWidth(); x += stepWidth) {
-                function.walk(x, y);
+        float originY = rectangle.getY() + rectangle.getHeight();
+        for (float y = -rectangle.getHeight() + stepHeight / 2; y < 0; y += stepHeight) {
+            for (float x = stepWidth / 2; x < rectangle.getWidth(); x += stepWidth) {
+                vector2.set(x, y).rotate(angle).add(originX, originY);
+                function.walk(vector2.x, vector2.y);
             }
         }
     }
