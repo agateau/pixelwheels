@@ -35,7 +35,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 /** Stores all assets */
-public class Assets {
+public class Assets implements TextureRegionProvider {
 
     private static final float EXPLOSION_FRAME_DURATION = 0.1f;
     private static final float IMPACT_FRAME_DURATION = 0.05f;
@@ -161,7 +161,8 @@ public class Assets {
         region.setRegionHeight(region.getRegionHeight() - 4);
     }
 
-    public TextureAtlas.AtlasRegion findRegion(String name) {
+    @Override
+    public TextureRegion findRegion(String name) {
         return this.atlas.findRegion(name);
     }
 
