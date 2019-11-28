@@ -19,17 +19,21 @@
 package com.agateau.pixelwheels.map;
 
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 /** Provides instances of MapObjectWalker for a given MapObject */
 public class MapObjectWalkerFactory {
-    private static final RectangleMapObjectWalker sRectangleFiller = new RectangleMapObjectWalker();
+    private static final RectangleMapObjectWalker sRectangleWalker = new RectangleMapObjectWalker();
+    private static final PolylineMapObjectWalker sPolylineWalker = new PolylineMapObjectWalker();
 
     public static MapObjectWalker get(MapObject object) {
         // This assumes we do not create fillers from multiple threads
         MapObjectWalker walker;
         if (object instanceof RectangleMapObject) {
-            walker = sRectangleFiller;
+            walker = sRectangleWalker;
+        } else if (object instanceof PolylineMapObject) {
+            walker = sPolylineWalker;
         } else {
             throw new RuntimeException("Unsupported MapObject type: " + object);
         }

@@ -23,6 +23,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector2;
 import java.util.HashSet;
@@ -140,6 +141,35 @@ public class MapObjectWalkerTest {
                 expectedVectors.add(vector);
             }
         }
+
+        assertThat(vectors, is(expectedVectors));
+    }
+
+    @Test
+    public void testPolyline_horizontal() {
+        int itemSize = 10;
+        float[] vertices = {10, 20, 10 + 3 * itemSize, 20};
+
+        // GIVEN a polyline
+        PolylineMapObject mapObject = new PolylineMapObject(vertices);
+
+        // AND a MapObjectWalker
+        MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
+
+        // WHEN I walk the line
+        walker.walk(itemSize, itemSize, mWalkFunction);
+
+        // THEN the line is filled with objects
+        ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
+        ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(3)).walk(xArg.capture(), yArg.capture());
+
+        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+
+        Set<Vector2> expectedVectors = new HashSet<>();
+        expectedVectors.add(new Vector2(15, 20));
+        expectedVectors.add(new Vector2(25, 20));
+        expectedVectors.add(new Vector2(35, 20));
 
         assertThat(vectors, is(expectedVectors));
     }
