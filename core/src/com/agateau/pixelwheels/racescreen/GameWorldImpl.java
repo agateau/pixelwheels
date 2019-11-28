@@ -307,7 +307,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
 
         for (MapObject object : mTrack.getObstacleObjects()) {
-            creator.create(this, object);
+            creator.create(this, mGame.getAssets(), object);
         }
     }
 

@@ -19,27 +19,34 @@
 package com.agateau.pixelwheels.obstacles;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 class Obstacle extends GameObjectAdapter implements Disposable {
-    private static final float LINEAR_DRAG = 0.9f;
+    private static final float LINEAR_DRAG = 90f;
     private static final float ANGULAR_DRAG = 0.2f;
     private final World mWorld;
     private final ObstacleDef mObstacleDef;
     private final Body mBody;
+    private final TextureRegion mRegion;
 
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
 
-    Obstacle(World box2DWorld, ObstacleDef obstacleDef, BodyDef bodyDef) {
+    Obstacle(
+            World box2DWorld,
+            TextureRegionProvider provider,
+            ObstacleDef obstacleDef,
+            BodyDef bodyDef) {
         mWorld = box2DWorld;
         mObstacleDef = obstacleDef;
         mBody = box2DWorld.createBody(bodyDef);
@@ -47,6 +54,7 @@ class Obstacle extends GameObjectAdapter implements Disposable {
         mBody.createFixture(
                 Box2DUtils.createBox2DShape(obstacleDef.shape, Constants.UNIT_FOR_PIXEL),
                 obstacleDef.density);
+        mRegion = mObstacleDef.getImage(provider);
 
         Box2DUtils.setCollisionInfo(
                 mBody,
@@ -67,11 +75,11 @@ class Obstacle extends GameObjectAdapter implements Disposable {
     public void draw(Batch batch, ZLevel zLevel) {
         if (zLevel == ZLevel.OBSTACLES) {
             mBodyRegionDrawer.setBatch(batch);
-            mBodyRegionDrawer.draw(mBody, mObstacleDef.region);
+            mBodyRegionDrawer.draw(mBody, mRegion);
         } else if (zLevel == ZLevel.SHADOWS) {
             mBodyRegionDrawer.setBatch(batch);
             mBodyRegionDrawer.setZ(-0.1f);
-            mBodyRegionDrawer.drawShadow(mBody, mObstacleDef.region);
+            mBodyRegionDrawer.drawShadow(mBody, mRegion);
         }
     }
 

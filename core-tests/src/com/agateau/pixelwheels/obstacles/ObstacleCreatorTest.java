@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.obstacles;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -46,29 +48,35 @@ import org.mockito.junit.MockitoRule;
 @RunWith(JUnit4.class)
 public class ObstacleCreatorTest {
     @Mock private GameWorld mGameWorld;
+    @Mock private TextureRegionProvider mTextureRegionProvider;
     @Mock private TextureRegion mTextureRegion;
 
     @Rule public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Test
     public void testCreateOne() {
+        final float posX = 10;
+        final float posY = 20;
+        final int obstacleSize = 12;
         // GIVEN a world
         World box2DWorld = createBox2DWorld();
         when(mGameWorld.getBox2DWorld()).thenReturn(box2DWorld);
 
-        when(mTextureRegion.getRegionWidth()).thenReturn(12);
-        when(mTextureRegion.getRegionHeight()).thenReturn(12);
-        ObstacleDef def = ObstacleDef.createCircle("tyre", mTextureRegion, 1);
+        when(mTextureRegionProvider.findRegion("obstacle-tyre")).thenReturn(mTextureRegion);
+        when(mTextureRegion.getRegionWidth()).thenReturn(obstacleSize);
+        when(mTextureRegion.getRegionHeight()).thenReturn(obstacleSize);
+        ObstacleDef def = ObstacleDef.createCircle(mTextureRegionProvider, "tyre", 1);
 
         // AND an obstacle creator
         ObstacleCreator creator = new ObstacleCreator();
         creator.addObstacleDef(def);
 
-        // WHEN I call create() with a rectangle smaller than the obstacle shape
-        RectangleMapObject mapObject = new RectangleMapObject(10, 20, 4, 4);
+        // WHEN I call create() with a rectangle the size of the obstacle
+        RectangleMapObject mapObject =
+                new RectangleMapObject(posX, posY, obstacleSize, obstacleSize);
         MapUtils.setObstacleId(mapObject, def.id);
 
-        creator.create(mGameWorld, mapObject);
+        creator.create(mGameWorld, mTextureRegionProvider, mapObject);
 
         // THEN a single object is created
         ArgumentCaptor<GameObject> gameObjectCaptor = ArgumentCaptor.forClass(GameObject.class);
@@ -77,8 +85,8 @@ public class ObstacleCreatorTest {
         Obstacle obstacle = (Obstacle) gameObjectCaptor.getValue();
 
         // AND the obstacle is in the top-left corner of the rectangle
-        assertThat(obstacle.getX() / Constants.UNIT_FOR_PIXEL, is(10f));
-        assertThat(obstacle.getY() / Constants.UNIT_FOR_PIXEL, is(20f));
+        assertTrue(isCloseTo(obstacle.getX() / Constants.UNIT_FOR_PIXEL, posX + obstacleSize / 2f));
+        assertTrue(isCloseTo(obstacle.getY() / Constants.UNIT_FOR_PIXEL, posY + obstacleSize / 2f));
 
         // AND it has a body
         Array<Body> bodies = new Array<>();
@@ -93,5 +101,9 @@ public class ObstacleCreatorTest {
 
     private static World createBox2DWorld() {
         return new World(new Vector2(0, 0), true);
+    }
+
+    private static boolean isCloseTo(float v1, float v2) {
+        return Math.abs(v1 - v2) < 0.001f;
     }
 }

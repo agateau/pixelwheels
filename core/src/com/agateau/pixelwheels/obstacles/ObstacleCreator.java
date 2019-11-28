@@ -21,11 +21,13 @@ package com.agateau.pixelwheels.obstacles;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.map.MapObjectWalker;
 import com.agateau.pixelwheels.map.MapObjectWalkerFactory;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -46,7 +48,8 @@ public class ObstacleCreator {
         mBodyDefs.put(obstacleDef, bodyDef);
     }
 
-    public void create(GameWorld gameWorld, MapObject mapObject) {
+    public void create(
+            GameWorld gameWorld, TextureRegionProvider textureRegionProvider, MapObject mapObject) {
         String id = MapUtils.getObstacleId(mapObject);
         if (id == null) {
             // Special case: an obstacle with no id is a border
@@ -56,13 +59,18 @@ public class ObstacleCreator {
         ObstacleDef obstacleDef = mObstacleDefs.get(id);
         final BodyDef bodyDef = mBodyDefs.get(obstacleDef);
         MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
+        TextureRegion obstacleRegion = obstacleDef.getImage(textureRegionProvider);
         walker.walk(
-                obstacleDef.region.getRegionWidth(),
-                obstacleDef.region.getRegionHeight(),
+                obstacleRegion.getRegionWidth(),
+                obstacleRegion.getRegionHeight(),
                 (x, y) -> {
                     bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
                     Obstacle obstacle =
-                            new Obstacle(gameWorld.getBox2DWorld(), obstacleDef, bodyDef);
+                            new Obstacle(
+                                    gameWorld.getBox2DWorld(),
+                                    textureRegionProvider,
+                                    obstacleDef,
+                                    bodyDef);
                     gameWorld.addGameObject(obstacle);
                 });
     }

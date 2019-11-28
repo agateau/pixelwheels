@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.obstacles;
 
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Shape2D;
@@ -28,17 +29,23 @@ import com.badlogic.gdx.math.Shape2D;
  * <p>shape is in pixel coordinates
  */
 public class ObstacleDef {
-    public String id;
-    public TextureRegion region;
+    public final String id;
     public Shape2D shape;
     public float density;
 
-    public static ObstacleDef createCircle(String id, TextureRegion region, float density) {
-        ObstacleDef def = new ObstacleDef();
-        def.id = id;
-        def.region = region;
+    private ObstacleDef(String id) {
+        this.id = id;
+    }
+
+    public static ObstacleDef createCircle(
+            TextureRegionProvider textureRegionProvider, String id, float density) {
+        ObstacleDef def = new ObstacleDef(id);
         def.density = density;
-        def.shape = new Circle(0, 0, region.getRegionWidth() / 2);
+        def.shape = new Circle(0, 0, def.getImage(textureRegionProvider).getRegionWidth() / 2f);
         return def;
+    }
+
+    public TextureRegion getImage(TextureRegionProvider provider) {
+        return provider.findRegion("obstacle-" + id);
     }
 }

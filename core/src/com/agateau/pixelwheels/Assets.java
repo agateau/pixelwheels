@@ -226,6 +226,6 @@ public class Assets implements TextureRegionProvider {
     }
 
     private void loadObstacleDefinitions() {
-        obstacleDefs.add(ObstacleDef.createCircle("tyre", findRegion("obstacle-tyre"), 1));
+        obstacleDefs.add(ObstacleDef.createCircle(this, "tyre", 40));
     }
 }
