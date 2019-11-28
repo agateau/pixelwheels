@@ -42,7 +42,7 @@ public class VehicleCreator {
         final float U = Constants.UNIT_FOR_PIXEL;
         float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
 
-        TextureRegion mainRegion = mAssets.findRegion("vehicles/" + vehicleDef.mainImage);
+        TextureRegion mainRegion = vehicleDef.getImage(mAssets);
         TextureRegion wheelRegion = mAssets.wheel;
 
         Vehicle vehicle =

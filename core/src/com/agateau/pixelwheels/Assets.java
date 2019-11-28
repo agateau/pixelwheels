@@ -200,7 +200,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     public TextureRegion getVehicleRegion(VehicleDef vehicleDef) {
-        return findRegion("vehicles/" + vehicleDef.mainImage);
+        return vehicleDef.getImage(this);
     }
 
     public TextureRegion getChampionshipRegion(Championship championship) {
