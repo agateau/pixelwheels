@@ -1,0 +1,3 @@
+<obstacles>
+    <obstacle id="tyre" density="40" shape="circle"/>
+</obstacles>

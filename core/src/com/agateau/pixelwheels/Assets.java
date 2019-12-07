@@ -20,6 +20,7 @@ package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.ObstacleIO;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
 import com.agateau.pixelwheels.sound.AudioManager;
@@ -226,6 +227,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     private void loadObstacleDefinitions() {
-        obstacleDefs.add(ObstacleDef.createCircle(this, "tyre", 40));
+        obstacleDefs.clear();
+        obstacleDefs.addAll(ObstacleIO.getAll(this));
     }
 }
