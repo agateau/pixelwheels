@@ -23,8 +23,10 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import java.util.HashSet;
 import java.util.List;
@@ -61,7 +63,8 @@ public class MapObjectWalkerTest {
         // THEN a single object is created
         ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
         ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
-        verify(mWalkFunction).walk(xArg.capture(), yArg.capture());
+        ArgumentCaptor<Float> angleArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction).walk(xArg.capture(), yArg.capture(), angleArg.capture());
 
         // AND the obstacle is in the top-left corner of the rectangle
         assertThat(xArg.getValue(), is(originX + itemSize / 2));
@@ -89,9 +92,10 @@ public class MapObjectWalkerTest {
         // THEN the rectangle is filled with objects
         ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
         ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
-        verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture());
+        ArgumentCaptor<Float> angleArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture(), angleArg.capture());
 
-        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+        Set<Vector2> vectors = vector2SetFromCaptors(xArg, yArg);
         Set<Vector2> expectedVectors = new HashSet<>();
 
         for (int row = 0; row < rowCount; ++row) {
@@ -127,9 +131,10 @@ public class MapObjectWalkerTest {
         // THEN the rectangle is filled with objects
         ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
         ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
-        verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture());
+        ArgumentCaptor<Float> angleArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(6)).walk(xArg.capture(), yArg.capture(), angleArg.capture());
 
-        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+        Set<Vector2> vectors = vector2SetFromCaptors(xArg, yArg);
 
         Set<Vector2> expectedVectors = new HashSet<>();
         float rectHeight = rowCount * itemSize;
@@ -162,9 +167,10 @@ public class MapObjectWalkerTest {
         // THEN the line is filled with objects
         ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
         ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
-        verify(mWalkFunction, times(3)).walk(xArg.capture(), yArg.capture());
+        ArgumentCaptor<Float> angleArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(3)).walk(xArg.capture(), yArg.capture(), angleArg.capture());
 
-        Set<Vector2> vectors = vectorSetFromCaptors(xArg, yArg);
+        Set<Vector2> vectors = vector2SetFromCaptors(xArg, yArg);
 
         Set<Vector2> expectedVectors = new HashSet<>();
         expectedVectors.add(new Vector2(15, 20));
@@ -174,7 +180,38 @@ public class MapObjectWalkerTest {
         assertThat(vectors, is(expectedVectors));
     }
 
-    private static Set<Vector2> vectorSetFromCaptors(
+    @Test
+    public void testPolyline_vertical() {
+        int itemSize = 10;
+        float[] vertices = {10, 20, 10, 20 + 3 * itemSize};
+
+        // GIVEN a polyline
+        PolylineMapObject mapObject = new PolylineMapObject(vertices);
+
+        // AND a MapObjectWalker
+        MapObjectWalker walker = MapObjectWalkerFactory.get(mapObject);
+
+        // WHEN I walk the line
+        walker.walk(itemSize, itemSize, mWalkFunction);
+
+        // THEN the line is filled with objects
+        ArgumentCaptor<Float> xArg = ArgumentCaptor.forClass(Float.class);
+        ArgumentCaptor<Float> yArg = ArgumentCaptor.forClass(Float.class);
+        ArgumentCaptor<Float> angleArg = ArgumentCaptor.forClass(Float.class);
+        verify(mWalkFunction, times(3)).walk(xArg.capture(), yArg.capture(), angleArg.capture());
+
+        Set<OrientedPoint> points = orientedPointSetFromCaptors(xArg, yArg, angleArg);
+
+        Set<OrientedPoint> orientedPoints = new HashSet<>();
+        float angle = 90;
+        orientedPoints.add(new OrientedPoint(10, 25, angle));
+        orientedPoints.add(new OrientedPoint(10, 35, angle));
+        orientedPoints.add(new OrientedPoint(10, 45, angle));
+
+        assertThat(points, is(orientedPoints));
+    }
+
+    private static Set<Vector2> vector2SetFromCaptors(
             ArgumentCaptor<Float> xArg, ArgumentCaptor<Float> yArg) {
         Set<Vector2> vectors = new HashSet<>();
         List<Float> xList = xArg.getAllValues();
@@ -184,5 +221,28 @@ public class MapObjectWalkerTest {
             vectors.add(vector);
         }
         return vectors;
+    }
+
+    private static Set<OrientedPoint> orientedPointSetFromCaptors(
+            ArgumentCaptor<Float> xArg,
+            ArgumentCaptor<Float> yArg,
+            ArgumentCaptor<Float> angleArg) {
+        Set<OrientedPoint> points = new HashSet<>();
+        List<Float> xList = xArg.getAllValues();
+        List<Float> yList = yArg.getAllValues();
+        List<Float> angleList = angleArg.getAllValues();
+        for (int idx = 0; idx < xList.size(); ++idx) {
+            float angle = flooredDegFromRad(angleList.get(idx));
+            float x = MathUtils.floor(xList.get(idx));
+            float y = MathUtils.floor(yList.get(idx));
+            OrientedPoint point = new OrientedPoint(x, y, angle);
+            points.add(point);
+        }
+        return points;
+    }
+
+    /** Make angles easier to compare */
+    private static float flooredDegFromRad(float radAngle) {
+        return MathUtils.floor(radAngle * MathUtils.radiansToDegrees);
     }
 }

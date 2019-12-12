@@ -30,6 +30,6 @@ public interface MapObjectWalker {
     void walk(float stepWidth, float stepHeight, WalkFunction function);
 
     interface WalkFunction {
-        void walk(float x, float y);
+        void walk(float x, float y, float radAngle);
     }
 }

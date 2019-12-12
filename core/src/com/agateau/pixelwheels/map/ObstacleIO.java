@@ -62,6 +62,8 @@ public class ObstacleIO {
         float density = child.getFloatAttribute("density");
         if ("circle".equals(shape)) {
             return ObstacleDef.createCircle(provider, id, density);
+        } else if ("rectangle".equals(shape)) {
+            return ObstacleDef.createRectangle(provider, id, density);
         } else {
             throw new RuntimeException("Unknown shape " + shape);
         }

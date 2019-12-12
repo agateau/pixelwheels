@@ -45,7 +45,7 @@ public class RectangleMapObjectWalker implements MapObjectWalker {
         for (float y = -rectangle.getHeight() + stepHeight / 2; y < 0; y += stepHeight) {
             for (float x = stepWidth / 2; x < rectangle.getWidth(); x += stepWidth) {
                 vector2.set(x, y).rotate(angle).add(originX, originY);
-                function.walk(vector2.x, vector2.y);
+                function.walk(vector2.x, vector2.y, 0);
             }
         }
     }

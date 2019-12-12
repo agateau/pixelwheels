@@ -213,6 +213,23 @@ public class Box2DUtils {
             shape.setRadius(circleShape2D.radius * zoomFactor);
 
             return shape;
+        } else if (shape2D instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) shape2D;
+
+            float[] vertices = new float[8];
+            float x1 = rectangle.x;
+            float y1 = rectangle.y;
+            float x2 = x1 + rectangle.width;
+            float y2 = y1 + rectangle.height;
+            setVertice(vertices, 0, x1, y1);
+            setVertice(vertices, 2, x2, y1);
+            setVertice(vertices, 4, x2, y2);
+            setVertice(vertices, 6, x1, y2);
+
+            scaleVertices(vertices, zoomFactor);
+            PolygonShape shape = new PolygonShape();
+            shape.set(vertices);
+            return shape;
         } else {
             throw new RuntimeException("Unsupported Shape2D type " + shape2D);
         }
@@ -222,5 +239,10 @@ public class Box2DUtils {
         for (int idx = 0; idx < vertices.length; ++idx) {
             vertices[idx] *= factor;
         }
+    }
+
+    private static void setVertice(float[] vertices, int idx, float x, float y) {
+        vertices[idx] = x;
+        vertices[idx + 1] = y;
     }
 }

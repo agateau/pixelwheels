@@ -18,9 +18,41 @@
  */
 package com.agateau.pixelwheels.utils;
 
+import java.util.Locale;
+
 /** Represents a position and an angle */
 public class OrientedPoint {
     public float x = 0;
     public float y = 0;
     public float angle = 0;
+
+    public OrientedPoint() {}
+
+    public OrientedPoint(float x, float y, float angle) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "x=%f y=%f angle=%f", x, y, angle);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof OrientedPoint)) {
+            return false;
+        }
+        OrientedPoint point = (OrientedPoint) other;
+        if (point == this) {
+            return true;
+        }
+        return x == point.x && y == point.y && angle == point.angle;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (x * y * angle * 100000);
+    }
 }

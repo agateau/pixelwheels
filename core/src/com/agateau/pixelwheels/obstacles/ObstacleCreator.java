@@ -63,8 +63,9 @@ public class ObstacleCreator {
         walker.walk(
                 obstacleRegion.getRegionWidth(),
                 obstacleRegion.getRegionHeight(),
-                (x, y) -> {
+                (x, y, angle) -> {
                     bodyDef.position.set(x, y).scl(Constants.UNIT_FOR_PIXEL);
+                    bodyDef.angle = angle;
                     Obstacle obstacle =
                             new Obstacle(
                                     gameWorld.getBox2DWorld(),

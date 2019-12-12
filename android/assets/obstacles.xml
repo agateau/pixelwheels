@@ -1,3 +1,4 @@
 <obstacles>
     <obstacle id="tyre" density="40" shape="circle"/>
+    <obstacle id="block" density="10000" shape="rectangle"/>
 </obstacles>
