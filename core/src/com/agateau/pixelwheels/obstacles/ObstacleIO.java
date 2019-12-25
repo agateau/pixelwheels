@@ -57,14 +57,17 @@ public class ObstacleIO {
 
     private static ObstacleDef get(TextureRegionProvider provider, XmlReader.Element child) {
         String id = child.getAttribute("id");
-        String shape = child.getAttribute("shape");
-        float density = child.getFloatAttribute("density");
-        if ("circle".equals(shape)) {
-            return ObstacleDef.createCircle(provider, id, density);
-        } else if ("rectangle".equals(shape)) {
-            return ObstacleDef.createRectangle(provider, id, density);
+        ObstacleDef def = new ObstacleDef(id);
+        def.density = child.getFloatAttribute("density");
+        def.dynamic = child.getBooleanAttribute("dynamic", true);
+        String shapeName = child.getAttribute("shape");
+        if ("circle".equals(shapeName)) {
+            def.createCircleShape(provider);
+        } else if ("rectangle".equals(shapeName)) {
+            def.createRectangleShape(provider);
         } else {
-            throw new RuntimeException("Unknown shape " + shape);
+            throw new RuntimeException("Unknown shape " + shapeName);
         }
+        return def;
     }
 }

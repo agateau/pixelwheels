@@ -31,28 +31,41 @@ import com.badlogic.gdx.math.Shape2D;
  */
 public class ObstacleDef {
     public final String id;
-    public final float density;
+    public float density;
+    public boolean dynamic;
     public Shape2D shape;
 
-    private ObstacleDef(String id, float density) {
+    ObstacleDef(String id) {
+        this.id = id;
+    }
+
+    ObstacleDef(String id, float density) {
         this.id = id;
         this.density = density;
+    }
+
+    void createCircleShape(TextureRegionProvider textureRegionProvider) {
+        shape = new Circle(0, 0, getImage(textureRegionProvider).getRegionWidth() / 2f);
+    }
+
+    void createRectangleShape(TextureRegionProvider textureRegionProvider) {
+        TextureRegion region = getImage(textureRegionProvider);
+        float width = region.getRegionWidth();
+        float height = region.getRegionHeight();
+        shape = new Rectangle(-width / 2, -height / 2, width, height);
     }
 
     public static ObstacleDef createCircle(
             TextureRegionProvider textureRegionProvider, String id, float density) {
         ObstacleDef def = new ObstacleDef(id, density);
-        def.shape = new Circle(0, 0, def.getImage(textureRegionProvider).getRegionWidth() / 2f);
+        def.createCircleShape(textureRegionProvider);
         return def;
     }
 
     public static ObstacleDef createRectangle(
             TextureRegionProvider textureRegionProvider, String id, float density) {
         ObstacleDef def = new ObstacleDef(id, density);
-        TextureRegion region = def.getImage(textureRegionProvider);
-        float width = region.getRegionWidth();
-        float height = region.getRegionHeight();
-        def.shape = new Rectangle(-width / 2, -height / 2, width, height);
+        def.createRectangleShape(textureRegionProvider);
         return def;
     }
 

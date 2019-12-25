@@ -43,7 +43,8 @@ public class ObstacleCreator {
         mObstacleDefs.put(obstacleDef.id, obstacleDef);
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type =
+                obstacleDef.dynamic ? BodyDef.BodyType.DynamicBody : BodyDef.BodyType.StaticBody;
         bodyDef.bullet = false;
         mBodyDefs.put(obstacleDef, bodyDef);
     }

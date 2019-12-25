@@ -34,9 +34,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 class Obstacle extends GameObjectAdapter implements Disposable {
     private static final float LINEAR_DRAG = 90f;
-    private static final float ANGULAR_DRAG = 0.2f;
+    private static final float ANGULAR_DRAG = 2f;
     private final World mWorld;
-    private final ObstacleDef mObstacleDef;
     private final Body mBody;
     private final TextureRegion mRegion;
 
@@ -48,13 +47,11 @@ class Obstacle extends GameObjectAdapter implements Disposable {
             ObstacleDef obstacleDef,
             BodyDef bodyDef) {
         mWorld = box2DWorld;
-        mObstacleDef = obstacleDef;
         mBody = box2DWorld.createBody(bodyDef);
-        mBody.setType(BodyDef.BodyType.DynamicBody);
         mBody.createFixture(
                 Box2DUtils.createBox2DShape(obstacleDef.shape, Constants.UNIT_FOR_PIXEL),
                 obstacleDef.density);
-        mRegion = mObstacleDef.getImage(provider);
+        mRegion = obstacleDef.getImage(provider);
 
         Box2DUtils.setCollisionInfo(
                 mBody,
