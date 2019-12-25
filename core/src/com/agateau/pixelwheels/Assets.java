@@ -20,9 +20,9 @@ package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.map.Championship;
-import com.agateau.pixelwheels.map.ObstacleIO;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
+import com.agateau.pixelwheels.obstacles.ObstacleIO;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.utils.StringUtils;

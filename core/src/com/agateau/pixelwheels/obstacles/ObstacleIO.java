@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.map;
+package com.agateau.pixelwheels.obstacles;
 
 import com.agateau.pixelwheels.TextureRegionProvider;
-import com.agateau.pixelwheels.obstacles.ObstacleDef;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
