@@ -155,7 +155,8 @@ public class AIPilot implements Pilot {
     }
 
     private void updateDirection() {
-        updateTargetVector();
+        Vector2 waypoint = findNextWaypoint();
+        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
 
         Vehicle vehicle = mRacer.getVehicle();
         float targetAngle = AgcMathUtils.normalizeAngle(mTargetVector.angle());
@@ -170,12 +171,11 @@ public class AIPilot implements Pilot {
         vehicle.setDirection(direction);
     }
 
-    private void updateTargetVector() {
+    private Vector2 findNextWaypoint() {
         float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
         WaypointStore store = mTrack.getWaypointStore();
         int index = store.getWaypointIndex(lapDistance);
-        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
-        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
+        return store.getWaypoint(store.getNextIndex(index));
     }
 
     private void handleBonus(float dt) {
