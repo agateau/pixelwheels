@@ -190,8 +190,8 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <tileset firstgid="211" name="city" tilewidth="64" tileheight="64" tilecount="128" columns="8">
-  <image source="city.png" width="512" height="1024"/>
+ <tileset firstgid="211" name="city" tilewidth="64" tileheight="64" tilecount="136" columns="8">
+  <image source="city.png" width="544" height="1088"/>
   <tile id="5">
    <properties>
     <property name="start" value="true"/>
@@ -218,7 +218,7 @@
    eJztWN1NAzEM9ihdBCaACaDAMwhYAFgAWKO5g3ck4BUe6FQ46lmyQi524oQG1E+yUEPOseP/AOygxR7S/raFMMLrcIx0qNjXs64HIOuQsy8Xr0hPAIsB/3oakVZIbvrtgvWBrfM1/p1j+0r5vWTq8Ib0nq9+c6AuC80+0uGrqTTlcEo90Je61cHD20OTE7R22xa8PXxOOIK0Lr3rQfY4h3R+GzvXY5zsIeXoVed6aORbwt/wq5r7PHit/K06p5VPm59b1UqU8yz1/5R8J0insGGgifOWtVK6x5R8l0hXSNcgx1Hrei/dY0q+G6RbpDuQ/a91vZfuMWWve6QHpEeQ76N1PpPiQ3u+5T5qQOKvPd8SZzWg9YelwKeW31Bt4TUldw6KQXuPNfzmGeZri/WetH2T9ZxYfeTzgpW/9nuL/5MdfF5eT2vUY1/ARhdrfNXKV3OY61No5qG3H2s/TX4vzYSldqf6uA7WQ3tY429kcxTxjKFUD/4d79dCe9SI85BnDKX+y++Z92sefH6rER8ae5T6L5eP92u1+BMGpT0+4Ofso5l/PhkP3q/F+PO6mDNvOXZO6Ttq7+/IWrR6R97hf+IbEbGxWA==
   </data>
  </layer>
- <objectgroup name="Borders" visible="0">
+ <objectgroup name="Obstacles">
   <object id="1" x="2832" y="304" width="64" height="1632"/>
   <object id="2" x="256" y="486.59" width="48" height="1449.41"/>
   <object id="3" x="1049.15" y="847.669" width="1302" height="31.8312"/>
@@ -360,14 +360,6 @@
   </object>
   <object id="52" x="2176" y="704" width="64" height="64">
    <ellipse/>
-  </object>
- </objectgroup>
- <objectgroup name="Borders2" visible="0">
-  <object id="53" x="924" y="520">
-   <polyline points="-556,584 -556,1208 -524,1288 -492,1320 -412,1352 100,1352 180,1320 212,1288 244,1208 244,1016 306.599,898.548 548,776 820,776 868,792 900,824 916,872 916,1208 932,1272 964,1304 1028,1336 1796,1336 1856.12,1305.72 1884.25,1275.44 1908.5,1208.88 1908,-8 1892,-88 1844,-136 1764,-152 36,-152 -402,63 -556,376 -556,568"/>
-  </object>
-  <object id="54" x="790" y="1376">
-   <polyline points="8,-4 8,-254 70,-372 342.667,-514.667 1434,-512 1490,-504 1530,-464 1546,-416 1548,5"/>
   </object>
  </objectgroup>
 </map>

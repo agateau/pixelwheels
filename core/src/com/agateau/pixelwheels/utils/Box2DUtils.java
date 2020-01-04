@@ -19,10 +19,12 @@
 package com.agateau.pixelwheels.utils;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.map.MapUtils;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -44,6 +46,7 @@ public class Box2DUtils {
     public static final float MS_TO_KMH = 3.6f;
     private static final Vector2 FORWARD_VECTOR = new Vector2(1, 0);
     private static final Vector2 LATERAL_VECTOR = new Vector2(0, 1);
+    private static final Vector2 sTmp = new Vector2();
 
     @SuppressWarnings("unused")
     public static Vector2 getForwardVelocity(Body body) {
@@ -61,6 +64,11 @@ public class Box2DUtils {
     public static void applyDrag(Body body, float factor) {
         Vector2 dragForce = body.getLinearVelocity().scl(-factor);
         body.applyForce(dragForce, body.getWorldCenter(), true);
+    }
+
+    public static void applyCircularDrag(Body body, float factor) {
+        float velocity = -body.getAngularVelocity() * factor;
+        body.applyTorque(velocity, true);
     }
 
     @SuppressWarnings("unused")
@@ -88,11 +96,11 @@ public class Box2DUtils {
 
     public static Body createStaticBodyForMapObject(World world, MapObject object) {
         final float u = Constants.UNIT_FOR_PIXEL;
-        float rotation = object.getProperties().get("rotation", 0f, Float.class);
+        float rotation = MapUtils.getObjectRotation(object);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.angle = -rotation * MathUtils.degreesToRadians;
+        bodyDef.angle = rotation * MathUtils.degreesToRadians;
 
         if (object instanceof RectangleMapObject) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -195,6 +203,33 @@ public class Box2DUtils {
             scaleVertices(vertices, zoomFactor);
             shape.set(vertices);
             return shape;
+        } else if (shape2D instanceof Circle) {
+            Circle circleShape2D = (Circle) shape2D;
+
+            CircleShape shape = new CircleShape();
+            sTmp.set(circleShape2D.x, circleShape2D.y).scl(zoomFactor);
+            shape.setPosition(sTmp);
+
+            shape.setRadius(circleShape2D.radius * zoomFactor);
+
+            return shape;
+        } else if (shape2D instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) shape2D;
+
+            float[] vertices = new float[8];
+            float x1 = rectangle.x;
+            float y1 = rectangle.y;
+            float x2 = x1 + rectangle.width;
+            float y2 = y1 + rectangle.height;
+            setVertice(vertices, 0, x1, y1);
+            setVertice(vertices, 2, x2, y1);
+            setVertice(vertices, 4, x2, y2);
+            setVertice(vertices, 6, x1, y2);
+
+            scaleVertices(vertices, zoomFactor);
+            PolygonShape shape = new PolygonShape();
+            shape.set(vertices);
+            return shape;
         } else {
             throw new RuntimeException("Unsupported Shape2D type " + shape2D);
         }
@@ -204,5 +239,10 @@ public class Box2DUtils {
         for (int idx = 0; idx < vertices.length; ++idx) {
             vertices[idx] *= factor;
         }
+    }
+
+    private static void setVertice(float[] vertices, int idx, float x, float y) {
+        vertices[idx] = x;
+        vertices[idx + 1] = y;
     }
 }

@@ -21,6 +21,8 @@ package com.agateau.pixelwheels;
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.obstacles.ObstacleDef;
+import com.agateau.pixelwheels.obstacles.ObstacleIO;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.utils.StringUtils;
@@ -57,6 +59,7 @@ public class Assets implements TextureRegionProvider {
                         new Track("tiny-sur-mer", "Tiny sur Mer"),
                     });
     public final Array<Championship> championships = new Array<>();
+    public final Array<ObstacleDef> obstacleDefs = new Array<>();
     public final UiAssets ui = new UiAssets();
 
     public final TextureRegion wheel;
@@ -118,6 +121,7 @@ public class Assets implements TextureRegionProvider {
         this.lockedVehicle = this.findRegion("vehicles/locked");
 
         loadVehicleDefinitions();
+        loadObstacleDefinitions();
         initSoundAtlas();
         initChampionships();
     }
@@ -220,5 +224,10 @@ public class Assets implements TextureRegionProvider {
         for (String id : VEHICLE_IDS) {
             this.vehicleDefs.add(VehicleIO.get(id));
         }
+    }
+
+    private void loadObstacleDefinitions() {
+        obstacleDefs.clear();
+        obstacleDefs.addAll(ObstacleIO.getAll(this));
     }
 }
