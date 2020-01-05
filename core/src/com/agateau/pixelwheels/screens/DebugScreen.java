@@ -105,6 +105,7 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("- Draw velocities", "drawVelocities");
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
+        addCheckBox("Free camera", "freeCamera");
 
         builder.getActor("backButton")
                 .addListener(

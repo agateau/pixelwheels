@@ -74,9 +74,11 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
         mCameraUpdater =
-                singlePlayer
-                        ? new SinglePlayerCameraUpdater(mWorld)
-                        : new MultiPlayerCameraUpdater(mWorld);
+                Debug.instance.freeCamera
+                        ? new FreeCameraUpdater(mWorld)
+                        : singlePlayer
+                                ? new SinglePlayerCameraUpdater(mWorld)
+                                : new MultiPlayerCameraUpdater(mWorld);
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
