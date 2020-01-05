@@ -24,6 +24,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 /** Hud showing player info during race */
 public class Hud {
@@ -66,6 +67,8 @@ public class Hud {
     public AnchorGroup getInputUiContainer() {
         if (mInputUiContainer == null) {
             mInputUiContainer = new AnchorGroup();
+            // Make sure touches can reach mRoot
+            mInputUiContainer.setTouchable(Touchable.childrenOnly);
             mRoot.addActor(mInputUiContainer);
             mInputUiContainer.setFillParent(true);
         }
