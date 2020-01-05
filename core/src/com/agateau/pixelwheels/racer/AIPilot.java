@@ -18,27 +18,37 @@
  */
 package com.agateau.pixelwheels.racer;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.TrackStats;
+import com.agateau.pixelwheels.utils.DrawUtils;
+import com.agateau.pixelwheels.utils.StaticBodyFinder;
 import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
 public class AIPilot implements Pilot {
     private static final float MIN_NORMAL_SPEED = 1;
     private static final float MAX_BLOCKED_DURATION = 1;
     private static final float MAX_REVERSE_DURATION = 0.5f;
+    private static final int MAX_FORWARD_WAYPOINTS = 2;
+
     private final GameWorld mGameWorld;
     private final Track mTrack;
     private final Racer mRacer;
+    private final StaticBodyFinder mStaticBodyFinder = new StaticBodyFinder();
 
     private enum State {
         NORMAL,
@@ -49,13 +59,23 @@ public class AIPilot implements Pilot {
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
 
+    private Vector2 mWaypoint;
+
     public AIPilot(GameWorld gameWorld, Track track, Racer racer) {
         mGameWorld = gameWorld;
         mTrack = track;
         mRacer = racer;
-    }
 
-    private final Vector2 mTargetVector = new Vector2();
+        DebugShapeMap.Shape debugShape =
+                renderer -> {
+                    renderer.begin(ShapeRenderer.ShapeType.Line);
+                    renderer.setColor(1, 0, 1, 1);
+                    renderer.line(mRacer.getPosition(), mWaypoint);
+                    DrawUtils.drawCross(renderer, mWaypoint, 12 * Constants.UNIT_FOR_PIXEL);
+                    renderer.end();
+                };
+        DebugShapeMap.getMap().put(this, debugShape);
+    }
 
     @Override
     public void act(float dt) {
@@ -154,8 +174,11 @@ public class AIPilot implements Pilot {
         vehicle.setSpeedLimiter(limit);
     }
 
+    private final Vector2 mTargetVector = new Vector2();
+
     private void updateDirection() {
-        updateTargetVector();
+        mWaypoint = findNextWaypoint();
+        mTargetVector.set(mWaypoint.x - mRacer.getX(), mWaypoint.y - mRacer.getY());
 
         Vehicle vehicle = mRacer.getVehicle();
         float targetAngle = AgcMathUtils.normalizeAngle(mTargetVector.angle());
@@ -170,12 +193,32 @@ public class AIPilot implements Pilot {
         vehicle.setDirection(direction);
     }
 
-    private void updateTargetVector() {
+    private Vector2 findNextWaypoint() {
         float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
         WaypointStore store = mTrack.getWaypointStore();
         int index = store.getWaypointIndex(lapDistance);
-        Vector2 waypoint = store.getWaypoint(store.getNextIndex(index));
-        mTargetVector.set(waypoint.x - mRacer.getX(), waypoint.y - mRacer.getY());
+        Vector2 waypoint = store.getWaypoint(index);
+        if (!isWaypointVisible(waypoint)) {
+            NLog.e("Current waypoint is not visible, we might get blocked");
+            return waypoint;
+        }
+        Vector2 nextWaypoint;
+        for (int i = 0; i < MAX_FORWARD_WAYPOINTS; ++i) {
+            index = store.getNextIndex(index);
+            nextWaypoint = store.getWaypoint(index);
+            if (!isWaypointVisible(nextWaypoint)) {
+                break;
+            }
+            waypoint = nextWaypoint;
+        }
+        return waypoint;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean isWaypointVisible(Vector2 waypoint) {
+        World world = mGameWorld.getBox2DWorld();
+        Body body = mStaticBodyFinder.find(world, mRacer.getPosition(), waypoint);
+        return body == null;
     }
 
     private void handleBonus(float dt) {

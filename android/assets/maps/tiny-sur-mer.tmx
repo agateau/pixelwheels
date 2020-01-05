@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="66" height="54" tilewidth="64" tileheight="64" nextobjectid="136">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="66" height="54" tilewidth="64" tileheight="64" nextobjectid="138">
  <tileset firstgid="1" name="city" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="128" columns="8">
   <image source="city.png" width="544" height="1088"/>
   <terraintypes>
@@ -342,7 +342,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup name="Obstacles" visible="0">
   <object id="1" x="768" y="704" width="256" height="1024"/>
   <object id="3" x="0" y="0" width="256" height="3456"/>
   <object id="6" x="256.079" y="1503.08" width="191.985" height="672.92"/>
@@ -443,67 +443,34 @@
   </object>
  </objectgroup>
  <objectgroup name="Waypoints">
-  <object id="54" x="542.907" y="1349.8">
+  <object id="55" x="581.705" y="559.354" width="19.3016" height="17.9311">
    <ellipse/>
   </object>
-  <object id="55" x="599.887" y="601.778" width="19.3016" height="17.9311">
-   <ellipse/>
-  </object>
-  <object id="56" x="681.133" y="541.881">
-   <ellipse/>
-  </object>
-  <object id="57" x="1058.74" y="518.561" width="25.2442" height="26.2482">
-   <ellipse/>
-  </object>
-  <object id="58" x="1261.46" y="1323.07" width="14" height="13.8377">
+  <object id="57" x="1170.86" y="527.652" width="25.2442" height="26.2482">
    <ellipse/>
   </object>
   <object id="59" x="1928.47" y="1370.59">
    <ellipse/>
   </object>
-  <object id="60" x="2631.79" y="406.291">
+  <object id="61" x="3702.84" y="1118.99">
    <ellipse/>
   </object>
-  <object id="61" x="3714.96" y="622.025">
+  <object id="64" x="3708.51" y="2965.5">
    <ellipse/>
   </object>
-  <object id="63" x="3775.47" y="2842.04">
+  <object id="67" x="581.705" y="2970.76">
    <ellipse/>
   </object>
-  <object id="64" x="3699.42" y="3001.86">
+  <object id="77" x="2480.4" y="512.697">
    <ellipse/>
   </object>
-  <object id="65" x="2835.74" y="2982.23">
-   <ellipse/>
-  </object>
-  <object id="67" x="815.038" y="2964.7">
-   <ellipse/>
-  </object>
-  <object id="77" x="2395.55" y="409.667">
-   <ellipse/>
-  </object>
-  <object id="79" x="3448.15" y="390.836">
-   <ellipse/>
-  </object>
-  <object id="80" x="578.543" y="2817.03">
-   <ellipse/>
-  </object>
-  <object id="81" x="1141.42" y="619.19" width="23.5414" height="26.6014">
-   <ellipse/>
-  </object>
-  <object id="71" x="2235.06" y="548.819">
+  <object id="79" x="3439.06" y="521.139">
    <ellipse/>
   </object>
   <object id="70" x="1395.94" y="1396.42" width="16.8377" height="14.8377">
    <ellipse/>
   </object>
-  <object id="92" x="536" y="2187" width="17" height="17">
-   <ellipse/>
-  </object>
-  <object id="94" x="611.635" y="2896.8" width="20.0783" height="20.0783">
-   <ellipse/>
-  </object>
-  <object id="95" x="3461.74" y="3050.39" width="23.1214" height="21.3428">
+  <object id="137" x="538" y="2190" width="18" height="20">
    <ellipse/>
   </object>
  </objectgroup>
