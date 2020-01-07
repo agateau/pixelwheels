@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
@@ -31,11 +32,11 @@ import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.utils.StaticBodyFinder;
 import com.agateau.utils.AgcMathUtils;
+import com.agateau.utils.Line;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
@@ -44,6 +45,10 @@ public class AIPilot implements Pilot {
     private static final float MAX_BLOCKED_DURATION = 1;
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private static final int MAX_FORWARD_WAYPOINTS = 2;
+
+    private final Vector2 mTmpVector1 = new Vector2();
+    private final Vector2 mTmpVector2 = new Vector2();
+    private final Vector2 mTmpVector3 = new Vector2();
 
     private final GameWorld mGameWorld;
     private final Track mTrack;
@@ -59,7 +64,25 @@ public class AIPilot implements Pilot {
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
 
-    private Vector2 mWaypoint;
+    private static class DebugInfo {
+        private final Line[] lines;
+
+        DebugInfo() {
+            lines = new Line[] {new Line(), new Line()};
+        }
+
+        void setLine(int idx, Vector2 p1, Vector2 p2) {
+            lines[idx].set(p1, p2);
+        }
+
+        void drawLine(ShapeRenderer renderer, int idx) {
+            Line line = lines[idx];
+            renderer.line(line.p1, line.p2);
+            DrawUtils.drawCross(renderer, line.p2, 12 * Constants.UNIT_FOR_PIXEL);
+        }
+    }
+
+    private DebugInfo mDebugInfo;
 
     public AIPilot(GameWorld gameWorld, Track track, Racer racer) {
         mGameWorld = gameWorld;
@@ -70,8 +93,8 @@ public class AIPilot implements Pilot {
                 renderer -> {
                     renderer.begin(ShapeRenderer.ShapeType.Line);
                     renderer.setColor(1, 0, 1, 1);
-                    renderer.line(mRacer.getPosition(), mWaypoint);
-                    DrawUtils.drawCross(renderer, mWaypoint, 12 * Constants.UNIT_FOR_PIXEL);
+                    mDebugInfo.drawLine(renderer, 0);
+                    mDebugInfo.drawLine(renderer, 1);
                     renderer.end();
                 };
         DebugShapeMap.getMap().put(this, debugShape);
@@ -79,6 +102,9 @@ public class AIPilot implements Pilot {
 
     @Override
     public void act(float dt) {
+        if (Debug.instance.showDebugLayer && mDebugInfo == null) {
+            mDebugInfo = new DebugInfo();
+        }
         handleBonus(dt);
         switch (mState) {
             case NORMAL:
@@ -174,14 +200,12 @@ public class AIPilot implements Pilot {
         vehicle.setSpeedLimiter(limit);
     }
 
-    private final Vector2 mTargetVector = new Vector2();
-
     private void updateDirection() {
-        mWaypoint = findNextWaypoint();
-        mTargetVector.set(mWaypoint.x - mRacer.getX(), mWaypoint.y - mRacer.getY());
+        Vector2 waypoint = findNextWaypoint();
+        mTmpVector1.set(waypoint).sub(mRacer.getPosition());
 
         Vehicle vehicle = mRacer.getVehicle();
-        float targetAngle = AgcMathUtils.normalizeAngle(mTargetVector.angle());
+        float targetAngle = AgcMathUtils.normalizeAngle(mTmpVector1.angle());
         float vehicleAngle = vehicle.getAngle();
         float deltaAngle = targetAngle - vehicleAngle;
         if (deltaAngle > 180) {
@@ -214,11 +238,33 @@ public class AIPilot implements Pilot {
         return waypoint;
     }
 
+    /** Check if both sides of the vehicle can "see" the waypoint */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isWaypointVisible(Vector2 waypoint) {
         World world = mGameWorld.getBox2DWorld();
-        Body body = mStaticBodyFinder.find(world, mRacer.getPosition(), waypoint);
-        return body == null;
+        Vector2 delta = mTmpVector1;
+        Vector2 position = mTmpVector2;
+        Vector2 adjustedWaypoint = mTmpVector3;
+
+        Vehicle vehicle = mRacer.getVehicle();
+        delta.set(0, vehicle.getHeight() / 2).rotate(vehicle.getAngle());
+
+        position.set(mRacer.getPosition()).add(delta);
+        adjustedWaypoint.set(waypoint).add(delta);
+        if (mStaticBodyFinder.find(world, position, adjustedWaypoint) != null) {
+            return false;
+        }
+        if (mDebugInfo != null) {
+            mDebugInfo.setLine(0, position, adjustedWaypoint);
+        }
+
+        delta.scl(-1);
+        position.set(mRacer.getPosition()).add(delta);
+        adjustedWaypoint.set(waypoint).add(delta);
+        if (mDebugInfo != null) {
+            mDebugInfo.setLine(1, position, adjustedWaypoint);
+        }
+        return mStaticBodyFinder.find(world, position, adjustedWaypoint) == null;
     }
 
     private void handleBonus(float dt) {
