@@ -202,10 +202,10 @@ public class AIPilot implements Pilot {
 
     private void updateDirection() {
         Vector2 waypoint = findNextWaypoint();
-        mTmpVector1.set(waypoint).sub(mRacer.getPosition());
+        float targetAngle = mTmpVector1.set(waypoint).sub(mRacer.getPosition()).angle();
+        targetAngle = AgcMathUtils.normalizeAngle(targetAngle);
 
         Vehicle vehicle = mRacer.getVehicle();
-        float targetAngle = AgcMathUtils.normalizeAngle(mTmpVector1.angle());
         float vehicleAngle = vehicle.getAngle();
         float deltaAngle = targetAngle - vehicleAngle;
         if (deltaAngle > 180) {
