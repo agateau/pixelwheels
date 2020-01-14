@@ -27,7 +27,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /** Helper class to check if there is a static body between two points */
 public class StaticBodyFinder {
-    private static class StaticBodyRayCastCallback implements RayCastCallback {
+    private final BodyFilter mFilter;
+
+    private class StaticBodyRayCastCallback implements RayCastCallback {
         Body mBody = null;
 
         @Override
@@ -35,6 +37,9 @@ public class StaticBodyFinder {
                 Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
             Body body = fixture.getBody();
             if (body.getType() == BodyDef.BodyType.StaticBody) {
+                if (mFilter != null && !mFilter.acceptBody(body)) {
+                    return -1;
+                }
                 mBody = body;
                 // We are done
                 return 0;
@@ -43,6 +48,18 @@ public class StaticBodyFinder {
                 return -1;
             }
         }
+    }
+
+    public interface BodyFilter {
+        boolean acceptBody(Body body);
+    }
+
+    public StaticBodyFinder() {
+        this(null);
+    }
+
+    public StaticBodyFinder(BodyFilter filter) {
+        mFilter = filter;
     }
 
     private final StaticBodyRayCastCallback mRayCastCallback = new StaticBodyRayCastCallback();
