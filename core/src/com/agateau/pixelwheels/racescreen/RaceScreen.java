@@ -109,6 +109,15 @@ public class RaceScreen extends ScreenAdapter {
         setupHud(mGameWorld.getTrack());
 
         mAudioClipper = createAudioClipper();
+
+        setupMineDropper();
+    }
+
+    private void setupMineDropper() {
+        // Bind the mine dropper to the free camera for now
+        if (Debug.instance.freeCamera) {
+            mGameWorld.addGameObject(new MineDropper(mGame, mGameWorld, mGameRenderer));
+        }
     }
 
     private void setupHud(Track track) {

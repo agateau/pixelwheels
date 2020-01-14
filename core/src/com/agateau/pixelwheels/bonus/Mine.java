@@ -67,8 +67,27 @@ public class Mine extends GameObjectAdapter
 
     private static final Vector2 sTmp = new Vector2();
 
-    public static Mine create(
+    public static Mine createAttachedMine(
             GameWorld gameWorld, Assets assets, AudioManager audioManager, Racer owner) {
+        Vehicle vehicle = owner.getVehicle();
+        sTmp.set(-vehicle.getWidth(), 0);
+        sTmp.rotate(vehicle.getAngle()).add(vehicle.getX(), vehicle.getY());
+
+        Mine mine = createInternal(gameWorld, assets, audioManager, sTmp);
+        mine.mOwner = owner;
+        mine.initJoint();
+        return mine;
+    }
+
+    public static Mine createDroppedMine(
+            GameWorld gameWorld, Assets assets, AudioManager audioManager, Vector2 position) {
+        Mine mine = createInternal(gameWorld, assets, audioManager, position);
+        mine.mBody.setType(BodyDef.BodyType.StaticBody);
+        return mine;
+    }
+
+    private static Mine createInternal(
+            GameWorld gameWorld, Assets assets, AudioManager audioManager, Vector2 position) {
         Mine mine = sPool.obtain();
         if (mine.mBodyDef == null) {
             mine.firstInit(assets);
@@ -76,14 +95,12 @@ public class Mine extends GameObjectAdapter
 
         mine.mGameWorld = gameWorld;
         mine.mAudioManager = audioManager;
-        mine.mOwner = owner;
+        mine.mOwner = null;
         mine.mTime = 0;
+        mine.mJoint = null;
         mine.setFinished(false);
 
-        Vehicle vehicle = owner.getVehicle();
-        sTmp.set(-vehicle.getWidth(), 0);
-        sTmp.rotate(vehicle.getAngle()).add(vehicle.getX(), vehicle.getY());
-        mine.mBodyDef.position.set(sTmp.x, sTmp.y);
+        mine.mBodyDef.position.set(position);
 
         mine.mBody = gameWorld.getBox2DWorld().createBody(mine.mBodyDef);
         mine.mBody.createFixture(mine.mShape, 0.00001f);
@@ -98,8 +115,6 @@ public class Mine extends GameObjectAdapter
                         | CollisionCategories.RACER_BULLET);
 
         gameWorld.addGameObject(mine);
-
-        mine.initJoint();
         return mine;
     }
 

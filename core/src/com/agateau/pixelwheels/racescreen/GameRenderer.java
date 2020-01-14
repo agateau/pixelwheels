@@ -31,6 +31,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
@@ -191,5 +193,13 @@ public class GameRenderer {
                 mCamera.position.y - height / 2,
                 width,
                 height);
+    }
+
+    private final Vector3 sTmp3 = new Vector3();
+
+    public void mapFromScreen(Vector2 coord) {
+        sTmp3.set(coord, 0);
+        mCamera.unproject(sTmp3);
+        coord.set(sTmp3.x, sTmp3.y);
     }
 }

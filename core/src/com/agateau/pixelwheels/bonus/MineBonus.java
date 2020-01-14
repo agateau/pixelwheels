@@ -40,7 +40,7 @@ public class MineBonus extends BonusAdapter implements Pool.Poolable {
     @Override
     public void onPicked(Racer racer) {
         super.onPicked(racer);
-        mMine = Mine.create(mGameWorld, mAssets, mAudioManager, mRacer);
+        mMine = Mine.createAttachedMine(mGameWorld, mAssets, mAudioManager, mRacer);
         mAiKeepTime = MathUtils.random(AI_KEEP_BONUS_MIN_TIME, AI_KEEP_BONUS_MAX_TIME);
     }
 
