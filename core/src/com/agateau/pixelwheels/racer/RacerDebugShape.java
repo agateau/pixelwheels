@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.utils.OrientedPoint;
+import com.agateau.utils.Line;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /** Draw racer-related debug shapes */
@@ -38,6 +39,15 @@ public class RacerDebugShape implements DebugShapeMap.Shape {
 
     @Override
     public void draw(ShapeRenderer renderer) {
+        Pilot pilot = mRacer.getPilot();
+        if (pilot instanceof AIPilot) {
+            renderAITargetWaypoint(renderer, (AIPilot) pilot);
+        } else {
+            renderWaypoints(renderer);
+        }
+    }
+
+    private void renderWaypoints(ShapeRenderer renderer) {
         WaypointStore store = mTrack.getWaypointStore();
 
         // Render next & prev waypoints, render projected point
@@ -57,6 +67,17 @@ public class RacerDebugShape implements DebugShapeMap.Shape {
         renderer.setColor(1, 1, 1, 1);
         DrawUtils.drawCross(renderer, point.x, point.y, radius);
 
+        renderer.end();
+    }
+
+    private void renderAITargetWaypoint(ShapeRenderer renderer, AIPilot pilot) {
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(1, 0, 1, 1);
+        AIPilot.DebugInfo debugInfo = pilot.getDebugInfo();
+        for (Line line : debugInfo.lines) {
+            renderer.line(line.p1, line.p2);
+            DrawUtils.drawCross(renderer, line.p2, 12 * Constants.UNIT_FOR_PIXEL);
+        }
         renderer.end();
     }
 }

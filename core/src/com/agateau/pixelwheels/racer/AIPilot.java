@@ -18,23 +18,19 @@
  */
 package com.agateau.pixelwheels.racer;
 
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.debug.Debug;
-import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.TrackStats;
-import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.utils.StaticBodyFinder;
 import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Line;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -64,8 +60,8 @@ public class AIPilot implements Pilot {
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
 
-    private static class DebugInfo {
-        private final Line[] lines;
+    static class DebugInfo {
+        final Line[] lines;
 
         DebugInfo() {
             lines = new Line[] {new Line(), new Line()};
@@ -73,12 +69,6 @@ public class AIPilot implements Pilot {
 
         void setLine(int idx, Vector2 p1, Vector2 p2) {
             lines[idx].set(p1, p2);
-        }
-
-        void drawLine(ShapeRenderer renderer, int idx) {
-            Line line = lines[idx];
-            renderer.line(line.p1, line.p2);
-            DrawUtils.drawCross(renderer, line.p2, 12 * Constants.UNIT_FOR_PIXEL);
         }
     }
 
@@ -88,16 +78,10 @@ public class AIPilot implements Pilot {
         mGameWorld = gameWorld;
         mTrack = track;
         mRacer = racer;
+    }
 
-        DebugShapeMap.Shape debugShape =
-                renderer -> {
-                    renderer.begin(ShapeRenderer.ShapeType.Line);
-                    renderer.setColor(1, 0, 1, 1);
-                    mDebugInfo.drawLine(renderer, 0);
-                    mDebugInfo.drawLine(renderer, 1);
-                    renderer.end();
-                };
-        DebugShapeMap.getMap().put(this, debugShape);
+    DebugInfo getDebugInfo() {
+        return mDebugInfo;
     }
 
     @Override
