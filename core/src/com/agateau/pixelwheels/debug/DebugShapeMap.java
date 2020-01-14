@@ -29,8 +29,8 @@ public class DebugShapeMap {
 
     private static final HashMap<Object, Shape> sMap = new HashMap<>();
 
-    public static HashMap<Object, Shape> getMap() {
-        return sMap;
+    public static Iterable<? extends Shape> values() {
+        return sMap.values();
     }
 
     public static void put(Object key, Shape shape) {

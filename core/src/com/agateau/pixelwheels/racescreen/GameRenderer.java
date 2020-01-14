@@ -94,20 +94,19 @@ public class GameRenderer {
     }
 
     private void setupWaypointDebugShape() {
-        DebugShapeMap.getMap()
-                .put(
-                        "waypoints",
-                        renderer -> {
-                            WaypointStore store = mTrack.getWaypointStore();
+        DebugShapeMap.put(
+                "waypoints",
+                renderer -> {
+                    WaypointStore store = mTrack.getWaypointStore();
 
-                            renderer.begin(ShapeRenderer.ShapeType.Line);
-                            for (int idx = 0; idx < store.getCount(); ++idx) {
-                                renderer.setColor(idx % 2, 1, 0, 1);
-                                int prevIdx = store.getPreviousIndex(idx);
-                                renderer.line(store.getWaypoint(prevIdx), store.getWaypoint(idx));
-                            }
-                            renderer.end();
-                        });
+                    renderer.begin(ShapeRenderer.ShapeType.Line);
+                    for (int idx = 0; idx < store.getCount(); ++idx) {
+                        renderer.setColor(idx % 2, 1, 0, 1);
+                        int prevIdx = store.getPreviousIndex(idx);
+                        renderer.line(store.getWaypoint(prevIdx), store.getWaypoint(idx));
+                    }
+                    renderer.end();
+                });
     }
 
     public void setScreenRect(int x, int y, int width, int height) {
@@ -176,7 +175,7 @@ public class GameRenderer {
                 mShapeRenderer.end();
             }
 
-            for (DebugShapeMap.Shape shape : DebugShapeMap.getMap().values()) {
+            for (DebugShapeMap.Shape shape : DebugShapeMap.values()) {
                 shape.draw(mShapeRenderer);
             }
 
