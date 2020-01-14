@@ -26,6 +26,7 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.map.WaypointStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -86,6 +87,27 @@ public class GameRenderer {
         mGameObjectPerformanceCounter = counters.add("- g.o.");
 
         mDebugRenderer.setDrawVelocities(Debug.instance.drawVelocities);
+
+        if (Debug.instance.showDebugLayer) {
+            setupWaypointDebugShape();
+        }
+    }
+
+    private void setupWaypointDebugShape() {
+        DebugShapeMap.getMap()
+                .put(
+                        "waypoints",
+                        renderer -> {
+                            WaypointStore store = mTrack.getWaypointStore();
+
+                            renderer.begin(ShapeRenderer.ShapeType.Line);
+                            for (int idx = 0; idx < store.getCount(); ++idx) {
+                                renderer.setColor(idx % 2, 1, 0, 1);
+                                int prevIdx = store.getPreviousIndex(idx);
+                                renderer.line(store.getWaypoint(prevIdx), store.getWaypoint(idx));
+                            }
+                            renderer.end();
+                        });
     }
 
     public void setScreenRect(int x, int y, int width, int height) {

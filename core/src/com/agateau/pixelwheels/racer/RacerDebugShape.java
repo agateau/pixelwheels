@@ -40,15 +40,6 @@ public class RacerDebugShape implements DebugShapeMap.Shape {
     public void draw(ShapeRenderer renderer) {
         WaypointStore store = mTrack.getWaypointStore();
 
-        // Render waypoints
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        for (int idx = 0; idx < store.getCount(); ++idx) {
-            renderer.setColor(idx % 2, 1, 0, 1);
-            int prevIdx = store.getPreviousIndex(idx);
-            renderer.line(store.getWaypoint(prevIdx), store.getWaypoint(idx));
-        }
-        renderer.end();
-
         // Render next & prev waypoints, render projected point
         float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
         int nextIdx = store.getWaypointIndex(lapDistance);
