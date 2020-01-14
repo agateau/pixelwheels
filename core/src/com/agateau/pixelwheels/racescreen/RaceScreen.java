@@ -93,6 +93,8 @@ public class RaceScreen extends ScreenAdapter {
         mListener = listener;
         mPauseButtons = pauseButtons;
 
+        DebugShapeMap.clear();
+
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorldImpl(game, gameInfo, mPerformanceCounters);

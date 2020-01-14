@@ -40,4 +40,8 @@ public class DebugShapeMap {
     public static void remove(Object key) {
         sMap.remove(key);
     }
+
+    public static void clear() {
+        sMap.clear();
+    }
 }
