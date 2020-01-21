@@ -26,9 +26,9 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -119,7 +119,7 @@ public class GameRenderer {
     }
 
     public void render(float delta) {
-        Gdx.gl.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
+        HdpiUtils.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
 
