@@ -19,16 +19,16 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.utils.ClosestBodyFinder;
+import com.agateau.pixelwheels.utils.ArcClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class ClosestRacerFinder {
-    private final ClosestBodyFinder mBodyFinder;
+    private final ArcClosestBodyFinder mBodyFinder;
     private final RacerBodyFilter mFilter = new RacerBodyFilter();
 
-    private static class RacerBodyFilter implements ClosestBodyFinder.BodyFilter {
+    private static class RacerBodyFilter implements ArcClosestBodyFinder.BodyFilter {
         Racer mIgnoredRacer;
 
         @Override
@@ -43,7 +43,7 @@ public class ClosestRacerFinder {
     }
 
     public ClosestRacerFinder(float depth, float arc) {
-        mBodyFinder = new ClosestBodyFinder(depth, arc);
+        mBodyFinder = new ArcClosestBodyFinder(depth, arc);
         mBodyFinder.setBodyFilter(mFilter);
     }
 

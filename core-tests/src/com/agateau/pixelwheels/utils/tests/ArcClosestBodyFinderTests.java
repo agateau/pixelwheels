@@ -21,7 +21,7 @@ package com.agateau.pixelwheels.utils.tests;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
 
-import com.agateau.pixelwheels.utils.StaticBodyFinder;
+import com.agateau.pixelwheels.utils.ArcClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -32,12 +32,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
-public class StaticBodyFinderTests {
+public class ArcClosestBodyFinderTests {
     @Test
     public void testEmpty() {
         World world = createWorld();
-        StaticBodyFinder finder = new StaticBodyFinder();
-        Body body = finder.find(world, new Vector2(0, 0), new Vector2(1, 1));
+        ArcClosestBodyFinder finder = new ArcClosestBodyFinder(1);
+        Body body = finder.find(world, new Vector2(0, 0), 45f);
 
         assertNull(body);
     }
@@ -45,46 +45,56 @@ public class StaticBodyFinderTests {
     @Test
     public void testOneFixture() {
         World world = createWorld();
-        StaticBodyFinder finder = new StaticBodyFinder();
-        Body target = createStaticBody(world, 1, 1);
+        ArcClosestBodyFinder finder = new ArcClosestBodyFinder(10);
+        Body target = createSquareBody(world, 1, 1);
 
-        Body found = finder.find(world, new Vector2(0, 0), new Vector2(0, 1));
+        Body found = finder.find(world, new Vector2(0, 0), 90);
         assertNull(found);
 
-        found = finder.find(world, new Vector2(0, 0), new Vector2(1, 1));
+        found = finder.find(world, new Vector2(0, 0), 45);
         assertEquals(target, found);
     }
 
     @Test
-    public void testDynamicBodyBetween() {
+    public void testTwoFixtures() {
         World world = createWorld();
-        StaticBodyFinder finder = new StaticBodyFinder();
-        Body staticBody = createStaticBody(world, 3, 3);
-        createDynamicBody(world, 1, 1);
+        ArcClosestBodyFinder finder = new ArcClosestBodyFinder(10);
+        Body closestBody = createSquareBody(world, 1, 1);
+        createSquareBody(world, 3, 3);
 
-        Body found = finder.find(world, new Vector2(0, 0), new Vector2(3, 3));
-        assertEquals(staticBody, found);
+        Body found = finder.find(world, new Vector2(0, 0), 45f);
+        assertEquals(closestBody, found);
+    }
+
+    @Test
+    public void testFilter() {
+        World world = createWorld();
+        ArcClosestBodyFinder finder = new ArcClosestBodyFinder(10);
+        final Body ignoredBody = createSquareBody(world, 1, 1);
+        Body acceptedBody = createSquareBody(world, 3, 3);
+
+        finder.setBodyFilter(body -> body != ignoredBody);
+
+        Body found = finder.find(world, new Vector2(0, 0), 45);
+        assertEquals(acceptedBody, found);
+    }
+
+    @Test
+    public void testArc() {
+        World world = createWorld();
+        ArcClosestBodyFinder finder = new ArcClosestBodyFinder(10, 90);
+        Body closestBody = createSquareBody(world, 0, 1);
+        createSquareBody(world, 3, 0);
+
+        Body found = finder.find(world, new Vector2(0, 0), 45f);
+        assertEquals(closestBody, found);
     }
 
     private World createWorld() {
         return new World(new Vector2(0, 0), true);
     }
 
-    private Body createStaticBody(World world, float x, float y) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(x, y);
-        Body body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f, 0.5f);
-        body.createFixture(shape, 0);
-
-        return body;
-    }
-
-    @SuppressWarnings("UnusedReturnValue")
-    private Body createDynamicBody(World world, float x, float y) {
+    private Body createSquareBody(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);

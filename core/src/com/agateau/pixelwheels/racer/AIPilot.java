@@ -27,12 +27,12 @@ import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.TrackStats;
-import com.agateau.pixelwheels.utils.StaticBodyFinder;
+import com.agateau.pixelwheels.utils.ClosestBodyFinder;
 import com.agateau.utils.AgcMathUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
@@ -44,16 +44,10 @@ public class AIPilot implements Pilot {
     // How much of the vehicle width to move the target to avoid a mine
     private static final float MINE_AVOIDANCE_FACTOR = 2;
 
-    class MineFilter implements StaticBodyFinder.BodyFilter {
-        Body mMine = null;
-
+    class MineFilter implements ClosestBodyFinder.BodyFilter {
         @Override
         public boolean acceptBody(Body body) {
-            if (body.getUserData() instanceof Mine) {
-                mMine = body;
-                return false;
-            }
-            return true;
+            return body.getType() == BodyDef.BodyType.StaticBody;
         }
     }
 
@@ -88,7 +82,7 @@ public class AIPilot implements Pilot {
     private final Racer mRacer;
 
     private final MineFilter mMineFilter = new MineFilter();
-    private final StaticBodyFinder mStaticBodyFinder = new StaticBodyFinder(mMineFilter);
+    private final ClosestBodyFinder mClosestBodyFinder = new ClosestBodyFinder(mMineFilter);
 
     private State mState = State.NORMAL;
     private float mBlockedDuration = 0;
@@ -176,7 +170,6 @@ public class AIPilot implements Pilot {
     }
 
     private void switchToBlocked() {
-        NLog.i("Racer %s blocked", mRacer);
         mState = State.BLOCKED;
         mReverseDuration = 0;
     }
@@ -266,29 +259,30 @@ public class AIPilot implements Pilot {
         // Check on the right
         position.set(mRacer.getPosition()).add(halfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
-        mMineFilter.mMine = null;
-        if (mStaticBodyFinder.find(world, position, adjustedTargetPos) != null) {
-            mNextTarget.reset();
-            return;
-        }
-        if (mMineFilter.mMine != null) {
-            halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-            mNextTarget.position.set(mMineFilter.mMine.getPosition()).add(halfWidth);
-            mNextTarget.score += Target.MINE_BETWEEN;
+        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body != null) {
+            if (isMine(body)) {
+                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
+                mNextTarget.position.set(body.getPosition()).add(halfWidth);
+                mNextTarget.score += Target.MINE_BETWEEN;
+            } else {
+                mNextTarget.reset();
+            }
             return;
         }
 
         // Check on the left
         position.set(mRacer.getPosition()).sub(halfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
-        if (mStaticBodyFinder.find(world, position, adjustedTargetPos) != null) {
-            mNextTarget.reset();
-            return;
-        }
-        if (mMineFilter.mMine != null) {
-            halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-            mNextTarget.position.set(mMineFilter.mMine.getPosition()).sub(halfWidth);
-            mNextTarget.score += Target.MINE_BETWEEN;
+        body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body != null) {
+            if (isMine(body)) {
+                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
+                mNextTarget.position.set(body.getPosition()).sub(halfWidth);
+                mNextTarget.score += Target.MINE_BETWEEN;
+            } else {
+                mNextTarget.reset();
+            }
             return;
         }
 
@@ -301,5 +295,9 @@ public class AIPilot implements Pilot {
         if (bonus != null) {
             bonus.aiAct(dt);
         }
+    }
+
+    private static boolean isMine(Body body) {
+        return body.getUserData() instanceof Mine;
     }
 }
