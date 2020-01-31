@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.utils.tests;
 
+import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.IGNORE;
+import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.STOP_SUCCESS;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
 
@@ -73,7 +75,7 @@ public class ArcClosestBodyFinderTests {
         final Body ignoredBody = createSquareBody(world, 1, 1);
         Body acceptedBody = createSquareBody(world, 3, 3);
 
-        finder.setBodyFilter(body -> body != ignoredBody);
+        finder.setBodyFilter(body -> body == ignoredBody ? IGNORE : STOP_SUCCESS);
 
         Body found = finder.find(world, new Vector2(0, 0), 45);
         assertEquals(acceptedBody, found);

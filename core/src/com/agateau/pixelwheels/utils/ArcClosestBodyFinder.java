@@ -31,19 +31,28 @@ import com.badlogic.gdx.physics.box2d.World;
  * poolable object
  */
 public class ArcClosestBodyFinder implements RayCastCallback {
+    public enum FilterResult {
+        IGNORE,
+        STOP_FAILED,
+        STOP_SUCCESS
+    }
+
+    public interface BodyFilter {
+        FilterResult filter(Body body);
+    }
+
     private static final float ANGLE_BETWEEN_RAYS = 3;
     private final float mDepth;
     private final float mArc;
-    private BodyFilter mBodyFilter = null;
-    private Body mBody = null;
+    private BodyFilter mBodyFilter = sDefaultBodyFilter;
+    private Body mBody;
     private float mFraction;
+
+    /** Default filter which reports success on first hit */
+    private static BodyFilter sDefaultBodyFilter = body -> FilterResult.STOP_SUCCESS;
 
     // Work vars
     private final Vector2 mTmp = new Vector2();
-
-    public interface BodyFilter {
-        boolean acceptBody(Body body);
-    }
 
     public ArcClosestBodyFinder(float depth) {
         this(depth, 0);
@@ -81,15 +90,20 @@ public class ArcClosestBodyFinder implements RayCastCallback {
     @Override
     public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
         if (mFraction < fraction) {
-            // Too far, no need to go further
+            // Too far, no need to look further
             return mFraction;
         }
         Body body = fixture.getBody();
-        if (mBodyFilter != null && !mBodyFilter.acceptBody(body)) {
-            return -1;
+        switch (mBodyFilter.filter(body)) {
+            case IGNORE:
+                return -1;
+            case STOP_FAILED:
+                return 0;
+            case STOP_SUCCESS:
+                mFraction = fraction;
+                mBody = body;
+                break;
         }
-        mFraction = fraction;
-        mBody = body;
         return fraction;
     }
 }

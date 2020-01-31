@@ -59,7 +59,8 @@ public class ClosestBodyFinderTests {
     public void testFilter() {
         World world = createWorld();
         // Create a finder which only accepts static body and place a dynamic body closer
-        ClosestBodyFinder finder = new ClosestBodyFinder(body -> body.getType() == BodyDef.BodyType.StaticBody);
+        ClosestBodyFinder finder =
+                new ClosestBodyFinder(body -> body.getType() == BodyDef.BodyType.StaticBody);
         Body staticBody = createStaticBody(world, 3, 3);
         createDynamicBody(world, 1, 1);
 
