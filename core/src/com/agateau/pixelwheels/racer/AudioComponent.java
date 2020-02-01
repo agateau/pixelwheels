@@ -18,18 +18,25 @@
  */
 package com.agateau.pixelwheels.racer;
 
+import com.agateau.pixelwheels.BodyIdentifier;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
+import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 /** A component to play the racer audio */
-class AudioComponent implements Racer.Component, Disposable {
+class AudioComponent implements Racer.Component, Disposable, Collidable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
     private static final float MIN_IMPACT_SPEED = 3;
 
@@ -132,7 +139,7 @@ class AudioComponent implements Racer.Component, Disposable {
         mTurboTriggered = true;
     }
 
-    public void onCollision() {
+    private void onCollision() {
         if (mRacer.getVehicle().getSpeed() > MIN_IMPACT_SPEED) {
             mJustCollided = true;
         }
@@ -147,4 +154,18 @@ class AudioComponent implements Racer.Component, Disposable {
             soundPlayer.stop();
         }
     }
+
+    @Override
+    public void beginContact(Contact contact, Fixture otherFixture) {}
+
+    @Override
+    public void endContact(Contact contact, Fixture otherFixture) {}
+
+    @Override
+    public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
+        onCollision();
+    }
+
+    @Override
+    public void postSolve(Contact contact, Fixture otherFixture, ContactImpulse impulse) {}
 }
