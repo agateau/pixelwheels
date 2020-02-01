@@ -36,8 +36,8 @@ public class ClosestBodyFinderTests {
     @Test
     public void testEmpty() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(1);
-        Body body = finder.find(world, new Vector2(0, 0), 45f);
+        ClosestBodyFinder finder = new ClosestBodyFinder();
+        Body body = finder.find(world, new Vector2(0, 0), new Vector2(1, 1));
 
         assertNull(body);
     }
@@ -45,56 +45,48 @@ public class ClosestBodyFinderTests {
     @Test
     public void testOneFixture() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(10);
-        Body target = createSquareBody(world, 1, 1);
+        ClosestBodyFinder finder = new ClosestBodyFinder();
+        Body target = createStaticBody(world, 1, 1);
 
-        Body found = finder.find(world, new Vector2(0, 0), 90);
+        Body found = finder.find(world, new Vector2(0, 0), new Vector2(0, 1));
         assertNull(found);
 
-        found = finder.find(world, new Vector2(0, 0), 45);
+        found = finder.find(world, new Vector2(0, 0), new Vector2(1, 1));
         assertEquals(target, found);
-    }
-
-    @Test
-    public void testTwoFixtures() {
-        World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(10);
-        Body closestBody = createSquareBody(world, 1, 1);
-        createSquareBody(world, 3, 3);
-
-        Body found = finder.find(world, new Vector2(0, 0), 45f);
-        assertEquals(closestBody, found);
     }
 
     @Test
     public void testFilter() {
         World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(10);
-        final Body ignoredBody = createSquareBody(world, 1, 1);
-        Body acceptedBody = createSquareBody(world, 3, 3);
+        // Create a finder which only accepts static body and place a dynamic body closer
+        ClosestBodyFinder finder =
+                new ClosestBodyFinder(body -> body.getType() == BodyDef.BodyType.StaticBody);
+        Body staticBody = createStaticBody(world, 3, 3);
+        createDynamicBody(world, 1, 1);
 
-        finder.setBodyFilter(body -> body != ignoredBody);
-
-        Body found = finder.find(world, new Vector2(0, 0), 45);
-        assertEquals(acceptedBody, found);
-    }
-
-    @Test
-    public void testArc() {
-        World world = createWorld();
-        ClosestBodyFinder finder = new ClosestBodyFinder(10, 90);
-        Body closestBody = createSquareBody(world, 0, 1);
-        createSquareBody(world, 3, 0);
-
-        Body found = finder.find(world, new Vector2(0, 0), 45f);
-        assertEquals(closestBody, found);
+        Body found = finder.find(world, new Vector2(0, 0), new Vector2(3, 3));
+        assertEquals(staticBody, found);
     }
 
     private World createWorld() {
         return new World(new Vector2(0, 0), true);
     }
 
-    private Body createSquareBody(World world, float x, float y) {
+    private Body createStaticBody(World world, float x, float y) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(x, y);
+        Body body = world.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(0.5f, 0.5f);
+        body.createFixture(shape, 0);
+
+        return body;
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    private Body createDynamicBody(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2020 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -24,72 +24,43 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 
-/**
- * An helper class to find the closest body using a raycast
- *
- * <p>World is not passed to the constructor to make it easier for the class to be used in a
- * poolable object
- */
-public class ClosestBodyFinder implements RayCastCallback {
-    private static final float ANGLE_BETWEEN_RAYS = 3;
-    private final float mDepth;
-    private final float mArc;
-    private BodyFilter mBodyFilter = null;
-    private Body mBody = null;
-    private float mFraction;
+/** Helper class to find the closest body between two points */
+public class ClosestBodyFinder {
+    private final BodyFilter mFilter;
 
-    // Work vars
-    private final Vector2 mTmp = new Vector2();
+    private class StaticBodyRayCastCallback implements RayCastCallback {
+        Body mBody = null;
+
+        @Override
+        public float reportRayFixture(
+                Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+            Body body = fixture.getBody();
+            if (mFilter == null || mFilter.acceptBody(body)) {
+                mBody = body;
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
 
     public interface BodyFilter {
         boolean acceptBody(Body body);
     }
 
-    public ClosestBodyFinder(float depth) {
-        this(depth, 0);
+    public ClosestBodyFinder() {
+        this(null);
     }
 
-    public ClosestBodyFinder(float depth, float arc) {
-        mDepth = depth;
-        mArc = arc;
+    public ClosestBodyFinder(BodyFilter filter) {
+        mFilter = filter;
     }
 
-    public void setBodyFilter(BodyFilter bodyFilter) {
-        mBodyFilter = bodyFilter;
-    }
+    private final StaticBodyRayCastCallback mRayCastCallback = new StaticBodyRayCastCallback();
 
-    public Body find(World world, Vector2 origin, float angle) {
-        mFraction = 1;
-        mBody = null;
-        for (float a = angle - mArc / 2; a <= angle + mArc / 2; a += ANGLE_BETWEEN_RAYS) {
-            mTmp.set(mDepth, 0).rotate(a).add(origin);
-            world.rayCast(this, origin, mTmp);
-        }
-        return mBody;
-    }
-
-    public Vector2 getLeftVertex(Vector2 origin, float angle) {
-        mTmp.set(mDepth, 0).rotate(angle + mArc / 2).add(origin);
-        return mTmp;
-    }
-
-    public Vector2 getRightVertex(Vector2 origin, float angle) {
-        mTmp.set(mDepth, 0).rotate(angle - mArc / 2).add(origin);
-        return mTmp;
-    }
-
-    @Override
-    public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-        if (mFraction < fraction) {
-            // Too far, no need to go further
-            return mFraction;
-        }
-        Body body = fixture.getBody();
-        if (mBodyFilter != null && !mBodyFilter.acceptBody(body)) {
-            return -1;
-        }
-        mFraction = fraction;
-        mBody = body;
-        return fraction;
+    public Body find(World world, Vector2 point1, Vector2 point2) {
+        mRayCastCallback.mBody = null;
+        world.rayCast(mRayCastCallback, point1, point2);
+        return mRayCastCallback.mBody;
     }
 }

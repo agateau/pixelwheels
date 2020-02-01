@@ -18,23 +18,34 @@
  */
 package com.agateau.pixelwheels.bonus;
 
+import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.IGNORE;
+import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.STOP_FAILED;
+import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.STOP_SUCCESS;
+
 import com.agateau.pixelwheels.racer.Racer;
-import com.agateau.pixelwheels.utils.ClosestBodyFinder;
+import com.agateau.pixelwheels.utils.ArcClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class ClosestRacerFinder {
-    private final ClosestBodyFinder mBodyFinder;
+    private final ArcClosestBodyFinder mBodyFinder;
     private final RacerBodyFilter mFilter = new RacerBodyFilter();
 
-    private static class RacerBodyFilter implements ClosestBodyFinder.BodyFilter {
+    private static class RacerBodyFilter implements ArcClosestBodyFinder.BodyFilter {
         Racer mIgnoredRacer;
 
         @Override
-        public boolean acceptBody(Body body) {
+        public ArcClosestBodyFinder.FilterResult filter(Body body) {
+            if (body.getType() == BodyDef.BodyType.StaticBody) {
+                return STOP_FAILED;
+            }
             Object userData = body.getUserData();
-            return userData instanceof Racer && userData != mIgnoredRacer;
+            if (!(userData instanceof Racer) || userData == mIgnoredRacer) {
+                return IGNORE;
+            }
+            return STOP_SUCCESS;
         }
     }
 
@@ -43,7 +54,7 @@ public class ClosestRacerFinder {
     }
 
     public ClosestRacerFinder(float depth, float arc) {
-        mBodyFinder = new ClosestBodyFinder(depth, arc);
+        mBodyFinder = new ArcClosestBodyFinder(depth, arc);
         mBodyFinder.setBodyFilter(mFilter);
     }
 

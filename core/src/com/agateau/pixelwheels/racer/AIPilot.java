@@ -21,18 +21,18 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
-import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.bonus.Mine;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.TrackStats;
-import com.agateau.pixelwheels.utils.StaticBodyFinder;
+import com.agateau.pixelwheels.utils.ClosestBodyFinder;
 import com.agateau.utils.AgcMathUtils;
-import com.agateau.utils.Line;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
@@ -41,6 +41,37 @@ public class AIPilot implements Pilot {
     private static final float MAX_BLOCKED_DURATION = 1;
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private static final int MAX_FORWARD_WAYPOINTS = 2;
+    // How much of the vehicle width to move the target to avoid a mine
+    private static final float MINE_AVOIDANCE_FACTOR = 2;
+
+    class MineFilter implements ClosestBodyFinder.BodyFilter {
+        @Override
+        public boolean acceptBody(Body body) {
+            return body.getType() == BodyDef.BodyType.StaticBody;
+        }
+    }
+
+    private enum State {
+        NORMAL,
+        BLOCKED,
+    }
+
+    private static class Target {
+        static final float MIN_SCORE = -Float.MIN_VALUE;
+        static final float MINE_BETWEEN = 0.5f;
+        static final float NO_OBSTACLES = 1f;
+        final Vector2 position = new Vector2();
+        float score = MIN_SCORE;
+
+        public void reset() {
+            score = MIN_SCORE;
+        }
+
+        public void set(Vector2 position, float score) {
+            this.position.set(position);
+            this.score = score;
+        }
+    }
 
     private final Vector2 mTmpVector1 = new Vector2();
     private final Vector2 mTmpVector2 = new Vector2();
@@ -49,30 +80,16 @@ public class AIPilot implements Pilot {
     private final GameWorld mGameWorld;
     private final Track mTrack;
     private final Racer mRacer;
-    private final StaticBodyFinder mStaticBodyFinder = new StaticBodyFinder();
 
-    private enum State {
-        NORMAL,
-        BLOCKED,
-    }
+    private final MineFilter mMineFilter = new MineFilter();
+    private final ClosestBodyFinder mClosestBodyFinder = new ClosestBodyFinder(mMineFilter);
 
     private State mState = State.NORMAL;
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
 
-    static class DebugInfo {
-        final Line[] lines;
-
-        DebugInfo() {
-            lines = new Line[] {new Line(), new Line()};
-        }
-
-        void setLine(int idx, Vector2 p1, Vector2 p2) {
-            lines[idx].set(p1, p2);
-        }
-    }
-
-    private DebugInfo mDebugInfo;
+    private final Target mTarget = new Target();
+    private final Target mNextTarget = new Target();
 
     public AIPilot(GameWorld gameWorld, Track track, Racer racer) {
         mGameWorld = gameWorld;
@@ -80,15 +97,12 @@ public class AIPilot implements Pilot {
         mRacer = racer;
     }
 
-    DebugInfo getDebugInfo() {
-        return mDebugInfo;
+    Vector2 getTargetPosition() {
+        return mTarget.position;
     }
 
     @Override
     public void act(float dt) {
-        if (Debug.instance.showDebugLayer && mDebugInfo == null) {
-            mDebugInfo = new DebugInfo();
-        }
         handleBonus(dt);
         switch (mState) {
             case NORMAL:
@@ -141,17 +155,23 @@ public class AIPilot implements Pilot {
     private void actNormal(float dt) {
         updateAcceleration();
         updateDirection();
+        if (mState == State.BLOCKED) {
+            return;
+        }
         float speed = mRacer.getVehicle().getSpeed();
         if (mGameWorld.getState() == GameWorld.State.RUNNING && speed < MIN_NORMAL_SPEED) {
             mBlockedDuration += dt;
             if (mBlockedDuration > MAX_BLOCKED_DURATION) {
-                NLog.i("Racer %s blocked", mRacer);
-                mState = State.BLOCKED;
-                mReverseDuration = 0;
+                switchToBlocked();
             }
         } else {
             mBlockedDuration = 0;
         }
+    }
+
+    private void switchToBlocked() {
+        mState = State.BLOCKED;
+        mReverseDuration = 0;
     }
 
     private void actBlocked(float dt) {
@@ -185,8 +205,12 @@ public class AIPilot implements Pilot {
     }
 
     private void updateDirection() {
-        Vector2 waypoint = findNextWaypoint();
-        float targetAngle = mTmpVector1.set(waypoint).sub(mRacer.getPosition()).angle();
+        Target target = findBestTarget();
+        if (target == null) {
+            switchToBlocked();
+            return;
+        }
+        float targetAngle = mTmpVector1.set(target.position).sub(mRacer.getPosition()).angle();
         targetAngle = AgcMathUtils.normalizeAngle(targetAngle);
 
         Vehicle vehicle = mRacer.getVehicle();
@@ -201,54 +225,69 @@ public class AIPilot implements Pilot {
         vehicle.setDirection(direction);
     }
 
-    private Vector2 findNextWaypoint() {
+    private Target findBestTarget() {
         float lapDistance = mRacer.getLapPositionComponent().getLapDistance();
         WaypointStore store = mTrack.getWaypointStore();
-        int index = store.getWaypointIndex(lapDistance);
-        Vector2 waypoint = store.getWaypoint(index);
-        if (!isWaypointVisible(waypoint)) {
-            NLog.e("Current waypoint is not visible, we might get blocked");
-            return waypoint;
-        }
-        Vector2 nextWaypoint;
-        for (int i = 0; i < MAX_FORWARD_WAYPOINTS; ++i) {
-            index = store.getNextIndex(index);
-            nextWaypoint = store.getWaypoint(index);
-            if (!isWaypointVisible(nextWaypoint)) {
-                break;
+
+        // Start at the previous index, as a fallback in case the next waypoints are not visible
+        int index = store.getPreviousIndex(store.getWaypointIndex(lapDistance));
+        mTarget.reset();
+        for (int i = -1; i < MAX_FORWARD_WAYPOINTS; ++i, index = store.getNextIndex(index)) {
+            mNextTarget.position.set(store.getWaypoint(index));
+            mNextTarget.score = (float) i;
+            updateNextTarget();
+            if (mNextTarget.score > mTarget.score) {
+                mTarget.set(mNextTarget.position, mNextTarget.score);
             }
-            waypoint = nextWaypoint;
         }
-        return waypoint;
+
+        if (mTarget.score <= Target.MIN_SCORE) {
+            return null;
+        }
+        return mTarget;
     }
 
-    /** Check if both sides of the vehicle can "see" the waypoint */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isWaypointVisible(Vector2 waypoint) {
+    private void updateNextTarget() {
         World world = mGameWorld.getBox2DWorld();
-        Vector2 delta = mTmpVector1;
+        Vector2 halfWidth = mTmpVector1;
         Vector2 position = mTmpVector2;
-        Vector2 adjustedWaypoint = mTmpVector3;
+        Vector2 adjustedTargetPos = mTmpVector3;
 
         Vehicle vehicle = mRacer.getVehicle();
-        delta.set(0, vehicle.getHeight() / 2).rotate(vehicle.getAngle());
+        halfWidth.set(0, vehicle.getHeight() / 2).rotate(vehicle.getAngle());
 
-        position.set(mRacer.getPosition()).add(delta);
-        adjustedWaypoint.set(waypoint).add(delta);
-        if (mStaticBodyFinder.find(world, position, adjustedWaypoint) != null) {
-            return false;
-        }
-        if (mDebugInfo != null) {
-            mDebugInfo.setLine(0, position, adjustedWaypoint);
+        // Check on the right
+        position.set(mRacer.getPosition()).add(halfWidth);
+        adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
+        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body != null) {
+            if (isMine(body)) {
+                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
+                mNextTarget.position.set(body.getPosition()).add(halfWidth);
+                mNextTarget.score += Target.MINE_BETWEEN;
+            } else {
+                mNextTarget.reset();
+            }
+            return;
         }
 
-        delta.scl(-1);
-        position.set(mRacer.getPosition()).add(delta);
-        adjustedWaypoint.set(waypoint).add(delta);
-        if (mDebugInfo != null) {
-            mDebugInfo.setLine(1, position, adjustedWaypoint);
+        // Check on the left
+        position.set(mRacer.getPosition()).sub(halfWidth);
+        adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
+        body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body != null) {
+            if (isMine(body)) {
+                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
+                mNextTarget.position.set(body.getPosition()).sub(halfWidth);
+                mNextTarget.score += Target.MINE_BETWEEN;
+            } else {
+                mNextTarget.reset();
+            }
+            return;
         }
-        return mStaticBodyFinder.find(world, position, adjustedWaypoint) == null;
+
+        // Nothing between vehicle and target
+        mNextTarget.score += Target.NO_OBSTACLES;
     }
 
     private void handleBonus(float dt) {
@@ -256,5 +295,9 @@ public class AIPilot implements Pilot {
         if (bonus != null) {
             bonus.aiAct(dt);
         }
+    }
+
+    private static boolean isMine(Body body) {
+        return body.getUserData() instanceof Mine;
     }
 }
