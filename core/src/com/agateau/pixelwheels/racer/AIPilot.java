@@ -18,10 +18,10 @@
  */
 package com.agateau.pixelwheels.racer;
 
+import com.agateau.pixelwheels.BodyIdentifier;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
-import com.agateau.pixelwheels.bonus.Mine;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
@@ -32,7 +32,6 @@ import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
@@ -47,7 +46,7 @@ public class AIPilot implements Pilot {
     class MineFilter implements ClosestBodyFinder.BodyFilter {
         @Override
         public boolean acceptBody(Body body) {
-            return body.getType() == BodyDef.BodyType.StaticBody;
+            return BodyIdentifier.isStaticObstacle(body);
         }
     }
 
@@ -261,7 +260,7 @@ public class AIPilot implements Pilot {
         adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
         Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
         if (body != null) {
-            if (isMine(body)) {
+            if (BodyIdentifier.isMine(body)) {
                 halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
                 mNextTarget.position.set(body.getPosition()).add(halfWidth);
                 mNextTarget.score += Target.MINE_BETWEEN;
@@ -276,7 +275,7 @@ public class AIPilot implements Pilot {
         adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
         body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
         if (body != null) {
-            if (isMine(body)) {
+            if (BodyIdentifier.isMine(body)) {
                 halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
                 mNextTarget.position.set(body.getPosition()).sub(halfWidth);
                 mNextTarget.score += Target.MINE_BETWEEN;
@@ -295,9 +294,5 @@ public class AIPilot implements Pilot {
         if (bonus != null) {
             bonus.aiAct(dt);
         }
-    }
-
-    private static boolean isMine(Body body) {
-        return body.getUserData() instanceof Mine;
     }
 }

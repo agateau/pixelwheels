@@ -217,7 +217,6 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
         Object other = otherFixture.getBody().getUserData();
-        mAudioComponent.onCollision();
         if (other instanceof Racer) {
             contact.setEnabled(false);
             applySimplifiedRacerCollision((Racer) other);
