@@ -352,13 +352,13 @@
   <object id="12" x="2880" y="704" width="384" height="384"/>
   <object id="13" x="2624" y="704" width="256" height="384"/>
   <object id="14" x="3264" y="832" width="192" height="256"/>
-  <object id="16" x="3843.2" y="190.12" width="256" height="320"/>
+  <object id="16" x="3843.2" y="190.12" width="380.8" height="320"/>
   <object id="17" x="3971.2" y="513.439" width="128" height="574.561"/>
   <object id="18" x="1536" y="2.30338" width="2176" height="253.697"/>
   <object id="19" x="1536" y="0" width="253.98" height="1088"/>
   <object id="20" x="1792" y="0" width="256" height="448"/>
-  <object id="21" x="4162.48" y="962.84" width="59.6659" height="2496"/>
-  <object id="29" x="2560" y="3392" width="1600" height="66.4825"/>
+  <object id="21" x="4162.48" y="512" width="61.52" height="2944"/>
+  <object id="29" x="2560" y="3392" width="1600" height="64"/>
   <object id="31" x="1054.85" y="2686.43" width="609.15" height="192.889"/>
   <object id="32" x="1056.36" y="3072" width="607.64" height="197.582"/>
   <object id="33" x="2176" y="2368" width="384" height="320"/>
