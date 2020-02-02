@@ -163,7 +163,10 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
 
     @Override
     public void preSolve(Contact contact, Fixture otherFixture, Manifold oldManifold) {
-        onCollision();
+        Body otherBody = otherFixture.getBody();
+        if (BodyIdentifier.isVehicle(otherBody) || BodyIdentifier.isWall(otherBody)) {
+            onCollision();
+        }
     }
 
     @Override
