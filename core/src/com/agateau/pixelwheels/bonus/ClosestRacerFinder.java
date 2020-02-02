@@ -22,11 +22,11 @@ import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.IG
 import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.STOP_FAILED;
 import static com.agateau.pixelwheels.utils.ArcClosestBodyFinder.FilterResult.STOP_SUCCESS;
 
+import com.agateau.pixelwheels.BodyIdentifier;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.ArcClosestBodyFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class ClosestRacerFinder {
@@ -38,7 +38,7 @@ public class ClosestRacerFinder {
 
         @Override
         public ArcClosestBodyFinder.FilterResult filter(Body body) {
-            if (body.getType() == BodyDef.BodyType.StaticBody) {
+            if (BodyIdentifier.isStaticObstacle(body)) {
                 return STOP_FAILED;
             }
             Object userData = body.getUserData();
