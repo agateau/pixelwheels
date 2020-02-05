@@ -287,28 +287,28 @@
   <properties>
    <property name="direction" value="90"/>
   </properties>
-  <object id="30" x="1280.09" y="703.41" width="64" height="64">
+  <object id="30" x="1283.35" y="589.403" width="64" height="64">
    <ellipse/>
   </object>
   <object id="32" x="635.762" y="820.188" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="34" x="2560.66" y="637.889" width="64" height="64">
+  <object id="34" x="2492.26" y="704.664" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="37" x="2057.08" y="1663.9" width="64" height="64">
+  <object id="37" x="2174.34" y="1602.01" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="38" x="2051.9" y="1094.38" width="64" height="64">
+  <object id="38" x="1921.61" y="1211.64" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="40" x="1129.89" y="1218.94" width="64" height="64">
+  <object id="40" x="1348.13" y="1218.94" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="42" x="768.144" y="1532.61" width="64" height="64">
+  <object id="42" x="637.851" y="1470.72" width="64" height="64">
    <ellipse/>
   </object>
-  <object id="43" x="2560" y="1662.07" width="64" height="64">
+  <object id="43" x="2429.71" y="1531.78" width="64" height="64">
    <ellipse/>
   </object>
  </objectgroup>

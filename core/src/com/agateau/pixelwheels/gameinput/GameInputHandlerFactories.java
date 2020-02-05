@@ -60,10 +60,6 @@ public class GameInputHandlerFactories {
         return mFactories.first();
     }
 
-    public static boolean hasKeyboard() {
-        return Gdx.input.isPeripheralAvailable(Input.Peripheral.HardwareKeyboard);
-    }
-
     public static boolean hasMultitouch() {
         return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)
                 || GamePlay.instance.alwaysShowTouchInput;
@@ -74,13 +70,19 @@ public class GameInputHandlerFactories {
             return;
         }
         mFactories = new Array<>();
-        if (hasKeyboard()) {
-            mFactories.add(new KeyboardInputHandler.Factory());
-        }
+
         if (hasMultitouch()) {
             mFactories.add(new PieTouchInputHandler.Factory());
             mFactories.add(new SidesTouchInputHandler.Factory());
         }
+        // We used to only add the keyboard input handler if this returned true:
+        //
+        //   Gdx.input.isPeripheralAvailable(Input.Peripheral.HardwareKeyboard)
+        //
+        // but it always returned false on Android (at least with libgdx 1.9.8).
+        // Since it does not hurt to have it always there, add it unconditionally
+        // so that playing with the keyboard works on Android.
+        mFactories.add(new KeyboardInputHandler.Factory());
         mFactories.add(new GamepadInputHandler.Factory());
     }
 }
