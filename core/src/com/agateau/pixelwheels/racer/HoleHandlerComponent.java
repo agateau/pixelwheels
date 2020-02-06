@@ -27,8 +27,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/** Handles collisions */
-public class GroundCollisionHandlerComponent implements Racer.Component {
+/** Handles falling in holes */
+public class HoleHandlerComponent implements Racer.Component {
     private static final float LIFTING_DELAY = 0.5f;
     private static final float MAX_RECOVERING_SPEED = 20;
     private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
@@ -55,7 +55,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private State mState = State.NORMAL;
     private float mTime;
 
-    public GroundCollisionHandlerComponent(
+    public HoleHandlerComponent(
             Assets assets,
             GameWorld gameWorld,
             Racer racer,
@@ -70,6 +70,10 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
 
     public State getState() {
         return mState;
+    }
+
+    public Vehicle getVehicle() {
+        return mVehicle;
     }
 
     @Override
@@ -104,12 +108,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
 
     private void switchToFallingState() {
         mHelicopter =
-                Helicopter.create(
-                        mAssets,
-                        mRacer.getAudioManager(),
-                        mGameWorld.getTrack(),
-                        mVehicle.getPosition(),
-                        mVehicle.getAngle());
+                Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getTrack(), this);
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
@@ -118,7 +117,6 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private void actFalling(float delta) {
         mTime = Math.min(mTime + delta, LIFTING_DELAY);
         mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
-        mHelicopter.setEndPosition(mVehicle.getPosition());
 
         if (!isInHole()) {
             switchToClimbingState();
@@ -212,13 +210,12 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     }
 
     private void switchToNormalState() {
-        mHelicopter.leave();
         mVehicle.setZ(0);
         mVehicle.setStopped(false);
         mState = State.NORMAL;
     }
 
-    private boolean isInHole() {
+    public boolean isInHole() {
         return mGameWorld.getTrack().getMaterialAt(mVehicle.getPosition()).isHole();
     }
 }

@@ -26,6 +26,8 @@ import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.map.Track;
+import com.agateau.pixelwheels.racer.HoleHandlerComponent;
+import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.badlogic.gdx.Gdx;
@@ -69,6 +71,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private TextureRegion mBodyRegion;
     private TextureRegion mPropellerRegion;
     private TextureRegion mPropellerTopRegion;
+    private HoleHandlerComponent mHoleHandlerComponent;
     private final Vector2 mPosition = new Vector2();
     private float mAngle;
     private final Vector2 mStartPosition = new Vector2();
@@ -83,8 +86,8 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
             Assets assets,
             AudioManager audioManager,
             Track track,
-            Vector2 vehiclePosition,
-            float vehicleAngle) {
+            HoleHandlerComponent holeHandlerComponent) {
+        Vehicle vehicle = holeHandlerComponent.getVehicle();
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
@@ -98,13 +101,14 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         object.mBodyRegion = assets.helicopterBody;
         object.mPropellerRegion = assets.helicopterPropeller;
         object.mPropellerTopRegion = assets.helicopterPropellerTop;
-        object.mPosition.set(vehiclePosition.x, -height);
+        object.mHoleHandlerComponent = holeHandlerComponent;
+        object.mPosition.set(vehicle.getPosition().x, -height);
         object.mAngle = 0;
         object.mStartPosition.set(object.mPosition);
         object.mStartAngle = 90;
-        object.mEndPosition.set(vehiclePosition);
-        object.mEndAngle = vehicleAngle;
-        object.mLeavePosition.set(vehiclePosition.x, mapHeight);
+        object.mEndPosition.set(vehicle.getPosition());
+        object.mEndAngle = holeHandlerComponent.getVehicle().getAngle();
+        object.mLeavePosition.set(vehicle.getPosition().x, mapHeight);
         object.mTime = 0;
         object.mState = State.ARRIVING;
 
@@ -137,18 +141,6 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         return mState == State.RECOVERING;
     }
 
-    public void leave() {
-        mTime = 0;
-        mState = State.LEAVING;
-        mStartPosition.set(mPosition);
-        mEndPosition.set(mLeavePosition);
-        mEndAngle = 90;
-    }
-
-    public void setEndPosition(Vector2 position) {
-        mEndPosition.set(position);
-    }
-
     public void setPosition(Vector2 position) {
         mPosition.set(position);
     }
@@ -166,6 +158,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
                 actArriving(delta);
                 break;
             case RECOVERING:
+                actRecovering();
                 break;
             case LEAVING:
                 actLeaving(delta);
@@ -184,11 +177,31 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     private void actArriving(float delta) {
+        if (!mHoleHandlerComponent.isInHole()) {
+            // Vehicle got out of the hole on its own
+            leave();
+            return;
+        }
+        mEndPosition.set(mHoleHandlerComponent.getVehicle().getPosition());
         if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
             mState = State.RECOVERING;
             return;
         }
         moveTowardEndPosition(delta);
+    }
+
+    private void actRecovering() {
+        if (mHoleHandlerComponent.getState() == HoleHandlerComponent.State.NORMAL) {
+            leave();
+        }
+    }
+
+    private void leave() {
+        mTime = 0;
+        mState = State.LEAVING;
+        mStartPosition.set(mPosition);
+        mEndPosition.set(mLeavePosition);
+        mEndAngle = 90;
     }
 
     private void actLeaving(float delta) {
