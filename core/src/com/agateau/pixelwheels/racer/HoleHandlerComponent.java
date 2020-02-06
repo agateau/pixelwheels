@@ -72,6 +72,10 @@ public class HoleHandlerComponent implements Racer.Component {
         return mState;
     }
 
+    public Vehicle getVehicle() {
+        return mVehicle;
+    }
+
     @Override
     public void act(float delta) {
         switch (mState) {
@@ -104,12 +108,7 @@ public class HoleHandlerComponent implements Racer.Component {
 
     private void switchToFallingState() {
         mHelicopter =
-                Helicopter.create(
-                        mAssets,
-                        mRacer.getAudioManager(),
-                        mGameWorld.getTrack(),
-                        mVehicle.getPosition(),
-                        mVehicle.getAngle());
+                Helicopter.create(mAssets, mRacer.getAudioManager(), mGameWorld.getTrack(), this);
         mGameWorld.addGameObject(mHelicopter);
         mState = State.FALLING;
         mTime = 0;
@@ -118,7 +117,6 @@ public class HoleHandlerComponent implements Racer.Component {
     private void actFalling(float delta) {
         mTime = Math.min(mTime + delta, LIFTING_DELAY);
         mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
-        mHelicopter.setEndPosition(mVehicle.getPosition());
 
         if (!isInHole()) {
             switchToClimbingState();
@@ -212,13 +210,12 @@ public class HoleHandlerComponent implements Racer.Component {
     }
 
     private void switchToNormalState() {
-        mHelicopter.leave();
         mVehicle.setZ(0);
         mVehicle.setStopped(false);
         mState = State.NORMAL;
     }
 
-    private boolean isInHole() {
+    public boolean isInHole() {
         return mGameWorld.getTrack().getMaterialAt(mVehicle.getPosition()).isHole();
     }
 }
