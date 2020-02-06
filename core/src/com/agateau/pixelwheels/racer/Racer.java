@@ -47,7 +47,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     private final GameWorld mGameWorld;
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
-    private final GroundCollisionHandlerComponent mGroundCollisionHandlerComponent;
+    private final HoleHandlerComponent mHoleHandlerComponent;
     private final SpinningComponent mSpinningComponent;
     private final LapPositionComponent mLapPositionComponent;
     private final AudioComponent mAudioComponent;
@@ -79,8 +79,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         public void act(float delta) {
             if (mLapPositionComponent.hasFinishedRace()
                     || mSpinningComponent.isActive()
-                    || mGroundCollisionHandlerComponent.getState()
-                            != GroundCollisionHandlerComponent.State.NORMAL) {
+                    || mHoleHandlerComponent.getState() != HoleHandlerComponent.State.NORMAL) {
                 mVehicle.setAccelerating(false);
                 mVehicle.setBraking(false);
             } else {
@@ -111,9 +110,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         mEntrant = entrant;
 
         mVehicleRenderer = new VehicleRenderer(assets, mVehicle);
-        mGroundCollisionHandlerComponent =
-                new GroundCollisionHandlerComponent(
-                        assets, mGameWorld, this, mLapPositionComponent);
+        mHoleHandlerComponent =
+                new HoleHandlerComponent(assets, mGameWorld, this, mLapPositionComponent);
 
         PilotSupervisorComponent supervisorComponent = new PilotSupervisorComponent();
 
@@ -121,7 +119,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
 
         addComponent(mLapPositionComponent);
         addComponent(mVehicle);
-        addComponent(mGroundCollisionHandlerComponent);
+        addComponent(mHoleHandlerComponent);
         addComponent(mSpinningComponent);
         addComponent(supervisorComponent);
         addComponent(new BonusSpotHitComponent(this));

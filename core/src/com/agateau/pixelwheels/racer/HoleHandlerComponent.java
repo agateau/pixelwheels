@@ -27,8 +27,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/** Handles collisions */
-public class GroundCollisionHandlerComponent implements Racer.Component {
+/** Handles falling in holes */
+public class HoleHandlerComponent implements Racer.Component {
     private static final float LIFTING_DELAY = 0.5f;
     private static final float MAX_RECOVERING_SPEED = 20;
     private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
@@ -55,7 +55,7 @@ public class GroundCollisionHandlerComponent implements Racer.Component {
     private State mState = State.NORMAL;
     private float mTime;
 
-    public GroundCollisionHandlerComponent(
+    public HoleHandlerComponent(
             Assets assets,
             GameWorld gameWorld,
             Racer racer,
