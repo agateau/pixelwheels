@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.15.0 - 2020-02-09
+
+### For players
+
+#### Added
+
+- Added moving and still obstacles to the tracks. For now the only obstacles are tyres (movable) and concrete blocks (still, replace the existing blocks).
+
+#### Changed
+
+- Made AI smarter: AI vehicles now get stuck less often and try to avoid mines.
+
+- Improved Rocket axle configuration to make it is easier to get away from a wall after hitting it.
+
+- Made missiles smarter: take obstacles into account when deciding if a target can be reached (#39).
+
+#### Fixed
+
+- Fixed helicopter being stuck on the map (#80).
+
+- Made hardware keyboard work on Android (#20).
+
+- Made sure one cannot get out of the map through the sea.
+
+- Do not play collision sound when the vehicle has the missile bonus on its roof (#81).
+
+- Retina screens: fixed rendering filling only 1/4 of the screen.
+
+- Fixed Pause button not working on mobile (#79).
+
+- Documented how to start the game on macOS (#78).
+
+### For developers
+
+#### Added
+
+- Added a debug mine dropper to place mines by clicking on the map.
+
+- Added debug option to control the camera using keyboard.
+
 ## 0.14.1 - 2019-10-28
 
 ### For players
