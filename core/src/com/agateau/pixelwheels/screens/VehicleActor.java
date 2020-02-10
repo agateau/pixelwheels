@@ -19,9 +19,9 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.UiBuilder;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -43,8 +43,7 @@ class VehicleActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        DrawUtils.multiplyBatchAlphaBy(batch, parentAlpha);
         mDrawer.center.x = getX();
         mDrawer.center.y = getY();
         mDrawer.angle = 90 + getRotation();
