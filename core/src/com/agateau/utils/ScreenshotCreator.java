@@ -40,7 +40,6 @@ public class ScreenshotCreator {
     public static String saveScreenshot() {
         Pixmap pixmap = takeScreenshot();
         FileHandle handle = generateFileHandle();
-        PixmapIO.writePNG(handle, pixmap);
         try {
             sPNG.write(handle, pixmap);
         } catch (IOException ex) {
