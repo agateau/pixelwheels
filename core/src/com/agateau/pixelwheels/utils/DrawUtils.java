@@ -43,6 +43,13 @@ public class DrawUtils {
         return old;
     }
 
+    /**
+     * Multiplies the alpha of @p batch by @p amount, return the old alpha value
+     */
+    public static float multiplyBatchAlphaBy(Batch batch, float amount) {
+        return setBatchAlpha(batch, batch.getColor().a * amount);
+    }
+
     public static void drawCentered(
             Batch batch, TextureRegion region, Vector2 center, float scale, float angle) {
         drawCentered(batch, region, center.x, center.y, scale, angle);

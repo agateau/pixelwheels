@@ -18,8 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.utils.AgcMathUtils;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -52,8 +52,7 @@ class ScrollableTiledImage extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         ensureFrameBufferOK();
-        Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        DrawUtils.multiplyBatchAlphaBy(batch, parentAlpha);
         batch.draw(
                 mFrameBuffer.getColorBufferTexture(),
                 // dst
