@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.utils;
 
 import com.agateau.pixelwheels.Constants;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;

@@ -61,7 +61,10 @@ public class HudButton extends Widget {
 
     @Override
     public void draw(Batch batch, float alpha) {
-        float oldA = DrawUtils.multiplyBatchAlphaBy(batch, mEnabled ? HudButton.BUTTON_OPACITY : HudButton.DISABLED_BUTTON_OPACITY);
+        float oldA =
+                DrawUtils.multiplyBatchAlphaBy(
+                        batch,
+                        mEnabled ? HudButton.BUTTON_OPACITY : HudButton.DISABLED_BUTTON_OPACITY);
 
         batch.draw(
                 mRegions[isPressed() ? 1 : 0],

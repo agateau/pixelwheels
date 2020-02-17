@@ -23,7 +23,6 @@ import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.AxleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

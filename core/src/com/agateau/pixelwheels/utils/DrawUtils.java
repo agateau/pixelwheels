@@ -43,9 +43,7 @@ public class DrawUtils {
         return old;
     }
 
-    /**
-     * Multiplies the alpha of @p batch by @p amount, return the old alpha value
-     */
+    /** Multiplies the alpha of @p batch by @p amount, return the old alpha value */
     public static float multiplyBatchAlphaBy(Batch batch, float amount) {
         return setBatchAlpha(batch, batch.getColor().a * amount);
     }
