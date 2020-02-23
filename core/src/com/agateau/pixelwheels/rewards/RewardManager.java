@@ -62,11 +62,6 @@ public class RewardManager {
     }
 
     public boolean isTrackUnlocked(Track track) {
-        for (Championship championship : mChampionships) {
-            if (championship.getTracks().contains(track, true /* identity */)) {
-                return isChampionshipUnlocked(championship);
-            }
-        }
         Championship championship = findTrackChampionship(track);
         if (championship == null) {
             NLog.e("Track %s does not belong to any championship!", track);
