@@ -81,8 +81,8 @@ public class RewardManager {
 
     public Set<Reward> getUnlockedRewards() {
         if (mNeedApplyRules) {
-            applyRules();
             mNeedApplyRules = false;
+            applyRules();
         }
         return mUnlockedRewards;
     }
