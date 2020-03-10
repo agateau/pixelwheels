@@ -42,11 +42,30 @@ class RewardManagerSetup {
 
         for (int idx = 1; idx < championships.size; ++idx) {
             final Championship previous = championships.get(idx - 1);
+            final Championship next =
+                    idx < championships.size - 1 ? championships.get(idx + 1) : null;
             rewardManager.addRule(
                     Reward.get(championships.get(idx)),
                     new RewardRule() {
                         @Override
                         public boolean hasBeenUnlocked(GameStats gameStats) {
+                            if (next != null && rewardManager.isChampionshipUnlocked(next)) {
+                                // Hack to handle case where a new championship has been added at
+                                // the beginning of the game:
+                                //
+                                // Say we have Champ. X and Y, and player has already unlocked Y by
+                                // finishing X. If in a new
+                                // version of the game we add Champ. W before Champ X, then Y is
+                                // unlocked because we
+                                // recorded the performance on X, but X is not because unlocking it
+                                // now requires a good
+                                // performance on W. This would be surprising for the player.
+                                //
+                                // To avoid that, unlock a championship if the next one has already
+                                // been unlocked. In our
+                                // example X would be unlocked because Y has already been unlocked.
+                                return true;
+                            }
                             return gameStats.getBestChampionshipRank(previous) <= 2;
                         }
 

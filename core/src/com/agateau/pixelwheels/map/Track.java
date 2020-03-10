@@ -287,4 +287,9 @@ public class Track implements Disposable {
     public String getMapName() {
         return mMapName;
     }
+
+    @Override
+    public String toString() {
+        return getId();
+    }
 }
