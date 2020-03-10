@@ -39,8 +39,39 @@ public class RewardManager {
     private final GameStats mGameStats;
     private final Array<Championship> mChampionships;
     private final Map<Reward, RewardRule> mRules = new HashMap<>();
-    private final Set<Reward> mUnlockedRewards = new HashSet<>();
-    private boolean mNeedApplyRules = true;
+
+    /**
+     * Wraps the set of unlocked rewards, making sure other code does not access it without applying
+     * any pending update.
+     */
+    private class UnlockedRewards {
+        private final Set<Reward> mRewards = new HashSet<>();
+        private boolean mNeedsUpdate = true;
+
+        Set<Reward> get() {
+            if (mNeedsUpdate) {
+                mNeedsUpdate = false;
+            } else {
+                return mRewards;
+            }
+            for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
+                Reward reward = rule.getKey();
+                if (mRewards.contains(reward)) {
+                    continue;
+                }
+                if (rule.getValue().hasBeenUnlocked(mGameStats)) {
+                    mRewards.add(reward);
+                }
+            }
+            return mRewards;
+        }
+
+        void scheduleUpdate() {
+            mNeedsUpdate = true;
+        }
+    }
+
+    private final UnlockedRewards mUnlockedRewards = new UnlockedRewards();
 
     public static final RewardRule ALWAYS_UNLOCKED =
             new RewardRule() {
@@ -57,7 +88,7 @@ public class RewardManager {
 
     public RewardManager(GameStats gameStats, Array<Championship> championships) {
         mGameStats = gameStats;
-        mGameStats.setListener(() -> mNeedApplyRules = true);
+        mGameStats.setListener(mUnlockedRewards::scheduleUpdate);
         mChampionships = championships;
     }
 
@@ -80,11 +111,7 @@ public class RewardManager {
     }
 
     public Set<Reward> getUnlockedRewards() {
-        if (mNeedApplyRules) {
-            mNeedApplyRules = false;
-            applyRules();
-        }
-        return mUnlockedRewards;
+        return mUnlockedRewards.get();
     }
 
     public void addRule(Reward reward, RewardRule rule) {
@@ -105,22 +132,10 @@ public class RewardManager {
     }
 
     private String getUnlockText(Reward reward) {
-        if (mUnlockedRewards.contains(reward)) {
+        if (mUnlockedRewards.get().contains(reward)) {
             return "";
         } else {
             return mRules.get(reward).getUnlockText(mGameStats);
-        }
-    }
-
-    private void applyRules() {
-        for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
-            Reward reward = rule.getKey();
-            if (mUnlockedRewards.contains(reward)) {
-                continue;
-            }
-            if (rule.getValue().hasBeenUnlocked(mGameStats)) {
-                mUnlockedRewards.add(reward);
-            }
         }
     }
 
