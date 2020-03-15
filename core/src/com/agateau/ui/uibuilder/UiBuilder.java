@@ -64,7 +64,7 @@ public class UiBuilder {
     private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
     private final Map<String, Actor> mActorForId = new HashMap<>();
-    private final Map<String, ActorFactory> mFactoryForName = new HashMap<>();
+    private final Map<String, ActorFactory> mActorFactories = new HashMap<>();
     private final Map<String, MenuItemFactory> mMenuItemFactories = new HashMap<>();
     private final TextureAtlas mAtlas;
     private final Skin mSkin;
@@ -112,6 +112,127 @@ public class UiBuilder {
         mAtlas = atlas;
         mSkin = skin;
 
+        initActorFactories();
+        initMenuItemFactories();
+    }
+
+    private void initActorFactories() {
+        mActorFactories.put(
+                "Image",
+                (uiBuilder, element) -> {
+                    Image image = new Image();
+                    TextureAtlas atlas1 = getAtlasForElement(element);
+                    String attr = element.getAttribute("name", "");
+                    if (!attr.isEmpty()) {
+                        if (attr.endsWith(".9")) {
+                            initImageFromNinePatchName(image, atlas1, attr);
+                        } else {
+                            boolean tiled = element.getBooleanAttribute("tiled", false);
+                            initImageFromRegionName(image, atlas1, attr, tiled);
+                        }
+                    }
+                    image.pack();
+                    return image;
+                });
+        mActorFactories.put(
+                "ImageButton",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    ImageButton.ImageButtonStyle style =
+                            new ImageButton.ImageButtonStyle(
+                                    mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
+                    String imageName = element.getAttribute("imageName", "");
+                    if (!imageName.isEmpty()) {
+                        style.imageUp = mSkin.getDrawable(imageName);
+                    }
+                    ImageButton button = new ImageButton(style);
+                    String imageColor = element.getAttribute("imageColor", "");
+                    if (!imageColor.isEmpty()) {
+                        Color color = Color.valueOf(imageColor);
+                        button.getImage().setColor(color);
+                    }
+                    return button;
+                });
+        mActorFactories.put(
+                "TextButton",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = processText(element.getText());
+                    return new TextButton(text, mSkin, styleName);
+                });
+        mActorFactories.put("Group", (uiBuilder, element) -> new Group());
+        mActorFactories.put(
+                "AnchorGroup",
+                (uiBuilder, element) -> {
+                    mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
+                    AnchorGroup group = new AnchorGroup();
+                    group.setGridSize(mDimParser.gridSize);
+                    return group;
+                });
+        mActorFactories.put(
+                "Label",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = processText(element.getText());
+                    Label label = new Label(text, mSkin, styleName);
+                    int align = parseAlign(element);
+                    if (align != -1) {
+                        label.setAlignment(align);
+                    }
+                    return label;
+                });
+        mActorFactories.put(
+                "ScrollPane",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "");
+                    ScrollPane pane;
+                    if (styleName.isEmpty()) {
+                        pane = new ScrollPane(null);
+                    } else {
+                        pane = new ScrollPane(null, mSkin, styleName);
+                    }
+                    Actor child = doBuild(element, null);
+                    if (child != null) {
+                        pane.setActor(child);
+                    }
+                    return pane;
+                });
+        mActorFactories.put(
+                "VerticalGroup",
+                (uiBuilder, element) -> {
+                    VerticalGroup group = new VerticalGroup();
+                    group.space(element.getFloatAttribute("spacing", 0));
+                    int align = parseAlign(element);
+                    if (align != -1) {
+                        group.align(align);
+                    }
+                    return group;
+                });
+        mActorFactories.put(
+                "HorizontalGroup",
+                (uiBuilder, element) -> {
+                    HorizontalGroup group = new HorizontalGroup();
+                    group.space(element.getFloatAttribute("spacing", 0));
+                    return group;
+                });
+        mActorFactories.put(
+                "CheckBox",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = element.getText();
+                    return new CheckBox(text, mSkin, styleName);
+                });
+        mActorFactories.put("Menu", (uiBuilder, element) -> createMenu(element));
+        mActorFactories.put(
+                "MenuScrollPane",
+                (uiBuilder, element) -> {
+                    Menu menu = createMenu(element);
+                    return new MenuScrollPane(menu);
+                });
+        mActorFactories.put("Table", (uiBuilder, element) -> new Table(mSkin));
+    }
+
+    private void initMenuItemFactories() {
         mMenuItemFactories.put(
                 "ButtonMenuItem",
                 (menu, element) -> menu.addButton(element.getAttribute("text")).getActor());
@@ -220,55 +341,11 @@ public class UiBuilder {
 
     private Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
-        switch (name) {
-            case "Image":
-                return createImage(element);
-            case "ImageButton":
-                return createImageButton(element);
-            case "TextButton":
-                return createTextButton(element);
-            case "Group":
-                return createGroup(element);
-            case "AnchorGroup":
-                return createAnchorGroup(element);
-            case "Label":
-                return createLabel(element);
-            case "ScrollPane":
-                return createScrollPane(element);
-            case "VerticalGroup":
-                return createVerticalGroup(element);
-            case "HorizontalGroup":
-                return createHorizontalGroup(element);
-            case "CheckBox":
-                return createCheckBox(element);
-            case "Menu":
-                return createMenu(element);
-            case "MenuScrollPane":
-                return createMenuScrollPane(element);
-            case "Table":
-                return createTable(element);
-        }
-        ActorFactory factory = mFactoryForName.get(name);
+        ActorFactory factory = mActorFactories.get(name);
         if (factory != null) {
             return factory.createActor(this, element);
         }
         throw new SyntaxException("Unknown UI element type: " + name);
-    }
-
-    private Image createImage(XmlReader.Element element) {
-        Image image = new Image();
-        TextureAtlas atlas = getAtlasForElement(element);
-        String attr = element.getAttribute("name", "");
-        if (!attr.isEmpty()) {
-            if (attr.endsWith(".9")) {
-                initImageFromNinePatchName(image, atlas, attr);
-            } else {
-                boolean tiled = element.getBooleanAttribute("tiled", false);
-                initImageFromRegionName(image, atlas, attr, tiled);
-            }
-        }
-        image.pack();
-        return image;
     }
 
     private TextureAtlas getAtlasForElement(XmlReader.Element element) {
@@ -303,95 +380,6 @@ public class UiBuilder {
         }
     }
 
-    private ImageButton createImageButton(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        ImageButton.ImageButtonStyle style =
-                new ImageButton.ImageButtonStyle(
-                        mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
-        String imageName = element.getAttribute("imageName", "");
-        if (!imageName.isEmpty()) {
-            style.imageUp = mSkin.getDrawable(imageName);
-        }
-        ImageButton button = new ImageButton(style);
-        String imageColor = element.getAttribute("imageColor", "");
-        if (!imageColor.isEmpty()) {
-            Color color = Color.valueOf(imageColor);
-            button.getImage().setColor(color);
-        }
-        return button;
-    }
-
-    private TextButton createTextButton(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        String text = processText(element.getText());
-        return new TextButton(text, mSkin, styleName);
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private Group createGroup(XmlReader.Element element) {
-        return new Group();
-    }
-
-    private AnchorGroup createAnchorGroup(XmlReader.Element element) {
-        mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
-        AnchorGroup group = new AnchorGroup();
-        group.setGridSize(mDimParser.gridSize);
-        return group;
-    }
-
-    private Label createLabel(XmlReader.Element element) throws SyntaxException {
-        String styleName = element.getAttribute("style", "default");
-        String text = processText(element.getText());
-        Label label = new Label(text, mSkin, styleName);
-        int align = parseAlign(element);
-        if (align != -1) {
-            label.setAlignment(align);
-        }
-        return label;
-    }
-
-    private ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
-        String styleName = element.getAttribute("style", "");
-        ScrollPane pane;
-        if (styleName.isEmpty()) {
-            pane = new ScrollPane(null);
-        } else {
-            pane = new ScrollPane(null, mSkin, styleName);
-        }
-        Actor child = doBuild(element, null);
-        if (child != null) {
-            pane.setActor(child);
-        }
-        return pane;
-    }
-
-    private VerticalGroup createVerticalGroup(XmlReader.Element element) throws SyntaxException {
-        VerticalGroup group = new VerticalGroup();
-        group.space(element.getFloatAttribute("spacing", 0));
-        int align = parseAlign(element);
-        if (align != -1) {
-            group.align(align);
-        }
-        return group;
-    }
-
-    private HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
-        HorizontalGroup group = new HorizontalGroup();
-        group.space(element.getFloatAttribute("spacing", 0));
-        return group;
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private Table createTable(XmlReader.Element element) {
-        return new Table(mSkin);
-    }
-
-    private CheckBox createCheckBox(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        String text = element.getText();
-        return new CheckBox(text, mSkin, styleName);
-    }
-
     private Menu createMenu(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
@@ -416,11 +404,6 @@ public class UiBuilder {
                     });
         }
         return menu;
-    }
-
-    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) throws SyntaxException {
-        Menu menu = createMenu(element);
-        return new MenuScrollPane(menu);
     }
 
     private void applyWidgetProperties(Widget widget, XmlReader.Element element) {
@@ -531,7 +514,7 @@ public class UiBuilder {
     }
 
     public void registerActorFactory(String name, ActorFactory factory) {
-        mFactoryForName.put(name, factory);
+        mActorFactories.put(name, factory);
     }
 
     private static String processText(String text) {
