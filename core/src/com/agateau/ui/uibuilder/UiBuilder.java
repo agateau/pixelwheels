@@ -24,6 +24,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
 import com.agateau.ui.animscript.AnimScript;
 import com.agateau.ui.animscript.AnimScriptLoader;
+import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
@@ -235,7 +236,17 @@ public class UiBuilder {
     private void initMenuItemFactories() {
         mMenuItemFactories.put(
                 "ButtonMenuItem",
-                (menu, element) -> menu.addButton(element.getAttribute("text")).getActor());
+                (menu, element) -> {
+                    String label = element.getAttribute("label", null);
+                    String text = element.getAttribute("text", "");
+                    ButtonMenuItem item = new ButtonMenuItem(menu, text);
+                    if (label == null) {
+                        menu.addItem(item);
+                    } else {
+                        menu.addItemWithLabel(label, item);
+                    }
+                    return item.getActor();
+                });
         mMenuItemFactories.put(
                 "LabelMenuItem",
                 (menu, element) -> {
