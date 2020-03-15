@@ -75,6 +75,10 @@ public class UiBuilder {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
     }
 
+    private interface ElementProcessor {
+        void process(XmlReader.Element element) throws SyntaxException;
+    }
+
     private static final String[] ANCHOR_NAMES = {
         "topLeft",
         "topCenter",
@@ -149,9 +153,9 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
+    private void traverseElementTree(
+            XmlReader.Element parentElement, ElementProcessor elementProcessor)
             throws SyntaxException {
-        Actor firstActor = null;
         for (int idx = 0, size = parentElement.getChildCount(); idx < size; ++idx) {
             XmlReader.Element element = parentElement.getChild(idx);
             if (element.getName().equals("Action")) {
@@ -169,37 +173,54 @@ public class UiBuilder {
                     }
                 }
                 if (evaluateIfdef(element)) {
-                    doBuild(element, parentActor);
+                    traverseElementTree(element, elementProcessor);
                 } else if (elseElement != null) {
-                    doBuild(elseElement, parentActor);
+                    traverseElementTree(elseElement, elementProcessor);
                 }
                 continue;
             }
-            Actor actor = createActorForElement(element);
-            if (actor == null) {
-                throw new SyntaxException("Failed to create actor for element: " + element);
-            }
-            if (idx == 0) {
-                firstActor = actor;
-            }
-            if (actor instanceof Widget) {
-                applyWidgetProperties((Widget) actor, element);
-            }
-            applyActorProperties(actor, element, parentActor);
-            createActorActions(actor, element);
-            String id = element.getAttribute("id", null);
-            if (id != null) {
-                if (mActorForId.containsKey(id)) {
-                    throw new SyntaxException("Duplicate ids: " + id);
-                }
-                mActorForId.put(id, actor);
-            }
-            if (actor instanceof Group && !(actor instanceof ScrollPane)) {
-                doBuild(element, (Group) actor);
-            }
-            mLastAddedActor = actor;
+            elementProcessor.process(element);
         }
-        return firstActor;
+    }
+
+    private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
+            throws SyntaxException {
+        final Actor[] root = {null};
+        traverseElementTree(
+                parentElement,
+                element -> {
+                    Actor actor = createActorForElement(element);
+                    if (actor == null) {
+                        throw new SyntaxException("Failed to create actor for element: " + element);
+                    }
+                    if (actor instanceof Widget) {
+                        applyWidgetProperties((Widget) actor, element);
+                    }
+                    applyActorProperties(actor, element, parentActor);
+                    createActorActions(actor, element);
+                    addActorToActorForId(actor, element);
+                    if (actor instanceof Group
+                            && !(actor instanceof ScrollPane)
+                            && !(actor instanceof Menu)) {
+                        doBuild(element, (Group) actor);
+                    }
+                    mLastAddedActor = actor;
+                    if (root[0] == null) {
+                        root[0] = actor;
+                    }
+                });
+        return root[0];
+    }
+
+    private void addActorToActorForId(Actor actor, XmlReader.Element element)
+            throws SyntaxException {
+        String id = element.getAttribute("id", null);
+        if (id != null) {
+            if (mActorForId.containsKey(id)) {
+                throw new SyntaxException("Duplicate ids: " + id);
+            }
+            mActorForId.put(id, actor);
+        }
     }
 
     public <T extends Actor> T getActor(String id) {
@@ -396,17 +417,39 @@ public class UiBuilder {
         return new CheckBox(text, mSkin, styleName);
     }
 
-    private Menu createMenu(XmlReader.Element element) {
+    private Menu createMenu(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
         float width = element.getIntAttribute("labelColumnWidth", 0);
         if (width > 0) {
             menu.setLabelColumnWidth(width);
         }
+        XmlReader.Element items = element.getChildByName("Items");
+        if (items != null) {
+            traverseElementTree(
+                    items,
+                    item -> {
+                        String name = item.getName();
+                        Actor actor = null;
+                        switch (name) {
+                            case "ButtonMenuItem":
+                                actor = menu.addButton(item.getAttribute("text")).getActor();
+                                break;
+                            case "LabelMenuItem":
+                                menu.addLabel(item.getAttribute("text"));
+                                break;
+                            default:
+                                throw new SyntaxException("Invalid menu item type: " + name);
+                        }
+                        if (actor != null) {
+                            addActorToActorForId(actor, item);
+                        }
+                    });
+        }
         return menu;
     }
 
-    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
+    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) throws SyntaxException {
         Menu menu = createMenu(element);
         return new MenuScrollPane(menu);
     }
