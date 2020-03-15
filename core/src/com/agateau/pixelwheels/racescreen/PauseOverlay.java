@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -46,11 +45,12 @@ public class PauseOverlay extends Overlay {
 
     private Actor createContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
+            builder.defineVariable("showRestartButton");
+        }
         Actor content = builder.build(FileUtils.assets("screens/pauseoverlay.gdxui"));
 
-        Menu menu = builder.getActor("menu");
-
-        menu.addButton("Resume")
+        builder.getActor("resumeButton")
                 .addListener(
                         new ChangeListener() {
                             @Override
@@ -59,7 +59,7 @@ public class PauseOverlay extends Overlay {
                             }
                         });
         if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
-            menu.addButton("Restart")
+            builder.getActor("restartButton")
                     .addListener(
                             new ChangeListener() {
                                 @Override
@@ -68,7 +68,7 @@ public class PauseOverlay extends Overlay {
                                 }
                             });
         }
-        menu.addButton("Quit to Menu")
+        builder.getActor("quitButton")
                 .addListener(
                         new ChangeListener() {
                             @Override
@@ -76,7 +76,7 @@ public class PauseOverlay extends Overlay {
                                 mRaceScreen.onQuitPressed();
                             }
                         });
-        menu.addButton("Settings")
+        builder.getActor("settingsButton")
                 .addListener(
                         new ChangeListener() {
                             @Override

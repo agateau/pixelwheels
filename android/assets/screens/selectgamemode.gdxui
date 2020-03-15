@@ -4,7 +4,12 @@
         <Label id="mainLabel" style="title"
             topCenter="root.topCenter 0 -2">Select Game Mode</Label>
 
-        <Menu id="menu" center="root.center 0 -1" width="400"/>
+        <Menu id="menu" center="root.center 0 -1" width="400">
+            <Items>
+                <ButtonMenuItem id="quickRaceButton" text="QUICK RACE"/>
+                <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
+            </Items>
+        </Menu>
 
         <ImageButton id="backButton"
             bottomLeft="root.bottomLeft 1 1"

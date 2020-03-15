@@ -6,6 +6,10 @@
             width="650"
             height="320"/>
 
-        <Menu id="menu" width="150" bottomCenter="scrollableTable.bottomCenter 0 -3"/>
+        <Menu id="menu" width="150" bottomCenter="scrollableTable.bottomCenter 0 -3">
+            <Items>
+                <ButtonMenuItem id="okButton" text="OK"/>
+            </Items>
+        </Menu>
     </AnchorGroup>
 </gdxui>

@@ -177,6 +177,10 @@ public class MenuItemGroup implements MenuItem {
         return 1;
     }
 
+    public MenuItem getItemForActor(Actor actor) {
+        return mItemForActor.get(actor);
+    }
+
     public MenuItem getCurrentItem() {
         return mCurrentIndex >= 0 ? mItems.get(mCurrentIndex) : null;
     }

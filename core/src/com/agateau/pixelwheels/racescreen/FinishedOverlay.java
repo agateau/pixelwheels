@@ -84,10 +84,9 @@ public class FinishedOverlay extends Overlay {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
-        Menu menu = builder.getActor("menu");
         Table table = builder.getActor("scrollableTable");
 
-        fillMenu(menu);
+        fillMenu(builder);
         fillTable(table);
         return content;
     }
@@ -101,8 +100,8 @@ public class FinishedOverlay extends Overlay {
         }
     }
 
-    private void fillMenu(Menu menu) {
-        menu.addButton("OK")
+    private void fillMenu(UiBuilder builder) {
+        builder.getActor("okButton")
                 .addListener(
                         new MenuItemListener() {
                             @Override
