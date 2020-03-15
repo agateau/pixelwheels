@@ -24,7 +24,6 @@ import com.agateau.pixelwheels.VersionInfo;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
@@ -58,9 +57,8 @@ public class MainMenuScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
         if (desktop) {
-            menu.addButton("ONE PLAYER")
+            builder.getActor("onePlayerButton")
                     .addListener(
                             new MenuItemListener() {
                                 @Override
@@ -69,7 +67,7 @@ public class MainMenuScreen extends PwStageScreen {
                                             new SelectGameModeScreen(mGame, PlayerCount.ONE));
                                 }
                             });
-            menu.addButton("MULTI PLAYER")
+            builder.getActor("multiPlayerButton")
                     .addListener(
                             new MenuItemListener() {
                                 @Override
@@ -79,7 +77,7 @@ public class MainMenuScreen extends PwStageScreen {
                                 }
                             });
         } else {
-            menu.addButton("QUICK RACE")
+            builder.getActor("quickRaceButton")
                     .addListener(
                             new MenuItemListener() {
                                 @Override
@@ -87,7 +85,7 @@ public class MainMenuScreen extends PwStageScreen {
                                     mGame.showQuickRace(PlayerCount.ONE);
                                 }
                             });
-            menu.addButton("CHAMPIONSHIP")
+            builder.getActor("championshipButton")
                     .addListener(
                             new MenuItemListener() {
                                 @Override
@@ -96,7 +94,7 @@ public class MainMenuScreen extends PwStageScreen {
                                 }
                             });
         }
-        menu.addButton("SETTINGS")
+        builder.getActor("settingsButton")
                 .addListener(
                         new MenuItemListener() {
                             @Override
@@ -105,7 +103,7 @@ public class MainMenuScreen extends PwStageScreen {
                             }
                         });
         if (desktop) {
-            menu.addButton("QUIT")
+            builder.getActor("quitButton")
                     .addListener(
                             new MenuItemListener() {
                                 @Override
