@@ -117,10 +117,6 @@ public class Menu extends WidgetGroup {
         return mGroup.addItemWithLabel(labelText, item);
     }
 
-    public MenuItem getItemForActor(Actor actor) {
-        return mGroup.getItemForActor(actor);
-    }
-
     private boolean mFirstLayout = true;
 
     @Override

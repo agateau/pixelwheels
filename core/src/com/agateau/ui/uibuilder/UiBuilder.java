@@ -26,6 +26,7 @@ import com.agateau.ui.animscript.AnimScript;
 import com.agateau.ui.animscript.AnimScriptLoader;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -65,6 +66,7 @@ public class UiBuilder {
     private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
     private final Map<String, Actor> mActorForId = new HashMap<>();
+    private final Map<String, MenuItem> mMenuItemForId = new HashMap<>();
     private final Map<String, ActorFactory> mActorFactories = new HashMap<>();
     private final Map<String, MenuItemFactory> mMenuItemFactories = new HashMap<>();
     private final TextureAtlas mAtlas;
@@ -77,7 +79,7 @@ public class UiBuilder {
     }
 
     public interface MenuItemFactory {
-        Actor createMenuItem(Menu menu, XmlReader.Element element) throws SyntaxException;
+        MenuItem createMenuItem(Menu menu, XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -245,14 +247,10 @@ public class UiBuilder {
                     } else {
                         menu.addItemWithLabel(label, item);
                     }
-                    return item.getActor();
+                    return item;
                 });
         mMenuItemFactories.put(
-                "LabelMenuItem",
-                (menu, element) -> {
-                    menu.addLabel(element.getAttribute("text"));
-                    return null;
-                });
+                "LabelMenuItem", (menu, element) -> menu.addLabel(element.getAttribute("text")));
     }
 
     public void defineVariable(String name) {
@@ -275,6 +273,7 @@ public class UiBuilder {
 
     public Actor build(XmlReader.Element parentElement, Group parentActor) {
         mActorForId.clear();
+        mMenuItemForId.clear();
         try {
             return doBuild(parentElement, parentActor);
         } catch (SyntaxException e) {
@@ -310,7 +309,8 @@ public class UiBuilder {
                     }
                     applyActorProperties(actor, element, parentActor);
                     createActorActions(actor, element);
-                    addActorToActorForId(actor, element);
+                    String id = element.getAttribute("id", null);
+                    addActorToActorForId(id, actor);
                     if (actor instanceof Group
                             && !(actor instanceof ScrollPane)
                             && !(actor instanceof Menu)) {
@@ -324,9 +324,7 @@ public class UiBuilder {
         return root[0];
     }
 
-    private void addActorToActorForId(Actor actor, XmlReader.Element element)
-            throws SyntaxException {
-        String id = element.getAttribute("id", null);
+    private void addActorToActorForId(String id, Actor actor) throws SyntaxException {
         if (id != null) {
             if (mActorForId.containsKey(id)) {
                 throw new SyntaxException("Duplicate ids: " + id);
@@ -347,6 +345,16 @@ public class UiBuilder {
         }
         @SuppressWarnings("unchecked")
         T obj = (T) actor;
+        return obj;
+    }
+
+    public <T extends MenuItem> T getMenuItem(String id) {
+        MenuItem item = mMenuItemForId.get(id);
+        if (item == null) {
+            throw new RuntimeException("No menu item with id '" + id + "'");
+        }
+        @SuppressWarnings("unchecked")
+        T obj = (T) item;
         return obj;
     }
 
@@ -402,15 +410,18 @@ public class UiBuilder {
         if (items != null) {
             mTraversor.traverseElementTree(
                     items,
-                    item -> {
-                        String name = item.getName();
+                    itemElement -> {
+                        String name = itemElement.getName();
                         MenuItemFactory factory = mMenuItemFactories.get(name);
                         if (factory == null) {
                             throw new SyntaxException("Invalid menu item type: " + name);
                         }
-                        Actor actor = factory.createMenuItem(menu, item);
-                        if (actor != null) {
-                            addActorToActorForId(actor, item);
+                        String id = itemElement.getAttribute("id", null);
+                        MenuItem menuItem = factory.createMenuItem(menu, itemElement);
+                        Actor actor = menuItem.getActor();
+                        if (id != null) {
+                            mMenuItemForId.put(id, menuItem);
+                            addActorToActorForId(id, actor);
                         }
                     });
         }

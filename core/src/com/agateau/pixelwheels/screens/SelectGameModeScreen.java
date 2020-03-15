@@ -68,7 +68,7 @@ public class SelectGameModeScreen extends PwStageScreen {
                                 mGame.showQuickRace(mPlayerCount);
                             }
                         });
-        MenuItem championshipItem = menu.getItemForActor(builder.getActor("championshipButton"));
+        MenuItem championshipItem = builder.getMenuItem("championshipButton");
         championshipItem.addListener(
                 new MenuItemListener() {
                     @Override
