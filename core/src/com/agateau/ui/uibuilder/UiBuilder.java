@@ -65,6 +65,7 @@ public class UiBuilder {
 
     private final Map<String, Actor> mActorForId = new HashMap<>();
     private final Map<String, ActorFactory> mFactoryForName = new HashMap<>();
+    private final Map<String, MenuItemFactory> mMenuItemFactories = new HashMap<>();
     private final TextureAtlas mAtlas;
     private final Skin mSkin;
     private Actor mLastAddedActor;
@@ -72,6 +73,10 @@ public class UiBuilder {
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
+    }
+
+    public interface MenuItemFactory {
+        Actor createMenuItem(Menu menu, XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -106,6 +111,16 @@ public class UiBuilder {
     public UiBuilder(TextureAtlas atlas, Skin skin) {
         mAtlas = atlas;
         mSkin = skin;
+
+        mMenuItemFactories.put(
+                "ButtonMenuItem",
+                (menu, element) -> menu.addButton(element.getAttribute("text")).getActor());
+        mMenuItemFactories.put(
+                "LabelMenuItem",
+                (menu, element) -> {
+                    menu.addLabel(element.getAttribute("text"));
+                    return null;
+                });
     }
 
     public void defineVariable(String name) {
@@ -390,17 +405,11 @@ public class UiBuilder {
                     items,
                     item -> {
                         String name = item.getName();
-                        Actor actor = null;
-                        switch (name) {
-                            case "ButtonMenuItem":
-                                actor = menu.addButton(item.getAttribute("text")).getActor();
-                                break;
-                            case "LabelMenuItem":
-                                menu.addLabel(item.getAttribute("text"));
-                                break;
-                            default:
-                                throw new SyntaxException("Invalid menu item type: " + name);
+                        MenuItemFactory factory = mMenuItemFactories.get(name);
+                        if (factory == null) {
+                            throw new SyntaxException("Invalid menu item type: " + name);
                         }
+                        Actor actor = factory.createMenuItem(menu, item);
                         if (actor != null) {
                             addActorToActorForId(actor, item);
                         }
