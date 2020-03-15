@@ -21,7 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.agateau.ui.UiBuilder;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 

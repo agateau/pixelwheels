@@ -21,6 +21,20 @@
                     moveBy 20g 0 0.5 pow2In
                 end
             </Action>
+            <Items>
+                <Ifdef var="desktop">
+                    <ButtonMenuItem id="onePlayerButton" text="ONE PLAYER"/>
+                    <ButtonMenuItem id="multiPlayerButton" text="MULTI PLAYER"/>
+                </Ifdef>
+                <Else>
+                    <ButtonMenuItem id="quickRaceButton" text="QUICK RACE"/>
+                    <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
+                </Else>
+                <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
+                <Ifdef var="desktop">
+                    <ButtonMenuItem id="quitButton" text="QUIT"/>
+                </Ifdef>
+            </Items>
         </Menu>
 
         <Image id="road-sign" bottomRight="root.bottomRight -1 0" name="version-number-road-sign"/>

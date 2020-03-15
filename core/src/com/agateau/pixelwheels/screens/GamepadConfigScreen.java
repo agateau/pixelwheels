@@ -23,11 +23,10 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.ui.GamepadInputMapper;
-import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
-import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -109,10 +108,9 @@ public class GamepadConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
-
-        createButton(menu, "Trigger:", GamepadInputMapper.GamepadButton.TRIGGER);
-        createButton(menu, "Back:", GamepadInputMapper.GamepadButton.BACK);
+        createButton(
+                builder.getMenuItem("triggerPadButton"), GamepadInputMapper.GamepadButton.TRIGGER);
+        createButton(builder.getMenuItem("backPadButton"), GamepadInputMapper.GamepadButton.BACK);
 
         builder.getActor("backButton")
                 .addListener(
@@ -124,9 +122,8 @@ public class GamepadConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void createButton(Menu menu, String label, GamepadInputMapper.GamepadButton buttonId) {
-        ButtonMenuItem buttonItem = new ButtonMenuItem(menu, "");
-        menu.addItemWithLabel(label, buttonItem);
+    private void createButton(
+            ButtonMenuItem buttonItem, GamepadInputMapper.GamepadButton buttonId) {
         GamepadButtonItemController controller =
                 new GamepadButtonItemController(buttonItem, buttonId);
         mButtonControllers.add(controller);

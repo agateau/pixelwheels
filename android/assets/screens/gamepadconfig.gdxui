@@ -6,7 +6,12 @@
 
         <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -4"
             labelColumnWidth="150"
-            width="600"/>
+            width="600">
+            <Items>
+                <ButtonMenuItem id="triggerPadButton" label="Trigger:" text=""/>
+                <ButtonMenuItem id="backPadButton" label="Back:" text=""/>
+            </Items>
+        </Menu>
 
         <ImageButton id="backButton"
             bottomLeft="root.bottomLeft 1 1"

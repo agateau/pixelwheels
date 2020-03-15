@@ -2,7 +2,7 @@ package com.agateau.pixelwheels.utils;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
-import com.agateau.ui.UiBuilder;
+import com.agateau.ui.uibuilder.UiBuilder;
 
 public class UiUtils {
     public static String getEntrantRowStyle(GameInfo.Entrant entrant) {
