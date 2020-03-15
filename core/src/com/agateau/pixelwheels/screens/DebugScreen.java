@@ -20,13 +20,13 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.SliderMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.menu.TabMenuItem;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;

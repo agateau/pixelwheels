@@ -16,8 +16,9 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.uibuilder;
 
+import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;

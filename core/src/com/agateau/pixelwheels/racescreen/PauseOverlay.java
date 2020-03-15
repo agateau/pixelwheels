@@ -20,8 +20,8 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.ui.UiBuilder;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
