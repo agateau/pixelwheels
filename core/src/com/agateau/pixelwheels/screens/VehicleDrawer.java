@@ -23,12 +23,11 @@ import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.AxleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-/** Helper class to draw a vehicle in the UI This is *not* used to draw a vehicle in the game */
+/** Helper class to draw a vehicle in the UI. This is *not* used to draw a vehicle in the game */
 class VehicleDrawer {
     private final Assets mAssets;
     public VehicleDef vehicleDef;
@@ -67,10 +66,10 @@ class VehicleDrawer {
     }
 
     private void drawShadow(Batch batch, TextureRegion region) {
-        Color old = batch.getColor();
+        float old = batch.getPackedColor();
         float offset = BodyRegionDrawer.SHADOW_OFFSET_PX;
         batch.setColor(0, 0, 0, BodyRegionDrawer.SHADOW_ALPHA);
         DrawUtils.drawCentered(batch, region, center.x + offset, center.y - offset, scale, angle);
-        batch.setColor(old);
+        batch.setPackedColor(old);
     }
 }

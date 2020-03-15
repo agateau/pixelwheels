@@ -23,7 +23,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 
-/** An atlas which: - fails immediately when it does not find a region - cache the found regions */
+/**
+ * An atlas with these extra features:
+ *
+ * <ul>
+ *   <li>fails immediately when it does not find a region
+ *   <li>caches the found regions
+ * </ul>
+ */
 public class StrictTextureAtlas extends TextureAtlas {
     private final HashMap<String, TextureAtlas.AtlasRegion> mRegions = new HashMap<>();
 

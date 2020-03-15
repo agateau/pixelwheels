@@ -31,7 +31,6 @@ import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -234,11 +233,11 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     @Override
     public void draw(Batch batch, ZLevel zLevel) {
         if (zLevel == ZLevel.SHADOWS) {
-            Color old = batch.getColor();
+            float old = batch.getPackedColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
             float offset = SHADOW_OFFSET * Constants.UNIT_FOR_PIXEL;
             drawFrameBuffer(batch, offset);
-            batch.setColor(old);
+            batch.setPackedColor(old);
         } else if (zLevel == ZLevel.FLYING) {
             drawFrameBuffer(batch, 0);
         }

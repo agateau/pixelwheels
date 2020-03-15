@@ -18,10 +18,10 @@
  */
 package com.agateau.ui.menu;
 
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.utils.Assert;
 import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -264,8 +264,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
 
-        Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        DrawUtils.multiplyBatchAlphaBy(batch, parentAlpha);
 
         float itemSpacing = getItemSpacing();
         float x = 0;

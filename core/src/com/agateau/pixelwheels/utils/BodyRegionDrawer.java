@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.utils;
 
 import com.agateau.pixelwheels.Constants;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -101,7 +100,7 @@ public class BodyRegionDrawer {
         float y = center.y - offset;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-        Color old = mBatch.getColor();
+        float old = mBatch.getPackedColor();
         mBatch.setColor(0, 0, 0, SHADOW_ALPHA);
         mBatch.draw(
                 region, x - w / 2, y - h / 2, // pos
@@ -109,6 +108,6 @@ public class BodyRegionDrawer {
                 w, h, // size
                 1, 1, // scale
                 angle);
-        mBatch.setColor(old);
+        mBatch.setPackedColor(old);
     }
 }

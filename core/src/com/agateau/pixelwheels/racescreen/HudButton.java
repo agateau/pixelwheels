@@ -19,7 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
-import com.badlogic.gdx.graphics.Color;
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -61,10 +61,10 @@ public class HudButton extends Widget {
 
     @Override
     public void draw(Batch batch, float alpha) {
-        Color color = batch.getColor();
-        float oldA = color.a;
-        color.a = alpha * (mEnabled ? HudButton.BUTTON_OPACITY : HudButton.DISABLED_BUTTON_OPACITY);
-        batch.setColor(color);
+        float oldA =
+                DrawUtils.multiplyBatchAlphaBy(
+                        batch,
+                        mEnabled ? HudButton.BUTTON_OPACITY : HudButton.DISABLED_BUTTON_OPACITY);
 
         batch.draw(
                 mRegions[isPressed() ? 1 : 0],
@@ -73,8 +73,7 @@ public class HudButton extends Widget {
                 getWidth(),
                 getHeight());
 
-        color.a = oldA;
-        batch.setColor(color);
+        DrawUtils.setBatchAlpha(batch, oldA);
     }
 
     @Override
