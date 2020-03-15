@@ -54,16 +54,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.XmlReader;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
-    private final Set<String> mVariables = new HashSet<>();
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
+    private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
     private final Map<String, Actor> mActorForId = new HashMap<>();
     private final Map<String, ActorFactory> mFactoryForName = new HashMap<>();
@@ -74,10 +72,6 @@ public class UiBuilder {
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
-    }
-
-    private interface ElementProcessor {
-        void process(XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -115,7 +109,7 @@ public class UiBuilder {
     }
 
     public void defineVariable(String name) {
-        mVariables.add(name);
+        mTraversor.defineVariable(name);
     }
 
     public Actor build(FileHandle handle) {
@@ -154,40 +148,10 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private void traverseElementTree(
-            XmlReader.Element parentElement, ElementProcessor elementProcessor)
-            throws SyntaxException {
-        for (int idx = 0, size = parentElement.getChildCount(); idx < size; ++idx) {
-            XmlReader.Element element = parentElement.getChild(idx);
-            if (element.getName().equals("Action")) {
-                continue;
-            }
-            if (element.getName().equals("Ifdef")) {
-                XmlReader.Element elseElement = null;
-                if (idx + 1 < size) {
-                    elseElement = parentElement.getChild(idx + 1);
-                    if (elseElement.getName().equals("Else")) {
-                        // It's an else, swallow it
-                        ++idx;
-                    } else {
-                        elseElement = null;
-                    }
-                }
-                if (evaluateIfdef(element)) {
-                    traverseElementTree(element, elementProcessor);
-                } else if (elseElement != null) {
-                    traverseElementTree(elseElement, elementProcessor);
-                }
-                continue;
-            }
-            elementProcessor.process(element);
-        }
-    }
-
     private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
             throws SyntaxException {
         final Actor[] root = {null};
-        traverseElementTree(
+        mTraversor.traverseElementTree(
                 parentElement,
                 element -> {
                     Actor actor = createActorForElement(element);
@@ -290,11 +254,6 @@ public class UiBuilder {
         }
         image.pack();
         return image;
-    }
-
-    private boolean evaluateIfdef(XmlReader.Element element) {
-        String condition = element.getAttribute("var").trim();
-        return mVariables.contains(condition);
     }
 
     private TextureAtlas getAtlasForElement(XmlReader.Element element) {
@@ -427,7 +386,7 @@ public class UiBuilder {
         }
         XmlReader.Element items = element.getChildByName("Items");
         if (items != null) {
-            traverseElementTree(
+            mTraversor.traverseElementTree(
                     items,
                     item -> {
                         String name = item.getName();
