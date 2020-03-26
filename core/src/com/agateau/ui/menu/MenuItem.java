@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 public interface MenuItem {
     Actor getActor();
 
+    /** Must forward events to getActor().addListener() */
     boolean addListener(EventListener eventListener);
 
     boolean isFocusable();

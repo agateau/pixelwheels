@@ -22,11 +22,11 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameMode;
 import com.agateau.pixelwheels.gamesetup.PlayerCount;
-import com.agateau.ui.UiBuilder;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -58,7 +58,7 @@ public class SelectGameModeScreen extends PwStageScreen {
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.addButton("QUICK RACE")
+        builder.getActor("quickRaceButton")
                 .addListener(
                         new MenuItemListener() {
                             @Override
@@ -68,7 +68,7 @@ public class SelectGameModeScreen extends PwStageScreen {
                                 mGame.showQuickRace(mPlayerCount);
                             }
                         });
-        MenuItem championshipItem = menu.addButton("CHAMPIONSHIP");
+        MenuItem championshipItem = builder.getMenuItem("championshipButton");
         championshipItem.addListener(
                 new MenuItemListener() {
                     @Override

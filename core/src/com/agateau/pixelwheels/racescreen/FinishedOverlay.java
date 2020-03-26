@@ -26,9 +26,9 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.TableRowCreator;
-import com.agateau.ui.UiBuilder;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
+import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -84,10 +84,9 @@ public class FinishedOverlay extends Overlay {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
-        Menu menu = builder.getActor("menu");
         Table table = builder.getActor("scrollableTable");
 
-        fillMenu(menu);
+        fillMenu(builder);
         fillTable(table);
         return content;
     }
@@ -101,8 +100,8 @@ public class FinishedOverlay extends Overlay {
         }
     }
 
-    private void fillMenu(Menu menu) {
-        menu.addButton("OK")
+    private void fillMenu(UiBuilder builder) {
+        builder.getActor("okButton")
                 .addListener(
                         new MenuItemListener() {
                             @Override

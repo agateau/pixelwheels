@@ -16,14 +16,17 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.ui;
+package com.agateau.ui.uibuilder;
 
+import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.anchor.PositionRule;
 import com.agateau.ui.animscript.AnimScript;
 import com.agateau.ui.animscript.AnimScriptLoader;
+import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuScrollPane;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -53,19 +56,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.XmlReader;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
-    private final Set<String> mVariables = new HashSet<>();
     private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
+    private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
     private final Map<String, Actor> mActorForId = new HashMap<>();
-    private final Map<String, ActorFactory> mFactoryForName = new HashMap<>();
+    private final Map<String, MenuItem> mMenuItemForId = new HashMap<>();
+    private final Map<String, ActorFactory> mActorFactories = new HashMap<>();
+    private final Map<String, MenuItemFactory> mMenuItemFactories = new HashMap<>();
     private final TextureAtlas mAtlas;
     private final Skin mSkin;
     private Actor mLastAddedActor;
@@ -73,6 +76,10 @@ public class UiBuilder {
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
+    }
+
+    public interface MenuItemFactory {
+        MenuItem createMenuItem(Menu menu, XmlReader.Element element) throws SyntaxException;
     }
 
     private static final String[] ANCHOR_NAMES = {
@@ -107,10 +114,147 @@ public class UiBuilder {
     public UiBuilder(TextureAtlas atlas, Skin skin) {
         mAtlas = atlas;
         mSkin = skin;
+
+        initActorFactories();
+        initMenuItemFactories();
+    }
+
+    private void initActorFactories() {
+        mActorFactories.put(
+                "Image",
+                (uiBuilder, element) -> {
+                    Image image = new Image();
+                    TextureAtlas atlas1 = getAtlasForElement(element);
+                    String attr = element.getAttribute("name", "");
+                    if (!attr.isEmpty()) {
+                        if (attr.endsWith(".9")) {
+                            initImageFromNinePatchName(image, atlas1, attr);
+                        } else {
+                            boolean tiled = element.getBooleanAttribute("tiled", false);
+                            initImageFromRegionName(image, atlas1, attr, tiled);
+                        }
+                    }
+                    image.pack();
+                    return image;
+                });
+        mActorFactories.put(
+                "ImageButton",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    ImageButton.ImageButtonStyle style =
+                            new ImageButton.ImageButtonStyle(
+                                    mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
+                    String imageName = element.getAttribute("imageName", "");
+                    if (!imageName.isEmpty()) {
+                        style.imageUp = mSkin.getDrawable(imageName);
+                    }
+                    ImageButton button = new ImageButton(style);
+                    String imageColor = element.getAttribute("imageColor", "");
+                    if (!imageColor.isEmpty()) {
+                        Color color = Color.valueOf(imageColor);
+                        button.getImage().setColor(color);
+                    }
+                    return button;
+                });
+        mActorFactories.put(
+                "TextButton",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = processText(element.getText());
+                    return new TextButton(text, mSkin, styleName);
+                });
+        mActorFactories.put("Group", (uiBuilder, element) -> new Group());
+        mActorFactories.put(
+                "AnchorGroup",
+                (uiBuilder, element) -> {
+                    mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
+                    AnchorGroup group = new AnchorGroup();
+                    group.setGridSize(mDimParser.gridSize);
+                    return group;
+                });
+        mActorFactories.put(
+                "Label",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = processText(element.getText());
+                    Label label = new Label(text, mSkin, styleName);
+                    int align = parseAlign(element);
+                    if (align != -1) {
+                        label.setAlignment(align);
+                    }
+                    return label;
+                });
+        mActorFactories.put(
+                "ScrollPane",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "");
+                    ScrollPane pane;
+                    if (styleName.isEmpty()) {
+                        pane = new ScrollPane(null);
+                    } else {
+                        pane = new ScrollPane(null, mSkin, styleName);
+                    }
+                    Actor child = doBuild(element, null);
+                    if (child != null) {
+                        pane.setActor(child);
+                    }
+                    return pane;
+                });
+        mActorFactories.put(
+                "VerticalGroup",
+                (uiBuilder, element) -> {
+                    VerticalGroup group = new VerticalGroup();
+                    group.space(element.getFloatAttribute("spacing", 0));
+                    int align = parseAlign(element);
+                    if (align != -1) {
+                        group.align(align);
+                    }
+                    return group;
+                });
+        mActorFactories.put(
+                "HorizontalGroup",
+                (uiBuilder, element) -> {
+                    HorizontalGroup group = new HorizontalGroup();
+                    group.space(element.getFloatAttribute("spacing", 0));
+                    return group;
+                });
+        mActorFactories.put(
+                "CheckBox",
+                (uiBuilder, element) -> {
+                    String styleName = element.getAttribute("style", "default");
+                    String text = element.getText();
+                    return new CheckBox(text, mSkin, styleName);
+                });
+        mActorFactories.put("Menu", (uiBuilder, element) -> createMenu(element));
+        mActorFactories.put(
+                "MenuScrollPane",
+                (uiBuilder, element) -> {
+                    Menu menu = createMenu(element);
+                    return new MenuScrollPane(menu);
+                });
+        mActorFactories.put("Table", (uiBuilder, element) -> new Table(mSkin));
+    }
+
+    private void initMenuItemFactories() {
+        mMenuItemFactories.put(
+                "ButtonMenuItem",
+                (menu, element) -> {
+                    String label = element.getAttribute("label", null);
+                    String text = element.getAttribute("text", "");
+                    ButtonMenuItem item = new ButtonMenuItem(menu, text);
+                    if (label == null) {
+                        menu.addItem(item);
+                    } else {
+                        menu.addItemWithLabel(label, item);
+                    }
+                    return item;
+                });
+        mMenuItemFactories.put(
+                "LabelMenuItem", (menu, element) -> menu.addLabel(element.getAttribute("text")));
     }
 
     public void defineVariable(String name) {
-        mVariables.add(name);
+        mTraversor.defineVariable(name);
     }
 
     public Actor build(FileHandle handle) {
@@ -129,6 +273,7 @@ public class UiBuilder {
 
     public Actor build(XmlReader.Element parentElement, Group parentActor) {
         mActorForId.clear();
+        mMenuItemForId.clear();
         try {
             return doBuild(parentElement, parentActor);
         } catch (SyntaxException e) {
@@ -151,55 +296,41 @@ public class UiBuilder {
 
     private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
             throws SyntaxException {
-        Actor firstActor = null;
-        for (int idx = 0, size = parentElement.getChildCount(); idx < size; ++idx) {
-            XmlReader.Element element = parentElement.getChild(idx);
-            if (element.getName().equals("Action")) {
-                continue;
-            }
-            if (element.getName().equals("Ifdef")) {
-                XmlReader.Element elseElement = null;
-                if (idx + 1 < size) {
-                    elseElement = parentElement.getChild(idx + 1);
-                    if (elseElement.getName().equals("Else")) {
-                        // It's an else, swallow it
-                        ++idx;
-                    } else {
-                        elseElement = null;
+        final Actor[] root = {null};
+        mTraversor.traverseElementTree(
+                parentElement,
+                element -> {
+                    Actor actor = createActorForElement(element);
+                    if (actor == null) {
+                        throw new SyntaxException("Failed to create actor for element: " + element);
                     }
-                }
-                if (evaluateIfdef(element)) {
-                    doBuild(element, parentActor);
-                } else if (elseElement != null) {
-                    doBuild(elseElement, parentActor);
-                }
-                continue;
+                    if (actor instanceof Widget) {
+                        applyWidgetProperties((Widget) actor, element);
+                    }
+                    applyActorProperties(actor, element, parentActor);
+                    createActorActions(actor, element);
+                    String id = element.getAttribute("id", null);
+                    addActorToActorForId(id, actor);
+                    if (actor instanceof Group
+                            && !(actor instanceof ScrollPane)
+                            && !(actor instanceof Menu)) {
+                        doBuild(element, (Group) actor);
+                    }
+                    mLastAddedActor = actor;
+                    if (root[0] == null) {
+                        root[0] = actor;
+                    }
+                });
+        return root[0];
+    }
+
+    private void addActorToActorForId(String id, Actor actor) throws SyntaxException {
+        if (id != null) {
+            if (mActorForId.containsKey(id)) {
+                throw new SyntaxException("Duplicate ids: " + id);
             }
-            Actor actor = createActorForElement(element);
-            if (actor == null) {
-                throw new SyntaxException("Failed to create actor for element: " + element);
-            }
-            if (idx == 0) {
-                firstActor = actor;
-            }
-            if (actor instanceof Widget) {
-                applyWidgetProperties((Widget) actor, element);
-            }
-            applyActorProperties(actor, element, parentActor);
-            createActorActions(actor, element);
-            String id = element.getAttribute("id", null);
-            if (id != null) {
-                if (mActorForId.containsKey(id)) {
-                    throw new SyntaxException("Duplicate ids: " + id);
-                }
-                mActorForId.put(id, actor);
-            }
-            if (actor instanceof Group && !(actor instanceof ScrollPane)) {
-                doBuild(element, (Group) actor);
-            }
-            mLastAddedActor = actor;
+            mActorForId.put(id, actor);
         }
-        return firstActor;
     }
 
     public <T extends Actor> T getActor(String id) {
@@ -217,62 +348,23 @@ public class UiBuilder {
         return obj;
     }
 
+    public <T extends MenuItem> T getMenuItem(String id) {
+        MenuItem item = mMenuItemForId.get(id);
+        if (item == null) {
+            throw new RuntimeException("No menu item with id '" + id + "'");
+        }
+        @SuppressWarnings("unchecked")
+        T obj = (T) item;
+        return obj;
+    }
+
     private Actor createActorForElement(XmlReader.Element element) throws SyntaxException {
         String name = element.getName();
-        switch (name) {
-            case "Image":
-                return createImage(element);
-            case "ImageButton":
-                return createImageButton(element);
-            case "TextButton":
-                return createTextButton(element);
-            case "Group":
-                return createGroup(element);
-            case "AnchorGroup":
-                return createAnchorGroup(element);
-            case "Label":
-                return createLabel(element);
-            case "ScrollPane":
-                return createScrollPane(element);
-            case "VerticalGroup":
-                return createVerticalGroup(element);
-            case "HorizontalGroup":
-                return createHorizontalGroup(element);
-            case "CheckBox":
-                return createCheckBox(element);
-            case "Menu":
-                return createMenu(element);
-            case "MenuScrollPane":
-                return createMenuScrollPane(element);
-            case "Table":
-                return createTable(element);
-        }
-        ActorFactory factory = mFactoryForName.get(name);
+        ActorFactory factory = mActorFactories.get(name);
         if (factory != null) {
             return factory.createActor(this, element);
         }
         throw new SyntaxException("Unknown UI element type: " + name);
-    }
-
-    private Image createImage(XmlReader.Element element) {
-        Image image = new Image();
-        TextureAtlas atlas = getAtlasForElement(element);
-        String attr = element.getAttribute("name", "");
-        if (!attr.isEmpty()) {
-            if (attr.endsWith(".9")) {
-                initImageFromNinePatchName(image, atlas, attr);
-            } else {
-                boolean tiled = element.getBooleanAttribute("tiled", false);
-                initImageFromRegionName(image, atlas, attr, tiled);
-            }
-        }
-        image.pack();
-        return image;
-    }
-
-    private boolean evaluateIfdef(XmlReader.Element element) {
-        String condition = element.getAttribute("var").trim();
-        return mVariables.contains(condition);
     }
 
     private TextureAtlas getAtlasForElement(XmlReader.Element element) {
@@ -307,108 +399,33 @@ public class UiBuilder {
         }
     }
 
-    private ImageButton createImageButton(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        ImageButton.ImageButtonStyle style =
-                new ImageButton.ImageButtonStyle(
-                        mSkin.get(styleName, ImageButton.ImageButtonStyle.class));
-        String imageName = element.getAttribute("imageName", "");
-        if (!imageName.isEmpty()) {
-            style.imageUp = mSkin.getDrawable(imageName);
-        }
-        ImageButton button = new ImageButton(style);
-        String imageColor = element.getAttribute("imageColor", "");
-        if (!imageColor.isEmpty()) {
-            Color color = Color.valueOf(imageColor);
-            button.getImage().setColor(color);
-        }
-        return button;
-    }
-
-    private TextButton createTextButton(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        String text = processText(element.getText());
-        return new TextButton(text, mSkin, styleName);
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private Group createGroup(XmlReader.Element element) {
-        return new Group();
-    }
-
-    private AnchorGroup createAnchorGroup(XmlReader.Element element) {
-        mDimParser.gridSize = mDimParser.parse(element.getAttribute("gridSize", "1"));
-        AnchorGroup group = new AnchorGroup();
-        group.setGridSize(mDimParser.gridSize);
-        return group;
-    }
-
-    private Label createLabel(XmlReader.Element element) throws SyntaxException {
-        String styleName = element.getAttribute("style", "default");
-        String text = processText(element.getText());
-        Label label = new Label(text, mSkin, styleName);
-        int align = parseAlign(element);
-        if (align != -1) {
-            label.setAlignment(align);
-        }
-        return label;
-    }
-
-    private ScrollPane createScrollPane(XmlReader.Element element) throws SyntaxException {
-        String styleName = element.getAttribute("style", "");
-        ScrollPane pane;
-        if (styleName.isEmpty()) {
-            pane = new ScrollPane(null);
-        } else {
-            pane = new ScrollPane(null, mSkin, styleName);
-        }
-        Actor child = doBuild(element, null);
-        if (child != null) {
-            pane.setActor(child);
-        }
-        return pane;
-    }
-
-    private VerticalGroup createVerticalGroup(XmlReader.Element element) throws SyntaxException {
-        VerticalGroup group = new VerticalGroup();
-        group.space(element.getFloatAttribute("spacing", 0));
-        int align = parseAlign(element);
-        if (align != -1) {
-            group.align(align);
-        }
-        return group;
-    }
-
-    private HorizontalGroup createHorizontalGroup(XmlReader.Element element) {
-        HorizontalGroup group = new HorizontalGroup();
-        group.space(element.getFloatAttribute("spacing", 0));
-        return group;
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private Table createTable(XmlReader.Element element) {
-        return new Table(mSkin);
-    }
-
-    private CheckBox createCheckBox(XmlReader.Element element) {
-        String styleName = element.getAttribute("style", "default");
-        String text = element.getText();
-        return new CheckBox(text, mSkin, styleName);
-    }
-
-    private Menu createMenu(XmlReader.Element element) {
+    private Menu createMenu(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
         float width = element.getIntAttribute("labelColumnWidth", 0);
         if (width > 0) {
             menu.setLabelColumnWidth(width);
         }
+        XmlReader.Element items = element.getChildByName("Items");
+        if (items != null) {
+            mTraversor.traverseElementTree(
+                    items,
+                    itemElement -> {
+                        String name = itemElement.getName();
+                        MenuItemFactory factory = mMenuItemFactories.get(name);
+                        if (factory == null) {
+                            throw new SyntaxException("Invalid menu item type: " + name);
+                        }
+                        String id = itemElement.getAttribute("id", null);
+                        MenuItem menuItem = factory.createMenuItem(menu, itemElement);
+                        Actor actor = menuItem.getActor();
+                        if (id != null) {
+                            mMenuItemForId.put(id, menuItem);
+                            addActorToActorForId(id, actor);
+                        }
+                    });
+        }
         return menu;
-    }
-
-    private MenuScrollPane createMenuScrollPane(XmlReader.Element element) {
-        Menu menu = createMenu(element);
-        return new MenuScrollPane(menu);
     }
 
     private void applyWidgetProperties(Widget widget, XmlReader.Element element) {
@@ -519,7 +536,7 @@ public class UiBuilder {
     }
 
     public void registerActorFactory(String name, ActorFactory factory) {
-        mFactoryForName.put(name, factory);
+        mActorFactories.put(name, factory);
     }
 
     private static String processText(String text) {
