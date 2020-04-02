@@ -42,7 +42,7 @@ import java.util.Locale;
 /** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
     private final PwGame mGame;
-    private final RaceScreen.Listener mListener;
+    private final RaceScreen mRaceScreen;
     private final Array<Racer> mRacers;
     private final Array<Racer> mRecordBreakers = new Array<>();
     private final TableRowCreator mTableRowCreator =
@@ -57,10 +57,10 @@ public class FinishedOverlay extends Overlay {
                 }
             };
 
-    public FinishedOverlay(PwGame game, RaceScreen.Listener listener, final Array<Racer> racers) {
+    public FinishedOverlay(PwGame game, RaceScreen raceScreen, final Array<Racer> racers) {
         super(game.getAssets().dot);
         mGame = game;
-        mListener = listener;
+        mRaceScreen = raceScreen;
         mRacers = racers;
         new PwRefreshHelper(mGame, this) {
             @Override
@@ -82,6 +82,9 @@ public class FinishedOverlay extends Overlay {
 
     private Actor createScoreTableContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        if (mRaceScreen.showRestartButton()) {
+            builder.defineVariable("showRestartButton");
+        }
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         Table table = builder.getActor("scrollableTable");
@@ -101,12 +104,22 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void fillMenu(UiBuilder builder) {
-        builder.getActor("okButton")
+        if (mRaceScreen.showRestartButton()) {
+            builder.getActor("restartButton")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mRaceScreen.getListener().onRestartPressed();
+                                }
+                            });
+        }
+        builder.getActor("continueButton")
                 .addListener(
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                mListener.onNextTrackPressed();
+                                mRaceScreen.getListener().onNextTrackPressed();
                             }
                         });
     }

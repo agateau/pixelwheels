@@ -2,13 +2,16 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Table id="scrollableTable"
-            center="root.center 0 2"
+            topCenter="root.topCenter 0 -0.5"
             width="650"
-            height="320"/>
+            height="300"/>
 
-        <Menu id="menu" width="150" bottomCenter="scrollableTable.bottomCenter 0 -3">
+        <Menu id="menu" width="200" topCenter="scrollableTable.bottomCenter 0 0">
             <Items>
-                <ButtonMenuItem id="okButton" text="OK"/>
+                <ButtonMenuItem id="continueButton" text="Continue"/>
+                <Ifdef var="showRestartButton">
+                    <ButtonMenuItem id="restartButton" text="Restart"/>
+                </Ifdef>
             </Items>
         </Menu>
     </AnchorGroup>

@@ -241,7 +241,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void onFinished() {
-        FinishedOverlay overlay = new FinishedOverlay(mGame, mListener, mGameWorld.getRacers());
+        FinishedOverlay overlay = new FinishedOverlay(mGame, this, mGameWorld.getRacers());
         mHudStage.addActor(overlay);
     }
 
@@ -319,5 +319,9 @@ public class RaceScreen extends ScreenAdapter {
 
     boolean showRestartButton() {
         return mGameInfo.getGameType() == GameInfo.GameType.QUICK_RACE;
+    }
+
+    public Listener getListener() {
+        return mListener;
     }
 }
