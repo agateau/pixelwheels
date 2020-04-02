@@ -8,6 +8,10 @@ import com.badlogic.gdx.utils.Array;
 public class QuickRaceGameInfo extends GameInfo {
     private Track mTrack;
 
+    public QuickRaceGameInfo() {
+        super(GameType.QUICK_RACE);
+    }
+
     public static class Builder extends GameInfo.Builder<QuickRaceGameInfo> {
         private Track mTrack;
 

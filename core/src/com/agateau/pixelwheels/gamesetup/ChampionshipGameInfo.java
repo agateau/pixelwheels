@@ -11,6 +11,10 @@ public class ChampionshipGameInfo extends GameInfo {
     private Championship mChampionship;
     private int mTrackIndex = 0;
 
+    public ChampionshipGameInfo() {
+        super(GameType.CHAMPIONSHIP);
+    }
+
     public static class Builder extends GameInfo.Builder<ChampionshipGameInfo> {
         private Championship mChampionship;
 

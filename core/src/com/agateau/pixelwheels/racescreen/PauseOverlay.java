@@ -45,7 +45,7 @@ public class PauseOverlay extends Overlay {
 
     private Actor createContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
+        if (mRaceScreen.showRestartButton()) {
             builder.defineVariable("showRestartButton");
         }
         Actor content = builder.build(FileUtils.assets("screens/pauseoverlay.gdxui"));
@@ -58,7 +58,7 @@ public class PauseOverlay extends Overlay {
                                 mRaceScreen.resumeRace();
                             }
                         });
-        if (mRaceScreen.getPauseButtons() == RaceScreen.PauseButtons.ALL) {
+        if (mRaceScreen.showRestartButton()) {
             builder.getActor("restartButton")
                     .addListener(
                             new ChangeListener() {

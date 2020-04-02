@@ -27,7 +27,13 @@ import com.badlogic.gdx.utils.Array;
 
 /** Details about the game to start */
 public abstract class GameInfo {
+    public enum GameType {
+        QUICK_RACE,
+        CHAMPIONSHIP
+    }
+
     private final Array<Entrant> mEntrants = new Array<>();
+    private final GameType mGameType;
 
     public abstract static class Builder<T extends GameInfo> {
         final Array<VehicleDef> mVehicleDefs;
@@ -122,6 +128,14 @@ public abstract class GameInfo {
         public boolean isPlayer() {
             return true;
         }
+    }
+
+    protected GameInfo(GameType gameType) {
+        mGameType = gameType;
+    }
+
+    public GameType getGameType() {
+        return mGameType;
     }
 
     public abstract Track getTrack();
