@@ -1,0 +1,8 @@
+<vehicle speed="1.2" name="Dark M" width="40" height="89">
+    <main image="dark-m"/>
+    <shapes>
+        <octogon corner="6" y="10" width="34" height="79"/>
+    </shapes>
+    <axle y="77" width="28" steer="1"/>
+    <axle y="25" width="28"/>
+</vehicle>
