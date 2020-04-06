@@ -1,5 +1,7 @@
 # Pixel Wheels
 
+[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels)
+
 Pixel Wheels is a retro top-down race game.
 
 You can play Pixel Wheels alone or with a friend.
