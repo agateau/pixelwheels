@@ -158,7 +158,7 @@ public class ChampionshipMaestro extends Maestro {
                         }
                     }
                 };
-        return new RaceScreen(getGame(), listener, mGameInfo, RaceScreen.PauseButtons.NO_RESTART);
+        return new RaceScreen(getGame(), listener, mGameInfo);
     }
 
     private Screen createChampionshipFinishedScreen() {

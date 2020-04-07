@@ -57,14 +57,9 @@ public class RaceScreen extends ScreenAdapter {
         void onNextTrackPressed();
     }
 
-    public enum PauseButtons {
-        ALL,
-        NO_RESTART
-    }
-
     private final PwGame mGame;
     private final Listener mListener;
-    private final PauseButtons mPauseButtons;
+    private final GameInfo mGameInfo;
 
     private final GameWorldImpl mGameWorld;
     private final Color mBackgroundColor;
@@ -86,12 +81,11 @@ public class RaceScreen extends ScreenAdapter {
     private boolean mFirstRender = true;
     private boolean mConfigVisible = false;
 
-    public RaceScreen(
-            PwGame game, Listener listener, GameInfo gameInfo, PauseButtons pauseButtons) {
+    public RaceScreen(PwGame game, Listener listener, GameInfo gameInfo) {
         NLog.i("Starting race on %s", gameInfo.getTrack().getMapName());
         mGame = game;
         mListener = listener;
-        mPauseButtons = pauseButtons;
+        mGameInfo = gameInfo;
 
         DebugShapeMap.clear();
 
@@ -247,7 +241,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void onFinished() {
-        FinishedOverlay overlay = new FinishedOverlay(mGame, mListener, mGameWorld.getRacers());
+        FinishedOverlay overlay = new FinishedOverlay(mGame, this, mGameWorld.getRacers());
         mHudStage.addActor(overlay);
     }
 
@@ -323,7 +317,11 @@ public class RaceScreen extends ScreenAdapter {
         mGameWorld.forgetTrack();
     }
 
-    public PauseButtons getPauseButtons() {
-        return mPauseButtons;
+    boolean showRestartButton() {
+        return mGameInfo.getGameType() == GameInfo.GameType.QUICK_RACE;
+    }
+
+    public Listener getListener() {
+        return mListener;
     }
 }
