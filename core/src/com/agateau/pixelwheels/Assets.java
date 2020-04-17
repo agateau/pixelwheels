@@ -46,7 +46,16 @@ public class Assets implements TextureRegionProvider {
     private static final float TURBO_FLAME_FRAME_DURATION = 0.04f;
 
     private static final String[] VEHICLE_IDS = {
-        "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "rocket"
+        "red",
+        "police",
+        "pickup",
+        "roadster",
+        "antonin",
+        "santa",
+        "2cv",
+        "harvester",
+        "rocket",
+        "dark-m"
     };
 
     public final Array<VehicleDef> vehicleDefs = new Array<>();

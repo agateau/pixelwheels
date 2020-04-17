@@ -96,5 +96,10 @@ class RewardManagerSetup {
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("santa")),
                 new CounterRewardRule(GameStats.Event.PICKED_BONUS, 20, "Pick %d bonuses"));
+
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("dark-m")),
+                new CounterRewardRule(
+                        GameStats.Event.MISSILE_HIT, 40, "Hit %d vehicles with a missile"));
     }
 }
