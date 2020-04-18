@@ -46,4 +46,8 @@ public class Championship {
     public Array<Track> getTracks() {
         return mTracks;
     }
+
+    public String toString() {
+        return mId;
+    }
 }
