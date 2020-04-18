@@ -50,10 +50,17 @@ public class RewardManager {
 
         Set<Reward> get() {
             if (mNeedsUpdate) {
-                mNeedsUpdate = false;
-            } else {
-                return mRewards;
+                update();
             }
+            return mRewards;
+        }
+
+        void scheduleUpdate() {
+            mNeedsUpdate = true;
+        }
+
+        private void update() {
+            mNeedsUpdate = false;
             for (Map.Entry<Reward, RewardRule> rule : mRules.entrySet()) {
                 Reward reward = rule.getKey();
                 if (mRewards.contains(reward)) {
@@ -63,11 +70,6 @@ public class RewardManager {
                     mRewards.add(reward);
                 }
             }
-            return mRewards;
-        }
-
-        void scheduleUpdate() {
-            mNeedsUpdate = true;
         }
     }
 
