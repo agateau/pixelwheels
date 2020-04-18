@@ -36,6 +36,7 @@ public interface GameStats {
 
     TrackStats getTrackStats(Track track);
 
+    /** Returns the best rank obtained, or Integer.MAX_VALUE if never raced */
     int getBestChampionshipRank(Championship championship);
 
     void onChampionshipFinished(Championship championship, int rank);
