@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.CollectionUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
 import java.util.Set;
 
@@ -42,37 +43,57 @@ class RewardManagerSetup {
 
         for (int idx = 1; idx < championships.size; ++idx) {
             final Championship previous = championships.get(idx - 1);
-            final Championship next =
-                    idx < championships.size - 1 ? championships.get(idx + 1) : null;
+            final Championship current = championships.get(idx);
+            final int currentIdx = idx;
+
             rewardManager.addRule(
                     Reward.get(championships.get(idx)),
                     new RewardRule() {
                         @Override
                         public boolean hasBeenUnlocked(GameStats gameStats) {
-                            if (next != null && rewardManager.isChampionshipUnlocked(next)) {
+                            if (gameStats.getBestChampionshipRank(previous) <= 2) {
+                                return true;
+                            }
+                            if (hasAlreadyRacedChampionshipOrAfter(
+                                    championships, currentIdx, gameStats)) {
                                 // Hack to handle case where a new championship has been added at
                                 // the beginning of the game:
                                 //
-                                // Say we have Champ. X and Y, and player has already unlocked Y by
-                                // finishing X. If in a new
-                                // version of the game we add Champ. W before Champ X, then Y is
-                                // unlocked because we
-                                // recorded the performance on X, but X is not because unlocking it
-                                // now requires a good
-                                // performance on W. This would be surprising for the player.
+                                // Say we have championships C1 and C2, and player has already
+                                // unlocked C2 by finishing C1. If in a new version of the game we
+                                // insert championship C0 before C1, then C2 is unlocked because we
+                                // recorded the performance on C1, but C1 is not because unlocking
+                                // it now requires a good performance on C0. This would be
+                                // surprising for the player.
                                 //
-                                // To avoid that, unlock a championship if the next one has already
-                                // been unlocked. In our
-                                // example X would be unlocked because Y has already been unlocked.
+                                // To avoid that, unlock a championship if we raced it or one after
+                                // it once. In our example C1 would be unlocked because we raced it
+                                // once.
+                                NLog.i(
+                                        "Unlock '%s' even if the rank on previous ('%s') is not enough, because we already raced '%s' or a championship after it in the past",
+                                        current, previous, current);
                                 return true;
                             }
-                            return gameStats.getBestChampionshipRank(previous) <= 2;
+                            return false;
                         }
 
                         @Override
                         public String getUnlockText(GameStats gameStats) {
                             return StringUtils.format(
                                     "Rank 3 or better at %s championship", previous.getName());
+                        }
+
+                        private boolean hasAlreadyRacedChampionshipOrAfter(
+                                Array<Championship> championships,
+                                int currentIdx,
+                                GameStats gameStats) {
+                            for (int idx = currentIdx; idx < championships.size; ++idx) {
+                                if (gameStats.getBestChampionshipRank(championships.get(idx))
+                                        < Integer.MAX_VALUE) {
+                                    return true;
+                                }
+                            }
+                            return false;
                         }
                     });
         }
