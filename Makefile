@@ -22,6 +22,8 @@ JDK_LINUX64_ZIP=openjdk-linux64.zip
 
 ARCHIVE_DIR=$(CURDIR)/archives
 
+ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
+
 ifdef SNAPSHOT
 	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
 endif
@@ -102,6 +104,18 @@ apk-dist:
 dist: assets packer check desktop-dist apk-dist
 
 clean-dist: clean dist
+
+desktop-run-from-dist:
+	rm -rf tmp
+	mkdir -p tmp
+	unzip $(ARCHIVE_DIR)/$(DIST_NAME).zip -d tmp
+	xdg-open tmp/$(DIST_NAME)/pixelwheels.jar
+
+android-run-from-dist:
+	# uninstall any existing verison in case we have an unsigned version installed
+	adb uninstall $(ANDROID_PACKAGE_NAME) || true
+	adb install -f $(ARCHIVE_DIR)/$(DIST_NAME).apk
+	adb shell am start -n $(ANDROID_PACKAGE_NAME)/com.agateau.pixelwheels.android.AndroidLauncher
 
 # coding style
 codingstyle-check:
