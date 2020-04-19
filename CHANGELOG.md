@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.16.0 - 2020-04-19
+
+### For players
+
+#### Added
+
+- Added a new championship called "Country Life". Contains only one race for now: "Welcome".
+
+- In quick race mode, added a "Restart" button after finishing a race (#27).
+
+- Added a new car: the Dark M.
+
+#### Fixed
+
+- Android: It is now possible to move the game to the SD card (#82).
+
+### For developers
+
+- Added support for defining menu items inside .gdxui files instead of defining them in code. Most menus are now defined this way, making it possible to adjust them without restarting the game.
+
+- Updated libgdx to 1.9.10.
+
+- Updated Pillow to 7.1.1.
+
 ## 0.15.0 - 2020-02-09
 
 ### For players

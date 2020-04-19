@@ -1,0 +1,7 @@
+Added a new championship called "Country Life". Contains only one race for now: "Welcome".
+
+In quick race mode, added a "Restart" button after finishing a race.
+
+Added a new car: the Dark M.
+
+It is now possible to move the game to the SD card.
