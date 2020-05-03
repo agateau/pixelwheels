@@ -2,7 +2,7 @@
 
 - Check source tree is clean
 
-    git checkout master
+    git checkout dev
     git pull
     git status
 
@@ -11,6 +11,7 @@
     vi version.properties
 
 - Update changelog
+
     vi CHANGELOG.md
     vi fastlane/metadata/android/en-US/changelogs/$version.txt
 
@@ -21,7 +22,12 @@
     make clean-dist
 
 - Test on computer
+
+    make desktop-run-from-dist
+
 - Test on device
+
+    make android-run-from-dist
 
 - Update screenshots in fastlane/metadata/android/en-US/images/
 
@@ -32,6 +38,14 @@
     Check api file is in fastlane/google-play-api.json
 
     make fastlane-beta
+
+- Check Google Play is happy
+
+- Merge in master
+
+    git checkout master
+    git pull
+    git merge --ff-only dev
 
 - Tag and push
 
@@ -52,9 +66,9 @@
 # Google Play
 
 - Update Google Play page
-- Publish
 
 # F-Droid
+
 - Get the F-Droid version updated
 
 # Spread
@@ -62,4 +76,3 @@
 - Post on:
     - Mastodon
     - Twitter
-    - FB
