@@ -1,12 +1,12 @@
 # Pixel Wheels
 
-[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels)
+[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels) [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I51Q4C0)
 
 Pixel Wheels is a retro top-down race game.
 
 You can play Pixel Wheels alone or with a friend.
 
-![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/mine-drop.png)
+![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/2-mine-drop.png)
 
 It runs on Linux, macOS, Windows and Android.
 
