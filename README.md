@@ -6,7 +6,7 @@ Pixel Wheels is a retro top-down race game.
 
 You can play Pixel Wheels alone or with a friend.
 
-![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/mine-drop.png)
+![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/2-mine-drop.png)
 
 It runs on Linux, macOS, Windows and Android.
 
