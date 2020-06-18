@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""
+Convert a .ase file to png
+"""
+import argparse
+import os
+import sys
+
+from aseprite import AsepriteImage
+from imageops import render_frame
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.description = __doc__
+
+    parser.add_argument("ase_file")
+    parser.add_argument("png_file", nargs='?')
+
+    args = parser.parse_args()
+
+    if args.png_file:
+        png_filename =args.png_file
+    else:
+        png_filename = os.path.splitext(args.ase_file)[0] + ".png"
+
+    src = AsepriteImage(args.ase_file)
+    assert len(src.frames) == 1, "Expected a non-animated image"
+
+    dst = render_frame(src.frames[0])
+    dst.save(png_filename)
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+# vi: ts=4 sw=4 et

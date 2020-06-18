@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""
+Split an Aseprite file into several png
+"""
+import argparse
+import sys
+
+from aseprite import AsepriteImage
+from imageops import save_cel_as_png
+
+
+def parse_destination_files(destination_files):
+    for dest in destination_files:
+        yield dest.split('=', 1)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.description = __doc__
+
+    parser.add_argument("ase_file")
+    parser.add_argument("layer2png", nargs="+",
+                        help="format: layer_name=path/to/png/file")
+
+    args = parser.parse_args()
+
+    dst_files_for_layers = parse_destination_files(args.layer2png)
+
+    image = AsepriteImage(args.ase_file)
+    assert len(image.frames) == 1, "Expected a non-animated image"
+
+    cel_idx_dict = dict((x.name, idx) for idx, x in enumerate(image.layers))
+
+    frame = image.frames[0]
+    for layer_name, png_path in dst_files_for_layers:
+        print(f"Extracting layer {layer_name} to {png_path}")
+        cel = frame.cels[cel_idx_dict[layer_name]]
+        with open(png_path, "wb") as fp:
+            save_cel_as_png(cel, fp)
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+# vi: ts=4 sw=4 et

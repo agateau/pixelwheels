@@ -11,6 +11,9 @@ VEHICLES_SUBDIR := sprites/vehicles
 # Path to aseprite or libresprite
 ASEPRITE ?= aseprite
 
+ASESPLIT = $(TOOLS_DIR)/asetools/asesplit
+ASE2PNG = $(TOOLS_DIR)/asetools/ase2png
+
 all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 
 clean:
@@ -38,7 +41,7 @@ stills: $(OUT_STILL_IMAGES)
 
 $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASEPRITE) --batch $< --save-as $@
+	$(ASE2PNG) $< $@
 
 #- Anims ----------------------------------------------------------------------
 ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
@@ -66,7 +69,7 @@ vehicles: $(OUT_VEHICLE_IMAGES)
 $(OUT_DIR)/sprites/vehicles/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	$(ASEPRITE) --batch $< --save-as $(TMP_PNG)
+	$(ASE2PNG) $< $(TMP_PNG)
 	convert -rotate 90 $(TMP_PNG) $@
 	rm $(TMP_PNG)
 
@@ -79,7 +82,7 @@ tiles: $(OUT_TILE_IMAGES)
 $(FINAL_OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	mkdir -p $(FINAL_OUT_DIR)/maps
-	$(ASEPRITE) --batch $< --save-as $(TMP_PNG)
+	$(ASE2PNG) $< $(TMP_PNG)
 	convert -alpha set -channel RGBA \
 		-fill '#22203460' -opaque '#ff00ff' \
 		-fill '#ffffff20' -opaque '#00ffff' \
@@ -95,7 +98,7 @@ ui: $(OUT_UI_IMAGES)
 
 $(OUT_DIR)/ui/%.png: ui/%.ase
 	mkdir -p $(OUT_DIR)/ui
-	$(ASEPRITE) --batch $< --save-as $@
+	$(ASE2PNG) $< $@
 
 #- Map icons ------------------------------------------------------------------
 MAP_ICONS := $(wildcard ui/map-icons/*.ase)
@@ -105,7 +108,7 @@ map-icons: $(OUT_MAP_ICONS)
 
 $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	mkdir -p $(OUT_DIR)/ui/map-icons
-	$(ASEPRITE) --batch $< --save-as $@
+	$(ASE2PNG) $< $@
 
 #- Input icons ----------------------------------------------------------------
 INPUT_ICONS := ui/input-icons/input-icons.ase
