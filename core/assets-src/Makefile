@@ -23,7 +23,7 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 	mkdir -p $(OUT_DIR)/sprites
 
 	$(ASESPLIT) --split-layers --trim sprites/hud/hud-pie-buttons.ase \
-		"$(OUT_DIR)/sprites/hud-{layer}.png"
+		"sprites/hud/hud-{layer}.png"
 
 	$(ASESPLIT) --split-slices sprites/hud/hud-sides-buttons.ase \
 		"sprites/hud/{slice}.png"
