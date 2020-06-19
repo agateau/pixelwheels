@@ -47,7 +47,8 @@ anims: $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASESPLIT) $< "$(OUT_DIR)/sprites/{title}_{frame}.png"
+	# $(*F) is the % part of the target
+	$(ASESPLIT) $< "$(OUT_DIR)/sprites/$(*F)_{frame}.png"
 
 #- Helicopter -----------------------------------------------------------------
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png
