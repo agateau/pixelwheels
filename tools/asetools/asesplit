@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Split an Aseprite file into several png
+Turn an Aseprite file into one or several png files.
 """
 import argparse
 import sys
@@ -23,7 +23,10 @@ def main():
     parser.description = __doc__
 
     parser.add_argument("ase_file")
-    parser.add_argument("format", default="{title}.png")
+    parser.add_argument(
+        "format", default="{title}.png",
+        help="Define the name of the generated files. Supported keywords:" \
+        " {title}, {layer}, {frame}, {slice}")
     parser.add_argument("--split-layers", action="store_true")
     parser.add_argument("--split-slices", action="store_true")
     parser.add_argument("--trim", action="store_true")
