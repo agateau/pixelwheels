@@ -13,15 +13,6 @@ from aseprite import AsepriteImage
 from imageops import pil_image_for_cel, render_frame
 
 
-def real_save(image: Image, path: str):
-    print(f"Creating {path}")
-    image.save(path)
-
-
-def dry_run_save(image: Image, path: str):
-    print(f"Would create {path}")
-
-
 def trim(image: Image) -> Image:
     box = image.getbbox()
     return image.crop(box)
@@ -34,6 +25,7 @@ def main():
     parser.add_argument("ase_file")
     parser.add_argument("--format")
     parser.add_argument("--split-layers", action="store_true")
+    parser.add_argument("--split-slices", action="store_true")
     parser.add_argument("--trim", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
 
@@ -42,27 +34,38 @@ def main():
     ase_file = Path(args.ase_file)
 
     title = ase_file.stem
-    image = AsepriteImage(ase_file)
+    ase_image = AsepriteImage(ase_file)
 
-    if args.dry_run:
-        save = dry_run_save
-    else:
-        save = real_save
+    def finish_image(image, context, **extra_context_args):
+        if args.trim:
+            image = trim(image)
 
-    for frame_idx, frame in enumerate(image.frames):
+        ctx = dict(context)
+        ctx.update(extra_context_args)
+        path = args.format.format(**ctx)
+        if args.dry_run:
+            print(f"Would create {path}")
+        else:
+            print(f"Creating {path}")
+            image.save(path)
+
+    for frame_idx, frame in enumerate(ase_image.frames):
+        context = dict(frame=frame_idx, title=title)
         if args.split_layers:
-            for layer_idx, layer in enumerate(image.layers):
+            for layer_idx, layer in enumerate(ase_image.layers):
                 image = pil_image_for_cel(frame.cels[layer_idx])
-                if args.trim:
-                    image = trim(image)
-                png_path = args.format.format(layer=layer.name, title=title, frame=frame_idx)
-                save(image, png_path)
+                finish_image(image, context, layer=layer.name)
         else:
             image = render_frame(frame)
-            if args.trim:
-                image = trim(image)
-            png_path = args.format.format(title=title, frame=frame_idx)
-            save(image, png_path)
+            if args.split_slices:
+                for slice_ in ase_image.slices:
+                    x, y = slice_.position
+                    w, h = slice_.size
+                    box = [x, y, (x + w), (y + h)]
+                    sliced_image = image.crop(box)
+                    finish_image(sliced_image, context, slice=slice_.name)
+            else:
+                finish_image(image, context)
 
     return 0
 
