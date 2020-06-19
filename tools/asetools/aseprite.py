@@ -18,6 +18,7 @@ FRAME_MAGIC = 0xF1FA
 LAYER_CHUNK = 0x2004
 CEL_CHUNK = 0x2005
 PALETTE_CHUNK = 0x2019
+SLICE_CHUNK = 0x2022
 
 COMPRESSED_IMAGE_CEL_TYPE = 2
 
@@ -46,6 +47,13 @@ class Cel:
         self.pixels: List[bytes] = []
 
 
+class Slice:
+    def __init__(self, name: str, pos, size):
+        self.name: str = name
+        self.position = pos
+        self.size = size
+
+
 class Frame:
     def __init__(self, image: "AsepriteImage"):
         self.image: "AsepriteImage" = image
@@ -65,6 +73,7 @@ class AsepriteImage:
         self.color_count = 0
         self.layers: List[Layer] = []
         self.frames: List[Frame] = []
+        self.slices: List[Slice] = []
 
         with open(filename, "rb") as fp:
             self.read_header(fp)
@@ -111,6 +120,8 @@ class AsepriteImage:
             self.read_cel_chunk(chunk_fp)
         elif chunk_type == PALETTE_CHUNK:
             self.read_palette_chunk(chunk_fp)
+        elif chunk_type == SLICE_CHUNK:
+            self.read_slice_chunk(chunk_fp)
 
     def read_layer_chunk(self, fp):
         flags, layer_type, child_level, blend_mode, opacity, layer_name_length \
@@ -141,7 +152,19 @@ class AsepriteImage:
         fp.read(8)
         for idx in range(first, last + 1):
             flags, red, green, blue, alpha = unpack("<HBBBB", fp.read(6))
-            assert flags == 0, "Named colors are not supported yet"
+            if flags != 0:
+                raise NotSupported("Named colors in palette")
             self.palette[idx] = (red, green, blue, alpha)
         self.palette[self.transparent_color] = (0, 0, 0, 0)
+
+    def read_slice_chunk(self, fp):
+        count, flags, name_length = unpack("<LLxxxxH", fp.read(14))
+        if count > 1:
+            raise NotSupported("Multi-key slices")
+        if flags != 0:
+            raise NotSupported(f"Slice flags {flags}")
+        name = str(fp.read(name_length), "utf-8")
+
+        frame_number, x, y, width, height = unpack("<LllLL", fp.read(20))
+        self.slices.append(Slice(name, (x, y), (width, height)))
 # vi: ts=4 sw=4 et
