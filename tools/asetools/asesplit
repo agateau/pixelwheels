@@ -23,7 +23,7 @@ def main():
     parser.description = __doc__
 
     parser.add_argument("ase_file")
-    parser.add_argument("--format")
+    parser.add_argument("format", default="{title}.png")
     parser.add_argument("--split-layers", action="store_true")
     parser.add_argument("--split-slices", action="store_true")
     parser.add_argument("--trim", action="store_true")

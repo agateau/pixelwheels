@@ -9,7 +9,6 @@ FINAL_OUT_DIR ?= ../../android/assets
 VEHICLES_SUBDIR := sprites/vehicles
 
 ASESPLIT = $(TOOLS_DIR)/asetools/asesplit
-ASE2PNG = $(TOOLS_DIR)/asetools/ase2png
 
 all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 
@@ -24,10 +23,10 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 	mkdir -p $(OUT_DIR)/sprites
 
 	$(ASESPLIT) --split-layers --trim sprites/hud/hud-pie-buttons.ase \
-		--format "$(OUT_DIR)/sprites/hud-{layer}.png"
+		"$(OUT_DIR)/sprites/hud-{layer}.png"
 
 	$(ASESPLIT) --split-slices sprites/hud/hud-sides-buttons.ase \
-		--format "sprites/hud/{slice}.png"
+		"sprites/hud/{slice}.png"
 
 	sprites/hud/hud.py $(OUT_DIR)/sprites
 
@@ -38,7 +37,7 @@ stills: $(OUT_STILL_IMAGES)
 
 $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASE2PNG) $< $@
+	$(ASESPLIT) $< $@
 
 #- Anims ----------------------------------------------------------------------
 ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
@@ -48,14 +47,14 @@ anims: $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASESPLIT) $< --format "$(OUT_DIR)/sprites/{title}_{frame}.png"
+	$(ASESPLIT) $< "$(OUT_DIR)/sprites/{title}_{frame}.png"
 
 #- Helicopter -----------------------------------------------------------------
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png
 
 $(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASESPLIT) --split-layers --trim $< --format "$(OUT_DIR)/sprites/helicopter-{layer}.png"
+	$(ASESPLIT) --split-layers --trim $< "$(OUT_DIR)/sprites/helicopter-{layer}.png"
 
 #- Vehicles -------------------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
@@ -66,7 +65,7 @@ vehicles: $(OUT_VEHICLE_IMAGES)
 $(OUT_DIR)/sprites/vehicles/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	$(ASE2PNG) $< $(TMP_PNG)
+	$(ASESPLIT) $< $(TMP_PNG)
 	convert -rotate 90 $(TMP_PNG) $@
 	rm $(TMP_PNG)
 
@@ -79,7 +78,7 @@ tiles: $(OUT_TILE_IMAGES)
 $(FINAL_OUT_DIR)/maps/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
 $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	mkdir -p $(FINAL_OUT_DIR)/maps
-	$(ASE2PNG) $< $(TMP_PNG)
+	$(ASESPLIT) $< $(TMP_PNG)
 	convert -alpha set -channel RGBA \
 		-fill '#22203460' -opaque '#ff00ff' \
 		-fill '#ffffff20' -opaque '#00ffff' \
@@ -95,7 +94,7 @@ ui: $(OUT_UI_IMAGES)
 
 $(OUT_DIR)/ui/%.png: ui/%.ase
 	mkdir -p $(OUT_DIR)/ui
-	$(ASE2PNG) $< $@
+	$(ASESPLIT) $< $@
 
 #- Map icons ------------------------------------------------------------------
 MAP_ICONS := $(wildcard ui/map-icons/*.ase)
@@ -105,7 +104,7 @@ map-icons: $(OUT_MAP_ICONS)
 
 $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	mkdir -p $(OUT_DIR)/ui/map-icons
-	$(ASE2PNG) $< $@
+	$(ASESPLIT) $< $@
 
 #- Input icons ----------------------------------------------------------------
 INPUT_ICONS := ui/input-icons/input-icons.ase
@@ -116,4 +115,4 @@ input-icons: $(OUT_INPUT_ICONS_DIR)/sides.png
 $(OUT_INPUT_ICONS_DIR)/sides.png: $(INPUT_ICONS)
 	mkdir -p $(OUT_INPUT_ICONS_DIR)
 
-	$(ASESPLIT) --split-slices $< --format "$(OUT_INPUT_ICONS_DIR)/{slice}.png"
+	$(ASESPLIT) --split-slices $< "$(OUT_INPUT_ICONS_DIR)/{slice}.png"
