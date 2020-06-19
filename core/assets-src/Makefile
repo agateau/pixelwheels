@@ -26,8 +26,8 @@ hud: $(OUT_DIR)/sprites/hud-pause.png
 $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud-sides-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
 
-	$(ASEPRITE) --batch --split-layers --trim sprites/hud/hud-pie-buttons.ase \
-		--filename-format '{path}/hud-{layer}.{extension}' --save-as sprites/hud/whatever.png
+	$(ASESPLIT) --split-layers --trim sprites/hud/hud-pie-buttons.ase \
+		--format "$(OUT_DIR)/sprites/hud-{layer}.png"
 
 	$(ASEPRITE) --batch --split-slices sprites/hud/hud-sides-buttons.ase \
 		--filename-format '{path}/{slice}.{extension}' --save-as sprites/hud/whatever.png
@@ -51,14 +51,14 @@ anims: $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASEPRITE) --batch $< --filename-format '{path}/{title}_{frame}.{extension}' --save-as $(patsubst %_0.png,%.png,$@)
+	$(ASESPLIT) $< --format "$(OUT_DIR)/sprites/{title}_{frame}.png"
 
 #- Helicopter -----------------------------------------------------------------
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png
 
 $(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
 	mkdir -p $(OUT_DIR)/sprites
-	$(ASEPRITE) --batch --split-layers --trim $< --filename-format '{path}/helicopter-{layer}.{extension}' --save-as $@
+	$(ASESPLIT) --split-layers --trim $< --format "$(OUT_DIR)/sprites/helicopter-{layer}.png"
 
 #- Vehicles -------------------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
