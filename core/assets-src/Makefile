@@ -8,9 +8,6 @@ FINAL_OUT_DIR ?= ../../android/assets
 
 VEHICLES_SUBDIR := sprites/vehicles
 
-# Path to aseprite or libresprite
-ASEPRITE ?= aseprite
-
 ASESPLIT = $(TOOLS_DIR)/asetools/asesplit
 ASE2PNG = $(TOOLS_DIR)/asetools/ase2png
 
@@ -29,8 +26,8 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 	$(ASESPLIT) --split-layers --trim sprites/hud/hud-pie-buttons.ase \
 		--format "$(OUT_DIR)/sprites/hud-{layer}.png"
 
-	$(ASEPRITE) --batch --split-slices sprites/hud/hud-sides-buttons.ase \
-		--filename-format '{path}/{slice}.{extension}' --save-as sprites/hud/whatever.png
+	$(ASESPLIT) --split-slices sprites/hud/hud-sides-buttons.ase \
+		--format "sprites/hud/{slice}.png"
 
 	sprites/hud/hud.py $(OUT_DIR)/sprites
 
@@ -119,5 +116,4 @@ input-icons: $(OUT_INPUT_ICONS_DIR)/sides.png
 $(OUT_INPUT_ICONS_DIR)/sides.png: $(INPUT_ICONS)
 	mkdir -p $(OUT_INPUT_ICONS_DIR)
 
-	$(ASEPRITE) --batch --split-slices $< \
-		--filename-format "$(OUT_INPUT_ICONS_DIR)/{slice}.{extension}" --save-as whatever.png
+	$(ASESPLIT) --split-slices $< --format "$(OUT_INPUT_ICONS_DIR)/{slice}.png"
