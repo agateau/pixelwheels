@@ -32,26 +32,26 @@ class NotSupported(Exception):
 
 class Layer:
     def __init__(self, image: "AsepriteImage", name: str):
-        self.image = image
+        self.image: "AsepriteImage" = image
         self.visible = True
         self.is_group = False
-        self.name = name
+        self.name: str = name
 
 
 class Cel:
     def __init__(self, layer: Layer):
-        self.layer = layer
+        self.layer: Layer = layer
         self.position = [0, 0]
         self.size = [0, 0]
         self.pixels: List[bytes] = []
 
 
 class Frame:
-    def __init__(self, image):
-        self.image = image
-        self.cels = []
+    def __init__(self, image: "AsepriteImage"):
+        self.image: "AsepriteImage" = image
+        self.cels: List[Cel] = []
 
-    def append_cel(self, layer):
+    def append_cel(self, layer: Layer):
         self.cels.append(Cel(layer))
 
 
