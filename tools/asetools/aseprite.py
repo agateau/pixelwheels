@@ -26,6 +26,10 @@ class NotAsepriteFile(Exception):
     pass
 
 
+class NotSupported(Exception):
+    pass
+
+
 class Layer:
     def __init__(self, image: "AsepriteImage", name: str):
         self.image = image
@@ -129,7 +133,7 @@ class AsepriteImage:
             cel.size = unpack("<HH", fp.read(4))
             cel.pixels = zlib.decompress(fp.read())
         else:
-            raise UnimplementedError(f"Unsupported cel_type {cel_type}")
+            raise NotSupported(f"Unsupported cel_type {cel_type}")
 
     def read_palette_chunk(self, fp):
         self.palette = [(0, 0, 0, 0)] * self.color_count
