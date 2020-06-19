@@ -6,25 +6,18 @@ Building Pixel Wheels requires the following components:
 
 - A JDK
 - libgdx: <https://libgdx.badlogicgames.com>
-- Aseprite: <https://aseprite.org>
 - ImageMagick: <http://imagemagick.org>
 - GNU Make: <http://www.gnu.org/software/make/>
-- PAFX: <https://github.com/agateau/pafx>
-- Pillow: <https:python-pillow.github.io/>
+- Some Python packages:
+    - PAFX: <https://github.com/agateau/pafx>
+    - Pillow: <https:python-pillow.github.io/>
+    - pypng: <https://github.com/drj11/pypng>
 
-### PAFX and Pillow
+### Python packages
 
-You can install PAFX and Pillow with:
+You can install the required Python packages with:
 
     pip3 install -r requirements.txt
-
-### Aseprite
-
-If you do not have a copy of Aseprite, follow the instructions from
-[tools/aseprite][tools_aseprite] to install a headless version. The headless
-version is enough to build Pixel Wheels assets.
-
-[tools_aseprite]: ../tools/aseprite/README.md
 
 ## Assets
 
