@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.1 - 2020-06-27
+
+### For developers
+
+#### Changed
+
+- Replaced usage of Aseprite in batch mode with a Python-based tool to generate the png from .ase files. Aseprite is no longer a build dependency for the game.
+
 ## 0.16.0 - 2020-04-19
 
 ### For players
