@@ -47,9 +47,9 @@ def main():
         ctx.update(extra_context_args)
         path = args.format.format(**ctx)
         if args.dry_run:
-            print(f"Would create {path}")
+            print("Would create {}".format(path))
         else:
-            print(f"Creating {path}")
+            print("Creating {}".format(path))
             image.save(path)
 
     for frame_idx, frame in enumerate(ase_image.frames):

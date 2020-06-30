@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+# Stick to Debian 9 to match F-Droid build infrastructure
+FROM debian:9
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

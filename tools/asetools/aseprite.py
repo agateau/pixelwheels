@@ -33,31 +33,31 @@ class NotSupported(Exception):
 
 class Layer:
     def __init__(self, image: "AsepriteImage", name: str):
-        self.image: "AsepriteImage" = image
+        self.image = image
         self.visible = True
         self.is_group = False
-        self.name: str = name
+        self.name = name
 
 
 class Cel:
     def __init__(self, layer: Layer):
-        self.layer: Layer = layer
+        self.layer = layer
         self.position = [0, 0]
         self.size = [0, 0]
-        self.pixels: List[bytes] = []
+        self.pixels = []
 
 
 class Slice:
     def __init__(self, name: str, pos, size):
-        self.name: str = name
+        self.name = name
         self.position = pos
         self.size = size
 
 
 class Frame:
     def __init__(self, image: "AsepriteImage"):
-        self.image: "AsepriteImage" = image
-        self.cels: List[Cel] = []
+        self.image = image
+        self.cels = []
 
     def append_cel(self, layer: Layer):
         self.cels.append(Cel(layer))
@@ -65,17 +65,17 @@ class Frame:
 
 class AsepriteImage:
     def __init__(self, filename: str):
-        self.palette: List[List[int]] = []
+        self.palette = []
         self.size = [0, 0]
         self.frame_count = 0
         self.transparent_color = 0
         self.depth = 0
         self.color_count = 0
-        self.layers: List[Layer] = []
-        self.frames: List[Frame] = []
-        self.slices: List[Slice] = []
+        self.layers = []
+        self.frames = []
+        self.slices = []
 
-        with open(filename, "rb") as fp:
+        with open(str(filename), "rb") as fp:
             self.read_header(fp)
             for _ in range(self.frame_count):
                 self.read_frame(fp)
@@ -99,7 +99,7 @@ class AsepriteImage:
         frame_size, magic, old_chunks, duration, new_chunks \
             = unpack("<LHHHxxL", data)
         if magic != FRAME_MAGIC:
-            raise NotAsepriteFile(f"Invalid frame magic ({magic})")
+            raise NotAsepriteFile("Invalid frame magic ({})".format(magic))
         chunk_count = old_chunks if old_chunks < 0xffff else new_chunks
 
         frame = Frame(self)
@@ -144,7 +144,7 @@ class AsepriteImage:
             cel.size = unpack("<HH", fp.read(4))
             cel.pixels = zlib.decompress(fp.read())
         else:
-            raise NotSupported(f"Unsupported cel_type {cel_type}")
+            raise NotSupported("Unsupported cel_type {}".format(cel_type))
 
     def read_palette_chunk(self, fp):
         self.palette = [(0, 0, 0, 0)] * self.color_count
@@ -162,7 +162,7 @@ class AsepriteImage:
         if count > 1:
             raise NotSupported("Multi-key slices")
         if flags != 0:
-            raise NotSupported(f"Slice flags {flags}")
+            raise NotSupported("Slice flags {}".format(flags))
         name = str(fp.read(name_length), "utf-8")
 
         frame_number, x, y, width, height = unpack("<LllLL", fp.read(20))
