@@ -9,8 +9,8 @@
         <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 0">
             <Items>
                 <Ifdef var="quickRace">
-                    <ButtonMenuItem id="continueButton" text="BACK TO MENU"/>
                     <ButtonMenuItem id="restartButton" text="RESTART"/>
+                    <ButtonMenuItem id="continueButton" text="BACK TO MENU"/>
                 </Ifdef>
                 <Else>
                     <ButtonMenuItem id="continueButton" text="CONTINUE"/>
