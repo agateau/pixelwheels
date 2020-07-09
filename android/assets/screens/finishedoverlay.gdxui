@@ -8,10 +8,13 @@
 
         <Menu id="menu" width="12g" topCenter="scrollableTable.bottomCenter 0 0">
             <Items>
-                <ButtonMenuItem id="continueButton" text="Back to menu"/>
                 <Ifdef var="quickRace">
+                    <ButtonMenuItem id="continueButton" text="Back to menu"/>
                     <ButtonMenuItem id="restartButton" text="Restart"/>
                 </Ifdef>
+                <Else>
+                    <ButtonMenuItem id="continueButton" text="Continue"/>
+                </Else>
             </Items>
         </Menu>
     </AnchorGroup>
