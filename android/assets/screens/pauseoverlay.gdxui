@@ -5,7 +5,7 @@
         <Menu id="menu" center="root.center" width="300">
             <Items>
                 <ButtonMenuItem id="resumeButton" text="Resume"/>
-                <Ifdef var="showRestartButton">
+                <Ifdef var="quickRace">
                     <ButtonMenuItem id="restartButton" text="Restart"/>
                 </Ifdef>
                 <ButtonMenuItem id="quitButton" text="Quit to Menu"/>

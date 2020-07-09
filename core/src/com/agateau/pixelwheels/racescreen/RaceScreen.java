@@ -317,8 +317,8 @@ public class RaceScreen extends ScreenAdapter {
         mGameWorld.forgetTrack();
     }
 
-    boolean showRestartButton() {
-        return mGameInfo.getGameType() == GameInfo.GameType.QUICK_RACE;
+    GameInfo.GameType getGameType() {
+        return mGameInfo.getGameType();
     }
 
     public Listener getListener() {

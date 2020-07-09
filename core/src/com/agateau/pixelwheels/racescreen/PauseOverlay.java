@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -45,8 +46,9 @@ public class PauseOverlay extends Overlay {
 
     private Actor createContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        if (mRaceScreen.showRestartButton()) {
-            builder.defineVariable("showRestartButton");
+        boolean isQuickRace = mRaceScreen.getGameType() == GameInfo.GameType.QUICK_RACE;
+        if (isQuickRace) {
+            builder.defineVariable("quickRace");
         }
         Actor content = builder.build(FileUtils.assets("screens/pauseoverlay.gdxui"));
 
@@ -58,7 +60,7 @@ public class PauseOverlay extends Overlay {
                                 mRaceScreen.resumeRace();
                             }
                         });
-        if (mRaceScreen.showRestartButton()) {
+        if (isQuickRace) {
             builder.getActor("restartButton")
                     .addListener(
                             new ChangeListener() {
