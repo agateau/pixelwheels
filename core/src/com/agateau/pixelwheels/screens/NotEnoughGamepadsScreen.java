@@ -70,7 +70,7 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
         mLabel = builder.getActor("gamepadsLabel");
 
         Menu menu = builder.getActor("menu");
-        menu.addButton("Main Menu")
+        menu.addButton("MAIN MENU")
                 .addListener(
                         new MenuItemListener() {
                             @Override
