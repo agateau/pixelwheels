@@ -22,7 +22,25 @@ import com.badlogic.gdx.utils.XmlReader;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Helper class to traverse a tree of XmlReader.Element and execute a function on each of them */
+/**
+ * Helper class to traverse a tree of XmlReader.Element and execute a function on each of them
+ *
+ * <p>Parts of the tree can be excluded using variables defined with @ref defineVariable() then
+ * using the Ifdef and Else tags.
+ *
+ * <p>Syntax looks like this:
+ *
+ * <pre>
+ *     <Ifdef var="foo">
+ *         <SomeUiElement/>
+ *     </Ifdef>
+ *     <Else>
+ *         <AlternativeUiElement/>
+ *     </Else>
+ * </pre>
+ *
+ * <p>The same id can appear in both branches of the if.
+ */
 class ElementTreeTraversor {
     private final Set<String> mVariables = new HashSet<>();
 
