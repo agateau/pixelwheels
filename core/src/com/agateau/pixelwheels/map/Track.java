@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -59,6 +60,15 @@ public class Track implements Disposable {
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 
+    private static final TmxMapLoader sMapLoader = new TmxMapLoader();
+    private static final TmxMapLoader.Parameters sMapLoaderParameters =
+            new TmxMapLoader.Parameters();
+
+    static {
+        sMapLoaderParameters.textureMinFilter = Texture.TextureFilter.Linear;
+        sMapLoaderParameters.textureMagFilter = Texture.TextureFilter.Linear;
+    }
+
     public Track(String id, String name) {
         mId = id;
         mMapName = name;
@@ -68,8 +78,8 @@ public class Track implements Disposable {
         if (mMap != null) {
             return;
         }
-        TmxMapLoader loader = new TmxMapLoader();
-        mMap = loader.load(Gdx.files.internal("maps/" + mId + ".tmx").path());
+        String path = Gdx.files.internal("maps/" + mId + ".tmx").path();
+        mMap = sMapLoader.load(path, sMapLoaderParameters);
         mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();
         findLayers();

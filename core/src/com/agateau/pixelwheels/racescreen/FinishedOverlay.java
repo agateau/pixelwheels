@@ -82,8 +82,8 @@ public class FinishedOverlay extends Overlay {
 
     private Actor createScoreTableContent() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        if (mRaceScreen.showRestartButton()) {
-            builder.defineVariable("showRestartButton");
+        if (mRaceScreen.getGameType() == GameInfo.GameType.QUICK_RACE) {
+            builder.defineVariable("quickRace");
         }
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
@@ -104,7 +104,7 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void fillMenu(UiBuilder builder) {
-        if (mRaceScreen.showRestartButton()) {
+        if (mRaceScreen.getGameType() == GameInfo.GameType.QUICK_RACE) {
             builder.getActor("restartButton")
                     .addListener(
                             new MenuItemListener() {

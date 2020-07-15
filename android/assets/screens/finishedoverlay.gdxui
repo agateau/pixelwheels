@@ -6,12 +6,15 @@
             width="650"
             height="300"/>
 
-        <Menu id="menu" width="200" topCenter="scrollableTable.bottomCenter 0 0">
+        <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 0">
             <Items>
-                <ButtonMenuItem id="continueButton" text="Continue"/>
-                <Ifdef var="showRestartButton">
-                    <ButtonMenuItem id="restartButton" text="Restart"/>
+                <Ifdef var="quickRace">
+                    <ButtonMenuItem id="restartButton" text="RESTART"/>
+                    <ButtonMenuItem id="continueButton" text="BACK TO MENU"/>
                 </Ifdef>
+                <Else>
+                    <ButtonMenuItem id="continueButton" text="CONTINUE"/>
+                </Else>
             </Items>
         </Menu>
     </AnchorGroup>

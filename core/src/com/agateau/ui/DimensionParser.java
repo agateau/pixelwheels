@@ -18,6 +18,8 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.log.NLog;
+
 /**
  * Helper class to parse a dimension string.
  *
@@ -47,7 +49,12 @@ public class DimensionParser {
             return Float.parseFloat(txt.substring(0, txt.length() - 1)) * this.gridSize;
         } else {
             float k = defaultUnit == Unit.PIXEL ? 1 : this.gridSize;
-            return Float.parseFloat(txt) * k;
+            try {
+                return Float.parseFloat(txt) * k;
+            } catch (NumberFormatException exc) {
+                NLog.e("Invalid dimension text: " + txt);
+                return 12;
+            }
         }
     }
 }
