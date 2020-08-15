@@ -50,6 +50,7 @@ public class MenuItemGroup implements MenuItem {
     private final HashMap<MenuItem, ItemInfo> mInfoForItem = new HashMap<>();
 
     private int mCurrentIndex = -1;
+    private float mWidth = -1;
 
     private enum SetCurrentHint {
         NONE,
@@ -76,6 +77,11 @@ public class MenuItemGroup implements MenuItem {
                         menu.setCurrentItem(MenuItemGroup.this);
                     }
                 });
+    }
+
+    public void setWidth(float width) {
+        mWidth = width;
+        mGroup.setWidth(width);
     }
 
     public void focusFirstItem() {
@@ -174,7 +180,7 @@ public class MenuItemGroup implements MenuItem {
 
     @Override
     public float getParentWidthRatio() {
-        return 1;
+        return mWidth == -1 ? 1 : 0;
     }
 
     public MenuItem getCurrentItem() {

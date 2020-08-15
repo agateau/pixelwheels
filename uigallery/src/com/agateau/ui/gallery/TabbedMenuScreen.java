@@ -54,6 +54,7 @@ class TabbedMenuScreen extends StageScreen {
         TabMenuItem tab = new TabMenuItem(menu);
         menu.addItem(tab);
         MenuItemGroup group1 = tab.addPage("1st page");
+        group1.setWidth(500);
         group1.addItemWithLabel("A switch", new SwitchMenuItem(menu));
         group1.addButton("Group 1");
 
