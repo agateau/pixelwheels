@@ -20,6 +20,8 @@ package com.agateau.utils;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
+import java.io.IOException;
 
 /** Utility methods to deal with the platform */
 public class PlatformUtils {
@@ -48,6 +50,32 @@ public class PlatformUtils {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    /** An implementation of Gdx.net.openURI which works on Linux */
+    public static void openURI(String uri) {
+        if (Gdx.net.openURI(uri)) {
+            return;
+        }
+        NLog.i("Gdx.net.openURI() failed");
+        String command = null;
+        if (SharedLibraryLoader.isLinux) {
+            command = "xdg-open";
+        } else if (SharedLibraryLoader.isWindows) {
+            command = "start";
+        } else if (SharedLibraryLoader.isMac) {
+            command = "open";
+        }
+        if (command == null) {
+            NLog.e("Don't know how to open url %s on this OS", uri);
+            return;
+        }
+        try {
+            NLog.i("Trying with '%s %s'", command, uri);
+            new ProcessBuilder().command(command, uri).start();
+        } catch (IOException e) {
+            NLog.e("Command failed: %s", e);
         }
     }
 
