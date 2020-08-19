@@ -25,7 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 
 /** A scroll pane to show credits */
 public class CreditsScrollPane extends ScrollPane {
-    private static final float AUTO_SCROLL_PX_PER_S = 30;
+    private static final float AUTO_SCROLL_PX_PER_S = 45;
     private final VerticalGroup mGroup;
 
     public CreditsScrollPane() {
