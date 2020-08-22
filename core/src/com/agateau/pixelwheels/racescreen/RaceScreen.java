@@ -107,6 +107,11 @@ public class RaceScreen extends ScreenAdapter {
         setupMineDropper();
     }
 
+    private void startMusic() {
+        String musicId = mGame.getAssets().getTrackMusicId(mGameInfo.getTrack());
+        mGame.getAudioManager().playMusic(musicId);
+    }
+
     private void setupMineDropper() {
         // Bind the mine dropper to the free camera for now
         if (Debug.instance.freeCamera) {
@@ -169,6 +174,8 @@ public class RaceScreen extends ScreenAdapter {
     public void render(float delta) {
         if (mFirstRender) {
             mGameRenderer.onAboutToStart();
+            // Fadeout main music, we start the track music after the count down
+            mGame.getAudioManager().fadeOutMusic();
             mFirstRender = false;
         }
         boolean paused = mPauseOverlay != null;
@@ -179,8 +186,14 @@ public class RaceScreen extends ScreenAdapter {
             GameWorld.State oldState = mGameWorld.getState();
             mGameWorld.act(delta);
             GameWorld.State newState = mGameWorld.getState();
-            if (newState == GameWorld.State.FINISHED && oldState != newState) {
-                onFinished();
+            if (oldState != newState) {
+                if (newState == GameWorld.State.FINISHED) {
+                    onFinished();
+                }
+                if (newState == GameWorld.State.RUNNING) {
+                    // Count down just finished
+                    startMusic();
+                }
             }
         }
         mGameWorldPerformanceCounter.stop();

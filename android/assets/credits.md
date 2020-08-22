@@ -11,12 +11,34 @@ Aurélien Gâteau
 Aurélien Gâteau
 Antonin Gâteau
 
+## -= Music =-
+
+Menu:
+"Grey Sector v0.86"
+FoxSynergy
+
+Victory:
+"Core Descent (16-bit) v0.9"
+FoxSynergy
+
+Country Life championship:
+"Cosmo Blast v1.0"
+FoxSynergy
+
+Square Mountains championship:
+"Lunar Harvest v1.0"
+FoxSynergy
+
+Pix Cities championship:
+"Bouncing Baal v0.95"
+FoxSynergy
+
 ## -= Sound Effects =-
 
 "Car tire squeal skid loop"
 Tom Haigh
 
-"Racing car engine sound loops
+"Racing car engine sound loops"
 domasx2
 
 Other sound effects

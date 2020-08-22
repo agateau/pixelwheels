@@ -18,6 +18,9 @@
  */
 package com.agateau.pixelwheels.sound;
 
+import com.agateau.pixelwheels.Assets;
+import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import java.lang.ref.WeakReference;
@@ -25,18 +28,37 @@ import java.lang.ref.WeakReference;
 /** Default implementation of AudioManager */
 public class DefaultAudioManager implements AudioManager {
     private boolean mMuted = false;
+    private final Assets mAssets;
     private final Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();
+    private final MusicFader mMusicFader = new MusicFader();
+
+    private String mMusicId = "";
+    private Music mMusic;
+
+    public DefaultAudioManager(Assets assets) {
+        mAssets = assets;
+    }
 
     public boolean isMuted() {
         return mMuted;
     }
 
     public void setMuted(boolean muted) {
+        if (mMuted == muted) {
+            return;
+        }
         mMuted = muted;
         for (WeakReference<DefaultSoundPlayer> ref : mSoundPlayers) {
             DefaultSoundPlayer player = ref.get();
             if (player != null) {
                 player.setMuted(muted);
+            }
+        }
+        if (mMusic != null) {
+            if (mMuted) {
+                mMusic.stop();
+            } else {
+                mMusic.play();
             }
         }
     }
@@ -55,5 +77,36 @@ public class DefaultAudioManager implements AudioManager {
         player.setMuted(mMuted);
         mSoundPlayers.add(new WeakReference<>(player));
         return player;
+    }
+
+    @Override
+    public void playMusic(String musicId) {
+        if (mMusicId.equals(musicId)) {
+            return;
+        }
+        if (mMusic != null) {
+            fadeOutMusic();
+        }
+        mMusicId = musicId;
+        mMusic = mAssets.loadMusic(mMusicId);
+        if (mMusic == null) {
+            NLog.e("Failed to load music %s", musicId);
+            return;
+        }
+        mMusic.setLooping(true);
+        if (!mMuted) {
+            mMusic.play();
+        }
+    }
+
+    @Override
+    public void fadeOutMusic() {
+        if (mMusic == null || mMuted) {
+            return;
+        }
+        mMusicFader.fadeOut(mMusic);
+        // Forget the current music: fader takes care of stopping and disposing it
+        mMusic = null;
+        mMusicId = "";
     }
 }

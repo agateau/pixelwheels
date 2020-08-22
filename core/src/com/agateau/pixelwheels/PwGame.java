@@ -54,7 +54,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private final ScreenStack mScreenStack = new ScreenStack(this);
     private Maestro mMaestro;
     private GameConfig mGameConfig;
-    private final AudioManager mAudioManager = new DefaultAudioManager();
+    private AudioManager mAudioManager;
     private MouseCursorManager mMouseCursorManager;
 
     private Introspector mGamePlayIntrospector;
@@ -90,6 +90,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
         mAssets = new Assets();
         mMouseCursorManager = new MouseCursorManager();
+        mAudioManager = new DefaultAudioManager(mAssets);
         setupConfig();
         setupTrackStats();
         setupRewardManager();
@@ -137,6 +138,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public void showMainMenu() {
         mScreenStack.clear();
+        mAudioManager.playMusic(Assets.MENU_MUSIC_ID);
         Screen screen;
         if (Constants.DEBUG_SCREEN.startsWith("Unlocked")) {
             screen = UnlockedRewardScreen.createDebugScreen(this);

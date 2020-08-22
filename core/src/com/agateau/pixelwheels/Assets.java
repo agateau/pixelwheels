@@ -30,7 +30,11 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
+import com.agateau.utils.Assert;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -58,6 +62,9 @@ public class Assets implements TextureRegionProvider {
         "dark-m",
         "jeep",
     };
+
+    public static final String MENU_MUSIC_ID = "menu";
+    public static final String CHAMPIONSHIP_FINISHED_MUSIC_ID = "victory";
 
     public final Array<VehicleDef> vehicleDefs = new Array<>();
     public final Array<Track> tracks =
@@ -159,9 +166,24 @@ public class Assets implements TextureRegionProvider {
         this.soundAtlas.load("points-increase.wav");
     }
 
+    public Music loadMusic(String musicId) {
+        FileHandle handle = Gdx.files.internal("musics/" + musicId + ".mp3");
+        if (!handle.exists()) {
+            NLog.e("No music with id " + musicId);
+            return null;
+        }
+        return Gdx.audio.newMusic(handle);
+    }
+
+    public String getTrackMusicId(Track track) {
+        Championship championship = findChampionshipByTrack(track);
+        Assert.check(championship != null, "Could not find championship for track");
+        return "championships/" + championship.getId();
+    }
+
     private void initChampionships() {
         this.championships.add(
-                new Championship("country", "Country life")
+                new Championship("country", "Country Life")
                         .addTrack(findTrackById("country"))
                         .addTrack(findTrackById("river")));
 
@@ -200,6 +222,15 @@ public class Assets implements TextureRegionProvider {
     public Championship findChampionshipById(String id) {
         for (Championship championship : championships) {
             if (championship.getId().equals(id)) {
+                return championship;
+            }
+        }
+        return null;
+    }
+
+    private Championship findChampionshipByTrack(Track track) {
+        for (Championship championship : championships) {
+            if (championship.getTracks().contains(track, true /* identity */)) {
                 return championship;
             }
         }

@@ -31,4 +31,8 @@ public interface AudioManager {
 
     /** Create a SoundPlayer, for more advanced controls */
     SoundPlayer createSoundPlayer(Sound sound);
+
+    void playMusic(String musicId);
+
+    void fadeOutMusic();
 }
