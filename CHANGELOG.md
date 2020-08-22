@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.17.0 - 2020-08-23
+
+### For players
+
+#### Added
+
+- Added a new vehicle: the Jeep.
+
+- Added an "About" tab to the configuration screen.
+
+#### Changed
+
+- Did a lot of work on the graphics: darker roads, new trees, new city roofs, textured sidewalks, nicer bridge borders, rounder sand tiles.
+
+- For consistency, made all menu buttons ALL CAPS.
+
+- Show "Restart" button first in quick race mode.
+
+### Fixed
+
+- Fixed noise on map tiles by enabling linear filtering on map textures.
+
+### For developers
+
+- Made asetools work with Python 3.5. This was required for F-Droid build infrastructure.
+- Documented Ifdef/Else UiBuilder tags.
+
+#### Changed
+
 ## 0.16.1 - 2020-06-27
 
 ### For developers
