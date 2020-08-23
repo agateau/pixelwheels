@@ -5,6 +5,7 @@
 - Create the vehicle image in core/assets-src/sprites/vehicles
 - Create the XML description in android/assets/vehicles
 - Add the vehicle id to `Assets.VEHICLE_IDS`
+- Add the rules for the vehicle to `RewardManagerSetup`
 - `make assets packer run`
 
 ## vehicle XML format
