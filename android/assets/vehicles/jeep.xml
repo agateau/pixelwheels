@@ -1,0 +1,8 @@
+<vehicle speed="1" name="Jeep" width="34" height="53">
+    <main image="jeep"/>
+    <shapes>
+        <octogon corner="1" width="30" height="51"/>
+    </shapes>
+    <axle y="44" width="30" steer="1"/>
+    <axle y="12" width="30"/>
+</vehicle>
