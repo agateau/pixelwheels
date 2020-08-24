@@ -2,9 +2,14 @@
 
 An open-source racing game
 
-## -= Code & Pixels =-
+## -= Code =-
 
 Aurélien Gâteau
+
+## -= Pixels =-
+
+Aurélien Gâteau
+Antonin Gâteau
 
 ## -= Sound Effects =-
 
@@ -17,9 +22,12 @@ domasx2
 Other sound effects
 Aurélien Gâteau
 
-## -= Beta tester =-
+## -= Beta testers =-
 
 Antonin Gâteau
+
+Many bug reporters
+on GitHub (thank you!)
 
 ## -= Made with =-
 
