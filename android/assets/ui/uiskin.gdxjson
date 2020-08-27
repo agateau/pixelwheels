@@ -100,6 +100,14 @@
             fontColor: {
                 r: 0.247, g: 0.157, b: 0.196, a: 1
             }
+        },
+        /* LimitedMarkdownParser styles */
+        mdH1: {
+            font: title-font
+        },
+        mdH2: {
+            font: default-font,
+            fontColor: highlight
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

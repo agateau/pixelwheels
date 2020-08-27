@@ -1,12 +1,12 @@
 # Pixel Wheels
 
-[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels) [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I51Q4C0)
+[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels)
 
 Pixel Wheels is a retro top-down race game.
 
 You can play Pixel Wheels alone or with a friend.
 
-![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/2-mine-drop.png)
+![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/3-turbo.png)
 
 It runs on Linux, macOS, Windows and Android.
 
@@ -19,12 +19,12 @@ graphics, sounds, gameplay...
 ## I don't care, I want to try it anyway
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels
-home page][pw].
+page on itch.io][itch].
 
 For Android you can install Pixel Wheels from [F-Droid][fd] or [Google
 Play][gplay].
 
-[pw]: http://agateau.com/projects/pixelwheels
+[itch]: http://agateau.itch.io/pixelwheels
 [fd]: https://f-droid.org/fr/packages/com.agateau.tinywheels.android/
 [gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
 
@@ -63,13 +63,13 @@ On the other hand, if your plan is to take the game, slap some ads on it, and
 release it without releasing the sources of your changes: the license forbids
 you to do so, go find another prey.
 
-## Why is the Java package called "tinywheels"
+## Why is the Java package called "tinywheels"?
 
 The game used to be called Tiny Wheels, but I found out there is already a Tiny
 Wheels game on Steam, so I add to rename it. I did not change the Java package 
 name however because Google Play does not allow changing the package name of an
 existing app or game.
 
-## Author
+## Who are you?
 
-Aurélien Gâteau
+I am Aurélien Gâteau, you can find more about me here: <https://agateau.com>.

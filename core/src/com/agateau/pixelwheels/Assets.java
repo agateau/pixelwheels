@@ -55,7 +55,8 @@ public class Assets implements TextureRegionProvider {
         "2cv",
         "harvester",
         "rocket",
-        "dark-m"
+        "dark-m",
+        "jeep",
     };
 
     public final Array<VehicleDef> vehicleDefs = new Array<>();

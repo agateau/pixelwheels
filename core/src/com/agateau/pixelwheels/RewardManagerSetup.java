@@ -122,5 +122,9 @@ class RewardManagerSetup {
                 Reward.get(assets.findVehicleDefById("dark-m")),
                 new CounterRewardRule(
                         GameStats.Event.MISSILE_HIT, 40, "Hit %d vehicles with a missile"));
+
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("jeep")),
+                new CounterRewardRule(GameStats.Event.LEAVING_ROAD, 100, "Leave road %d times"));
     }
 }

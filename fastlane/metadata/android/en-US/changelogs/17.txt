@@ -1,0 +1,9 @@
+Did a lot of work on the graphics: darker roads, new trees, new city roofs, textured sidewalks, nicer bridge borders, rounder sand tiles.
+
+For consistency, made all menu buttons ALL CAPS.
+
+Show "Restart" button first in quick race mode.
+
+Added an "About" tab to the configuration screen.
+
+Fixed noise on map tiles.
