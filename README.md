@@ -66,10 +66,13 @@ you to do so, go find another prey.
 ## Why is the Java package called "tinywheels"?
 
 The game used to be called Tiny Wheels, but I found out there is already a Tiny
-Wheels game on Steam, so I add to rename it. I did not change the Java package 
+Wheels game on Steam, so I add to rename it. I did not change the Java package
 name however because Google Play does not allow changing the package name of an
 existing app or game.
 
-## Who are you?
+## Support development of the game
 
-I am Aurélien Gâteau, you can find more about me here: <https://agateau.com>.
+If you want to support the development of the game, visit my [support
+page][support].
+
+[support]: https://agateau.com/support/
