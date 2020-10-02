@@ -25,6 +25,7 @@ Aurélien Gâteau
 ## -= Beta testers =-
 
 Antonin Gâteau
+Guillaume Roche
 
 Many bug reporters
 on GitHub (thank you!)
