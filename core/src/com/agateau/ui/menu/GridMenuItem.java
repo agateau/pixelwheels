@@ -34,12 +34,13 @@ import com.badlogic.gdx.utils.Array;
 
 /** A MenuItem to display a grid of custom elements */
 public class GridMenuItem<T> extends Widget implements MenuItem {
+    public static final int INVALID_INDEX = -1;
     private final Menu mMenu;
     private final Rectangle mFocusRectangle = new Rectangle();
     private final GridMenuItemStyle mStyle;
     private Array<T> mItems;
     private final Array<FocusIndicator> mFocusIndicators = new Array<>();
-    private int mSelectedIndex = -1;
+    private int mSelectedIndex = INVALID_INDEX;
     private int mCurrentIndex = 0;
     private ItemRenderer<T> mRenderer;
     private SelectionListener<T> mSelectionListener;
@@ -102,19 +103,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mSelectionListener = selectionListener;
     }
 
-    public void setSelected(T item) {
-        if (item == null) {
-            setSelectedIndex(-1);
-            return;
-        }
-        int index = mItems.indexOf(item, true);
-        if (index < 0) {
-            NLog.e("Item is not in the item list");
-            return;
-        }
-        setSelectedIndex(index);
-    }
-
     public void setCurrent(T item) {
         if (item == null) {
             setCurrentIndex(0);
@@ -133,18 +121,18 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     private void setSelectedIndex(int index) {
         if (index < 0) {
-            mSelectedIndex = -1;
+            mSelectedIndex = INVALID_INDEX;
             if (mSelectionListener != null) {
-                mSelectionListener.selectedChanged(null, -1);
+                mSelectionListener.selectedChanged(null, INVALID_INDEX);
             }
             return;
         }
         Assert.check(index < mItems.size, "Invalid index value");
         T item = mItems.get(index);
         if (!mRenderer.isItemEnabled(item)) {
-            mSelectedIndex = -1;
+            mSelectedIndex = INVALID_INDEX;
             if (mSelectionListener != null) {
-                mSelectionListener.selectedChanged(null, -1);
+                mSelectionListener.selectedChanged(null, INVALID_INDEX);
             }
             return;
         }
@@ -163,11 +151,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     private void setCurrentIndex(int currentIndex) {
-        if (mCurrentIndex != -1) {
+        if (mCurrentIndex != INVALID_INDEX) {
             mFocusIndicators.get(mCurrentIndex).setFocused(false);
         }
         mCurrentIndex = currentIndex;
-        if (mCurrentIndex != -1) {
+        if (mCurrentIndex != INVALID_INDEX) {
             mFocusIndicators.get(mCurrentIndex).setFocused(true);
         }
         if (mSelectionListener != null) {
@@ -190,7 +178,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             FocusIndicator indicator = new FocusIndicator(mMenu);
             mFocusIndicators.add(indicator);
         }
-        setCurrentIndex(items.size > 0 ? 0 : -1);
+        setCurrentIndex(items.size > 0 ? 0 : INVALID_INDEX);
         updateHeight();
     }
 
@@ -352,7 +340,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public Rectangle getFocusRectangle() {
-        if (mCurrentIndex == -1) {
+        if (mCurrentIndex == INVALID_INDEX) {
             mFocusRectangle.set(0, 0, -1, -1);
             return mFocusRectangle;
         }
@@ -371,7 +359,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public void setFocused(boolean focused) {
-        if (mCurrentIndex == -1) {
+        if (mCurrentIndex == INVALID_INDEX) {
             return;
         }
         mFocusIndicators.get(mCurrentIndex).setFocused(focused);
@@ -385,11 +373,11 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     private int getIndexAt(float touchX, float touchY) {
         if (mItems.size == 0) {
-            return -1;
+            return INVALID_INDEX;
         }
         if (mItemWidth <= 0 || mItemHeight <= 0) {
             NLog.e("Invalid item size");
-            return -1;
+            return INVALID_INDEX;
         }
         float gridWidth = mItemWidth + getItemSpacing();
         int row = MathUtils.floor((getHeight() - touchY) / mItemHeight);
@@ -398,13 +386,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         float itemX = column * gridWidth;
         if (itemX + mItemWidth < touchX) {
             // Clicked between columns
-            return -1;
+            return INVALID_INDEX;
         }
         int idx = row * mColumnCount + column;
         if (idx >= 0 && idx < mItems.size) {
             return idx;
         } else {
-            return -1;
+            return INVALID_INDEX;
         }
     }
 }

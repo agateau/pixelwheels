@@ -16,9 +16,9 @@
 
 - For consistency, made all menu buttons ALL CAPS.
 
-- Show "Restart" button first in quick race mode.
+- Show "RESTART" button first in quick race mode.
 
-### Fixed
+#### Fixed
 
 - Fixed noise on map tiles by enabling linear filtering on map textures.
 

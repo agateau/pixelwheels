@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" backgroundcolor="#ffffff" nextobjectid="59">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="8" nextobjectid="59">
  <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="210" columns="15">
   <image source="snow.png" width="1020" height="952"/>
   <tile id="5">
@@ -190,35 +190,22 @@
    <objectgroup draworder="index"/>
   </tile>
  </tileset>
- <tileset firstgid="211" name="city" tilewidth="64" tileheight="64" tilecount="136" columns="8">
-  <image source="city.png" width="544" height="1088"/>
-  <tile id="5">
-   <properties>
-    <property name="start" value="true"/>
-   </properties>
-  </tile>
-  <tile id="19">
-   <properties>
-    <property name="material" value="TURBO"/>
-   </properties>
-  </tile>
- </tileset>
- <layer name="bg1" width="50" height="35">
+ <layer id="1" name="bg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
    eJztl02SgjAQhTOjo1sylmvjBdQjeBSPwlE4ikfxKNMMBl+abn5CmKqxsngFEgjvS3e6cWuM2WZlZWW9oc7G3E+kgsnCkZ9bdr1g5/w50pXrm7QjpfLvSAfSB13rkXuq755Wn08N3beewaH4rz1WTG4VMiCLH5PGHXB0xnAeissthuES+veeroxD9K1cn8VhIzgoDg9ieEheYN3vSgwGOfC5JeNBufQ4KBwQE81vx6uwBovHg8XCe6/4mhKncc389Vr9Hv05/rZsTLpWwPleydepHCwWHQ7v/9QwJ6/tRSIOG86DHO6o+Pd1ra9XaGO1sD9oHFP3h8ZBcXDk1Q3U5U7uj60F6y5HsL9SxYO8ujNwCHW5PlbQKyrg6IjzeZ8p4/FFRy5cD6gFlVdELVqcQ4oHcrBa4Fk6XleMQ6jF7b3FAEdkXpnN6z0Bh9Aj61jcU3HYZeLhNowDYuHjEHBgX5G0l/dxm1caR+w+1+JhX/5LP4b+h/qKUo9EDohf8njYF0Pp7zmO8D+WI/U+5/GgfLjVPWvf5FDLIPWVGA42f8CxmpFXPB5Qm0ocp1wK+soUjinfyzM4cN1Ujqnza/EY4pi7P6Au/TkH7vO5efVfOdaNT2TpyytD36qj9wab3yiexbya+h76fi7pmVLrYyjy5HaR8/P/T9LvOe/Jysp6L/0Ad1Ln6A==
   </data>
  </layer>
- <layer name="bg2" width="50" height="35">
+ <layer id="2" name="bg2" width="50" height="35">
   <data encoding="base64" compression="zlib">
    eJzt1u0JgCAUheEzhAP0o1qgBRulURotg35GKV0/0vcB4ZKQ2rlCEgDgz1zpDUDLNU7u5llIPUqbXmrEs74fSyN5WJ5jsnpRx6zyKJ1FK/ejBj7L4a6O0UoeVufge4Tx/x3r0/ws7SnXz73OVz30lUUWtfTVX/TQVznQVwCAlA7WrRUF
   </data>
  </layer>
- <layer name="fg1" width="50" height="35">
+ <layer id="3" name="fg1" width="50" height="35">
   <data encoding="base64" compression="zlib">
    eJztWN1NAzEM9ihdBCaACaDAMwhYAFgAWKO5g3ck4BUe6FQ46lmyQi524oQG1E+yUEPOseP/AOygxR7S/raFMMLrcIx0qNjXs64HIOuQsy8Xr0hPAIsB/3oakVZIbvrtgvWBrfM1/p1j+0r5vWTq8Ib0nq9+c6AuC80+0uGrqTTlcEo90Je61cHD20OTE7R22xa8PXxOOIK0Lr3rQfY4h3R+GzvXY5zsIeXoVed6aORbwt/wq5r7PHit/K06p5VPm59b1UqU8yz1/5R8J0insGGgifOWtVK6x5R8l0hXSNcgx1Hrei/dY0q+G6RbpDuQ/a91vZfuMWWve6QHpEeQ76N1PpPiQ3u+5T5qQOKvPd8SZzWg9YelwKeW31Bt4TUldw6KQXuPNfzmGeZri/WetH2T9ZxYfeTzgpW/9nuL/5MdfF5eT2vUY1/ARhdrfNXKV3OY61No5qG3H2s/TX4vzYSldqf6uA7WQ3tY429kcxTxjKFUD/4d79dCe9SI85BnDKX+y++Z92sefH6rER8ae5T6L5eP92u1+BMGpT0+4Ofso5l/PhkP3q/F+PO6mDNvOXZO6Ttq7+/IWrR6R97hf+IbEbGxWA==
   </data>
  </layer>
- <objectgroup name="Obstacles">
+ <objectgroup id="4" name="Obstacles">
   <object id="1" x="2832" y="304" width="64" height="1632"/>
   <object id="2" x="256" y="486.59" width="48" height="1449.41"/>
   <object id="3" x="1049.15" y="847.669" width="1302" height="31.8312"/>
@@ -233,9 +220,9 @@
   <object id="55" x="1049.09" y="849.124" width="31.999" height="373.536" rotation="45"/>
   <object id="56" x="253.098" y="491.373" width="323.779" height="32.9087" rotation="-45"/>
  </objectgroup>
- <objectgroup name="Sections" visible="0">
+ <objectgroup id="5" name="Sections">
   <object id="13" name="0" x="802" y="1170">
-   <polyline points="0,0 -554.731,-26.533"/>
+   <polyline points="-1,-16 -546,-18"/>
   </object>
   <object id="14" name="1" x="800" y="1138">
    <polyline points="0,0 -533.878,-354.558"/>
@@ -283,7 +270,7 @@
    <polyline points="0,0 -544.665,678.624"/>
   </object>
  </objectgroup>
- <objectgroup name="Waypoints">
+ <objectgroup id="6" name="Waypoints">
   <properties>
    <property name="direction" value="90"/>
   </properties>
@@ -312,7 +299,7 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup name="BonusSpots" visible="0">
+ <objectgroup id="7" name="BonusSpots" visible="0">
   <object id="46" x="2176" y="448" width="64" height="64">
    <ellipse/>
   </object>

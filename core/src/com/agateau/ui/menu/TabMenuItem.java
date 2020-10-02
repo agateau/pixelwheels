@@ -34,6 +34,7 @@ import com.badlogic.gdx.utils.Array;
 
 /** An item to create tabbed content in a menu */
 public class TabMenuItem extends Actor implements MenuItem {
+    private static final float HANDLE_SPEED = 5;
     private final FocusIndicator mFocusIndicator;
     private final Menu mMenu;
     private final GlyphLayout mGlyphLayout = new GlyphLayout();
@@ -56,7 +57,9 @@ public class TabMenuItem extends Actor implements MenuItem {
     private final BitmapFont mFont;
     private final TabMenuItemStyle mStyle;
 
+    private int mPreviousTab = -1;
     private int mCurrentTab = 0;
+    private float mHandleAnimProgress = 0;
 
     public static class TabMenuItemStyle {
         Drawable frame;
@@ -175,6 +178,20 @@ public class TabMenuItem extends Actor implements MenuItem {
     public void act(float delta) {
         super.act(delta);
         mFocusIndicator.act(delta);
+
+        if (mPreviousTab != mCurrentTab) {
+            if (mPreviousTab == -1) {
+                // Start up
+                mPreviousTab = mCurrentTab;
+            } else {
+                mHandleAnimProgress += delta * HANDLE_SPEED;
+                if (mHandleAnimProgress > 1) {
+                    // Animation is done
+                    mHandleAnimProgress = 0;
+                    mPreviousTab = mCurrentTab;
+                }
+            }
+        }
     }
 
     @Override
@@ -209,18 +226,34 @@ public class TabMenuItem extends Actor implements MenuItem {
         drawable.draw(batch, x, getY(), width, drawable.getMinHeight());
     }
 
-    private void drawHandle(Batch batch) {
-        float framePadding = mStyle.framePadding;
-        float x = framePadding;
-        for (int idx = 0; idx < mCurrentTab; ++idx) {
+    private float getTabX(int tab) {
+        float x = 0;
+        for (int idx = 0; idx < tab; ++idx) {
             x += mPages.get(idx).tabWidth;
         }
-        float handleWidth = mPages.get(mCurrentTab).tabWidth;
+        return x;
+    }
+
+    private void drawHandle(Batch batch) {
+        float framePadding = mStyle.framePadding;
+        float x;
+        float width;
+        if (mCurrentTab == mPreviousTab) {
+            x = getTabX(mCurrentTab);
+            width = mPages.get(mCurrentTab).tabWidth;
+        } else {
+            float srcX = getTabX(mPreviousTab);
+            float dstX = getTabX(mCurrentTab);
+            float srcWidth = mPages.get(mPreviousTab).tabWidth;
+            float dstWidth = mPages.get(mCurrentTab).tabWidth;
+            x = MathUtils.lerp(srcX, dstX, mHandleAnimProgress);
+            width = MathUtils.lerp(srcWidth, dstWidth, mHandleAnimProgress);
+        }
         mStyle.handle.draw(
                 batch,
-                getX() + x,
+                getX() + framePadding + x,
                 getY() + framePadding,
-                handleWidth,
+                width,
                 getHeight() - 2 * framePadding);
     }
 
