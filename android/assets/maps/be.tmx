@@ -80,9 +80,9 @@
    <polyline points="0,0 316,318.667"/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Sections" visible="0">
+ <objectgroup id="6" name="Sections">
   <object id="11" name="0" x="723" y="3266">
-   <polyline points="0,0 -608,-2"/>
+   <polyline points="45,62 -659,62"/>
   </object>
   <object id="12" name="1" x="748" y="760">
    <polyline points="0,0 -700,-704"/>
