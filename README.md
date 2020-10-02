@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels)
 
-Pixel Wheels is a retro top-down race game.
-
-You can play Pixel Wheels alone or with a friend.
+Pixel Wheels is a retro top-down race game for Linux, macOS, Windows and Android.
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/4-gun.png)
 
-It runs on Linux, macOS, Windows and Android.
+It features multiple tracks and vehicles. And various bonus and weapons to help you get to the finish line first!
+
+On PC, you can play Pixel Wheels alone or with a friend.
 
 ## Attention! Warning! Achtung!
 
@@ -25,9 +25,9 @@ For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gpl
 [gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
 
 
-## I think it would be much better if it did X, Y or Z! Please make it happen!
+## I think it would be much better if it did X, Y or Z...
 
-I have a reasonably well defined vision of what I want Pixel Wheels to be.  Your (constructive) feedback and suggestions are welcome, and I will look into it with great attention, but I reserve the right to decide if your ideas fit with the game I am trying to create.
+I have a reasonably well defined vision of what I want Pixel Wheels to be.  Your feedback and suggestions are welcome, and I will look into it with great attention, but I reserve the right to decide if your ideas fit with the game I am trying to create.
 
 ## What if I want to build it myself?
 
@@ -41,7 +41,7 @@ The [build instructions][build] should have you covered.
 - The rest of the code is licensed under Apache 2.0.
 - Assets are licensed under Creative Commons BY-SA 4.0.
 
-The rational behind this setup is to:
+The rationale behind these unusual choices is to:
 
 - Allow reuse of all the code and assets by free software projects.
 - Allow reuse of utility code in proprietary projects.
@@ -57,6 +57,6 @@ The game used to be called Tiny Wheels, but I found out there is already a Tiny 
 
 ## Support development of the game
 
-If you want to support the development of the game, visit my [support page][support].
+Want to support the development of the game? Awesome! My [support page][support] is waiting for you :)
 
 [support]: https://agateau.com/support/
