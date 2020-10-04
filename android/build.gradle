@@ -2,12 +2,12 @@ android {
     Properties versionProps = new Properties()
     versionProps.load(new FileInputStream(file('../version.properties')))
 
-    buildToolsVersion "28.0.3"
-    compileSdkVersion 28
+    buildToolsVersion "29.0.3"
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
