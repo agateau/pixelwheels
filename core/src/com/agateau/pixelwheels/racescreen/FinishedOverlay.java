@@ -37,14 +37,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
+    interface PageContentCreator {
+        Actor createContent();
+    }
+
     private final PwGame mGame;
     private final RaceScreen mRaceScreen;
     private final Array<Racer> mRacers;
-    private final Array<Racer> mRecordBreakers = new Array<>();
+    private final List<PageContentCreator> mPageContentCreators = new LinkedList<>();
     private final TableRowCreator mTableRowCreator =
             new TableRowCreator() {
                 @Override
@@ -65,19 +72,26 @@ public class FinishedOverlay extends Overlay {
         new PwRefreshHelper(mGame, this) {
             @Override
             protected void refresh() {
-                setContent(createContent(racers));
+                createPageCreators(racers);
+                showNextPage();
             }
         };
-        setContent(createContent(racers));
+        createPageCreators(racers);
+        showNextPage();
     }
 
-    private Actor createContent(Array<Racer> racers) {
-        fillRecordBreakers(racers);
-        if (mRecordBreakers.size > 0) {
-            return createRecordBreakerContent();
-        } else {
-            return createScoreTableContent();
+    private void createPageCreators(Array<Racer> racers) {
+        for (Racer racer : racers) {
+            if (racer.getRecordRanks().brokeRecord()) {
+                mPageContentCreators.add(() -> createRecordBreakerContent(racer));
+            }
         }
+        mPageContentCreators.add(this::createScoreTableContent);
+    }
+
+    private void showNextPage() {
+        PageContentCreator creator = mPageContentCreators.remove(0);
+        setContent(creator.createContent());
     }
 
     private Actor createScoreTableContent() {
@@ -92,15 +106,6 @@ public class FinishedOverlay extends Overlay {
         fillMenu(builder);
         fillTable(table);
         return content;
-    }
-
-    private void fillRecordBreakers(Array<Racer> racers) {
-        mRecordBreakers.clear();
-        for (Racer racer : racers) {
-            if (racer.getRecordRanks().brokeRecord()) {
-                mRecordBreakers.add(racer);
-            }
-        }
     }
 
     private void fillMenu(UiBuilder builder) {
@@ -150,8 +155,7 @@ public class FinishedOverlay extends Overlay {
         }
     }
 
-    private Actor createRecordBreakerContent() {
-        Racer racer = mRecordBreakers.pop();
+    private Actor createRecordBreakerContent(Racer racer) {
         GameInfo.Player player = (GameInfo.Player) racer.getEntrant();
         Racer.RecordRanks ranks = racer.getRecordRanks();
 
@@ -179,7 +183,7 @@ public class FinishedOverlay extends Overlay {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                onRecordBreakerOK();
+                                showNextPage();
                             }
                         });
 
@@ -196,13 +200,5 @@ public class FinishedOverlay extends Overlay {
 
         label.setText(text);
         label.pack();
-    }
-
-    private void onRecordBreakerOK() {
-        if (mRecordBreakers.size == 0) {
-            setContent(createScoreTableContent());
-        } else {
-            setContent(createRecordBreakerContent());
-        }
     }
 }
