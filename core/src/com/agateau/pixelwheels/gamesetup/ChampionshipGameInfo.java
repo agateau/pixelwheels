@@ -37,6 +37,10 @@ public class ChampionshipGameInfo extends GameInfo {
         }
     }
 
+    public boolean isFirstTrack() {
+        return mTrackIndex == 0;
+    }
+
     public boolean isLastTrack() {
         return mTrackIndex == mChampionship.getTracks().size - 1;
     }

@@ -168,6 +168,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mGameStats;
     }
 
+    public Maestro getMaestro() {
+        return mMaestro;
+    }
+
     public Introspector getGamePlayIntrospector() {
         return mGamePlayIntrospector;
     }
