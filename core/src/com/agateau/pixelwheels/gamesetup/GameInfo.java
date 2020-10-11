@@ -85,6 +85,7 @@ public abstract class GameInfo {
         protected String mVehicleId;
 
         private int mScore = 0;
+        private int mLastRacePoints = 0;
         private float mRaceTime = 0;
 
         public String getVehicleId() {
@@ -99,7 +100,12 @@ public abstract class GameInfo {
             return mRaceTime;
         }
 
+        public int getLastRacePoints() {
+            return mLastRacePoints;
+        }
+
         public void addPoints(int points) {
+            mLastRacePoints = points;
             mScore += points;
         }
 
