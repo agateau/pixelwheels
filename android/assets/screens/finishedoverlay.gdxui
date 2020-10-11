@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
-        <Table id="scrollableTable"
-            topCenter="root.topCenter 0 -0.5"
-            width="650"
-            height="300"/>
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>
 
-        <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 0">
+        <Table id="scrollableTable"
+            topCenter="titleLabel.bottomCenter 0 -1g"
+            width="650px"
+            height="300px"/>
+
+        <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 -1g">
             <Items>
                 <Ifdef var="quickRace">
                     <ButtonMenuItem id="restartButton" text="RESTART"/>
