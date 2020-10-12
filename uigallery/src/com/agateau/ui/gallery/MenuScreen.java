@@ -42,12 +42,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-/** The main screen of the gallery */
-class GalleryScreen extends StageScreen {
+/** Demonstrates the Menu class */
+class MenuScreen extends StageScreen {
     private final TextureAtlas mAtlas;
     private final Skin mSkin;
 
-    GalleryScreen() {
+    MenuScreen() {
         super(new ScreenViewport());
         UiAssets assets = new UiAssets();
         mAtlas = assets.atlas;
