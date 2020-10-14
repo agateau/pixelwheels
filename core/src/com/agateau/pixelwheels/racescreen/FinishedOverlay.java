@@ -31,12 +31,14 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
@@ -50,6 +52,7 @@ import java.util.Locale;
 public class FinishedOverlay extends Overlay {
     private static final float FIRST_SCORE_INCREASE_INTERVAL = 1f;
     private static final float SCORE_INCREASE_INTERVAL = 0.3f;
+    private static final int RANK_CHANGE_COLUMN_SIZE = 16;
 
     interface PageCreator {
         Actor createPage();
@@ -82,6 +85,7 @@ public class FinishedOverlay extends Overlay {
     private final PwGame mGame;
     private final RaceScreen mRaceScreen;
     private final Array<Racer> mRacers;
+    private final Drawable[] mRankChangeDrawables = new Drawable[3];
     private final List<PageCreator> mPageCreators = new LinkedList<>();
     private final TableRowCreator mRaceRowCreator =
             new TableRowCreator(5) {
@@ -97,13 +101,29 @@ public class FinishedOverlay extends Overlay {
                     return cell;
                 }
             };
+
+    enum ChampionshipColumn {
+        RANK,
+        RACER,
+        RANK_CHANGE,
+        TOTAL_TIME,
+        POINTS
+    }
+
     private final TableRowCreator mChampionshipRowCreator =
-            new TableRowCreator(4) {
+            new TableRowCreator(ChampionshipColumn.values().length) {
+                @SuppressWarnings("rawtypes")
                 @Override
-                protected Cell<Label> createCell(
-                        Table table, int column, String value, String style) {
-                    Cell<Label> cell = table.add(value, style);
-                    if (column == 1) {
+                protected Cell createCell(Table table, int column, String value, String style) {
+                    Cell cell;
+                    if (column == ChampionshipColumn.RANK_CHANGE.ordinal()) {
+                        Image image = new Image();
+                        cell = table.add(image);
+                        cell.size(RANK_CHANGE_COLUMN_SIZE);
+                    } else {
+                        cell = table.add(value, style);
+                    }
+                    if (column == ChampionshipColumn.RACER.ordinal()) {
                         cell.left().expandX();
                     } else {
                         cell.right();
@@ -143,10 +163,17 @@ public class FinishedOverlay extends Overlay {
         new PwRefreshHelper(mGame, this) {
             @Override
             protected void refresh() {
-                createPageCreators(racers);
-                showNextPage();
+                setupUi(racers);
             }
         };
+        setupUi(racers);
+    }
+
+    private void setupUi(Array<Racer> racers) {
+        TextureAtlas atlas = mGame.getAssets().ui.atlas;
+        mRankChangeDrawables[0] = new TextureRegionDrawable(atlas.findRegion("rank-down"));
+        mRankChangeDrawables[1] = new TextureRegionDrawable(atlas.findRegion("rank-same"));
+        mRankChangeDrawables[2] = new TextureRegionDrawable(atlas.findRegion("rank-up"));
         createPageCreators(racers);
         showNextPage();
     }
@@ -246,7 +273,7 @@ public class FinishedOverlay extends Overlay {
         rowCreator.setTable(table);
         rowCreator.setPadding(24);
         if (scoreTable == ScoreTable.CHAMPIONSHIP) {
-            rowCreator.addHeaderRow("#", "Racer", "Total time", "Points");
+            rowCreator.addHeaderRow("#", "Racer", "", "Total time", "Points");
         } else {
             rowCreator.addHeaderRow("#", "Racer", "Best lap", "Race time", "Points");
         }
@@ -272,12 +299,15 @@ public class FinishedOverlay extends Overlay {
                 rowCreator.addRow(rank, name, bestLapTime, totalTime, "");
             } else {
                 String totalTime = StringUtils.formatRaceTime(entrant.getRaceTime());
+                rowCreator.addRow(rank, name, null, totalTime, "");
                 if (oldRankMap != null) {
                     int oldIdx = oldRankMap.get(racer);
-                    String indicator = oldIdx < idx ? "-" : oldIdx > idx ? "+" : "=";
-                    rank = indicator + ' ' + rank;
+                    Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
+
+                    Cell<Image> imageCell =
+                            rowCreator.getCreatedRowCell(ChampionshipColumn.RANK_CHANGE.ordinal());
+                    imageCell.getActor().setDrawable(drawable);
                 }
-                rowCreator.addRow(rank, name, totalTime, "");
             }
             Cell<Label> scoreCell = rowCreator.getCreatedRowCell(-1);
             ScoreAnimInfo info = new ScoreAnimInfo();
