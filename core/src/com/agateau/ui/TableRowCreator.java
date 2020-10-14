@@ -18,6 +18,8 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.Assert;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
@@ -27,27 +29,56 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
  */
 public abstract class TableRowCreator {
     private static final String HEADER_STYLE = "tableHeaderRow";
+    private final int mColumns;
     private Table mTable;
 
     private String mNextStyle = "";
+    private int mPadding = 0;
 
-    /** Must create cells in @p table using the table.add() method */
-    protected abstract void createCells(Table table, String style, String... values);
+    /** Must create a cell in @p table using the table.add() method */
+    @SuppressWarnings("rawtypes")
+    protected abstract Cell createCell(Table table, int column, String style, String value);
+
+    public TableRowCreator(int columns) {
+        mColumns = columns;
+    }
 
     public void setTable(Table table) {
         mTable = table;
     }
 
-    public TableRowCreator setRowStyle(String style) {
+    public void setPadding(int padding) {
+        mPadding = padding;
+    }
+
+    public void setRowStyle(String style) {
         mNextStyle = style;
-        return this;
     }
 
     /** Add a content row */
-    public TableRowCreator addRow(String... values) {
-        createCells(mTable, mNextStyle, values);
+    public void addRow(String... values) {
+        Assert.check(values.length == mColumns, "Wrong number of columns");
+        for (int column = 0; column < mColumns; ++column) {
+            //noinspection rawtypes
+            Cell cell = createCell(mTable, column, values[column], mNextStyle);
+            if (column < mColumns - 1) {
+                cell.padRight(mPadding);
+            }
+        }
         mTable.row();
-        return this;
+    }
+
+    /**
+     * Returns the cell from the last created row
+     *
+     * <p>if @p column is < 0: starts from the end, so -1 is the last column
+     */
+    @SuppressWarnings("rawtypes")
+    public Cell getCreatedRowCell(int column) {
+        if (column < 0) {
+            column += mColumns;
+        }
+        return mTable.getCells().get(mTable.getCells().size - mColumns + column);
     }
 
     /** Add an header row */

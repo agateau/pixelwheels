@@ -84,24 +84,31 @@ public class FinishedOverlay extends Overlay {
     private final Array<Racer> mRacers;
     private final List<PageCreator> mPageCreators = new LinkedList<>();
     private final TableRowCreator mRaceRowCreator =
-            new TableRowCreator() {
+            new TableRowCreator(5) {
                 @Override
-                protected void createCells(Table table, String style, String... values) {
-                    table.add(values[0], style).right().padRight(24);
-                    table.add(values[1], style).left().expandX();
-                    table.add(values[2], style).right().padRight(24);
-                    table.add(values[3], style).right().padRight(24);
-                    table.add(values[4], style).right();
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
                 }
             };
     private final TableRowCreator mChampionshipRowCreator =
-            new TableRowCreator() {
+            new TableRowCreator(4) {
                 @Override
-                protected void createCells(Table table, String style, String... values) {
-                    table.add(values[0], style).right().padRight(24);
-                    table.add(values[1], style).left().expandX();
-                    table.add(values[2], style).right().padRight(24);
-                    table.add(values[3], style).right();
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
                 }
             };
     private final Array<ScoreAnimInfo> mScoreAnimInfos = new Array<>();
@@ -237,6 +244,7 @@ public class FinishedOverlay extends Overlay {
         TableRowCreator rowCreator =
                 scoreTable == ScoreTable.CHAMPIONSHIP ? mChampionshipRowCreator : mRaceRowCreator;
         rowCreator.setTable(table);
+        rowCreator.setPadding(24);
         if (scoreTable == ScoreTable.CHAMPIONSHIP) {
             rowCreator.addHeaderRow("#", "Racer", "Total time", "Points");
         } else {
@@ -272,7 +280,7 @@ public class FinishedOverlay extends Overlay {
                 rowCreator.addRow(rank, name, totalTime, "");
             }
             //noinspection unchecked
-            Cell<Label> scoreCell = table.getCells().get(table.getCells().size - 1);
+            Cell<Label> scoreCell = rowCreator.getCreatedRowCell(-1);
             ScoreAnimInfo info = new ScoreAnimInfo();
             info.label = scoreCell.getActor();
             if (needScoreAnim) {

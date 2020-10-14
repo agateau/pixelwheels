@@ -34,6 +34,7 @@ import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -51,12 +52,17 @@ public class SelectTrackScreen extends PwStageScreen {
     private AnchorGroup root;
 
     private final TableRowCreator mTableRowCreator =
-            new TableRowCreator() {
+            new TableRowCreator(3) {
                 @Override
-                protected void createCells(Table table, String style, String... values) {
-                    table.add(values[0], style).right().padRight(12);
-                    table.add(values[1], style).left().growX().padRight(12);
-                    table.add(values[2], style).right();
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().growX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
                 }
             };
 
@@ -71,6 +77,7 @@ public class SelectTrackScreen extends PwStageScreen {
         mGame = game;
         mListener = listener;
         mTableRowCreator.setRowStyle("small");
+        mTableRowCreator.setPadding(12);
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override

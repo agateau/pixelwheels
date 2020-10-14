@@ -35,7 +35,9 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import java.util.Locale;
@@ -44,12 +46,16 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
     private final TableRowCreator mTableRowCreator =
-            new TableRowCreator() {
-                @Override
-                protected void createCells(Table table, String style, String... values) {
-                    table.add(values[0], style).right().padRight(24);
-                    table.add(values[1], style).left().expandX().padRight(24);
-                    table.add(values[2], style).right().padRight(24);
+            new TableRowCreator(3) {
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
                 }
             };
     private final NextListener mNextListener;
@@ -167,7 +173,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
         mTableRowCreator.setTable(table);
-        mTableRowCreator.addHeaderRow("#", "Racer", "Score", "Total Time");
+        mTableRowCreator.setPadding(24);
+        mTableRowCreator.addHeaderRow("#", "Racer", "Score");
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(entrant.getVehicleId());
