@@ -9,3 +9,4 @@ specific screen:
   championship finished
 - `UnlockedVehicle:<id>`: unlocked screen for vehicle `<id>`
 - `UnlockedChampionship:<id>`: unlocked screen for championship `<id>`
+- `FinishedOverlay`: show the FinishedOverlay
