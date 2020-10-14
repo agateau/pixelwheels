@@ -408,6 +408,9 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     @Override
     public void startRace() {
+        Assert.check(
+                mState == GameWorld.State.COUNTDOWN,
+                "startRace called while not in countdown state");
         setState(GameWorld.State.RUNNING);
     }
 
