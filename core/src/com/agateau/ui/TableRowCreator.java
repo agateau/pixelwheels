@@ -19,6 +19,7 @@
 package com.agateau.ui;
 
 import com.agateau.utils.Assert;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -73,11 +74,11 @@ public abstract class TableRowCreator {
      *
      * <p>if @p column is < 0: starts from the end, so -1 is the last column
      */
-    @SuppressWarnings("rawtypes")
-    public Cell getCreatedRowCell(int column) {
+    public <T extends Actor> Cell<T> getCreatedRowCell(int column) {
         if (column < 0) {
             column += mColumns;
         }
+        //noinspection unchecked
         return mTable.getCells().get(mTable.getCells().size - mColumns + column);
     }
 

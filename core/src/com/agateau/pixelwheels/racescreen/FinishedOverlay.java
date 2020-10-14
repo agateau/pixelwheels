@@ -279,7 +279,6 @@ public class FinishedOverlay extends Overlay {
                 }
                 rowCreator.addRow(rank, name, totalTime, "");
             }
-            //noinspection unchecked
             Cell<Label> scoreCell = rowCreator.getCreatedRowCell(-1);
             ScoreAnimInfo info = new ScoreAnimInfo();
             info.label = scoreCell.getActor();
