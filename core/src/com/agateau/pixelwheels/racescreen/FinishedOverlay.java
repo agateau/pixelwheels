@@ -31,6 +31,7 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -53,6 +54,7 @@ public class FinishedOverlay extends Overlay {
     private float mFirstScoreIncreaseInterval = 1f;
     private float mScoreIncreaseInterval = 0.3f;
     private static final int RANK_CHANGE_COLUMN_SIZE = 16;
+    private static final float SCORE_INCREASE_SOUND_VOLUME = 1f;
 
     interface PageCreator {
         Actor createPage();
@@ -133,6 +135,7 @@ public class FinishedOverlay extends Overlay {
             };
     private final Array<ScoreAnimInfo> mScoreAnimInfos = new Array<>();
 
+    private Sound mScoreIncreaseSound;
     private final Timer.Task mIncreaseScoreTask =
             new Timer.Task() {
                 @Override
@@ -144,6 +147,8 @@ public class FinishedOverlay extends Overlay {
                         }
                         ++info.score;
                         --info.delta;
+                        mGame.getAudioManager()
+                                .play(mScoreIncreaseSound, SCORE_INCREASE_SOUND_VOLUME);
                         if (info.delta > 0) {
                             done = false;
                         }
@@ -170,15 +175,17 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void setupUi(Array<Racer> racers) {
+        mScoreIncreaseSound = mGame.getAssets().soundAtlas.get("point-increase");
         TextureAtlas atlas = mGame.getAssets().ui.atlas;
         mRankChangeDrawables[0] = new TextureRegionDrawable(atlas.findRegion("rank-down"));
         mRankChangeDrawables[1] = new TextureRegionDrawable(atlas.findRegion("rank-same"));
         mRankChangeDrawables[2] = new TextureRegionDrawable(atlas.findRegion("rank-up"));
-        createPageCreators(racers);
+        fillPageCreators(racers);
         showNextPage();
     }
 
-    private void createPageCreators(Array<Racer> racers) {
+    private void fillPageCreators(Array<Racer> racers) {
+        mPageCreators.clear();
         for (Racer racer : racers) {
             if (racer.getRecordRanks().brokeRecord()) {
                 mPageCreators.add(() -> createRecordBreakerPage(racer));
