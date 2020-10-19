@@ -50,8 +50,8 @@ import java.util.Locale;
 
 /** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
-    private static final float FIRST_SCORE_INCREASE_INTERVAL = 1f;
-    private static final float SCORE_INCREASE_INTERVAL = 0.3f;
+    private float mFirstScoreIncreaseInterval = 1f;
+    private float mScoreIncreaseInterval = 0.3f;
     private static final int RANK_CHANGE_COLUMN_SIZE = 16;
 
     interface PageCreator {
@@ -133,7 +133,7 @@ public class FinishedOverlay extends Overlay {
             };
     private final Array<ScoreAnimInfo> mScoreAnimInfos = new Array<>();
 
-    Timer.Task mIncreaseScoreTask =
+    private final Timer.Task mIncreaseScoreTask =
             new Timer.Task() {
                 @Override
                 public void run() {
@@ -149,7 +149,7 @@ public class FinishedOverlay extends Overlay {
                         }
                     }
                     if (!done) {
-                        scheduleScoreIncrease(SCORE_INCREASE_INTERVAL);
+                        scheduleScoreIncrease(mScoreIncreaseInterval);
                     }
                     updateScoreLabels();
                 }
@@ -211,6 +211,8 @@ public class FinishedOverlay extends Overlay {
         }
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
+        mFirstScoreIncreaseInterval = builder.getFloatConfigValue("firstScoreIncreaseInterval");
+        mScoreIncreaseInterval = builder.getFloatConfigValue("scoreIncreaseInterval");
         Table table = builder.getActor("scrollableTable");
 
         Label titleLabel = builder.getActor("titleLabel");
@@ -322,7 +324,7 @@ public class FinishedOverlay extends Overlay {
         }
         updateScoreLabels();
         if (needScoreAnim) {
-            scheduleScoreIncrease(FIRST_SCORE_INCREASE_INTERVAL);
+            scheduleScoreIncrease(mFirstScoreIncreaseInterval);
         }
     }
 

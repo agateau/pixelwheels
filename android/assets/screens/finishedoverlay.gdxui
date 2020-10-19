@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <gdxui>
+    <Config>
+        <ConfigItem id="firstScoreIncreaseInterval" value="1"/>
+        <ConfigItem id="scoreIncreaseInterval" value="0.2"/>
+    </Config>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>
 
