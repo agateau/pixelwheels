@@ -29,6 +29,10 @@ public class StringUtils {
         return String.format(Locale.US, "%d:%02d.%03d", minutes, seconds, millis);
     }
 
+    public static String formatRank(int rank) {
+        return format("%d.", rank);
+    }
+
     public static String getRankSuffix(int rank) {
         switch (rank) {
             case 1:

@@ -60,9 +60,10 @@ public class FinishedOverlay extends Overlay {
         Actor createPage();
     }
 
-    private enum PointsTable {
-        RACE,
-        CHAMPIONSHIP
+    private enum TableType {
+        QUICK_RACE,
+        CHAMPIONSHIP_RACE,
+        CHAMPIONSHIP_TOTAL
     }
 
     private static class PointsAnimInfo {
@@ -89,7 +90,22 @@ public class FinishedOverlay extends Overlay {
     private final Array<Racer> mRacers;
     private final Drawable[] mRankChangeDrawables = new Drawable[3];
     private final List<PageCreator> mPageCreators = new LinkedList<>();
-    private final TableRowCreator mRaceRowCreator =
+    private final TableRowCreator mQuickRaceRowCreator =
+            new TableRowCreator(4) {
+                @Override
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
+                }
+            };
+
+    private final TableRowCreator mChampionshipRaceRowCreator =
             new TableRowCreator(5) {
                 @Override
                 protected Cell<Label> createCell(
@@ -104,7 +120,7 @@ public class FinishedOverlay extends Overlay {
                 }
             };
 
-    enum ChampionshipColumn {
+    enum ChampionshipTotalColumn {
         RANK,
         RACER,
         RANK_CHANGE,
@@ -112,20 +128,20 @@ public class FinishedOverlay extends Overlay {
         POINTS
     }
 
-    private final TableRowCreator mChampionshipRowCreator =
-            new TableRowCreator(ChampionshipColumn.values().length) {
+    private final TableRowCreator mChampionshipTotalRowCreator =
+            new TableRowCreator(ChampionshipTotalColumn.values().length) {
                 @SuppressWarnings("rawtypes")
                 @Override
                 protected Cell createCell(Table table, int column, String value, String style) {
                     Cell cell;
-                    if (column == ChampionshipColumn.RANK_CHANGE.ordinal()) {
+                    if (column == ChampionshipTotalColumn.RANK_CHANGE.ordinal()) {
                         Image image = new Image();
                         cell = table.add(image);
                         cell.size(RANK_CHANGE_COLUMN_SIZE);
                     } else {
                         cell = table.add(value, style);
                     }
-                    if (column == ChampionshipColumn.RACER.ordinal()) {
+                    if (column == ChampionshipTotalColumn.RACER.ordinal()) {
                         cell.left().expandX();
                     } else {
                         cell.right();
@@ -191,9 +207,11 @@ public class FinishedOverlay extends Overlay {
                 mPageCreators.add(() -> createRecordBreakerPage(racer));
             }
         }
-        mPageCreators.add(() -> createPointsTablePage(PointsTable.RACE));
         if (isChampionship()) {
-            mPageCreators.add(() -> createPointsTablePage(PointsTable.CHAMPIONSHIP));
+            mPageCreators.add(() -> createTablePage(TableType.CHAMPIONSHIP_RACE));
+            mPageCreators.add(() -> createTablePage(TableType.CHAMPIONSHIP_TOTAL));
+        } else {
+            mPageCreators.add(() -> createTablePage(TableType.QUICK_RACE));
         }
     }
 
@@ -203,13 +221,13 @@ public class FinishedOverlay extends Overlay {
         setContent(creator.createPage());
     }
 
-    private Actor createPointsTablePage(PointsTable pointsTable) {
+    private Actor createTablePage(TableType tableType) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         if (!isChampionship()) {
             builder.defineVariable("quickRace");
         }
         HashMap<Racer, Integer> oldRankMap = null;
-        if (pointsTable == PointsTable.CHAMPIONSHIP) {
+        if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
             mRacers.sort(sRacerComparator);
             ChampionshipMaestro maestro = (ChampionshipMaestro) mGame.getMaestro();
             if (!maestro.isFirstTrack()) {
@@ -224,11 +242,13 @@ public class FinishedOverlay extends Overlay {
 
         Label titleLabel = builder.getActor("titleLabel");
         titleLabel.setText(
-                pointsTable == PointsTable.CHAMPIONSHIP ? "Championship Rankings" : "Race Results");
+                tableType == TableType.CHAMPIONSHIP_TOTAL
+                        ? "Championship Rankings"
+                        : "Race Results");
         titleLabel.pack();
 
         fillMenu(builder);
-        fillTable(table, pointsTable, oldRankMap);
+        fillTable(table, tableType, oldRankMap);
         return content;
     }
 
@@ -275,65 +295,123 @@ public class FinishedOverlay extends Overlay {
                         });
     }
 
-    private void fillTable(
-            Table table, PointsTable pointsTable, HashMap<Racer, Integer> oldRankMap) {
+    private TableRowCreator getRowCreatorForTable(TableType tableType) {
+        switch (tableType) {
+            case QUICK_RACE:
+                return mQuickRaceRowCreator;
+            case CHAMPIONSHIP_RACE:
+                return mChampionshipRaceRowCreator;
+            case CHAMPIONSHIP_TOTAL:
+                return mChampionshipTotalRowCreator;
+        }
+        // Never reached
+        throw new AssertionError();
+    }
+
+    private void fillTable(Table table, TableType tableType, HashMap<Racer, Integer> oldRankMap) {
         mPointsAnimInfos.clear();
-        TableRowCreator rowCreator =
-                pointsTable == PointsTable.CHAMPIONSHIP ? mChampionshipRowCreator : mRaceRowCreator;
+
+        // Init our table
+        TableRowCreator rowCreator = getRowCreatorForTable(tableType);
         rowCreator.setTable(table);
         rowCreator.setPadding(24);
-        if (pointsTable == PointsTable.CHAMPIONSHIP) {
-            rowCreator.addHeaderRow("#", "Racer", "", "Total time", "Points");
-        } else {
-            rowCreator.addHeaderRow("#", "Racer", "Best lap", "Race time", "Points");
+
+        // Create header row
+        switch (tableType) {
+            case QUICK_RACE:
+                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time");
+                break;
+            case CHAMPIONSHIP_RACE:
+                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time", "Points");
+                break;
+            case CHAMPIONSHIP_TOTAL:
+                rowCreator.addHeaderRow("#", "Racer", "", "Race time", "Points");
+                break;
         }
-        boolean needPointsAnim = isChampionship() && pointsTable == PointsTable.RACE;
+
+        // Fill table
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             GameInfo.Entrant entrant = racer.getEntrant();
-            String style = UiUtils.getEntrantRowStyle(entrant);
-            rowCreator.setRowStyle(style);
-            String rank = String.format(Locale.US, "%d.", idx + 1);
-            String name = racer.getVehicle().getName();
-            if (pointsTable == PointsTable.RACE) {
-                LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-                String bestLapTime;
-                String totalTime;
-                if (lapPositionComponent.getStatus() == LapPositionComponent.Status.DID_NOT_START) {
-                    bestLapTime = "-";
-                    totalTime = "-";
-                } else {
-                    bestLapTime = StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime());
-                    totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
-                }
-                rowCreator.addRow(rank, name, bestLapTime, totalTime, "");
-            } else {
-                String totalTime = StringUtils.formatRaceTime(entrant.getRaceTime());
-                rowCreator.addRow(rank, name, null, totalTime, "");
-                if (oldRankMap != null) {
-                    int oldIdx = oldRankMap.get(racer);
-                    Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
+            rowCreator.setRowStyle(UiUtils.getEntrantRowStyle(entrant));
 
-                    Cell<Image> imageCell =
-                            rowCreator.getCreatedRowCell(ChampionshipColumn.RANK_CHANGE.ordinal());
-                    imageCell.getActor().setDrawable(drawable);
+            switch (tableType) {
+                case QUICK_RACE:
+                case CHAMPIONSHIP_RACE:
+                    createRaceRow(tableType, rowCreator, idx, racer);
+                    break;
+                case CHAMPIONSHIP_TOTAL:
+                    createChampionshipTotalRow(oldRankMap, idx, racer);
+                    break;
+            }
+
+            if (tableType != TableType.QUICK_RACE) {
+                // add PointsAnimInfo for row
+                // -1 is the last column: the Points column
+                Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
+                PointsAnimInfo info = new PointsAnimInfo();
+                info.label = pointsCell.getActor();
+                if (tableType == TableType.CHAMPIONSHIP_RACE) {
+                    info.delta = entrant.getLastRacePoints();
+                    info.points = entrant.getPoints() - info.delta;
+                } else {
+                    info.points = entrant.getPoints();
                 }
+                mPointsAnimInfos.add(info);
             }
-            Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
-            PointsAnimInfo info = new PointsAnimInfo();
-            info.label = pointsCell.getActor();
-            if (needPointsAnim) {
-                info.delta = entrant.getLastRacePoints();
-                info.points = entrant.getPoints() - info.delta;
-            } else {
-                info.points = entrant.getPoints();
+        }
+
+        // Animate points if needed
+        if (tableType != TableType.QUICK_RACE) {
+            updatePointsLabels();
+            if (tableType == TableType.CHAMPIONSHIP_RACE) {
+                schedulePointsIncrease(mFirstPointsIncreaseInterval);
             }
-            mPointsAnimInfos.add(info);
         }
-        updatePointsLabels();
-        if (needPointsAnim) {
-            schedulePointsIncrease(mFirstPointsIncreaseInterval);
+    }
+
+    /** Create a row for either QUICK_RACE or CHAMPIONSHIP_RACE */
+    private void createRaceRow(
+            TableType tableType, TableRowCreator rowCreator, int idx, Racer racer) {
+        String name = getRacerName(racer);
+        String rank = StringUtils.formatRank(idx + 1);
+        LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
+        String bestLapTime;
+        String totalTime;
+        if (lapPositionComponent.getStatus() == LapPositionComponent.Status.DID_NOT_START) {
+            bestLapTime = "-";
+            totalTime = "-";
+        } else {
+            bestLapTime = StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime());
+            totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
         }
+
+        if (tableType == TableType.QUICK_RACE) {
+            rowCreator.addRow(rank, name, bestLapTime, totalTime);
+        } else {
+            rowCreator.addRow(rank, name, bestLapTime, totalTime, "" /* points */);
+        }
+    }
+
+    private void createChampionshipTotalRow(
+            HashMap<Racer, Integer> oldRankMap, int idx, Racer racer) {
+        String rank = StringUtils.formatRank(idx + 1);
+        String name = getRacerName(racer);
+        String totalTime = StringUtils.formatRaceTime(racer.getEntrant().getRaceTime());
+
+        mChampionshipTotalRowCreator.addRow(
+                rank, name, null /* rank change indicator */, totalTime, "" /* points */);
+
+        if (oldRankMap == null) {
+            return;
+        }
+        int oldIdx = oldRankMap.get(racer);
+        Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
+
+        Cell<Image> imageCell =
+                mChampionshipTotalRowCreator.getCreatedRowCell(
+                        ChampionshipTotalColumn.RANK_CHANGE.ordinal());
+        imageCell.getActor().setDrawable(drawable);
     }
 
     private void schedulePointsIncrease(float interval) {
@@ -401,5 +479,9 @@ public class FinishedOverlay extends Overlay {
 
     private boolean isChampionship() {
         return mRaceScreen.getGameType() == GameInfo.GameType.CHAMPIONSHIP;
+    }
+
+    private static String getRacerName(Racer racer) {
+        return racer.getVehicle().getName();
     }
 }
