@@ -3,7 +3,7 @@ set -e
 
 cd $(dirname $0)
 
-docker run -ti --rm \
+docker run --rm \
     -v $PWD/..:/src/pixelwheels \
     pixelwheels \
     -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels codingstyle-check assets packer desktop-dist"

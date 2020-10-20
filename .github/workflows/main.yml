@@ -1,0 +1,15 @@
+name: main
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker image
+        run: ci/build-docker-image
+        shell: bash
+      - name: Build
+        run: ci/docker-build-game
+        shell: bash
