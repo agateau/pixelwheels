@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.bonus.BonusPool;
@@ -230,16 +231,24 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
         Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
-        boolean allFinished = true;
-        for (Racer racer : mPlayerRacers) {
-            if (!racer.getLapPositionComponent().hasFinishedRace()) {
-                allFinished = false;
-                break;
-            }
-        }
-        if (allFinished) {
+        if (haveAllRacersFinished()) {
             setState(GameWorld.State.FINISHED);
         }
+    }
+
+    private boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
+
+    private boolean haveAllRacersFinished() {
+        if (mDebugFinishedOverlay && mState == State.RUNNING) {
+            mRacers.shuffle();
+            return true;
+        }
+        for (Racer racer : mPlayerRacers) {
+            if (!racer.getLapPositionComponent().hasFinishedRace()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void onFinished() {
@@ -253,7 +262,11 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
             entrant.addPoints(points);
 
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            entrant.addRaceTime(lapPositionComponent.getTotalTime());
+            if (mDebugFinishedOverlay) {
+                entrant.addRaceTime(92.621f + (idx + 1) * 33.123f);
+            } else {
+                entrant.addRaceTime(lapPositionComponent.getTotalTime());
+            }
 
             if (entrant.isPlayer()) {
                 Racer.RecordRanks ranks = racer.getRecordRanks();
@@ -395,6 +408,9 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     @Override
     public void startRace() {
+        Assert.check(
+                mState == GameWorld.State.COUNTDOWN,
+                "startRace called while not in countdown state");
         setState(GameWorld.State.RUNNING);
     }
 

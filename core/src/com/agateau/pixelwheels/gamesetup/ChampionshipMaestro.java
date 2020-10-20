@@ -45,6 +45,10 @@ public class ChampionshipMaestro extends Maestro {
                         getGame().getAssets().vehicleDefs, getGame().getConfig());
     }
 
+    public boolean isFirstTrack() {
+        return mGameInfo.isFirstTrack();
+    }
+
     @Override
     public void start() {
         getGame().pushScreen(createChampionshipScreen());

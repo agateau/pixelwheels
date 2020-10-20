@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.Racer;
@@ -30,30 +31,132 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
+    private float mFirstPointsIncreaseInterval = 1f;
+    private float mPointsIncreaseInterval = 0.3f;
+    private static final int RANK_CHANGE_COLUMN_SIZE = 16;
+    private static final float POINTS_INCREASE_SOUND_VOLUME = 1f;
+
+    interface PageCreator {
+        Actor createPage();
+    }
+
+    private enum PointsTable {
+        RACE,
+        CHAMPIONSHIP
+    }
+
+    private static class PointsAnimInfo {
+        Label label;
+        int points;
+        int delta = 0;
+    }
+
+    private static final Comparator<Racer> sRacerComparator =
+            (racer1, racer2) -> {
+                GameInfo.Entrant entrant1 = racer1.getEntrant();
+                GameInfo.Entrant entrant2 = racer2.getEntrant();
+                // Highest points first
+                int deltaPoints = entrant2.getPoints() - entrant1.getPoints();
+                if (deltaPoints != 0) {
+                    return deltaPoints;
+                }
+                // Lowest race time first
+                return Float.compare(entrant1.getRaceTime(), entrant2.getRaceTime());
+            };
+
     private final PwGame mGame;
     private final RaceScreen mRaceScreen;
     private final Array<Racer> mRacers;
-    private final Array<Racer> mRecordBreakers = new Array<>();
-    private final TableRowCreator mTableRowCreator =
-            new TableRowCreator() {
+    private final Drawable[] mRankChangeDrawables = new Drawable[3];
+    private final List<PageCreator> mPageCreators = new LinkedList<>();
+    private final TableRowCreator mRaceRowCreator =
+            new TableRowCreator(5) {
                 @Override
-                protected void createCells(Table table, String style, String... values) {
-                    table.add(values[0], style).right().padRight(24);
-                    table.add(values[1], style).left().expandX();
-                    table.add(values[2], style).right().padRight(24);
-                    table.add(values[3], style).right().padRight(24);
-                    table.add(values[4], style).right();
+                protected Cell<Label> createCell(
+                        Table table, int column, String value, String style) {
+                    Cell<Label> cell = table.add(value, style);
+                    if (column == 1) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
+                }
+            };
+
+    enum ChampionshipColumn {
+        RANK,
+        RACER,
+        RANK_CHANGE,
+        TOTAL_TIME,
+        POINTS
+    }
+
+    private final TableRowCreator mChampionshipRowCreator =
+            new TableRowCreator(ChampionshipColumn.values().length) {
+                @SuppressWarnings("rawtypes")
+                @Override
+                protected Cell createCell(Table table, int column, String value, String style) {
+                    Cell cell;
+                    if (column == ChampionshipColumn.RANK_CHANGE.ordinal()) {
+                        Image image = new Image();
+                        cell = table.add(image);
+                        cell.size(RANK_CHANGE_COLUMN_SIZE);
+                    } else {
+                        cell = table.add(value, style);
+                    }
+                    if (column == ChampionshipColumn.RACER.ordinal()) {
+                        cell.left().expandX();
+                    } else {
+                        cell.right();
+                    }
+                    return cell;
+                }
+            };
+    private final Array<PointsAnimInfo> mPointsAnimInfos = new Array<>();
+
+    private Sound mPointsIncreaseSound;
+    private final Timer.Task mIncreasePointsTask =
+            new Timer.Task() {
+                @Override
+                public void run() {
+                    boolean done = true;
+                    for (PointsAnimInfo info : mPointsAnimInfos) {
+                        if (info.delta == 0) {
+                            continue;
+                        }
+                        ++info.points;
+                        --info.delta;
+                        mGame.getAudioManager()
+                                .play(mPointsIncreaseSound, POINTS_INCREASE_SOUND_VOLUME);
+                        if (info.delta > 0) {
+                            done = false;
+                        }
+                    }
+                    if (!done) {
+                        schedulePointsIncrease(mPointsIncreaseInterval);
+                    }
+                    updatePointsLabels();
                 }
             };
 
@@ -65,46 +168,90 @@ public class FinishedOverlay extends Overlay {
         new PwRefreshHelper(mGame, this) {
             @Override
             protected void refresh() {
-                setContent(createContent(racers));
+                setupUi(racers);
             }
         };
-        setContent(createContent(racers));
+        setupUi(racers);
     }
 
-    private Actor createContent(Array<Racer> racers) {
-        fillRecordBreakers(racers);
-        if (mRecordBreakers.size > 0) {
-            return createRecordBreakerContent();
-        } else {
-            return createScoreTableContent();
+    private void setupUi(Array<Racer> racers) {
+        mPointsIncreaseSound = mGame.getAssets().soundAtlas.get("points-increase");
+        TextureAtlas atlas = mGame.getAssets().ui.atlas;
+        mRankChangeDrawables[0] = new TextureRegionDrawable(atlas.findRegion("rank-down"));
+        mRankChangeDrawables[1] = new TextureRegionDrawable(atlas.findRegion("rank-same"));
+        mRankChangeDrawables[2] = new TextureRegionDrawable(atlas.findRegion("rank-up"));
+        fillPageCreators(racers);
+        showNextPage();
+    }
+
+    private void fillPageCreators(Array<Racer> racers) {
+        mPageCreators.clear();
+        for (Racer racer : racers) {
+            if (racer.getRecordRanks().brokeRecord()) {
+                mPageCreators.add(() -> createRecordBreakerPage(racer));
+            }
+        }
+        mPageCreators.add(() -> createPointsTablePage(PointsTable.RACE));
+        if (isChampionship()) {
+            mPageCreators.add(() -> createPointsTablePage(PointsTable.CHAMPIONSHIP));
         }
     }
 
-    private Actor createScoreTableContent() {
+    private void showNextPage() {
+        mIncreasePointsTask.cancel();
+        PageCreator creator = mPageCreators.remove(0);
+        setContent(creator.createPage());
+    }
+
+    private Actor createPointsTablePage(PointsTable pointsTable) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        if (mRaceScreen.getGameType() == GameInfo.GameType.QUICK_RACE) {
+        if (!isChampionship()) {
             builder.defineVariable("quickRace");
+        }
+        HashMap<Racer, Integer> oldRankMap = null;
+        if (pointsTable == PointsTable.CHAMPIONSHIP) {
+            mRacers.sort(sRacerComparator);
+            ChampionshipMaestro maestro = (ChampionshipMaestro) mGame.getMaestro();
+            if (!maestro.isFirstTrack()) {
+                oldRankMap = createOldRankMap();
+            }
         }
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
+        mFirstPointsIncreaseInterval = builder.getFloatConfigValue("firstPointsIncreaseInterval");
+        mPointsIncreaseInterval = builder.getFloatConfigValue("pointsIncreaseInterval");
         Table table = builder.getActor("scrollableTable");
 
+        Label titleLabel = builder.getActor("titleLabel");
+        titleLabel.setText(
+                pointsTable == PointsTable.CHAMPIONSHIP ? "Championship Rankings" : "Race Results");
+        titleLabel.pack();
+
         fillMenu(builder);
-        fillTable(table);
+        fillTable(table, pointsTable, oldRankMap);
         return content;
     }
 
-    private void fillRecordBreakers(Array<Racer> racers) {
-        mRecordBreakers.clear();
-        for (Racer racer : racers) {
-            if (racer.getRecordRanks().brokeRecord()) {
-                mRecordBreakers.add(racer);
-            }
+    private static int getOldPointsForRacer(Racer racer) {
+        GameInfo.Entrant entrant = racer.getEntrant();
+        return entrant.getPoints() - entrant.getLastRacePoints();
+    }
+
+    private HashMap<Racer, Integer> createOldRankMap() {
+        HashMap<Racer, Integer> oldRank = new HashMap<>();
+        Array<Racer> racers = new Array<>(mRacers);
+        racers.sort(
+                (Racer racer1, Racer racer2) ->
+                        -Integer.compare(
+                                getOldPointsForRacer(racer1), getOldPointsForRacer(racer2)));
+        for (int idx = 0; idx < racers.size; ++idx) {
+            oldRank.put(racers.get(idx), idx);
         }
+        return oldRank;
     }
 
     private void fillMenu(UiBuilder builder) {
-        if (mRaceScreen.getGameType() == GameInfo.GameType.QUICK_RACE) {
+        if (!isChampionship()) {
             builder.getActor("restartButton")
                     .addListener(
                             new MenuItemListener() {
@@ -119,39 +266,93 @@ public class FinishedOverlay extends Overlay {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                mRaceScreen.getListener().onNextTrackPressed();
+                                if (mPageCreators.isEmpty()) {
+                                    mRaceScreen.getListener().onNextTrackPressed();
+                                } else {
+                                    showNextPage();
+                                }
                             }
                         });
     }
 
-    private void fillTable(Table table) {
-        mTableRowCreator.setTable(table);
-        mTableRowCreator.addHeaderRow("#", "Racer", "Best Lap", "Total", "Score");
+    private void fillTable(
+            Table table, PointsTable pointsTable, HashMap<Racer, Integer> oldRankMap) {
+        mPointsAnimInfos.clear();
+        TableRowCreator rowCreator =
+                pointsTable == PointsTable.CHAMPIONSHIP ? mChampionshipRowCreator : mRaceRowCreator;
+        rowCreator.setTable(table);
+        rowCreator.setPadding(24);
+        if (pointsTable == PointsTable.CHAMPIONSHIP) {
+            rowCreator.addHeaderRow("#", "Racer", "", "Total time", "Points");
+        } else {
+            rowCreator.addHeaderRow("#", "Racer", "Best lap", "Race time", "Points");
+        }
+        boolean needPointsAnim = isChampionship() && pointsTable == PointsTable.RACE;
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
-            String style = UiUtils.getEntrantRowStyle(racer.getEntrant());
-            LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            mTableRowCreator.setRowStyle(style);
-            String bestLapTime;
-            String totalTime;
-            if (lapPositionComponent.getStatus() == LapPositionComponent.Status.DID_NOT_START) {
-                bestLapTime = "-";
-                totalTime = "-";
+            GameInfo.Entrant entrant = racer.getEntrant();
+            String style = UiUtils.getEntrantRowStyle(entrant);
+            rowCreator.setRowStyle(style);
+            String rank = String.format(Locale.US, "%d.", idx + 1);
+            String name = racer.getVehicle().getName();
+            if (pointsTable == PointsTable.RACE) {
+                LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
+                String bestLapTime;
+                String totalTime;
+                if (lapPositionComponent.getStatus() == LapPositionComponent.Status.DID_NOT_START) {
+                    bestLapTime = "-";
+                    totalTime = "-";
+                } else {
+                    bestLapTime = StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime());
+                    totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
+                }
+                rowCreator.addRow(rank, name, bestLapTime, totalTime, "");
             } else {
-                bestLapTime = StringUtils.formatRaceTime(lapPositionComponent.getBestLapTime());
-                totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
+                String totalTime = StringUtils.formatRaceTime(entrant.getRaceTime());
+                rowCreator.addRow(rank, name, null, totalTime, "");
+                if (oldRankMap != null) {
+                    int oldIdx = oldRankMap.get(racer);
+                    Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
+
+                    Cell<Image> imageCell =
+                            rowCreator.getCreatedRowCell(ChampionshipColumn.RANK_CHANGE.ordinal());
+                    imageCell.getActor().setDrawable(drawable);
+                }
             }
-            mTableRowCreator.addRow(
-                    String.format(Locale.US, "%d.", idx + 1),
-                    racer.getVehicle().getName(),
-                    bestLapTime,
-                    totalTime,
-                    String.valueOf(racer.getEntrant().getScore()));
+            Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
+            PointsAnimInfo info = new PointsAnimInfo();
+            info.label = pointsCell.getActor();
+            if (needPointsAnim) {
+                info.delta = entrant.getLastRacePoints();
+                info.points = entrant.getPoints() - info.delta;
+            } else {
+                info.points = entrant.getPoints();
+            }
+            mPointsAnimInfos.add(info);
+        }
+        updatePointsLabels();
+        if (needPointsAnim) {
+            schedulePointsIncrease(mFirstPointsIncreaseInterval);
         }
     }
 
-    private Actor createRecordBreakerContent() {
-        Racer racer = mRecordBreakers.pop();
+    private void schedulePointsIncrease(float interval) {
+        Timer.schedule(mIncreasePointsTask, interval);
+    }
+
+    private void updatePointsLabels() {
+        for (PointsAnimInfo info : mPointsAnimInfos) {
+            String points;
+            if (info.delta == 0) {
+                points = String.valueOf(info.points);
+            } else {
+                points = StringUtils.format("+%d %d", info.delta, info.points);
+            }
+            info.label.setText(points);
+        }
+    }
+
+    private Actor createRecordBreakerPage(Racer racer) {
         GameInfo.Player player = (GameInfo.Player) racer.getEntrant();
         Racer.RecordRanks ranks = racer.getRecordRanks();
 
@@ -179,7 +380,7 @@ public class FinishedOverlay extends Overlay {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                onRecordBreakerOK();
+                                showNextPage();
                             }
                         });
 
@@ -198,11 +399,7 @@ public class FinishedOverlay extends Overlay {
         label.pack();
     }
 
-    private void onRecordBreakerOK() {
-        if (mRecordBreakers.size == 0) {
-            setContent(createScoreTableContent());
-        } else {
-            setContent(createRecordBreakerContent());
-        }
+    private boolean isChampionship() {
+        return mRaceScreen.getGameType() == GameInfo.GameType.CHAMPIONSHIP;
     }
 }

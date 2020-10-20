@@ -25,8 +25,8 @@ public class StringUtils {
     public static String formatRaceTime(float time) {
         int minutes = (int) (time / 60);
         int seconds = (int) (time) % 60;
-        int fracs = (int) (time * 100) % 100;
-        return String.format(Locale.US, "%d:%02d.%02d", minutes, seconds, fracs);
+        int millis = (int) (time * 1000) % 1000;
+        return String.format(Locale.US, "%d:%02d.%03d", minutes, seconds, millis);
     }
 
     public static String getRankSuffix(int rank) {

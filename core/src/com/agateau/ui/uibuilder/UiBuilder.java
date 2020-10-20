@@ -73,6 +73,7 @@ public class UiBuilder {
     private final Skin mSkin;
     private Actor mLastAddedActor;
     private final Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
+    private Map<String, String> mConfigMap = new HashMap<>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
@@ -300,6 +301,10 @@ public class UiBuilder {
         mTraversor.traverseElementTree(
                 parentElement,
                 element -> {
+                    if (element.getName().equals("Config")) {
+                        readConfig(element);
+                        return;
+                    }
                     Actor actor = createActorForElement(element);
                     if (actor == null) {
                         throw new SyntaxException("Failed to create actor for element: " + element);
@@ -324,12 +329,37 @@ public class UiBuilder {
         return root[0];
     }
 
+    private void readConfig(XmlReader.Element parent) throws SyntaxException {
+        for (XmlReader.Element element : parent.getChildrenByName("ConfigItem")) {
+            String id = element.getAttribute("id", "");
+            if (id.equals("")) {
+                throw new SyntaxException("Missing or empty 'id' attribute in ConfigItem");
+            }
+            String value = element.getAttribute("value", "");
+            mConfigMap.put(id, value);
+        }
+    }
+
     private void addActorToActorForId(String id, Actor actor) throws SyntaxException {
         if (id != null) {
             if (mActorForId.containsKey(id)) {
                 throw new SyntaxException("Duplicate ids: " + id);
             }
             mActorForId.put(id, actor);
+        }
+    }
+
+    public float getFloatConfigValue(String id) {
+        String value = mConfigMap.get(id);
+        if (value == null) {
+            NLog.e("Unknown config id '%s'", id);
+            return 0;
+        }
+        try {
+            return Float.valueOf(value);
+        } catch (NumberFormatException e) {
+            NLog.e("Invalid float value for id '%s': '%s'", id, value);
+            return 0;
         }
     }
 

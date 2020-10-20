@@ -65,9 +65,9 @@ public class CountDown {
             mFirstCall = false;
             String soundName = newValue > 0 ? "countdown1" : "countdown2";
             mAudioManager.play(mSoundAtlas.get(soundName), 1f);
-        }
-        if (mTime < 0) {
-            mGameWorld.startRace();
+            if (newValue == 0) {
+                mGameWorld.startRace();
+            }
         }
     }
 }
