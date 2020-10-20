@@ -174,7 +174,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
         mTableRowCreator.setTable(table);
         mTableRowCreator.setPadding(24);
-        mTableRowCreator.addHeaderRow("#", "Racer", "Score");
+        mTableRowCreator.addHeaderRow("#", "Racer", "Points");
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(entrant.getVehicleId());
@@ -183,7 +183,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     vehicleDef.name,
-                    String.valueOf(entrant.getScore()));
+                    String.valueOf(entrant.getPoints()));
         }
     }
 

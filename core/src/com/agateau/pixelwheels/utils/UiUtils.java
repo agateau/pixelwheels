@@ -8,9 +8,9 @@ public class UiUtils {
     public static String getEntrantRowStyle(GameInfo.Entrant entrant) {
         if (entrant.isPlayer()) {
             int index = ((GameInfo.Player) entrant).getIndex();
-            return "player" + index + "ScoreRow";
+            return "player" + index + "rankingRow";
         } else {
-            return "scoreRow";
+            return "aiRankingRow";
         }
     }
 

@@ -53,27 +53,19 @@
             font: title-font,
             fontColor: white
         },
-        highScore: {
-            font: default-font,
-            fontColor: white
-        },
-        newHighScore: {
-            font: default-font,
-            fontColor: highlight
-        },
         tableHeaderRow: {
             font: default-font,
             fontColor: highlight
         },
-        scoreRow: {
+        aiRankingRow: {
             font: default-font,
             fontColor: white
         },
-        player0ScoreRow: {
+        player0RankingRow: {
             font: default-font,
             fontColor: player0Color
         },
-        player1ScoreRow: {
+        player1RankingRow: {
             font: default-font,
             fontColor: player1Color
         },

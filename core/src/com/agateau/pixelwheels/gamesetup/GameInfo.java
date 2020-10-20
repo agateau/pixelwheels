@@ -84,7 +84,7 @@ public abstract class GameInfo {
     public static class Entrant {
         protected String mVehicleId;
 
-        private int mScore = 0;
+        private int mPoints = 0;
         private int mLastRacePoints = 0;
         private float mRaceTime = 0;
 
@@ -92,8 +92,8 @@ public abstract class GameInfo {
             return mVehicleId;
         }
 
-        public int getScore() {
-            return mScore;
+        public int getPoints() {
+            return mPoints;
         }
 
         public float getRaceTime() {
@@ -106,7 +106,7 @@ public abstract class GameInfo {
 
         public void addPoints(int points) {
             mLastRacePoints = points;
-            mScore += points;
+            mPoints += points;
         }
 
         public void addRaceTime(float time) {
@@ -153,7 +153,7 @@ public abstract class GameInfo {
     public void sortEntrants() {
         mEntrants.sort(
                 (e1, e2) -> {
-                    int cmp = -Integer.compare(e1.getScore(), e2.getScore());
+                    int cmp = -Integer.compare(e1.getPoints(), e2.getPoints());
                     if (cmp != 0) {
                         return cmp;
                     }

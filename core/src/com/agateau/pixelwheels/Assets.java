@@ -155,7 +155,7 @@ public class Assets implements TextureRegionProvider {
         this.soundAtlas.load("countdown1.wav");
         this.soundAtlas.load("countdown2.wav");
         this.soundAtlas.load("splash.wav");
-        this.soundAtlas.load("point-increase.wav");
+        this.soundAtlas.load("points-increase.wav");
     }
 
     private void initChampionships() {

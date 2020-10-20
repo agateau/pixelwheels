@@ -51,23 +51,23 @@ import java.util.Locale;
 
 /** Appears on top of RaceScreen at the end of the race */
 public class FinishedOverlay extends Overlay {
-    private float mFirstScoreIncreaseInterval = 1f;
-    private float mScoreIncreaseInterval = 0.3f;
+    private float mFirstPointsIncreaseInterval = 1f;
+    private float mPointsIncreaseInterval = 0.3f;
     private static final int RANK_CHANGE_COLUMN_SIZE = 16;
-    private static final float SCORE_INCREASE_SOUND_VOLUME = 1f;
+    private static final float POINTS_INCREASE_SOUND_VOLUME = 1f;
 
     interface PageCreator {
         Actor createPage();
     }
 
-    private enum ScoreTable {
+    private enum PointsTable {
         RACE,
         CHAMPIONSHIP
     }
 
-    private static class ScoreAnimInfo {
+    private static class PointsAnimInfo {
         Label label;
-        int score;
+        int points;
         int delta = 0;
     }
 
@@ -75,10 +75,10 @@ public class FinishedOverlay extends Overlay {
             (racer1, racer2) -> {
                 GameInfo.Entrant entrant1 = racer1.getEntrant();
                 GameInfo.Entrant entrant2 = racer2.getEntrant();
-                // Highest score first
-                int deltaScore = entrant2.getScore() - entrant1.getScore();
-                if (deltaScore != 0) {
-                    return deltaScore;
+                // Highest points first
+                int deltaPoints = entrant2.getPoints() - entrant1.getPoints();
+                if (deltaPoints != 0) {
+                    return deltaPoints;
                 }
                 // Lowest race time first
                 return Float.compare(entrant1.getRaceTime(), entrant2.getRaceTime());
@@ -133,30 +133,30 @@ public class FinishedOverlay extends Overlay {
                     return cell;
                 }
             };
-    private final Array<ScoreAnimInfo> mScoreAnimInfos = new Array<>();
+    private final Array<PointsAnimInfo> mPointsAnimInfos = new Array<>();
 
-    private Sound mScoreIncreaseSound;
-    private final Timer.Task mIncreaseScoreTask =
+    private Sound mPointsIncreaseSound;
+    private final Timer.Task mIncreasePointsTask =
             new Timer.Task() {
                 @Override
                 public void run() {
                     boolean done = true;
-                    for (ScoreAnimInfo info : mScoreAnimInfos) {
+                    for (PointsAnimInfo info : mPointsAnimInfos) {
                         if (info.delta == 0) {
                             continue;
                         }
-                        ++info.score;
+                        ++info.points;
                         --info.delta;
                         mGame.getAudioManager()
-                                .play(mScoreIncreaseSound, SCORE_INCREASE_SOUND_VOLUME);
+                                .play(mPointsIncreaseSound, POINTS_INCREASE_SOUND_VOLUME);
                         if (info.delta > 0) {
                             done = false;
                         }
                     }
                     if (!done) {
-                        scheduleScoreIncrease(mScoreIncreaseInterval);
+                        schedulePointsIncrease(mPointsIncreaseInterval);
                     }
-                    updateScoreLabels();
+                    updatePointsLabels();
                 }
             };
 
@@ -175,7 +175,7 @@ public class FinishedOverlay extends Overlay {
     }
 
     private void setupUi(Array<Racer> racers) {
-        mScoreIncreaseSound = mGame.getAssets().soundAtlas.get("point-increase");
+        mPointsIncreaseSound = mGame.getAssets().soundAtlas.get("points-increase");
         TextureAtlas atlas = mGame.getAssets().ui.atlas;
         mRankChangeDrawables[0] = new TextureRegionDrawable(atlas.findRegion("rank-down"));
         mRankChangeDrawables[1] = new TextureRegionDrawable(atlas.findRegion("rank-same"));
@@ -191,25 +191,25 @@ public class FinishedOverlay extends Overlay {
                 mPageCreators.add(() -> createRecordBreakerPage(racer));
             }
         }
-        mPageCreators.add(() -> createScoreTablePage(ScoreTable.RACE));
+        mPageCreators.add(() -> createPointsTablePage(PointsTable.RACE));
         if (isChampionship()) {
-            mPageCreators.add(() -> createScoreTablePage(ScoreTable.CHAMPIONSHIP));
+            mPageCreators.add(() -> createPointsTablePage(PointsTable.CHAMPIONSHIP));
         }
     }
 
     private void showNextPage() {
-        mIncreaseScoreTask.cancel();
+        mIncreasePointsTask.cancel();
         PageCreator creator = mPageCreators.remove(0);
         setContent(creator.createPage());
     }
 
-    private Actor createScoreTablePage(ScoreTable scoreTable) {
+    private Actor createPointsTablePage(PointsTable pointsTable) {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
         if (!isChampionship()) {
             builder.defineVariable("quickRace");
         }
         HashMap<Racer, Integer> oldRankMap = null;
-        if (scoreTable == ScoreTable.CHAMPIONSHIP) {
+        if (pointsTable == PointsTable.CHAMPIONSHIP) {
             mRacers.sort(sRacerComparator);
             ChampionshipMaestro maestro = (ChampionshipMaestro) mGame.getMaestro();
             if (!maestro.isFirstTrack()) {
@@ -218,23 +218,23 @@ public class FinishedOverlay extends Overlay {
         }
 
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
-        mFirstScoreIncreaseInterval = builder.getFloatConfigValue("firstScoreIncreaseInterval");
-        mScoreIncreaseInterval = builder.getFloatConfigValue("scoreIncreaseInterval");
+        mFirstPointsIncreaseInterval = builder.getFloatConfigValue("firstPointsIncreaseInterval");
+        mPointsIncreaseInterval = builder.getFloatConfigValue("pointsIncreaseInterval");
         Table table = builder.getActor("scrollableTable");
 
         Label titleLabel = builder.getActor("titleLabel");
         titleLabel.setText(
-                scoreTable == ScoreTable.CHAMPIONSHIP ? "Championship Rankings" : "Race Results");
+                pointsTable == PointsTable.CHAMPIONSHIP ? "Championship Rankings" : "Race Results");
         titleLabel.pack();
 
         fillMenu(builder);
-        fillTable(table, scoreTable, oldRankMap);
+        fillTable(table, pointsTable, oldRankMap);
         return content;
     }
 
     private static int getOldPointsForRacer(Racer racer) {
         GameInfo.Entrant entrant = racer.getEntrant();
-        return entrant.getScore() - entrant.getLastRacePoints();
+        return entrant.getPoints() - entrant.getLastRacePoints();
     }
 
     private HashMap<Racer, Integer> createOldRankMap() {
@@ -275,18 +275,19 @@ public class FinishedOverlay extends Overlay {
                         });
     }
 
-    private void fillTable(Table table, ScoreTable scoreTable, HashMap<Racer, Integer> oldRankMap) {
-        mScoreAnimInfos.clear();
+    private void fillTable(
+            Table table, PointsTable pointsTable, HashMap<Racer, Integer> oldRankMap) {
+        mPointsAnimInfos.clear();
         TableRowCreator rowCreator =
-                scoreTable == ScoreTable.CHAMPIONSHIP ? mChampionshipRowCreator : mRaceRowCreator;
+                pointsTable == PointsTable.CHAMPIONSHIP ? mChampionshipRowCreator : mRaceRowCreator;
         rowCreator.setTable(table);
         rowCreator.setPadding(24);
-        if (scoreTable == ScoreTable.CHAMPIONSHIP) {
+        if (pointsTable == PointsTable.CHAMPIONSHIP) {
             rowCreator.addHeaderRow("#", "Racer", "", "Total time", "Points");
         } else {
             rowCreator.addHeaderRow("#", "Racer", "Best lap", "Race time", "Points");
         }
-        boolean needScoreAnim = isChampionship() && scoreTable == ScoreTable.RACE;
+        boolean needPointsAnim = isChampionship() && pointsTable == PointsTable.RACE;
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             GameInfo.Entrant entrant = racer.getEntrant();
@@ -294,7 +295,7 @@ public class FinishedOverlay extends Overlay {
             rowCreator.setRowStyle(style);
             String rank = String.format(Locale.US, "%d.", idx + 1);
             String name = racer.getVehicle().getName();
-            if (scoreTable == ScoreTable.RACE) {
+            if (pointsTable == PointsTable.RACE) {
                 LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
                 String bestLapTime;
                 String totalTime;
@@ -318,36 +319,36 @@ public class FinishedOverlay extends Overlay {
                     imageCell.getActor().setDrawable(drawable);
                 }
             }
-            Cell<Label> scoreCell = rowCreator.getCreatedRowCell(-1);
-            ScoreAnimInfo info = new ScoreAnimInfo();
-            info.label = scoreCell.getActor();
-            if (needScoreAnim) {
+            Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
+            PointsAnimInfo info = new PointsAnimInfo();
+            info.label = pointsCell.getActor();
+            if (needPointsAnim) {
                 info.delta = entrant.getLastRacePoints();
-                info.score = entrant.getScore() - info.delta;
+                info.points = entrant.getPoints() - info.delta;
             } else {
-                info.score = entrant.getScore();
+                info.points = entrant.getPoints();
             }
-            mScoreAnimInfos.add(info);
+            mPointsAnimInfos.add(info);
         }
-        updateScoreLabels();
-        if (needScoreAnim) {
-            scheduleScoreIncrease(mFirstScoreIncreaseInterval);
+        updatePointsLabels();
+        if (needPointsAnim) {
+            schedulePointsIncrease(mFirstPointsIncreaseInterval);
         }
     }
 
-    private void scheduleScoreIncrease(float interval) {
-        Timer.schedule(mIncreaseScoreTask, interval);
+    private void schedulePointsIncrease(float interval) {
+        Timer.schedule(mIncreasePointsTask, interval);
     }
 
-    private void updateScoreLabels() {
-        for (ScoreAnimInfo info : mScoreAnimInfos) {
-            String score;
+    private void updatePointsLabels() {
+        for (PointsAnimInfo info : mPointsAnimInfos) {
+            String points;
             if (info.delta == 0) {
-                score = String.valueOf(info.score);
+                points = String.valueOf(info.points);
             } else {
-                score = StringUtils.format("+%d %d", info.delta, info.score);
+                points = StringUtils.format("+%d %d", info.delta, info.points);
             }
-            info.label.setText(score);
+            info.label.setText(points);
         }
     }
 
