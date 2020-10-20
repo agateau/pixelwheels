@@ -43,7 +43,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -243,7 +242,9 @@ public class FinishedOverlay extends Overlay {
 
         Label titleLabel = builder.getActor("titleLabel");
         titleLabel.setText(
-                tableType == TableType.CHAMPIONSHIP_TOTAL ? "Championship Rankings" : "Race Results");
+                tableType == TableType.CHAMPIONSHIP_TOTAL
+                        ? "Championship Rankings"
+                        : "Race Results");
         titleLabel.pack();
 
         fillMenu(builder);
@@ -307,8 +308,7 @@ public class FinishedOverlay extends Overlay {
         throw new AssertionError();
     }
 
-    private void fillTable(
-            Table table, TableType tableType, HashMap<Racer, Integer> oldRankMap) {
+    private void fillTable(Table table, TableType tableType, HashMap<Racer, Integer> oldRankMap) {
         mPointsAnimInfos.clear();
 
         // Init our table
@@ -371,7 +371,8 @@ public class FinishedOverlay extends Overlay {
     }
 
     /** Create a row for either QUICK_RACE or CHAMPIONSHIP_RACE */
-    private void createRaceRow(TableType tableType, TableRowCreator rowCreator, int idx, Racer racer) {
+    private void createRaceRow(
+            TableType tableType, TableRowCreator rowCreator, int idx, Racer racer) {
         String name = getRacerName(racer);
         String rank = StringUtils.formatRank(idx + 1);
         LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
@@ -392,12 +393,14 @@ public class FinishedOverlay extends Overlay {
         }
     }
 
-    private void createChampionshipTotalRow(HashMap<Racer, Integer> oldRankMap, int idx, Racer racer) {
+    private void createChampionshipTotalRow(
+            HashMap<Racer, Integer> oldRankMap, int idx, Racer racer) {
         String rank = StringUtils.formatRank(idx + 1);
         String name = getRacerName(racer);
         String totalTime = StringUtils.formatRaceTime(racer.getEntrant().getRaceTime());
 
-        mChampionshipTotalRowCreator.addRow(rank, name, null /* rank change indicator */, totalTime, "" /* points */);
+        mChampionshipTotalRowCreator.addRow(
+                rank, name, null /* rank change indicator */, totalTime, "" /* points */);
 
         if (oldRankMap == null) {
             return;
@@ -406,7 +409,8 @@ public class FinishedOverlay extends Overlay {
         Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
 
         Cell<Image> imageCell =
-                mChampionshipTotalRowCreator.getCreatedRowCell(ChampionshipTotalColumn.RANK_CHANGE.ordinal());
+                mChampionshipTotalRowCreator.getCreatedRowCell(
+                        ChampionshipTotalColumn.RANK_CHANGE.ordinal());
         imageCell.getActor().setDrawable(drawable);
     }
 
