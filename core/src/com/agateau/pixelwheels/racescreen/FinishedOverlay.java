@@ -294,27 +294,38 @@ public class FinishedOverlay extends Overlay {
                         });
     }
 
+    private TableRowCreator getRowCreatorForTable(TableType tableType) {
+        switch (tableType) {
+            case QUICK_RACE:
+                return mQuickRaceRowCreator;
+            case CHAMPIONSHIP_RACE:
+                return mChampionshipRaceRowCreator;
+            case CHAMPIONSHIP_TOTAL:
+                return mChampionshipTotalRowCreator;
+        }
+        // Never reached
+        throw new AssertionError();
+    }
+
     private void fillTable(
             Table table, TableType tableType, HashMap<Racer, Integer> oldRankMap) {
         mPointsAnimInfos.clear();
 
         // Init our table
-        TableRowCreator rowCreator =
-                tableType == TableType.CHAMPIONSHIP_TOTAL ? mChampionshipTotalRowCreator
-                        : tableType == TableType.CHAMPIONSHIP_RACE ? mChampionshipRaceRowCreator : mQuickRaceRowCreator;
+        TableRowCreator rowCreator = getRowCreatorForTable(tableType);
         rowCreator.setTable(table);
         rowCreator.setPadding(24);
 
         // Create header row
         switch (tableType) {
             case QUICK_RACE:
-                rowCreator.addHeaderRow("#", "Racer", "", "Total time");
+                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time");
                 break;
             case CHAMPIONSHIP_RACE:
-                rowCreator.addHeaderRow("#", "Racer", "", "Total time", "Points");
+                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time", "Points");
                 break;
             case CHAMPIONSHIP_TOTAL:
-                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Race time", "Points");
+                rowCreator.addHeaderRow("#", "Racer", "", "Race time", "Points");
                 break;
         }
 
@@ -342,13 +353,13 @@ public class FinishedOverlay extends Overlay {
                     if (tableType == TableType.QUICK_RACE) {
                         rowCreator.addRow(rank, name, bestLapTime, totalTime);
                     } else {
-                        rowCreator.addRow(rank, name, bestLapTime, totalTime, "");
+                        rowCreator.addRow(rank, name, bestLapTime, totalTime, "" /* points */);
                     }
                     break;
                 }
                 case CHAMPIONSHIP_TOTAL: {
                     String totalTime = StringUtils.formatRaceTime(entrant.getRaceTime());
-                    rowCreator.addRow(rank, name, null /* rank change indicator */, totalTime, "");
+                    rowCreator.addRow(rank, name, null /* rank change indicator */, totalTime, "" /* points */);
                     if (oldRankMap != null) {
                         int oldIdx = oldRankMap.get(racer);
                         Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
@@ -361,23 +372,27 @@ public class FinishedOverlay extends Overlay {
                 }
             }
 
-            // add PointsAnimInfo for row
-            Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
-            PointsAnimInfo info = new PointsAnimInfo();
-            info.label = pointsCell.getActor();
-            if (tableType == TableType.CHAMPIONSHIP_RACE) {
-                info.delta = entrant.getLastRacePoints();
-                info.points = entrant.getPoints() - info.delta;
-            } else {
-                info.points = entrant.getPoints();
+            if (tableType != TableType.QUICK_RACE) {
+                // add PointsAnimInfo for row
+                Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
+                PointsAnimInfo info = new PointsAnimInfo();
+                info.label = pointsCell.getActor();
+                if (tableType == TableType.CHAMPIONSHIP_RACE) {
+                    info.delta = entrant.getLastRacePoints();
+                    info.points = entrant.getPoints() - info.delta;
+                } else {
+                    info.points = entrant.getPoints();
+                }
+                mPointsAnimInfos.add(info);
             }
-            mPointsAnimInfos.add(info);
         }
 
         // Animate points if needed
-        updatePointsLabels();
-        if (tableType == TableType.CHAMPIONSHIP_RACE) {
-            schedulePointsIncrease(mFirstPointsIncreaseInterval);
+        if (tableType != TableType.QUICK_RACE) {
+            updatePointsLabels();
+            if (tableType == TableType.CHAMPIONSHIP_RACE) {
+                schedulePointsIncrease(mFirstPointsIncreaseInterval);
+            }
         }
     }
 
