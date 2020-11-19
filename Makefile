@@ -56,6 +56,11 @@ assets:
 clean-assets:
 	$(MAKE) -C core/assets-src clean
 
+# Automatically regenerates assets when ase files are modified (requires the
+# `entr` command)
+auto-assets:
+	$(MAKE) -C core/assets-src auto
+
 # Packr
 $(JDK_LINUX64_ZIP):
 	wget $(JDK_LINUX64_URL) -O $(JDK_LINUX64_ZIP)
