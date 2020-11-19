@@ -64,6 +64,7 @@ public class Assets implements TextureRegionProvider {
             new Array<>(
                     new Track[] {
                         new Track("country", "Welcome!"),
+                        new Track("pumpkin", "Pumpkin"),
                         new Track("race", "Let it Snow"),
                         new Track("snow2", "Don't slip!"),
                         new Track("be", "Blocky Town"),
@@ -160,7 +161,9 @@ public class Assets implements TextureRegionProvider {
 
     private void initChampionships() {
         this.championships.add(
-                new Championship("country", "Country life").addTrack(findTrackById("country")));
+                new Championship("country", "Country life")
+                        .addTrack(findTrackById("country"))
+                        .addTrack(findTrackById("pumpkin")));
 
         this.championships.add(
                 new Championship("snow", "Square Mountains")
