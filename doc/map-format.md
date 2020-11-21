@@ -58,6 +58,10 @@ Enum. Defaults to ROAD. Must be one of the values of the com.agateau.pixelwheels
 
 String. Defaults to `false`. Set to `true` for the tile representing the start position.
 
+## Special tiles
+
+There must be 6 `start` tiles on one of the background layers.
+
 ## Map icon
 
 The map must have an icon to show in the game user interface.

@@ -246,7 +246,17 @@ public class Track implements Disposable {
 
     public Array<Vector2> findStartTilePositions() {
         Array<Vector2> lst = new Array<>();
-        TiledMapTileLayer groundLayer = mBackgroundLayers.get(0);
+        for (TiledMapTileLayer layer : mBackgroundLayers) {
+            findStartTilePositionsInLayer(lst, layer);
+            if (lst.notEmpty()) {
+                break;
+            }
+        }
+        Assert.check(lst.notEmpty(), "No start tiles found");
+        return lst;
+    }
+
+    private void findStartTilePositionsInLayer(Array<Vector2> lst, TiledMapTileLayer groundLayer) {
         for (int ty = 0; ty < groundLayer.getHeight(); ++ty) {
             for (int tx = 0; tx < groundLayer.getWidth(); ++tx) {
                 TiledMapTileLayer.Cell cell = groundLayer.getCell(tx, ty);
@@ -260,7 +270,6 @@ public class Track implements Disposable {
                 }
             }
         }
-        return lst;
     }
 
     public Array<Vector2> findBonusSpotPositions() {
