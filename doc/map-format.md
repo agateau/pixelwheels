@@ -44,6 +44,10 @@ A "Waypoints" object layer containing ellipsis indicating where AI pilots should
 
 A "BonusSpots" object layer containing ellipsis indicating where bonuses should appear.
 
+## Tilesets
+
+Tilesets are defined in .tsx files, not bundled in the .tmx files. There is one .tsx file per championship. When creating a new map, make sure to load the right .tsx file.
+
 ## Tile properties
 
 ### `material`
