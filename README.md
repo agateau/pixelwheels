@@ -33,7 +33,7 @@ I have a reasonably well defined vision of what I want Pixel Wheels to be.  Your
 
 The [build instructions][build] should have you covered.
 
-[build]: doc/building.md
+[build]: docs/building.md
 
 ## License
 

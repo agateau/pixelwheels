@@ -353,7 +353,7 @@
 ### For developers
 
 - It is now possible to use LibreSprite instead of Aseprite to generate the
-  assets, see [building.md](doc/building.md) for details.
+  assets, see [building.md](docs/building.md) for details.
 
 ## 0.9.0 - 2018-07-04
 

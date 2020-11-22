@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Loads a LapPositionTable from a TiledMap. Parses the section segments defined in
- * doc/map-format.md
+ * docs/map-format.md
  */
 public class LapPositionTableIO {
     private static class Line implements Comparable {
