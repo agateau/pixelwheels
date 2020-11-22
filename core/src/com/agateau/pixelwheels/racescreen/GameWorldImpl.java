@@ -294,7 +294,8 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
         AudioManager audioManager = mGame.getAudioManager();
         for (int idx = 0; idx < entrants.size; ++idx) {
-            Assert.check(idx < positions.size, "Too many entrants");
+            Assert.check(
+                    idx < positions.size, "Too many entrants (" + idx + "/" + positions.size + ")");
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
             Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);

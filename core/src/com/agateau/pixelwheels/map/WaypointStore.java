@@ -57,6 +57,7 @@ public class WaypointStore {
                             + " is not an ellipse.");
             Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
             final LapPosition pos = lapPositionTable.get((int) ellipse.x, (int) ellipse.y);
+            Assert.check(pos != null, "No position at " + ellipse.x + "x" + ellipse.y);
             WaypointInfo info = new WaypointInfo();
             info.waypoint = new Vector2(ellipse.x * U, ellipse.y * U);
             info.lapDistance = pos.getLapDistance();

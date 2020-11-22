@@ -70,14 +70,14 @@ public class LapPositionTableIO {
             }
             Assert.check(
                     obj instanceof PolylineMapObject,
-                    "'Sections' layer should only contain PolylineMapObjects");
+                    "Object " + name + " in 'Sections' layer must be a PolylineMapObject");
             Polyline polyline = ((PolylineMapObject) obj).getPolyline();
             float[] vertices = polyline.getTransformedVertices();
             Assert.check(
                     vertices.length == 4,
-                    "Polyline with name "
-                            + order
-                            + "should have 2 points, not "
+                    "Polyline "
+                            + name
+                            + " in 'Sections' layer should have 2 points, not "
                             + (vertices.length / 2));
             Line line = new Line();
             line.x1 = vertices[0];
