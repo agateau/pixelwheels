@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -46,6 +47,13 @@ public class LapPositionTableIO {
         @Override
         public int compareTo(Object o) {
             return Float.compare(order, ((Line) o).order);
+        }
+
+        public void swapPoints() {
+            float x = p1.x;
+            float y = p1.y;
+            p1.set(p2);
+            p2.set(x, y);
         }
     }
 
@@ -92,6 +100,20 @@ public class LapPositionTableIO {
         for (int idx = 0; idx < lines.size; ++idx) {
             Line line1 = lines.get(idx);
             Line line2 = lines.get((idx + 1) % lines.size);
+            if (!AgcMathUtils.isQuadrilateralConvex(line1.p1, line2.p1, line2.p2, line1.p2)) {
+                NLog.d(
+                        "Quadrilateral formed by line %f and %f is concave, swapping points of line %f",
+                        line1.order, line2.order, line2.order);
+                line2.swapPoints();
+                if (!AgcMathUtils.isQuadrilateralConvex(line1.p1, line2.p1, line2.p2, line1.p2)) {
+                    throw new RuntimeException(
+                            "Quadrilateral formed by line "
+                                    + line1.order
+                                    + " and "
+                                    + line2.order
+                                    + " is concave");
+                }
+            }
             float[] vertices = {
                 line1.p1.x, line1.p1.y,
                 line2.p1.x, line2.p1.y,
