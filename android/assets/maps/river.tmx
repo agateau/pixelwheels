@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="32">
+ <tileset firstgid="1" source="country.tsx"/>
+ <layer id="1" name="bg1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJyllEFuwzAQA3PyL9L/P7O9FAgMcTh0DkESW9JyuUO9X6/X++/z8/H9//vz//3Z/f3p//07nXdae19HGtK+tP+0Jmk81TQ9p89J1/I89ZLmQT2tvbcZ2Dqp12U/zcTMhry2/SaODDf03XQQ80Zb4vLUG3FPvLQe6f5Yc2P9JG9Tpqyvxg/LOOkyzBsdjdPljCe8mRwl5hqv3/TTapJn5Md6vySmlhmYfK2skc/Ul9FhZknzXe+KlCHzveijWTUvTEbMvFoPxM7CuPWAZkC6kmeUE9Jv1zR2iMsns6L1S4aol2VfO2NluvWeahN7jZHlPc0wsW7Wtww19ok5w4y9I2xOTEaeMNLmb7PY3plz0lwMV21mLf92jeEiMZZ8aXOxzJPGdh6tIV5Xtk0GienkAzFFHBjvDH+U86bZzJl4IZ9JW9Ni+1h+L1yS7ys/RmPLAPlJzyjnlsd0zsJk8oK8amyn3s174pc+jXurm3QQDwu3ayZbXeP5si7tscwurLYckp8t26lf0rzsNdqSJmLtgv2NlTbLdkeQ/yYzp/0XeE2e0z3QGDFzTr7cn1/hOXmePHqiaa3Z6l/hva1z0k/72x3RfD3lw2bQZtRkPPHdWGp5uQ5nUk6IeZPtNu+mg3pJGk/1KMvtDOovcUa9p3NaLpMm0mXmSJ61uRODpjeq0fyyebc6W4bNnqThSbZXLlpvVN96bnSdzjSMtizRs5alxiedl7QuOaa8UD2jwZxv6hGjqSZpWn1suUxrbR2TAapB5yQuTC4or4b75U5Y7onTuSuvLQctRwujTU+aVcuH9SFpM5ravNbMJw8ND9QbeUIe0NnED2XBcJ7q/QIeBx/a
+  </data>
+ </layer>
+ <layer id="2" name="bg2" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmA1u8jAMhjOxaZR+Gu0NOApH6VF6lB5lR+Eon0Ni9PbFSRPEtiLVklXWpcGP/+Li3CabbLLJJpusU47OfbeiB9EmfD7LvfNf21Uje7H7U3Tn3CjqelF/lXvn/YuwAMPV9jcXOF6JRRm8zd7+HVyVxf+9ZhZmUPuV4Y10jSzKgDnE+dQbuiYWZEB7NRad1Hrn5nHB/6+BBXMJ7Vemz7DG6yifR2ZcQ71wHDgeygDrryxcJ3+ZYxwHo7fOGOC5W1ywJ0P8fo0F44B9CfqQyQDP38Wld7/bx6xcwv66xAD73NULXn+ShRm4/5QywH6zuOD5/1Nx4fOBz4NaBth3FhfMs2fXS64elhh05s3Nu1a9PDsu2Jdw75I44MyL/s2x8Hn/jD6Gcyvn0lJNE3/R7I4s6Cs8X8QHwyMMj/Ql62zZuTv/DnvDJqv28fm2goPnVq6/wlxyqJY/ciwyj13YD/7aFHJwLj3CYOU3v0/BfiaLvAtPPKuVcnBv5WstA9rOMy+yeRbOe7F3+pAr6xKHdcbhWVfKYPkAZt5JPk/o46gXznvPwf29X+CQ/S/cW2v7EjLTPM4z7+RznzimQ4LD0Z68TuUYGC5WLjyaSykGfaYDX8fnJvazcqgtypOKh8TzIvsNXI+V58PdO3iKAXsIfOckdpyYYxc/Y59LxaMJfWHgeakLfSTLwLlUysD9WO6fjgkO5XUuH49DWD9wjxWOU6K3m701l4e5HhLXn+gRtetmv35PKh5tWH9KzJqz3p56j63Jpdx7L0oD54fy5DiO0Av5e7S374OauV0SB86jkndGrnPVFEf8visLn59qbxd6zJnrOXe2WL/J1byrHCgeJecHsqDP2Bfck1I2xV4+mwtwry7+Bq/aRMV7X4nfhwvnkhsL92DeL+fXNp5H1kzFZzTWI/sQ/9Y1FXPilYXPdGMmytaoMXvM8oPrsM+sxfWlHMhi1cLS+ejlADXK/u0N5ThwDPDZGo7Icn2f2YVa9bnq9VxSo20mHphT7PtcTeq69xqIKFKvo9g0ig+8j719/t6i/BOO9zD7OdQGrqipdaxt2HuTTTbZ5CXlP9HltYc=
+  </data>
+ </layer>
+ <layer id="3" name="fg1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+ <layer id="4" name="fg2" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+ <objectgroup id="5" name="Obstacles"/>
+ <objectgroup id="6" name="Sections">
+  <object id="1" name="1" x="2496" y="1856">
+   <polyline points="0,0 640,0"/>
+  </object>
+  <object id="2" name="3" x="1792" y="1088">
+   <polyline points="0,0 512,-832"/>
+  </object>
+  <object id="3" name="2" x="2368" y="1664">
+   <polyline points="0,0 640,-576"/>
+  </object>
+  <object id="4" name="4" x="1728" y="1088">
+   <polyline points="0,0 -384,-832"/>
+  </object>
+  <object id="5" name="5" x="704" y="2112">
+   <polyline points="0,0 -640,-256"/>
+  </object>
+  <object id="6" name="6" x="832" y="2240">
+   <polyline points="-128,0 -768,576"/>
+  </object>
+  <object id="7" name="7" x="832" y="2240">
+   <polyline points="0,0 0,704"/>
+  </object>
+  <object id="8" name="8" x="1536" y="1536">
+   <polyline points="128,-128 256,448"/>
+  </object>
+  <object id="9" name="9" x="2240" y="1536">
+   <polyline points="-320,-192 -384,448"/>
+  </object>
+  <object id="10" name="10" x="1920" y="1984">
+   <polyline points="0,0 448,-192"/>
+  </object>
+  <object id="11" name="11" x="1856" y="2048">
+   <polyline points="0,0 576,128"/>
+  </object>
+  <object id="12" name="12" x="1728" y="2176">
+   <polyline points="0,0 576,128"/>
+  </object>
+  <object id="13" name="13" x="1216" y="2688">
+   <polyline points="-64,64 1024,-320"/>
+  </object>
+  <object id="14" name="14" x="2368" y="2432">
+   <polyline points="-64,-64 -512,576"/>
+  </object>
+  <object id="15" name="15" x="2496" y="2368">
+   <polyline points="0,0 640,576"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Waypoints">
+  <object id="16" x="2687.88" y="1542.42" width="51.5152" height="51.5152">
+   <ellipse/>
+  </object>
+  <object id="17" x="1900" y="748.485" width="69.697" height="51.5152">
+   <ellipse/>
+  </object>
+  <object id="18" x="1524.24" y="818.182" width="57.5758" height="45.4545">
+   <ellipse/>
+  </object>
+  <object id="19" x="406.061" y="1990.91" width="48.4848" height="45.4545">
+   <ellipse/>
+  </object>
+  <object id="20" x="330.303" y="2242.42" width="54.5455" height="60.6061">
+   <ellipse/>
+  </object>
+  <object id="21" x="639.394" y="2587.88" width="63.6364" height="48.4848">
+   <ellipse/>
+  </object>
+  <object id="22" x="878.788" y="2572.73" width="63.6364" height="36.3636">
+   <ellipse/>
+  </object>
+  <object id="23" x="1693.94" y="1669.7" width="45.4545" height="39.3939">
+   <ellipse/>
+  </object>
+  <object id="24" x="1930.3" y="1636.36" width="60.6061" height="60.6061">
+   <ellipse/>
+  </object>
+  <object id="25" x="2142.42" y="1893.94" width="48.4848" height="60.6061">
+   <ellipse/>
+  </object>
+  <object id="26" x="2115.15" y="2096.97" width="39.3939" height="42.4242">
+   <ellipse/>
+  </object>
+  <object id="27" x="1839.39" y="2336.36" width="39.3939" height="45.4545">
+   <ellipse/>
+  </object>
+  <object id="28" x="1745.45" y="2590.91" width="54.5455" height="57.5758">
+   <ellipse/>
+  </object>
+  <object id="29" x="2109.09" y="2600" width="57.5758" height="48.4848">
+   <ellipse/>
+  </object>
+  <object id="30" x="2703.03" y="2551.52" width="63.6364" height="57.5758">
+   <ellipse/>
+  </object>
+  <object id="31" x="2818.18" y="2442.42" width="42.4242" height="48.4848">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="BonusSpots"/>
+</map>
