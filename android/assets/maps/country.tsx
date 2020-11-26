@@ -192,4 +192,84 @@
  <tile id="67">
   <objectgroup draworder="index"/>
  </tile>
+ <tile id="128">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="129">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="130">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="131">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="136">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="137">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="138">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="139">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="144">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="145">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="146">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="147">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="152">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="153">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="154">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="155">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
 </tileset>
