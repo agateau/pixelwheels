@@ -18,7 +18,9 @@
  */
 package com.agateau.utils.tests;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -96,5 +98,43 @@ public class AgcMathUtilsTests {
             assertEquals(data.expected.x, result.x, 0.001f);
             assertEquals(data.expected.y, result.y, 0.001f);
         }
+    }
+
+    @Test
+    public void testIsQuadConvex() {
+        Vector2 p1 = new Vector2(0, 0);
+        Vector2 p2 = new Vector2(1, -1);
+        Vector2 p3 = new Vector2(2, 0);
+        Vector2 p4 = new Vector2(1, 1);
+        assertThat(AgcMathUtils.isQuadrilateralConvex(p1, p2, p3, p4), is(true));
+    }
+
+    @Test
+    public void testIsQuadConcave() {
+        Vector2 p1 = new Vector2(0, 0);
+        Vector2 p2 = new Vector2(1, -1);
+        Vector2 p3 = new Vector2(0, 2);
+        Vector2 p4 = new Vector2(-1, -1);
+        assertThat(AgcMathUtils.isQuadrilateralConvex(p1, p2, p3, p4), is(false));
+    }
+
+    @Test
+    public void testLineDoesCrossSegment() {
+        Vector2 l1 = new Vector2(0, 0);
+        Vector2 l2 = new Vector2(2, 0);
+        Vector2 s1 = new Vector2(1, 1);
+        Vector2 s2 = new Vector2(1, -1);
+        assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s1, s2), is(true));
+        assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s2, s1), is(true));
+    }
+
+    @Test
+    public void testLineDoesNotCrossSegment() {
+        Vector2 l1 = new Vector2(0, 0);
+        Vector2 l2 = new Vector2(2, 0);
+        Vector2 s1 = new Vector2(1, 1);
+        Vector2 s2 = new Vector2(1, 0.5f);
+        assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s1, s2), is(false));
+        assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s2, s1), is(false));
     }
 }

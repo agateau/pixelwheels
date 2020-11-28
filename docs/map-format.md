@@ -62,6 +62,8 @@ String. Defaults to `false`. Set to `true` for the tile representing the start p
 
 The map must have an icon to show in the game user interface.
 
+Its largest dimension must be 150 pixels.
+
 The path to the icon is `core/assets-src/ui/map-icons/<map-name>.ase`.
 
 ## Adding the map to the game
