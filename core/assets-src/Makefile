@@ -15,11 +15,6 @@ all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 clean:
 	rm -rf $(OUT_DIR)
 
-# Automatically regenerates assets when ase files are modified (requires the
-# `entr` command)
-auto:
-	find . -name '*.ase' | entr $(MAKE) all
-
 #- Hud ------------------------------------------------------------------------
 # Just enough to trigger the target
 hud: $(OUT_DIR)/sprites/hud-pause.png
