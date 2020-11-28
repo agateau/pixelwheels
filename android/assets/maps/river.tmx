@@ -8,7 +8,7 @@
  </layer>
  <layer id="2" name="bg2" width="60" height="44">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer id="3" name="fg1" width="60" height="44">
@@ -21,7 +21,7 @@
    eJzt1LEJgEAMBdBso6UbWCi4xo3mKI6mtnKFWOTkeA9CINX/TSIAAACA2/Ty1osx4njehog9P0k7W0RpnSGTvn3ruW+pdJvzY6SpdSuVnw0AAABAe+s1y4fNP5zLBAq7
   </data>
  </layer>
- <objectgroup id="5" name="Obstacles">
+ <objectgroup id="5" name="Obstacles" visible="0">
   <object id="32" type="block" x="2304" y="960">
    <polyline points="192,88 0,64 -192,128 -768,704"/>
   </object>
@@ -64,7 +64,7 @@
    <polyline points="0,0 0,413.333 -157.333,569.333"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints">
+ <objectgroup id="7" name="Waypoints" visible="0">
   <object id="16" x="1914.88" y="437.42" width="51.5152" height="51.5152">
    <ellipse/>
   </object>
@@ -117,7 +117,7 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Sections">
+ <objectgroup id="6" name="Sections" visible="0">
   <object id="1" name="1" x="2915" y="1536">
    <polyline points="0,0 871,0"/>
   </object>

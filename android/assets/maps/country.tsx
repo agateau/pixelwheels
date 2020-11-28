@@ -26,6 +26,11 @@
    <property name="material" value="SNOW"/>
   </properties>
  </tile>
+ <tile id="12">
+  <properties>
+   <property name="material" value="TURBO"/>
+  </properties>
+ </tile>
  <tile id="16">
   <objectgroup draworder="index">
    <object id="0" x="9.63636" y="8.18182" width="54.5455" height="55.8182"/>
