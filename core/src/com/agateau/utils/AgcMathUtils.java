@@ -161,4 +161,48 @@ public class AgcMathUtils {
         }
         return value % divisor;
     }
+
+    /**
+     * Returns true if the quadrilateral formed by the point p1, p2, p3 and p4 is convex
+     *
+     * <pre>
+     *      _,--+ 4
+     *    _/     \
+     * 1 +        \
+     *    \     ___+ 3
+     *   2 `+--'
+     * </pre>
+     */
+    public static boolean isQuadrilateralConvex(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4) {
+        // A quadrilateral is convex if the segments of its diagonals crosses.
+        return lineCrossesSegment(p1, p3, p2, p4) && lineCrossesSegment(p2, p4, p1, p3);
+    }
+
+    public static boolean lineCrossesSegment(
+            Vector2 lineP, Vector2 lineQ, Vector2 segmentP1, Vector2 segmentP2) {
+        int side1 = lineCrossesSegmentHelper(lineP, lineQ, segmentP1);
+        int side2 = lineCrossesSegmentHelper(lineP, lineQ, segmentP2);
+        return side1 != side2;
+    }
+
+    /**
+     * Return 1 if point is on one side of the PQ line, -1 if it is on the other side, 0 if it is on
+     * the line. Based on: https://math.stackexchange.com/a/1001871.
+     *
+     * <blockquote>
+     *
+     * given two points P = (Xp, Yp) and Q = (Xq, Yq) which determine the line (PQ) in the (x, y)
+     * plane, the following function f(x,y) is zero on the line, positive on one side of that line,
+     * and negative on its other side:
+     *
+     * <p>f(x, y) = (x − xP) / (xQ − xP) − (y − yP) / (yQ − * yP)
+     *
+     * </blockquote>
+     */
+    private static int lineCrossesSegmentHelper(Vector2 lineP, Vector2 lineQ, Vector2 point) {
+        float f =
+                (point.x - lineP.x) / (lineQ.x - lineP.x)
+                        - (point.y - lineP.y) / (lineQ.y - lineP.y);
+        return f > 0 ? 1 : f < 0 ? -1 : 0;
+    }
 }

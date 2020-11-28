@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -28,6 +29,7 @@ import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,13 +40,20 @@ import java.util.Set;
  */
 public class LapPositionTableIO {
     private static class Line implements Comparable {
-        float x1, y1;
-        float x2, y2;
+        final Vector2 p1 = new Vector2();
+        final Vector2 p2 = new Vector2();
         float order;
 
         @Override
         public int compareTo(Object o) {
             return Float.compare(order, ((Line) o).order);
+        }
+
+        public void swapPoints() {
+            float x = p1.x;
+            float y = p1.y;
+            p1.set(p2);
+            p2.set(x, y);
         }
     }
 
@@ -80,10 +89,8 @@ public class LapPositionTableIO {
                             + " in 'Sections' layer should have 2 points, not "
                             + (vertices.length / 2));
             Line line = new Line();
-            line.x1 = vertices[0];
-            line.y1 = vertices[1];
-            line.x2 = vertices[2];
-            line.y2 = vertices[3];
+            line.p1.set(vertices[0], vertices[1]);
+            line.p2.set(vertices[2], vertices[3]);
             line.order = order;
             lines.add(line);
         }
@@ -93,11 +100,25 @@ public class LapPositionTableIO {
         for (int idx = 0; idx < lines.size; ++idx) {
             Line line1 = lines.get(idx);
             Line line2 = lines.get((idx + 1) % lines.size);
+            if (!AgcMathUtils.isQuadrilateralConvex(line1.p1, line2.p1, line2.p2, line1.p2)) {
+                NLog.d(
+                        "Quadrilateral formed by line %f and %f is concave, swapping points of line %f",
+                        line1.order, line2.order, line2.order);
+                line2.swapPoints();
+                if (!AgcMathUtils.isQuadrilateralConvex(line1.p1, line2.p1, line2.p2, line1.p2)) {
+                    throw new RuntimeException(
+                            "Quadrilateral formed by line "
+                                    + line1.order
+                                    + " and "
+                                    + line2.order
+                                    + " is concave");
+                }
+            }
             float[] vertices = {
-                line1.x1, line1.y1,
-                line2.x1, line2.y1,
-                line2.x2, line2.y2,
-                line1.x2, line1.y2
+                line1.p1.x, line1.p1.y,
+                line2.p1.x, line2.p1.y,
+                line2.p2.x, line2.p2.y,
+                line1.p2.x, line1.p2.y
             };
             Polygon polygon = new Polygon(vertices);
             table.addSection(idx, polygon);

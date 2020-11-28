@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.1" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="160" columns="8">
- <image source="country.png" width="544" height="1360"/>
+<tileset version="1.4" tiledversion="1.4.1" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="184" columns="8">
+ <image source="country.png" width="544" height="1564"/>
+ <terraintypes>
+  <terrain name="Tree" tile="0"/>
+  <terrain name="Field1" tile="0"/>
+  <terrain name="Field2" tile="0"/>
+ </terraintypes>
  <tile id="5">
   <properties>
    <property name="start" value="true"/>
@@ -19,6 +24,11 @@
  <tile id="11">
   <properties>
    <property name="material" value="SNOW"/>
+  </properties>
+ </tile>
+ <tile id="12">
+  <properties>
+   <property name="material" value="TURBO"/>
   </properties>
  </tile>
  <tile id="16">
@@ -155,10 +165,10 @@
  <tile id="35">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="36">
+ <tile id="36" terrain=",,,0">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="37">
+ <tile id="37" terrain=",,0,">
   <objectgroup draworder="index">
    <object id="0" x="24.1818" y="0" width="15.2727" height="25.2727"/>
    <object id="0" x="63.8182" y="37.4545">
@@ -174,16 +184,20 @@
    <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
   </objectgroup>
  </tile>
+ <tile id="44" terrain=",0,,"/>
+ <tile id="45" terrain="0,,,"/>
+ <tile id="52" terrain="0,0,0,0"/>
+ <tile id="53" terrain="0,0,0,0"/>
  <tile id="54">
   <objectgroup draworder="index"/>
  </tile>
  <tile id="55">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="60">
+ <tile id="60" terrain="0,0,0,0">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="61">
+ <tile id="61" terrain="0,0,0,0">
   <objectgroup draworder="index"/>
  </tile>
  <tile id="66">
@@ -191,5 +205,103 @@
  </tile>
  <tile id="67">
   <objectgroup draworder="index"/>
+ </tile>
+ <tile id="104" terrain=",,,1"/>
+ <tile id="105" terrain=",,1,1"/>
+ <tile id="106" terrain=",,1,"/>
+ <tile id="107" terrain=",,,2"/>
+ <tile id="108" terrain=",,2,2"/>
+ <tile id="109" terrain=",,2,"/>
+ <tile id="112" terrain=",1,,1"/>
+ <tile id="113" terrain="1,1,1,1"/>
+ <tile id="114" terrain="1,,1,"/>
+ <tile id="115" terrain=",2,,2"/>
+ <tile id="116" terrain="2,2,2,2"/>
+ <tile id="117" terrain="2,,2,"/>
+ <tile id="120" terrain=",1,,"/>
+ <tile id="121" terrain="1,1,,"/>
+ <tile id="122" terrain="1,,,"/>
+ <tile id="123" terrain=",2,,"/>
+ <tile id="124" terrain="2,2,,"/>
+ <tile id="125" terrain="2,,,"/>
+ <tile id="128">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="129">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="130">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="131">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="136">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="137">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="138">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="139">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="144">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="145">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="146">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="147">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="152">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="153">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="154">
+  <properties>
+   <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="155">
+  <properties>
+   <property name="material" value="WATER"/>
+  </properties>
  </tile>
 </tileset>
