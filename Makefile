@@ -59,7 +59,7 @@ clean-assets:
 # Automatically regenerates assets when ase files are modified (requires the
 # `entr` command)
 auto-assets:
-	$(MAKE) -C core/assets-src auto
+	find core/assets-src -name '*.ase' | entr $(MAKE) assets packer
 
 # Packr
 $(JDK_LINUX64_ZIP):
