@@ -1,6 +1,6 @@
 # Pixel Wheels
 
-[![Build Status](https://travis-ci.org/agateau/pixelwheels.svg?branch=master)](https://travis-ci.org/agateau/pixelwheels)
+![Build Status](https://github.com/agateau/pixelwheels/workflows/main/badge.svg)
 
 Pixel Wheels is a retro top-down race game for Linux, macOS, Windows and Android.
 
