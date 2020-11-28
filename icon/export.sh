@@ -29,3 +29,8 @@ aseprite --batch icon.ase --slice icon-72 \
 # (Start from the biggest, unscaled version)
 convert -scale 512x512 $RES_DIR/drawable-hdpi/ic_launcher.png \
     -background "$BGCOLOR" -flatten $GPLAY_ICON
+
+# Android TV Banner: 320 x 180, xhdpi
+aseprite --batch icon.ase --slice tv-banner \
+    --save-as $RES_DIR/drawable-mdpi/ic_launcher.png \
+    --scale 2 --save-as $RES_DIR/drawable-xhdpi/tv_banner.png
