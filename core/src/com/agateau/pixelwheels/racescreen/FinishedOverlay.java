@@ -314,7 +314,7 @@ public class FinishedOverlay extends Overlay {
         // Init our table
         TableRowCreator rowCreator = getRowCreatorForTable(tableType);
         rowCreator.setTable(table);
-        rowCreator.setPadding(24);
+        rowCreator.setSpacing(24);
 
         // Create header row
         switch (tableType) {

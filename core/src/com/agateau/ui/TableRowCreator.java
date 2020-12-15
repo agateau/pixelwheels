@@ -48,7 +48,7 @@ public abstract class TableRowCreator {
         mTable = table;
     }
 
-    public void setPadding(int padding) {
+    public void setSpacing(int padding) {
         mPadding = padding;
     }
 
