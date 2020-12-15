@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <gdxui>
+    <Config>
+        <ConfigItem id="entrantTableSpacing" value="24"/>
+    </Config>
     <AnchorGroup id="root" gridSize="20px">
         <Group topCenter="root.topCenter 0 -1g">
             <Label id="mainLabel" style="title">Championship
@@ -20,7 +23,7 @@
         </Group>
 
         <Table id="entrantTable" center="root.center 0 -1g"
-            width="17g"
+            width="30g"
             height="16g">
             <Action>
                 alpha 0

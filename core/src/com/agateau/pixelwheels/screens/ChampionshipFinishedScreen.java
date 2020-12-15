@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
@@ -46,7 +47,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     private final PwGame mGame;
     private final ChampionshipGameInfo mGameInfo;
     private final TableRowCreator mTableRowCreator =
-            new TableRowCreator(3) {
+            new TableRowCreator(4) {
                 protected Cell<Label> createCell(
                         Table table, int column, String value, String style) {
                     Cell<Label> cell = table.add(value, style);
@@ -140,6 +141,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
                     return new ShadowActor(source, offset);
                 });
 
+        mTableRowCreator.setSpacing(12);
         if (!setupCommonUi(
                 builder, FileUtils.assets("screens/championshipfinished-podium.gdxui"))) {
             return;
@@ -166,6 +168,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         setNavListener(mNextListener);
 
         Table table = builder.getActor("entrantTable");
+        float spacing = builder.getFloatConfigValue("entrantTableSpacing");
+        mTableRowCreator.setSpacing((int) spacing);
         fillEntrantTable(table, mGameInfo.getEntrants());
 
         return true;
@@ -173,16 +177,17 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
         mTableRowCreator.setTable(table);
-        mTableRowCreator.setPadding(24);
-        mTableRowCreator.addHeaderRow("#", "Racer", "Points");
+        mTableRowCreator.addHeaderRow("#", "Racer", "Total time", "Points");
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(entrant.getVehicleId());
             String style = UiUtils.getEntrantRowStyle(entrant);
+            String totalTime = StringUtils.formatRaceTime(entrant.getRaceTime());
             mTableRowCreator.setRowStyle(style);
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
                     vehicleDef.name,
+                    totalTime,
                     String.valueOf(entrant.getPoints()));
         }
     }

@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <gdxui>
+    <Config>
+        <ConfigItem id="entrantTableSpacing" value="15"/>
+    </Config>
     <AnchorGroup id="root" gridSize="20px">
 
-        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="27g" pixelsPerSecond="180">
+        <Road id="road" bottomLeft="root.bottomCenter 4g 0" width="302" height="27g" pixelsPerSecond="180">
             <Action>
                 alpha 0
                 delay 0.5
@@ -93,7 +96,7 @@
             <Shadow source="finished-3" offset="18" />
         </Group>
 
-        <Group id="leftColumn" topLeft="root.topLeft 2g -1g">
+        <Group id="leftColumn" topLeft="root.topLeft 4g -1g">
             <Label id="mainLabel" style="title"
                 x="4g" y="-2g">Championship
                 <Action>
@@ -101,7 +104,7 @@
                     moveBy 80g 0 1 pow2Out
                 </Action>
             </Label>
-            <Label style="title" x="8g" y="-4g">Finished!
+            <Label style="title" x="6g" y="-4g">Finished!
                 <Action>
                     moveBy 120g 0
                     delay 0.5
@@ -110,8 +113,8 @@
             </Label>
         </Group>
 
-        <Table id="entrantTable" centerLeft="root.centerLeft 3g -1g"
-            width="17g"
+        <Table id="entrantTable" centerRight="road.centerLeft -1g -2g"
+            width="26g"
             height="16g">
             <Action>
                 alpha 0
