@@ -124,11 +124,24 @@ public class ChampionshipMaestro extends Maestro {
             // Players are always last at the beginning, move the last player to the top
             GameInfo.Entrant player = mGameInfo.getEntrants().pop();
             mGameInfo.getEntrants().insert(0, player);
+            fillEntrantsWithDebugValues();
             getGame().replaceScreen(createChampionshipFinishedScreen());
         } else if (Constants.DEBUG_SCREEN.equals("ChampionshipFinished:nopodium")) {
+            fillEntrantsWithDebugValues();
             getGame().replaceScreen(createChampionshipFinishedScreen());
         } else {
             getGame().replaceScreen(createRaceScreen());
+        }
+    }
+
+    /// Fill entrants with debug values to get more realistic data when debugging
+    // ChampionshipFinishedScreen
+    private void fillEntrantsWithDebugValues() {
+        float startValue = 345.6789f;
+        for (int idx = 0; idx < mGameInfo.getEntrants().size; ++idx) {
+            GameInfo.Entrant entrant = mGameInfo.getEntrants().get(idx);
+            entrant.addPoints(12 - idx);
+            entrant.addRaceTime((idx + 1) * startValue * 1.1f);
         }
     }
 
