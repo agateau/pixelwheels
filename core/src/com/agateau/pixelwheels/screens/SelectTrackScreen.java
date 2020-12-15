@@ -77,7 +77,7 @@ public class SelectTrackScreen extends PwStageScreen {
         mGame = game;
         mListener = listener;
         mTableRowCreator.setRowStyle("small");
-        mTableRowCreator.setPadding(12);
+        mTableRowCreator.setSpacing(12);
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override

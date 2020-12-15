@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <gdxui>
+    <Config>
+        <ConfigItem id="entrantTableSpacing" value="15"/>
+    </Config>
     <AnchorGroup id="root" gridSize="20px">
 
-        <Road id="road" bottomLeft="root.bottomCenter" width="302" height="27g" pixelsPerSecond="180">
+        <Road id="road" bottomLeft="root.bottomCenter 4g 0" width="302" height="27g" pixelsPerSecond="180">
             <Action>
                 alpha 0
                 delay 0.5
@@ -10,6 +13,17 @@
             </Action>
         </Road>
         <Group id="animRoot" center="road.center">
+            <Vehicle id="vehicle0">
+                <Action>
+                    moveBy 0 -24g
+                    delay 3.7
+                    moveBy 0 24g 0.4 pow2Out
+                    repeat
+                    moveBy 1 0 0.5
+                    moveBy -1 0 0.5
+                    end
+                </Action>
+            </Vehicle>
             <Image id="finished-1" name="championship-finished-1">
                 <Action>
                     moveToAligned 0 3g bottomCenter
@@ -23,24 +37,28 @@
                 </Action>
             </Image>
             <Shadow source="finished-1" offset="18" />
-            <Vehicle id="vehicle0">
+
+            <Vehicle id="vehicle1" x="-5g" y="-2g">
                 <Action>
                     moveBy 0 -24g
-                    delay 3.7
+                    delay 2.7
                     moveBy 0 24g 0.4 pow2Out
                     repeat
-                        moveBy 1 0 0.5
-                        moveBy -1 0 0.5
+                    moveBy 1 0 0.5
+                    moveBy -1 0 0.5
                     end
                 </Action>
             </Vehicle>
-
             <Image id="finished-2" name="championship-finished-2">
                 <Action>
                     moveToAligned -5g 1g bottomCenter
                     moveBy -20g -24g
                     delay 2.5
-                    moveBy 20g 24g 0.6 exp10Out
+                    parallel
+                        // Split the movement on the x and y axis, using a different interpolation to get a curve instead of a line
+                        moveBy 20g 0 0.6 pow5Out
+                        moveBy 0 24g 0.6 pow3Out
+                    end
                     repeat
                         moveBy 2 0 0.5
                         moveBy -2 0 0.5
@@ -48,24 +66,27 @@
                 </Action>
             </Image>
             <Shadow source="finished-2" offset="18" />
-            <Vehicle id="vehicle1" x="-5g" y="-2g">
+
+            <Vehicle id="vehicle2" x="5g" y="-6g">
                 <Action>
                     moveBy 0 -24g
-                    delay 2.7
+                    delay 1.7
                     moveBy 0 24g 0.4 pow2Out
                     repeat
-                        moveBy 1 0 0.5
-                        moveBy -1 0 0.5
+                    moveBy 1 0 0.5
+                    moveBy -1 0 0.5
                     end
                 </Action>
             </Vehicle>
-
             <Image id="finished-3" name="championship-finished-3">
                 <Action>
                     moveToAligned 5g -3g bottomCenter
                     moveBy 20g -24g
                     delay 1.5
-                    moveBy -20g 24g 0.6 exp10Out
+                    parallel
+                        moveBy -20g 0 0.6 pow5Out
+                        moveBy 0 24g 0.6 pow3Out
+                    end
                     repeat
                         moveBy 2 0 0.5
                         moveBy -2 0 0.5
@@ -73,20 +94,9 @@
                 </Action>
             </Image>
             <Shadow source="finished-3" offset="18" />
-            <Vehicle id="vehicle2" x="5g" y="-6g">
-                <Action>
-                    moveBy 0 -24g
-                    delay 1.7
-                    moveBy 0 24g 0.4 pow2Out
-                    repeat
-                        moveBy 1 0 0.5
-                        moveBy -1 0 0.5
-                    end
-                </Action>
-            </Vehicle>
         </Group>
 
-        <Group id="leftColumn" topLeft="root.topLeft 2g -1g">
+        <Group id="leftColumn" topLeft="root.topLeft 4g -1g">
             <Label id="mainLabel" style="title"
                 x="4g" y="-2g">Championship
                 <Action>
@@ -94,7 +104,7 @@
                     moveBy 80g 0 1 pow2Out
                 </Action>
             </Label>
-            <Label style="title" x="8g" y="-4g">Finished!
+            <Label style="title" x="6g" y="-4g">Finished!
                 <Action>
                     moveBy 120g 0
                     delay 0.5
@@ -103,8 +113,8 @@
             </Label>
         </Group>
 
-        <Table id="entrantTable" centerLeft="root.centerLeft 2g -1g"
-            width="17g"
+        <Table id="entrantTable" centerRight="road.centerLeft -1g -2g"
+            width="26g"
             height="16g">
             <Action>
                 alpha 0
