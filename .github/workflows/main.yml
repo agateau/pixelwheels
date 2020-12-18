@@ -11,5 +11,12 @@ jobs:
         run: ci/build-docker-image
         shell: bash
       - name: Build
-        run: ci/docker-build-game
+        run: ci/docker-build-game SNAPSHOT=1
         shell: bash
+      - name: Upload
+        if: github.ref == 'refs/heads/master'
+        run: make upload SNAPSHOT=1
+        env:
+          UPLOAD_USERNAME: ${{ secrets.UPLOAD_USERNAME }}
+          UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
+          UPLOAD_HOSTNAME: ${{ secrets.UPLOAD_HOSTNAME }}
