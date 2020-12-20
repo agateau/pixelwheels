@@ -1,5 +1,53 @@
 # Changelog
 
+## 0.18.0 - 2020-12-20
+
+### Added
+
+- Added new track: "River". Now all championships have 2 tracks (#96).
+
+- Added Android TV support (#89).
+
+- Added "Total time" column to "championship finished" screens (#42).
+
+### Changed
+
+- Do not show points in quick race finish screen (#43).
+
+- Improved plane animations in "championship finished" screen.
+
+- Improved championship ranking table: added point increase "animation", show milliseconds in race times, use images to show rank changes.
+
+- Use edg32 palette for the country tileset.
+
+### Fixed
+
+- Fixed locked vehicles being selectable (#86).
+
+- Brought back lap records in the track selection screen (#90).
+
+- When finishing a race in championship mode, show race and then championship ranking tables instead of only the championship one (#41).
+
+- Made water borders thicker to ensure players do not feel their vehicle got "stuck" under water (#95).
+
+- Improved rocks appearance in city tileset so that they do not look like they float anymore and added an obstacle object where relevant so vehicles cannot go under rocks (#93).
+
+- Normalized position of the finish lines (#92).
+
+### For developers
+
+- Bumped targetSdkVersion to 29. 29 is required by Google since November 2nd.
+
+- Extracted tilesets to tsx files: no more duplication of tile properties.
+
+- Made track creation easier: improved documentation and error messages.
+
+- Added an `auto-assets` target to automatically regenerate assets.
+
+- Added a way to read configuration values from .gdxui files.
+
+- Added a way to quickly debug FinishedOverlay.
+
 ## 0.17.0 - 2020-08-23
 
 ### For players

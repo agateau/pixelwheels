@@ -1,0 +1,9 @@
+Added new track: "River".
+
+Added proper Android TV support.
+
+Improved championship ranking table.
+
+Fixed locked vehicles being selectable.
+
+Brought back lap records in the track selection screen.
