@@ -33,6 +33,18 @@
 
 - git commit
 
+- Push dev branch
+
+    git push
+
+- Check CI is happy
+
+- Merge in master
+
+    git checkout master
+    git pull
+    git merge --ff-only dev
+
 - Upload apk on Google Play
 
     Check api file is in fastlane/google-play-api.json
@@ -40,12 +52,6 @@
     make fastlane-beta
 
 - Check Google Play is happy
-
-- Merge in master
-
-    git checkout master
-    git pull
-    git merge --ff-only dev
 
 - Tag and push
 
