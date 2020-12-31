@@ -69,6 +69,13 @@
 - Write blog post
 - Publish
 
+# Itch.io
+
+- Update game page
+    - Screenshots
+- Write blog post
+- Publish
+
 # Google Play
 
 - Update Google Play page
@@ -80,5 +87,7 @@
 # Spread
 
 - Post on:
+    - Patreon
+    - Ko-fi
     - Mastodon
     - Twitter
