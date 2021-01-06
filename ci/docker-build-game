@@ -3,7 +3,10 @@ set -e
 
 cd $(dirname $0)
 
+make_args=$@
+
+# Do not use "make dist" for now because current Docker does not support building apk yet
 docker run --rm \
     -v $PWD/..:/src/pixelwheels \
     pixelwheels \
-    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels codingstyle-check assets packer desktop-dist"
+    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels codingstyle-check assets packer desktop-dist $make_args"

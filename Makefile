@@ -25,7 +25,7 @@ ARCHIVE_DIR=$(CURDIR)/archives
 ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
 
 ifdef SNAPSHOT
-	VERSION:=$(VERSION).$(shell date +%y%m%d-%H%M)
+	VERSION:=$(VERSION)+$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%d%mT%H%M%S)
 endif
 
 all: build
@@ -92,12 +92,12 @@ desktop-dist: build
 	@cp -a install/* $(DIST_OUT_DIR)/
 
 	@echo Creating zip
-	@cd $(DIST_OUT_BASE_DIR) && zip -r $(DIST_NAME).zip $(DIST_NAME)
+	cd $(DIST_OUT_BASE_DIR) && zip -r $(DIST_NAME).zip $(DIST_NAME)
 	@rm -rf $(DIST_OUT_DIR)
 
 	@echo Moving zip
 	@mkdir -p $(ARCHIVE_DIR)
-	@mv $(DIST_OUT_DIR).zip $(ARCHIVE_DIR)
+	mv $(DIST_OUT_DIR).zip $(ARCHIVE_DIR)
 
 apk-dist:
 	@echo Creating .apk
@@ -139,7 +139,10 @@ tagpush: tag
 
 # Uploading
 fastlane-beta:
-	fastlane supply --track beta --apk archives/pixelwheels-$(VERSION).apk
+	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(DIST_NAME).apk
+
+upload:
+	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME).*
 
 # Cleaning conf
 clean-desktop-conf:
@@ -147,7 +150,7 @@ clean-desktop-conf:
 	rm -rf ~/.local/share/pixelwheels
 
 clean-android-conf:
-	adb shell "pm clear com.agateau.tinywheels.android"
+	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
 check: codingstyle-check
 	@$(GRADLEW) check

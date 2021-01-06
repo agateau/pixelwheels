@@ -1,0 +1,75 @@
+#!/bin/bash
+set -euo pipefail
+
+PROGNAME=$(basename $0)
+
+die() {
+    echo "$PROGNAME: $*" >&2
+    exit 1
+}
+
+# Check $1 is defined and not empty
+check_var() {
+    local name=$1
+    if ! env | grep -q "^$name=..*" ; then
+        die "Environment variable $name is not set or is empty"
+    fi
+}
+
+usage() {
+    if [ "$*" != "" ] ; then
+        echo "Error: $*"
+        echo
+    fi
+
+    cat << EOF
+Usage: $PROGNAME [OPTION ...] <project> <build_file> [build_file...]
+
+Uploads build artifacts to a server using scp.
+
+Files are upload to builds/<project>/.
+
+Expects the following environment variables to be set:
+- UPLOAD_USERNAME
+- UPLOAD_PRIVATE_KEY
+- UPLOAD_HOSTNAME
+
+Options:
+  -h, --help          display this usage message and exit
+EOF
+
+    exit 1
+}
+
+project=""
+build_files=""
+while [ $# -gt 0 ] ; do
+    case "$1" in
+    -h|--help)
+        usage
+        ;;
+    -*)
+        usage "Unknown option '$1'"
+        ;;
+    *)
+        if [ -z "$project" ] ; then
+            project="$1"
+        else
+            build_files="$build_files $1"
+        fi
+        ;;
+    esac
+    shift
+done
+
+if [ -z "$build_files" ] ; then
+    usage "Not enough arguments"
+fi
+
+check_var UPLOAD_USERNAME
+check_var UPLOAD_PRIVATE_KEY
+check_var UPLOAD_HOSTNAME
+
+eval $(ssh-agent)
+echo "$UPLOAD_PRIVATE_KEY" | ssh-add -
+scp -o "StrictHostKeyChecking off" $build_files "$UPLOAD_USERNAME@$UPLOAD_HOSTNAME:builds/$project/"
