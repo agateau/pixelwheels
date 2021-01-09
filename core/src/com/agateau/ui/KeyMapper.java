@@ -39,14 +39,12 @@ public class KeyMapper implements InputMapper {
         setKey(VirtualKey.RIGHT, Input.Keys.RIGHT);
         setKey(VirtualKey.UP, Input.Keys.UP);
         setKey(VirtualKey.DOWN, Input.Keys.DOWN);
-        setKeys(
-                VirtualKey.TRIGGER,
-                new Integer[] {Input.Keys.SPACE, Input.Keys.ENTER, Input.Keys.CENTER});
-        if (PlatformUtils.isDesktop()) {
-            // Do not use BACK on Desktop, it causes invalid enum value errors with lwjgl3
-            setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
-        } else {
-            setKeys(VirtualKey.BACK, new Integer[] {Input.Keys.ESCAPE, Input.Keys.BACK});
+        setKeys(VirtualKey.TRIGGER, new Integer[] {Input.Keys.SPACE, Input.Keys.ENTER});
+        setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
+        if (!PlatformUtils.isDesktop()) {
+            // Do not use CENTER or BACK on Desktop, it causes invalid enum value errors with lwjgl3
+            addKey(VirtualKey.TRIGGER, Input.Keys.CENTER);
+            addKey(VirtualKey.BACK, Input.Keys.BACK);
         }
     }
 
