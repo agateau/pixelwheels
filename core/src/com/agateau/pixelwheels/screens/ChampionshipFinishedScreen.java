@@ -147,6 +147,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             return;
         }
         fillPodium(builder, mGameInfo.getEntrants());
+        mGame.getAudioManager().playMusic(Assets.CHAMPIONSHIP_FINISHED_MUSIC_ID);
     }
 
     private void setupNoPodiumUi() {
