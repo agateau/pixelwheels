@@ -106,19 +106,33 @@ public class ConfigScreen extends PwStageScreen {
         {
             MenuItemGroup group = tab.addPage("Audio & Video");
 
-            final SwitchMenuItem audioSwitch = new SwitchMenuItem(menu);
-            audioSwitch.setChecked(gameConfig.audio);
-            audioSwitch
+            final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(menu);
+            soundFxSwitch.setChecked(gameConfig.playSoundFx);
+            soundFxSwitch
                     .getActor()
                     .addListener(
                             new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    gameConfig.audio = audioSwitch.isChecked();
+                                    gameConfig.playSoundFx = soundFxSwitch.isChecked();
                                     gameConfig.flush();
                                 }
                             });
-            group.addItemWithLabel("Audio:", audioSwitch);
+            group.addItemWithLabel("Sound FX:", soundFxSwitch);
+
+            final SwitchMenuItem musicSwitch = new SwitchMenuItem(menu);
+            musicSwitch.setChecked(gameConfig.playMusic);
+            musicSwitch
+                    .getActor()
+                    .addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ChangeEvent event, Actor actor) {
+                                    gameConfig.playMusic = musicSwitch.isChecked();
+                                    gameConfig.flush();
+                                }
+                            });
+            group.addItemWithLabel("Music:", musicSwitch);
 
             if (PlatformUtils.isDesktop()) {
                 final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);

@@ -27,7 +27,8 @@ import java.lang.ref.WeakReference;
 
 /** Default implementation of AudioManager */
 public class DefaultAudioManager implements AudioManager {
-    private boolean mMuted = false;
+    private boolean mSoundFxMuted = false;
+    private boolean mMusicMuted = false;
     private final Assets mAssets;
     private final Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();
     private final MusicFader mMusicFader = new MusicFader();
@@ -39,23 +40,36 @@ public class DefaultAudioManager implements AudioManager {
         mAssets = assets;
     }
 
-    public boolean isMuted() {
-        return mMuted;
+    public boolean areSoundFxMuted() {
+        return mSoundFxMuted;
     }
 
-    public void setMuted(boolean muted) {
-        if (mMuted == muted) {
+    public void setSoundFxMuted(boolean muted) {
+        if (mSoundFxMuted == muted) {
             return;
         }
-        mMuted = muted;
+        mSoundFxMuted = muted;
         for (WeakReference<DefaultSoundPlayer> ref : mSoundPlayers) {
             DefaultSoundPlayer player = ref.get();
             if (player != null) {
                 player.setMuted(muted);
             }
         }
+    }
+
+    @Override
+    public boolean isMusicMuted() {
+        return mMusicMuted;
+    }
+
+    @Override
+    public void setMusicMuted(boolean muted) {
+        if (mMusicMuted == muted) {
+            return;
+        }
+        mMusicMuted = muted;
         if (mMusic != null) {
-            if (mMuted) {
+            if (mMusicMuted) {
                 mMusic.stop();
             } else {
                 mMusic.play();
@@ -65,7 +79,7 @@ public class DefaultAudioManager implements AudioManager {
 
     @Override
     public void play(Sound sound, float volume) {
-        if (mMuted) {
+        if (mSoundFxMuted) {
             return;
         }
         sound.play(volume);
@@ -74,7 +88,7 @@ public class DefaultAudioManager implements AudioManager {
     @Override
     public SoundPlayer createSoundPlayer(Sound sound) {
         DefaultSoundPlayer player = new DefaultSoundPlayer(sound);
-        player.setMuted(mMuted);
+        player.setMuted(mSoundFxMuted);
         mSoundPlayers.add(new WeakReference<>(player));
         return player;
     }
@@ -94,14 +108,14 @@ public class DefaultAudioManager implements AudioManager {
             return;
         }
         mMusic.setLooping(true);
-        if (!mMuted) {
+        if (!mMusicMuted) {
             mMusic.play();
         }
     }
 
     @Override
     public void fadeOutMusic() {
-        if (mMusic == null || mMuted) {
+        if (mMusic == null || mMusicMuted) {
             return;
         }
         mMusicFader.fadeOut(mMusic);

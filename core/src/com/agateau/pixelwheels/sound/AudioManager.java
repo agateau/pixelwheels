@@ -22,9 +22,13 @@ import com.badlogic.gdx.audio.Sound;
 
 /** Create audio objects */
 public interface AudioManager {
-    boolean isMuted();
+    boolean areSoundFxMuted();
 
-    void setMuted(boolean muted);
+    void setSoundFxMuted(boolean muted);
+
+    boolean isMusicMuted();
+
+    void setMusicMuted(boolean muted);
 
     /** Basic method for simple sounds */
     void play(Sound sound, float volume);

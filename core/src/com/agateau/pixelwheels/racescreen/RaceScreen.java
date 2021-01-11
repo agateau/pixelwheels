@@ -259,7 +259,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void pauseRace() {
-        mGame.getAudioManager().setMuted(true);
+        mGame.getAudioManager().setSoundFxMuted(true);
         mPauseOverlay = new PauseOverlay(mGame, this);
         mHudStage.addActor(mPauseOverlay);
     }
@@ -285,7 +285,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void unmuteIfNecessary() {
-        mGame.getAudioManager().setMuted(!mGame.getConfig().audio);
+        mGame.getAudioManager().setSoundFxMuted(!mGame.getConfig().playSoundFx);
     }
 
     @Override
