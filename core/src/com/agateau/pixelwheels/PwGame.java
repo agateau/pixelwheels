@@ -216,6 +216,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void onGameConfigChanged() {
-        mAudioManager.setMuted(!mGameConfig.audio);
+        mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
+        mAudioManager.setMusicMuted(!mGameConfig.playMusic);
     }
 }

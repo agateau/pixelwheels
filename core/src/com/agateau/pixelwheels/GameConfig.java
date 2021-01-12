@@ -38,7 +38,8 @@ public class GameConfig {
     }
 
     public boolean fullscreen = false;
-    public boolean audio = true;
+    public boolean playSoundFx = true;
+    public boolean playMusic = true;
 
     public GameMode gameMode = GameMode.QUICK_RACE;
     public final String[] vehicles = new String[Constants.MAX_PLAYERS];
@@ -60,7 +61,8 @@ public class GameConfig {
 
     private void load() {
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
-        audio = mPreferences.getBoolean(PrefConstants.AUDIO, true);
+        playSoundFx = mPreferences.getBoolean(PrefConstants.SOUND_FX, true);
+        playMusic = mPreferences.getBoolean(PrefConstants.MUSIC, true);
 
         try {
             this.gameMode = GameMode.valueOf(mPreferences.getString(PrefConstants.GAME_MODE));
@@ -87,7 +89,8 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
-        mPreferences.putBoolean(PrefConstants.AUDIO, audio);
+        mPreferences.putBoolean(PrefConstants.SOUND_FX, playSoundFx);
+        mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
 
         mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
