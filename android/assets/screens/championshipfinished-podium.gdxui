@@ -24,7 +24,7 @@
                     end
                 </Action>
             </Vehicle>
-            <Image id="finished-1" name="championship-finished-1">
+            <AnimatedImage id="finished-1" name="championship-finished-1">
                 <Action>
                     moveToAligned 0 3g bottomCenter
                     moveBy 0 -24g
@@ -35,7 +35,7 @@
                         moveBy -2 0 0.5
                     end
                 </Action>
-            </Image>
+            </AnimatedImage>
             <Shadow source="finished-1" offset="18" />
 
             <Vehicle id="vehicle1" x="-5g" y="-2g">
@@ -49,7 +49,7 @@
                     end
                 </Action>
             </Vehicle>
-            <Image id="finished-2" name="championship-finished-2">
+            <AnimatedImage id="finished-2" name="championship-finished-2" frameDuration="0.095">
                 <Action>
                     moveToAligned -5g 1g bottomCenter
                     moveBy -20g -24g
@@ -64,7 +64,7 @@
                         moveBy -2 0 0.5
                     end
                 </Action>
-            </Image>
+            </AnimatedImage>
             <Shadow source="finished-2" offset="18" />
 
             <Vehicle id="vehicle2" x="5g" y="-6g">
@@ -78,7 +78,7 @@
                     end
                 </Action>
             </Vehicle>
-            <Image id="finished-3" name="championship-finished-3">
+            <AnimatedImage id="finished-3" name="championship-finished-3" frameDuration="0.105">
                 <Action>
                     moveToAligned 5g -3g bottomCenter
                     moveBy 20g -24g
@@ -92,7 +92,7 @@
                         moveBy -2 0 0.5
                     end
                 </Action>
-            </Image>
+            </AnimatedImage>
             <Shadow source="finished-3" offset="18" />
         </Group>
 

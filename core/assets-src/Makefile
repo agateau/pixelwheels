@@ -89,14 +89,24 @@ $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	rm $(TMP_PNG)
 
 #- ui/ ------------------------------------------------------------------------
-UI_IMAGES := $(wildcard ui/*.ase)
-OUT_UI_IMAGES := $(UI_IMAGES:%.ase=$(OUT_DIR)/%.png)
+# Still images
+UI_STILL_IMAGES := $(wildcard ui/*.still.ase)
+OUT_UI_STILL_IMAGES := $(UI_STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
 
-ui: $(OUT_UI_IMAGES)
-
-$(OUT_DIR)/ui/%.png: ui/%.ase
+$(OUT_DIR)/ui/%.png: ui/%.still.ase
 	mkdir -p $(OUT_DIR)/ui
 	$(ASESPLIT) $< $@
+
+# Anims
+UI_ANIM_IMAGES := $(wildcard ui/*.anim.ase)
+OUT_UI_ANIM_FIRST_FRAMES := $(UI_ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
+
+$(OUT_DIR)/ui/%_0.png: ui/%.anim.ase
+	mkdir -p $(OUT_DIR)/ui
+	# $(*F) is the % part of the target
+	$(ASESPLIT) $< "$(OUT_DIR)/ui/$(*F)_{frame}.png"
+
+ui: $(OUT_UI_STILL_IMAGES) $(OUT_UI_ANIM_FIRST_FRAMES)
 
 #- ui/map-icons/ --------------------------------------------------------------
 MAP_ICONS := $(wildcard ui/map-icons/*.ase)
