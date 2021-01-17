@@ -15,7 +15,35 @@ all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
 clean:
 	rm -rf $(OUT_DIR)
 
-#- Hud ------------------------------------------------------------------------
+#- sprites/ -------------------------------------------------------------------
+# Still images
+STILL_IMAGES := $(wildcard sprites/*.still.ase)
+OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
+stills: $(OUT_STILL_IMAGES)
+
+$(OUT_DIR)/sprites/%.png: sprites/%.still.ase
+	mkdir -p $(OUT_DIR)/sprites
+	$(ASESPLIT) $< $@
+
+# Anims
+ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
+OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
+
+anims: $(OUT_ANIM_FIRST_FRAMES)
+
+$(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
+	mkdir -p $(OUT_DIR)/sprites
+	# $(*F) is the % part of the target
+	$(ASESPLIT) $< "$(OUT_DIR)/sprites/$(*F)_{frame}.png"
+
+# Helicopter
+helicopter: $(OUT_DIR)/sprites/helicopter-body.png
+
+$(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
+	mkdir -p $(OUT_DIR)/sprites
+	$(ASESPLIT) --split-layers --trim $< "$(OUT_DIR)/sprites/helicopter-{layer}.png"
+
+# hud-*
 # Just enough to trigger the target
 hud: $(OUT_DIR)/sprites/hud-pause.png
 
@@ -30,34 +58,7 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 
 	sprites/hud/hud.py $(OUT_DIR)/sprites
 
-#- Still images ---------------------------------------------------------------
-STILL_IMAGES := $(wildcard sprites/*.still.ase)
-OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
-stills: $(OUT_STILL_IMAGES)
-
-$(OUT_DIR)/sprites/%.png: sprites/%.still.ase
-	mkdir -p $(OUT_DIR)/sprites
-	$(ASESPLIT) $< $@
-
-#- Anims ----------------------------------------------------------------------
-ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
-OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
-
-anims: $(OUT_ANIM_FIRST_FRAMES)
-
-$(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
-	mkdir -p $(OUT_DIR)/sprites
-	# $(*F) is the % part of the target
-	$(ASESPLIT) $< "$(OUT_DIR)/sprites/$(*F)_{frame}.png"
-
-#- Helicopter -----------------------------------------------------------------
-helicopter: $(OUT_DIR)/sprites/helicopter-body.png
-
-$(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
-	mkdir -p $(OUT_DIR)/sprites
-	$(ASESPLIT) --split-layers --trim $< "$(OUT_DIR)/sprites/helicopter-{layer}.png"
-
-#- Vehicles -------------------------------------------------------------------
+#- sprites/vehicles/ ----------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
 OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
 
@@ -70,7 +71,7 @@ $(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
 	convert -rotate 90 $(TMP_PNG) $@
 	rm $(TMP_PNG)
 
-#- Tiles ----------------------------------------------------------------------
+#- maps/ ----------------------------------------------------------------------
 TILE_IMAGES := $(wildcard maps/*.ase)
 OUT_TILE_IMAGES := $(TILE_IMAGES:%.ase=$(FINAL_OUT_DIR)/%.png)
 
@@ -87,17 +88,27 @@ $(FINAL_OUT_DIR)/maps/%.png: maps/%.ase
 	| $(TOOLS_DIR)/pad-map-tiles --padding 2 --tilesize 64 --output $@
 	rm $(TMP_PNG)
 
-#- UI files -------------------------------------------------------------------
-UI_IMAGES := $(wildcard ui/*.ase)
-OUT_UI_IMAGES := $(UI_IMAGES:%.ase=$(OUT_DIR)/%.png)
+#- ui/ ------------------------------------------------------------------------
+# Still images
+UI_STILL_IMAGES := $(wildcard ui/*.still.ase)
+OUT_UI_STILL_IMAGES := $(UI_STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
 
-ui: $(OUT_UI_IMAGES)
-
-$(OUT_DIR)/ui/%.png: ui/%.ase
+$(OUT_DIR)/ui/%.png: ui/%.still.ase
 	mkdir -p $(OUT_DIR)/ui
 	$(ASESPLIT) $< $@
 
-#- Map icons ------------------------------------------------------------------
+# Anims
+UI_ANIM_IMAGES := $(wildcard ui/*.anim.ase)
+OUT_UI_ANIM_FIRST_FRAMES := $(UI_ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
+
+$(OUT_DIR)/ui/%_0.png: ui/%.anim.ase
+	mkdir -p $(OUT_DIR)/ui
+	# $(*F) is the % part of the target
+	$(ASESPLIT) $< "$(OUT_DIR)/ui/$(*F)_{frame}.png"
+
+ui: $(OUT_UI_STILL_IMAGES) $(OUT_UI_ANIM_FIRST_FRAMES)
+
+#- ui/map-icons/ --------------------------------------------------------------
 MAP_ICONS := $(wildcard ui/map-icons/*.ase)
 OUT_MAP_ICONS := $(MAP_ICONS:%.ase=$(OUT_DIR)/%.png)
 
@@ -107,7 +118,7 @@ $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	mkdir -p $(OUT_DIR)/ui/map-icons
 	$(ASESPLIT) $< $@
 
-#- Input icons ----------------------------------------------------------------
+#- ui/input-icons/ ------------------------------------------------------------
 INPUT_ICONS := ui/input-icons/input-icons.ase
 OUT_INPUT_ICONS_DIR := $(OUT_DIR)/ui/input-icons
 

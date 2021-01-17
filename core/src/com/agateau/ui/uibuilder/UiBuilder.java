@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.uibuilder;
 
+import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -33,6 +34,7 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -136,6 +138,22 @@ public class UiBuilder {
                         }
                     }
                     image.pack();
+                    return image;
+                });
+        mActorFactories.put(
+                "AnimatedImage",
+                (uiBuilder, element) -> {
+                    String name = element.getAttribute("name", null);
+                    if (name == null) {
+                        throw new UiBuilder.SyntaxException("Missing 'name' attribute");
+                    }
+                    float frameDuration = element.getFloatAttribute("frameDuration", 0.1f);
+                    float startTime = element.getFloatAttribute("startTime", 0f);
+
+                    Animation<TextureRegion> anim =
+                            new Animation<>(frameDuration, uiBuilder.getAtlas().findRegions(name));
+                    AnimatedImage image = new AnimatedImage(anim);
+                    image.setStartTime(startTime);
                     return image;
                 });
         mActorFactories.put(
