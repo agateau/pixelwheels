@@ -49,7 +49,7 @@
                     end
                 </Action>
             </Vehicle>
-            <AnimatedImage id="finished-2" name="championship-finished-2" frameDuration="0.095">
+            <AnimatedImage id="finished-2" name="championship-finished-2" startTime="0.7" frameDuration="0.095">
                 <Action>
                     moveToAligned -5g 1g bottomCenter
                     moveBy -20g -24g
@@ -78,7 +78,7 @@
                     end
                 </Action>
             </Vehicle>
-            <AnimatedImage id="finished-3" name="championship-finished-3" frameDuration="0.105">
+            <AnimatedImage id="finished-3" name="championship-finished-3" startTime="0.3" frameDuration="0.105">
                 <Action>
                     moveToAligned 5g -3g bottomCenter
                     moveBy 20g -24g

@@ -43,4 +43,8 @@ public class AnimatedImage extends Image {
         TextureRegion region = mAnimation.getKeyFrame(mTime, /* looping */ true);
         mDrawable.setRegion(region);
     }
+
+    public void setStartTime(float time) {
+        mTime = time;
+    }
 }

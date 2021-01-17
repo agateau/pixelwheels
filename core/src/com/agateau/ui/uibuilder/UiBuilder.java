@@ -148,10 +148,13 @@ public class UiBuilder {
                         throw new UiBuilder.SyntaxException("Missing 'name' attribute");
                     }
                     float frameDuration = element.getFloatAttribute("frameDuration", 0.1f);
+                    float startTime = element.getFloatAttribute("startTime", 0f);
 
                     Animation<TextureRegion> anim =
                             new Animation<>(frameDuration, uiBuilder.getAtlas().findRegions(name));
-                    return new AnimatedImage(anim);
+                    AnimatedImage image = new AnimatedImage(anim);
+                    image.setStartTime(startTime);
+                    return image;
                 });
         mActorFactories.put(
                 "ImageButton",
