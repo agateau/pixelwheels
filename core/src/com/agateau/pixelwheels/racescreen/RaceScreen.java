@@ -259,6 +259,9 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void pauseRace() {
+        if (mGameWorld.getState() == GameWorld.State.FINISHED) {
+            return;
+        }
         mGame.getAudioManager().setSoundFxMuted(true);
         mPauseOverlay = new PauseOverlay(mGame, this);
         mHudStage.addActor(mPauseOverlay);
