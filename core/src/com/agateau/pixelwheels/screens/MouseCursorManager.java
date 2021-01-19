@@ -30,6 +30,7 @@ public class MouseCursorManager {
     private int mOldX, mOldY;
     private long mTimestamp;
     private boolean mIsVisible = false;
+    private boolean mReady = false;
 
     public MouseCursorManager() {
         refreshAssets();
@@ -39,16 +40,9 @@ public class MouseCursorManager {
         pixmap.fill();
         mEmptyCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
 
-        updateCoordinates();
         if (supportsCursor()) {
             hideMouseCursor();
         }
-    }
-
-    private void updateCoordinates() {
-        mTimestamp = System.currentTimeMillis();
-        mOldX = Gdx.input.getX();
-        mOldY = Gdx.input.getY();
     }
 
     public void refreshAssets() {
@@ -62,6 +56,10 @@ public class MouseCursorManager {
 
     public void act() {
         if (!supportsCursor()) {
+            return;
+        }
+        if (!mReady) {
+            actNotReady();
             return;
         }
         int x = Gdx.input.getX();
@@ -80,6 +78,24 @@ public class MouseCursorManager {
                 hideMouseCursor();
             }
         }
+    }
+
+    /**
+     * Consider the game is still starting up until at least one of the input coordinates is not 0.
+     * If we don't do that, then the code sees a fake mouse move from (0, 0) to the actual cursor
+     * coordinates.
+     */
+    private void actNotReady() {
+        int x = Gdx.input.getX();
+        int y = Gdx.input.getY();
+        if (x == 0 && y == 0) {
+            return;
+        }
+
+        mReady = true;
+        mOldX = x;
+        mOldY = y;
+        mTimestamp = System.currentTimeMillis();
     }
 
     private void showMouseCursor() {
