@@ -66,6 +66,8 @@ public class Assets implements TextureRegionProvider {
     public static final String MENU_MUSIC_ID = "menu";
     public static final String CHAMPIONSHIP_FINISHED_MUSIC_ID = "victory";
 
+    public static final String CURSOR_FILENAME = "ui/cursor.png";
+
     public final Array<VehicleDef> vehicleDefs = new Array<>();
     public final Array<Track> tracks =
             new Array<>(

@@ -91,6 +91,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAssets = new Assets();
         mMouseCursorManager = new MouseCursorManager();
         mAudioManager = new DefaultAudioManager(mAssets);
+        setupCursorManager();
         setupConfig();
         setupTrackStats();
         setupRewardManager();
@@ -113,7 +114,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAssets = new Assets();
         // Tracks and championship have been recreated, need to recreate reward manager
         setupRewardManager();
-        mMouseCursorManager.refreshAssets();
+        setupCursorManager();
+    }
+
+    private void setupCursorManager() {
+        mMouseCursorManager.setCursorPixmap(Gdx.files.internal(Assets.CURSOR_FILENAME));
     }
 
     private void setupConfig() {

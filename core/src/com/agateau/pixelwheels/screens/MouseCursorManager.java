@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 
@@ -33,8 +34,6 @@ public class MouseCursorManager {
     private boolean mReady = false;
 
     public MouseCursorManager() {
-        refreshAssets();
-
         Pixmap pixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 0);
         pixmap.fill();
@@ -45,12 +44,12 @@ public class MouseCursorManager {
         }
     }
 
-    public void refreshAssets() {
+    public void setCursorPixmap(FileHandle fileHandle) {
         if (mCursor != null) {
             mCursor.dispose();
         }
 
-        Pixmap pixmap = new Pixmap(Gdx.files.internal("ui/cursor.png"));
+        Pixmap pixmap = new Pixmap(fileHandle);
         mCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
     }
 
