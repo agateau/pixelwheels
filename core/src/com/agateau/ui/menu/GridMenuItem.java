@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.pixelwheels.utils.DrawUtils;
+import com.agateau.ui.MouseCursorManager;
 import com.agateau.utils.Assert;
 import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.NLog;
@@ -90,6 +91,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
                     @Override
                     public boolean mouseMoved(InputEvent event, float x, float y) {
+                        if (!MouseCursorManager.getInstance().isVisible()) {
+                            return true;
+                        }
                         int idx = getIndexAt(x, y);
                         if (idx >= 0) {
                             setCurrentIndex(idx);

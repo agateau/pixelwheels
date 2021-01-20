@@ -41,6 +41,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         super(text, skin);
         mFocusIndicator = new FocusIndicator(menu);
 
+        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override
@@ -49,12 +50,6 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
                             return;
                         }
                         MenuItemTriggerEvent.fire(ButtonMenuItem.this);
-                    }
-
-                    @Override
-                    public void enter(
-                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        menu.setCurrentItem(ButtonMenuItem.this);
                     }
                 });
     }

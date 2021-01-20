@@ -62,6 +62,10 @@ public class MouseCursorManager {
         mCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
     }
 
+    public boolean isVisible() {
+        return mIsVisible;
+    }
+
     public void act() {
         if (mCursor == null) {
             return;
