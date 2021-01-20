@@ -57,17 +57,12 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         setSize(mStyle.frame.getMinWidth() * 2, mStyle.frame.getMinHeight());
 
+        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         trigger();
-                    }
-
-                    @Override
-                    public void enter(
-                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        menu.setCurrentItem(SwitchMenuItem.this);
                     }
                 });
     }

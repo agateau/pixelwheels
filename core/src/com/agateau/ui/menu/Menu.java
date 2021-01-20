@@ -19,10 +19,13 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.InputMapper;
+import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
@@ -39,6 +42,25 @@ public class Menu extends WidgetGroup {
     private final MenuStyle mStyle;
 
     private float mLabelColumnWidth;
+
+    /** A listener to set the item current if the mouse cursor is visible and over it */
+    static class MouseMovedListener extends ClickListener {
+        private final Menu mMenu;
+        private final MenuItem mMenuItem;
+
+        public MouseMovedListener(Menu menu, MenuItem menuItem) {
+            mMenu = menu;
+            mMenuItem = menuItem;
+        }
+
+        @Override
+        public boolean mouseMoved(InputEvent event, float x, float y) {
+            if (MouseCursorManager.getInstance().isVisible()) {
+                mMenu.setCurrentItem(mMenuItem);
+            }
+            return true;
+        }
+    }
 
     public static class MenuStyle {
         public Drawable focus;

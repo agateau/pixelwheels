@@ -76,14 +76,7 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
 
         setHeight(mLeftButton.getPrefHeight());
 
-        addListener(
-                new ClickListener() {
-                    @Override
-                    public void enter(
-                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        menu.setCurrentItem(RangeMenuItem.this);
-                    }
-                });
+        addListener(new Menu.MouseMovedListener(menu, this));
     }
 
     protected void fireChangeEvent() {

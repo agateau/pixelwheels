@@ -26,7 +26,6 @@ import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
-import com.agateau.pixelwheels.screens.MouseCursorManager;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
@@ -34,6 +33,7 @@ import com.agateau.pixelwheels.sound.DefaultAudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
+import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -55,7 +55,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private Maestro mMaestro;
     private GameConfig mGameConfig;
     private AudioManager mAudioManager;
-    private MouseCursorManager mMouseCursorManager;
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
@@ -89,8 +88,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mDebugIntrospector.load();
 
         mAssets = new Assets();
-        mMouseCursorManager = new MouseCursorManager();
         mAudioManager = new DefaultAudioManager(mAssets);
+        setupCursorManager();
         setupConfig();
         setupTrackStats();
         setupRewardManager();
@@ -105,7 +104,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             String path = ScreenshotCreator.saveScreenshot();
             NLog.i("Screenshot saved in %s", path);
         }
-        mMouseCursorManager.act();
+        MouseCursorManager.getInstance().act();
         super.render();
     }
 
@@ -113,7 +112,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAssets = new Assets();
         // Tracks and championship have been recreated, need to recreate reward manager
         setupRewardManager();
-        mMouseCursorManager.refreshAssets();
+        setupCursorManager();
+    }
+
+    private void setupCursorManager() {
+        MouseCursorManager.getInstance()
+                .setCursorPixmap(Gdx.files.internal(Assets.CURSOR_FILENAME));
     }
 
     private void setupConfig() {

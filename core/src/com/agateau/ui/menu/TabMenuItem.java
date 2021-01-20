@@ -78,6 +78,7 @@ public class TabMenuItem extends Actor implements MenuItem {
 
         setTouchable(Touchable.enabled);
 
+        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override
@@ -90,12 +91,6 @@ public class TabMenuItem extends Actor implements MenuItem {
                                 return;
                             }
                         }
-                    }
-
-                    @Override
-                    public void enter(
-                            InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        menu.setCurrentItem(TabMenuItem.this);
                     }
                 });
     }
