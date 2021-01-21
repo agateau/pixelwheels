@@ -41,10 +41,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.lang.ref.WeakReference;
+
 /** The map of the current game */
 public class Track implements Disposable {
     private static final int CELL_ID_ROW_STRIDE = 10000;
 
+    private WeakReference<Championship> mChampionship;
     private final String mId;
     private final String mMapName;
 
@@ -93,6 +96,15 @@ public class Track implements Disposable {
         String bgColorText = mMap.getProperties().get("backgroundcolor", "#808080", String.class);
         bgColorText = bgColorText.substring(1); // Skip leading '#'
         mBackgroundColor = Color.valueOf(bgColorText);
+    }
+
+    void setChampionship(Championship championship) {
+        mChampionship = new WeakReference<>(championship);
+    }
+
+    public Championship getChampionship() {
+        Assert.check(mChampionship != null, "Could not find championship for track " + this);
+        return mChampionship.get();
     }
 
     private void findLayers() {

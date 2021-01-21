@@ -31,6 +31,7 @@ public class Championship {
     }
 
     public Championship addTrack(Track track) {
+        track.setChampionship(this);
         mTracks.add(track);
         return this;
     }

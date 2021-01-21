@@ -30,7 +30,6 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
-import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -174,8 +173,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     public String getTrackMusicId(Track track) {
-        Championship championship = findChampionshipByTrack(track);
-        Assert.check(championship != null, "Could not find championship for track");
+        Championship championship = track.getChampionship();
         return "championships/" + championship.getId();
     }
 
@@ -220,15 +218,6 @@ public class Assets implements TextureRegionProvider {
     public Championship findChampionshipById(String id) {
         for (Championship championship : championships) {
             if (championship.getId().equals(id)) {
-                return championship;
-            }
-        }
-        return null;
-    }
-
-    private Championship findChampionshipByTrack(Track track) {
-        for (Championship championship : championships) {
-            if (championship.getTracks().contains(track, true /* identity */)) {
                 return championship;
             }
         }
