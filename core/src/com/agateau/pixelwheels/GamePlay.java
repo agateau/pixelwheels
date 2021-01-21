@@ -50,7 +50,6 @@ public class GamePlay {
 
     public boolean alwaysShowTouchInput = false;
 
-    public boolean showTestTrack = false;
     public boolean createSpeedReport = false;
 
     public float driftVolume = 0.6f;

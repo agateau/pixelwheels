@@ -106,10 +106,6 @@ public class Assets implements TextureRegionProvider {
     private final Animation<TextureRegion> explosion;
 
     Assets() {
-        if (GamePlay.instance.showTestTrack) {
-            tracks.add(new Track("test", "Test"));
-        }
-
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion =
