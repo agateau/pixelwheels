@@ -19,12 +19,14 @@
 package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 /** A menu item to select a track */
 public class TrackSelector extends GridMenuItem<Track> {
@@ -54,6 +56,10 @@ public class TrackSelector extends GridMenuItem<Track> {
         mRewardManager = rewardManager;
         setItemSize(160, 160);
         setItemRenderer(new Renderer());
-        setItems(mAssets.tracks);
+        Array<Track> tracks = new Array<>();
+        for (Championship championship : mAssets.championships) {
+            tracks.addAll(championship.getTracks());
+        }
+        setItems(tracks);
     }
 }
