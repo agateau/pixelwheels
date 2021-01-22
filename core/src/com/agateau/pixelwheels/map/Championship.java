@@ -30,7 +30,8 @@ public class Championship {
         mName = name;
     }
 
-    public Championship addTrack(Track track) {
+    public Championship addTrack(String trackId, String trackName) {
+        Track track = new Track(this, trackId, trackName);
         mTracks.add(track);
         return this;
     }

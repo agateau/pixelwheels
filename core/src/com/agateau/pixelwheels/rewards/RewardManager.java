@@ -22,8 +22,6 @@ import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -37,7 +35,6 @@ import java.util.Set;
  */
 public class RewardManager {
     private final GameStats mGameStats;
-    private final Array<Championship> mChampionships;
     private final Map<Reward, RewardRule> mRules = new HashMap<>();
 
     /**
@@ -88,20 +85,14 @@ public class RewardManager {
                 }
             };
 
-    public RewardManager(GameStats gameStats, Array<Championship> championships) {
+    public RewardManager(GameStats gameStats) {
         mGameStats = gameStats;
         mGameStats.setListener(mUnlockedRewards::scheduleUpdate);
-        mChampionships = championships;
     }
 
     public boolean isTrackUnlocked(Track track) {
-        Championship championship = findTrackChampionship(track);
-        if (championship == null) {
-            NLog.e("Track %s does not belong to any championship!", track);
-            return false;
-        } else {
-            return isChampionshipUnlocked(championship);
-        }
+        Championship championship = track.getChampionship();
+        return isChampionshipUnlocked(championship);
     }
 
     public boolean isChampionshipUnlocked(Championship championship) {
@@ -121,7 +112,7 @@ public class RewardManager {
     }
 
     public String getUnlockText(Track track) {
-        Championship championship = findTrackChampionship(track);
+        Championship championship = track.getChampionship();
         return getUnlockText(Reward.get(championship));
     }
 
@@ -139,14 +130,5 @@ public class RewardManager {
         } else {
             return mRules.get(reward).getUnlockText(mGameStats);
         }
-    }
-
-    private Championship findTrackChampionship(Track track) {
-        for (Championship championship : mChampionships) {
-            if (championship.getTracks().contains(track, true /* identity */)) {
-                return championship;
-            }
-        }
-        return null;
     }
 }
