@@ -68,16 +68,6 @@ public class Assets implements TextureRegionProvider {
     public static final String CURSOR_FILENAME = "ui/cursor.png";
 
     public final Array<VehicleDef> vehicleDefs = new Array<>();
-    public final Array<Track> tracks =
-            new Array<>(
-                    new Track[] {
-                        new Track("country", "Welcome!"),
-                        new Track("river", "River"),
-                        new Track("race", "Let it Snow"),
-                        new Track("snow2", "Don't slip!"),
-                        new Track("be", "Blocky Town"),
-                        new Track("tiny-sur-mer", "Tiny sur Mer"),
-                    });
     public final Array<Championship> championships = new Array<>();
     public final Array<ObstacleDef> obstacleDefs = new Array<>();
     public final UiAssets ui = new UiAssets();
@@ -180,18 +170,18 @@ public class Assets implements TextureRegionProvider {
     private void initChampionships() {
         this.championships.add(
                 new Championship("country", "Country Life")
-                        .addTrack(findTrackById("country"))
-                        .addTrack(findTrackById("river")));
+                        .addTrack("country", "Welcome!")
+                        .addTrack("river", "River"));
 
         this.championships.add(
                 new Championship("snow", "Square Mountains")
-                        .addTrack(findTrackById("race"))
-                        .addTrack(findTrackById("snow2")));
+                        .addTrack("race", "Let it snow")
+                        .addTrack("snow2", "Don't slip!"));
 
         this.championships.add(
                 new Championship("city", "Pix Cities")
-                        .addTrack(findTrackById("be"))
-                        .addTrack(findTrackById("tiny-sur-mer")));
+                        .addTrack("be", "Blocky Town")
+                        .addTrack("tiny-sur-mer", "Tiny sur Mer"));
     }
 
     private static void removeBorders(TextureRegion region) {
@@ -225,9 +215,11 @@ public class Assets implements TextureRegionProvider {
     }
 
     public Track findTrackById(String id) {
-        for (Track track : tracks) {
-            if (track.getId().equals(id)) {
-                return track;
+        for (Championship championship : championships) {
+            for (Track track : championship.getTracks()) {
+                if (track.getId().equals(id)) {
+                    return track;
+                }
             }
         }
         return null;
