@@ -128,14 +128,14 @@ public class RewardManagerTests {
     private static Array<Championship> createChampionships() {
         Array<Championship> championships = new Array<>();
         for (int c = 0; c < 2; ++c) {
-            String id = "c" + c;
-            String name = "Champ" + c;
+            String id = "c" + (c + 1);
+            String name = "Champ" + (c + 1);
             Championship championship = new Championship(id, name);
             championships.add(championship);
 
             for (int t = 0; t < 3; ++t) {
-                String trackId = "t" + t;
-                String trackName = "Track" + t;
+                String trackId = "t" + (t + 1);
+                String trackName = "Track" + (t + 1);
                 championship.addTrack(trackId, trackName);
             }
         }

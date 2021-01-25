@@ -49,6 +49,6 @@ public class Championship {
     }
 
     public String toString() {
-        return mId;
+        return "championship(" + mId + ")";
     }
 }
