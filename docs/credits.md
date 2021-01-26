@@ -25,3 +25,11 @@ Bouncing Baal v0.95 by FoxSynergy, <https://opengameart.org/content/bouncing-baa
 "Car tire squeal skid loop" by Tom Haigh, <https://opengameart.org/content/car-tire-squeal-skid-loop>
 
 "Racing car engine sound loops" by domasx2, <https://opengameart.org/content/racing-car-engine-sound-loops>
+
+## Fonts
+
+Xolonium by Severin Meyer, <https://www.dafont.com/fr/xolonium.font>
+
+Kwajong by Tup Wanders, <https://www.dafont.com/fr/kwajong.font>
+
+(This file must be kept in sync with android/assets/credits.md, for in-game credits)
