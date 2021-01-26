@@ -67,7 +67,3 @@ Tiled
 Aseprite
 SFXR Qt
 Android Studio
-
-## ---
-
-Thanks for playing!
