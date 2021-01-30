@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
-        <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="500px" height="480px">
+        <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="500px" height="540px">
         </CreditsScrollPane>
 
         <ImageButton id="backButton"

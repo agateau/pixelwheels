@@ -62,6 +62,9 @@ class CreditsScreen extends PwStageScreen {
         VerticalGroup group = pane.getGroup();
         addSpacer(group, stageHeight);
         LimitedMarkdownParser.createActors(group, mGame.getAssets().ui.skin, loadCredits());
+        addSpacer(group, stageHeight * 2 / 3);
+        LimitedMarkdownParser.createActors(
+                group, mGame.getAssets().ui.skin, "Thank you for playing!");
         addSpacer(group, stageHeight / 2);
 
         builder.getActor("backButton")

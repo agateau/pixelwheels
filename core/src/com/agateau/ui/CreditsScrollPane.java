@@ -71,7 +71,7 @@ public class CreditsScrollPane extends ScrollPane {
                         float maxY = getMaxY();
                         float y = Math.min(getScrollY() + AUTO_SCROLL_PX_PER_S * delta, maxY);
                         setScrollY(y);
-                        return maxY > 0 && y >= maxY;
+                        return false;
                     }
                 });
     }

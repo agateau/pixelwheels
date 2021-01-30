@@ -51,8 +51,8 @@ public class UiAssets {
         this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 32;
-        this.skin.add("title-font", loadFont("fonts/Aero.ttf", parameter));
+        parameter.size = 36;
+        this.skin.add("title-font", loadFont("fonts/Kwajong-italic.otf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;

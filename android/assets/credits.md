@@ -44,6 +44,14 @@ domasx2
 Other sound effects
 Aurélien Gâteau
 
+## -= Fonts =-
+
+Xolonium
+Severin Meyer
+
+Kwajong
+Tup Wanders
+
 ## -= Beta testers =-
 
 Antonin Gâteau
@@ -59,7 +67,3 @@ Tiled
 Aseprite
 SFXR Qt
 Android Studio
-
-## ---
-
-Thanks for playing!
