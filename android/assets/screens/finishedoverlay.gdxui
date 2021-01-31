@@ -3,6 +3,7 @@
     <Config>
         <ConfigItem id="firstPointsIncreaseInterval" value="1"/>
         <ConfigItem id="pointsIncreaseInterval" value="0.2"/>
+        <ConfigItem id="rankChangeAnimationSpeed" value="0.1"/>
     </Config>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>

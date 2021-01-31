@@ -26,12 +26,14 @@ import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
+import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -39,7 +41,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
@@ -88,7 +89,7 @@ public class FinishedOverlay extends Overlay {
     private final PwGame mGame;
     private final RaceScreen mRaceScreen;
     private final Array<Racer> mRacers;
-    private final Drawable[] mRankChangeDrawables = new Drawable[3];
+    private final Array<Animation<TextureRegion>> mRankChangeAnimations = new Array<>();
     private final List<PageCreator> mPageCreators = new LinkedList<>();
     private final TableRowCreator mQuickRaceRowCreator =
             new TableRowCreator(4) {
@@ -135,8 +136,7 @@ public class FinishedOverlay extends Overlay {
                 protected Cell createCell(Table table, int column, String value, String style) {
                     Cell cell;
                     if (column == ChampionshipTotalColumn.RANK_CHANGE.ordinal()) {
-                        Image image = new Image();
-                        cell = table.add(image);
+                        cell = table.add(new AnimatedImage());
                         cell.size(RANK_CHANGE_COLUMN_SIZE);
                     } else {
                         cell = table.add(value, style);
@@ -192,10 +192,6 @@ public class FinishedOverlay extends Overlay {
 
     private void setupUi(Array<Racer> racers) {
         mPointsIncreaseSound = mGame.getAssets().soundAtlas.get("points-increase");
-        TextureAtlas atlas = mGame.getAssets().ui.atlas;
-        mRankChangeDrawables[0] = new TextureRegionDrawable(atlas.findRegion("rank-down"));
-        mRankChangeDrawables[1] = new TextureRegionDrawable(atlas.findRegion("rank-same"));
-        mRankChangeDrawables[2] = new TextureRegionDrawable(atlas.findRegion("rank-up"));
         fillPageCreators(racers);
         showNextPage();
     }
@@ -238,6 +234,7 @@ public class FinishedOverlay extends Overlay {
         Actor content = builder.build(FileUtils.assets("screens/finishedoverlay.gdxui"));
         mFirstPointsIncreaseInterval = builder.getFloatConfigValue("firstPointsIncreaseInterval");
         mPointsIncreaseInterval = builder.getFloatConfigValue("pointsIncreaseInterval");
+        loadRankChangeAnimations(builder);
         Table table = builder.getActor("scrollableTable");
 
         Label titleLabel = builder.getActor("titleLabel");
@@ -250,6 +247,16 @@ public class FinishedOverlay extends Overlay {
         fillMenu(builder);
         fillTable(table, tableType, oldRankMap);
         return content;
+    }
+
+    private void loadRankChangeAnimations(UiBuilder builder) {
+        float speed = builder.getFloatConfigValue("rankChangeAnimationSpeed");
+        mRankChangeAnimations.clear();
+        for (String name : new String[] {"rank-down", "rank-same", "rank-up"}) {
+            Array<TextureAtlas.AtlasRegion> regions = mGame.getAssets().ui.atlas.findRegions(name);
+            Animation<TextureRegion> animation = new Animation<>(speed, regions);
+            mRankChangeAnimations.add(animation);
+        }
     }
 
     private static int getOldPointsForRacer(Racer racer) {
@@ -406,12 +413,13 @@ public class FinishedOverlay extends Overlay {
             return;
         }
         int oldIdx = oldRankMap.get(racer);
-        Drawable drawable = mRankChangeDrawables[(int) Math.signum(oldIdx - idx) + 1];
+        Animation<TextureRegion> animation =
+                mRankChangeAnimations.get((int) Math.signum(oldIdx - idx) + 1);
 
-        Cell<Image> imageCell =
+        Cell<AnimatedImage> rankChangeCell =
                 mChampionshipTotalRowCreator.getCreatedRowCell(
                         ChampionshipTotalColumn.RANK_CHANGE.ordinal());
-        imageCell.getActor().setDrawable(drawable);
+        rankChangeCell.getActor().setAnimation(animation);
     }
 
     private void schedulePointsIncrease(float interval) {
