@@ -25,23 +25,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /** An image which can show an animation, can be used in UiBuilder too */
 public class AnimatedImage extends Image {
-    private final Animation<TextureRegion> mAnimation;
+    private Animation<TextureRegion> mAnimation;
     private float mTime = 0;
     private final TextureRegionDrawable mDrawable = new TextureRegionDrawable();
 
     public AnimatedImage(Animation<TextureRegion> animation) {
-        mAnimation = animation;
-        setDrawable(mDrawable);
-        mDrawable.setRegion(mAnimation.getKeyFrame(0));
-        pack();
+        setAnimation(animation);
     }
+
+    public AnimatedImage() {}
 
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (mAnimation == null) {
+            return;
+        }
         mTime += delta;
         TextureRegion region = mAnimation.getKeyFrame(mTime, /* looping */ true);
         mDrawable.setRegion(region);
+    }
+
+    public void setAnimation(Animation<TextureRegion> animation) {
+        mAnimation = animation;
+        setDrawable(mDrawable);
+        mDrawable.setRegion(mAnimation.getKeyFrame(0));
+        pack();
+        mTime = 0;
     }
 
     public void setStartTime(float time) {
