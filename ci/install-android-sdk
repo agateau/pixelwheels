@@ -1,0 +1,33 @@
+#!/bin/bash
+set -euo pipefail
+
+TOOLS_URL=https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+
+# Must match android/build.gradle
+PACKAGES="
+build-tools;29.0.3
+platforms;android-29
+"
+
+ANDROID_SDK=/opt/android-sdk
+TOOLS_DIR=$ANDROID_SDK/cmdline-tools
+SDKMANAGER=$TOOLS_DIR/bin/sdkmanager
+
+TOOLS_ZIP=tools.zip
+
+mkdir -p $ANDROID_SDK
+cd $ANDROID_SDK
+
+if [ ! -d $TOOLS_DIR ] ; then
+    if [ ! -e $TOOLS_ZIP ] ; then
+        echo "Downloading command-line tools from $TOOLS_URL"
+        curl $TOOLS_URL --output $TOOLS_ZIP
+    fi
+    echo "Unpacking command-line tools"
+    unzip -q $TOOLS_ZIP
+fi
+
+for pkg in $PACKAGES ; do
+    echo "Installing $pkg"
+    echo Y | $SDKMANAGER --sdk_root=$ANDROID_SDK "$pkg"
+done

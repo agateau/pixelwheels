@@ -5,8 +5,24 @@ cd $(dirname $0)
 
 make_args=$@
 
+SRC_DIR=$PWD/..
+SIGNING_GRADLE=$SRC_DIR/android/signing.gradle
+LOCAL_PROPERTIES=$SRC_DIR/local.properties
+
+# If SIGNING_GRADLE does not exist, gradle fails to run tests
+if [ ! -e "$SIGNING_GRADLE" ]; then
+    echo "Creating empty $SIGNING_GRADLE"
+    touch $SIGNING_GRADLE
+fi
+
+if [ ! -e "$LOCAL_PROPERTIES" ]; then
+    echo "Creating $LOCAL_PROPERTIES"
+    # Must match ci/install-android-sdk
+    echo "sdk.dir=/opt/android-sdk" > "$LOCAL_PROPERTIES"
+fi
+
 # Do not use "make dist" for now because current Docker does not support building apk yet
 docker run --rm \
-    -v $PWD/..:/src/pixelwheels \
+    -v $SRC_DIR:/src/pixelwheels \
     pixelwheels \
-    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels codingstyle-check assets packer desktop-dist $make_args"
+    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels check assets packer desktop-dist $make_args"

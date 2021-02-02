@@ -11,8 +11,8 @@ jobs:
         run: ci/build-docker-image
         shell: bash
       - name: Build
-        run: ci/docker-build-game SNAPSHOT=1
         shell: bash
+        run: ci/docker-build-game SNAPSHOT=1
       - name: Upload
         if: github.ref == 'refs/heads/master'
         run: make upload SNAPSHOT=1
