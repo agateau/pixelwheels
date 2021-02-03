@@ -45,9 +45,10 @@ public class JsonGameStatsImplIOTests {
 
     @Test
     public void testIO() {
-        Track track = new Track("t", "track");
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
+        ch1.addTrack("t", "track");
+        Track track = ch1.getTracks().first();
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
         assertTrue(!testFile.exists());
 
