@@ -47,10 +47,6 @@ public class MouseCursorManager {
         pixmap.setColor(0, 0, 0, 0);
         pixmap.fill();
         mEmptyCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
-
-        if (mEmptyCursor != null) {
-            hideMouseCursor();
-        }
     }
 
     public void setCursorPixmap(FileHandle fileHandle) {
@@ -98,6 +94,7 @@ public class MouseCursorManager {
      * coordinates.
      */
     private void actNotReady() {
+        hideMouseCursor();
         int x = Gdx.input.getX();
         int y = Gdx.input.getY();
         if (x == 0 && y == 0) {

@@ -42,7 +42,9 @@ public class GameStatsImplTests {
 
     @Test
     public void testInit() {
-        final Track track = new Track("t", "Track");
+        Championship ch = new Championship("ch1", "champ1");
+        ch.addTrack("t", "Track");
+        final Track track = ch.getTracks().first();
         GameStats stats = new GameStatsImpl(mStatsIO);
         TrackStats trackStats = stats.getTrackStats(track);
         assertThat(trackStats, is(not(nullValue())));

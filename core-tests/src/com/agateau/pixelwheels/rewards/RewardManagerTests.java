@@ -22,7 +22,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import com.agateau.pixelwheels.map.Championship;
-import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.utils.CollectionUtils;
@@ -45,7 +44,7 @@ public class RewardManagerTests {
     public void testIsChampionshipUnlocked() {
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
-        RewardManager manager = new RewardManager(gameStats, championships);
+        RewardManager manager = new RewardManager(gameStats);
         final Championship championship1 = championships.get(0);
         final Championship championship2 = championships.get(1);
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
@@ -70,7 +69,7 @@ public class RewardManagerTests {
     public void testIsTrackUnlocked() {
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
-        RewardManager manager = new RewardManager(gameStats, championships);
+        RewardManager manager = new RewardManager(gameStats);
         final Championship championship1 = championships.get(0);
         final Championship championship2 = championships.get(1);
         manager.addRule(Reward.get(championship1), RewardManager.ALWAYS_UNLOCKED);
@@ -96,7 +95,7 @@ public class RewardManagerTests {
         // GIVEN a RewardManager with 2 championships, ch2 is locked
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
-        RewardManager manager = new RewardManager(gameStats, championships);
+        RewardManager manager = new RewardManager(gameStats);
         final Championship ch1 = championships.get(0);
         final Championship ch2 = championships.get(1);
         manager.addRule(Reward.get(ch1), RewardManager.ALWAYS_UNLOCKED);
@@ -137,8 +136,7 @@ public class RewardManagerTests {
             for (int t = 0; t < 3; ++t) {
                 String trackId = "t" + t;
                 String trackName = "Track" + t;
-                Track track = new Track(trackId, trackName);
-                championship.addTrack(track);
+                championship.addTrack(trackId, trackName);
             }
         }
         return championships;
