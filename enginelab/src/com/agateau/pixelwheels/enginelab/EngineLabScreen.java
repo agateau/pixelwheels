@@ -18,9 +18,11 @@
  */
 package com.agateau.pixelwheels.enginelab;
 
-import com.agateau.pixelwheels.sound.DefaultAudioManager;
+import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.sound.DefaultSoundPlayer;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;
 import com.agateau.pixelwheels.sound.SoundAtlas;
+import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.Anchor;
@@ -28,6 +30,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.SliderMenuItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -41,6 +44,38 @@ class EngineLabScreen extends StageScreen {
 
     private SliderMenuItem mPitchItem;
     private final Array<SliderMenuItem> mVolumeItems = new Array<>();
+
+    static class LabAudioManager implements AudioManager {
+        @Override
+        public boolean areSoundFxMuted() {
+            return false;
+        }
+
+        @Override
+        public void setSoundFxMuted(boolean muted) {}
+
+        @Override
+        public boolean isMusicMuted() {
+            return false;
+        }
+
+        @Override
+        public void setMusicMuted(boolean muted) {}
+
+        @Override
+        public void play(Sound sound, float volume) {}
+
+        @Override
+        public SoundPlayer createSoundPlayer(Sound sound) {
+            return new DefaultSoundPlayer(sound);
+        }
+
+        @Override
+        public void playMusic(String musicId) {}
+
+        @Override
+        public void fadeOutMusic() {}
+    }
 
     public EngineLabScreen() {
         super(new ScreenViewport());
@@ -85,7 +120,7 @@ class EngineLabScreen extends StageScreen {
             String filename = String.format(Locale.US, "loop_%d_0.wav", i + 1);
             soundAtlas.load(filename, name);
         }
-        mEngineSoundPlayer = new EngineSoundPlayer(soundAtlas, new DefaultAudioManager());
+        mEngineSoundPlayer = new EngineSoundPlayer(soundAtlas, new LabAudioManager());
     }
 
     @Override
