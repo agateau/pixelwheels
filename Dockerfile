@@ -10,10 +10,19 @@ RUN apt-get update \
         openjdk-8-jdk \
         python3-pip \
         python3-setuptools \
+        unzip \
         zip
 
 COPY requirements.txt /src/
 RUN pip3 install -r /src/requirements.txt
+
+# Install gradle so that we don't have to do it for each build
+COPY gradle /src/gradle
+COPY gradlew /src
+RUN /src/gradlew
+
+COPY ci/install-android-sdk /src
+RUN /src/install-android-sdk
 
 WORKDIR /root
 ENTRYPOINT ["/bin/bash"]
