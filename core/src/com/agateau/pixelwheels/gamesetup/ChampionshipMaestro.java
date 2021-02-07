@@ -23,7 +23,6 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.racescreen.RaceScreen;
-import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.screens.ChampionshipFinishedScreen;
 import com.agateau.pixelwheels.screens.MultiPlayerScreen;
 import com.agateau.pixelwheels.screens.NavStageScreen;
@@ -31,7 +30,6 @@ import com.agateau.pixelwheels.screens.SelectChampionshipScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
-import java.util.Set;
 
 /** Handle a championship game */
 public class ChampionshipMaestro extends Maestro {
@@ -168,10 +166,8 @@ public class ChampionshipMaestro extends Maestro {
                             getGame().replaceScreen(createChampionshipFinishedScreen());
                         } else {
                             mGameInfo.selectNextTrack();
-                            final Set<Reward> rewards = getNewlyUnlockedRewards();
-                            updateAlreadyUnlockedRewards();
                             showUnlockedRewardScreen(
-                                    rewards, () -> getGame().replaceScreen(createRaceScreen()));
+                                    () -> getGame().replaceScreen(createRaceScreen()));
                         }
                     }
                 };
@@ -179,13 +175,11 @@ public class ChampionshipMaestro extends Maestro {
     }
 
     private Screen createChampionshipFinishedScreen() {
-        final Set<Reward> rewards = getNewlyUnlockedRewards();
-        updateAlreadyUnlockedRewards();
         final NavStageScreen.NextListener navListener =
                 new NavStageScreen.NextListener() {
                     @Override
                     public void onNextPressed() {
-                        showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
+                        showUnlockedRewardScreen(() -> getGame().showMainMenu());
                     }
                 };
         return new ChampionshipFinishedScreen(getGame(), mGameInfo, navListener);

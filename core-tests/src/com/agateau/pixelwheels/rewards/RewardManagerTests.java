@@ -26,6 +26,7 @@ import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.utils.CollectionUtils;
 import com.badlogic.gdx.utils.Array;
+import java.util.Set;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -113,16 +114,34 @@ public class RewardManagerTests {
                     }
                 });
 
+        manager.markAllUnlockedRewardsSeen();
+
         // THEN unlocked rewards contains only ch1
         Reward ch1Reward = Reward.get(ch1);
         Reward ch2Reward = Reward.get(ch2);
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward)));
+
+        // AND new unlocked rewards is empty
+        assertThat(manager.getUnseenUnlockedRewards().isEmpty(), is(true));
 
         // WHEN I unlock ch2
         gameStats.onChampionshipFinished(ch1, 2);
 
         // THEN unlocked rewards contains ch1 and ch2
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward, ch2Reward)));
+
+        // AND new unlocked rewards contains ch2
+        Set<Reward> unseenUnlockedRewards = manager.getUnseenUnlockedRewards();
+        assertThat(unseenUnlockedRewards, is(CollectionUtils.newSet(ch2Reward)));
+
+        // WHEN I mark new unlocked rewards as old
+        manager.markAllUnlockedRewardsSeen();
+
+        // THEN new unlocked rewards is empty
+        assertThat(manager.getUnseenUnlockedRewards().isEmpty(), is(true));
+
+        // AND previously retrieved unseen unlocked rewards set still contains ch2
+        assertThat(unseenUnlockedRewards, is(CollectionUtils.newSet(ch2Reward)));
     }
 
     private static Array<Championship> createChampionships() {
