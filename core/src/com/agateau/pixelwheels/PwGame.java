@@ -138,6 +138,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mRewardManager = new RewardManager(mGameStats);
         RewardManagerSetup.createChampionshipRules(mRewardManager, mAssets.championships);
         RewardManagerSetup.createVehicleRules(mRewardManager, mAssets);
+        mRewardManager.markAllUnlockedRewardsSeen();
     }
 
     public void showMainMenu() {

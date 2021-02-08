@@ -37,12 +37,25 @@ public class RewardManager {
     private final GameStats mGameStats;
     private final Map<Reward, RewardRule> mRules = new HashMap<>();
 
+    public void markAllUnlockedRewardsSeen() {
+        mUnlockedRewards.markAllSeen();
+    }
+
+    /**
+     * Returns the unlocked rewards which have not yet been shown to the player The returned set is
+     * a copy, so it's not affected by calls to markAllUnlockedRewardsSeen()
+     */
+    public Set<Reward> getUnseenUnlockedRewards() {
+        return mUnlockedRewards.getUnseen();
+    }
+
     /**
      * Wraps the set of unlocked rewards, making sure other code does not access it without applying
      * any pending update.
      */
     private class UnlockedRewards {
         private final Set<Reward> mRewards = new HashSet<>();
+        private final Set<Reward> mUnseenRewards = new HashSet<>();
         private boolean mNeedsUpdate = true;
 
         Set<Reward> get() {
@@ -50,6 +63,20 @@ public class RewardManager {
                 update();
             }
             return mRewards;
+        }
+
+        Set<Reward> getUnseen() {
+            if (mNeedsUpdate) {
+                update();
+            }
+            return new HashSet<>(mUnseenRewards);
+        }
+
+        void markAllSeen() {
+            if (mNeedsUpdate) {
+                update();
+            }
+            mUnseenRewards.clear();
         }
 
         void scheduleUpdate() {
@@ -65,6 +92,7 @@ public class RewardManager {
                 }
                 if (rule.getValue().hasBeenUnlocked(mGameStats)) {
                     mRewards.add(reward);
+                    mUnseenRewards.add(reward);
                 }
             }
         }

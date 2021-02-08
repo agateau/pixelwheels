@@ -35,5 +35,9 @@ public class VehicleDef {
         return provider.findRegion("vehicles/" + mainImage);
     }
 
+    public String toString() {
+        return "vehicleDef(" + id + ")";
+    }
+
     String mainImage;
 }

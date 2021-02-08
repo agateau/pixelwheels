@@ -21,11 +21,11 @@ package com.agateau.pixelwheels.gamesetup;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
 import com.agateau.pixelwheels.rewards.Reward;
+import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.NavStageScreen;
 import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.utils.log.NLog;
-import java.util.HashSet;
 import java.util.Set;
 
 /** Orchestrate changes between screens for a game */
@@ -33,13 +33,11 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
     private final GamepadInputWatcher mGamepadInputWatcher;
-    private final Set<Reward> mAlreadyUnlockedRewards = new HashSet<>();
 
     private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
 
     public Maestro(PwGame game, PlayerCount playerCount) {
         mGame = game;
-        updateAlreadyUnlockedRewards();
         mPlayerCount = playerCount;
         mGamepadInputWatcher = new GamepadInputWatcher(mGame.getConfig(), this);
         mGamepadInputWatcher.setInputCount(playerCount.toInt());
@@ -85,21 +83,15 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
         mNotEnoughGamepadsScreen = null;
     }
 
-    Set<Reward> getNewlyUnlockedRewards() {
-        Set<Reward> unlockedRewards =
-                new HashSet<>(getGame().getRewardManager().getUnlockedRewards());
-        unlockedRewards.removeAll(mAlreadyUnlockedRewards);
-        if (!unlockedRewards.isEmpty()) {
-            NLog.i("Unlocked rewards: %s", unlockedRewards);
-        }
-        return unlockedRewards;
+    void showUnlockedRewardScreen(final Runnable doAfterLastReward) {
+        RewardManager manager = getGame().getRewardManager();
+        final Set<Reward> rewards = manager.getUnseenUnlockedRewards();
+        manager.markAllUnlockedRewardsSeen();
+        showUnlockedRewardScreen(rewards, doAfterLastReward);
     }
 
-    void updateAlreadyUnlockedRewards() {
-        mAlreadyUnlockedRewards.addAll(getGame().getRewardManager().getUnlockedRewards());
-    }
-
-    void showUnlockedRewardScreen(final Set<Reward> rewards, final Runnable doAfterLastReward) {
+    private void showUnlockedRewardScreen(
+            final Set<Reward> rewards, final Runnable doAfterLastReward) {
         if (rewards.isEmpty()) {
             doAfterLastReward.run();
             return;

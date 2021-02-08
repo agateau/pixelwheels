@@ -21,13 +21,11 @@ package com.agateau.pixelwheels.gamesetup;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racescreen.RaceScreen;
-import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.screens.MultiPlayerScreen;
 import com.agateau.pixelwheels.screens.SelectTrackScreen;
 import com.agateau.pixelwheels.screens.SelectVehicleScreen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
-import java.util.Set;
 
 /** Handle a quick race game */
 public class QuickRaceMaestro extends Maestro {
@@ -124,9 +122,7 @@ public class QuickRaceMaestro extends Maestro {
                     @Override
                     public void onNextTrackPressed() {
                         stopGamepadInputWatcher();
-                        final Set<Reward> rewards = getNewlyUnlockedRewards();
-                        updateAlreadyUnlockedRewards();
-                        showUnlockedRewardScreen(rewards, () -> getGame().showMainMenu());
+                        showUnlockedRewardScreen(() -> getGame().showMainMenu());
                     }
                 };
         QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
