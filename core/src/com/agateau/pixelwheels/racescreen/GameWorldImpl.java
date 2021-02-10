@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.bonus.BonusSpot;
 import com.agateau.pixelwheels.bonus.GunBonus;
@@ -67,6 +68,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
+    @SuppressWarnings("rawtypes")
     private final Array<BonusPool> mBonusPools = new Array<>();
 
     private final Array<Racer> mRacers = new Array<>();
@@ -334,22 +336,15 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     private void setupBonusPools() {
-        addPool(
-                new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.2f, 1.0f, 1.0f});
-        addPool(
-                new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {2.0f, 1.0f, 0.5f});
-        addPool(
-                new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.1f, 1.0f, 2.0f});
-        addPool(
-                new BonusPool<>(
-                        MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.2f, 1.0f, 1.0f});
+        addPool(GunBonus.class, new float[] {0.2f, 1.0f, 1.0f});
+        addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f});
+        addPool(TurboBonus.class, new float[] {0.1f, 1.0f, 2.0f});
+        addPool(MissileBonus.class, new float[] {0.2f, 1.0f, 1.0f});
     }
 
-    private void addPool(BonusPool pool, float[] counts) {
+    private <T extends Bonus> void addPool(Class<T> bonusClass, float[] counts) {
+        BonusPool<T> pool =
+                new BonusPool<>(bonusClass, mGame.getAssets(), this, mGame.getAudioManager());
         pool.setCounts(counts);
         mBonusPools.add(pool);
     }
