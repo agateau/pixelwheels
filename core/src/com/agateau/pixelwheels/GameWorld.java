@@ -49,6 +49,7 @@ public interface GameWorld {
 
     Array<Racer> getRacers();
 
+    @SuppressWarnings("rawtypes")
     Array<BonusPool> getBonusPools();
 
     Array<GameObject> getActiveGameObjects();

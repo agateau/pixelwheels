@@ -121,6 +121,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         return mRacers;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Array<BonusPool> getBonusPools() {
         return mBonusPools;
