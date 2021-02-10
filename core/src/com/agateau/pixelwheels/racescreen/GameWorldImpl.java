@@ -61,6 +61,8 @@ import com.badlogic.gdx.utils.Sort;
 import java.util.Comparator;
 
 public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
+    private final boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
+
     private final PwGame mGame;
     private Track mTrack;
     private final CountDown mCountDown;
@@ -238,8 +240,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
             setState(GameWorld.State.FINISHED);
         }
     }
-
-    private boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
 
     private boolean haveAllRacersFinished() {
         if (mDebugFinishedOverlay && mState == State.RUNNING) {
