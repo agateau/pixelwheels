@@ -337,9 +337,11 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     private void setupBonusPools() {
+        // Important: do not allow acceleration bonuses like the Turbo when ranked first, otherwise
+        // getting a best score becomes too random.
         addPool(GunBonus.class, new float[] {0.2f, 1.0f, 1.0f});
-        addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f});
-        addPool(TurboBonus.class, new float[] {0.1f, 1.0f, 2.0f});
+        addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f, 0f});
+        addPool(TurboBonus.class, new float[] {0f, 1.0f, 2.0f});
         addPool(MissileBonus.class, new float[] {0.2f, 1.0f, 1.0f});
     }
 
