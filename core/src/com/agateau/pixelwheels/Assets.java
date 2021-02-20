@@ -196,6 +196,11 @@ public class Assets implements TextureRegionProvider {
         return this.atlas.findRegion(name);
     }
 
+    @Override
+    public Array<TextureAtlas.AtlasRegion> findRegions(String name) {
+        return this.atlas.findRegions(name);
+    }
+
     public VehicleDef findVehicleDefById(String id) {
         for (VehicleDef def : vehicleDefs) {
             if (def.id.equals(id)) {

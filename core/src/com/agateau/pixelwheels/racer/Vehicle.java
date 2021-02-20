@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.AgcMathUtils;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Shape2D;
@@ -59,7 +60,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private final GameWorld mGameWorld;
     private Racer mRacer;
 
-    private final TextureRegion mRegion;
+    private final Animation<TextureRegion> mBodyAnimation;
     private final Array<WheelInfo> mWheels = new Array<>();
     private String mId;
     private String mName;
@@ -90,7 +91,8 @@ public class Vehicle implements Racer.Component, Disposable {
         mGameWorld = gameWorld;
 
         // Main
-        mRegion = vehicleDef.getImage(textureRegionProvider);
+        mBodyAnimation = vehicleDef.getAnimation(textureRegionProvider);
+        mBodyAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         // Body
         BodyDef bodyDef = new BodyDef();
@@ -174,8 +176,8 @@ public class Vehicle implements Racer.Component, Disposable {
         return mBody;
     }
 
-    public TextureRegion getRegion() {
-        return mRegion;
+    public TextureRegion getRegion(float time) {
+        return mBodyAnimation.getKeyFrame(time);
     }
 
     public float getSpeed() {
@@ -228,11 +230,11 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     public float getWidth() {
-        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionWidth();
+        return Constants.UNIT_FOR_PIXEL * getRegion(0).getRegionWidth();
     }
 
     public float getHeight() {
-        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
+        return Constants.UNIT_FOR_PIXEL * getRegion(0).getRegionHeight();
     }
 
     public boolean isFlying() {

@@ -58,13 +58,13 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 
 #- sprites/vehicles/ ----------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
-OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%_0.png)
 
 vehicles: $(OUT_VEHICLE_IMAGES)
 
-$(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
+$(OUT_DIR)/sprites/vehicles/%_0.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	$(ASESPLIT) --rotate -90 $< $@
+	$(ASESPLIT) --rotate -90 $< "$(OUT_DIR)/sprites/vehicles/$(*F)_{frame}.png"
 
 #- maps/ ----------------------------------------------------------------------
 TILE_IMAGES := $(wildcard maps/*.ase)
