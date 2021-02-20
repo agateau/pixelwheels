@@ -21,9 +21,11 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -79,16 +81,16 @@ public class Vehicle implements Racer.Component, Disposable {
     private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
     public Vehicle(
-            TextureRegion region,
+            TextureRegionProvider textureRegionProvider,
             GameWorld gameWorld,
             float originX,
             float originY,
-            Array<Shape2D> shapes,
+            VehicleDef vehicleDef,
             float angle) {
         mGameWorld = gameWorld;
 
         // Main
-        mRegion = region;
+        mRegion = vehicleDef.getImage(textureRegionProvider);
 
         // Body
         BodyDef bodyDef = new BodyDef();
@@ -98,7 +100,7 @@ public class Vehicle implements Racer.Component, Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         // Body fixtures
-        for (Shape2D shape : shapes) {
+        for (Shape2D shape : vehicleDef.shapes) {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = Box2DUtils.createBox2DShape(shape, Constants.UNIT_FOR_PIXEL);
             fixtureDef.density = GamePlay.instance.vehicleDensity / 10.0f;
