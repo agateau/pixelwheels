@@ -18,6 +18,20 @@ def trim(image: Image) -> Image:
     return image.crop(box)
 
 
+def transpose_method_from_angle(angle: int):
+    angle %= 360
+    while angle < 0:
+        angle += 360
+
+    if angle == 90:
+        return Image.ROTATE_90
+    elif angle == 180:
+        return Image.ROTATE_180
+    elif angle == 270:
+        return Image.ROTATE_270
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.description = __doc__
@@ -25,14 +39,23 @@ def main():
     parser.add_argument("ase_file")
     parser.add_argument(
         "format", default="{title}.png",
-        help="Define the name of the generated files. Supported keywords:" \
+        help="Define the name of the generated files. Supported keywords:"
         " {title}, {layer}, {frame}, {slice}")
     parser.add_argument("--split-layers", action="store_true")
     parser.add_argument("--split-slices", action="store_true")
     parser.add_argument("--trim", action="store_true")
+    parser.add_argument("--rotate", type=int, metavar="ANGLE",
+                        help="Rotate image by ANGLE degrees counter-clockwise")
     parser.add_argument("--dry-run", action="store_true")
 
     args = parser.parse_args()
+
+    if args.rotate is not None:
+        transpose_method = transpose_method_from_angle(args.rotate)
+        if transpose_method is None:
+            parser.error("Invalid angle value")
+    else:
+        transpose_method = None
 
     ase_file = Path(args.ase_file)
 
@@ -40,6 +63,8 @@ def main():
     ase_image = AsepriteImage(ase_file)
 
     def finish_image(image, context, **extra_context_args):
+        if transpose_method is not None:
+            image = image.transpose(transpose_method)
         if args.trim:
             image = trim(image)
 
