@@ -231,10 +231,6 @@ public class Assets implements TextureRegionProvider {
         return obj;
     }
 
-    public TextureRegion getVehicleRegion(VehicleDef vehicleDef) {
-        return vehicleDef.getImage(this);
-    }
-
     public TextureRegion getChampionshipRegion(Championship championship) {
         Track track = championship.getTracks().get(0);
         return getTrackRegion(track);
