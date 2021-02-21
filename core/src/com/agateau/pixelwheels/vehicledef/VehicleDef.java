@@ -19,6 +19,8 @@
 package com.agateau.pixelwheels.vehicledef;
 
 import com.agateau.pixelwheels.TextureRegionProvider;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.utils.Array;
@@ -32,7 +34,13 @@ public class VehicleDef {
     public Array<Shape2D> shapes = new Array<>();
 
     public TextureRegion getImage(TextureRegionProvider provider) {
-        return provider.findRegion("vehicles/" + mainImage);
+        return provider.findRegions("vehicles/" + mainImage).get(0);
+    }
+
+    public Animation<TextureRegion> getAnimation(TextureRegionProvider provider) {
+        Array<TextureAtlas.AtlasRegion> regions = provider.findRegions("vehicles/" + mainImage);
+        // FIXME load frame duration from XML
+        return new Animation<>(0.2f, regions);
     }
 
     public String toString() {

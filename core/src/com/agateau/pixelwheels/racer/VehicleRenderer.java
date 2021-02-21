@@ -63,6 +63,9 @@ public class VehicleRenderer implements Renderer {
         mBodyRegionDrawer.setBatch(batch);
         mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
         mTime += Gdx.app.getGraphics().getDeltaTime();
+        TextureRegion bodyRegion = mVehicle.getRegion(mTime);
+
+        // Ground: skidmarks, splash, shadow
         if (zLevel == ZLevel.GROUND) {
             for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
@@ -76,11 +79,12 @@ public class VehicleRenderer implements Renderer {
                                 info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                     }
                 }
-                mBodyRegionDrawer.drawShadow(mVehicle.getBody(), mVehicle.getRegion());
+                mBodyRegionDrawer.drawShadow(mVehicle.getBody(), bodyRegion);
             }
             return;
         }
 
+        // Vehicle level: wheels and body
         ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING : ZLevel.VEHICLES;
         if (zLevel != wantedZIndex) {
             return;
@@ -100,7 +104,7 @@ public class VehicleRenderer implements Renderer {
                 mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
             }
         }
-        mBodyRegionDrawer.draw(mVehicle.getBody(), mVehicle.getRegion());
+        mBodyRegionDrawer.draw(mVehicle.getBody(), bodyRegion);
 
         if (mVehicle.getTurboTime() >= 0) {
             drawTurbo(batch);

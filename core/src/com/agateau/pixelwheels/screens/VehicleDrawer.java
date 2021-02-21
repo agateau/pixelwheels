@@ -43,7 +43,7 @@ class VehicleDrawer {
     private final Vector2 sWheelPos = new Vector2();
 
     public void draw(Batch batch) {
-        TextureRegion region = mAssets.getVehicleRegion(vehicleDef);
+        TextureRegion region = vehicleDef.getImage(mAssets);
         float axleXOrigin = -region.getRegionWidth() / 2f;
 
         drawShadow(batch, region);

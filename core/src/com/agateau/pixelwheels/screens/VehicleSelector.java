@@ -42,9 +42,7 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
 
         @Override
         protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
-            return isItemEnabled(vehicleDef)
-                    ? mAssets.getVehicleRegion(vehicleDef)
-                    : mAssets.lockedVehicle;
+            return isItemEnabled(vehicleDef) ? vehicleDef.getImage(mAssets) : mAssets.lockedVehicle;
         }
 
         @Override

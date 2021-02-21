@@ -21,10 +21,13 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.AgcMathUtils;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Shape2D;
@@ -57,7 +60,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private final GameWorld mGameWorld;
     private Racer mRacer;
 
-    private final TextureRegion mRegion;
+    private final Animation<TextureRegion> mBodyAnimation;
     private final Array<WheelInfo> mWheels = new Array<>();
     private String mId;
     private String mName;
@@ -79,16 +82,17 @@ public class Vehicle implements Racer.Component, Disposable {
     private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
     public Vehicle(
-            TextureRegion region,
+            TextureRegionProvider textureRegionProvider,
             GameWorld gameWorld,
             float originX,
             float originY,
-            Array<Shape2D> shapes,
+            VehicleDef vehicleDef,
             float angle) {
         mGameWorld = gameWorld;
 
         // Main
-        mRegion = region;
+        mBodyAnimation = vehicleDef.getAnimation(textureRegionProvider);
+        mBodyAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         // Body
         BodyDef bodyDef = new BodyDef();
@@ -98,7 +102,7 @@ public class Vehicle implements Racer.Component, Disposable {
         mBody = mGameWorld.getBox2DWorld().createBody(bodyDef);
 
         // Body fixtures
-        for (Shape2D shape : shapes) {
+        for (Shape2D shape : vehicleDef.shapes) {
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = Box2DUtils.createBox2DShape(shape, Constants.UNIT_FOR_PIXEL);
             fixtureDef.density = GamePlay.instance.vehicleDensity / 10.0f;
@@ -172,8 +176,8 @@ public class Vehicle implements Racer.Component, Disposable {
         return mBody;
     }
 
-    public TextureRegion getRegion() {
-        return mRegion;
+    public TextureRegion getRegion(float time) {
+        return mBodyAnimation.getKeyFrame(time);
     }
 
     public float getSpeed() {
@@ -226,11 +230,11 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     public float getWidth() {
-        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionWidth();
+        return Constants.UNIT_FOR_PIXEL * getRegion(0).getRegionWidth();
     }
 
     public float getHeight() {
-        return Constants.UNIT_FOR_PIXEL * mRegion.getRegionHeight();
+        return Constants.UNIT_FOR_PIXEL * getRegion(0).getRegionHeight();
     }
 
     public boolean isFlying() {

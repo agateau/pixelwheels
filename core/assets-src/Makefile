@@ -6,8 +6,6 @@ TOOLS_DIR ?= ../../tools
 
 FINAL_OUT_DIR ?= ../../android/assets
 
-VEHICLES_SUBDIR := sprites/vehicles
-
 ASESPLIT = $(TOOLS_DIR)/asetools/asesplit
 
 all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
@@ -60,16 +58,13 @@ $(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hu
 
 #- sprites/vehicles/ ----------------------------------------------------------
 VEHICLE_IMAGES := $(wildcard sprites/vehicles/*.ase)
-OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%.png)
+OUT_VEHICLE_IMAGES := $(VEHICLE_IMAGES:%.ase=$(OUT_DIR)/%_0.png)
 
 vehicles: $(OUT_VEHICLE_IMAGES)
 
-$(OUT_DIR)/sprites/vehicles/%.png: TMP_PNG = $(@:%.png=%-tmp.png)
-$(OUT_DIR)/sprites/vehicles/%.png: sprites/vehicles/%.ase
+$(OUT_DIR)/sprites/vehicles/%_0.png: sprites/vehicles/%.ase
 	mkdir -p $(OUT_DIR)/sprites/vehicles
-	$(ASESPLIT) $< $(TMP_PNG)
-	convert -rotate 90 $(TMP_PNG) $@
-	rm $(TMP_PNG)
+	$(ASESPLIT) --rotate -90 $< "$(OUT_DIR)/sprites/vehicles/$(*F)_{frame}.png"
 
 #- maps/ ----------------------------------------------------------------------
 TILE_IMAGES := $(wildcard maps/*.ase)

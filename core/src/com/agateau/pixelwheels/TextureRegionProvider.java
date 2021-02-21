@@ -18,8 +18,12 @@
  */
 package com.agateau.pixelwheels;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public interface TextureRegionProvider {
     TextureRegion findRegion(String name);
+
+    Array<TextureAtlas.AtlasRegion> findRegions(String name);
 }

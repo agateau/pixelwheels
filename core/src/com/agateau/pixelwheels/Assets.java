@@ -196,6 +196,11 @@ public class Assets implements TextureRegionProvider {
         return this.atlas.findRegion(name);
     }
 
+    @Override
+    public Array<TextureAtlas.AtlasRegion> findRegions(String name) {
+        return this.atlas.findRegions(name);
+    }
+
     public VehicleDef findVehicleDefById(String id) {
         for (VehicleDef def : vehicleDefs) {
             if (def.id.equals(id)) {
@@ -229,10 +234,6 @@ public class Assets implements TextureRegionProvider {
         AnimationObject obj = AnimationObject.create(explosion, x, y);
         obj.initAudio(audioManager, soundAtlas.get("explosion"));
         return obj;
-    }
-
-    public TextureRegion getVehicleRegion(VehicleDef vehicleDef) {
-        return vehicleDef.getImage(this);
     }
 
     public TextureRegion getChampionshipRegion(Championship championship) {

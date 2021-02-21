@@ -20,6 +20,7 @@ CEL_CHUNK = 0x2005
 PALETTE_CHUNK = 0x2019
 SLICE_CHUNK = 0x2022
 
+LINKED_CEL_TYPE = 1
 COMPRESSED_IMAGE_CEL_TYPE = 2
 
 
@@ -138,7 +139,11 @@ class AsepriteImage:
     def read_cel_chunk(self, fp):
         index, pos_x, pos_y, opacity, cel_type = unpack("<HhhBH", fp.read(9))
         fp.read(7)
-        if cel_type == COMPRESSED_IMAGE_CEL_TYPE:
+        if cel_type == LINKED_CEL_TYPE:
+            linked_frame_index = unpack("<H", fp.read(2))[0]
+            linked_cel = self.frames[linked_frame_index].cels[index]
+            self.frames[-1].cels[index] = linked_cel
+        elif cel_type == COMPRESSED_IMAGE_CEL_TYPE:
             cel = self.frames[-1].cels[index]
             cel.position = [pos_x, pos_y]
             cel.size = unpack("<HH", fp.read(4))
