@@ -276,6 +276,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         }
     }
 
+    @SuppressWarnings("rawtypes")
     public void selectBonus() {
         float normalizedRank = mGameWorld.getRacerNormalizedRank(this);
 

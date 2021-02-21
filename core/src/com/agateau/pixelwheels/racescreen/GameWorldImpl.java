@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.bonus.BonusPool;
 import com.agateau.pixelwheels.bonus.BonusSpot;
 import com.agateau.pixelwheels.bonus.GunBonus;
@@ -60,6 +61,8 @@ import com.badlogic.gdx.utils.Sort;
 import java.util.Comparator;
 
 public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
+    private final boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
+
     private final PwGame mGame;
     private Track mTrack;
     private final CountDown mCountDown;
@@ -67,6 +70,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     private final World mBox2DWorld;
     private float mTimeAccumulator = 0;
 
+    @SuppressWarnings("rawtypes")
     private final Array<BonusPool> mBonusPools = new Array<>();
 
     private final Array<Racer> mRacers = new Array<>();
@@ -119,6 +123,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         return mRacers;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Array<BonusPool> getBonusPools() {
         return mBonusPools;
@@ -236,8 +241,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
     }
 
-    private boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
-
     private boolean haveAllRacersFinished() {
         if (mDebugFinishedOverlay && mState == State.RUNNING) {
             mRacers.shuffle();
@@ -334,22 +337,17 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     private void setupBonusPools() {
-        addPool(
-                new BonusPool<>(GunBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.2f, 1.0f, 1.0f});
-        addPool(
-                new BonusPool<>(MineBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {2.0f, 1.0f, 0.5f});
-        addPool(
-                new BonusPool<>(TurboBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.1f, 1.0f, 2.0f});
-        addPool(
-                new BonusPool<>(
-                        MissileBonus.class, mGame.getAssets(), this, mGame.getAudioManager()),
-                new float[] {0.2f, 1.0f, 1.0f});
+        // Important: do not allow acceleration bonuses like the Turbo when ranked first, otherwise
+        // getting a best score becomes too random.
+        addPool(GunBonus.class, new float[] {0.2f, 1.0f, 1.0f});
+        addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f, 0f});
+        addPool(TurboBonus.class, new float[] {0f, 1.0f, 2.0f});
+        addPool(MissileBonus.class, new float[] {0.2f, 1.0f, 1.0f});
     }
 
-    private void addPool(BonusPool pool, float[] counts) {
+    private <T extends Bonus> void addPool(Class<T> bonusClass, float[] counts) {
+        BonusPool<T> pool =
+                new BonusPool<>(bonusClass, mGame.getAssets(), this, mGame.getAudioManager());
         pool.setCounts(counts);
         mBonusPools.add(pool);
     }
