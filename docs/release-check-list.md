@@ -4,6 +4,7 @@
 
     git checkout dev
     git pull
+    git merge origin/master
     git status
 
 - Bump version number
