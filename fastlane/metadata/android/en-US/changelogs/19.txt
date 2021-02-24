@@ -1,0 +1,9 @@
+Added musics, made by FoxSynergy.
+
+Added many small animations.
+
+Adjusted bonus balance.
+
+Replaced the Aero font with the Kwajong font.
+
+Fixed credits being incomplete.

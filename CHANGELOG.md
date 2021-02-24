@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.19.0 - 2021-02-24
+
+### Added
+
+- Added musics. Thanks a ton to FoxSynergy for publishing these great pieces on opengameart (#98)!
+
+### Changed
+
+- Many small animations have been added: the police car lights flash, the rank change indicators in the score table have changing colors, the flags behind the planes in the championship finished screen move.
+
+- Split the "mute" option into "mute music" and "mute sound".
+
+### Fixed
+
+- Bonus balance has been adjusted: it is now impossible to get a turbo when ranked first, to avoid making best scores too random (#46).
+
+- Fixed credits text being cropped at the bottom.
+
+- Font authors were missing from credits, added them.
+
+- Replaced the Aero font with Kwajong because Aero license made it non-suitable for FOSS games.
+
+- Menu items now do not autofocus themselves on mouse-over unless the mouse cursor is visible (#103).
+
+- Do not show the pause overlay when pressing the pause shortcut after the end of the race (#97).
+
+### For developers
+
+- asesplit: Added support for linked cells and implemented sprite rotation.
+
+- Added support for animated images.
+
+- Sometimes the reward unlocked screen appeared for already unlocked rewards. It only happened after a refresh (using F5 to debug a screen) (#100).
+
+- The  CI now runs the tests (was about time!).
+
 ## 0.18.0 - 2020-12-20
 
 ### Added
