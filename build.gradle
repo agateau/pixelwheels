@@ -10,7 +10,6 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: "eclipse"
     apply plugin: "idea"
 
     version = '1.0'
@@ -143,8 +142,4 @@ project(":core") {
         compile "junit:junit:4.12"
         compile 'com.google.code.gson:gson:2.8.5'
     }
-}
-
-tasks.eclipse.doLast {
-    delete ".project"
 }
