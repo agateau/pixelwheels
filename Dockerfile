@@ -16,10 +16,12 @@ RUN apt-get update \
 COPY requirements.txt /src/
 RUN pip3 install -r /src/requirements.txt
 
-# Install gradle so that we don't have to do it for each build
+# Install gradle so that we don't have to do it for each build. Use --help
+# because we don't want to run any gradle task for now, the source code is not
+# there.
 COPY gradle /src/gradle
 COPY gradlew /src
-RUN /src/gradlew
+RUN /src/gradlew --help
 
 COPY ci/install-android-sdk /src
 RUN /src/install-android-sdk
