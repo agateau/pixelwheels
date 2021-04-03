@@ -138,7 +138,6 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-        api "junit:junit:4.12"
         api 'com.google.code.gson:gson:2.8.5'
     }
 }
