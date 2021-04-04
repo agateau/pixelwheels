@@ -10,15 +10,9 @@ EXECUTABLE=pixelwheels
 
 include version.properties
 
-PACKR=tools/packr.jar
-PACKR_OUT_DIR=packr-out
-
 DIST_OUT_BASE_DIR=dist-out
 DIST_NAME=$(EXECUTABLE)-$(VERSION)
 DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
-
-JDK_LINUX64_URL=https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u60-unofficial-linux-amd64-image.zip
-JDK_LINUX64_ZIP=openjdk-linux64.zip
 
 ARCHIVE_DIR=$(CURDIR)/archives
 
@@ -60,26 +54,6 @@ clean-assets:
 # `entr` command)
 auto-assets:
 	find core/assets-src -name '*.ase' | entr $(MAKE) assets packer
-
-# Packr
-$(JDK_LINUX64_ZIP):
-	wget $(JDK_LINUX64_URL) -O $(JDK_LINUX64_ZIP)
-
-$(PACKR_OUT_DIR)/$(EXECUTABLE): $(JDK_LINUX64_ZIP) build
-	java -jar $(PACKR) \
-		-platform linux64 \
-		-jdk $(JDK_LINUX64_ZIP) \
-		-executable $(EXECUTABLE) \
-		-appjar $(DESKTOP_JAR) \
-		-mainclass com/agateau/pixelwheels/desktop/DesktopLauncher \
-		-outdir $(PACKR_OUT_DIR) \
-		-minimizejre soft
-	cd android/assets && cp -r maps screens ui sprites.atlas sprites.png uiskin.atlas $(PACKR_OUT_DIR)
-
-packr: $(PACKR_OUT_DIR)/$(EXECUTABLE)
-
-clean-packr:
-	rm -rf $(PACKR_OUT_DIR)
 
 # Dist
 desktop-dist: build
