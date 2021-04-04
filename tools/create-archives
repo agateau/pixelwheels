@@ -1,0 +1,89 @@
+#!/bin/bash
+set -euo pipefail
+cd $(dirname $0)/..
+
+PROGNAME=$(basename $0)
+
+# JRE comes from https://adoptopenjdk.net/releases.html
+
+JRE_LINUX_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_linux_hotspot_8u282b08.tar.gz
+JRE_LINUX_SHA256=3b2e2c6ad3ee04a58ffb8d629e3e242b0ae87b38cfd06425e4446b1f9490f521
+
+JRE_MACOS_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_mac_hotspot_8u282b08.tar.gz
+JRE_MACOS_SHA256=9e7a40d570d5151aae23a2fb017359248f5fb82c547c3ecd860c992770228afb
+
+JRE_WINDOWS_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_windows_hotspot_8u282b08.zip
+JRE_WINDOWS_SHA256=58f2bbf0e5abc6dee7ee65431fd2fc95cdb2c3d10126045c5882f739dda79c3b
+
+PACKR_URL=https://github.com/libgdx/packr/releases/download/4.0.0/packr-all-4.0.0.jar
+PACKR_SHA256=e2047f5b098bd5ca05150a530f3ada3a7f07bd846be730b92378180bdd3d8be2
+
+DIST_OUT_BASE_DIR=$PWD/dist-out
+SRC_DESKTOP_JAR="desktop/build/libs/desktop-1.0.jar"
+DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
+
+. tools/functions.sh
+
+copy_desktop_jar() {
+    echo "Copying desktop.jar"
+    mkdir -p $DIST_OUT_BASE_DIR
+    cp "$SRC_DESKTOP_JAR" "$DST_DESKTOP_JAR"
+}
+
+create_archive() {
+    local jre=$1
+    local platform=$2
+
+    local dist_name=pixelwheels-$VERSION-$platform
+    local out_dir=$DIST_OUT_BASE_DIR/$dist_name
+
+    echo "Running packr for $platform"
+
+    rm -rf "$out_dir"
+
+    java -jar "$PACKR_PATH" \
+        --jdk "$jre" \
+        --platform "$platform" \
+        --minimizejre soft \
+        --executable pixelwheels \
+        --mainclass com.agateau.pixelwheels.desktop.DesktopLauncher \
+        --vmargs Xmx1G \
+        --classpath "$DST_DESKTOP_JAR" \
+        --removelibs "$DST_DESKTOP_JAR" \
+        --output "$out_dir"
+
+    echo "Copying install data"
+    cp tools/installer-data/README.html "$out_dir"
+
+    echo "Creating zip"
+    (
+        cd $DIST_OUT_BASE_DIR
+        rm -f $dist_name.zip
+        zip -qr $dist_name.zip $dist_name
+        rm -rf $dist_name
+    )
+}
+
+if [ "$#" -ne 1 ] ; then
+    die "Usage: create-installers <VERSION>"
+fi
+
+VERSION="$1"
+
+download_to_cache $PACKR_URL $PACKR_SHA256
+PACKR_PATH=$LOCAL_PATH
+
+download_to_cache $JRE_LINUX_URL $JRE_LINUX_SHA256
+JRE_LINUX_PATH=$LOCAL_PATH
+
+download_to_cache $JRE_MACOS_URL $JRE_MACOS_SHA256
+JRE_MACOS_PATH=$LOCAL_PATH
+
+download_to_cache $JRE_WINDOWS_URL $JRE_WINDOWS_SHA256
+JRE_WINDOWS_PATH=$LOCAL_PATH
+
+copy_desktop_jar
+
+create_archive $JRE_LINUX_PATH linux64
+create_archive $JRE_MACOS_PATH mac
+create_archive $JRE_WINDOWS_PATH windows64

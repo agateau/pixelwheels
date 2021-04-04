@@ -57,21 +57,15 @@ auto-assets:
 
 # Dist
 desktop-dist: build
-	@rm -rf $(DIST_OUT_DIR)
-	@mkdir -p $(DIST_OUT_DIR)
+	@rm -rf $(DIST_OUT_BASE_DIR)
+	@mkdir -p $(DIST_OUT_BASE_DIR)
 
-	@echo Copying files
-	@cp $(DESKTOP_JAR) $(DIST_OUT_DIR)/$(EXECUTABLE).jar
-	chmod +x $(DIST_OUT_DIR)/$(EXECUTABLE).jar
-	@cp -a install/* $(DIST_OUT_DIR)/
+	@echo Creating desktop archives
+	@tools/create-archives $(VERSION)
 
-	@echo Creating zip
-	cd $(DIST_OUT_BASE_DIR) && zip -r $(DIST_NAME).zip $(DIST_NAME)
-	@rm -rf $(DIST_OUT_DIR)
-
-	@echo Moving zip
+	@echo Moving desktop archives
 	@mkdir -p $(ARCHIVE_DIR)
-	mv $(DIST_OUT_DIR).zip $(ARCHIVE_DIR)
+	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
 
 apk-dist:
 	@echo Creating .apk
