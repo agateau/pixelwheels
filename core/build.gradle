@@ -26,8 +26,3 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 compileJava.dependsOn(generateVersionInfoClass)
 sourceSets.main.java.srcDirs = [ "src/", "generated/" ]
-
-
-eclipse.project {
-    name = appName + "-core"
-}
