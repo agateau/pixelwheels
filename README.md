@@ -10,11 +10,7 @@ It features multiple tracks and vehicles. And various bonus and weapons to help 
 
 On PC, you can play Pixel Wheels alone or with a friend.
 
-## Attention! Warning! Achtung!
-
-This game is far from being finished. Some mechanics of the gameplay are not there yet, and the game still needs much work in just about every aspects: graphics, sounds, gameplay...
-
-## I don't care, I want to try it anyway
+## I want to try it!
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
 
