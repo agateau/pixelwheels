@@ -110,7 +110,7 @@ fastlane-beta:
 	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(DIST_NAME).apk
 
 upload:
-	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME).*
+	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME)-*.*
 
 # Cleaning conf
 clean-desktop-conf:
