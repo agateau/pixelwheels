@@ -2,23 +2,16 @@
 set -e
 GOOGLE_JAVA_FORMAT_VERSION=1.7
 FORMATTER_URL=https://github.com/google/google-java-format/releases/download/google-java-format-${GOOGLE_JAVA_FORMAT_VERSION}/google-java-format-${GOOGLE_JAVA_FORMAT_VERSION}-all-deps.jar
-FORMATTER_JAR=$HOME/.cache/google-java-format-with-deps-$GOOGLE_JAVA_FORMAT_VERSION.jar
+FORMATTER_SHA256SUM=0894ee02019ee8b4acd6df09fb50bac472e7199e1a5f041f8da58d08730694aa
+#FORMATTER_JAR=$HOME/.cache/google-java-format-with-deps-$GOOGLE_JAVA_FORMAT_VERSION.jar
 DEFAULT_ARGS=--aosp
 
 PROGNAME=$(basename $0)
-
-die() {
-    echo "$PROGNAME: $*" >&2
-    exit 1
-}
+. $(dirname $0)/functions.sh
 
 download_formatter() {
-    if [ -e "$FORMATTER_JAR" ] ; then
-        echo "Formatter has already been downloaded."
-    else
-        echo "Downloading formatter..."
-        curl --location "$FORMATTER_URL" > "$FORMATTER_JAR"
-    fi
+    download_to_cache $FORMATTER_URL $FORMATTER_SHA256SUM
+    FORMATTER_JAR=$LOCAL_PATH
 }
 
 create_file_list() {
