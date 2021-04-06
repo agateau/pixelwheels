@@ -18,6 +18,10 @@ This game is far from being finished. Some mechanics of the gameplay are not the
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
 
+_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be fixed when [libgdx ARM-based Mac support][libgdx-arm-mac] is ready._
+
+[libgdx-arm-mac]: https://github.com/libgdx/libgdx/issues/6084
+
 For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gplay].
 
 [itch]: http://agateau.itch.io/pixelwheels
