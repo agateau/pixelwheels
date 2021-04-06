@@ -25,6 +25,10 @@ For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gpl
 [gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
 
 
+### master builds
+
+If you feel adventurous, you can also try binaries from the master branch. These are available from <https://builds.agateau.com/pixelwheels>.
+
 ## I think it would be much better if it did X, Y or Z...
 
 I have a reasonably well defined vision of what I want Pixel Wheels to be.  Your feedback and suggestions are welcome, and I will look into it with great attention, but I reserve the right to decide if your ideas fit with the game I am trying to create.
