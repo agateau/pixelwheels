@@ -10,13 +10,13 @@ It features multiple tracks and vehicles. And various bonus and weapons to help 
 
 On PC, you can play Pixel Wheels alone or with a friend.
 
-## Attention! Warning! Achtung!
-
-This game is far from being finished. Some mechanics of the gameplay are not there yet, and the game still needs much work in just about every aspects: graphics, sounds, gameplay...
-
-## I don't care, I want to try it anyway
+## I want to try it!
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
+
+_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be fixed when [libgdx ARM-based Mac support][libgdx-arm-mac] is ready._
+
+[libgdx-arm-mac]: https://github.com/libgdx/libgdx/issues/6084
 
 For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gplay].
 
@@ -24,6 +24,10 @@ For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gpl
 [fd]: https://f-droid.org/fr/packages/com.agateau.tinywheels.android/
 [gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
 
+
+### master builds
+
+If you feel adventurous, you can also try binaries from the master branch. These are available from <https://builds.agateau.com/pixelwheels>.
 
 ## I think it would be much better if it did X, Y or Z...
 
