@@ -45,6 +45,12 @@ create_archive() {
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
 
+    if [ "$platform" = "mac" ] ; then
+        # On macOS the directory passed to --output is the bundle itself, so
+        # create it as a subdirectory of $out_dir and add a .app extension
+        out_dir=$out_dir/$dist_name.app
+    fi
+
     echo "=== Creating archive for $platform ==="
 
     rm -rf "$out_dir"
@@ -65,6 +71,8 @@ create_archive() {
     set +x
 
     echo "Copying install data"
+    # We do not use $out_dir here because on macOS it would put the README
+    # *inside* the bundle
     cp $INSTALLER_DATA_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
 
     echo "Creating zip"
