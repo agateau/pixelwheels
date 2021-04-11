@@ -22,6 +22,8 @@ DIST_OUT_BASE_DIR=$PWD/dist-out
 SRC_DESKTOP_JAR="desktop/build/libs/desktop-1.0.jar"
 DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
 
+INSTALLER_DATA_DIR=$PWD/tools/installer-data
+
 . tools/functions.sh
 
 copy_desktop_jar() {
@@ -30,17 +32,37 @@ copy_desktop_jar() {
     cp "$SRC_DESKTOP_JAR" "$DST_DESKTOP_JAR"
 }
 
+# Create archive for a given platform, using packr
+# Parameters:
+# - $1 path to jre archive
+# - $2 packr platform name
 create_archive() {
     local jre=$1
     local platform=$2
 
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
+    local extra_args=""
 
-    echo "Running packr for $platform"
+    if [ "$platform" = "mac" ] ; then
+        # On macOS the directory passed to --output is the bundle itself, so
+        # create it as a subdirectory of $out_dir and add a .app extension
+        out_dir=$out_dir/$dist_name.app
+
+        # On macOS the jar must be called with -XstartOnFirstThread so that
+        # LWJGL3 can process input events.
+        # Game won't start if we don't do this.
+        extra_args="--vmargs XstartOnFirstThread
+            --icon $INSTALLER_DATA_DIR/pixelwheels.icns
+            --bundle com.agateau.pixelwheels"
+    fi
+
+    echo "=== Creating archive for $platform ==="
 
     rm -rf "$out_dir"
 
+    echo "Running packr"
+    set -x
     java -jar "$PACKR_PATH" \
         --jdk "$jre" \
         --platform "$platform" \
@@ -50,10 +72,14 @@ create_archive() {
         --vmargs Xmx1G \
         --classpath "$DST_DESKTOP_JAR" \
         --removelibs "$DST_DESKTOP_JAR" \
-        --output "$out_dir"
+        --output "$out_dir" \
+        $extra_args
+    set +x
 
     echo "Copying install data"
-    cp tools/installer-data/README.html "$out_dir"
+    # We do not use $out_dir here because on macOS it would put the README
+    # *inside* the bundle
+    cp $INSTALLER_DATA_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
 
     echo "Creating zip"
     (
@@ -85,5 +111,7 @@ JRE_WINDOWS_PATH=$LOCAL_PATH
 copy_desktop_jar
 
 create_archive $JRE_LINUX_PATH linux64
+
 create_archive $JRE_MACOS_PATH mac
+
 create_archive $JRE_WINDOWS_PATH windows64
