@@ -43,10 +43,12 @@ create_archive() {
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
 
-    echo "Running packr for $platform"
+    echo "=== Creating archive for $platform ==="
 
     rm -rf "$out_dir"
 
+    echo "Running packr"
+    set -x
     java -jar "$PACKR_PATH" \
         --jdk "$jre" \
         --platform "$platform" \
@@ -58,6 +60,7 @@ create_archive() {
         --removelibs "$DST_DESKTOP_JAR" \
         --output "$out_dir" \
         $@
+    set +x
 
     echo "Copying install data"
     cp tools/installer-data/README.html "$out_dir"
@@ -92,7 +95,13 @@ JRE_WINDOWS_PATH=$LOCAL_PATH
 copy_desktop_jar
 
 create_archive $JRE_LINUX_PATH linux64
+
+# On macOS the jar must be called with -XstartOnFirstThread so that LWJGL3 can
+# process input events.
+# Game won't start if we don't do this.
 create_archive $JRE_MACOS_PATH mac \
+    --vmargs XstartOnFirstThread \
     --icon $PWD/tools/installers-data/pixelwheels.icns \
     --bundle com.agateau.pixelwheels
+
 create_archive $JRE_WINDOWS_PATH windows64
