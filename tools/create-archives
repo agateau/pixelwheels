@@ -36,19 +36,25 @@ copy_desktop_jar() {
 # Parameters:
 # - $1 path to jre archive
 # - $2 packr platform name
-# - $* extra parameters passed to packr
 create_archive() {
     local jre=$1
     local platform=$2
-    shift 2
 
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
+    local extra_args=""
 
     if [ "$platform" = "mac" ] ; then
         # On macOS the directory passed to --output is the bundle itself, so
         # create it as a subdirectory of $out_dir and add a .app extension
         out_dir=$out_dir/$dist_name.app
+
+        # On macOS the jar must be called with -XstartOnFirstThread so that
+        # LWJGL3 can process input events.
+        # Game won't start if we don't do this.
+        extra_args="--vmargs XstartOnFirstThread
+            --icon $INSTALLER_DATA_DIR/pixelwheels.icns
+            --bundle com.agateau.pixelwheels"
     fi
 
     echo "=== Creating archive for $platform ==="
@@ -67,7 +73,7 @@ create_archive() {
         --classpath "$DST_DESKTOP_JAR" \
         --removelibs "$DST_DESKTOP_JAR" \
         --output "$out_dir" \
-        $@
+        $extra_args
     set +x
 
     echo "Copying install data"
@@ -106,12 +112,6 @@ copy_desktop_jar
 
 create_archive $JRE_LINUX_PATH linux64
 
-# On macOS the jar must be called with -XstartOnFirstThread so that LWJGL3 can
-# process input events.
-# Game won't start if we don't do this.
-create_archive $JRE_MACOS_PATH mac \
-    --vmargs XstartOnFirstThread \
-    --icon $INSTALLER_DATA_DIR/pixelwheels.icns \
-    --bundle com.agateau.pixelwheels
+create_archive $JRE_MACOS_PATH mac
 
 create_archive $JRE_WINDOWS_PATH windows64
