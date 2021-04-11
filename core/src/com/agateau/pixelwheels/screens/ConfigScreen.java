@@ -66,11 +66,11 @@ public class ConfigScreen extends PwStageScreen {
 
     private final PwGame mGame;
 
-    private static WebSiteLinkInfo sWebSiteLinkInfo = new WebSiteLinkInfo(
-            "https://agateau.com/support/",
-            "Pixel Wheels is free, but you can support its\ndevelopment in various ways.",
-            "VISIT SUPPORT PAGE"
-    );
+    private static WebSiteLinkInfo sWebSiteLinkInfo =
+            new WebSiteLinkInfo(
+                    "https://agateau.com/support/",
+                    "Pixel Wheels is free, but you can support its\ndevelopment in various ways.",
+                    "VISIT SUPPORT PAGE");
 
     interface GameInputHandlerConfigScreenFactory {
         Screen createScreen(PwGame game, int playerIdx);
