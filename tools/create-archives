@@ -22,6 +22,8 @@ DIST_OUT_BASE_DIR=$PWD/dist-out
 SRC_DESKTOP_JAR="desktop/build/libs/desktop-1.0.jar"
 DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
 
+INSTALLER_DATA_DIR=$PWD/tools/installer-data
+
 . tools/functions.sh
 
 copy_desktop_jar() {
@@ -63,7 +65,7 @@ create_archive() {
     set +x
 
     echo "Copying install data"
-    cp tools/installer-data/README.html "$out_dir"
+    cp $INSTALLER_DATA_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
 
     echo "Creating zip"
     (
@@ -101,7 +103,7 @@ create_archive $JRE_LINUX_PATH linux64
 # Game won't start if we don't do this.
 create_archive $JRE_MACOS_PATH mac \
     --vmargs XstartOnFirstThread \
-    --icon $PWD/tools/installers-data/pixelwheels.icns \
+    --icon $INSTALLER_DATA_DIR/pixelwheels.icns \
     --bundle com.agateau.pixelwheels
 
 create_archive $JRE_WINDOWS_PATH windows64
