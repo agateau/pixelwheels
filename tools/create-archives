@@ -30,9 +30,15 @@ copy_desktop_jar() {
     cp "$SRC_DESKTOP_JAR" "$DST_DESKTOP_JAR"
 }
 
+# Create archive for a given platform, using packr
+# Parameters:
+# - $1 path to jre archive
+# - $2 packr platform name
+# - $* extra parameters passed to packr
 create_archive() {
     local jre=$1
     local platform=$2
+    shift 2
 
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
@@ -50,7 +56,8 @@ create_archive() {
         --vmargs Xmx1G \
         --classpath "$DST_DESKTOP_JAR" \
         --removelibs "$DST_DESKTOP_JAR" \
-        --output "$out_dir"
+        --output "$out_dir" \
+        $@
 
     echo "Copying install data"
     cp tools/installer-data/README.html "$out_dir"
@@ -85,5 +92,7 @@ JRE_WINDOWS_PATH=$LOCAL_PATH
 copy_desktop_jar
 
 create_archive $JRE_LINUX_PATH linux64
-create_archive $JRE_MACOS_PATH mac
+create_archive $JRE_MACOS_PATH mac \
+    --icon $PWD/tools/installers-data/pixelwheels.icns \
+    --bundle com.agateau.pixelwheels
 create_archive $JRE_WINDOWS_PATH windows64
