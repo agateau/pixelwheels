@@ -68,11 +68,14 @@ desktop-dist: build
 	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
 
 apk-dist:
-	@echo Creating .apk
+	@echo Creating apk files
 	@$(GRADLEW) android:assembleRelease
-	@echo Moving .apk
+	@echo Moving apk files
 	@mkdir -p $(ARCHIVE_DIR)
-	@mv android/build/outputs/apk/release/android-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$(VERSION).apk
+	@for store in itchio gplay ; do \
+		mv android/build/outputs/apk/$$store/release/android-$$store-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$$store-$(VERSION).apk ; \
+	done
+
 
 dist: assets packer check desktop-dist apk-dist
 

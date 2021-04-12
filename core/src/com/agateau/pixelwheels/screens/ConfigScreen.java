@@ -52,8 +52,25 @@ import com.badlogic.gdx.utils.Array;
 
 /** The config screen */
 public class ConfigScreen extends PwStageScreen {
-    private static final String WEBSITE_URL = "https://agateau.com/support/";
+    public static class WebSiteLinkInfo {
+        public String url;
+        public String label;
+        public String buttonText;
+
+        public WebSiteLinkInfo(String url, String label, String buttonText) {
+            this.url = url;
+            this.label = label;
+            this.buttonText = buttonText;
+        }
+    }
+
     private final PwGame mGame;
+
+    private static WebSiteLinkInfo sWebSiteLinkInfo =
+            new WebSiteLinkInfo(
+                    "https://agateau.com/support/",
+                    "Pixel Wheels is free, but you can support its\ndevelopment in various ways.",
+                    "VISIT SUPPORT PAGE");
 
     interface GameInputHandlerConfigScreenFactory {
         Screen createScreen(PwGame game, int playerIdx);
@@ -64,6 +81,10 @@ public class ConfigScreen extends PwStageScreen {
 
     private static final GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory =
             (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
+
+    public static void setWebSiteLinkInfo(WebSiteLinkInfo info) {
+        sWebSiteLinkInfo = info;
+    }
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -165,14 +186,13 @@ public class ConfigScreen extends PwStageScreen {
                                 }
                             });
             // This is a ugly hack, but it should do for now
-            group.addLabel(
-                    "Pixel Wheels is free, but you can support its\ndevelopment in various ways.");
-            group.addButton("VISIT SUPPORT PAGE")
+            group.addLabel(sWebSiteLinkInfo.label);
+            group.addButton(sWebSiteLinkInfo.buttonText)
                     .addListener(
                             new ClickListener() {
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
-                                    PlatformUtils.openURI(WEBSITE_URL);
+                                    PlatformUtils.openURI(sWebSiteLinkInfo.url);
                                 }
                             });
         }
