@@ -10,3 +10,9 @@ specific screen:
 - `UnlockedVehicle:<id>`: unlocked screen for vehicle `<id>`
 - `UnlockedChampionship:<id>`: unlocked screen for championship `<id>`
 - `FinishedOverlay`: show the FinishedOverlay
+
+## AGC_UI_TYPE
+
+Overrides the UI type. Can be one of:
+- BUTTONS: Desktop
+- TOUCH: Default for smart phones

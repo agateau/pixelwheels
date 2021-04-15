@@ -32,8 +32,8 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -65,6 +65,7 @@ public class SelectTrackScreen extends PwStageScreen {
                     return cell;
                 }
             };
+    private Button mNextButton;
 
     public interface Listener {
         void onBackPressed();
@@ -112,14 +113,20 @@ public class SelectTrackScreen extends PwStageScreen {
                             }
                         });
 
-        builder.getActor("nextButton")
-                .addListener(
-                        new ClickListener() {
-                            @Override
-                            public void clicked(InputEvent event, float x, float y) {
-                                next();
-                            }
-                        });
+        mNextButton = builder.getActor("nextButton");
+        mNextButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        next();
+                    }
+                });
+
+        updateNextButton();
+    }
+
+    private void updateNextButton() {
+        mNextButton.setDisabled(!mTrackSelector.isCurrentItemEnabled());
     }
 
     private void createTrackSelector(Menu menu) {
@@ -134,19 +141,13 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {
                     @Override
-                    public void selectedChanged(Track item, int index) {
-                        if (PlatformUtils.isButtonsUi()) {
-                            next();
-                        }
-                    }
-
-                    @Override
                     public void currentChanged(Track track, int index) {
                         updateTrackRecords(track);
+                        updateNextButton();
                     }
 
                     @Override
-                    public void confirmSelection() {
+                    public void selectionConfirmed() {
                         next();
                     }
                 });
@@ -163,7 +164,7 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void next() {
-        if (mTrackSelector.getCurrent() == null) {
+        if (!mTrackSelector.isCurrentItemEnabled()) {
             return;
         }
         saveSelectedMap();
