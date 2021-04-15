@@ -60,12 +60,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public interface SelectionListener<T> {
-        /** Called when an item is selected. The item is valid and enabled */
-        void itemSelected(T item, int index);
-
         void currentChanged(T item, int index);
 
-        void confirmSelection();
+        void selectionConfirmed();
     }
 
     public static class GridMenuItemStyle {
@@ -124,6 +121,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
     }
 
+    /**
+     * Selects @p index
+     *
+     * <p>On non touch screen UI, selecting an index confirms the selection.
+     *
+     * <p>On touch screen UI, user must select the same index to confirm the selection (because
+     * there is no mouse-over, so there is no way to make an item current without clicking on it).
+     */
     private void setSelectedIndex(int index) {
         if (index < 0) {
             mSelectedIndex = INVALID_INDEX;
@@ -135,16 +140,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             mSelectedIndex = INVALID_INDEX;
             return;
         }
-        // Selection does not change, consider this as a confirmation
-        if (mSelectedIndex == index) {
-            if (mSelectionListener != null) {
-                mSelectionListener.confirmSelection();
-            }
-            return;
-        }
+        int oldIndex = mSelectedIndex;
         mSelectedIndex = index;
         if (mSelectionListener != null) {
-            mSelectionListener.itemSelected(item, index);
+            if (!PlatformUtils.isTouchUi() || oldIndex == mSelectedIndex) {
+                mSelectionListener.selectionConfirmed();
+            }
         }
         setCurrentIndex(index);
     }

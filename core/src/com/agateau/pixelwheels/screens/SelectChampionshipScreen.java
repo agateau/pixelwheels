@@ -28,7 +28,6 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -123,20 +122,13 @@ public class SelectChampionshipScreen extends PwStageScreen {
         mChampionshipSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Championship>() {
                     @Override
-                    public void itemSelected(Championship item, int index) {
-                        if (PlatformUtils.isButtonsUi()) {
-                            next();
-                        }
-                    }
-
-                    @Override
                     public void currentChanged(Championship championship, int index) {
                         updateChampionshipDetails(championship);
                         updateNextButton();
                     }
 
                     @Override
-                    public void confirmSelection() {
+                    public void selectionConfirmed() {
                         next();
                     }
                 });

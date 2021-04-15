@@ -30,7 +30,6 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -110,20 +109,13 @@ public class SelectVehicleScreen extends PwStageScreen {
         mVehicleSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<VehicleDef>() {
                     @Override
-                    public void itemSelected(VehicleDef item, int index) {
-                        if (PlatformUtils.isButtonsUi()) {
-                            next();
-                        }
-                    }
-
-                    @Override
                     public void currentChanged(VehicleDef vehicle, int index) {
                         updateVehicleDetails(vehicle);
                         updateNextButton();
                     }
 
                     @Override
-                    public void confirmSelection() {
+                    public void selectionConfirmed() {
                         next();
                     }
                 });

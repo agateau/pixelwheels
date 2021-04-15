@@ -32,7 +32,6 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
-import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -142,20 +141,13 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {
                     @Override
-                    public void itemSelected(Track item, int index) {
-                        if (PlatformUtils.isButtonsUi()) {
-                            next();
-                        }
-                    }
-
-                    @Override
                     public void currentChanged(Track track, int index) {
                         updateTrackRecords(track);
                         updateNextButton();
                     }
 
                     @Override
-                    public void confirmSelection() {
+                    public void selectionConfirmed() {
                         next();
                     }
                 });

@@ -37,10 +37,6 @@ public class PlatformUtils {
         return sUiType == UiType.TOUCH;
     }
 
-    public static boolean isButtonsUi() {
-        return !isTouchUi();
-    }
-
     public static boolean isDesktop() {
         switch (Gdx.app.getType()) {
             case Desktop:
