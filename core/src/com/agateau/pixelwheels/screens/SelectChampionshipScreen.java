@@ -116,7 +116,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
         mChampionshipSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Championship>() {
                     @Override
-                    public void selectedChanged(Championship item, int index) {
+                    public void itemSelected(Championship item, int index) {
                         if (PlatformUtils.isButtonsUi()) {
                             next();
                         }

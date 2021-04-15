@@ -106,10 +106,7 @@ public class SelectVehicleScreen extends PwStageScreen {
         mVehicleSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<VehicleDef>() {
                     @Override
-                    public void selectedChanged(VehicleDef item, int index) {
-                        if (index == GridMenuItem.INVALID_INDEX) {
-                            return;
-                        }
+                    public void itemSelected(VehicleDef item, int index) {
                         if (PlatformUtils.isButtonsUi()) {
                             next();
                         }

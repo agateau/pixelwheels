@@ -134,7 +134,7 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {
                     @Override
-                    public void selectedChanged(Track item, int index) {
+                    public void itemSelected(Track item, int index) {
                         if (PlatformUtils.isButtonsUi()) {
                             next();
                         }

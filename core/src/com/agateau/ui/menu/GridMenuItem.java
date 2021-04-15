@@ -60,7 +60,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public interface SelectionListener<T> {
-        void selectedChanged(T item, int index);
+        /** Called when an item is selected. The item is valid and enabled */
+        void itemSelected(T item, int index);
 
         void currentChanged(T item, int index);
 
@@ -126,18 +127,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private void setSelectedIndex(int index) {
         if (index < 0) {
             mSelectedIndex = INVALID_INDEX;
-            if (mSelectionListener != null) {
-                mSelectionListener.selectedChanged(null, INVALID_INDEX);
-            }
             return;
         }
         Assert.check(index < mItems.size, "Invalid index value");
         T item = mItems.get(index);
         if (!mRenderer.isItemEnabled(item)) {
             mSelectedIndex = INVALID_INDEX;
-            if (mSelectionListener != null) {
-                mSelectionListener.selectedChanged(null, INVALID_INDEX);
-            }
             return;
         }
         // Selection does not change, consider this as a confirmation
@@ -149,7 +144,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
         mSelectedIndex = index;
         if (mSelectionListener != null) {
-            mSelectionListener.selectedChanged(item, index);
+            mSelectionListener.itemSelected(item, index);
         }
         setCurrentIndex(index);
     }
