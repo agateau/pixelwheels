@@ -30,6 +30,7 @@ import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -46,6 +47,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
     private Label mChampionshipNameLabel;
     private Label mChampionshipDetailsLabel;
     private ChampionshipSelector mChampionshipSelector;
+    private Button mNextButton;
 
     public SelectChampionshipScreen(PwGame game, Listener listener, final String championshipId) {
         super(game.getAssets().ui);
@@ -95,14 +97,19 @@ public class SelectChampionshipScreen extends PwStageScreen {
                             }
                         });
 
-        builder.getActor("nextButton")
-                .addListener(
-                        new ClickListener() {
-                            @Override
-                            public void clicked(InputEvent event, float x, float y) {
-                                next();
-                            }
-                        });
+        mNextButton = builder.getActor("nextButton");
+        mNextButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        next();
+                    }
+                });
+        updateNextButton();
+    }
+
+    private void updateNextButton() {
+        mNextButton.setDisabled(!mChampionshipSelector.isCurrentItemEnabled());
     }
 
     private void createChampionshipSelector(Championship championship, Menu menu) {
@@ -125,6 +132,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
                     @Override
                     public void currentChanged(Championship championship, int index) {
                         updateChampionshipDetails(championship);
+                        updateNextButton();
                     }
 
                     @Override
@@ -165,7 +173,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
     }
 
     private void next() {
-        if (mChampionshipSelector.getCurrent() == null) {
+        if (!mChampionshipSelector.isCurrentItemEnabled()) {
             return;
         }
         mListener.onChampionshipSelected(mChampionshipSelector.getCurrent());

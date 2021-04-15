@@ -32,6 +32,7 @@ import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -47,6 +48,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private final Listener mListener;
     private VehicleSelector mVehicleSelector;
     private Label mVehicleNameLabel;
+    private Button mNextButton;
 
     public SelectVehicleScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
@@ -85,14 +87,16 @@ public class SelectVehicleScreen extends PwStageScreen {
                             }
                         });
 
-        builder.getActor("nextButton")
-                .addListener(
-                        new ClickListener() {
-                            @Override
-                            public void clicked(InputEvent event, float x, float y) {
-                                next();
-                            }
-                        });
+        mNextButton = builder.getActor("nextButton");
+        mNextButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        next();
+                    }
+                });
+
+        updateNextButton();
     }
 
     private void createVehicleSelector(Menu menu) {
@@ -115,6 +119,7 @@ public class SelectVehicleScreen extends PwStageScreen {
                     @Override
                     public void currentChanged(VehicleDef vehicle, int index) {
                         updateVehicleDetails(vehicle);
+                        updateNextButton();
                     }
 
                     @Override
@@ -122,6 +127,10 @@ public class SelectVehicleScreen extends PwStageScreen {
                         next();
                     }
                 });
+    }
+
+    private void updateNextButton() {
+        mNextButton.setDisabled(!mVehicleSelector.isCurrentItemEnabled());
     }
 
     private void updateVehicleDetails(VehicleDef vehicle) {
@@ -142,10 +151,10 @@ public class SelectVehicleScreen extends PwStageScreen {
     }
 
     private void next() {
-        VehicleDef vehicleDef = mVehicleSelector.getCurrent();
-        if (vehicleDef == null) {
+        if (!mVehicleSelector.isCurrentItemEnabled()) {
             return;
         }
+        VehicleDef vehicleDef = mVehicleSelector.getCurrent();
         GameInfo.Player player = new GameInfo.Player(0, vehicleDef.id);
         mListener.onPlayerSelected(player);
     }

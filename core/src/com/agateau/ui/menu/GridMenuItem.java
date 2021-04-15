@@ -149,6 +149,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         setCurrentIndex(index);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isCurrentItemEnabled() {
+        T item = getCurrent();
+        if (item == null) {
+            return false;
+        }
+        return mRenderer.isItemEnabled(item);
+    }
+
     private void setCurrentIndex(int currentIndex) {
         if (mCurrentIndex != INVALID_INDEX) {
             mFocusIndicators.get(mCurrentIndex).setFocused(false);
