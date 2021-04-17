@@ -24,7 +24,7 @@ endif
 
 all: build
 
-clean: clean-packr clean-assets
+clean: clean-assets
 	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
 
 $(TOOLS_JAR):
