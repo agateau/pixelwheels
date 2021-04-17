@@ -6,13 +6,11 @@ cd $(dirname $0)
 make_args=$@
 
 SRC_DIR=$PWD/..
-SIGNING_GRADLE=$SRC_DIR/android/signing.gradle
 LOCAL_PROPERTIES=$SRC_DIR/local.properties
 
-# If SIGNING_GRADLE does not exist, gradle fails to run tests
-if [ ! -e "$SIGNING_GRADLE" ]; then
-    echo "Creating empty $SIGNING_GRADLE"
-    touch $SIGNING_GRADLE
+if [ -z "$KEYSTORE_BASE64" ]; then
+    echo "Can't build: \$KEYSTORE_BASE64 environment variable not set."
+    exit 1
 fi
 
 if [ ! -e "$LOCAL_PROPERTIES" ]; then
@@ -21,8 +19,11 @@ if [ ! -e "$LOCAL_PROPERTIES" ]; then
     echo "sdk.dir=/opt/android-sdk" > "$LOCAL_PROPERTIES"
 fi
 
-# Do not use "make dist" for now because current Docker does not support building apk yet
 docker run --rm \
     -v $SRC_DIR:/src/pixelwheels \
+    --env "KEYSTORE_BASE64=$KEYSTORE_BASE64" \
+    --env "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" \
+    --env "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" \
+    --env "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" \
     pixelwheels \
-    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels check assets packer desktop-dist $make_args"
+    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels clean-dist $make_args"
