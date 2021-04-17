@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.19.1 - 2021-04-17
+
+### Added
+
+- Provide standalone archives to install Pixel Wheels on Linux, macOS and Windows. It's no longer necessary to install a JRE (Java Runtime Environment) to run the game (#99).
+
+### Fixed
+
+- Do not allow pressing the Next button when the current vehicle/track/championship is locked (#108).
+
+- Made Android TV launcher icon more readable (#102).
+
+### Changed
+
+- Improved archive README: fixed outdated info and broken link, removed "Starting the game" section.
+
+- Created a Google Play flavor of the game, which does not mention donations in the configuration screen, to comply with Google Play terms of services.
+
+### Developers
+
+- Documented the `AGC_UI_TYPE` environment variable.
+
+- Updated Gradle to 6.5 and Android Gradle plugin to 4.1.3.
+
 ## 0.19.0 - 2021-02-24
 
 ### Added
