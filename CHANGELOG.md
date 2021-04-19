@@ -16,7 +16,7 @@
 
 - Improved archive README: fixed outdated info and broken link, removed "Starting the game" section.
 
-- Created a Google Play flavor of the game, which does not mention donations in the configuration screen, to comply with Google Play terms of services.
+- Created a Google Play flavor of the game, which does not mention donations in the configuration screen, to comply with Google Play terms of service.
 
 ### Developers
 

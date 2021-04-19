@@ -15,7 +15,8 @@ DIST_NAME=$(EXECUTABLE)-$(VERSION)
 DIST_OUT_DIR=$(DIST_OUT_BASE_DIR)/$(DIST_NAME)
 
 DESKTOP_RUN_DIST_NAME=$(EXECUTABLE)-$(VERSION)-linux64
-ANDROID_RUN_DIST_NAME=$(EXECUTABLE)-itchio-$(VERSION)
+ANDROID_ITCHIO_RUN_DIST_NAME=$(EXECUTABLE)-itchio-$(VERSION)
+ANDROID_GPLAY_RUN_DIST_NAME=$(EXECUTABLE)-gplay-$(VERSION)
 
 ARCHIVE_DIR=$(CURDIR)/archives
 
@@ -94,7 +95,7 @@ desktop-run-from-dist:
 android-run-from-dist:
 	# uninstall any existing verison in case we have an unsigned version installed
 	adb uninstall $(ANDROID_PACKAGE_NAME) || true
-	adb install -f $(ARCHIVE_DIR)/$(ANDROID_RUN_DIST_NAME).apk
+	adb install -f $(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk
 	adb shell am start -n $(ANDROID_PACKAGE_NAME)/com.agateau.pixelwheels.android.AndroidLauncher
 
 # coding style
@@ -114,7 +115,7 @@ tagpush: tag
 
 # Uploading
 fastlane-beta:
-	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(DIST_NAME).apk
+	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk
 
 upload:
 	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME)-*.*
