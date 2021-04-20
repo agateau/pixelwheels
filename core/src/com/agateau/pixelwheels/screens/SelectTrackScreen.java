@@ -47,6 +47,7 @@ public class SelectTrackScreen extends PwStageScreen {
     private final Listener mListener;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
+    private Label mUnlockHintLabel;
     private Label mLapRecordsLabel;
     private Table mLapRecordsTable;
     private Label mTotalRecordsLabel;
@@ -98,6 +99,7 @@ public class SelectTrackScreen extends PwStageScreen {
         getStage().addActor(root);
 
         mTrackNameLabel = builder.getActor("trackNameLabel");
+        mUnlockHintLabel = builder.getActor("unlockHintLabel");
         mLapRecordsLabel = builder.getActor("lapRecordsLabel");
         mLapRecordsTable = builder.getActor("lapRecordsTable");
         mTotalRecordsLabel = builder.getActor("totalRecordsLabel");
@@ -106,7 +108,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Menu menu = builder.getActor("menu");
 
         createTrackSelector(menu);
-        updateTrackRecords(mTrackSelector.getCurrent());
+        updateTrackDetails(mTrackSelector.getCurrent());
 
         builder.getActor("backButton")
                 .addListener(
@@ -146,7 +148,7 @@ public class SelectTrackScreen extends PwStageScreen {
                 new GridMenuItem.SelectionListener<Track>() {
                     @Override
                     public void currentChanged(Track track, int index) {
-                        updateTrackRecords(track);
+                        updateTrackDetails(track);
                         updateNextButton();
                     }
 
@@ -175,19 +177,26 @@ public class SelectTrackScreen extends PwStageScreen {
         mListener.onTrackSelected(mTrackSelector.getCurrent());
     }
 
-    private void updateTrackRecords(Track track) {
+    private void updateTrackDetails(Track track) {
         if (mGame.getRewardManager().isTrackUnlocked(track)) {
-            mLapRecordsLabel.setVisible(true);
-            mTotalRecordsLabel.setVisible(true);
             mTrackNameLabel.setText(track.getMapName());
             mTrackNameLabel.pack();
+
+            mUnlockHintLabel.setVisible(false);
+
+            mLapRecordsLabel.setVisible(true);
+            mTotalRecordsLabel.setVisible(true);
             TrackStats stats = mGame.getGameStats().getTrackStats(track);
             updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
             updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
         } else {
+            mTrackNameLabel.setText("[Locked]");
+
+            mUnlockHintLabel.setVisible(true);
+            mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(track));
+
             mLapRecordsLabel.setVisible(false);
             mTotalRecordsLabel.setVisible(false);
-            mTrackNameLabel.setText("[Locked]\n" + mGame.getRewardManager().getUnlockText(track));
             mLapRecordsTable.clearChildren();
             mTotalRecordsTable.clearChildren();
         }
