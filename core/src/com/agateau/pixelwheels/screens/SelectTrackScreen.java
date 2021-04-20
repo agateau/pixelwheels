@@ -47,7 +47,9 @@ public class SelectTrackScreen extends PwStageScreen {
     private final Listener mListener;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
+    private Label mLapRecordsLabel;
     private Table mLapRecordsTable;
+    private Label mTotalRecordsLabel;
     private Table mTotalRecordsTable;
     private AnchorGroup root;
 
@@ -96,7 +98,9 @@ public class SelectTrackScreen extends PwStageScreen {
         getStage().addActor(root);
 
         mTrackNameLabel = builder.getActor("trackNameLabel");
+        mLapRecordsLabel = builder.getActor("lapRecordsLabel");
         mLapRecordsTable = builder.getActor("lapRecordsTable");
+        mTotalRecordsLabel = builder.getActor("totalRecordsLabel");
         mTotalRecordsTable = builder.getActor("totalRecordsTable");
 
         Menu menu = builder.getActor("menu");
@@ -173,12 +177,16 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void updateTrackRecords(Track track) {
         if (mGame.getRewardManager().isTrackUnlocked(track)) {
+            mLapRecordsLabel.setVisible(true);
+            mTotalRecordsLabel.setVisible(true);
             mTrackNameLabel.setText(track.getMapName());
             mTrackNameLabel.pack();
             TrackStats stats = mGame.getGameStats().getTrackStats(track);
             updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
             updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
         } else {
+            mLapRecordsLabel.setVisible(false);
+            mTotalRecordsLabel.setVisible(false);
             mTrackNameLabel.setText("[Locked]\n" + mGame.getRewardManager().getUnlockText(track));
             mLapRecordsTable.clearChildren();
             mTotalRecordsTable.clearChildren();
