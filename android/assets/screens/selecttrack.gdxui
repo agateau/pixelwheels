@@ -6,11 +6,12 @@
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 0" style="large" width="800" height="400"/>
 
         <Label id="trackNameLabel" topCenter="menu.bottomCenter 0 0" align="center"/>
+        <Label id="unlockHintLabel" topCenter="$prev.bottomCenter 0 -1" align="center" style="small"/>
 
-        <Label topRight="trackNameLabel.bottomCenter -0.5 0" width="300" align="topCenter">Best Lap</Label>
+        <Label id="lapRecordsLabel" topRight="trackNameLabel.bottomCenter -0.5 0" width="300" align="topCenter">Best Lap</Label>
         <Table id="lapRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
 
-        <Label topLeft="trackNameLabel.bottomCenter 0.5 0" width="300" align="topCenter">Best Total</Label>
+        <Label id="totalRecordsLabel" topLeft="trackNameLabel.bottomCenter 0.5 0" width="300" align="topCenter">Best Total</Label>
         <Table id="totalRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
 
         <ImageButton id="backButton"
