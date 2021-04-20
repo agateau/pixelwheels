@@ -6,9 +6,9 @@
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="400"/>
 
-        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -2"/>
+        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -1"/>
 
-        <Label id="championshipDetailsLabel" topCenter="championshipNameLabel.bottomCenter 0 -1"/>
+        <Label id="championshipDetailsLabel" topCenter="$prev.bottomCenter 0 -1" style="small"/>
 
         <ImageButton id="backButton"
             bottomLeft="root.bottomLeft 1 1"
