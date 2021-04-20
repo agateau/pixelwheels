@@ -47,6 +47,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private final Listener mListener;
     private VehicleSelector mVehicleSelector;
     private Label mVehicleNameLabel;
+    private Label mUnlockHintLabel;
     private Button mNextButton;
 
     public SelectVehicleScreen(PwGame game, Listener listener) {
@@ -73,6 +74,7 @@ public class SelectVehicleScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
         mVehicleNameLabel = builder.getActor("vehicleNameLabel");
+        mUnlockHintLabel = builder.getActor("unlockHintLabel");
 
         createVehicleSelector(menu);
         updateVehicleDetails(mVehicleSelector.getCurrent());
@@ -129,9 +131,13 @@ public class SelectVehicleScreen extends PwStageScreen {
         String text;
         if (mGame.getRewardManager().isVehicleUnlocked(vehicle)) {
             text = vehicle.name;
+
+            mUnlockHintLabel.setVisible(false);
         } else {
-            String unlockText = mGame.getRewardManager().getUnlockText(vehicle);
-            text = StringUtils.format("[Locked]\n\n%s", unlockText);
+            text = StringUtils.format("[Locked]");
+
+            mUnlockHintLabel.setVisible(true);
+            mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(vehicle));
         }
         mVehicleNameLabel.setText(text);
         mVehicleNameLabel.pack();
