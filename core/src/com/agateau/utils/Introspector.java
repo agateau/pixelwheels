@@ -23,23 +23,35 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlWriter;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 /**
  * This class can read and write public fields of a class and serialize the changes to an xml file
  */
 public class Introspector {
+    public interface Listener {
+        void onModified();
+    }
+
     private final Class mClass;
     private final Object mReference;
     private final Object mObject;
     private final FileHandle mFileHandle;
+
+    private WeakReference<Listener> mListener = new WeakReference<>(null);
 
     public Introspector(Object object, Object reference, FileHandle fileHandle) {
         mClass = object.getClass();
         mObject = object;
         mReference = reference;
         mFileHandle = fileHandle;
+    }
+
+    public void setListener(Listener listener) {
+        mListener = new WeakReference<>(listener);
     }
 
     public void load() {
@@ -144,6 +156,7 @@ public class Introspector {
             e.printStackTrace();
             throw new RuntimeException("set(" + key + ") failed. " + e);
         }
+        notifyModified();
     }
 
     public int getInt(String key) {
@@ -170,6 +183,7 @@ public class Introspector {
             e.printStackTrace();
             throw new RuntimeException("setInt(" + key + ") failed. " + e);
         }
+        notifyModified();
     }
 
     public float getFloat(String key) {
@@ -195,6 +209,31 @@ public class Introspector {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("setFloat(" + key + ") failed. " + e);
+        }
+        notifyModified();
+    }
+
+    public boolean hasBeenModified() {
+        for (Field field : mClass.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+            try {
+                if (!Objects.equals(field.get(mObject), field.get(mReference))) {
+                    return true;
+                }
+            } catch (IllegalAccessException e) {
+                // This should really not happen
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private void notifyModified() {
+        Listener listener = mListener.get();
+        if (listener != null) {
+            listener.onModified();
         }
     }
 }
