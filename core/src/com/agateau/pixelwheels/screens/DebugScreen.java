@@ -31,6 +31,7 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -43,6 +44,7 @@ public class DebugScreen extends PwStageScreen {
     // introspector
     private Introspector mCurrentIntrospector = null;
     private Menu mMenu;
+    private Label mGamePlayModifiedLabel;
 
     public DebugScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -63,7 +65,10 @@ public class DebugScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mGamePlayModifiedLabel = builder.getActor("gamePlayModifiedLabel");
+
         mCurrentIntrospector = mGame.getGamePlayIntrospector();
+        mCurrentIntrospector.setListener(this::updateGamePlayModifiedLabel);
 
         mMenu = builder.getActor("menu");
         TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
@@ -115,6 +120,8 @@ public class DebugScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+
+        updateGamePlayModifiedLabel();
     }
 
     private void addTitle(String text) {
@@ -192,6 +199,10 @@ public class DebugScreen extends PwStageScreen {
         mGame.getDebugIntrospector().save();
         mGame.getGamePlayIntrospector().save();
         mGame.popScreen();
+    }
+
+    private void updateGamePlayModifiedLabel() {
+        mGamePlayModifiedLabel.setVisible(mGame.getGamePlayIntrospector().hasBeenModified());
     }
 
     private class DebugIntSliderMenuItem extends SliderMenuItem {

@@ -4,8 +4,11 @@
         <Menu id="menu"
               width="620" height="480" topCenter="root.topCenter 0 0"
               labelColumnWidth="300"/>
+
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"
                      imageName="icon-back"/>
+
+        <Label id="gamePlayModifiedLabel" bottomCenter="root.bottomCenter 0 1" style="small">Settings affecting game play have been modified, scores won't be saved</Label>
     </AnchorGroup>
 </gdxui>
