@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -41,7 +43,7 @@ public class Introspector {
     private final Object mObject;
     private final FileHandle mFileHandle;
 
-    private WeakReference<Listener> mListener = new WeakReference<>(null);
+    private HashSet<WeakReference<Listener>> mListeners = new HashSet<>();
 
     public Introspector(Object object, Object reference, FileHandle fileHandle) {
         mClass = object.getClass();
@@ -50,8 +52,8 @@ public class Introspector {
         mFileHandle = fileHandle;
     }
 
-    public void setListener(Listener listener) {
-        mListener = new WeakReference<>(listener);
+    public void addListener(Listener listener) {
+        mListeners.add(new WeakReference<>(listener));
     }
 
     public void load() {
@@ -231,9 +233,15 @@ public class Introspector {
     }
 
     private void notifyModified() {
-        Listener listener = mListener.get();
-        if (listener != null) {
-            listener.onModified();
+        Iterator<WeakReference<Listener>> it = mListeners.iterator();
+        while (it.hasNext()) {
+            WeakReference<Listener> ref = it.next();
+            Listener listener = ref.get();
+            if (listener == null) {
+                it.remove();
+            } else {
+                listener.onModified();
+            }
         }
     }
 }

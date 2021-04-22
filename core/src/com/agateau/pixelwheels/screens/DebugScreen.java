@@ -68,7 +68,7 @@ public class DebugScreen extends PwStageScreen {
         mGamePlayModifiedLabel = builder.getActor("gamePlayModifiedLabel");
 
         mCurrentIntrospector = mGame.getGamePlayIntrospector();
-        mCurrentIntrospector.setListener(this::updateGamePlayModifiedLabel);
+        mCurrentIntrospector.addListener(this::updateGamePlayModifiedLabel);
 
         mMenu = builder.getActor("menu");
         TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
