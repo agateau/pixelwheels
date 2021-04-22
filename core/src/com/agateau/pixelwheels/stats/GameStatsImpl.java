@@ -24,7 +24,7 @@ import com.agateau.utils.CollectionUtils;
 import java.util.HashMap;
 
 public class GameStatsImpl implements GameStats {
-    private final transient IO mIO;
+    private transient IO mIO;
     private transient Listener mListener;
     final HashMap<String, TrackStats> mTrackStats = new HashMap<>();
     final HashMap<String, Integer> mBestChampionshipRank = new HashMap<>();
@@ -39,9 +39,13 @@ public class GameStatsImpl implements GameStats {
     }
 
     public GameStatsImpl(IO io) {
+        setIO(io);
+        mIO.load();
+    }
+
+    public void setIO(IO io) {
         mIO = io;
         mIO.setGameStats(this);
-        mIO.load();
     }
 
     @Override

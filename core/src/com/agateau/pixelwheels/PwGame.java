@@ -58,8 +58,22 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
-    private GameStats mGameStats;
+    private GameStatsImpl mGameStats;
     private RewardManager mRewardManager;
+
+    private GameStatsImpl.IO mNormalGameStatsIO;
+    // Used when GamePlay has been modified, to ensure stats are not recorded
+    private final GameStatsImpl.IO mNoSaveGameStatsIO =
+            new GameStatsImpl.IO() {
+                @Override
+                public void setGameStats(GameStatsImpl gameStats) {}
+
+                @Override
+                public void load() {}
+
+                @Override
+                public void save() {}
+            };
 
     public Assets getAssets() {
         return mAssets;
@@ -80,6 +94,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
                         GamePlay.instance,
                         new GamePlay(),
                         FileUtils.getUserWritableFile("gameplay.xml"));
+        mGamePlayIntrospector.addListener(this::updateGameStatsIO);
+
         mDebugIntrospector =
                 new Introspector(
                         Debug.instance, new Debug(), FileUtils.getUserWritableFile("debug.xml"));
@@ -127,9 +143,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        JsonGameStatsImplIO io =
+        mNormalGameStatsIO =
                 new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStatsImpl(io);
+        mGameStats = new GameStatsImpl(mNormalGameStatsIO);
     }
 
     private void setupRewardManager() {
@@ -223,5 +239,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     public void onGameConfigChanged() {
         mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
         mAudioManager.setMusicMuted(!mGameConfig.playMusic);
+    }
+
+    private void updateGameStatsIO() {
+        boolean modified = mGamePlayIntrospector.hasBeenModified();
+        mGameStats.setIO(modified ? mNoSaveGameStatsIO : mNormalGameStatsIO);
     }
 }
