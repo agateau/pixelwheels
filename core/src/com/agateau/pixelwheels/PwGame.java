@@ -66,13 +66,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private final GameStatsImpl.IO mNoSaveGameStatsIO =
             new GameStatsImpl.IO() {
                 @Override
-                public void setGameStats(GameStatsImpl gameStats) {}
+                public void load(GameStatsImpl gameStats) {}
 
                 @Override
-                public void load() {}
-
-                @Override
-                public void save() {}
+                public void save(GameStatsImpl gameStats) {}
             };
 
     public Assets getAssets() {

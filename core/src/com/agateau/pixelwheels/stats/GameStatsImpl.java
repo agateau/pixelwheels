@@ -31,21 +31,18 @@ public class GameStatsImpl implements GameStats {
     final HashMap<String, Integer> mEvents = new HashMap<>();
 
     public interface IO {
-        void setGameStats(GameStatsImpl gameStats);
+        void load(GameStatsImpl gameStats);
 
-        void load();
-
-        void save();
+        void save(GameStatsImpl gameStats);
     }
 
     public GameStatsImpl(IO io) {
         setIO(io);
-        mIO.load();
+        mIO.load(this);
     }
 
     public void setIO(IO io) {
         mIO = io;
-        mIO.setGameStats(this);
     }
 
     @Override
@@ -110,6 +107,6 @@ public class GameStatsImpl implements GameStats {
         if (mListener != null) {
             mListener.onChanged();
         }
-        mIO.save();
+        mIO.save(this);
     }
 }

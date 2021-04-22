@@ -57,9 +57,9 @@ public class GameStatsImplTests {
     public void testOnChampionshipFinished() {
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
-        GameStats stats = new GameStatsImpl(mStatsIO);
+        GameStatsImpl stats = new GameStatsImpl(mStatsIO);
         stats.onChampionshipFinished(ch1, 4);
-        verify(mStatsIO).save();
+        verify(mStatsIO).save(stats);
 
         stats.onChampionshipFinished(ch1, 3);
         stats.onChampionshipFinished(ch2, 2);
@@ -72,13 +72,13 @@ public class GameStatsImplTests {
     @Test
     public void testRecordIntEvent() {
         // GIVEN empty game stats
-        GameStats stats = new GameStatsImpl(mStatsIO);
+        GameStatsImpl stats = new GameStatsImpl(mStatsIO);
 
         // WHEN a new int event is recorded
         stats.recordIntEvent(GameStats.Event.LEAVING_ROAD, 30);
 
         // THEN the stats are saved
-        verify(mStatsIO).save();
+        verify(mStatsIO).save(stats);
     }
 
     @Test
