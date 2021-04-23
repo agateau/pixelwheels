@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2021 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,20 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.debug;
+package com.agateau.pixelwheels.sound;
 
-/** Debug options */
-public class Debug {
-    public boolean showDebugHud = false;
-    public boolean showDebugLayer = false;
-    public boolean drawVelocities = false;
-    public boolean drawTileCorners = false;
-    public boolean showHudDebugLines = false;
+/** A POJO storing sound-related settings */
+public class SoundSettings {
+    public float driftVolume = 0.6f;
+    public float turboVolume = 0.5f;
+    public float engineVolume = 1f;
 
-    public boolean alwaysShowTouchInput = false;
-    public boolean createSpeedReport = false;
-
-    public int maxSkidmarks = 60;
-
-    public static final Debug instance = new Debug();
+    public static final SoundSettings instance = new SoundSettings();
 }

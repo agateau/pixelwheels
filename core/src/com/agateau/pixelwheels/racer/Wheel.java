@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.racer;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
@@ -73,7 +74,7 @@ public class Wheel implements Disposable {
     }
 
     private final CircularArray<Skidmark> mSkidmarks =
-            new CircularArray<Skidmark>(GamePlay.instance.maxSkidmarks) {
+            new CircularArray<Skidmark>(Debug.instance.maxSkidmarks) {
                 @Override
                 protected Skidmark createInstance() {
                     return new Skidmark();

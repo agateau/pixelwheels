@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.bonus.BonusPool;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
@@ -125,7 +126,7 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
         addComponent(new BonusSpotHitComponent(this));
         addComponent(mAudioComponent);
 
-        if (GamePlay.instance.createSpeedReport) {
+        if (Debug.instance.createSpeedReport) {
             Probe probe = new Probe("speed.dat");
             mVehicle.setProbe(probe);
             addComponent(probe);

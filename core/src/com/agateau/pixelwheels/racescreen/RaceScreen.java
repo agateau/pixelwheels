@@ -114,7 +114,7 @@ public class RaceScreen extends ScreenAdapter {
 
     private void setupMineDropper() {
         // Bind the mine dropper to the free camera for now
-        if (Debug.instance.freeCamera) {
+        if (GamePlay.instance.freeCamera) {
             mGameWorld.addGameObject(new MineDropper(mGame, mGameWorld, mGameRenderer));
         }
     }

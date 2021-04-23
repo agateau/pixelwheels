@@ -77,8 +77,9 @@ public class DebugScreen extends PwStageScreen {
         mCurrentGroup = tabMenuItem.addPage("Race");
         addRange("Viewport width", "viewportWidth", 20, 800, 10);
         addRange("Racer count", "racerCount", 1, 6);
-        addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addRange("Border restitution", "borderRestitution", 1, 50);
+        addCheckBox("One lap only", "oneLapOnly");
+        addCheckBox("Free camera", "freeCamera");
 
         mCurrentGroup = tabMenuItem.addPage("Speed");
         addTitle("Speed");
@@ -94,15 +95,16 @@ public class DebugScreen extends PwStageScreen {
         addRange("Vehicle density", "vehicleDensity", 1, 50);
         addRange("Restitution", "vehicleRestitution", 1, 50);
 
+        mCurrentIntrospector = mGame.getSoundSettingsIntrospector();
         mCurrentGroup = tabMenuItem.addPage("Sound");
         addRange("Drift volume", "driftVolume", 0f, 1f);
         addRange("Turbo volume", "turboVolume", 0f, 1f);
         addRange("Engine volume", "engineVolume", 0f, 1f);
 
-        mCurrentGroup = tabMenuItem.addPage("Misc");
-        addCheckBox("Force touch input", "alwaysShowTouchInput");
         mCurrentIntrospector = mGame.getDebugIntrospector();
-        addCheckBox("One lap only", "oneLapOnly");
+        mCurrentGroup = tabMenuItem.addPage("Misc");
+        addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
+        addCheckBox("Force touch input", "alwaysShowTouchInput");
 
         mCurrentGroup = tabMenuItem.addPage("Debug");
         addCheckBox("Show debug hud", "showDebugHud");
@@ -110,7 +112,6 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("- Draw velocities", "drawVelocities");
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
-        addCheckBox("Free camera", "freeCamera");
 
         builder.getActor("backButton")
                 .addListener(

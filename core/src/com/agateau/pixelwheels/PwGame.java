@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
+import com.agateau.pixelwheels.sound.SoundSettings;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 /** The game */
@@ -58,6 +60,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
+    private Introspector mSoundSettingsIntrospector;
     private GameStatsImpl mGameStats;
     private RewardManager mRewardManager;
 
@@ -84,21 +87,27 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mRewardManager;
     }
 
+    private static Introspector createIntrospector(Object instance, String fileName) {
+        Object reference;
+        try {
+            reference = instance.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("This should never happen");
+        }
+        FileHandle handle = FileUtils.getUserWritableFile(fileName);
+        Introspector introspector = new Introspector(instance, reference, handle);
+        introspector.load();
+        return introspector;
+    }
+
     @Override
     public void create() {
-        mGamePlayIntrospector =
-                new Introspector(
-                        GamePlay.instance,
-                        new GamePlay(),
-                        FileUtils.getUserWritableFile("gameplay.xml"));
+        mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
+        mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
+        mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
+
         mGamePlayIntrospector.addListener(this::updateGameStatsIO);
-
-        mDebugIntrospector =
-                new Introspector(
-                        Debug.instance, new Debug(), FileUtils.getUserWritableFile("debug.xml"));
-
-        mGamePlayIntrospector.load();
-        mDebugIntrospector.load();
 
         mAssets = new Assets();
         mAudioManager = new DefaultAudioManager(mAssets);
@@ -198,6 +207,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     public Introspector getDebugIntrospector() {
         return mDebugIntrospector;
+    }
+
+    public Introspector getSoundSettingsIntrospector() {
+        return mSoundSettingsIntrospector;
     }
 
     public ScreenStack getScreenStack() {

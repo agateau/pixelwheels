@@ -18,7 +18,7 @@
  */
 package com.agateau.pixelwheels.gameinput;
 
-import com.agateau.pixelwheels.GamePlay;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -62,7 +62,7 @@ public class GameInputHandlerFactories {
 
     public static boolean hasMultitouch() {
         return Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)
-                || GamePlay.instance.alwaysShowTouchInput;
+                || Debug.instance.alwaysShowTouchInput;
     }
 
     private static void init() {
