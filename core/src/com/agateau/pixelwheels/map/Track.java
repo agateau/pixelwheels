@@ -19,7 +19,7 @@
 package com.agateau.pixelwheels.map;
 
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
@@ -132,7 +132,7 @@ public class Track implements Disposable {
     }
 
     public int getTotalLapCount() {
-        return Debug.instance.oneLapOnly ? 1 : 3;
+        return GamePlay.instance.oneLapOnly ? 1 : 3;
     }
 
     public TiledMap getMap() {

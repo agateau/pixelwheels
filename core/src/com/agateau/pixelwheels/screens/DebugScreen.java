@@ -31,6 +31,7 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -43,6 +44,7 @@ public class DebugScreen extends PwStageScreen {
     // introspector
     private Introspector mCurrentIntrospector = null;
     private Menu mMenu;
+    private Label mGamePlayModifiedLabel;
 
     public DebugScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -63,7 +65,10 @@ public class DebugScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        mGamePlayModifiedLabel = builder.getActor("gamePlayModifiedLabel");
+
         mCurrentIntrospector = mGame.getGamePlayIntrospector();
+        mCurrentIntrospector.addListener(this::updateGamePlayModifiedLabel);
 
         mMenu = builder.getActor("menu");
         TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
@@ -72,8 +77,9 @@ public class DebugScreen extends PwStageScreen {
         mCurrentGroup = tabMenuItem.addPage("Race");
         addRange("Viewport width", "viewportWidth", 20, 800, 10);
         addRange("Racer count", "racerCount", 1, 6);
-        addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addRange("Border restitution", "borderRestitution", 1, 50);
+        addCheckBox("One lap only", "oneLapOnly");
+        addCheckBox("Free camera", "freeCamera");
 
         mCurrentGroup = tabMenuItem.addPage("Speed");
         addTitle("Speed");
@@ -89,15 +95,16 @@ public class DebugScreen extends PwStageScreen {
         addRange("Vehicle density", "vehicleDensity", 1, 50);
         addRange("Restitution", "vehicleRestitution", 1, 50);
 
+        mCurrentIntrospector = mGame.getSoundSettingsIntrospector();
         mCurrentGroup = tabMenuItem.addPage("Sound");
         addRange("Drift volume", "driftVolume", 0f, 1f);
         addRange("Turbo volume", "turboVolume", 0f, 1f);
         addRange("Engine volume", "engineVolume", 0f, 1f);
 
-        mCurrentGroup = tabMenuItem.addPage("Misc");
-        addCheckBox("Force touch input", "alwaysShowTouchInput");
         mCurrentIntrospector = mGame.getDebugIntrospector();
-        addCheckBox("One lap only", "oneLapOnly");
+        mCurrentGroup = tabMenuItem.addPage("Misc");
+        addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
+        addCheckBox("Force touch input", "alwaysShowTouchInput");
 
         mCurrentGroup = tabMenuItem.addPage("Debug");
         addCheckBox("Show debug hud", "showDebugHud");
@@ -105,7 +112,6 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("- Draw velocities", "drawVelocities");
         addCheckBox("- Draw tile corners", "drawTileCorners");
         addCheckBox("Hud debug lines", "showHudDebugLines");
-        addCheckBox("Free camera", "freeCamera");
 
         builder.getActor("backButton")
                 .addListener(
@@ -115,6 +121,8 @@ public class DebugScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+
+        updateGamePlayModifiedLabel();
     }
 
     private void addTitle(String text) {
@@ -192,6 +200,10 @@ public class DebugScreen extends PwStageScreen {
         mGame.getDebugIntrospector().save();
         mGame.getGamePlayIntrospector().save();
         mGame.popScreen();
+    }
+
+    private void updateGamePlayModifiedLabel() {
+        mGamePlayModifiedLabel.setVisible(mGame.getGamePlayIntrospector().hasBeenModified());
     }
 
     private class DebugIntSliderMenuItem extends SliderMenuItem {

@@ -18,7 +18,6 @@
  */
 package com.agateau.pixelwheels.stats;
 
-import com.agateau.utils.Assert;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,7 +30,6 @@ import java.util.Map;
 
 public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
-    private GameStatsImpl mGameStats;
     private final Gson mGson = new GsonBuilder().setPrettyPrinting().create();
 
     public JsonGameStatsImplIO(FileHandle handle) {
@@ -39,30 +37,24 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     }
 
     @Override
-    public void setGameStats(GameStatsImpl gameStats) {
-        mGameStats = gameStats;
-    }
-
-    @Override
-    public void load() {
-        Assert.check(mGameStats != null, "setGameStats() has not been called");
+    public void load(GameStatsImpl gameStats) {
         if (!mHandle.exists()) {
             return;
         }
-        mGameStats.mTrackStats.clear();
+        gameStats.mTrackStats.clear();
         String json = mHandle.readString("UTF-8");
         JsonParser parser = new JsonParser();
         JsonObject root = parser.parse(json).getAsJsonObject();
         JsonObject trackStatsObject = root.getAsJsonObject("trackStats");
         for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
             String trackId = kv.getKey();
-            TrackStats trackStats = new TrackStats(mGameStats);
-            mGameStats.mTrackStats.put(trackId, trackStats);
+            TrackStats trackStats = new TrackStats(gameStats);
+            gameStats.mTrackStats.put(trackId, trackStats);
             loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
         }
         loadStringIntMap(
-                mGameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
-        loadStringIntMap(mGameStats.mEvents, root.getAsJsonObject("events"));
+                gameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
+        loadStringIntMap(gameStats.mEvents, root.getAsJsonObject("events"));
     }
 
     private void loadTrackStats(TrackStats trackStats, JsonObject object) {
@@ -91,17 +83,16 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     }
 
     @Override
-    public void save() {
-        Assert.check(mGameStats != null, "setGameStats() has not been called");
+    public void save(GameStatsImpl gameStats) {
         JsonObject root = new JsonObject();
         JsonObject trackStatsObject = new JsonObject();
         root.add("trackStats", trackStatsObject);
-        for (Map.Entry<String, TrackStats> kv : mGameStats.mTrackStats.entrySet()) {
+        for (Map.Entry<String, TrackStats> kv : gameStats.mTrackStats.entrySet()) {
             trackStatsObject.add(kv.getKey(), createJsonForTrack(kv.getValue()));
         }
 
-        root.add("bestChampionshipRank", mGson.toJsonTree(mGameStats.mBestChampionshipRank));
-        root.add("events", mGson.toJsonTree(mGameStats.mEvents));
+        root.add("bestChampionshipRank", mGson.toJsonTree(gameStats.mBestChampionshipRank));
+        root.add("events", mGson.toJsonTree(gameStats.mEvents));
         String json = mGson.toJson(root);
         mHandle.writeString(json, false /* append */);
     }

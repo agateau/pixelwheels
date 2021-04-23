@@ -19,13 +19,13 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.BodyIdentifier;
-import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.sound.SoundPlayer;
+import com.agateau.pixelwheels.sound.SoundSettings;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -88,7 +88,7 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
     public void render(AudioClipper clipper) {
         float speed = mRacer.getVehicle().getSpeed();
         float normSpeed = MathUtils.clamp(speed / 50, 0, 1);
-        float maxVolume = GamePlay.instance.engineVolume * clipper.clip(mRacer);
+        float maxVolume = SoundSettings.instance.engineVolume * clipper.clip(mRacer);
         if (mEngineSoundPlayer != null) {
             mEngineSoundPlayer.play(normSpeed, maxVolume);
         }
@@ -99,7 +99,7 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
                             * maxVolume;
             mDriftingSoundPlayer.setPitch(
                     mRacer.getVehicle().isIceDrifting() ? ICE_DRIFT_PITCH : 1f);
-            mDriftingSoundPlayer.setVolume(volume * GamePlay.instance.driftVolume);
+            mDriftingSoundPlayer.setVolume(volume * SoundSettings.instance.driftVolume);
             if (!mDriftingSoundPlayer.isLooping()) {
                 mDriftingSoundPlayer.loop();
             }
@@ -108,7 +108,7 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
         }
 
         if (mTurboTriggered) {
-            mTurboSoundPlayer.setVolume(maxVolume * GamePlay.instance.turboVolume);
+            mTurboSoundPlayer.setVolume(maxVolume * SoundSettings.instance.turboVolume);
             mTurboSoundPlayer.play();
             mTurboTriggered = false;
         }

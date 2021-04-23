@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
@@ -72,7 +73,7 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
         mCameraUpdater =
-                Debug.instance.freeCamera
+                GamePlay.instance.freeCamera
                         ? new FreeCameraUpdater(mWorld)
                         : singlePlayer
                                 ? new SinglePlayerCameraUpdater(mWorld)

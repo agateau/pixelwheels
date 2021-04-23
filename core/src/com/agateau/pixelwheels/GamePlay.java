@@ -18,14 +18,17 @@
  */
 package com.agateau.pixelwheels;
 
-/** Customization of the gameplay */
+/**
+ * Customization of the gameplay
+ *
+ * <p>Any change made to the values of this class at runtime will cause the stats to not be saved.
+ */
 public class GamePlay {
     public int racerCount = 6;
     public int maxDrivingForce = 50;
     public int lowSpeed = 20;
     public int maxSpeed = 270;
     public int maxLateralImpulse = 2;
-    public int maxSkidmarks = 60;
 
     public int stoppedMaxSteer = 100;
     public int lowSpeedMaxSteer = 14;
@@ -48,13 +51,8 @@ public class GamePlay {
     // speed
     public float aiSpeedLimiter = 0.8f;
 
-    public boolean alwaysShowTouchInput = false;
-
-    public boolean createSpeedReport = false;
-
-    public float driftVolume = 0.6f;
-    public float turboVolume = 0.5f;
-    public float engineVolume = 1f;
+    public boolean oneLapOnly = false;
+    public boolean freeCamera = false;
 
     public static final GamePlay instance = new GamePlay();
 }

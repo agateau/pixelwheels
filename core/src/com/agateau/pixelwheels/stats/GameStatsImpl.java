@@ -24,24 +24,25 @@ import com.agateau.utils.CollectionUtils;
 import java.util.HashMap;
 
 public class GameStatsImpl implements GameStats {
-    private final transient IO mIO;
+    private transient IO mIO;
     private transient Listener mListener;
     final HashMap<String, TrackStats> mTrackStats = new HashMap<>();
     final HashMap<String, Integer> mBestChampionshipRank = new HashMap<>();
     final HashMap<String, Integer> mEvents = new HashMap<>();
 
     public interface IO {
-        void setGameStats(GameStatsImpl gameStats);
+        void load(GameStatsImpl gameStats);
 
-        void load();
-
-        void save();
+        void save(GameStatsImpl gameStats);
     }
 
     public GameStatsImpl(IO io) {
+        setIO(io);
+        mIO.load(this);
+    }
+
+    public void setIO(IO io) {
         mIO = io;
-        mIO.setGameStats(this);
-        mIO.load();
     }
 
     @Override
@@ -106,6 +107,6 @@ public class GameStatsImpl implements GameStats {
         if (mListener != null) {
             mListener.onChanged();
         }
-        mIO.save();
+        mIO.save(this);
     }
 }

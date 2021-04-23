@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.DefaultAudioManager;
+import com.agateau.pixelwheels.sound.SoundSettings;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 /** The game */
@@ -58,8 +60,20 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private Introspector mGamePlayIntrospector;
     private Introspector mDebugIntrospector;
-    private GameStats mGameStats;
+    private Introspector mSoundSettingsIntrospector;
+    private GameStatsImpl mGameStats;
     private RewardManager mRewardManager;
+
+    private GameStatsImpl.IO mNormalGameStatsIO;
+    // Used when GamePlay has been modified, to ensure stats are not recorded
+    private final GameStatsImpl.IO mNoSaveGameStatsIO =
+            new GameStatsImpl.IO() {
+                @Override
+                public void load(GameStatsImpl gameStats) {}
+
+                @Override
+                public void save(GameStatsImpl gameStats) {}
+            };
 
     public Assets getAssets() {
         return mAssets;
@@ -73,19 +87,27 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mRewardManager;
     }
 
+    private static Introspector createIntrospector(Object instance, String fileName) {
+        Object reference;
+        try {
+            reference = instance.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException("This should never happen");
+        }
+        FileHandle handle = FileUtils.getUserWritableFile(fileName);
+        Introspector introspector = new Introspector(instance, reference, handle);
+        introspector.load();
+        return introspector;
+    }
+
     @Override
     public void create() {
-        mGamePlayIntrospector =
-                new Introspector(
-                        GamePlay.instance,
-                        new GamePlay(),
-                        FileUtils.getUserWritableFile("gameplay.xml"));
-        mDebugIntrospector =
-                new Introspector(
-                        Debug.instance, new Debug(), FileUtils.getUserWritableFile("debug.xml"));
+        mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
+        mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
+        mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
 
-        mGamePlayIntrospector.load();
-        mDebugIntrospector.load();
+        mGamePlayIntrospector.addListener(this::updateGameStatsIO);
 
         mAssets = new Assets();
         mAudioManager = new DefaultAudioManager(mAssets);
@@ -127,9 +149,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private void setupTrackStats() {
-        JsonGameStatsImplIO io =
+        mNormalGameStatsIO =
                 new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStatsImpl(io);
+        mGameStats = new GameStatsImpl(mNormalGameStatsIO);
     }
 
     private void setupRewardManager() {
@@ -187,6 +209,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return mDebugIntrospector;
     }
 
+    public Introspector getSoundSettingsIntrospector() {
+        return mSoundSettingsIntrospector;
+    }
+
     public ScreenStack getScreenStack() {
         return mScreenStack;
     }
@@ -223,5 +249,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     public void onGameConfigChanged() {
         mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
         mAudioManager.setMusicMuted(!mGameConfig.playMusic);
+    }
+
+    private void updateGameStatsIO() {
+        boolean modified = mGamePlayIntrospector.hasBeenModified();
+        mGameStats.setIO(modified ? mNoSaveGameStatsIO : mNormalGameStatsIO);
     }
 }
