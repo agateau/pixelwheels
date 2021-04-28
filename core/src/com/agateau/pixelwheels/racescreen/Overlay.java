@@ -55,10 +55,9 @@ public class Overlay extends WidgetGroup {
         mContent.setSize(getWidth(), getHeight());
 
         if (mContent.getParent() == null) {
-            // First time mContent is layouted, position on it above the screen and add an animation
+            // First time mContent is layouted, position it above the screen and add an animation
             // to make it fall down (can't do it in setContent() because we don't know the screen
-            // size at
-            // this moment)
+            // size at this moment)
             mContent.setPosition(0, getHeight());
             mContent.addAction(Actions.moveTo(0, 0, IN_DURATION, Interpolation.swingOut));
             addActor(mContent);
