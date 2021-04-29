@@ -63,7 +63,7 @@ import java.util.Map;
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
-    private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
+    private final AnimScriptLoader mAnimScriptLoader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
     private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
@@ -599,7 +599,7 @@ public class UiBuilder {
             String definition = child.getText();
             AnimScript script;
             try {
-                script = mAnimScriptloader.load(definition, mDimParser);
+                script = mAnimScriptLoader.load(definition, mDimParser);
             } catch (AnimScriptLoader.SyntaxException e) {
                 NLog.e("Failed to parse:\n" + definition + "\n\n%s", e);
                 continue;
