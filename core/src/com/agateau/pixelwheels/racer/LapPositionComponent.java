@@ -125,6 +125,14 @@ public class LapPositionComponent implements Racer.Component {
         mLapTime = 0;
     }
 
+    /** Fake completing the race. Used to test the FinishedOverlay. */
+    public void fakeCompletion(float totalTime) {
+        mStatus = Status.COMPLETED;
+        mLapCount = mTrack.getTotalLapCount();
+        mTotalTime = totalTime;
+        mBestLapTime = mTotalTime * 0.8f / mTrack.getTotalLapCount();
+    }
+
     public void markRaceFinished() {
         if (mStatus != Status.RACING) {
             return;

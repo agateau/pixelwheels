@@ -9,7 +9,9 @@ specific screen:
   championship finished
 - `UnlockedVehicle:<id>`: unlocked screen for vehicle `<id>`
 - `UnlockedChampionship:<id>`: unlocked screen for championship `<id>`
-- `FinishedOverlay`: show the FinishedOverlay
+- `FinishedOverlay:<best-lap-rank-record>:<total-time-rank-record>`: show the FinishedOverlay.
+    - If `<best-lap-rank-record>` is a number between 0 and 2 it indicates a new rank in the best lap record
+    - If `<total-time-rank-record>` is a number between 0 and 2 it indicates a new rank in the total time record
 
 ## AGC_UI_TYPE
 

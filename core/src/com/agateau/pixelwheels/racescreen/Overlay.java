@@ -27,7 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 
 /** A generic overlay display */
 public class Overlay extends WidgetGroup {
-    private static final float IN_DURATION = 0.5f;
+    public static final float IN_DURATION = 0.5f;
     private Actor mContent;
 
     public Overlay(TextureRegion dot) {
