@@ -390,6 +390,11 @@ public class UiBuilder {
         return value;
     }
 
+    public AnimScript getAnimScriptConfigValue(String id) throws AnimScriptLoader.SyntaxException {
+        String definition = mConfigMap.get(id);
+        return mAnimScriptLoader.load(definition, mDimParser);
+    }
+
     public <T extends Actor> T getActor(String id) {
         Actor actor;
         if (id.equals(PREVIOUS_ACTOR_ID)) {

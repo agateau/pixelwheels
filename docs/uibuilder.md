@@ -22,4 +22,8 @@ The syntax looks like this:
     <Config>
 ```
 
-The values can be accessed from the code using: `UiBuilder.getFloatConfigValue()` or `UiBuilder.getStringConfigValue()`.
+The config values can be accessed from the code using one of these methods:
+
+- `UiBuilder.getFloatConfigValue()`
+- `UiBuilder.getStringConfigValue()`
+- `UiBuilder.getAnimScriptConfigValue()`

@@ -35,6 +35,10 @@ public class AnimScriptLoader {
     private final Map<String, InstructionDefinition> mInstructionDefinitionMap = new HashMap<>();
 
     public static class SyntaxException extends Exception {
+        SyntaxException(String message) {
+            super(message);
+        }
+
         SyntaxException(StreamTokenizer tokenizer, String message) {
             super(String.format(Locale.US, "line %d: %s", tokenizer.lineno(), message));
         }
@@ -94,6 +98,9 @@ public class AnimScriptLoader {
     }
 
     public AnimScript load(String definition, DimensionParser dimParser) throws SyntaxException {
+        if (definition == null) {
+            throw new SyntaxException("definition is null");
+        }
         Reader reader = new StringReader(definition);
         return load(reader, dimParser);
     }
