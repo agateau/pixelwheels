@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <gdxui>
     <Config>
-        <ConfigItem id="firstPointsIncreaseInterval" value="1"/>
-        <ConfigItem id="pointsIncreaseInterval" value="0.2"/>
-        <ConfigItem id="rankChangeAnimationSpeed" value="0.1"/>
+        <ConfigItem id="firstPointsIncreaseInterval">1</ConfigItem>
+        <ConfigItem id="pointsIncreaseInterval">0.2</ConfigItem>
+        <ConfigItem id="rankChangeAnimationSpeed">0.1</ConfigItem>
     </Config>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>

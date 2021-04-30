@@ -353,7 +353,7 @@ public class UiBuilder {
             if (id.equals("")) {
                 throw new SyntaxException("Missing or empty 'id' attribute in ConfigItem");
             }
-            String value = element.getAttribute("value", "");
+            String value = element.getText();
             mConfigMap.put(id, value);
         }
     }
@@ -379,6 +379,15 @@ public class UiBuilder {
             NLog.e("Invalid float value for id '%s': '%s'", id, value);
             return 0;
         }
+    }
+
+    public String getStringConfigValue(String id) {
+        String value = mConfigMap.get(id);
+        if (value == null) {
+            NLog.e("Unknown config id '%s'", id);
+            return "";
+        }
+        return value;
     }
 
     public <T extends Actor> T getActor(String id) {
