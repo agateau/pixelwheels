@@ -8,9 +8,19 @@ from io import BytesIO
 from struct import unpack
 from typing import List
 
-# Aseprite file format doc:
-# https://github.com/aseprite/aseprite/blob/master/docs/ase-file-specs.md
+"""
+Aseprite file format doc:
 
+https://github.com/aseprite/aseprite/blob/master/docs/ase-file-specs.md
+
+An aseprite image can be considered as a 2D array: layers are the rows and
+frames are the columns.
+
+The main class, AsepriteImage, contains both layers (a list of Layer instances)
+and frames (a list of Frame instances). the Frame class contains Cels
+instances. Cels are the individual cells of the array: the intersection of a
+row and a column.
+"""
 
 MAGIC = 0xA5E0
 FRAME_MAGIC = 0xF1FA
