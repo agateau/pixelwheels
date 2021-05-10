@@ -23,7 +23,8 @@ def pil_image_for_cel(cel: Cel) -> Image:
 
 
 def render_frame(frame: Frame) -> Image:
-    cels = [x for x in frame.cels if x.layer.visible and not x.layer.is_group]
+    cels = [x for x in frame.cels if x.layer.is_really_visible()
+            and not x.layer.is_group]
     assert cels, "No visible layers!"
     dest_image = Image.new("RGBA", frame.image.size)
     for cel in cels:
