@@ -133,6 +133,21 @@ Must contains a Menu element.
 
 ### Table
 
+## Attribute types
+
+### align
+
+One of:
+- center
+- centerLeft
+- centerRight
+- topLeft
+- topCenter
+- topRight
+- bottomLeft
+- bottomCenter
+- bottomRight
+
 ## Configuration values
 
 It's sometimes useful to expose configuration values through a gdxui file, to fine-tune other parameters without restarting the game. This can be done with `ConfigItem` elements.
