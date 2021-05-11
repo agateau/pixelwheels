@@ -133,9 +133,9 @@ Must contains a Menu element.
 
 ### Table
 
-## Config items
+## Configuration values
 
-It's sometimes useful to expose configuration values through a gdxui file, to fine tune other parameters without restarting the game. This can be done with `ConfigItem` elements.
+It's sometimes useful to expose configuration values through a gdxui file, to fine-tune other parameters without restarting the game. This can be done with `ConfigItem` elements.
 
 The syntax looks like this:
 
@@ -148,7 +148,7 @@ The syntax looks like this:
     <Config>
 ```
 
-The config values can be accessed from the code using one of these methods:
+The configuration values can be accessed from the code using one of these methods:
 
 - `UiBuilder.getFloatConfigValue()`
 - `UiBuilder.getStringConfigValue()`
