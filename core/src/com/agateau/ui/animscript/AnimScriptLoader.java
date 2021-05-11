@@ -91,6 +91,8 @@ public class AnimScriptLoader {
                 new FloatArgumentDefinition(FloatArgumentDefinition.Domain.SCALAR),
                 new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION, 0),
                 new InterpolationArgumentDefinition(Interpolation.linear));
+        registerAction("show");
+        registerAction("hide");
         registerAction(
                 "delay", new FloatArgumentDefinition(FloatArgumentDefinition.Domain.DURATION));
         mInstructionDefinitionMap.put("parallel", new ParallelInstructionDefinition(this));

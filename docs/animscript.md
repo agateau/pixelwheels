@@ -9,6 +9,8 @@
     sizeTo width height [duration [interpolation]]
     alpha alpha [duration [interpolation]]
     delay duration
+    show
+    hide
 
 ## interpolation argument
 
