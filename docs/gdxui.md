@@ -33,8 +33,15 @@ To define a size in grid cells, suffix it with `g` (using no suffix is also acce
 ## Common actor attributes
 
 - id (string, optional): a name for the actor. Used to position other actors relative to it and to get the Actor instance from the code.
+- x (dimension, optional)
+- y (dimension, optional)
 - width (dimension, optional)
 - height (dimension, optional)
+- originX (dimension, optional)
+- originY (dimension, optional)
+- visible (boolean, optional)
+- color (string, optional): tint the actor.
+- debug (enum("false", "true", "all"), optional): if set to "true", calls `actor.setDebug(true)`. If set to "all" on a group, calls `Group.debugAll()`.
 
 ## AnchorGroup related attributes
 
