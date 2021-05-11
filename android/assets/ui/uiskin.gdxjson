@@ -69,6 +69,11 @@
             font: default-font,
             fontColor: player1Color
         },
+        speechBubble: {
+            background: "speech-bubble",
+            font: small-font,
+            fontColor: black
+        },
         hud: {
             font: hud-font
         },

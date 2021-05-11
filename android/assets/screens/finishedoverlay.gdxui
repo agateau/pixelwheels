@@ -17,15 +17,10 @@
                 moveBy 5g 0 1
                 rotateBy -360 1
             end
-            //scaleTo 1.5 1.5
-            //parallel
-            //    alpha 1 0.3
-            //    scaleTo 1 1 0.5
-            //end
         </ConfigItem>
     </Config>
     <AnchorGroup id="root" gridSize="20">
-        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g" />
 
         <Table id="scrollableTable"
             topCenter="titleLabel.bottomCenter 0 -1g"
@@ -43,5 +38,24 @@
                 </Else>
             </Items>
         </Menu>
+
+        <Ifdef var="recordBroken">
+            <Image name="congrats-car" y="0" x="960px" visible="false">
+                <Action>
+                    delay 1.8
+                    show
+                    moveBy -12g 0 0.5 pow4Out
+                </Action>
+            </Image>
+            <Label y="4g" x="650px" style="speechBubble" align="center" visible="false">
+                <Action>
+                    delay 2.2
+                    alpha 0
+                    show
+                    alpha 1 0.2
+                </Action>
+                Congratulations!\nYou broke a record!
+            </Label>
+        </Ifdef>
     </AnchorGroup>
 </gdxui>

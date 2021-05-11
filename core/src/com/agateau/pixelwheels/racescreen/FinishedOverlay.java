@@ -260,9 +260,12 @@ public class FinishedOverlay extends Overlay {
     }
 
     private Actor createTablePage(TableType tableType) {
-        UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
         if (!isChampionship()) {
             builder.defineVariable("quickRace");
+        }
+        if (tableType != TableType.CHAMPIONSHIP_TOTAL && didPlayerBreakRecord()) {
+            builder.defineVariable("recordBroken");
         }
         HashMap<Racer, Integer> oldRankMap = null;
         if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
@@ -514,6 +517,15 @@ public class FinishedOverlay extends Overlay {
 
     private boolean isChampionship() {
         return mRaceScreen.getGameType() == GameInfo.GameType.CHAMPIONSHIP;
+    }
+
+    private boolean didPlayerBreakRecord() {
+        for (Racer racer : mRacers) {
+            if (racer.getRecordRanks().brokeRecord()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String getRacerName(Racer racer) {
