@@ -101,7 +101,7 @@ Text is defined by the element text.
 ### Label
 - style (string, optional)
 - align (alignment, optional)
-Text is defined by the element text.
+Text is defined by the element text. You can insert multiple lines using `\n`.
 
 ### ScrollPane
 - style (string, optional)
