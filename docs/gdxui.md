@@ -153,3 +153,22 @@ The configuration values can be accessed from the code using one of these method
 - `UiBuilder.getFloatConfigValue()`
 - `UiBuilder.getStringConfigValue()`
 - `UiBuilder.getAnimScriptConfigValue()`
+
+## Actor actions
+
+An actor can contain one or more `Action` element. The text of this element defines the actions to create for this actor, using [animscript](animscript.md).
+
+## Ifdef / Else
+
+You can create conditional blocks with `Ifdef` and `Else` blocks, like this:
+
+```xml
+<IfDef var="foo">
+    <Label>foo is defined</Label>
+</IfDef>
+<Else>
+    <Label>foo is not defined</Label>
+</Else>
+```
+
+The variable can be defined using `UiBuilder.defineVariable("foo")`.
