@@ -32,9 +32,11 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -70,7 +72,7 @@ public class SelectTrackScreen extends PwStageScreen {
                     Cell cell = null;
                     switch (column) {
                         case RANK:
-                            cell = table.add(value, style);
+                            cell = table.add(createBestIndicatorImage(value));
                             cell.right();
                             break;
                         case RACER:
@@ -83,6 +85,13 @@ public class SelectTrackScreen extends PwStageScreen {
                             break;
                     }
                     return cell;
+                }
+
+                private Image createBestIndicatorImage(String idx) {
+                    TextureRegion region = mGame.getAssets().ui.atlas.findRegion("best-" + idx + "-small");
+                    Image image = new Image(region);
+                    image.pack();
+                    return image;
                 }
             };
     private Button mNextButton;
@@ -156,7 +165,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(4);
+        mTrackSelector.setColumnCount(3);
         mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
