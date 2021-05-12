@@ -39,7 +39,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /** Select your track */
 public class SelectTrackScreen extends PwStageScreen {
@@ -54,16 +53,34 @@ public class SelectTrackScreen extends PwStageScreen {
     private Table mTotalRecordsTable;
     private AnchorGroup root;
 
+    enum RecordTableColumn {
+        RANK,
+        RACER,
+        TIME
+    }
+
     private final TableRowCreator mTableRowCreator =
-            new TableRowCreator(3) {
+            new TableRowCreator(RecordTableColumn.values().length) {
+                @SuppressWarnings("rawtypes")
                 @Override
-                protected Cell<Label> createCell(
-                        Table table, int column, String value, String style) {
-                    Cell<Label> cell = table.add(value, style);
-                    if (column == 1) {
-                        cell.left().growX();
-                    } else {
-                        cell.right();
+                protected Cell createCell(
+                        Table table, int columnIdx, String value, String style) {
+                    RecordTableColumn column = RecordTableColumn.values()[columnIdx];
+                    //noinspection rawtypes
+                    Cell cell = null;
+                    switch (column) {
+                        case RANK:
+                            cell = table.add(value, style);
+                            cell.right();
+                            break;
+                        case RACER:
+                            cell = table.add(value, style);
+                            cell.left().growX();
+                            break;
+                        case TIME:
+                            cell = table.add(value, style);
+                            cell.right();
+                            break;
                     }
                     return cell;
                 }
@@ -209,7 +226,7 @@ public class SelectTrackScreen extends PwStageScreen {
         for (int idx = 0, n = results.size(); idx < n; ++idx) {
             TrackResult result = results.get(idx);
             mTableRowCreator.addRow(
-                    String.format(Locale.US, "%d", idx + 1),
+                    String.valueOf(idx + 1),
                     result.vehicle,
                     StringUtils.formatRaceTime(result.value));
         }
