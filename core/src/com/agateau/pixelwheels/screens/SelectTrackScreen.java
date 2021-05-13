@@ -65,8 +65,7 @@ public class SelectTrackScreen extends PwStageScreen {
             new TableRowCreator(RecordTableColumn.values().length) {
                 @SuppressWarnings("rawtypes")
                 @Override
-                protected Cell createCell(
-                        Table table, int columnIdx, String value, String style) {
+                protected Cell createCell(Table table, int columnIdx, String value, String style) {
                     RecordTableColumn column = RecordTableColumn.values()[columnIdx];
                     //noinspection rawtypes
                     Cell cell = null;
@@ -88,7 +87,8 @@ public class SelectTrackScreen extends PwStageScreen {
                 }
 
                 private Image createBestIndicatorImage(String idx) {
-                    TextureRegion region = mGame.getAssets().ui.atlas.findRegion("best-" + idx + "-small");
+                    TextureRegion region =
+                            mGame.getAssets().ui.atlas.findRegion("best-" + idx + "-small");
                     Image image = new Image(region);
                     image.pack();
                     return image;
