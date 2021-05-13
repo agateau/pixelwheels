@@ -108,10 +108,10 @@ Text is defined by the element text. You can insert multiple lines using `\n`.
 Must contains one child actor.
 
 ### VerticalGroup
-- space (float, optional)
+- spacing (float, optional)
 
 ### HorizontalGroup
-- space (float, optional)
+- spacing (float, optional)
 
 ### CheckBox
 - style (string, optional)
