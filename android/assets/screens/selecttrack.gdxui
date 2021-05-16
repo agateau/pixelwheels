@@ -8,10 +8,10 @@
         <Label id="trackNameLabel" topCenter="menu.bottomCenter 0 0" align="center"/>
         <Label id="unlockHintLabel" topCenter="$prev.bottomCenter 0 -1" align="center" style="small"/>
 
-        <Label id="lapRecordsLabel" topRight="trackNameLabel.bottomCenter -1.5g 0" width="300" align="topCenter" style="small">Best Lap</Label>
+        <Label id="lapRecordsLabel" bottomRight="root.bottomCenter -1.5g 4.5g" width="300" align="topCenter" style="small">Best Lap</Label>
         <Table id="lapRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
 
-        <Label id="totalRecordsLabel" topLeft="trackNameLabel.bottomCenter 1.5g 0" width="300" align="topCenter" style="small">Best Total</Label>
+        <Label id="totalRecordsLabel" bottomLeft="root.bottomCenter 1.5g 4.5g" width="300" align="topCenter" style="small">Best Total</Label>
         <Table id="totalRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
 
         <ImageButton id="backButton"
