@@ -32,14 +32,15 @@ import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /** Select your track */
 public class SelectTrackScreen extends PwStageScreen {
@@ -54,18 +55,43 @@ public class SelectTrackScreen extends PwStageScreen {
     private Table mTotalRecordsTable;
     private AnchorGroup root;
 
+    enum RecordTableColumn {
+        RANK,
+        RACER,
+        TIME
+    }
+
     private final TableRowCreator mTableRowCreator =
-            new TableRowCreator(3) {
+            new TableRowCreator(RecordTableColumn.values().length) {
+                @SuppressWarnings("rawtypes")
                 @Override
-                protected Cell<Label> createCell(
-                        Table table, int column, String value, String style) {
-                    Cell<Label> cell = table.add(value, style);
-                    if (column == 1) {
-                        cell.left().growX();
-                    } else {
-                        cell.right();
+                protected Cell createCell(Table table, int columnIdx, String value, String style) {
+                    RecordTableColumn column = RecordTableColumn.values()[columnIdx];
+                    //noinspection rawtypes
+                    Cell cell = null;
+                    switch (column) {
+                        case RANK:
+                            cell = table.add(createBestIndicatorImage(value));
+                            cell.right();
+                            break;
+                        case RACER:
+                            cell = table.add(value, style);
+                            cell.left().growX();
+                            break;
+                        case TIME:
+                            cell = table.add(value, style);
+                            cell.right();
+                            break;
                     }
                     return cell;
+                }
+
+                private Image createBestIndicatorImage(String idx) {
+                    TextureRegion region =
+                            mGame.getAssets().ui.atlas.findRegion("best-" + idx + "-small");
+                    Image image = new Image(region);
+                    image.pack();
+                    return image;
                 }
             };
     private Button mNextButton;
@@ -139,7 +165,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(4);
+        mTrackSelector.setColumnCount(3);
         mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
@@ -209,7 +235,7 @@ public class SelectTrackScreen extends PwStageScreen {
         for (int idx = 0, n = results.size(); idx < n; ++idx) {
             TrackResult result = results.get(idx);
             mTableRowCreator.addRow(
-                    String.format(Locale.US, "%d", idx + 1),
+                    String.valueOf(idx + 1),
                     result.vehicle,
                     StringUtils.formatRaceTime(result.value));
         }
