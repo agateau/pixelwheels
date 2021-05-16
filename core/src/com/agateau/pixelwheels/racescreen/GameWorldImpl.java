@@ -452,6 +452,9 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     public static Racer.RecordRanks parseFinishedOverlayDebugScreen() {
         Scanner scanner = new Scanner(Constants.DEBUG_SCREEN);
         scanner.useDelimiter(":");
+        if (!scanner.hasNext()) {
+            return null;
+        }
         if (!"FinishedOverlay".equals(scanner.next())) {
             return null;
         }
