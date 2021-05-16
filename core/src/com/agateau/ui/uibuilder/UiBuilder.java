@@ -63,7 +63,7 @@ import java.util.Map;
 public class UiBuilder {
     private static final String PREVIOUS_ACTOR_ID = "$prev";
 
-    private final AnimScriptLoader mAnimScriptloader = new AnimScriptLoader();
+    private final AnimScriptLoader mAnimScriptLoader = new AnimScriptLoader();
     private final DimensionParser mDimParser = new DimensionParser();
     private final ElementTreeTraversor mTraversor = new ElementTreeTraversor();
 
@@ -353,7 +353,7 @@ public class UiBuilder {
             if (id.equals("")) {
                 throw new SyntaxException("Missing or empty 'id' attribute in ConfigItem");
             }
-            String value = element.getAttribute("value", "");
+            String value = element.getText();
             mConfigMap.put(id, value);
         }
     }
@@ -379,6 +379,20 @@ public class UiBuilder {
             NLog.e("Invalid float value for id '%s': '%s'", id, value);
             return 0;
         }
+    }
+
+    public String getStringConfigValue(String id) {
+        String value = mConfigMap.get(id);
+        if (value == null) {
+            NLog.e("Unknown config id '%s'", id);
+            return "";
+        }
+        return value;
+    }
+
+    public AnimScript getAnimScriptConfigValue(String id) throws AnimScriptLoader.SyntaxException {
+        String definition = mConfigMap.get(id);
+        return mAnimScriptLoader.load(definition, mDimParser);
     }
 
     public <T extends Actor> T getActor(String id) {
@@ -599,7 +613,7 @@ public class UiBuilder {
             String definition = child.getText();
             AnimScript script;
             try {
-                script = mAnimScriptloader.load(definition, mDimParser);
+                script = mAnimScriptLoader.load(definition, mDimParser);
             } catch (AnimScriptLoader.SyntaxException e) {
                 NLog.e("Failed to parse:\n" + definition + "\n\n%s", e);
                 continue;

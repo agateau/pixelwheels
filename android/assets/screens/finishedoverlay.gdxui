@@ -1,16 +1,30 @@
 <?xml version="1.0"?>
 <gdxui>
     <Config>
-        <ConfigItem id="firstPointsIncreaseInterval" value="1"/>
-        <ConfigItem id="pointsIncreaseInterval" value="0.2"/>
-        <ConfigItem id="rankChangeAnimationSpeed" value="0.1"/>
+        <ConfigItem id="firstPointsIncreaseInterval">1</ConfigItem>
+        <ConfigItem id="pointsIncreaseInterval">0.2</ConfigItem>
+        <ConfigItem id="rankChangeAnimationSpeed">0.1</ConfigItem>
+
+        <!-- Space between the "best" indicator and its label -->
+        <ConfigItem id="bestIndicatorMargin">10</ConfigItem>
+        <ConfigItem id="bestIndicatorAnimation">
+            alpha 0.0
+            moveBy -5g 15g
+            rotateBy 360
+            parallel
+                alpha 1 0.4
+                moveBy 0 -15g 1 bounceOut
+                moveBy 5g 0 1
+                rotateBy -360 1
+            end
+        </ConfigItem>
     </Config>
     <AnchorGroup id="root" gridSize="20">
-        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g"></Label>
+        <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g" />
 
         <Table id="scrollableTable"
             topCenter="titleLabel.bottomCenter 0 -1g"
-            width="650px"
+            width="750px"
             height="300px"/>
 
         <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 -1g">
@@ -24,5 +38,24 @@
                 </Else>
             </Items>
         </Menu>
+
+        <Ifdef var="recordBroken">
+            <Image name="congrats-car" y="0" x="960px" visible="false">
+                <Action>
+                    delay 1.8
+                    show
+                    moveBy -12g 0 0.5 pow4Out
+                </Action>
+            </Image>
+            <Label y="4g" x="650px" style="speechBubble" align="center" visible="false">
+                <Action>
+                    delay 2.2
+                    alpha 0
+                    show
+                    alpha 1 0.2
+                </Action>
+                Congratulations!\nYou broke a record!
+            </Label>
+        </Ifdef>
     </AnchorGroup>
 </gdxui>

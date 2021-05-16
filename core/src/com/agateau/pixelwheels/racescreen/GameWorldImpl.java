@@ -59,9 +59,10 @@ import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.Sort;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
-    private final boolean mDebugFinishedOverlay = Constants.DEBUG_SCREEN.equals("FinishedOverlay");
+    private static final Racer.RecordRanks DEBUG_RECORD_RANKS = parseFinishedOverlayDebugScreen();
 
     private final PwGame mGame;
     private Track mTrack;
@@ -242,7 +243,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     private boolean haveAllRacersFinished() {
-        if (mDebugFinishedOverlay && mState == State.RUNNING) {
+        if (DEBUG_RECORD_RANKS != null && mState == State.RUNNING) {
             mRacers.shuffle();
             return true;
         }
@@ -265,24 +266,31 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
             entrant.addPoints(points);
 
             LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
-            if (mDebugFinishedOverlay) {
-                entrant.addRaceTime(92.621f + (idx + 1) * 33.123f);
-            } else {
+            if (DEBUG_RECORD_RANKS == null) {
                 entrant.addRaceTime(lapPositionComponent.getTotalTime());
-            }
 
-            if (entrant.isPlayer()) {
-                Racer.RecordRanks ranks = racer.getRecordRanks();
-                // TODO find another way to get the name
-                String name = racer.getVehicle().getName();
-                ranks.lapRecordRank =
-                        stats.addResult(
-                                TrackStats.ResultType.LAP,
-                                new TrackResult(name, lapPositionComponent.getBestLapTime()));
-                ranks.totalRecordRank =
-                        stats.addResult(
-                                TrackStats.ResultType.TOTAL,
-                                new TrackResult(name, lapPositionComponent.getTotalTime()));
+                if (entrant.isPlayer()) {
+                    Racer.RecordRanks ranks = racer.getRecordRanks();
+                    // TODO find another way to get the name
+                    String name = racer.getVehicle().getName();
+                    ranks.lapRecordRank =
+                            stats.addResult(
+                                    TrackStats.ResultType.LAP,
+                                    new TrackResult(name, lapPositionComponent.getBestLapTime()));
+                    ranks.totalRecordRank =
+                            stats.addResult(
+                                    TrackStats.ResultType.TOTAL,
+                                    new TrackResult(name, lapPositionComponent.getTotalTime()));
+                }
+            } else {
+                float totalTime = 92.621f + (idx + 1) * 33.123f;
+                lapPositionComponent.fakeCompletion(totalTime);
+                entrant.addRaceTime(totalTime);
+                if (entrant.isPlayer()) {
+                    Racer.RecordRanks ranks = racer.getRecordRanks();
+                    ranks.lapRecordRank = DEBUG_RECORD_RANKS.lapRecordRank;
+                    ranks.totalRecordRank = DEBUG_RECORD_RANKS.totalRecordRank;
+                }
             }
         }
     }
@@ -439,5 +447,21 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     void forgetTrack() {
         mTrack = null;
+    }
+
+    public static Racer.RecordRanks parseFinishedOverlayDebugScreen() {
+        Scanner scanner = new Scanner(Constants.DEBUG_SCREEN);
+        scanner.useDelimiter(":");
+        if (!"FinishedOverlay".equals(scanner.next())) {
+            return null;
+        }
+        Racer.RecordRanks ranks = new Racer.RecordRanks();
+        if (scanner.hasNextInt()) {
+            ranks.lapRecordRank = scanner.nextInt();
+            if (scanner.hasNextInt()) {
+                ranks.totalRecordRank = scanner.nextInt();
+            }
+        }
+        return ranks;
     }
 }

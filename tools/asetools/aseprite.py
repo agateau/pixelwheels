@@ -8,9 +8,19 @@ from io import BytesIO
 from struct import unpack
 from typing import List
 
-# Aseprite file format doc:
-# https://github.com/aseprite/aseprite/blob/master/docs/ase-file-specs.md
+"""
+Aseprite file format doc:
 
+https://github.com/aseprite/aseprite/blob/master/docs/ase-file-specs.md
+
+An aseprite image can be considered as a 2D array: layers are the rows and
+frames are the columns.
+
+The main class, AsepriteImage, contains both layers (a list of Layer instances)
+and frames (a list of Frame instances). the Frame class contains Cels
+instances. Cels are the individual cells of the array: the intersection of a
+row and a column.
+"""
 
 MAGIC = 0xA5E0
 FRAME_MAGIC = 0xF1FA
@@ -32,12 +42,25 @@ class NotSupported(Exception):
     pass
 
 
+class ChildLayerWithoutParent(Exception):
+    pass
+
+
 class Layer:
-    def __init__(self, image: "AsepriteImage", name: str):
+    def __init__(self, image: "AsepriteImage", name: str, child_level: int):
         self.image = image
         self.visible = True
         self.is_group = False
         self.name = name
+        self.child_level = child_level
+        self.parent = None
+
+    def is_really_visible(self):
+        if not self.visible:
+            return False
+        if self.parent is None:
+            return True
+        return self.parent.is_really_visible()
 
 
 class Cel:
@@ -124,13 +147,27 @@ class AsepriteImage:
         elif chunk_type == SLICE_CHUNK:
             self.read_slice_chunk(chunk_fp)
 
+    def set_layer_parent(self, child_layer):
+        # The parent is the latest added layer whose child level is
+        # child_level - 1
+        wanted_child_level = child_layer.child_level - 1
+        for layer in self.layers[::-1]:
+            if layer.child_level == wanted_child_level:
+                child_layer.parent = layer
+                return
+        raise ChildLayerWithoutParent(child_layer.name)
+
     def read_layer_chunk(self, fp):
         flags, layer_type, child_level, blend_mode, opacity, layer_name_length \
             = unpack("<HHHxxxxHbxxxH", fp.read(18))
         name = str(fp.read(), "utf-8")
-        layer = Layer(self, name)
+        layer = Layer(self, name, child_level)
         layer.visible = bool(flags & 1)
         layer.is_group = layer_type == 1
+
+        if child_level > 0:
+            self.set_layer_parent(layer)
+
         self.layers.append(layer)
         # Create a matching cel in the first frame, so that read_cel_chunk has
         # a place to write

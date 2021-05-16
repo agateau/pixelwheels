@@ -1,10 +1,22 @@
 # asetools
 
-This directory contains tools to work with ase images, created using [Aseprite][]. Unfortunately, Aseprite license is not OSI compliant, even if the source code is available, making it complicated to rely on the tool being available everywhere it's needed. For example on CI servers.
+[Aseprite[[] is a wonderful pixelart tool. Unfortunately its license is not OSI compliant even if the source code is available, making it complicated to rely on the tool being available everywhere it's needed. This is a problem for CI servers or open-source application stores like F-Droid.
 
-To solve this, Pixel Wheels build system uses the `asesplit` tool from this directory to turn ase images into png suitable for usage in the game.
+This directory contains open-source command-line tools to work with Aseprite images.
 
-Another tool: `aseinfo` gives you information about the content of an ase file.
+## Tools
+
+### asesplit
+
+The `asesplit` tool turn ase images into pngs. It can extract individual layers and/or slices, trim and rotate them. Check `aseplit --help` for more details.
+
+### aseinfo
+
+The `aseinfo` gives you information about the content of an ase file.
+
+## Tests
+
+You can run tests using `pytest`. Just run `pytest` in this directory.
 
 ## Warning
 

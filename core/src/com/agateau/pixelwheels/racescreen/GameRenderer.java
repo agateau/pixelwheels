@@ -125,6 +125,8 @@ public class GameRenderer {
         updateMapRendererCamera();
 
         mTilePerformanceCounter.start();
+        // Reset the color in case it was modified by the previous frame
+        mBatch.setColor(1, 1, 1, 1);
         mBatch.disableBlending();
         mRenderer.render(mBackgroundLayerFirstIndexes);
         mBatch.enableBlending();

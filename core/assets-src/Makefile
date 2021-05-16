@@ -101,7 +101,17 @@ $(OUT_DIR)/ui/%_0.png: ui/%.anim.ase
 	# $(*F) is the % part of the target
 	$(ASESPLIT) $< "$(OUT_DIR)/ui/$(*F)_{frame}.png"
 
-ui: $(OUT_UI_STILL_IMAGES) $(OUT_UI_ANIM_FIRST_FRAMES)
+# Slices. We don't know the name of the slices, so use a "timestamp" file to
+# track the target status
+UI_SLICES_IMAGES := $(wildcard ui/*.slices.ase)
+OUT_UI_SLICES_IMAGES := $(UI_SLICES_IMAGES:%.slices.ase=$(OUT_DIR)/%.slices.timestamp)
+
+$(OUT_DIR)/ui/%.slices.timestamp: ui/%.slices.ase
+	mkdir -p $(OUT_DIR)/ui
+	$(ASESPLIT) --split-slices $< "$(OUT_DIR)/ui/{slice}.png"
+	touch $@
+
+ui: $(OUT_UI_STILL_IMAGES) $(OUT_UI_ANIM_FIRST_FRAMES) $(OUT_UI_SLICES_IMAGES)
 
 #- ui/map-icons/ --------------------------------------------------------------
 MAP_ICONS := $(wildcard ui/map-icons/*.ase)

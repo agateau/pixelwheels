@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <Config>
-        <ConfigItem id="entrantTableSpacing" value="24"/>
+        <ConfigItem id="entrantTableSpacing">24</ConfigItem>
     </Config>
     <AnchorGroup id="root" gridSize="20px">
         <Group topCenter="root.topCenter 0 -1g">
