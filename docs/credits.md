@@ -2,7 +2,7 @@
 
 ### Menu
 
-Grey Sector v0.86 by FoxSynergy, <https://opengameart.org/content/grey-sector-8-bit>
+Lightspeed by Thomas Tripon
 
 ### Victory
 

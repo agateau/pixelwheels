@@ -14,8 +14,8 @@ Antonin Gâteau
 ## -= Music =-
 
 Menu:
-"Grey Sector v0.86"
-FoxSynergy
+"Lightspeed"
+Thomas Tripon
 
 Victory:
 "Core Descent (16-bit) v0.9"
