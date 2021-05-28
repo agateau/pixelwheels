@@ -21,6 +21,8 @@ package com.agateau.ui;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
+import com.badlogic.gdx.controllers.ControllerMapping;
+import com.badlogic.gdx.utils.IntMap;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
@@ -60,6 +62,9 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private final HashMap<GamepadButton, Integer> mButtonCodes = new HashMap<>();
 
+    // Maps well-known gamepad buttons to our virtual keys
+    private final IntMap<VirtualKey> mVirtualKeyForButton = new IntMap<>();
+
     private WeakReference<Listener> mListenerRef;
 
     public static GamepadInputMapper[] getInstances() {
@@ -84,6 +89,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         mController = controller;
         if (controller != null) {
             mController.addListener(this);
+            updateVirtualKeyForButton();
         }
     }
 
@@ -185,6 +191,24 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
             setKeyJustPressed(VirtualKey.TRIGGER, pressed);
         } else if (buttonCode == mButtonCodes.get(GamepadButton.BACK)) {
             setKeyJustPressed(VirtualKey.BACK, pressed);
+        } else {
+            VirtualKey key = mVirtualKeyForButton.get(buttonCode);
+            if (key != null) {
+                setKeyJustPressed(key, pressed);
+            }
         }
+    }
+
+    private void updateVirtualKeyForButton() {
+        mVirtualKeyForButton.clear();
+        ControllerMapping mapping = mController.getMapping();
+        mVirtualKeyForButton.put(mapping.buttonDpadDown, VirtualKey.DOWN);
+        mVirtualKeyForButton.put(mapping.buttonDpadUp, VirtualKey.UP);
+        mVirtualKeyForButton.put(mapping.buttonDpadLeft, VirtualKey.LEFT);
+        mVirtualKeyForButton.put(mapping.buttonDpadRight, VirtualKey.RIGHT);
+        mVirtualKeyForButton.put(mapping.buttonA, VirtualKey.TRIGGER);
+        mVirtualKeyForButton.put(mapping.buttonStart, VirtualKey.TRIGGER);
+        mVirtualKeyForButton.put(mapping.buttonB, VirtualKey.BACK);
+        mVirtualKeyForButton.put(mapping.buttonBack, VirtualKey.BACK);
     }
 }
