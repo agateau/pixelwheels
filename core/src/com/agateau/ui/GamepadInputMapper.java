@@ -21,7 +21,6 @@ package com.agateau.ui;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
-import com.badlogic.gdx.controllers.PovDirection;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
@@ -145,51 +144,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
         onButtonPressed(buttonCode, false);
-        return false;
-    }
-
-    @Override
-    public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-        boolean up = false;
-        boolean down = false;
-        boolean left = false;
-        boolean right = false;
-        switch (value) {
-            case center:
-                break;
-            case north:
-                up = true;
-                break;
-            case south:
-                down = true;
-                break;
-            case east:
-                right = true;
-                break;
-            case west:
-                left = true;
-                break;
-            case northEast:
-                up = true;
-                right = true;
-                break;
-            case southEast:
-                down = true;
-                right = true;
-                break;
-            case northWest:
-                up = true;
-                left = true;
-                break;
-            case southWest:
-                down = true;
-                left = true;
-                break;
-        }
-        setKeyJustPressed(VirtualKey.UP, up);
-        setKeyJustPressed(VirtualKey.DOWN, down);
-        setKeyJustPressed(VirtualKey.LEFT, left);
-        setKeyJustPressed(VirtualKey.RIGHT, right);
         return false;
     }
 
