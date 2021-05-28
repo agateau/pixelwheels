@@ -15,7 +15,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'Pixel Wheels'
-        gdxVersion = '1.9.10'
+        gdxVersion = '1.9.11'
         gdxControllersVersion = '2.2.0'
         roboVMVersion = '1.0.0-alpha-04'
         box2DLightsVersion = '1.3'
