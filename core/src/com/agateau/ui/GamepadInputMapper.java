@@ -28,9 +28,6 @@ import java.util.HashMap;
 
 /** An implementation of InputMapper for gamepads */
 public class GamepadInputMapper extends ControllerAdapter implements InputMapper {
-    private static final String TRIGGER_BUTTON_PREF = "trigger";
-    private static final String BACK_BUTTON_PREF = "back";
-
     private enum AxisValue {
         LESS,
         ZERO,
@@ -41,11 +38,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         RELEASED,
         PRESSED,
         JUST_PRESSED
-    }
-
-    public enum GamepadButton {
-        TRIGGER,
-        BACK
     }
 
     public interface Listener {
@@ -60,7 +52,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private final HashMap<VirtualKey, KeyState> mPressedKeys = new HashMap<>();
 
-    private final HashMap<GamepadButton, Integer> mButtonCodes = new HashMap<>();
+    private final HashMap<VirtualKey, Integer> mButtonCodes = new HashMap<>();
 
     // Maps well-known gamepad buttons to our virtual keys
     private final IntMap<VirtualKey> mVirtualKeyForButton = new IntMap<>();
@@ -76,8 +68,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     GamepadInputMapper(Controller controller) {
-        mButtonCodes.put(GamepadButton.TRIGGER, 1);
-        mButtonCodes.put(GamepadButton.BACK, 2);
+        mButtonCodes.put(VirtualKey.TRIGGER, 1);
+        mButtonCodes.put(VirtualKey.BACK, 2);
         setController(controller);
     }
 
@@ -93,12 +85,12 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         }
     }
 
-    public int getButtonCode(GamepadButton button) {
-        return mButtonCodes.get(button);
+    public int getButtonCodeForVirtualKey(VirtualKey key) {
+        return mButtonCodes.get(key);
     }
 
-    public void setButtonCode(GamepadButton button, int code) {
-        mButtonCodes.put(button, code);
+    public void setButtonCodeForVirtualKey(VirtualKey key, int code) {
+        mButtonCodes.put(key, code);
     }
 
     public void setListener(Listener listener) {
@@ -122,18 +114,29 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         }
     }
 
+    private void loadButtonFromPreferences(
+            Preferences preferences, String prefix, VirtualKey virtualKey, int defaultValue) {
+        String preferenceKey = prefix + virtualKey.toString().toLowerCase();
+        int button = preferences.getInteger(preferenceKey, defaultValue);
+        mButtonCodes.put(virtualKey, button);
+    }
+
+    private void saveButtonToPreferences(
+            Preferences preferences, String prefix, VirtualKey virtualKey) {
+        String preferenceKey = prefix + virtualKey.toString().toLowerCase();
+        preferences.putInteger(preferenceKey, mButtonCodes.get(virtualKey));
+    }
+
     @Override
     public void loadConfig(Preferences preferences, String prefix) {
-        mButtonCodes.put(
-                GamepadButton.TRIGGER, preferences.getInteger(prefix + TRIGGER_BUTTON_PREF, 1));
-        mButtonCodes.put(GamepadButton.BACK, preferences.getInteger(prefix + BACK_BUTTON_PREF, 2));
+        loadButtonFromPreferences(preferences, prefix, VirtualKey.TRIGGER, 1);
+        loadButtonFromPreferences(preferences, prefix, VirtualKey.BACK, 2);
     }
 
     @Override
     public void saveConfig(Preferences preferences, String prefix) {
-        preferences.putInteger(
-                prefix + TRIGGER_BUTTON_PREF, mButtonCodes.get(GamepadButton.TRIGGER));
-        preferences.putInteger(prefix + BACK_BUTTON_PREF, mButtonCodes.get(GamepadButton.BACK));
+        saveButtonToPreferences(preferences, prefix, VirtualKey.TRIGGER);
+        saveButtonToPreferences(preferences, prefix, VirtualKey.BACK);
     }
 
     @Override
@@ -187,9 +190,9 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
                 return;
             }
         }
-        if (buttonCode == mButtonCodes.get(GamepadButton.TRIGGER)) {
+        if (buttonCode == mButtonCodes.get(VirtualKey.TRIGGER)) {
             setKeyJustPressed(VirtualKey.TRIGGER, pressed);
-        } else if (buttonCode == mButtonCodes.get(GamepadButton.BACK)) {
+        } else if (buttonCode == mButtonCodes.get(VirtualKey.BACK)) {
             setKeyJustPressed(VirtualKey.BACK, pressed);
         } else {
             VirtualKey key = mVirtualKeyForButton.get(buttonCode);
