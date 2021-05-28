@@ -41,6 +41,7 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.ScreenshotCreator;
+import com.agateau.utils.log.GdxPrinter;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -103,6 +104,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void create() {
+        NLog.addPrinter(new GdxPrinter());
         mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
         mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
         mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
