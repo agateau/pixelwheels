@@ -59,14 +59,6 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
 
     private WeakReference<Listener> mListenerRef;
 
-    public static GamepadInputMapper[] getInstances() {
-        return GamepadInputMappers.getInstance().getMappers();
-    }
-
-    public static GamepadInputMapper getInstance(int idx) {
-        return GamepadInputMappers.getInstance().getMappers()[idx];
-    }
-
     GamepadInputMapper(Controller controller) {
         mButtonCodes.put(VirtualKey.TRIGGER, 1);
         mButtonCodes.put(VirtualKey.BACK, 2);
