@@ -3,7 +3,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
+import com.agateau.pixelwheels.gameinput.EnoughGamepadsChecker;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.ui.ScreenStack;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -18,21 +18,22 @@ import java.util.Locale;
 public class NotEnoughGamepadsScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Maestro mMaestro;
-    private final GamepadInputWatcher mWatcher;
+    private final EnoughGamepadsChecker mEnoughGamepadsChecker;
     private Label mLabel;
 
-    public NotEnoughGamepadsScreen(PwGame game, Maestro maestro, GamepadInputWatcher watcher) {
+    public NotEnoughGamepadsScreen(PwGame game, Maestro maestro, EnoughGamepadsChecker checker) {
         super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
-        mWatcher = watcher;
+        mEnoughGamepadsChecker = checker;
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
                 ScreenStack stack = mGame.getScreenStack();
                 stack.hideBlockingScreen();
-                stack.showBlockingScreen(new NotEnoughGamepadsScreen(mGame, mMaestro, mWatcher));
+                stack.showBlockingScreen(
+                        new NotEnoughGamepadsScreen(mGame, mMaestro, mEnoughGamepadsChecker));
             }
         };
         updateMissingGamepads();
@@ -45,8 +46,8 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
 
     public void updateMissingGamepads() {
         sStringBuilder.setLength(0);
-        IntArray missingGamepads = mWatcher.getMissingGamepads();
-        for (int playerId = 0; playerId < mWatcher.getInputCount(); ++playerId) {
+        IntArray missingGamepads = mEnoughGamepadsChecker.getMissingGamepads();
+        for (int playerId = 0; playerId < mEnoughGamepadsChecker.getInputCount(); ++playerId) {
             boolean ok = !missingGamepads.contains(playerId);
             if (playerId > 0) {
                 sStringBuilder.append("\n");
@@ -75,7 +76,7 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                mMaestro.stopGamepadInputWatcher();
+                                mMaestro.stopEnoughGamepadChecker();
                                 mGame.showMainMenu();
                             }
                         });

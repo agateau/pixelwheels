@@ -23,7 +23,7 @@ import com.agateau.ui.GamepadInputMappers;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.IntArray;
 
-public class GamepadInputWatcher {
+public class EnoughGamepadsChecker {
     public interface Listener {
         void onNotEnoughGamepads();
 
@@ -35,7 +35,7 @@ public class GamepadInputWatcher {
     private final IntArray mMissingGamepads = new IntArray(GamepadInputMappers.MAX_GAMEPAD_COUNT);
     private int mInputCount = 0;
 
-    public GamepadInputWatcher(GameConfig gameConfig, Listener listener) {
+    public EnoughGamepadsChecker(GameConfig gameConfig, Listener listener) {
         mGameConfig = gameConfig;
         mListener = listener;
         GamepadInputMappers.getInstance()
@@ -43,12 +43,12 @@ public class GamepadInputWatcher {
                         new GamepadInputMappers.Listener() {
                             @Override
                             public void onGamepadConnected() {
-                                GamepadInputWatcher.this.onGamepadConnected();
+                                EnoughGamepadsChecker.this.onGamepadConnected();
                             }
 
                             @Override
                             public void onGamepadDisconnected() {
-                                GamepadInputWatcher.this.onGamepadDisconnected();
+                                EnoughGamepadsChecker.this.onGamepadDisconnected();
                             }
                         });
     }

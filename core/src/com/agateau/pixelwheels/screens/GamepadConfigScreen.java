@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.ui.GamepadInputMapper;
+import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.MenuItemListener;
@@ -44,13 +45,12 @@ public class GamepadConfigScreen extends PwStageScreen {
 
     private class GamepadButtonItemController implements GamepadInputMapper.Listener {
         private final ButtonMenuItem mMenuItem;
-        private final GamepadInputMapper.GamepadButton mButtonId;
+        private final VirtualKey mVirtualKey;
         private boolean mEditing = false;
 
-        GamepadButtonItemController(
-                ButtonMenuItem menuItem, GamepadInputMapper.GamepadButton buttonId) {
+        GamepadButtonItemController(ButtonMenuItem menuItem, VirtualKey virtualKey) {
             mMenuItem = menuItem;
-            mButtonId = buttonId;
+            mVirtualKey = virtualKey;
             mMenuItem.addListener(
                     new MenuItemListener() {
                         @Override
@@ -71,14 +71,18 @@ public class GamepadConfigScreen extends PwStageScreen {
             if (mEditing) {
                 text = "Press the gamepad key...";
             } else {
-                text = String.format(Locale.US, "%d", mInputMapper.getButtonCode(mButtonId));
+                text =
+                        String.format(
+                                Locale.US,
+                                "%d",
+                                mInputMapper.getButtonCodeForVirtualKey(mVirtualKey));
             }
             mMenuItem.setText(text);
         }
 
         @Override
         public boolean onButtonPressed(int buttonCode, boolean pressed) {
-            mInputMapper.setButtonCode(mButtonId, buttonCode);
+            mInputMapper.setButtonCodeForVirtualKey(mVirtualKey, buttonCode);
             stopEditing();
             return true;
         }
@@ -108,9 +112,8 @@ public class GamepadConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        createButton(
-                builder.getMenuItem("triggerPadButton"), GamepadInputMapper.GamepadButton.TRIGGER);
-        createButton(builder.getMenuItem("backPadButton"), GamepadInputMapper.GamepadButton.BACK);
+        createButton(builder.getMenuItem("triggerPadButton"), VirtualKey.TRIGGER);
+        createButton(builder.getMenuItem("backPadButton"), VirtualKey.BACK);
 
         builder.getActor("backButton")
                 .addListener(
@@ -122,10 +125,9 @@ public class GamepadConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void createButton(
-            ButtonMenuItem buttonItem, GamepadInputMapper.GamepadButton buttonId) {
+    private void createButton(ButtonMenuItem buttonItem, VirtualKey virtualKey) {
         GamepadButtonItemController controller =
-                new GamepadButtonItemController(buttonItem, buttonId);
+                new GamepadButtonItemController(buttonItem, virtualKey);
         mButtonControllers.add(controller);
     }
 

@@ -91,7 +91,7 @@ public class QuickRaceMaestro extends Maestro {
                 new SelectTrackScreen.Listener() {
                     @Override
                     public void onBackPressed() {
-                        stopGamepadInputWatcher();
+                        stopEnoughGamepadChecker();
                         getGame().popScreen();
                     }
 
@@ -115,13 +115,13 @@ public class QuickRaceMaestro extends Maestro {
 
                     @Override
                     public void onQuitPressed() {
-                        stopGamepadInputWatcher();
+                        stopEnoughGamepadChecker();
                         getGame().showMainMenu();
                     }
 
                     @Override
                     public void onNextTrackPressed() {
-                        stopGamepadInputWatcher();
+                        stopEnoughGamepadChecker();
                         showUnlockedRewardScreen(() -> getGame().showMainMenu());
                     }
                 };

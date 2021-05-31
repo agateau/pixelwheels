@@ -102,7 +102,7 @@ public class ChampionshipMaestro extends Maestro {
                 new SelectChampionshipScreen.Listener() {
                     @Override
                     public void onBackPressed() {
-                        stopGamepadInputWatcher();
+                        stopEnoughGamepadChecker();
                         getGame().popScreen();
                     }
 
@@ -154,7 +154,7 @@ public class ChampionshipMaestro extends Maestro {
 
                     @Override
                     public void onQuitPressed() {
-                        stopGamepadInputWatcher();
+                        stopEnoughGamepadChecker();
                         getGame().showMainMenu();
                     }
 

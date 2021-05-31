@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.ui.GamepadInputMapper;
+import com.agateau.ui.GamepadInputMappers;
 import com.badlogic.gdx.utils.Array;
 
 /** Handle gamepad input, for desktop mode */
@@ -28,7 +29,7 @@ public class GamepadInputHandler extends KeyboardInputHandler {
         final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
-            for (GamepadInputMapper inputMapper : GamepadInputMapper.getInstances()) {
+            for (GamepadInputMapper inputMapper : GamepadInputMappers.getInstance().getMappers()) {
                 mHandlers.add(new GamepadInputHandler(inputMapper));
             }
         }

@@ -19,7 +19,7 @@
 package com.agateau.pixelwheels.gamesetup;
 
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.gameinput.GamepadInputWatcher;
+import com.agateau.pixelwheels.gameinput.EnoughGamepadsChecker;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.NavStageScreen;
@@ -29,27 +29,27 @@ import com.agateau.utils.log.NLog;
 import java.util.Set;
 
 /** Orchestrate changes between screens for a game */
-public abstract class Maestro implements GamepadInputWatcher.Listener {
+public abstract class Maestro implements EnoughGamepadsChecker.Listener {
     private final PwGame mGame;
     private final PlayerCount mPlayerCount;
-    private final GamepadInputWatcher mGamepadInputWatcher;
+    private final EnoughGamepadsChecker mEnoughGamepadsChecker;
 
     private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
 
     public Maestro(PwGame game, PlayerCount playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
-        mGamepadInputWatcher = new GamepadInputWatcher(mGame.getConfig(), this);
-        mGamepadInputWatcher.setInputCount(playerCount.toInt());
+        mEnoughGamepadsChecker = new EnoughGamepadsChecker(mGame.getConfig(), this);
+        mEnoughGamepadsChecker.setInputCount(playerCount.toInt());
     }
 
     public abstract void start();
 
-    public void stopGamepadInputWatcher() {
+    public void stopEnoughGamepadChecker() {
         if (mNotEnoughGamepadsScreen != null) {
             hideNotEnoughGamepadsScreen();
         }
-        mGamepadInputWatcher.setInputCount(0);
+        mEnoughGamepadsChecker.setInputCount(0);
     }
 
     public PlayerCount getPlayerCount() {
@@ -65,7 +65,7 @@ public abstract class Maestro implements GamepadInputWatcher.Listener {
         NLog.e("There aren't enough connected gamepads");
         if (mNotEnoughGamepadsScreen == null) {
             mNotEnoughGamepadsScreen =
-                    new NotEnoughGamepadsScreen(mGame, this, mGamepadInputWatcher);
+                    new NotEnoughGamepadsScreen(mGame, this, mEnoughGamepadsChecker);
             mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
         } else {
             mNotEnoughGamepadsScreen.updateMissingGamepads();
