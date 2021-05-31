@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.sound;
 
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Timer;
 
@@ -46,10 +47,20 @@ class MusicFader extends Timer.Task {
             return;
         }
         if (mMusic != null) {
+            if (mMusic == music) {
+                // Already fading the same music, do nothing
+                return;
+            }
+            NLog.i(
+                    "We are currently fading music A, but we must now fade music B, abruptly stopping A");
             mMusic.stop();
             mMusic.dispose();
         }
         mMusic = music;
-        Timer.post(this);
+        // Do not schedule the fade if it's already scheduled: this can happen when we are asked to
+        // immediately fade another music
+        if (!isScheduled()) {
+            Timer.post(this);
+        }
     }
 }
