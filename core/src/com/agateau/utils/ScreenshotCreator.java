@@ -30,10 +30,11 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class ScreenshotCreator {
-    // %tF  == year-month-day
-    // %<tT == hours:minutes:seconds
-    // %<tL == milliseconds
-    private static final String FILENAME_FORMAT = "screenshot-%tF-%<tT.%<tL.png";
+    // %tF == year-month-day
+    // %tH, %tM, %tS, %tL == hours, minutes, seconds, milliseconds
+    // %< == reuse argument from previous placeholder
+    // See https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html
+    private static final String FILENAME_FORMAT = "screenshot-%tF-%<tH%<tM%<tS.%<tL.png";
     private static Pixmap sPixmap;
     private static PixmapIO.PNG sPNG;
 
