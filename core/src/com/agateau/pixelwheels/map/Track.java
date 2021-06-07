@@ -20,6 +20,8 @@ package com.agateau.pixelwheels.map;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
+import com.agateau.pixelwheels.stats.TrackResult;
+import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
@@ -41,6 +43,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 /** The map of the current game */
 public class Track implements Disposable {
@@ -49,6 +52,8 @@ public class Track implements Disposable {
     private final WeakReference<Championship> mChampionship;
     private final String mId;
     private final String mMapName;
+    private final ArrayList<TrackResult> mDefaultLapRecords = new ArrayList<>();
+    private final ArrayList<TrackResult> mDefaultTotalRecords = new ArrayList<>();
 
     private TiledMap mMap;
     private Material[] mMaterialForTileId;
@@ -75,6 +80,7 @@ public class Track implements Disposable {
         mChampionship = new WeakReference<>(championship);
         mId = id;
         mMapName = name;
+        loadMetaInformation();
     }
 
     public void init() {
@@ -183,6 +189,22 @@ public class Track implements Disposable {
             indexes[idx] = start + idx;
         }
         return indexes;
+    }
+
+    public ArrayList<TrackResult> getDefaultTrackRecords(TrackStats.ResultType resultType) {
+        return resultType == TrackStats.ResultType.LAP ? mDefaultLapRecords : mDefaultTotalRecords;
+    }
+
+    private static void fillRecords(ArrayList<TrackResult> lst, TrackStats.ResultType resultType) {
+        float baseTime = 6 * (resultType == TrackStats.ResultType.TOTAL ? 3 : 1);
+        lst.add(new TrackResult("CPU", baseTime));
+        lst.add(new TrackResult("CPU", baseTime * 1.2f));
+        lst.add(new TrackResult("CPU", baseTime * 1.4f));
+    }
+
+    private void loadMetaInformation() {
+        fillRecords(mDefaultLapRecords, TrackStats.ResultType.LAP);
+        fillRecords(mDefaultTotalRecords, TrackStats.ResultType.TOTAL);
     }
 
     private Material[] computeMaterialForTileId() {
