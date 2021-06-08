@@ -1,10 +1,47 @@
-# Map format
+# Championships and tracks
 
-This document describes how to create a map for Pixel Wheels.
+This document describes how to create championships and tracks (aka maps) for Pixel Wheels.
 
 ## Tools
 
-Maps are created using [Tiled](http://mapeditor.org).
+Track files are created using [Tiled](http://mapeditor.org).
+
+## Files
+
+### Championships
+
+Tracks are grouped in championships. Championships are defined as XML files in the `android/assets/championships` directory.
+
+Championship files are named `<N>.xml` with N starting from 0.
+
+A championship file as the following syntax:
+
+```xml
+<?xml version="1.0"?>
+<!--
+- id is the internal id of the championship. It must be made of [-a-z0-9] characters
+- name is the name of the championship, shown in the game
+-->
+<championship id="..." name="...">
+    <!--
+    - id is the internal id of the track. It must match the filenames for the track (see below)
+    - name is the name of the track, shown in the game
+
+    Add a `track` element for each track of the championship
+    -->
+    <track id="..." name="..." />
+</championship>
+```
+
+Note: championship files are named `<N>.xml` and not `<championship-id>.xml` because libgdx cannot list the content of assets directory (Android limitation), so we load files from 0.xml to N.xml until we hit a value of N for which there is no N.xml file.
+
+### Tracks
+
+Tracks are defined in the `android/assets/maps` directory.
+
+For each track there is a `<id>.tmx` file, where `<id>` is the internal ID defined in the championship file.
+
+TMX files require a `<championship-id>.png` image storing the tiles, and a matching `<championship-id>.tsx` file. TMX and TSX files are created using Tiled.
 
 ## Map layers
 
@@ -65,10 +102,3 @@ The map must have an icon to show in the game user interface.
 Its largest dimension must be 150 pixels.
 
 The path to the icon is `core/assets-src/ui/map-icons/<map-name>.ase`.
-
-## Adding the map to the game
-
-Edit the `Assets` class:
-
-- Add the map to the `tracks` array.
-- Add the map to the relevant championship in `initChampionships()`.
