@@ -36,9 +36,9 @@ public class ChampionshipIO {
         try {
             return load(root);
         } catch (Exception e) {
-            NLog.e("Error loading vehicle from %s: %s", handle.path(), e);
+            NLog.e("Error loading championship from %s: %s", handle.path(), e);
             e.printStackTrace();
-            throw new RuntimeException("Error loading vehicle from " + handle.path());
+            throw new RuntimeException("Error loading championship from " + handle.path());
         }
     }
 
