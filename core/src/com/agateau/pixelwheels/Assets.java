@@ -20,6 +20,7 @@ package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.gameobjet.AnimationObject;
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.ChampionshipIO;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
 import com.agateau.pixelwheels.obstacles.ObstacleIO;
@@ -30,6 +31,8 @@ import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
+import com.agateau.utils.Assert;
+import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -168,20 +171,16 @@ public class Assets implements TextureRegionProvider {
     }
 
     private void initChampionships() {
-        this.championships.add(
-                new Championship("country", "Country Life")
-                        .addTrack("country", "Welcome!")
-                        .addTrack("river", "River"));
-
-        this.championships.add(
-                new Championship("snow", "Square Mountains")
-                        .addTrack("race", "Let it snow")
-                        .addTrack("snow2", "Don't slip!"));
-
-        this.championships.add(
-                new Championship("city", "Pix Cities")
-                        .addTrack("be", "Blocky Town")
-                        .addTrack("tiny-sur-mer", "Tiny sur Mer"));
+        ChampionshipIO io = new ChampionshipIO();
+        for (int idx = 0; ; ++idx) {
+            String fileName = "championships/" + idx + ".xml";
+            FileHandle handle = FileUtils.assets(fileName);
+            if (!handle.exists()) {
+                break;
+            }
+            this.championships.add(io.load(handle));
+        }
+        Assert.check(this.championships.notEmpty(), "No championships found");
     }
 
     private static void removeBorders(TextureRegion region) {

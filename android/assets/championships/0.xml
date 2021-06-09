@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<championship id="country" name="Country Life">
+    <track id="country" name="Welcome!" />
+    <track id="river" name="River" />
+</championship>

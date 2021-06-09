@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<championship id="city" name="Pix Cities">
+    <track id="be" name="Blocky Town" />
+    <track id="tiny-sur-mer" name="Tiny sur Mer" />
+</championship>

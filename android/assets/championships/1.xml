@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<championship id="snow" name="Square Mountains">
+    <track id="race" name="Let it snow" />
+    <track id="snow2" name="Don't slip!" />
+</championship>
