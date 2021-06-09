@@ -33,6 +33,10 @@ import com.badlogic.gdx.utils.XmlReader;
 public class ChampionshipIO {
     public Championship load(FileHandle handle) {
         XmlReader.Element root = FileUtils.parseXml(handle);
+        if (root == null) {
+            NLog.e("Error loading championship from %s", handle.path());
+            throw new RuntimeException("Error loading championship from " + handle.path());
+        }
         try {
             return load(root);
         } catch (Exception e) {
