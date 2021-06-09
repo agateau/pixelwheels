@@ -1,5 +1,27 @@
 <?xml version="1.0"?>
 <championship id="snow" name="Square Mountains">
-    <track id="race" name="Let it snow" />
-    <track id="snow2" name="Don't slip!" />
+    <track id="race" name="Let it snow">
+        <lapRecords>
+            <record value="8"/>
+            <record value="10"/>
+            <record value="12"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="28"/>
+            <record value="31"/>
+            <record value="34"/>
+        </totalRecords>
+    </track>
+    <track id="snow2" name="Don't slip!">
+        <lapRecords>
+            <record value="13"/>
+            <record value="15"/>
+            <record value="17"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="49"/>
+            <record value="52"/>
+            <record value="55"/>
+        </totalRecords>
+    </track>
 </championship>

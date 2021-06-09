@@ -2,15 +2,26 @@
 <championship id="country" name="Country Life">
     <track id="country" name="Welcome!">
         <lapRecords>
-            <record value="1"/>
-            <record value="2"/>
-            <record value="3"/>
+            <record value="8"/>
+            <record value="10"/>
+            <record value="12"/>
         </lapRecords>
         <totalRecords>
-            <record value="3"/>
-            <record value="6"/>
-            <record value="9"/>
+            <record value="30"/>
+            <record value="33"/>
+            <record value="36"/>
         </totalRecords>
     </track>
-    <track id="river" name="River" />
+    <track id="river" name="River">
+        <lapRecords>
+            <record value="10"/>
+            <record value="12"/>
+            <record value="14"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="36"/>
+            <record value="39"/>
+            <record value="42"/>
+        </totalRecords>
+    </track>
 </championship>
