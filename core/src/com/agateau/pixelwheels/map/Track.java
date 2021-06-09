@@ -20,6 +20,8 @@ package com.agateau.pixelwheels.map;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
+import com.agateau.pixelwheels.stats.TrackResult;
+import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Gdx;
@@ -41,6 +43,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 /** The map of the current game */
 public class Track implements Disposable {
@@ -49,6 +52,8 @@ public class Track implements Disposable {
     private final WeakReference<Championship> mChampionship;
     private final String mId;
     private final String mMapName;
+    private final ArrayList<TrackResult> mDefaultLapRecords = new ArrayList<>();
+    private final ArrayList<TrackResult> mDefaultTotalRecords = new ArrayList<>();
 
     private TiledMap mMap;
     private Material[] mMaterialForTileId;
@@ -183,6 +188,10 @@ public class Track implements Disposable {
             indexes[idx] = start + idx;
         }
         return indexes;
+    }
+
+    public ArrayList<TrackResult> getDefaultTrackRecords(TrackStats.ResultType resultType) {
+        return resultType == TrackStats.ResultType.LAP ? mDefaultLapRecords : mDefaultTotalRecords;
     }
 
     private Material[] computeMaterialForTileId() {

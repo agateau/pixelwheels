@@ -21,7 +21,7 @@ package com.agateau.pixelwheels.stats;
 import java.util.ArrayList;
 
 public class TrackStats {
-    private static final int RECORD_COUNT = 3;
+    public static final int RECORD_COUNT = 3;
 
     private final GameStats mGameStats;
     final ArrayList<TrackResult> mLapRecords;

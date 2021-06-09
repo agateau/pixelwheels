@@ -1,5 +1,27 @@
 <?xml version="1.0"?>
 <championship id="city" name="Pix Cities">
-    <track id="be" name="Blocky Town" />
-    <track id="tiny-sur-mer" name="Tiny sur Mer" />
+    <track id="be" name="Blocky Town">
+        <lapRecords>
+            <record value="12"/>
+            <record value="14"/>
+            <record value="16"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="40"/>
+            <record value="43"/>
+            <record value="46"/>
+        </totalRecords>
+    </track>
+    <track id="tiny-sur-mer" name="Tiny sur Mer">
+        <lapRecords>
+            <record value="15"/>
+            <record value="17"/>
+            <record value="19"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="50"/>
+            <record value="53"/>
+            <record value="56"/>
+        </totalRecords>
+    </track>
 </championship>

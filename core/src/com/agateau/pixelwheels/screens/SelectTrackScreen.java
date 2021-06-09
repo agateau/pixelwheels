@@ -41,6 +41,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /** Select your track */
 public class SelectTrackScreen extends PwStageScreen {
@@ -205,39 +207,58 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void updateTrackDetails(Track track) {
         if (mGame.getRewardManager().isTrackUnlocked(track)) {
-            mTrackNameLabel.setText(track.getMapName());
-            mTrackNameLabel.pack();
-
-            mUnlockHintLabel.setVisible(false);
-
-            mLapRecordsLabel.setVisible(true);
-            mTotalRecordsLabel.setVisible(true);
-            TrackStats stats = mGame.getGameStats().getTrackStats(track);
-            updateRecordLabel(mLapRecordsTable, stats.get(TrackStats.ResultType.LAP));
-            updateRecordLabel(mTotalRecordsTable, stats.get(TrackStats.ResultType.TOTAL));
+            updateUnlockedTrackDetails(track);
         } else {
-            mTrackNameLabel.setText("[Locked]");
-
-            mUnlockHintLabel.setVisible(true);
-            mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(track));
-
-            mLapRecordsLabel.setVisible(false);
-            mTotalRecordsLabel.setVisible(false);
-            mLapRecordsTable.clearChildren();
-            mTotalRecordsTable.clearChildren();
+            updateLockedTrackDetails(track);
         }
         root.layout();
     }
 
-    private void updateRecordLabel(Table table, ArrayList<TrackResult> results) {
+    private void updateLockedTrackDetails(Track track) {
+        mTrackNameLabel.setText("[Locked]");
+
+        mUnlockHintLabel.setVisible(true);
+        mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(track));
+
+        mLapRecordsLabel.setVisible(false);
+        mTotalRecordsLabel.setVisible(false);
+        mLapRecordsTable.clearChildren();
+        mTotalRecordsTable.clearChildren();
+    }
+
+    private void updateUnlockedTrackDetails(Track track) {
+        mTrackNameLabel.setText(track.getMapName());
+        mTrackNameLabel.pack();
+
+        mUnlockHintLabel.setVisible(false);
+
+        mLapRecordsLabel.setVisible(true);
+        mTotalRecordsLabel.setVisible(true);
+        updateRecordLabel(mLapRecordsTable, track, TrackStats.ResultType.LAP);
+        updateRecordLabel(mTotalRecordsTable, track, TrackStats.ResultType.TOTAL);
+    }
+
+    private static final Comparator<TrackResult> sTrackResultComparator =
+            (t1, t2) -> Float.compare(t1.value, t2.value);
+
+    private void updateRecordLabel(Table table, Track track, TrackStats.ResultType resultType) {
+        TrackStats stats = mGame.getGameStats().getTrackStats(track);
+        ArrayList<TrackResult> records = new ArrayList<>();
+        records.addAll(stats.get(resultType));
+        records.addAll(track.getDefaultTrackRecords(resultType));
+        Collections.sort(records, sTrackResultComparator);
+        while (records.size() > TrackStats.RECORD_COUNT) {
+            records.remove(records.size() - 1);
+        }
+
         table.clearChildren();
         mTableRowCreator.setTable(table);
-        for (int idx = 0, n = results.size(); idx < n; ++idx) {
-            TrackResult result = results.get(idx);
+        for (int idx = 0, n = records.size(); idx < n; ++idx) {
+            TrackResult record = records.get(idx);
             mTableRowCreator.addRow(
                     String.valueOf(idx + 1),
-                    result.vehicle,
-                    StringUtils.formatRaceTime(result.value));
+                    record.vehicle,
+                    StringUtils.formatRaceTime(record.value));
         }
         table.setHeight(table.getPrefHeight());
     }
