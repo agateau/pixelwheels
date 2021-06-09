@@ -19,17 +19,33 @@ A championship file as the following syntax:
 ```xml
 <?xml version="1.0"?>
 <!--
-- id is the internal id of the championship. It must be made of [-a-z0-9] characters
-- name is the name of the championship, shown in the game
+- `id` is the internal id of the championship. It must be made of [-a-z0-9] characters
+- `name` is the name of the championship, shown in the game
 -->
 <championship id="..." name="...">
     <!--
-    - id is the internal id of the track. It must match the filenames for the track (see below)
-    - name is the name of the track, shown in the game
+    - `id` is the internal id of the track. It must match the filenames for the track (see below)
+    - `name` is the name of the track, shown in the game
 
     Add a `track` element for each track of the championship
     -->
-    <track id="..." name="..." />
+    <track id="..." name="...">
+        <!--
+        Default best lap and total time records.
+        The `value` attribute is the record time, in seconds.
+        There must be 3 entries for each record type.
+        -->
+        <lapRecords>
+            <record value="..."/>
+            <record value="..."/>
+            <record value="..."/>
+        </lapRecords>
+        <totalRecords>
+            <record value="..."/>
+            <record value="..."/>
+            <record value="..."/>
+        </totalRecords>
+    </track>
 </championship>
 ```
 

@@ -18,12 +18,15 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.pixelwheels.stats.TrackResult;
+import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
+import java.util.ArrayList;
 
 /**
  * Loads a championship and its tracks from an XML file
@@ -31,6 +34,8 @@ import com.badlogic.gdx.utils.XmlReader;
  * <p>See docs/map-format.md for details
  */
 public class ChampionshipIO {
+    private static final String DEFAULT_RECORD_VEHICLE = "CPU";
+
     public Championship load(FileHandle handle) {
         XmlReader.Element root = FileUtils.parseXml(handle);
         if (root == null) {
@@ -62,6 +67,22 @@ public class ChampionshipIO {
     private void loadTrack(Championship championship, XmlReader.Element root) {
         String id = root.getAttribute("id");
         String name = root.getAttribute("name");
-        championship.addTrack(id, name);
+        Track track = championship.addTrack(id, name);
+        loadTrackRecords(
+                track.getDefaultTrackRecords(TrackStats.ResultType.LAP), root, "lapRecords");
+        loadTrackRecords(
+                track.getDefaultTrackRecords(TrackStats.ResultType.TOTAL), root, "totalRecords");
+    }
+
+    private void loadTrackRecords(
+            ArrayList<TrackResult> records, XmlReader.Element root, String elementName) {
+        XmlReader.Element element = root.getChildByName(elementName);
+        if (element == null) {
+            return;
+        }
+        for (XmlReader.Element recordElement : element.getChildrenByName("record")) {
+            float value = recordElement.getFloatAttribute("value");
+            records.add(new TrackResult(DEFAULT_RECORD_VEHICLE, value));
+        }
     }
 }

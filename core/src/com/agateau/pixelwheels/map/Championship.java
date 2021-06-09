@@ -30,10 +30,10 @@ public class Championship {
         mName = name;
     }
 
-    public Championship addTrack(String trackId, String trackName) {
+    public Track addTrack(String trackId, String trackName) {
         Track track = new Track(this, trackId, trackName);
         mTracks.add(track);
-        return this;
+        return track;
     }
 
     public String getId() {

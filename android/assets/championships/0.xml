@@ -1,5 +1,16 @@
 <?xml version="1.0"?>
 <championship id="country" name="Country Life">
-    <track id="country" name="Welcome!" />
+    <track id="country" name="Welcome!">
+        <lapRecords>
+            <record value="1"/>
+            <record value="2"/>
+            <record value="3"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="3"/>
+            <record value="6"/>
+            <record value="9"/>
+        </totalRecords>
+    </track>
     <track id="river" name="River" />
 </championship>

@@ -80,7 +80,6 @@ public class Track implements Disposable {
         mChampionship = new WeakReference<>(championship);
         mId = id;
         mMapName = name;
-        loadMetaInformation();
     }
 
     public void init() {
@@ -193,18 +192,6 @@ public class Track implements Disposable {
 
     public ArrayList<TrackResult> getDefaultTrackRecords(TrackStats.ResultType resultType) {
         return resultType == TrackStats.ResultType.LAP ? mDefaultLapRecords : mDefaultTotalRecords;
-    }
-
-    private static void fillRecords(ArrayList<TrackResult> lst, TrackStats.ResultType resultType) {
-        float baseTime = 6 * (resultType == TrackStats.ResultType.TOTAL ? 3 : 1);
-        lst.add(new TrackResult("CPU", baseTime));
-        lst.add(new TrackResult("CPU", baseTime * 1.2f));
-        lst.add(new TrackResult("CPU", baseTime * 1.4f));
-    }
-
-    private void loadMetaInformation() {
-        fillRecords(mDefaultLapRecords, TrackStats.ResultType.LAP);
-        fillRecords(mDefaultTotalRecords, TrackStats.ResultType.TOTAL);
     }
 
     private Material[] computeMaterialForTileId() {
