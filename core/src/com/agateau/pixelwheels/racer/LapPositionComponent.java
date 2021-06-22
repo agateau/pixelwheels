@@ -39,7 +39,12 @@ public class LapPositionComponent implements Racer.Component {
     private float mBestLapTime = -1;
     private float mTotalTime = 0;
     private float mLapTime = 0;
+    /**
+     * Current lap. mLapCount is 1-based: as soon as we cross the finish line to start the first
+     * lap, it is set to 1.
+     */
     private int mLapCount = 0;
+
     private final LapPosition mLapPosition = new LapPosition();
     private Status mStatus = Status.RACING;
 
@@ -147,7 +152,7 @@ public class LapPositionComponent implements Racer.Component {
         }
 
         mStatus = Status.COMPLETED;
-        // Completing one lap represents that percentage of the race
+        // When a vehicle completes one lap, it has raced through that percentage of the race
         float lapPercent = 1f / mTrack.getTotalLapCount();
 
         float lastLapPercent =

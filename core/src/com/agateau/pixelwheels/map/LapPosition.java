@@ -21,7 +21,13 @@ package com.agateau.pixelwheels.map;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 
-/** A POJO to store information about the position within a lap */
+/**
+ * A POJO to store information about the position within a lap
+ *
+ * <p>mSectionId starts from 0 and increases for each section. mSectionDistance is always between 0
+ * and 1. This means the distance between the start line and the current position can be computed by
+ * adding mSectionId and mSectionDistance. This is what getLapDistance() does.
+ */
 public class LapPosition {
     private static final float UNINITIALIZED = -2;
     private int mSectionId = -1;
