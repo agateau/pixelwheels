@@ -61,8 +61,9 @@ public class LapPositionTable {
         }
     }
 
-    public void addSection(int section, Polygon polygon) {
-        mSections.add(new LapSection(section, polygon));
+    public void addSection(Polygon polygon) {
+        int sectionId = mSections.size;
+        mSections.add(new LapSection(sectionId, polygon));
     }
 
     public LapPosition get(int x, int y) {
