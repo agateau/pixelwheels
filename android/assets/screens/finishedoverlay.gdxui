@@ -48,14 +48,13 @@
                     moveBy -12g 0 0.5 pow4Out
                 </Action>
             </Image>
-            <Label y="4g" x="650px" style="speechBubble" align="center" visible="false">
+            <Label id="recordBrokenLabel" y="60px" x="650px" style="speechBubble" align="center" visible="false">
                 <Action>
                     delay 1.4
                     alpha 0
                     show
                     alpha 1 0.2
                 </Action>
-                Congratulations!\nYou broke a record!
             </Label>
         </Ifdef>
     </AnchorGroup>
