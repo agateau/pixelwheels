@@ -130,12 +130,22 @@ public class LapPositionComponent implements Racer.Component {
         mLapTime = 0;
     }
 
-    /** Fake completing the race. Used to test the FinishedOverlay. */
-    public void fakeCompletion(float totalTime) {
+    /**
+     * Fake completing the race. Used to fill the values of racers ranked after the last human and
+     * to test the FinishedOverlay.
+     */
+    public void fakeCompletion(float fakeTotalTime) {
+        float fakeBestLapTime = fakeTotalTime * 0.98f / mTrack.getTotalLapCount();
+
+        // If the real best lap time is not set or worse than our fake one, use the fake one.
+        // The real best lap time can be worse than the fake one if the racer was much faster in the
+        // last lap.
+        if (!hasBestLapTime() || fakeBestLapTime < mBestLapTime) {
+            mBestLapTime = fakeBestLapTime;
+        }
         mStatus = Status.COMPLETED;
         mLapCount = mTrack.getTotalLapCount();
-        mTotalTime = totalTime;
-        mBestLapTime = mTotalTime * 0.8f / mTrack.getTotalLapCount();
+        mTotalTime = fakeTotalTime;
     }
 
     public void markRaceFinished() {
@@ -151,7 +161,6 @@ public class LapPositionComponent implements Racer.Component {
             return;
         }
 
-        mStatus = Status.COMPLETED;
         // When a vehicle completes one lap, it has raced through that percentage of the race
         float lapPercent = 1f / mTrack.getTotalLapCount();
 
@@ -161,10 +170,7 @@ public class LapPositionComponent implements Racer.Component {
                         * lapPercent;
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
-        mTotalTime = mTotalTime / percentageDone;
-        if (!hasBestLapTime()) {
-            mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
-        }
+        fakeCompletion(mTotalTime / percentageDone);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
