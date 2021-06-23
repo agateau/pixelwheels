@@ -11,6 +11,7 @@
             alpha 0.0
             moveBy -5g 15g
             rotateBy 360
+            delay 1.6
             parallel
                 alpha 1 0.4
                 moveBy 0 -15g 1 bounceOut
@@ -42,19 +43,18 @@
         <Ifdef var="recordBroken">
             <Image name="congrats-car" y="0" x="960px" visible="false">
                 <Action>
-                    delay 1.8
+                    delay 1
                     show
                     moveBy -12g 0 0.5 pow4Out
                 </Action>
             </Image>
-            <Label y="4g" x="650px" style="speechBubble" align="center" visible="false">
+            <Label id="recordBrokenLabel" y="60px" x="650px" style="speechBubble" align="center" visible="false">
                 <Action>
-                    delay 2.2
+                    delay 1.4
                     alpha 0
                     show
                     alpha 1 0.2
                 </Action>
-                Congratulations!\nYou broke a record!
             </Label>
         </Ifdef>
     </AnchorGroup>

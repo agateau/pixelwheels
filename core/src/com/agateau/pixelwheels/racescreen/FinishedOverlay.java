@@ -294,6 +294,13 @@ public class FinishedOverlay extends Overlay {
         fillMenu(builder);
         fillTable(table, tableType, oldRankMap);
         if (!mRecordAnimInfos.isEmpty()) {
+            int count = mRecordAnimInfos.size;
+            Label label = builder.getActor("recordBrokenLabel");
+            label.setText(
+                    count == 1
+                            ? "Congratulations!\nYou broke a record!"
+                            : StringUtils.format("Congratulations!\nYou broke %d records!", count));
+            label.pack();
             // Create animations after the Overlay is at its final position, to ensure the table
             // cell coordinates are final
             Timer.schedule(
