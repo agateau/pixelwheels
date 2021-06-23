@@ -39,7 +39,12 @@ public class LapPositionComponent implements Racer.Component {
     private float mBestLapTime = -1;
     private float mTotalTime = 0;
     private float mLapTime = 0;
+    /**
+     * Current lap. mLapCount is 1-based: as soon as we cross the finish line to start the first
+     * lap, it is set to 1.
+     */
     private int mLapCount = 0;
+
     private final LapPosition mLapPosition = new LapPosition();
     private Status mStatus = Status.RACING;
 
@@ -125,12 +130,22 @@ public class LapPositionComponent implements Racer.Component {
         mLapTime = 0;
     }
 
-    /** Fake completing the race. Used to test the FinishedOverlay. */
-    public void fakeCompletion(float totalTime) {
+    /**
+     * Fake completing the race. Used to fill the values of racers ranked after the last human and
+     * to test the FinishedOverlay.
+     */
+    public void fakeCompletion(float fakeTotalTime) {
+        float fakeBestLapTime = fakeTotalTime * 0.98f / mTrack.getTotalLapCount();
+
+        // If the real best lap time is not set or worse than our fake one, use the fake one.
+        // The real best lap time can be worse than the fake one if the racer was much faster in the
+        // last lap.
+        if (!hasBestLapTime() || fakeBestLapTime < mBestLapTime) {
+            mBestLapTime = fakeBestLapTime;
+        }
         mStatus = Status.COMPLETED;
         mLapCount = mTrack.getTotalLapCount();
-        mTotalTime = totalTime;
-        mBestLapTime = mTotalTime * 0.8f / mTrack.getTotalLapCount();
+        mTotalTime = fakeTotalTime;
     }
 
     public void markRaceFinished() {
@@ -146,8 +161,7 @@ public class LapPositionComponent implements Racer.Component {
             return;
         }
 
-        mStatus = Status.COMPLETED;
-        // Completing one lap represents that percentage of the race
+        // When a vehicle completes one lap, it has raced through that percentage of the race
         float lapPercent = 1f / mTrack.getTotalLapCount();
 
         float lastLapPercent =
@@ -156,10 +170,7 @@ public class LapPositionComponent implements Racer.Component {
                         * lapPercent;
         float percentageDone = (mLapCount - 1) * lapPercent + lastLapPercent;
 
-        mTotalTime = mTotalTime / percentageDone;
-        if (!hasBestLapTime()) {
-            mBestLapTime = mTotalTime / mTrack.getTotalLapCount();
-        }
+        fakeCompletion(mTotalTime / percentageDone);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")

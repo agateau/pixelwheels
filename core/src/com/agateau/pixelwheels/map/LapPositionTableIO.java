@@ -121,7 +121,7 @@ public class LapPositionTableIO {
                 line1.p2.x, line1.p2.y
             };
             Polygon polygon = new Polygon(vertices);
-            table.addSection(idx, polygon);
+            table.addSection(polygon);
         }
         return table;
     }
