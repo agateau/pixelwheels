@@ -1,0 +1,9 @@
+All tracks now have predefined best lap and best total time records.
+
+Reworked the way the game tells the player when they broke a personal record.
+
+Reworked Antonin car design.
+
+Fixed gamepad support.
+
+Do not record scores when developer settings affecting gameplay are changed.
