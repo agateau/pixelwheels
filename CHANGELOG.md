@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.20.0 - 2021-06-26
+
+### Added
+
+- All tracks now have predefined best lap and best total time records. This way the first time a player races on a track they are less likely to break "best lap" and "best total time" records (#116).
+
+### Changed
+
+- Reworked the way the game tells the player when they broke a personal record. In the race time table screen, a car drives in congratulating the player, then record indicators arrive next to the matching time in the time table (#111).
+
+- New menu music: Lightspeed by Thomas Tripon.
+
+- Reworked Antonin car design: looks like a surf minibus now. Renamed it to something a bit more obscure (#122).
+
+### Fixed
+
+- Select track screen: hide record tables for locked tracks so that they no longer overlap with the unlock text (#110).
+
+- Select championship screen: make championship track list visible again.
+
+- Do not record scores when developer settings affecting gameplay are changed (#35).
+
+- Fixed gamepad support on Android (#117).
+
+- Fixed crash when saving screenshot on Windows (#120).
+
+- Fixed crash when trying to skip the "championship finished" animation (#118).
+
+- Reduced volume of countdown sounds so they feels less over-saturated on Android.
+
+- Made sure best lap time is never more than `total_time / lap_count` (#106).
+
+### Developers
+
+- Documented gdxui and AnimScript formats.
+
+- asetools: if layer group is invisible, consider all its layers invisible.
+
+- Updated to libgdx 1.9.1.
+
+- Updated to gdx-controllers 2.2.0.
+
+- Championships and tracks are now defined in XML files, making it possible to create or modify championships and tracks without changing the code.
+
 ## 0.19.1 - 2021-04-17
 
 ### Added
