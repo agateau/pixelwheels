@@ -5,6 +5,7 @@
 ### Fixed
 
 - On the finished overlay, the car congratulating you when breaking a best lap or total time record no longer overlaps with the menu buttons on wide screens (#126).
+- Do not count missile hits on vehicles which have finished the race, to prevent farming missile hits (#128).
 
 ## 0.20.0 - 2021-06-26
 
