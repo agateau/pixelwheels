@@ -50,6 +50,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import java.lang.reflect.InvocationTargetException;
 
 /** The game */
 public class PwGame extends Game implements GameConfig.ChangeListener {
@@ -91,8 +92,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private static Introspector createIntrospector(Object instance, String fileName) {
         Object reference;
         try {
-            reference = instance.getClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            reference = instance.getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException
+                | IllegalAccessException
+                | NoSuchMethodException
+                | InvocationTargetException e) {
             e.printStackTrace();
             throw new RuntimeException("This should never happen");
         }
