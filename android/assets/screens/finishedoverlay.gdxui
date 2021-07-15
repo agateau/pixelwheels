@@ -41,14 +41,16 @@
         </Menu>
 
         <Ifdef var="recordBroken">
-            <Image name="congrats-car" y="0" x="960px" visible="false">
+            <Image id="car" name="congrats-car" bottomLeft="root.bottomCenter 12g 0" visible="false">
                 <Action>
                     delay 1
+                    // delay before moveBy so that moveBy happens after anchor layout
+                    moveBy 12g 0
                     show
                     moveBy -12g 0 0.5 pow4Out
                 </Action>
             </Image>
-            <Label id="recordBrokenLabel" y="60px" x="650px" style="speechBubble" align="center" visible="false">
+            <Label id="recordBrokenLabel" bottomCenter="car.topCenter -3g 1g" style="speechBubble" align="center" visible="false">
                 <Action>
                     delay 1.4
                     alpha 0
