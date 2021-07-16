@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -152,7 +154,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
             }
             mChampionshipDetailsLabel.setText(mStringBuilder.toString());
         } else {
-            mChampionshipNameLabel.setText("[Locked]");
+            mChampionshipNameLabel.setText(tr("[Locked]"));
             mChampionshipDetailsLabel.setText(mGame.getRewardManager().getUnlockText(championship));
         }
         mChampionshipNameLabel.pack();

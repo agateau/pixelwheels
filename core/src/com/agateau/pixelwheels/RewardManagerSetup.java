@@ -18,6 +18,9 @@
  */
 package com.agateau.pixelwheels;
 
+import static com.agateau.translations.Translator.tr;
+import static com.agateau.translations.Translator.trn;
+
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.rewards.CounterRewardRule;
 import com.agateau.pixelwheels.rewards.Reward;
@@ -33,6 +36,12 @@ import java.util.Set;
 
 /** Helper class to create the reward manager rules */
 class RewardManagerSetup {
+    private static final int UNLOCK_ROCKET_COUNT = 10;
+    private static final int UNLOCK_HARVESTER_COUNT = 50;
+    private static final int UNLOCK_SANTA_COUNT = 20;
+    private static final int UNLOCK_DARK_M_COUNT = 40;
+    private static final int UNLOCK_JEEP_COUNT = 100;
+
     private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS =
             CollectionUtils.newSet(
                     "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
@@ -80,7 +89,7 @@ class RewardManagerSetup {
                         @Override
                         public String getUnlockText(GameStats gameStats) {
                             return StringUtils.format(
-                                    "Rank 3 or better at %s championship", previous.getName());
+                                    tr("Rank 3 or better at %s championship"), previous.getName());
                         }
 
                         private boolean hasAlreadyRacedChampionshipOrAfter(
@@ -108,23 +117,42 @@ class RewardManagerSetup {
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("rocket")),
                 new CounterRewardRule(
-                        GameStats.Event.MISSILE_HIT, 10, "Hit %d vehicles with a missile"));
+                        GameStats.Event.MISSILE_HIT,
+                        UNLOCK_ROCKET_COUNT,
+                        trn(
+                                "Hit one vehicle with a missile",
+                                "Hit %# vehicles with a missile",
+                                UNLOCK_ROCKET_COUNT)));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("harvester")),
-                new CounterRewardRule(GameStats.Event.LEAVING_ROAD, 50, "Leave road %d times"));
+                new CounterRewardRule(
+                        GameStats.Event.LEAVING_ROAD,
+                        UNLOCK_HARVESTER_COUNT,
+                        trn("Leave road one time", "Leave road %# times", UNLOCK_HARVESTER_COUNT)));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("santa")),
-                new CounterRewardRule(GameStats.Event.PICKED_BONUS, 20, "Pick %d bonuses"));
+                new CounterRewardRule(
+                        GameStats.Event.PICKED_BONUS,
+                        UNLOCK_SANTA_COUNT,
+                        trn("Pick one bonus", "Pick %# bonuses", UNLOCK_SANTA_COUNT)));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("dark-m")),
                 new CounterRewardRule(
-                        GameStats.Event.MISSILE_HIT, 40, "Hit %d vehicles with a missile"));
+                        GameStats.Event.MISSILE_HIT,
+                        UNLOCK_DARK_M_COUNT,
+                        trn(
+                                "Hit one vehicle with a missile",
+                                "Hit %# vehicles with a missile",
+                                UNLOCK_DARK_M_COUNT)));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("jeep")),
-                new CounterRewardRule(GameStats.Event.LEAVING_ROAD, 100, "Leave road %d times"));
+                new CounterRewardRule(
+                        GameStats.Event.LEAVING_ROAD,
+                        UNLOCK_JEEP_COUNT,
+                        trn("Leave road one time", "Leave road %# times", UNLOCK_JEEP_COUNT)));
     }
 }
