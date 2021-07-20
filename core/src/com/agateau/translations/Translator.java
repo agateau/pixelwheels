@@ -82,7 +82,12 @@ public class Translator {
         return sImplementation.tr(source);
     }
 
-    public static String trn(String singular, String plural, int n) {
-        return sImplementation.trn(singular, plural, n);
+    /**
+     * Returns a translated version of a message with a plural form.
+     *
+     * <p>The count in the messages is represented by the %# placeholder.
+     */
+    public static String trn(String singular, String plural, int count) {
+        return sImplementation.trn(singular, plural, count);
     }
 }
