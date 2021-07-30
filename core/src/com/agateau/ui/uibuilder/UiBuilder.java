@@ -215,7 +215,7 @@ public class UiBuilder {
                     } else {
                         pane = new ScrollPane(null, mSkin, styleName);
                     }
-                    Actor child = doBuild(element, null);
+                    Actor child = buildChildren(element, null);
                     if (child != null) {
                         pane.setActor(child);
                     }
@@ -282,6 +282,7 @@ public class UiBuilder {
         mTraversor.defineVariable(name);
     }
 
+    /** The main build function */
     public Actor build(FileHandle handle) {
         return build(handle, null);
     }
@@ -300,7 +301,7 @@ public class UiBuilder {
         mActorForId.clear();
         mMenuItemForId.clear();
         try {
-            return doBuild(parentElement, parentActor);
+            return buildChildren(parentElement, parentActor);
         } catch (SyntaxException e) {
             NLog.e("Parse error: " + e.getMessage());
             return null;
@@ -319,7 +320,10 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
+    /**
+     * Internal build function, public only so that factories can call it to build their children
+     */
+    public Actor buildChildren(XmlReader.Element parentElement, Group parentActor)
             throws SyntaxException {
         final Actor[] root = {null};
         mTraversor.traverseElementTree(
@@ -343,7 +347,7 @@ public class UiBuilder {
                     if (actor instanceof Group
                             && !(actor instanceof ScrollPane)
                             && !(actor instanceof Menu)) {
-                        doBuild(element, (Group) actor);
+                        buildChildren(element, (Group) actor);
                     }
                     mLastAddedActor = actor;
                     if (root[0] == null) {
