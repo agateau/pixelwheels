@@ -18,25 +18,34 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 
 /** A scroll pane to show credits */
 public class CreditsScrollPane extends ScrollPane {
     private static final float AUTO_SCROLL_PX_PER_S = 45;
-    private final VerticalGroup mGroup;
+    private VerticalGroup mGroup;
 
     public CreditsScrollPane() {
         super(null);
-        mGroup = new VerticalGroup();
-        setActor(mGroup);
         setupAutoScroll();
     }
 
     public VerticalGroup getGroup() {
         return mGroup;
+    }
+
+    @Override
+    public void setActor(Actor actor) {
+        super.setActor(actor);
+        if (actor != null) {
+            Assert.check(actor instanceof VerticalGroup, "Child must be a VerticalGroup");
+            mGroup = (VerticalGroup) actor;
+        }
     }
 
     @Override

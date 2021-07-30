@@ -18,19 +18,22 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.CreditsScrollPane;
-import com.agateau.ui.LimitedMarkdownParser;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 class CreditsScreen extends PwStageScreen {
     private final PwGame mGame;
@@ -51,7 +54,15 @@ class CreditsScreen extends PwStageScreen {
         Skin skin = mGame.getAssets().ui.skin;
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, skin);
         builder.registerActorFactory(
-                "CreditsScrollPane", (uiBuilder, element) -> new CreditsScrollPane());
+                "CreditsScrollPane",
+                (uiBuilder, element) -> {
+                    ScrollPane pane = new CreditsScrollPane();
+                    Actor child = uiBuilder.buildChildren(element, null);
+                    if (child != null) {
+                        pane.setActor(child);
+                    }
+                    return pane;
+                });
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/credits.gdxui"));
         root.setFillParent(true);
@@ -59,12 +70,11 @@ class CreditsScreen extends PwStageScreen {
 
         final CreditsScrollPane pane = builder.getActor("creditsScrollPane");
         float stageHeight = getStage().getHeight();
+
         VerticalGroup group = pane.getGroup();
-        addSpacer(group, stageHeight);
-        LimitedMarkdownParser.createActors(group, mGame.getAssets().ui.skin, loadCredits());
+        group.addActorAt(0, createSpacer(stageHeight));
         addSpacer(group, stageHeight * 2 / 3);
-        LimitedMarkdownParser.createActors(
-                group, mGame.getAssets().ui.skin, "Thank you for playing!");
+        group.addActor(new Label(tr("Thank you for playing!"), mGame.getAssets().ui.skin));
         addSpacer(group, stageHeight / 2);
 
         builder.getActor("backButton")
@@ -75,21 +85,30 @@ class CreditsScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+
+        for (Actor actor : group.getChildren()) {
+            if (actor instanceof Label) {
+                Label label = (Label) actor;
+                label.setAlignment(Align.center);
+                label.setWrap(true);
+                label.setWidth(group.getWidth());
+                label.setHeight(label.getPrefHeight());
+            }
+        }
     }
 
     private void addSpacer(VerticalGroup group, float height) {
+        group.addActor(createSpacer(height));
+    }
+
+    private Actor createSpacer(float height) {
         Actor spacer = new Actor();
         spacer.setSize(1, height);
-        group.addActor(spacer);
+        return spacer;
     }
 
     @Override
     public void onBackPressed() {
         mGame.popScreen();
-    }
-
-    private String loadCredits() {
-        FileHandle handle = FileUtils.assets("credits.md");
-        return handle.readString("utf-8");
     }
 }
