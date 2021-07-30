@@ -3,20 +3,20 @@
     <AnchorGroup id="root" gridSize="20">
         <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="500px" height="540px">
             <VerticalGroup>
-                <Label style="mdH1">Pixel Wheels</Label>
+                <Label style="creditsTitle">Pixel Wheels</Label>
                 <Label/>
                 <Label>An open-source racing game</Label>
                 <Label/>
-                <Label style="mdH2">-= Code =-</Label>
+                <Label style="creditsSection">-= Code =-</Label>
                 <Label/>
                 <Label>Aurélien Gâteau</Label>
                 <Label/>
-                <Label style="mdH2">-= Pixels =-</Label>
+                <Label style="creditsSection">-= Pixels =-</Label>
                 <Label/>
                 <Label>Aurélien Gâteau</Label>
                 <Label>Antonin Gâteau</Label>
                 <Label/>
-                <Label style="mdH2">-= Music =-</Label>
+                <Label style="creditsSection">-= Music =-</Label>
                 <Label/>
                 <Label>Menu:</Label>
                 <Label>"Lightspeed"</Label>
@@ -38,7 +38,7 @@
                 <Label>"Bouncing Baal v0.95"</Label>
                 <Label>FoxSynergy</Label>
                 <Label/>
-                <Label style="mdH2">-= Sound Effects =-</Label>
+                <Label style="creditsSection">-= Sound Effects =-</Label>
                 <Label/>
                 <Label>"Car tire squeal skid loop"</Label>
                 <Label>Tom Haigh</Label>
@@ -49,7 +49,7 @@
                 <Label>Other sound effects</Label>
                 <Label>Aurélien Gâteau</Label>
                 <Label/>
-                <Label style="mdH2">-= Fonts =-</Label>
+                <Label style="creditsSection">-= Fonts =-</Label>
                 <Label/>
                 <Label>Xolonium</Label>
                 <Label>Severin Meyer</Label>
@@ -57,7 +57,7 @@
                 <Label>Kwajong</Label>
                 <Label>Tup Wanders</Label>
                 <Label/>
-                <Label style="mdH2">-= Beta testers =-</Label>
+                <Label style="creditsSection">-= Beta testers =-</Label>
                 <Label/>
                 <Label>Antonin Gâteau</Label>
                 <Label>Guillaume Roche</Label>
@@ -65,7 +65,7 @@
                 <Label>Many bug reporters</Label>
                 <Label>on GitHub (thank you!)</Label>
                 <Label/>
-                <Label style="mdH2">-= Made with =-</Label>
+                <Label style="creditsSection">-= Made with =-</Label>
                 <Label/>
                 <Label>LibGDX</Label>
                 <Label>Tiled</Label>
