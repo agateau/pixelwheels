@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.menu;
 
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -33,10 +34,11 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
         final String text;
         final T data;
 
-        Entry(Drawable drawable, String text, T value) {
+        Entry(Drawable drawable, String text, T data) {
+            Assert.check(data != null, "data must not be null");
             this.drawable = drawable;
             this.text = text;
-            this.data = value;
+            this.data = data;
         }
     }
 
@@ -96,7 +98,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
     }
 
     public void addEntry(String text, T data) {
-        mEntries.add(new Entry<>(null, text, data));
+        addEntry(null, text, data);
     }
 
     public void addEntry(Drawable drawable, String text, T data) {
@@ -110,7 +112,7 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
 
     public void setCurrentData(T data) {
         for (int idx = 0; idx < mEntries.size; ++idx) {
-            if (mEntries.get(idx).data == data) {
+            if (mEntries.get(idx).data.equals(data)) {
                 setCurrentIndex(idx);
                 return;
             }
