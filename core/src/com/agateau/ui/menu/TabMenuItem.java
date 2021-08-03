@@ -115,6 +115,14 @@ public class TabMenuItem extends Actor implements MenuItem {
         return group;
     }
 
+    public void setCurrentPage(MenuItemGroup group) {
+        for (int idx = 0; idx < mPages.size; ++idx) {
+            if (mPages.get(idx).group == group) {
+                setCurrentTab(idx);
+            }
+        }
+    }
+
     @Override
     public Actor getActor() {
         return this;
