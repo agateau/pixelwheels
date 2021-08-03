@@ -76,6 +76,10 @@ public class ConfigScreen extends PwStageScreen {
                             "Pixel Wheels is free, but you can support its\ndevelopment in various ways."),
                     tr("VISIT SUPPORT PAGE"));
 
+    Menu mMenu;
+    TabMenuItem mTabMenuItem;
+    MenuItemGroup mLanguageGroup;
+
     interface GameInputHandlerConfigScreenFactory {
         Screen createScreen(PwGame game, int playerIdx);
     }
@@ -111,27 +115,16 @@ public class ConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
-        menu.setLabelColumnWidth(250);
+        mMenu = builder.getActor("menu");
+        mMenu.setLabelColumnWidth(250);
 
-        TabMenuItem tab = new TabMenuItem(menu);
-        menu.addItem(tab);
-        {
-            MenuItemGroup group = tab.addPage("Input");
-
-            if (PlatformUtils.isDesktop()) {
-                for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                    setupInputSelector(menu, group, "Player " + (idx + 1), idx);
-                }
-            } else {
-                setupInputSelector(menu, group, "Input", 0);
-            }
-        }
+        mTabMenuItem = new TabMenuItem(mMenu);
+        mMenu.addItem(mTabMenuItem);
 
         {
-            MenuItemGroup group = tab.addPage(tr("Audio & Video"));
+            MenuItemGroup group = mTabMenuItem.addPage(tr("Audio & Video"));
 
-            final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(menu);
+            final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(mMenu);
             soundFxSwitch.setChecked(gameConfig.playSoundFx);
             soundFxSwitch
                     .getActor()
@@ -145,7 +138,7 @@ public class ConfigScreen extends PwStageScreen {
                             });
             group.addItemWithLabel(tr("Sound FX:"), soundFxSwitch);
 
-            final SwitchMenuItem musicSwitch = new SwitchMenuItem(menu);
+            final SwitchMenuItem musicSwitch = new SwitchMenuItem(mMenu);
             musicSwitch.setChecked(gameConfig.playMusic);
             musicSwitch
                     .getActor()
@@ -160,7 +153,7 @@ public class ConfigScreen extends PwStageScreen {
             group.addItemWithLabel(tr("Music:"), musicSwitch);
 
             if (PlatformUtils.isDesktop()) {
-                final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
+                final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(mMenu);
                 fullscreenSwitch.setChecked(gameConfig.fullscreen);
                 fullscreenSwitch
                         .getActor()
@@ -175,14 +168,43 @@ public class ConfigScreen extends PwStageScreen {
                                 });
                 group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
             }
-
-            final SelectorMenuItem<String> languageItem =
-                    createLanguageSelectorItem(menu, gameConfig);
-            group.addItemWithLabel(tr("Language:"), languageItem);
         }
 
         {
-            MenuItemGroup group = tab.addPage(tr("About"));
+            MenuItemGroup group = mTabMenuItem.addPage("Input");
+
+            if (PlatformUtils.isDesktop()) {
+                for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+                    setupInputSelector(mMenu, group, "Player " + (idx + 1), idx);
+                }
+            } else {
+                setupInputSelector(mMenu, group, "Input", 0);
+            }
+        }
+
+        {
+            MenuItemGroup group = mTabMenuItem.addPage(tr("Others"));
+            mLanguageGroup = group;
+
+            SelectorMenuItem<String> languageItem = createLanguageSelectorItem(gameConfig);
+            group.addItemWithLabel(tr("Language:"), languageItem);
+            group.addSpacer();
+
+            ButtonMenuItem developerButton = new ButtonMenuItem(mMenu, tr("DEVELOPER OPTIONS"));
+            developerButton
+                    .getActor()
+                    .addListener(
+                            new ClickListener() {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    mGame.pushScreen(new DebugScreen(mGame));
+                                }
+                            });
+            group.addItemWithLabel(tr("Internal:"), developerButton);
+        }
+
+        {
+            MenuItemGroup group = mTabMenuItem.addPage(tr("About"));
             group.setWidth(400);
             group.addLabel(StringUtils.format(tr("Pixel Wheels %s"), VersionInfo.VERSION));
             group.addButton(tr("CREDITS"))
@@ -205,21 +227,6 @@ public class ConfigScreen extends PwStageScreen {
                             });
         }
 
-        {
-            MenuItemGroup group = tab.addPage(tr("Misc"));
-            ButtonMenuItem developerButton = new ButtonMenuItem(menu, tr("DEVELOPER OPTIONS"));
-            developerButton
-                    .getActor()
-                    .addListener(
-                            new ClickListener() {
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
-                                    mGame.pushScreen(new DebugScreen(mGame));
-                                }
-                            });
-            group.addItemWithLabel(tr("Internal:"), developerButton);
-        }
-
         builder.getActor("backButton")
                 .addListener(
                         new ClickListener() {
@@ -230,8 +237,8 @@ public class ConfigScreen extends PwStageScreen {
                         });
     }
 
-    private SelectorMenuItem<String> createLanguageSelectorItem(Menu menu, GameConfig gameConfig) {
-        final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(menu);
+    private SelectorMenuItem<String> createLanguageSelectorItem(GameConfig gameConfig) {
+        final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(mMenu);
         for (Language language : Language.ALL) {
             languageItem.addEntry(language.name, language.id);
         }
@@ -244,9 +251,18 @@ public class ConfigScreen extends PwStageScreen {
                             public void changed(ChangeEvent event, Actor actor) {
                                 gameConfig.languageId = languageItem.getCurrentData();
                                 gameConfig.flush();
+                                changeScreenLanguage();
                             }
                         });
         return languageItem;
+    }
+
+    private void changeScreenLanguage() {
+        ConfigScreen screen = new ConfigScreen(mGame);
+        // Reselect the language selector to make the replace seamless
+        screen.mTabMenuItem.setCurrentPage(screen.mLanguageGroup);
+        screen.mMenu.setCurrentItem(screen.mLanguageGroup);
+        mGame.replaceScreen(screen);
     }
 
     class InputSelectorController {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-30 19:20+0200\n"
+"POT-Creation-Date: 2021-08-03 13:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,61 +80,65 @@ msgstr ""
 msgid "[Locked]"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:75
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:76
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:76
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
 msgid "VISIT SUPPORT PAGE"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:131
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:132
 msgid "Audio & Video"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
 msgid "Sound FX:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "Music:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "Fullscreen:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:180
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+msgid "Language:"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 msgid "About"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:182
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:187
 msgid "Pixel Wheels %s"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:188
 msgid "CREDITS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgid "Misc"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgid "DEVELOPER OPTIONS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "Internal:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:299
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:323
 msgid "%s:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:301
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:325
 msgid "CONFIGURE"
 msgstr ""
 
@@ -287,7 +291,7 @@ msgid "-= Pixels =-"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:62
+#: android/assets/screens/credits.gdxui:66
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -391,41 +395,49 @@ msgid "Tup Wanders"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:60
-msgid "-= Beta testers =-"
+msgid "-= Video Editor =-"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:63
+#: android/assets/screens/credits.gdxui:62
+msgid "Clara Gâteau"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:64
+msgid "-= Beta Testers =-"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:67
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:65
+#: android/assets/screens/credits.gdxui:69
 msgid "Many bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:66
+#: android/assets/screens/credits.gdxui:70
 msgid "on GitHub (thank you!)"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:68
+#: android/assets/screens/credits.gdxui:72
 msgid "-= Made with =-"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:70
+#: android/assets/screens/credits.gdxui:74
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:71
+#: android/assets/screens/credits.gdxui:75
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:76
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:73
+#: android/assets/screens/credits.gdxui:77
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:74
+#: android/assets/screens/credits.gdxui:78
 msgid "Android Studio"
 msgstr ""
