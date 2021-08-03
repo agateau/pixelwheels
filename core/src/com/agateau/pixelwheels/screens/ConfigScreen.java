@@ -22,6 +22,7 @@ import static com.agateau.translations.Translator.tr;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
+import com.agateau.pixelwheels.Language;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
@@ -174,6 +175,10 @@ public class ConfigScreen extends PwStageScreen {
                                 });
                 group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
             }
+
+            final SelectorMenuItem<String> languageItem =
+                    createLanguageSelectorItem(menu, gameConfig);
+            group.addItemWithLabel(tr("Language:"), languageItem);
         }
 
         {
@@ -223,6 +228,25 @@ public class ConfigScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+    }
+
+    private SelectorMenuItem<String> createLanguageSelectorItem(Menu menu, GameConfig gameConfig) {
+        final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(menu);
+        for (Language language : Language.ALL) {
+            languageItem.addEntry(language.name, language.id);
+        }
+        languageItem.setCurrentData(gameConfig.languageId);
+        languageItem
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.languageId = languageItem.getCurrentData();
+                                gameConfig.flush();
+                            }
+                        });
+        return languageItem;
     }
 
     class InputSelectorController {

@@ -121,7 +121,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mAudioManager = new DefaultAudioManager(mAssets);
         setupCursorManager();
         setupConfig();
-        setupTranslations();
         setupTrackStats();
         setupRewardManager();
         Box2D.init();
@@ -129,8 +128,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         showMainMenu();
     }
 
-    private void setupTranslations() {
-        Translator.Implementation impl = GettextImplementation.load(null);
+    private void loadTranslations() {
+        NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
+        Translator.Implementation impl = GettextImplementation.load(mGameConfig.languageId);
         Translator.setImplementation(impl);
     }
 
@@ -263,6 +263,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     public void onGameConfigChanged() {
         mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
         mAudioManager.setMusicMuted(!mGameConfig.playMusic);
+        loadTranslations();
     }
 
     private void updateGameStatsIO() {

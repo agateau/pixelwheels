@@ -2,9 +2,11 @@
 
 ## Adding a new translation
 
-Copy `po/messages.pot` to `po/your_LOCALE.po`
+- Copy `po/messages.pot` to `po/{language}.po` (or `po/{language}_{COUNTRY}.po` if you want to create a country-specific variant).
 
-Translate the strings in the new .po file using a PO editor ([poedit][], [lokalize][], or even a plain text editor)
+- Translate the strings in the new .po file using a PO editor ([poedit][], [lokalize][], or even a plain text editor).
+
+- Edit `core/src/com/agateau/pixelwheels/Language.java`: add your translation to the `ALL` array.
 
 [poedit]: https://www.poedit.net/
 
