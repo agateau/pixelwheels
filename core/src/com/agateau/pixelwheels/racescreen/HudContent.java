@@ -140,7 +140,8 @@ public class HudContent {
             rankLabel.pack();
 
             mStringBuilder.setLength(0);
-            mStringBuilder.append("Lap ").append(lapCount).append('/').append(totalLapCount);
+            // £ has been hijacked to be the checkered flag in this font
+            mStringBuilder.append("£ ").append(lapCount).append('/').append(totalLapCount);
             lapLabel.setText(mStringBuilder);
             lapLabel.pack();
 

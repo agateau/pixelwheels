@@ -79,7 +79,8 @@ public class UiAssets {
         // hud-rank-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 56;
-        parameter.characters = "1234567890thsrdneméèP:";
+        // £ has been hijacked to be the checkered flag in Xolonium-Regular
+        parameter.characters = "1234567890thsrdneméèP:£";
         parameter.borderWidth = 0.5f;
         this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
