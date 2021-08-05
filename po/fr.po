@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-03 13:28+0200\n"
-"PO-Revision-Date: 2021-08-03 13:33+0200\n"
+"POT-Creation-Date: 2021-08-05 10:23+0200\n"
+"PO-Revision-Date: 2021-08-05 10:24+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -39,6 +39,30 @@ msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] ""
 msgstr[1] ""
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
+msgid "1st"
+msgstr "1er"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
+msgid "2nd"
+msgstr "2e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
+msgid "3rd"
+msgstr "3e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
+msgid "4th"
+msgstr "4e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
+msgid "5th"
+msgstr "5e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
+msgid "6th"
+msgstr "6e"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
@@ -88,55 +112,55 @@ msgstr ""
 msgid "VISIT SUPPORT PAGE"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:132
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
 msgid "Audio & Video"
 msgstr "Audio & Vidéo"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:139
 msgid "Sound FX:"
 msgstr "Effets sonores :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:153
 msgid "Music:"
 msgstr "Musique :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:169
 msgid "Fullscreen:"
 msgstr "Plein écran :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:186
+msgid "Others"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid "Language:"
 msgstr "Langue :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
-msgid "About"
-msgstr "À propos"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:187
-msgid "Pixel Wheels %s"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:188
-msgid "CREDITS"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
-msgid "Misc"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEVELOPER OPTIONS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
 msgid "Internal:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:323
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
+msgid "About"
+msgstr "À propos"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
+msgid "Pixel Wheels %s"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+msgid "CREDITS"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:339
 msgid "%s:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:325
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:341
 msgid "CONFIGURE"
 msgstr ""
 
