@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.debug.DebugStringMap;
 import com.agateau.pixelwheels.racer.Racer;
@@ -51,6 +52,8 @@ public class HudContent {
 
     private final StringBuilder mStringBuilder = new StringBuilder();
 
+    private final String[] mRankStrings = new String[GamePlay.instance.racerCount];
+
     public HudContent(Assets assets, GameWorld gameWorld, Hud hud) {
         mAssets = assets;
         mGameWorld = gameWorld;
@@ -58,6 +61,11 @@ public class HudContent {
         Skin skin = assets.ui.skin;
 
         AnchorGroup root = hud.getRoot();
+
+        // Generate all possible ranks to avoid translation calls
+        for (int idx = 0; idx < mRankStrings.length; ++idx) {
+            mRankStrings[idx] = StringUtils.formatRankInHud(idx + 1);
+        }
 
         createPlayerLabels(root);
 
@@ -134,8 +142,8 @@ public class HudContent {
             if (!singlePlayer) {
                 mStringBuilder.append("P").append(idx + 1).append(": ");
             }
+            mStringBuilder.append(mRankStrings[rank - 1]);
 
-            mStringBuilder.append(rank).append(StringUtils.getRankSuffix(rank));
             rankLabel.setText(mStringBuilder);
             rankLabel.pack();
 
