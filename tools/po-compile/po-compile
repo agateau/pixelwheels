@@ -30,9 +30,12 @@ The generated .java files can then be used with the Translator class.
 """
 
 ESCAPES = [
-    ('"', r'\"'),
-    ('\n', r'\n'),
+    # Any escape which *introduces* a backslash must be listed *after* this
+    # line otherwise the introduced backslash itself will be escaped
     ('\\', r'\\'),
+
+    ('\n', r'\n'),
+    ('"', r'\"'),
     ]
 
 
