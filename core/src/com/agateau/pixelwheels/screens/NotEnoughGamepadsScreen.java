@@ -7,6 +7,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.EnoughGamepadsChecker;
 import com.agateau.pixelwheels.gamesetup.Maestro;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.ScreenStack;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
@@ -15,7 +16,6 @@ import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.IntArray;
-import java.util.Locale;
 
 public class NotEnoughGamepadsScreen extends PwStageScreen {
     private final PwGame mGame;
@@ -54,8 +54,8 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
             if (playerId > 0) {
                 sStringBuilder.append("\n");
             }
-            sStringBuilder.append(String.format(Locale.US, tr("Player #%d: "), playerId + 1));
-            sStringBuilder.append(ok ? tr("OK") : tr("Missing"));
+            String status = ok ? tr("OK") : tr("Missing");
+            sStringBuilder.append(StringUtils.format(tr("Player #%d: %s"), playerId + 1, status));
         }
         mLabel.setText(sStringBuilder.toString());
         mLabel.setSize(mLabel.getPrefWidth(), mLabel.getPrefHeight());
