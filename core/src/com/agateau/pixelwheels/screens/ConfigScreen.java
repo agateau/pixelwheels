@@ -171,7 +171,7 @@ public class ConfigScreen extends PwStageScreen {
         }
 
         {
-            MenuItemGroup group = mTabMenuItem.addPage("Input");
+            MenuItemGroup group = mTabMenuItem.addPage(tr("Controls"));
 
             if (PlatformUtils.isDesktop()) {
                 for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
