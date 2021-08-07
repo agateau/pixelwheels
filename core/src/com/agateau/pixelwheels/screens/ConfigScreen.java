@@ -175,10 +175,11 @@ public class ConfigScreen extends PwStageScreen {
 
             if (PlatformUtils.isDesktop()) {
                 for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                    setupInputSelector(mMenu, group, "Player " + (idx + 1), idx);
+                    setupInputSelector(
+                            mMenu, group, StringUtils.format(tr("Player #%d:"), idx + 1), idx);
                 }
             } else {
-                setupInputSelector(mMenu, group, "Input", 0);
+                setupInputSelector(mMenu, group, tr("Controls:"), 0);
             }
         }
 
@@ -336,7 +337,7 @@ public class ConfigScreen extends PwStageScreen {
 
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
         SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<>(menu);
-        group.addItemWithLabel(StringUtils.format(tr("%s:"), label), selector);
+        group.addItemWithLabel(label, selector);
 
         ButtonMenuItem configureButton = new ButtonMenuItem(menu, tr("CONFIGURE"));
         group.addItemWithLabel("", configureButton);
