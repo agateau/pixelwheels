@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 17:30+0200\n"
-"PO-Revision-Date: 2021-08-07 17:21+0200\n"
+"POT-Creation-Date: 2021-08-07 17:36+0200\n"
+"PO-Revision-Date: 2021-08-07 17:38+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -189,7 +189,7 @@ msgstr "Freiner :"
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
 #: android/assets/screens/gamepadconfig.gdxui:11
 msgid "Trigger:"
-msgstr "Tirer :"
+msgstr "Activer :"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
@@ -252,8 +252,8 @@ msgid "Gamepad config"
 msgstr "Configuration manette"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back:"
-msgstr ""
+msgid "Back/reverse:"
+msgstr "Retour / marche arrière :"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -480,6 +480,9 @@ msgstr "SFXR Qt"
 #: android/assets/screens/credits.gdxui:78
 msgid "Android Studio"
 msgstr "Android Studio"
+
+#~ msgid "Back:"
+#~ msgstr "Retour :"
 
 #~ msgid "Player %d:"
 #~ msgstr "Joueur n°%d  :"
