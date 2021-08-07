@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 16:43+0200\n"
+"POT-Creation-Date: 2021-08-07 17:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,15 +83,15 @@ msgid "Side buttons"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "Player #%d: "
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 msgid "OK"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+msgid "Player #%d: %s"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
@@ -134,39 +134,43 @@ msgstr ""
 msgid "Controls"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:186
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:179
+msgid "Player #%d:"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:182
+msgid "Controls:"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:187
 msgid "Others"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
 msgid "Language:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "DEVELOPER OPTIONS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
 msgid "Internal:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:208
 msgid "About"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgid "Pixel Wheels %s"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
 msgid "CREDITS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:339
-msgid "%s:"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:341
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:342
 msgid "CONFIGURE"
 msgstr ""
 
@@ -186,7 +190,7 @@ msgstr ""
 msgid "Trigger:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:77
+#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
 msgstr ""
 
@@ -305,7 +309,7 @@ msgid "An open-source racing game"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:10
-msgid "-= Code =-"
+msgid "Code"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:12
@@ -315,7 +319,7 @@ msgid "Aurélien Gâteau"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:14
-msgid "-= Pixels =-"
+msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
@@ -324,7 +328,7 @@ msgid "Antonin Gâteau"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:19
-msgid "-= Music =-"
+msgid "Music"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:21
@@ -379,7 +383,7 @@ msgid "\"Bouncing Baal v0.95\""
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:41
-msgid "-= Sound Effects =-"
+msgid "Sound Effects"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:43
@@ -403,7 +407,7 @@ msgid "Other sound effects"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:52
-msgid "-= Fonts =-"
+msgid "Fonts"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:54
@@ -423,7 +427,7 @@ msgid "Tup Wanders"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:60
-msgid "-= Video Editor =-"
+msgid "Video Editor"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:62
@@ -431,7 +435,7 @@ msgid "Clara Gâteau"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:64
-msgid "-= Beta Testers =-"
+msgid "Beta Testers"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:67
@@ -447,7 +451,7 @@ msgid "(thank you!)"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:72
-msgid "-= Made with =-"
+msgid "Made with"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:74

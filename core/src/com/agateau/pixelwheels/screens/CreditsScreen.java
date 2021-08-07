@@ -26,6 +26,7 @@ import com.agateau.ui.CreditsScrollPane;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -34,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.XmlReader;
 
 class CreditsScreen extends PwStageScreen {
     private final PwGame mGame;
@@ -64,7 +66,7 @@ class CreditsScreen extends PwStageScreen {
                     return pane;
                 });
 
-        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/credits.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(loadCreditsXml());
         root.setFillParent(true);
         getStage().addActor(root);
 
@@ -95,6 +97,24 @@ class CreditsScreen extends PwStageScreen {
                 label.setHeight(label.getPrefHeight());
             }
         }
+    }
+
+    /**
+     * Post-process the gdxui XML to add some fancy ascii-art decorations around the text of the
+     * section headers.
+     *
+     * <p>Doing it this way reduces duplication and, more importantly, ensures translators do not
+     * have to care about the decorations.
+     */
+    private XmlReader.Element loadCreditsXml() {
+        FileHandle handle = FileUtils.assets("screens/credits.gdxui");
+        XmlReader.Element root = FileUtils.parseXml(handle);
+        for (XmlReader.Element element : root.getChildrenByNameRecursively("Label")) {
+            if (element.getAttribute("style", "").equals("creditsSection")) {
+                element.setText(String.format("-= %s =-", element.getText()));
+            }
+        }
+        return root;
     }
 
     private void addSpacer(VerticalGroup group, float height) {
