@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 17:36+0200\n"
-"PO-Revision-Date: 2021-08-07 17:38+0200\n"
+"PO-Revision-Date: 2021-08-09 08:45+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
 msgid "VISIT SUPPORT PAGE"
-msgstr "ALLER SUR LA PAGE DE SOUTIEN"
+msgstr "PAGE DE SOUTIEN"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
 msgid "Audio & Video"
