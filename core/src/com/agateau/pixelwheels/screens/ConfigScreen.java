@@ -34,6 +34,7 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
@@ -138,9 +139,10 @@ public class ConfigScreen extends PwStageScreen {
 
     private void addAboutTab() {
         MenuItemGroup group = mTabMenuItem.addPage(tr("About"));
-        group.setWidth(400);
+        group.setWidth(800);
         group.addLabel(StringUtils.format(tr("Pixel Wheels %s"), VersionInfo.VERSION));
         group.addButton(tr("CREDITS"))
+                .setParentWidthRatio(0.5f)
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -149,8 +151,10 @@ public class ConfigScreen extends PwStageScreen {
                             }
                         });
         // This is a ugly hack, but it should do for now
-        group.addLabel(sWebSiteLinkInfo.label);
+        LabelMenuItem labelMenuItem = group.addLabel(sWebSiteLinkInfo.label);
+        labelMenuItem.setWrap(true);
         group.addButton(sWebSiteLinkInfo.buttonText)
+                .setParentWidthRatio(0.5f)
                 .addListener(
                         new ClickListener() {
                             @Override

@@ -6,6 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+/**
+ * A MenuItem to show a static text
+ *
+ * <p>To wrap long texts, call setWrap(true)
+ */
 public class LabelMenuItem implements MenuItem {
     private final Label mLabel;
 
@@ -15,10 +20,6 @@ public class LabelMenuItem implements MenuItem {
 
     public LabelMenuItem(String text, Skin skin, String style) {
         mLabel = new Label(text, skin, style);
-    }
-
-    public Label getLabel() {
-        return mLabel;
     }
 
     @Override
@@ -65,6 +66,10 @@ public class LabelMenuItem implements MenuItem {
 
     @Override
     public float getParentWidthRatio() {
-        return 0;
+        return mLabel.getWrap() ? 1 : 0;
+    }
+
+    public void setWrap(boolean wrap) {
+        mLabel.setWrap(wrap);
     }
 }
