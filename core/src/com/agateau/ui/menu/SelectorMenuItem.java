@@ -73,6 +73,9 @@ public class SelectorMenuItem<T> extends RangeMenuItem {
         if (mMainLabel == null) {
             return;
         }
+        if (mEntries.size == 0) {
+            return;
+        }
         Entry<T> entry = mEntries.get(mCurrentIndex);
         mMainImage.setDrawable(entry.drawable);
         mMainLabel.setText(entry.text);
