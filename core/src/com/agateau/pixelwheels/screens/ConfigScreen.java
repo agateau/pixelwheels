@@ -124,8 +124,8 @@ public class ConfigScreen extends PwStageScreen {
 
         addAudioVideoTab(gameConfig);
         addControlsTab();
-        addOthersTab(gameConfig);
         addAboutTab();
+        addInternalTab();
 
         builder.getActor("backButton")
                 .addListener(
@@ -150,6 +150,9 @@ public class ConfigScreen extends PwStageScreen {
                                 mGame.pushScreen(new CreditsScreen(mGame));
                             }
                         });
+
+        group.addSpacer();
+
         // This is a ugly hack, but it should do for now
         LabelMenuItem labelMenuItem = group.addLabel(sWebSiteLinkInfo.label);
         labelMenuItem.setWrap(true);
@@ -164,17 +167,17 @@ public class ConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void addOthersTab(GameConfig gameConfig) {
-        MenuItemGroup group = mTabMenuItem.addPage(tr("Others"));
-        mLanguageGroup = group;
+    private void addInternalTab() {
+        MenuItemGroup group = mTabMenuItem.addPage(tr("Internal"));
+        group.setWidth(800);
 
-        SelectorMenuItem<String> languageItem = createLanguageSelectorItem(gameConfig);
-        group.addItemWithLabel(tr("Language:"), languageItem);
-        group.addSpacer();
+        group.addLabel(
+                        tr(
+                                "These options are mostly interesting for Pixel Wheels development, but feel free to poke around!"))
+                .setWrap(true);
 
-        ButtonMenuItem developerButton = new ButtonMenuItem(mMenu, tr("DEVELOPER OPTIONS"));
-        developerButton
-                .getActor()
+        group.addButton(tr("DEV. OPTIONS"))
+                .setParentWidthRatio(0.5f)
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -182,7 +185,6 @@ public class ConfigScreen extends PwStageScreen {
                                 mGame.pushScreen(new DebugScreen(mGame));
                             }
                         });
-        group.addItemWithLabel(tr("Internal:"), developerButton);
     }
 
     private void addControlsTab() {
@@ -199,8 +201,13 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void addAudioVideoTab(GameConfig gameConfig) {
-        MenuItemGroup group = mTabMenuItem.addPage(tr("Audio & Video"));
+        MenuItemGroup group = mTabMenuItem.addPage(tr("General"));
+        mLanguageGroup = group;
 
+        SelectorMenuItem<String> languageItem = createLanguageSelectorItem(gameConfig);
+        group.addItemWithLabel(tr("Language:"), languageItem);
+
+        group.addTitleLabel(tr("Audio"));
         final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(mMenu);
         soundFxSwitch.setChecked(gameConfig.playSoundFx);
         soundFxSwitch
@@ -230,6 +237,7 @@ public class ConfigScreen extends PwStageScreen {
         group.addItemWithLabel(tr("Music:"), musicSwitch);
 
         if (PlatformUtils.isDesktop()) {
+            group.addTitleLabel(tr("Video"));
             final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(mMenu);
             fullscreenSwitch.setChecked(gameConfig.fullscreen);
             fullscreenSwitch
