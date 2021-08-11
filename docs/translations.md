@@ -8,6 +8,8 @@
 
 - Edit `core/src/com/agateau/pixelwheels/Language.java`: add your translation to the `ALL` array.
 
+- Add your translation to `android/assets/screens/credits.gdxui`.
+
 [poedit]: https://www.poedit.net/
 
 [lokalize]: https://apps.kde.org/lokalize/

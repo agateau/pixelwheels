@@ -57,6 +57,11 @@
                 <Label>Kwajong</Label>
                 <Label>Tup Wanders</Label>
                 <Label/>
+                <Label style="creditsSection">Translations</Label>
+                <Label/>
+                <Label>French:</Label>
+                <Label>Aurélien Gâteau</Label>
+                <Label/>
                 <Label style="creditsSection">Video Editing</Label>
                 <Label/>
                 <Label>Clara Gâteau</Label>
