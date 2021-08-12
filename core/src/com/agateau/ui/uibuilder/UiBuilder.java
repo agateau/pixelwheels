@@ -203,6 +203,9 @@ public class UiBuilder {
                     if (align != -1) {
                         label.setAlignment(align);
                     }
+                    if (element.getBooleanAttribute("wrap", false)) {
+                        label.setWrap(true);
+                    }
                     return label;
                 });
         mActorFactories.put(
@@ -521,12 +524,23 @@ public class UiBuilder {
         if (!attr.isEmpty()) {
             actor.setY(mDimParser.parse(attr));
         }
+        boolean explicitWidth = false;
         attr = element.getAttribute("width", "");
         if (!attr.isEmpty()) {
+            explicitWidth = true;
             actor.setWidth(mDimParser.parse(attr));
         }
         attr = element.getAttribute("height", "");
-        if (!attr.isEmpty()) {
+        if (attr.isEmpty()) {
+            // If actor is a Labels with word-wrapping, and width is set but not height, then
+            // compute the height required to fit the text to the required width
+            if (actor instanceof Label) {
+                Label label = (Label) actor;
+                if (explicitWidth && label.getWrap()) {
+                    label.setHeight(label.getPrefHeight());
+                }
+            }
+        } else {
             actor.setHeight(mDimParser.parse(attr));
         }
         attr = element.getAttribute("originX", "");

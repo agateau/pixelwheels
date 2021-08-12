@@ -101,6 +101,8 @@ Text is defined by the element text.
 ### Label
 - style (string, optional)
 - align (alignment, optional)
+- wrap (boolean, optional): If set to true and width is defined, the Label height is adjusted to fit the Label text in the defined width
+
 Text is defined by the element text. You can insert multiple lines using `\n`.
 
 ### ScrollPane
