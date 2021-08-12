@@ -134,23 +134,8 @@ check: codingstyle-check
 
 # Translations
 po-update:
-	@echo "Listing files to translate"
-	@rm -f po/files
-	@for dir in core desktop android ; do \
-		find $$dir -name '*.java' | grep -v '/build/' >> po/files ; \
-	done
-	@find android/assets -name '*.gdxui' >> po/files
+	tools/po-compile/po-update
 
-	@echo "Extracting messages"
-	@GETTEXTDATADIR=$(CURDIR)/tools/gettext xgettext --from-code=utf-8 \
-		--keyword=tr --keyword=trn:1,2 \
-		--output po/messages.pot \
-		--files-from po/files
-
-	@for po_file in po/*.po ; do \
-		echo "Updating $$po_file" ; \
-		msgmerge --update $$po_file po/messages.pot ; \
-	done
 
 po-compile:
 	mkdir -p core/generated/com/agateau/translations

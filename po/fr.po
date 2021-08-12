@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-11 08:47+0200\n"
+"POT-Creation-Date: 2021-08-12 18:54+0200\n"
 "PO-Revision-Date: 2021-08-11 08:56+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
@@ -15,309 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-msgid "Rank 3 or better at %s championship"
-msgstr "Arriver 3e ou mieux au championnat %s"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
-msgid "Hit one vehicle with a missile"
-msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] "Toucher un véhicule avec un missile"
-msgstr[1] "Toucher %# véhicules avec un missile"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
-msgid "Leave road one time"
-msgid_plural "Leave road %# times"
-msgstr[0] "Quitter la route une fois"
-msgstr[1] "Quitter la route %# fois"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
-msgid "Pick one bonus"
-msgid_plural "Pick %# bonuses"
-msgstr[0] "Attraper un bonus"
-msgstr[1] "Attraper %# bonus"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
-msgid "1st"
-msgstr "1er"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
-msgid "2nd"
-msgstr "2e"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
-msgid "3rd"
-msgstr "3e"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
-msgid "4th"
-msgstr "4e"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
-msgid "5th"
-msgstr "5e"
-
-#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
-msgid "6th"
-msgstr "6e"
-
-#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
-msgid "Pie buttons"
-msgstr "Boutons en arc"
-
-#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
-msgid "Gamepad"
-msgstr "Manette"
-
-#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
-msgid "Keyboard"
-msgstr "Clavier"
-
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
-msgid "Side buttons"
-msgstr "Boutons sur les côtés"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "OK"
-msgstr "OK"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "Missing"
-msgstr "Manquant"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
-msgid "Player #%d: %s"
-msgstr "Joueur n°%d : %s"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
-msgid "MAIN MENU"
-msgstr "MENU PRINCIPAL"
-
-#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-msgid "[Locked]"
-msgstr "[Verrouillé]"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels est gratuit, mais vous pouvez soutenir son développement de "
-"plusieurs façons."
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
-msgid "VISIT SUPPORT PAGE"
-msgstr "PAGE DE SOUTIEN"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
-msgid "About"
-msgstr "À propos"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:143
-msgid "Pixel Wheels %s"
-msgstr "Pixel Wheels %s"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
-msgid "CREDITS"
-msgstr "CRÉDITS"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
-msgid "Internal"
-msgstr "Interne"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
-msgid ""
-"These options are mostly interesting for Pixel Wheels development, but feel "
-"free to poke around!"
-msgstr ""
-"Ces options sont surtout intéressantes pour le développement de Pixel "
-"Wheels, mais vous pouvez y faire un tour !"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:179
-msgid "DEV. OPTIONS"
-msgstr "COIN DES DEVS"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
-msgid "Controls"
-msgstr "Contrôles"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
-msgid "Player #%d:"
-msgstr "Joueur n°%d :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:199
-msgid "Controls:"
-msgstr "Contrôles :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
-msgid "General"
-msgstr "Général"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:208
-msgid "Language:"
-msgstr "Langue :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
-msgid "Audio"
-msgstr "Audio"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
-msgid "Sound FX:"
-msgstr "Effets sonores :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
-msgid "Music:"
-msgstr "Musique :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
-msgid "Video"
-msgstr "Vidéo"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:254
-msgid "Fullscreen:"
-msgstr "Plein écran :"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:359
-msgid "CONFIGURE"
-msgstr "CONFIGURER"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:71
-msgid "Steer left:"
-msgstr "Tourner à gauche :"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:72
-msgid "Steer right:"
-msgstr "Tourner à droite :"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:73
-msgid "Brake:"
-msgstr "Freiner :"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
-#: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Activer :"
-
-#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
-msgid "Thank you for playing!"
-msgstr "Merci d'avoir joué !"
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "ON"
-msgstr "Oui"
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "OFF"
-msgstr "Non"
-
-#: android/assets/screens/pauseoverlay.gdxui:4
-msgid "Paused"
-msgstr "Pause"
-
-#: android/assets/screens/pauseoverlay.gdxui:7
-msgid "RESUME"
-msgstr "CONTINUER"
-
-#: android/assets/screens/pauseoverlay.gdxui:9
-#: android/assets/screens/finishedoverlay.gdxui:34
-msgid "RESTART"
-msgstr "RECOMMENCER"
-
-#: android/assets/screens/pauseoverlay.gdxui:11
-msgid "QUIT TO MENU"
-msgstr "QUITTER VERS LE MENU"
-
-#: android/assets/screens/pauseoverlay.gdxui:12
-#: android/assets/screens/mainmenu.gdxui:33
-msgid "SETTINGS"
-msgstr "CONFIGURATION"
-
-#: android/assets/screens/mainmenu.gdxui:26
-msgid "ONE PLAYER"
-msgstr "UN JOUEUR"
-
-#: android/assets/screens/mainmenu.gdxui:27
-msgid "MULTI PLAYER"
-msgstr "MULTI-JOUEURS"
-
-#: android/assets/screens/mainmenu.gdxui:30
-#: android/assets/screens/selectgamemode.gdxui:9
-msgid "QUICK RACE"
-msgstr "COURSE RAPIDE"
-
-#: android/assets/screens/mainmenu.gdxui:31
-#: android/assets/screens/selectgamemode.gdxui:10
-msgid "CHAMPIONSHIP"
-msgstr "CHAMPIONNAT"
-
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "QUITTER"
-
-#: android/assets/screens/gamepadconfig.gdxui:5
-msgid "Gamepad config"
-msgstr "Configuration manette"
-
-#: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Retour / marche arrière :"
-
-#: android/assets/screens/selecttrack.gdxui:4
-msgid "Select Track"
-msgstr "Choisissez une piste"
-
-#: android/assets/screens/selecttrack.gdxui:11
-msgid "Best Lap"
-msgstr "Meilleur tour"
-
-#: android/assets/screens/selecttrack.gdxui:14
-msgid "Best Total"
-msgstr "Meilleur temps total"
-
-#: android/assets/screens/selectchampionship.gdxui:5
-msgid "Select Championship"
-msgstr "Choisissez un championnat"
-
-#: android/assets/screens/debug.gdxui:12
-msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr ""
-"Des réglages affectant la jouabilité ont été modifiés, les scores ne seront "
-"pas sauvegardés"
-
-#: android/assets/screens/finishedoverlay.gdxui:35
-msgid "BACK TO MENU"
-msgstr "RETOUR AU MENU"
-
-#: android/assets/screens/finishedoverlay.gdxui:38
-msgid "CONTINUE"
-msgstr "CONTINUER"
-
-#: android/assets/screens/selectvehicle.gdxui:5
-#: android/assets/screens/multiplayer.gdxui:5
-msgid "Select Your Vehicle"
-msgstr "Choisissez votre véhicule"
-
-#: android/assets/screens/selectgamemode.gdxui:5
-msgid "Select Game Mode"
-msgstr "Choisissez le mode de jeu"
-
-#: android/assets/screens/notenoughgamepads.gdxui:4
-msgid "Some gamepads are missing"
-msgstr "Certaines manettes sont manquantes"
-
-#: android/assets/screens/keyboardconfig.gdxui:5
-msgid "Keyboard config"
-msgstr "Configuration du clavier"
-
-#: android/assets/screens/multiplayer.gdxui:8
-#: android/assets/screens/multiplayer.gdxui:10
-msgid "Ready!"
-msgstr "Prêt !"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -501,6 +198,309 @@ msgstr "SFXR Qt"
 #: android/assets/screens/credits.gdxui:83
 msgid "Android Studio"
 msgstr "Android Studio"
+
+#: android/assets/screens/debug.gdxui:12
+msgid "Settings affecting game play have been modified, scores won't be saved"
+msgstr ""
+"Des réglages affectant la jouabilité ont été modifiés, les scores ne seront "
+"pas sauvegardés"
+
+#: android/assets/screens/finishedoverlay.gdxui:34
+#: android/assets/screens/pauseoverlay.gdxui:9
+msgid "RESTART"
+msgstr "RECOMMENCER"
+
+#: android/assets/screens/finishedoverlay.gdxui:35
+msgid "BACK TO MENU"
+msgstr "RETOUR AU MENU"
+
+#: android/assets/screens/finishedoverlay.gdxui:38
+msgid "CONTINUE"
+msgstr "CONTINUER"
+
+#: android/assets/screens/gamepadconfig.gdxui:5
+msgid "Gamepad config"
+msgstr "Configuration manette"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
+msgid "Trigger:"
+msgstr "Activer :"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+msgid "Back/reverse:"
+msgstr "Retour / marche arrière :"
+
+#: android/assets/screens/keyboardconfig.gdxui:5
+msgid "Keyboard config"
+msgstr "Configuration du clavier"
+
+#: android/assets/screens/mainmenu.gdxui:26
+msgid "ONE PLAYER"
+msgstr "UN JOUEUR"
+
+#: android/assets/screens/mainmenu.gdxui:27
+msgid "MULTI PLAYER"
+msgstr "MULTI-JOUEURS"
+
+#: android/assets/screens/mainmenu.gdxui:30
+#: android/assets/screens/selectgamemode.gdxui:9
+msgid "QUICK RACE"
+msgstr "COURSE RAPIDE"
+
+#: android/assets/screens/mainmenu.gdxui:31
+#: android/assets/screens/selectgamemode.gdxui:10
+msgid "CHAMPIONSHIP"
+msgstr "CHAMPIONNAT"
+
+#: android/assets/screens/mainmenu.gdxui:33
+#: android/assets/screens/pauseoverlay.gdxui:12
+msgid "SETTINGS"
+msgstr "CONFIGURATION"
+
+#: android/assets/screens/mainmenu.gdxui:35
+msgid "QUIT"
+msgstr "QUITTER"
+
+#: android/assets/screens/multiplayer.gdxui:5
+#: android/assets/screens/selectvehicle.gdxui:5
+msgid "Select Your Vehicle"
+msgstr "Choisissez votre véhicule"
+
+#: android/assets/screens/multiplayer.gdxui:8
+#: android/assets/screens/multiplayer.gdxui:10
+msgid "Ready!"
+msgstr "Prêt !"
+
+#: android/assets/screens/notenoughgamepads.gdxui:4
+msgid "Some gamepads are missing"
+msgstr "Certaines manettes sont manquantes"
+
+#: android/assets/screens/pauseoverlay.gdxui:4
+msgid "Paused"
+msgstr "Pause"
+
+#: android/assets/screens/pauseoverlay.gdxui:7
+msgid "RESUME"
+msgstr "CONTINUER"
+
+#: android/assets/screens/pauseoverlay.gdxui:11
+msgid "QUIT TO MENU"
+msgstr "QUITTER VERS LE MENU"
+
+#: android/assets/screens/selectchampionship.gdxui:5
+msgid "Select Championship"
+msgstr "Choisissez un championnat"
+
+#: android/assets/screens/selectgamemode.gdxui:5
+msgid "Select Game Mode"
+msgstr "Choisissez le mode de jeu"
+
+#: android/assets/screens/selecttrack.gdxui:4
+msgid "Select Track"
+msgstr "Choisissez une piste"
+
+#: android/assets/screens/selecttrack.gdxui:11
+msgid "Best Lap"
+msgstr "Meilleur tour"
+
+#: android/assets/screens/selecttrack.gdxui:14
+msgid "Best Total"
+msgstr "Meilleur temps total"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
+msgid "Rank 3 or better at %s championship"
+msgstr "Arriver 3e ou mieux au championnat %s"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
+msgid "Hit one vehicle with a missile"
+msgid_plural "Hit %# vehicles with a missile"
+msgstr[0] "Toucher un véhicule avec un missile"
+msgstr[1] "Toucher %# véhicules avec un missile"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
+msgid "Leave road one time"
+msgid_plural "Leave road %# times"
+msgstr[0] "Quitter la route une fois"
+msgstr[1] "Quitter la route %# fois"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
+msgid "Pick one bonus"
+msgid_plural "Pick %# bonuses"
+msgstr[0] "Attraper un bonus"
+msgstr[1] "Attraper %# bonus"
+
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
+msgid "Gamepad"
+msgstr "Manette"
+
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
+msgid "Keyboard"
+msgstr "Clavier"
+
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+msgid "Pie buttons"
+msgstr "Boutons en arc"
+
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
+msgid "Side buttons"
+msgstr "Boutons sur les côtés"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
+msgid ""
+"Pixel Wheels is free, but you can support its\n"
+"development in various ways."
+msgstr ""
+"Pixel Wheels est gratuit, mais vous pouvez soutenir son développement de "
+"plusieurs façons."
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
+msgid "VISIT SUPPORT PAGE"
+msgstr "PAGE DE SOUTIEN"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
+msgid "About"
+msgstr "À propos"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:143
+msgid "Pixel Wheels %s"
+msgstr "Pixel Wheels %s"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
+msgid "CREDITS"
+msgstr "CRÉDITS"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+msgid "Internal"
+msgstr "Interne"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
+msgid ""
+"These options are mostly interesting for Pixel Wheels development, but feel "
+"free to poke around!"
+msgstr ""
+"Ces options sont surtout intéressantes pour le développement de Pixel "
+"Wheels, mais vous pouvez y faire un tour !"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:179
+msgid "DEV. OPTIONS"
+msgstr "COIN DES DEVS"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
+msgid "Controls"
+msgstr "Contrôles"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
+msgid "Player #%d:"
+msgstr "Joueur n°%d :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:199
+msgid "Controls:"
+msgstr "Contrôles :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
+msgid "General"
+msgstr "Général"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:208
+msgid "Language:"
+msgstr "Langue :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+msgid "Audio"
+msgstr "Audio"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
+msgid "Sound FX:"
+msgstr "Effets sonores :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+msgid "Music:"
+msgstr "Musique :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+msgid "Video"
+msgstr "Vidéo"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:254
+msgid "Fullscreen:"
+msgstr "Plein écran :"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:359
+msgid "CONFIGURE"
+msgstr "CONFIGURER"
+
+#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
+msgid "Thank you for playing!"
+msgstr "Merci d'avoir joué !"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:71
+msgid "Steer left:"
+msgstr "Tourner à gauche :"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:72
+msgid "Steer right:"
+msgstr "Tourner à droite :"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:73
+msgid "Brake:"
+msgstr "Freiner :"
+
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
+msgid "Missing"
+msgstr "Manquant"
+
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
+msgid "OK"
+msgstr "OK"
+
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+msgid "Player #%d: %s"
+msgstr "Joueur n°%d : %s"
+
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
+msgid "MAIN MENU"
+msgstr "MENU PRINCIPAL"
+
+#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
+msgid "[Locked]"
+msgstr "[Verrouillé]"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
+msgid "1st"
+msgstr "1er"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
+msgid "2nd"
+msgstr "2e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
+msgid "3rd"
+msgstr "3e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
+msgid "4th"
+msgstr "4e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
+msgid "5th"
+msgstr "5e"
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
+msgid "6th"
+msgstr "6e"
+
+#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
+msgid "OFF"
+msgstr "Non"
+
+#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
+msgid "ON"
+msgstr "Oui"
 
 #~ msgid "Audio & Video"
 #~ msgstr "Audio & Vidéo"
