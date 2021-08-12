@@ -128,7 +128,7 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
-check: codingstyle-check
+check: codingstyle-check po-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
 
@@ -136,6 +136,8 @@ check: codingstyle-check
 po-update:
 	tools/po-compile/po-update
 
+po-check:
+	tools/po-compile/po-update --check
 
 po-compile:
 	mkdir -p core/generated/com/agateau/translations
