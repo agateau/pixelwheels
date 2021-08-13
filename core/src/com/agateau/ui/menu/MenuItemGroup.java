@@ -25,8 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 
@@ -82,6 +82,7 @@ public class MenuItemGroup implements MenuItem {
     public void setWidth(float width) {
         mWidth = width;
         mGroup.setWidth(width);
+        updateHeight();
     }
 
     public void focusFirstItem() {
@@ -221,8 +222,10 @@ public class MenuItemGroup implements MenuItem {
         updateHeight();
     }
 
-    public MenuItem addButton(String text) {
-        return addItem(new ButtonMenuItem(mMenu, text, mMenu.getSkin()));
+    public ButtonMenuItem addButton(String text) {
+        ButtonMenuItem item = new ButtonMenuItem(mMenu, text, mMenu.getSkin());
+        addItem(item);
+        return item;
     }
 
     public LabelMenuItem addLabel(String text) {
@@ -240,6 +243,10 @@ public class MenuItemGroup implements MenuItem {
     public MenuItem addItem(MenuItem item) {
         addItemInternal(item, null);
         return item;
+    }
+
+    public void addSpacer() {
+        addItem(new SpacerMenuItem(mMenu.getMenuStyle().spacing));
     }
 
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
@@ -269,10 +276,11 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void layoutItems() {
-        // Keep in sync with computeHeight()!
+        // Keep in sync with updateHeight()
         float y = 0;
         Menu.MenuStyle style = mMenu.getMenuStyle();
         final float spacing = style.focusPadding * 2 + style.spacing;
+
         for (int idx = mItems.size - 1; idx >= 0; --idx) {
             MenuItem item = mItems.get(idx);
             ItemInfo info = mInfoForItem.get(item);
@@ -280,10 +288,6 @@ public class MenuItemGroup implements MenuItem {
                 continue;
             }
             Actor actor = item.getActor();
-            if (actor instanceof Layout) {
-                ((Layout) actor).invalidate();
-                ((Layout) actor).validate();
-            }
 
             float x = 0;
             float width = mGroup.getWidth();
@@ -306,23 +310,6 @@ public class MenuItemGroup implements MenuItem {
         }
     }
 
-    private float computeHeight() {
-        // Keep in sync with layoutItems()!
-        float y = 0;
-        Menu.MenuStyle style = mMenu.getMenuStyle();
-        final float spacing = style.focusPadding * 2 + style.spacing;
-        for (int idx = mItems.size - 1; idx >= 0; --idx) {
-            MenuItem item = mItems.get(idx);
-            ItemInfo info = mInfoForItem.get(item);
-            if (!info.visible) {
-                continue;
-            }
-            Actor actor = item.getActor();
-            y += actor.getHeight() + spacing;
-        }
-        return y - spacing;
-    }
-
     private void addItemInternal(MenuItem item, Label label) {
         mItems.add(item);
         ItemInfo info = new ItemInfo();
@@ -337,7 +324,32 @@ public class MenuItemGroup implements MenuItem {
     }
 
     private void updateHeight() {
-        mGroup.setHeight(computeHeight());
+        // Keep in sync with layoutItems()
+        float y = 0;
+        Menu.MenuStyle style = mMenu.getMenuStyle();
+        final float spacing = style.focusPadding * 2 + style.spacing;
+        for (int idx = mItems.size - 1; idx >= 0; --idx) {
+            MenuItem item = mItems.get(idx);
+            ItemInfo info = mInfoForItem.get(item);
+            if (!info.visible) {
+                continue;
+            }
+            Actor actor = item.getActor();
+
+            float width = mGroup.getWidth();
+            if (info.label != null) {
+                width -= mMenu.getLabelColumnWidth();
+            }
+            float ratio = mItemForActor.get(actor).getParentWidthRatio();
+            if (ratio > 0) {
+                actor.setWidth(width * ratio);
+            }
+            if (actor instanceof Widget) {
+                ((Widget) actor).pack();
+            }
+            y += actor.getHeight() + spacing;
+        }
+        mGroup.setHeight(y - spacing);
         mMenu.onGroupBoundariesChanged();
     }
 

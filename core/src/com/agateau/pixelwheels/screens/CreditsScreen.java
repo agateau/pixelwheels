@@ -18,19 +18,24 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.CreditsScrollPane;
-import com.agateau.ui.LimitedMarkdownParser;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.XmlReader;
 
 class CreditsScreen extends PwStageScreen {
     private final PwGame mGame;
@@ -51,20 +56,27 @@ class CreditsScreen extends PwStageScreen {
         Skin skin = mGame.getAssets().ui.skin;
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, skin);
         builder.registerActorFactory(
-                "CreditsScrollPane", (uiBuilder, element) -> new CreditsScrollPane());
+                "CreditsScrollPane",
+                (uiBuilder, element) -> {
+                    ScrollPane pane = new CreditsScrollPane();
+                    Actor child = uiBuilder.buildChildren(element, null);
+                    if (child != null) {
+                        pane.setActor(child);
+                    }
+                    return pane;
+                });
 
-        AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/credits.gdxui"));
+        AnchorGroup root = (AnchorGroup) builder.build(loadCreditsXml());
         root.setFillParent(true);
         getStage().addActor(root);
 
         final CreditsScrollPane pane = builder.getActor("creditsScrollPane");
         float stageHeight = getStage().getHeight();
+
         VerticalGroup group = pane.getGroup();
-        addSpacer(group, stageHeight);
-        LimitedMarkdownParser.createActors(group, mGame.getAssets().ui.skin, loadCredits());
+        group.addActorAt(0, createSpacer(stageHeight));
         addSpacer(group, stageHeight * 2 / 3);
-        LimitedMarkdownParser.createActors(
-                group, mGame.getAssets().ui.skin, "Thank you for playing!");
+        group.addActor(new Label(tr("Thank you for playing!"), mGame.getAssets().ui.skin));
         addSpacer(group, stageHeight / 2);
 
         builder.getActor("backButton")
@@ -75,21 +87,48 @@ class CreditsScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+
+        for (Actor actor : group.getChildren()) {
+            if (actor instanceof Label) {
+                Label label = (Label) actor;
+                label.setAlignment(Align.center);
+                label.setWrap(true);
+                label.setWidth(group.getWidth());
+                label.setHeight(label.getPrefHeight());
+            }
+        }
+    }
+
+    /**
+     * Post-process the gdxui XML to add some fancy ascii-art decorations around the text of the
+     * section headers.
+     *
+     * <p>Doing it this way reduces duplication and, more importantly, ensures translators do not
+     * have to care about the decorations.
+     */
+    private XmlReader.Element loadCreditsXml() {
+        FileHandle handle = FileUtils.assets("screens/credits.gdxui");
+        XmlReader.Element root = FileUtils.parseXml(handle);
+        for (XmlReader.Element element : root.getChildrenByNameRecursively("Label")) {
+            if (element.getAttribute("style", "").equals("creditsSection")) {
+                element.setText(String.format("-= %s =-", element.getText()));
+            }
+        }
+        return root;
     }
 
     private void addSpacer(VerticalGroup group, float height) {
+        group.addActor(createSpacer(height));
+    }
+
+    private Actor createSpacer(float height) {
         Actor spacer = new Actor();
         spacer.setSize(1, height);
-        group.addActor(spacer);
+        return spacer;
     }
 
     @Override
     public void onBackPressed() {
         mGame.popScreen();
-    }
-
-    private String loadCredits() {
-        FileHandle handle = FileUtils.assets("credits.md");
-        return handle.readString("utf-8");
     }
 }

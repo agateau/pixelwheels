@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -134,7 +136,7 @@ public class SelectVehicleScreen extends PwStageScreen {
 
             mUnlockHintLabel.setVisible(false);
         } else {
-            text = StringUtils.format("[Locked]");
+            text = StringUtils.format(tr("[Locked]"));
 
             mUnlockHintLabel.setVisible(true);
             mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(vehicle));

@@ -32,6 +32,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
     private final Rectangle mRect = new Rectangle();
 
     private final FocusIndicator mFocusIndicator;
+    private float mParentWidthRatio = 1;
 
     public ButtonMenuItem(Menu menu, String text) {
         this(menu, text, menu.getSkin());
@@ -96,7 +97,18 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     @Override
     public float getParentWidthRatio() {
-        return 1;
+        return mParentWidthRatio;
+    }
+
+    /**
+     * Override the item.width / parent.width ratio.
+     *
+     * <p>Normally the button takes the full width, but if the menu contains large items it can be
+     * useful to restrict the button so that it does not look oversized.
+     */
+    public ButtonMenuItem setParentWidthRatio(float ratio) {
+        mParentWidthRatio = ratio;
+        return this;
     }
 
     @Override

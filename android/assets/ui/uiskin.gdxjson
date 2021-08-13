@@ -98,11 +98,10 @@
                 r: 0.247, g: 0.157, b: 0.196, a: 1
             }
         },
-        /* LimitedMarkdownParser styles */
-        mdH1: {
+        creditsTitle: {
             font: title-font
         },
-        mdH2: {
+        creditsSection: {
             font: default-font,
             fontColor: highlight
         }

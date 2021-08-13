@@ -18,8 +18,11 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
+import com.agateau.pixelwheels.Language;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
@@ -31,6 +34,7 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
@@ -69,8 +73,13 @@ public class ConfigScreen extends PwStageScreen {
     private static WebSiteLinkInfo sWebSiteLinkInfo =
             new WebSiteLinkInfo(
                     "https://agateau.com/support/",
-                    "Pixel Wheels is free, but you can support its\ndevelopment in various ways.",
-                    "VISIT SUPPORT PAGE");
+                    tr(
+                            "Pixel Wheels is free, but you can support its\ndevelopment in various ways."),
+                    tr("VISIT SUPPORT PAGE"));
+
+    Menu mMenu;
+    TabMenuItem mTabMenuItem;
+    MenuItemGroup mLanguageGroup;
 
     interface GameInputHandlerConfigScreenFactory {
         Screen createScreen(PwGame game, int playerIdx);
@@ -107,110 +116,16 @@ public class ConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
-        menu.setLabelColumnWidth(250);
+        mMenu = builder.getActor("menu");
+        mMenu.setLabelColumnWidth(250);
 
-        TabMenuItem tab = new TabMenuItem(menu);
-        menu.addItem(tab);
-        {
-            MenuItemGroup group = tab.addPage("Input");
+        mTabMenuItem = new TabMenuItem(mMenu);
+        mMenu.addItem(mTabMenuItem);
 
-            if (PlatformUtils.isDesktop()) {
-                for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                    setupInputSelector(menu, group, "Player " + (idx + 1), idx);
-                }
-            } else {
-                setupInputSelector(menu, group, "Input", 0);
-            }
-        }
-
-        {
-            MenuItemGroup group = tab.addPage("Audio & Video");
-
-            final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(menu);
-            soundFxSwitch.setChecked(gameConfig.playSoundFx);
-            soundFxSwitch
-                    .getActor()
-                    .addListener(
-                            new ChangeListener() {
-                                @Override
-                                public void changed(ChangeEvent event, Actor actor) {
-                                    gameConfig.playSoundFx = soundFxSwitch.isChecked();
-                                    gameConfig.flush();
-                                }
-                            });
-            group.addItemWithLabel("Sound FX:", soundFxSwitch);
-
-            final SwitchMenuItem musicSwitch = new SwitchMenuItem(menu);
-            musicSwitch.setChecked(gameConfig.playMusic);
-            musicSwitch
-                    .getActor()
-                    .addListener(
-                            new ChangeListener() {
-                                @Override
-                                public void changed(ChangeEvent event, Actor actor) {
-                                    gameConfig.playMusic = musicSwitch.isChecked();
-                                    gameConfig.flush();
-                                }
-                            });
-            group.addItemWithLabel("Music:", musicSwitch);
-
-            if (PlatformUtils.isDesktop()) {
-                final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(menu);
-                fullscreenSwitch.setChecked(gameConfig.fullscreen);
-                fullscreenSwitch
-                        .getActor()
-                        .addListener(
-                                new ChangeListener() {
-                                    @Override
-                                    public void changed(ChangeEvent event, Actor actor) {
-                                        gameConfig.fullscreen = fullscreenSwitch.isChecked();
-                                        mGame.setFullscreen(gameConfig.fullscreen);
-                                        gameConfig.flush();
-                                    }
-                                });
-                group.addItemWithLabel("Fullscreen:", fullscreenSwitch);
-            }
-        }
-
-        {
-            MenuItemGroup group = tab.addPage("About");
-            group.setWidth(400);
-            group.addLabel(StringUtils.format("Pixel Wheels %s", VersionInfo.VERSION));
-            group.addButton("CREDITS")
-                    .addListener(
-                            new ClickListener() {
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
-                                    mGame.pushScreen(new CreditsScreen(mGame));
-                                }
-                            });
-            // This is a ugly hack, but it should do for now
-            group.addLabel(sWebSiteLinkInfo.label);
-            group.addButton(sWebSiteLinkInfo.buttonText)
-                    .addListener(
-                            new ClickListener() {
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
-                                    PlatformUtils.openURI(sWebSiteLinkInfo.url);
-                                }
-                            });
-        }
-
-        {
-            MenuItemGroup group = tab.addPage("Misc");
-            ButtonMenuItem developerButton = new ButtonMenuItem(menu, "Developer Options");
-            developerButton
-                    .getActor()
-                    .addListener(
-                            new ClickListener() {
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
-                                    mGame.pushScreen(new DebugScreen(mGame));
-                                }
-                            });
-            group.addItemWithLabel("Internal:", developerButton);
-        }
+        addAudioVideoTab(gameConfig);
+        addControlsTab();
+        addAboutTab();
+        addInternalTab();
 
         builder.getActor("backButton")
                 .addListener(
@@ -220,6 +135,152 @@ public class ConfigScreen extends PwStageScreen {
                                 onBackPressed();
                             }
                         });
+    }
+
+    private void addAboutTab() {
+        MenuItemGroup group = mTabMenuItem.addPage(tr("About"));
+        group.setWidth(800);
+        group.addLabel(StringUtils.format(tr("Pixel Wheels %s"), VersionInfo.VERSION));
+        group.addButton(tr("CREDITS"))
+                .setParentWidthRatio(0.5f)
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                mGame.pushScreen(new CreditsScreen(mGame));
+                            }
+                        });
+
+        group.addSpacer();
+
+        // This is a ugly hack, but it should do for now
+        LabelMenuItem labelMenuItem = group.addLabel(sWebSiteLinkInfo.label);
+        labelMenuItem.setWrap(true);
+        group.addButton(sWebSiteLinkInfo.buttonText)
+                .setParentWidthRatio(0.5f)
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                PlatformUtils.openURI(sWebSiteLinkInfo.url);
+                            }
+                        });
+    }
+
+    private void addInternalTab() {
+        MenuItemGroup group = mTabMenuItem.addPage(tr("Internal"));
+        group.setWidth(800);
+
+        group.addLabel(
+                        tr(
+                                "These options are mostly interesting for Pixel Wheels development, but feel free to poke around!"))
+                .setWrap(true);
+
+        group.addButton(tr("DEV. OPTIONS"))
+                .setParentWidthRatio(0.5f)
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                mGame.pushScreen(new DebugScreen(mGame));
+                            }
+                        });
+    }
+
+    private void addControlsTab() {
+        MenuItemGroup group = mTabMenuItem.addPage(tr("Controls"));
+
+        if (PlatformUtils.isDesktop()) {
+            for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+                setupInputSelector(
+                        mMenu, group, StringUtils.format(tr("Player #%d:"), idx + 1), idx);
+            }
+        } else {
+            setupInputSelector(mMenu, group, tr("Controls:"), 0);
+        }
+    }
+
+    private void addAudioVideoTab(GameConfig gameConfig) {
+        MenuItemGroup group = mTabMenuItem.addPage(tr("General"));
+        mLanguageGroup = group;
+
+        SelectorMenuItem<String> languageItem = createLanguageSelectorItem(gameConfig);
+        group.addItemWithLabel(tr("Language:"), languageItem);
+
+        group.addTitleLabel(tr("Audio"));
+        final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(mMenu);
+        soundFxSwitch.setChecked(gameConfig.playSoundFx);
+        soundFxSwitch
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.playSoundFx = soundFxSwitch.isChecked();
+                                gameConfig.flush();
+                            }
+                        });
+        group.addItemWithLabel(tr("Sound FX:"), soundFxSwitch);
+
+        final SwitchMenuItem musicSwitch = new SwitchMenuItem(mMenu);
+        musicSwitch.setChecked(gameConfig.playMusic);
+        musicSwitch
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.playMusic = musicSwitch.isChecked();
+                                gameConfig.flush();
+                            }
+                        });
+        group.addItemWithLabel(tr("Music:"), musicSwitch);
+
+        if (PlatformUtils.isDesktop()) {
+            group.addTitleLabel(tr("Video"));
+            final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(mMenu);
+            fullscreenSwitch.setChecked(gameConfig.fullscreen);
+            fullscreenSwitch
+                    .getActor()
+                    .addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ChangeEvent event, Actor actor) {
+                                    gameConfig.fullscreen = fullscreenSwitch.isChecked();
+                                    mGame.setFullscreen(gameConfig.fullscreen);
+                                    gameConfig.flush();
+                                }
+                            });
+            group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
+        }
+    }
+
+    private SelectorMenuItem<String> createLanguageSelectorItem(GameConfig gameConfig) {
+        final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(mMenu);
+        for (Language language : Language.ALL) {
+            languageItem.addEntry(language.name, language.id);
+        }
+        languageItem.setCurrentData(gameConfig.languageId);
+        languageItem
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.languageId = languageItem.getCurrentData();
+                                gameConfig.flush();
+                                changeScreenLanguage();
+                            }
+                        });
+        return languageItem;
+    }
+
+    private void changeScreenLanguage() {
+        ConfigScreen screen = new ConfigScreen(mGame);
+        // Reselect the language selector to make the replace seamless
+        screen.mTabMenuItem.setCurrentPage(screen.mLanguageGroup);
+        screen.mMenu.setCurrentItem(screen.mLanguageGroup);
+        mGame.replaceScreen(screen);
     }
 
     class InputSelectorController {
@@ -293,9 +354,9 @@ public class ConfigScreen extends PwStageScreen {
 
     private void setupInputSelector(Menu menu, MenuItemGroup group, String label, final int idx) {
         SelectorMenuItem<GameInputHandlerFactory> selector = new SelectorMenuItem<>(menu);
-        group.addItemWithLabel(label + ":", selector);
+        group.addItemWithLabel(label, selector);
 
-        ButtonMenuItem configureButton = new ButtonMenuItem(menu, "Configure");
+        ButtonMenuItem configureButton = new ButtonMenuItem(menu, tr("CONFIGURE"));
         group.addItemWithLabel("", configureButton);
 
         InputSelectorController controller =

@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -215,7 +217,7 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void updateLockedTrackDetails(Track track) {
-        mTrackNameLabel.setText("[Locked]");
+        mTrackNameLabel.setText(tr("[Locked]"));
 
         mUnlockHintLabel.setVisible(true);
         mUnlockHintLabel.setText(mGame.getRewardManager().getUnlockText(track));

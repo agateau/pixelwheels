@@ -465,7 +465,7 @@ public class FinishedOverlay extends Overlay {
     private void createRaceRow(
             TableType tableType, TableRowCreator rowCreator, int idx, Racer racer) {
         String name = getRacerName(racer);
-        String rank = StringUtils.formatRank(idx + 1);
+        String rank = StringUtils.formatRankInTable(idx + 1);
         LapPositionComponent lapPositionComponent = racer.getLapPositionComponent();
         String bestLapTime;
         String totalTime;
@@ -486,7 +486,7 @@ public class FinishedOverlay extends Overlay {
 
     private void createChampionshipTotalRow(
             HashMap<Racer, Integer> oldRankMap, int idx, Racer racer) {
-        String rank = StringUtils.formatRank(idx + 1);
+        String rank = StringUtils.formatRankInTable(idx + 1);
         String name = getRacerName(racer);
         String totalTime = StringUtils.formatRaceTime(racer.getEntrant().getRaceTime());
 

@@ -18,6 +18,8 @@
  */
 package com.agateau.ui.uibuilder;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
@@ -179,7 +181,7 @@ public class UiBuilder {
                 "TextButton",
                 (uiBuilder, element) -> {
                     String styleName = element.getAttribute("style", "default");
-                    String text = processText(element.getText());
+                    String text = tr(processText(element.getText()));
                     return new TextButton(text, mSkin, styleName);
                 });
         mActorFactories.put("Group", (uiBuilder, element) -> new Group());
@@ -195,11 +197,14 @@ public class UiBuilder {
                 "Label",
                 (uiBuilder, element) -> {
                     String styleName = element.getAttribute("style", "default");
-                    String text = processText(element.getText());
+                    String text = tr(processText(element.getText()));
                     Label label = new Label(text, mSkin, styleName);
                     int align = parseAlign(element);
                     if (align != -1) {
                         label.setAlignment(align);
+                    }
+                    if (element.getBooleanAttribute("wrap", false)) {
+                        label.setWrap(true);
                     }
                     return label;
                 });
@@ -213,7 +218,7 @@ public class UiBuilder {
                     } else {
                         pane = new ScrollPane(null, mSkin, styleName);
                     }
-                    Actor child = doBuild(element, null);
+                    Actor child = buildChildren(element, null);
                     if (child != null) {
                         pane.setActor(child);
                     }
@@ -241,7 +246,7 @@ public class UiBuilder {
                 "CheckBox",
                 (uiBuilder, element) -> {
                     String styleName = element.getAttribute("style", "default");
-                    String text = element.getText();
+                    String text = tr(element.getText());
                     return new CheckBox(text, mSkin, styleName);
                 });
         mActorFactories.put("Menu", (uiBuilder, element) -> createMenu(element));
@@ -259,23 +264,28 @@ public class UiBuilder {
                 "ButtonMenuItem",
                 (menu, element) -> {
                     String label = element.getAttribute("label", null);
-                    String text = element.getAttribute("text", "");
+                    String text = tr(element.getAttribute("text", ""));
                     ButtonMenuItem item = new ButtonMenuItem(menu, text);
                     if (label == null) {
                         menu.addItem(item);
                     } else {
-                        menu.addItemWithLabel(label, item);
+                        menu.addItemWithLabel(tr(label), item);
                     }
                     return item;
                 });
         mMenuItemFactories.put(
-                "LabelMenuItem", (menu, element) -> menu.addLabel(element.getAttribute("text")));
+                "LabelMenuItem",
+                (menu, element) -> {
+                    String text = tr(element.getAttribute("text"));
+                    return menu.addLabel(text);
+                });
     }
 
     public void defineVariable(String name) {
         mTraversor.defineVariable(name);
     }
 
+    /** The main build function */
     public Actor build(FileHandle handle) {
         return build(handle, null);
     }
@@ -294,7 +304,7 @@ public class UiBuilder {
         mActorForId.clear();
         mMenuItemForId.clear();
         try {
-            return doBuild(parentElement, parentActor);
+            return buildChildren(parentElement, parentActor);
         } catch (SyntaxException e) {
             NLog.e("Parse error: " + e.getMessage());
             return null;
@@ -313,7 +323,10 @@ public class UiBuilder {
         mAtlasMap.put(ui, atlas);
     }
 
-    private Actor doBuild(XmlReader.Element parentElement, Group parentActor)
+    /**
+     * Internal build function, public only so that factories can call it to build their children
+     */
+    public Actor buildChildren(XmlReader.Element parentElement, Group parentActor)
             throws SyntaxException {
         final Actor[] root = {null};
         mTraversor.traverseElementTree(
@@ -337,7 +350,7 @@ public class UiBuilder {
                     if (actor instanceof Group
                             && !(actor instanceof ScrollPane)
                             && !(actor instanceof Menu)) {
-                        doBuild(element, (Group) actor);
+                        buildChildren(element, (Group) actor);
                     }
                     mLastAddedActor = actor;
                     if (root[0] == null) {
@@ -511,12 +524,23 @@ public class UiBuilder {
         if (!attr.isEmpty()) {
             actor.setY(mDimParser.parse(attr));
         }
+        boolean explicitWidth = false;
         attr = element.getAttribute("width", "");
         if (!attr.isEmpty()) {
+            explicitWidth = true;
             actor.setWidth(mDimParser.parse(attr));
         }
         attr = element.getAttribute("height", "");
-        if (!attr.isEmpty()) {
+        if (attr.isEmpty()) {
+            // If actor is a Labels with word-wrapping, and width is set but not height, then
+            // compute the height required to fit the text to the required width
+            if (actor instanceof Label) {
+                Label label = (Label) actor;
+                if (explicitWidth && label.getWrap()) {
+                    label.setHeight(label.getPrefHeight());
+                }
+            }
+        } else {
             actor.setHeight(mDimParser.parse(attr));
         }
         attr = element.getAttribute("originX", "");

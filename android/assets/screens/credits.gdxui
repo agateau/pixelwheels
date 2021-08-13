@@ -2,6 +2,86 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="500px" height="540px">
+            <VerticalGroup>
+                <Label style="creditsTitle">Pixel Wheels</Label>
+                <Label/>
+                <Label>An open-source racing game</Label>
+                <Label/>
+                <Label style="creditsSection">Code</Label>
+                <Label/>
+                <Label>Aurélien Gâteau</Label>
+                <Label/>
+                <Label style="creditsSection">Pixels</Label>
+                <Label/>
+                <Label>Aurélien Gâteau</Label>
+                <Label>Antonin Gâteau</Label>
+                <Label/>
+                <Label style="creditsSection">Music</Label>
+                <Label/>
+                <Label>Menu:</Label>
+                <Label>"Lightspeed"</Label>
+                <Label>Thomas Tripon</Label>
+                <Label/>
+                <Label>Victory:</Label>
+                <Label>"Core Descent (16-bit) v0.9"</Label>
+                <Label>FoxSynergy</Label>
+                <Label/>
+                <Label>Country Life championship:</Label>
+                <Label>"Cosmo Blast v1.0"</Label>
+                <Label>FoxSynergy</Label>
+                <Label/>
+                <Label>Square Mountains championship:</Label>
+                <Label>"Lunar Harvest v1.0"</Label>
+                <Label>FoxSynergy</Label>
+                <Label/>
+                <Label>Pix Cities championship:</Label>
+                <Label>"Bouncing Baal v0.95"</Label>
+                <Label>FoxSynergy</Label>
+                <Label/>
+                <Label style="creditsSection">Sound Effects</Label>
+                <Label/>
+                <Label>"Car tire squeal skid loop"</Label>
+                <Label>Tom Haigh</Label>
+                <Label/>
+                <Label>"Racing car engine sound loops"</Label>
+                <Label>domasx2</Label>
+                <Label/>
+                <Label>Other sound effects</Label>
+                <Label>Aurélien Gâteau</Label>
+                <Label/>
+                <Label style="creditsSection">Fonts</Label>
+                <Label/>
+                <Label>Xolonium</Label>
+                <Label>Severin Meyer</Label>
+                <Label/>
+                <Label>Kwajong</Label>
+                <Label>Tup Wanders</Label>
+                <Label/>
+                <Label style="creditsSection">Translations</Label>
+                <Label/>
+                <Label>French:</Label>
+                <Label>Aurélien Gâteau</Label>
+                <Label/>
+                <Label style="creditsSection">Video Editing</Label>
+                <Label/>
+                <Label>Clara Gâteau</Label>
+                <Label/>
+                <Label style="creditsSection">Beta Testers</Label>
+                <Label/>
+                <Label>Antonin Gâteau</Label>
+                <Label>Guillaume Roche</Label>
+                <Label/>
+                <Label>And all GitHub bug reporters</Label>
+                <Label>(thank you!)</Label>
+                <Label/>
+                <Label style="creditsSection">Made with</Label>
+                <Label/>
+                <Label>LibGDX</Label>
+                <Label>Tiled</Label>
+                <Label>Aseprite</Label>
+                <Label>SFXR Qt</Label>
+                <Label>Android Studio</Label>
+            </VerticalGroup>
         </CreditsScrollPane>
 
         <ImageButton id="backButton"

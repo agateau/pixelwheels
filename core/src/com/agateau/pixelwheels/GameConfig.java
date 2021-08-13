@@ -40,6 +40,7 @@ public class GameConfig {
     public boolean fullscreen = false;
     public boolean playSoundFx = true;
     public boolean playMusic = true;
+    public String languageId = "";
 
     public GameMode gameMode = GameMode.QUICK_RACE;
     public final String[] vehicles = new String[Constants.MAX_PLAYERS];
@@ -80,6 +81,11 @@ public class GameConfig {
         this.track = mPreferences.getString(PrefConstants.TRACK_ID);
         this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
 
+        this.languageId = mPreferences.getString(PrefConstants.LANGUAGE_ID);
+        if (this.languageId.isEmpty()) {
+            this.languageId = Language.findBestLanguageId();
+        }
+
         setupInputHandlers();
     }
 
@@ -100,6 +106,8 @@ public class GameConfig {
 
         mPreferences.putString(PrefConstants.TRACK_ID, this.track);
         mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
+
+        mPreferences.putString(PrefConstants.LANGUAGE_ID, this.languageId);
 
         mPreferences.flush();
 

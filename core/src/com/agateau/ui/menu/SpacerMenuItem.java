@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2021 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -21,28 +21,18 @@ package com.agateau.ui.menu;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-/**
- * A MenuItem to show a static text
- *
- * <p>To wrap long texts, call setWrap(true)
- */
-public class LabelMenuItem implements MenuItem {
-    private final Label mLabel;
+class SpacerMenuItem implements MenuItem {
+    private final Actor mActor;
 
-    public LabelMenuItem(String text, Skin skin) {
-        this(text, skin, "default");
-    }
-
-    public LabelMenuItem(String text, Skin skin, String style) {
-        mLabel = new Label(text, skin, style);
+    public SpacerMenuItem(int height) {
+        mActor = new Actor();
+        mActor.setHeight(height);
     }
 
     @Override
     public Actor getActor() {
-        return mLabel;
+        return mActor;
     }
 
     @Override
@@ -54,9 +44,6 @@ public class LabelMenuItem implements MenuItem {
     public boolean isFocusable() {
         return false;
     }
-
-    @Override
-    public void setFocused(boolean focused) {}
 
     @Override
     public void trigger() {}
@@ -84,10 +71,9 @@ public class LabelMenuItem implements MenuItem {
 
     @Override
     public float getParentWidthRatio() {
-        return mLabel.getWrap() ? 1 : 0;
+        return 0;
     }
 
-    public void setWrap(boolean wrap) {
-        mLabel.setWrap(wrap);
-    }
+    @Override
+    public void setFocused(boolean focused) {}
 }

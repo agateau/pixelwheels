@@ -34,6 +34,7 @@ public class DesktopLauncher {
         config.setPreferencesConfig(".config/agateau.com", Files.FileType.External);
         config.useVsync(true);
         FileUtils.appName = "pixelwheels";
+
         new Lwjgl3Application(new PwGame(), config);
     }
 }

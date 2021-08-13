@@ -1,0 +1,126 @@
+#!/bin/bash
+set -euo pipefail
+
+PROGNAME=$(basename $0)
+
+cd $(dirname $0)/../..
+
+TOOLS_DIR=$PWD/tools
+MESSAGES_POT=$PWD/po/messages.pot
+PO_DIR=$PWD/po
+
+TEMP_DIR="$(mktemp -d -- "/tmp/po-update-XXXXXX")"
+
+delete_temp_dir() {
+    rm -rf $TEMP_DIR
+}
+
+trap delete_temp_dir INT TERM EXIT
+
+die() {
+    echo "$PROGNAME: $*" >&2
+    exit 1
+}
+
+usage() {
+    if [ "$*" != "" ] ; then
+        echo "Error: $*"
+        echo
+    fi
+
+    cat << EOF
+Usage: $PROGNAME [OPTION ...]
+Updates $MESSAGES_POT from strings in the source code.
+
+Options:
+  -h, --help          display this usage message and exit
+  -c, --check         check if $MESSAGES_POT is up-to-date, do not update it
+EOF
+
+    exit 1
+}
+
+CHECK_MODE=false
+
+parse_args() {
+    while [ $# -gt 0 ] ; do
+        case "$1" in
+        -h|--help)
+            usage
+            ;;
+        -c|--check)
+            CHECK_MODE=true
+            ;;
+        -*)
+            usage "Unknown option '$1'"
+            ;;
+        *)
+            usage "Too many arguments"
+            ;;
+        esac
+        shift
+    done
+}
+
+list_files() {
+    local output=$1
+
+    echo "Listing translatable files"
+
+    for dir in core desktop android ; do
+        find $dir -name '*.java' | grep -v '/build/' >> $output
+    done
+    find android/assets -name '*.gdxui' >> $output
+}
+
+extract_messages() {
+    local lst_file=$1
+    local messages_pot=$2
+
+    echo "Extracting messages"
+
+    # Set GETTEXTDATADIR so that xgettext finds our .its files
+    GETTEXTDATADIR=$TOOLS_DIR/gettext xgettext --from-code=utf-8 \
+        --keyword=tr --keyword=trn:1,2 \
+        --sort-by-file \
+        --output $messages_pot \
+        --files-from $lst_file
+}
+
+update_messages() {
+    for po_file in $PO_DIR/*.po ; do
+        echo "Updating $po_file"
+        msgmerge --update $po_file $MESSAGES_POT
+    done
+}
+
+# When we diff .pot files, we do not care about file locations or metadata,
+# only msgid and msgstr lines, so keep only those.
+filter_pot() {
+    local file=$1
+    egrep '^msg(id|str) ' $file
+}
+
+main() {
+    parse_args $@
+
+    lst_file=$TEMP_DIR/files
+    list_files $lst_file
+
+    if $CHECK_MODE ; then
+        tmp_new_pot=$TEMP_DIR/new-pot
+        extract_messages $lst_file $tmp_new_pot
+
+        if cmp --quiet <(filter_pot $MESSAGES_POT) <(filter_pot $tmp_new_pot) ; then
+            echo "$MESSAGES_POT is up-to-date"
+        else
+            echo "$MESSAGES_POT is not up-to-date, run \`make po-update\` to update it"
+            exit 1
+        fi
+    else
+        extract_messages $lst_file $MESSAGES_POT
+        update_messages
+    fi
+}
+
+main $@

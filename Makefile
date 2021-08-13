@@ -81,7 +81,7 @@ apk-dist:
 	done
 
 
-dist: assets packer check desktop-dist apk-dist
+dist: assets packer po-compile check desktop-dist apk-dist
 
 clean-dist: clean dist
 
@@ -128,8 +128,19 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
-check: codingstyle-check
+check: codingstyle-check po-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
+
+# Translations
+po-update:
+	tools/po-compile/po-update
+
+po-check:
+	tools/po-compile/po-update --check
+
+po-compile:
+	mkdir -p core/generated/com/agateau/translations
+	tools/po-compile/po-compile-all po core/generated/com/agateau/translations
 
 .PHONY: desktop-dist apk-dist dist clean-dist tag tagpush fastlane-beta check tools build release-archives

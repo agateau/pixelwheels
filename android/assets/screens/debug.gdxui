@@ -9,6 +9,6 @@
                      bottomLeft="root.bottomLeft 1 1"
                      imageName="icon-back"/>
 
-        <Label id="gamePlayModifiedLabel" bottomCenter="root.bottomCenter 0 1" style="small">Settings affecting game play have been modified, scores won't be saved</Label>
+        <Label id="gamePlayModifiedLabel" bottomLeft="backButton.bottomRight 1 0" style="small" width="800px" wrap="true">Settings affecting game play have been modified, scores won't be saved</Label>
     </AnchorGroup>
 </gdxui>
