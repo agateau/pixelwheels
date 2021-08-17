@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.android;
 
 import android.content.Context;
 import android.os.Bundle;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.LogFilePrinter;
@@ -31,8 +32,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class AndroidLauncher extends AndroidApplication {
-    private static final String LOG_FILENAME = "pixelwheels.log";
-
     private static class AndroidLogFileOpener implements LogFilePrinter.LogFileOpener {
         private final Context mContext;
 
@@ -44,9 +43,9 @@ public class AndroidLauncher extends AndroidApplication {
         public FileOutputStream openLogFile(String filename) {
             try {
                 return mContext.openFileOutput(
-                        LOG_FILENAME, Context.MODE_PRIVATE | Context.MODE_APPEND);
+                        Constants.LOG_FILENAME, Context.MODE_PRIVATE | Context.MODE_APPEND);
             } catch (FileNotFoundException e) {
-                NLog.e("Failed to open %s for writing: %s", LOG_FILENAME, e);
+                NLog.e("Failed to open %s for writing: %s", Constants.LOG_FILENAME, e);
                 return null;
             }
         }
@@ -69,6 +68,6 @@ public class AndroidLauncher extends AndroidApplication {
 
     private void setupLogging() {
         AndroidLogFileOpener opener = new AndroidLogFileOpener(this);
-        NLog.addPrinter(new LogFilePrinter(LOG_FILENAME, opener));
+        NLog.addPrinter(new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener));
     }
 }

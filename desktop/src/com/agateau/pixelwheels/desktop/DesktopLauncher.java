@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.desktop;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.utils.StringUtils;
@@ -30,8 +31,6 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import java.io.File;
 
 public class DesktopLauncher {
-    private static final String LOG_FILENAME = "pixelwheels.log";
-
     public static void main(String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
@@ -58,8 +57,8 @@ public class DesktopLauncher {
                             "Can't create cache dir %s, won't be able to log to a file", cacheDir));
             return;
         }
-        String logFilePath = cacheDir + File.separator + LOG_FILENAME;
-        NLog.addPrinter(new LogFilePrinter(logFilePath));
+        String logFilePath = cacheDir + File.separator + Constants.LOG_FILENAME;
+        NLog.addPrinter(new LogFilePrinter(logFilePath, Constants.LOG_MAX_SIZE));
     }
 
     private static String getCacheDir() {

@@ -34,19 +34,66 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class LogFilePrinterTests {
+    private static final String LOG_FILENAME = "test.log";
+
     @Rule public TemporaryFolder mTemporaryFolder = new TemporaryFolder();
 
     @Test
     public void testCreateLogFile() throws IOException {
-        String path = mTemporaryFolder.getRoot() + File.separator + "test.log";
+        String path = getLogPath();
 
-        LogFilePrinter printer = new LogFilePrinter(path);
+        LogFilePrinter printer = new LogFilePrinter(path, 200);
         printer.setMessageFormatter(
-                (level, tag, message) ->
-                        String.format(Locale.US, "%d %s %s", level, tag, message));
+                (level, tag, message) -> String.format(Locale.US, "%d %s %s", level, tag, message));
         printer.print(12, "tag", "hello");
 
-        String content = FileUtils.readUtf8(new FileInputStream(path));
-        assertThat(content, is("12 tag hello\n"));
+        assertThat(readFile(path), is("12 tag hello\n"));
+    }
+
+    @Test
+    public void testRotateLogFile() throws IOException {
+        // GIVEN a log printer with a max size of 15 bytes
+        String path = getLogPath();
+
+        LogFilePrinter printer = new LogFilePrinter(path, 15);
+        printer.setMessageFormatter((level, tag, message) -> message);
+
+        // WHEN I log a short message
+        printer.print(0, "", "aaaaa");
+
+        // THEN it is in the main log
+        assertThat(readFile(path), is("aaaaa\n"));
+
+        // WHEN I log another short message
+        printer.print(0, "", "bbbbb");
+
+        // THEN it iis also in the main log
+        assertThat(readFile(path), is("aaaaa\nbbbbb\n"));
+
+        // WHEN I log a message which forces the rotation
+        printer.print(0, "", "0123456789abcde");
+
+        // THEN the backup log contains the previous content
+        assertThat(readFile(path + LogFilePrinter.BACKUP_SUFFIX), is("aaaaa\nbbbbb\n"));
+
+        // AND the main log contains the new message
+        assertThat(readFile(path), is("0123456789abcde\n"));
+
+        // WHEN I log another long message
+        printer.print(0, "", "edcba0123456789");
+
+        // THEN the backup log contains the previous main log content
+        assertThat(readFile(path + LogFilePrinter.BACKUP_SUFFIX), is("0123456789abcde\n"));
+
+        // AND the main log contains the new message
+        assertThat(readFile(path), is("edcba0123456789\n"));
+    }
+
+    private String getLogPath() {
+        return mTemporaryFolder.getRoot() + File.separator + LOG_FILENAME;
+    }
+
+    private String readFile(String path) throws IOException {
+        return FileUtils.readUtf8(new FileInputStream(path));
     }
 }

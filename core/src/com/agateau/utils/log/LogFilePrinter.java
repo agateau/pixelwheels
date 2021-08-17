@@ -19,6 +19,7 @@
 package com.agateau.utils.log;
 
 import com.badlogic.gdx.Application;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,10 +32,13 @@ import java.util.Locale;
  * space.
  */
 public class LogFilePrinter implements NLog.Printer {
+    public static final String BACKUP_SUFFIX = ".0";
     private final String mPath;
     private final LogFileOpener mOpener;
+    private final long mMaxSize;
     private MessageFormatter mFormatter;
     private FileOutputStream mStream;
+    private long mCurrentSize;
 
     public interface LogFileOpener {
         FileOutputStream openLogFile(String filename);
@@ -44,9 +48,10 @@ public class LogFilePrinter implements NLog.Printer {
         String formatMessage(int level, String tag, String message);
     }
 
-    public LogFilePrinter(String path) {
+    public LogFilePrinter(String path, long maxSize) {
         this(
                 path,
+                maxSize,
                 filename -> {
                     try {
                         return new FileOutputStream(filename, true /* append */);
@@ -57,10 +62,13 @@ public class LogFilePrinter implements NLog.Printer {
                 });
     }
 
-    public LogFilePrinter(String path, LogFileOpener opener) {
+    public LogFilePrinter(String path, long maxSize, LogFileOpener opener) {
         mPath = path;
+        mMaxSize = maxSize;
         mOpener = opener;
         mFormatter = LogFilePrinter::formatMessage;
+        File file = new File(path);
+        mCurrentSize = file.exists() ? file.length() : 0;
         openFile();
     }
 
@@ -74,12 +82,30 @@ public class LogFilePrinter implements NLog.Printer {
             return;
         }
         message = mFormatter.formatMessage(level, tag, message);
+        // + 1 for the '\n'
+        if (mCurrentSize + message.length() + 1 > mMaxSize) {
+            rotateLogFile();
+        }
         try {
             mStream.write(message.getBytes());
             mStream.write('\n');
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void rotateLogFile() {
+        try {
+            mStream.flush();
+            mStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(mPath);
+        file.renameTo(new File(mPath + BACKUP_SUFFIX));
+
+        mCurrentSize = 0;
+        openFile();
     }
 
     private static String formatMessage(int level, String tag, String message) {
