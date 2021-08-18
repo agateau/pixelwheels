@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * A printer logging to a file
@@ -48,6 +47,59 @@ public class LogFilePrinter implements NLog.Printer {
         String formatMessage(int level, String tag, String message);
     }
 
+    private static final MessageFormatter sDefaultMessageFormatter =
+            new MessageFormatter() {
+                private final StringBuilder mStringBuilder = new StringBuilder();
+
+                @Override
+                public String formatMessage(int level, String tag, String message) {
+                    String levelString;
+                    if (level == Application.LOG_DEBUG) {
+                        levelString = "D";
+                    } else if (level == Application.LOG_INFO) {
+                        levelString = "I";
+                    } else { // LOG_ERROR
+                        levelString = "E";
+                    }
+                    mStringBuilder.setLength(0);
+                    appendDate();
+                    mStringBuilder.append(' ');
+                    mStringBuilder.append(levelString);
+                    mStringBuilder.append(' ');
+                    mStringBuilder.append(tag);
+                    mStringBuilder.append(' ');
+                    mStringBuilder.append(message);
+                    return mStringBuilder.toString();
+                }
+
+                private void appendDate() {
+                    long timeSpent = System.currentTimeMillis();
+                    long secondsInDay = (timeSpent / 1000) % 86400;
+                    long hour = secondsInDay / 3600;
+                    long minutes = (secondsInDay % 3600) / 60;
+                    long seconds = secondsInDay % 60;
+                    long millis = timeSpent % 1000;
+                    appendNumber(hour, 2);
+                    mStringBuilder.append(':');
+                    appendNumber(minutes, 2);
+                    mStringBuilder.append(':');
+                    appendNumber(seconds, 2);
+                    mStringBuilder.append('.');
+                    appendNumber(millis, 3);
+                }
+
+                private void appendNumber(long value, int width) {
+                    int digitCount = 1;
+                    for (long v = value; v > 9; v /= 10) {
+                        digitCount += 1;
+                    }
+                    for (int idx = 0; idx < width - digitCount; ++idx) {
+                        mStringBuilder.append('0');
+                    }
+                    mStringBuilder.append(value);
+                }
+            };
+
     public LogFilePrinter(String path, long maxSize) {
         this(
                 path,
@@ -66,7 +118,7 @@ public class LogFilePrinter implements NLog.Printer {
         mPath = path;
         mMaxSize = maxSize;
         mOpener = opener;
-        mFormatter = LogFilePrinter::formatMessage;
+        mFormatter = sDefaultMessageFormatter;
         File file = new File(path);
         mCurrentSize = file.exists() ? file.length() : 0;
         openFile();
@@ -106,19 +158,6 @@ public class LogFilePrinter implements NLog.Printer {
 
         mCurrentSize = 0;
         openFile();
-    }
-
-    private static String formatMessage(int level, String tag, String message) {
-        String levelString;
-        if (level == Application.LOG_DEBUG) {
-            levelString = "D";
-        } else if (level == Application.LOG_INFO) {
-            levelString = "I";
-        } else { // LOG_ERROR
-            levelString = "E";
-        }
-        long timeSpent = System.currentTimeMillis();
-        return String.format(Locale.US, "%08d %s %s %s", timeSpent, levelString, tag, message);
     }
 
     private void openFile() {
