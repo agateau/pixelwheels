@@ -24,6 +24,7 @@ dependencies {
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-android:$gdxControllersVersion"
+    implementation "androidx.core:core:1.6.0"
 }
 
 android {
@@ -152,6 +153,4 @@ idea {
             }
         }
     }
-}
-dependencies {
 }

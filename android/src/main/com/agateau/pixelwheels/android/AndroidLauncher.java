@@ -39,13 +39,19 @@ public class AndroidLauncher extends AndroidApplication {
         config.useImmersiveMode = true;
         config.hideStatusBar = true;
         FileUtils.appName = "tinywheels";
-        setupLogging();
-        initialize(new PwGame(), config);
+        PwGame game = new PwGame();
+        setupLogging(game);
+        initialize(game, config);
         Gdx.input.setCatchBackKey(true);
     }
 
-    private void setupLogging() {
+    private void setupLogging(PwGame game) {
         AndroidLogFileOpener opener = new AndroidLogFileOpener(this);
-        NLog.addPrinter(new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener));
+        LogFilePrinter printer =
+                new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener);
+        NLog.addPrinter(printer);
+
+        AndroidLogExporter exporter = new AndroidLogExporter(this, printer);
+        game.setLogExporter(exporter);
     }
 }
