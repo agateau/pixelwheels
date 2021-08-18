@@ -29,6 +29,10 @@ public class Constants {
 
     public static final String DEBUG_SCREEN;
 
+    public static final String LOG_FILENAME = "pixelwheels.log";
+    // 1 mega-byte max size
+    public static final long LOG_MAX_SIZE = 1024 * 1024;
+
     static {
         String value = getenv("PW_DEBUG_SCREEN");
         DEBUG_SCREEN = value == null ? "" : value;

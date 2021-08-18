@@ -21,6 +21,17 @@ package com.agateau.utils.log;
 import com.badlogic.gdx.Application;
 import java.util.Vector;
 
+/**
+ * A simple logging system
+ *
+ * <p>Features:
+ *
+ * <ul>
+ *   <li>3 log levels: debug, info, error
+ *   <li>Automatically prefix the log message with the name of the calling method
+ *   <li>Pluggable "printers" to collect logs
+ * </ul>
+ */
 public class NLog {
     private static final Vector<Printer> sPrinters = new Vector<>();
     private static int sStackDepth = -1;

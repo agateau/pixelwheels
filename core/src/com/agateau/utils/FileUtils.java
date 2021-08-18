@@ -22,6 +22,10 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class FileUtils {
     public static String appName = "unnamed";
@@ -62,5 +66,19 @@ public class FileUtils {
             return null;
         }
         return root;
+    }
+
+    public static String readUtf8(final InputStream in) throws IOException {
+        InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+        StringBuilder sb = new StringBuilder();
+        char[] buffer = new char[1024];
+        while (true) {
+            int length = reader.read(buffer);
+            if (length == -1) {
+                break;
+            }
+            sb.append(buffer, 0, length);
+        }
+        return sb.toString();
     }
 }

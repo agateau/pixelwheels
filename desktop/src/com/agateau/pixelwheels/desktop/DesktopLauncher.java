@@ -18,12 +18,17 @@
  */
 package com.agateau.pixelwheels.desktop;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.screens.PwStageScreen;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.log.LogFilePrinter;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import java.io.File;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {
@@ -35,6 +40,36 @@ public class DesktopLauncher {
         config.useVsync(true);
         FileUtils.appName = "pixelwheels";
 
+        setupLogging();
         new Lwjgl3Application(new PwGame(), config);
+    }
+
+    private static void setupLogging() {
+        String cacheDir = getCacheDir();
+        if (cacheDir == null) {
+            System.err.println("Can't find cache dir, won't be able to log to a file");
+            return;
+        }
+        File file = new File(cacheDir);
+        if (!file.isDirectory() && !file.mkdirs()) {
+            System.err.println(
+                    StringUtils.format(
+                            "Can't create cache dir %s, won't be able to log to a file", cacheDir));
+            return;
+        }
+        String logFilePath = cacheDir + File.separator + Constants.LOG_FILENAME;
+        NLog.addPrinter(new LogFilePrinter(logFilePath, Constants.LOG_MAX_SIZE));
+    }
+
+    private static String getCacheDir() {
+        String cacheDir = System.getenv("XDG_CONFIG_CACHE");
+        if (cacheDir == null) {
+            String homeDir = System.getProperty("user.home");
+            if (homeDir == null) {
+                return null;
+            }
+            cacheDir = homeDir + File.separator + ".cache";
+        }
+        return cacheDir + File.separator + FileUtils.appName;
     }
 }
