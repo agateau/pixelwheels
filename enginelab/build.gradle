@@ -1,5 +1,15 @@
 apply plugin: 'java'
 
+dependencies {
+    implementation project(":core")
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
+}
+
 sourceCompatibility = JavaVersion.VERSION_1_8
 sourceSets.main.java.srcDirs = [ "src/" ]
 

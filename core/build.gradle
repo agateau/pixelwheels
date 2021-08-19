@@ -1,4 +1,12 @@
-apply plugin: "java"
+apply plugin: "java-library"
+
+dependencies {
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
+    api 'com.google.code.gson:gson:2.8.5'
+}
 
 task generateVersionInfoClass {
     doFirst {
