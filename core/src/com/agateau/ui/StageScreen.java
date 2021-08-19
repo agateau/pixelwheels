@@ -19,6 +19,8 @@
 package com.agateau.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,10 +30,22 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public abstract class StageScreen extends ScreenAdapter {
     private final Stage mStage;
     private final Viewport mViewport;
+    private final InputMultiplexer mInputMultiplexer;
 
     public StageScreen(Viewport viewport) {
         mViewport = viewport;
         mStage = new Stage(mViewport);
+        mInputMultiplexer = new InputMultiplexer();
+        mInputMultiplexer.addProcessor(mStage);
+    }
+
+    /**
+     * Insert an input processor *before* the default one.
+     *
+     * <p>Makes it possible to intercept all events. Useful for debugging.
+     */
+    public void prependInputProcessor(InputProcessor inputProcessor) {
+        mInputMultiplexer.addProcessor(0, inputProcessor);
     }
 
     public Stage getStage() {
@@ -41,7 +55,7 @@ public abstract class StageScreen extends ScreenAdapter {
     @Override
     public void show() {
         super.show();
-        Gdx.input.setInputProcessor(mStage);
+        Gdx.input.setInputProcessor(mInputMultiplexer);
     }
 
     @Override
