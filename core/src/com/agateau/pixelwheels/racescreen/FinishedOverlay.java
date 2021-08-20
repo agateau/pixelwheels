@@ -18,6 +18,9 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
+import static com.agateau.translations.Translator.tr;
+import static com.agateau.translations.Translator.trn;
+
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
@@ -287,8 +290,8 @@ public class FinishedOverlay extends Overlay {
         Label titleLabel = builder.getActor("titleLabel");
         titleLabel.setText(
                 tableType == TableType.CHAMPIONSHIP_TOTAL
-                        ? "Championship Rankings"
-                        : "Race Results");
+                        ? tr("Championship Rankings")
+                        : tr("Race Results"));
         titleLabel.pack();
 
         fillMenu(builder);
@@ -297,9 +300,10 @@ public class FinishedOverlay extends Overlay {
             int count = mRecordAnimInfos.size;
             Label label = builder.getActor("recordBrokenLabel");
             label.setText(
-                    count == 1
-                            ? "Congratulations!\nYou broke a record!"
-                            : StringUtils.format("Congratulations!\nYou broke %d records!", count));
+                    trn(
+                            "Congratulations!\nYou broke a record!",
+                            "Congratulations!\nYou broke %# records!",
+                            count));
             label.pack();
             // Create animations after the Overlay is at its final position, to ensure the table
             // cell coordinates are final
@@ -393,13 +397,14 @@ public class FinishedOverlay extends Overlay {
         // Create header row
         switch (tableType) {
             case QUICK_RACE:
-                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time");
+                rowCreator.addHeaderRow(tr("#"), tr("Racer"), tr("Best lap"), tr("Total time"));
                 break;
             case CHAMPIONSHIP_RACE:
-                rowCreator.addHeaderRow("#", "Racer", "Best lap", "Total time", "Points");
+                rowCreator.addHeaderRow(
+                        tr("#"), tr("Racer"), tr("Best lap"), tr("Total time"), tr("Points"));
                 break;
             case CHAMPIONSHIP_TOTAL:
-                rowCreator.addHeaderRow("#", "Racer", "", "Race time", "Points");
+                rowCreator.addHeaderRow(tr("#"), tr("Racer"), "", tr("Race time"), tr("Points"));
                 break;
         }
 
