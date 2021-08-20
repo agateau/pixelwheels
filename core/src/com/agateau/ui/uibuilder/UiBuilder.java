@@ -347,6 +347,9 @@ public class UiBuilder {
                     applyActorProperties(actor, element, parentActor);
                     createActorActions(actor, element);
                     String id = element.getAttribute("id", null);
+                    if (id != null) {
+                        actor.setName(id);
+                    }
                     addActorToActorForId(id, actor);
                     if (actor instanceof Group
                             && !(actor instanceof ScrollPane)
