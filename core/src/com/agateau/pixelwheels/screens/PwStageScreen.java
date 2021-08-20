@@ -18,15 +18,20 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.debug.Debug;
+import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /** A stage screen using the correct size for Pixel Wheels */
 public abstract class PwStageScreen extends StageScreen {
@@ -40,6 +45,49 @@ public abstract class PwStageScreen extends StageScreen {
         image.setDrawable(new TiledDrawable(uiAssets.background));
         image.setFillParent(true);
         getStage().addActor(image);
+
+        if (Debug.instance.logUiActivities) {
+            setupUiLogging();
+        }
+    }
+
+    private void setupUiLogging() {
+        prependInputProcessor(
+                new InputAdapter() {
+                    private final StringBuilder mStringBuilder = new StringBuilder(200);
+
+                    @Override
+                    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                        Viewport viewport = getStage().getViewport();
+                        NLog.d(
+                                "viewport: x=%d y=%d w=%d h=%d\ngutter: left=%d right=%d top=%d bottom=%d",
+                                viewport.getScreenX(),
+                                viewport.getScreenY(),
+                                viewport.getScreenWidth(),
+                                viewport.getScreenHeight(),
+                                viewport.getLeftGutterWidth(),
+                                viewport.getRightGutterWidth(),
+                                viewport.getTopGutterHeight(),
+                                viewport.getBottomGutterHeight());
+                        NLog.d(
+                                "x=%d y=%d (pointer=%d button=%d)",
+                                screenX, screenY, pointer, button);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                        NLog.d(
+                                "x=%d y=%d (pointer=%d button=%d)",
+                                screenX, screenY, pointer, button);
+                        mStringBuilder.setLength(0);
+                        mStringBuilder.append("\n# Scene dump start\n");
+                        UiUtils.dumpStage(mStringBuilder, getStage());
+                        mStringBuilder.append("# Scene dump stop");
+                        NLog.d(mStringBuilder.toString());
+                        return false;
+                    }
+                });
     }
 
     @Override
