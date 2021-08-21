@@ -97,20 +97,17 @@
         </Group>
 
         <Group id="leftColumn" topLeft="root.topLeft 4g -1g">
-            <Label id="mainLabel" style="title"
-                x="4g" y="-2g">Championship
-                <Action>
-                    moveBy -80g 0
-                    moveBy 80g 0 1 pow2Out
-                </Action>
-            </Label>
-            <Label style="title" x="6g" y="-4g">Finished!
-                <Action>
-                    moveBy 120g 0
-                    delay 0.5
-                    moveBy -120g 0 1 pow2Out
-                </Action>
-            </Label>
+            <Label id="mainLabel" style="title" x="4g" y="-2g">Championship</Label>
+            <Label id="mainLabel2" style="title" x="6g" y="-4g">Finished!</Label>
+            <Action actor="mainLabel">
+                moveBy -80g 0
+                moveBy 80g 0 1 pow2Out
+            </Action>
+            <Action actor="mainLabel2">
+                moveBy 120g 0
+                delay 0.5
+                moveBy -120g 0 1 pow2Out
+            </Action>
         </Group>
 
         <Table id="entrantTable" centerRight="road.centerLeft -1g -2g"
