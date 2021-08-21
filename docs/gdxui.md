@@ -175,6 +175,10 @@ The configuration values can be accessed from the code using one of these method
 
 An actor can contain one or more `Action` element. The text of this element defines the actions to create for this actor, using [animscript](animscript.md).
 
+Alternatively you can define the `Action` element can define the actor it applies to by setting the actor ID in the optional `actor` attribute.
+
+This is useful when the actor element contains text, for example for Labels, because if an Action is defined inside the Label, then gettext won't pick up the text for translations.
+
 ## Ifdef / Else
 
 You can create conditional blocks with `Ifdef` and `Else` blocks, like this:

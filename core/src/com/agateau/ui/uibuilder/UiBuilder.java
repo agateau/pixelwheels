@@ -40,6 +40,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -642,7 +643,19 @@ public class UiBuilder {
                 NLog.e("Failed to parse:\n" + definition + "\n\n%s", e);
                 continue;
             }
-            actor.addAction(script.createAction());
+            Action action = script.createAction();
+
+            String actorId = child.getAttribute("actor", "");
+            if (actorId.equals("")) {
+                actor.addAction(action);
+            } else {
+                Actor target = mActorForId.get(actorId);
+                if (target == null) {
+                    NLog.e("Failed to assign action to actor %s: actor not found", actorId);
+                    continue;
+                }
+                target.addAction(action);
+            }
         }
     }
 
