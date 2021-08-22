@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
+import static com.agateau.translations.Translator.tr;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
@@ -178,7 +179,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {
         mTableRowCreator.setTable(table);
-        mTableRowCreator.addHeaderRow("#", "Racer", "Total time", "Points");
+        mTableRowCreator.addHeaderRow(tr("#"), tr("Racer"), tr("Total time"), tr("Points"));
         for (int idx = 0; idx < entrants.size; ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(entrant.getVehicleId());
