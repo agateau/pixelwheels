@@ -168,8 +168,22 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void addInternalTab() {
-        MenuItemGroup group = mTabMenuItem.addPage(tr("Internal"));
+        MenuItemGroup group = mTabMenuItem.addPage(tr("Under the hood"));
         group.setWidth(800);
+
+        if (mGame.getLogExporter() != null) {
+            group.addLabel(tr("Hit a bug? Use this button to report it.")).setWrap(true);
+            group.addButton(tr("REPORT BUG"))
+                    .setParentWidthRatio(0.5f)
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.getLogExporter().exportLogs();
+                                }
+                            });
+            group.addSpacer();
+        }
 
         group.addLabel(
                         tr(

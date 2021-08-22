@@ -47,6 +47,18 @@ public class LogFilePrinter implements NLog.Printer {
         String formatMessage(int level, String tag, String message);
     }
 
+    public String getPath() {
+        return mPath;
+    }
+
+    public void flush() {
+        try {
+            mStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static final MessageFormatter sDefaultMessageFormatter =
             new MessageFormatter() {
                 private final StringBuilder mStringBuilder = new StringBuilder();

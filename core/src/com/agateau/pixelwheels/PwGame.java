@@ -79,6 +79,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
                 public void save(GameStatsImpl gameStats) {}
             };
 
+    private LogExporter mLogExporter;
+
     public Assets getAssets() {
         return mAssets;
     }
@@ -108,9 +110,19 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         return introspector;
     }
 
+    /** If a log exporter has been defined, the game can use it in the config screen */
+    public LogExporter getLogExporter() {
+        return mLogExporter;
+    }
+
+    public void setLogExporter(LogExporter logExporter) {
+        mLogExporter = logExporter;
+    }
+
     @Override
     public void create() {
         NLog.addPrinter(new GdxPrinter());
+        NLog.i("Starting version=%s", VersionInfo.VERSION);
         mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
         mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
         mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");

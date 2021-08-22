@@ -18,7 +18,6 @@
  */
 package com.agateau.pixelwheels.android;
 
-import android.content.Context;
 import android.os.Bundle;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
@@ -28,29 +27,8 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class AndroidLauncher extends AndroidApplication {
-    private static class AndroidLogFileOpener implements LogFilePrinter.LogFileOpener {
-        private final Context mContext;
-
-        AndroidLogFileOpener(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public FileOutputStream openLogFile(String filename) {
-            try {
-                return mContext.openFileOutput(
-                        Constants.LOG_FILENAME, Context.MODE_PRIVATE | Context.MODE_APPEND);
-            } catch (FileNotFoundException e) {
-                NLog.e("Failed to open %s for writing: %s", Constants.LOG_FILENAME, e);
-                return null;
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +39,19 @@ public class AndroidLauncher extends AndroidApplication {
         config.useImmersiveMode = true;
         config.hideStatusBar = true;
         FileUtils.appName = "tinywheels";
-        setupLogging();
-        initialize(new PwGame(), config);
+        PwGame game = new PwGame();
+        setupLogging(game);
+        initialize(game, config);
         Gdx.input.setCatchBackKey(true);
     }
 
-    private void setupLogging() {
+    private void setupLogging(PwGame game) {
         AndroidLogFileOpener opener = new AndroidLogFileOpener(this);
-        NLog.addPrinter(new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener));
+        LogFilePrinter printer =
+                new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener);
+        NLog.addPrinter(printer);
+
+        AndroidLogExporter exporter = new AndroidLogExporter(this, printer);
+        game.setLogExporter(exporter);
     }
 }
