@@ -55,6 +55,8 @@ public abstract class PwStageScreen extends StageScreen {
     }
 
     private void setupUiLogging() {
+        // All this logging has been added to capture more details about issue #119, which I cannot
+        // reproduce
         prependInputProcessor(
                 new InputAdapter() {
                     private final StringBuilder mStringBuilder = new StringBuilder(200);
