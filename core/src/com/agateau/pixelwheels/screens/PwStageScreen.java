@@ -27,6 +27,9 @@ import com.agateau.ui.VirtualKey;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Scaling;
@@ -55,10 +58,12 @@ public abstract class PwStageScreen extends StageScreen {
         prependInputProcessor(
                 new InputAdapter() {
                     private final StringBuilder mStringBuilder = new StringBuilder(200);
+                    private final Vector2 mTmp = new Vector2();
 
                     @Override
                     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                        Viewport viewport = getStage().getViewport();
+                        Stage stage = getStage();
+                        Viewport viewport = stage.getViewport();
                         NLog.d(
                                 "viewport: x=%d y=%d w=%d h=%d\ngutter: left=%d right=%d top=%d bottom=%d",
                                 viewport.getScreenX(),
@@ -69,9 +74,18 @@ public abstract class PwStageScreen extends StageScreen {
                                 viewport.getRightGutterWidth(),
                                 viewport.getTopGutterHeight(),
                                 viewport.getBottomGutterHeight());
+
                         NLog.d(
-                                "x=%d y=%d (pointer=%d button=%d)",
+                                "screenX=%d screenY=%d (pointer=%d button=%d)",
                                 screenX, screenY, pointer, button);
+
+                        mTmp.set(screenX, screenY);
+                        stage.screenToStageCoordinates(mTmp);
+                        NLog.d("stageX=%f stageY=%f", mTmp.x, mTmp.y);
+
+                        Actor hitActor = stage.hit(mTmp.x, mTmp.y, false /* touchable */);
+                        Actor touchableHitActor = stage.hit(mTmp.x, mTmp.y, true /* touchable */);
+                        NLog.d("Actor at coord: %s (touchable: %s)", hitActor, touchableHitActor);
                         return false;
                     }
 
