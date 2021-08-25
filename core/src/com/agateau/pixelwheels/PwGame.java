@@ -80,6 +80,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             };
 
     private LogExporter mLogExporter;
+    private String mCurrentLanguageId = "";
 
     public Assets getAssets() {
         return mAssets;
@@ -275,7 +276,10 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     public void onGameConfigChanged() {
         mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
         mAudioManager.setMusicMuted(!mGameConfig.playMusic);
-        loadTranslations();
+        if (!mGameConfig.languageId.equals(mCurrentLanguageId)) {
+            loadTranslations();
+            mCurrentLanguageId = mGameConfig.languageId;
+        }
     }
 
     private void updateGameStatsIO() {
