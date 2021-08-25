@@ -30,19 +30,21 @@ At the moment adding, updating or testing translations requires building the gam
 
 ## Testing a translation
 
-Build the game, start it, go to the settings screen. Your translation should be listed there.
+Build the game and start it. If you are running on a machine whose default language is the language you translated Pixel Wheels to, then your translation should already be in use. If not see the next section.
 
-Be sure to go through all the screens to catch issues like button text overflowing their buttons.
+Visit all the screens to catch issues like button text overflowing their buttons.
+
+Go to the settings screen. Check you can switch between your translation and the others.
 
 ## Ensuring your translation is automatically picked up
 
 Having the game translated is great, but it's even better if the game automatically starts in the player language without requiring them to go to the settings screen.
 
-To ensure it is the case, do the following:
+To check this works, do the following:
 
-- Edit ~/.config/agateau.com/pixelwheels.conf and remove the `languageId` line if it exists. Doing this ensures Pixel Wheels is not configured to use a particular language.
+- Edit `~/.config/agateau.com/pixelwheels.conf` and remove the `languageId` line if it exists. Doing this ensures Pixel Wheels is not configured to use a particular language.
 
-- Start the game, it should start using your translation. If it does not, look at the console output: it should say the name of the translation it is looking for. Rename your .po file to match this name. Rebuild the game and try again.
+- Start the game, it should start using your translation. If it does not, look at the console output: Pixel Wheels logs the name of the translation it is looking for. Rename your .po file to match this name. Rebuild the game and try again.
 
 ## Updating a translation
 
