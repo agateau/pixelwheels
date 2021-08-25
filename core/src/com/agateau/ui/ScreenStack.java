@@ -19,6 +19,7 @@
 package com.agateau.ui;
 
 import com.agateau.utils.Assert;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import java.util.Stack;
@@ -76,6 +77,7 @@ public class ScreenStack {
 
     private void setScreen(Screen screen) {
         if (mBlockingScreen == null) {
+            NLog.i("screen=%s", screen);
             mGame.setScreen(screen);
         }
     }

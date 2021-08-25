@@ -31,5 +31,7 @@ public class Debug {
 
     public int maxSkidmarks = 60;
 
+    public boolean logUiActivities = false;
+
     public static final Debug instance = new Debug();
 }
