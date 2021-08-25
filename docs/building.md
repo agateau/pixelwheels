@@ -1,6 +1,31 @@
 # Building Pixel Wheels
 
-## Dependencies
+The Docker-based build is simpler but the manual build gives you more control.
+
+## Docker-based build
+
+### Setup
+
+Make sure Docker is setup on your machine.
+
+To run your newly-built game you will at least need a Java Runtime Environment (JRE) installed.
+
+Run the `ci/build-docker-image` script.
+
+### Building
+
+Run the `ci/docker-build-game` script.
+
+### Running the game
+
+```
+cd android/assets
+java -jar ../../desktop/build/libs/desktop-1.0.jar
+```
+
+## Manual build
+
+### Dependencies
 
 Building Pixel Wheels requires the following components:
 
@@ -15,31 +40,31 @@ Building Pixel Wheels requires the following components:
     - jinja2: <https://palletsprojects.com/p/jinja/>
     - polib: <https://github.com/izimobil/polib/>
 
-### Python packages
+#### Python packages
 
 You can install the required Python packages with:
 
     pip3 install -r requirements.txt
 
-## Assets
+### Assets
 
 Some assets must be generated from work files with:
 
     make assets
 
-## Pack images
+### Pack images
 
 Once assets have been generated, you can pack them into atlases with:
 
     make packer
 
-## Compile translations
+### Build translations
 
 Translations files (.po) must be turned into Java files with:
 
     make po-compile
 
-## Build the game
+### Build the game
 
 Run:
 
