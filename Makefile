@@ -34,7 +34,7 @@ clean: clean-assets
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build:
+build: po-compile
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)

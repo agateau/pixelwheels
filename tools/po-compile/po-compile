@@ -119,7 +119,7 @@ def main():
     if args.output == "-":
         out = sys.stdout
     else:
-        out = open(args.output, "w")
+        out = open(args.output, "w", encoding="utf-8")
 
     if not os.path.exists(args.po_file):
         print("{} does not exist".format(args.po_file), file=sys.stderr)
