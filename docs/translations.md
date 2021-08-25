@@ -1,6 +1,14 @@
 # Translations
 
+So you want to translate Pixel Wheels to a new language? Awesome! Read on.
+
+## Requirements
+
+At the moment adding, updating or testing translations requires building the game. This might change in the future, but for now follow the [building documentation](building.md) for details.
+
 ## Adding a new translation
+
+- Create a fork of [PixelWheels GitHub project][github] and clone it.
 
 - Copy `po/messages.pot` to `po/{language}.po` (or `po/{language}_{COUNTRY}.po` if you want to create a country-specific variant).
 
@@ -8,15 +16,33 @@
 
 - Edit `core/src/com/agateau/pixelwheels/Language.java`: add your translation to the `ALL` array.
 
-- Add your translation to `android/assets/screens/credits.gdxui`.
+- Add your translation to the "Translation" section of `android/assets/screens/credits.gdxui`. Run `make po-update` for the new string to appear in your .po file, then translate it.
+
+- Test your translation (see below).
+
+- When you are happy with the result, file a pull request to get your work integrated. You're done!
 
 [poedit]: https://www.poedit.net/
 
 [lokalize]: https://apps.kde.org/lokalize/
 
+[github]: https://github.com/agateau/pixelwheels
+
 ## Testing a translation
 
-This requires building the game, see the [building documentation](building.md) for details.
+Build the game, start it, go to the settings screen. Your translation should be listed there.
+
+Be sure to go through all the screens to catch issues like button text overflowing their buttons.
+
+## Ensuring your translation is automatically picked up
+
+Having the game translated is great, but it's even better if the game automatically starts in the player language without requiring them to go to the settings screen.
+
+To ensure it is the case, do the following:
+
+- Edit ~/.config/agateau.com/pixelwheels.conf and remove the `languageId` line if it exists. Doing this ensures Pixel Wheels is not configured to use a particular language.
+
+- Start the game, it should start using your translation. If it does not, look at the console output: it should say the name of the translation it is looking for. Rename your .po file to match this name. Rebuild the game and try again.
 
 ## Updating a translation
 
