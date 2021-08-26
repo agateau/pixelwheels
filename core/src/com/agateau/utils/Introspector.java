@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.XmlWriter;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,6 +41,7 @@ public class Introspector {
 
     @SuppressWarnings("rawtypes")
     private final Class mClass;
+
     private final Object mReference;
     private final Object mObject;
     private final FileHandle mFileHandle;
@@ -51,6 +53,23 @@ public class Introspector {
         mObject = object;
         mReference = reference;
         mFileHandle = fileHandle;
+    }
+
+    /**
+     * Create an introspector using the default constructor of @p instance to create the reference
+     */
+    public static Introspector fromInstance(Object instance, FileHandle fileHandle) {
+        Object reference;
+        try {
+            reference = instance.getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException
+                | IllegalAccessException
+                | NoSuchMethodException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new RuntimeException("This should never happen");
+        }
+        return new Introspector(instance, reference, fileHandle);
     }
 
     public void addListener(Listener listener) {
