@@ -78,7 +78,7 @@ public class UiBuilder {
     private final Skin mSkin;
     private Actor mLastAddedActor;
     private final Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
-    private Map<String, String> mConfigMap = new HashMap<>();
+    private final Map<String, String> mConfigMap = new HashMap<>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
@@ -391,13 +391,14 @@ public class UiBuilder {
             return 0;
         }
         try {
-            return Float.valueOf(value);
+            return Float.parseFloat(value);
         } catch (NumberFormatException e) {
             NLog.e("Invalid float value for id '%s': '%s'", id, value);
             return 0;
         }
     }
 
+    @SuppressWarnings("unused")
     public String getStringConfigValue(String id) {
         String value = mConfigMap.get(id);
         if (value == null) {
