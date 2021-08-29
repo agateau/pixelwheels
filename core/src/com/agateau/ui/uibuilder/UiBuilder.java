@@ -59,6 +59,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +79,19 @@ public class UiBuilder {
     private final Skin mSkin;
     private Actor mLastAddedActor;
     private final Map<String, TextureAtlas> mAtlasMap = new HashMap<>();
-    private Map<String, String> mConfigMap = new HashMap<>();
+    private final Map<String, String> mConfigMap = new HashMap<>();
+
+    private static class ActorIdActionPair {
+        final String actorId;
+        final Action action;
+
+        public ActorIdActionPair(String actorId, Action action) {
+            this.actorId = actorId;
+            this.action = action;
+        }
+    }
+
+    private final Array<ActorIdActionPair> mPendingActions = new Array<>();
 
     public interface ActorFactory {
         Actor createActor(UiBuilder uiBuilder, XmlReader.Element element) throws SyntaxException;
@@ -305,7 +318,9 @@ public class UiBuilder {
         mActorForId.clear();
         mMenuItemForId.clear();
         try {
-            return buildChildren(parentElement, parentActor);
+            Actor root = buildChildren(parentElement, parentActor);
+            assignPendingActions();
+            return root;
         } catch (SyntaxException e) {
             NLog.e("Parse error: " + e.getMessage());
             return null;
@@ -391,13 +406,14 @@ public class UiBuilder {
             return 0;
         }
         try {
-            return Float.valueOf(value);
+            return Float.parseFloat(value);
         } catch (NumberFormatException e) {
             NLog.e("Invalid float value for id '%s': '%s'", id, value);
             return 0;
         }
     }
 
+    @SuppressWarnings("unused")
     public String getStringConfigValue(String id) {
         String value = mConfigMap.get(id);
         if (value == null) {
@@ -652,14 +668,23 @@ public class UiBuilder {
             if (actorId.equals("")) {
                 actor.addAction(action);
             } else {
-                Actor target = mActorForId.get(actorId);
-                if (target == null) {
-                    NLog.e("Failed to assign action to actor %s: actor not found", actorId);
-                    continue;
-                }
-                target.addAction(action);
+                // Defer assigning actions to ensure the actor has been created before we start
+                // looking for it
+                mPendingActions.add(new ActorIdActionPair(actorId, action));
             }
         }
+    }
+
+    private void assignPendingActions() {
+        for (ActorIdActionPair pair : mPendingActions) {
+            Actor target = mActorForId.get(pair.actorId);
+            if (target == null) {
+                NLog.e("Failed to assign action to actor %s: actor not found", pair.actorId);
+                continue;
+            }
+            target.addAction(pair.action);
+        }
+        mPendingActions.clear();
     }
 
     private static int parseAlign(XmlReader.Element element) throws SyntaxException {
