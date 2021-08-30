@@ -43,6 +43,16 @@ class ScrollableTiledImage extends Actor {
     }
 
     @Override
+    protected void sizeChanged() {
+        super.sizeChanged();
+        // Regenerate the framebuffer because it depends on the size. Do not do this inside act()
+        // or draw() because it causes the SpriteBatch matrix to change so the UI is no longer
+        // drawn aligned to their expected geometries, causing bugs like
+        // https://github.com/agateau/pixelwheels/issues/119
+        ensureFrameBufferOK();
+    }
+
+    @Override
     public void act(float delta) {
         super.act(delta);
         float tileHeight = mDrawable.getMinHeight();
@@ -51,7 +61,6 @@ class ScrollableTiledImage extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        ensureFrameBufferOK();
         DrawUtils.multiplyBatchAlphaBy(batch, parentAlpha);
         batch.draw(
                 mFrameBuffer.getColorBufferTexture(),
