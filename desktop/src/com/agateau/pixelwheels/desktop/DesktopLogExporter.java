@@ -18,10 +18,11 @@
  */
 package com.agateau.pixelwheels.desktop;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.LogExporter;
 import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.LogFilePrinter;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -36,5 +37,15 @@ public class DesktopLogExporter implements LogExporter {
     public void exportLogs() {
         Path path = Paths.get(mPrinter.getPath());
         PlatformUtils.openURI(path.getParent().toString());
+    }
+
+    @Override
+    public String getDescription() {
+        return tr("Need to file a bug report? Use this button to find the log file to attach.");
+    }
+
+    @Override
+    public String getActionText() {
+        return tr("OPEN LOG FILE FOLDER");
     }
 }
