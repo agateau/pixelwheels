@@ -2,10 +2,16 @@
 
 ## 0.21.0 - unreleased
 
+### Added
+
+- Pixel Wheels is now translatable. The game is available in French and English (#57).
+- Android: There is now a button to report a bug via email.
+
 ### Fixed
 
 - On the finished overlay, the car congratulating you when breaking a best lap or total time record no longer overlaps with the menu buttons on wide screens (#126).
 - Do not count missile hits on vehicles which have finished the race, to prevent farming missile hits (#128).
+- On Android, in the "championship finished" screen, the next button works again (#119).
 
 ## 0.20.0 - 2021-06-26
 
