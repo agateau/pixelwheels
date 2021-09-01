@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.XmlWriter;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,18 +39,37 @@ public class Introspector {
         void onModified();
     }
 
+    @SuppressWarnings("rawtypes")
     private final Class mClass;
+
     private final Object mReference;
     private final Object mObject;
     private final FileHandle mFileHandle;
 
-    private HashSet<WeakReference<Listener>> mListeners = new HashSet<>();
+    private final HashSet<WeakReference<Listener>> mListeners = new HashSet<>();
 
     public Introspector(Object object, Object reference, FileHandle fileHandle) {
         mClass = object.getClass();
         mObject = object;
         mReference = reference;
         mFileHandle = fileHandle;
+    }
+
+    /**
+     * Create an introspector using the default constructor of @p instance to create the reference
+     */
+    public static Introspector fromInstance(Object instance, FileHandle fileHandle) {
+        Object reference;
+        try {
+            reference = instance.getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException
+                | IllegalAccessException
+                | NoSuchMethodException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new RuntimeException("This should never happen");
+        }
+        return new Introspector(instance, reference, fileHandle);
     }
 
     public void addListener(Listener listener) {
@@ -119,9 +139,7 @@ public class Introspector {
             }
             root.pop();
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (IOException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -137,11 +155,9 @@ public class Introspector {
     private <T> T getFrom(Object object, String key) {
         try {
             Field field = mClass.getField(key);
+            //noinspection unchecked
             return (T) field.get(object);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("get(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("get(" + key + ") failed. " + e);
         }
@@ -151,10 +167,7 @@ public class Introspector {
         try {
             Field field = mClass.getField(key);
             field.set(mObject, value);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("set(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("set(" + key + ") failed. " + e);
         }
@@ -165,10 +178,7 @@ public class Introspector {
         try {
             Field field = mClass.getField(key);
             return field.getInt(mObject);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("getInt(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("getInt(" + key + ") failed. " + e);
         }
@@ -178,10 +188,7 @@ public class Introspector {
         try {
             Field field = mClass.getField(key);
             field.setInt(mObject, value);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("setInt(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("setInt(" + key + ") failed. " + e);
         }
@@ -192,10 +199,7 @@ public class Introspector {
         try {
             Field field = mClass.getField(key);
             return field.getFloat(mObject);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("getFloat(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("getFloat(" + key + ") failed. " + e);
         }
@@ -205,10 +209,7 @@ public class Introspector {
         try {
             Field field = mClass.getField(key);
             field.setFloat(mObject, value);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            throw new RuntimeException("setFloat(" + key + ") failed. " + e);
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException("setFloat(" + key + ") failed. " + e);
         }
