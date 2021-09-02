@@ -57,4 +57,14 @@ public class AndroidLogExporter implements LogExporter {
 
         mContext.startActivity(Intent.createChooser(intent, tr("Share via")));
     }
+
+    @Override
+    public String getDescription() {
+        return tr("Hit a bug? Use this button to report it.");
+    }
+
+    @Override
+    public String getActionText() {
+        return tr("REPORT BUG");
+    }
 }

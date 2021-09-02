@@ -20,4 +20,8 @@ package com.agateau.pixelwheels;
 
 public interface LogExporter {
     void exportLogs();
+
+    String getDescription();
+
+    String getActionText();
 }

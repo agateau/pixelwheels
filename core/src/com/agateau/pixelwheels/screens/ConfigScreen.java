@@ -23,6 +23,7 @@ import static com.agateau.translations.Translator.tr;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.Language;
+import com.agateau.pixelwheels.LogExporter;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
@@ -171,9 +172,10 @@ public class ConfigScreen extends PwStageScreen {
         MenuItemGroup group = mTabMenuItem.addPage(tr("Under the hood"));
         group.setWidth(800);
 
-        if (mGame.getLogExporter() != null) {
-            group.addLabel(tr("Hit a bug? Use this button to report it.")).setWrap(true);
-            group.addButton(tr("REPORT BUG"))
+        LogExporter logExporter = mGame.getLogExporter();
+        if (logExporter != null) {
+            group.addLabel(logExporter.getDescription()).setWrap(true);
+            group.addButton(logExporter.getActionText())
                     .setParentWidthRatio(0.5f)
                     .addListener(
                             new MenuItemListener() {

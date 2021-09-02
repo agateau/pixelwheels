@@ -40,11 +40,12 @@ public class DesktopLauncher {
         config.useVsync(true);
         FileUtils.appName = "pixelwheels";
 
-        setupLogging();
-        new Lwjgl3Application(new PwGame(), config);
+        PwGame game = new PwGame();
+        setupLogging(game);
+        new Lwjgl3Application(game, config);
     }
 
-    private static void setupLogging() {
+    private static void setupLogging(PwGame game) {
         String cacheDir = getCacheDir();
         if (cacheDir == null) {
             System.err.println("Can't find cache dir, won't be able to log to a file");
@@ -58,7 +59,10 @@ public class DesktopLauncher {
             return;
         }
         String logFilePath = cacheDir + File.separator + Constants.LOG_FILENAME;
-        NLog.addPrinter(new LogFilePrinter(logFilePath, Constants.LOG_MAX_SIZE));
+        LogFilePrinter printer = new LogFilePrinter(logFilePath, Constants.LOG_MAX_SIZE);
+        NLog.addPrinter(printer);
+
+        game.setLogExporter(new DesktopLogExporter(printer));
     }
 
     private static String getCacheDir() {
