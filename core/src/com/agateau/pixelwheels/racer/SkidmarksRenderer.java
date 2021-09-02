@@ -47,16 +47,17 @@ public class SkidmarksRenderer {
     }
 
     public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks) {
-        int idx1 = skidmarks.getBeginIndex();
-        if (idx1 == skidmarks.getEndIndex()) {
+        int idx = skidmarks.getBeginIndex();
+        if (idx == skidmarks.getEndIndex()) {
             return;
         }
-        int idx2 = skidmarks.getNextIndex(idx1);
+        Wheel.Skidmark mark2 = skidmarks.get(idx);
+        idx = skidmarks.getNextIndex(idx);
         float alpha = SKIDMARK_ALPHA_MIN;
 
-        for (; idx2 != skidmarks.getEndIndex(); idx1 = idx2, idx2 = skidmarks.getNextIndex(idx2)) {
-            Wheel.Skidmark mark1 = skidmarks.get(idx1);
-            Wheel.Skidmark mark2 = skidmarks.get(idx2);
+        for (; idx != skidmarks.getEndIndex(); idx = skidmarks.getNextIndex(idx)) {
+            Wheel.Skidmark mark1 = mark2;
+            mark2 = skidmarks.get(idx);
 
             Vector2 pos1 = mark1.getPos();
             Vector2 pos2 = mark2.getPos();
