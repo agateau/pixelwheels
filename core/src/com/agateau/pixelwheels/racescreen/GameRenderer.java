@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -126,6 +127,7 @@ public class GameRenderer {
         HdpiUtils.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
+        Rectangle viewBounds = mRenderer.getViewBounds();
         mSetupPerformanceCounter.stop();
 
         mTilePerformanceCounter.start();
@@ -143,7 +145,7 @@ public class GameRenderer {
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
-                object.draw(mBatch, z);
+                object.draw(mBatch, z, viewBounds);
             }
 
             if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {

@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.racer.HoleHandlerComponent;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundPlayer;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -40,6 +41,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
@@ -80,6 +82,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private final Vector2 mLeavePosition = new Vector2();
     private float mTime;
     private State mState;
+    private float mFrameBufferRadiusU;
 
     public static Helicopter create(
             Assets assets,
@@ -123,6 +126,10 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
             object.mFrameBufferBatch = new SpriteBatch();
             object.mFrameBufferBatch.setProjectionMatrix(
                     new Matrix4().setToOrtho2D(0, 0, bufferWidth, bufferHeight));
+
+            object.mFrameBufferRadiusU =
+                    Constants.UNIT_FOR_PIXEL
+                            * (Vector2.len(bufferWidth / 2f, bufferHeight / 2f) + SHADOW_OFFSET);
         }
 
         return object;
@@ -231,7 +238,10 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
+        if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), mFrameBufferRadiusU)) {
+            return;
+        }
         if (zLevel == ZLevel.SHADOWS) {
             float old = batch.getPackedColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);

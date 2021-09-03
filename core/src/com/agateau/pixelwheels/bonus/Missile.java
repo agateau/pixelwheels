@@ -41,6 +41,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -253,7 +254,7 @@ public class Missile extends GameObjectAdapter
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         if (zLevel == ZLevel.FLYING) {
             // Draw the shadow at Z_FLYING so that the shadow is drawn *over* its vehicle
             drawShadow(batch);

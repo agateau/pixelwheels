@@ -69,4 +69,8 @@ public class DrawUtils {
                 scale,
                 angle);
     }
+
+    public static float getTextureRegionRadius(TextureRegion region) {
+        return Vector2.len(region.getRegionWidth() / 2f, region.getRegionHeight() / 2f);
+    }
 }

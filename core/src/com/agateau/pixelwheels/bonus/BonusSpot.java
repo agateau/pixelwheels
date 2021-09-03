@@ -26,10 +26,13 @@ import com.agateau.pixelwheels.gameobjet.AudioClipper;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
+import com.agateau.pixelwheels.utils.DrawUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -47,6 +50,7 @@ public class BonusSpot extends GameObjectAdapter {
     private float mDisabledTimeout = 0;
     private final BodyRegionDrawer mDrawer = new BodyRegionDrawer();
     private boolean mJustPicked = false;
+    private static float sRegionRadiusU = 0;
 
     public BonusSpot(
             Assets assets, AudioManager audioManager, GameWorld gameWorld, float x, float y) {
@@ -56,6 +60,9 @@ public class BonusSpot extends GameObjectAdapter {
         mY = y;
 
         mRegion = assets.gift;
+        if (sRegionRadiusU == 0) {
+            sRegionRadiusU = DrawUtils.getTextureRegionRadius(mRegion) * U;
+        }
         mSound = assets.soundAtlas.get("bonus");
 
         PolygonShape shape = new PolygonShape();
@@ -89,8 +96,11 @@ public class BonusSpot extends GameObjectAdapter {
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         if (!mBody.isActive()) {
+            return;
+        }
+        if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), sRegionRadiusU)) {
             return;
         }
         if (zLevel == ZLevel.GROUND) {

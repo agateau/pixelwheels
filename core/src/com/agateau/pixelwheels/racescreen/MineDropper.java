@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.bonus.Mine;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** A debug helper class to drop mines by clicking on the map */
@@ -51,7 +52,7 @@ class MineDropper extends GameObjectAdapter {
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {}
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {}
 
     @Override
     public float getX() {

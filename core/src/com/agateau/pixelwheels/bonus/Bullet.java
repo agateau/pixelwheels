@@ -32,8 +32,10 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -130,11 +132,16 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
     public void act(float delta) {}
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
-        if (zLevel == ZLevel.GROUND) {
-            mDrawer.setBatch(batch);
-            mDrawer.draw(mBody, mAssets.bullet);
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
+        if (zLevel != ZLevel.GROUND) {
+            return;
         }
+        float radius = mBody.getFixtureList().get(0).getShape().getRadius();
+        if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), radius)) {
+            return;
+        }
+        mDrawer.setBatch(batch);
+        mDrawer.draw(mBody, mAssets.bullet);
     }
 
     @Override
