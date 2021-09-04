@@ -76,6 +76,7 @@ public class RaceScreen extends ScreenAdapter {
     private final PerformanceCounter mGameWorldPerformanceCounter;
     private final PerformanceCounter mRendererPerformanceCounter;
     private final PerformanceCounter mOverallPerformanceCounter;
+    private final PerformanceCounter mHudPerformanceCounter;
     private PauseOverlay mPauseOverlay = null;
 
     private boolean mFirstRender = true;
@@ -101,6 +102,7 @@ public class RaceScreen extends ScreenAdapter {
 
         mGameRenderer = new GameRenderer(mGameWorld, batch, mPerformanceCounters);
         setupHud(mGameWorld.getTrack());
+        mHudPerformanceCounter = mPerformanceCounters.add("Hud");
 
         mAudioClipper = createAudioClipper();
 
@@ -217,6 +219,7 @@ public class RaceScreen extends ScreenAdapter {
 
         mRendererPerformanceCounter.stop();
 
+        mHudPerformanceCounter.start();
         // Process hud *after* rendering game so that if an action on the hud (called from
         // mHudStage.act()) causes us to leave this screen (back to menu from pause, or leaving
         // the FinishedOverlay) then the game renderer does not alter the OpenGL viewport *after*
@@ -225,6 +228,7 @@ public class RaceScreen extends ScreenAdapter {
         mHudViewport.apply(true);
         mHudStage.draw();
         mHudStage.act(delta);
+        mHudPerformanceCounter.stop();
 
         mOverallPerformanceCounter.stop();
         if (!paused) {

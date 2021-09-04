@@ -59,6 +59,7 @@ public class GameRenderer {
     private int mScreenHeight;
     private final PerformanceCounter mTilePerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
+    private final PerformanceCounter mSetupPerformanceCounter;
 
     public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
@@ -81,6 +82,7 @@ public class GameRenderer {
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
+        mSetupPerformanceCounter = counters.add("- setup");
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
 
@@ -120,9 +122,11 @@ public class GameRenderer {
     }
 
     public void render(float delta) {
+        mSetupPerformanceCounter.start();
         HdpiUtils.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
+        mSetupPerformanceCounter.stop();
 
         mTilePerformanceCounter.start();
         // Reset the color in case it was modified by the previous frame
@@ -154,8 +158,8 @@ public class GameRenderer {
                 mGameObjectPerformanceCounter.start();
             }
         }
-        mGameObjectPerformanceCounter.stop();
         mBatch.end();
+        mGameObjectPerformanceCounter.stop();
 
         if (Debug.instance.showDebugLayer) {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
