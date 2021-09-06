@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-01 07:50+0200\n"
+"POT-Creation-Date: 2021-09-06 19:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,19 +170,23 @@ msgid "Clara Gâteau"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:69
-msgid "Beta Testers"
+msgid "Special Thanks"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
 msgstr ""
 
+#: android/assets/screens/credits.gdxui:73
+msgid "Ethan Chapman"
+msgstr ""
+
 #: android/assets/screens/credits.gdxui:74
-msgid "And all GitHub bug reporters"
+msgid "All bug reporters"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:75
-msgid "(thank you!)"
+msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:77
