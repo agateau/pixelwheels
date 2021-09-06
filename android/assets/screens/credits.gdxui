@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
-        <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="500px" height="540px">
+        <CreditsScrollPane id="creditsScrollPane" topCenter="root.topCenter 0 0" width="750px" height="540px">
             <VerticalGroup>
                 <Label style="creditsTitle">Pixel Wheels</Label>
                 <Label/>
@@ -66,13 +66,12 @@
                 <Label/>
                 <Label>Clara Gâteau</Label>
                 <Label/>
-                <Label style="creditsSection">Beta Testers</Label>
+                <Label style="creditsSection">Special Thanks</Label>
                 <Label/>
                 <Label>Antonin Gâteau</Label>
                 <Label>Guillaume Roche</Label>
-                <Label/>
-                <Label>And all GitHub bug reporters</Label>
-                <Label>(thank you!)</Label>
+                <Label>All bug reporters</Label>
+                <Label>All supporters on Patreon, Ko-fi and Paypal</Label>
                 <Label/>
                 <Label style="creditsSection">Made with</Label>
                 <Label/>
