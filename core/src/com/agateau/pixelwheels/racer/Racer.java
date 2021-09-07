@@ -34,6 +34,7 @@ import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -327,8 +328,8 @@ public class Racer extends GameObjectAdapter implements Collidable, Disposable {
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
-        mVehicleRenderer.draw(batch, zLevel);
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
+        mVehicleRenderer.draw(batch, zLevel, viewBounds);
     }
 
     @Override

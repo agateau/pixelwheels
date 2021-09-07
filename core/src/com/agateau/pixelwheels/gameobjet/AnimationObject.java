@@ -21,10 +21,13 @@ package com.agateau.pixelwheels.gameobjet;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.sound.AudioManager;
+import com.agateau.pixelwheels.utils.DrawUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ReflectionPool;
@@ -35,6 +38,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
             new ReflectionPool<>(AnimationObject.class);
     private float mTime;
     private Animation<TextureRegion> mAnimation;
+    private float mAnimationRadius;
     private float mPosX;
     private float mPosY;
 
@@ -61,16 +65,20 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         if (mTime < 0) {
             return;
         }
-        if (zLevel == ZLevel.OBSTACLES) {
-            TextureRegion region = mAnimation.getKeyFrame(mTime);
-            float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-            float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-            batch.draw(region, mPosX - w / 2, mPosY - h / 2, w, h);
+        if (zLevel != ZLevel.OBSTACLES) {
+            return;
         }
+        TextureRegion region = mAnimation.getKeyFrame(mTime);
+        if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), mAnimationRadius)) {
+            return;
+        }
+        float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
+        float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
+        batch.draw(region, mPosX - w / 2, mPosY - h / 2, w, h);
     }
 
     @Override
@@ -110,6 +118,11 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         obj.mPosX = posX;
         obj.mPosY = posY;
         obj.mSound = null;
+        obj.mAnimationRadius = 0;
+        for (TextureRegion region : obj.mAnimation.getKeyFrames()) {
+            float radius = Constants.UNIT_FOR_PIXEL * DrawUtils.getTextureRegionRadius(region);
+            obj.mAnimationRadius = Math.max(obj.mAnimationRadius, radius);
+        }
         obj.setFinished(false);
         return obj;
     }

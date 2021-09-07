@@ -205,4 +205,21 @@ public class AgcMathUtils {
                         - (point.y - lineP.y) / (lineQ.y - lineP.y);
         return f > 0 ? 1 : f < 0 ? -1 : 0;
     }
+
+    public static boolean rectangleContains(Rectangle rect, Vector2 position, float radius) {
+        if (position.x - radius > rect.x + rect.width) {
+            return false;
+        }
+        if (position.x + radius < rect.x) {
+            return false;
+        }
+        if (position.y - radius > rect.y + rect.height) {
+            return false;
+        }
+        //noinspection RedundantIfStatement
+        if (position.y + radius < rect.y) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -28,6 +28,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
@@ -59,7 +60,7 @@ public class VehicleRenderer implements Renderer {
     private final Color mBatchColor = new Color();
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         mBodyRegionDrawer.setBatch(batch);
         mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
         mTime += Gdx.app.getGraphics().getDeltaTime();
@@ -68,7 +69,7 @@ public class VehicleRenderer implements Renderer {
         // Ground: skidmarks, splash, shadow
         if (zLevel == ZLevel.GROUND) {
             for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
-                mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks());
+                mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks(), viewBounds);
             }
 
             // Only draw splash and shadow if we are not falling
@@ -111,7 +112,7 @@ public class VehicleRenderer implements Renderer {
         }
 
         for (Renderer renderer : mRenderers) {
-            renderer.draw(batch, zLevel);
+            renderer.draw(batch, zLevel, viewBounds);
         }
 
         if (mVehicle.isFalling()) {

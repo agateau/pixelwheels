@@ -19,8 +19,9 @@
 package com.agateau.pixelwheels;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 /** Things which can be rendered */
 public interface Renderer {
-    void draw(Batch batch, ZLevel zLevel);
+    void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds);
 }

@@ -25,6 +25,7 @@ import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** Render a circular array of skidmarks */
@@ -40,7 +41,7 @@ public class SkidmarksRenderer {
         mAssets = assets;
     }
 
-    public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks) {
+    public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks, Rectangle viewBounds) {
         int idx = skidmarks.getBeginIndex();
         if (idx == skidmarks.getEndIndex()) {
             return;
@@ -65,6 +66,9 @@ public class SkidmarksRenderer {
             if (!mark2.hasThickness()) {
                 Vector2 pos1 = mark1.getPos();
                 Vector2 pos2 = mark2.getPos();
+                if (!viewBounds.contains(pos1) && !viewBounds.contains(pos2)) {
+                    continue;
+                }
                 Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
                 mark2.setThickness(thickness);
                 if (!mark1.hasThickness()) {
