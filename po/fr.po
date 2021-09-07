@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-01 07:50+0200\n"
+"POT-Creation-Date: 2021-09-06 19:17+0200\n"
 "PO-Revision-Date: 2021-08-21 12:38+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
@@ -168,20 +168,25 @@ msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:69
-msgid "Beta Testers"
-msgstr "Bêta testeurs"
+msgid "Special Thanks"
+msgstr ""
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
+#: android/assets/screens/credits.gdxui:73
+msgid "Ethan Chapman"
+msgstr ""
+
 #: android/assets/screens/credits.gdxui:74
-msgid "And all GitHub bug reporters"
+#, fuzzy
+msgid "All bug reporters"
 msgstr "Et tous les rapporteurs de bug sur GitHub"
 
 #: android/assets/screens/credits.gdxui:75
-msgid "(thank you!)"
-msgstr "(merci !)"
+msgid "All supporters on Patreon, Ko-fi and Paypal"
+msgstr ""
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Made with"
@@ -587,6 +592,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr ""
+
+#~ msgid "Beta Testers"
+#~ msgstr "Bêta testeurs"
+
+#~ msgid "(thank you!)"
+#~ msgstr "(merci !)"
 
 #~ msgid "Internal"
 #~ msgstr "Interne"
