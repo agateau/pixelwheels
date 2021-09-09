@@ -118,8 +118,12 @@ public class MainMenuScreen extends PwStageScreen {
         }
 
         Label versionLabel = builder.getActor("version");
-        versionLabel.setText(VersionInfo.VERSION);
+        versionLabel.setText(getShortenedVersion());
         versionLabel.pack();
+    }
+
+    private String getShortenedVersion() {
+        return VersionInfo.VERSION.replace("alpha.", "a").replace("beta.", "b");
     }
 
     @Override
