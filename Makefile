@@ -118,7 +118,10 @@ fastlane-beta:
 	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk
 
 upload:
-	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME)-*.*
+	ci/upload-build pixelwheels \
+		$(ARCHIVE_DIR)/$(DIST_NAME)-*.zip \
+		$(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk \
+		$(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk \
 
 # Cleaning conf
 clean-desktop-conf:
