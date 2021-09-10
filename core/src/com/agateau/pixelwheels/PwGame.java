@@ -167,7 +167,15 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private void setupTrackStats() {
         mNormalGameStatsIO =
                 new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStatsImpl(mNormalGameStatsIO);
+        mGameStats = new GameStatsImpl(getCurrentGameStatsIO());
+    }
+
+    private GameStatsImpl.IO getCurrentGameStatsIO() {
+        return mGamePlayIntrospector.hasBeenModified() ? mNoSaveGameStatsIO : mNormalGameStatsIO;
+    }
+
+    private void updateGameStatsIO() {
+        mGameStats.setIO(getCurrentGameStatsIO());
     }
 
     private void setupRewardManager() {
@@ -269,10 +277,5 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             loadTranslations();
             mCurrentLanguageId = mGameConfig.languageId;
         }
-    }
-
-    private void updateGameStatsIO() {
-        boolean modified = mGamePlayIntrospector.hasBeenModified();
-        mGameStats.setIO(modified ? mNoSaveGameStatsIO : mNormalGameStatsIO);
     }
 }
