@@ -27,8 +27,7 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import java.util.Map;
 
 /** The game configuration */
@@ -52,7 +51,7 @@ public class GameConfig {
             new GameInputHandler[Constants.MAX_PLAYERS];
 
     private final Preferences mPreferences;
-    private final ArrayList<WeakReference<ChangeListener>> mListeners = new ArrayList<>();
+    private final DelayedRemovalArray<ChangeListener> mListeners = new DelayedRemovalArray<>();
 
     GameConfig() {
         mPreferences = Gdx.app.getPreferences("pixelwheels.conf");
@@ -90,7 +89,7 @@ public class GameConfig {
     }
 
     public void addListener(ChangeListener listener) {
-        mListeners.add(new WeakReference<>(listener));
+        mListeners.add(listener);
     }
 
     public void flush() {
@@ -113,12 +112,11 @@ public class GameConfig {
 
         setupInputHandlers();
 
-        for (WeakReference<ChangeListener> listenerRef : mListeners) {
-            ChangeListener listener = listenerRef.get();
-            if (listener != null) {
-                listener.onGameConfigChanged();
-            }
+        mListeners.begin();
+        for (ChangeListener listener : mListeners) {
+            listener.onGameConfigChanged();
         }
+        mListeners.end();
     }
 
     public GameInputHandler[] getPlayerInputHandlers() {
