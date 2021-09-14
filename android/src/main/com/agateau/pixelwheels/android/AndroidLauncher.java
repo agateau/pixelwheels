@@ -18,9 +18,11 @@
  */
 package com.agateau.pixelwheels.android;
 
+import android.os.Build;
 import android.os.Bundle;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.LogFilePrinter;
 import com.agateau.utils.log.NLog;
@@ -40,6 +42,7 @@ public class AndroidLauncher extends AndroidApplication {
         config.hideStatusBar = true;
         FileUtils.appName = "tinywheels";
         PwGame game = new PwGame();
+        game.setExtraOsInformation(getAndroidInformation());
         setupLogging(game);
         initialize(game, config);
         Gdx.input.setCatchBackKey(true);
@@ -53,5 +56,10 @@ public class AndroidLauncher extends AndroidApplication {
 
         AndroidLogExporter exporter = new AndroidLogExporter(this, printer);
         game.setLogExporter(exporter);
+    }
+
+    private static String getAndroidInformation() {
+        return StringUtils.format(
+                "Android: version='%s' sdk='%d'", Build.VERSION.RELEASE, Build.VERSION.SDK_INT);
     }
 }

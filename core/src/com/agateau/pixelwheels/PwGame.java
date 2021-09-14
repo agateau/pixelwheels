@@ -80,6 +80,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private LogExporter mLogExporter;
     private String mCurrentLanguageId = "";
+    private String mExtraOsInformation = "";
 
     public Assets getAssets() {
         return mAssets;
@@ -111,8 +112,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void create() {
+        // Adding the printer must be done only now because it requires
+        // Gdx.app to be initialized
         NLog.addPrinter(new GdxPrinter());
-        NLog.i("Starting version=%s", VersionInfo.VERSION);
+
+        logStartup();
+
         mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
         mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
         mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
@@ -128,6 +133,22 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Box2D.init();
         setupDisplay();
         showMainMenu();
+    }
+
+    private void logStartup() {
+        NLog.i("-------------------------------------------");
+        NLog.i("Pixel Wheels: version='%s'", VersionInfo.VERSION);
+        NLog.i(
+                "Java: vendor='%s' version='%s'",
+                System.getProperty("java.vendor"), System.getProperty("java.version"));
+        NLog.i(
+                "OS: name='%s' version='%s' arch='%s'",
+                System.getProperty("os.name"),
+                System.getProperty("os.version"),
+                System.getProperty("os.arch"));
+        if (!mExtraOsInformation.isEmpty()) {
+            NLog.i(mExtraOsInformation);
+        }
     }
 
     private void loadTranslations() {
@@ -277,5 +298,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             loadTranslations();
             mCurrentLanguageId = mGameConfig.languageId;
         }
+    }
+
+    public void setExtraOsInformation(String osInformation) {
+        mExtraOsInformation = osInformation;
     }
 }
