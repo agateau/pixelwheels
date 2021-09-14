@@ -20,15 +20,13 @@ package com.agateau.utils;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlWriter;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -46,7 +44,7 @@ public class Introspector {
     private final Object mObject;
     private final FileHandle mFileHandle;
 
-    private final HashSet<WeakReference<Listener>> mListeners = new HashSet<>();
+    private final DelayedRemovalArray<Listener> mListeners = new DelayedRemovalArray<>();
 
     public Introspector(Object object, Object reference, FileHandle fileHandle) {
         mClass = object.getClass();
@@ -73,7 +71,7 @@ public class Introspector {
     }
 
     public void addListener(Listener listener) {
-        mListeners.add(new WeakReference<>(listener));
+        mListeners.add(listener);
     }
 
     public void load() {
@@ -234,15 +232,10 @@ public class Introspector {
     }
 
     private void notifyModified() {
-        Iterator<WeakReference<Listener>> it = mListeners.iterator();
-        while (it.hasNext()) {
-            WeakReference<Listener> ref = it.next();
-            Listener listener = ref.get();
-            if (listener == null) {
-                it.remove();
-            } else {
-                listener.onModified();
-            }
+        mListeners.begin();
+        for (Listener listener : mListeners) {
+            listener.onModified();
         }
+        mListeners.end();
     }
 }
