@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.sound.DefaultSoundPlayer;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.sound.SoundPlayer;
+import com.agateau.pixelwheels.sound.SoundThreadManager;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.Anchor;
@@ -46,6 +47,8 @@ class EngineLabScreen extends StageScreen {
     private final Array<SliderMenuItem> mVolumeItems = new Array<>();
 
     static class LabAudioManager implements AudioManager {
+        private final SoundThreadManager mSoundThreadManager = new SoundThreadManager();
+
         @Override
         public boolean areSoundFxMuted() {
             return false;
@@ -67,7 +70,7 @@ class EngineLabScreen extends StageScreen {
 
         @Override
         public SoundPlayer createSoundPlayer(Sound sound) {
-            return new DefaultSoundPlayer(sound);
+            return new DefaultSoundPlayer(mSoundThreadManager, sound);
         }
 
         @Override
