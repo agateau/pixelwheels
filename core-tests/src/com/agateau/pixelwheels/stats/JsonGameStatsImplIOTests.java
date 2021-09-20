@@ -88,9 +88,7 @@ public class JsonGameStatsImplIOTests {
     }
 
     private void addResult(TrackStats stats, float value) {
-        TrackResult lapResult = new TrackResult("bob", value);
-        TrackResult totalResult = new TrackResult("bob", value * 3);
-        stats.addResult(TrackStats.ResultType.LAP, lapResult);
-        stats.addResult(TrackStats.ResultType.TOTAL, totalResult);
+        stats.addResult(TrackStats.ResultType.LAP, "bob", value);
+        stats.addResult(TrackStats.ResultType.TOTAL, "bob", value * 3);
     }
 }
