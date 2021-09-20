@@ -107,6 +107,9 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private JsonArray createJsonForResults(ArrayList<TrackResult> results) {
         JsonArray array = new JsonArray();
         for (TrackResult result : results) {
+            if (result.vehicle.equals(TrackStats.DEFAULT_RECORD_VEHICLE)) {
+                continue;
+            }
             array.add(mGson.toJsonTree(result));
         }
         return array;

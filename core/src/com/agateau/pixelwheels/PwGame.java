@@ -189,6 +189,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mNormalGameStatsIO =
                 new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
         mGameStats = new GameStatsImpl(getCurrentGameStatsIO());
+        GameStatsSetup.loadDefaultRecords(mGameStats, mAssets.championships);
     }
 
     private GameStatsImpl.IO getCurrentGameStatsIO() {

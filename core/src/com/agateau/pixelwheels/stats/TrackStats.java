@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class TrackStats {
     public static final int RECORD_COUNT = 3;
+    public static final String DEFAULT_RECORD_VEHICLE = "CPU";
 
     private final GameStats mGameStats;
     final ArrayList<TrackResult> mLapRecords;
