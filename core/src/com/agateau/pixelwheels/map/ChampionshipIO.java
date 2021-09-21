@@ -18,7 +18,6 @@
  */
 package com.agateau.pixelwheels.map;
 
-import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
@@ -34,8 +33,6 @@ import java.util.ArrayList;
  * <p>See docs/map-format.md for details
  */
 public class ChampionshipIO {
-    private static final String DEFAULT_RECORD_VEHICLE = "CPU";
-
     public Championship load(FileHandle handle) {
         XmlReader.Element root = FileUtils.parseXml(handle);
         if (root == null) {
@@ -75,14 +72,14 @@ public class ChampionshipIO {
     }
 
     private void loadTrackRecords(
-            ArrayList<TrackResult> records, XmlReader.Element root, String elementName) {
+            ArrayList<Float> records, XmlReader.Element root, String elementName) {
         XmlReader.Element element = root.getChildByName(elementName);
         if (element == null) {
             return;
         }
         for (XmlReader.Element recordElement : element.getChildrenByName("record")) {
             float value = recordElement.getFloatAttribute("value");
-            records.add(new TrackResult(DEFAULT_RECORD_VEHICLE, value));
+            records.add(value);
         }
     }
 }

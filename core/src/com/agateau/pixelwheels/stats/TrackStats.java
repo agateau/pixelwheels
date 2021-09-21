@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class TrackStats {
     public static final int RECORD_COUNT = 3;
+    public static final String DEFAULT_RECORD_VEHICLE = "CPU";
 
     private final GameStats mGameStats;
     final ArrayList<TrackResult> mLapRecords;
@@ -42,7 +43,8 @@ public class TrackStats {
         return resultType == ResultType.LAP ? mLapRecords : mTotalRecords;
     }
 
-    public int addResult(ResultType resultType, TrackResult result) {
+    public int addResult(ResultType resultType, String vehicleName, float time) {
+        TrackResult result = new TrackResult(vehicleName, time);
         int rank = addResult(get(resultType), result);
         if (rank != -1) {
             mGameStats.save();

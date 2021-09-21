@@ -19,12 +19,16 @@
 package com.agateau.pixelwheels.stats;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.files.FileHandle;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
@@ -76,6 +80,47 @@ public class JsonGameStatsImplIOTests {
         assertThat(gameStats2.getEventCount(GameStats.Event.MISSILE_HIT), is(2));
     }
 
+    @Test
+    public void testDefaultRecordsAreNotSaved() {
+        // GIVEN a championship
+        Championship ch1 = new Championship("ch1", "champ1");
+        // AND an associated track
+        ch1.addTrack("t", "track");
+        Track track = ch1.getTracks().first();
+
+        // AND a JsonGameStatsImplIO instance working on a new json file
+        FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
+        assertTrue(!testFile.exists());
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
+
+        // AND an associated GameStats instance
+        GameStats gameStats = new GameStatsImpl(io);
+
+        // AND a default track record
+        gameStats
+                .getTrackStats(track)
+                .addResult(TrackStats.ResultType.LAP, TrackStats.DEFAULT_RECORD_VEHICLE, 12f);
+
+        // WHEN a player stat is recorded
+        TrackStats stats = gameStats.getTrackStats(track);
+        addResult(stats, 18);
+
+        // THEN there are two lap stats
+        assertEquals(2, stats.get(TrackStats.ResultType.LAP).size());
+
+        // AND only the player stat is present in the json file
+        assertTrue(testFile.exists());
+        JsonParser parser = new JsonParser();
+
+        // JSON structure: root / trackStats / $trackName / lap / [results]
+        JsonObject root = parser.parse(testFile.readString("UTF-8")).getAsJsonObject();
+        JsonArray lapArray =
+                root.getAsJsonObject("trackStats")
+                        .getAsJsonObject(track.getId())
+                        .getAsJsonArray("lap");
+        assertEquals(1, lapArray.size());
+    }
+
     private void checkRecords(TrackStats stats, int rank, float expectedLap) {
         float expectedTotal = expectedLap * 3;
         ArrayList<TrackResult> results = stats.get(TrackStats.ResultType.LAP);
@@ -88,9 +133,7 @@ public class JsonGameStatsImplIOTests {
     }
 
     private void addResult(TrackStats stats, float value) {
-        TrackResult lapResult = new TrackResult("bob", value);
-        TrackResult totalResult = new TrackResult("bob", value * 3);
-        stats.addResult(TrackStats.ResultType.LAP, lapResult);
-        stats.addResult(TrackStats.ResultType.TOTAL, totalResult);
+        stats.addResult(TrackStats.ResultType.LAP, "bob", value);
+        stats.addResult(TrackStats.ResultType.TOTAL, "bob", value * 3);
     }
 }
