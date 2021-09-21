@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-06 19:17+0200\n"
-"PO-Revision-Date: 2021-08-21 12:38+0200\n"
+"PO-Revision-Date: 2021-09-21 09:13+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -299,7 +299,7 @@ msgstr "CONTINUER"
 
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "QUIT TO MENU"
-msgstr "QUITTER VERS LE MENU"
+msgstr "RETOUR AU MENU"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
