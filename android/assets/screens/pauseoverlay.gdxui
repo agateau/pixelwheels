@@ -8,8 +8,8 @@
                 <Ifdef var="quickRace">
                     <ButtonMenuItem id="restartButton" text="RESTART"/>
                 </Ifdef>
-                <ButtonMenuItem id="quitButton" text="QUIT TO MENU"/>
                 <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
+                <ButtonMenuItem id="quitButton" text="QUIT TO MENU"/>
             </Items>
         </Menu>
     </AnchorGroup>
