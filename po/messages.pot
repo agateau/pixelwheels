@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 19:17+0200\n"
+"POT-Creation-Date: 2021-09-21 09:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,7 +266,7 @@ msgid "CHAMPIONSHIP"
 msgstr ""
 
 #: android/assets/screens/mainmenu.gdxui:33
-#: android/assets/screens/pauseoverlay.gdxui:12
+#: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
 msgstr ""
 
@@ -296,7 +296,7 @@ msgstr ""
 msgid "RESUME"
 msgstr ""
 
-#: android/assets/screens/pauseoverlay.gdxui:11
+#: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
 msgstr ""
 
@@ -538,7 +538,7 @@ msgid "MAIN MENU"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr ""

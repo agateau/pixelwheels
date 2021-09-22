@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 19:17+0200\n"
-"PO-Revision-Date: 2021-09-21 09:13+0200\n"
+"POT-Creation-Date: 2021-09-21 09:15+0200\n"
+"PO-Revision-Date: 2021-09-21 09:21+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -169,7 +169,7 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Special Thanks"
-msgstr ""
+msgstr "Merci à"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
@@ -177,16 +177,15 @@ msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:73
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:74
-#, fuzzy
 msgid "All bug reporters"
-msgstr "Et tous les rapporteurs de bug sur GitHub"
+msgstr "Les rapporteurs de bug"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "Les soutiens sur Patreon, Ko-fi et Paypal"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Made with"
@@ -267,7 +266,7 @@ msgid "CHAMPIONSHIP"
 msgstr "CHAMPIONNAT"
 
 #: android/assets/screens/mainmenu.gdxui:33
-#: android/assets/screens/pauseoverlay.gdxui:12
+#: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
 msgstr "CONFIGURATION"
 
@@ -297,7 +296,7 @@ msgstr "Pause"
 msgid "RESUME"
 msgstr "CONTINUER"
 
-#: android/assets/screens/pauseoverlay.gdxui:11
+#: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
 msgstr "RETOUR AU MENU"
 
@@ -323,15 +322,15 @@ msgstr "Meilleur temps total"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr ""
+msgstr "Partager via"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr ""
+msgstr "Vous avez trouvé un bug ? Utiliser ce bouton pour le rapporter."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
-msgstr ""
+msgstr "RAPPORTER UN BUG"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
@@ -456,7 +455,7 @@ msgstr "CRÉDITS"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
-msgstr ""
+msgstr "Sous le capot"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
@@ -547,7 +546,7 @@ msgid "MAIN MENU"
 msgstr "MENU PRINCIPAL"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr "[Verrouillé]"
@@ -588,10 +587,12 @@ msgstr "Oui"
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
+"Besoin de créer un rapport de bug ? Utilisez ce bouton pour trouver le "
+"fichier de log à attacher."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr ""
+msgstr "DOSSIER DES LOGS"
 
 #~ msgid "Beta Testers"
 #~ msgstr "Bêta testeurs"
