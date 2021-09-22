@@ -111,7 +111,7 @@ class CreditsScreen extends PwStageScreen {
         XmlReader.Element root = FileUtils.parseXml(handle);
         for (XmlReader.Element element : root.getChildrenByNameRecursively("Label")) {
             if (element.getAttribute("style", "").equals("creditsSection")) {
-                element.setText(String.format("-= %s =-", element.getText()));
+                element.setText(String.format("-= %s =-", tr(element.getText())));
             }
         }
         return root;
