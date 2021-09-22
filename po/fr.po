@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-21 09:15+0200\n"
-"PO-Revision-Date: 2021-09-21 09:21+0200\n"
+"POT-Creation-Date: 2021-09-22 22:33+0200\n"
+"PO-Revision-Date: 2021-09-22 22:35+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -15,14 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
-
-#: android/assets/screens/championshipfinished-podium.gdxui:100
-msgid "Championship"
-msgstr "Championnat"
-
-#: android/assets/screens/championshipfinished-podium.gdxui:101
-msgid "Finished!"
-msgstr "terminé !"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -397,7 +389,7 @@ msgstr[1] ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "#"
 msgstr "N°"
 
@@ -409,25 +401,34 @@ msgstr "Meilleur tour"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Racer"
 msgstr "Pilote"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Total time"
 msgstr "Temps total"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Points"
 msgstr "Points"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 msgid "Race time"
 msgstr "Temps de course"
+
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:184
+msgctxt "Must be two sentences separated by a newline"
+msgid ""
+"Championship\n"
+"Finished!"
+msgstr ""
+"Championnat\n"
+"terminé !"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid ""
@@ -593,6 +594,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "DOSSIER DES LOGS"
+
+#~ msgid "Finished!"
+#~ msgstr "terminé !"
 
 #~ msgid "Beta Testers"
 #~ msgstr "Bêta testeurs"
