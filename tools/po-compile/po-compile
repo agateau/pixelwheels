@@ -29,6 +29,10 @@ Generates .java files from .po files.
 The generated .java files can then be used with the Translator class.
 """
 
+# When an entry has a context, the generated key is:
+# {msgid}{CONTEXT_SEPARATOR}{msgctx}
+CONTEXT_SEPARATOR = "!!!"
+
 ESCAPES = [
     # Any escape which *introduces* a backslash must be listed *after* this
     # line otherwise the introduced backslash itself will be escaped
@@ -66,7 +70,10 @@ def extract_plural_code(txt):
 
 
 def create_plain_entry(entry):
-    return (escape(entry.msgid), escape(entry.msgstr))
+    msgid = escape(entry.msgid)
+    if entry.msgctxt:
+        msgid += CONTEXT_SEPARATOR + escape(entry.msgctxt)
+    return (msgid, escape(entry.msgstr))
 
 
 def create_plural_entry(entry):

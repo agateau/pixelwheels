@@ -31,7 +31,7 @@ package com.agateau.translations;
  */
 public class Translator {
     public interface Implementation {
-        String tr(String source);
+        String trc(String source, String context);
 
         String trn(String singular, String plural, int n);
     }
@@ -53,7 +53,12 @@ public class Translator {
     }
 
     public static String tr(String source) {
-        return sImplementation.tr(source);
+        return sImplementation.trc(source, null);
+    }
+
+    @SuppressWarnings("unused")
+    public static String trc(String source, String context) {
+        return sImplementation.trc(source, context);
     }
 
     /**
