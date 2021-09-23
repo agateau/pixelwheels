@@ -107,7 +107,7 @@ msgstr "পিক্স শহর প্রতিযোগিতা:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
-msgstr ""
+msgstr "\"লাফানো বল সণ০.৯৫\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
@@ -115,7 +115,7 @@ msgstr "শব্দ প্রভাব"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr ""
+msgstr "\"গাড়ির চাকা পিছলিয়ে ঘূর্ণন\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
@@ -123,7 +123,7 @@ msgstr "টম হাইগ"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr ""
+msgstr "\"দৌড় গাড়ির ইঞ্জিনের শব্দ চক্রাকারে\""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
@@ -151,11 +151,11 @@ msgstr "কাজং"
 
 #: android/assets/screens/credits.gdxui:58
 msgid "Tup Wanders"
-msgstr ""
+msgstr "টাপ ওয়ান্ডার"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Translations"
-msgstr ""
+msgstr "অনুবাদ"
 
 #: android/assets/screens/credits.gdxui:62
 msgid "French:"
@@ -167,7 +167,7 @@ msgstr "ভিডিও সম্পাদনা"
 
 #: android/assets/screens/credits.gdxui:67
 msgid "Clara Gâteau"
-msgstr ""
+msgstr "ক্লারা গাটেই"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Beta Testers"
@@ -175,19 +175,19 @@ msgstr "পরীক্ষামূলক ব্যবহারকারী"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
-msgstr ""
+msgstr "গিলম রচে"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "And all GitHub bug reporters"
-msgstr ""
+msgstr "এবং সব গিটহাব সমস্যা প্রতিবেদক"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "(thank you!)"
-msgstr ""
+msgstr "(ধন্যবাদ!)"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Made with"
-msgstr ""
+msgstr "তৈরির জন্য ব্যবহৃত"
 
 #: android/assets/screens/credits.gdxui:79
 msgid "LibGDX"
@@ -195,23 +195,23 @@ msgstr "লিবজিডিএক্স"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Tiled"
-msgstr ""
+msgstr "টাইলড"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Aseprite"
-msgstr ""
+msgstr "অ্যাশপ্রিট"
 
 #: android/assets/screens/credits.gdxui:82
 msgid "SFXR Qt"
-msgstr ""
+msgstr "এসএফএক্সআর কিউটি"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Android Studio"
-msgstr ""
+msgstr "অ্যান্ড্রয়েড স্টুডিও"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr ""
+msgstr "এই খেলা প্রভাবকারী পছন্দ পরিবর্তিত হয়েছে, খেলার সংখ্যা সংরক্ষণ হবে না"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -228,7 +228,7 @@ msgstr "এগিয়ে যাও"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr ""
+msgstr "গেমপ্যাড পছন্দসমূহ"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
@@ -282,7 +282,7 @@ msgstr "প্রস্তুত!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
-msgstr ""
+msgstr "কিছু গেমপ্যাড নেই"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -306,11 +306,11 @@ msgstr "খেলার অবস্থা নির্বাচন"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr ""
+msgstr "রাস্তা নির্বাচন"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr ""
+msgstr "সর্বোত্তম দৌড়"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
@@ -318,7 +318,7 @@ msgstr "সর্বোচ্চ মোট"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:54
 msgid "Share via"
-msgstr ""
+msgstr "ভাগের মাধ্যম"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
