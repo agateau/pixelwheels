@@ -22,15 +22,16 @@ import com.badlogic.gdx.audio.Sound;
 
 /** Implementation of SoundPlayer based on libgdx */
 public class DefaultSoundPlayer implements SoundPlayer {
+    private final SoundThreadManager mSoundThreadManager;
     private final Sound mSound;
     private long mId = -1;
     private boolean mLooping = false;
     private float mVolume = 1;
     private float mPitch = 1;
-    private final float mPan = 0;
     private boolean mMuted = false;
 
-    public DefaultSoundPlayer(Sound sound) {
+    public DefaultSoundPlayer(SoundThreadManager soundThreadManager, Sound sound) {
+        mSoundThreadManager = soundThreadManager;
         mSound = sound;
     }
 
@@ -39,7 +40,8 @@ public class DefaultSoundPlayer implements SoundPlayer {
         if (mMuted) {
             return;
         }
-        mId = mSound.play(mVolume, mPitch, mPan);
+        stop();
+        mId = mSoundThreadManager.play(mSound, mVolume, mPitch);
     }
 
     @Override
@@ -47,7 +49,8 @@ public class DefaultSoundPlayer implements SoundPlayer {
         if (mMuted) {
             return;
         }
-        mId = mSound.loop(mVolume, mPitch, mPan);
+        stop();
+        mId = mSoundThreadManager.loop(mSound, mVolume, mPitch);
         mLooping = true;
     }
 
@@ -56,7 +59,7 @@ public class DefaultSoundPlayer implements SoundPlayer {
         if (mId == -1) {
             return;
         }
-        mSound.stop(mId);
+        mSoundThreadManager.stop(mId);
         mId = -1;
         mLooping = false;
     }
@@ -81,7 +84,7 @@ public class DefaultSoundPlayer implements SoundPlayer {
     public void setPitch(float pitch) {
         mPitch = pitch;
         if (mId != -1) {
-            mSound.setPitch(mId, mPitch);
+            mSoundThreadManager.setPitch(mId, mPitch);
         }
     }
 
@@ -100,7 +103,7 @@ public class DefaultSoundPlayer implements SoundPlayer {
 
     private void updateVolume() {
         if (mId != -1) {
-            mSound.setVolume(mId, mMuted ? 0 : mVolume);
+            mSoundThreadManager.setVolume(mId, mMuted ? 0 : mVolume);
         }
     }
 }

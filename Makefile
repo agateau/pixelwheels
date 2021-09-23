@@ -22,6 +22,8 @@ ARCHIVE_DIR=$(CURDIR)/archives
 
 ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
 
+CONF_BACKUP_DIR=$(CURDIR)/.conf-backup
+
 ifdef SNAPSHOT
 	VERSION:=$(VERSION)+$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%d%mT%H%M%S)
 endif
@@ -118,9 +120,24 @@ fastlane-beta:
 	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk
 
 upload:
-	ci/upload-build pixelwheels $(ARCHIVE_DIR)/$(DIST_NAME)-*.*
+	ci/upload-build pixelwheels \
+		$(ARCHIVE_DIR)/$(DIST_NAME)-*.zip \
+		$(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk \
+		$(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk \
 
 # Cleaning conf
+backup-desktop-conf:
+	mkdir -p $(CONF_BACKUP_DIR)
+	cp ~/.config/agateau.com/pixelwheels.conf $(CONF_BACKUP_DIR) || true
+	cp -R ~/.local/share/pixelwheels $(CONF_BACKUP_DIR)
+
+restore-desktop-conf:
+	@if ! [ -d "$(CONF_BACKUP_DIR)" ] ; then echo "$(CONF_BACKUP_DIR) does not exist. No backup to restore."; exit 1; fi
+	rm ~/.config/agateau.com/pixelwheels.conf
+	rm -rf ~/.local/share/pixelwheels
+	cp $(CONF_BACKUP_DIR)/pixelwheels.conf ~/.config/agateau.com || true
+	cp -R $(CONF_BACKUP_DIR)/pixelwheels ~/.local/share
+
 clean-desktop-conf:
 	rm -f ~/.config/agateau.com/pixelwheels.conf
 	rm -rf ~/.local/share/pixelwheels

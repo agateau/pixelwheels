@@ -44,11 +44,14 @@ public class Wheel implements Disposable {
 
     public static class Skidmark {
         private final Vector2 mPos = new Vector2();
-        private boolean mIsEnd = false;
+        // Stores the thickness used to draw the skidmark. Avoids computing it each time we draw the
+        // skidmark. See SkidmarksRenderer for details
+        private final Vector2 mThickness = new Vector2();
+        private boolean mIsEndIndicator = false;
         private float mRemainingLife;
 
-        public boolean isEnd() {
-            return mIsEnd;
+        public boolean isEndIndicator() {
+            return mIsEndIndicator;
         }
 
         public Vector2 getPos() {
@@ -57,11 +60,26 @@ public class Wheel implements Disposable {
 
         public void init(Vector2 pos) {
             mPos.set(pos);
+            mThickness.set(0, 0);
             mRemainingLife = SKIDMARK_LIFETIME;
         }
 
-        public void initAsEnd() {
-            mIsEnd = true;
+        /** This mark indicates the end of a skidmark. Next mark starts a new skidmark. */
+        public void initAsEndIndicator() {
+            mIsEndIndicator = true;
+        }
+
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+        public boolean hasThickness() {
+            return mThickness.x != 0 && mThickness.y != 0;
+        }
+
+        public void setThickness(Vector2 thickness) {
+            mThickness.set(thickness);
+        }
+
+        public Vector2 getThickness() {
+            return mThickness;
         }
 
         public void act(float delta) {
@@ -70,6 +88,10 @@ public class Wheel implements Disposable {
 
         public float getOpacity() {
             return mRemainingLife / SKIDMARK_LIFETIME;
+        }
+
+        public boolean isFinished() {
+            return mRemainingLife <= 0;
         }
     }
 
@@ -198,7 +220,7 @@ public class Wheel implements Disposable {
             maxImpulse = Math.max(maxImpulse, impulse.len() - DRIFT_IMPULSE_REDUCTION);
             impulse.limit(maxImpulse);
         } else if (mDrifting) {
-            mSkidmarks.add().initAsEnd();
+            mSkidmarks.add().initAsEndIndicator();
             mDrifting = false;
         }
         mBody.applyLinearImpulse(impulse, mBody.getWorldCenter(), true);

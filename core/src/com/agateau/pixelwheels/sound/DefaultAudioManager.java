@@ -32,6 +32,7 @@ public class DefaultAudioManager implements AudioManager {
     private final Assets mAssets;
     private final Array<WeakReference<DefaultSoundPlayer>> mSoundPlayers = new Array<>();
     private final MusicFader mMusicFader = new MusicFader();
+    private final SoundThreadManager mSoundThreadManager = new SoundThreadManager();
 
     private String mMusicId = "";
     private Music mMusic;
@@ -82,12 +83,12 @@ public class DefaultAudioManager implements AudioManager {
         if (mSoundFxMuted) {
             return;
         }
-        sound.play(volume);
+        mSoundThreadManager.playAndForget(sound, volume);
     }
 
     @Override
     public SoundPlayer createSoundPlayer(Sound sound) {
-        DefaultSoundPlayer player = new DefaultSoundPlayer(sound);
+        DefaultSoundPlayer player = new DefaultSoundPlayer(mSoundThreadManager, sound);
         player.setMuted(mSoundFxMuted);
         mSoundPlayers.add(new WeakReference<>(player));
         return player;

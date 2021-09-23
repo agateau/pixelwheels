@@ -52,7 +52,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import java.lang.reflect.InvocationTargetException;
 
 /** The game */
 public class PwGame extends Game implements GameConfig.ChangeListener {
@@ -81,6 +80,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private LogExporter mLogExporter;
     private String mCurrentLanguageId = "";
+    private String mExtraOsInformation = "";
 
     public Assets getAssets() {
         return mAssets;
@@ -95,18 +95,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     private static Introspector createIntrospector(Object instance, String fileName) {
-        Object reference;
-        try {
-            reference = instance.getClass().getDeclaredConstructor().newInstance();
-        } catch (InstantiationException
-                | IllegalAccessException
-                | NoSuchMethodException
-                | InvocationTargetException e) {
-            e.printStackTrace();
-            throw new RuntimeException("This should never happen");
-        }
         FileHandle handle = FileUtils.getUserWritableFile(fileName);
-        Introspector introspector = new Introspector(instance, reference, handle);
+        Introspector introspector = Introspector.fromInstance(instance, handle);
         introspector.load();
         return introspector;
     }
@@ -122,8 +112,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void create() {
+        // Adding the printer must be done only now because it requires
+        // Gdx.app to be initialized
         NLog.addPrinter(new GdxPrinter());
-        NLog.i("Starting version=%s", VersionInfo.VERSION);
+
+        logStartup();
+
         mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
         mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
         mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
@@ -139,6 +133,22 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Box2D.init();
         setupDisplay();
         showMainMenu();
+    }
+
+    private void logStartup() {
+        NLog.i("-------------------------------------------");
+        NLog.i("Pixel Wheels: version='%s'", VersionInfo.VERSION);
+        NLog.i(
+                "Java: vendor='%s' version='%s'",
+                System.getProperty("java.vendor"), System.getProperty("java.version"));
+        NLog.i(
+                "OS: name='%s' version='%s' arch='%s'",
+                System.getProperty("os.name"),
+                System.getProperty("os.version"),
+                System.getProperty("os.arch"));
+        if (!mExtraOsInformation.isEmpty()) {
+            NLog.i(mExtraOsInformation);
+        }
     }
 
     private void loadTranslations() {
@@ -178,7 +188,16 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private void setupTrackStats() {
         mNormalGameStatsIO =
                 new JsonGameStatsImplIO(FileUtils.getUserWritableFile("gamestats.json"));
-        mGameStats = new GameStatsImpl(mNormalGameStatsIO);
+        mGameStats = new GameStatsImpl(getCurrentGameStatsIO());
+        GameStatsSetup.loadDefaultRecords(mGameStats, mAssets.championships);
+    }
+
+    private GameStatsImpl.IO getCurrentGameStatsIO() {
+        return mGamePlayIntrospector.hasBeenModified() ? mNoSaveGameStatsIO : mNormalGameStatsIO;
+    }
+
+    private void updateGameStatsIO() {
+        mGameStats.setIO(getCurrentGameStatsIO());
     }
 
     private void setupRewardManager() {
@@ -282,8 +301,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         }
     }
 
-    private void updateGameStatsIO() {
-        boolean modified = mGamePlayIntrospector.hasBeenModified();
-        mGameStats.setIO(modified ? mNoSaveGameStatsIO : mNormalGameStatsIO);
+    public void setExtraOsInformation(String osInformation) {
+        mExtraOsInformation = osInformation;
     }
 }

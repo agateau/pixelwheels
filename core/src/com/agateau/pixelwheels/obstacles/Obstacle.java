@@ -25,8 +25,11 @@ import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.agateau.pixelwheels.utils.DrawUtils;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -38,6 +41,7 @@ class Obstacle extends GameObjectAdapter implements Disposable {
     private final World mWorld;
     private final Body mBody;
     private final TextureRegion mRegion;
+    private final float mRegionRadius;
 
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
 
@@ -52,6 +56,7 @@ class Obstacle extends GameObjectAdapter implements Disposable {
                 Box2DUtils.createBox2DShape(obstacleDef.shape, Constants.UNIT_FOR_PIXEL),
                 obstacleDef.density);
         mRegion = obstacleDef.getImage(provider);
+        mRegionRadius = Constants.UNIT_FOR_PIXEL * DrawUtils.getTextureRegionRadius(mRegion);
 
         Box2DUtils.setCollisionInfo(
                 mBody,
@@ -69,11 +74,17 @@ class Obstacle extends GameObjectAdapter implements Disposable {
     }
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
+        if (zLevel != ZLevel.OBSTACLES && zLevel != ZLevel.SHADOWS) {
+            return;
+        }
+        if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), mRegionRadius)) {
+            return;
+        }
         if (zLevel == ZLevel.OBSTACLES) {
             mBodyRegionDrawer.setBatch(batch);
             mBodyRegionDrawer.draw(mBody, mRegion);
-        } else if (zLevel == ZLevel.SHADOWS) {
+        } else {
             mBodyRegionDrawer.setBatch(batch);
             mBodyRegionDrawer.setZ(-0.1f);
             mBodyRegionDrawer.drawShadow(mBody, mRegion);

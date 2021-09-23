@@ -41,7 +41,6 @@ import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
-import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.vehicledef.VehicleCreator;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
@@ -276,11 +275,13 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
                     ranks.lapRecordRank =
                             stats.addResult(
                                     TrackStats.ResultType.LAP,
-                                    new TrackResult(name, lapPositionComponent.getBestLapTime()));
+                                    name,
+                                    lapPositionComponent.getBestLapTime());
                     ranks.totalRecordRank =
                             stats.addResult(
                                     TrackStats.ResultType.TOTAL,
-                                    new TrackResult(name, lapPositionComponent.getTotalTime()));
+                                    name,
+                                    lapPositionComponent.getTotalTime());
                 }
             } else {
                 float totalTime = 92.621f + (idx + 1) * 33.123f;

@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.gameobjet;
 
 import com.agateau.pixelwheels.ZLevel;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** A generic game object */
@@ -32,7 +33,7 @@ public interface GameObject {
      */
     boolean isFinished();
 
-    void draw(Batch batch, ZLevel zLevel);
+    void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds);
 
     float getX();
 

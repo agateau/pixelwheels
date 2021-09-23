@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -59,6 +60,7 @@ public class GameRenderer {
     private int mScreenHeight;
     private final PerformanceCounter mTilePerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
+    private final PerformanceCounter mSetupPerformanceCounter;
 
     public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
@@ -81,6 +83,7 @@ public class GameRenderer {
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
+        mSetupPerformanceCounter = counters.add("- setup");
         mTilePerformanceCounter = counters.add("- tiles");
         mGameObjectPerformanceCounter = counters.add("- g.o.");
 
@@ -120,9 +123,12 @@ public class GameRenderer {
     }
 
     public void render(float delta) {
+        mSetupPerformanceCounter.start();
         HdpiUtils.glViewport(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
         updateCamera(delta);
         updateMapRendererCamera();
+        Rectangle viewBounds = mRenderer.getViewBounds();
+        mSetupPerformanceCounter.stop();
 
         mTilePerformanceCounter.start();
         // Reset the color in case it was modified by the previous frame
@@ -139,7 +145,7 @@ public class GameRenderer {
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
             for (GameObject object : mWorld.getActiveGameObjects()) {
-                object.draw(mBatch, z);
+                object.draw(mBatch, z, viewBounds);
             }
 
             if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
@@ -154,8 +160,8 @@ public class GameRenderer {
                 mGameObjectPerformanceCounter.start();
             }
         }
-        mGameObjectPerformanceCounter.stop();
         mBatch.end();
+        mGameObjectPerformanceCounter.stop();
 
         if (Debug.instance.showDebugLayer) {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);

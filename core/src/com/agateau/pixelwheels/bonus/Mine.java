@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -156,7 +157,7 @@ public class Mine extends GameObjectAdapter
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
 
     @Override
-    public void draw(Batch batch, ZLevel zLevel) {
+    public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         mBodyRegionDrawer.setBatch(batch);
 
         if (zLevel == ZLevel.GROUND) {

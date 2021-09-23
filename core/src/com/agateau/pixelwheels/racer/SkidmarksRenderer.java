@@ -25,6 +25,7 @@ import com.agateau.utils.CircularArray;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** Render a circular array of skidmarks */
@@ -36,61 +37,59 @@ public class SkidmarksRenderer {
 
     private final Assets mAssets;
 
-    private boolean mValidThickness = false;
-    private float mThickX1;
-    private float mThickY1;
-    private float mThickX2;
-    private float mThickY2;
-
     public SkidmarksRenderer(Assets assets) {
         mAssets = assets;
     }
 
-    public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks) {
-        int idx1 = skidmarks.getBeginIndex();
-        if (idx1 == skidmarks.getEndIndex()) {
+    public void draw(Batch batch, CircularArray<Wheel.Skidmark> skidmarks, Rectangle viewBounds) {
+        int idx = skidmarks.getBeginIndex();
+        if (idx == skidmarks.getEndIndex()) {
             return;
         }
-        int idx2 = skidmarks.getNextIndex(idx1);
+        Wheel.Skidmark mark2 = skidmarks.get(idx);
+        idx = skidmarks.getNextIndex(idx);
         float alpha = SKIDMARK_ALPHA_MIN;
 
-        for (; idx2 != skidmarks.getEndIndex(); idx1 = idx2, idx2 = skidmarks.getNextIndex(idx2)) {
-            Wheel.Skidmark mark1 = skidmarks.get(idx1);
-            Wheel.Skidmark mark2 = skidmarks.get(idx2);
+        for (; idx != skidmarks.getEndIndex(); idx = skidmarks.getNextIndex(idx)) {
+            Wheel.Skidmark mark1 = mark2;
+            mark2 = skidmarks.get(idx);
 
-            Vector2 pos1 = mark1.getPos();
-            Vector2 pos2 = mark2.getPos();
-
-            if (!mValidThickness) {
-                mValidThickness = true;
-                Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
-                mThickX2 = thickness.x;
-                mThickY2 = thickness.y;
-            }
-
-            if (!mark1.isEnd() && !mark2.isEnd()) {
-                mThickX1 = mThickX2;
-                mThickY1 = mThickY2;
-                Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
-                mThickX2 = thickness.x;
-                mThickY2 = thickness.y;
-                drawSkidmark(
-                        batch,
-                        pos1,
-                        pos2,
-                        alpha * mark1.getOpacity(),
-                        (alpha + SKIDMARK_ALPHA_INC) * mark2.getOpacity());
-                alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
-            } else {
-                mValidThickness = false;
+            if (mark1.isEndIndicator() || mark2.isEndIndicator()) {
                 alpha = SKIDMARK_ALPHA_MIN;
+                continue;
             }
+
+            if (mark1.isFinished() && mark2.isFinished()) {
+                continue;
+            }
+
+            if (!mark2.hasThickness()) {
+                Vector2 pos1 = mark1.getPos();
+                Vector2 pos2 = mark2.getPos();
+                if (!viewBounds.contains(pos1) && !viewBounds.contains(pos2)) {
+                    continue;
+                }
+                Vector2 thickness = AgcMathUtils.computeWidthVector(pos1, pos2, SKIDMARK_WIDTH / 2);
+                mark2.setThickness(thickness);
+                if (!mark1.hasThickness()) {
+                    mark1.setThickness(thickness);
+                }
+            }
+
+            drawSkidmark(
+                    batch,
+                    mark1,
+                    mark2,
+                    alpha * mark1.getOpacity(),
+                    (alpha + SKIDMARK_ALPHA_INC) * mark2.getOpacity());
+            alpha = Math.min(SKIDMARK_ALPHA_MAX, alpha + SKIDMARK_ALPHA_INC);
         }
     }
 
     private final float[] mVertices = new float[4 * 5];
 
-    private void drawSkidmark(Batch batch, Vector2 pos1, Vector2 pos2, float alpha1, float alpha2) {
+    private void drawSkidmark(
+            Batch batch, Wheel.Skidmark mark1, Wheel.Skidmark mark2, float alpha1, float alpha2) {
         TextureRegion region = mAssets.skidmark;
         float c = Color.toFloatBits(1, 1, 1, alpha1);
         float c2 = Color.toFloatBits(1, 1, 1, alpha2);
@@ -108,17 +107,20 @@ public class SkidmarksRenderer {
              x----------x
             1            2
          */
-        float x0 = pos1.x + mThickX1;
-        float y0 = pos1.y + mThickY1;
+        Vector2 pos1 = mark1.getPos();
+        Vector2 pos2 = mark2.getPos();
 
-        float x1 = pos1.x - mThickX1;
-        float y1 = pos1.y - mThickY1;
+        float x0 = pos1.x + mark1.getThickness().x;
+        float y0 = pos1.y + mark1.getThickness().y;
 
-        float x2 = pos2.x - mThickX2;
-        float y2 = pos2.y - mThickY2;
+        float x1 = pos1.x - mark1.getThickness().x;
+        float y1 = pos1.y - mark1.getThickness().y;
 
-        float x3 = pos2.x + mThickX2;
-        float y3 = pos2.y + mThickY2;
+        float x2 = pos2.x - mark2.getThickness().x;
+        float y2 = pos2.y - mark2.getThickness().y;
+
+        float x3 = pos2.x + mark2.getThickness().x;
+        float y3 = pos2.y + mark2.getThickness().y;
 
         initVertex(0, x0, y0, c, u, v);
         initVertex(1, x1, y1, c, u2, v);

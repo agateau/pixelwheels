@@ -23,7 +23,6 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.ControllerMapping;
 import com.badlogic.gdx.utils.IntMap;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 /** An implementation of InputMapper for gamepads */
@@ -57,7 +56,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     // Maps well-known gamepad buttons to our virtual keys
     private final IntMap<VirtualKey> mVirtualKeyForButton = new IntMap<>();
 
-    private WeakReference<Listener> mListenerRef;
+    private Listener mListener;
 
     GamepadInputMapper(Controller controller) {
         mButtonCodes.put(VirtualKey.TRIGGER, 1);
@@ -86,7 +85,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     public void setListener(Listener listener) {
-        mListenerRef = new WeakReference<>(listener);
+        mListener = listener;
     }
 
     @Override
@@ -176,9 +175,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     private void onButtonPressed(int buttonCode, boolean pressed) {
-        Listener listener = mListenerRef != null ? mListenerRef.get() : null;
-        if (listener != null) {
-            if (listener.onButtonPressed(buttonCode, pressed)) {
+        if (mListener != null) {
+            if (mListener.onButtonPressed(buttonCode, pressed)) {
                 return;
             }
         }

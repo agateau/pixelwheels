@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-21 12:40+0200\n"
+"POT-Creation-Date: 2021-09-06 19:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,19 +170,23 @@ msgid "Clara Gâteau"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:69
-msgid "Beta Testers"
+msgid "Special Thanks"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
 msgstr ""
 
+#: android/assets/screens/credits.gdxui:73
+msgid "Ethan Chapman"
+msgstr ""
+
 #: android/assets/screens/credits.gdxui:74
-msgid "And all GitHub bug reporters"
+msgid "All bug reporters"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:75
-msgid "(thank you!)"
+msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:77
@@ -316,8 +320,16 @@ msgstr ""
 msgid "Best Total"
 msgstr ""
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:54
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
+msgstr ""
+
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
+msgid "Hit a bug? Use this button to report it."
+msgstr ""
+
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
+msgid "REPORT BUG"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
@@ -413,91 +425,83 @@ msgstr ""
 msgid "Race time"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:79
 msgid "VISIT SUPPORT PAGE"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:142
 msgid "About"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:143
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
 msgid "Pixel Wheels %s"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
 msgid "CREDITS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
-msgid "Hit a bug? Use this button to report it."
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
-msgid "REPORT BUG"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Player #%d:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "Controls:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "General"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:222
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "Language:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Audio"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Sound FX:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:251
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Music:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:254
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Video"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:268
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Fullscreen:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:373
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
 msgid "CONFIGURE"
 msgstr ""
 
@@ -569,4 +573,13 @@ msgstr ""
 
 #: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
 msgid "ON"
+msgstr ""
+
+#: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
+msgid ""
+"Need to file a bug report? Use this button to find the log file to attach."
+msgstr ""
+
+#: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
+msgid "OPEN LOG FILE FOLDER"
 msgstr ""

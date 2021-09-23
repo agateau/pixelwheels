@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.map;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
@@ -52,8 +51,8 @@ public class Track implements Disposable {
     private final WeakReference<Championship> mChampionship;
     private final String mId;
     private final String mMapName;
-    private final ArrayList<TrackResult> mDefaultLapRecords = new ArrayList<>();
-    private final ArrayList<TrackResult> mDefaultTotalRecords = new ArrayList<>();
+    private final ArrayList<Float> mDefaultLapRecords = new ArrayList<>();
+    private final ArrayList<Float> mDefaultTotalRecords = new ArrayList<>();
 
     private TiledMap mMap;
     private Material[] mMaterialForTileId;
@@ -190,7 +189,7 @@ public class Track implements Disposable {
         return indexes;
     }
 
-    public ArrayList<TrackResult> getDefaultTrackRecords(TrackStats.ResultType resultType) {
+    public ArrayList<Float> getDefaultTrackRecords(TrackStats.ResultType resultType) {
         return resultType == TrackStats.ResultType.LAP ? mDefaultLapRecords : mDefaultTotalRecords;
     }
 

@@ -43,8 +43,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /** Select your track */
 public class SelectTrackScreen extends PwStageScreen {
@@ -240,18 +238,9 @@ public class SelectTrackScreen extends PwStageScreen {
         updateRecordLabel(mTotalRecordsTable, track, TrackStats.ResultType.TOTAL);
     }
 
-    private static final Comparator<TrackResult> sTrackResultComparator =
-            (t1, t2) -> Float.compare(t1.value, t2.value);
-
     private void updateRecordLabel(Table table, Track track, TrackStats.ResultType resultType) {
         TrackStats stats = mGame.getGameStats().getTrackStats(track);
-        ArrayList<TrackResult> records = new ArrayList<>();
-        records.addAll(stats.get(resultType));
-        records.addAll(track.getDefaultTrackRecords(resultType));
-        Collections.sort(records, sTrackResultComparator);
-        while (records.size() > TrackStats.RECORD_COUNT) {
-            records.remove(records.size() - 1);
-        }
+        ArrayList<TrackResult> records = stats.get(resultType);
 
         table.clearChildren();
         mTableRowCreator.setTable(table);

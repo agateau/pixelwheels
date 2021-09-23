@@ -54,7 +54,7 @@ public class TrackStatsTests {
     @Test
     public void testAddResultCausesSaving() {
         TrackStats trackStats = new TrackStats(mStats);
-        int row = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", 12));
+        int row = trackStats.addResult(TrackStats.ResultType.LAP, "bob", 12);
         assertThat(row, is(0));
         verify(mStats).save();
     }
@@ -71,7 +71,7 @@ public class TrackStatsTests {
 
     private void checkAddResult(TrackStats trackStats, float value, int expectedRank) {
         clearInvocations(mStats);
-        int rank = trackStats.addResult(TrackStats.ResultType.LAP, new TrackResult("bob", value));
+        int rank = trackStats.addResult(TrackStats.ResultType.LAP, "bob", value);
         assertThat(rank, is(expectedRank));
         if (rank >= 0) {
             verify(mStats).save();

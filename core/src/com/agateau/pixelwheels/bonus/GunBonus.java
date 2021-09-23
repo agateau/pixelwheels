@@ -28,6 +28,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -51,7 +52,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer =
             new Renderer() {
                 @Override
-                public void draw(Batch batch, ZLevel zLevel) {
+                public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
                     TextureRegion region = mAssets.gunAnimation.getKeyFrame(mAnimationTime, true);
                     Vehicle vehicle = mRacer.getVehicle();
                     Body body = vehicle.getBody();
