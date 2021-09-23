@@ -20,51 +20,51 @@ msgstr ""
 
 #: android/assets/screens/championshipfinished-podium.gdxui:100
 msgid "Championship"
-msgstr ""
+msgstr "প্রতিযোগিতা"
 
 #: android/assets/screens/championshipfinished-podium.gdxui:101
 msgid "Finished!"
-msgstr ""
+msgstr "সম্পন্ন!"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr ""
+msgstr "পিক্সেল হুইল"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr ""
+msgstr "একটি মুক্ত-উৎস গাড়ি দৌড় খেলা"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr ""
+msgstr "কোড"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
 #: android/assets/screens/credits.gdxui:63
 msgid "Aurélien Gâteau"
-msgstr ""
+msgstr "অরেলিয়েন গাটেউ"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr ""
+msgstr "পিক্সেল"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:71
 msgid "Antonin Gâteau"
-msgstr ""
+msgstr "অ্যান্টনিও গাটেও"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr ""
+msgstr "সংগীত"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr ""
+msgstr "তালিকা:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr ""
+msgstr "\"আলোর গতি\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
