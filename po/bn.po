@@ -68,42 +68,42 @@ msgstr "\"আলোর গতি\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
-msgstr ""
+msgstr "থোমাস ট্রিপন"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr ""
+msgstr "বিজয়:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
-msgstr ""
+msgstr "\"মূল উত্তরাধিকার (১৬-বিট) সং০.৯\""
 
 #: android/assets/screens/credits.gdxui:27
 #: android/assets/screens/credits.gdxui:31
 #: android/assets/screens/credits.gdxui:35
 #: android/assets/screens/credits.gdxui:39
 msgid "FoxSynergy"
-msgstr ""
+msgstr "ফক্সসিনার্জি"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr ""
+msgstr "গ্রাম্য জীবন প্রতিযোগিতা"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
-msgstr ""
+msgstr "\"মহাবিস্ফোরণ সং১.০\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr ""
+msgstr "বর্গাকার পাহাড় প্রতিযোগিতা:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
-msgstr ""
+msgstr "\"চন্দ্র ফসল সং১.০\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr ""
+msgstr "পিক্স শহর প্রতিযোগিতা:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -421,11 +421,11 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid "VISIT SUPPORT PAGE"
-msgstr ""
+msgstr "সহায়তা পৃষ্ঠা দেখো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "About"
-msgstr ""
+msgstr "সম্পর্কে"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:143
 msgid "Pixel Wheels %s"
@@ -433,7 +433,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
 msgid "CREDITS"
-msgstr ""
+msgstr "কৃতজ্ঞতা"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "Under the hood"
@@ -441,37 +441,37 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
 msgid "Hit a bug? Use this button to report it."
-msgstr ""
+msgstr "সমস্যা পেয়েছো? এই বোতাম দিয়ে প্রতিবেদন পাঠাও।"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "REPORT BUG"
-msgstr ""
+msgstr "সমস্যা প্রতিবেদন পাঠাও"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
-msgstr ""
+msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে কিন্তু এগুলো ব্যবহারে ভয় পেও না"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEV. OPTIONS"
-msgstr ""
+msgstr "প্রকৌশলী পছন্দসমূহ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Controls"
-msgstr ""
+msgstr "পছন্দসমূহ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgid "Player #%d:"
-msgstr ""
+msgstr "খেলোয়াড় #%d:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Controls:"
-msgstr ""
+msgstr "পছন্দসমূহ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
 msgid "General"
-msgstr ""
+msgstr "সাধারণ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:222
 msgid "Language:"
