@@ -322,14 +322,14 @@ msgstr "ভাগের মাধ্যম"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
-msgstr ""
+msgstr "কমপক্ষে ৩য় হও %s প্রতিযোগিতায়"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "একটি বাহনে মিসাইল ছোড়ো"
+msgstr[1] "%# বাহনে মিসাইল ছোড়ো"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
@@ -358,15 +358,15 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr ""
+msgstr "পাশের বোতাম"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:293
 msgid "Championship Rankings"
-msgstr ""
+msgstr "ক্রম"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:294
 msgid "Race Results"
-msgstr ""
+msgstr "প্রতিযোগিতার ফল"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:304
 msgid ""
@@ -375,49 +375,52 @@ msgid ""
 msgid_plural ""
 "Congratulations!\n"
 "You broke %# records!"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "অভিনন্দন!\n"
+"তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
+msgstr[1] "অভিনন্দন!\n"
+"তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 msgid "Best lap"
-msgstr ""
+msgstr "সর্বোত্তম দৌড়"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
 msgid "Racer"
-msgstr ""
+msgstr "দৌড়বিদ"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
 msgid "Total time"
-msgstr ""
+msgstr "মোট সময়"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:182
 msgid "Points"
-msgstr ""
+msgstr "পয়েন্ট"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 msgid "Race time"
-msgstr ""
+msgstr "দৌড়ের সময়"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:77
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
-msgstr ""
+msgstr "পিক্সেল হুইল খেলতে টাকা লাগে না,\n" 
+"কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্কয করতে পারো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid "VISIT SUPPORT PAGE"
@@ -429,7 +432,7 @@ msgstr "সম্পর্কে"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:143
 msgid "Pixel Wheels %s"
-msgstr ""
+msgstr "পিকগসেল হুইল %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
 msgid "CREDITS"
@@ -437,7 +440,7 @@ msgstr "কৃতজ্ঞতা"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "Under the hood"
-msgstr ""
+msgstr "ঢাকনার নিচে"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
 msgid "Hit a bug? Use this button to report it."
@@ -483,7 +486,7 @@ msgstr "শব্দ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
 msgid "Sound FX:"
-msgstr ""
+msgstr "সংগীত প্রভাব:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:251
 msgid "Music:"
