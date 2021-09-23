@@ -107,7 +107,7 @@ msgstr "পিক্স শহর প্রতিযোগিতা:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
-msgstr "\"লাফানো বল সণ০.৯৫\""
+msgstr "\"লাফানো বল সং০.৯৫\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
@@ -329,32 +329,32 @@ msgstr "কমপক্ষে ৩য় হও %s প্রতিযোগিতা
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "একটি বাহনে মিসাইল ছোড়ো"
-msgstr[1] "%# বাহনে মিসাইল ছোড়ো"
+msgstr[1] "%#টি বাহনে মিসাইল ছোড়ো"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "রাস্তা একবার ছাড়ো"
+msgstr[1] "রাস্তা %# বার ছাড়ো"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "একটি অতিরিক্ত নাও"
+msgstr[1] "%#টি অতিরিক্ত নাও"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
-msgstr ""
+msgstr "গেমপ্যাড"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
 msgid "Keyboard"
-msgstr ""
+msgstr "কিবোর্ড"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr ""
+msgstr "চাকা বোতাম"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
@@ -378,7 +378,7 @@ msgid_plural ""
 msgstr[0] "অভিনন্দন!\n"
 "তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
 msgstr[1] "অভিনন্দন!\n"
-"তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
+"তুমি %#টি সীমা(রেকর্ড) ভেঙেছো!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
@@ -420,7 +420,7 @@ msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr "পিক্সেল হুইল খেলতে টাকা লাগে না,\n" 
-"কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্কয করতে পারো"
+"কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্য করতে পারো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid "VISIT SUPPORT PAGE"
