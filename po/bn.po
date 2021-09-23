@@ -111,7 +111,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr ""
+msgstr "শব্দ প্রভাব"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
@@ -119,7 +119,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
-msgstr ""
+msgstr "টম হাইগ"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
@@ -127,27 +127,27 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
-msgstr ""
+msgstr "ডোমাসএক্স২"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr ""
+msgstr "অন্যান্য শব্দ প্রভাব"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr ""
+msgstr "ফন্ট"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
-msgstr ""
+msgstr "জোলোনিয়াম"
 
 #: android/assets/screens/credits.gdxui:55
 msgid "Severin Meyer"
-msgstr ""
+msgstr "সেভেরিন মেয়ের"
 
 #: android/assets/screens/credits.gdxui:57
 msgid "Kwajong"
-msgstr ""
+msgstr "কাজং"
 
 #: android/assets/screens/credits.gdxui:58
 msgid "Tup Wanders"
@@ -159,11 +159,11 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:62
 msgid "French:"
-msgstr ""
+msgstr "ফরাসি:"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Video Editing"
-msgstr ""
+msgstr "ভিডিও সম্পাদনা"
 
 #: android/assets/screens/credits.gdxui:67
 msgid "Clara Gâteau"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Beta Testers"
-msgstr ""
+msgstr "পরীক্ষামূলক ব্যবহারকারী"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
@@ -191,7 +191,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:79
 msgid "LibGDX"
-msgstr ""
+msgstr "লিবজিডিএক্স"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Tiled"
@@ -216,15 +216,15 @@ msgstr ""
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr ""
+msgstr "পুনঃশুরু"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr ""
+msgstr "তালিকসয় ফেরত যাও"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
-msgstr ""
+msgstr "এগিয়ে যাও"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
@@ -233,52 +233,52 @@ msgstr ""
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
 msgid "Trigger:"
-msgstr ""
+msgstr "ঘোড়া:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr ""
+msgstr "পিছনে"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr ""
+msgstr "কিবোর্ড পছন্দসমূহ"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr ""
+msgstr "একক খেলোয়াড়"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr ""
+msgstr "একাধিক খেলোয়াড়"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr ""
+msgstr "দ্রুত গাড়ি দৌড়"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr ""
+msgstr "প্রতিযোগিতা"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "SETTINGS"
-msgstr ""
+msgstr "পছন্দসমূহ"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr ""
+msgstr "প্রস্থান"
 
 #: android/assets/screens/multiplayer.gdxui:5
 #: android/assets/screens/selectvehicle.gdxui:5
 msgid "Select Your Vehicle"
-msgstr ""
+msgstr "বাহন নাও"
 
 #: android/assets/screens/multiplayer.gdxui:8
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Ready!"
-msgstr ""
+msgstr "প্রস্তুত!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
@@ -286,23 +286,23 @@ msgstr ""
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr ""
+msgstr "থামানো"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr ""
+msgstr "চালু করো"
 
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "QUIT TO MENU"
-msgstr ""
+msgstr "তালিকায় প্রস্থান করো"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr ""
+msgstr "প্রতিযোগিতা নির্বাচন"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr ""
+msgstr "খেলার অবস্থা নির্বাচন"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr ""
+msgstr "সর্বোচ্চ মোট"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:54
 msgid "Share via"
