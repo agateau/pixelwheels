@@ -20,6 +20,9 @@ package com.agateau.translations;
  * tools/po-compile
  */
 public class GettextImplementation implements Translator.Implementation {
+    // When an entry has a context, the generated key is:
+    // {msgid}{CONTEXT_SEPARATOR}{msgctx}
+    private static final String CONTEXT_SEPARATOR = "!!!";
     private final Messages mMessages;
 
     private GettextImplementation(Messages messages) {
@@ -40,11 +43,12 @@ public class GettextImplementation implements Translator.Implementation {
     }
 
     @Override
-    public String tr(String src) {
+    public String trc(String src, String context) {
         if (mMessages == null) {
             return src;
         }
-        String txt = mMessages.plainEntries.get(src);
+        String key = context == null ? src : (src + CONTEXT_SEPARATOR + context);
+        String txt = mMessages.plainEntries.get(key);
         return txt == null ? src : txt;
     }
 

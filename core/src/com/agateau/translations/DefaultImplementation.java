@@ -25,7 +25,7 @@ package com.agateau.translations;
  */
 class DefaultImplementation implements Translator.Implementation {
     @Override
-    public String tr(String source) {
+    public String trc(String source, String comment) {
         return source;
     }
 
