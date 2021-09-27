@@ -1,17 +1,42 @@
 # Changelog
 
-## 0.21.0 - unreleased
+## 0.21.0 - 2021-10-01
 
 ### Added
 
 - Pixel Wheels is now translatable. The game is available in French and English (#57).
-- Android: There is now a button to report a bug via email.
+
+- There is now a button to help reporting a bug.
+
+### Changed
+
+- The Configuration screen has been reorganized, to find a good place for the language selection menu.
+
+- Multiple performance improvements.
 
 ### Fixed
 
 - On the finished overlay, the car congratulating you when breaking a best lap or total time record no longer overlaps with the menu buttons on wide screens (#126).
+
 - Do not count missile hits on vehicles which have finished the race, to prevent farming missile hits (#128).
+
 - On Android, in the "championship finished" screen, the next button works again (#119).
+
+- Fix finished overlay ignoring CPU times when showing medals (#131).
+
+- Android 10: fix general slowdown caused by bug in Android sound libraries (#130).
+
+- Do not record scores when developer settings affecting gameplay are changed. For real this time (#35)...
+
+- Prevent missile farming: do not count missile hits on vehicles which have finished the race (#128).
+
+### Developers
+
+- Added new Makefile targets: backup-desktop-conf and restore-desktop-conf.
+
+- Make GitHub CI build and upload apks in addition to desktop zip files (#105).
+
+- Log files are now rotated.
 
 ## 0.20.0 - 2021-06-26
 
