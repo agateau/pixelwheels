@@ -34,7 +34,8 @@ import com.agateau.pixelwheels.sound.SoundSettings;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
-import com.agateau.translations.GettextImplementation;
+import com.agateau.pixelwheels.utils.StringUtils;
+import com.agateau.translations.PoImplementation;
 import com.agateau.translations.Translator;
 import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.ScreenStack;
@@ -153,7 +154,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
-        Translator.Implementation impl = GettextImplementation.load(mGameConfig.languageId);
+        String path = StringUtils.format("po/%s.po", mGameConfig.languageId);
+        Translator.Implementation impl = PoImplementation.load(FileUtils.assets(path));
         Translator.setImplementation(impl);
     }
 
