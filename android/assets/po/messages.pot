@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-22 22:33+0200\n"
+"POT-Creation-Date: 2021-10-01 18:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -385,7 +385,7 @@ msgstr[1] ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr ""
 
@@ -397,19 +397,19 @@ msgstr ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgstr ""
 msgid "Race time"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:184
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"
 msgid ""
 "Championship\n"

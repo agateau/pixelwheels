@@ -10,7 +10,7 @@ At the moment adding, updating or testing translations requires building the gam
 
 - Create a fork of [PixelWheels GitHub project][github] and clone it.
 
-- Copy `po/messages.pot` to `po/{language}.po` (or `po/{language}_{COUNTRY}.po` if you want to create a country-specific variant).
+- Copy `android/assets/po/messages.pot` to `android/assets/po/{language}.po` (or `android/assets/po/{language}_{COUNTRY}.po` if you want to create a country-specific variant).
 
 - Translate the strings in the new .po file using a PO editor ([poedit][], [lokalize][], or even a plain text editor).
 
