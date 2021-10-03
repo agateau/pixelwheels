@@ -154,8 +154,17 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
-        String path = StringUtils.format("po/%s.po", mGameConfig.languageId);
-        Translator.Implementation impl = PoImplementation.load(FileUtils.assets(path));
+        FileHandle handle;
+        String poDir = System.getenv("PW_PO_DIR");
+        if (poDir == null) {
+            String path = StringUtils.format("po/%s.po", mGameConfig.languageId);
+            handle = FileUtils.assets(path);
+        } else {
+            NLog.i("Looking for translations in '%s' instead of the usual directory", poDir);
+            String name = mGameConfig.languageId + ".po";
+            handle = Gdx.files.absolute(poDir).child(name);
+        }
+        Translator.Implementation impl = PoImplementation.load(handle);
         Translator.setImplementation(impl);
     }
 
