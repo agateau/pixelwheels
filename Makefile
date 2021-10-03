@@ -36,7 +36,7 @@ clean: clean-assets
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build: po-compile
+build:
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
@@ -83,7 +83,7 @@ apk-dist:
 	done
 
 
-dist: assets packer po-compile check desktop-dist apk-dist
+dist: assets packer check desktop-dist apk-dist
 
 clean-dist: clean dist
 
@@ -151,13 +151,9 @@ check: codingstyle-check po-check
 
 # Translations
 po-update:
-	tools/po-compile/po-update
+	tools/po-update
 
 po-check:
-	tools/po-compile/po-update --check
-
-po-compile:
-	mkdir -p core/generated/com/agateau/translations
-	tools/po-compile/po-compile-all po core/generated/com/agateau/translations
+	tools/po-update --check
 
 .PHONY: desktop-dist apk-dist dist clean-dist tag tagpush fastlane-beta check tools build release-archives

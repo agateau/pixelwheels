@@ -3,11 +3,11 @@ set -euo pipefail
 
 PROGNAME=$(basename $0)
 
-cd $(dirname $0)/../..
+cd $(dirname $0)/..
 
 TOOLS_DIR=$PWD/tools
-MESSAGES_POT=$PWD/po/messages.pot
-PO_DIR=$PWD/po
+PO_DIR=$PWD/android/assets/po
+MESSAGES_POT=$PO_DIR/messages.pot
 
 TEMP_DIR="$(mktemp -d -- "/tmp/po-update-XXXXXX")"
 

@@ -34,7 +34,8 @@ import com.agateau.pixelwheels.sound.SoundSettings;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
-import com.agateau.translations.GettextImplementation;
+import com.agateau.pixelwheels.utils.StringUtils;
+import com.agateau.translations.PoImplementation;
 import com.agateau.translations.Translator;
 import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.ScreenStack;
@@ -153,7 +154,17 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
-        Translator.Implementation impl = GettextImplementation.load(mGameConfig.languageId);
+        FileHandle handle;
+        String poDir = System.getenv("PW_PO_DIR");
+        if (poDir == null) {
+            String path = StringUtils.format("po/%s.po", mGameConfig.languageId);
+            handle = FileUtils.assets(path);
+        } else {
+            NLog.i("Looking for translations in '%s' instead of the usual directory", poDir);
+            String name = mGameConfig.languageId + ".po";
+            handle = Gdx.files.absolute(poDir).child(name);
+        }
+        Translator.Implementation impl = PoImplementation.load(handle);
         Translator.setImplementation(impl);
     }
 
