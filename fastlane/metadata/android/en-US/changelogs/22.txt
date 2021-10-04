@@ -1,0 +1,13 @@
+Pixel Wheels is now available in French and English.
+
+There is now a button to help reporting a bug.
+
+In the "championship finished" screen, the "→" button works again.
+
+Fix finished overlay ignoring CPU times when showing medals.
+
+Android 10: fix general slowdown caused by a bug in Android sound libraries.
+
+Prevent missile farming: do not count missile hits on vehicles which have finished the race.
+
+Other minor bug fixes.
