@@ -43,11 +43,21 @@ public class Messages {
         }
     }
 
+    public interface PluralExpression {
+        int eval(int n);
+    }
+
+    private final PluralExpression mPluralExpression;
+
     public final HashMap<String, String> plainEntries = new HashMap<>();
 
     public final HashMap<PluralId, String[]> pluralEntries = new HashMap<>();
 
+    public Messages(PluralExpression expression) {
+        mPluralExpression = expression;
+    }
+
     public int plural(int n) {
-        return n == 1 ? 0 : 1;
+        return mPluralExpression.eval(n);
     }
 }
