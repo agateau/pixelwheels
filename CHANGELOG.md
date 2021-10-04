@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.21.0 - 2021-10-01
+## 0.21.0 - 2021-10-04
 
 ### Added
 
@@ -10,7 +10,7 @@
 
 ### Changed
 
-- The Configuration screen has been reorganized, to find a good place for the language selection menu.
+- The Configuration screen has been reorganized.
 
 - Multiple performance improvements.
 
@@ -18,13 +18,11 @@
 
 - On the finished overlay, the car congratulating you when breaking a best lap or total time record no longer overlaps with the menu buttons on wide screens (#126).
 
-- Do not count missile hits on vehicles which have finished the race, to prevent farming missile hits (#128).
-
-- On Android, in the "championship finished" screen, the next button works again (#119).
+- On Android, in the "championship finished" screen, the "→" button works again (#119).
 
 - Fix finished overlay ignoring CPU times when showing medals (#131).
 
-- Android 10: fix general slowdown caused by bug in Android sound libraries (#130).
+- Android 10: fix general slowdown caused by a bug in Android sound libraries (#130).
 
 - Do not record scores when developer settings affecting gameplay are changed. For real this time (#35)...
 

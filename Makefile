@@ -95,7 +95,7 @@ desktop-run-from-dist:
 	tmp/$(DESKTOP_RUN_DIST_NAME)/pixelwheels
 
 android-run-from-dist:
-	# uninstall any existing verison in case we have an unsigned version installed
+	# uninstall any existing version in case we have an unsigned version installed
 	adb uninstall $(ANDROID_PACKAGE_NAME) || true
 	adb install -f $(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk
 	adb shell am start -n $(ANDROID_PACKAGE_NAME)/com.agateau.pixelwheels.android.AndroidLauncher
