@@ -42,7 +42,7 @@ public class Language {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final Language[] ALL = {
-        new Language("en", "English"), new Language("fr", "Français"),
+        new Language("en", "English"), new Language("fr", "Français"), new Language("pl", "Polski")
     };
 
     public static final String DEFAULT_ID = "en";
