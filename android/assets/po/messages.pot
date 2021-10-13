@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-01 18:20+0200\n"
+"POT-Creation-Date: 2021-10-12 19:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:71
+#: android/assets/screens/credits.gdxui:74
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -154,54 +154,62 @@ msgid "French:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:65
+msgid "Polish:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:66
+msgid "PandaCoderPL"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:68
 msgid "Video Editing"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:67
+#: android/assets/screens/credits.gdxui:70
 msgid "Clara Gâteau"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:69
+#: android/assets/screens/credits.gdxui:72
 msgid "Special Thanks"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:75
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:73
+#: android/assets/screens/credits.gdxui:76
 msgid "Ethan Chapman"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:74
+#: android/assets/screens/credits.gdxui:77
 msgid "All bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:78
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:77
+#: android/assets/screens/credits.gdxui:80
 msgid "Made with"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:79
+#: android/assets/screens/credits.gdxui:82
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:84
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:85
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:86
 msgid "Android Studio"
 msgstr ""
 
@@ -325,6 +333,7 @@ msgid "REPORT BUG"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
+#, java-printf-format
 msgid "Rank 3 or better at %s championship"
 msgstr ""
 
@@ -439,6 +448,7 @@ msgid "About"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
+#, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr ""
 
@@ -465,6 +475,7 @@ msgid "Controls"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#, java-printf-format
 msgid "Player #%d:"
 msgstr ""
 
@@ -529,6 +540,7 @@ msgid "OK"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#, java-printf-format
 msgid "Player #%d: %s"
 msgstr ""
 
