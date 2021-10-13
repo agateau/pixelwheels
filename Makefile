@@ -62,7 +62,7 @@ auto-assets:
 	find core/assets-src -name '*.ase' | entr $(MAKE) assets packer
 
 # Dist
-desktop-dist: build
+desktop-archives:
 	@rm -rf $(DIST_OUT_BASE_DIR)
 	@mkdir -p $(DIST_OUT_BASE_DIR)
 
@@ -73,7 +73,7 @@ desktop-dist: build
 	@mkdir -p $(ARCHIVE_DIR)
 	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
 
-apk-dist:
+apk-archives:
 	@echo Creating apk files
 	@$(GRADLEW) android:assembleRelease
 	@echo Moving apk files
@@ -83,7 +83,11 @@ apk-dist:
 	done
 
 
-dist: assets packer check desktop-dist apk-dist
+dist: assets packer check build desktop-archives apk-archives
+
+desktop-dist: assets packer check build desktop-archives
+
+clean-desktop-dist: clean desktop-dist
 
 clean-dist: clean dist
 
