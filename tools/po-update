@@ -9,7 +9,7 @@ TOOLS_DIR=$PWD/tools
 PO_DIR=$PWD/android/assets/po
 MESSAGES_POT=$PO_DIR/messages.pot
 
-TEMP_DIR="$(mktemp -d -- "${TMPDIR}/po-update-XXXXXX")"
+TEMP_DIR="$(mktemp -d --tmpdir "po-update-XXXXXX")"
 
 delete_temp_dir() {
     rm -rf $TEMP_DIR
