@@ -32,6 +32,8 @@ public class UiAssets {
 
     private static final float SMALL_HUD_RATIO = 0.7f;
 
+    private static final int DEFAULT_FONT_SIZE = 24;
+
     public UiAssets() {
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
         this.skin = new Skin(this.atlas);
@@ -46,12 +48,12 @@ public class UiAssets {
     private void loadFonts() {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28;
+        parameter.size = DEFAULT_FONT_SIZE;
         parameter.characters += "•";
         this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28;
+        parameter.size = DEFAULT_FONT_SIZE;
         parameter.characters += "⭘⏽";
         this.skin.add("symbols-font", loadFont("fonts/NotoSansSymbols2-Regular.ttf", parameter));
 
