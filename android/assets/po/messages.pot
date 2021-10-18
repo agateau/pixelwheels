@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 19:44+0100\n"
+"POT-Creation-Date: 2021-10-18 08:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:63
+#: android/assets/screens/credits.gdxui:66
 msgid "Aurélien Gâteau"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:74
+#: android/assets/screens/credits.gdxui:77
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -146,70 +146,78 @@ msgid "Tup Wanders"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:60
+msgid "Noto"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:61
+msgid "Google"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:63
 msgid "Translations"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:62
+#: android/assets/screens/credits.gdxui:65
 msgid "French:"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:65
+#: android/assets/screens/credits.gdxui:68
 msgid "Polish:"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:66
+#: android/assets/screens/credits.gdxui:69
 msgid "PandaCoderPL"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:68
+#: android/assets/screens/credits.gdxui:71
 msgid "Video Editing"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:70
+#: android/assets/screens/credits.gdxui:73
 msgid "Clara Gâteau"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:75
 msgid "Special Thanks"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:78
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:76
+#: android/assets/screens/credits.gdxui:79
 msgid "Ethan Chapman"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:77
+#: android/assets/screens/credits.gdxui:80
 msgid "All bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:78
+#: android/assets/screens/credits.gdxui:81
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Made with"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:85
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:86
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:85
+#: android/assets/screens/credits.gdxui:88
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Android Studio"
 msgstr ""
 
@@ -333,7 +341,6 @@ msgid "REPORT BUG"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-#, java-printf-format
 msgid "Rank 3 or better at %s championship"
 msgstr ""
 
@@ -448,7 +455,6 @@ msgid "About"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
-#, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr ""
 
@@ -475,7 +481,6 @@ msgid "Controls"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
-#, java-printf-format
 msgid "Player #%d:"
 msgstr ""
 
@@ -540,7 +545,6 @@ msgid "OK"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
-#, java-printf-format
 msgid "Player #%d: %s"
 msgstr ""
 
@@ -576,14 +580,6 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr ""
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "OFF"
-msgstr ""
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "ON"
 msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44

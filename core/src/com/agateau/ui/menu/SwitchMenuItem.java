@@ -18,8 +18,6 @@
  */
 package com.agateau.ui.menu;
 
-import static com.agateau.translations.Translator.tr;
-
 import com.agateau.ui.Scene2dUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -54,7 +52,7 @@ public class SwitchMenuItem extends Actor implements MenuItem {
         mFocusIndicator = new FocusIndicator(menu);
         setTouchable(Touchable.enabled);
 
-        mFont = menu.getSkin().get("default-font", BitmapFont.class);
+        mFont = menu.getSkin().get("symbols-font", BitmapFont.class);
         mStyle = menu.getSkin().get(SwitchMenuItemStyle.class);
 
         setSize(mStyle.frame.getMinWidth() * 2, mStyle.frame.getMinHeight());
@@ -187,6 +185,6 @@ public class SwitchMenuItem extends Actor implements MenuItem {
     }
 
     protected String formatValue(boolean value) {
-        return value ? tr("ON") : tr("OFF");
+        return value ? "⏽" : "⭘";
     }
 }
