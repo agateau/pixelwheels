@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 19:44+0100\n"
+"POT-Creation-Date: 2021-10-18 08:06+0200\n"
 "PO-Revision-Date: 2021-10-12 18:52+0000\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
 "Language-Team: Polish <>\n"
@@ -28,7 +28,7 @@ msgstr "Kod"
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:63
+#: android/assets/screens/credits.gdxui:66
 msgid "Aurélien Gâteau"
 msgstr "Aurélien Gâteau"
 
@@ -37,7 +37,7 @@ msgid "Pixels"
 msgstr "Piksele"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:74
+#: android/assets/screens/credits.gdxui:77
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -141,70 +141,78 @@ msgid "Tup Wanders"
 msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
+msgid "Noto"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:61
+msgid "Google"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:63
 msgid "Translations"
 msgstr "Tłumaczenia"
 
-#: android/assets/screens/credits.gdxui:62
+#: android/assets/screens/credits.gdxui:65
 msgid "French:"
 msgstr "Francuski:"
 
-#: android/assets/screens/credits.gdxui:65
+#: android/assets/screens/credits.gdxui:68
 msgid "Polish:"
 msgstr "Polski"
 
-#: android/assets/screens/credits.gdxui:66
+#: android/assets/screens/credits.gdxui:69
 msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
-#: android/assets/screens/credits.gdxui:68
+#: android/assets/screens/credits.gdxui:71
 msgid "Video Editing"
 msgstr "Edycja Wideo"
 
-#: android/assets/screens/credits.gdxui:70
+#: android/assets/screens/credits.gdxui:73
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:75
 msgid "Special Thanks"
 msgstr "Specjalne Podziękowania"
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:78
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:76
+#: android/assets/screens/credits.gdxui:79
 msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:77
+#: android/assets/screens/credits.gdxui:80
 msgid "All bug reporters"
 msgstr "Wszystkie osoby zgłaszające błędy"
 
-#: android/assets/screens/credits.gdxui:78
+#: android/assets/screens/credits.gdxui:81
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Wszyscy wspierający na Patreonie, Ko-fi i Paypalu"
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Made with"
 msgstr "Zrobione używając"
 
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:85
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:86
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:85
+#: android/assets/screens/credits.gdxui:88
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Android Studio"
 msgstr "Android Studio"
 
@@ -330,7 +338,6 @@ msgid "REPORT BUG"
 msgstr "ZGŁOŚ BŁĄD"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-#, java-printf-format
 msgid "Rank 3 or better at %s championship"
 msgstr "Pozycja 3 lub lepsza na mistrzostwach %s"
 
@@ -453,7 +460,6 @@ msgid "About"
 msgstr "O"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
-#, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
@@ -482,7 +488,6 @@ msgid "Controls"
 msgstr "Sterowanie"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
-#, java-printf-format
 msgid "Player #%d:"
 msgstr "Gracz #%d:"
 
@@ -547,7 +552,6 @@ msgid "OK"
 msgstr "OK"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
-#, java-printf-format
 msgid "Player #%d: %s"
 msgstr "Gracz #%d: %s"
 
@@ -585,14 +589,6 @@ msgstr "5th"
 msgid "6th"
 msgstr "6th"
 
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "OFF"
-msgstr "WYŁĄCZONE"
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "ON"
-msgstr "WŁĄCZONE"
-
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
@@ -603,3 +599,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "OTWÓRZ FOLDER Z PLIKIEM DZIENNIKA"
+
+#~ msgid "OFF"
+#~ msgstr "WYŁĄCZONE"
+
+#~ msgid "ON"
+#~ msgstr "WŁĄCZONE"
