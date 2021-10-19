@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-18 08:06+0200\n"
-"PO-Revision-Date: 2021-10-19 21:19+0000\n"
+"PO-Revision-Date: 2021-10-19 21:21+0000\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
 "Language-Team: Polish <>\n"
 "Language: pl_PL \n"
@@ -142,11 +142,11 @@ msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "Noto"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
