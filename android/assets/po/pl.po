@@ -47,7 +47,7 @@ msgstr "Muzyka"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr "Menu: "
+msgstr "Menu:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
@@ -158,7 +158,7 @@ msgstr "Francuski:"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Polish:"
-msgstr "Polski"
+msgstr "Polski:"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "PandaCoderPL"
@@ -219,8 +219,7 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"Ustawienia wpływające na rozgrywkę zostały zmienione, wyniki nie będą "
-"zapisywane"
+"Ustawienia wpływające na rozgrywkę zostały zmienione, wyniki nie będą zapisywane"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
