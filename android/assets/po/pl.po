@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-18 08:06+0200\n"
-"PO-Revision-Date: 2021-10-12 18:52+0000\n"
+"PO-Revision-Date: 2021-10-19 21:26+0000\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
 "Language-Team: Polish <>\n"
 "Language: pl_PL \n"
@@ -47,7 +47,7 @@ msgstr "Muzyka"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr "Menu: "
+msgstr "Menu:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
@@ -142,11 +142,11 @@ msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "Noto"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
@@ -158,7 +158,7 @@ msgstr "Francuski:"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Polish:"
-msgstr "Polski"
+msgstr "Polski:"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "PandaCoderPL"
@@ -219,8 +219,7 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"Ustawienia wpływające na rozgrywkę zostały zmienione, wyniki nie będą "
-"zapisywane"
+"Ustawienia wpływające na rozgrywkę zostały zmienione, wyniki nie będą zapisywane"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -593,15 +592,8 @@ msgstr "6th"
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
-"Potrzebujesz zgłosić błąd? Użyj tego przycisku, żeby znaleźć plik dziennika "
-"do dołączenia."
+"Potrzebujesz zgłosić błąd? Użyj tego przycisku, żeby znaleźć logi do dołączenia."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "OTWÓRZ FOLDER Z PLIKIEM DZIENNIKA"
-
-#~ msgid "OFF"
-#~ msgstr "WYŁĄCZONE"
-
-#~ msgid "ON"
-#~ msgstr "WŁĄCZONE"
+msgstr "OTWÓRZ FOLDER Z LOGAMI"
