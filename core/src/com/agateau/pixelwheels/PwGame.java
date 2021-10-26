@@ -166,6 +166,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         }
         Translator.Implementation impl = PoImplementation.load(handle);
         Translator.setImplementation(impl);
+
+        mAssets.setLanguage(mGameConfig.languageId);
     }
 
     @Override
@@ -180,6 +182,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     void refreshAssets() {
         mAssets = new Assets();
+        mAssets.setLanguage(mGameConfig.languageId);
         // Tracks and championship have been recreated, need to recreate reward manager
         setupRewardManager();
         setupCursorManager();
@@ -192,6 +195,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void setupConfig() {
         mGameConfig = new GameConfig();
+        if (mGameConfig.languageId.isEmpty()) {
+            mGameConfig.languageId = mAssets.languages.findBestLanguageId();
+        }
         mGameConfig.addListener(this);
         onGameConfigChanged();
     }

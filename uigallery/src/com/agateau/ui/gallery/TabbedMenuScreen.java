@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.gallery;
 
+import com.agateau.ui.FontSet;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.Anchor;
@@ -37,7 +38,7 @@ class TabbedMenuScreen extends StageScreen {
 
     TabbedMenuScreen() {
         super(new ScalingViewport(Scaling.fit, 800, 480));
-        UiAssets assets = new UiAssets();
+        UiAssets assets = new UiAssets(FontSet.createTestInstance());
         mSkin = assets.skin;
         setupUi();
     }

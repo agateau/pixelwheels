@@ -1,0 +1,27 @@
+<Languages>
+    <Language id="en" name="English" fontSet="xolonium"/>
+    <Language id="fr" name="Français" fontSet="xolonium"/>
+    <Language id="pl" name="Polski" fontSet="noto"/>
+
+    <FontSet id="xolonium"
+        defaultFontName="Xolonium-Regular.ttf"
+        defaultBoldFontName="Xolonium-Bold.ttf"
+        defaultFontSize="24"
+
+        titleFontName="Kwajong-Italic.otf"
+        titleFontSize="36"
+
+        hudFontName="Xolonium-Regular.ttf"
+    />
+
+    <FontSet id="noto"
+        defaultFontName="NotoSans-Regular.ttf"
+        defaultBoldFontName="NotoSans-Bold.ttf"
+        defaultFontSize="28"
+
+        titleFontName="NotoSans-BoldItalic.ttf"
+        titleFontSize="36"
+
+        hudFontName="NotoSans-Regular.ttf"
+    />
+</Languages>

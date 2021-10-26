@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.sound.EngineSoundPlayer;
 import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.sound.SoundPlayer;
 import com.agateau.pixelwheels.sound.SoundThreadManager;
+import com.agateau.ui.FontSet;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.anchor.Anchor;
@@ -83,7 +84,7 @@ class EngineLabScreen extends StageScreen {
     public EngineLabScreen() {
         super(new ScreenViewport());
         setupEngineLab();
-        UiAssets assets = new UiAssets();
+        UiAssets assets = new UiAssets(FontSet.createTestInstance());
         mSkin = assets.skin;
         setupUi();
     }

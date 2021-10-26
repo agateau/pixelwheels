@@ -273,7 +273,7 @@ public class ConfigScreen extends PwStageScreen {
 
     private SelectorMenuItem<String> createLanguageSelectorItem(GameConfig gameConfig) {
         final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(mMenu);
-        for (Language language : Language.ALL) {
+        for (Language language : mGame.getAssets().languages.getAll()) {
             languageItem.addEntry(language.name, language.id);
         }
         languageItem.setCurrentData(gameConfig.languageId);

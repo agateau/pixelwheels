@@ -29,6 +29,7 @@ import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
+import com.agateau.ui.FontSet;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
 import com.agateau.utils.Assert;
@@ -73,7 +74,7 @@ public class Assets implements TextureRegionProvider {
     public final Array<VehicleDef> vehicleDefs = new Array<>();
     public final Array<Championship> championships = new Array<>();
     public final Array<ObstacleDef> obstacleDefs = new Array<>();
-    public final UiAssets ui = new UiAssets();
+    public UiAssets ui;
 
     public final TextureRegion wheel;
     public final TextureRegion dot;
@@ -94,10 +95,12 @@ public class Assets implements TextureRegionProvider {
     public final TextureRegion helicopterPropellerTop;
     public final TextureRegion lockedVehicle;
     public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
+    public final Languages languages;
 
     private final Animation<TextureRegion> explosion;
 
     Assets() {
+        this.languages = new Languages(FileUtils.assets("ui/languages.xml"));
         this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion =
@@ -133,6 +136,11 @@ public class Assets implements TextureRegionProvider {
         loadObstacleDefinitions();
         initSoundAtlas();
         initChampionships();
+    }
+
+    public void setLanguage(String languageId) {
+        FontSet fontSet = languages.getFontSet(languageId);
+        ui = new UiAssets(fontSet);
     }
 
     private void initSoundAtlas() {
