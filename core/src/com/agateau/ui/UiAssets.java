@@ -18,7 +18,7 @@
  */
 package com.agateau.ui;
 
-import com.badlogic.gdx.Gdx;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,12 +33,12 @@ public class UiAssets {
     private static final float SMALL_HUD_RATIO = 0.7f;
 
     public UiAssets(FontSet fontSet) {
-        this.atlas = new StrictTextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
+        this.atlas = new StrictTextureAtlas(FileUtils.assets("ui/uiskin.atlas"));
         this.background = this.atlas.findRegion("background");
 
         this.skin = new Skin(this.atlas);
         loadFontSet(fontSet);
-        this.skin.load(Gdx.files.internal("ui/uiskin.gdxjson"));
+        this.skin.load(FileUtils.assets("ui/uiskin.gdxjson"));
     }
 
     private void loadFontSet(FontSet fontSet) {
@@ -98,7 +98,7 @@ public class UiAssets {
 
     private BitmapFont loadFont(
             String name, FreeTypeFontGenerator.FreeTypeFontParameter parameter) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(name));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(FileUtils.assets(name));
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
         return font;

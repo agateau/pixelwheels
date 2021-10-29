@@ -94,14 +94,14 @@ public class Assets implements TextureRegionProvider {
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
     public final TextureRegion lockedVehicle;
-    public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
+    public final SoundAtlas soundAtlas = new SoundAtlas(FileUtils.assets("sounds"));
     public final Languages languages;
 
     private final Animation<TextureRegion> explosion;
 
     Assets() {
         this.languages = new Languages(FileUtils.assets("ui/languages.xml"));
-        this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+        this.atlas = new StrictTextureAtlas(FileUtils.assets("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion =
                 new Animation<>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
@@ -165,7 +165,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     public Music loadMusic(String musicId) {
-        FileHandle handle = Gdx.files.internal("musics/" + musicId + ".mp3");
+        FileHandle handle = FileUtils.assets("musics/" + musicId + ".mp3");
         if (!handle.exists()) {
             NLog.e("No music with id " + musicId);
             return null;
