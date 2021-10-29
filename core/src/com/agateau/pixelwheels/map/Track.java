@@ -23,7 +23,7 @@ import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
-import com.badlogic.gdx.Gdx;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
@@ -85,7 +85,7 @@ public class Track implements Disposable {
         if (mMap != null) {
             return;
         }
-        String path = Gdx.files.internal("maps/" + mId + ".tmx").path();
+        String path = FileUtils.assets("maps/" + mId + ".tmx").path();
         mMap = sMapLoader.load(path, sMapLoaderParameters);
         mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();

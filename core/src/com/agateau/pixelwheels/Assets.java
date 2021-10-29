@@ -29,6 +29,7 @@ import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
+import com.agateau.ui.FontSet;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
 import com.agateau.utils.Assert;
@@ -73,7 +74,7 @@ public class Assets implements TextureRegionProvider {
     public final Array<VehicleDef> vehicleDefs = new Array<>();
     public final Array<Championship> championships = new Array<>();
     public final Array<ObstacleDef> obstacleDefs = new Array<>();
-    public final UiAssets ui = new UiAssets();
+    public UiAssets ui;
 
     public final TextureRegion wheel;
     public final TextureRegion dot;
@@ -93,12 +94,14 @@ public class Assets implements TextureRegionProvider {
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
     public final TextureRegion lockedVehicle;
-    public final SoundAtlas soundAtlas = new SoundAtlas(Gdx.files.internal("sounds"));
+    public final SoundAtlas soundAtlas = new SoundAtlas(FileUtils.assets("sounds"));
+    public final Languages languages;
 
     private final Animation<TextureRegion> explosion;
 
     Assets() {
-        this.atlas = new StrictTextureAtlas(Gdx.files.internal("sprites/sprites.atlas"));
+        this.languages = new Languages(FileUtils.assets("ui/languages.xml"));
+        this.atlas = new StrictTextureAtlas(FileUtils.assets("sprites/sprites.atlas"));
         this.wheel = findRegion("wheel");
         this.explosion =
                 new Animation<>(EXPLOSION_FRAME_DURATION, this.atlas.findRegions("explosion"));
@@ -135,6 +138,11 @@ public class Assets implements TextureRegionProvider {
         initChampionships();
     }
 
+    public void setLanguage(String languageId) {
+        FontSet fontSet = languages.getFontSet(languageId);
+        ui = new UiAssets(fontSet);
+    }
+
     private void initSoundAtlas() {
         for (int i = 0; i < 5; ++i) {
             String name = StringUtils.format("engine-%d", i);
@@ -157,7 +165,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     public Music loadMusic(String musicId) {
-        FileHandle handle = Gdx.files.internal("musics/" + musicId + ".mp3");
+        FileHandle handle = FileUtils.assets("musics/" + musicId + ".mp3");
         if (!handle.exists()) {
             NLog.e("No music with id " + musicId);
             return null;

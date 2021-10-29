@@ -18,6 +18,7 @@
  */
 package com.agateau.ui.gallery;
 
+import com.agateau.ui.FontSet;
 import com.agateau.ui.StageScreen;
 import com.agateau.ui.TextureRegionItemRenderer;
 import com.agateau.ui.UiAssets;
@@ -49,7 +50,7 @@ class MenuScreen extends StageScreen {
 
     MenuScreen() {
         super(new ScreenViewport());
-        UiAssets assets = new UiAssets();
+        UiAssets assets = new UiAssets(FontSet.createTestInstance());
         mAtlas = assets.atlas;
         mSkin = assets.skin;
         setupUi();
