@@ -23,7 +23,7 @@ import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
-import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
@@ -85,7 +85,11 @@ public class Track implements Disposable {
         if (mMap != null) {
             return;
         }
-        String path = FileUtils.assets("maps/" + mId + ".tmx").path();
+        // Do not use FileUtils.assets() to load maps because TmxMapLoader looks for "dependency
+        // files" (textures, .tsx...) in the same folder as the map, so if the map is found in the
+        // extra assets directory but the textures are only in the original one, TmxMapLoader won't
+        // find the required files and will crash.
+        String path = Gdx.files.internal("maps/" + mId + ".tmx").path();
         mMap = sMapLoader.load(path, sMapLoaderParameters);
         mMaterialForTileId = computeMaterialForTileId();
         findSpecialTileIds();
