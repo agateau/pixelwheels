@@ -3,374 +3,376 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-22 22:33+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2021-10-30 17:14+0200\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr ""
+msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr ""
+msgstr "Un juegos de carrera open-source"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
 #: android/assets/screens/credits.gdxui:63
 msgid "Aurélien Gâteau"
-msgstr ""
+msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr ""
+msgstr "Pixels"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:71
 msgid "Antonin Gâteau"
-msgstr ""
+msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr ""
+msgstr "Música"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr ""
+msgstr "Menú :"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr ""
+msgstr "\"Lightspeed\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
-msgstr ""
+msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr ""
+msgstr "Victoria :"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
-msgstr ""
+msgstr "\"Core Descent (16-bit) v0.9\""
 
 #: android/assets/screens/credits.gdxui:27
 #: android/assets/screens/credits.gdxui:31
 #: android/assets/screens/credits.gdxui:35
 #: android/assets/screens/credits.gdxui:39
 msgid "FoxSynergy"
-msgstr ""
+msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr ""
+msgstr "Campeonato Country Life :"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
-msgstr ""
+msgstr "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr ""
+msgstr "Campeonato Square Mountains :"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
-msgstr ""
+msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr ""
+msgstr "Campeonato Pix Cities :"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
-msgstr ""
+msgstr "\"Bouncing Baal v0.95\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr ""
+msgstr "Efectos sonoros"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr ""
+msgstr "\"Car tire squeal skid loop\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
-msgstr ""
+msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr ""
+msgstr "\"Racing car engine sound loops\""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
-msgstr ""
+msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr ""
+msgstr "Otros efectos sonoros"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr ""
+msgstr "Fuentes"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
-msgstr ""
+msgstr "Xolonium"
 
 #: android/assets/screens/credits.gdxui:55
 msgid "Severin Meyer"
-msgstr ""
+msgstr "Severin Meyer"
 
 #: android/assets/screens/credits.gdxui:57
 msgid "Kwajong"
-msgstr ""
+msgstr "Kwajong"
 
 #: android/assets/screens/credits.gdxui:58
 msgid "Tup Wanders"
-msgstr ""
+msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Translations"
-msgstr ""
+msgstr "Traducciones"
 
 #: android/assets/screens/credits.gdxui:62
 msgid "French:"
-msgstr ""
+msgstr "Francés :"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Video Editing"
-msgstr ""
+msgstr "Edición de vídeo"
 
 #: android/assets/screens/credits.gdxui:67
 msgid "Clara Gâteau"
-msgstr ""
+msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Special Thanks"
-msgstr ""
+msgstr "Gracias a"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Guillaume Roche"
-msgstr ""
+msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:73
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "All bug reporters"
-msgstr ""
+msgstr "Los informadores de errores"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "Los seguidores en Patreon, Ko-fi y Panpal"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Made with"
-msgstr ""
+msgstr "Creado con"
 
 #: android/assets/screens/credits.gdxui:79
 msgid "LibGDX"
-msgstr ""
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Tiled"
-msgstr ""
+msgstr "Tiled"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Aseprite"
-msgstr ""
+msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:82
 msgid "SFXR Qt"
-msgstr ""
+msgstr "SFXR Qt"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Android Studio"
-msgstr ""
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
+"Los ajustes que afectan la jugabilidad se modificaron, los marcadores no se "
+"salvarán"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr ""
+msgstr "RECOMENZAR"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr ""
+msgstr "REGRESO"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
-msgstr ""
+msgstr "CONTINUAR"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr ""
+msgstr "Configuración del mando"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
 msgid "Trigger:"
-msgstr ""
+msgstr "Activar :"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr ""
+msgstr "Regreso / marcha atrás :"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr ""
+msgstr "Configuración del teclado"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr ""
+msgstr "UNO JUGADOR"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr ""
+msgstr "MULTI JUGADORES"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr ""
+msgstr "CARRERA CORTA"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr ""
+msgstr "CAMPEONATO"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr ""
+msgstr "CONFIGURACIÓN"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr ""
+msgstr "DEJAR"
 
 #: android/assets/screens/multiplayer.gdxui:5
 #: android/assets/screens/selectvehicle.gdxui:5
 msgid "Select Your Vehicle"
-msgstr ""
+msgstr "Selecciona su vehículo"
 
 #: android/assets/screens/multiplayer.gdxui:8
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Ready!"
-msgstr ""
+msgstr "Listo !"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
-msgstr ""
+msgstr "Ciertos mandos están faltantes"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr ""
+msgstr "Pausa"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr ""
+msgstr "CONTINUAR"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr ""
+msgstr "REGRESO AL MENÚ"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr ""
+msgstr "Selecciona un campeonato"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr ""
+msgstr "Selecciona el modo de juego"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr ""
+msgstr "Selecciona una pista"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr ""
+msgstr "Mejor vuelta"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr ""
+msgstr "Mejor tiempo total"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr ""
+msgstr "Compartir con"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr ""
+msgstr "Ha encontrado un error ? Utiliza este botón para reportarlo."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
-msgstr ""
+msgstr "REPORTAR UN ERROR"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
-msgstr ""
+msgstr "Llegar tercero o mejor al campeonato %s"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Golpear uno vehículo con un misil"
+msgstr[1] "Golpear %# vehículos con un misil"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Salir de la carretera una vez"
+msgstr[1] "Salir de la carretera %# veces"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Coger uno bono"
+msgstr[1] "Coger %# bonos"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
-msgstr ""
+msgstr "Mando"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
 msgid "Keyboard"
-msgstr ""
+msgstr "Teclado"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr ""
+msgstr "Botones en arco"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr ""
+msgstr "Botones en el lado"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:293
 msgid "Championship Rankings"
-msgstr ""
+msgstr "Clasificación del campeonato"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:294
 msgid "Race Results"
-msgstr ""
+msgstr "Resultado de la carrera"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:304
 msgid ""
@@ -380,42 +382,46 @@ msgid_plural ""
 "Congratulations!\n"
 "You broke %# records!"
 msgstr[0] ""
+"Felicitaciones !\n"
+"Batió uno récord !"
 msgstr[1] ""
+"Felicitaciones !\n"
+"Batió %# récord !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "#"
-msgstr ""
+msgstr "N.°"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 msgid "Best lap"
-msgstr ""
+msgstr "Mejor vuelta"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Racer"
-msgstr ""
+msgstr "Piloto"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Total time"
-msgstr ""
+msgstr "Tiempo total"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
 msgid "Points"
-msgstr ""
+msgstr "Puntos"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
 msgid "Race time"
-msgstr ""
+msgstr "Tiempo de carrera"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:184
 msgctxt "Must be two sentences separated by a newline"
@@ -423,162 +429,170 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
+"Campeonato\n"
+"Terminado !"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
+"Pixel Wheels está gratuito, pero puede apoyar su desarrollador de varias "
+"maneras."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:79
 msgid "VISIT SUPPORT PAGE"
-msgstr ""
+msgstr "PÁGINA DE APOYO"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:142
 msgid "About"
-msgstr ""
+msgstr "Informaciones"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
 msgid "Pixel Wheels %s"
-msgstr ""
+msgstr "Pixel Wheels %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
 msgid "CREDITS"
-msgstr ""
+msgstr "CRÉDITO"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
-msgstr ""
+msgstr "Bajo el capó"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
+"Estas opciones son principalmente interesantes para el desarrollo de Pixel "
+"Wheels, pero puede echarle un vistazo !"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
-msgstr ""
+msgstr "Sección de los desarrolladores"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
-msgstr ""
+msgstr "Controles"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Player #%d:"
-msgstr ""
+msgstr "Jugador #%d:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "Controls:"
-msgstr ""
+msgstr "Controles :"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "Language:"
-msgstr ""
+msgstr "Idioma :"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Sound FX:"
-msgstr ""
+msgstr "Efectos sonoros :"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Music:"
-msgstr ""
+msgstr "Música :"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Fullscreen:"
-msgstr ""
+msgstr "Pantalla completa :"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
 msgid "CONFIGURE"
-msgstr ""
+msgstr "CONFIGURAR"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr ""
+msgstr "Gracias por jugar !"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:71
 msgid "Steer left:"
-msgstr ""
+msgstr "Girar a la izquierda :"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:72
 msgid "Steer right:"
-msgstr ""
+msgstr "Girar a la derecha :"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:73
 msgid "Brake:"
-msgstr ""
+msgstr "Frenar :"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
-msgstr ""
+msgstr "Faltante"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 msgid "Player #%d: %s"
-msgstr ""
+msgstr "Jugador #%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
 msgid "MAIN MENU"
-msgstr ""
+msgstr "MENÚ PRINCIPAL"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
-msgstr ""
+msgstr "[Bloqueado]"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr ""
+msgstr "1.º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr ""
+msgstr "2.º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr ""
+msgstr "3.º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr ""
+msgstr "4.º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr ""
+msgstr "5.º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr ""
+msgstr "6.º"
 
 #: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
 msgid "OFF"
-msgstr ""
+msgstr "No"
 
 #: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
 msgid "ON"
-msgstr ""
+msgstr "Sí"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
+"Necesita crear un informe de error ? Utiliza este botón para encontrar el "
+"fichero de log a adjuntar."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr ""
+msgstr "FICHERO DE LOG"
