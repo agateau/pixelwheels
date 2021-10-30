@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-29 13:21+0200\n"
-"PO-Revision-Date: 2021-09-22 22:35+0200\n"
+"POT-Creation-Date: 2021-09-22 22:33+0200\n"
+"PO-Revision-Date: 2021-10-28 20:25+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
 "Language: fr_FR\n"
@@ -125,7 +125,7 @@ msgstr "Autres effets sonores"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr "Fontes"
+msgstr "Polices"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
