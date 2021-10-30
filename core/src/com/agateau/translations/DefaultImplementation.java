@@ -35,6 +35,11 @@ class DefaultImplementation implements Translator.Implementation {
         return txt.replace("%#", String.valueOf(n));
     }
 
+    @Override
+    public String getCharacters() {
+        return "";
+    }
+
     static DefaultImplementation instance = new DefaultImplementation();
 
     private DefaultImplementation() {}

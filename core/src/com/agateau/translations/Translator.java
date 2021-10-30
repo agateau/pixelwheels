@@ -34,6 +34,9 @@ public class Translator {
         String trc(String source, String context);
 
         String trn(String singular, String plural, int n);
+
+        /** Returns a String containing all distinct characters used by this translation */
+        String getCharacters();
     }
 
     private static Implementation sImplementation = DefaultImplementation.instance;

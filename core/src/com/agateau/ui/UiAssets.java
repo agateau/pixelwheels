@@ -33,19 +33,25 @@ public class UiAssets {
     private static final float SMALL_HUD_RATIO = 0.7f;
 
     public UiAssets(FontSet fontSet) {
+        this(fontSet, "");
+    }
+
+    public UiAssets(FontSet fontSet, String extraCharacters) {
         this.atlas = new StrictTextureAtlas(FileUtils.assets("ui/uiskin.atlas"));
         this.background = this.atlas.findRegion("background");
 
         this.skin = new Skin(this.atlas);
-        loadFontSet(fontSet);
+        loadFontSet(fontSet, extraCharacters);
         this.skin.load(FileUtils.assets("ui/uiskin.gdxjson"));
     }
 
-    private void loadFontSet(FontSet fontSet) {
+    private void loadFontSet(FontSet fontSet, String characters) {
+        characters = FreeTypeFontGenerator.DEFAULT_CHARS + characters;
+
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = fontSet.defaultFontSize;
-        parameter.characters += "•";
+        parameter.characters = characters;
         this.skin.add("default-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -56,27 +62,32 @@ public class UiAssets {
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = fontSet.titleFontSize;
+        parameter.characters = characters;
         this.skin.add("title-font", loadFont("fonts/" + fontSet.titleFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;
         parameter.borderWidth = 0.5f;
+        parameter.characters = characters;
         this.skin.add("tiny-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) (fontSet.defaultFontSize * 0.5f);
+        parameter.characters = characters;
         this.skin.add(
                 "tiny-bold-font", loadFont("fonts/" + fontSet.defaultBoldFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) (fontSet.defaultFontSize * 0.8f);
         parameter.borderWidth = 0.5f;
+        parameter.characters = characters;
         this.skin.add("small-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         // hud-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = fontSet.defaultFontSize;
         parameter.borderWidth = 0.5f;
+        parameter.characters = characters;
         this.skin.add("hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
@@ -85,6 +96,7 @@ public class UiAssets {
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 56;
         parameter.borderWidth = 0.5f;
+        parameter.characters = characters;
         this.skin.add("hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));

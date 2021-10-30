@@ -16,6 +16,8 @@
 package com.agateau.translations;
 
 import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /** This class holds translations loaded by PoParser */
 public class Messages {
@@ -59,5 +61,31 @@ public class Messages {
 
     public int plural(int n) {
         return mPluralExpression.eval(n);
+    }
+
+    public String getCharacters() {
+        SortedSet<Character> set = new TreeSet<>();
+        for (String text : this.plainEntries.values()) {
+            addToSet(set, text);
+        }
+        for (String[] texts : this.pluralEntries.values()) {
+            for (String text : texts) {
+                addToSet(set, text);
+            }
+        }
+
+        StringBuilder builder = new StringBuilder(set.size());
+        for (Character ch : set) {
+            if (ch != ' ') {
+                builder.append(ch);
+            }
+        }
+        return builder.toString();
+    }
+
+    private static void addToSet(SortedSet<Character> set, String text) {
+        for (int idx = text.length() - 1; idx >= 0; idx--) {
+            set.add(text.charAt(idx));
+        }
     }
 }

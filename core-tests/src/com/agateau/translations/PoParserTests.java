@@ -186,6 +186,25 @@ public class PoParserTests {
         assertThat(PoParser.parseString("\"anti\\\\slash\""), is("anti\\slash"));
     }
 
+    @Test
+    public void testGetCharacters() throws PoParserException {
+        BufferedReader reader =
+                createReader(
+                        joinLines(
+                                HEADER,
+                                "msgid \"foo\"",
+                                "msgstr \"Sing\"",
+                                "msgid \"one bar\"",
+                                "msgid_plural \"%# bars\"",
+                                "msgstr[0] \"%# Plur\"",
+                                "msgstr[1] \"%# Plurs\""));
+
+        PoParser parser = new PoParser(reader);
+        Messages messages = parser.parse();
+        assertThat(messages, is(notNullValue()));
+        assertThat(messages.getCharacters(), is("#%PSgilnrsu"));
+    }
+
     private static BufferedReader createReader(String text) {
         StringReader reader = new StringReader(text);
         return new BufferedReader(reader);

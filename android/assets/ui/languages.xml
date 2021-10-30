@@ -1,7 +1,7 @@
 <Languages>
     <Language id="en" name="English" fontSet="xolonium"/>
     <Language id="fr" name="Français" fontSet="xolonium"/>
-    <Language id="pl" name="Polski" fontSet="noto"/>
+    <Language id="pl" name="Polski" fontSet="xolonium"/>
     <Language id="es" name="Español" fontSet="xolonium"/>
 
     <FontSet id="xolonium"
