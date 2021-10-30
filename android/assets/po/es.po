@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-22 22:33+0200\n"
-"PO-Revision-Date: 2021-10-30 17:14+0200\n"
+"PO-Revision-Date: 2021-10-30 17:54+0200\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,7 +179,7 @@ msgstr "Los informadores de errores"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Los seguidores en Patreon, Ko-fi y Panpal"
+msgstr "Los seguidores en Patreon, Ko-fi y Paypal"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Made with"
@@ -470,7 +470,9 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
-msgstr "Sección de los desarrolladores"
+msgstr ""
+"SECCIÓN DE LOS\n"
+"DESARROLLADORES"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
