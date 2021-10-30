@@ -33,6 +33,14 @@ public class Constants {
     // 1 mega-byte max size
     public static final long LOG_MAX_SIZE = 1024 * 1024;
 
+    public enum Store {
+        ITCHIO,
+        GPLAY
+    }
+
+    // Not final because it can be updated by the StoreConfigurator instance
+    public static Store STORE = Store.ITCHIO;
+
     static {
         String value = getenv("PW_DEBUG_SCREEN");
         DEBUG_SCREEN = value == null ? "" : value;
