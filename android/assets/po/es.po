@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-22 22:33+0200\n"
+"POT-Creation-Date: 2021-11-02 21:35+0100\n"
 "PO-Revision-Date: 2021-10-30 17:54+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.3\n"
 
 #: android/assets/screens/credits.gdxui:6
@@ -33,7 +33,7 @@ msgstr "Código"
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:63
+#: android/assets/screens/credits.gdxui:66
 msgid "Aurélien Gâteau"
 msgstr "Aurélien Gâteau"
 
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr "Pixels"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:71
+#: android/assets/screens/credits.gdxui:80
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -146,62 +146,83 @@ msgid "Tup Wanders"
 msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
+msgid "Noto"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:61
+msgid "Google"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:63
 msgid "Translations"
 msgstr "Traducciones"
 
-#: android/assets/screens/credits.gdxui:62
+#: android/assets/screens/credits.gdxui:65
 msgid "French:"
 msgstr "Francés :"
 
-#: android/assets/screens/credits.gdxui:65
-msgid "Video Editing"
-msgstr "Edición de vídeo"
+#: android/assets/screens/credits.gdxui:68
+msgid "Polish:"
+msgstr ""
 
-#: android/assets/screens/credits.gdxui:67
+#: android/assets/screens/credits.gdxui:69
+msgid "PandaCoderPL"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:71
+msgid "Spanish:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:76
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:69
+#: android/assets/screens/credits.gdxui:74
+msgid "Video Editing"
+msgstr "Edición de vídeo"
+
+#: android/assets/screens/credits.gdxui:78
 msgid "Special Thanks"
 msgstr "Gracias a"
 
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:81
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:73
+#: android/assets/screens/credits.gdxui:82
 msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:74
+#: android/assets/screens/credits.gdxui:83
 msgid "All bug reporters"
 msgstr "Los informadores de errores"
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:84
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Los seguidores en Patreon, Ko-fi y Paypal"
 
-#: android/assets/screens/credits.gdxui:77
+#: android/assets/screens/credits.gdxui:86
 msgid "Made with"
 msgstr "Creado con"
 
-#: android/assets/screens/credits.gdxui:79
+#: android/assets/screens/credits.gdxui:88
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:89
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:90
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:91
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:92
 msgid "Android Studio"
 msgstr "Android Studio"
 
@@ -391,7 +412,7 @@ msgstr[1] ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr "N.°"
 
@@ -403,19 +424,19 @@ msgstr "Mejor vuelta"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr "Piloto"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr "Tiempo total"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr "Puntos"
 
@@ -423,7 +444,7 @@ msgstr "Puntos"
 msgid "Race time"
 msgstr "Tiempo de carrera"
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:184
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"
 msgid ""
 "Championship\n"
@@ -432,7 +453,19 @@ msgstr ""
 "Campeonato\n"
 "Terminado !"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:78
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
+msgid "About"
+msgstr "Informaciones"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+msgid "Pixel Wheels %s"
+msgstr "Pixel Wheels %s"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:128
+msgid "CREDITS"
+msgstr "CRÉDITO"
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -440,27 +473,23 @@ msgstr ""
 "Pixel Wheels está gratuito, pero puede apoyar su desarrollador de varias "
 "maneras."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:79
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:166
 msgid "VISIT SUPPORT PAGE"
 msgstr "PÁGINA DE APOYO"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:142
-msgid "About"
-msgstr "Informaciones"
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+msgid "Learn more about Pixel Wheels"
+msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:144
-msgid "Pixel Wheels %s"
-msgstr "Pixel Wheels %s"
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+msgid "VISIT WEB SITE"
+msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
-msgid "CREDITS"
-msgstr "CRÉDITO"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid "Under the hood"
 msgstr "Bajo el capó"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:198
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -468,53 +497,53 @@ msgstr ""
 "Estas opciones son principalmente interesantes para el desarrollo de Pixel "
 "Wheels, pero puede echarle un vistazo !"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:201
 msgid "DEV. OPTIONS"
 msgstr ""
 "SECCIÓN DE LOS\n"
 "DESARROLLADORES"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Controls"
 msgstr "Controles"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
 msgid "Player #%d:"
 msgstr "Jugador #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:221
 msgid "Controls:"
 msgstr "Controles :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "General"
 msgstr "General"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Language:"
 msgstr "Idioma :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
 msgid "Audio"
 msgstr "Audio"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid "Sound FX:"
 msgstr "Efectos sonoros :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid "Music:"
 msgstr "Música :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
 msgid "Video"
 msgstr "Vídeo"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
 msgid "Fullscreen:"
 msgstr "Pantalla completa :"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:381
 msgid "CONFIGURE"
 msgstr "CONFIGURAR"
 
@@ -580,14 +609,6 @@ msgstr "5.º"
 msgid "6th"
 msgstr "6.º"
 
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "OFF"
-msgstr "No"
-
-#: core/src/com/agateau/ui/menu/SwitchMenuItem.java:190
-msgid "ON"
-msgstr "Sí"
-
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
@@ -598,3 +619,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "FICHERO DE LOG"
+
+#~ msgid "OFF"
+#~ msgstr "No"
+
+#~ msgid "ON"
+#~ msgstr "Sí"
