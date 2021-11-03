@@ -59,6 +59,14 @@ public class PoImplementation implements Translator.Implementation {
         return txt.replace("%#", String.valueOf(n));
     }
 
+    @Override
+    public String getCharacters() {
+        if (mMessages == null) {
+            return "";
+        }
+        return mMessages.getCharacters();
+    }
+
     private String findPluralTranslation(String singular, String plural, int n) {
         if (mMessages == null) {
             return null;

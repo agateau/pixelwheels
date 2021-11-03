@@ -29,6 +29,8 @@ import com.agateau.pixelwheels.sound.SoundAtlas;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleIO;
+import com.agateau.translations.PoImplementation;
+import com.agateau.translations.Translator;
 import com.agateau.ui.FontSet;
 import com.agateau.ui.StrictTextureAtlas;
 import com.agateau.ui.UiAssets;
@@ -139,8 +141,16 @@ public class Assets implements TextureRegionProvider {
     }
 
     public void setLanguage(String languageId) {
+        FileHandle handle;
+        String path = StringUtils.format("po/%s.po", languageId);
+        handle = FileUtils.assets(path);
+        Translator.Implementation impl = PoImplementation.load(handle);
+        Translator.setImplementation(impl);
+
+        String characters = impl == null ? "" : impl.getCharacters();
+
         FontSet fontSet = languages.getFontSet(languageId);
-        ui = new UiAssets(fontSet);
+        ui = new UiAssets(fontSet, characters);
     }
 
     private void initSoundAtlas() {

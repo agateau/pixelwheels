@@ -34,4 +34,9 @@ public class DebugImplementation implements Translator.Implementation {
     public String trn(String singular, String plural, int n) {
         return "!" + DefaultImplementation.instance.trn(singular, plural, n);
     }
+
+    @Override
+    public String getCharacters() {
+        return "";
+    }
 }
