@@ -16,17 +16,6 @@
         hudFontName="Xolonium-Regular.ttf"
     />
 
-    <FontSet id="noto"
-        defaultFontName="NotoSans-Regular.ttf"
-        defaultBoldFontName="NotoSans-Bold.ttf"
-        defaultFontSize="28"
-
-        titleFontName="NotoSans-BoldItalic.ttf"
-        titleFontSize="36"
-
-        hudFontName="NotoSans-Regular.ttf"
-    />
-
     <FontSet id="noto-bengali"
         defaultFontName="NotoSansBengaliUI-Regular.ttf"
         defaultBoldFontName="NotoSansBengaliUI-Bold.ttf"
