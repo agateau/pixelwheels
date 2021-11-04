@@ -114,6 +114,19 @@ public class PoParserTests {
     }
 
     @Test
+    public void testParserPluralFormsWithoutParenthesis() throws PoParserException {
+        BufferedReader reader =
+                createReader(
+                        joinLines(
+                                "msgid \"\"",
+                                "msgstr \"\"",
+                                "\"Plural-Forms: nplurals=2; plural=n > 1;\""));
+
+        PoParser parser = new PoParser(reader);
+        parser.parse();
+    }
+
+    @Test
     public void testNoEmptyTranslations() throws PoParserException {
         BufferedReader reader =
                 createReader(

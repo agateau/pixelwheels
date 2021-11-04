@@ -39,8 +39,7 @@ public class PoParser {
     private static final String FUZZY_COMMENT = "#, fuzzy";
 
     private static final Pattern HEADER_PATTERN =
-            Pattern.compile(
-                    "Plural-Forms:\\s*nplurals\\s*=\\s*(\\d+)\\s*; plural\\s*=\\s*\\((.*)\\);");
+            Pattern.compile("Plural-Forms:\\s*nplurals\\s*=\\s*(\\d+)\\s*; plural\\s*=\\s*(.*);");
     private static final HashMap<String, Messages.PluralExpression> sPluralExpressionByString =
             new HashMap<>();
 
@@ -243,7 +242,11 @@ public class PoParser {
                     mLineNumber + 1, "Can't find plural definition in header:\n" + header);
         }
         mPluralCount = Integer.parseInt(matcher.group(1));
+        // Simplify expressionString: remove spaces and surrounding parenthesis
         String expressionString = matcher.group(2).replace(" ", "");
+        if (expressionString.startsWith("(") && expressionString.endsWith(")")) {
+            expressionString = expressionString.substring(1, expressionString.length() - 1);
+        }
         Messages.PluralExpression expression = sPluralExpressionByString.get(expressionString);
         if (expression == null) {
             throw new PoParserException(

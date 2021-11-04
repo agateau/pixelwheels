@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 21:35+0100\n"
+"POT-Creation-Date: 2021-11-03 19:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:66
+#: android/assets/screens/credits.gdxui:69
 msgid "Aurélien Gâteau"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -158,71 +158,79 @@ msgid "Translations"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:65
-msgid "French:"
+msgid "Bengali:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:66
+msgid "Oymate"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:68
-msgid "Polish:"
-msgstr ""
-
-#: android/assets/screens/credits.gdxui:69
-msgid "PandaCoderPL"
+msgid "French:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:71
-msgid "Spanish:"
+msgid "Polish:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:72
-#: android/assets/screens/credits.gdxui:76
-msgid "Clara Gâteau"
+msgid "PandaCoderPL"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:74
+msgid "Spanish:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:79
+msgid "Clara Gâteau"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:77
 msgid "Video Editing"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:78
+#: android/assets/screens/credits.gdxui:81
 msgid "Special Thanks"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:84
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:85
 msgid "Ethan Chapman"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:86
 msgid "All bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Made with"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:88
+#: android/assets/screens/credits.gdxui:91
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:89
+#: android/assets/screens/credits.gdxui:92
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:90
+#: android/assets/screens/credits.gdxui:93
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:91
+#: android/assets/screens/credits.gdxui:94
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:92
+#: android/assets/screens/credits.gdxui:95
 msgid "Android Studio"
 msgstr ""
 
