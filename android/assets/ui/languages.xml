@@ -4,6 +4,7 @@
     <Language id="pl" name="Polski" fontSet="xolonium"/>
     <Language id="es" name="Español" fontSet="xolonium"/>
     <Language id="bn" name="Bengali" fontSet="noto-bengali"/>
+    <Language id="zh_CN" name="Chinese" fontSet="noto-cjk"/>
 
     <FontSet id="xolonium"
         defaultFontName="Xolonium-Regular.ttf"
@@ -25,5 +26,16 @@
         titleFontSize="36"
 
         hudFontName="NotoSansBengaliUI-Regular.ttf"
+    />
+
+    <FontSet id="noto-cjk"
+        defaultFontName="NotoSansCJK-Regular.ttc"
+        defaultBoldFontName="NotoSansCJK-Regular.ttc"
+        defaultFontSize="24"
+
+        titleFontName="NotoSansCJK-Regular.ttc"
+        titleFontSize="36"
+
+        hudFontName="NotoSansCJK-Regular.ttc"
     />
 </Languages>
