@@ -171,15 +171,15 @@ msgstr "ফরাসি:"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Polish:"
-msgstr ""
+msgstr "পোলিশ"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "PandaCoderPL"
-msgstr ""
+msgstr "পান্ডাকোডারপিএল"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Spanish:"
-msgstr ""
+msgstr "স্পেনীয়:"
 
 #: android/assets/screens/credits.gdxui:75
 #: android/assets/screens/credits.gdxui:79
@@ -192,7 +192,7 @@ msgstr "ভিডিও সম্পাদনা"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Special Thanks"
-msgstr ""
+msgstr "বিশেষ ধন্যবাদ"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Guillaume Roche"
@@ -200,7 +200,7 @@ msgstr "গিলম রচে"
 
 #: android/assets/screens/credits.gdxui:85
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "এথান চ্যাপম্যান"
 
 #: android/assets/screens/credits.gdxui:86
 #, fuzzy
@@ -209,7 +209,7 @@ msgstr "এবং সব গিটহাব সমস্যা প্রতি�
 
 #: android/assets/screens/credits.gdxui:87
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "প্যাট্রন, কো-ফি এবং পেপালের সব সাহায্যকারীরা"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Made with"
@@ -457,7 +457,8 @@ msgctxt "Must be two sentences separated by a newline"
 msgid ""
 "Championship\n"
 "Finished!"
-msgstr "প্রতিযোগিতা"
+msgstr "প্রতিযোগিতা\n"
+"সমাপ্ত!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
 msgid "About"
@@ -485,11 +486,11 @@ msgstr "সহায়তা পৃষ্ঠা দেখো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Learn more about Pixel Wheels"
-msgstr ""
+msgstr "পিক্সেল হুইল নিয়ে আরো জানো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "VISIT WEB SITE"
-msgstr ""
+msgstr "ওয়েবসাইট দেখো"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid "Under the hood"
@@ -499,7 +500,7 @@ msgstr "ঢাকনার নিচে"
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
-msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে কিন্তু এগুলো ব্যবহারে ভয় পেও না"
+msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে, কিন্তু এগুলো ব্যবহারে ভয় পেও না"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:201
 msgid "DEV. OPTIONS"
@@ -614,11 +615,11 @@ msgstr "৬ষ্ঠ"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
-msgstr ""
+msgstr "সমস্যা প্রতিবেদন করতে চাও? এই বোতাম দিয়ে সংযুক্ত সূচীর নথিটি পাবে"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr ""
+msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
 
 #~ msgid "Finished!"
 #~ msgstr "সম্পন্ন!"
