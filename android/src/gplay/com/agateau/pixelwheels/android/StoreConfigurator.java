@@ -18,14 +18,11 @@
  */
 package com.agateau.pixelwheels.android;
 
-import com.agateau.pixelwheels.screens.ConfigScreen;
+import com.agateau.pixelwheels.Constants;
 
+/** Dummy class to configure Constants.STORE */
 public class StoreConfigurator {
     static void setup() {
-        ConfigScreen.setWebSiteLinkInfo(
-                new ConfigScreen.WebSiteLinkInfo(
-                        "https://agateau.com/projects/pixelwheels",
-                        "Learn more about Pixel Wheels",
-                        "VISIT WEB SITE"));
+        Constants.STORE = Constants.Store.GPLAY;
     }
 }

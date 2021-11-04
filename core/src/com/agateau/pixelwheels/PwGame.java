@@ -34,8 +34,6 @@ import com.agateau.pixelwheels.sound.SoundSettings;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
-import com.agateau.translations.GettextImplementation;
-import com.agateau.translations.Translator;
 import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.ScreenStack;
 import com.agateau.utils.Assert;
@@ -118,6 +116,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
         logStartup();
 
+        setupExtraAssetsDir();
+
         mGamePlayIntrospector = createIntrospector(GamePlay.instance, "gameplay.xml");
         mDebugIntrospector = createIntrospector(Debug.instance, "debug.xml");
         mSoundSettingsIntrospector = createIntrospector(SoundSettings.instance, "sound.xml");
@@ -133,6 +133,13 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         Box2D.init();
         setupDisplay();
         showMainMenu();
+    }
+
+    private void setupExtraAssetsDir() {
+        String assetsDir = System.getenv("PW_ASSETS_DIR");
+        if (assetsDir != null) {
+            FileUtils.setExtraAssetsDir(assetsDir);
+        }
     }
 
     private void logStartup() {
@@ -153,8 +160,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
-        Translator.Implementation impl = GettextImplementation.load(mGameConfig.languageId);
-        Translator.setImplementation(impl);
+        mAssets.setLanguage(mGameConfig.languageId);
     }
 
     @Override
@@ -169,18 +175,21 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     void refreshAssets() {
         mAssets = new Assets();
+        mAssets.setLanguage(mGameConfig.languageId);
         // Tracks and championship have been recreated, need to recreate reward manager
         setupRewardManager();
         setupCursorManager();
     }
 
     private void setupCursorManager() {
-        MouseCursorManager.getInstance()
-                .setCursorPixmap(Gdx.files.internal(Assets.CURSOR_FILENAME));
+        MouseCursorManager.getInstance().setCursorPixmap(FileUtils.assets(Assets.CURSOR_FILENAME));
     }
 
     private void setupConfig() {
         mGameConfig = new GameConfig();
+        if (mGameConfig.languageId.isEmpty()) {
+            mGameConfig.languageId = mAssets.languages.findBestLanguageId();
+        }
         mGameConfig.addListener(this);
         onGameConfigChanged();
     }

@@ -8,9 +8,14 @@ make_args=$@
 SRC_DIR=$PWD/..
 LOCAL_PROPERTIES=$SRC_DIR/local.properties
 
-if [ -z "$KEYSTORE_BASE64" ]; then
-    echo "Can't build: \$KEYSTORE_BASE64 environment variable not set."
-    exit 1
+if [ -n "$KEYSTORE_BASE64" ]; then
+    echo "Building desktop and apk archives"
+    make_target=clean-dist
+else
+    echo "Not building apk archives: \$KEYSTORE_BASE64 environment variable not set."
+    # Creat an empty signing.gradle, otherwise tests won't pass
+    touch $SRC_DIR/android/signing.gradle
+    make_target=clean-desktop-dist
 fi
 
 if [ ! -e "$LOCAL_PROPERTIES" ]; then
@@ -26,4 +31,4 @@ docker run --rm \
     --env "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" \
     --env "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" \
     pixelwheels \
-    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels clean-dist $make_args"
+    -c "make GRADLEW='./gradlew --console plain' -C /src/pixelwheels $make_target $make_args"

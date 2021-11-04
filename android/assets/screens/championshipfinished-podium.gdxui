@@ -97,9 +97,9 @@
         </Group>
 
         <Group id="leftColumn" topLeft="root.topLeft 4g -1g">
-            <Label id="mainLabel" style="title" x="4g" y="-2g">Championship</Label>
-            <Label id="mainLabel2" style="title" x="6g" y="-4g">Finished!</Label>
-            <Action actor="mainLabel">
+            <Label id="mainLabel1" style="title" x="4g" y="-2g"/>
+            <Label id="mainLabel2" style="title" x="6g" y="-4g"/>
+            <Action actor="mainLabel1">
                 moveBy -80g 0
                 moveBy 80g 0 1 pow2Out
             </Action>

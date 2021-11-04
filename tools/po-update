@@ -3,13 +3,13 @@ set -euo pipefail
 
 PROGNAME=$(basename $0)
 
-cd $(dirname $0)/../..
+cd $(dirname $0)/..
 
 TOOLS_DIR=$PWD/tools
-MESSAGES_POT=$PWD/po/messages.pot
-PO_DIR=$PWD/po
+PO_DIR=$PWD/android/assets/po
+MESSAGES_POT=$PO_DIR/messages.pot
 
-TEMP_DIR="$(mktemp -d -- "/tmp/po-update-XXXXXX")"
+TEMP_DIR="$(mktemp -d --tmpdir "po-update-XXXXXX")"
 
 delete_temp_dir() {
     rm -rf $TEMP_DIR
@@ -81,7 +81,7 @@ extract_messages() {
 
     # Set GETTEXTDATADIR so that xgettext finds our .its files
     GETTEXTDATADIR=$TOOLS_DIR/gettext xgettext --from-code=utf-8 \
-        --keyword=tr --keyword=trn:1,2 \
+        --keyword=tr --keyword=trn:1,2 --keyword=trc:1,2c \
         --sort-by-file \
         --output $messages_pot \
         --files-from $lst_file

@@ -57,26 +57,13 @@ import com.badlogic.gdx.utils.Array;
 
 /** The config screen */
 public class ConfigScreen extends PwStageScreen {
-    public static class WebSiteLinkInfo {
+    private static class SupportInfo {
         public String url;
         public String label;
         public String buttonText;
-
-        public WebSiteLinkInfo(String url, String label, String buttonText) {
-            this.url = url;
-            this.label = label;
-            this.buttonText = buttonText;
-        }
     }
 
     private final PwGame mGame;
-
-    private static WebSiteLinkInfo sWebSiteLinkInfo =
-            new WebSiteLinkInfo(
-                    "https://agateau.com/support/",
-                    tr(
-                            "Pixel Wheels is free, but you can support its\ndevelopment in various ways."),
-                    tr("VISIT SUPPORT PAGE"));
 
     Menu mMenu;
     TabMenuItem mTabMenuItem;
@@ -91,10 +78,6 @@ public class ConfigScreen extends PwStageScreen {
 
     private static final GameInputHandlerConfigScreenFactory sKeyboardConfigScreenFactory =
             (game, playerIdx) -> new KeyboardConfigScreen(game, playerIdx);
-
-    public static void setWebSiteLinkInfo(WebSiteLinkInfo info) {
-        sWebSiteLinkInfo = info;
-    }
 
     public ConfigScreen(PwGame game) {
         super(game.getAssets().ui);
@@ -154,18 +137,41 @@ public class ConfigScreen extends PwStageScreen {
 
         group.addSpacer();
 
-        // This is a ugly hack, but it should do for now
-        LabelMenuItem labelMenuItem = group.addLabel(sWebSiteLinkInfo.label);
+        SupportInfo supportInfo = getSupportInfo();
+        LabelMenuItem labelMenuItem = group.addLabel(supportInfo.label);
         labelMenuItem.setWrap(true);
-        group.addButton(sWebSiteLinkInfo.buttonText)
+        group.addButton(supportInfo.buttonText)
                 .setParentWidthRatio(0.5f)
                 .addListener(
                         new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
-                                PlatformUtils.openURI(sWebSiteLinkInfo.url);
+                                PlatformUtils.openURI(supportInfo.url);
                             }
                         });
+    }
+
+    /**
+     * GPlay does not allow linking to a support page, so use more generic information for the GPlay
+     * build.
+     */
+    private SupportInfo getSupportInfo() {
+        SupportInfo info = new SupportInfo();
+        switch (Constants.STORE) {
+            case ITCHIO:
+                info.url = "https://agateau.com/support/";
+                info.label =
+                        tr(
+                                "Pixel Wheels is free, but you can support its\ndevelopment in various ways.");
+                info.buttonText = tr("VISIT SUPPORT PAGE");
+                break;
+            case GPLAY:
+                info.url = "https://agateau.com/projects/pixelwheels";
+                info.label = tr("Learn more about Pixel Wheels");
+                info.buttonText = tr("VISIT WEB SITE");
+                break;
+        }
+        return info;
     }
 
     private void addInternalTab() {
@@ -273,7 +279,7 @@ public class ConfigScreen extends PwStageScreen {
 
     private SelectorMenuItem<String> createLanguageSelectorItem(GameConfig gameConfig) {
         final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(mMenu);
-        for (Language language : Language.ALL) {
+        for (Language language : mGame.getAssets().languages.getAll()) {
             languageItem.addEntry(language.name, language.id);
         }
         languageItem.setCurrentData(gameConfig.languageId);

@@ -2,14 +2,14 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="pauseLabel" topCenter="root.topCenter 0 -1">Paused</Label>
-        <Menu id="menu" center="root.center" width="300">
+        <Menu id="menu" center="root.center" width="400">
             <Items>
                 <ButtonMenuItem id="resumeButton" text="RESUME"/>
                 <Ifdef var="quickRace">
                     <ButtonMenuItem id="restartButton" text="RESTART"/>
                 </Ifdef>
-                <ButtonMenuItem id="quitButton" text="QUIT TO MENU"/>
                 <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
+                <ButtonMenuItem id="quitButton" text="QUIT TO MENU"/>
             </Items>
         </Menu>
     </AnchorGroup>

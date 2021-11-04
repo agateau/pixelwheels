@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import static com.agateau.pixelwheels.utils.BodyRegionDrawer.SHADOW_ALPHA;
 import static com.agateau.translations.Translator.tr;
+import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
@@ -166,6 +167,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
+        setupMainLabels(builder);
+
         setupNextButton(builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
@@ -175,6 +178,24 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         fillEntrantTable(table, mGameInfo.getEntrants());
 
         return true;
+    }
+
+    private void setupMainLabels(UiBuilder builder) {
+        String text =
+                trc("Championship\nFinished!", "Must be two sentences separated by a newline");
+        int idx = text.indexOf('\n');
+        String label1;
+        String label2;
+        if (idx == -1) {
+            NLog.e("Translation error: '%s' does not contain a newline character!");
+            label1 = text;
+            label2 = "";
+        } else {
+            label1 = text.substring(0, idx);
+            label2 = text.substring(idx + 1);
+        }
+        ((Label) builder.getActor("mainLabel1")).setText(label1);
+        ((Label) builder.getActor("mainLabel2")).setText(label2);
     }
 
     private void fillEntrantTable(Table table, Array<GameInfo.Entrant> entrants) {

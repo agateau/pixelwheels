@@ -81,9 +81,6 @@ public class GameConfig {
         this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
 
         this.languageId = mPreferences.getString(PrefConstants.LANGUAGE_ID);
-        if (this.languageId.isEmpty()) {
-            this.languageId = Language.findBestLanguageId();
-        }
 
         setupInputHandlers();
     }

@@ -18,7 +18,7 @@
  */
 package com.agateau.ui;
 
-import com.badlogic.gdx.Gdx;
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,68 +32,85 @@ public class UiAssets {
 
     private static final float SMALL_HUD_RATIO = 0.7f;
 
-    public UiAssets() {
-        this.atlas = new StrictTextureAtlas(Gdx.files.internal("ui/uiskin.atlas"));
-        this.skin = new Skin(this.atlas);
-
-        loadFonts();
-
-        this.skin.load(Gdx.files.internal("ui/uiskin.gdxjson"));
-
-        this.background = this.atlas.findRegion("background");
+    public UiAssets(FontSet fontSet) {
+        this(fontSet, "");
     }
 
-    private void loadFonts() {
+    public UiAssets(FontSet fontSet, String extraCharacters) {
+        this.atlas = new StrictTextureAtlas(FileUtils.assets("ui/uiskin.atlas"));
+        this.background = this.atlas.findRegion("background");
+
+        this.skin = new Skin(this.atlas);
+        loadFontSet(fontSet, extraCharacters);
+        this.skin.load(FileUtils.assets("ui/uiskin.gdxjson"));
+    }
+
+    private void loadFontSet(FontSet fontSet, String characters) {
+        characters = FreeTypeFontGenerator.DEFAULT_CHARS + characters;
+
         FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28;
-        parameter.characters += "•";
-        this.skin.add("default-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.size = fontSet.defaultFontSize;
+        parameter.characters = characters;
+        this.skin.add("default-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 36;
-        this.skin.add("title-font", loadFont("fonts/Kwajong-italic.otf", parameter));
+        parameter.size = fontSet.defaultFontSize;
+        // The '*' character is required for the switches in the debug screen
+        parameter.characters = "*⭘⏽";
+        this.skin.add("symbols-font", loadFont("fonts/NotoSansSymbols2-Regular.ttf", parameter));
+
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = fontSet.titleFontSize;
+        parameter.characters = characters;
+        this.skin.add("title-font", loadFont("fonts/" + fontSet.titleFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;
         parameter.borderWidth = 0.5f;
-        this.skin.add("tiny-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.characters = characters;
+        this.skin.add("tiny-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
-        this.skin.add("tiny-bold-font", loadFont("fonts/Xolonium-Bold.ttf", parameter));
+        parameter.size = (int) (fontSet.defaultFontSize * 0.5f);
+        parameter.characters = characters;
+        this.skin.add(
+                "tiny-bold-font", loadFont("fonts/" + fontSet.defaultBoldFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 20;
+        parameter.size = (int) (fontSet.defaultFontSize * 0.8f);
         parameter.borderWidth = 0.5f;
-        this.skin.add("small-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.characters = characters;
+        this.skin.add("small-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         // hud-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28;
+        parameter.size = fontSet.defaultFontSize;
         parameter.borderWidth = 0.5f;
-        this.skin.add("hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.characters = characters;
+        this.skin.add("hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
-        this.skin.add("small-hud-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        this.skin.add("small-hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
 
         // hud-rank-font
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 56;
         parameter.borderWidth = 0.5f;
-        this.skin.add("hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        parameter.characters = characters;
+        this.skin.add("hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
-        this.skin.add("small-hud-rank-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        this.skin.add("small-hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 180;
         parameter.characters = "123GO!";
         parameter.borderWidth = 0.5f;
-        this.skin.add("hud-countdown-font", loadFont("fonts/Xolonium-Regular.ttf", parameter));
+        this.skin.add("hud-countdown-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
     }
 
     private BitmapFont loadFont(
             String name, FreeTypeFontGenerator.FreeTypeFontParameter parameter) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(name));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(FileUtils.assets(name));
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
         return font;

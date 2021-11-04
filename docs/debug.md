@@ -13,7 +13,11 @@ specific screen:
     - If `<best-lap-rank-record>` is a number between 0 and 2 it indicates a new rank in the best lap record
     - If `<total-time-rank-record>` is a number between 0 and 2 it indicates a new rank in the total time record
 
-## AGC_UI_TYPE
+## PW_ASSETS_DIR environment variable
+
+When set to an existing directory, Pixel Wheels looks into this directory first when loading assets. If an asset is not found, the game falls back to the default directory.
+
+## AGC_UI_TYPE environment variable
 
 Overrides the UI type. Can be one of:
 - BUTTONS: Desktop

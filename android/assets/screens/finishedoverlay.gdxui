@@ -28,7 +28,7 @@
             width="750px"
             height="300px"/>
 
-        <Menu id="menu" width="14g" topCenter="scrollableTable.bottomCenter 0 -1g">
+        <Menu id="menu" width="14g" bottomCenter="root.bottomCenter 0 1g">
             <Items>
                 <Ifdef var="quickRace">
                     <ButtonMenuItem id="restartButton" text="RESTART"/>

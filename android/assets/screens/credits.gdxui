@@ -57,10 +57,22 @@
                 <Label>Kwajong</Label>
                 <Label>Tup Wanders</Label>
                 <Label/>
+                <Label>Noto</Label>
+                <Label>Google</Label>
+                <Label/>
                 <Label style="creditsSection">Translations</Label>
+                <Label/>
+                <Label>Bengali:</Label>
+                <Label>Oymate</Label>
                 <Label/>
                 <Label>French:</Label>
                 <Label>Aurélien Gâteau</Label>
+                <Label/>
+                <Label>Polish:</Label>
+                <Label>PandaCoderPL</Label>
+                <Label/>
+                <Label>Spanish:</Label>
+                <Label>Clara Gâteau</Label>
                 <Label/>
                 <Label style="creditsSection">Video Editing</Label>
                 <Label/>

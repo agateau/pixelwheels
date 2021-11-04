@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 
 public class FileUtils {
     public static String appName = "unnamed";
+    private static FileHandle sExtraAssetsHandle;
 
     public static FileHandle getUserWritableFile(String name) {
         FileHandle handle;
@@ -54,7 +55,23 @@ public class FileUtils {
         return handle;
     }
 
+    public static void setExtraAssetsDir(String dir) {
+        FileHandle handle = Gdx.files.absolute(dir);
+        if (!handle.isDirectory()) {
+            NLog.e("'%s' is not a directory", dir);
+            return;
+        }
+        NLog.i("Set '%s' as the extra asset directory", handle.path());
+        sExtraAssetsHandle = handle;
+    }
+
     public static FileHandle assets(String path) {
+        if (sExtraAssetsHandle != null) {
+            FileHandle handle = sExtraAssetsHandle.child(path);
+            if (handle.exists()) {
+                return handle;
+            }
+        }
         return Gdx.files.internal(path);
     }
 

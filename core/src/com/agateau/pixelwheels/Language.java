@@ -18,8 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
-import com.agateau.utils.log.NLog;
-import java.util.Locale;
+import com.agateau.ui.FontSet;
 
 /**
  * Represents a language supported by the game
@@ -35,37 +34,11 @@ public class Language {
     // The name of the language, in the language itself (so: "Français", not "French")
     public final String name;
 
-    private Language(String id, String name) {
+    public final FontSet fontSet;
+
+    Language(String id, String name, FontSet fontSet) {
         this.id = id;
         this.name = name;
-    }
-
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final Language[] ALL = {
-        new Language("en", "English"), new Language("fr", "Français"),
-    };
-
-    public static final String DEFAULT_ID = "en";
-
-    public static String findBestLanguageId() {
-        String lang = Locale.getDefault().getLanguage();
-        String langAndCountry = lang + "_" + Locale.getDefault().getCountry();
-        if (isSupported(langAndCountry)) {
-            return langAndCountry;
-        }
-        if (isSupported(lang)) {
-            return lang;
-        }
-        NLog.i("Neither %s nor %s are supported languages", langAndCountry, lang);
-        return DEFAULT_ID;
-    }
-
-    private static boolean isSupported(String languageId) {
-        for (Language language : ALL) {
-            if (language.id.equals(languageId)) {
-                return true;
-            }
-        }
-        return false;
+        this.fontSet = fontSet;
     }
 }

@@ -1,0 +1,2 @@
+polib==1.1.1
+fonttools==4.27.1

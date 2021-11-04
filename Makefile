@@ -36,7 +36,7 @@ clean: clean-assets
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build: po-compile
+build:
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
@@ -62,7 +62,7 @@ auto-assets:
 	find core/assets-src -name '*.ase' | entr $(MAKE) assets packer
 
 # Dist
-desktop-dist: build
+desktop-archives:
 	@rm -rf $(DIST_OUT_BASE_DIR)
 	@mkdir -p $(DIST_OUT_BASE_DIR)
 
@@ -73,7 +73,7 @@ desktop-dist: build
 	@mkdir -p $(ARCHIVE_DIR)
 	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
 
-apk-dist:
+apk-archives:
 	@echo Creating apk files
 	@$(GRADLEW) android:assembleRelease
 	@echo Moving apk files
@@ -83,7 +83,11 @@ apk-dist:
 	done
 
 
-dist: assets packer po-compile check desktop-dist apk-dist
+dist: assets packer check build desktop-archives apk-archives
+
+desktop-dist: assets packer check build desktop-archives
+
+clean-desktop-dist: clean desktop-dist
 
 clean-dist: clean dist
 
@@ -95,7 +99,7 @@ desktop-run-from-dist:
 	tmp/$(DESKTOP_RUN_DIST_NAME)/pixelwheels
 
 android-run-from-dist:
-	# uninstall any existing verison in case we have an unsigned version installed
+	# uninstall any existing version in case we have an unsigned version installed
 	adb uninstall $(ANDROID_PACKAGE_NAME) || true
 	adb install -f $(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk
 	adb shell am start -n $(ANDROID_PACKAGE_NAME)/com.agateau.pixelwheels.android.AndroidLauncher
@@ -151,13 +155,9 @@ check: codingstyle-check po-check
 
 # Translations
 po-update:
-	tools/po-compile/po-update
+	tools/po-update
 
 po-check:
-	tools/po-compile/po-update --check
-
-po-compile:
-	mkdir -p core/generated/com/agateau/translations
-	tools/po-compile/po-compile-all po core/generated/com/agateau/translations
+	tools/po-update --check
 
 .PHONY: desktop-dist apk-dist dist clean-dist tag tagpush fastlane-beta check tools build release-archives

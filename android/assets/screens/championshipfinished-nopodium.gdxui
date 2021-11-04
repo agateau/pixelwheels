@@ -5,14 +5,14 @@
     </Config>
     <AnchorGroup id="root" gridSize="20px">
         <Group topCenter="root.topCenter 0 -1g">
-            <Label id="mainLabel" style="title">Championship
+            <Label id="mainLabel1" style="title">Championship
                 <Action>
                     moveToAligned 0 0 topCenter
                     moveBy -80g 0
                     moveBy 80g 0 1 pow2Out
                 </Action>
             </Label>
-            <Label style="title">Finished!
+            <Label id="mainLabel2" style="title">Finished!
                 <Action>
                     moveToAligned 0 -2g topCenter
                     moveBy 120g 0

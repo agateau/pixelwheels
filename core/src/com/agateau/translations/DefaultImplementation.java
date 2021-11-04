@@ -25,7 +25,7 @@ package com.agateau.translations;
  */
 class DefaultImplementation implements Translator.Implementation {
     @Override
-    public String tr(String source) {
+    public String trc(String source, String comment) {
         return source;
     }
 
@@ -33,6 +33,11 @@ class DefaultImplementation implements Translator.Implementation {
     public String trn(String singular, String plural, int n) {
         String txt = n == 1 ? singular : plural;
         return txt.replace("%#", String.valueOf(n));
+    }
+
+    @Override
+    public String getCharacters() {
+        return "";
     }
 
     static DefaultImplementation instance = new DefaultImplementation();

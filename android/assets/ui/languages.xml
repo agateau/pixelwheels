@@ -1,0 +1,29 @@
+<Languages>
+    <Language id="en" name="English" fontSet="xolonium"/>
+    <Language id="fr" name="Français" fontSet="xolonium"/>
+    <Language id="pl" name="Polski" fontSet="xolonium"/>
+    <Language id="es" name="Español" fontSet="xolonium"/>
+    <Language id="bn" name="Bengali" fontSet="noto-bengali"/>
+
+    <FontSet id="xolonium"
+        defaultFontName="Xolonium-Regular.ttf"
+        defaultBoldFontName="Xolonium-Bold.ttf"
+        defaultFontSize="24"
+
+        titleFontName="Kwajong-Italic.otf"
+        titleFontSize="36"
+
+        hudFontName="Xolonium-Regular.ttf"
+    />
+
+    <FontSet id="noto-bengali"
+        defaultFontName="NotoSansBengaliUI-Regular.ttf"
+        defaultBoldFontName="NotoSansBengaliUI-Bold.ttf"
+        defaultFontSize="28"
+
+        titleFontName="NotoSansBengaliUI-Bold.ttf"
+        titleFontSize="36"
+
+        hudFontName="NotoSansBengaliUI-Regular.ttf"
+    />
+</Languages>

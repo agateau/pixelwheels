@@ -26,12 +26,17 @@ package com.agateau.translations;
  */
 public class DebugImplementation implements Translator.Implementation {
     @Override
-    public String tr(String source) {
+    public String trc(String source, String comment) {
         return "!" + source;
     }
 
     @Override
     public String trn(String singular, String plural, int n) {
         return "!" + DefaultImplementation.instance.trn(singular, plural, n);
+    }
+
+    @Override
+    public String getCharacters() {
+        return "";
     }
 }
