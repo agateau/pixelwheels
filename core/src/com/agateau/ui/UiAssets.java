@@ -19,6 +19,7 @@
 package com.agateau.ui;
 
 import com.agateau.utils.FileUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,6 +32,9 @@ public class UiAssets {
     public final TextureRegion background;
 
     private static final float SMALL_HUD_RATIO = 0.7f;
+
+    // Must be kept in sync with the border color of lap-icon.ase
+    private static final Color HUD_BORDER_COLOR = Color.valueOf("#3a4466");
 
     public UiAssets(FontSet fontSet) {
         this(fontSet, "");
@@ -84,28 +88,33 @@ public class UiAssets {
         this.skin.add("small-font", loadFont("fonts/" + fontSet.defaultFontName, parameter));
 
         // hud-font
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter = createHudFontParameter();
         parameter.size = fontSet.defaultFontSize;
-        parameter.borderWidth = 0.5f;
         parameter.characters = characters;
         this.skin.add("hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
 
         // hud-rank-font
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter = createHudFontParameter();
         parameter.size = 56;
-        parameter.borderWidth = 0.5f;
         parameter.characters = characters;
         this.skin.add("hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
         parameter.size = (int) (parameter.size * SMALL_HUD_RATIO);
         this.skin.add("small-hud-rank-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
 
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter = createHudFontParameter();
         parameter.size = 180;
         parameter.characters = "123GO!";
-        parameter.borderWidth = 0.5f;
         this.skin.add("hud-countdown-font", loadFont("fonts/" + fontSet.hudFontName, parameter));
+    }
+
+    private static FreeTypeFontGenerator.FreeTypeFontParameter createHudFontParameter() {
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+                new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.borderWidth = 1f;
+        parameter.borderColor = HUD_BORDER_COLOR;
+        return parameter;
     }
 
     private BitmapFont loadFont(

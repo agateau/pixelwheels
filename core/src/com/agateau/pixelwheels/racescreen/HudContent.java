@@ -27,7 +27,9 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -83,6 +85,8 @@ public class HudContent {
         Anchor topAnchor = Anchor.TOP_RIGHT;
         float hMargin = -5;
 
+        TextureRegion lapIconRegion = mAssets.findRegion("lap-icon");
+
         boolean singlePlayer = mGameWorld.getPlayerRacers().size == 1;
         for (int idx = 0; idx < playerCount; ++idx) {
             Label rankLabel = new Label("", skin, singlePlayer ? "hudRank" : "smallHudRank");
@@ -91,8 +95,13 @@ public class HudContent {
             Label lapLabel = new Label("", skin, singlePlayer ? "hud" : "smallHud");
             lapLabel.setAlignment(Align.right);
 
+            Image lapIconImage = new Image(lapIconRegion);
+            lapIconImage.pack();
+
             root.addPositionRule(rankLabel, Anchor.TOP_RIGHT, topEdge, topAnchor, hMargin, 0);
             root.addPositionRule(lapLabel, Anchor.TOP_RIGHT, rankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
+            root.addPositionRule(
+                    lapIconImage, Anchor.CENTER_RIGHT, lapLabel, Anchor.CENTER_LEFT, -8, 0);
 
             mRankLabels.add(rankLabel);
             mLapLabels.add(lapLabel);
@@ -148,8 +157,7 @@ public class HudContent {
             rankLabel.pack();
 
             mStringBuilder.setLength(0);
-            // £ has been hijacked to be the checkered flag in this font
-            mStringBuilder.append("£ ").append(lapCount).append('/').append(totalLapCount);
+            mStringBuilder.append(lapCount).append('/').append(totalLapCount);
             lapLabel.setText(mStringBuilder);
             lapLabel.pack();
 
