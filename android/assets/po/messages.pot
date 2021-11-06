@@ -166,11 +166,11 @@ msgid "Oymate"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:68
-msgid "Chinese"
+msgid "Chinese:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:69
-msgid "Oliver Lew"
+msgid "Lu Xu"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:71
