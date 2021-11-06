@@ -1,6 +1,13 @@
 name: main
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      # Only build on push for master or dev, otherwise branches pushed for PR
+      # are built twice
+      - master
+      - dev
 
 jobs:
   build:
