@@ -3,7 +3,7 @@
     <Language id="fr" name="Français" fontSet="xolonium"/>
     <Language id="pl" name="Polski" fontSet="xolonium"/>
     <Language id="es" name="Español" fontSet="xolonium"/>
-    <Language id="bn" name="Bengali" fontSet="noto-bengali"/>
+    <Language id="bn" name="বাংলা" fontSet="noto-bengali"/>
     <Language id="zh_CN" name="Chinese" fontSet="noto-cjk"/>
 
     <FontSet id="xolonium"
