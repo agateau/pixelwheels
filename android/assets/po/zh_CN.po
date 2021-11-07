@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-04 08:05+0100\n"
-"PO-Revision-Date: 2021-10-14 21:33+0800\n"
+"PO-Revision-Date: 2021-11-06 21:20+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -147,11 +147,11 @@ msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "Noto"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
@@ -159,19 +159,19 @@ msgstr "翻译"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Bengali:"
-msgstr ""
+msgstr "孟加拉语："
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:68
-msgid "Chinese"
-msgstr ""
+msgid "Chinese:"
+msgstr "简体中文："
 
 #: android/assets/screens/credits.gdxui:69
-msgid "Oliver Lew"
-msgstr ""
+msgid "Lu Xu"
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "French:"
@@ -187,7 +187,7 @@ msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Spanish:"
-msgstr ""
+msgstr "西班牙语："
 
 #: android/assets/screens/credits.gdxui:78
 #: android/assets/screens/credits.gdxui:82
@@ -216,7 +216,7 @@ msgstr "所有错误报告者"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Patreon, Ko-fi 和 Paypal 平台的支持者"
+msgstr "Patreon, Ko-fi 和 Paypal 平台的所有支持者"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Made with"
@@ -363,7 +363,7 @@ msgstr "报告错误"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
-msgstr "在 %s 锦标赛排名第三或以上"
+msgstr "在 %s 锦标赛取得至少第三名"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
@@ -487,11 +487,11 @@ msgstr "访问支持页面"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Learn more about Pixel Wheels"
-msgstr ""
+msgstr "了解更多关于 Pixel Wheels"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "VISIT WEB SITE"
-msgstr ""
+msgstr "访问网页"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid "Under the hood"
