@@ -39,6 +39,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class KeyboardConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
+    private final KeyMapper mKeyMapper;
 
     KeyboardConfigScreen(PwGame game, int playerIdx) {
         super(game.getAssets().ui);
@@ -50,16 +51,18 @@ public class KeyboardConfigScreen extends PwStageScreen {
                 mGame.replaceScreen(new KeyboardConfigScreen(mGame, mPlayerIdx));
             }
         };
+
+        KeyboardInputHandler handler =
+                (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
+        Assert.check(handler != null, "input handler is not a KeyboardInputHandler");
+        mKeyMapper = (KeyMapper) handler.getInputMapper();
+        Assert.check(mKeyMapper != null, "input mapper is not a KeyMapper");
+
         setupUi();
     }
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
-        KeyboardInputHandler handler =
-                (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
-        Assert.check(handler != null, "input handler is not a KeyboardInputHandler");
-        KeyMapper mapper = (KeyMapper) handler.getInputMapper();
-        Assert.check(mapper != null, "input mapper is not a KeyMapper");
 
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/keyboardconfig.gdxui"));
@@ -68,10 +71,11 @@ public class KeyboardConfigScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
-        createLabelItem(menu, tr("Steer left:"), mapper.getKeys(VirtualKey.LEFT));
-        createLabelItem(menu, tr("Steer right:"), mapper.getKeys(VirtualKey.RIGHT));
-        createLabelItem(menu, tr("Brake:"), mapper.getKeys(VirtualKey.DOWN));
-        createLabelItem(menu, tr("Trigger:"), mapper.getKeys(VirtualKey.TRIGGER));
+        createKeyItem(menu, tr("Left:"), VirtualKey.LEFT);
+        createKeyItem(menu, tr("Right:"), VirtualKey.RIGHT);
+        createKeyItem(menu, tr("Up:"), VirtualKey.UP);
+        createKeyItem(menu, tr("Down / Brake:"), VirtualKey.DOWN);
+        createKeyItem(menu, tr("Trigger:"), VirtualKey.TRIGGER);
 
         builder.getActor("backButton")
                 .addListener(
@@ -83,7 +87,8 @@ public class KeyboardConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void createLabelItem(Menu menu, String text, Integer[] keys) {
+    private void createKeyItem(Menu menu, String text, VirtualKey virtualKey) {
+        Integer[] keys = mKeyMapper.getKeys(virtualKey);
         Assert.check(keys.length >= 1, "No keys defined");
         String keyText = Input.Keys.toString(keys[0]);
 
