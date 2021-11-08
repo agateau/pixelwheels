@@ -90,7 +90,7 @@ public class PoParserTests {
                         joinLines(
                                 "msgid \"\"",
                                 "msgstr \"\"",
-                                "\"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\"",
+                                "\"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\"",
                                 "",
                                 "msgid \"one file\"",
                                 "msgid_plural \"%# files\"",
