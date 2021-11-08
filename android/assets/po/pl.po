@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-04 08:05+0100\n"
-"PO-Revision-Date: 2021-11-08 21:25+0000\n"
+"PO-Revision-Date: 2021-11-08 21:33+0000\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
 "Language-Team: Polish <>\n"
 "Language: pl_PL\n"
@@ -155,19 +155,19 @@ msgstr "Tłumaczenia"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Bengali:"
-msgstr ""
+msgstr "Bengalski:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Chinese:"
-msgstr ""
+msgstr "Chiński:"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Lu Xu"
-msgstr ""
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "French:"
@@ -183,7 +183,7 @@ msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Spanish:"
-msgstr ""
+msgstr "Hiszpański:"
 
 #: android/assets/screens/credits.gdxui:78
 #: android/assets/screens/credits.gdxui:82
@@ -368,8 +368,8 @@ msgstr "Pozycja 3 lub lepsza na mistrzostwach %s"
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Traf jeden pojazd używając pocisku"
-msgstr[1] "Traf %# pojazdów używając pocisku"
-msgstr[2] ""
+msgstr[1] "Traf %# pojazdy używając pocisku"
+msgstr[2] "Traf %# pojazdów używając pocisku"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
@@ -377,14 +377,14 @@ msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Opuść drogę jeden raz"
 msgstr[1] "Opuść drogę %# razy"
-msgstr[2] ""
+msgstr[2] "Opuść drogę %# razy"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Zbierz jedną premię"
-msgstr[1] "Zbierz %# premii"
-msgstr[2] ""
+msgstr[1] "Zbierz %# premie"
+msgstr[2] "Zbierz %# premii"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
@@ -422,8 +422,10 @@ msgstr[0] ""
 "Pobiłeś rekord!"
 msgstr[1] ""
 "Gratulacje!\n"
-"Pobiłeś %# rekordów!"
+"Pobiłeś %# rekordy!"
 msgstr[2] ""
+"Gratulacje!\n"
+"Pobiłeś %# rekordów!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
@@ -495,11 +497,11 @@ msgstr "ODWIEDŹ STRONĘ WSPARCIA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Learn more about Pixel Wheels"
-msgstr ""
+msgstr "Naucz się więcej o Pixel Wheels"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "VISIT WEB SITE"
-msgstr ""
+msgstr "ODWIEDŹ STRONĘ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid "Under the hood"
