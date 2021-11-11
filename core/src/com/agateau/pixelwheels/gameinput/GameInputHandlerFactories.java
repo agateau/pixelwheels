@@ -28,17 +28,17 @@ import java.util.Map;
 
 /** Provides input handlers */
 public class GameInputHandlerFactories {
-    private static Array<GameInputHandlerFactory> mFactories;
+    private static Array<GameInputHandlerFactory> sFactories;
 
     public static Array<GameInputHandlerFactory> getAvailableFactories() {
         init();
-        return mFactories;
+        return sFactories;
     }
 
     public static Map<String, Array<GameInputHandler>> getInputHandlersByIds() {
         init();
         Map<String, Array<GameInputHandler>> map = new HashMap<>();
-        for (GameInputHandlerFactory factory : mFactories) {
+        for (GameInputHandlerFactory factory : sFactories) {
             map.put(factory.getId(), new Array<>(factory.getAllHandlers()));
         }
         return map;
@@ -47,17 +47,17 @@ public class GameInputHandlerFactories {
     public static GameInputHandlerFactory getFactoryById(String id) {
         init();
         if ("".equals(id)) {
-            GameInputHandlerFactory factory = mFactories.first();
+            GameInputHandlerFactory factory = sFactories.first();
             NLog.i("No input handler selected, using '%s'", factory.getId());
             return factory;
         }
-        for (GameInputHandlerFactory factory : mFactories) {
+        for (GameInputHandlerFactory factory : sFactories) {
             if (factory.getId().equals(id)) {
                 return factory;
             }
         }
         NLog.e("Could not find an input handler factory with id '%s'", id);
-        return mFactories.first();
+        return sFactories.first();
     }
 
     public static boolean hasMultitouch() {
@@ -66,14 +66,14 @@ public class GameInputHandlerFactories {
     }
 
     private static void init() {
-        if (mFactories != null) {
+        if (sFactories != null) {
             return;
         }
-        mFactories = new Array<>();
+        sFactories = new Array<>();
 
         if (hasMultitouch()) {
-            mFactories.add(new PieTouchInputHandler.Factory());
-            mFactories.add(new SidesTouchInputHandler.Factory());
+            sFactories.add(new PieTouchInputHandler.Factory());
+            sFactories.add(new SidesTouchInputHandler.Factory());
         }
         // We used to only add the keyboard input handler if this returned true:
         //
@@ -82,7 +82,7 @@ public class GameInputHandlerFactories {
         // but it always returned false on Android (at least with libgdx 1.9.8).
         // Since it does not hurt to have it always there, add it unconditionally
         // so that playing with the keyboard works on Android.
-        mFactories.add(new KeyboardInputHandler.Factory());
-        mFactories.add(new GamepadInputHandler.Factory());
+        sFactories.add(new KeyboardInputHandler.Factory());
+        sFactories.add(new GamepadInputHandler.Factory());
     }
 }
