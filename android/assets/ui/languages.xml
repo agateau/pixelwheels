@@ -4,7 +4,7 @@
     <Language id="pl" name="Polski" fontSet="xolonium"/>
     <Language id="es" name="Español" fontSet="xolonium"/>
     <Language id="bn" name="বাংলা" fontSet="noto-bengali"/>
-    <Language id="zh_CN" name="Chinese" fontSet="noto-cjk"/>
+    <Language id="zh_CN" name="简体中文" fontSet="noto-cjk"/>
 
     <FontSet id="xolonium"
         defaultFontName="Xolonium-Regular.ttf"
