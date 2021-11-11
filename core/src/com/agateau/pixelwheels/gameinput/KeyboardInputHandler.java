@@ -91,8 +91,8 @@ public class KeyboardInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
-        mInputMapper.loadConfig(preferences, prefix);
+    public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
+        mInputMapper.loadConfig(preferences, prefix, playerIdx);
     }
 
     @Override

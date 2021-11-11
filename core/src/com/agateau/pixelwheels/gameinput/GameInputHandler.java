@@ -27,7 +27,8 @@ import com.badlogic.gdx.Preferences;
 public interface GameInputHandler {
     GameInput getGameInput();
 
-    void loadConfig(Preferences preferences, String prefix);
+    /** playerIdx is used by some input handlers (keyboard for example) to select default values */
+    void loadConfig(Preferences preferences, String prefix, int playerIdx);
 
     void saveConfig(Preferences preferences, String prefix);
 

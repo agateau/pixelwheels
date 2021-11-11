@@ -173,7 +173,7 @@ public class GameConfig {
                 continue;
             }
             GameInputHandler inputHandler = inputHandlers.removeIndex(0);
-            inputHandler.loadConfig(mPreferences, getInputPrefix(idx));
+            inputHandler.loadConfig(mPreferences, getInputPrefix(idx), idx);
             mPlayerInputHandlers[idx] = inputHandler;
         }
     }

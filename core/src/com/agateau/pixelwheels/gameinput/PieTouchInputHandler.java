@@ -68,7 +68,7 @@ public class PieTouchInputHandler implements GameInputHandler {
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {}
+    public void loadConfig(Preferences preferences, String prefix, int playerIdx) {}
 
     @Override
     public void saveConfig(Preferences preferences, String prefix) {}
