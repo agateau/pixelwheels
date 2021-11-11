@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 08:05+0100\n"
+"POT-Creation-Date: 2021-11-16 08:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,7 +265,7 @@ msgid "Gamepad config"
 msgstr "গেমপ্যাড পছন্দসমূহ"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 msgid "Trigger:"
 msgstr "ঘোড়া:"
 
@@ -390,7 +390,7 @@ msgstr[1] "%#টি অতিরিক্ত নাও"
 msgid "Gamepad"
 msgstr "গেমপ্যাড"
 
-#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:54
 msgid "Keyboard"
 msgstr "কিবোর্ড"
 
@@ -465,22 +465,23 @@ msgctxt "Must be two sentences separated by a newline"
 msgid ""
 "Championship\n"
 "Finished!"
-msgstr "প্রতিযোগিতা\n"
+msgstr ""
+"প্রতিযোগিতা\n"
 "সমাপ্ত!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "About"
 msgstr "সম্পর্কে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
 msgid "Pixel Wheels %s"
 msgstr "পিকগসেল হুইল %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:128
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:122
 msgid "CREDITS"
 msgstr "কৃতজ্ঞতা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -488,73 +489,73 @@ msgstr ""
 "পিক্সেল হুইল খেলতে টাকা লাগে না,\n"
 "কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্য করতে পারো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:166
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
 msgstr "সহায়তা পৃষ্ঠা দেখো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Learn more about Pixel Wheels"
 msgstr "পিক্সেল হুইল নিয়ে আরো জানো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "VISIT WEB SITE"
 msgstr "ওয়েবসাইট দেখো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
 msgstr "ঢাকনার নিচে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:198
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে, কিন্তু এগুলো ব্যবহারে ভয় পেও না"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:201
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
 msgstr "প্রকৌশলী পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Player #%d:"
 msgstr "খেলোয়াড় #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:221
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "Controls:"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "General"
 msgstr "সাধারণ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "Language:"
 msgstr "ভাষা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Audio"
 msgstr "শব্দ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Sound FX:"
 msgstr "সংগীত প্রভাব:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Music:"
 msgstr "সংগীত"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Video"
 msgstr "ভিডিও"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Fullscreen:"
 msgstr "বড়পর্দা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:381
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
 msgid "CONFIGURE"
 msgstr "পাল্টাও"
 
@@ -562,17 +563,44 @@ msgstr "পাল্টাও"
 msgid "Thank you for playing!"
 msgstr "খেলার জন্য ধন্যবাদ!"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:71
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:97
+msgid "Brake:"
+msgstr "ব্রেক:"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:98
 msgid "Steer left:"
 msgstr "বামে যাও:"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:72
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
 msgid "Steer right:"
 msgstr "ডানে যাও:"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:73
-msgid "Brake:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
+msgid "Up | (unused):"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#, fuzzy
+msgid "Down | Brake:"
 msgstr "ব্রেক:"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
+#, fuzzy
+msgid "Left | Steer left:"
+msgstr "বামে যাও:"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#, fuzzy
+msgid "Right | Steer right:"
+msgstr "ডানে যাও:"
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+msgid "Activate | Trigger:"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+msgid "Back | (unused):"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
