@@ -21,13 +21,13 @@ package com.agateau.pixelwheels.gameinput;
 import static com.agateau.translations.Translator.tr;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -38,16 +38,10 @@ public class KeyboardInputHandler implements GameInputHandler {
         final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
-            mHandlers.add(new KeyboardInputHandler(KeyMapper.getDefaultInstance()));
-
-            KeyMapper keyMapper = new KeyMapper();
-            keyMapper.setKey(VirtualKey.LEFT, Input.Keys.X);
-            keyMapper.setKey(VirtualKey.RIGHT, Input.Keys.V);
-            keyMapper.setKey(VirtualKey.UP, Input.Keys.D);
-            keyMapper.setKey(VirtualKey.DOWN, Input.Keys.C);
-            keyMapper.setKey(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
-            keyMapper.setKey(VirtualKey.BACK, Input.Keys.Q);
-            mHandlers.add(new KeyboardInputHandler(keyMapper));
+            for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+                KeyMapper keyMapper = KeyMapper.createGameInstance(idx);
+                mHandlers.add(new KeyboardInputHandler(keyMapper));
+            }
         }
 
         @Override

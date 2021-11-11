@@ -243,7 +243,7 @@ public class RaceScreen extends ScreenAdapter {
                 return true;
             }
         }
-        return Gdx.input.isKeyJustPressed(Input.Keys.P)
+        return Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
                 || Gdx.input.isKeyJustPressed(Input.Keys.BACK);
     }
 

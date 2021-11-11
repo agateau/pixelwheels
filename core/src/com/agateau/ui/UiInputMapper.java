@@ -22,7 +22,7 @@ import com.badlogic.gdx.Preferences;
 
 /** Responds to input from keyboard or gamepad */
 public class UiInputMapper implements InputMapper {
-    private final KeyMapper mKeyMapper = KeyMapper.getDefaultInstance();
+    private final KeyMapper mKeyMapper = KeyMapper.createUiInstance();
     private final GamepadInputMapper mGamepadInputMapper =
             GamepadInputMappers.getInstance().getMappers()[0];
 
