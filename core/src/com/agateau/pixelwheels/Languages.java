@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class Languages {
-    private final String DEFAULT_ID = "en";
+    public static final String DEFAULT_ID = "en";
 
     private final HashMap<String, FontSet> mFontSets = new HashMap<>();
     private final Array<Language> mLanguages = new Array<>();
