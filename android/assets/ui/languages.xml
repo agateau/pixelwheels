@@ -29,13 +29,13 @@
     />
 
     <FontSet id="noto-cjk"
-        defaultFontName="NotoSansCJK-Regular.ttc"
-        defaultBoldFontName="NotoSansCJK-Regular.ttc"
+        defaultFontName="NotoSansCJK-subset.otf"
+        defaultBoldFontName="NotoSansCJK-subset.otf"
         defaultFontSize="24"
 
-        titleFontName="NotoSansCJK-Regular.ttc"
+        titleFontName="NotoSansCJK-subset.otf"
         titleFontSize="36"
 
-        hudFontName="NotoSansCJK-Regular.ttc"
+        hudFontName="NotoSansCJK-subset.otf"
     />
 </Languages>
