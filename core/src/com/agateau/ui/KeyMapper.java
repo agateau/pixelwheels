@@ -79,8 +79,8 @@ public class KeyMapper implements InputMapper {
         mKeyForVirtualKey.put(vkey, keys);
     }
 
-    public Integer[] getKeys(VirtualKey vkey) {
-        return mKeyForVirtualKey.get(vkey);
+    public int getKey(VirtualKey virtualKey) {
+        return mKeyForVirtualKey.get(virtualKey)[0];
     }
 
     @Override
@@ -119,7 +119,7 @@ public class KeyMapper implements InputMapper {
     public void saveConfig(Preferences preferences, String prefix) {
         for (VirtualKey vkey : VirtualKey.values()) {
             String preferenceKey = prefix + vkey.toString().toLowerCase();
-            int value = getKeys(vkey)[0];
+            int value = getKey(vkey);
             preferences.putInteger(preferenceKey, value);
         }
     }

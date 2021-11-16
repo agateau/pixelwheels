@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.screens;
 
 import static com.agateau.translations.Translator.tr;
 
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -37,15 +38,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
+import java.util.HashMap;
 
 /** Configure a keyboard input device */
 public class KeyboardConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final int mPlayerIdx;
-    private final KeyMapper mKeyMapper;
+    private final Array<KeyMapper> mKeyMappers = new Array<>();
+    private final HashMap<VirtualKey, ButtonMenuItem> mKeyButtonMap = new HashMap<>();
+    private KeyMapper mKeyMapper;
     private Menu mMenu;
 
-    private ButtonMenuItem mEditedButton;
     private VirtualKey mEditedVirtualKey;
 
     KeyboardConfigScreen(PwGame game, int playerIdx) {
@@ -59,11 +63,21 @@ public class KeyboardConfigScreen extends PwStageScreen {
             }
         };
 
-        KeyboardInputHandler handler =
-                (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
-        Assert.check(handler != null, "input handler is not a KeyboardInputHandler");
-        mKeyMapper = (KeyMapper) handler.getInputMapper();
-        Assert.check(mKeyMapper != null, "input mapper is not a KeyMapper");
+        // Find the current player KeyMapper, but also get all KeyMappers: we need them
+        // to check for conflicts
+        for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+            KeyboardInputHandler handler =
+                    (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(idx);
+            if (handler == null) {
+                continue;
+            }
+            KeyMapper mapper = (KeyMapper) handler.getInputMapper();
+            mKeyMappers.add(mapper);
+            if (idx == playerIdx) {
+                mKeyMapper = mapper;
+            }
+        }
+        Assert.check(mKeyMapper != null, "no key mapper found for player " + playerIdx);
 
         setupUi();
     }
@@ -104,7 +118,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
     }
 
     private void createKeyItem(Menu menu, String text, VirtualKey virtualKey) {
-        ButtonMenuItem button = new ButtonMenuItem(menu, generateButtonText(virtualKey));
+        ButtonMenuItem button = new ButtonMenuItem(menu, getButtonText(virtualKey));
         button.addListener(
                 new MenuItemListener() {
                     @Override
@@ -114,6 +128,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
                 });
 
         menu.addItemWithLabel(text, button);
+        mKeyButtonMap.put(virtualKey, button);
     }
 
     private final InputListener mEditListener =
@@ -122,18 +137,44 @@ public class KeyboardConfigScreen extends PwStageScreen {
                     Assert.check(mEditedVirtualKey != null, "mEditVirtualKey should be set");
 
                     if (keycode != Input.Keys.ESCAPE) {
-                        mKeyMapper.setKey(mEditedVirtualKey, keycode);
+                        updateKey(keycode);
                     }
-                    mEditedButton.setText(generateButtonText(mEditedVirtualKey));
+                    updateButtonText(mEditedVirtualKey);
 
                     stopEditing();
                     return true;
                 }
             };
 
+    private void updateKey(int newKey) {
+        int oldKey = mKeyMapper.getKey(mEditedVirtualKey);
+        mKeyMapper.setKey(mEditedVirtualKey, newKey);
+        checkConflicts(oldKey, newKey);
+    }
+
+    private void checkConflicts(int oldKey, int newKey) {
+        for (KeyMapper keyMapper : mKeyMappers) {
+            for (VirtualKey virtualKey : VirtualKey.values()) {
+                if (keyMapper == mKeyMapper && virtualKey == mEditedVirtualKey) {
+                    // Skip ourselves
+                    continue;
+                }
+
+                int key = keyMapper.getKey(virtualKey);
+                if (key == newKey) {
+                    // We found a conflict
+                    keyMapper.setKey(virtualKey, oldKey);
+                    if (keyMapper == mKeyMapper) {
+                        // Conflict with the current key mapper: update the UI
+                        updateButtonText(virtualKey);
+                    }
+                }
+            }
+        }
+    }
+
     private void startEditing(ButtonMenuItem button, VirtualKey virtualKey) {
         mMenu.setDisabled(true);
-        mEditedButton = button;
         mEditedVirtualKey = virtualKey;
 
         button.setText("...");
@@ -146,20 +187,14 @@ public class KeyboardConfigScreen extends PwStageScreen {
         mEditedVirtualKey = null;
     }
 
-    private final StringBuilder mStringBuilder = new StringBuilder();
+    private void updateButtonText(VirtualKey key) {
+        ButtonMenuItem button = mKeyButtonMap.get(key);
+        button.setText(getButtonText(key));
+    }
 
-    private String generateButtonText(VirtualKey virtualKey) {
-        Integer[] keys = mKeyMapper.getKeys(virtualKey);
-        Assert.check(keys.length >= 1, "No keys defined");
-
-        mStringBuilder.setLength(0);
-        for (int idx = 0; idx < keys.length; ++idx) {
-            if (idx > 0) {
-                mStringBuilder.append(", ");
-            }
-            mStringBuilder.append(Input.Keys.toString(keys[idx]));
-        }
-        return mStringBuilder.toString();
+    private String getButtonText(VirtualKey virtualKey) {
+        int key = mKeyMapper.getKey(virtualKey);
+        return Input.Keys.toString(key);
     }
 
     @Override
