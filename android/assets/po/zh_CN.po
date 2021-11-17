@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 08:51+0100\n"
+"POT-Creation-Date: 2021-11-29 07:58+0100\n"
 "PO-Revision-Date: 2021-11-06 21:20+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -264,7 +264,6 @@ msgid "Gamepad config"
 msgstr "游戏手柄配置"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 msgid "Trigger:"
 msgstr "触发："
 
@@ -555,43 +554,52 @@ msgstr "配置"
 msgid "Thank you for playing!"
 msgstr "感谢使用！"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:97
-msgid "Brake:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#, fuzzy
+msgid "Brake"
 msgstr "刹车："
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:98
-msgid "Steer left:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#, fuzzy
+msgid "Steer left"
 msgstr "左转："
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
-msgid "Steer right:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#, fuzzy
+msgid "Steer right"
 msgstr "右转："
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-msgid "Up | (unused):"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 #, fuzzy
-msgid "Down | Brake:"
-msgstr "刹车："
+msgid "Trigger"
+msgstr "触发："
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
-#, fuzzy
-msgid "Left | Steer left:"
-msgstr "左转："
+msgid "Up"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-#, fuzzy
-msgid "Right | Steer right:"
-msgstr "右转："
+msgid "Down"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Activate | Trigger:"
+msgid "Left"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Back | (unused):"
+msgid "Right"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+msgid "Activate"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
+msgid "Back"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
@@ -648,6 +656,18 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#, fuzzy
+#~ msgid "Down | Brake:"
+#~ msgstr "刹车："
+
+#, fuzzy
+#~ msgid "Left | Steer left:"
+#~ msgstr "左转："
+
+#, fuzzy
+#~ msgid "Right | Steer right:"
+#~ msgstr "右转："
 
 #~ msgid "OFF"
 #~ msgstr "关"

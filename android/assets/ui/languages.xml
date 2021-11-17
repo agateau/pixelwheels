@@ -20,10 +20,10 @@
     <FontSet id="noto-bengali"
         defaultFontName="NotoSansBengaliUI-Regular.ttf"
         defaultBoldFontName="NotoSansBengaliUI-Bold.ttf"
-        defaultFontSize="28"
+        defaultFontSize="26"
 
         titleFontName="NotoSansBengaliUI-Bold.ttf"
-        titleFontSize="36"
+        titleFontSize="32"
 
         hudFontName="NotoSansBengaliUI-Regular.ttf"
     />
@@ -34,7 +34,7 @@
         defaultFontSize="24"
 
         titleFontName="NotoSansCJK-Regular.ttc"
-        titleFontSize="36"
+        titleFontSize="32"
 
         hudFontName="NotoSansCJK-Regular.ttc"
     />

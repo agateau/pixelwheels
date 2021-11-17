@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 08:51+0100\n"
+"POT-Creation-Date: 2021-11-29 07:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,7 +265,6 @@ msgid "Gamepad config"
 msgstr "গেমপ্যাড পছন্দসমূহ"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 msgid "Trigger:"
 msgstr "ঘোড়া:"
 
@@ -563,43 +562,52 @@ msgstr "পাল্টাও"
 msgid "Thank you for playing!"
 msgstr "খেলার জন্য ধন্যবাদ!"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:97
-msgid "Brake:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#, fuzzy
+msgid "Brake"
 msgstr "ব্রেক:"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:98
-msgid "Steer left:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#, fuzzy
+msgid "Steer left"
 msgstr "বামে যাও:"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
-msgid "Steer right:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#, fuzzy
+msgid "Steer right"
 msgstr "ডানে যাও:"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-msgid "Up | (unused):"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 #, fuzzy
-msgid "Down | Brake:"
-msgstr "ব্রেক:"
+msgid "Trigger"
+msgstr "ঘোড়া:"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
-#, fuzzy
-msgid "Left | Steer left:"
-msgstr "বামে যাও:"
+msgid "Up"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-#, fuzzy
-msgid "Right | Steer right:"
-msgstr "ডানে যাও:"
+msgid "Down"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Activate | Trigger:"
+msgid "Left"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Back | (unused):"
+msgid "Right"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+msgid "Activate"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
+msgid "Back"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
@@ -656,6 +664,18 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#, fuzzy
+#~ msgid "Down | Brake:"
+#~ msgstr "ব্রেক:"
+
+#, fuzzy
+#~ msgid "Left | Steer left:"
+#~ msgstr "বামে যাও:"
+
+#, fuzzy
+#~ msgid "Right | Steer right:"
+#~ msgstr "ডানে যাও:"
 
 #~ msgid "Finished!"
 #~ msgstr "সম্পন্ন!"

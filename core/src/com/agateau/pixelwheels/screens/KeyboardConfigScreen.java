@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
+import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
@@ -37,6 +38,7 @@ import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
@@ -94,17 +96,17 @@ public class KeyboardConfigScreen extends PwStageScreen {
 
         if (mPlayerIdx == 0) {
             // First player only configure in-game keys, others also configure UI keys
-            createKeyItem(mMenu, tr("Brake:"), VirtualKey.DOWN);
-            createKeyItem(mMenu, tr("Steer left:"), VirtualKey.LEFT);
-            createKeyItem(mMenu, tr("Steer right:"), VirtualKey.RIGHT);
-            createKeyItem(mMenu, tr("Trigger:"), VirtualKey.TRIGGER);
+            createKeyItem(mMenu, tr("Brake"), VirtualKey.DOWN);
+            createKeyItem(mMenu, tr("Steer left"), VirtualKey.LEFT);
+            createKeyItem(mMenu, tr("Steer right"), VirtualKey.RIGHT);
+            createKeyItem(mMenu, tr("Trigger"), VirtualKey.TRIGGER);
         } else {
-            createKeyItem(mMenu, tr("Up | (unused):"), VirtualKey.UP);
-            createKeyItem(mMenu, tr("Down | Brake:"), VirtualKey.DOWN);
-            createKeyItem(mMenu, tr("Left | Steer left:"), VirtualKey.LEFT);
-            createKeyItem(mMenu, tr("Right | Steer right:"), VirtualKey.RIGHT);
-            createKeyItem(mMenu, tr("Activate | Trigger:"), VirtualKey.TRIGGER);
-            createKeyItem(mMenu, tr("Back | (unused):"), VirtualKey.BACK);
+            createKeyItem(mMenu, tr("Up"), "-", VirtualKey.UP);
+            createKeyItem(mMenu, tr("Down"), tr("Brake"), VirtualKey.DOWN);
+            createKeyItem(mMenu, tr("Left"), tr("Steer left"), VirtualKey.LEFT);
+            createKeyItem(mMenu, tr("Right"), tr("Steer right"), VirtualKey.RIGHT);
+            createKeyItem(mMenu, tr("Activate"), tr("Trigger"), VirtualKey.TRIGGER);
+            createKeyItem(mMenu, tr("Back"), "-", VirtualKey.BACK);
         }
 
         builder.getActor("backButton")
@@ -117,7 +119,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void createKeyItem(Menu menu, String text, VirtualKey virtualKey) {
+    private void createKeyItem(Menu menu, String text1, String text2, VirtualKey virtualKey) {
         ButtonMenuItem button = new ButtonMenuItem(menu, getButtonText(virtualKey));
         button.addListener(
                 new MenuItemListener() {
@@ -127,8 +129,24 @@ public class KeyboardConfigScreen extends PwStageScreen {
                     }
                 });
 
-        menu.addItemWithLabel(text, button);
+        if (text2 == null) {
+            menu.addItemWithLabel(text1, button);
+        } else {
+            AnchorGroup group = new AnchorGroup();
+            group.addPositionRule(
+                    new Label(text1, menu.getSkin()),
+                    Anchor.CENTER_LEFT,
+                    group,
+                    Anchor.CENTER_LEFT);
+            group.addPositionRule(
+                    new Label(text2, menu.getSkin()), Anchor.CENTER_LEFT, group, Anchor.CENTER);
+            menu.addItemWithLabelActor(group, button);
+        }
         mKeyButtonMap.put(virtualKey, button);
+    }
+
+    private void createKeyItem(Menu menu, String text, VirtualKey virtualKey) {
+        createKeyItem(menu, text, null, virtualKey);
     }
 
     private final InputListener mEditListener =

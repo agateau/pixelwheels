@@ -2,9 +2,9 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="mainLabel" style="title"
-            topCenter="root.topCenter 0 -2">Keyboard config</Label>
+            topCenter="root.topCenter 0 -1">Keyboard config</Label>
 
-        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -1"
+        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -2"
             labelColumnWidth="400"
             width="700"/>
 
