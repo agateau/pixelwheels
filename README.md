@@ -45,7 +45,7 @@ The [build instructions][build] should have you covered.
 - The rest of the code is licensed under Apache 2.0.
 - Assets are licensed under Creative Commons BY-SA 4.0.
 
-The rationale behind these unusual choices is to:
+The rationale behind this combination of licenses is to:
 
 - Allow reuse of all the code and assets by free software projects.
 - Allow reuse of utility code in proprietary projects.
