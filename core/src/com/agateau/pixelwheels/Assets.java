@@ -150,6 +150,9 @@ public class Assets implements TextureRegionProvider {
         String characters = impl == null ? "" : impl.getCharacters();
 
         FontSet fontSet = languages.getFontSet(languageId);
+        if (ui != null) {
+            ui.dispose();
+        }
         ui = new UiAssets(fontSet, characters);
     }
 
