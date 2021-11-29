@@ -119,7 +119,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {
+    public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
         loadButtonFromPreferences(preferences, prefix, VirtualKey.TRIGGER, 1);
         loadButtonFromPreferences(preferences, prefix, VirtualKey.BACK, 2);
     }

@@ -25,8 +25,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Disposable;
 
-public class UiAssets {
+public class UiAssets implements Disposable {
     public final Skin skin;
     public final TextureAtlas atlas;
     public final TextureRegion background;
@@ -47,6 +48,12 @@ public class UiAssets {
         this.skin = new Skin(this.atlas);
         loadFontSet(fontSet, extraCharacters);
         this.skin.load(FileUtils.assets("ui/uiskin.gdxjson"));
+    }
+
+    @Override
+    public void dispose() {
+        this.skin.dispose();
+        this.atlas.dispose();
     }
 
     private void loadFontSet(FontSet fontSet, String characters) {

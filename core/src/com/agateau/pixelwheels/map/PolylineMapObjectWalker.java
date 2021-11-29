@@ -48,23 +48,23 @@ class PolylineMapObjectWalker implements MapObjectWalker {
         }
     }
 
-    private static final Vector2 mTmp = new Vector2();
+    private static final Vector2 sTmp = new Vector2();
 
     private void walkVector(Vector2 v1, Vector2 v2, float stepSize, WalkFunction function) {
-        mTmp.set(v2).sub(v1);
-        float distance = mTmp.len() - stepSize;
-        float angle = mTmp.angleRad();
+        sTmp.set(v2).sub(v1);
+        float distance = sTmp.len() - stepSize;
+        float angle = sTmp.angleRad();
         int itemCount = MathUtils.floor(distance / stepSize);
 
-        mTmp.nor().scl(stepSize);
+        sTmp.nor().scl(stepSize);
         // Space between items
-        float dx = mTmp.x;
-        float dy = mTmp.y;
+        float dx = sTmp.x;
+        float dy = sTmp.y;
 
-        mTmp.set(v1).add(dx / 2, dy / 2);
+        sTmp.set(v1).add(dx / 2, dy / 2);
         for (int i = 0; i <= itemCount; ++i) {
-            function.walk(mTmp.x, mTmp.y, angle);
-            mTmp.add(dx, dy);
+            function.walk(sTmp.x, sTmp.y, angle);
+            sTmp.add(dx, dy);
         }
     }
 }

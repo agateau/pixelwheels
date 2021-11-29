@@ -41,7 +41,7 @@ public class MenuItemGroup implements MenuItem {
             };
 
     private static class ItemInfo {
-        Label label = null;
+        Actor labelActor = null;
         boolean visible = true;
     }
 
@@ -216,8 +216,8 @@ public class MenuItemGroup implements MenuItem {
         ItemInfo info = mInfoForItem.get(item);
         info.visible = visible;
         item.getActor().setVisible(visible);
-        if (info.label != null) {
-            info.label.setVisible(visible);
+        if (info.labelActor != null) {
+            info.labelActor.setVisible(visible);
         }
         updateHeight();
     }
@@ -250,15 +250,20 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
+        Label label = new Label(labelText, mMenu.getSkin());
+        return addItemWithLabelActor(label, item);
+    }
+
+    /** Add an item with a "label actor" next to it. A lower-level version of addItemWithLabel(). */
+    public MenuItem addItemWithLabelActor(Actor labelActor, MenuItem item) {
         Actor actor = item.getActor();
         float height = actor.getHeight();
 
         float labelWidth = mMenu.getLabelColumnWidth();
 
-        Label label = new Label(labelText, mMenu.getSkin());
-        label.setSize(labelWidth, height);
+        labelActor.setSize(labelWidth, height);
 
-        addItemInternal(item, label);
+        addItemInternal(item, labelActor);
         return item;
     }
 
@@ -291,8 +296,8 @@ public class MenuItemGroup implements MenuItem {
 
             float x = 0;
             float width = mGroup.getWidth();
-            if (info.label != null) {
-                info.label.setPosition(0, y);
+            if (info.labelActor != null) {
+                info.labelActor.setPosition(0, y);
                 x = mMenu.getLabelColumnWidth();
                 width -= x;
             }
@@ -302,7 +307,7 @@ public class MenuItemGroup implements MenuItem {
                 actor.setWidth(width * ratio);
             }
 
-            if (info.label == null) {
+            if (info.labelActor == null) {
                 x += (width - actor.getWidth()) / 2;
             }
             actor.setPosition(x, y);
@@ -310,14 +315,14 @@ public class MenuItemGroup implements MenuItem {
         }
     }
 
-    private void addItemInternal(MenuItem item, Label label) {
+    private void addItemInternal(MenuItem item, Actor labelActor) {
         mItems.add(item);
         ItemInfo info = new ItemInfo();
-        info.label = label;
+        info.labelActor = labelActor;
         mInfoForItem.put(item, info);
         mItemForActor.put(item.getActor(), item);
-        if (label != null) {
-            mGroup.addActor(label);
+        if (labelActor != null) {
+            mGroup.addActor(labelActor);
         }
         mGroup.addActor(item.getActor());
         updateHeight();
@@ -337,7 +342,7 @@ public class MenuItemGroup implements MenuItem {
             Actor actor = item.getActor();
 
             float width = mGroup.getWidth();
-            if (info.label != null) {
+            if (info.labelActor != null) {
                 width -= mMenu.getLabelColumnWidth();
             }
             float ratio = mItemForActor.get(actor).getParentWidthRatio();

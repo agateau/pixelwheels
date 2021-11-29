@@ -146,6 +146,7 @@ public class GameConfig {
         }
         String prefix = getInputPrefix(index);
         handler.saveConfig(mPreferences, prefix);
+        mPreferences.flush();
     }
 
     private String getInputPrefix(int idx) {
@@ -173,7 +174,7 @@ public class GameConfig {
                 continue;
             }
             GameInputHandler inputHandler = inputHandlers.removeIndex(0);
-            inputHandler.loadConfig(mPreferences, getInputPrefix(idx));
+            inputHandler.loadConfig(mPreferences, getInputPrefix(idx), idx);
             mPlayerInputHandlers[idx] = inputHandler;
         }
     }

@@ -26,7 +26,8 @@ public interface InputMapper {
 
     boolean isKeyJustPressed(VirtualKey vkey);
 
-    void loadConfig(Preferences preferences, String prefix);
+    /** playerIdx is used by some input mappers (keyboard for example) to select default values */
+    void loadConfig(Preferences preferences, String prefix, int playerIdx);
 
     void saveConfig(Preferences preferences, String prefix);
 

@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Disableable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 
@@ -34,7 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Layout;
  *
  * <p>Sends ChangeEvent when the current item changes.
  */
-public class Menu extends WidgetGroup {
+public class Menu extends WidgetGroup implements Disableable {
     private static final float LABEL_COLUMN_WIDTH = 120;
     private final MenuInputHandler mMenuInputHandler = new MenuInputHandler();
     private final MenuItemGroup mGroup;
@@ -42,6 +43,11 @@ public class Menu extends WidgetGroup {
     private final MenuStyle mStyle;
 
     private float mLabelColumnWidth;
+    private boolean mDisabled = false;
+
+    public void addItemWithLabelActor(Actor labelActor, MenuItem menuItem) {
+        mGroup.addItemWithLabelActor(labelActor, menuItem);
+    }
 
     /** A listener to set the item current if the mouse cursor is visible and over it */
     static class MouseMovedListener extends ClickListener {
@@ -90,6 +96,16 @@ public class Menu extends WidgetGroup {
 
     public MenuStyle getMenuStyle() {
         return mStyle;
+    }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        mDisabled = disabled;
+    }
+
+    @Override
+    public boolean isDisabled() {
+        return mDisabled;
     }
 
     public void setInputMapper(InputMapper inputMapper) {
@@ -172,6 +188,9 @@ public class Menu extends WidgetGroup {
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (mDisabled) {
+            return;
+        }
         mMenuInputHandler.act(delta);
         if (mMenuInputHandler.isPressed(VirtualKey.DOWN)) {
             mGroup.goDown();

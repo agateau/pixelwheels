@@ -18,6 +18,8 @@
  */
 package com.agateau.ui;
 
+import static com.agateau.utils.CollectionUtils.addToIntegerArray;
+
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -26,50 +28,59 @@ import java.util.HashMap;
 
 /** Implementation of InputMapper for keyboards */
 public class KeyMapper implements InputMapper {
+    // The UI instance can map multiple keycodes to the same VirtualKey, so the value type of this
+    // map is an array of int.
     private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<>();
 
-    private static final KeyMapper sDefaultInstance = new KeyMapper();
+    /** Create a KeyMapper to use when navigating UIs */
+    public static KeyMapper createUiInstance() {
+        KeyMapper mapper = new KeyMapper();
+        mapper.setKey(VirtualKey.LEFT, Input.Keys.LEFT);
+        mapper.setKey(VirtualKey.RIGHT, Input.Keys.RIGHT);
+        mapper.setKey(VirtualKey.UP, Input.Keys.UP);
+        mapper.setKey(VirtualKey.DOWN, Input.Keys.DOWN);
+        mapper.setKey(VirtualKey.TRIGGER, Input.Keys.SPACE);
+        mapper.setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
 
-    public static KeyMapper getDefaultInstance() {
-        return sDefaultInstance;
-    }
-
-    public KeyMapper() {
-        setKey(VirtualKey.LEFT, Input.Keys.LEFT);
-        setKey(VirtualKey.RIGHT, Input.Keys.RIGHT);
-        setKey(VirtualKey.UP, Input.Keys.UP);
-        setKey(VirtualKey.DOWN, Input.Keys.DOWN);
-        setKeys(VirtualKey.TRIGGER, new Integer[] {Input.Keys.SPACE, Input.Keys.ENTER});
-        setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
+        mapper.addKey(VirtualKey.TRIGGER, Input.Keys.ENTER);
         if (!PlatformUtils.isDesktop()) {
             // Do not use CENTER or BACK on Desktop, it causes invalid enum value errors with lwjgl3
-            addKey(VirtualKey.TRIGGER, Input.Keys.CENTER);
-            addKey(VirtualKey.BACK, Input.Keys.BACK);
+            mapper.addKey(VirtualKey.TRIGGER, Input.Keys.CENTER);
+            mapper.addKey(VirtualKey.BACK, Input.Keys.BACK);
         }
+        return mapper;
     }
+
+    /**
+     * Create a KeyMapper used by a player during actual play, not to navigate UIs (except when
+     * picking 2nd-player specific settings)
+     */
+    public static KeyMapper createGameInstance(int playerIdx) {
+        KeyMapper mapper = new KeyMapper();
+        for (VirtualKey vkey : VirtualKey.values()) {
+            mapper.mKeyForVirtualKey.put(vkey, DefaultKeys.getDefaultKeys(playerIdx, vkey));
+        }
+        return mapper;
+    }
+
+    private KeyMapper() {}
 
     public void setKey(VirtualKey vkey, int key) {
-        setKeys(vkey, new Integer[] {key});
-    }
-
-    public void setKeys(VirtualKey vkey, Integer[] keys) {
-        mKeyForVirtualKey.put(vkey, keys);
-    }
-
-    public Integer[] getKeys(VirtualKey vkey) {
-        return mKeyForVirtualKey.get(vkey);
+        mKeyForVirtualKey.put(vkey, new Integer[] {key});
     }
 
     public void addKey(VirtualKey vkey, int key) {
         Integer[] keys = mKeyForVirtualKey.get(vkey);
         if (keys == null) {
-            setKey(vkey, key);
-            return;
+            keys = new Integer[] {key};
+        } else {
+            keys = addToIntegerArray(keys, key);
         }
-        Integer[] newKeys = new Integer[keys.length + 1];
-        System.arraycopy(keys, 0, newKeys, 0, keys.length);
-        newKeys[keys.length] = key;
-        setKeys(vkey, newKeys);
+        mKeyForVirtualKey.put(vkey, keys);
+    }
+
+    public int getKey(VirtualKey virtualKey) {
+        return mKeyForVirtualKey.get(virtualKey)[0];
     }
 
     @Override
@@ -95,10 +106,23 @@ public class KeyMapper implements InputMapper {
     }
 
     @Override
-    public void loadConfig(Preferences preferences, String prefix) {}
+    public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
+        for (VirtualKey vkey : VirtualKey.values()) {
+            String preferenceKey = prefix + vkey.toString().toLowerCase();
+            int defaultValue = DefaultKeys.getDefaultKeys(playerIdx, vkey)[0];
+            int key = preferences.getInteger(preferenceKey, defaultValue);
+            mKeyForVirtualKey.put(vkey, new Integer[] {key});
+        }
+    }
 
     @Override
-    public void saveConfig(Preferences preferences, String prefix) {}
+    public void saveConfig(Preferences preferences, String prefix) {
+        for (VirtualKey vkey : VirtualKey.values()) {
+            String preferenceKey = prefix + vkey.toString().toLowerCase();
+            int value = getKey(vkey);
+            preferences.putInteger(preferenceKey, value);
+        }
+    }
 
     @Override
     public boolean isAvailable() {

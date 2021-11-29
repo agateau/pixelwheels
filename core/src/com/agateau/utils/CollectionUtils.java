@@ -39,4 +39,11 @@ public class CollectionUtils {
         }
         return map.containsKey(key) ? null : defaultValue;
     }
+
+    public static Integer[] addToIntegerArray(Integer[] ints, int value) {
+        Integer[] newInts = new Integer[ints.length + 1];
+        System.arraycopy(ints, 0, newInts, 0, ints.length);
+        newInts[ints.length] = value;
+        return newInts;
+    }
 }

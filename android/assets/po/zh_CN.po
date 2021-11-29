@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 08:05+0100\n"
+"POT-Creation-Date: 2021-11-29 07:58+0100\n"
 "PO-Revision-Date: 2021-11-06 21:20+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -264,7 +264,6 @@ msgid "Gamepad config"
 msgstr "游戏手柄配置"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:74
 msgid "Trigger:"
 msgstr "触发："
 
@@ -386,7 +385,7 @@ msgstr[0] "捡到 %# 个奖励"
 msgid "Gamepad"
 msgstr "手柄"
 
-#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:60
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:54
 msgid "Keyboard"
 msgstr "键盘"
 
@@ -461,19 +460,19 @@ msgstr ""
 "锦标赛\n"
 "结束！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:125
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "About"
 msgstr "关于"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:128
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:122
 msgid "CREDITS"
 msgstr "致谢"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -481,73 +480,73 @@ msgstr ""
 "Pixel Wheels 是免费的，但有用很多方式\n"
 "可以支持其开发。"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:166
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
 msgstr "访问支持页面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Learn more about Pixel Wheels"
 msgstr "了解更多关于 Pixel Wheels"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "VISIT WEB SITE"
 msgstr "访问网页"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
 msgstr "底层"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:198
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "这些选项通常对 Pixel Wheels 的开发有帮助，但也可随意尝试！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:201
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
 msgstr "开发选项"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
 msgstr "控制"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Player #%d:"
 msgstr "玩家 #%d："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:221
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "Controls:"
 msgstr "控制："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "General"
 msgstr "常规"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "Language:"
 msgstr "语言："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Audio"
 msgstr "声音"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Sound FX:"
 msgstr "音效："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Video"
 msgstr "画面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:381
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
 msgid "CONFIGURE"
 msgstr "配置"
 
@@ -555,17 +554,53 @@ msgstr "配置"
 msgid "Thank you for playing!"
 msgstr "感谢使用！"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:71
-msgid "Steer left:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#, fuzzy
+msgid "Brake"
+msgstr "刹车："
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#, fuzzy
+msgid "Steer left"
 msgstr "左转："
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:72
-msgid "Steer right:"
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#, fuzzy
+msgid "Steer right"
 msgstr "右转："
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:73
-msgid "Brake:"
-msgstr "刹车："
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+#, fuzzy
+msgid "Trigger"
+msgstr "触发："
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
+msgid "Up"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+msgid "Down"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+msgid "Left"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+msgid "Right"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+msgid "Activate"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
+msgid "Back"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
@@ -621,6 +656,18 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#, fuzzy
+#~ msgid "Down | Brake:"
+#~ msgstr "刹车："
+
+#, fuzzy
+#~ msgid "Left | Steer left:"
+#~ msgstr "左转："
+
+#, fuzzy
+#~ msgid "Right | Steer right:"
+#~ msgstr "右转："
 
 #~ msgid "OFF"
 #~ msgstr "关"
