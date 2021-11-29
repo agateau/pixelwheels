@@ -141,12 +141,17 @@ public class Assets implements TextureRegionProvider {
     }
 
     public void setLanguage(String languageId) {
-        FileHandle handle;
         String path = StringUtils.format("po/%s.po", languageId);
-        handle = FileUtils.assets(path);
+        FileHandle handle = FileUtils.assets(path);
         Translator.Implementation impl = PoImplementation.load(handle);
         Translator.setImplementation(impl);
 
+        if (impl == null) {
+            if (!Languages.DEFAULT_ID.equals(languageId)) {
+                NLog.e("Failed to load translation for '%s'", languageId);
+                languageId = Languages.DEFAULT_ID;
+            }
+        }
         String characters = impl == null ? "" : impl.getCharacters();
 
         FontSet fontSet = languages.getFontSet(languageId);
