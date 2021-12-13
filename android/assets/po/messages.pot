@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-29 07:58+0100\n"
+"POT-Creation-Date: 2021-12-13 18:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -408,48 +408,58 @@ msgstr ""
 msgid "Race Results"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:304
-msgid ""
-"Congratulations!\n"
-"You broke a record!"
-msgid_plural ""
-"Congratulations!\n"
-"You broke %# records!"
-msgstr[0] ""
-msgstr[1] ""
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:320
+msgid "Congratulations, great race!"
+msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:321
+msgid "You've got some serious driving skills!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:322
+msgid "You're a champ!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:323
+msgid "Congrats for this performance!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:324
+msgid "Impressive!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
 msgid "Best lap"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:400
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:404
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:407
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 msgid "Race time"
 msgstr ""
 

@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.racescreen;
 
 import static com.agateau.translations.Translator.tr;
-import static com.agateau.translations.Translator.trn;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -41,6 +40,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -297,14 +297,9 @@ public class FinishedOverlay extends Overlay {
         fillMenu(builder);
         fillTable(table, tableType, oldRankMap);
         if (!mRecordAnimInfos.isEmpty()) {
-            int count = mRecordAnimInfos.size;
             Label label = builder.getActor("recordBrokenLabel");
-            label.setText(
-                    trn(
-                            "Congratulations!\nYou broke a record!",
-                            "Congratulations!\nYou broke %# records!",
-                            count));
-            label.pack();
+            label.setText(pickRecordLabelText());
+            label.setHeight(label.getPrefHeight());
             // Create animations after the Overlay is at its final position, to ensure the table
             // cell coordinates are final
             Timer.schedule(
@@ -317,6 +312,19 @@ public class FinishedOverlay extends Overlay {
                     Overlay.IN_DURATION);
         }
         return content;
+    }
+
+    private String pickRecordLabelText() {
+        String[] messages =
+                new String[] {
+                    tr("Congratulations, great race!"),
+                    tr("You've got some serious driving skills!"),
+                    tr("You're a champ!"),
+                    tr("Congrats for this performance!"),
+                    tr("Impressive!"),
+                };
+        int idx = MathUtils.random(messages.length - 1);
+        return messages[idx];
     }
 
     private void loadRankChangeAnimations(UiBuilder builder) {
