@@ -40,7 +40,7 @@
             </Items>
         </Menu>
 
-        <Ifdef var="recordBroken">
+        <Ifdef var="showCongratsCar">
             <Image id="car" name="congrats-car" bottomLeft="root.bottomCenter 12g 0" visible="false">
                 <Action>
                     delay 2.2
@@ -50,7 +50,7 @@
                     moveBy -12g 0 0.5 pow4Out
                 </Action>
             </Image>
-            <Label id="recordBrokenLabel" bottomCenter="car.topCenter -3g 1g" style="speechBubble"
+            <Label id="congratsCarLabel" bottomCenter="car.topCenter -3g 1g" style="speechBubble"
                 align="center" visible="false" width="12g" wrap="true">
                 <Action>
                     delay 2.6

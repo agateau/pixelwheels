@@ -267,8 +267,10 @@ public class FinishedOverlay extends Overlay {
         if (!isChampionship()) {
             builder.defineVariable("quickRace");
         }
-        if (tableType != TableType.CHAMPIONSHIP_TOTAL && didPlayerBreakRecord()) {
-            builder.defineVariable("recordBroken");
+        boolean showCongratsCar =
+                tableType != TableType.CHAMPIONSHIP_TOTAL && shouldShowCongratsCar();
+        if (showCongratsCar) {
+            builder.defineVariable("showCongratsCar");
         }
         HashMap<Racer, Integer> oldRankMap = null;
         if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
@@ -296,10 +298,14 @@ public class FinishedOverlay extends Overlay {
 
         fillMenu(builder);
         fillTable(table, tableType, oldRankMap);
-        if (!mRecordAnimInfos.isEmpty()) {
-            Label label = builder.getActor("recordBrokenLabel");
-            label.setText(pickRecordLabelText());
+
+        if (showCongratsCar) {
+            Label label = builder.getActor("congratsCarLabel");
+            label.setText(pickCongratsCarLabelText());
             label.setHeight(label.getPrefHeight());
+        }
+
+        if (!mRecordAnimInfos.isEmpty()) {
             // Create animations after the Overlay is at its final position, to ensure the table
             // cell coordinates are final
             Timer.schedule(
@@ -314,7 +320,7 @@ public class FinishedOverlay extends Overlay {
         return content;
     }
 
-    private String pickRecordLabelText() {
+    private String pickCongratsCarLabelText() {
         String[] messages =
                 new String[] {
                     tr("Congratulations, great race!"),
@@ -539,8 +545,10 @@ public class FinishedOverlay extends Overlay {
         return mRaceScreen.getGameType() == GameInfo.GameType.CHAMPIONSHIP;
     }
 
-    private boolean didPlayerBreakRecord() {
-        for (Racer racer : mRacers) {
+    private boolean shouldShowCongratsCar() {
+        // Show congrats car if player entered the record table and is ranked 3rd or better
+        for (int idx = 0; idx < 3; ++idx) {
+            Racer racer = mRacers.get(idx);
             if (racer.getRecordRanks().brokeRecord()) {
                 return true;
             }
