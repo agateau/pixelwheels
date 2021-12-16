@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.racescreen;
 
 import static com.agateau.translations.Translator.tr;
-import static com.agateau.translations.Translator.trn;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -41,6 +40,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -267,8 +267,10 @@ public class FinishedOverlay extends Overlay {
         if (!isChampionship()) {
             builder.defineVariable("quickRace");
         }
-        if (tableType != TableType.CHAMPIONSHIP_TOTAL && didPlayerBreakRecord()) {
-            builder.defineVariable("recordBroken");
+        boolean showCongratsCar =
+                tableType != TableType.CHAMPIONSHIP_TOTAL && shouldShowCongratsCar();
+        if (showCongratsCar) {
+            builder.defineVariable("showCongratsCar");
         }
         HashMap<Racer, Integer> oldRankMap = null;
         if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
@@ -296,15 +298,14 @@ public class FinishedOverlay extends Overlay {
 
         fillMenu(builder);
         fillTable(table, tableType, oldRankMap);
+
+        if (showCongratsCar) {
+            Label label = builder.getActor("congratsCarLabel");
+            label.setText(pickCongratsCarLabelText());
+            label.setHeight(label.getPrefHeight());
+        }
+
         if (!mRecordAnimInfos.isEmpty()) {
-            int count = mRecordAnimInfos.size;
-            Label label = builder.getActor("recordBrokenLabel");
-            label.setText(
-                    trn(
-                            "Congratulations!\nYou broke a record!",
-                            "Congratulations!\nYou broke %# records!",
-                            count));
-            label.pack();
             // Create animations after the Overlay is at its final position, to ensure the table
             // cell coordinates are final
             Timer.schedule(
@@ -317,6 +318,19 @@ public class FinishedOverlay extends Overlay {
                     Overlay.IN_DURATION);
         }
         return content;
+    }
+
+    private String pickCongratsCarLabelText() {
+        String[] messages =
+                new String[] {
+                    tr("Congratulations, great race!"),
+                    tr("You've got some serious driving skills!"),
+                    tr("You're a champ!"),
+                    tr("Congrats for this performance!"),
+                    tr("Impressive!"),
+                };
+        int idx = MathUtils.random(messages.length - 1);
+        return messages[idx];
     }
 
     private void loadRankChangeAnimations(UiBuilder builder) {
@@ -531,8 +545,10 @@ public class FinishedOverlay extends Overlay {
         return mRaceScreen.getGameType() == GameInfo.GameType.CHAMPIONSHIP;
     }
 
-    private boolean didPlayerBreakRecord() {
-        for (Racer racer : mRacers) {
+    private boolean shouldShowCongratsCar() {
+        // Show congrats car if player entered the record table and is ranked 3rd or better
+        for (int idx = 0; idx < 3; ++idx) {
+            Racer racer = mRacers.get(idx);
             if (racer.getRecordRanks().brokeRecord()) {
                 return true;
             }

@@ -11,7 +11,7 @@
             alpha 0.0
             moveBy -5g 15g
             rotateBy 360
-            delay 1.6
+            delay 0.8
             parallel
                 alpha 1 0.4
                 moveBy 0 -15g 1 bounceOut
@@ -40,19 +40,20 @@
             </Items>
         </Menu>
 
-        <Ifdef var="recordBroken">
+        <Ifdef var="showCongratsCar">
             <Image id="car" name="congrats-car" bottomLeft="root.bottomCenter 12g 0" visible="false">
                 <Action>
-                    delay 1
+                    delay 2.2
                     // delay before moveBy so that moveBy happens after anchor layout
                     moveBy 12g 0
                     show
                     moveBy -12g 0 0.5 pow4Out
                 </Action>
             </Image>
-            <Label id="recordBrokenLabel" bottomCenter="car.topCenter -3g 1g" style="speechBubble" align="center" visible="false">
+            <Label id="congratsCarLabel" bottomCenter="car.topCenter -3g 1g" style="speechBubble"
+                align="center" visible="false" width="12g" wrap="true">
                 <Action>
-                    delay 1.4
+                    delay 2.6
                     alpha 0
                     show
                     alpha 1 0.2
