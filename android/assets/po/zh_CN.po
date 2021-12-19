@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-13 18:56+0100\n"
-"PO-Revision-Date: 2021-11-06 21:20+0800\n"
+"PO-Revision-Date: 2021-12-16 16:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -406,27 +406,24 @@ msgid "Race Results"
 msgstr "竞赛结果"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:320
-#, fuzzy
 msgid "Congratulations, great race!"
-msgstr ""
-"恭喜！\n"
-"你打破了 %# 项记录！"
+msgstr "祝贺，比赛很棒！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:321
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "你的车技超群！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:322
 msgid "You're a champ!"
-msgstr ""
+msgstr "你太棒了！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:323
 msgid "Congrats for this performance!"
-msgstr ""
+msgstr "恭喜，表现很好！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:324
 msgid "Impressive!"
-msgstr ""
+msgstr "惊艳！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
@@ -568,51 +565,47 @@ msgstr "感谢使用！"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-#, fuzzy
 msgid "Brake"
-msgstr "刹车："
+msgstr "刹车"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-#, fuzzy
 msgid "Steer left"
-msgstr "左转："
+msgstr "左转"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-#, fuzzy
 msgid "Steer right"
-msgstr "右转："
+msgstr "右转"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-#, fuzzy
 msgid "Trigger"
-msgstr "触发："
+msgstr "触发"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
 msgid "Up"
-msgstr ""
+msgstr "上"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Down"
-msgstr ""
+msgstr "下"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Left"
-msgstr ""
+msgstr "左"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Right"
-msgstr ""
+msgstr "右"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Activate"
-msgstr ""
+msgstr "激活"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Back"
-msgstr ""
+msgstr "后退"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
