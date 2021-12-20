@@ -20,20 +20,12 @@ package com.agateau.pixelwheels.gameinput;
 
 import static com.agateau.translations.Translator.tr;
 
-import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.bonus.Bonus;
-import com.agateau.pixelwheels.racescreen.Hud;
-import com.agateau.ui.InputMapper;
 import com.agateau.ui.KeyMapper;
-import com.agateau.ui.VirtualKey;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 /** Handle keyboard input, for desktop mode */
-public class KeyboardInputHandler implements GameInputHandler {
+public class KeyboardInputHandler extends InputMapperInputHandler {
     public static class Factory implements GameInputHandlerFactory {
         final Array<GameInputHandler> mHandlers = new Array<>();
 
@@ -60,52 +52,11 @@ public class KeyboardInputHandler implements GameInputHandler {
         }
     }
 
-    private final InputMapper mInputMapper;
-    private final GameInput mInput = new GameInput();
-
-    KeyboardInputHandler(InputMapper inputMapper) {
-        mInputMapper = inputMapper;
+    KeyboardInputHandler(KeyMapper keyMapper) {
+        super(keyMapper);
     }
 
-    @Override
-    public GameInput getGameInput() {
-        mInput.braking = mInputMapper.isKeyPressed(VirtualKey.DOWN);
-        mInput.accelerating = !mInput.braking;
-        if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
-            mInput.direction += GamePlay.instance.steeringStep;
-        } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
-            mInput.direction -= GamePlay.instance.steeringStep;
-        } else {
-            mInput.direction = 0;
-        }
-        mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
-        mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
-
-        return mInput;
-    }
-
-    @Override
-    public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
-        mInputMapper.loadConfig(preferences, prefix, playerIdx);
-    }
-
-    @Override
-    public void saveConfig(Preferences preferences, String prefix) {
-        mInputMapper.saveConfig(preferences, prefix);
-    }
-
-    @Override
-    public void createHudButtons(Assets assets, Hud hud) {}
-
-    @Override
-    public void setBonus(Bonus bonus) {}
-
-    @Override
-    public boolean isAvailable() {
-        return mInputMapper.isAvailable();
-    }
-
-    public InputMapper getInputMapper() {
-        return mInputMapper;
+    public KeyMapper getKeyMapper() {
+        return (KeyMapper) getInputMapper();
     }
 }

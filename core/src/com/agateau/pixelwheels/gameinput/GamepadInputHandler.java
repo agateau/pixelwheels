@@ -25,7 +25,7 @@ import com.agateau.ui.GamepadInputMappers;
 import com.badlogic.gdx.utils.Array;
 
 /** Handle gamepad input, for desktop mode */
-public class GamepadInputHandler extends KeyboardInputHandler {
+public class GamepadInputHandler extends InputMapperInputHandler {
 
     public static class Factory implements GameInputHandlerFactory {
         final Array<GameInputHandler> mHandlers = new Array<>();

@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.ui.KeyMapper;
 import com.agateau.ui.VirtualKey;
@@ -68,12 +69,12 @@ public class KeyboardConfigScreen extends PwStageScreen {
         // Find the current player KeyMapper, but also get all KeyMappers: we need them
         // to check for conflicts
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-            KeyboardInputHandler handler =
-                    (KeyboardInputHandler) mGame.getConfig().getPlayerInputHandler(idx);
-            if (handler == null) {
+            GameInputHandler handler = mGame.getConfig().getPlayerInputHandler(idx);
+            if (!(handler instanceof KeyboardInputHandler)) {
                 continue;
             }
-            KeyMapper mapper = (KeyMapper) handler.getInputMapper();
+            KeyboardInputHandler keyboardInputHandler = (KeyboardInputHandler) handler;
+            KeyMapper mapper = keyboardInputHandler.getKeyMapper();
             mKeyMappers.add(mapper);
             if (idx == playerIdx) {
                 mKeyMapper = mapper;
