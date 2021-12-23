@@ -8,6 +8,7 @@ on:
       # are built twice
       - master
       - dev
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,3 +26,11 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+      - name: Upload
+        # Do not upload for pull requests: `make upload` does not work without the upload secrets
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+        run: make upload SNAPSHOT=1
+        env:
+          UPLOAD_USERNAME: ${{ secrets.UPLOAD_USERNAME }}
+          UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
+          UPLOAD_HOSTNAME: ${{ secrets.UPLOAD_HOSTNAME }}
