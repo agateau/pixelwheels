@@ -25,7 +25,8 @@ ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
 CONF_BACKUP_DIR=$(CURDIR)/.conf-backup
 
 ifdef SNAPSHOT
-	VERSION:=$(VERSION)+$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%m%dT%H%M%S)
+	BRANCH:=$(shell git rev-parse --abbrev-ref HEAD | sed s,/,-,g)
+	VERSION:=$(VERSION)+$(BRANCH)-$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%m%dT%H%M%S)
 endif
 
 all: build
