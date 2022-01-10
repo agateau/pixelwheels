@@ -21,6 +21,7 @@
             - `width`, `height`: the octogon dimensions
             - `x`, `y`: the shape bottom-left corner. Default to centered if
               not set
+            - `corner`: size of the octogon corners. Default to 0 (making the shape a rectangle)
         - `<trapezoid>`: an horizontal trapezoid
             - `bottomWidth`, `topWidth`, `height`: the trapezoid dimensions
             - `x`, `y`: the shape bottom-left corner. Default to centered if
