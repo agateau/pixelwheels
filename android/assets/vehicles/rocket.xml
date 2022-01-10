@@ -1,8 +1,9 @@
 <vehicle speed="0.8" name="Rocket" width="40" height="77">
     <main image="rocket"/>
     <shapes>
-        <octogon corner="3" y="6" width="16" height="60"/>
+        <octogon y="6" width="16" height="60"/>
         <trapezoid y="66" bottomWidth="16" topWidth="2" height="9"/>
+        <trapezoid y="60" bottomWidth="26" topWidth="18" height="5"/>
     </shapes>
     <axle y="58" width="20" steer="1"/>
     <axle y="16" width="32" steer="-0.2"/>
