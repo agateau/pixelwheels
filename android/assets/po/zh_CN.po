@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-13 18:56+0100\n"
+"POT-Creation-Date: 2022-01-17 23:21+0100\n"
 "PO-Revision-Date: 2021-12-16 16:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr "图像"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -186,59 +186,67 @@ msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
+msgid "Russian:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:78
+msgid "Nickoriginal"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:80
 msgid "Spanish:"
 msgstr "西班牙语："
 
-#: android/assets/screens/credits.gdxui:78
-#: android/assets/screens/credits.gdxui:82
+#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:85
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Video Editing"
 msgstr "视频编辑"
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "Special Thanks"
 msgstr "特别感谢"
 
-#: android/assets/screens/credits.gdxui:87
+#: android/assets/screens/credits.gdxui:90
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:88
+#: android/assets/screens/credits.gdxui:91
 msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:89
+#: android/assets/screens/credits.gdxui:92
 msgid "All bug reporters"
 msgstr "所有错误报告者"
 
-#: android/assets/screens/credits.gdxui:90
+#: android/assets/screens/credits.gdxui:93
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Patreon, Ko-fi 和 Paypal 平台的所有支持者"
 
-#: android/assets/screens/credits.gdxui:92
+#: android/assets/screens/credits.gdxui:95
 msgid "Made with"
 msgstr "开发工具"
 
-#: android/assets/screens/credits.gdxui:94
+#: android/assets/screens/credits.gdxui:97
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:97
+#: android/assets/screens/credits.gdxui:100
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 msgid "Android Studio"
 msgstr "Android Studio"
 
@@ -385,7 +393,7 @@ msgstr[0] "捡到 %# 个奖励"
 msgid "Gamepad"
 msgstr "手柄"
 
-#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:54
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 msgid "Keyboard"
 msgstr "键盘"
 
@@ -397,66 +405,66 @@ msgstr "扇形按钮"
 msgid "Side buttons"
 msgstr "两侧按钮"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:293
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:295
 msgid "Championship Rankings"
 msgstr "锦标赛排名"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:294
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Race Results"
 msgstr "竞赛结果"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:320
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
 msgid "Congratulations, great race!"
 msgstr "祝贺，比赛很棒！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:321
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "You've got some serious driving skills!"
 msgstr "你的车技超群！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:322
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You're a champ!"
 msgstr "你太棒了！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:323
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "Congrats for this performance!"
 msgstr "恭喜，表现很好！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:324
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Impressive!"
 msgstr "惊艳！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr "#"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 msgid "Best lap"
 msgstr "最佳单圈"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr "赛车手"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr "总用时"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr "分数"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 msgid "Race time"
 msgstr "比赛时间"
 
@@ -563,47 +571,47 @@ msgstr "配置"
 msgid "Thank you for playing!"
 msgstr "感谢使用！"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
 msgstr "刹车"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Steer left"
 msgstr "左转"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Steer right"
 msgstr "右转"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
 msgstr "触发"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
 msgstr "上"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
 msgstr "下"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
 msgstr "左"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
 msgstr "右"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
 msgstr "激活"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
 msgstr "后退"
 
