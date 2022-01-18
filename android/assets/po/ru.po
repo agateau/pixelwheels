@@ -532,7 +532,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
-msgstr "ДЛЯ РАЗРАБОТЧИКА"
+msgstr "ДЛЯ РАЗРАБОТЧИКОВ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
