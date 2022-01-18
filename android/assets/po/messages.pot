@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-13 18:56+0100\n"
+"POT-Creation-Date: 2022-01-17 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -186,59 +186,67 @@ msgid "PandaCoderPL"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:77
-msgid "Spanish:"
+msgid "Russian:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:78
-#: android/assets/screens/credits.gdxui:82
-msgid "Clara Gâteau"
+msgid "Nickoriginal"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:80
+msgid "Spanish:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:85
+msgid "Clara Gâteau"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:83
 msgid "Video Editing"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "Special Thanks"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:87
+#: android/assets/screens/credits.gdxui:90
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:88
+#: android/assets/screens/credits.gdxui:91
 msgid "Ethan Chapman"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:89
+#: android/assets/screens/credits.gdxui:92
 msgid "All bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:90
+#: android/assets/screens/credits.gdxui:93
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:92
+#: android/assets/screens/credits.gdxui:95
 msgid "Made with"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:94
+#: android/assets/screens/credits.gdxui:97
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:97
+#: android/assets/screens/credits.gdxui:100
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 msgid "Android Studio"
 msgstr ""
 
@@ -388,7 +396,7 @@ msgstr[1] ""
 msgid "Gamepad"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:54
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 msgid "Keyboard"
 msgstr ""
 
@@ -400,66 +408,66 @@ msgstr ""
 msgid "Side buttons"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:293
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:295
 msgid "Championship Rankings"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:294
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Race Results"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:320
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
 msgid "Congratulations, great race!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:321
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "You've got some serious driving skills!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:322
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You're a champ!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:323
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "Congrats for this performance!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:324
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Impressive!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 msgid "Best lap"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:408
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:412
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 msgid "Race time"
 msgstr ""
 
@@ -562,47 +570,47 @@ msgstr ""
 msgid "Thank you for playing!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:99
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-msgid "Brake"
-msgstr ""
-
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Steer left"
+msgid "Brake"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Steer right"
+msgid "Steer left"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+msgid "Steer right"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
 msgstr ""
 
