@@ -345,7 +345,7 @@ msgstr "Выберите чемпионат"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Выберить режим игры"
+msgstr "Выберите режим игры"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -504,7 +504,7 @@ msgid ""
 "development in various ways."
 msgstr ""
 "Pixel Wheels бесплатна, но вы можете поддержать её\n"
-"разработку различными путями."
+"разработку разными способами."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
@@ -528,7 +528,7 @@ msgid ""
 "free to poke around!"
 msgstr ""
 "Эти опции в основном интересны для разработки Pixel Wheels, но вы можете "
-"свободно их потыкать!"
+"свободно менять их!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
