@@ -508,7 +508,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
-msgstr "ПОСЕТИТЬ СТРАНИЦУ ПОДДЕРЖКИ"
+msgstr "ПОДДЕРЖАТЬ ИГРУ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Learn more about Pixel Wheels"
@@ -532,7 +532,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
-msgstr "ПАРАМЕТРЫ РАЗРАБОТЧИКА"
+msgstr "ДЛЯ РАЗРАБОТЧИКА"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
@@ -681,4 +681,4 @@ msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "ОТКРЫТЬ ПАПКУ С ФАЙЛОМ ЛОГА"
+msgstr "НАЙТИ ФАЙЛ ЛОГА"
