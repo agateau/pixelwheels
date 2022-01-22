@@ -188,11 +188,11 @@ msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Russian:"
-msgstr ""
+msgstr "Русский:"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Spanish:"
@@ -221,15 +221,15 @@ msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "All bug reporters"
-msgstr "Все, кто сообщает об ошибках"
+msgstr "Тем, кто сообщает об ошибках"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Все, кто поддерживает проект на платформах Patreon, Ko-fi и Paypal"
+msgstr "Тем, кто поддерживает на Patreon, Ko-fi и Paypal"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Made with"
-msgstr "Сделано, используя"
+msgstr "Создано с"
 
 #: android/assets/screens/credits.gdxui:97
 msgid "LibGDX"
@@ -245,7 +245,7 @@ msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:100
 msgid "SFXR Qt"
-msgstr "SFXR Qt"
+msgstr "Порт SFXR на Qt"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Android Studio"
@@ -260,7 +260,7 @@ msgstr ""
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr "ПЕРЕЗАПУСК"
+msgstr "НАЧАТЬ ЗАНОВО"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
@@ -297,7 +297,7 @@ msgstr "НЕСКОЛЬКО ИГРОКОВ"
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr "БЫСТРАЯ ГОНКА"
+msgstr "ОБЫЧНАЯ ГОНКА"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
@@ -329,7 +329,7 @@ msgstr "Не все геймпады подключены"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr "На паузе"
+msgstr "Пауза"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
@@ -420,7 +420,7 @@ msgstr "Рейтинг чемпионата"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Race Results"
-msgstr "Результаты гонок"
+msgstr "Результаты гонки"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
 msgid "Congratulations, great race!"
@@ -447,7 +447,7 @@ msgstr "Восхитительно!"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
-msgstr "#"
+msgstr "N°"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
@@ -484,7 +484,7 @@ msgid ""
 "Finished!"
 msgstr ""
 "Чемпионат\n"
-"Окончен!"
+"окончен!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "About"
@@ -504,7 +504,7 @@ msgid ""
 "development in various ways."
 msgstr ""
 "Pixel Wheels бесплатна, но вы можете поддержать её\n"
-"разработку разными способами."
+"разработку различными способами."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
@@ -516,7 +516,7 @@ msgstr "Узнать больше о Pixel Wheels"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "VISIT WEB SITE"
-msgstr "ПОСЕТИТЬ СТРАНИЦУ ИГРЫ"
+msgstr "ПОСЕТИТЬ САЙТ ИГРЫ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
