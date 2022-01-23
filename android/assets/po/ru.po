@@ -264,7 +264,7 @@ msgstr "НАЧАТЬ ЗАНОВО"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr "ВЕРНУТЬСЯ В МЕНЮ"
+msgstr "НАЗАД В МЕНЮ"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
