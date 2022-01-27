@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-17 23:21+0100\n"
-"PO-Revision-Date: 2021-10-30 17:54+0200\n"
+"PO-Revision-Date: 2022-01-25 19:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -147,11 +147,11 @@ msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "Noto"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
@@ -159,19 +159,19 @@ msgstr "Traducciones"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Bengali:"
-msgstr ""
+msgstr "Bengalí :"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Chinese:"
-msgstr ""
+msgstr "Chino :"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Lu Xu"
-msgstr ""
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "French:"
@@ -179,23 +179,23 @@ msgstr "Francés :"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Polish:"
-msgstr ""
+msgstr "Polaco :"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "PandaCoderPL"
-msgstr ""
+msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Russian:"
-msgstr ""
+msgstr "Ruso :"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Spanish:"
-msgstr ""
+msgstr "Español :"
 
 #: android/assets/screens/credits.gdxui:81
 #: android/assets/screens/credits.gdxui:85
@@ -315,7 +315,7 @@ msgstr "DEJAR"
 #: android/assets/screens/multiplayer.gdxui:5
 #: android/assets/screens/selectvehicle.gdxui:5
 msgid "Select Your Vehicle"
-msgstr "Selecciona su vehículo"
+msgstr "Seleccionas su vehículo"
 
 #: android/assets/screens/multiplayer.gdxui:8
 #: android/assets/screens/multiplayer.gdxui:10
@@ -340,15 +340,15 @@ msgstr "REGRESO AL MENÚ"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr "Selecciona un campeonato"
+msgstr "Seleccionas un campeonato"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Selecciona el modo de juego"
+msgstr "Seleccionas el modo de juego"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Selecciona una pista"
+msgstr "Seleccionas una pista"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
@@ -364,7 +364,7 @@ msgstr "Compartir con"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr "Ha encontrado un error ? Utiliza este botón para reportarlo."
+msgstr "Has encontrado un error ? Utilizas este botón para reportarlo."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
@@ -419,34 +419,31 @@ msgid "Race Results"
 msgstr "Resultado de la carrera"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
-#, fuzzy
 msgid "Congratulations, great race!"
-msgstr ""
-"Felicitaciones !\n"
-"Batió uno récord !"
+msgstr "Felicitaciones, magnífica carrera !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "Eres un piloto increíble !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You're a champ!"
-msgstr ""
+msgstr "Eres un campeón !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "Congrats for this performance!"
-msgstr ""
+msgstr "Bravo por esta desempeño !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Impressive!"
-msgstr ""
+msgstr "Impresionante !"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
-msgstr "N.°"
+msgstr "N°"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
@@ -502,7 +499,7 @@ msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
-"Pixel Wheels está gratuito, pero puede apoyar su desarrollador de varias "
+"Pixel Wheels está gratuito, pero puedes apoyar su desarrollador de varias "
 "maneras."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
@@ -511,11 +508,11 @@ msgstr "PÁGINA DE APOYO"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Learn more about Pixel Wheels"
-msgstr ""
+msgstr "Más información sobre Pixel Wheels"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "VISIT WEB SITE"
-msgstr ""
+msgstr "VISITAR EL SITIO WEB"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
@@ -527,7 +524,7 @@ msgid ""
 "free to poke around!"
 msgstr ""
 "Estas opciones son principalmente interesantes para el desarrollo de Pixel "
-"Wheels, pero puede echarle un vistazo !"
+"Wheels, pero puedes echarle un vistazo !"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
@@ -584,52 +581,41 @@ msgid "Thank you for playing!"
 msgstr "Gracias por jugar !"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-#, fuzzy
 msgid "Brake"
-msgstr "Frenar :"
+msgstr "Frenar"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-#, fuzzy
 msgid "Steer left"
-msgstr "Girar a la izquierda :"
+msgstr "Girar a la izquierda"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-#, fuzzy
 msgid "Steer right"
-msgstr "Girar a la derecha :"
+msgstr "Girar a la derecha"
 
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
-#, fuzzy
 msgid "Trigger"
-msgstr "Activar :"
+msgstr "Activar"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
-msgstr ""
+msgstr "Alto"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
-msgstr ""
+msgstr "Bajo"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
-msgstr ""
+msgstr "Activar"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
-msgstr ""
+msgstr "Regreso"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
@@ -655,33 +641,33 @@ msgstr "[Bloqueado]"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr "1.º"
+msgstr "1"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr "2.º"
+msgstr "2"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr "3.º"
+msgstr "3"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr "4.º"
+msgstr "4"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr "5.º"
+msgstr "5"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr "6.º"
+msgstr "6"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
-"Necesita crear un informe de error ? Utiliza este botón para encontrar el "
+"Necesitas crear un informe de error ? Utilizas este botón para encontrar el "
 "fichero de log a adjuntar."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
