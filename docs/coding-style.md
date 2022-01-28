@@ -2,8 +2,7 @@
 
 ## Base
 
-Pixel Wheels is based on the AOSP variant (4 space indents) of [Google Java
-coding style][coding-style].
+Pixel Wheels is based on the AOSP variant (4 space indents) of [Google Java coding style][coding-style].
 
 [coding-style]: https://google.github.io/styleguide/javaguide.html
 
@@ -63,10 +62,8 @@ drawFilledRect(12, 34, 100, 200);
 
 ## Applying the coding style
 
-You can run `tools/apply-codingstyle` to apply most of the rules to the code in
-your checkout. This tool downloads [google-java-format][gjf] in `$HOME/.cache`
-and runs it on all the Java files of the project.
+You can run `tools/apply-codingstyle` to apply most of the rules to the code in your checkout. This tool downloads [google-java-format][gjf] in `$HOME/.cache` and runs it on all the Java files of the project.
 
-Note that the CI builder checks for coding style conformance.
+The CI checks for coding style conformance.
 
 [gjf]: https://github.com/google/google-java-format

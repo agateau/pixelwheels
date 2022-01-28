@@ -31,11 +31,16 @@ If you feel adventurous, you can also try binaries from the master branch. These
 
 ## I think it would be much better if it did X, Y or Z...
 
-I have a reasonably well defined vision of what I want Pixel Wheels to be.  Your feedback and suggestions are welcome, and I will look into it with great attention, but I reserve the right to decide if your ideas fit with the game I am trying to create.
+I have a reasonably well defined vision of what I want Pixel Wheels to be. Your feedback and suggestions are welcome, and I will look into them, but I reserve the right to decide if your ideas fit with the game I am trying to create.
 
-## What if I want to build it myself?
+## Contributing
 
-The [build instructions][build] should have you covered.
+The [docs](docs/) directory contains documentation to work on Pixel Wheels.
+
+In particular:
+
+- [Adding or updating a translation](docs/translations.md)
+- [Building instructions](docs/building.md)
 
 [build]: docs/building.md
 
