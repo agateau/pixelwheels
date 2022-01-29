@@ -1,0 +1,5 @@
+Pixel Wheels is now translated in Bengali, Chinese, Polish, Russian and Spanish in addition to French.
+
+The status bar no longer stays visible on Android 11.
+
+Improved game icon.
