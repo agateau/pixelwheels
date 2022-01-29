@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.22.0 - 2021-01-30
+
+### Added
+
+- Five new translations:
+    - Bengali by Oymate.
+    - Chinese by Lu Xu.
+    - Polish by PandaCoderPL.
+    - Russian by Nickoriginal.
+    - Spanish by Clara Gâteau.
+
+- Keyboard keys are now configurable (#129).
+
+### Fixed
+
+- Reworked Rocket car so that it cannot get stuck on thin walls (#174).
+
+- The ambiguous "You broke a record" message has been turned into a more generic one, which shows when the player ranks 3rd or better (#139).
+
+- On Android, Pixel Wheels now uses an adaptive icon (#83).
+
+- Added a workaround for the Android 11 status bar not disappearing when switching between apps (#140).
+
+### Developers
+
+- It is now possible to define the PW_ASSETS_DIR environment variable to make Pixel Wheels uses assets directly from there instead of using the bundled assets.
+
+- Bumped Android target SDK version to 30.
+
 ## 0.21.0 - 2021-10-04
 
 ### Added
