@@ -130,6 +130,12 @@ upload:
 		$(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk \
 		$(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk \
 
+butler-upload:
+	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(DIST_NAME)-linux* agateau/pixelwheels:linux-stable
+	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(DIST_NAME)-mac* agateau/pixelwheels:macos-stable
+	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(DIST_NAME)-windows* agateau/pixelwheels:windows-stable
+	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk agateau/pixelwheels:android-stable
+
 # Cleaning conf
 backup-desktop-conf:
 	mkdir -p $(CONF_BACKUP_DIR)
