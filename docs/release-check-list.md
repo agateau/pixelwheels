@@ -62,6 +62,8 @@
 
 - [ ] Upload archives to itch.io
 
+    make butler-upload
+
 # Game page
 
 - [ ] Update game page

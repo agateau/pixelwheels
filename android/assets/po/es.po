@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 23:21+0100\n"
+"POT-Creation-Date: 2022-02-07 08:59+0100\n"
 "PO-Revision-Date: 2022-01-25 19:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -580,16 +580,27 @@ msgstr "CONFIGURAR"
 msgid "Thank you for playing!"
 msgstr "Gracias por jugar !"
 
+#: core/src/com/agateau/pixelwheels/screens/GamepadConfigScreen.java:72
+msgid "Press the gamepad key..."
+msgstr ""
+
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
 msgstr "Frenar"
 
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Steer left"
 msgstr "Girar a la izquierda"
 
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Steer right"
 msgstr "Girar a la derecha"
 
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
 msgstr "Activar"
 
@@ -638,6 +649,17 @@ msgstr "MENÚ PRINCIPAL"
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr "[Bloqueado]"
+
+#: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:109
+msgid "New vehicle unlocked!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:118
+#, fuzzy
+msgid "New championship unlocked!"
+msgstr ""
+"Campeonato\n"
+"Terminado !"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
