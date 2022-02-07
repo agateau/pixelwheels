@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 23:21+0100\n"
+"POT-Creation-Date: 2022-02-07 08:59+0100\n"
 "PO-Revision-Date: 2022-01-19 08:39+0100\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French <>\n"
@@ -576,6 +576,10 @@ msgstr "CONFIGURER"
 msgid "Thank you for playing!"
 msgstr "Merci d'avoir joué !"
 
+#: core/src/com/agateau/pixelwheels/screens/GamepadConfigScreen.java:72
+msgid "Press the gamepad key..."
+msgstr ""
+
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
@@ -641,6 +645,17 @@ msgstr "MENU PRINCIPAL"
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr "[Verrouillé]"
+
+#: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:109
+msgid "New vehicle unlocked!"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:118
+#, fuzzy
+msgid "New championship unlocked!"
+msgstr ""
+"Championnat\n"
+"terminé !"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
