@@ -9,7 +9,7 @@ RES_DIR=$ANDROID_DIR/res
 
 GPLAY_ICON=$PWD/../fastlane/metadata/android/en-US/images/icon.png
 
-MACOS_ICON=$PWD/../tools/installer-data/pixelwheels.icns
+MACOS_ICON=$PWD/../tools/packaging/macos/pixelwheels.icns
 
 BGCOLOR=#5a6988
 

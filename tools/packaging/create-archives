@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
-cd $(dirname $0)/..
+cd $(dirname $0)/../..
+
+C_BLUE_FG="\e[34m"
+C_RESET="\e[0m"
 
 PROGNAME=$(basename $0)
 
@@ -22,7 +25,10 @@ DIST_OUT_BASE_DIR=$PWD/dist-out
 SRC_DESKTOP_JAR="desktop/build/libs/desktop-1.0.jar"
 DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
 
-INSTALLER_DATA_DIR=$PWD/tools/installer-data
+# Files added to the archives
+PACKAGING_DIR=$PWD/tools/packaging
+PACKAGING_COMMON_DIR=$PACKAGING_DIR/common
+PACKAGING_MACOS_DIR=$PACKAGING_DIR/macos
 
 . tools/functions.sh
 
@@ -53,11 +59,11 @@ create_archive() {
         # LWJGL3 can process input events.
         # Game won't start if we don't do this.
         extra_args="--vmargs XstartOnFirstThread
-            --icon $INSTALLER_DATA_DIR/pixelwheels.icns
+            --icon $PACKAGING_MACOS_DIR/pixelwheels.icns
             --bundle com.agateau.pixelwheels"
     fi
 
-    echo "=== Creating archive for $platform ==="
+    echo -e "${C_BLUE_FG}Creating archive for $platform${C_RESET}"
 
     rm -rf "$out_dir"
 
@@ -79,7 +85,7 @@ create_archive() {
     echo "Copying install data"
     # We do not use $out_dir here because on macOS it would put the README
     # *inside* the bundle
-    cp $INSTALLER_DATA_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
+    cp $PACKAGING_COMMON_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
 
     echo "Creating zip"
     (

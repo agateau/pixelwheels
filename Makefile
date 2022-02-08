@@ -68,7 +68,7 @@ desktop-archives:
 	@mkdir -p $(DIST_OUT_BASE_DIR)
 
 	@echo Creating desktop archives
-	@tools/create-archives $(VERSION)
+	@tools/packaging/create-archives $(VERSION)
 
 	@echo Moving desktop archives
 	@mkdir -p $(ARCHIVE_DIR)
