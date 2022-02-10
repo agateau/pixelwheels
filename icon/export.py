@@ -21,6 +21,7 @@ RES_DIR = ANDROID_DIR / "res"
 GPLAY_ICON = REPO_DIR / "fastlane/metadata/android/en-US/images/icon.png"
 
 MACOS_ICON = REPO_DIR / "tools/packaging/macos/pixelwheels.icns"
+LINUX_ICON_DIR = REPO_DIR / "tools/packaging/linux/icons"
 
 APPWINDOW_ICON = ASSETS_DIR / "desktop-icon/desktop-icon.png"
 
@@ -33,6 +34,8 @@ SCALED_ICON_SIZES = [128, 256, 512, 1024]
 
 # Note: no 64x64 in the macOS icon
 MACOS_ICON_SIZES = [16, 32, 48, 128, 256, 512, 1024]
+
+LINUX_ICON_SIZES = SLICE_ICON_SIZES + SCALED_ICON_SIZES
 
 
 def run(*args):
@@ -96,6 +99,12 @@ def generate_android_tv_banner():
     aseprite("--slice", "tv-banner",
              "--scale", 2,
              "--save-as", RES_DIR / "drawable-xhdpi/tv_banner.png")
+
+
+def generate_linux_icons():
+    for size in LINUX_ICON_SIZES:
+        dst = LINUX_ICON_DIR / f"{size}-com.agateau.PixelWheels.png"
+        shutil.copy(work_icon(size), dst)
 
 
 def generate_appwindow_icon():

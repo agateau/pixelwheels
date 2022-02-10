@@ -29,6 +29,7 @@ DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
 PACKAGING_DIR=$PWD/tools/packaging
 PACKAGING_COMMON_DIR=$PACKAGING_DIR/common
 PACKAGING_MACOS_DIR=$PACKAGING_DIR/macos
+PACKAGING_LINUX_DIR=$PACKAGING_DIR/linux
 
 . tools/functions.sh
 
@@ -86,6 +87,15 @@ create_archive() {
     # We do not use $out_dir here because on macOS it would put the README
     # *inside* the bundle
     cp $PACKAGING_COMMON_DIR/README.html "$DIST_OUT_BASE_DIR/$dist_name"
+
+    if [ "$platform" = "linux64" ] ; then
+        cp -a $PACKAGING_LINUX_DIR/* "$out_dir"
+    fi
+
+    echo "Make sure all files are writable"
+    # Packr generates some read-only files in the jre dir. This causes trouble
+    # when trying to replace them during upgrade.
+    chmod -R u+w $out_dir
 
     echo "Creating zip"
     (
