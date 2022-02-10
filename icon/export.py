@@ -22,12 +22,17 @@ GPLAY_ICON = REPO_DIR / "fastlane/metadata/android/en-US/images/icon.png"
 
 MACOS_ICON = REPO_DIR / "tools/packaging/macos/pixelwheels.icns"
 
+APPWINDOW_ICON = ASSETS_DIR / "desktop-icon/desktop-icon.png"
+
 BGCOLOR = "#5a6988"
 
-DESKTOP_ICON_SIZES = [16, 32, 48]
+SLICE_ICON_SIZES = [16, 32, 48, 64]
 
 SCALED_REFERENCE_SIZE = 64
-SCALED_DESKTOP_ICON_SIZES = [128, 256, 512, 1024]
+SCALED_ICON_SIZES = [128, 256, 512, 1024]
+
+# Note: no 64x64 in the macOS icon
+MACOS_ICON_SIZES = [16, 32, 48, 128, 256, 512, 1024]
 
 
 def run(*args):
@@ -45,21 +50,29 @@ def aseprite(*args):
     run(*cmd)
 
 
-def generate_macos():
-    for size in DESKTOP_ICON_SIZES:
-        aseprite("--slice", f"icon-{size}",
-                 "--save-as", WORK_DIR / f"icon-{size}.png")
+def work_icon(size):
+    return WORK_DIR / f"icon-{size}.png"
 
-    for size in SCALED_DESKTOP_ICON_SIZES:
+
+def _generate_work_icons():
+    print("Generating work icons")
+    for size in SLICE_ICON_SIZES:
+        aseprite("--slice", f"icon-{size}",
+                 "--save-as", work_icon(size))
+
+    for size in SCALED_ICON_SIZES:
         scale = int(size / SCALED_REFERENCE_SIZE)
         aseprite("--slice", f"icon-{SCALED_REFERENCE_SIZE}",
                  "--scale", scale,
-                 "--save-as", WORK_DIR / f"icon-{size}.png")
-
-    run("png2icns", MACOS_ICON, *WORK_DIR.glob("*.png"))
+                 "--save-as", work_icon(size))
 
 
-def generate_android():
+def generate_macos_icons():
+    pngs = [work_icon(x) for x in MACOS_ICON_SIZES]
+    run("png2icns", MACOS_ICON, *pngs)
+
+
+def generate_android_icons():
     """TODO: port a fixed version once the adaptive issue is sorted out.
 
     See https://github.com/agateau/pixelwheels/issues/198
@@ -79,26 +92,19 @@ def generate_android():
     pass
 
 
-def generate_android_tv():
+def generate_android_tv_banner():
     aseprite("--slice", "tv-banner",
              "--scale", 2,
              "--save-as", RES_DIR / "drawable-xhdpi/tv_banner.png")
 
 
-def generate_desktop_assets():
-    aseprite("--slice", "icon-72",
-             "--scale", 2,
-             "--save-as", ASSETS_DIR / "desktop-icon/desktop-icon.png")
+def generate_appwindow_icon():
+    shutil.copy(work_icon(128), APPWINDOW_ICON)
 
 
-def generate_gplay():
+def generate_gplay_icon():
     # Google Play: 512 x 512 RVB, flat
-
-    # Start from the biggest, unscaled version
-    tmp_image = WORK_DIR / "gplay-tmp.png"
-    aseprite("--slice", "icon-72", "--save-as", tmp_image)
-
-    run("convert", "-scale", "512x512", tmp_image,
+    run("convert", work_icon(512),
         "-background", BGCOLOR, "-flatten", GPLAY_ICON)
 
 
