@@ -167,7 +167,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(3);
+        mTrackSelector.setColumnCount(4);
         mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
