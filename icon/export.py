@@ -21,7 +21,7 @@ RES_DIR = ANDROID_DIR / "res"
 GPLAY_ICON = REPO_DIR / "fastlane/metadata/android/en-US/images/icon.png"
 
 MACOS_ICON = REPO_DIR / "tools/packaging/macos/pixelwheels.icns"
-LINUX_ICON_DIR = REPO_DIR / "tools/packaging/linux/icons"
+LINUX_ICON_DIR = REPO_DIR / "tools/packaging/linux/share/icons/hicolor"
 
 APPWINDOW_ICON = ASSETS_DIR / "desktop-icon/desktop-icon.png"
 
@@ -103,7 +103,8 @@ def generate_android_tv_banner():
 
 def generate_linux_icons():
     for size in LINUX_ICON_SIZES:
-        dst = LINUX_ICON_DIR / f"{size}-com.agateau.PixelWheels.png"
+        dst = LINUX_ICON_DIR / f"{size}x{size}/apps/com.agateau.PixelWheels.png"
+        dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(work_icon(size), dst)
 
 
