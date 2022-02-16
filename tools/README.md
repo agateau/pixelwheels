@@ -18,11 +18,9 @@ Defines gettext ITS rules.
 
 More details in [gettext/README.md](gettext/README.md).
 
-## create-archives and installer-data/
+## packaging/
 
-`create-archives` creates the final zip files for each supported desktop platform. The zip files include a JRE so players do not have to install Java.
-
-It uses files from the `installer-data` directory.
+Contains the `create-archives` script and its data files. This script creates the final zip files for each supported desktop platform. The zip files include a JRE so players do not have to install Java themselves.
 
 ## src/
 
