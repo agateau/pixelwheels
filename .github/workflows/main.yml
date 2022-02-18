@@ -26,6 +26,10 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
+      - name: Smoke tests
+        run: make smoke-tests SNAPSHOT=1
+
       - name: Upload
         # Do not upload for pull requests: `make upload` does not work without the upload secrets
         if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}

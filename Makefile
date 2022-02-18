@@ -86,7 +86,7 @@ install:
 	cp $(DESKTOP_JAR) $(INSTALL_JAR_PATH)
 	cp -a android/assets/* $(INSTALL_ASSETS_DIR)
 
-	echo -e "#!/bin/bash\ncd $(INSTALL_ASSETS_DIR)\njava -jar $(INSTALL_JAR_PATH)" > $(INSTALL_BIN_PATH)
+	echo -e "#!/bin/bash\ncd $(INSTALL_ASSETS_DIR)\nexec java -jar $(INSTALL_JAR_PATH)" > $(INSTALL_BIN_PATH)
 	chmod +x $(INSTALL_BIN_PATH)
 
 	cp -a tools/packaging/linux/share/* $(INSTALL_SHARE_DIR)
@@ -203,9 +203,24 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
+# tests
 check: codingstyle-check po-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
+
+smoke-tests: smoke-tests-from-dist smoke-tests-from-install
+
+smoke-tests-from-dist:
+	rm -rf tmp
+	mkdir -p tmp
+	unzip $(ARCHIVE_DIR)/$(DESKTOP_RUN_DIST_NAME).zip -d tmp
+	tools/smoke-test tmp/$(DESKTOP_RUN_DIST_NAME)/pixelwheels
+
+smoke-tests-from-install:
+	rm -rf tmp
+	mkdir -p tmp
+	$(MAKE) install DESTDIR=$(CURDIR)/tmp
+	tools/smoke-test tmp/usr/local/bin/pixelwheels
 
 # Translations
 po-update:
