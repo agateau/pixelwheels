@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
@@ -26,6 +26,12 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
+      - name: Smoke tests
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: make smoke-tests SNAPSHOT=1
+
       - name: Upload
         # Do not upload for pull requests: `make upload` does not work without the upload secrets
         if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}

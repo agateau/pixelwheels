@@ -1,3 +1,16 @@
+# Shell to use, stop on errors, stop on undefined variables, report errors
+# if a command in a pipe fails (not just the last)
+SHELL := bash
+.SHELLFLAGS := -euo pipefail -c
+
+# Do not start a new shell for each command of a target
+# Makes it possible to have `cd foo` on its own line. Be sure to configure the
+# shell to stop on errors though (the -e in .SHELLFLAGS)
+.ONESHELL:
+
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+
 DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
 TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
 GRADLEW=./gradlew
@@ -24,6 +37,25 @@ ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
 
 CONF_BACKUP_DIR=$(CURDIR)/.conf-backup
 
+# Install variables
+## Standard directory variables
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+datadir = $(prefix)/share
+libdir = $(exec_prefix)/lib
+
+## Handy shortcuts
+INSTALL_BIN_DIR=$(DESTDIR)$(bindir)
+INSTALL_JAR_DIR=$(DESTDIR)$(libdir)/pixelwheels
+INSTALL_SHARE_DIR=$(DESTDIR)$(datadir)
+
+INSTALL_ASSETS_DIR=$(INSTALL_SHARE_DIR)/pixelwheels
+
+INSTALL_BIN_PATH=$(INSTALL_BIN_DIR)/pixelwheels
+INSTALL_JAR_PATH=$(INSTALL_JAR_DIR)/$(GAME_CP).jar
+
+# Update VERSION variable for snapshots
 ifdef SNAPSHOT
 	BRANCH:=$(shell git rev-parse --abbrev-ref HEAD | sed s,/,-,g)
 	VERSION:=$(VERSION)+$(BRANCH)-$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%m%dT%H%M%S)
@@ -45,6 +77,21 @@ tools: $(TOOLS_JAR)
 run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
+# Classic Unix `make install` target
+install:
+	mkdir -p $(INSTALL_JAR_DIR)
+	mkdir -p $(INSTALL_BIN_DIR)
+	mkdir -p $(INSTALL_ASSETS_DIR)
+
+	cp $(DESKTOP_JAR) $(INSTALL_JAR_PATH)
+	cp -a android/assets/* $(INSTALL_ASSETS_DIR)
+
+	echo -e "#!/bin/bash\ncd $(INSTALL_ASSETS_DIR)\nexec java -jar $(INSTALL_JAR_PATH)" > $(INSTALL_BIN_PATH)
+	chmod +x $(INSTALL_BIN_PATH)
+
+	cp -a tools/packaging/linux/share/* $(INSTALL_SHARE_DIR)
+
+# Assets
 packer: tools assets
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.Packer
 
@@ -156,9 +203,24 @@ clean-desktop-conf:
 clean-android-conf:
 	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
+# tests
 check: codingstyle-check po-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
+
+smoke-tests: smoke-tests-from-dist smoke-tests-from-install
+
+smoke-tests-from-dist:
+	rm -rf tmp
+	mkdir -p tmp
+	unzip $(ARCHIVE_DIR)/$(DESKTOP_RUN_DIST_NAME).zip -d tmp
+	tools/smoke-test tmp/$(DESKTOP_RUN_DIST_NAME)/pixelwheels
+
+smoke-tests-from-install:
+	rm -rf tmp
+	mkdir -p tmp
+	$(MAKE) install DESTDIR=$(CURDIR)/tmp
+	tools/smoke-test tmp/usr/local/bin/pixelwheels
 
 # Translations
 po-update:
