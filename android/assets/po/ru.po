@@ -662,7 +662,7 @@ msgstr "[Заблокировано]"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr "Доступен новый трансопри"
+msgstr "Доступен новый транспорт!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 #, fuzzy
