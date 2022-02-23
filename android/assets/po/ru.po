@@ -205,11 +205,11 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Basque:"
-msgstr ""
+msgstr "Баскский:"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Video Editing"
@@ -357,7 +357,7 @@ msgstr "Выберите режим игры"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Выберите трассу"
+msgstr "Выберите гоночную трассу"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
@@ -512,7 +512,7 @@ msgid ""
 "development in various ways."
 msgstr ""
 "Pixel Wheels бесплатна, но вы можете поддержать её\n"
-"разработку различными способами."
+"разработку, если пожелаете."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
@@ -535,7 +535,7 @@ msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
-"Эти опции в основном интересны для разработки Pixel Wheels, но вы можете "
+"Эти опции нужны для разработки Pixel Wheels, но и вы можете "
 "свободно менять их!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
@@ -588,11 +588,11 @@ msgstr "НАСТРОИТЬ"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr "Спасибо вам за игру!"
+msgstr "Спасибо за игру!"
 
 #: core/src/com/agateau/pixelwheels/screens/GamepadConfigScreen.java:74
 msgid "Press the gamepad key..."
-msgstr ""
+msgstr "Зажмите нужную кнопку геймпада..."
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
@@ -673,27 +673,27 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr "1-ый"
+msgstr "1ый"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr "2-й"
+msgstr "2й"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr "3-ий"
+msgstr "3ий"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr "4-ый"
+msgstr "4ый"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr "5-ый"
+msgstr "5ый"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr "6-й"
+msgstr "6й"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
