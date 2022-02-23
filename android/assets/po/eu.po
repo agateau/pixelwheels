@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-21 10:44+0000\n"
-"PO-Revision-Date: 2022-01-25 19:25+0100\n"
+"PO-Revision-Date: 2022-02-21 10:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0\n"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -24,11 +24,11 @@ msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr "Un juegos de carrera open-source"
+msgstr "Kode irekiko lasterketa jokoa"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr "Código"
+msgstr "Kodea"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
@@ -39,7 +39,7 @@ msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr "Pixels"
+msgstr "Pixelak"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:92
@@ -48,11 +48,11 @@ msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr "Música"
+msgstr "Musika"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr "Menú :"
+msgstr "Menua:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
@@ -64,7 +64,7 @@ msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr "Victoria :"
+msgstr "Garaipena:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
@@ -79,7 +79,7 @@ msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr "Campeonato Country Life :"
+msgstr "Country Life txapelketa:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
@@ -87,7 +87,7 @@ msgstr "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr "Campeonato Square Mountains :"
+msgstr "Square Mountains txapelketa:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
@@ -95,7 +95,7 @@ msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr "Campeonato Pix Cities :"
+msgstr "Pix Cities txapelketa:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -103,7 +103,7 @@ msgstr "\"Bouncing Baal v0.95\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr "Efectos sonoros"
+msgstr "Soinu-efektuak"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
@@ -123,11 +123,11 @@ msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr "Otros efectos sonoros"
+msgstr "Beste soinu-efektuak"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr "Fuentes"
+msgstr "Letra-tipoak"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
@@ -155,11 +155,11 @@ msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
-msgstr "Traducciones"
+msgstr "Itzulpenak"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "Bengali:"
-msgstr "Bengalí :"
+msgstr "Bengalera:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Oymate"
@@ -167,7 +167,7 @@ msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Chinese:"
-msgstr "Chino :"
+msgstr "Txinera:"
 
 #: android/assets/screens/credits.gdxui:69
 msgid "Lu Xu"
@@ -175,11 +175,11 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "French:"
-msgstr "Francés :"
+msgstr "Frantsesa:"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Polish:"
-msgstr "Polaco :"
+msgstr "Poloniera:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "PandaCoderPL"
@@ -187,7 +187,7 @@ msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Russian:"
-msgstr "Ruso :"
+msgstr "Errusiera:"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "Nickoriginal"
@@ -195,7 +195,7 @@ msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Spanish:"
-msgstr "Español :"
+msgstr "Espainiera:"
 
 #: android/assets/screens/credits.gdxui:81
 #: android/assets/screens/credits.gdxui:88
@@ -204,19 +204,19 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Basque:"
-msgstr ""
+msgstr "Euskara"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Video Editing"
-msgstr "Edición de vídeo"
+msgstr "Bideo edizioa"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "Special Thanks"
-msgstr "Gracias a"
+msgstr "Esker bereziak"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Guillaume Roche"
@@ -224,19 +224,19 @@ msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:94
 msgid "Ethan Chapman"
-msgstr "Ethan Chapman"
+msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "All bug reporters"
-msgstr "Los informadores de errores"
+msgstr "Bug jakinarazle???? guztiak"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Los seguidores en Patreon, Ko-fi y Paypal"
+msgstr "Patreon, Ko-fi eta Paypal bidezko xxxxxx guztiak"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Made with"
-msgstr "Creado con"
+msgstr "Honekin egina"
 
 #: android/assets/screens/credits.gdxui:100
 msgid "LibGDX"
@@ -261,225 +261,224 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"Los ajustes que afectan la jugabilidad se modificaron, los marcadores no se "
-"salvarán"
+"Jokaera aldatuko duten ezarpenak aldatu dira, puntuazioak???? ez dira gordeko"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr "RECOMENZAR"
+msgstr "BERRIRO HASI"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr "REGRESO"
+msgstr "MENURA ITZULI"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
-msgstr "CONTINUAR"
+msgstr "JARRAITU"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr "Configuración del mando"
+msgstr "Aginte konfig"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 msgid "Trigger:"
-msgstr "Activar :"
+msgstr "Aktibatu:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr "Regreso / marcha atrás :"
+msgstr "Itzuli / atzera martxa:"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr "Configuración del teclado"
+msgstr "Teklatu konfig"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr "UNO JUGADOR"
+msgstr "JOKALARI BAKARRA"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr "MULTI JUGADORES"
+msgstr "MULTIPLAYER"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr "CARRERA CORTA"
+msgstr "LASTERKETA AZKARRA"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr "CAMPEONATO"
+msgstr "TXAPELKETA"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr "CONFIGURACIÓN"
+msgstr "EZARPENAK"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr "DEJAR"
+msgstr "IRTEN"
 
 #: android/assets/screens/multiplayer.gdxui:5
 #: android/assets/screens/selectvehicle.gdxui:5
 msgid "Select Your Vehicle"
-msgstr "Seleccionas su vehículo"
+msgstr "Aukeratu zure ibiligailua"
 
 #: android/assets/screens/multiplayer.gdxui:8
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Ready!"
-msgstr "Listo !"
+msgstr "Prest!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
-msgstr "Ciertos mandos están faltantes"
+msgstr "Aginte batzuk falta dira"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr "Pausa"
+msgstr "Geldirik"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr "CONTINUAR"
+msgstr "JARRAITU"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr "REGRESO AL MENÚ"
+msgstr "MENURA ATERA"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr "Seleccionas un campeonato"
+msgstr "Aukeratu txapelketa"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Seleccionas el modo de juego"
+msgstr "Joku modua aukeratu"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Seleccionas una pista"
+msgstr "Pista aukeratu"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr "Mejor vuelta"
+msgstr "Itzuli onena"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr "Mejor tiempo total"
+msgstr "Onena denera"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr "Compartir con"
+msgstr "Elkarbanatu"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr "Has encontrado un error ? Utilizas este botón para reportarlo."
+msgstr "Akats bat aurkitu duzu? Jakinarazi iezaguzu botoi honen bidez."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
-msgstr "REPORTAR UN ERROR"
+msgstr "AKATSA JAKINARAZI"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
 msgid "Rank 3 or better at %s championship"
-msgstr "Llegar tercero o mejor al campeonato %s"
+msgstr "3. edo postu hobean ailegatu %s txapelketara"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] "Golpear uno vehículo con un misil"
-msgstr[1] "Golpear %# vehículos con un misil"
+msgstr[0] "Ibilgailu bat misilarekin jo"
+msgstr[1] "%# ibilgailu misilarekin jo"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] "Salir de la carretera una vez"
-msgstr[1] "Salir de la carretera %# veces"
+msgstr[0] "Bidetik behin irten"
+msgstr[1] "Bidetik %# aldiz atera"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] "Coger uno bono"
-msgstr[1] "Coger %# bonos"
+msgstr[0] "Bonus bat hartu"
+msgstr[1] "Hartu %# bonus"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
-msgstr "Mando"
+msgstr "Agintea"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 msgid "Keyboard"
-msgstr "Teclado"
+msgstr "Teklatua"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr "Botones en arco"
+msgstr "Botoiak arkuan"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr "Botones en el lado"
+msgstr "Bazter botoiak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:295
 msgid "Championship Rankings"
-msgstr "Clasificación del campeonato"
+msgstr "Txapelketako Sailkapenak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Race Results"
-msgstr "Resultado de la carrera"
+msgstr "Lasterketako Emaitzak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
 msgid "Congratulations, great race!"
-msgstr "Felicitaciones, magnífica carrera !"
+msgstr "Zorionak, lasterketa ederra!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "You've got some serious driving skills!"
-msgstr "Eres un piloto increíble !"
+msgstr "Gidatze kontuetan trebea zara gero!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You're a champ!"
-msgstr "Eres un campeón !"
+msgstr "Txapelduna zara!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "Congrats for this performance!"
-msgstr "Bravo por esta desempeño !"
+msgstr "Zorionak egindako lanagatik!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Impressive!"
-msgstr "Impresionante !"
+msgstr "Izugarria!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
-msgstr "N°"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 msgid "Best lap"
-msgstr "Mejor vuelta"
+msgstr "Itzuli onena"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
-msgstr "Piloto"
+msgstr "Gidaria"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
-msgstr "Tiempo total"
+msgstr "Denbora guztira"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
-msgstr "Puntos"
+msgstr "Puntuak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 msgid "Race time"
-msgstr "Tiempo de carrera"
+msgstr "Lasterketa denbora"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"
@@ -487,12 +486,12 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
-"Campeonato\n"
-"Terminado !"
+"Txapelketa\n"
+"Bukatu da!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "About"
-msgstr "Informaciones"
+msgstr "Honi buruz"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
 msgid "Pixel Wheels %s"
@@ -500,224 +499,201 @@ msgstr "Pixel Wheels %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:122
 msgid "CREDITS"
-msgstr "CRÉDITO"
+msgstr "KREDITUAK"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
-"Pixel Wheels está gratuito, pero puedes apoyar su desarrollador de varias "
-"maneras."
+"Pixel Wheels doakoa da, baina bere garapenean\n"
+"modu desberdinetan lagundu dezakezu."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid "VISIT SUPPORT PAGE"
-msgstr "PÁGINA DE APOYO"
+msgstr "LAGUNTZA ORRIRA JOAN"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Learn more about Pixel Wheels"
-msgstr "Más información sobre Pixel Wheels"
+msgstr "Ezagutu gehiago Pixel Wheels-i buruz"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "VISIT WEB SITE"
-msgstr "VISITAR EL SITIO WEB"
+msgstr "WEBGUNERA JOAN"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
 msgid "Under the hood"
-msgstr "Bajo el capó"
+msgstr "Kapot azpian"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
-"Estas opciones son principalmente interesantes para el desarrollo de Pixel "
-"Wheels, pero puedes echarle un vistazo !"
+"Ezarpen hauek batez erePixel Wheels-en garapenerako dira interesgarriak, "
+"baina aldatu nahi adina!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "DEV. OPTIONS"
-msgstr ""
-"SECCIÓN DE LOS\n"
-"DESARROLLADORES"
+msgstr "GARAPEN AUKERAK"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Controls"
-msgstr "Controles"
+msgstr "Kontrolak"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Player #%d:"
-msgstr "Jugador #%d:"
+msgstr "#%d Jokalaria:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "Controls:"
-msgstr "Controles :"
+msgstr "Kontrolak:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
 msgid "General"
-msgstr "General"
+msgstr "Orokorra"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "Language:"
-msgstr "Idioma :"
+msgstr "Hizkuntza:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Audio"
-msgstr "Audio"
+msgstr "Audioa"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Sound FX:"
-msgstr "Efectos sonoros :"
+msgstr "Soinu efektuak:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Music:"
-msgstr "Música :"
+msgstr "Musika:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Video"
-msgstr "Vídeo"
+msgstr "Bideoa"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Fullscreen:"
-msgstr "Pantalla completa :"
+msgstr "Pantaila osoa:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
 msgid "CONFIGURE"
-msgstr "CONFIGURAR"
+msgstr "KONFIGURATU"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr "Gracias por jugar !"
+msgstr "Eskerrik asko jostatzeagatik!"
 
 #: core/src/com/agateau/pixelwheels/screens/GamepadConfigScreen.java:74
 msgid "Press the gamepad key..."
-msgstr ""
+msgstr "Aginteko botoi bat sakatu..."
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
-msgstr "Frenar"
+msgstr "Balazta"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Steer left"
-msgstr "Girar a la izquierda"
+msgstr "Ezkerrera biratu"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Steer right"
-msgstr "Girar a la derecha"
+msgstr "Eskuinera biratu"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
-msgstr "Activar"
+msgstr "Aktibatu"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
-msgstr "Alto"
+msgstr "Gora"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
-msgstr "Bajo"
+msgstr "Behera"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
-msgstr "Izquierda"
+msgstr "Ezker"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
-msgstr "Derecha"
+msgstr "Eskuin"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
-msgstr "Activar"
+msgstr "Aktibatu"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
-msgstr "Regreso"
+msgstr "Atzera"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
-msgstr "Faltante"
+msgstr "Faltan"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
-msgstr "OK"
+msgstr "ADOS"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 msgid "Player #%d: %s"
-msgstr "Jugador #%d: %s"
+msgstr "#%d Jokalaria: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
 msgid "MAIN MENU"
-msgstr "MENÚ PRINCIPAL"
+msgstr "MENU NAGUSIA"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
-msgstr "[Bloqueado]"
+msgstr "[Blokeatua]"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr ""
+msgstr "Ibilgailu berria desblokeatua!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
-#, fuzzy
 msgid "New championship unlocked!"
-msgstr ""
-"Campeonato\n"
-"Terminado !"
+msgstr "Txapelketa berria desblokeatua!"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr "1"
+msgstr "1."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr "2"
+msgstr "2."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr "3"
+msgstr "3."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr "4"
+msgstr "4."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr "5"
+msgstr "5."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr "6"
+msgstr "6."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
-"Necesitas crear un informe de error ? Utilizas este botón para encontrar el "
-"fichero de log a adjuntar."
+"Fitxategia behar duzu akatsa jakinarazteko? Erabili botoi hau beharrezko "
+"fitxategia bilatzeko."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "FICHERO DE LOG"
-
-#, fuzzy
-#~ msgid "Down | Brake:"
-#~ msgstr "Frenar :"
-
-#, fuzzy
-#~ msgid "Left | Steer left:"
-#~ msgstr "Girar a la izquierda :"
-
-#, fuzzy
-#~ msgid "Right | Steer right:"
-#~ msgstr "Girar a la derecha :"
-
-#~ msgid "OFF"
-#~ msgstr "No"
-
-#~ msgid "ON"
-#~ msgstr "Sí"
+msgstr "LOG-EN KARPETA IREKI"
