@@ -662,14 +662,12 @@ msgstr "[Заблокировано]"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr ""
+msgstr "Доступен новый трансопри"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 #, fuzzy
 msgid "New championship unlocked!"
-msgstr ""
-"Чемпионат\n"
-"окончен!"
+msgstr "Доступен новый чемпионат!"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
