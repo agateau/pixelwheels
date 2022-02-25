@@ -63,8 +63,13 @@ endif
 
 all: build
 
-clean: clean-assets
-	rm -f $(DESKTOP_JAR) $(TOOLS_JAR)
+clean: clean-assets clean-desktop clean-tools
+
+clean-desktop:
+	rm -f $(DESKTOP_JAR)
+
+clean-tools:
+	rm -f $(TOOLS_JAR)
 
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
