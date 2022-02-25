@@ -30,13 +30,56 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 /** Load a .tmx file and save its corresponding lap position table as a PNG file */
 public class LapPositionTableGenerator {
+    private static class Args {
+        FileHandle tmxFile;
+        FileHandle tableFile;
+
+        boolean parse(String[] arguments) {
+            for (String arg : arguments) {
+                if (arg.equals("-h") || arg.equals("--help")) {
+                    showHelp();
+                    return false;
+                }
+                if (arg.startsWith("-")) {
+                    showError("Unknown option " + arg);
+                    return false;
+                }
+                if (tmxFile == null) {
+                    tmxFile = Gdx.files.absolute(arg);
+                } else if (tableFile == null) {
+                    tableFile = Gdx.files.absolute(arg);
+                } else {
+                    showError("Too many arguments");
+                    return false;
+                }
+            }
+            if (tableFile == null) {
+                showError("Too few arguments");
+                return false;
+            }
+            return true;
+        }
+
+        private static void showError(String message) {
+            System.out.println("ERROR: " + message);
+            showHelp();
+        }
+
+        private static void showHelp() {
+            System.out.println(
+                    "Usage: lappositiontablegenerator [-h|--help] <tmxfile> <tablefile>");
+        }
+    }
+
     public static void main(String[] args) {
         new CommandLineApplication("LapPositionTableGenerator", args) {
             @Override
             int run(String[] arguments) {
-                FileHandle tmxFile = Gdx.files.absolute(arguments[0]);
-                FileHandle tableFile = Gdx.files.absolute(arguments[1]);
-                LapPositionTableGenerator.generateTable(tmxFile, tableFile);
+                Args args = new Args();
+                if (!args.parse(arguments)) {
+                    return 1;
+                }
+                LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
                 return 0;
             }
         };
