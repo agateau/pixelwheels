@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -50,6 +51,7 @@ public class HudContent {
     private final Array<Label> mRankLabels = new Array<>();
     private final Array<Label> mLapLabels = new Array<>();
     private final Label mCountDownLabel;
+    private VerticalGroup mDebugGroup = null;
     private Label mDebugLabel = null;
 
     private final StringBuilder mStringBuilder = new StringBuilder();
@@ -112,12 +114,22 @@ public class HudContent {
         }
     }
 
-    public void setPerformanceCounters(PerformanceCounters performanceCounters) {
+    public void initDebugHud(PerformanceCounters performanceCounters) {
         mPerformanceCounters = performanceCounters;
+
+        mDebugGroup = new VerticalGroup();
         mDebugLabel = new Label("D", mAssets.ui.skin, "tiny");
 
         AnchorGroup root = mHud.getRoot();
-        root.addPositionRule(mDebugLabel, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);
+        root.addPositionRule(mDebugGroup, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);
+
+        mDebugGroup.addActor(mDebugLabel);
+        mDebugGroup.pack();
+    }
+
+    public void addDebugActor(Actor actor) {
+        mDebugGroup.addActor(actor);
+        mDebugGroup.pack();
     }
 
     public void createPauseButton(ClickListener clickListener) {

@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.racer.Pilot;
 import com.agateau.pixelwheels.racer.PlayerPilot;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.RacerDebugShape;
+import com.agateau.pixelwheels.racescreen.debug.MineDropper;
 import com.agateau.pixelwheels.screens.ConfigScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.utils.log.NLog;
@@ -106,7 +107,7 @@ public class RaceScreen extends ScreenAdapter {
 
         mAudioClipper = createAudioClipper();
 
-        setupMineDropper();
+        setupDebugTools();
     }
 
     private void startMusic() {
@@ -114,10 +115,11 @@ public class RaceScreen extends ScreenAdapter {
         mGame.getAudioManager().playMusic(musicId);
     }
 
-    private void setupMineDropper() {
-        // Bind the mine dropper to the free camera for now
-        if (GamePlay.instance.freeCamera) {
-            mGameWorld.addGameObject(new MineDropper(mGame, mGameWorld, mGameRenderer));
+    private void setupDebugTools() {
+        if (Debug.instance.showDebugHud) {
+            MineDropper dropper = new MineDropper(mGame, mGameWorld, mGameRenderer);
+            mGameWorld.addGameObject(dropper);
+            mHudContent.addDebugActor(dropper.createDebugButton());
         }
     }
 
@@ -134,7 +136,7 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         if (Debug.instance.showDebugHud) {
-            mHudContent.setPerformanceCounters(mPerformanceCounters);
+            mHudContent.initDebugHud(mPerformanceCounters);
         }
 
         if (GameInputHandlerFactories.hasMultitouch()) {
