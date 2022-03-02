@@ -67,20 +67,8 @@
   <properties>
    <property name="direction" value="90"/>
   </properties>
-  <object id="30" x="800.389" y="703.791" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="37" x="555.814" y="1598.73" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="38" x="3014.65" y="1199.16" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="43" x="2954.79" y="1642.91" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="63" x="2568.39" y="1150.5" width="64" height="64">
-   <ellipse/>
+  <object id="73" x="477" y="1179">
+   <polyline points="81.8182,-30.303 280.969,-387.879 449.7,-431.259 2087.88,32 2419.15,70.4243 2537.37,187.382 2499.46,415.607 2367.64,508 141.109,513.044 86.7879,459.515"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="BonusSpots" visible="0">

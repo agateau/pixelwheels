@@ -24,6 +24,7 @@ import com.badlogic.gdx.Gdx;
 /** Implementation of Printer using Gdx.app logging facilities */
 public class GdxPrinter implements NLog.Printer {
     private final String mPrefix;
+    private final StringBuilder mStringBuilder = new StringBuilder();
 
     public GdxPrinter() {
         this("");
@@ -37,6 +38,14 @@ public class GdxPrinter implements NLog.Printer {
     @Override
     public void print(int level, String tag, String message) {
         tag = mPrefix + tag;
+
+        // Add timestamp
+        mStringBuilder.setLength(0);
+        NLogPrinterUtils.appendTimeStamp(mStringBuilder);
+        mStringBuilder.append(' ');
+        mStringBuilder.append(message);
+        message = mStringBuilder.toString();
+
         if (level == Application.LOG_DEBUG) {
             Gdx.app.debug(tag, message);
         } else if (level == Application.LOG_INFO) {

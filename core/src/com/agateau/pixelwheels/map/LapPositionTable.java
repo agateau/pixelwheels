@@ -66,6 +66,7 @@ public class LapPositionTable {
         mSections.add(new LapSection(sectionId, polygon));
     }
 
+    /** unit: pixels */
     public LapPosition get(int x, int y) {
         for (LapSection zone : mSections) {
             if (zone.mPolygon.contains(x, y)) {

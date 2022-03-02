@@ -68,57 +68,9 @@
    <polyline points="183.088,-522.738 42.088,-902.072"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints" visible="0">
-  <object id="16" x="1914.88" y="437.42" width="51.5152" height="51.5152">
-   <ellipse/>
-  </object>
-  <object id="18" x="865.255" y="466.84" width="57.5758" height="45.4545">
-   <ellipse/>
-  </object>
-  <object id="19" x="756.116" y="967.916" width="48.4848" height="45.4545">
-   <ellipse/>
-  </object>
-  <object id="20" x="791.814" y="1785.25" width="54.5455" height="60.6061">
-   <ellipse/>
-  </object>
-  <object id="21" x="1034.85" y="2114.19" width="63.6364" height="48.4848">
-   <ellipse/>
-  </object>
-  <object id="22" x="1293.76" y="2219.15" width="63.6364" height="36.3636">
-   <ellipse/>
-  </object>
-  <object id="23" x="2141.94" y="1413.7" width="45.4545" height="39.3939">
-   <ellipse/>
-  </object>
-  <object id="24" x="2378.3" y="1380.36" width="60.6061" height="60.6061">
-   <ellipse/>
-  </object>
-  <object id="25" x="2590.42" y="1637.94" width="48.4848" height="60.6061">
-   <ellipse/>
-  </object>
-  <object id="26" x="2563.15" y="1840.97" width="39.3939" height="42.4242">
-   <ellipse/>
-  </object>
-  <object id="27" x="2287.39" y="2080.36" width="39.3939" height="45.4545">
-   <ellipse/>
-  </object>
-  <object id="28" x="2298.54" y="2246.33" width="54.5455" height="57.5758">
-   <ellipse/>
-  </object>
-  <object id="29" x="2557.09" y="2344" width="57.5758" height="48.4848">
-   <ellipse/>
-  </object>
-  <object id="30" x="3105.99" y="2221.96" width="63.6364" height="57.5758">
-   <ellipse/>
-  </object>
-  <object id="31" x="3231.65" y="2022.78" width="42.4242" height="48.4848">
-   <ellipse/>
-  </object>
-  <object id="53" x="1552" y="378.086" width="69.697" height="51.5152">
-   <ellipse/>
-  </object>
-  <object id="86" x="3117.15" y="1228.24" width="69.697" height="51.5152">
-   <ellipse/>
+ <objectgroup id="7" name="Waypoints">
+  <object id="90" x="3234.67" y="1533.33">
+   <polyline points="0,0 -120,-253.333 -1320,-1048 -1684,-1104 -2369.33,-1013.33 -2481.33,-524 -2444,308 -2200,628 -1937.33,725.333 -1088,-76 -854.667,-96 -641.333,161.333 -673.333,349.333 -949.333,593.333 -933.333,768 -678.667,860 -125.333,750.667 -1.33333,538.667"/>
   </object>
  </objectgroup>
  <objectgroup id="6" name="Sections" visible="0">

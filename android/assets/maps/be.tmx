@@ -80,35 +80,8 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Waypoints" visible="0">
-  <object id="18" x="465" y="574" width="32" height="46">
-   <ellipse/>
-  </object>
-  <object id="20" x="1965.33" y="471.333" width="64" height="46">
-   <ellipse/>
-  </object>
-  <object id="21" x="1133.7" y="2154.98" width="46" height="50">
-   <ellipse/>
-  </object>
-  <object id="22" x="1102.28" y="3146.04" width="52" height="56">
-   <ellipse/>
-  </object>
-  <object id="24" x="526.182" y="1418.06">
-   <ellipse/>
-  </object>
-  <object id="25" x="850.323" y="4180.52" width="58" height="54">
-   <ellipse/>
-  </object>
-  <object id="26" x="1881.7" y="1616.79" width="69.697" height="60.6061">
-   <ellipse/>
-  </object>
-  <object id="45" x="1453.78" y="3742.02" width="58" height="54">
-   <ellipse/>
-  </object>
-  <object id="47" x="328.604" y="3679.34" width="48" height="46">
-   <ellipse/>
-  </object>
-  <object id="76" x="375.758" y="2621.21" width="30.303" height="30.303">
-   <ellipse/>
+  <object id="78" x="342" y="3340">
+   <polyline points="-22,-12 25.6667,-679.667 160.5,-1899 115.333,-2719 1633.5,-2820.5 1548.33,-1668 793,-1134 761.667,-143.333 1119,454 515,892.667 -13,384"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="BonusSpots" visible="0">
