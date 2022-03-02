@@ -91,7 +91,7 @@ The first segment must be aligned with the *beginning* of the finish line.
 
 ### Waypoints
 
-A "Waypoints" object layer containing ellipsis indicating where AI pilots should go.
+A "Waypoints" object layer containing a polyline indicating where AI pilots should go.
 
 ### Bonuses
 

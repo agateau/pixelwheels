@@ -355,36 +355,9 @@
    <polyline points="-325.367,-751.909 610.107,-1296.42"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints" visible="0">
-  <object id="55" x="581.705" y="559.354" width="19.3016" height="17.9311">
-   <ellipse/>
-  </object>
-  <object id="57" x="1170.86" y="527.652" width="25.2442" height="26.2482">
-   <ellipse/>
-  </object>
-  <object id="59" x="1928.47" y="1370.59">
-   <ellipse/>
-  </object>
-  <object id="61" x="3702.84" y="1118.99">
-   <ellipse/>
-  </object>
-  <object id="64" x="3708.51" y="2965.5">
-   <ellipse/>
-  </object>
-  <object id="67" x="581.705" y="2970.76">
-   <ellipse/>
-  </object>
-  <object id="77" x="2480.4" y="512.697">
-   <ellipse/>
-  </object>
-  <object id="79" x="3439.06" y="521.139">
-   <ellipse/>
-  </object>
-  <object id="70" x="1395.94" y="1396.42" width="16.8377" height="14.8377">
-   <ellipse/>
-  </object>
-  <object id="137" x="538" y="2190" width="18" height="20">
-   <ellipse/>
+ <objectgroup id="7" name="Waypoints">
+  <object id="150" x="539" y="2210">
+   <polyline points="0,0 42.3333,-1638 630.333,-1658 857,-800.667 1379.33,-830 1931.33,-1687.67 2890,-1678.5 3154,-1082 3159.25,745.5 32,770.333"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="BonusSpots" visible="0">

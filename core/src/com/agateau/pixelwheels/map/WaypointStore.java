@@ -23,9 +23,7 @@ import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -34,8 +32,8 @@ public class WaypointStore {
     private static final OrientedPoint tmpPoint = new OrientedPoint();
 
     private static class WaypointInfo implements Comparable {
+        final Vector2 waypoint = new Vector2();
         float lapDistance;
-        Vector2 waypoint;
 
         @Override
         public int compareTo(Object o) {
@@ -49,17 +47,22 @@ public class WaypointStore {
     public void read(MapLayer layer, LapPositionTable lapPositionTable) {
         final float U = Constants.UNIT_FOR_PIXEL;
 
-        for (MapObject object : layer.getObjects()) {
-            Assert.check(
-                    object instanceof EllipseMapObject,
-                    "Waypoints layer should contains only ellipses. "
-                            + object
-                            + " is not an ellipse.");
-            Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
-            final LapPosition pos = lapPositionTable.get((int) ellipse.x, (int) ellipse.y);
-            Assert.check(pos != null, "No position at " + ellipse.x + "x" + ellipse.y);
+        Assert.check(
+                layer.getObjects().getCount() == 1,
+                "Waypoints layer should contain 1 and only 1 object");
+
+        PolylineMapObject polylineMapObject = (PolylineMapObject) layer.getObjects().get(0);
+        float[] vertices = polylineMapObject.getPolyline().getTransformedVertices();
+        int count = vertices.length / 2;
+
+        for (int idx = 0; idx < count; ++idx) {
+            int x = (int) vertices[2 * idx];
+            int y = (int) vertices[2 * idx + 1];
+            final LapPosition pos = lapPositionTable.get(x, y);
+            Assert.check(pos != null, "No position at " + x + "x" + y);
+
             WaypointInfo info = new WaypointInfo();
-            info.waypoint = new Vector2(ellipse.x * U, ellipse.y * U);
+            info.waypoint.set(x, y).scl(U);
             info.lapDistance = pos.getLapDistance();
             mWaypointInfos.add(info);
         }
