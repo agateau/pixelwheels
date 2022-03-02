@@ -82,6 +82,7 @@ public class WaypointStore {
         return mWaypointInfos.size;
     }
 
+    /** unit: world */
     public OrientedPoint getValidPosition(Vector2 pos, float lapDistance) {
         int nextIdx = getWaypointIndex(lapDistance);
         int prevIdx = getPreviousIndex(nextIdx);

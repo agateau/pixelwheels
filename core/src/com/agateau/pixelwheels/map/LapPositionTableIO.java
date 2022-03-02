@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.map;
 import com.agateau.utils.AgcMathUtils;
 import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -124,27 +123,5 @@ public class LapPositionTableIO {
             table.addSection(polygon);
         }
         return table;
-    }
-
-    public static Pixmap createPixmap(LapPositionTable table, int width, int height) {
-        NLog.i("Saving");
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        for (int y = 0; y < height; ++y) {
-            NLog.i("Saving %d/%d", y, height);
-            for (int x = 0; x < width; ++x) {
-                LapPosition pos = table.get(x, y);
-                int color;
-                if (pos == null) {
-                    color = 0;
-                } else {
-                    int r = (int) ((1 - Math.abs(pos.getCenterDistance())) * 255);
-                    int g = pos.getSectionId() * 255 / table.getSectionCount();
-                    int b = (int) (pos.getSectionDistance() * 255);
-                    color = (r << 24) | (g << 16) | (b << 8) | 0xff;
-                }
-                pixmap.drawPixel(x, height - 1 - y, color);
-            }
-        }
-        return pixmap;
     }
 }

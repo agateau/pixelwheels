@@ -32,6 +32,7 @@ import com.agateau.pixelwheels.racer.Pilot;
 import com.agateau.pixelwheels.racer.PlayerPilot;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.RacerDebugShape;
+import com.agateau.pixelwheels.racescreen.debug.DropLocationDebugObject;
 import com.agateau.pixelwheels.racescreen.debug.MineDropper;
 import com.agateau.pixelwheels.screens.ConfigScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
@@ -120,6 +121,13 @@ public class RaceScreen extends ScreenAdapter {
             MineDropper dropper = new MineDropper(mGame, mGameWorld, mGameRenderer);
             mGameWorld.addGameObject(dropper);
             mHudContent.addDebugActor(dropper.createDebugButton());
+
+            DropLocationDebugObject dropLocationDebugObject =
+                    new DropLocationDebugObject(
+                            mGame.getAssets(), mGameRenderer, mGameWorld.getTrack());
+            mGameWorld.addGameObject(dropLocationDebugObject);
+            mHudContent.addDebugActor(
+                    dropLocationDebugObject.createDebugButton(mGame.getAssets().ui.skin));
         }
     }
 
