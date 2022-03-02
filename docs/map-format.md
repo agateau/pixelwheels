@@ -14,7 +14,7 @@ Tracks are grouped in championships. Championships are defined as XML files in t
 
 Championship files are named `<N>.xml` with N starting from 0.
 
-A championship file as the following syntax:
+A championship file follows the following format:
 
 ```xml
 <?xml version="1.0"?>
