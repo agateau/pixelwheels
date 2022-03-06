@@ -48,6 +48,7 @@ public class TrackEditorScreen extends StageScreen {
     private final OrthographicCamera mCamera = new OrthographicCamera();
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final Array<EditorAction> mEditorActions = new Array<>();
+    private final Vector2 mViewCenter = new Vector2();
 
     private OrthogonalTiledMapRenderer mRenderer;
     private float mZoom = 1f;
@@ -74,7 +75,7 @@ public class TrackEditorScreen extends StageScreen {
     public void render(float delta) {
         super.render(delta);
 
-        act(delta);
+        act();
         updateCamera();
         drawMap();
         drawSections();
@@ -176,33 +177,61 @@ public class TrackEditorScreen extends StageScreen {
         action.undo();
     }
 
-    private void act(float delta) {
+    private void act() {
+        boolean control = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)
+                || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
+        boolean shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
+                || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
+        int delta = shift ? 12 : 1;
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)) {
+            // Zoom
             mZoom *= 2;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
             mZoom /= 2;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+        }
+        // Previous / Next
+        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
             mCurrentLineIdx = (mCurrentLineIdx + 1) % mLines.size;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        }
+        // Scroll
+        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            scroll(-delta, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+            scroll(delta, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            scroll(0, delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+            scroll(0, -delta);
+        }
+        // Actions
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             addAction(new InsertSectionAction());
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            addAction(new MoveSectionAction(-1, 0));
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            addAction(new MoveSectionAction(-delta, 0));
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            addAction(new MoveSectionAction(1, 0));
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            addAction(new MoveSectionAction(0, 1));
+            addAction(new MoveSectionAction(delta, 0));
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            addAction(new MoveSectionAction(0, delta));
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            addAction(new MoveSectionAction(0, -1));
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.S)
-                && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            addAction(new MoveSectionAction(0, -delta));
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S) && control) {
             doSave();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.Z)
-                && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z) && control) {
             undo();
         }
         save();
+    }
+
+    private void scroll(int dx, int dy) {
+        mViewCenter.add(dx, dy);
     }
 
     private void updateCamera() {
@@ -212,7 +241,7 @@ public class TrackEditorScreen extends StageScreen {
         mCamera.viewportHeight = height;
         mCamera.zoom = 1 / mZoom;
 
-        mCamera.position.set(width / 2, height / 2, 0);
+        mCamera.position.set(mViewCenter, 0);
         mCamera.update();
 
         width *= mCamera.zoom;
