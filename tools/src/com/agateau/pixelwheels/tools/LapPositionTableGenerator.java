@@ -86,8 +86,13 @@ public class LapPositionTableGenerator {
                 if (!args.parse(arguments)) {
                     return 1;
                 }
-                LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
-                return 0;
+                try {
+                    LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
+                    return 0;
+                } catch (Exception exc) {
+                    NLog.e(exc);
+                    return 1;
+                }
             }
         };
     }
