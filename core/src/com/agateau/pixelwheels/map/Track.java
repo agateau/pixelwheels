@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.stats.TrackStats;
@@ -66,7 +67,7 @@ public class Track implements Disposable {
     private LapPositionTable mLapPositionTable;
     private Color mBackgroundColor;
 
-    private static final TmxMapLoader sMapLoader = new TmxMapLoader();
+    private static final TmxMapLoader sMapLoader = new AgcTmxMapLoader();
     private static final TmxMapLoader.Parameters sMapLoaderParameters =
             new TmxMapLoader.Parameters();
 

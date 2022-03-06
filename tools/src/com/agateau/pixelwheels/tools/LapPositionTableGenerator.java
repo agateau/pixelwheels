@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.tools;
 
+import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.map.LapPosition;
 import com.agateau.pixelwheels.map.LapPositionTable;
 import com.agateau.pixelwheels.map.LapPositionTableIO;
@@ -30,7 +31,6 @@ import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -93,7 +93,7 @@ public class LapPositionTableGenerator {
     }
 
     public static void generateTable(FileHandle tmxFile, FileHandle tableFile) {
-        TiledMap map = new TmxMapLoader().load(tmxFile.path());
+        TiledMap map = new AgcTmxMapLoader().load(tmxFile.path());
         LapPositionTable table = LapPositionTableIO.load(map);
 
         NLog.i("Drawing map");
