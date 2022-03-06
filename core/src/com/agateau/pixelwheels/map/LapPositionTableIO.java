@@ -38,10 +38,10 @@ import java.util.Set;
  * docs/map-format.md
  */
 public class LapPositionTableIO {
-    private static class Line {
-        final Vector2 p1 = new Vector2();
-        final Vector2 p2 = new Vector2();
-        float order;
+    public static class Line {
+        public final Vector2 p1 = new Vector2();
+        public final Vector2 p2 = new Vector2();
+        public float order;
 
         public void swapPoints() {
             float x = p1.x;
@@ -51,11 +51,10 @@ public class LapPositionTableIO {
         }
     }
 
-    public static LapPositionTable load(TiledMap map) {
+    public static Array<Line> loadSectionLines(TiledMap map) {
         MapLayer layer = map.getLayers().get("Sections");
         Assert.check(layer != null, "No 'Sections' layer found");
         MapObjects objects = layer.getObjects();
-
         Array<Line> lines = new Array<>();
         lines.ensureCapacity(objects.getCount());
         Set<String> names = new HashSet<>();
@@ -89,6 +88,12 @@ public class LapPositionTableIO {
             lines.add(line);
         }
         lines.sort((l1, l2) -> Float.compare(l1.order, l2.order));
+
+        return lines;
+    }
+
+    public static LapPositionTable load(TiledMap map) {
+        Array<Line> lines = loadSectionLines(map);
 
         LapPositionTable table = new LapPositionTable();
         for (int idx = 0; idx < lines.size; ++idx) {
