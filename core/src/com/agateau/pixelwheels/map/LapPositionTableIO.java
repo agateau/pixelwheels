@@ -38,15 +38,10 @@ import java.util.Set;
  * docs/map-format.md
  */
 public class LapPositionTableIO {
-    private static class Line implements Comparable {
+    private static class Line {
         final Vector2 p1 = new Vector2();
         final Vector2 p2 = new Vector2();
         float order;
-
-        @Override
-        public int compareTo(Object o) {
-            return Float.compare(order, ((Line) o).order);
-        }
 
         public void swapPoints() {
             float x = p1.x;
@@ -93,7 +88,7 @@ public class LapPositionTableIO {
             line.order = order;
             lines.add(line);
         }
-        lines.sort();
+        lines.sort((l1, l2) -> Float.compare(l1.order, l2.order));
 
         LapPositionTable table = new LapPositionTable();
         for (int idx = 0; idx < lines.size; ++idx) {
