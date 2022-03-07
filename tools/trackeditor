@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+OLD_PWD=$PWD
+cd $(dirname $0)
+TOOLS_DIR=$PWD
+cd $OLD_PWD
+
+java -cp $TOOLS_DIR/build/libs/tools-1.0.jar com.agateau.pixelwheels.tools.trackeditor.TrackEditor $@
