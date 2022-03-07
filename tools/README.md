@@ -29,6 +29,7 @@ Java source code for:
 - Packer: Turns individual PNG files into atlases. Used when building the game.
 - LapPositionTableGenerator: Loads a TMX file and generates a PNG of the various track sections. Helper tool to find problems when creating tracks.
 - MapScreenshotGenerator: Loads a TMX file and creates a small PNG file of it. The created PNG can be used as a starting point to create the track icon.
+- TrackEditor: Tool to edit some aspects of a track more easily than with Tiled. More details in [src/com/agateau/pixelwheels/tools/trackeditor/README.md](src/com/agateau/pixelwheels/tools/trackeditor/README.md).
 
 ## apply-codingstyle
 

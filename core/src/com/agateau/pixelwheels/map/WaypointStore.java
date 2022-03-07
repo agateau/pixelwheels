@@ -31,15 +31,9 @@ import com.badlogic.gdx.utils.Array;
 public class WaypointStore {
     private static final OrientedPoint tmpPoint = new OrientedPoint();
 
-    private static class WaypointInfo implements Comparable {
+    private static class WaypointInfo {
         final Vector2 waypoint = new Vector2();
         float lapDistance;
-
-        @Override
-        public int compareTo(Object o) {
-            WaypointInfo other = (WaypointInfo) o;
-            return Float.compare(lapDistance, other.lapDistance);
-        }
     }
 
     private final Array<WaypointInfo> mWaypointInfos = new Array<>();
@@ -66,7 +60,7 @@ public class WaypointStore {
             info.lapDistance = pos.getLapDistance();
             mWaypointInfos.add(info);
         }
-        mWaypointInfos.sort();
+        mWaypointInfos.sort((w1, w2) -> Float.compare(w1.lapDistance, w2.lapDistance));
     }
 
     public Vector2 getWaypoint(int index) {

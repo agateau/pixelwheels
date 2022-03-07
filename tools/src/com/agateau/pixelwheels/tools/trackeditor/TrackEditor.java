@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2022 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,14 +16,17 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.agateau.pixelwheels.tools;
+package com.agateau.pixelwheels.tools.trackeditor;
 
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.map.LapPosition;
 import com.agateau.pixelwheels.map.LapPositionTable;
 import com.agateau.pixelwheels.map.LapPositionTableIO;
 import com.agateau.utils.log.NLog;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -35,11 +38,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-/** Load a .tmx file and save its corresponding lap position table as a PNG file */
-public class LapPositionTableGenerator {
+public class TrackEditor extends Game {
     private static class Args {
-        FileHandle tmxFile;
-        FileHandle tableFile;
+        String tmxFilePath;
 
         boolean parse(String[] arguments) {
             for (String arg : arguments) {
@@ -51,16 +52,14 @@ public class LapPositionTableGenerator {
                     showError("Unknown option " + arg);
                     return false;
                 }
-                if (tmxFile == null) {
-                    tmxFile = Gdx.files.absolute(arg);
-                } else if (tableFile == null) {
-                    tableFile = Gdx.files.absolute(arg);
+                if (tmxFilePath == null) {
+                    tmxFilePath = arg;
                 } else {
                     showError("Too many arguments");
                     return false;
                 }
             }
-            if (tableFile == null) {
+            if (tmxFilePath == null) {
                 showError("Too few arguments");
                 return false;
             }
@@ -73,28 +72,33 @@ public class LapPositionTableGenerator {
         }
 
         private static void showHelp() {
-            System.out.println(
-                    "Usage: lappositiontablegenerator [-h|--help] <tmxfile> <tablefile>");
+            System.out.println("Usage: trackeditor [-h|--help] <tmxfile>");
         }
     }
 
-    public static void main(String[] args) {
-        new CommandLineApplication("LapPositionTableGenerator", args) {
-            @Override
-            int run(String[] arguments) {
-                Args args = new Args();
-                if (!args.parse(arguments)) {
-                    return 1;
-                }
-                try {
-                    LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
-                    return 0;
-                } catch (Exception exc) {
-                    NLog.e(exc);
-                    return 1;
-                }
-            }
-        };
+    private final Args mArgs;
+
+    public TrackEditor(Args args) {
+        mArgs = args;
+    }
+
+    public static void main(String[] arguments) {
+        Args args = new Args();
+        if (!args.parse(arguments)) {
+            System.exit(1);
+        }
+
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 960;
+        config.height = 540;
+        config.title = "Track Editor";
+        config.forceExit = false;
+        new LwjglApplication(new TrackEditor(args), config);
+    }
+
+    @Override
+    public void create() {
+        setScreen(new TrackEditorScreen(Gdx.files.absolute(mArgs.tmxFilePath)));
     }
 
     public static void generateTable(FileHandle tmxFile, FileHandle tableFile) {
