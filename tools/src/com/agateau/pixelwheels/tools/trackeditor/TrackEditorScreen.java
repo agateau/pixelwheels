@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.tools.trackeditor;
 
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.map.LapPositionTableIO;
+import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.ui.StageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -36,12 +37,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.HashSet;
+
 public class TrackEditorScreen extends StageScreen {
     private static final Color CURRENT_COLOR = Color.RED;
     private static final Color NORMAL_COLOR = Color.WHITE;
     private static final Vector2 NEW_DELTA = new Vector2(12, 12);
     private static final float MOVE_UNIT = 1;
     private static final long AUTO_SAVE_INTERVAL_MS = 10 * 1000;
+    private static final float CROSS_RADIUS = 12;
     private final FileHandle mTmxFile;
     private final TrackIO mTrackIO;
     private final SpriteBatch mBatch = new SpriteBatch();
@@ -51,9 +55,13 @@ public class TrackEditorScreen extends StageScreen {
     private final Vector2 mViewCenter = new Vector2();
 
     private OrthogonalTiledMapRenderer mRenderer;
-    private float mZoom = 1f;
     private Array<LapPositionTableIO.Line> mLines;
+    private float mZoom = 1f;
+
     private int mCurrentLineIdx = 0;
+    private boolean mSelectP1 = true;
+    private boolean mSelectP2 = true;
+
     private long mNeedSaveSince = 0;
 
     public TrackEditorScreen(FileHandle tmxFile) {
@@ -119,41 +127,53 @@ public class TrackEditorScreen extends StageScreen {
         }
     }
 
-    private class MoveSectionAction implements EditorAction {
+    private class MoveSelectionAction implements EditorAction {
         private final Vector2 mDelta = new Vector2();
-        private final int mLineIdx;
+        private final Array<Vector2> mPoints = new Array<>(/*ordered=*/false, 2);
 
-        public MoveSectionAction(int dx, int dy) {
-            mLineIdx = mCurrentLineIdx;
+        public MoveSelectionAction(int dx, int dy) {
+            mPoints.clear();
+            LapPositionTableIO.Line line = mLines.get(mCurrentLineIdx);
+            if (mSelectP1) {
+                mPoints.add(line.p1);
+            }
+            if (mSelectP2) {
+                mPoints.add(line.p2);
+            }
             mDelta.set(dx, dy).scl(MOVE_UNIT);
         }
 
         @Override
         public void undo() {
-            LapPositionTableIO.Line line = mLines.get(mLineIdx);
-            line.p1.sub(mDelta);
-            line.p2.sub(mDelta);
+            for (Vector2 point : mPoints) {
+                point.sub(mDelta);
+            }
             markNeedSave();
         }
 
         @Override
         public void redo() {
-            LapPositionTableIO.Line line = mLines.get(mLineIdx);
-            line.p1.add(mDelta);
-            line.p2.add(mDelta);
+            for (Vector2 point : mPoints) {
+                point.add(mDelta);
+            }
             markNeedSave();
         }
 
         @Override
-        public boolean mergeWith(EditorAction other) {
-            if (!(other instanceof MoveSectionAction)) {
+        public boolean mergeWith(EditorAction otherAction) {
+            if (!(otherAction instanceof MoveSelectionAction)) {
                 return false;
             }
-            MoveSectionAction otherMove = (MoveSectionAction) other;
-            if (mLineIdx != otherMove.mLineIdx) {
+            MoveSelectionAction other = (MoveSelectionAction) otherAction;
+            if (mPoints.size != other.mPoints.size) {
                 return false;
             }
-            mDelta.add(otherMove.mDelta);
+            // Use identity because we want to know if the action affects the same line ends, not if
+            // the line ends are at the same position (they are not)
+            if (!mPoints.containsAll(other.mPoints, /* identity=*/true)) {
+                return false;
+            }
+            mDelta.add(other.mDelta);
             return true;
         }
     }
@@ -196,6 +216,13 @@ public class TrackEditorScreen extends StageScreen {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+            selectPoint(true, false);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.F2)) {
+            selectPoint(false, true);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.F3)) {
+            selectPoint(true, true);
+        }
         // Scroll
         if (Gdx.input.isKeyPressed(Input.Keys.H)) {
             scroll(-delta, 0);
@@ -212,14 +239,14 @@ public class TrackEditorScreen extends StageScreen {
             addAction(new InsertSectionAction());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            addAction(new MoveSectionAction(-delta, 0));
+            addAction(new MoveSelectionAction(-delta, 0));
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            addAction(new MoveSectionAction(delta, 0));
+            addAction(new MoveSelectionAction(delta, 0));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            addAction(new MoveSectionAction(0, delta));
+            addAction(new MoveSelectionAction(0, delta));
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            addAction(new MoveSectionAction(0, -delta));
+            addAction(new MoveSelectionAction(0, -delta));
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.S) && control) {
             doSave();
@@ -228,6 +255,11 @@ public class TrackEditorScreen extends StageScreen {
             undo();
         }
         save();
+    }
+
+    private void selectPoint(boolean p1, boolean p2) {
+        mSelectP1 = p1;
+        mSelectP2 = p2;
     }
 
     private void scroll(int dx, int dy) {
@@ -284,6 +316,12 @@ public class TrackEditorScreen extends StageScreen {
         }
         mShapeRenderer.line(line.p1, line.p2);
         if (idx == mCurrentLineIdx) {
+            if (mSelectP1) {
+                DrawUtils.drawCross(mShapeRenderer, line.p1, CROSS_RADIUS);
+            }
+            if (mSelectP2) {
+                DrawUtils.drawCross(mShapeRenderer, line.p2, CROSS_RADIUS);
+            }
             mShapeRenderer.setColor(NORMAL_COLOR);
         }
     }
