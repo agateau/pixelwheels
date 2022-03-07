@@ -37,8 +37,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.HashSet;
-
 public class TrackEditorScreen extends StageScreen {
     private static final Color CURRENT_COLOR = Color.RED;
     private static final Color NORMAL_COLOR = Color.WHITE;
@@ -129,7 +127,7 @@ public class TrackEditorScreen extends StageScreen {
 
     private class MoveSelectionAction implements EditorAction {
         private final Vector2 mDelta = new Vector2();
-        private final Array<Vector2> mPoints = new Array<>(/*ordered=*/false, 2);
+        private final Array<Vector2> mPoints = new Array<>(/*ordered=*/ false, 2);
 
         public MoveSelectionAction(int dx, int dy) {
             mPoints.clear();
@@ -170,7 +168,7 @@ public class TrackEditorScreen extends StageScreen {
             }
             // Use identity because we want to know if the action affects the same line ends, not if
             // the line ends are at the same position (they are not)
-            if (!mPoints.containsAll(other.mPoints, /* identity=*/true)) {
+            if (!mPoints.containsAll(other.mPoints, /* identity=*/ true)) {
                 return false;
             }
             mDelta.add(other.mDelta);
@@ -181,7 +179,7 @@ public class TrackEditorScreen extends StageScreen {
     private void addAction(EditorAction action) {
         action.redo();
         if (!mEditorActions.isEmpty()) {
-            EditorAction lastAction =  mEditorActions.get(mEditorActions.size - 1);
+            EditorAction lastAction = mEditorActions.get(mEditorActions.size - 1);
             if (lastAction.mergeWith(action)) {
                 return;
             }
@@ -198,14 +196,17 @@ public class TrackEditorScreen extends StageScreen {
     }
 
     private void act() {
-        boolean control = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)
-                || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
-        boolean shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
-                || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
+        boolean control =
+                Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)
+                        || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
+        boolean shift =
+                Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
+                        || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
         int delta = shift ? 12 : 1;
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)) {
-            // Zoom
+        // Zoom
+        if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)
+                || Gdx.input.isKeyJustPressed(Input.Keys.PLUS)) {
             mZoom *= 2;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
             mZoom /= 2;
