@@ -212,10 +212,12 @@ public class TrackEditorScreen extends StageScreen {
             mZoom /= 2;
         }
         // Previous / Next
-        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-            mCurrentLineIdx = (mCurrentLineIdx + 1) % mLines.size;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            if (shift) {
+                mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
+            } else {
+                mCurrentLineIdx = (mCurrentLineIdx + 1) % mLines.size;
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
             selectPoint(true, false);
