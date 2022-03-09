@@ -35,7 +35,6 @@ import com.badlogic.gdx.utils.Array;
 
 /** Renders a vehicle */
 public class VehicleRenderer implements Renderer {
-    private static final Color IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
     private final Assets mAssets;
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<>();
@@ -58,6 +57,18 @@ public class VehicleRenderer implements Renderer {
     }
 
     private final Color mBatchColor = new Color();
+
+    public Color getBatchColor() {
+        if (mVehicle.isFalling()) {
+            float k = MathUtils.clamp(1 + mVehicle.getZ() * 10, 0, 1);
+            // k = 0 fully immersed, k = 1 not immersed
+            mBatchColor.set(Constants.FULLY_IMMERSED_COLOR);
+            mBatchColor.lerp(Color.WHITE, k);
+        } else {
+            mBatchColor.set(Color.WHITE);
+        }
+        return mBatchColor;
+    }
 
     @Override
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
@@ -92,15 +103,10 @@ public class VehicleRenderer implements Renderer {
         }
 
         if (mVehicle.isFalling()) {
-            float k = MathUtils.clamp(1 + mVehicle.getZ() * 10, 0, 1);
-            // k = 0 fully immersed, k = 1 not immersed
-            mBatchColor.set(IMMERSED_COLOR);
-            mBatchColor.lerp(Color.WHITE, k);
-            batch.setColor(mBatchColor);
+            batch.setColor(getBatchColor());
         } else {
-            // Do not draw the wheels when falling: when the body is painted with alpha < 1 the
-            // wheels are visible
-            // through it and it looks ugly
+            // Draw wheels. Do not draw them when falling: when the body is painted with alpha < 1
+            // the wheels are visible through it and it looks ugly.
             for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                 mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
             }

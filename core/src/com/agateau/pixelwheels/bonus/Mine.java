@@ -19,10 +19,12 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobjet.Explosable;
 import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.racescreen.Collidable;
@@ -30,6 +32,7 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -160,9 +163,27 @@ public class Mine extends GameObjectAdapter
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         mBodyRegionDrawer.setBatch(batch);
 
-        if (zLevel == ZLevel.GROUND) {
+        Material material = mGameWorld.getTrack().getMaterialAt(getPosition());
+        boolean drawShadow = !material.isWater();
+        boolean hasBeenDropped = mJoint == null;
+        if (hasBeenDropped) {
+            switch (material) {
+                case WATER:
+                    batch.setColor(Constants.HALF_IMMERSED_COLOR);
+                    break;
+                case DEEP_WATER:
+                    batch.setColor(Constants.FULLY_IMMERSED_COLOR);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            batch.setColor(mOwner.getVehicleRenderer().getBatchColor());
+        }
+
+        if (zLevel == ZLevel.GROUND && drawShadow) {
             // Smaller shadow if the mine has been dropped
-            float z = mJoint == null ? -0.1f : 0f;
+            float z = hasBeenDropped ? -0.1f : 0f;
             mBodyRegionDrawer.setZ(z);
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.drawShadow(mBody, region);
@@ -171,6 +192,8 @@ public class Mine extends GameObjectAdapter
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.draw(mBody, region);
         }
+
+        batch.setColor(Color.WHITE);
     }
 
     @Override
