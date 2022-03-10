@@ -14,3 +14,8 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.test.java.srcDirs = [ "src/" ]
+
+test {
+    String assetsDir = project.file('../android/assets')
+    systemProperty("agc.assetsDir", assetsDir);
+}
