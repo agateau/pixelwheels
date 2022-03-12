@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-21 10:44+0000\n"
+"POT-Creation-Date: 2022-03-13 00:13+0100\n"
 "PO-Revision-Date: 2021-12-16 16:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -352,6 +352,11 @@ msgstr "选择锦标赛"
 msgid "Select Game Mode"
 msgstr "选择游戏模式"
 
+#: android/assets/screens/selectlanguage.gdxui:5
+#, fuzzy
+msgid "Select Language"
+msgstr "语言："
+
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
 msgstr "选择赛道"
@@ -485,19 +490,19 @@ msgstr ""
 "锦标赛\n"
 "结束！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
 msgstr "关于"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:122
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
 msgid "CREDITS"
 msgstr "致谢"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -505,73 +510,73 @@ msgstr ""
 "Pixel Wheels 是免费的，但有用很多方式\n"
 "可以支持其开发。"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "VISIT SUPPORT PAGE"
 msgstr "访问支持页面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "Learn more about Pixel Wheels"
 msgstr "了解更多关于 Pixel Wheels"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "VISIT WEB SITE"
 msgstr "访问网页"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:172
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Under the hood"
 msgstr "底层"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "这些选项通常对 Pixel Wheels 的开发有帮助，但也可随意尝试！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEV. OPTIONS"
 msgstr "开发选项"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Controls"
 msgstr "控制"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgid "Player #%d:"
 msgstr "玩家 #%d："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Controls:"
 msgstr "控制："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:220
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
 msgid "General"
 msgstr "常规"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Language:"
 msgstr "语言："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
 msgid "Audio"
 msgstr "声音"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid "Sound FX:"
 msgstr "音效："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
 msgid "Video"
 msgstr "画面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:375
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
 msgid "CONFIGURE"
 msgstr "配置"
 

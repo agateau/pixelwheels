@@ -86,8 +86,6 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private void setupUi() {
-        final GameConfig gameConfig = mGame.getConfig();
-
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/config.gdxui"));
@@ -100,7 +98,7 @@ public class ConfigScreen extends PwStageScreen {
         mTabMenuItem = new TabMenuItem(mMenu);
         mMenu.addItem(mTabMenuItem);
 
-        addAudioVideoTab(gameConfig);
+        addAudioVideoTab();
         addControlsTab();
         addAboutTab();
         addInternalTab();
@@ -216,12 +214,20 @@ public class ConfigScreen extends PwStageScreen {
         }
     }
 
-    private void addAudioVideoTab(GameConfig gameConfig) {
+    private void addAudioVideoTab() {
+        final GameConfig gameConfig = mGame.getConfig();
         MenuItemGroup group = mTabMenuItem.addPage(tr("General"));
         mLanguageGroup = group;
 
-        SelectorMenuItem<String> languageItem = createLanguageSelectorItem(gameConfig);
-        group.addItemWithLabel(tr("Language:"), languageItem);
+        ButtonMenuItem languageButton = new ButtonMenuItem(mMenu, getLanguageText());
+        languageButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        mGame.pushScreen(new SelectLanguageScreen(mGame));
+                    }
+                });
+        group.addItemWithLabel(tr("Language:"), languageButton);
 
         group.addTitleLabel(tr("Audio"));
         final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(mMenu);
@@ -271,32 +277,16 @@ public class ConfigScreen extends PwStageScreen {
         }
     }
 
-    private SelectorMenuItem<String> createLanguageSelectorItem(GameConfig gameConfig) {
-        final SelectorMenuItem<String> languageItem = new SelectorMenuItem<>(mMenu);
-        for (Language language : mGame.getAssets().languages.getAll()) {
-            languageItem.addEntry(language.name, language.id);
-        }
-        languageItem.setCurrentData(gameConfig.languageId);
-        languageItem
-                .getActor()
-                .addListener(
-                        new ChangeListener() {
-                            @Override
-                            public void changed(ChangeEvent event, Actor actor) {
-                                gameConfig.languageId = languageItem.getCurrentData();
-                                gameConfig.flush();
-                                changeScreenLanguage();
-                            }
-                        });
-        return languageItem;
+    private String getLanguageText() {
+        final GameConfig gameConfig = mGame.getConfig();
+        Language language = mGame.getAssets().languages.getLanguage(gameConfig.languageId);
+        return language.name;
     }
 
-    private void changeScreenLanguage() {
-        ConfigScreen screen = new ConfigScreen(mGame);
-        // Reselect the language selector to make the replace seamless
-        screen.mTabMenuItem.setCurrentPage(screen.mLanguageGroup);
-        screen.mMenu.setCurrentItem(screen.mLanguageGroup);
-        mGame.replaceScreen(screen);
+    /** Used by SelectLanguageScreen when it recreates the screen */
+    void selectLanguageButton() {
+        mTabMenuItem.setCurrentPage(mLanguageGroup);
+        mMenu.setCurrentItem(mLanguageGroup);
     }
 
     class InputSelectorController {
