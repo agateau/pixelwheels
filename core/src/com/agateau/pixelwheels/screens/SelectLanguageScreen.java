@@ -114,6 +114,7 @@ public class SelectLanguageScreen extends PwStageScreen {
         languageSelector.setItems(languages);
         languageSelector.setItemSize(menu.getWidth(), ITEM_HEIGHT);
         languageSelector.setColumnCount(1);
+        languageSelector.setTouchUiConfirmMode(GridMenuItem.TouchUiConfirmMode.SINGLE_TOUCH);
 
         HashMap<String, BitmapFont> fontForLanguage = getFontForLanguage(languages);
 
