@@ -30,8 +30,10 @@ import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -183,8 +185,20 @@ public class SelectLanguageScreen extends PwStageScreen {
     }
 
     private void selectLanguage(String languageId) {
+        getStage()
+                .getRoot()
+                .addAction(
+                        Actions.sequence(
+                                Actions.alpha(0.3f, 0.1f, Interpolation.pow2Out),
+                                Actions.run(() -> doSelectLanguage(languageId))));
+    }
+
+    private void doSelectLanguage(String languageId) {
         mGame.getConfig().languageId = languageId;
+
+        // Flushing the config causes the new language to be loaded
         mGame.getConfig().flush();
+
         ConfigScreen screen = new ConfigScreen(mGame);
         screen.selectLanguageButton();
         mGame.popScreen();
