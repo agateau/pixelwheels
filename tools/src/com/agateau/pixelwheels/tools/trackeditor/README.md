@@ -9,9 +9,10 @@ Usage:
 It is a keyboard-driven application. Here are the keyboard shortcuts:
 
 - zoom in, zoom out: =/+, -
-- select previous, next section line: p, n
+- select previous, next section line: Shift+Tab, Tab
 - insert section line: i
 - move selection: arrows
+- remove section: Suppr
 - scroll: h, j, k, l
 - select only first point: F1
 - select only second point: F2

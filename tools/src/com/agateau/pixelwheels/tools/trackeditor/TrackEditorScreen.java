@@ -176,6 +176,33 @@ public class TrackEditorScreen extends StageScreen {
         }
     }
 
+    private class DeleteSectionAction implements EditorAction {
+        private int mRemovedLineIdx;
+        private LapPositionTableIO.Line mRemovedLine;
+
+        @Override
+        public void undo() {
+            mLines.insert(mRemovedLineIdx, mRemovedLine);
+            mCurrentLineIdx = mRemovedLineIdx;
+            markNeedSave();
+        }
+
+        @Override
+        public void redo() {
+            mRemovedLineIdx = mCurrentLineIdx;
+            mRemovedLine = mLines.removeIndex(mRemovedLineIdx);
+            if (mCurrentLineIdx == mLines.size) {
+                --mCurrentLineIdx;
+            }
+            markNeedSave();
+        }
+
+        @Override
+        public boolean mergeWith(EditorAction other) {
+            return false;
+        }
+    }
+
     private void addAction(EditorAction action) {
         action.redo();
         if (!mEditorActions.isEmpty()) {
@@ -212,10 +239,12 @@ public class TrackEditorScreen extends StageScreen {
             mZoom /= 2;
         }
         // Previous / Next
-        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-            mCurrentLineIdx = (mCurrentLineIdx + 1) % mLines.size;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            if (shift) {
+                mCurrentLineIdx = mCurrentLineIdx == 0 ? (mLines.size - 1) : (mCurrentLineIdx - 1);
+            } else {
+                mCurrentLineIdx = (mCurrentLineIdx + 1) % mLines.size;
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
             selectPoint(true, false);
@@ -248,6 +277,11 @@ public class TrackEditorScreen extends StageScreen {
             addAction(new MoveSelectionAction(0, delta));
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             addAction(new MoveSelectionAction(0, -delta));
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
+            if (mLines.size > 2) {
+                addAction(new DeleteSectionAction());
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.S) && control) {
             doSave();
