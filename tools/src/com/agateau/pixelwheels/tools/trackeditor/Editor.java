@@ -18,24 +18,23 @@
  */
 package com.agateau.pixelwheels.tools.trackeditor;
 
-/** Represents an action modifying the track */
-public abstract class EditorAction {
-    private final Editor mEditor;
+import com.agateau.pixelwheels.map.LapPositionTableIO;
+import com.badlogic.gdx.utils.Array;
 
-    public EditorAction(Editor editor) {
-        mEditor = editor;
-    }
+public interface Editor {
+    void markNeedSave();
 
-    public Editor editor() {
-        return mEditor;
-    }
+    Array<LapPositionTableIO.Line> lines();
 
-    public abstract void undo();
+    int currentLineIdx();
 
-    public abstract void redo();
+    void setCurrentLineIdx(int idx);
 
-    /**
-     * Returns true if @p other can be merged into this, instead of being added to the undo stack
-     */
-    public abstract boolean mergeWith(EditorAction other);
+    boolean isP1Selected();
+
+    boolean isP2Selected();
+
+    void setP1Selected(boolean selected);
+
+    void setP2Selected(boolean selected);
 }
