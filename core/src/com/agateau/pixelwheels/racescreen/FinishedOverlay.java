@@ -547,7 +547,7 @@ public class FinishedOverlay extends Overlay {
 
     private boolean shouldShowCongratsCar() {
         // Show congrats car if player entered the record table and is ranked 3rd or better
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, mRacers.size); ++idx) {
             Racer racer = mRacers.get(idx);
             if (racer.getRecordRanks().brokeRecord()) {
                 return true;
