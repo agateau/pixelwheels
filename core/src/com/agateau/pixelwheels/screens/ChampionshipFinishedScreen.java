@@ -109,7 +109,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     }
 
     private boolean isPlayerOnPodium() {
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, mGameInfo.getEntrants().size); ++idx) {
             GameInfo.Entrant entrant = mGameInfo.getEntrants().get(idx);
             if (entrant.isPlayer()) {
                 return true;
@@ -217,7 +217,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void fillPodium(UiBuilder builder, Array<GameInfo.Entrant> entrants) {
         Assets assets = mGame.getAssets();
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, entrants.size); ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
             VehicleActor actor = builder.getActor("vehicle" + idx);
