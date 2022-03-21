@@ -46,12 +46,13 @@ public class TrackEditorScreen extends StageScreen implements Editor {
     private final SpriteBatch mBatch = new SpriteBatch();
     private final OrthographicCamera mCamera = new OrthographicCamera();
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
-    private final Array<EditorAction> mEditorActions = new Array<>();
     private final Vector2 mViewCenter = new Vector2();
 
     private OrthogonalTiledMapRenderer mRenderer;
     private Array<LapPositionTableIO.Line> mLines;
     private float mZoom = 1f;
+
+    private final EditorActionStack mActionStack = new EditorActionStack();
 
     private int mCurrentLineIdx = 0;
     private boolean mSelectP1 = true;
@@ -85,22 +86,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
     }
 
     private void addAction(EditorAction action) {
-        action.redo();
-        if (!mEditorActions.isEmpty()) {
-            EditorAction lastAction = mEditorActions.get(mEditorActions.size - 1);
-            if (lastAction.mergeWith(action)) {
-                return;
-            }
-        }
-        mEditorActions.add(action);
+        mActionStack.add(action);
     }
 
     private void undo() {
-        if (mEditorActions.isEmpty()) {
-            return;
-        }
-        EditorAction action = mEditorActions.pop();
-        action.undo();
+        mActionStack.undo();
     }
 
     private void act() {
