@@ -18,7 +18,7 @@ It is a keyboard-driven application. Here are the keyboard shortcuts:
 - select only second point: F2
 - select both points: F3
 - save: Control + S
-- undo: Control + Z
+- undo, redo: Control + Z, Control + Shift + Z
 
 To move or scroll faster, hold Shift.
 

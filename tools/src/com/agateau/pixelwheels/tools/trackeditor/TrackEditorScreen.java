@@ -89,10 +89,6 @@ public class TrackEditorScreen extends StageScreen implements Editor {
         mActionStack.add(action);
     }
 
-    private void undo() {
-        mActionStack.undo();
-    }
-
     private void act() {
         boolean control =
                 Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)
@@ -158,7 +154,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             doSave();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z) && control) {
-            undo();
+            if (shift) {
+                mActionStack.redo();
+            } else {
+                mActionStack.undo();
+            }
         }
         save();
     }

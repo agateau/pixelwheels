@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Array;
 
 class EditorActionStack {
     private final Array<EditorAction> mActions = new Array<>();
+    int mNextIndex = 0;
 
     public void add(EditorAction action) {
         action.redo();
@@ -31,14 +32,26 @@ class EditorActionStack {
                 return;
             }
         }
+        if (mNextIndex < mActions.size) {
+            mActions.removeRange(mNextIndex, mActions.size - 1);
+        }
         mActions.add(action);
+        ++mNextIndex;
     }
 
     public void undo() {
-        if (mActions.isEmpty()) {
+        if (mNextIndex == 0) {
             return;
         }
-        EditorAction action = mActions.pop();
-        action.undo();
+        --mNextIndex;
+        mActions.get(mNextIndex).undo();
+    }
+
+    public void redo() {
+        if (mNextIndex == mActions.size) {
+            return;
+        }
+        mActions.get(mNextIndex).redo();
+        mNextIndex++;
     }
 }
