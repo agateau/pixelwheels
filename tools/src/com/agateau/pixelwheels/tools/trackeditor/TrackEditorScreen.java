@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.tools.trackeditor;
 
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.map.LapPositionTableIO;
-import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.ui.StageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -28,33 +27,34 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class TrackEditorScreen extends StageScreen {
+public class TrackEditorScreen extends StageScreen implements Editor {
     private static final Color CURRENT_COLOR = Color.RED;
     private static final Color NORMAL_COLOR = Color.WHITE;
-    private static final Vector2 NEW_DELTA = new Vector2(12, 12);
-    private static final float MOVE_UNIT = 1;
     private static final long AUTO_SAVE_INTERVAL_MS = 10 * 1000;
-    private static final float CROSS_RADIUS = 12;
+    // space between a selected point and its text
+    private static final float POINT_MARGIN = 12;
     private final FileHandle mTmxFile;
     private final TrackIO mTrackIO;
     private final SpriteBatch mBatch = new SpriteBatch();
     private final OrthographicCamera mCamera = new OrthographicCamera();
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
-    private final Array<EditorAction> mEditorActions = new Array<>();
     private final Vector2 mViewCenter = new Vector2();
+    private final BitmapFont mFont;
 
     private OrthogonalTiledMapRenderer mRenderer;
     private Array<LapPositionTableIO.Line> mLines;
     private float mZoom = 1f;
+
+    private final EditorActionStack mActionStack = new EditorActionStack();
 
     private int mCurrentLineIdx = 0;
     private boolean mSelectP1 = true;
@@ -62,10 +62,12 @@ public class TrackEditorScreen extends StageScreen {
 
     private long mNeedSaveSince = 0;
 
-    public TrackEditorScreen(FileHandle tmxFile) {
+    public TrackEditorScreen(FileHandle tmxFile, BitmapFont font) {
         super(new ScreenViewport());
         mTmxFile = tmxFile;
         mTrackIO = new TrackIO(mTmxFile.path());
+        mFont = font;
+        mFont.setColor(CURRENT_COLOR);
         load();
     }
 
@@ -87,139 +89,8 @@ public class TrackEditorScreen extends StageScreen {
         drawSections();
     }
 
-    private class InsertSectionAction implements EditorAction {
-        int mInsertedLineIdx = -1;
-
-        @Override
-        public void undo() {
-            mCurrentLineIdx = mInsertedLineIdx - 1;
-            mLines.removeIndex(mInsertedLineIdx);
-            markNeedSave();
-        }
-
-        @Override
-        public void redo() {
-            LapPositionTableIO.Line current = mLines.get(mCurrentLineIdx);
-            if (mCurrentLineIdx == mLines.size - 1) {
-                LapPositionTableIO.Line newLine = new LapPositionTableIO.Line();
-                newLine.p1.set(current.p1).add(NEW_DELTA);
-                newLine.p2.set(current.p2).add(NEW_DELTA);
-                newLine.order = current.order + 1;
-                mLines.add(newLine);
-            } else {
-                LapPositionTableIO.Line next = mLines.get(mCurrentLineIdx + 1);
-                LapPositionTableIO.Line newLine = new LapPositionTableIO.Line();
-                newLine.p1.set(current.p1).lerp(next.p1, 0.5f);
-                newLine.p2.set(current.p2).lerp(next.p2, 0.5f);
-                newLine.order = MathUtils.lerp(current.order, next.order, 0.5f);
-                mLines.insert(mCurrentLineIdx + 1, newLine);
-            }
-            ++mCurrentLineIdx;
-            mInsertedLineIdx = mCurrentLineIdx;
-            markNeedSave();
-        }
-
-        @Override
-        public boolean mergeWith(EditorAction other) {
-            return false;
-        }
-    }
-
-    private class MoveSelectionAction implements EditorAction {
-        private final Vector2 mDelta = new Vector2();
-        private final Array<Vector2> mPoints = new Array<>(/*ordered=*/ false, 2);
-
-        public MoveSelectionAction(int dx, int dy) {
-            mPoints.clear();
-            LapPositionTableIO.Line line = mLines.get(mCurrentLineIdx);
-            if (mSelectP1) {
-                mPoints.add(line.p1);
-            }
-            if (mSelectP2) {
-                mPoints.add(line.p2);
-            }
-            mDelta.set(dx, dy).scl(MOVE_UNIT);
-        }
-
-        @Override
-        public void undo() {
-            for (Vector2 point : mPoints) {
-                point.sub(mDelta);
-            }
-            markNeedSave();
-        }
-
-        @Override
-        public void redo() {
-            for (Vector2 point : mPoints) {
-                point.add(mDelta);
-            }
-            markNeedSave();
-        }
-
-        @Override
-        public boolean mergeWith(EditorAction otherAction) {
-            if (!(otherAction instanceof MoveSelectionAction)) {
-                return false;
-            }
-            MoveSelectionAction other = (MoveSelectionAction) otherAction;
-            if (mPoints.size != other.mPoints.size) {
-                return false;
-            }
-            // Use identity because we want to know if the action affects the same line ends, not if
-            // the line ends are at the same position (they are not)
-            if (!mPoints.containsAll(other.mPoints, /* identity=*/ true)) {
-                return false;
-            }
-            mDelta.add(other.mDelta);
-            return true;
-        }
-    }
-
-    private class DeleteSectionAction implements EditorAction {
-        private int mRemovedLineIdx;
-        private LapPositionTableIO.Line mRemovedLine;
-
-        @Override
-        public void undo() {
-            mLines.insert(mRemovedLineIdx, mRemovedLine);
-            mCurrentLineIdx = mRemovedLineIdx;
-            markNeedSave();
-        }
-
-        @Override
-        public void redo() {
-            mRemovedLineIdx = mCurrentLineIdx;
-            mRemovedLine = mLines.removeIndex(mRemovedLineIdx);
-            if (mCurrentLineIdx == mLines.size) {
-                --mCurrentLineIdx;
-            }
-            markNeedSave();
-        }
-
-        @Override
-        public boolean mergeWith(EditorAction other) {
-            return false;
-        }
-    }
-
     private void addAction(EditorAction action) {
-        action.redo();
-        if (!mEditorActions.isEmpty()) {
-            EditorAction lastAction = mEditorActions.get(mEditorActions.size - 1);
-            if (lastAction.mergeWith(action)) {
-                return;
-            }
-        }
-        mEditorActions.add(action);
-    }
-
-    private void undo() {
-        if (mEditorActions.isEmpty()) {
-            return;
-        }
-        EditorAction action = mEditorActions.pop();
-        action.undo();
+        mActionStack.add(action);
     }
 
     private void act() {
@@ -266,28 +137,32 @@ public class TrackEditorScreen extends StageScreen {
         }
         // Actions
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
-            addAction(new InsertSectionAction());
+            addAction(new InsertSectionAction(this));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            addAction(new MoveSelectionAction(-delta, 0));
+            addAction(new MoveSelectionAction(this, -delta, 0));
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            addAction(new MoveSelectionAction(delta, 0));
+            addAction(new MoveSelectionAction(this, delta, 0));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            addAction(new MoveSelectionAction(0, delta));
+            addAction(new MoveSelectionAction(this, 0, delta));
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            addAction(new MoveSelectionAction(0, -delta));
+            addAction(new MoveSelectionAction(this, 0, -delta));
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
             if (mLines.size > 2) {
-                addAction(new DeleteSectionAction());
+                addAction(new DeleteSectionAction(this));
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.S) && control) {
             doSave();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z) && control) {
-            undo();
+            if (shift) {
+                mActionStack.redo();
+            } else {
+                mActionStack.undo();
+            }
         }
         save();
     }
@@ -324,12 +199,11 @@ public class TrackEditorScreen extends StageScreen {
 
     private void drawMap() {
         mBatch.setColor(1, 1, 1, 1);
-        mBatch.disableBlending();
         mRenderer.render();
-        mBatch.enableBlending();
     }
 
     private void drawSections() {
+        mBatch.begin();
         mShapeRenderer.setProjectionMatrix(mCamera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(NORMAL_COLOR);
@@ -342,6 +216,11 @@ public class TrackEditorScreen extends StageScreen {
             drawLine(idx);
         }
         mShapeRenderer.end();
+        mBatch.end();
+
+        mBatch.begin();
+        drawSelectedLineText();
+        mBatch.end();
     }
 
     private void drawLine(int idx) {
@@ -350,15 +229,25 @@ public class TrackEditorScreen extends StageScreen {
             mShapeRenderer.setColor(CURRENT_COLOR);
         }
         mShapeRenderer.line(line.p1, line.p2);
+
         if (idx == mCurrentLineIdx) {
-            if (mSelectP1) {
-                DrawUtils.drawCross(mShapeRenderer, line.p1, CROSS_RADIUS);
-            }
-            if (mSelectP2) {
-                DrawUtils.drawCross(mShapeRenderer, line.p2, CROSS_RADIUS);
-            }
             mShapeRenderer.setColor(NORMAL_COLOR);
         }
+    }
+
+    private void drawSelectedLineText() {
+        LapPositionTableIO.Line line = mLines.get(mCurrentLineIdx);
+
+        if (mSelectP1) {
+            drawSelectedPoint("1", line.p1);
+        }
+        if (mSelectP2) {
+            drawSelectedPoint("2", line.p2);
+        }
+    }
+
+    private void drawSelectedPoint(String text, Vector2 pt) {
+        mFont.draw(mBatch, text, pt.x + POINT_MARGIN, pt.y + POINT_MARGIN);
     }
 
     private void load() {
@@ -370,10 +259,46 @@ public class TrackEditorScreen extends StageScreen {
         mLines = LapPositionTableIO.loadSectionLines(map);
     }
 
-    private void markNeedSave() {
+    @Override
+    public void markNeedSave() {
         if (mNeedSaveSince == 0) {
             mNeedSaveSince = System.currentTimeMillis();
         }
+    }
+
+    @Override
+    public Array<LapPositionTableIO.Line> lines() {
+        return mLines;
+    }
+
+    @Override
+    public int currentLineIdx() {
+        return mCurrentLineIdx;
+    }
+
+    @Override
+    public void setCurrentLineIdx(int idx) {
+        mCurrentLineIdx = idx;
+    }
+
+    @Override
+    public boolean isP1Selected() {
+        return mSelectP1;
+    }
+
+    @Override
+    public boolean isP2Selected() {
+        return mSelectP2;
+    }
+
+    @Override
+    public void setP1Selected(boolean selected) {
+        mSelectP1 = selected;
+    }
+
+    @Override
+    public void setP2Selected(boolean selected) {
+        mSelectP2 = selected;
     }
 
     private void save() {
