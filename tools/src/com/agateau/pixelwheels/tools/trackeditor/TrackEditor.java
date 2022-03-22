@@ -18,10 +18,13 @@
  */
 package com.agateau.pixelwheels.tools.trackeditor;
 
+import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class TrackEditor extends Game {
     private static class Args {
@@ -83,6 +86,20 @@ public class TrackEditor extends Game {
 
     @Override
     public void create() {
-        setScreen(new TrackEditorScreen(Gdx.files.absolute(mArgs.tmxFilePath)));
+        BitmapFont font = loadFont();
+        setScreen(new TrackEditorScreen(Gdx.files.absolute(mArgs.tmxFilePath), font));
+    }
+
+    private static BitmapFont loadFont() {
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+                new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 12;
+        parameter.borderWidth = 1f;
+
+        FreeTypeFontGenerator generator =
+                new FreeTypeFontGenerator(FileUtils.assets("fonts/Xolonium-Regular.ttf"));
+        BitmapFont font = generator.generateFont(parameter);
+        generator.dispose();
+        return font;
     }
 }

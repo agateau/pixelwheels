@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.tools.trackeditor;
 
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.map.LapPositionTableIO;
-import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.ui.StageScreen;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -28,6 +27,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -40,13 +40,15 @@ public class TrackEditorScreen extends StageScreen implements Editor {
     private static final Color CURRENT_COLOR = Color.RED;
     private static final Color NORMAL_COLOR = Color.WHITE;
     private static final long AUTO_SAVE_INTERVAL_MS = 10 * 1000;
-    private static final float CROSS_RADIUS = 12;
+    // space between a selected point and its text
+    private static final float POINT_MARGIN = 12;
     private final FileHandle mTmxFile;
     private final TrackIO mTrackIO;
     private final SpriteBatch mBatch = new SpriteBatch();
     private final OrthographicCamera mCamera = new OrthographicCamera();
     private final ShapeRenderer mShapeRenderer = new ShapeRenderer();
     private final Vector2 mViewCenter = new Vector2();
+    private final BitmapFont mFont;
 
     private OrthogonalTiledMapRenderer mRenderer;
     private Array<LapPositionTableIO.Line> mLines;
@@ -60,10 +62,12 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
     private long mNeedSaveSince = 0;
 
-    public TrackEditorScreen(FileHandle tmxFile) {
+    public TrackEditorScreen(FileHandle tmxFile, BitmapFont font) {
         super(new ScreenViewport());
         mTmxFile = tmxFile;
         mTrackIO = new TrackIO(mTmxFile.path());
+        mFont = font;
+        mFont.setColor(CURRENT_COLOR);
         load();
     }
 
@@ -195,12 +199,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
     private void drawMap() {
         mBatch.setColor(1, 1, 1, 1);
-        mBatch.disableBlending();
         mRenderer.render();
-        mBatch.enableBlending();
     }
 
     private void drawSections() {
+        mBatch.begin();
         mShapeRenderer.setProjectionMatrix(mCamera.combined);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(NORMAL_COLOR);
@@ -213,6 +216,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             drawLine(idx);
         }
         mShapeRenderer.end();
+        mBatch.end();
+
+        mBatch.begin();
+        drawSelectedLineText();
+        mBatch.end();
     }
 
     private void drawLine(int idx) {
@@ -221,15 +229,25 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             mShapeRenderer.setColor(CURRENT_COLOR);
         }
         mShapeRenderer.line(line.p1, line.p2);
+
         if (idx == mCurrentLineIdx) {
-            if (mSelectP1) {
-                DrawUtils.drawCross(mShapeRenderer, line.p1, CROSS_RADIUS);
-            }
-            if (mSelectP2) {
-                DrawUtils.drawCross(mShapeRenderer, line.p2, CROSS_RADIUS);
-            }
             mShapeRenderer.setColor(NORMAL_COLOR);
         }
+    }
+
+    private void drawSelectedLineText() {
+        LapPositionTableIO.Line line = mLines.get(mCurrentLineIdx);
+
+        if (mSelectP1) {
+            drawSelectedPoint("1", line.p1);
+        }
+        if (mSelectP2) {
+            drawSelectedPoint("2", line.p2);
+        }
+    }
+
+    private void drawSelectedPoint(String text, Vector2 pt) {
+        mFont.draw(mBatch, text, pt.x + POINT_MARGIN, pt.y + POINT_MARGIN);
     }
 
     private void load() {
