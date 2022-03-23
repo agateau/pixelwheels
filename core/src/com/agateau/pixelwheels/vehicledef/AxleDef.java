@@ -18,11 +18,24 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
+import com.agateau.pixelwheels.TextureRegionProvider;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 /** Definition of a vehicle axle */
 public class AxleDef {
+    public enum TyreSize {
+        NORMAL,
+        LARGE
+    }
+
     public float width;
     public float y;
     public float steer;
     public float drive;
     public boolean drift;
+    public TyreSize tyreSize;
+
+    public TextureRegion getTexture(TextureRegionProvider provider) {
+        return provider.findRegion("tyres/" + tyreSize.name());
+    }
 }

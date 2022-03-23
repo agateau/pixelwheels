@@ -53,16 +53,17 @@ class VehicleDrawer {
             // definition faces top
             // See VehicleCreator for more details
             float axleX = axleXOrigin + axle.y;
-            drawWheel(batch, axleX, -axle.width / 2);
-            drawWheel(batch, axleX, axle.width / 2);
+            TextureRegion wheelRegion = axle.getTexture(mAssets);
+            drawWheel(batch, wheelRegion, axleX, -axle.width / 2);
+            drawWheel(batch, wheelRegion, axleX, axle.width / 2);
         }
 
         DrawUtils.drawCentered(batch, region, center, scale, angle);
     }
 
-    private void drawWheel(Batch batch, float wx, float wy) {
+    private void drawWheel(Batch batch, TextureRegion region, float wx, float wy) {
         sWheelPos.set(wx, wy).scl(scale).rotate(angle).add(center);
-        DrawUtils.drawCentered(batch, mAssets.wheel, sWheelPos, scale, angle);
+        DrawUtils.drawCentered(batch, region, sWheelPos, scale, angle);
     }
 
     private void drawShadow(Batch batch, TextureRegion region) {

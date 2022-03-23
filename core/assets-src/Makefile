@@ -15,12 +15,13 @@ clean:
 
 #- sprites/ -------------------------------------------------------------------
 # Still images
-STILL_IMAGES := $(wildcard sprites/*.still.ase)
+STILL_IMAGES := $(wildcard sprites/*.still.ase sprites/tyres/*.still.ase)
 OUT_STILL_IMAGES := $(STILL_IMAGES:%.still.ase=$(OUT_DIR)/%.png)
 stills: $(OUT_STILL_IMAGES)
 
 $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
 	mkdir -p $(OUT_DIR)/sprites
+	mkdir -p $(OUT_DIR)/sprites/tyres
 	$(ASESPLIT) $< $@
 
 # Anims

@@ -91,6 +91,9 @@ public class VehicleRenderer implements Renderer {
                                 info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                     }
                 }
+                for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
+                    mBodyRegionDrawer.drawShadow(info.wheel.getBody(), info.wheel.getRegion());
+                }
                 mBodyRegionDrawer.drawShadow(mVehicle.getBody(), bodyRegion);
             }
             return;
