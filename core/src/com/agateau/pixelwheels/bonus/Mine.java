@@ -164,8 +164,8 @@ public class Mine extends GameObjectAdapter
         mBodyRegionDrawer.setBatch(batch);
 
         Material material = mGameWorld.getTrack().getMaterialAt(getPosition());
-        boolean drawShadow = !material.isWater();
         boolean hasBeenDropped = mJoint == null;
+        boolean drawShadow = !hasBeenDropped || !material.isWater();
         if (hasBeenDropped) {
             switch (material) {
                 case WATER:
