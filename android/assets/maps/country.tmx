@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="60" height="35" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="64">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="60" height="35" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="64">
  <tileset firstgid="1" source="country.tsx"/>
  <layer id="1" name="bg1" width="60" height="35">
   <data encoding="base64" compression="zlib">
@@ -13,7 +13,7 @@
  </layer>
  <layer id="3" name="fg1" width="60" height="35">
   <data encoding="base64" compression="zlib">
-   eJztmVlqwzAQhucoeUnf0rcWugXaFApNF7pC0v1mPUqO1hnI0MGWrNFWSaY/DEq8yPr029ZIBhi/Zhh7GPsJ67zGuMH4MOybYuwkvFaIiHmesL4njGeMC4BvuZ1YqV93Hefn7hNuR6y+tuUbxjv0eblfXSx0nKtPYpTaX7yPN8i6ubVcKyeLVjPH/jXGOcai0vIA4zCmA7ZaYlxhPCaoK6dOMc4gjrkVVlYMc2usrFDmB2iPlRXCjO+ASZ7W/I18mReN85KI+Vh5bOv+srQcY/CXpOXw9Zfe5/iOm8g8IFUOECMbB+XQcl7j469t7EqRA8TKxkH5pJzXaP11jdOlmYf8lbwaf7U5SUlmEwfPB+U8TuOvT05CzEfQz/VzP+MmDp4Pynmcxl+s6zO2Pbm9H/JXSuNvCl5STmbmWIptpvm+xt+UYzTf7z7z3ktFvTX6GyrN9bscxHoCYf7eQZm1DP5972pgh4NZTeuxY8yfee051N8W9O+v2d9XKJ/rx4rGoBfxn/2l9eDuemzpvDdWplyX/aX1/qnhHFsO2EK5gn6uO/T8hmiVoI5c4hzD9vy6zi39jc9HzDqHX2Yff2v5BjQk9kTmU8zs62+tsjGyn6H+1iQTo7b8AebdcM0=
+   eJztmVlOwzAQhucofSlv5Q0ktkpQJCTKIlapZb0F1+EoPRozUkeMEjseb9iO+KWR2yyOP/9JPHYAxq8Zxh7GfsI6rzFuMD4M+6YYOwmvFSJinies7wnjGeMC4FtuJ1bq113H+bn7hNsRq69t+YbxDn1e7lcXCx3n6pMYpfYX7+MNsm5uLdfKyaLVzLF/jXGOsai0PMA4jOmArZYYVxiPCerKqVOMM4hjboWVFcPcGisrlPkB2mNlhTDjO2CSpzV/I1/mReO8JGI+Vh7bur8sLccY/CVpOXz9pfc5vuMmMg9IlQPEyMZBObSc1/j4axu7UuQAsbJxUD4p5zVaf13jdGnmIX8lr8ZfbU5SktnEwfNBOY/T+OuTkxDzEfRz/dzPuImD54NyHqfxF+v6jG1Pbu+H/JXS+JuCl5STmTmWYptpvq/xN+UYzfe7z7z3UlFvjf6GSnP9LgexnkCYv3dQZi2Df9+7GtjhYFbTeuwY82deew71twX9+2v29xXK5/qxojHoRfxnf2k9uLseWzrvjZUp12V/ab1/ajjHlgO2UK6gn+sOPb8hWiWoI5c4x7A9v65zS3/j8xGzzuGX2cffWr4BDYk9kfkUM/v6W6tsjOxnqL81ycSoLX8AdYpw4w==
   </data>
  </layer>
  <layer id="4" name="fg2" width="60" height="35">
@@ -37,7 +37,7 @@
   <object id="59" x="1311.36" y="928.547" width="381.891" height="31.8312" rotation="45"/>
   <object id="60" x="173.12" y="1709.77" width="381.891" height="31.8312" rotation="45"/>
  </objectgroup>
- <objectgroup id="6" name="Sections">
+ <objectgroup id="6" name="Sections" visible="0">
   <object id="13" name="0" x="802" y="1170">
    <polyline points="94,-18 -610,-18"/>
   </object>
@@ -63,7 +63,7 @@
    <polyline points="-1513.09,491.215 -2189.82,1087.54"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints">
+ <objectgroup id="7" name="Waypoints" visible="0">
   <properties>
    <property name="direction" value="90"/>
   </properties>
