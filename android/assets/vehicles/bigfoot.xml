@@ -1,0 +1,8 @@
+<vehicle speed="1" name="Big Foot" width="26" height="55">
+    <main image="bigfoot"/>
+    <shapes>
+        <octogon corner="3" width="26" height="55"/>
+    </shapes>
+    <axle y="46" width="32" steer="1" tireSize="HUGE"/>
+    <axle y="10" width="32" tireSize="HUGE"/>
+</vehicle>

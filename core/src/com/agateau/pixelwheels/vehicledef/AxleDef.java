@@ -29,7 +29,8 @@ public class AxleDef {
 
     public enum TireSize {
         NORMAL,
-        LARGE
+        LARGE,
+        HUGE
     }
 
     public float width;
