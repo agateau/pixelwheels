@@ -28,4 +28,4 @@
         - `y`: y position.
         - `width`: width.
         - `steer`: a float indicating if the wheels can be used to steer. 0 means no steering. 1 means steering in the selected direction, -1 means steering in the opposite direction (useful for steering rear wheels). Defaults to 0.
-        - `tyreSize`: the size of the tyres on this axle. Must be one of the values of the `AxleDef.TyreSize` enum. Defaults to NORMAL.
+        - `tireSize`: the size of the tires on this axle. Must be one of the values of the `AxleDef.TireSize` enum. Defaults to NORMAL.

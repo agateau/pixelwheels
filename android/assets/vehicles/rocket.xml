@@ -6,5 +6,5 @@
         <trapezoid y="60" bottomWidth="26" topWidth="18" height="5"/>
     </shapes>
     <axle y="58" width="22" steer="1"/>
-    <axle y="16" width="32" steer="-0.2" tyreSize="LARGE"/>
+    <axle y="16" width="32" steer="-0.2" tireSize="LARGE"/>
 </vehicle>

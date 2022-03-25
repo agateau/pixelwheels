@@ -23,7 +23,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /** Definition of a vehicle axle */
 public class AxleDef {
-    public enum TyreSize {
+    public enum TireSize {
         NORMAL,
         LARGE
     }
@@ -33,9 +33,9 @@ public class AxleDef {
     public float steer;
     public float drive;
     public boolean drift;
-    public TyreSize tyreSize;
+    public TireSize tireSize;
 
     public TextureRegion getTexture(TextureRegionProvider provider) {
-        return provider.findRegion("tyres/" + tyreSize.name());
+        return provider.findRegion("tires/" + tireSize.name());
     }
 }
