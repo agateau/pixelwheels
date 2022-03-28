@@ -21,6 +21,7 @@ package com.agateau.pixelwheels;
 /** The drawing layers, ordered from bottom to top */
 public enum ZLevel {
     GROUND,
+    VEHICLE_SHADOWS,
     VEHICLES,
     SHADOWS,
     OBSTACLES,

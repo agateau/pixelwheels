@@ -46,6 +46,9 @@ public class VehicleRenderer implements Renderer {
         mAssets = assets;
         mVehicle = vehicle;
         mSkidmarksRenderer = new SkidmarksRenderer(mAssets);
+        // Draw fully opaque shadows: vehicle shadows are drawn to a FrameBuffer. The
+        // BodyRegionDrawer.SHADOW_ALPHA is applied when drawing the buffer to the screen.
+        mBodyRegionDrawer.setShadowAlpha(1);
     }
 
     public void addRenderer(Renderer renderer) {
@@ -77,13 +80,13 @@ public class VehicleRenderer implements Renderer {
         mTime += Gdx.app.getGraphics().getDeltaTime();
         TextureRegion bodyRegion = mVehicle.getRegion(mTime);
 
-        // Ground: skidmarks, splash, shadow
+        // Ground: skidmarks, splash
         if (zLevel == ZLevel.GROUND) {
             for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                 mSkidmarksRenderer.draw(batch, info.wheel.getSkidmarks(), viewBounds);
             }
 
-            // Only draw splash and shadow if we are not falling
+            // Only draw splash if we are not falling
             if (!mVehicle.isFalling()) {
                 for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                     if (info.wheel.getMaterial().isWater()) {
@@ -91,6 +94,13 @@ public class VehicleRenderer implements Renderer {
                                 info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                     }
                 }
+            }
+            return;
+        }
+
+        // Shadows
+        if (zLevel == ZLevel.VEHICLE_SHADOWS) {
+            if (!mVehicle.isFalling()) {
                 for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                     mBodyRegionDrawer.drawShadow(info.wheel.getBody(), info.wheel.getRegion());
                 }

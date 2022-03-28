@@ -36,9 +36,14 @@ public class BodyRegionDrawer {
     private float mScale = 1;
     private float mOffsetX = 0;
     private float mOffsetY = 0;
+    private float mShadowAlpha = SHADOW_ALPHA;
 
     public void setBatch(Batch batch) {
         mBatch = batch;
+    }
+
+    public void setShadowAlpha(float shadowAlpha) {
+        mShadowAlpha = shadowAlpha;
     }
 
     /**
@@ -101,7 +106,7 @@ public class BodyRegionDrawer {
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
         float old = mBatch.getPackedColor();
-        mBatch.setColor(0, 0, 0, SHADOW_ALPHA);
+        mBatch.setColor(0, 0, 0, mShadowAlpha);
         mBatch.draw(
                 region, x - w / 2, y - h / 2, // pos
                 w / 2, h / 2, // origin

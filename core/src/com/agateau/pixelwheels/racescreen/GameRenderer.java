@@ -27,11 +27,18 @@ import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
+import com.agateau.pixelwheels.utils.BodyRegionDrawer;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -61,6 +68,8 @@ public class GameRenderer {
     private final PerformanceCounter mTilePerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
+    private FrameBuffer mVehicleShadowsFrameBuffer;
+    private final Matrix4 mVehicleShadowsFrameBufferProjectionMatrix = new Matrix4();
 
     public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
@@ -116,6 +125,9 @@ public class GameRenderer {
         mScreenWidth = width;
         mScreenHeight = height;
         mCameraUpdater.init(mCamera, width, height);
+        mVehicleShadowsFrameBuffer =
+                new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false /* hasDepth */);
+        mVehicleShadowsFrameBufferProjectionMatrix.setToOrtho2D(0, 0, width, height);
     }
 
     public void onAboutToStart() {
@@ -144,8 +156,24 @@ public class GameRenderer {
         mGameObjectPerformanceCounter.start();
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
+            if (z == ZLevel.VEHICLE_SHADOWS) {
+                mBatch.end();
+
+                mVehicleShadowsFrameBuffer.begin();
+                mBatch.begin();
+                Gdx.gl.glClearColor(0, 0, 0, 0);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            }
+
             for (GameObject object : mWorld.getActiveGameObjects()) {
                 object.draw(mBatch, z, viewBounds);
+            }
+
+            if (z == ZLevel.VEHICLE_SHADOWS) {
+                mBatch.end();
+                mVehicleShadowsFrameBuffer.end();
+                mBatch.begin();
+                drawVehicleShadowsFrameBuffer();
             }
 
             if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
@@ -187,6 +215,34 @@ public class GameRenderer {
 
             mDebugRenderer.render(mWorld.getBox2DWorld(), mCamera.combined);
         }
+    }
+
+    private void drawVehicleShadowsFrameBuffer() {
+        float old = mBatch.getPackedColor();
+        mBatch.setColor(0, 0, 0, BodyRegionDrawer.SHADOW_ALPHA);
+        mBatch.setProjectionMatrix(mVehicleShadowsFrameBufferProjectionMatrix);
+
+        int w = mVehicleShadowsFrameBuffer.getWidth();
+        int h = mVehicleShadowsFrameBuffer.getHeight();
+        Texture texture = mVehicleShadowsFrameBuffer.getColorBufferTexture();
+        mBatch.draw(
+                texture,
+                // dst
+                0,
+                0,
+                w,
+                h,
+                // src
+                0,
+                0,
+                w,
+                h,
+                // flips
+                false,
+                true);
+
+        mBatch.setProjectionMatrix(mCamera.combined);
+        mBatch.setPackedColor(old);
     }
 
     private void updateCamera(float delta) {
