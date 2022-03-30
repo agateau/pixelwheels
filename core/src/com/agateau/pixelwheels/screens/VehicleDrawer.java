@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.vehicledef.AxleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** Helper class to draw a vehicle in the UI. This is *not* used to draw a vehicle in the game */
@@ -32,6 +33,7 @@ class VehicleDrawer {
     private final Assets mAssets;
     public VehicleDef vehicleDef;
     public final Vector2 center = new Vector2(0, 0);
+    private final Rectangle mRectangle = new Rectangle();
 
     public float scale = 1;
     public float angle = 0;
@@ -41,6 +43,39 @@ class VehicleDrawer {
     }
 
     private final Vector2 sWheelPos = new Vector2();
+
+    /** Get bounding rectangle, centered on this.center */
+    public Rectangle getRectangle() {
+        TextureRegion region = vehicleDef.getImage(mAssets);
+
+        float halfHeight = region.getRegionWidth() / 2f;
+        float halfWidth = region.getRegionHeight() / 2f;
+
+        float axleYOrigin = -halfHeight;
+        float bottom = -halfHeight;
+        float top = halfHeight;
+
+        for (AxleDef axle : vehicleDef.axles) {
+            float axleY = axleYOrigin + axle.y;
+            TextureRegion wheelRegion = axle.getTexture(mAssets);
+            float thickness = wheelRegion.getRegionHeight();
+            float diameter = wheelRegion.getRegionWidth();
+
+            float wheelRight = axle.width / 2 + thickness / 2;
+            float wheelBottom = axleY - diameter / 2;
+            float wheelTop = axleY + diameter / 2;
+
+            halfWidth = Math.max(halfWidth, wheelRight);
+            bottom = Math.min(bottom, wheelBottom);
+            top = Math.max(top, wheelTop);
+        }
+
+        mRectangle.width = halfWidth * 2;
+        mRectangle.height = top - bottom;
+        mRectangle.x = center.x - halfWidth;
+        mRectangle.y = center.y + bottom;
+        return mRectangle;
+    }
 
     public void draw(Batch batch) {
         TextureRegion region = vehicleDef.getImage(mAssets);

@@ -20,20 +20,18 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.rewards.RewardManager;
-import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 /** A menu item to select a vehicle */
 public class VehicleSelector extends GridMenuItem<VehicleDef> {
     private Assets mAssets;
     private RewardManager mRewardManager;
 
-    private class Renderer extends TextureRegionItemRendererAdapter<VehicleDef> {
+    private class Renderer implements GridMenuItem.ItemRenderer<VehicleDef> {
         private final VehicleDrawer mVehicleDrawer;
 
         private Renderer() {
@@ -41,8 +39,12 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         }
 
         @Override
-        protected TextureRegion getItemRegion(VehicleDef vehicleDef) {
-            return isItemEnabled(vehicleDef) ? vehicleDef.getImage(mAssets) : mAssets.lockedVehicle;
+        public Rectangle getItemRectangle(float width, float height, VehicleDef vehicleDef) {
+            mVehicleDrawer.vehicleDef = vehicleDef;
+            mVehicleDrawer.center.set(width / 2, height / 2);
+            mVehicleDrawer.scale = 1;
+            mVehicleDrawer.angle = 90;
+            return mVehicleDrawer.getRectangle();
         }
 
         @Override
@@ -53,20 +55,17 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         @Override
         public void render(
                 Batch batch, float x, float y, float width, float height, VehicleDef vehicleDef) {
-            TextureRegion region = getItemRegion(vehicleDef);
-            updateRenderInfo(width, height, region);
-
-            if (isItemEnabled(vehicleDef)) {
-                mVehicleDrawer.vehicleDef = vehicleDef;
-                mVehicleDrawer.center.x = x + width / 2;
-                mVehicleDrawer.center.y = y + height / 2;
-                mVehicleDrawer.scale = getScale();
-                mVehicleDrawer.angle = getAngle();
-                mVehicleDrawer.draw(batch);
-            } else {
-                DrawUtils.drawCentered(
-                        batch, region, x + width / 2, y + height / 2, getScale(), getAngle());
+            float old = batch.getPackedColor();
+            if (!isItemEnabled(vehicleDef)) {
+                batch.setColor(0, 0, 0, 1);
             }
+            mVehicleDrawer.vehicleDef = vehicleDef;
+            mVehicleDrawer.center.x = x + width / 2;
+            mVehicleDrawer.center.y = y + height / 2;
+            mVehicleDrawer.scale = 1;
+            mVehicleDrawer.angle = 90;
+            mVehicleDrawer.draw(batch);
+            batch.setPackedColor(old);
         }
     }
 
@@ -77,9 +76,8 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
     public void init(Assets assets, RewardManager rewardManager) {
         mAssets = assets;
         mRewardManager = rewardManager;
-        setItemSize(80, 80);
+        setItemSize(90, 90);
         Renderer renderer = new Renderer();
-        renderer.setAngle(90);
         setItemRenderer(renderer);
         setItems(mAssets.vehicleDefs);
     }
