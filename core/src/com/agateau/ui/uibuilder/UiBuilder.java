@@ -413,6 +413,20 @@ public class UiBuilder {
         }
     }
 
+    public int getIntConfigValue(String id) {
+        String value = mConfigMap.get(id);
+        if (value == null) {
+            NLog.e("Unknown config id '%s'", id);
+            return 0;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            NLog.e("Invalid int value for id '%s': '%s'", id, value);
+            return 0;
+        }
+    }
+
     @SuppressWarnings("unused")
     public String getStringConfigValue(String id) {
         String value = mConfigMap.get(id);

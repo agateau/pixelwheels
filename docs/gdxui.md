@@ -167,6 +167,7 @@ The syntax looks like this:
 
 The configuration values can be accessed from the code using one of these methods:
 
+- `UiBuilder.getInttConfigValue()`
 - `UiBuilder.getFloatConfigValue()`
 - `UiBuilder.getStringConfigValue()`
 - `UiBuilder.getAnimScriptConfigValue()`
