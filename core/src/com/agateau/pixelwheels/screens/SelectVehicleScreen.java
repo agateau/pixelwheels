@@ -69,6 +69,13 @@ public class SelectVehicleScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = UiUtils.createUiBuilder(assets);
 
+        builder.registerActorFactory(
+                "Road",
+                (uiBuilder, element) -> {
+                    String name = element.getAttribute("name");
+                    return new ScrollableTiledImage(assets.ui.atlas.findRegion(name), 0);
+                });
+
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);
@@ -78,7 +85,7 @@ public class SelectVehicleScreen extends PwStageScreen {
         mVehicleNameLabel = builder.getActor("vehicleNameLabel");
         mUnlockHintLabel = builder.getActor("unlockHintLabel");
 
-        createVehicleSelector(menu);
+        createVehicleSelector(builder, menu);
         updateVehicleDetails(mVehicleSelector.getCurrent());
 
         builder.getActor("backButton")
@@ -102,10 +109,14 @@ public class SelectVehicleScreen extends PwStageScreen {
         updateNextButton();
     }
 
-    private void createVehicleSelector(Menu menu) {
+    private void createVehicleSelector(UiBuilder builder, Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets, mGame.getRewardManager());
+
+        mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
+        mVehicleSelector.setItemSize(
+                builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
         String id = mGame.getConfig().vehicles[0];
         mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);

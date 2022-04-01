@@ -1,12 +1,19 @@
 <?xml version="1.0"?>
 <gdxui>
+    <Config>
+        <ConfigItem id="columnCount">4</ConfigItem>
+        <ConfigItem id="itemWidth">120</ConfigItem>
+        <ConfigItem id="itemHeight">110</ConfigItem>
+    </Config>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
                topCenter="root.topCenter 0 -1">Select Your Vehicle</Label>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="400" style="large"/>
+        <Road name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5" width="960px" height="360px"/>
 
-        <Label id="vehicleNameLabel" topCenter="menu.bottomCenter 0 0" align="center"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="600px" style="large"/>
+
+        <Label id="vehicleNameLabel" bottomCenter="root.bottomCenter 0 2" align="center"/>
         <Label id="unlockHintLabel" topCenter="$prev.bottomCenter 0 -1" align="center" style="small"/>
 
         <ImageButton id="backButton"
