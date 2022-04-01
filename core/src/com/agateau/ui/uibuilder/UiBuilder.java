@@ -143,14 +143,14 @@ public class UiBuilder {
                 "Image",
                 (uiBuilder, element) -> {
                     Image image = new Image();
-                    TextureAtlas atlas1 = getAtlasForElement(element);
+                    TextureAtlas atlas = getAtlasForElement(element);
                     String attr = element.getAttribute("name", "");
                     if (!attr.isEmpty()) {
                         if (attr.endsWith(".9")) {
-                            initImageFromNinePatchName(image, atlas1, attr);
+                            initImageFromNinePatchName(image, atlas, attr);
                         } else {
                             boolean tiled = element.getBooleanAttribute("tiled", false);
-                            initImageFromRegionName(image, atlas1, attr, tiled);
+                            initImageFromRegionName(image, atlas, attr, tiled);
                         }
                     }
                     image.pack();
@@ -166,8 +166,9 @@ public class UiBuilder {
                     float frameDuration = element.getFloatAttribute("frameDuration", 0.1f);
                     float startTime = element.getFloatAttribute("startTime", 0f);
 
+                    TextureAtlas atlas = getAtlasForElement(element);
                     Animation<TextureRegion> anim =
-                            new Animation<>(frameDuration, uiBuilder.getAtlas().findRegions(name));
+                            new Animation<>(frameDuration, atlas.findRegions(name));
                     AnimatedImage image = new AnimatedImage(anim);
                     image.setStartTime(startTime);
                     return image;
@@ -335,8 +336,13 @@ public class UiBuilder {
         return mSkin;
     }
 
-    public void addAtlas(String ui, TextureAtlas atlas) {
-        mAtlasMap.put(ui, atlas);
+    /**
+     * Add an atlas to provide textures for images.
+     *
+     * <p>An Image or an AnimatedImage can refer to this atlas by setting the `atlas` attribute.
+     */
+    public void addAtlas(String name, TextureAtlas atlas) {
+        mAtlasMap.put(name, atlas);
     }
 
     /**

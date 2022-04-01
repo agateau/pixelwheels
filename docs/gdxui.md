@@ -59,7 +59,7 @@ When a actor is a child of an AnchorGroup it can uses the following attributes t
 
 These attributes are strings following this format: `<actor>.<anchor> [leftMargin] [topMargin]`
 
-## Using a gdxui from the code
+## Using a gdxui file from the code
 
 To load a gdxui file, one uses the `UiBUilder` class. Typical usage looks like this:
 
@@ -73,16 +73,20 @@ Actor content = builder.build(fileHandleToAGdxuiFile);
 TextButton closeButton = builder.getActor("closeButton");
 ```
 
+Extra `TextureAtlas` instances can be registered using `addAtlas(atlasName, atlas)`.
+
 ## Available actors
 
 ### Image
-- name (string, optional):
-- tiled (boolean, optional):
+- name (string, optional): Name of the image in the atlas.
+- tiled (boolean, optional): Set to `true` to make the image repeat itself. Defaults to `false`.
+- atlas (string, optional): In which atlas to look for the image. Must have been registered with `UiBuilder.addAtlas`.
 
 ### AnimatedImage
-- name (string, required): Name of the animation in the ui atlas.
+- name (string, required): Name of the animation in the atlas.
 - frameDuration (float, optional): Duration of the frame, in seconds. Defaults to 0.1.
 - startTime (float, optional): Start time in the animation, useful to offset different instances. Defaults to 0.
+- atlas (string, optional): In which atlas to look for the image. Must have been registered with `UiBuilder.addAtlas`.
 
 ### ImageButton
 - style (string, optional)
