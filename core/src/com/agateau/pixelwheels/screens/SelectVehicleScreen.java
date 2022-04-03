@@ -69,13 +69,6 @@ public class SelectVehicleScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
         UiBuilder builder = UiUtils.createUiBuilder(assets);
 
-        builder.registerActorFactory(
-                "Road",
-                (uiBuilder, element) -> {
-                    String name = element.getAttribute("name");
-                    return new ScrollableTiledImage(assets.ui.atlas.findRegion(name), 0);
-                });
-
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/selectvehicle.gdxui"));
         root.setFillParent(true);

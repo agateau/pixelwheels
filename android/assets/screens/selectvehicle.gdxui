@@ -9,7 +9,8 @@
         <Label id="titleLabel" style="title"
                topCenter="root.topCenter 0 -1">Select Your Vehicle</Label>
 
-        <Road name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5" width="960px" height="360px"/>
+        <Image tiled="true" atlas="ui" name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5"
+            width="960px" height="360px"/>
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="600px" style="large"/>
 
