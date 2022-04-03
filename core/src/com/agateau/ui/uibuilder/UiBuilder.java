@@ -20,6 +20,7 @@ package com.agateau.ui.uibuilder;
 
 import static com.agateau.translations.Translator.tr;
 
+import com.agateau.ui.AgcTiledImage;
 import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
@@ -54,10 +55,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
@@ -142,19 +141,26 @@ public class UiBuilder {
         mActorFactories.put(
                 "Image",
                 (uiBuilder, element) -> {
-                    Image image = new Image();
                     TextureAtlas atlas = getAtlasForElement(element);
-                    String attr = element.getAttribute("name", "");
-                    if (!attr.isEmpty()) {
-                        if (attr.endsWith(".9")) {
-                            initImageFromNinePatchName(image, atlas, attr);
-                        } else {
-                            boolean tiled = element.getBooleanAttribute("tiled", false);
-                            initImageFromRegionName(image, atlas, attr, tiled);
+                    String name = element.getAttribute("name", "");
+                    boolean tiled = element.getBooleanAttribute("tiled", false);
+                    if (tiled) {
+                        AgcTiledImage image = new AgcTiledImage();
+                        TextureRegion region = atlas.findRegion(name);
+                        image.setRegion(region);
+                        return image;
+                    } else {
+                        Image image = new Image();
+                        if (!name.isEmpty()) {
+                            if (name.endsWith(".9")) {
+                                initImageFromNinePatchName(image, atlas, name);
+                            } else {
+                                initImageFromRegionName(image, atlas, name);
+                            }
+                            image.pack();
                         }
+                        return image;
                     }
-                    image.pack();
-                    return image;
                 });
         mActorFactories.put(
                 "AnimatedImage",
@@ -495,17 +501,10 @@ public class UiBuilder {
         image.setDrawable(new NinePatchDrawable(patch));
     }
 
-    private void initImageFromRegionName(
-            Image image, TextureAtlas atlas, String name, boolean tiled) {
+    private void initImageFromRegionName(Image image, TextureAtlas atlas, String name) {
         TextureRegion region = atlas.findRegion(name);
         Assert.check(region != null, "No region named " + name);
-        Drawable drawable;
-        if (tiled) {
-            drawable = new TiledDrawable(region);
-        } else {
-            drawable = new TextureRegionDrawable(region);
-        }
-        image.setDrawable(drawable);
+        image.setDrawable(new TextureRegionDrawable(region));
         if (image.getWidth() == 0) {
             image.setWidth(region.getRegionWidth());
         }
