@@ -42,7 +42,6 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
         public Rectangle getItemRectangle(float width, float height, VehicleDef vehicleDef) {
             mVehicleDrawer.vehicleDef = vehicleDef;
             mVehicleDrawer.center.set(width / 2, height / 2);
-            mVehicleDrawer.scale = 1;
             mVehicleDrawer.angle = 90;
             return mVehicleDrawer.getRectangle();
         }
@@ -62,7 +61,6 @@ public class VehicleSelector extends GridMenuItem<VehicleDef> {
             mVehicleDrawer.vehicleDef = vehicleDef;
             mVehicleDrawer.center.x = x + width / 2;
             mVehicleDrawer.center.y = y + height / 2;
-            mVehicleDrawer.scale = 1;
             mVehicleDrawer.angle = 90;
             mVehicleDrawer.draw(batch);
             batch.setPackedColor(old);
