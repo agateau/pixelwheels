@@ -44,9 +44,9 @@ class VehicleDrawer {
     private final Matrix4 mFrameBufferProjectionMatrix = new Matrix4();
     private final Matrix4 mFrameBufferTransformMatrix = new Matrix4();
 
-    public VehicleDef vehicleDef;
-    public final Vector2 center = new Vector2(0, 0);
-    public float angle = 0;
+    private VehicleDef mVehicleDef;
+    private final Vector2 mCenter = new Vector2(0, 0);
+    private float mAngle = 90;
 
     VehicleDrawer(Assets assets) {
         mAssets = assets;
@@ -55,13 +55,25 @@ class VehicleDrawer {
         mFrameBufferProjectionMatrix.setToOrtho2D(0, 0, FB_WIDTH, FB_HEIGHT);
     }
 
+    public void setVehicleDef(VehicleDef vehicleDef) {
+        mVehicleDef = vehicleDef;
+    }
+
+    public void setAngle(float angle) {
+        mAngle = angle;
+    }
+
+    public void setCenter(float x, float y) {
+        mCenter.set(x, y);
+    }
+
     private final Vector2 sWheelPos = new Vector2();
     private static final Matrix4 sOldMatrix = new Matrix4();
     private static final Matrix4 sOldTransformMatrix = new Matrix4();
 
     /** Get bounding rectangle, centered on this.center */
     public Rectangle getRectangle() {
-        TextureRegion region = vehicleDef.getImage(mAssets);
+        TextureRegion region = mVehicleDef.getImage(mAssets);
 
         float halfHeight = region.getRegionWidth() / 2f;
         float halfWidth = region.getRegionHeight() / 2f;
@@ -70,7 +82,7 @@ class VehicleDrawer {
         float bottom = -halfHeight;
         float top = halfHeight;
 
-        for (AxleDef axle : vehicleDef.axles) {
+        for (AxleDef axle : mVehicleDef.axles) {
             float axleY = axleYOrigin + axle.y;
             TextureRegion wheelRegion = axle.getTexture(mAssets);
             float thickness = wheelRegion.getRegionHeight();
@@ -87,13 +99,13 @@ class VehicleDrawer {
 
         mRectangle.width = halfWidth * 2;
         mRectangle.height = top - bottom;
-        mRectangle.x = center.x - halfWidth;
-        mRectangle.y = center.y + bottom;
+        mRectangle.x = mCenter.x - halfWidth;
+        mRectangle.y = mCenter.y + bottom;
         return mRectangle;
     }
 
     public void draw(Batch batch) {
-        TextureRegion region = vehicleDef.getImage(mAssets);
+        TextureRegion region = mVehicleDef.getImage(mAssets);
 
         batch.end();
 
@@ -119,7 +131,7 @@ class VehicleDrawer {
         drawFrameBuffer(batch);
 
         // Draw vehicle to screen
-        drawInternal(batch, region, center);
+        drawInternal(batch, region, mCenter);
     }
 
     private void drawFrameBuffer(Batch batch) {
@@ -128,8 +140,8 @@ class VehicleDrawer {
         batch.draw(
                 mFrameBuffer.getColorBufferTexture(),
                 // dst
-                center.x - FB_WIDTH / 2f + BodyRegionDrawer.SHADOW_OFFSET_PX,
-                center.y - FB_HEIGHT / 2f - BodyRegionDrawer.SHADOW_OFFSET_PX,
+                mCenter.x - FB_WIDTH / 2f + BodyRegionDrawer.SHADOW_OFFSET_PX,
+                mCenter.y - FB_HEIGHT / 2f - BodyRegionDrawer.SHADOW_OFFSET_PX,
                 // dst size
                 FB_WIDTH,
                 FB_HEIGHT,
@@ -144,23 +156,23 @@ class VehicleDrawer {
         batch.setPackedColor(oldColor);
     }
 
-    private void drawInternal(Batch batch, TextureRegion region, Vector2 center_) {
+    private void drawInternal(Batch batch, TextureRegion region, Vector2 center) {
         float axleXOrigin = -region.getRegionWidth() / 2f;
-        for (AxleDef axle : vehicleDef.axles) {
+        for (AxleDef axle : mVehicleDef.axles) {
             // axleX is based on axle.y because the vehicle texture faces right, but the axle
             // definition faces top
             // See VehicleCreator for more details
             float axleX = axleXOrigin + axle.y;
             TextureRegion wheelRegion = axle.getTexture(mAssets);
-            drawWheel(batch, wheelRegion, center_, axleX, -axle.width / 2);
-            drawWheel(batch, wheelRegion, center_, axleX, axle.width / 2);
+            drawWheel(batch, wheelRegion, center, axleX, -axle.width / 2);
+            drawWheel(batch, wheelRegion, center, axleX, axle.width / 2);
         }
 
-        DrawUtils.drawCentered(batch, region, center_.x, center_.y, 1, angle);
+        DrawUtils.drawCentered(batch, region, center.x, center.y, 1, mAngle);
     }
 
-    private void drawWheel(Batch batch, TextureRegion region, Vector2 center_, float wx, float wy) {
-        sWheelPos.set(wx, wy).rotateDeg(angle).add(center_);
-        DrawUtils.drawCentered(batch, region, sWheelPos, 1, angle);
+    private void drawWheel(Batch batch, TextureRegion region, Vector2 center, float wx, float wy) {
+        sWheelPos.set(wx, wy).rotateDeg(mAngle).add(center);
+        DrawUtils.drawCentered(batch, region, sWheelPos, 1, mAngle);
     }
 }
