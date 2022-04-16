@@ -124,7 +124,7 @@ msgstr "Andere Soundeffekte"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr "Schriften"
+msgstr "Schriftarten"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
@@ -176,7 +176,7 @@ msgstr "Französisch:"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "German:"
-msgstr "Deutsch"
+msgstr "Deutsch:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Christian Schrötter"
@@ -501,7 +501,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
-msgstr "Über"
+msgstr "Informationen"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "Pixel Wheels %s"
@@ -532,7 +532,7 @@ msgstr "WEBSITE"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Under the hood"
-msgstr "Versteckte Optionen"
+msgstr "Fehlersuche"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid ""
@@ -703,4 +703,4 @@ msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "ORDNER DES PROTOKOLLs"
+msgstr "PROTOKOLLORDNER"
