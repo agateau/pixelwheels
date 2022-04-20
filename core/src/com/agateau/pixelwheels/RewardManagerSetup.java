@@ -44,7 +44,7 @@ class RewardManagerSetup {
 
     private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS =
             CollectionUtils.newSet(
-                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
+                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "miramar");
 
     static void createChampionshipRules(
             RewardManager rewardManager, Array<Championship> championships) {
