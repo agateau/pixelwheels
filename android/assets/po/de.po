@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 00:41+0200\n"
+"POT-Creation-Date: 2022-04-21 08:55+0200\n"
 "PO-Revision-Date: 2022-04-16 23:47+0200\n"
 "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
 "Language-Team: German\n"
@@ -387,25 +387,21 @@ msgstr "Fehler gefunden? Hier kannst du ihn melden!"
 msgid "REPORT BUG"
 msgstr "FEHLER MELDEN"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-msgid "Rank 3 or better at %s championship"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Treffe ein Fahrzeug mit einer Rakete"
 msgstr[1] "Treffe %# Fahrzeuge mit einer Rakete"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Verlasse einmal die Straße"
 msgstr[1] "Verlasse %# mal die Straße"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Wähle einen Bonus aus"
@@ -490,6 +486,21 @@ msgstr "Punkte"
 msgid "Race time"
 msgstr "Rennzeit"
 
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
+#, fuzzy
+msgid "Finish third or better at %s championship"
+msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
+#, fuzzy
+msgid "Finish second or better at %s championship"
+msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
+#, fuzzy
+msgid "Finish first at %s championship"
+msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"
 msgid ""
@@ -516,8 +527,8 @@ msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
-"Pixel Wheels ist freie Software, du kannst die weitere Entwicklung "
-"aber auf verschiedene Arten unterstützen."
+"Pixel Wheels ist freie Software, du kannst die weitere Entwicklung aber auf "
+"verschiedene Arten unterstützen."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "VISIT SUPPORT PAGE"
@@ -701,7 +712,9 @@ msgstr "6."
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
-msgstr "Willst du einen Fehler melden? Verwende die nachfolgende Schaltfläche, um den Ordner der Protokolldatei zu öffnen."
+msgstr ""
+"Willst du einen Fehler melden? Verwende die nachfolgende Schaltfläche, um "
+"den Ordner der Protokolldatei zu öffnen."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
