@@ -27,10 +27,8 @@ import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
-import com.agateau.utils.CollectionUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.utils.Array;
-import java.util.Set;
 
 /** Helper class to create the reward manager rules */
 class RewardManagerSetup {
@@ -39,10 +37,6 @@ class RewardManagerSetup {
     private static final int UNLOCK_SANTA_COUNT = 20;
     private static final int UNLOCK_DARK_M_COUNT = 40;
     private static final int UNLOCK_JEEP_COUNT = 100;
-
-    private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS =
-            CollectionUtils.newSet(
-                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
     static void createChampionshipRules(
             RewardManager rewardManager, Array<Championship> championships) {
@@ -101,11 +95,6 @@ class RewardManagerSetup {
     }
 
     static void createVehicleRules(RewardManager rewardManager, Assets assets) {
-        for (VehicleDef vehicleDef : assets.vehicleDefs) {
-            if (ALWAYS_UNLOCKED_VEHICLE_IDS.contains(vehicleDef.id)) {
-                rewardManager.addRule(Reward.get(vehicleDef), RewardManager.ALWAYS_UNLOCKED);
-            }
-        }
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("rocket")),
                 new CounterRewardRule(
@@ -150,5 +139,13 @@ class RewardManagerSetup {
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("miramar")),
                 new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 1));
+
+        // Unlock all remaining vehicles
+        for (VehicleDef vehicleDef : assets.vehicleDefs) {
+            Reward reward = Reward.get(vehicleDef);
+            if (!rewardManager.hasRuleForReward(reward)) {
+                rewardManager.addRule(reward, RewardManager.ALWAYS_UNLOCKED);
+            }
+        }
     }
 }

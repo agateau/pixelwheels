@@ -139,6 +139,10 @@ public class RewardManager {
         mRules.put(reward, rule);
     }
 
+    public boolean hasRuleForReward(Reward reward) {
+        return mRules.containsKey(reward);
+    }
+
     public String getUnlockText(Track track) {
         Championship championship = track.getChampionship();
         return getUnlockText(Reward.get(championship));
