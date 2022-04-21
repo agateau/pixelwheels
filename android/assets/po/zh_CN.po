@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 00:41+0200\n"
+"POT-Creation-Date: 2022-04-21 08:55+0200\n"
 "PO-Revision-Date: 2021-12-16 16:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -389,23 +389,19 @@ msgstr "遇到错误？使用这个按钮报告。"
 msgid "REPORT BUG"
 msgstr "报告错误"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-msgid "Rank 3 or better at %s championship"
-msgstr "在 %s 锦标赛取得至少第三名"
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "使用飞弹命中 %# 辆赛车"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "离开道路 %# 次"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "捡到 %# 个奖励"
@@ -488,6 +484,21 @@ msgstr "分数"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 msgid "Race time"
 msgstr "比赛时间"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
+#, fuzzy
+msgid "Finish third or better at %s championship"
+msgstr "在 %s 锦标赛取得至少第三名"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
+#, fuzzy
+msgid "Finish second or better at %s championship"
+msgstr "在 %s 锦标赛取得至少第三名"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
+#, fuzzy
+msgid "Finish first at %s championship"
+msgstr "在 %s 锦标赛取得至少第三名"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"

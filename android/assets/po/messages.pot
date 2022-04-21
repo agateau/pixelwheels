@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 00:41+0200\n"
+"POT-Creation-Date: 2022-04-21 08:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -388,25 +388,21 @@ msgstr ""
 msgid "REPORT BUG"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:92
-msgid "Rank 3 or better at %s championship"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:123
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:147
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:132
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:156
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:139
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] ""
@@ -489,6 +485,18 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
 msgid "Race time"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
+msgid "Finish third or better at %s championship"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
+msgid "Finish second or better at %s championship"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
+msgid "Finish first at %s championship"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
