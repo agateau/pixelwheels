@@ -18,16 +18,14 @@
  */
 package com.agateau.pixelwheels;
 
-import static com.agateau.translations.Translator.tr;
 import static com.agateau.translations.Translator.trn;
 
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.rewards.ChampionshipRankRewardRule;
 import com.agateau.pixelwheels.rewards.CounterRewardRule;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
-import com.agateau.pixelwheels.rewards.RewardRule;
 import com.agateau.pixelwheels.stats.GameStats;
-import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.CollectionUtils;
 import com.agateau.utils.log.NLog;
@@ -44,7 +42,7 @@ class RewardManagerSetup {
 
     private static final Set<String> ALWAYS_UNLOCKED_VEHICLE_IDS =
             CollectionUtils.newSet(
-                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester", "miramar");
+                    "red", "police", "pickup", "roadster", "antonin", "santa", "2cv", "harvester");
 
     static void createChampionshipRules(
             RewardManager rewardManager, Array<Championship> championships) {
@@ -57,10 +55,10 @@ class RewardManagerSetup {
 
             rewardManager.addRule(
                     Reward.get(championships.get(idx)),
-                    new RewardRule() {
+                    new ChampionshipRankRewardRule(previous, 2) {
                         @Override
                         public boolean hasBeenUnlocked(GameStats gameStats) {
-                            if (gameStats.getBestChampionshipRank(previous) <= 2) {
+                            if (super.hasBeenUnlocked(gameStats)) {
                                 return true;
                             }
                             if (hasAlreadyRacedChampionshipOrAfter(
@@ -84,12 +82,6 @@ class RewardManagerSetup {
                                 return true;
                             }
                             return false;
-                        }
-
-                        @Override
-                        public String getUnlockText(GameStats gameStats) {
-                            return StringUtils.format(
-                                    tr("Rank 3 or better at %s championship"), previous.getName());
                         }
 
                         private boolean hasAlreadyRacedChampionshipOrAfter(
@@ -154,5 +146,9 @@ class RewardManagerSetup {
                         GameStats.Event.LEAVING_ROAD,
                         UNLOCK_JEEP_COUNT,
                         trn("Leave road one time", "Leave road %# times", UNLOCK_JEEP_COUNT)));
+
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("miramar")),
+                new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 1));
     }
 }
