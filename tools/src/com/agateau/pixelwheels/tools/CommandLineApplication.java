@@ -19,13 +19,13 @@
 package com.agateau.pixelwheels.tools;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 /**
  * Convenience abstract class to create command line apps while getting access to all Gdx.* services
  */
-public abstract class CommandLineApplication extends LwjglApplication {
+public abstract class CommandLineApplication extends Lwjgl3Application {
     private static class AppAdapter extends ApplicationAdapter {
         CommandLineApplication mApp;
         String[] mArguments;
@@ -43,14 +43,11 @@ public abstract class CommandLineApplication extends LwjglApplication {
         appAdapter.mArguments = arguments;
     }
 
-    private static LwjglApplicationConfiguration createConfig(String title) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        LwjglApplicationConfiguration.disableAudio = true;
-        config.allowSoftwareMode = true;
-        config.forceExit = false;
-        config.width = 100;
-        config.height = 50;
-        config.title = title;
+    private static Lwjgl3ApplicationConfiguration createConfig(String title) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.disableAudio(true);
+        config.setWindowedMode(100, 50);
+        config.setTitle(title);
         return config;
     }
 

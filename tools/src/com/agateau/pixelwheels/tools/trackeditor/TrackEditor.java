@@ -21,8 +21,8 @@ package com.agateau.pixelwheels.tools.trackeditor;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
@@ -76,12 +76,10 @@ public class TrackEditor extends Game {
             System.exit(1);
         }
 
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 960;
-        config.height = 540;
-        config.title = "Track Editor";
-        config.forceExit = false;
-        new LwjglApplication(new TrackEditor(args), config);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(960, 540);
+        config.setTitle("Track Editor");
+        new Lwjgl3Application(new TrackEditor(args), config);
     }
 
     @Override
