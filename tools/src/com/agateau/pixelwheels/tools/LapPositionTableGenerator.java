@@ -33,7 +33,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 /** Load a .tmx file and save its corresponding lap position table as a PNG file */
 public class LapPositionTableGenerator {
@@ -125,7 +124,7 @@ public class LapPositionTableGenerator {
         fbo.begin();
         renderer.render();
 
-        return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
+        return Pixmap.createFromFrameBuffer(0, 0, mapWidth, mapHeight);
     }
 
     public static void drawTable(LapPositionTable table, Pixmap pixmap) {

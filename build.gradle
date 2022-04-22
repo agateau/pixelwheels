@@ -14,7 +14,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'Pixel Wheels'
-        gdxVersion = '1.9.13'
+        gdxVersion = '1.9.14'
         gdxControllersVersion = '2.2.0'
     }
 
