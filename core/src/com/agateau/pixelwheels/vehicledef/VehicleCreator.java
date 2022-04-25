@@ -47,7 +47,7 @@ public class VehicleCreator {
 
         Vehicle vehicle =
                 new Vehicle(mAssets, mGameWorld, position.x, position.y, vehicleDef, angle);
-        vehicle.setName(vehicleDef.name);
+        vehicle.setName(vehicleDef.getName());
         vehicle.setId(vehicleDef.id);
 
         for (AxleDef axle : vehicleDef.axles) {

@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.map;
 
+import static com.agateau.translations.Translator.trc;
+
 import com.badlogic.gdx.utils.Array;
 
 public class Championship {
@@ -41,7 +43,7 @@ public class Championship {
     }
 
     public String getName() {
-        return mName;
+        return trc(mName, "championship");
     }
 
     public Array<Track> getTracks() {

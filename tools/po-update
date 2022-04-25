@@ -71,6 +71,8 @@ list_files() {
         find $dir -name '*.java' | grep -v '/build/' >> $output
     done
     find android/assets -name '*.gdxui' >> $output
+    find android/assets/championships -name '*.xml' >> $output
+    find android/assets/vehicles -name '*.xml' >> $output
 }
 
 extract_messages() {

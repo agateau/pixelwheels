@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<locatingRules>
+  <locatingRule name="gdxui" pattern="*.gdxui" target="gdxui.its"/>
+  <locatingRule name="championships" pattern="*.xml">
+    <documentRule localName="championship" target="championships.its"/>
+    <documentRule localName="vehicle" target="vehicles.its"/>
+  </locatingRule>
+</locatingRules>

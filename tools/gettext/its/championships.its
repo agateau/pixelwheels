@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<its:rules
+    xmlns:its="http://www.w3.org/2005/11/its"
+    xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
+    version="1.0">
+  <its:translateRule selector="/championship/@name" translate="yes"/>
+  <gt:contextRule selector="/championship/@name" contextPointer="&quot;championship&quot;"/>
+  <its:translateRule selector="/championship/track/@name" translate="yes"/>
+  <gt:contextRule selector="/championship/track/@name" contextPointer="&quot;track&quot;"/>
+</its:rules>
+

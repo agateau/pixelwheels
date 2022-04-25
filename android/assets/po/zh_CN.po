@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-21 08:55+0200\n"
+"POT-Creation-Date: 2022-04-25 19:33+0200\n"
 "PO-Revision-Date: 2021-12-16 16:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: \n"
@@ -17,6 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0\n"
+
+#: android/assets/championships/0.xml:2
+#, fuzzy
+msgctxt "championship"
+msgid "Country Life"
+msgstr "乡村生活锦标赛："
+
+#: android/assets/championships/0.xml:3
+msgctxt "track"
+msgid "Welcome!"
+msgstr ""
+
+#: android/assets/championships/0.xml:15
+msgctxt "track"
+msgid "River"
+msgstr ""
+
+#: android/assets/championships/0.xml:27
+msgctxt "track"
+msgid "Flood"
+msgstr ""
+
+#: android/assets/championships/1.xml:2
+#, fuzzy
+msgctxt "championship"
+msgid "Square Mountains"
+msgstr "方正山脉锦标赛："
+
+#: android/assets/championships/1.xml:3
+msgctxt "track"
+msgid "Let it snow"
+msgstr ""
+
+#: android/assets/championships/1.xml:15
+msgctxt "track"
+msgid "Don't slip!"
+msgstr ""
+
+#: android/assets/championships/2.xml:2
+msgctxt "championship"
+msgid "Pix Cities"
+msgstr ""
+
+#: android/assets/championships/2.xml:3
+msgctxt "track"
+msgid "Blocky Town"
+msgstr ""
+
+#: android/assets/championships/2.xml:15
+msgctxt "track"
+msgid "Tiny sur Mer"
+msgstr ""
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -376,6 +428,68 @@ msgstr "最佳单圈"
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
 msgstr "最佳总用时"
+
+#: android/assets/vehicles/2cv.xml:1
+msgctxt "vehicle"
+msgid "2-Deuch"
+msgstr ""
+
+#: android/assets/vehicles/antonin.xml:1
+msgctxt "vehicle"
+msgid "Ant On-1"
+msgstr ""
+
+#: android/assets/vehicles/dark-m.xml:1
+msgctxt "vehicle"
+msgid "Dark M"
+msgstr ""
+
+#: android/assets/vehicles/harvester.xml:1
+msgctxt "vehicle"
+msgid "Harvester"
+msgstr ""
+
+#: android/assets/vehicles/jeep.xml:1
+msgctxt "vehicle"
+msgid "Jeep"
+msgstr ""
+
+#: android/assets/vehicles/miramar.xml:1
+msgctxt "vehicle"
+msgid "Miramar"
+msgstr ""
+
+#: android/assets/vehicles/pickup.xml:1
+msgctxt "vehicle"
+msgid "Pickup"
+msgstr ""
+
+#: android/assets/vehicles/police.xml:1
+#, fuzzy
+msgctxt "vehicle"
+msgid "Police"
+msgstr "波兰语："
+
+#: android/assets/vehicles/red.xml:1
+#, fuzzy
+msgctxt "vehicle"
+msgid "Red"
+msgstr "准备！"
+
+#: android/assets/vehicles/roadster.xml:1
+msgctxt "vehicle"
+msgid "Roadster"
+msgstr ""
+
+#: android/assets/vehicles/rocket.xml:1
+msgctxt "vehicle"
+msgid "Rocket"
+msgstr ""
+
+#: android/assets/vehicles/santa.xml:1
+msgctxt "vehicle"
+msgid "Santa Truck"
+msgstr ""
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"

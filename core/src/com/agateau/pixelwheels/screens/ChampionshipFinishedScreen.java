@@ -209,7 +209,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             mTableRowCreator.setRowStyle(style);
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
-                    vehicleDef.name,
+                    vehicleDef.getName(),
                     totalTime,
                     String.valueOf(entrant.getPoints()));
         }
