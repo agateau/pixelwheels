@@ -28,6 +28,7 @@ import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.animscript.AnimScript;
@@ -556,8 +557,9 @@ public class FinishedOverlay extends Overlay {
         return false;
     }
 
-    private static String getRacerName(Racer racer) {
-        return racer.getVehicle().getName();
+    private String getRacerName(Racer racer) {
+        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(racer.getVehicle().getId());
+        return vehicleDef.getName();
     }
 
     private final Vector2 mTmp = new Vector2();

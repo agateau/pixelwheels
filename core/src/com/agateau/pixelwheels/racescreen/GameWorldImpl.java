@@ -270,17 +270,16 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
                 if (entrant.isPlayer()) {
                     Racer.RecordRanks ranks = racer.getRecordRanks();
-                    // TODO find another way to get the name
-                    String name = racer.getVehicle().getName();
+                    String vehicleId = racer.getVehicle().getId();
                     ranks.lapRecordRank =
                             stats.addResult(
                                     TrackStats.ResultType.LAP,
-                                    name,
+                                    vehicleId,
                                     lapPositionComponent.getBestLapTime());
                     ranks.totalRecordRank =
                             stats.addResult(
                                     TrackStats.ResultType.TOTAL,
-                                    name,
+                                    vehicleId,
                                     lapPositionComponent.getTotalTime());
                 }
             } else {
