@@ -1,4 +1,4 @@
-<vehicle speed="1" name="Police" width="30" height="56">
+<vehicle speed="1" name="Highway Patrol" width="30" height="56">
     <main image="police"/>
     <shapes>
         <octogon y="0" corner="1" width="30" height="54"/>

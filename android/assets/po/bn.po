@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 19:33+0200\n"
+"POT-Creation-Date: 2022-05-03 08:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -466,16 +466,14 @@ msgid "Pickup"
 msgstr ""
 
 #: android/assets/vehicles/police.xml:1
-#, fuzzy
 msgctxt "vehicle"
-msgid "Police"
-msgstr "পোলিশ"
+msgid "Highway Patrol"
+msgstr ""
 
 #: android/assets/vehicles/red.xml:1
-#, fuzzy
 msgctxt "vehicle"
-msgid "Red"
-msgstr "প্রস্তুত!"
+msgid "Red Lightning"
+msgstr ""
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
@@ -540,69 +538,69 @@ msgstr "চাকা বোতাম"
 msgid "Side buttons"
 msgstr "পাশের বোতাম"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:295
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
 msgstr "ক্রম"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
 msgstr "প্রতিযোগিতার ফল"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 #, fuzzy
 msgid "Congratulations, great race!"
 msgstr ""
 "অভিনন্দন!\n"
 "তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr "#"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 msgid "Best lap"
 msgstr "সর্বোত্তম দৌড়"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr "দৌড়বিদ"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr "মোট সময়"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr "পয়েন্ট"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 msgid "Race time"
 msgstr "দৌড়ের সময়"
 
@@ -794,10 +792,15 @@ msgid "MAIN MENU"
 msgstr "মূল পৃষ্ঠা"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr "[তালাবদ্ধ]"
+
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
+msgctxt "vehicle-record-placeholder"
+msgid "CPU"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
@@ -842,6 +845,16 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#, fuzzy
+#~ msgctxt "vehicle"
+#~ msgid "Police"
+#~ msgstr "পোলিশ"
+
+#, fuzzy
+#~ msgctxt "vehicle"
+#~ msgid "Red"
+#~ msgstr "প্রস্তুত!"
 
 #, fuzzy
 #~ msgid "Down | Brake:"
