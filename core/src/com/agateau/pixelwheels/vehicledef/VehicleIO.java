@@ -48,9 +48,7 @@ public class VehicleIO {
     }
 
     public static VehicleDef get(XmlReader.Element root, String id) {
-        VehicleDef data = new VehicleDef();
-        data.id = id;
-        data.name = root.getAttribute("name");
+        VehicleDef data = new VehicleDef(id, root.getAttribute("name"));
         data.speed = root.getFloatAttribute("speed");
 
         float width = root.getFloatAttribute("height");

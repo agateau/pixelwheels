@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<its:rules
+    xmlns:its="http://www.w3.org/2005/11/its"
+    xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
+    version="1.0">
+  <its:translateRule selector="/vehicle/@name" translate="yes"/>
+  <!-- Add "vehicle" as a fixed string context -->
+  <gt:contextRule selector="/vehicle/@name" contextPointer="&quot;vehicle&quot;"/>
+</its:rules>
+

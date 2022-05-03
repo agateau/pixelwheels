@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-21 08:55+0200\n"
+"POT-Creation-Date: 2022-05-03 08:28+0200\n"
 "PO-Revision-Date: 2022-01-25 19:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
+
+#: android/assets/championships/0.xml:2
+#, fuzzy
+msgctxt "championship"
+msgid "Country Life"
+msgstr "Campeonato Country Life :"
+
+#: android/assets/championships/0.xml:3
+msgctxt "track"
+msgid "Welcome!"
+msgstr ""
+
+#: android/assets/championships/0.xml:15
+msgctxt "track"
+msgid "River"
+msgstr ""
+
+#: android/assets/championships/0.xml:27
+msgctxt "track"
+msgid "Flood"
+msgstr ""
+
+#: android/assets/championships/1.xml:2
+#, fuzzy
+msgctxt "championship"
+msgid "Square Mountains"
+msgstr "Campeonato Square Mountains :"
+
+#: android/assets/championships/1.xml:3
+msgctxt "track"
+msgid "Let it snow"
+msgstr ""
+
+#: android/assets/championships/1.xml:15
+msgctxt "track"
+msgid "Don't slip!"
+msgstr ""
+
+#: android/assets/championships/2.xml:2
+msgctxt "championship"
+msgid "Pix Cities"
+msgstr ""
+
+#: android/assets/championships/2.xml:3
+msgctxt "track"
+msgid "Blocky Town"
+msgstr ""
+
+#: android/assets/championships/2.xml:15
+msgctxt "track"
+msgid "Tiny sur Mer"
+msgstr ""
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -379,6 +431,66 @@ msgstr "Mejor vuelta"
 msgid "Best Total"
 msgstr "Mejor tiempo total"
 
+#: android/assets/vehicles/2cv.xml:1
+msgctxt "vehicle"
+msgid "2-Deuch"
+msgstr ""
+
+#: android/assets/vehicles/antonin.xml:1
+msgctxt "vehicle"
+msgid "Ant On-1"
+msgstr ""
+
+#: android/assets/vehicles/dark-m.xml:1
+msgctxt "vehicle"
+msgid "Dark M"
+msgstr ""
+
+#: android/assets/vehicles/harvester.xml:1
+msgctxt "vehicle"
+msgid "Harvester"
+msgstr ""
+
+#: android/assets/vehicles/jeep.xml:1
+msgctxt "vehicle"
+msgid "Jeep"
+msgstr ""
+
+#: android/assets/vehicles/miramar.xml:1
+msgctxt "vehicle"
+msgid "Miramar"
+msgstr ""
+
+#: android/assets/vehicles/pickup.xml:1
+msgctxt "vehicle"
+msgid "Pickup"
+msgstr ""
+
+#: android/assets/vehicles/police.xml:1
+msgctxt "vehicle"
+msgid "Highway Patrol"
+msgstr ""
+
+#: android/assets/vehicles/red.xml:1
+msgctxt "vehicle"
+msgid "Red Lightning"
+msgstr ""
+
+#: android/assets/vehicles/roadster.xml:1
+msgctxt "vehicle"
+msgid "Roadster"
+msgstr ""
+
+#: android/assets/vehicles/rocket.xml:1
+msgctxt "vehicle"
+msgid "Rocket"
+msgstr ""
+
+#: android/assets/vehicles/santa.xml:1
+msgctxt "vehicle"
+msgid "Santa Truck"
+msgstr ""
+
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
 msgstr "Compartir con"
@@ -427,66 +539,66 @@ msgstr "Botones en arco"
 msgid "Side buttons"
 msgstr "Botones en el lado"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:295
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
 msgstr "Clasificación del campeonato"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
 msgstr "Resultado de la carrera"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:326
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "Congratulations, great race!"
 msgstr "Felicitaciones, magnífica carrera !"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
 msgstr "Eres un piloto increíble !"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
 msgstr "Eres un campeón !"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
 msgstr "Bravo por esta desempeño !"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
 msgstr "Impresionante !"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "#"
 msgstr "N°"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 msgid "Best lap"
 msgstr "Mejor vuelta"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Racer"
 msgstr "Piloto"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:414
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Total time"
 msgstr "Tiempo total"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:418
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
 msgid "Points"
 msgstr "Puntos"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:421
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 msgid "Race time"
 msgstr "Tiempo de carrera"
 
@@ -677,10 +789,15 @@ msgid "MAIN MENU"
 msgstr "MENÚ PRINCIPAL"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
 msgid "[Locked]"
 msgstr "[Bloqueado]"
+
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
+msgctxt "vehicle-record-placeholder"
+msgid "CPU"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
@@ -727,6 +844,16 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "FICHERO DE LOG"
+
+#, fuzzy
+#~ msgctxt "vehicle"
+#~ msgid "Police"
+#~ msgstr "Polaco :"
+
+#, fuzzy
+#~ msgctxt "vehicle"
+#~ msgid "Red"
+#~ msgstr "Listo !"
 
 #, fuzzy
 #~ msgid "Down | Brake:"

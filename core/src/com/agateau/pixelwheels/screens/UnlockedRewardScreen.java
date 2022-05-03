@@ -108,7 +108,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
     private void setupVehicleReward(UiBuilder builder, VehicleDef vehicleDef) {
         VehicleActor vehicle = builder.getActor("vehicle");
         vehicle.setVehicleDef(vehicleDef);
-        setupRewardDetails(builder, tr("New vehicle unlocked!"), vehicleDef.name);
+        setupRewardDetails(builder, tr("New vehicle unlocked!"), vehicleDef.getName());
     }
 
     private void setupChampionshipReward(UiBuilder builder, Championship championship) {

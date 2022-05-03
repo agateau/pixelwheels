@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.map;
 
+import static com.agateau.translations.Translator.trc;
+
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
@@ -315,7 +317,7 @@ public class Track implements Disposable {
 
     @SuppressWarnings("unused")
     public String getMapName() {
-        return mMapName;
+        return trc(mMapName, "track");
     }
 
     @Override

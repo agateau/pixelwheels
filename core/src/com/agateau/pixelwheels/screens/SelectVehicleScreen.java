@@ -132,7 +132,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void updateVehicleDetails(VehicleDef vehicle) {
         String text;
         if (mGame.getRewardManager().isVehicleUnlocked(vehicle)) {
-            text = vehicle.name;
+            text = vehicle.getName();
 
             mUnlockHintLabel.setVisible(false);
         } else {
