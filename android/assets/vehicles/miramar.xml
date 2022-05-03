@@ -1,8 +1,8 @@
-<vehicle speed="1.15" name="Miramar" width="31" height="88">
+<vehicle speed="1.15" name="Miramar" width="35" height="86">
     <main image="miramar"/>
     <shapes>
-        <octogon corner="3" width="31" height="88"/>
+        <octogon corner="3" width="35" height="86"/>
     </shapes>
-    <axle y="70" width="23" steer="1"/>
-    <axle y="20" width="21"/>
+    <axle y="69" width="27" steer="1"/>
+    <axle y="19" width="27"/>
 </vehicle>
