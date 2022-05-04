@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 08:28+0200\n"
+"POT-Creation-Date: 2022-05-04 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -379,13 +379,13 @@ msgstr "পছন্দসমূহ"
 msgid "QUIT"
 msgstr "প্রস্থান"
 
-#: android/assets/screens/multiplayer.gdxui:5
-#: android/assets/screens/selectvehicle.gdxui:5
-msgid "Select Your Vehicle"
+#: android/assets/screens/multiplayer.gdxui:10
+#, fuzzy
+msgid "Select Your Vehicles"
 msgstr "বাহন নাও"
 
-#: android/assets/screens/multiplayer.gdxui:8
-#: android/assets/screens/multiplayer.gdxui:10
+#: android/assets/screens/multiplayer.gdxui:16
+#: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
 msgstr "প্রস্তুত!"
 
@@ -429,6 +429,10 @@ msgstr "সর্বোত্তম দৌড়"
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
 msgstr "সর্বোচ্চ মোট"
+
+#: android/assets/screens/selectvehicle.gdxui:10
+msgid "Select Your Vehicle"
+msgstr "বাহন নাও"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -793,7 +797,7 @@ msgstr "মূল পৃষ্ঠা"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
 msgstr "[তালাবদ্ধ]"
 

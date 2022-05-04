@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 08:28+0200\n"
+"POT-Creation-Date: 2022-05-04 16:35+0200\n"
 "PO-Revision-Date: 2022-02-21 10:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -379,13 +379,13 @@ msgstr "EZARPENAK"
 msgid "QUIT"
 msgstr "IRTEN"
 
-#: android/assets/screens/multiplayer.gdxui:5
-#: android/assets/screens/selectvehicle.gdxui:5
-msgid "Select Your Vehicle"
+#: android/assets/screens/multiplayer.gdxui:10
+#, fuzzy
+msgid "Select Your Vehicles"
 msgstr "Aukeratu zure ibiligailua"
 
-#: android/assets/screens/multiplayer.gdxui:8
-#: android/assets/screens/multiplayer.gdxui:10
+#: android/assets/screens/multiplayer.gdxui:16
+#: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
 msgstr "Prest!"
 
@@ -429,6 +429,10 @@ msgstr "Itzuli onena"
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
 msgstr "Onena denera"
+
+#: android/assets/screens/selectvehicle.gdxui:10
+msgid "Select Your Vehicle"
+msgstr "Aukeratu zure ibiligailua"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -787,7 +791,7 @@ msgstr "MENU NAGUSIA"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
 msgstr "[Blokeatua]"
 

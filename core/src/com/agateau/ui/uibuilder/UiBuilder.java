@@ -20,6 +20,7 @@ package com.agateau.ui.uibuilder;
 
 import static com.agateau.translations.Translator.tr;
 
+import com.agateau.ui.AgcTiledImage;
 import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.DimensionParser;
 import com.agateau.ui.anchor.Anchor;
@@ -54,10 +55,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
@@ -142,19 +141,26 @@ public class UiBuilder {
         mActorFactories.put(
                 "Image",
                 (uiBuilder, element) -> {
-                    Image image = new Image();
-                    TextureAtlas atlas1 = getAtlasForElement(element);
-                    String attr = element.getAttribute("name", "");
-                    if (!attr.isEmpty()) {
-                        if (attr.endsWith(".9")) {
-                            initImageFromNinePatchName(image, atlas1, attr);
-                        } else {
-                            boolean tiled = element.getBooleanAttribute("tiled", false);
-                            initImageFromRegionName(image, atlas1, attr, tiled);
+                    TextureAtlas atlas = getAtlasForElement(element);
+                    String name = element.getAttribute("name", "");
+                    boolean tiled = element.getBooleanAttribute("tiled", false);
+                    if (tiled) {
+                        AgcTiledImage image = new AgcTiledImage();
+                        TextureRegion region = atlas.findRegion(name);
+                        image.setRegion(region);
+                        return image;
+                    } else {
+                        Image image = new Image();
+                        if (!name.isEmpty()) {
+                            if (name.endsWith(".9")) {
+                                initImageFromNinePatchName(image, atlas, name);
+                            } else {
+                                initImageFromRegionName(image, atlas, name);
+                            }
+                            image.pack();
                         }
+                        return image;
                     }
-                    image.pack();
-                    return image;
                 });
         mActorFactories.put(
                 "AnimatedImage",
@@ -166,8 +172,9 @@ public class UiBuilder {
                     float frameDuration = element.getFloatAttribute("frameDuration", 0.1f);
                     float startTime = element.getFloatAttribute("startTime", 0f);
 
+                    TextureAtlas atlas = getAtlasForElement(element);
                     Animation<TextureRegion> anim =
-                            new Animation<>(frameDuration, uiBuilder.getAtlas().findRegions(name));
+                            new Animation<>(frameDuration, atlas.findRegions(name));
                     AnimatedImage image = new AnimatedImage(anim);
                     image.setStartTime(startTime);
                     return image;
@@ -335,8 +342,13 @@ public class UiBuilder {
         return mSkin;
     }
 
-    public void addAtlas(String ui, TextureAtlas atlas) {
-        mAtlasMap.put(ui, atlas);
+    /**
+     * Add an atlas to provide textures for images.
+     *
+     * <p>An Image or an AnimatedImage can refer to this atlas by setting the `atlas` attribute.
+     */
+    public void addAtlas(String name, TextureAtlas atlas) {
+        mAtlasMap.put(name, atlas);
     }
 
     /**
@@ -413,6 +425,20 @@ public class UiBuilder {
         }
     }
 
+    public int getIntConfigValue(String id) {
+        String value = mConfigMap.get(id);
+        if (value == null) {
+            NLog.e("Unknown config id '%s'", id);
+            return 0;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            NLog.e("Invalid int value for id '%s': '%s'", id, value);
+            return 0;
+        }
+    }
+
     @SuppressWarnings("unused")
     public String getStringConfigValue(String id) {
         String value = mConfigMap.get(id);
@@ -475,17 +501,10 @@ public class UiBuilder {
         image.setDrawable(new NinePatchDrawable(patch));
     }
 
-    private void initImageFromRegionName(
-            Image image, TextureAtlas atlas, String name, boolean tiled) {
+    private void initImageFromRegionName(Image image, TextureAtlas atlas, String name) {
         TextureRegion region = atlas.findRegion(name);
         Assert.check(region != null, "No region named " + name);
-        Drawable drawable;
-        if (tiled) {
-            drawable = new TiledDrawable(region);
-        } else {
-            drawable = new TextureRegionDrawable(region);
-        }
-        image.setDrawable(drawable);
+        image.setDrawable(new TextureRegionDrawable(region));
         if (image.getWidth() == 0) {
             image.setWidth(region.getRegionWidth());
         }

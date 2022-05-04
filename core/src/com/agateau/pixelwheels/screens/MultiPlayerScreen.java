@@ -26,6 +26,7 @@ import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -77,7 +78,7 @@ public class MultiPlayerScreen extends PwStageScreen {
 
     private void setupUi() {
         Assets assets = mGame.getAssets();
-        UiBuilder builder = new UiBuilder(assets.atlas, assets.ui.skin);
+        UiBuilder builder = UiUtils.createUiBuilder(assets);
 
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/multiplayer.gdxui"));
@@ -111,8 +112,11 @@ public class MultiPlayerScreen extends PwStageScreen {
         final Label readyLabel = builder.getActor("ready" + (idx + 1));
 
         VehicleSelector selector = new VehicleSelector(menu);
-        mVehicleSelectors[idx] = selector;
         selector.init(assets, mGame.getRewardManager());
+        selector.setColumnCount(builder.getIntConfigValue("columnCount"));
+        selector.setItemSize(
+                builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
+        mVehicleSelectors[idx] = selector;
         selector.setCurrent(assets.findVehicleDefById(vehicleId));
         selector.addListener(
                 new MenuItemListener() {

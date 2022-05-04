@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 08:28+0200\n"
+"POT-Creation-Date: 2022-05-04 16:35+0200\n"
 "PO-Revision-Date: 2021-11-08 21:33+0000\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
 "Language-Team: Polish <>\n"
@@ -376,13 +376,13 @@ msgstr "USTAWIENIA"
 msgid "QUIT"
 msgstr "WYJDŹ"
 
-#: android/assets/screens/multiplayer.gdxui:5
-#: android/assets/screens/selectvehicle.gdxui:5
-msgid "Select Your Vehicle"
+#: android/assets/screens/multiplayer.gdxui:10
+#, fuzzy
+msgid "Select Your Vehicles"
 msgstr "Wybierz Swój Pojazd"
 
-#: android/assets/screens/multiplayer.gdxui:8
-#: android/assets/screens/multiplayer.gdxui:10
+#: android/assets/screens/multiplayer.gdxui:16
+#: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
 msgstr "Gotowy!"
 
@@ -426,6 +426,10 @@ msgstr "Najlepsze Okrążenie"
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
 msgstr "Najlepszy Czas"
+
+#: android/assets/screens/selectvehicle.gdxui:10
+msgid "Select Your Vehicle"
+msgstr "Wybierz Swój Pojazd"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -794,7 +798,7 @@ msgstr "MENU GŁÓWNE"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
 msgstr "[Zablokowane]"
 
