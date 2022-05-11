@@ -19,8 +19,8 @@
 package com.agateau.ui.gallery;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 /** Menu class demonstration */
 public class MenuDemo extends Game {
@@ -30,10 +30,9 @@ public class MenuDemo extends Game {
     }
 
     public static void main(String[] arg) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 800;
-        config.height = 480;
-        config.title = "UI Gallery";
-        new LwjglApplication(new MenuDemo(), config);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(800, 480);
+        config.setTitle("UI Gallery");
+        new Lwjgl3Application(new MenuDemo(), config);
     }
 }

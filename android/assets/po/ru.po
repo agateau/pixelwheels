@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 08:28+0200\n"
+"POT-Creation-Date: 2022-05-04 16:35+0200\n"
 "PO-Revision-Date: 2022-05-04 17:29+0200\n"
 "Last-Translator: Nickoriginal <nnikitovic694@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -377,13 +377,13 @@ msgstr "НАСТРОЙКИ"
 msgid "QUIT"
 msgstr "ВЫЙТИ"
 
-#: android/assets/screens/multiplayer.gdxui:5
-#: android/assets/screens/selectvehicle.gdxui:5
-msgid "Select Your Vehicle"
+#: android/assets/screens/multiplayer.gdxui:10
+#, fuzzy
+msgid "Select Your Vehicles"
 msgstr "Выберите ваш транспорт"
 
-#: android/assets/screens/multiplayer.gdxui:8
-#: android/assets/screens/multiplayer.gdxui:10
+#: android/assets/screens/multiplayer.gdxui:16
+#: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
 msgstr "Приготовиться!"
 
@@ -426,6 +426,10 @@ msgstr "Лучший круг"
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
 msgstr "Лучшее общее время"
+
+#: android/assets/screens/selectvehicle.gdxui:10
+msgid "Select Your Vehicle"
+msgstr "Выберите ваш транспорт"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -779,7 +783,7 @@ msgstr "ГЛАВНОЕ МЕНЮ"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:139
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
 msgstr "[Заблокировано]"
 
