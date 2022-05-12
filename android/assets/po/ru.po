@@ -67,7 +67,7 @@ msgstr "Блочный городок"
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr "Tiny sur Mer"
+msgstr "Колёса у моря"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -271,7 +271,7 @@ msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Video Editing"
-msgstr "Обработка видео"
+msgstr "Монтаж видео"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Special Thanks"
@@ -319,7 +319,7 @@ msgstr "Студия Android"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr "Настройки, затрагивающие игровой процесс были изменены, прогресс не будет сохранён"
+msgstr "Настройки, влияющие на игровой процесс были изменены, прогресс не будет сохранён"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -378,9 +378,8 @@ msgid "QUIT"
 msgstr "ВЫЙТИ"
 
 #: android/assets/screens/multiplayer.gdxui:10
-#, fuzzy
 msgid "Select Your Vehicles"
-msgstr "Выберите ваш транспорт"
+msgstr "Выберите ваши автомобили"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
@@ -434,12 +433,12 @@ msgstr "Выберите ваш транспорт"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr "2-Deuch"
+msgstr "2-лошади"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr "Ant On-1"
+msgstr "Ант Он-1"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -610,11 +609,11 @@ msgstr "Время гонки"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 msgid "Finish third or better at %s championship"
-msgstr "Приди к финишу третьим или ещё лучше на чемпионате %s"
+msgstr "Приди к финишу третьим или ещё быстрее на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
 msgid "Finish second or better at %s championship"
-msgstr "Приди к финишу вторым или ещё лучше на чемпионате %s"
+msgstr "Приди к финишу вторым или ещё быстрее на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
 msgid "Finish first at %s championship"
