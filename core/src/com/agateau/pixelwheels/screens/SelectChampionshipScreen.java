@@ -116,7 +116,7 @@ public class SelectChampionshipScreen extends PwStageScreen {
     private void createChampionshipSelector(Championship championship, Menu menu) {
         Assets assets = mGame.getAssets();
         mChampionshipSelector = new ChampionshipSelector(menu);
-        mChampionshipSelector.setColumnCount(2);
+        mChampionshipSelector.setColumnCount(3);
         mChampionshipSelector.init(assets, mGame.getRewardManager());
         mChampionshipSelector.setCurrent(championship);
         menu.addItem(mChampionshipSelector);
