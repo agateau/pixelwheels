@@ -14,21 +14,21 @@ On PC, you can play Pixel Wheels alone or with a friend.
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
 
-_ARM-based Mac users: Note that Pixel Wheels (except for special build) does not run on ARM-based Macs for now. This will be added when [performance issues with libGDX][libgdx-arm-mac] will be resolved. You can download game with ARM support for testing at [this][version-to-test] link._
+_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be added when [performance issues with libGDX][libgdx-arm-mac] will be resolved._
 
 [libgdx-arm-mac]: https://agateau.itch.io/pixelwheels/devlog/375260/mac-testers-wanted
-[version-to-test]: https://builds.agateau.com/pixelwheels/pixelwheels-0.22.0+update-libgdx-20220424T185600-ef5e324-mac.zip
 
-For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gplay].
+For Android you can install Pixel Wheels from [F-Droid][fd], [Google Play][gplay] or from [itch.io][itch] too.
 
 [itch]: https://agateau.itch.io/pixelwheels
 [fd]: https://f-droid.org/packages/com.agateau.tinywheels.android/
 [gplay]: https://play.google.com/store/apps/details?id=com.agateau.tinywheels.android
-[builds-agateau]: https://builds.agateau.com/pixelwheels
 
 ### master builds
 
 If you feel adventurous, you can also try binaries from the master branch. These are available from [builds.agateau.com][builds-agateau].
+
+[builds-agateau]: https://builds.agateau.com/pixelwheels
 
 ## I think it would be much better if it did X, Y or Z...
 
@@ -55,7 +55,7 @@ The rationale behind this combination of licenses is to:
 
 - Allow reuse of all the code and assets by free software projects.
 - Allow reuse of utility code in proprietary projects.
-- Prevent ad-based, proprietary clones of the game.
+- Prevent appearance of ad-based, malicious, proprietary clones of the game.
 
 Put another way, if you are a game developer and find some of the code interesting, feel free to use it to build your *own* original project. If you are interested in some of the GPL code, get in touch, I am open to relicensing.
 
