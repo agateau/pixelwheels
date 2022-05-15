@@ -3,10 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nickoriginal <nnikitovic694@gmail.com>, 2022.
 #
-msgid ""
+msgid  ""
 msgstr "Project-Id-Version: \n"
        "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-04 17:29+0200\n"
+       "PO-Revision-Date: 2022-05-15 13:11+0200\n"
        "Last-Translator: Nickoriginal <nnikitovic694@gmail.com>\n"
        "Language-Team: Russian\n"
        "Language: ru\n"
