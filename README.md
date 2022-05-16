@@ -14,9 +14,9 @@ On PC, you can play Pixel Wheels alone or with a friend.
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
 
-_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be added when [performance issues with libGDX][libgdx-arm-mac] will be resolved._
+_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be added when the game is updated to use [libGDX 1.11.0][libgdx-arm-mac]._
 
-[libgdx-arm-mac]: https://agateau.itch.io/pixelwheels/devlog/375260/mac-testers-wanted
+[libgdx-arm-mac]: https://github.com/libgdx/libgdx/releases/tag/1.11.0
 
 For Android you can install Pixel Wheels from [F-Droid][fd], [Google Play][gplay] or from [itch.io][itch] too.
 
