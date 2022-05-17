@@ -14,20 +14,21 @@ On PC, you can play Pixel Wheels alone or with a friend.
 
 Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
 
-_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be fixed when [libgdx ARM-based Mac support][libgdx-arm-mac] is ready._
+_ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be added when the game is updated to use [libGDX 1.11.0][libgdx-arm-mac]._
 
-[libgdx-arm-mac]: https://github.com/libgdx/libgdx/issues/6084
+[libgdx-arm-mac]: https://github.com/libgdx/libgdx/releases/tag/1.11.0
 
-For Android you can install Pixel Wheels from [F-Droid][fd] or [Google Play][gplay].
+For Android you can install Pixel Wheels from [F-Droid][fd], [Google Play][gplay] or from [itch.io][itch] too.
 
-[itch]: http://agateau.itch.io/pixelwheels
-[fd]: https://f-droid.org/fr/packages/com.agateau.tinywheels.android/
-[gplay]: https://play.google.com/apps/testing/com.agateau.tinywheels.android
-
+[itch]: https://agateau.itch.io/pixelwheels
+[fd]: https://f-droid.org/packages/com.agateau.tinywheels.android/
+[gplay]: https://play.google.com/store/apps/details?id=com.agateau.tinywheels.android
 
 ### master builds
 
-If you feel adventurous, you can also try binaries from the master branch. These are available from <https://builds.agateau.com/pixelwheels>.
+If you feel adventurous, you can also try binaries from the master branch. These are available from [builds.agateau.com][builds-agateau].
+
+[builds-agateau]: https://builds.agateau.com/pixelwheels
 
 ## I think it would be much better if it did X, Y or Z...
 
@@ -46,7 +47,7 @@ In particular:
 
 ## License
 
-- The game logic is licensed under GPL 3.0 or later. This is all the code in [core/src/com/agateau/pixelwheels](core/src/com/agateau/pixelwheels).
+- The game logic is licensed under GPL 3.0 or later. This is all the code in [core/src/com/agateau/pixelwheels](core/src/com/agateau/pixelwheels) directory.
 - The rest of the code is licensed under Apache 2.0.
 - Assets are licensed under Creative Commons BY-SA 4.0.
 
@@ -54,7 +55,7 @@ The rationale behind this combination of licenses is to:
 
 - Allow reuse of all the code and assets by free software projects.
 - Allow reuse of utility code in proprietary projects.
-- Prevent ad-based, proprietary clones of the game.
+- Prevent appearance of ad-based, malicious, proprietary clones of the game.
 
 Put another way, if you are a game developer and find some of the code interesting, feel free to use it to build your *own* original project. If you are interested in some of the GPL code, get in touch, I am open to relicensing.
 
