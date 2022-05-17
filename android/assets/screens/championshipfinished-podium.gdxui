@@ -4,7 +4,6 @@
         <ConfigItem id="entrantTableSpacing">15</ConfigItem>
     </Config>
     <AnchorGroup id="root" gridSize="20px">
-
         <Road id="road" bottomLeft="root.bottomCenter 4g 0" width="302" height="27g" pixelsPerSecond="180">
             <Action>
                 alpha 0
@@ -97,16 +96,21 @@
         </Group>
 
         <Group id="leftColumn" topLeft="root.topLeft 4g -1g">
-            <Label id="mainLabel1" style="title" x="4g" y="-2g"/>
-            <Label id="mainLabel2" style="title" x="6g" y="-4g"/>
+            <Label id="mainLabel1" style="title" x="6g" y="-2.5g"/>
+            <Label id="mainLabel2" style="title" x="6g" y="-4.5g"/>
+            <Image id="championshipIcon" x="-2g" y="-6.5g"/>
             <Action actor="mainLabel1">
-                moveBy -80g 0
-                moveBy 80g 0 1 pow2Out
+                moveBy 140g 0
+                moveBy -140g 0 1 pow2Out
             </Action>
             <Action actor="mainLabel2">
                 moveBy 120g 0
-                delay 0.5
+                delay 0.1
                 moveBy -120g 0 1 pow2Out
+            </Action>
+            <Action actor="championshipIcon">
+                moveBy 0 7g
+                moveBy 0 -7g 0.6 bounceOut
             </Action>
         </Group>
 
