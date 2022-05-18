@@ -8,7 +8,7 @@ FINAL_OUT_DIR ?= ../../android/assets
 
 ASESPLIT = $(TOOLS_DIR)/asetools/asesplit
 
-all: hud anims stills vehicles tiles helicopter ui map-icons input-icons
+all: hud anims stills vehicles tiles helicopter ui map-icons championship-icons input-icons
 
 clean:
 	rm -rf $(OUT_DIR)
@@ -124,6 +124,16 @@ map-icons: $(OUT_MAP_ICONS)
 
 $(OUT_DIR)/ui/map-icons/%.png: ui/map-icons/%.ase
 	mkdir -p $(OUT_DIR)/ui/map-icons
+	$(ASESPLIT) $< $@
+
+#- ui/championship-icons/ -----------------------------------------------------
+CHAMPIONSHIP_ICONS := $(wildcard ui/championship-icons/*.ase)
+OUT_CHAMPIONSHIP_ICONS := $(CHAMPIONSHIP_ICONS:%.ase=$(OUT_DIR)/%.png)
+
+championship-icons: $(OUT_CHAMPIONSHIP_ICONS)
+
+$(OUT_DIR)/ui/championship-icons/%.png: ui/championship-icons/%.ase
+	mkdir -p $(OUT_DIR)/ui/championship-icons
 	$(ASESPLIT) $< $@
 
 #- ui/input-icons/ ------------------------------------------------------------

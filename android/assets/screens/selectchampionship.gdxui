@@ -2,11 +2,11 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
-               topCenter="root.topCenter 0 -1">Select Championship</Label>
+               topCenter="root.topCenter 0 -2">Select Championship</Label>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1" style="large" width="400"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3" style="large" width="600px"/>
 
-        <Label id="championshipNameLabel" topCenter="menu.bottomCenter 0 -1"/>
+        <Label id="championshipNameLabel" topCenter="root.bottomCenter 0 8"/>
 
         <Label id="championshipDetailsLabel" topCenter="$prev.bottomCenter 0 -1" style="small"/>
 
