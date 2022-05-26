@@ -19,53 +19,53 @@ msgstr "Project-Id-Version: \n"
 #, fuzzy
 msgctxt "championship"
 msgid   "Country Life"
-msgstr  "Country Life txapelketa:"
+msgstr  "Landa Bizitza"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid   "Welcome!"
-msgstr  ""
+msgstr  "Ongi etorri!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid   "River"
-msgstr  ""
+msgstr  "Ibaia"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid   "Flood"
-msgstr  ""
+msgstr  "Uholdea"
 
 #: android/assets/championships/1.xml:2
 #, fuzzy
 msgctxt "championship"
 msgid   "Square Mountains"
-msgstr  "Square Mountains txapelketa:"
+msgstr  "Mendi Karratuak"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid   "Let it snow"
-msgstr  ""
+msgstr  "Egin dezala elurra"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid   "Don't slip!"
-msgstr  ""
+msgstr  "Ez irristatu!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid   "Pix Cities"
-msgstr  ""
+msgstr  "Pix Hiriak"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid   "Blocky Town"
-msgstr  ""
+msgstr  "Bloke herria"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid   "Tiny sur Mer"
-msgstr  ""
+msgstr  "Itsastxikia"
 
 #: android/assets/screens/credits.gdxui:6
 msgid   "Pixel Wheels"
@@ -228,11 +228,11 @@ msgstr  "Frantsesa:"
 
 #: android/assets/screens/credits.gdxui:74
 msgid   "German:"
-msgstr  ""
+msgstr  "Alemaniera:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid   "Christian Schrötter"
-msgstr  ""
+msgstr  "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:77
 msgid   "Polish:"
@@ -261,7 +261,7 @@ msgstr  "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:86
 msgid   "Basque:"
-msgstr  "Euskara"
+msgstr  "Euskara:"
 
 #: android/assets/screens/credits.gdxui:87
 msgid   "Josu Igoa"
@@ -317,7 +317,7 @@ msgstr  "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid   "Settings affecting game play have been modified, scores won't be saved"
-msgstr  "Jokaera aldatuko duten ezarpenak aldatu dira, puntuazioak???? ez dira gordeko"
+msgstr  "Jokaera aldatuko duten ezarpenak aldatu dira, puntuazioak ez dira gordeko"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -354,7 +354,7 @@ msgstr  "JOKALARI BAKARRA"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid   "MULTI PLAYER"
-msgstr  "MULTIPLAYER"
+msgstr  "MULTIJOKALARIA"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
@@ -378,7 +378,7 @@ msgstr  "IRTEN"
 #: android/assets/screens/multiplayer.gdxui:10
 #, fuzzy
 msgid   "Select Your Vehicles"
-msgstr  "Aukeratu zure ibiligailua"
+msgstr  "Aukeratu zure ibiligailuak"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
@@ -412,7 +412,7 @@ msgstr  "Joku modua aukeratu"
 #: android/assets/screens/selectlanguage.gdxui:5
 #, fuzzy
 msgid   "Select Language"
-msgstr  "Hizkuntza:"
+msgstr  "Hizkuntza"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid   "Select Track"
@@ -433,62 +433,62 @@ msgstr  "Aukeratu zure ibiligailua"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid   "2-Deuch"
-msgstr  ""
+msgstr  "2-Deuch"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid   "Ant On-1"
-msgstr  ""
+msgstr  "Ant On-1"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid   "Dark M"
-msgstr  ""
+msgstr  "M Iluna"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid   "Harvester"
-msgstr  ""
+msgstr  "Uzta-makina"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid   "Jeep"
-msgstr  ""
+msgstr  "Jeep"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid   "Miramar"
-msgstr  ""
+msgstr  "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid   "Pickup"
-msgstr  ""
+msgstr  "Pickup"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid   "Highway Patrol"
-msgstr  ""
+msgstr  "Autobide patruila"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid   "Red Lightning"
-msgstr  ""
+msgstr  "Tximista Gorria"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid   "Roadster"
-msgstr  ""
+msgstr  "Roadster"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid   "Rocket"
-msgstr  ""
+msgstr  "Suziria"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid   "Santa Truck"
-msgstr  ""
+msgstr  "Bizarzuri Kamioia"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid   "Share via"
@@ -604,17 +604,17 @@ msgstr  "Lasterketa denbora"
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 #, fuzzy
 msgid   "Finish third or better at %s championship"
-msgstr  "3. edo postu hobean ailegatu %s txapelketara"
+msgstr  "Hirugarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
 #, fuzzy
 msgid   "Finish second or better at %s championship"
-msgstr  "3. edo postu hobean ailegatu %s txapelketara"
+msgstr  "Bigarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
 #, fuzzy
 msgid   "Finish first at %s championship"
-msgstr  "3. edo postu hobean ailegatu %s txapelketara"
+msgstr  "Lehenengo postuan buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
 msgctxt "Must be two sentences separated by a newline"
@@ -659,7 +659,7 @@ msgstr  "Kapot azpian"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid   "These options are mostly interesting for Pixel Wheels development, but feel free to poke around!"
-msgstr  "Ezarpen hauek batez erePixel Wheels-en garapenerako dira interesgarriak, baina aldatu nahi adina!"
+msgstr  "Ezarpen hauek batez ere Pixel Wheels-en garapenerako dira interesgarriak, baina aldatu nahi adina!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid   "DEV. OPTIONS"
@@ -786,7 +786,7 @@ msgstr  "[Blokeatua]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid   "CPU"
-msgstr  ""
+msgstr  "PUZ"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid   "New vehicle unlocked!"
@@ -831,9 +831,9 @@ msgstr  "LOG-EN KARPETA IREKI"
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid   "Police"
-#~ msgstr  "Poloniera:"
+#~ msgstr  "Polizia"
 
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid   "Red"
-#~ msgstr  "Prest!"
+#~ msgstr  "Gorria"
