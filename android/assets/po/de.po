@@ -16,53 +16,53 @@ msgstr "Project-Id-Version: \n"
 #, fuzzy
 msgctxt "championship"
 msgid   "Country Life"
-msgstr  "Country Life Meisterschaft:"
+msgstr  "Provinz Meisterschaft:"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid   "Welcome!"
-msgstr  ""
+msgstr  "Willkommen!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid   "River"
-msgstr  ""
+msgstr  "Flussrundfahrt"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid   "Flood"
-msgstr  ""
+msgstr  "Land unter!"
 
 #: android/assets/championships/1.xml:2
 #, fuzzy
 msgctxt "championship"
 msgid   "Square Mountains"
-msgstr  "Square Mountains Meisterschaft"
+msgstr  "Gebirgsrallye"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid   "Let it snow"
-msgstr  ""
+msgstr  "Schneelandschaft"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid   "Don't slip!"
-msgstr  ""
+msgstr  "Blitzeis!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid   "Pix Cities"
-msgstr  ""
+msgstr  "Pixelstädte"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid   "Blocky Town"
-msgstr  ""
+msgstr  "Blockstadt"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid   "Tiny sur Mer"
-msgstr  ""
+msgstr  "Seestadt"
 
 #: android/assets/screens/credits.gdxui:6
 msgid   "Pixel Wheels"
@@ -125,7 +125,7 @@ msgstr  "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid   "Country Life championship:"
-msgstr  "Country Life Meisterschaft:"
+msgstr  "Provinz Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid   "\"Cosmo Blast v1.0\""
@@ -133,7 +133,7 @@ msgstr  "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid   "Square Mountains championship:"
-msgstr  "Square Mountains Meisterschaft"
+msgstr  "Gebirgsrallye Meisterschaft"
 
 #: android/assets/screens/credits.gdxui:34
 msgid   "\"Lunar Harvest v1.0\""
@@ -141,7 +141,7 @@ msgstr  "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid   "Pix Cities championship:"
-msgstr  "Pix Cities Meisterschaft"
+msgstr  "Pixelstädte Meisterschaft"
 
 #: android/assets/screens/credits.gdxui:38
 msgid   "\"Bouncing Baal v0.95\""
@@ -782,7 +782,7 @@ msgstr  "[Gesperrt]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid   "CPU"
-msgstr  ""
+msgstr  "Computer"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid   "New vehicle unlocked!"
