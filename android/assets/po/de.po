@@ -450,7 +450,7 @@ msgstr  ""
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid   "Jeep"
-msgstr  ""
+msgstr  "Jeep"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
@@ -460,12 +460,12 @@ msgstr  ""
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid   "Pickup"
-msgstr  ""
+msgstr  "Pick-up"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid   "Highway Patrol"
-msgstr  ""
+msgstr  "Polizei"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
