@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2022
 # This file is distributed under the same license as the PACKAGE package.
-# Nickoriginal <nnikitovic694@gmail.com>, 2022.
+# Nickoriginal, 2022.
 #
 msgid  ""
 msgstr "Project-Id-Version: \n"
        "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-15 13:11+0200\n"
-       "Last-Translator: Nickoriginal <nnikitovic694@gmail.com>\n"
+       "PO-Revision-Date: 2022-06-01 11:11+0200\n"
+       "Last-Translator: Nickoriginal\n"
        "Language-Team: Russian\n"
        "Language: ru\n"
        "MIME-Version: 1.0\n"
@@ -687,7 +687,7 @@ msgstr  "Звуки"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid   "Sound FX:"
-msgstr  "Звуковые эффекты:"
+msgstr  "Звуки:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid   "Music:"
@@ -782,7 +782,7 @@ msgstr  "[Заблокировано]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid   "CPU"
-msgstr  ""
+msgstr  "Компьютер"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid   "New vehicle unlocked!"
