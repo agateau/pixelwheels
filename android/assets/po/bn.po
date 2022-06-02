@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Oymate, 2022.
 #
-msgid  ""
-msgstr "Project-Id-Version: \n"
-       "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-15 00:07+0200\n"
-       "Last-Translator: Oymate\n"
-       "Language-Team: Bengali\n"
-       "Language: bn\n"
-       "MIME-Version: 1.0\n"
-       "Content-Type: text/plain; charset=UTF-8\n"
-       "Content-Transfer-Encoding: 8bit\n"
-       "Plural-Forms: nplurals=2; plural=n > 1;\n"
+msgid   ""
+msgstr  "Project-Id-Version: \n"
+        "Report-Msgid-Bugs-To: \n"
+        "PO-Revision-Date: 2022-05-15 00:07+0200\n"
+        "Last-Translator: Oymate\n"
+        "Language-Team: Bengali\n"
+        "Language: bn\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+        "Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #: android/assets/championships/0.xml:2
 #, fuzzy
@@ -91,7 +91,7 @@ msgid   "Pixels"
 msgstr  "পিক্সেল"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid   "Antonin Gâteau"
 msgstr  "অ্যান্টনিও গাটেও"
 
@@ -255,7 +255,7 @@ msgid   "Spanish:"
 msgstr  "স্পেনীয়:"
 
 #: android/assets/screens/credits.gdxui:84
-#: android/assets/screens/credits.gdxui:91
+#: android/assets/screens/credits.gdxui:94
 msgid   "Clara Gâteau"
 msgstr  "ক্লারা গাটেই"
 
@@ -268,51 +268,59 @@ msgid   "Josu Igoa"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:89
+msgid   "Ukrainian:"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:90
+msgid   "Taras Pavliuk"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:92
 msgid   "Video Editing"
 msgstr  "ভিডিও সম্পাদনা"
 
-#: android/assets/screens/credits.gdxui:93
+#: android/assets/screens/credits.gdxui:96
 msgid   "Special Thanks"
 msgstr  "বিশেষ ধন্যবাদ"
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid   "Guillaume Roche"
 msgstr  "গিলম রচে"
 
-#: android/assets/screens/credits.gdxui:97
+#: android/assets/screens/credits.gdxui:100
 msgid   "Ethan Chapman"
 msgstr  "এথান চ্যাপম্যান"
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 #, fuzzy
 msgid   "All bug reporters"
 msgstr  "এবং সব গিটহাব সমস্যা প্রতিবেদক"
 
-#: android/assets/screens/credits.gdxui:99
+#: android/assets/screens/credits.gdxui:102
 msgid   "All supporters on Patreon, Ko-fi and Paypal"
 msgstr  "প্যাট্রন, কো-ফি এবং পেপালের সব সাহায্যকারীরা"
 
-#: android/assets/screens/credits.gdxui:101
+#: android/assets/screens/credits.gdxui:104
 msgid   "Made with"
 msgstr  "তৈরির জন্য ব্যবহৃত"
 
-#: android/assets/screens/credits.gdxui:103
+#: android/assets/screens/credits.gdxui:106
 msgid   "LibGDX"
 msgstr  "লিবজিডিএক্স"
 
-#: android/assets/screens/credits.gdxui:104
+#: android/assets/screens/credits.gdxui:107
 msgid   "Tiled"
 msgstr  "টাইলড"
 
-#: android/assets/screens/credits.gdxui:105
+#: android/assets/screens/credits.gdxui:108
 msgid   "Aseprite"
 msgstr  "অ্যাশপ্রিট"
 
-#: android/assets/screens/credits.gdxui:106
+#: android/assets/screens/credits.gdxui:109
 msgid   "SFXR Qt"
 msgstr  "এসএফএক্সআর কিউটি"
 
-#: android/assets/screens/credits.gdxui:107
+#: android/assets/screens/credits.gdxui:110
 msgid   "Android Studio"
 msgstr  "অ্যান্ড্রয়েড স্টুডিও"
 
@@ -572,7 +580,7 @@ msgstr  ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "#"
 msgstr  "#"
 
@@ -584,19 +592,19 @@ msgstr  "সর্বোত্তম দৌড়"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Racer"
 msgstr  "দৌড়বিদ"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Total time"
 msgstr  "মোট সময়"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Points"
 msgstr  "পয়েন্ট"
 
@@ -619,7 +627,7 @@ msgstr  "কমপক্ষে ৩য় হও %s প্রতিযোগিত�
 msgid   "Finish first at %s championship"
 msgstr  "কমপক্ষে ৩য় হও %s প্রতিযোগিতায়"
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 #, fuzzy
 msgctxt "Must be two sentences separated by a newline"
 msgid   "Championship\n"
@@ -839,38 +847,38 @@ msgid   "OPEN LOG FILE FOLDER"
 msgstr  "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Police"
-#~ msgstr  "পোলিশ"
+#~ msgctxt      "vehicle"
+#~ msgid        "Police"
+#~ msgstr       "পোলিশ"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Red"
-#~ msgstr  "প্রস্তুত!"
+#~ msgctxt      "vehicle"
+#~ msgid        "Red"
+#~ msgstr       "প্রস্তুত!"
 
 #, fuzzy
-#~ msgid   "Down | Brake:"
-#~ msgstr  "ব্রেক:"
+#~ msgid        "Down | Brake:"
+#~ msgstr       "ব্রেক:"
 
 #, fuzzy
-#~ msgid   "Left | Steer left:"
-#~ msgstr  "বামে যাও:"
+#~ msgid        "Left | Steer left:"
+#~ msgstr       "বামে যাও:"
 
 #, fuzzy
-#~ msgid   "Right | Steer right:"
-#~ msgstr  "ডানে যাও:"
+#~ msgid        "Right | Steer right:"
+#~ msgstr       "ডানে যাও:"
 
-#~ msgid   "Finished!"
-#~ msgstr  "সম্পন্ন!"
+#~ msgid        "Finished!"
+#~ msgstr       "সম্পন্ন!"
 
-#~ msgid   "Beta Testers"
-#~ msgstr  "পরীক্ষামূলক ব্যবহারকারী"
+#~ msgid        "Beta Testers"
+#~ msgstr       "পরীক্ষামূলক ব্যবহারকারী"
 
-#~ msgid   "(thank you!)"
-#~ msgstr  "(ধন্যবাদ!)"
+#~ msgid        "(thank you!)"
+#~ msgstr       "(ধন্যবাদ!)"
 
-#~ msgid   "OFF"
-#~ msgstr  "বন্ধ"
+#~ msgid        "OFF"
+#~ msgstr       "বন্ধ"
 
-#~ msgid   "ON"
-#~ msgstr  "চালু"
+#~ msgid        "ON"
+#~ msgstr       "চালু"

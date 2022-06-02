@@ -1,16 +1,16 @@
 # Christian Schrötter <cs@fnx.li>, 2022.
 #
-msgid  ""
-msgstr "Project-Id-Version: \n"
-       "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-15 10:51+0200\n"
-       "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
-       "Language-Team: German\n"
-       "Language: de_DE\n"
-       "MIME-Version: 1.0\n"
-       "Content-Type: text/plain; charset=UTF-8\n"
-       "Content-Transfer-Encoding: 8bit\n"
-       "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+msgid   ""
+msgstr  "Project-Id-Version: \n"
+        "Report-Msgid-Bugs-To: \n"
+        "PO-Revision-Date: 2022-05-15 10:51+0200\n"
+        "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
+        "Language-Team: German\n"
+        "Language: de_DE\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+        "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: android/assets/championships/0.xml:2
 #, fuzzy
@@ -88,7 +88,7 @@ msgid   "Pixels"
 msgstr  "Grafik"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid   "Antonin Gâteau"
 msgstr  "Antonin Gâteau"
 
@@ -252,7 +252,7 @@ msgid   "Spanish:"
 msgstr  "Spanisch:"
 
 #: android/assets/screens/credits.gdxui:84
-#: android/assets/screens/credits.gdxui:91
+#: android/assets/screens/credits.gdxui:94
 msgid   "Clara Gâteau"
 msgstr  "Clara Gâteau"
 
@@ -265,50 +265,58 @@ msgid   "Josu Igoa"
 msgstr  "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:89
+msgid   "Ukrainian:"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:90
+msgid   "Taras Pavliuk"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:92
 msgid   "Video Editing"
 msgstr  "Videobearbeitung"
 
-#: android/assets/screens/credits.gdxui:93
+#: android/assets/screens/credits.gdxui:96
 msgid   "Special Thanks"
 msgstr  "Besonderer Dank an"
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid   "Guillaume Roche"
 msgstr  "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:97
+#: android/assets/screens/credits.gdxui:100
 msgid   "Ethan Chapman"
 msgstr  "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 msgid   "All bug reporters"
 msgstr  "Alle Leute, die Fehler gemeldet haben."
 
-#: android/assets/screens/credits.gdxui:99
+#: android/assets/screens/credits.gdxui:102
 msgid   "All supporters on Patreon, Ko-fi and Paypal"
 msgstr  "Alle Unterstützer auf Patreon, Ko-fi und PayPal."
 
-#: android/assets/screens/credits.gdxui:101
+#: android/assets/screens/credits.gdxui:104
 msgid   "Made with"
 msgstr  "Realisiert mit"
 
-#: android/assets/screens/credits.gdxui:103
+#: android/assets/screens/credits.gdxui:106
 msgid   "LibGDX"
 msgstr  "LibGDX"
 
-#: android/assets/screens/credits.gdxui:104
+#: android/assets/screens/credits.gdxui:107
 msgid   "Tiled"
 msgstr  "Tiled"
 
-#: android/assets/screens/credits.gdxui:105
+#: android/assets/screens/credits.gdxui:108
 msgid   "Aseprite"
 msgstr  "Aseprite"
 
-#: android/assets/screens/credits.gdxui:106
+#: android/assets/screens/credits.gdxui:109
 msgid   "SFXR Qt"
 msgstr  "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:107
+#: android/assets/screens/credits.gdxui:110
 msgid   "Android Studio"
 msgstr  "Android Studio"
 
@@ -566,7 +574,7 @@ msgstr  "Beeindruckend!"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "#"
 msgstr  "#"
 
@@ -578,19 +586,19 @@ msgstr  "Schnellste Runde"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Racer"
 msgstr  "Rennfahrer"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Total time"
 msgstr  "Gesamtzeit"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Points"
 msgstr  "Punkte"
 
@@ -613,7 +621,7 @@ msgstr  "Rang 3 oder besser bei der %s Meisterschaft"
 msgid   "Finish first at %s championship"
 msgstr  "Rang 3 oder besser bei der %s Meisterschaft"
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
 msgid   "Championship\n"
         "Finished!"
@@ -825,11 +833,11 @@ msgid   "OPEN LOG FILE FOLDER"
 msgstr  "PROTOKOLLORDNER"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Police"
-#~ msgstr  "Polnisch:"
+#~ msgctxt      "vehicle"
+#~ msgid        "Police"
+#~ msgstr       "Polnisch:"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Red"
-#~ msgstr  "Fertig!"
+#~ msgctxt      "vehicle"
+#~ msgid        "Red"
+#~ msgstr       "Fertig!"
