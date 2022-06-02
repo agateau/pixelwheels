@@ -8,6 +8,7 @@
     <Language id="ru" name="Русский" fontSet="xolonium"/>
     <Language id="bn" name="বাংলা" fontSet="noto-bengali"/>
     <Language id="zh_CN" name="简体中文" fontSet="noto-cjk"/>
+    <Language id="uk" name="Ukrainian" fontSet="xolonium"/>
 
     <FontSet id="xolonium-kwajong"
         defaultFontName="Xolonium-Regular.ttf"
