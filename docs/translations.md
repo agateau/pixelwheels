@@ -4,13 +4,19 @@ So you want to translate Pixel Wheels to a new language? Awesome! Read on.
 
 ## Requirements
 
+To translate Pixel Wheels you need:
+
+- A pre-compiled version of the game `master` branch (you can find them here: <https://builds.agateau.com/pixelwheels>) or a self-built version.
+- A PO editor like [poedit][] or [lokalize][], or a plain text editor.
+- To be familiar with Git and GitHub.
+
 ## Adding a new translation
 
 - Create a fork of [PixelWheels GitHub project][github] and clone it.
 
 - Copy `android/assets/po/messages.pot` to `android/assets/po/{language}.po` (or `android/assets/po/{language}_{COUNTRY}.po` if you want to create a country-specific variant).
 
-- Translate the strings in the new .po file using a PO editor ([poedit][], [lokalize][], or even a plain text editor).
+- Translate the strings in the new .po file using your PO editor of choice.
 
 - Edit `android/assets/ui/languages.xml`: add a new `Language` element for your translation.
 
@@ -28,17 +34,17 @@ So you want to translate Pixel Wheels to a new language? Awesome! Read on.
 
 ## Updating a translation
 
-If new strings have been added or existing strings have been modified but they do not appear in your .po file, run `make po-update` to refresh the .po files, then update your .po file.
+If new strings have been added or existing strings have been modified but do not appear in your .po file, run `make po-update` to get these new strings in the .po files. You can now translate the new strings.
 
 ## Testing a translation
 
-If you built the game manually run the game with `make run` or from Android Studio.
+If you built the game manually, you can run the game with `make run` or from Android Studio.
 
-If you are using a pre-built version of the game, start it with the environment variable `PW_ASSETS_DIR` set to the path to your `android/assets` directory. This way Pixel Wheels will load the translation from your directory instead of the ones currently included in the game itself.
+If you are using a pre-built version of the game, start it with the `PW_ASSETS_DIR` environment variable set to the path of your `android/assets` directory. This way Pixel Wheels will load the translation from your directory instead of the ones currently included in the game itself.
 
 If you are running on a machine whose default language is the language you translated Pixel Wheels to, then your translation should already be in use. If not see the next section.
 
-Visit all the screens to catch issues like button text overflowing their buttons.
+Visit all the screens to catch issues like button texts overflowing button frames or overlapping texts.
 
 Go to the settings screen. Check you can switch between your translation and the others.
 
@@ -51,3 +57,7 @@ To check this works, do the following:
 - Edit `~/.config/agateau.com/pixelwheels.conf` and remove the `languageId` line if it exists. Doing this ensures Pixel Wheels is not configured to use a particular language.
 
 - Start the game, it should start using your translation. If it does not, look at the console output: Pixel Wheels logs the name of the translation it is looking for. Rename your .po file to match this name. Rebuild the game and try again.
+
+## Translating track, championship and vehicle names
+
+Track, championship and vehicle names can be translated, but it's up to you to decide if it makes sense to do so for the language you are translating to. Some names can benefit from being translated, others can stay in English.

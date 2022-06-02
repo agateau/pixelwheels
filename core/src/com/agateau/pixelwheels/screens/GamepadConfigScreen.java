@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -69,7 +71,7 @@ public class GamepadConfigScreen extends PwStageScreen {
         private void updateText() {
             String text;
             if (mEditing) {
-                text = "Press the gamepad key...";
+                text = tr("Press the gamepad key...");
             } else {
                 text =
                         String.format(

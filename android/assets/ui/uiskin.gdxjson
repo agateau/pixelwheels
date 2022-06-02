@@ -43,6 +43,17 @@
             fontColor: white,
             disabledFontColor: disabledTextColor,
             pressedOffsetY: -2
+        },
+        tiny: {
+            up: tiny-rectbutton,
+            down: tiny-rectbutton-down,
+            checked: tiny-rectbutton-down,
+            disabled: tiny-rectbutton-disabled,
+            font: tiny-font,
+            fontColor: white,
+            disabledFontColor: disabledTextColor,
+            pressedOffsetY: -2,
+            checkedOffsetY: -2
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {

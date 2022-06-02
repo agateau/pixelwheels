@@ -28,6 +28,7 @@ import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.AnimatedImage;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.animscript.AnimScript;
@@ -547,7 +548,7 @@ public class FinishedOverlay extends Overlay {
 
     private boolean shouldShowCongratsCar() {
         // Show congrats car if player entered the record table and is ranked 3rd or better
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, mRacers.size); ++idx) {
             Racer racer = mRacers.get(idx);
             if (racer.getRecordRanks().brokeRecord()) {
                 return true;
@@ -556,8 +557,9 @@ public class FinishedOverlay extends Overlay {
         return false;
     }
 
-    private static String getRacerName(Racer racer) {
-        return racer.getVehicle().getName();
+    private String getRacerName(Racer racer) {
+        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(racer.getVehicle().getId());
+        return vehicleDef.getName();
     }
 
     private final Vector2 mTmp = new Vector2();

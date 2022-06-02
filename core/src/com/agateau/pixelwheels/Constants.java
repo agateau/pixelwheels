@@ -20,6 +20,8 @@ package com.agateau.pixelwheels;
 
 import static java.lang.System.getenv;
 
+import com.badlogic.gdx.graphics.Color;
+
 /** Global game constants */
 public class Constants {
     public static final float UNIT_FOR_PIXEL = 1f / 20f;
@@ -28,6 +30,9 @@ public class Constants {
     public static final int MAX_PLAYERS = 2;
 
     public static final String DEBUG_SCREEN;
+
+    public static final Color HALF_IMMERSED_COLOR = new Color(0.5f, 0.75f, 1, 0.4f);
+    public static final Color FULLY_IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
 
     public static final String LOG_FILENAME = "pixelwheels.log";
     // 1 mega-byte max size

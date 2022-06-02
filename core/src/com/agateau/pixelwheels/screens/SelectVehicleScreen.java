@@ -78,7 +78,7 @@ public class SelectVehicleScreen extends PwStageScreen {
         mVehicleNameLabel = builder.getActor("vehicleNameLabel");
         mUnlockHintLabel = builder.getActor("unlockHintLabel");
 
-        createVehicleSelector(menu);
+        createVehicleSelector(builder, menu);
         updateVehicleDetails(mVehicleSelector.getCurrent());
 
         builder.getActor("backButton")
@@ -102,10 +102,14 @@ public class SelectVehicleScreen extends PwStageScreen {
         updateNextButton();
     }
 
-    private void createVehicleSelector(Menu menu) {
+    private void createVehicleSelector(UiBuilder builder, Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
         mVehicleSelector.init(assets, mGame.getRewardManager());
+
+        mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
+        mVehicleSelector.setItemSize(
+                builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
         String id = mGame.getConfig().vehicles[0];
         mVehicleSelector.setCurrent(assets.findVehicleDefById(id));
         menu.addItem(mVehicleSelector);
@@ -132,7 +136,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void updateVehicleDetails(VehicleDef vehicle) {
         String text;
         if (mGame.getRewardManager().isVehicleUnlocked(vehicle)) {
-            text = vehicle.name;
+            text = vehicle.getName();
 
             mUnlockHintLabel.setVisible(false);
         } else {

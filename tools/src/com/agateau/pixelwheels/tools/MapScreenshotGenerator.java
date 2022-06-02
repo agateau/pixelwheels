@@ -29,7 +29,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 /** Loads a TMX file and creates a screenshot of it as a PNG file */
 public class MapScreenshotGenerator {
@@ -96,7 +95,7 @@ public class MapScreenshotGenerator {
         fbo.begin();
         renderer.render(new int[] {0, 1});
 
-        return ScreenUtils.getFrameBufferPixmap(0, 0, mapWidth, mapHeight);
+        return Pixmap.createFromFrameBuffer(0, 0, mapWidth, mapHeight);
     }
 
     private static Pixmap scaleScreenshot(Pixmap src) {

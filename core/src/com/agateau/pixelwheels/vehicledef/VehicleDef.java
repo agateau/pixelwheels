@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
+import static com.agateau.translations.Translator.trc;
+
 import com.agateau.pixelwheels.TextureRegionProvider;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,11 +29,16 @@ import com.badlogic.gdx.utils.Array;
 
 /** Definition of a vehicle */
 public class VehicleDef {
-    public String id;
-    public String name;
+    public final String id;
+    private final String mName;
     public float speed;
     public Array<AxleDef> axles = new Array<>();
     public Array<Shape2D> shapes = new Array<>();
+
+    public VehicleDef(String id, String name) {
+        this.id = id;
+        mName = name;
+    }
 
     public TextureRegion getImage(TextureRegionProvider provider) {
         return provider.findRegions("vehicles/" + mainImage).get(0);
@@ -45,6 +52,10 @@ public class VehicleDef {
 
     public String toString() {
         return "vehicleDef(" + id + ")";
+    }
+
+    public String getName() {
+        return trc(mName, "vehicle");
     }
 
     String mainImage;

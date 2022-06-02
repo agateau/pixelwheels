@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" gridSize="20">
+        <Label id="mainLabel" style="title"
+            topCenter="root.topCenter 0 -2">Select Language</Label>
+
+        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -2g" width="400px">
+        </Menu>
+
+        <ImageButton id="backButton"
+            bottomLeft="root.bottomLeft 1g 1g"
+            imageName="icon-back"/>
+    </AnchorGroup>
+</gdxui>

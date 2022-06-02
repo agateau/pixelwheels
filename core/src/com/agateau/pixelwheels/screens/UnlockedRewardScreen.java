@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
@@ -106,7 +108,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
     private void setupVehicleReward(UiBuilder builder, VehicleDef vehicleDef) {
         VehicleActor vehicle = builder.getActor("vehicle");
         vehicle.setVehicleDef(vehicleDef);
-        setupRewardDetails(builder, "New vehicle unlocked!", vehicleDef.name);
+        setupRewardDetails(builder, tr("New vehicle unlocked!"), vehicleDef.getName());
     }
 
     private void setupChampionshipReward(UiBuilder builder, Championship championship) {
@@ -115,7 +117,7 @@ public class UnlockedRewardScreen extends NavStageScreen {
                 new TextureRegionDrawable(mGame.getAssets().getChampionshipRegion(championship)));
         image.pack();
         image.setOrigin(Align.center);
-        setupRewardDetails(builder, "New championship unlocked!", championship.getName());
+        setupRewardDetails(builder, tr("New championship unlocked!"), championship.getName());
     }
 
     private void setupRewardDetails(UiBuilder builder, String title, String rewardName) {

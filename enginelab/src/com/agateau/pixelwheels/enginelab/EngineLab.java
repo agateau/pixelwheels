@@ -19,8 +19,8 @@
 package com.agateau.pixelwheels.enginelab;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class EngineLab extends Game {
     @Override
@@ -29,10 +29,9 @@ public class EngineLab extends Game {
     }
 
     public static void main(String[] arg) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 800;
-        config.height = 600;
-        config.title = "Engine Lab";
-        new LwjglApplication(new EngineLab(), config);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(800, 480);
+        config.setTitle("Engine Lab");
+        new Lwjgl3Application(new EngineLab(), config);
     }
 }

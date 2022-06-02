@@ -49,6 +49,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private int mColumnCount = 3;
     private float mItemWidth = 0;
     private float mItemHeight = 0;
+    private TouchUiConfirmMode mTouchUiConfirmMode = TouchUiConfirmMode.DOUBLE_TOUCH;
+
+    public enum TouchUiConfirmMode {
+        SINGLE_TOUCH,
+        DOUBLE_TOUCH
+    }
 
     public interface ItemRenderer<T> {
         /** Returns a rectangle relative to the bottom-left corner of the grid */
@@ -101,6 +107,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 });
     }
 
+    public TouchUiConfirmMode getTouchUiConfirmMode() {
+        return mTouchUiConfirmMode;
+    }
+
+    public void setTouchUiConfirmMode(TouchUiConfirmMode touchUiConfirmMode) {
+        mTouchUiConfirmMode = touchUiConfirmMode;
+    }
+
     public void setSelectionListener(SelectionListener<T> selectionListener) {
         mSelectionListener = selectionListener;
     }
@@ -143,7 +157,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         int oldIndex = mSelectedIndex;
         mSelectedIndex = index;
         if (mSelectionListener != null) {
-            if (!PlatformUtils.isTouchUi() || oldIndex == mSelectedIndex) {
+            if (PlatformUtils.isTouchUi()) {
+                if (mTouchUiConfirmMode == TouchUiConfirmMode.SINGLE_TOUCH
+                        || oldIndex == mSelectedIndex) {
+                    mSelectionListener.selectionConfirmed();
+                }
+            } else {
                 mSelectionListener.selectionConfirmed();
             }
         }

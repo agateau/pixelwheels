@@ -210,7 +210,10 @@ public class Wheel implements Disposable {
                 Box2DUtils.getLateralVelocity(mBody).scl(-mBody.getMass()).scl(mMaterial.getGrip());
         float maxImpulse =
                 (float) GamePlay.instance.maxLateralImpulse / (mVehicle.isBraking() ? 0.2f : 1);
-        if (mMaterial != Material.ICE && mCanDrift && impulse.len() > maxImpulse) {
+        if (mMaterial != Material.ICE
+                && !mMaterial.isWater()
+                && mCanDrift
+                && impulse.len() > maxImpulse) {
             // Drift
             mDrifting = true;
             if (mSkidmarkCount == 0) {

@@ -74,7 +74,7 @@ public class LogFilePrinter implements NLog.Printer {
                         levelString = "E";
                     }
                     mStringBuilder.setLength(0);
-                    appendDate();
+                    NLogPrinterUtils.appendTimeStamp(mStringBuilder);
                     mStringBuilder.append(' ');
                     mStringBuilder.append(levelString);
                     mStringBuilder.append(' ');
@@ -82,33 +82,6 @@ public class LogFilePrinter implements NLog.Printer {
                     mStringBuilder.append(' ');
                     mStringBuilder.append(message);
                     return mStringBuilder.toString();
-                }
-
-                private void appendDate() {
-                    long timeSpent = System.currentTimeMillis();
-                    long secondsInDay = (timeSpent / 1000) % 86400;
-                    long hour = secondsInDay / 3600;
-                    long minutes = (secondsInDay % 3600) / 60;
-                    long seconds = secondsInDay % 60;
-                    long millis = timeSpent % 1000;
-                    appendNumber(hour, 2);
-                    mStringBuilder.append(':');
-                    appendNumber(minutes, 2);
-                    mStringBuilder.append(':');
-                    appendNumber(seconds, 2);
-                    mStringBuilder.append('.');
-                    appendNumber(millis, 3);
-                }
-
-                private void appendNumber(long value, int width) {
-                    int digitCount = 1;
-                    for (long v = value; v > 9; v /= 10) {
-                        digitCount += 1;
-                    }
-                    for (int idx = 0; idx < width - digitCount; ++idx) {
-                        mStringBuilder.append('0');
-                    }
-                    mStringBuilder.append(value);
                 }
             };
 

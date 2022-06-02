@@ -14,7 +14,7 @@ Tracks are grouped in championships. Championships are defined as XML files in t
 
 Championship files are named `<N>.xml` with N starting from 0.
 
-A championship file as the following syntax:
+A championship file follows the following format:
 
 ```xml
 <?xml version="1.0"?>
@@ -91,7 +91,7 @@ The first segment must be aligned with the *beginning* of the finish line.
 
 ### Waypoints
 
-A "Waypoints" object layer containing ellipsis indicating where AI pilots should go.
+A "Waypoints" object layer containing a polyline indicating where AI pilots should go.
 
 ### Bonuses
 

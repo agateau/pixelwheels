@@ -61,13 +61,17 @@ public class Languages {
         return DEFAULT_ID;
     }
 
-    public FontSet getFontSet(String languageId) {
+    public Language getLanguage(String languageId) {
         for (Language language : mLanguages) {
             if (language.id.equals(languageId)) {
-                return language.fontSet;
+                return language;
             }
         }
         throw new RuntimeException("No language with id " + languageId);
+    }
+
+    public FontSet getFontSet(String languageId) {
+        return getLanguage(languageId).fontSet;
     }
 
     public Array<Language> getAll() {

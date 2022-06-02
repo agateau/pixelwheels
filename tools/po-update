@@ -71,6 +71,8 @@ list_files() {
         find $dir -name '*.java' | grep -v '/build/' >> $output
     done
     find android/assets -name '*.gdxui' >> $output
+    find android/assets/championships -name '*.xml' >> $output
+    find android/assets/vehicles -name '*.xml' >> $output
 }
 
 extract_messages() {
@@ -80,11 +82,18 @@ extract_messages() {
     echo "Extracting messages"
 
     # Set GETTEXTDATADIR so that xgettext finds our .its files
-    GETTEXTDATADIR=$TOOLS_DIR/gettext xgettext --from-code=utf-8 \
+    GETTEXTDATADIR=$TOOLS_DIR/gettext xgettext \
+        --no-wrap \
+        --indent \
+        --from-code=utf-8 \
         --keyword=tr --keyword=trn:1,2 --keyword=trc:1,2c \
         --sort-by-file \
-        --output $messages_pot \
-        --files-from $lst_file
+        --output - \
+        --files-from $lst_file \
+    | sed '/^ *"POT-Creation-Date:/d' > $messages_pot
+
+    # The sed command removes the "POT-Creation-Date:" line, which adds useless
+    # noise to the diffs
 }
 
 update_messages() {

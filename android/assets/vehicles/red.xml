@@ -1,4 +1,4 @@
-<vehicle speed="1" name="Red" width="30" height="56">
+<vehicle speed="1" name="Red Lightning" width="30" height="56">
     <main image="red"/>
     <shapes>
         <octogon corner="3" width="30" height="56"/>

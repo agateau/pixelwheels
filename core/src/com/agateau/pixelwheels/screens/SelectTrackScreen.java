@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import static com.agateau.translations.Translator.tr;
+import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
@@ -28,6 +29,7 @@ import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
+import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.GridMenuItem;
@@ -167,7 +169,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(3);
+        mTrackSelector.setColumnCount(4);
         mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
         menu.addItem(mTrackSelector);
@@ -248,9 +250,19 @@ public class SelectTrackScreen extends PwStageScreen {
             TrackResult record = records.get(idx);
             mTableRowCreator.addRow(
                     String.valueOf(idx + 1),
-                    record.vehicle,
+                    getVehicleName(record.vehicle),
                     StringUtils.formatRaceTime(record.value));
         }
         table.setHeight(table.getPrefHeight());
+    }
+
+    private String getVehicleName(String vehicleId) {
+        if (vehicleId.equals(TrackStats.DEFAULT_RECORD_VEHICLE)) {
+            return trc("CPU", "vehicle-record-placeholder");
+        }
+        VehicleDef vehicleDef = mGame.getAssets().findVehicleDefById(vehicleId);
+        // vehicleDef can be null for records established when record.vehicle was the
+        // name of the vehicle
+        return vehicleDef == null ? vehicleId : vehicleDef.getName();
     }
 }

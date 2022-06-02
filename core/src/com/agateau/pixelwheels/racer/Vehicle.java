@@ -56,14 +56,13 @@ public class Vehicle implements Racer.Component, Disposable {
         public float steeringFactor;
     }
 
+    private final String mId;
     private final Body mBody;
     private final GameWorld mGameWorld;
     private Racer mRacer;
 
     private final Animation<TextureRegion> mBodyAnimation;
     private final Array<WheelInfo> mWheels = new Array<>();
-    private String mId;
-    private String mName;
 
     private int mCollisionCategoryBits;
     private int mCollisionMaskBits;
@@ -88,6 +87,7 @@ public class Vehicle implements Racer.Component, Disposable {
             float originY,
             VehicleDef vehicleDef,
             float angle) {
+        mId = vehicleDef.id;
         mGameWorld = gameWorld;
 
         // Main
@@ -166,10 +166,6 @@ public class Vehicle implements Racer.Component, Disposable {
 
     public String getId() {
         return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
     }
 
     public Body getBody() {
@@ -463,14 +459,6 @@ public class Vehicle implements Racer.Component, Disposable {
         return mBody.getPosition().y;
     }
 
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
     public float getTurboTime() {
         return mTurboTime;
     }
@@ -490,6 +478,6 @@ public class Vehicle implements Racer.Component, Disposable {
 
     @Override
     public String toString() {
-        return getName();
+        return mId;
     }
 }

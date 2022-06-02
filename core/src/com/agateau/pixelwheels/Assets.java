@@ -66,6 +66,7 @@ public class Assets implements TextureRegionProvider {
         "rocket",
         "dark-m",
         "jeep",
+        "miramar",
     };
 
     public static final String MENU_MUSIC_ID = "menu";
@@ -262,8 +263,7 @@ public class Assets implements TextureRegionProvider {
     }
 
     public TextureRegion getChampionshipRegion(Championship championship) {
-        Track track = championship.getTracks().get(0);
-        return getTrackRegion(track);
+        return ui.atlas.findRegion("championship-icons/" + championship.getId());
     }
 
     public TextureRegion getTrackRegion(Track track) {

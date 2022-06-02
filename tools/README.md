@@ -18,11 +18,9 @@ Defines gettext ITS rules.
 
 More details in [gettext/README.md](gettext/README.md).
 
-## create-archives and installer-data/
+## packaging/
 
-`create-archives` creates the final zip files for each supported desktop platform. The zip files include a JRE so players do not have to install Java.
-
-It uses files from the `installer-data` directory.
+Contains the `create-archives` script and its data files. This script creates the final zip files for each supported desktop platform. The zip files include a JRE so players do not have to install Java themselves.
 
 ## src/
 
@@ -31,6 +29,7 @@ Java source code for:
 - Packer: Turns individual PNG files into atlases. Used when building the game.
 - LapPositionTableGenerator: Loads a TMX file and generates a PNG of the various track sections. Helper tool to find problems when creating tracks.
 - MapScreenshotGenerator: Loads a TMX file and creates a small PNG file of it. The created PNG can be used as a starting point to create the track icon.
+- TrackEditor: Tool to edit some aspects of a track more easily than with Tiled. More details in [src/com/agateau/pixelwheels/tools/trackeditor/README.md](src/com/agateau/pixelwheels/tools/trackeditor/README.md).
 
 ## apply-codingstyle
 

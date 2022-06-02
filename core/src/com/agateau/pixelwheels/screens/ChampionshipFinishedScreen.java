@@ -37,11 +37,13 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import java.util.Locale;
 
@@ -109,7 +111,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
     }
 
     private boolean isPlayerOnPodium() {
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, mGameInfo.getEntrants().size); ++idx) {
             GameInfo.Entrant entrant = mGameInfo.getEntrants().get(idx);
             if (entrant.isPlayer()) {
                 return true;
@@ -169,6 +171,8 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
         setupMainLabels(builder);
 
+        setupChampionshipIcon(builder);
+
         setupNextButton(builder.getActor("nextButton"));
         setNavListener(mNextListener);
 
@@ -178,6 +182,13 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
         fillEntrantTable(table, mGameInfo.getEntrants());
 
         return true;
+    }
+
+    private void setupChampionshipIcon(UiBuilder builder) {
+        Image image = builder.getActor("championshipIcon");
+        TextureRegion region = mGame.getAssets().getChampionshipRegion(mGameInfo.getChampionship());
+        image.setDrawable(new TextureRegionDrawable(region));
+        image.pack();
     }
 
     private void setupMainLabels(UiBuilder builder) {
@@ -209,7 +220,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
             mTableRowCreator.setRowStyle(style);
             mTableRowCreator.addRow(
                     String.format(Locale.US, "%d.", idx + 1),
-                    vehicleDef.name,
+                    vehicleDef.getName(),
                     totalTime,
                     String.valueOf(entrant.getPoints()));
         }
@@ -217,7 +228,7 @@ public class ChampionshipFinishedScreen extends NavStageScreen {
 
     private void fillPodium(UiBuilder builder, Array<GameInfo.Entrant> entrants) {
         Assets assets = mGame.getAssets();
-        for (int idx = 0; idx < 3; ++idx) {
+        for (int idx = 0; idx < Math.min(3, entrants.size); ++idx) {
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
             VehicleActor actor = builder.getActor("vehicle" + idx);

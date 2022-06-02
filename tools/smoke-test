@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""
+This is a very basic smoke test: it starts a command and expects it to still be
+running after a defined number of seconds. It then stops it.
+
+The expectation is that if the command crashes at startup, for example because
+it cannot find its asset, then this test will catch it.
+"""
+import argparse
+import subprocess
+import sys
+
+
+DEFAULT_TIMEOUT = 4
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=__doc__)
+
+    parser.add_argument("-t", "--timeout",
+                        type=int, default=DEFAULT_TIMEOUT,
+                        help="Timeout in seconds")
+
+    parser.add_argument("command", help="Command to run")
+
+    args = parser.parse_args()
+
+    try:
+        proc = subprocess.run([args.command], timeout=args.timeout, check=True)
+        print(f"Stopped unexpectedly with exit code {proc.returncode}")
+        return 1
+    except subprocess.TimeoutExpired:
+        pass
+
+    print(f"Lasted {args.timeout} seconds, as expected")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+# vi: ts=4 sw=4 et
