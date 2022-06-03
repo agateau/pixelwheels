@@ -99,7 +99,10 @@ extract_messages() {
 update_messages() {
     for po_file in $PO_DIR/*.po ; do
         echo "Updating $po_file"
-        msgmerge --update $po_file $MESSAGES_POT
+        msgmerge \
+            --no-wrap \
+            --indent \
+            --update $po_file $MESSAGES_POT
     done
 }
 
