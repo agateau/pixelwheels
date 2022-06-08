@@ -22,6 +22,8 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Utility methods to deal with the platform */
 public class PlatformUtils {
@@ -55,21 +57,25 @@ public class PlatformUtils {
             return;
         }
         NLog.i("Gdx.net.openURI() failed");
-        String command = null;
+        List<String> command = new ArrayList<>();
         if (SharedLibraryLoader.isLinux) {
-            command = "xdg-open";
+            command.add("xdg-open");
         } else if (SharedLibraryLoader.isWindows) {
-            command = "start";
+            command.add("cmd.exe");
+            command.add("/c");
+            command.add("start");
+            command.add(""); // This is the window title
         } else if (SharedLibraryLoader.isMac) {
-            command = "open";
+            command.add("open");
         }
-        if (command == null) {
+        if (command.isEmpty()) {
             NLog.e("Don't know how to open url %s on this OS", uri);
             return;
         }
+        command.add(uri);
         try {
-            NLog.i("Trying with '%s %s'", command, uri);
-            new ProcessBuilder().command(command, uri).start();
+            NLog.i("Trying with '%s'", command);
+            new ProcessBuilder(command).start();
         } catch (IOException e) {
             NLog.e("Command failed: %s", e);
         }

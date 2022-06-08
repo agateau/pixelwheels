@@ -51,23 +51,29 @@ public class Languages {
     public String findBestLanguageId() {
         String lang = Locale.getDefault().getLanguage();
         String langAndCountry = lang + "_" + Locale.getDefault().getCountry();
-        if (isSupported(langAndCountry)) {
+        if (findLanguage(langAndCountry) != null) {
             return langAndCountry;
         }
-        if (isSupported(lang)) {
+        if (findLanguage(lang) != null) {
             return lang;
         }
         NLog.i("Neither %s nor %s are supported languages", langAndCountry, lang);
         return DEFAULT_ID;
     }
 
+    /**
+     * Finds the language for the given ID. Falls back to DEFAULT_ID if the language is not
+     * available for some reason.
+     */
     public Language getLanguage(String languageId) {
-        for (Language language : mLanguages) {
-            if (language.id.equals(languageId)) {
-                return language;
-            }
+        Language language = findLanguage(languageId);
+        if (language != null) {
+            return language;
         }
-        throw new RuntimeException("No language with id " + languageId);
+        NLog.e("No language with id %s", languageId);
+        language = findLanguage(DEFAULT_ID);
+        Assert.check(language != null, "Could not find language with id " + DEFAULT_ID);
+        return language;
     }
 
     public FontSet getFontSet(String languageId) {
@@ -101,12 +107,13 @@ public class Languages {
         mLanguages.add(language);
     }
 
-    private boolean isSupported(String languageId) {
+    /** Internal version of getLanguage(). Returns null if language is not found. */
+    private Language findLanguage(String languageId) {
         for (Language language : mLanguages) {
             if (language.id.equals(languageId)) {
-                return true;
+                return language;
             }
         }
-        return false;
+        return null;
     }
 }
