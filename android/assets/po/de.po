@@ -16,7 +16,7 @@ msgstr "Project-Id-Version: \n"
 #, fuzzy
 msgctxt "championship"
 msgid   "Country Life"
-msgstr  "Provinz Meisterschaft:"
+msgstr  "Provinz"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
@@ -62,7 +62,7 @@ msgstr  "Blockstadt"
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid   "Tiny sur Mer"
-msgstr  "Seestadt"
+msgstr  "Pix am See"
 
 #: android/assets/screens/credits.gdxui:6
 msgid   "Pixel Wheels"
@@ -430,22 +430,22 @@ msgstr  "Wähle dein Fahrzeug"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid   "2-Deuch"
-msgstr  ""
+msgstr  "Ente"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid   "Ant On-1"
-msgstr  ""
+msgstr  "Ant On-1"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid   "Dark M"
-msgstr  ""
+msgstr  "Batmobil"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid   "Harvester"
-msgstr  ""
+msgstr  "Mähdrescher"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
@@ -470,22 +470,22 @@ msgstr  "Polizei"
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid   "Red Lightning"
-msgstr  ""
+msgstr  "Rennwagen"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid   "Roadster"
-msgstr  ""
+msgstr  "Roadster"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid   "Rocket"
-msgstr  ""
+msgstr  "Rakete"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid   "Santa Truck"
-msgstr  ""
+msgstr  "Santa Truck"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid   "Share via"
@@ -823,13 +823,3 @@ msgstr  "Willst du einen Fehler melden? Verwende die nachfolgende Schaltfläche,
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid   "OPEN LOG FILE FOLDER"
 msgstr  "PROTOKOLLORDNER"
-
-#, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Police"
-#~ msgstr  "Polnisch:"
-
-#, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Red"
-#~ msgstr  "Fertig!"
