@@ -65,7 +65,7 @@ msgstr  "Bloke herria"
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid   "Tiny sur Mer"
-msgstr  "Itsastxikia"
+msgstr  "Tinyondo"
 
 #: android/assets/screens/credits.gdxui:6
 msgid   "Pixel Wheels"
