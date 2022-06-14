@@ -440,7 +440,7 @@ msgstr  "Ant On-1"
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid   "Dark M"
-msgstr  "Batmobil"
+msgstr  "Dark M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
@@ -455,7 +455,7 @@ msgstr  "Jeep"
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid   "Miramar"
-msgstr  ""
+msgstr  "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
