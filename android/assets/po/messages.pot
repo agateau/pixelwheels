@@ -81,7 +81,7 @@ msgstr  ""
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:75
 msgid   "Aurélien Gâteau"
 msgstr  ""
 
@@ -206,31 +206,32 @@ msgid   "Translations"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:65
-msgid   "Bengali:"
-msgstr  ""
-
-#: android/assets/screens/credits.gdxui:66
-msgid   "Oymate"
-msgstr  ""
-
-#: android/assets/screens/credits.gdxui:68
-msgid   "Chinese:"
-msgstr  ""
-
-#: android/assets/screens/credits.gdxui:69
-msgid   "Lu Xu"
-msgstr  ""
-
-#: android/assets/screens/credits.gdxui:71
-msgid   "French:"
-msgstr  ""
-
-#: android/assets/screens/credits.gdxui:74
 msgid   "German:"
 msgstr  ""
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:66
 msgid   "Christian Schrötter"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:68
+msgid   "Spanish:"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:69
+#: android/assets/screens/credits.gdxui:91
+msgid   "Clara Gâteau"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:71
+msgid   "Basque:"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:72
+msgid   "Josu Igoa"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:74
+msgid   "French:"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:77
@@ -250,20 +251,19 @@ msgid   "Nickoriginal"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:83
-msgid   "Spanish:"
+msgid   "Bengali:"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:84
-#: android/assets/screens/credits.gdxui:91
-msgid   "Clara Gâteau"
+msgid   "Oymate"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:86
-msgid   "Basque:"
+msgid   "Chinese:"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:87
-msgid   "Josu Igoa"
+msgid   "Lu Xu"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:89
@@ -566,7 +566,7 @@ msgstr  ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "#"
 msgstr  ""
 
@@ -578,19 +578,19 @@ msgstr  ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Racer"
 msgstr  ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Total time"
 msgstr  ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Points"
 msgstr  ""
 
@@ -610,7 +610,7 @@ msgstr  ""
 msgid   "Finish first at %s championship"
 msgstr  ""
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
 msgid   "Championship\n"
         "Finished!"
