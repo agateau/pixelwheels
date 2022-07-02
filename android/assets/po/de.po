@@ -3,7 +3,7 @@
 msgid  ""
 msgstr "Project-Id-Version: \n"
        "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-15 10:51+0200\n"
+       "PO-Revision-Date: 2022-06-14 13:18+0200\n"
        "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
        "Language-Team: German\n"
        "Language: de_DE\n"
@@ -16,53 +16,53 @@ msgstr "Project-Id-Version: \n"
 #, fuzzy
 msgctxt "championship"
 msgid   "Country Life"
-msgstr  "Country Life Meisterschaft:"
+msgstr  "Provinz"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid   "Welcome!"
-msgstr  ""
+msgstr  "Willkommen!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid   "River"
-msgstr  ""
+msgstr  "Flussrundfahrt"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid   "Flood"
-msgstr  ""
+msgstr  "Land unter!"
 
 #: android/assets/championships/1.xml:2
 #, fuzzy
 msgctxt "championship"
 msgid   "Square Mountains"
-msgstr  "Square Mountains Meisterschaft"
+msgstr  "Gebirgsrallye"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid   "Let it snow"
-msgstr  ""
+msgstr  "Schneelandschaft"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid   "Don't slip!"
-msgstr  ""
+msgstr  "Blitzeis!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid   "Pix Cities"
-msgstr  ""
+msgstr  "Pixelstädte"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid   "Blocky Town"
-msgstr  ""
+msgstr  "Blockstadt"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid   "Tiny sur Mer"
-msgstr  ""
+msgstr  "Pix am See"
 
 #: android/assets/screens/credits.gdxui:6
 msgid   "Pixel Wheels"
@@ -125,7 +125,7 @@ msgstr  "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid   "Country Life championship:"
-msgstr  "Country Life Meisterschaft:"
+msgstr  "Provinz Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid   "\"Cosmo Blast v1.0\""
@@ -133,7 +133,7 @@ msgstr  "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid   "Square Mountains championship:"
-msgstr  "Square Mountains Meisterschaft"
+msgstr  "Gebirgsrallye Meisterschaft"
 
 #: android/assets/screens/credits.gdxui:34
 msgid   "\"Lunar Harvest v1.0\""
@@ -141,7 +141,7 @@ msgstr  "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid   "Pix Cities championship:"
-msgstr  "Pix Cities Meisterschaft"
+msgstr  "Pixelstädte Meisterschaft"
 
 #: android/assets/screens/credits.gdxui:38
 msgid   "\"Bouncing Baal v0.95\""
@@ -430,62 +430,62 @@ msgstr  "Wähle dein Fahrzeug"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid   "2-Deuch"
-msgstr  ""
+msgstr  "Ente"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid   "Ant On-1"
-msgstr  ""
+msgstr  "Ant On-1"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid   "Dark M"
-msgstr  ""
+msgstr  "Dark M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid   "Harvester"
-msgstr  ""
+msgstr  "Mähdrescher"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid   "Jeep"
-msgstr  ""
+msgstr  "Jeep"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid   "Miramar"
-msgstr  ""
+msgstr  "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid   "Pickup"
-msgstr  ""
+msgstr  "Pick-up"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid   "Highway Patrol"
-msgstr  ""
+msgstr  "Polizei"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid   "Red Lightning"
-msgstr  ""
+msgstr  "Rennwagen"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid   "Roadster"
-msgstr  ""
+msgstr  "Roadster"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid   "Rocket"
-msgstr  ""
+msgstr  "Rakete"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid   "Santa Truck"
-msgstr  ""
+msgstr  "Santa Truck"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid   "Share via"
@@ -782,7 +782,7 @@ msgstr  "[Gesperrt]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid   "CPU"
-msgstr  ""
+msgstr  "Computer"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid   "New vehicle unlocked!"
@@ -823,13 +823,3 @@ msgstr  "Willst du einen Fehler melden? Verwende die nachfolgende Schaltfläche,
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid   "OPEN LOG FILE FOLDER"
 msgstr  "PROTOKOLLORDNER"
-
-#, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Police"
-#~ msgstr  "Polnisch:"
-
-#, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Red"
-#~ msgstr  "Fertig!"
