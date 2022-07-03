@@ -3,7 +3,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: \n"
         "Report-Msgid-Bugs-To: \n"
-        "PO-Revision-Date: 2022-06-14 13:18+0200\n"
+        "PO-Revision-Date: 2022-07-03 17:56+0200\n"
         "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
         "Language-Team: German\n"
         "Language: de_DE\n"
@@ -13,7 +13,6 @@ msgstr  "Project-Id-Version: \n"
         "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: android/assets/championships/0.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid   "Country Life"
 msgstr  "Provinz"
@@ -34,7 +33,6 @@ msgid   "Flood"
 msgstr  "Land unter!"
 
 #: android/assets/championships/1.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid   "Square Mountains"
 msgstr  "Gebirgsrallye"
@@ -133,7 +131,7 @@ msgstr  "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid   "Square Mountains championship:"
-msgstr  "Gebirgsrallye Meisterschaft"
+msgstr  "Gebirgsrallye Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid   "\"Lunar Harvest v1.0\""
@@ -141,7 +139,7 @@ msgstr  "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid   "Pix Cities championship:"
-msgstr  "Pixelstädte Meisterschaft"
+msgstr  "Pixelstädte Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid   "\"Bouncing Baal v0.95\""
@@ -374,7 +372,6 @@ msgid   "QUIT"
 msgstr  "BEENDEN"
 
 #: android/assets/screens/multiplayer.gdxui:10
-#, fuzzy
 msgid   "Select Your Vehicles"
 msgstr  "Wähle dein Fahrzeug"
 
@@ -599,17 +596,14 @@ msgid   "Race time"
 msgstr  "Rennzeit"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, fuzzy
 msgid   "Finish third or better at %s championship"
 msgstr  "Rang 3 oder besser bei der %s Meisterschaft"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, fuzzy
 msgid   "Finish second or better at %s championship"
 msgstr  "Rang 3 oder besser bei der %s Meisterschaft"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, fuzzy
 msgid   "Finish first at %s championship"
 msgstr  "Rang 3 oder besser bei der %s Meisterschaft"
 
