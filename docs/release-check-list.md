@@ -13,6 +13,9 @@
 
 - [ ] Update changelog
 
+    changie batch
+    vi .changes/$version.md
+    changie merge
     vi CHANGELOG.md
     vi fastlane/metadata/android/en-US/changelogs/$version.txt
 
