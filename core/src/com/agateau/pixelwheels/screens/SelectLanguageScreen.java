@@ -113,6 +113,7 @@ public class SelectLanguageScreen extends PwStageScreen {
     private GridMenuItem<Language> createLanguageSelector(Menu menu) {
         GridMenuItem<Language> languageSelector = new GridMenuItem<>(menu);
         Array<Language> languages = mGame.getAssets().languages.getAll();
+        languages.sort((l1, l2) -> l1.name.compareToIgnoreCase(l2.name));
         languageSelector.setItems(languages);
         languageSelector.setItemSize(menu.getWidth(), ITEM_HEIGHT);
         languageSelector.setColumnCount(1);

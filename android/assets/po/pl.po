@@ -1,15 +1,15 @@
 # PandaCoderPL <translator@pandacoderpl.anonaddy.me>, 2022.
-msgid  ""
-msgstr "Project-Id-Version: \n"
-       "Report-Msgid-Bugs-To: \n"
-       "PO-Revision-Date: 2022-05-15 10:30+0000\n"
-       "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
-       "Language-Team: Polish\n"
-       "Language: pl_PL\n"
-       "MIME-Version: 1.0\n"
-       "Content-Type: text/plain; charset=UTF-8\n"
-       "Content-Transfer-Encoding: 8bit\n"
-       "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+msgid   ""
+msgstr  "Project-Id-Version: \n"
+        "Report-Msgid-Bugs-To: \n"
+        "PO-Revision-Date: 2022-05-15 10:30+0000\n"
+        "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
+        "Language-Team: Polish\n"
+        "Language: pl_PL\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+        "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: android/assets/championships/0.xml:2
 #, fuzzy
@@ -78,7 +78,7 @@ msgstr  "Kod"
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:72
+#: android/assets/screens/credits.gdxui:75
 msgid   "Aurélien Gâteau"
 msgstr  "Aurélien Gâteau"
 
@@ -203,32 +203,33 @@ msgid   "Translations"
 msgstr  "Tłumaczenia"
 
 #: android/assets/screens/credits.gdxui:65
-msgid   "Bengali:"
-msgstr  "Bengalski:"
-
-#: android/assets/screens/credits.gdxui:66
-msgid   "Oymate"
-msgstr  "Oymate"
-
-#: android/assets/screens/credits.gdxui:68
-msgid   "Chinese:"
-msgstr  "Chiński:"
-
-#: android/assets/screens/credits.gdxui:69
-msgid   "Lu Xu"
-msgstr  "Lu Xu"
-
-#: android/assets/screens/credits.gdxui:71
-msgid   "French:"
-msgstr  "Francuski:"
-
-#: android/assets/screens/credits.gdxui:74
 msgid   "German:"
 msgstr  ""
 
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:66
 msgid   "Christian Schrötter"
 msgstr  ""
+
+#: android/assets/screens/credits.gdxui:68
+msgid   "Spanish:"
+msgstr  "Hiszpański:"
+
+#: android/assets/screens/credits.gdxui:69
+#: android/assets/screens/credits.gdxui:91
+msgid   "Clara Gâteau"
+msgstr  "Clara Gâteau"
+
+#: android/assets/screens/credits.gdxui:71
+msgid   "Basque:"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:72
+msgid   "Josu Igoa"
+msgstr  ""
+
+#: android/assets/screens/credits.gdxui:74
+msgid   "French:"
+msgstr  "Francuski:"
 
 #: android/assets/screens/credits.gdxui:77
 msgid   "Polish:"
@@ -247,21 +248,20 @@ msgid   "Nickoriginal"
 msgstr  ""
 
 #: android/assets/screens/credits.gdxui:83
-msgid   "Spanish:"
-msgstr  "Hiszpański:"
+msgid   "Bengali:"
+msgstr  "Bengalski:"
 
 #: android/assets/screens/credits.gdxui:84
-#: android/assets/screens/credits.gdxui:91
-msgid   "Clara Gâteau"
-msgstr  "Clara Gâteau"
+msgid   "Oymate"
+msgstr  "Oymate"
 
 #: android/assets/screens/credits.gdxui:86
-msgid   "Basque:"
-msgstr  ""
+msgid   "Chinese:"
+msgstr  "Chiński:"
 
 #: android/assets/screens/credits.gdxui:87
-msgid   "Josu Igoa"
-msgstr  ""
+msgid   "Lu Xu"
+msgstr  "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:89
 msgid   "Video Editing"
@@ -570,7 +570,7 @@ msgstr  ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "#"
 msgstr  "#"
 
@@ -582,19 +582,19 @@ msgstr  "Najlepsze okrążenie"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Racer"
 msgstr  "Zawodnik"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Total time"
 msgstr  "Łączny czas"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid   "Points"
 msgstr  "Punkty"
 
@@ -617,7 +617,7 @@ msgstr  "Pozycja 3 lub lepsza na mistrzostwach %s"
 msgid   "Finish first at %s championship"
 msgstr  "Pozycja 3 lub lepsza na mistrzostwach %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
 msgid   "Championship\n"
         "Finished!"
@@ -836,23 +836,23 @@ msgid   "OPEN LOG FILE FOLDER"
 msgstr  "OTWÓRZ FOLDER Z LOGAMI"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Police"
-#~ msgstr  "Polski:"
+#~ msgctxt      "vehicle"
+#~ msgid        "Police"
+#~ msgstr       "Polski:"
 
 #, fuzzy
-#~ msgctxt "vehicle"
-#~ msgid   "Red"
-#~ msgstr  "Gotowy!"
+#~ msgctxt      "vehicle"
+#~ msgid        "Red"
+#~ msgstr       "Gotowy!"
 
 #, fuzzy
-#~ msgid   "Down | Brake:"
-#~ msgstr  "Hamulec:"
+#~ msgid        "Down | Brake:"
+#~ msgstr       "Hamulec:"
 
 #, fuzzy
-#~ msgid   "Left | Steer left:"
-#~ msgstr  "Skręć w lewo:"
+#~ msgid        "Left | Steer left:"
+#~ msgstr       "Skręć w lewo:"
 
 #, fuzzy
-#~ msgid   "Right | Steer right:"
-#~ msgstr  "Skręć w prawo:"
+#~ msgid        "Right | Steer right:"
+#~ msgstr       "Skręć w prawo:"
