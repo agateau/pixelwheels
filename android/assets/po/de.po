@@ -131,7 +131,7 @@ msgstr  "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid   "Square Mountains championship:"
-msgstr  "Gebirgsrallye Meisterschaft"
+msgstr  "Gebirgsrallye Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid   "\"Lunar Harvest v1.0\""
@@ -139,7 +139,7 @@ msgstr  "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid   "Pix Cities championship:"
-msgstr  "Pixelstädte Meisterschaft"
+msgstr  "Pixelstädte Meisterschaft:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid   "\"Bouncing Baal v0.95\""
