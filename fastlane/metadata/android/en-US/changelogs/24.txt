@@ -1,0 +1,13 @@
+The Country championship has a new track: Flood.
+
+The game is now translated Basque and German.
+
+A new vehicle has been added: the Miramar.
+
+Championships now have their own icon now, instead of using the icon of their first track.
+
+The vehicle selection screen now looks nicer.
+
+Skid-marks are no longer drawn on top of water.
+
+Fixed Polish translation not loading.

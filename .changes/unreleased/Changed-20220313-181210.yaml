@@ -1,5 +1,0 @@
-kind: Changed
-body: Languages are now selected from a dedicated screen instead of in a selector
-  menu. This makes it easier to see all available languages, and faster to select
-  one.
-time: 2022-03-13T18:12:10.142893446+01:00

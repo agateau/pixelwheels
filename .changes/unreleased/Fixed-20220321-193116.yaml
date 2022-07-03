@@ -1,4 +1,0 @@
-kind: Fixed
-body: Fix crash when there is only one racer (this is only possible using developer
-  options for now) (#209).
-time: 2022-03-21T19:31:16.887315531+01:00

@@ -1,3 +1,0 @@
-kind: Added
-body: 'Linux: the archive now includes an `install.sh` script. This script can be used to install the game and setup a launcher icon for it. It is still possible to run the game without installation, though.'
-time: 2022-02-10T18:01:19.242789652+01:00
