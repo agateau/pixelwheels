@@ -188,6 +188,14 @@ butler-upload:
 	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(DIST_NAME)-windows* agateau/pixelwheels:windows-stable
 	butler push --userversion $(VERSION) $(ARCHIVE_DIR)/$(ANDROID_ITCHIO_RUN_DIST_NAME).apk agateau/pixelwheels:android-stable
 
+gh-upload:
+	gh release create ${VERSION} \
+		-F .changes/${VERSION}.md \
+		${ARCHIVE_DIR}/${DIST_NAME}-linux* \
+		${ARCHIVE_DIR}/${DIST_NAME}-mac* \
+		${ARCHIVE_DIR}/${DIST_NAME}-windows* \
+		${ARCHIVE_DIR}/${ANDROID_ITCHIO_RUN_DIST_NAME}.apk
+
 # Cleaning conf
 backup-desktop-conf:
 	mkdir -p $(CONF_BACKUP_DIR)
