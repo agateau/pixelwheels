@@ -334,7 +334,7 @@ msgstr  "STARTA OM"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid   "BACK TO MENU"
-msgstr  "TILLBAKA TILL MENY"
+msgstr  "ÅTERGÅ TILL MENY"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid   "CONTINUE"
@@ -402,7 +402,7 @@ msgstr  "Pausat"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid   "RESUME"
-msgstr  "Återgå till spel"
+msgstr  "ÅTERGÅ TILL SPEL"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid   "QUIT TO MENU"
