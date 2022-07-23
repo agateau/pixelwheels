@@ -16,7 +16,7 @@ allprojects {
         appName = 'Pixel Wheels'
         // Do not update to 1.10.0, it causes random freeze on my test tablet
         gdxVersion = '1.9.14'
-        gdxControllersVersion = '2.2.1'
+        gdxControllersVersion = '2.2.2'
     }
 
     repositories {
