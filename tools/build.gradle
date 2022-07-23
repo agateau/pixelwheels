@@ -9,7 +9,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_1_8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "Packer"
