@@ -449,6 +449,11 @@ msgctxt "vehicle"
 msgid   "Ant On-1"
 msgstr  ""
 
+#: android/assets/vehicles/bigfoot.xml:1
+msgctxt "vehicle"
+msgid   "Big Foot"
+msgstr  ""
+
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid   "Dark M"
