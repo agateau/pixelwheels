@@ -22,6 +22,8 @@ import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.Renderer;
 import com.agateau.pixelwheels.ZLevel;
+import com.agateau.pixelwheels.gameobjet.CellFrameBufferManager;
+import com.agateau.pixelwheels.gameobjet.CellFrameBufferUser;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -34,13 +36,17 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
 /** Renders a vehicle */
-public class VehicleRenderer implements Renderer {
+public class VehicleRenderer implements CellFrameBufferUser {
+    private static final int CELL_SIZE = 200;
+
     private final Assets mAssets;
     private final Vehicle mVehicle;
     private final Array<Renderer> mRenderers = new Array<>();
     private final SkidmarksRenderer mSkidmarksRenderer;
     private float mTime = 0;
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
+    private CellFrameBufferManager mCellFrameBufferManager;
+    private final Vector2 mCellOrigin = new Vector2();
 
     public VehicleRenderer(Assets assets, Vehicle vehicle) {
         mAssets = assets;
@@ -71,11 +77,61 @@ public class VehicleRenderer implements Renderer {
     }
 
     @Override
+    public void init(CellFrameBufferManager manager) {
+        mCellFrameBufferManager = manager;
+        mCellOrigin.set(manager.reserveCell(CELL_SIZE, CELL_SIZE));
+    }
+
+    private void drawBodyToCell(Batch batch, Body body, TextureRegion region) {
+        float angle = body.getAngle() * MathUtils.radiansToDegrees;
+        float xOffset =
+                (body.getPosition().x - mVehicle.getPosition().x) / Constants.UNIT_FOR_PIXEL;
+        float yOffset =
+                (body.getPosition().y - mVehicle.getPosition().y) / Constants.UNIT_FOR_PIXEL;
+        float w = region.getRegionWidth();
+        float h = region.getRegionHeight();
+        float x = mCellOrigin.x + CELL_SIZE / 2f + xOffset;
+        float y = mCellOrigin.y + CELL_SIZE / 2f + yOffset;
+        batch.draw(
+                region,
+                // dst
+                x - w / 2,
+                y - h / 2,
+                // origin
+                w / 2,
+                h / 2,
+                // size
+                w,
+                h,
+                // scale
+                1,
+                1,
+                // angle
+                angle);
+    }
+
+    @Override
+    public void drawToCell(Batch batch, Rectangle viewBounds) {
+        mTime += Gdx.app.getGraphics().getDeltaTime();
+
+        // Wheels and body
+        for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
+            drawBodyToCell(batch, info.wheel.getBody(), info.wheel.getRegion());
+        }
+
+        TextureRegion region = mVehicle.getRegion(mTime);
+        drawBodyToCell(batch, mVehicle.getBody(), region);
+
+        float centerX = mCellOrigin.x + CELL_SIZE / 2f;
+        float centerY = mCellOrigin.y + CELL_SIZE / 2f;
+        for (Renderer renderer : mRenderers) {
+            renderer.draw(batch, centerX, centerY);
+        }
+    }
+
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
         mBodyRegionDrawer.setBatch(batch);
-        mBodyRegionDrawer.setScale(mVehicle.getZ() + 1);
-        mTime += Gdx.app.getGraphics().getDeltaTime();
-        TextureRegion bodyRegion = mVehicle.getRegion(mTime);
+        float scale = mVehicle.getZ() + 1;
 
         // Ground: skidmarks, splash, shadow
         if (zLevel == ZLevel.GROUND) {
@@ -91,10 +147,18 @@ public class VehicleRenderer implements Renderer {
                                 info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
                     }
                 }
-                for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
-                    mBodyRegionDrawer.drawShadow(info.wheel.getBody(), info.wheel.getRegion());
-                }
-                mBodyRegionDrawer.drawShadow(mVehicle.getBody(), bodyRegion);
+
+                // Shadows
+                float offset = BodyRegionDrawer.computeShadowOffset(mVehicle.getZ(), 1);
+                float old = batch.getPackedColor();
+                batch.setColor(0, 0, 0, BodyRegionDrawer.SHADOW_ALPHA);
+                mCellFrameBufferManager.drawCell(
+                        batch,
+                        mVehicle.getX() + offset,
+                        mVehicle.getY() - offset,
+                        mCellOrigin,
+                        CELL_SIZE);
+                batch.setPackedColor(old);
             }
             return;
         }
@@ -107,25 +171,16 @@ public class VehicleRenderer implements Renderer {
 
         if (mVehicle.isFalling()) {
             batch.setColor(getBatchColor());
-        } else {
-            // Draw wheels. Do not draw them when falling: when the body is painted with alpha < 1
-            // the wheels are visible through it and it looks ugly.
-            for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
-                mBodyRegionDrawer.draw(info.wheel.getBody(), info.wheel.getRegion());
-            }
         }
-        mBodyRegionDrawer.draw(mVehicle.getBody(), bodyRegion);
-
-        if (mVehicle.getTurboTime() >= 0) {
-            drawTurbo(batch);
-        }
-
-        for (Renderer renderer : mRenderers) {
-            renderer.draw(batch, zLevel, viewBounds);
-        }
-
+        mCellFrameBufferManager.drawScaledCell(
+                batch, mVehicle.getPosition(), mCellOrigin, CELL_SIZE, scale);
         if (mVehicle.isFalling()) {
             batch.setColor(Color.WHITE);
+        }
+
+        // Turbo (not in cell because it makes no sense for it to have a shadow)
+        if (mVehicle.getTurboTime() >= 0) {
+            drawTurbo(batch);
         }
     }
 
@@ -141,14 +196,19 @@ public class VehicleRenderer implements Renderer {
         float y = center.y + refH * MathUtils.sinDeg(angle);
         batch.draw(
                 region,
+                // pos
                 x - w / 2,
-                y - h, // pos
+                y - h,
+                // origin
                 w / 2,
-                h, // origin
+                h,
+                // size
                 w,
-                h, // size
+                h,
+                // scale
                 1,
-                1, // scale
+                1,
+                // angle
                 angle - 90);
     }
 }
