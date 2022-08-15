@@ -27,7 +27,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Manages cells in a frame buffer. A cell is a rectangle of the frame buffer.
@@ -43,9 +45,10 @@ public class CellFrameBufferManager {
     private static final int SIZE = 1024;
     private final FrameBuffer mFrameBuffer;
 
-    private final Vector2 mNextCellOrigin = new Vector2();
-    private float mNextRowY = 0;
+    private float mCurrentRowTop = 0;
     private final Vector2 mTmp = new Vector2();
+
+    private final Array<Rectangle> mCells = new Array<>();
 
     private Batch mBatch;
 
@@ -60,19 +63,35 @@ public class CellFrameBufferManager {
         mProjectionMatrix.setToOrtho2D(0, 0, SIZE, SIZE);
     }
 
-    /** Returns a Vector2 pointing to the left-bottom corner of the cell */
-    public Vector2 reserveCell(int width, int height) {
-        if (mNextCellOrigin.x + width >= SIZE) {
-            // Does not fit current row
-            mNextCellOrigin.set(0, mNextRowY);
+    /** Returns the cell ID */
+    public int reserveCell(int width, int height) {
+        float cellX = 0;
+        float cellY = 0;
+        if (!mCells.isEmpty()) {
+            Rectangle lastCell = mCells.get(mCells.size - 1);
+            cellX = lastCell.x + lastCell.width;
+            cellY = lastCell.y;
+            if (cellX + width > SIZE) {
+                cellX = 0;
+                cellY = mCurrentRowTop;
+            }
         }
-        mTmp.set(mNextCellOrigin);
+        mCurrentRowTop = Math.max(cellY + height, mCurrentRowTop);
+        Assert.check(mCurrentRowTop < SIZE, "Not enough space to fit cell");
 
-        mNextCellOrigin.x += width;
-        float top = mNextCellOrigin.y + height;
-        Assert.check(top < SIZE, "Not enough space to fit cells");
-        mNextRowY = Math.max(mNextRowY, top);
-        return mTmp;
+        Rectangle cell = new Rectangle(cellX, cellY, width, height);
+        mCells.add(cell);
+        return mCells.size - 1;
+    }
+
+    public float getCellCenterX(int id) {
+        Rectangle rect = mCells.get(id);
+        return rect.x + rect.width / 2;
+    }
+
+    public float getCellCenterY(int id) {
+        Rectangle rect = mCells.get(id);
+        return rect.y + rect.height / 2;
     }
 
     /** Begins drawing to the manager texture. Must be called before calling drawToCell() */
@@ -94,29 +113,28 @@ public class CellFrameBufferManager {
         mBatch.setProjectionMatrix(mOldProjectionMatrix);
     }
 
-    public void drawCell(Batch batch, Vector2 dst, Vector2 cellOrigin, int cellSize) {
-        drawCell(batch, dst.x, dst.y, cellOrigin, cellSize);
+    public void drawCell(Batch batch, Vector2 dst, int cellId) {
+        drawCell(batch, dst.x, dst.y, cellId);
     }
 
-    public void drawCell(Batch batch, float dstX, float dstY, Vector2 cellOrigin, int cellSize) {
-        drawScaledCell(batch, dstX, dstY, cellOrigin, cellSize, 1f);
+    public void drawCell(Batch batch, float dstX, float dstY, int cellId) {
+        drawScaledCell(batch, dstX, dstY, cellId, 1f);
     }
 
-    public void drawScaledCell(
-            Batch batch, Vector2 dst, Vector2 cellOrigin, int cellSize, float scale) {
-        drawScaledCell(batch, dst.x, dst.y, cellOrigin, cellSize, scale);
+    public void drawScaledCell(Batch batch, Vector2 dst, int cellId, float scale) {
+        drawScaledCell(batch, dst.x, dst.y, cellId, scale);
     }
 
-    public void drawScaledCell(
-            Batch batch, float dstX, float dstY, Vector2 cellOrigin, int cellSize, float scale) {
-        float w = Constants.UNIT_FOR_PIXEL * cellSize * scale;
-        float h = Constants.UNIT_FOR_PIXEL * cellSize * scale;
+    public void drawScaledCell(Batch batch, float dstX, float dstY, int cellId, float scale) {
+        Rectangle rect = mCells.get(cellId);
+        float w = Constants.UNIT_FOR_PIXEL * rect.width * scale;
+        float h = Constants.UNIT_FOR_PIXEL * rect.height * scale;
 
         float textureSize = CellFrameBufferManager.SIZE;
-        float u = cellOrigin.x / textureSize;
-        float v = cellOrigin.y / textureSize;
-        float v2 = (cellOrigin.y + cellSize) / textureSize;
-        float u2 = (cellOrigin.x + cellSize) / textureSize;
+        float u = rect.x / textureSize;
+        float v = rect.y / textureSize;
+        float u2 = (rect.x + rect.width) / textureSize;
+        float v2 = (rect.y + rect.height) / textureSize;
 
         batch.draw(
                 mFrameBuffer.getColorBufferTexture(),

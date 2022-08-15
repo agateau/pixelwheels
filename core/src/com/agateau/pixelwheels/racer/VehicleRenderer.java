@@ -46,7 +46,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
     private float mTime = 0;
     private final BodyRegionDrawer mBodyRegionDrawer = new BodyRegionDrawer();
     private CellFrameBufferManager mCellFrameBufferManager;
-    private final Vector2 mCellOrigin = new Vector2();
+    private int mCellId = -1;
 
     public VehicleRenderer(Assets assets, Vehicle vehicle) {
         mAssets = assets;
@@ -79,7 +79,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
     @Override
     public void init(CellFrameBufferManager manager) {
         mCellFrameBufferManager = manager;
-        mCellOrigin.set(manager.reserveCell(CELL_SIZE, CELL_SIZE));
+        mCellId = manager.reserveCell(CELL_SIZE, CELL_SIZE);
     }
 
     private void drawBodyToCell(Batch batch, Body body, TextureRegion region) {
@@ -90,8 +90,8 @@ public class VehicleRenderer implements CellFrameBufferUser {
                 (body.getPosition().y - mVehicle.getPosition().y) / Constants.UNIT_FOR_PIXEL;
         float w = region.getRegionWidth();
         float h = region.getRegionHeight();
-        float x = mCellOrigin.x + CELL_SIZE / 2f + xOffset;
-        float y = mCellOrigin.y + CELL_SIZE / 2f + yOffset;
+        float x = mCellFrameBufferManager.getCellCenterX(mCellId) + xOffset;
+        float y = mCellFrameBufferManager.getCellCenterY(mCellId) + yOffset;
         batch.draw(
                 region,
                 // dst
@@ -122,8 +122,8 @@ public class VehicleRenderer implements CellFrameBufferUser {
         TextureRegion region = mVehicle.getRegion(mTime);
         drawBodyToCell(batch, mVehicle.getBody(), region);
 
-        float centerX = mCellOrigin.x + CELL_SIZE / 2f;
-        float centerY = mCellOrigin.y + CELL_SIZE / 2f;
+        float centerX = mCellFrameBufferManager.getCellCenterX(mCellId);
+        float centerY = mCellFrameBufferManager.getCellCenterY(mCellId);
         for (Renderer renderer : mRenderers) {
             renderer.draw(batch, centerX, centerY);
         }
@@ -153,11 +153,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
                 float old = batch.getPackedColor();
                 batch.setColor(0, 0, 0, BodyRegionDrawer.SHADOW_ALPHA);
                 mCellFrameBufferManager.drawCell(
-                        batch,
-                        mVehicle.getX() + offset,
-                        mVehicle.getY() - offset,
-                        mCellOrigin,
-                        CELL_SIZE);
+                        batch, mVehicle.getX() + offset, mVehicle.getY() - offset, mCellId);
                 batch.setPackedColor(old);
             }
             return;
@@ -172,8 +168,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
         if (mVehicle.isFalling()) {
             batch.setColor(getBatchColor());
         }
-        mCellFrameBufferManager.drawScaledCell(
-                batch, mVehicle.getPosition(), mCellOrigin, CELL_SIZE, scale);
+        mCellFrameBufferManager.drawScaledCell(batch, mVehicle.getPosition(), mCellId, scale);
         if (mVehicle.isFalling()) {
             batch.setColor(Color.WHITE);
         }
