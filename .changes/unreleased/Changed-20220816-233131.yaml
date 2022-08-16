@@ -1,0 +1,4 @@
+kind: Changed
+body: 'The way vehicles are drawn have been improved: vehicle shadows now include
+  shadow for the tires, and when a vehicle goes underwater, its wheels are still drawn.'
+time: 2022-08-16T23:31:31.465069926+02:00
