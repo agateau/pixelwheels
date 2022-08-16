@@ -30,7 +30,6 @@ class VehicleActor extends Actor {
 
     private VehicleActor(Assets assets) {
         mDrawer = new VehicleDrawer(assets);
-        mDrawer.angle = 90;
     }
 
     static void register(UiBuilder builder, Assets assets) {
@@ -38,15 +37,14 @@ class VehicleActor extends Actor {
     }
 
     public void setVehicleDef(VehicleDef vehicleDef) {
-        mDrawer.vehicleDef = vehicleDef;
+        mDrawer.setVehicleDef(vehicleDef);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         DrawUtils.multiplyBatchAlphaBy(batch, parentAlpha);
-        mDrawer.center.x = getX();
-        mDrawer.center.y = getY();
-        mDrawer.angle = 90 + getRotation();
+        mDrawer.setCenter(getX(), getY());
+        mDrawer.setAngle(90 + getRotation());
         mDrawer.draw(batch);
     }
 }

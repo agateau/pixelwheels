@@ -62,10 +62,10 @@ public class ObstacleCreatorTest {
         World box2DWorld = createBox2DWorld();
         when(mGameWorld.getBox2DWorld()).thenReturn(box2DWorld);
 
-        when(mTextureRegionProvider.findRegion("obstacle-tyre")).thenReturn(mTextureRegion);
+        when(mTextureRegionProvider.findRegion("obstacle-tire")).thenReturn(mTextureRegion);
         when(mTextureRegion.getRegionWidth()).thenReturn(obstacleSize);
         when(mTextureRegion.getRegionHeight()).thenReturn(obstacleSize);
-        ObstacleDef def = ObstacleDef.createCircle(mTextureRegionProvider, "tyre", 1);
+        ObstacleDef def = ObstacleDef.createCircle(mTextureRegionProvider, "tire", 1);
 
         // AND an obstacle creator
         ObstacleCreator creator = new ObstacleCreator();

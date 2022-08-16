@@ -32,7 +32,7 @@
   <object id="8" x="960" y="704" width="64" height="128"/>
   <object id="9" x="1216" y="704" width="64" height="128"/>
   <object id="10" x="0" y="2496" width="128" height="2112"/>
-  <object id="63" type="tyre" x="240.475" y="533.102">
+  <object id="63" type="tire" x="240.475" y="533.102">
    <polyline points="15.5248,-21.1016 15.5248,-85.1016 143.525,-213.102 399.525,-277.102"/>
   </object>
   <object id="66" type="block" x="1536" y="2753.33">
@@ -49,10 +49,10 @@
   <object id="73" type="block" x="1554" y="2305.33">
    <polyline points="0,-3 0.416667,129.5"/>
   </object>
-  <object id="74" type="tyre" x="1534" y="2716">
+  <object id="74" type="tire" x="1534" y="2716">
    <polyline points="0,0 -320,317.333"/>
   </object>
-  <object id="75" type="tyre" x="968" y="3354">
+  <object id="75" type="tire" x="968" y="3354">
    <polyline points="0,0 316,318.667"/>
   </object>
  </objectgroup>

@@ -330,7 +330,7 @@
 
 #### Added
 
-- Added moving and still obstacles to the tracks. For now the only obstacles are tyres (movable) and concrete blocks (still, replace the existing blocks).
+- Added moving and still obstacles to the tracks. For now the only obstacles are tires (movable) and concrete blocks (still, replace the existing blocks).
 
 #### Changed
 

@@ -58,7 +58,7 @@
   <object id="81" x="449.333" y="2561.33" width="572" height="61.3333"/>
   <object id="82" x="509.333" y="2624" width="832" height="61.3333"/>
   <object id="84" x="0" y="4" width="16" height="2804"/>
-  <object id="87" type="tyre" x="465.333" y="257.333">
+  <object id="87" type="tire" x="465.333" y="257.333">
    <polyline points="0,0 0,413.333 109.334,724"/>
   </object>
   <object id="88" type="block" x="519" y="722">

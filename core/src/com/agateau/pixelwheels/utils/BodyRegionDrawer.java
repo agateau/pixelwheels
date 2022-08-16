@@ -91,11 +91,7 @@ public class BodyRegionDrawer {
     public void drawShadow(Body body, TextureRegion region) {
         Vector2 center = body.getPosition();
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
-        float offset =
-                (SHADOW_OFFSET_PX
-                                + mZ * Z_MAX_SHADOW_OFFSET_PX
-                                + (mScale - 1) * SCALE_MAX_SHADOW_OFFSET_PX)
-                        * Constants.UNIT_FOR_PIXEL;
+        float offset = computeShadowOffset(mZ, mScale);
         float x = center.x + offset;
         float y = center.y - offset;
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
@@ -109,5 +105,12 @@ public class BodyRegionDrawer {
                 1, 1, // scale
                 angle);
         mBatch.setPackedColor(old);
+    }
+
+    public static float computeShadowOffset(float z, float scale) {
+        return (SHADOW_OFFSET_PX
+                        + z * Z_MAX_SHADOW_OFFSET_PX
+                        + (scale - 1) * SCALE_MAX_SHADOW_OFFSET_PX)
+                * Constants.UNIT_FOR_PIXEL;
     }
 }

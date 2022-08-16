@@ -18,16 +18,12 @@
  */
 package com.agateau.pixelwheels.bonus;
 
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.Renderer;
-import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool;
 
@@ -39,17 +35,16 @@ public class TurboBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer =
             new Renderer() {
                 @Override
-                public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
+                public void draw(Batch batch, float centerX, float centerY) {
                     TextureRegion region = mAssets.turbo.getKeyFrame(mAnimationTime, true);
                     Vehicle vehicle = mRacer.getVehicle();
                     Body body = vehicle.getBody();
-                    Vector2 center = body.getPosition();
                     float angle = body.getAngle() * MathUtils.radiansToDegrees;
-                    float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
-                    float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
-                    float refH = -vehicle.getWidth() / 3;
-                    float x = center.x + refH * MathUtils.cosDeg(angle);
-                    float y = center.y + refH * MathUtils.sinDeg(angle);
+                    float w = region.getRegionWidth();
+                    float h = region.getRegionHeight();
+                    float refH = -vehicle.getRegion(0).getRegionWidth() / 3f;
+                    float x = centerX + refH * MathUtils.cosDeg(angle);
+                    float y = centerY + refH * MathUtils.sinDeg(angle);
                     batch.draw(
                             region,
                             x - w / 2,

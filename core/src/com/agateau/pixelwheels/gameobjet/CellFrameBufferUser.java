@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2022 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -16,26 +16,16 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.vehicledef;
+package com.agateau.pixelwheels.gameobjet;
 
-import com.agateau.pixelwheels.TextureRegionProvider;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
-/** Definition of a vehicle axle */
-public class AxleDef {
-    public enum TireSize {
-        NORMAL,
-        LARGE
-    }
+/** Interface for objects which paint themselves using a CellFrameBufferManager */
+public interface CellFrameBufferUser {
+    /** The manager to use. Implementation of this method can reserve the required cell(s) */
+    void init(CellFrameBufferManager manager);
 
-    public float width;
-    public float y;
-    public float steer;
-    public float drive;
-    public boolean drift;
-    public TireSize tireSize;
-
-    public TextureRegion getTexture(TextureRegionProvider provider) {
-        return provider.findRegion("tires/" + tireSize.name());
-    }
+    /** Implementations must paint the object to the reserved cells */
+    void drawToCell(Batch batch, Rectangle viewBounds);
 }

@@ -45,7 +45,7 @@ f6757a: 4
  </layer>
  <objectgroup id="5" name="Obstacles" visible="0">
   <object id="2" x="104" y="704" width="58.9679" height="4291.31"/>
-  <object id="3" type="tyre" x="1545.37" y="1629.23" width="1164.92" height="77.9985" rotation="315"/>
+  <object id="3" type="tire" x="1545.37" y="1629.23" width="1164.92" height="77.9985" rotation="315"/>
   <object id="94" x="675.526" y="2588.01" width="1209.41" height="6.65999"/>
   <object id="95" x="157.215" y="3805.13" width="772.586" height="6.139"/>
   <object id="7" x="-157.38" y="85" width="2613.38" height="74.1493"/>

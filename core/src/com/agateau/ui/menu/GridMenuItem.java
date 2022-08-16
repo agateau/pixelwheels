@@ -57,7 +57,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public interface ItemRenderer<T> {
-        /** Returns a rectangle relative to the bottom-left corner of the grid */
+        /** Returns a rectangle relative to the bottom-left corner of the grid cell */
         Rectangle getItemRectangle(float width, float height, T item);
 
         void render(Batch batch, float x, float y, float width, float height, T item);

@@ -24,6 +24,8 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
+import com.agateau.pixelwheels.gameobjet.CellFrameBufferManager;
+import com.agateau.pixelwheels.gameobjet.CellFrameBufferUser;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
@@ -58,6 +60,7 @@ public class GameRenderer {
     private int mScreenY;
     private int mScreenWidth;
     private int mScreenHeight;
+    private final CellFrameBufferManager mCellFrameBufferManager = new CellFrameBufferManager();
     private final PerformanceCounter mTilePerformanceCounter;
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
@@ -91,6 +94,12 @@ public class GameRenderer {
 
         if (Debug.instance.showDebugLayer) {
             setupWaypointDebugShape();
+        }
+        for (GameObject object : mWorld.getActiveGameObjects()) {
+            if (object instanceof CellFrameBufferUser) {
+                CellFrameBufferUser user = (CellFrameBufferUser) object;
+                user.init(mCellFrameBufferManager);
+            }
         }
     }
 
@@ -142,6 +151,16 @@ public class GameRenderer {
         mTilePerformanceCounter.stop();
 
         mGameObjectPerformanceCounter.start();
+
+        mCellFrameBufferManager.begin(mBatch);
+        for (GameObject object : mWorld.getActiveGameObjects()) {
+            if (object instanceof CellFrameBufferUser) {
+                CellFrameBufferUser user = (CellFrameBufferUser) object;
+                user.drawToCell(mBatch, viewBounds);
+            }
+        }
+        mCellFrameBufferManager.end();
+
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
             for (GameObject object : mWorld.getActiveGameObjects()) {

@@ -43,7 +43,6 @@ public class VehicleCreator {
         float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
 
         TextureRegion mainRegion = vehicleDef.getImage(mAssets);
-        TextureRegion wheelRegion = mAssets.wheel;
 
         Vehicle vehicle =
                 new Vehicle(mAssets, mGameWorld, position.x, position.y, vehicleDef, angle);
@@ -69,6 +68,8 @@ public class VehicleCreator {
             float wheelY = axle.width * U / 2;
             float wheelX = (axle.y - mainRegion.getRegionWidth() / 2f) * U;
             float drive = maxDrivingForce * axle.drive;
+
+            TextureRegion wheelRegion = axle.getTexture(mAssets);
 
             // Left wheel
             sWheelPos.set(wheelX, wheelY).rotate(angle);

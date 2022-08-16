@@ -297,7 +297,7 @@
   <object id="145" type="block" x="3720" y="253.333">
    <polyline points="0,0 109.333,75.3333"/>
   </object>
-  <object id="146" type="tyre" x="3690" y="292.667">
+  <object id="146" type="tire" x="3690" y="292.667">
    <polyline points="0,0 66.6667,16 104.667,51.3333 129.333,140.667"/>
   </object>
   <object id="147" x="3205.98" y="2047.79" width="54.2748" height="58.2121">
