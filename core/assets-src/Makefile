@@ -25,15 +25,17 @@ $(OUT_DIR)/sprites/%.png: sprites/%.still.ase
 	$(ASESPLIT) $< $@
 
 # Anims
-ANIM_IMAGES := $(wildcard sprites/*.anim.ase)
+ANIM_IMAGES := $(wildcard sprites/*.anim.ase sprites/tires/*.anim.ase)
 OUT_ANIM_FIRST_FRAMES := $(ANIM_IMAGES:%.anim.ase=$(OUT_DIR)/%_0.png)
 
 anims: $(OUT_ANIM_FIRST_FRAMES)
 
 $(OUT_DIR)/sprites/%_0.png: sprites/%.anim.ase
 	mkdir -p $(OUT_DIR)/sprites
+	mkdir -p $(OUT_DIR)/sprites/tires
+	# $(@D) is the directory part of the target
 	# $(*F) is the % part of the target
-	$(ASESPLIT) $< "$(OUT_DIR)/sprites/$(*F)_{frame}.png"
+	$(ASESPLIT) $< "$(@D)/$(*F)_{frame}.png"
 
 # Helicopter
 helicopter: $(OUT_DIR)/sprites/helicopter-body.png

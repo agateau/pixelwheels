@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.agateau.utils.CircularArray;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -107,6 +108,7 @@ public class Wheel implements Disposable {
     private final Body mBody;
     private final GameWorld mGameWorld;
     private final TextureRegion mRegion;
+    private final Animation<TextureRegion> mSplashAnimation;
     private final Vehicle mVehicle;
     private boolean mCanDrift = false;
     private float mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
@@ -118,12 +120,14 @@ public class Wheel implements Disposable {
             GameWorld gameWorld,
             Vehicle vehicle,
             TextureRegion region,
+            Animation<TextureRegion> splashAnimation,
             float posX,
             float posY,
             float angle) {
         mGameWorld = gameWorld;
         mVehicle = vehicle;
         mRegion = region;
+        mSplashAnimation = splashAnimation;
 
         float w = Constants.UNIT_FOR_PIXEL * region.getRegionWidth();
         float h = Constants.UNIT_FOR_PIXEL * region.getRegionHeight();
@@ -142,6 +146,10 @@ public class Wheel implements Disposable {
 
     public TextureRegion getRegion() {
         return mRegion;
+    }
+
+    public Animation<TextureRegion> getSplashAnimation() {
+        return mSplashAnimation;
     }
 
     public boolean isDrifting() {

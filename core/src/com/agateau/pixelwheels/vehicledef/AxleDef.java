@@ -19,10 +19,14 @@
 package com.agateau.pixelwheels.vehicledef;
 
 import com.agateau.pixelwheels.TextureRegionProvider;
+import com.agateau.pixelwheels.utils.StringUtils;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /** Definition of a vehicle axle */
 public class AxleDef {
+    private static final float SPLASH_FRAME_DURATION = 0.04f;
+
     public enum TireSize {
         NORMAL,
         LARGE
@@ -37,5 +41,10 @@ public class AxleDef {
 
     public TextureRegion getTexture(TextureRegionProvider provider) {
         return provider.findRegion("tires/" + tireSize.name());
+    }
+
+    public Animation<TextureRegion> getSplashAnimation(TextureRegionProvider provider) {
+        String name = StringUtils.format("tires/%s-splash", tireSize.name());
+        return new Animation<>(SPLASH_FRAME_DURATION, provider.findRegions(name));
     }
 }
