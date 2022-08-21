@@ -27,6 +27,7 @@ import com.agateau.pixelwheels.gameobjet.CellFrameBufferUser;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -143,8 +144,9 @@ public class VehicleRenderer implements CellFrameBufferUser {
             if (!mVehicle.isFalling()) {
                 for (Vehicle.WheelInfo info : mVehicle.getWheelInfos()) {
                     if (info.wheel.getMaterial().isWater()) {
+                        Animation<TextureRegion> splashAnimation = info.wheel.getSplashAnimation();
                         mBodyRegionDrawer.draw(
-                                info.wheel.getBody(), mAssets.splash.getKeyFrame(mTime, true));
+                                info.wheel.getBody(), splashAnimation.getKeyFrame(mTime, true));
                     }
                 }
 

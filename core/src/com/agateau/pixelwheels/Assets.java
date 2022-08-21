@@ -85,7 +85,6 @@ public class Assets implements TextureRegionProvider {
     public final Animation<TextureRegion> mine;
     public final Animation<TextureRegion> turbo;
     public final Animation<TextureRegion> turboFlame;
-    public final Animation<TextureRegion> splash;
     public final TextureRegion gift;
     public final Animation<TextureRegion> gunAnimation;
     public final TextureRegion bullet;
@@ -113,7 +112,6 @@ public class Assets implements TextureRegionProvider {
         this.turboFlame =
                 new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("turbo-flame"));
         this.turboFlame.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        this.splash = new Animation<>(TURBO_FLAME_FRAME_DURATION, this.atlas.findRegions("splash"));
         this.gift = findRegion("gift");
         this.gunAnimation = new Animation<>(0.1f / 3, this.atlas.findRegions("bonus-gun"));
         this.bullet = findRegion("bullet");

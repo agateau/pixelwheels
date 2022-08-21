@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Vehicle;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -70,14 +71,31 @@ public class VehicleCreator {
             float drive = maxDrivingForce * axle.drive;
 
             TextureRegion wheelRegion = axle.getTexture(mAssets);
+            Animation<TextureRegion> splashAnimation = axle.getSplashAnimation(mAssets);
 
             // Left wheel
             sWheelPos.set(wheelX, wheelY).rotate(angle);
-            createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
+            createWheel(
+                    vehicle,
+                    wheelRegion,
+                    splashAnimation,
+                    sWheelPos.x,
+                    sWheelPos.y,
+                    axle,
+                    drive,
+                    angle);
 
             // Right wheel
             sWheelPos.set(wheelX, -wheelY).rotate(angle);
-            createWheel(vehicle, wheelRegion, sWheelPos.x, sWheelPos.y, axle, drive, angle);
+            createWheel(
+                    vehicle,
+                    wheelRegion,
+                    splashAnimation,
+                    sWheelPos.x,
+                    sWheelPos.y,
+                    axle,
+                    drive,
+                    angle);
         }
         return vehicle;
     }
@@ -85,12 +103,13 @@ public class VehicleCreator {
     private void createWheel(
             Vehicle vehicle,
             TextureRegion region,
+            Animation<TextureRegion> splashAnimation,
             float x,
             float y,
             AxleDef axle,
             float drive,
             float angle) {
-        Vehicle.WheelInfo info = vehicle.addWheel(region, x, y, angle);
+        Vehicle.WheelInfo info = vehicle.addWheel(region, splashAnimation, x, y, angle);
         info.steeringFactor = axle.steer;
         info.wheel.setCanDrift(axle.drift);
         info.wheel.setMaxDrivingForce(drive);
