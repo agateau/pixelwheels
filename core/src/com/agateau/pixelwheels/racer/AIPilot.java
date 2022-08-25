@@ -36,7 +36,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /** An AI pilot */
 public class AIPilot implements Pilot {
-    private static final float MIN_NORMAL_SPEED = 1;
+    private static final float MIN_NORMAL_SPEED = 2;
     private static final float MAX_BLOCKED_DURATION = 1;
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private static final int MAX_FORWARD_WAYPOINTS = 2;
