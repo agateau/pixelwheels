@@ -121,6 +121,7 @@ public class Wheel implements Disposable {
             Vehicle vehicle,
             TextureRegion region,
             Animation<TextureRegion> splashAnimation,
+            float density,
             float posX,
             float posY,
             float angle) {
@@ -140,7 +141,7 @@ public class Wheel implements Disposable {
 
         PolygonShape shape = new PolygonShape();
         shape.set(Box2DUtils.createOctogon(w, h, w / 4, w / 4));
-        mBody.createFixture(shape, 2f);
+        mBody.createFixture(shape, density);
         shape.dispose();
     }
 

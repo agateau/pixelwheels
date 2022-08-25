@@ -124,12 +124,21 @@ public class Vehicle implements Racer.Component, Disposable {
     public WheelInfo addWheel(
             TextureRegion region,
             Animation<TextureRegion> splashAnimation,
+            float density,
             float x,
             float y,
             float angle) {
         WheelInfo info = new WheelInfo();
         info.wheel =
-                new Wheel(mGameWorld, this, region, splashAnimation, getX() + x, getY() + y, angle);
+                new Wheel(
+                        mGameWorld,
+                        this,
+                        region,
+                        splashAnimation,
+                        density,
+                        getX() + x,
+                        getY() + y,
+                        angle);
         mWheels.add(info);
 
         Body body = info.wheel.getBody();
