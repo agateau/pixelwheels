@@ -451,7 +451,7 @@ msgstr  "Ant On-1"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
-msgid   "Big Foot"
+msgid   "Broster Truck"
 msgstr  ""
 
 #: android/assets/vehicles/dark-m.xml:1
@@ -616,17 +616,17 @@ msgid   "Race time"
 msgstr  "Lasterketa denbora"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, fuzzy
+#, fuzzy, java-printf-format
 msgid   "Finish third or better at %s championship"
 msgstr  "Hirugarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, fuzzy
+#, fuzzy, java-printf-format
 msgid   "Finish second or better at %s championship"
 msgstr  "Bigarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, fuzzy
+#, fuzzy, java-printf-format
 msgid   "Finish first at %s championship"
 msgstr  "Lehenengo postuan buka ezazu %s txapelketa"
 
@@ -642,6 +642,7 @@ msgid   "About"
 msgstr  "Honi buruz"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#, java-printf-format
 msgid   "Pixel Wheels %s"
 msgstr  "Pixel Wheels %s"
 
@@ -684,6 +685,7 @@ msgid   "Controls"
 msgstr  "Kontrolak"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#, java-printf-format
 msgid   "Player #%d:"
 msgstr  "#%d Jokalaria:"
 
@@ -784,6 +786,7 @@ msgid   "OK"
 msgstr  "ADOS"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#, java-printf-format
 msgid   "Player #%d: %s"
 msgstr  "#%d Jokalaria: %s"
 

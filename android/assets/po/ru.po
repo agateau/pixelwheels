@@ -447,7 +447,7 @@ msgstr  "Ант Он-1"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
-msgid   "Big Foot"
+msgid   "Broster Truck"
 msgstr  ""
 
 #: android/assets/vehicles/dark-m.xml:1
@@ -615,14 +615,17 @@ msgid   "Race time"
 msgstr  "Время гонки"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
+#, java-printf-format
 msgid   "Finish third or better at %s championship"
 msgstr  "Приди к финишу третьим или ещё быстрее на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
+#, java-printf-format
 msgid   "Finish second or better at %s championship"
 msgstr  "Приди к финишу вторым или ещё быстрее на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
+#, java-printf-format
 msgid   "Finish first at %s championship"
 msgstr  "Приди к финишу первым на чемпионате %s"
 
@@ -638,6 +641,7 @@ msgid   "About"
 msgstr  "Об игре"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#, java-printf-format
 msgid   "Pixel Wheels %s"
 msgstr  "Pixel Wheels %s"
 
@@ -680,6 +684,7 @@ msgid   "Controls"
 msgstr  "Управление"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#, java-printf-format
 msgid   "Player #%d:"
 msgstr  "Игрок #%d:"
 
@@ -780,6 +785,7 @@ msgid   "OK"
 msgstr  "ОК"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#, java-printf-format
 msgid   "Player #%d: %s"
 msgstr  "Игрок #%d: %s"
 
