@@ -137,6 +137,10 @@ class RewardManagerSetup {
                         trn("Leave road one time", "Leave road %# times", UNLOCK_JEEP_COUNT)));
 
         rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("bigfoot")),
+                new ChampionshipRankRewardRule(assets.findChampionshipById("country"), 0));
+
+        rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("miramar")),
                 new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 1));
 

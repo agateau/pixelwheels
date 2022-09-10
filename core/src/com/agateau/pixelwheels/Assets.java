@@ -67,6 +67,7 @@ public class Assets implements TextureRegionProvider {
         "dark-m",
         "jeep",
         "miramar",
+        "bigfoot",
     };
 
     public static final String MENU_MUSIC_ID = "menu";

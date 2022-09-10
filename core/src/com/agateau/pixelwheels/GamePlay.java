@@ -30,7 +30,7 @@ public class GamePlay {
     public int maxSpeed = 270;
     public int maxLateralImpulse = 2;
 
-    public int stoppedMaxSteer = 100;
+    public int stoppedMaxSteer = 80;
     public int lowSpeedMaxSteer = 14;
     public int highSpeedMaxSteer = 4;
     public float steeringStep = 0.1f;
