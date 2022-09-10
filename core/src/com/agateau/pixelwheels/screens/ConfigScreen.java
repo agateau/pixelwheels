@@ -57,6 +57,7 @@ import com.badlogic.gdx.utils.Array;
 
 /** The config screen */
 public class ConfigScreen extends PwStageScreen {
+    private static final float PARENT_WIDTH_RATIO = 0.8f;
     private static class SupportInfo {
         public String url;
         public String label;
@@ -118,7 +119,7 @@ public class ConfigScreen extends PwStageScreen {
         group.setWidth(800);
         group.addLabel(StringUtils.format(tr("Pixel Wheels %s"), VersionInfo.VERSION));
         group.addButton(tr("CREDITS"))
-                .setParentWidthRatio(0.5f)
+                .setParentWidthRatio(PARENT_WIDTH_RATIO)
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -133,7 +134,7 @@ public class ConfigScreen extends PwStageScreen {
         LabelMenuItem labelMenuItem = group.addLabel(supportInfo.label);
         labelMenuItem.setWrap(true);
         group.addButton(supportInfo.buttonText)
-                .setParentWidthRatio(0.5f)
+                .setParentWidthRatio(PARENT_WIDTH_RATIO)
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -174,7 +175,7 @@ public class ConfigScreen extends PwStageScreen {
         if (logExporter != null) {
             group.addLabel(logExporter.getDescription()).setWrap(true);
             group.addButton(logExporter.getActionText())
-                    .setParentWidthRatio(0.5f)
+                    .setParentWidthRatio(PARENT_WIDTH_RATIO)
                     .addListener(
                             new MenuItemListener() {
                                 @Override
@@ -191,7 +192,7 @@ public class ConfigScreen extends PwStageScreen {
                 .setWrap(true);
 
         group.addButton(tr("DEV. OPTIONS"))
-                .setParentWidthRatio(0.5f)
+                .setParentWidthRatio(PARENT_WIDTH_RATIO)
                 .addListener(
                         new ClickListener() {
                             @Override
