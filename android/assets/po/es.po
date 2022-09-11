@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-08-24 16:40+0200\n"
+"PO-Revision-Date: 2022-09-11 17:06+0200\n"
 "Last-Translator: victorhck <victorhck@mailbox.org>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -107,7 +107,7 @@ msgstr "Menú:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr "\"Velocidad de la luz\""
+msgstr "\"Lightspeed\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
@@ -158,7 +158,7 @@ msgstr "Efectos sonoros"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr "\"Circuito de derrape con chirrido de neumáticos de coche\""
+msgstr "\"Circuito de derrape con chirrido\nde neumáticos de coche\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
@@ -166,7 +166,7 @@ msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr "\"Bucles de sonido de motor de coche de carreras\""
+msgstr "\"Bucles de sonido de motor\nde coche de carreras\""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
@@ -328,7 +328,7 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"Se han modificado los ajustes que afectan al juego, las puntuaciones no se"
+"Se han modificado la configuración que afecta al juego, las puntuaciones no se"
 " guardarán"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
@@ -381,7 +381,7 @@ msgstr "CAMPEONATO"
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr "AJUSTES"
+msgstr "CONFIGURACIÓN"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
@@ -846,7 +846,7 @@ msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "ABRIR CARPETA DE ARCHIVO DE REGISTRO"
+msgstr "ABRIR CARPETA DE\nARCHIVO DE REGISTRO"
 
 #, fuzzy
 #~ msgctxt "vehicle"
