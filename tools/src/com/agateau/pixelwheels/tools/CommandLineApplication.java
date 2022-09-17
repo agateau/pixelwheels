@@ -25,31 +25,39 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 /**
  * Convenience abstract class to create command line apps while getting access to all Gdx.* services
  */
-public abstract class CommandLineApplication extends Lwjgl3Application {
+public class CommandLineApplication extends Lwjgl3Application {
+    private static final int DEFAULT_WIDTH = 100;
+    private static final int DEFAULT_HEIGHT = 50;
+
     private static class AppAdapter extends ApplicationAdapter {
-        CommandLineApplication mApp;
-        String[] mArguments;
+        final Runnable mRunnable;
+
+        AppAdapter(Runnable runnable) {
+            mRunnable = runnable;
+        }
 
         @Override
         public void create() {
-            System.exit(mApp.run(mArguments));
+            mRunnable.run();
+            System.exit(0);
         }
     }
 
-    public CommandLineApplication(String title, String[] arguments) {
-        super(new AppAdapter(), createConfig(title));
-        AppAdapter appAdapter = (AppAdapter) getApplicationListener();
-        appAdapter.mApp = this;
-        appAdapter.mArguments = arguments;
+    public CommandLineApplication(String title, Runnable runnable) {
+        this(title, DEFAULT_WIDTH, DEFAULT_HEIGHT, runnable);
     }
 
-    private static Lwjgl3ApplicationConfiguration createConfig(String title) {
+    public CommandLineApplication(String title, int width, int height, Runnable runnable) {
+        // Code never returns from the constructor
+        super(new AppAdapter(runnable), createConfig(title, width, height));
+    }
+
+    private static Lwjgl3ApplicationConfiguration createConfig(
+            String title, int width, int height) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.disableAudio(true);
-        config.setWindowedMode(100, 50);
+        config.setWindowedMode(width, height);
         config.setTitle(title);
         return config;
     }
-
-    abstract int run(String[] arguments);
 }
