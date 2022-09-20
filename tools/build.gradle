@@ -6,7 +6,11 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-    implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    implementation ("com.badlogicgames.gdx:gdx-tools:$gdxVersion") {
+        // some parts of gdx-tools depends on lwjgl (not lwjgl3), disable them
+        // see https://github.com/libgdx/libgdx/issues/4777
+        exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
+    }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

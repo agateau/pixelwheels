@@ -49,7 +49,7 @@ public class ScreenshotCreator {
         return handle.path();
     }
 
-    private static Pixmap takeScreenshot() {
+    public static Pixmap takeScreenshot() {
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
         if (sPixmap == null) {
