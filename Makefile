@@ -103,6 +103,9 @@ packer: tools assets
 mapscreenshotgenerator: tools
 	java -cp $(TOOLS_JAR) $(GAME_CP).tools.MapScreenshotGenerator
 
+vehiclethumbnailgenerator: tools
+	java -cp $(TOOLS_JAR) $(GAME_CP).tools.VehicleThumbnailGenerator tmp
+
 assets:
 	$(MAKE) -C core/assets-src
 
