@@ -70,7 +70,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private final GameStatsImpl.IO mNoSaveGameStatsIO =
             new GameStatsImpl.IO() {
                 @Override
-                public void load(GameStatsImpl gameStats) {}
+                public void load(GameStatsImpl gameStats) {
+                    mNormalGameStatsIO.load(gameStats);
+                }
 
                 @Override
                 public void save(GameStatsImpl gameStats) {}
