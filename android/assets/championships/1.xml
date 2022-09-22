@@ -24,4 +24,16 @@
             <record value="55"/>
         </totalRecords>
     </track>
+    <track id="snow3" name="Up, up, up... and down!">
+        <lapRecords>
+            <record value="13"/>
+            <record value="15"/>
+            <record value="17"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="49"/>
+            <record value="52"/>
+            <record value="55"/>
+        </totalRecords>
+    </track>
 </championship>

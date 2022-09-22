@@ -52,6 +52,11 @@ msgctxt "track"
 msgid "Don't slip!"
 msgstr ""
 
+#: android/assets/championships/1.xml:27
+msgctxt "track"
+msgid "Up, up, up... and down!"
+msgstr ""
+
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
