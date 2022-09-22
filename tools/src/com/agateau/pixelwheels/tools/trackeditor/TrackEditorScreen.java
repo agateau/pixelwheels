@@ -100,7 +100,6 @@ public class TrackEditorScreen extends StageScreen implements Editor {
         boolean shift =
                 Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)
                         || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
-        int delta = shift ? 12 : 1;
 
         // Zoom
         if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)
@@ -125,17 +124,19 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             selectPoint(true, true);
         }
         // Scroll
+        int scrollDelta = shift ? 24 : 12;
         if (Gdx.input.isKeyPressed(Input.Keys.H)) {
-            scroll(-delta, 0);
+            scroll(-scrollDelta, 0);
         } else if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-            scroll(delta, 0);
+            scroll(scrollDelta, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {
-            scroll(0, delta);
+            scroll(0, scrollDelta);
         } else if (Gdx.input.isKeyPressed(Input.Keys.J)) {
-            scroll(0, -delta);
+            scroll(0, -scrollDelta);
         }
         // Actions
+        int delta = shift ? 12 : 1;
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             addAction(new InsertSectionAction(this));
         }
