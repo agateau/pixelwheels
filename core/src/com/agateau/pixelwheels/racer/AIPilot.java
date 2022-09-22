@@ -73,7 +73,8 @@ public class AIPilot implements Pilot {
     private final Track mTrack;
     private final Racer mRacer;
 
-    private final ClosestBodyFinder mClosestBodyFinder = new ClosestBodyFinder(BodyIdentifier::isStaticObstacle);
+    private final ClosestBodyFinder mClosestBodyFinder =
+            new ClosestBodyFinder(BodyIdentifier::isStaticObstacle);
 
     private State mState = State.NORMAL;
     private float mBlockedDuration = 0;
@@ -247,7 +248,9 @@ public class AIPilot implements Pilot {
         Vehicle vehicle = mRacer.getVehicle();
         halfWidth.set(0, vehicle.getHeight() / 2).rotateDeg(vehicle.getAngle());
 
-        // Check on the right
+        // Check there is nothing on a line from the right side of the vehicle to the
+        // similarly-offset
+        // right side of the target
         position.set(mRacer.getPosition()).add(halfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
         Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
@@ -262,9 +265,9 @@ public class AIPilot implements Pilot {
             return;
         }
 
-        // Check on the left
+        // Same thing on the left
         position.set(mRacer.getPosition()).sub(halfWidth);
-        adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
+        adjustedTargetPos.set(mNextTarget.position).sub(halfWidth);
         body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
         if (body != null) {
             if (BodyIdentifier.isMine(body)) {
