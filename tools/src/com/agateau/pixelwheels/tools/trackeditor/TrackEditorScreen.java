@@ -38,7 +38,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class TrackEditorScreen extends StageScreen implements Editor {
     private static final Color CURRENT_COLOR = Color.RED;
-    private static final Color NORMAL_COLOR = Color.WHITE;
+    private static final Color NORMAL_COLOR = Color.BLUE;
     private static final long AUTO_SAVE_INTERVAL_MS = 10 * 1000;
     // space between a selected point and its text
     private static final float POINT_MARGIN = 12;
