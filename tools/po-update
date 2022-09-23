@@ -83,8 +83,6 @@ extract_messages() {
 
     # Set GETTEXTDATADIR so that xgettext finds our .its files
     GETTEXTDATADIR=$TOOLS_DIR/gettext xgettext \
-        --no-wrap \
-        --indent \
         --from-code=utf-8 \
         --keyword=tr --keyword=trn:1,2 --keyword=trc:1,2c \
         --sort-by-file \
@@ -100,8 +98,6 @@ update_messages() {
     for po_file in $PO_DIR/*.po ; do
         echo "Updating $po_file"
         msgmerge \
-            --no-wrap \
-            --indent \
             --update $po_file $MESSAGES_POT
     done
 }
