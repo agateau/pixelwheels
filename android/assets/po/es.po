@@ -1,22 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2022
 # This file is distributed under the same license as the PACKAGE package.
+#
 # Clara Gâteau, 2022.
 # Jorge Maldonado Ventura, 2022.
-#
-msgid   ""
-msgstr  "Project-Id-Version: \n"
-        "Report-Msgid-Bugs-To: \n"
-        "POT-Creation-Date: \n"
-        "PO-Revision-Date: 2022-07-30 09:41+0200\n"
-        "Last-Translator: Clara Gâteau\n"
-        "Language-Team: Spanish\n"
-        "Language: es\n"
-        "MIME-Version: 1.0\n"
-        "Content-Type: text/plain; charset=UTF-8\n"
-        "Content-Transfer-Encoding: 8bit\n"
-        "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-        "X-Generator: Poedit 3.0.1\n"
+# victorhck <victorhck@mailbox.org>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-09-11 17:06+0200\n"
+"Last-Translator: victorhck <victorhck@mailbox.org>\n"
+"Language-Team: Spanish <>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.08.0\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -325,8 +326,10 @@ msgid   "Android Studio"
 msgstr  "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
-msgid   "Settings affecting game play have been modified, scores won't be saved"
-msgstr  "Los ajustes que afectan la jugabilidad se modificaron, los marcadores no se salvarán"
+msgid "Settings affecting game play have been modified, scores won't be saved"
+msgstr ""
+"Se han modificado la configuración que afecta al juego, las puntuaciones no se"
+" guardarán"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -358,8 +361,8 @@ msgid   "Keyboard config"
 msgstr  "Configuración del teclado"
 
 #: android/assets/screens/mainmenu.gdxui:26
-msgid   "ONE PLAYER"
-msgstr  "UNO JUGADOR"
+msgid "ONE PLAYER"
+msgstr "UN JUGADOR"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid   "MULTI PLAYER"
@@ -367,8 +370,8 @@ msgstr  "MULTIJUGADOR"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
-msgid   "QUICK RACE"
-msgstr  "CARRERA CORTA"
+msgid "QUICK RACE"
+msgstr "CARRERA RÁPIDA"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
@@ -385,8 +388,8 @@ msgid   "QUIT"
 msgstr  "SALIR"
 
 #: android/assets/screens/multiplayer.gdxui:10
-msgid   "Select Your Vehicles"
-msgstr  "Seleccionad vuestros vehículos"
+msgid "Select Your Vehicles"
+msgstr "Selecciona tus vehículos"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
@@ -571,8 +574,8 @@ msgid   "You're a champ!"
 msgstr  "¡Eres un campeón!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
-msgid   "Congrats for this performance!"
-msgstr  "¡Bravo por este desempeño!"
+msgid "Congrats for this performance!"
+msgstr "¡Bravo por esta actuación!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid   "Impressive!"
@@ -636,8 +639,8 @@ msgstr  "¡Campeonato\n"
         "Terminado!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
-msgid   "About"
-msgstr  "Sobre"
+msgid "About"
+msgstr "Acerca de"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 #, java-printf-format
@@ -655,8 +658,8 @@ msgstr  "Pixel Wheels es gratuito, pero puedes apoyar su\n"
         "desarrollo de varias maneras."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
-msgid   "VISIT SUPPORT PAGE"
-msgstr  "PÁGINA DE APOYO"
+msgid "VISIT SUPPORT PAGE"
+msgstr "VISITA LA PÁGINA DE APOYO"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid   "Learn more about Pixel Wheels"
@@ -671,8 +674,12 @@ msgid   "Under the hood"
 msgstr  "Bajo el capó"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
-msgid   "These options are mostly interesting for Pixel Wheels development, but feel free to poke around!"
-msgstr  "Estas opciones son principalmente interesantes para el desarrollo de Pixel Wheels, ¡pero puedes echarles un vistazo!"
+msgid ""
+"These options are mostly interesting for Pixel Wheels development, but feel"
+" free to poke around!"
+msgstr ""
+"Estas opciones son principalmente interesantes para el desarrollo de Pixel"
+" Wheels, ¡pero puedes echarles un vistazo!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid   "DEV. OPTIONS"
@@ -837,12 +844,15 @@ msgid   "6th"
 msgstr  "6.º"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
-msgid   "Need to file a bug report? Use this button to find the log file to attach."
-msgstr  "¿Necesitas crear un informe de error? Utiliza este botón para encontrar el fichero de registro a adjuntar."
+msgid ""
+"Need to file a bug report? Use this button to find the log file to attach."
+msgstr ""
+"¿Necesitas crear un informe de error? Utiliza este botón para encontrar el"
+" fichero de registro a adjuntar."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
-msgid   "OPEN LOG FILE FOLDER"
-msgstr  "FICHERO DE REGISTRO"
+msgid "OPEN LOG FILE FOLDER"
+msgstr "ABRIR CARPETA DE\nARCHIVO DE REGISTRO"
 
 #, fuzzy
 #~ msgctxt      "vehicle"
