@@ -121,7 +121,7 @@ public class HudContent {
         mDebugLabel = new Label("D", mAssets.ui.skin, "tiny");
 
         AnchorGroup root = mHud.getRoot();
-        root.addPositionRule(mDebugGroup, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT);
+        root.addPositionRule(mDebugGroup, Anchor.CENTER_LEFT, root, Anchor.CENTER_LEFT, 40, 0);
 
         mDebugGroup.addActor(mDebugLabel);
         mDebugGroup.pack();
