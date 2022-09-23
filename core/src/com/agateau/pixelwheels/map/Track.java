@@ -315,7 +315,6 @@ public class Track implements Disposable {
         return mWaypointStore.getValidPosition(pos, lapDistance);
     }
 
-    @SuppressWarnings("unused")
     public String getMapName() {
         return trc(mMapName, "track");
     }
