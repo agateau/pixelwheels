@@ -2,8 +2,8 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Menu id="menu"
-              width="620" height="480" topCenter="root.topCenter 0 0"
-              labelColumnWidth="300"/>
+              width="700" height="480" topCenter="root.topCenter 0 0"
+              labelColumnWidth="350"/>
 
         <ImageButton id="backButton"
                      bottomLeft="root.bottomLeft 1 1"

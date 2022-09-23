@@ -33,5 +33,7 @@ public class Debug {
 
     public boolean logUiActivities = false;
 
+    public boolean refreshAssetsOnRestart = false;
+
     public static final Debug instance = new Debug();
 }

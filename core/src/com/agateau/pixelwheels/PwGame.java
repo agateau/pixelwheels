@@ -175,7 +175,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         super.render();
     }
 
-    void refreshAssets() {
+    public void refreshAssets() {
         mAssets = new Assets();
         mAssets.setLanguage(mGameConfig.languageId);
         // Tracks and championship have been recreated, need to recreate reward manager
