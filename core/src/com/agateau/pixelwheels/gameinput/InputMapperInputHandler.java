@@ -45,7 +45,7 @@ public class InputMapperInputHandler implements GameInputHandler {
         } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
             mInput.direction -= GamePlay.instance.steeringStep;
         } else {
-            mInput.direction = 0;
+            mInput.direction *= 0.4;
         }
         mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
         mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);

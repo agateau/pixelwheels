@@ -105,6 +105,7 @@ public class DebugScreen extends PwStageScreen {
         mCurrentGroup = tabMenuItem.addPage("Misc");
         addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addCheckBox("Force touch input", "alwaysShowTouchInput");
+        addCheckBox("Refresh assets on restart", "refreshAssetsOnRestart");
 
         mCurrentGroup = tabMenuItem.addPage("Debug");
         addCheckBox("Show debug hud", "showDebugHud");
@@ -148,6 +149,7 @@ public class DebugScreen extends PwStageScreen {
                 });
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void addRange(String text, final String keyName, int min, int max) {
         addRange(text, keyName, min, max, 1);
     }
@@ -176,6 +178,7 @@ public class DebugScreen extends PwStageScreen {
         addRange(text, keyName, min, max, 0.1f);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void addRange(String text, final String keyName, float min, float max, float stepSize) {
         final Introspector introspector = mCurrentIntrospector;
 
@@ -207,7 +210,7 @@ public class DebugScreen extends PwStageScreen {
         mGamePlayModifiedLabel.setVisible(mGame.getGamePlayIntrospector().hasBeenModified());
     }
 
-    private class DebugIntSliderMenuItem extends SliderMenuItem {
+    private static class DebugIntSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
@@ -230,7 +233,7 @@ public class DebugScreen extends PwStageScreen {
         }
     }
 
-    private class DebugFloatSliderMenuItem extends SliderMenuItem {
+    private static class DebugFloatSliderMenuItem extends SliderMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 
@@ -254,7 +257,7 @@ public class DebugScreen extends PwStageScreen {
         }
     }
 
-    private class DebugSwitchMenuItem extends SwitchMenuItem {
+    private static class DebugSwitchMenuItem extends SwitchMenuItem {
         private final String mKeyName;
         private final Introspector mIntrospector;
 

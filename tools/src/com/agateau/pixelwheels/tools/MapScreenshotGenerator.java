@@ -34,29 +34,27 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class MapScreenshotGenerator {
     private static final int SHOT_SIZE = 150;
 
-    public static void main(String[] args) {
-        new CommandLineApplication("MapScreenshotGenerator", args) {
-            @Override
-            int run(String[] arguments) {
-                if (arguments.length == 2) {
-                    String shotFileName = arguments[0];
-                    String tmxFileName = arguments[1];
-                    processFile(shotFileName, tmxFileName);
-                } else {
-                    FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
-                    FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
-                    for (FileHandle tmxFile : tmxDir.list(".tmx")) {
-                        String shotFileName =
-                                shotDir.path()
-                                        + "/"
-                                        + tmxFile.nameWithoutExtension()
-                                        + "-generated.png";
-                        processFile(shotFileName, tmxFile.path());
+    public static void main(String[] arguments) {
+        new CommandLineApplication(
+                "MapScreenshotGenerator",
+                () -> {
+                    if (arguments.length == 2) {
+                        String shotFileName = arguments[0];
+                        String tmxFileName = arguments[1];
+                        processFile(shotFileName, tmxFileName);
+                    } else {
+                        FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
+                        FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
+                        for (FileHandle tmxFile : tmxDir.list(".tmx")) {
+                            String shotFileName =
+                                    shotDir.path()
+                                            + "/"
+                                            + tmxFile.nameWithoutExtension()
+                                            + "-generated.png";
+                            processFile(shotFileName, tmxFile.path());
+                        }
                     }
-                }
-                return 0;
-            }
-        };
+                });
     }
 
     private static void processFile(String shotFileName, String tmxFileName) {

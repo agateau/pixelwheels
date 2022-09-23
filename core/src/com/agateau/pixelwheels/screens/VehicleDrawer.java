@@ -34,7 +34,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /** Helper class to draw a vehicle in the UI. This is *not* used to draw a vehicle in the game */
-class VehicleDrawer {
+public class VehicleDrawer {
     private static final int FB_WIDTH = 128;
     private static final int FB_HEIGHT = 128;
     private final Assets mAssets;
@@ -48,7 +48,7 @@ class VehicleDrawer {
     private final Vector2 mCenter = new Vector2(0, 0);
     private float mAngle = 90;
 
-    VehicleDrawer(Assets assets) {
+    public VehicleDrawer(Assets assets) {
         mAssets = assets;
         mFrameBuffer =
                 new FrameBuffer(Pixmap.Format.RGBA8888, FB_WIDTH, FB_HEIGHT, false /* hasDepth */);

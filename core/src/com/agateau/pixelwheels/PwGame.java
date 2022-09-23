@@ -70,7 +70,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     private final GameStatsImpl.IO mNoSaveGameStatsIO =
             new GameStatsImpl.IO() {
                 @Override
-                public void load(GameStatsImpl gameStats) {}
+                public void load(GameStatsImpl gameStats) {
+                    mNormalGameStatsIO.load(gameStats);
+                }
 
                 @Override
                 public void save(GameStatsImpl gameStats) {}
@@ -173,7 +175,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         super.render();
     }
 
-    void refreshAssets() {
+    public void refreshAssets() {
         mAssets = new Assets();
         mAssets.setLanguage(mGameConfig.languageId);
         // Tracks and championship have been recreated, need to recreate reward manager

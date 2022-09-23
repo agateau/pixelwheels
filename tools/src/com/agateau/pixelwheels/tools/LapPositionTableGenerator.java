@@ -77,23 +77,21 @@ public class LapPositionTableGenerator {
         }
     }
 
-    public static void main(String[] args) {
-        new CommandLineApplication("LapPositionTableGenerator", args) {
-            @Override
-            int run(String[] arguments) {
-                Args args = new Args();
-                if (!args.parse(arguments)) {
-                    return 1;
-                }
-                try {
-                    LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
-                    return 0;
-                } catch (Exception exc) {
-                    NLog.e(exc);
-                    return 1;
-                }
-            }
-        };
+    public static void main(String[] arguments) {
+        new CommandLineApplication(
+                "LapPositionTableGenerator",
+                () -> {
+                    Args args = new Args();
+                    if (!args.parse(arguments)) {
+                        System.exit(1);
+                    }
+                    try {
+                        LapPositionTableGenerator.generateTable(args.tmxFile, args.tableFile);
+                    } catch (Exception exc) {
+                        NLog.e(exc);
+                        System.exit(1);
+                    }
+                });
     }
 
     public static void generateTable(FileHandle tmxFile, FileHandle tableFile) {

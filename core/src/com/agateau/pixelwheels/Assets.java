@@ -67,6 +67,7 @@ public class Assets implements TextureRegionProvider {
         "dark-m",
         "jeep",
         "miramar",
+        "bigfoot",
     };
 
     public static final String MENU_MUSIC_ID = "menu";
@@ -100,7 +101,7 @@ public class Assets implements TextureRegionProvider {
 
     private final Animation<TextureRegion> explosion;
 
-    Assets() {
+    public Assets() {
         this.languages = new Languages(FileUtils.assets("ui/languages.xml"));
         this.atlas = new StrictTextureAtlas(FileUtils.assets("sprites/sprites.atlas"));
         this.explosion =
