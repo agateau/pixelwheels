@@ -34,6 +34,7 @@ import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleCreator;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
+import com.agateau.pixelwheels.obstacles.TiledObstacleCreator;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.PlayerPilot;
@@ -334,6 +335,8 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         for (MapObject object : mTrack.getObstacleObjects()) {
             creator.create(this, mGame.getAssets(), object);
         }
+
+        TiledObstacleCreator.createObstacles(this, mTrack.getMap());
     }
 
     private void setupBonusSpots() {
