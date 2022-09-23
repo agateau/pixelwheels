@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.gamesetup;
 
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racescreen.RaceScreen;
 import com.agateau.pixelwheels.screens.MultiPlayerScreen;
@@ -105,11 +106,22 @@ public class QuickRaceMaestro extends Maestro {
     }
 
     private Screen createRaceScreen() {
+        QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
         RaceScreen.Listener listener =
                 new RaceScreen.Listener() {
                     @Override
                     public void onRestartPressed() {
                         ((RaceScreen) getGame().getScreen()).forgetTrack();
+                        if (Debug.instance.refreshAssetsOnRestart) {
+                            getGame().refreshAssets();
+                            // Get the recreated Track instance, otherwise mGameInfoBuilder
+                            // continues to use the old one
+                            Track track =
+                                    getGame()
+                                            .getAssets()
+                                            .findTrackById(gameInfo.getTrack().getId());
+                            mGameInfoBuilder.setTrack(track);
+                        }
                         getGame().replaceScreen(createRaceScreen());
                     }
 
@@ -125,7 +137,6 @@ public class QuickRaceMaestro extends Maestro {
                         showUnlockedRewardScreen(() -> getGame().showMainMenu());
                     }
                 };
-        QuickRaceGameInfo gameInfo = mGameInfoBuilder.build();
         return new RaceScreen(getGame(), listener, gameInfo);
     }
 }
