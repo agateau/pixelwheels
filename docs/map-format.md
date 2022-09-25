@@ -113,21 +113,27 @@ String. Defaults to empty.
 
 If set it must be a JSON describing a static obstacle body to create for this tile.
 
-The JSON format looks like this:
-
-```
-"shape": "circle"  # Only "circle" is supported for now
-
-# circle shapes:
-"radius": <dimension>
-"origin": {
-    "x": <position>,
-    "y": <position>
-}
-```
-
 Dimensions are relative to the size of the tile, so a dimension of 0.8 means 80% of the tile size.
 Positions are relative to the bottom-left corner of the tile, and relative to the size of the tile, so position (1, 0) is the bottom-right corner of the tile.
+
+The JSON format looks like this:
+
+- `shape`: one of `circle`, `rectangle` or `multi`.
+
+#### `circle` shape
+
+- `x`, `y`: position of the center.
+- `radius`: radius of the circle.
+
+#### `rectangle` shape
+
+- `x`, `y`: position of the bottom-left corner.
+- `width`, `height`: dimensions of the rectangle.
+
+
+#### `multi` shape
+
+- `defs`: an array of obstacles.
 
 ### `start`
 

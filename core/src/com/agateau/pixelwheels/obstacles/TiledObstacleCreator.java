@@ -27,11 +27,16 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.HashMap;
@@ -49,6 +54,25 @@ public class TiledObstacleCreator {
         void create(GameWorld world, int col, int row, int tileWidth, int tileHeight);
     }
 
+    private static class MultiDef implements TiledObstacleDef {
+        private final Array<TiledObstacleDef> mDefs = new Array<>();
+
+        public MultiDef(JsonObject root) {
+            JsonArray array = root.get("defs").getAsJsonArray();
+            for (JsonElement element : array) {
+                TiledObstacleDef def = loadDefFromJson(element.getAsJsonObject());
+                mDefs.add(def);
+            }
+        }
+
+        @Override
+        public void create(GameWorld world, int col, int row, int tileWidth, int tileHeight) {
+            for (TiledObstacleDef def : mDefs) {
+                def.create(world, col, row, tileWidth, tileHeight);
+            }
+        }
+    }
+
     private static class CircleDef implements TiledObstacleDef {
         private final float mRadius;
         private final Vector2 mOrigin = new Vector2();
@@ -59,9 +83,8 @@ public class TiledObstacleCreator {
             mBodyDef.bullet = false;
 
             mRadius = object.get("radius").getAsFloat();
-            JsonObject origin = object.get("origin").getAsJsonObject();
-            mOrigin.x = origin.get("x").getAsFloat();
-            mOrigin.y = origin.get("y").getAsFloat();
+            mOrigin.x = object.get("x").getAsFloat();
+            mOrigin.y = object.get("y").getAsFloat();
         }
 
         @Override
@@ -79,13 +102,48 @@ public class TiledObstacleCreator {
             shape.setRadius(mRadius * tileWidth * Constants.UNIT_FOR_PIXEL);
 
             body.createFixture(shape, 1 /* density */);
+            shape.dispose();
 
-            Box2DUtils.setCollisionInfo(
-                    body,
-                    CollisionCategories.WALL,
-                    CollisionCategories.RACER
-                            | CollisionCategories.EXPLOSABLE
-                            | CollisionCategories.RACER_BULLET);
+            setWallCollisionInfo(body);
+        }
+    }
+
+    private static class RectangleDef implements TiledObstacleDef {
+        private final Rectangle mRectangle = new Rectangle();
+        private final BodyDef mBodyDef = new BodyDef();
+
+        public RectangleDef(JsonObject object) {
+            mBodyDef.type = BodyDef.BodyType.StaticBody;
+            mBodyDef.bullet = false;
+
+            mRectangle.x = object.get("x").getAsFloat();
+            mRectangle.y = object.get("y").getAsFloat();
+            mRectangle.width = object.get("width").getAsFloat();
+            mRectangle.height = object.get("height").getAsFloat();
+        }
+
+        @Override
+        public void create(GameWorld world, int col, int row, int tileWidth, int tileHeight) {
+            World box2DWorld = world.getBox2DWorld();
+
+            float halfW = mRectangle.width / 2;
+            float halfH = mRectangle.height / 2;
+
+            mBodyDef.position
+                    .set(col, row)
+                    .add(mRectangle.x + halfW, mRectangle.y + halfH)
+                    .scl(tileWidth, tileHeight)
+                    .scl(Constants.UNIT_FOR_PIXEL);
+            Body body = box2DWorld.createBody(mBodyDef);
+
+            PolygonShape shape = new PolygonShape();
+            float k = tileWidth * Constants.UNIT_FOR_PIXEL;
+            shape.setAsBox(halfW * k, halfH * k);
+
+            body.createFixture(shape, 1 /* density */);
+            shape.dispose();
+
+            setWallCollisionInfo(body);
         }
     }
 
@@ -110,15 +168,28 @@ public class TiledObstacleCreator {
                 continue;
             }
             JsonObject root = parser.parse(json).getAsJsonObject();
-            String shape = root.get("shape").getAsString();
-            TiledObstacleDef def;
-            if ("circle".equals(shape)) {
-                def = new CircleDef(root);
-            } else {
-                throw new RuntimeException("Invalid shape value: '" + shape + "'");
-            }
+            TiledObstacleDef def = loadDefFromJson(root);
             mDefsForTile.put(tile, def);
         }
+    }
+
+    private static TiledObstacleDef loadDefFromJson(JsonObject root) {
+        String shape = root.get("shape").getAsString();
+        TiledObstacleDef def;
+        switch (shape) {
+            case "circle":
+                def = new CircleDef(root);
+                break;
+            case "rectangle":
+                def = new RectangleDef(root);
+                break;
+            case "multi":
+                def = new MultiDef(root);
+                break;
+            default:
+                throw new RuntimeException("Invalid shape value: '" + shape + "'");
+        }
+        return def;
     }
 
     private void create(GameWorld world, TiledMapTileLayer layer) {
@@ -140,5 +211,14 @@ public class TiledObstacleCreator {
                 }
             }
         }
+    }
+
+    private static void setWallCollisionInfo(Body body) {
+        Box2DUtils.setCollisionInfo(
+                body,
+                CollisionCategories.WALL,
+                CollisionCategories.RACER
+                        | CollisionCategories.EXPLOSABLE
+                        | CollisionCategories.RACER_BULLET);
     }
 }
