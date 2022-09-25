@@ -47,6 +47,54 @@
 }</property>
   </properties>
  </tile>
+ <tile id="11">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="12">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
  <tile id="18">
   <properties>
    <property name="material" value="SNOW"/>
@@ -77,6 +125,54 @@
   &quot;width&quot;: 0.5,
   &quot;height&quot;: 1
 }</property>
+  </properties>
+ </tile>
+ <tile id="26">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="27">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="30">
@@ -472,9 +568,9 @@
   <properties>
    <property name="obstacle">{
   &quot;shape&quot;: &quot;rectangle&quot;,
-  &quot;x&quot;: 0.1,
+  &quot;x&quot;: 0.05,
   &quot;y&quot;: 0.25,
-  &quot;width&quot;: 0.9,
+  &quot;width&quot;: 0.95,
   &quot;height&quot;: 0.5
 }
 </property>
@@ -519,11 +615,23 @@
  <tile id="172">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
-  &quot;x&quot;: 0.25,
-  &quot;y&quot;: 0,
-  &quot;width&quot;: 0.5,
-  &quot;height&quot;: 1
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.25,
+      &quot;y&quot;: 0.65,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.35
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.45,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.1,
+      &quot;height&quot;: 0.65
+    }
+  ]
 }
 </property>
   </properties>
@@ -603,11 +711,23 @@
  <tile id="187">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
-  &quot;x&quot;: 0.25,
-  &quot;y&quot;: 0,
-  &quot;width&quot;: 0.5,
-  &quot;height&quot;: 1
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.25,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.35
+    },
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.45,
+      &quot;y&quot;: 0.35,
+      &quot;width&quot;: 0.1,
+      &quot;height&quot;: 0.65
+    }
+  ]
 }
 </property>
   </properties>
@@ -645,15 +765,15 @@
       &quot;shape&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.25,
-      &quot;width&quot;: 0.5,
-      &quot;height&quot;: 0.75
+      &quot;width&quot;: 0.75,
+      &quot;height&quot;: 0.5
     },
     {
       &quot;shape&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.25,
-      &quot;width&quot;: 0.75,
-      &quot;height&quot;: 0.5
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.75
     }
   ]
 }

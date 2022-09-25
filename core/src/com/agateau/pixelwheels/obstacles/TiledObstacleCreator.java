@@ -27,6 +27,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -51,7 +52,7 @@ import java.util.HashMap;
  */
 public class TiledObstacleCreator {
     interface TiledObstacleDef {
-        void create(GameWorld world, int col, int row, int tileWidth, int tileHeight);
+        void create(GameWorld world, int col, int row, int tileSize, TiledMapTileLayer.Cell cell);
     }
 
     private static class MultiDef implements TiledObstacleDef {
@@ -66,9 +67,10 @@ public class TiledObstacleCreator {
         }
 
         @Override
-        public void create(GameWorld world, int col, int row, int tileWidth, int tileHeight) {
+        public void create(
+                GameWorld world, int col, int row, int tileSize, TiledMapTileLayer.Cell cell) {
             for (TiledObstacleDef def : mDefs) {
-                def.create(world, col, row, tileWidth, tileHeight);
+                def.create(world, col, row, tileSize, cell);
             }
         }
     }
@@ -88,18 +90,16 @@ public class TiledObstacleCreator {
         }
 
         @Override
-        public void create(GameWorld world, int col, int row, int tileWidth, int tileHeight) {
+        public void create(
+                GameWorld world, int col, int row, int tileSize, TiledMapTileLayer.Cell cell) {
             World box2DWorld = world.getBox2DWorld();
 
-            mBodyDef.position
-                    .set(col, row)
-                    .add(mOrigin)
-                    .scl(tileWidth, tileHeight)
-                    .scl(Constants.UNIT_FOR_PIXEL);
+            float k = tileSize * Constants.UNIT_FOR_PIXEL;
+            mBodyDef.position.set(col, row).add(mOrigin).scl(k);
             Body body = box2DWorld.createBody(mBodyDef);
 
             CircleShape shape = new CircleShape();
-            shape.setRadius(mRadius * tileWidth * Constants.UNIT_FOR_PIXEL);
+            shape.setRadius(mRadius * k);
 
             body.createFixture(shape, 1 /* density */);
             shape.dispose();
@@ -116,30 +116,55 @@ public class TiledObstacleCreator {
             mBodyDef.type = BodyDef.BodyType.StaticBody;
             mBodyDef.bullet = false;
 
-            mRectangle.x = object.get("x").getAsFloat();
-            mRectangle.y = object.get("y").getAsFloat();
+            mRectangle.x = object.get("x").getAsFloat() - 0.5f;
+            mRectangle.y = object.get("y").getAsFloat() - 0.5f;
             mRectangle.width = object.get("width").getAsFloat();
             mRectangle.height = object.get("height").getAsFloat();
         }
 
+        private static final Polygon sPolygon = new Polygon(new float[8]);
+
         @Override
-        public void create(GameWorld world, int col, int row, int tileWidth, int tileHeight) {
+        public void create(
+                GameWorld world, int col, int row, int tileSize, TiledMapTileLayer.Cell cell) {
             World box2DWorld = world.getBox2DWorld();
 
-            float halfW = mRectangle.width / 2;
-            float halfH = mRectangle.height / 2;
+            float k = tileSize * Constants.UNIT_FOR_PIXEL;
 
-            mBodyDef.position
-                    .set(col, row)
-                    .add(mRectangle.x + halfW, mRectangle.y + halfH)
-                    .scl(tileWidth, tileHeight)
-                    .scl(Constants.UNIT_FOR_PIXEL);
-            Body body = box2DWorld.createBody(mBodyDef);
+            /*
+             A          D
+              x--------x
+              |        |
+              x--------x
+             B          C
+            */
+            float[] vertices = sPolygon.getVertices();
+            // A
+            vertices[0] = mRectangle.x;
+            vertices[1] = mRectangle.y + mRectangle.height;
+            // B
+            vertices[2] = mRectangle.x;
+            vertices[3] = mRectangle.y;
+            // C
+            vertices[4] = mRectangle.x + mRectangle.width;
+            vertices[5] = mRectangle.y;
+            // D
+            vertices[6] = mRectangle.x + mRectangle.width;
+            vertices[7] = mRectangle.y + mRectangle.height;
+
+            float hk = cell.getFlipHorizontally() ? -k : k;
+            float vk = cell.getFlipVertically() ? -k : k;
+            sPolygon.setScale(hk, vk);
+
+            // cell.getRotation() returns a value between 0 and 3
+            // Always set it because we reuse the Polygon instance
+            sPolygon.setRotation(cell.getRotation() * 90);
 
             PolygonShape shape = new PolygonShape();
-            float k = tileWidth * Constants.UNIT_FOR_PIXEL;
-            shape.setAsBox(halfW * k, halfH * k);
+            shape.set(sPolygon.getTransformedVertices());
 
+            mBodyDef.position.set(col, row).add(0.5f, 0.5f).scl(k);
+            Body body = box2DWorld.createBody(mBodyDef);
             body.createFixture(shape, 1 /* density */);
             shape.dispose();
 
@@ -197,7 +222,6 @@ public class TiledObstacleCreator {
         int cols = layer.getWidth();
 
         int tileWidth = layer.getTileWidth();
-        int tileHeight = layer.getTileHeight();
 
         for (int row = 0; row < rows; ++row) {
             for (int col = 0; col < cols; ++col) {
@@ -207,7 +231,7 @@ public class TiledObstacleCreator {
                 }
                 TiledObstacleDef def = mDefsForTile.get(cell.getTile());
                 if (def != null) {
-                    def.create(world, col, row, tileWidth, tileHeight);
+                    def.create(world, col, row, tileWidth, cell);
                 }
             }
         }
