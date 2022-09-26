@@ -118,23 +118,23 @@ Positions are relative to the bottom-left corner of the tile, and relative to th
 
 The JSON format looks like this:
 
-- `shape`: one of `circle`, `rectangle` or `multi`.
+- `type`: one of `circle`, `rectangle` or `multi`.
 
-#### `circle` shape
+#### `circle` type
 
 - `x`, `y`: position of the center.
 - `radius`: radius of the circle.
 
-#### `rectangle` shape
+#### `rectangle` type
 
 - `x`, `y`: position of the bottom-left corner.
 - `width`, `height`: dimensions of the rectangle.
 - `angle`: angle of the rectangle, in degrees (optional, defaults to 0).
 
 
-#### `multi` shape
+#### `multi` type
 
-- `defs`: an array of shapes.
+- `obstacles`: an array of obstacles.
 
 ### `start`
 

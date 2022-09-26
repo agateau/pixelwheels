@@ -19,7 +19,7 @@
  <tile id="8">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;x&quot;: 1,
   &quot;y&quot;: 0,
   &quot;radius&quot;: 0.5
@@ -29,7 +29,7 @@
  <tile id="9">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 1,
@@ -40,7 +40,7 @@
  <tile id="10">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;radius&quot;: 0.5
@@ -50,17 +50,17 @@
  <tile id="11">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -74,17 +74,17 @@
  <tile id="12">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -108,7 +108,7 @@
  <tile id="23">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.5,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -119,7 +119,7 @@
  <tile id="25">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -130,17 +130,17 @@
  <tile id="26">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -154,17 +154,17 @@
  <tile id="27">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -230,7 +230,7 @@
  <tile id="38">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.5,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -241,7 +241,7 @@
  <tile id="40">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -252,16 +252,16 @@
  <tile id="41">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -275,16 +275,16 @@
  <tile id="42">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 1
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.5,
@@ -358,7 +358,7 @@
  <tile id="53">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;x&quot;: 1,
   &quot;y&quot;: 1,
   &quot;radius&quot;: 0.5
@@ -368,7 +368,7 @@
  <tile id="54">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.5,
   &quot;width&quot;: 1,
@@ -379,7 +379,7 @@
  <tile id="55">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 1,
   &quot;radius&quot;: 0.5
@@ -389,16 +389,16 @@
  <tile id="56">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 0.5,
@@ -412,16 +412,16 @@
  <tile id="57">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 1
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.5,
@@ -435,7 +435,7 @@
  <tile id="60">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;radius&quot;: 0.45,
   &quot;x&quot;: 1,
   &quot;y&quot;: 0
@@ -483,17 +483,17 @@
  <tile id="68">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -507,17 +507,17 @@
  <tile id="69">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -531,7 +531,7 @@
  <tile id="70">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.5,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -542,7 +542,7 @@
  <tile id="71">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -563,17 +563,17 @@
  <tile id="83">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.5,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -587,17 +587,17 @@
  <tile id="84">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.5,
       &quot;width&quot;: 1,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -611,7 +611,7 @@
  <tile id="90">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;radius&quot;: 0.45,
   &quot;x&quot;: 1,
   &quot;y&quot;: 0
@@ -621,7 +621,7 @@
  <tile id="92">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;radius&quot;: 0.4,
   &quot;x&quot;: 0.45,
   &quot;y&quot;: 0.5
@@ -631,7 +631,7 @@
  <tile id="93">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.2,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.8,
@@ -643,7 +643,7 @@
  <tile id="94">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.8,
@@ -661,7 +661,7 @@
  <tile id="106">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;circle&quot;,
+  &quot;type&quot;: &quot;circle&quot;,
   &quot;radius&quot;: 0.45,
   &quot;x&quot;: 1,
   &quot;y&quot;: 0
@@ -676,7 +676,7 @@
  <tile id="108">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.2,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.8,
@@ -688,7 +688,7 @@
  <tile id="109">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.8,
@@ -707,7 +707,7 @@
  <tile id="123">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.2,
   &quot;y&quot;: 0.2,
   &quot;width&quot;: 0.8,
@@ -720,7 +720,7 @@
  <tile id="124">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.2,
   &quot;width&quot;: 0.8,
@@ -737,17 +737,17 @@
  <tile id="154">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.4,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.8,
       &quot;height&quot;: 0.5,
       &quot;angle&quot;: 45
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.6,
@@ -761,7 +761,7 @@
  <tile id="157">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.25,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -773,7 +773,7 @@
  <tile id="165">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.05,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 0.95,
@@ -785,7 +785,7 @@
  <tile id="166">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 1,
@@ -797,7 +797,7 @@
  <tile id="167">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 1,
@@ -809,7 +809,7 @@
  <tile id="168">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 0.9,
@@ -821,17 +821,17 @@
  <tile id="169">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.4,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.8,
       &quot;height&quot;: 0.5,
       &quot;angle&quot;: 45
     }, {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
@@ -845,7 +845,7 @@
  <tile id="171">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 1.214,
@@ -858,17 +858,17 @@
  <tile id="172">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.65,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 0.35
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.45,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.1,
@@ -882,17 +882,17 @@
  <tile id="180">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 0.75
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.75,
@@ -906,17 +906,17 @@
  <tile id="181">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 0.75
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.75,
@@ -930,7 +930,7 @@
  <tile id="182">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.25,
   &quot;y&quot;: 0.6,
   &quot;width&quot;: 0.5,
@@ -942,7 +942,7 @@
  <tile id="183">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.25,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,
@@ -954,7 +954,7 @@
  <tile id="185">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: -0.207,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 1.414,
@@ -967,17 +967,17 @@
  <tile id="187">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 0.35
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.45,
       &quot;y&quot;: 0.35,
       &quot;width&quot;: 0.1,
@@ -991,17 +991,17 @@
  <tile id="195">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.5,
       &quot;height&quot;: 0.75
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.75,
@@ -1015,17 +1015,17 @@
  <tile id="196">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;multi&quot;,
-  &quot;defs&quot;: [
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.75,
       &quot;height&quot;: 0.5
     },
     {
-      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;type&quot;: &quot;rectangle&quot;,
       &quot;x&quot;: 0.25,
       &quot;y&quot;: 0.25,
       &quot;width&quot;: 0.5,
@@ -1039,7 +1039,7 @@
  <tile id="199">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.2,
   &quot;y&quot;: 0.25,
   &quot;width&quot;: 1.214,
@@ -1052,7 +1052,7 @@
  <tile id="202">
   <properties>
    <property name="obstacle">{
-  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;type&quot;: &quot;rectangle&quot;,
   &quot;x&quot;: 0.25,
   &quot;y&quot;: 0,
   &quot;width&quot;: 0.5,

@@ -56,20 +56,20 @@ public class TiledObstacleCreator {
     }
 
     private static class MultiDef implements TiledObstacleDef {
-        private final Array<TiledObstacleDef> mDefs = new Array<>();
+        private final Array<TiledObstacleDef> mObstacleDefs = new Array<>();
 
         public MultiDef(JsonObject root) {
-            JsonArray array = root.get("defs").getAsJsonArray();
+            JsonArray array = root.get("obstacles").getAsJsonArray();
             for (JsonElement element : array) {
                 TiledObstacleDef def = loadDefFromJson(element.getAsJsonObject());
-                mDefs.add(def);
+                mObstacleDefs.add(def);
             }
         }
 
         @Override
         public void create(
                 GameWorld world, int col, int row, int tileSize, TiledMapTileLayer.Cell cell) {
-            for (TiledObstacleDef def : mDefs) {
+            for (TiledObstacleDef def : mObstacleDefs) {
                 def.create(world, col, row, tileSize, cell);
             }
         }
@@ -209,9 +209,9 @@ public class TiledObstacleCreator {
     }
 
     private static TiledObstacleDef loadDefFromJson(JsonObject root) {
-        String shape = root.get("shape").getAsString();
+        String type = root.get("type").getAsString();
         TiledObstacleDef def;
-        switch (shape) {
+        switch (type) {
             case "circle":
                 def = new CircleDef(root);
                 break;
@@ -222,7 +222,7 @@ public class TiledObstacleCreator {
                 def = new MultiDef(root);
                 break;
             default:
-                throw new RuntimeException("Invalid shape value: '" + shape + "'");
+                throw new RuntimeException("Invalid type value: '" + type + "'");
         }
         return def;
     }
