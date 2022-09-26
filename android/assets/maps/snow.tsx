@@ -249,6 +249,52 @@
 }</property>
   </properties>
  </tile>
+ <tile id="41">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    }, {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.25,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.5
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }, {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0.25,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.5
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
  <tile id="45">
   <properties>
    <property name="material" value="SNOW"/>
@@ -338,6 +384,52 @@
   &quot;y&quot;: 1,
   &quot;radius&quot;: 0.5
 }</property>
+  </properties>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.5
+    }, {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.25,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.5
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;multi&quot;,
+  &quot;defs&quot;: [
+    {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 1
+    }, {
+      &quot;shape&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.25,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.5
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="60">
