@@ -129,11 +129,12 @@ The JSON format looks like this:
 
 - `x`, `y`: position of the bottom-left corner.
 - `width`, `height`: dimensions of the rectangle.
+- `angle`: angle of the rectangle, in degrees (optional, defaults to 0).
 
 
 #### `multi` shape
 
-- `defs`: an array of obstacles.
+- `defs`: an array of shapes.
 
 ### `start`
 

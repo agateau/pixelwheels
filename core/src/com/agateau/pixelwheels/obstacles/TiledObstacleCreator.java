@@ -110,6 +110,7 @@ public class TiledObstacleCreator {
 
     private static class RectangleDef implements TiledObstacleDef {
         private final Rectangle mRectangle = new Rectangle();
+        private final float mAngle;
         private final BodyDef mBodyDef = new BodyDef();
 
         public RectangleDef(JsonObject object) {
@@ -120,6 +121,8 @@ public class TiledObstacleCreator {
             mRectangle.y = object.get("y").getAsFloat() - 0.5f;
             mRectangle.width = object.get("width").getAsFloat();
             mRectangle.height = object.get("height").getAsFloat();
+            JsonElement angleElement = object.get("angle");
+            mAngle = angleElement == null ? 0 : angleElement.getAsFloat();
         }
 
         private static final Polygon sPolygon = new Polygon(new float[8]);
@@ -156,9 +159,16 @@ public class TiledObstacleCreator {
             float vk = cell.getFlipVertically() ? -k : k;
             sPolygon.setScale(hk, vk);
 
+            float angle = mAngle;
+            if (cell.getFlipHorizontally()) {
+                angle = 180 - angle;
+            }
+            if (cell.getFlipVertically()) {
+                angle = -angle;
+            }
             // cell.getRotation() returns a value between 0 and 3
             // Always set it because we reuse the Polygon instance
-            sPolygon.setRotation(cell.getRotation() * 90);
+            sPolygon.setRotation(cell.getRotation() * 90 + angle);
 
             PolygonShape shape = new PolygonShape();
             shape.set(sPolygon.getTransformedVertices());
