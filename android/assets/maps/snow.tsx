@@ -436,6 +436,28 @@
 </property>
   </properties>
  </tile>
+ <tile id="70">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;x&quot;: 0.5,
+  &quot;y&quot;: 0,
+  &quot;width&quot;: 0.5,
+  &quot;height&quot;: 1
+}</property>
+  </properties>
+ </tile>
+ <tile id="71">
+  <properties>
+   <property name="obstacle">{
+  &quot;shape&quot;: &quot;rectangle&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0,
+  &quot;width&quot;: 0.5,
+  &quot;height&quot;: 1
+}</property>
+  </properties>
+ </tile>
  <tile id="77">
   <properties>
    <property name="material" value="ICE"/>
