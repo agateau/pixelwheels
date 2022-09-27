@@ -60,6 +60,10 @@ public class MapScreenshotGenerator {
     private static void processFile(String shotFileName, String tmxFileName) {
         FileHandle tmxFile = Gdx.files.absolute(tmxFileName);
         FileHandle shotFile = Gdx.files.absolute(shotFileName);
+        if (!tmxFile.file().isFile()) {
+            NLog.e("%s is not a file", tmxFile);
+            System.exit(1);
+        }
         if (isOutdated(shotFile, tmxFile)) {
             NLog.i("%s: updating", shotFile.path());
             Pixmap pix1 = generateScreenshot(tmxFile);
