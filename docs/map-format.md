@@ -73,7 +73,7 @@ Zero or more foreground layers, named `fg<N>`: "fg1", "fg2"... These are drawn o
 
 An "Obstacles" object layer containing rectangles, polygons or ellipsis representing the borders of the track as well as movable objects on it.
 
-A border is an object with an empty "Type" property. Its boundaries must match static elements such as building drawn in the bgN layers.
+A border is an object with an empty "Type" property. Its boundaries must match static elements such as buildings drawn in the bgN layers.
 
 An obstacle can move (for example a tire). Its "Type" property defines the kind of obstacle. If the object area is large enough, multiple instances of the obstacle will be created.
 
@@ -106,6 +106,35 @@ Tilesets are defined in .tsx files, not bundled in the .tmx files. There is one 
 ### `material`
 
 Enum. Defaults to ROAD. Must be one of the values of the com.agateau.pixelwheels.map.Material enum.
+
+### `obstacle`
+
+String. Defaults to empty.
+
+If set it must be a JSON describing a static obstacle body to create for this tile.
+
+Dimensions are relative to the size of the tile, so a dimension of 0.8 means 80% of the tile size.
+Positions are relative to the bottom-left corner of the tile, and relative to the size of the tile, so position (1, 0) is the bottom-right corner of the tile.
+
+The JSON format looks like this:
+
+- `type`: one of `circle`, `rectangle` or `multi`.
+
+#### `circle` type
+
+- `x`, `y`: position of the center.
+- `radius`: radius of the circle.
+
+#### `rectangle` type
+
+- `x`, `y`: position of the bottom-left corner.
+- `width`, `height`: dimensions of the rectangle.
+- `angle`: angle of the rectangle, in degrees (optional, defaults to 0).
+
+
+#### `multi` type
+
+- `obstacles`: an array of obstacles.
 
 ### `start`
 

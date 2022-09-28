@@ -186,7 +186,7 @@ public class GameRenderer {
             mShapeRenderer.setProjectionMatrix(mCamera.combined);
             if (Debug.instance.drawTileCorners) {
                 mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                mShapeRenderer.setColor(1, 1, 1, 1);
+                mShapeRenderer.setColor(1, 0, 0, 1);
                 float tileW = mTrack.getTileWidth();
                 float tileH = mTrack.getTileHeight();
                 float mapWidth = mTrack.getMapWidth();
