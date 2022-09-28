@@ -15,9 +15,18 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check changelog
+        if: ${{ github.event_name == 'pull_request' }}
+        run: ci/check-changelog "origin/$GITHUB_BASE_REF" "origin/$GITHUB_HEAD_REF"
+        shell: bash
+
       - name: Build Docker image
         run: ci/build-docker-image
         shell: bash
+
       - name: Build
         shell: bash
         run: ci/docker-build-game SNAPSHOT=1
