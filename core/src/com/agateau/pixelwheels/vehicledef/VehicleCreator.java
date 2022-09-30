@@ -110,7 +110,7 @@ public class VehicleCreator {
             float drive,
             float angle) {
         Vehicle.WheelInfo info =
-                vehicle.addWheel(region, splashAnimation, axle.tireSize.density, x, y, angle);
+                vehicle.addWheel(region, splashAnimation, axle.tireSize.getDensity(), x, y, angle);
         info.steeringFactor = axle.steer;
         info.wheel.setCanDrift(axle.drift);
         info.wheel.setMaxDrivingForce(drive);

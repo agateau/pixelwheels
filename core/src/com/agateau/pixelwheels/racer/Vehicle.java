@@ -35,6 +35,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
@@ -49,6 +50,9 @@ public class Vehicle implements Racer.Component, Disposable {
     // and we are on ice, consider that we are "ice drifting"
     private static final float MIN_ICE_DRIFT_ANGLE = 5;
     private static final float MIN_ICE_DRIFT_SPEED = 4;
+
+    // Move center of gravity that much percent forward
+    private static final float CENTER_OF_GRAVITY_SHIFT_PERCENT = 0.5f;
 
     public static class WheelInfo {
         public Wheel wheel;
@@ -113,6 +117,17 @@ public class Vehicle implements Racer.Component, Disposable {
             mBody.createFixture(fixtureDef);
             fixtureDef.shape.dispose();
         }
+
+        moveCenterOfGravity(vehicleDef, textureRegionProvider);
+    }
+
+    private void moveCenterOfGravity(
+            VehicleDef vehicleDef, TextureRegionProvider textureRegionProvider) {
+        float halfVehicleLength = vehicleDef.getImage(textureRegionProvider).getRegionHeight() / 2f;
+        MassData massData = mBody.getMassData();
+        massData.center.x +=
+                CENTER_OF_GRAVITY_SHIFT_PERCENT * halfVehicleLength * Constants.UNIT_FOR_PIXEL;
+        mBody.setMassData(massData);
     }
 
     @Override

@@ -67,9 +67,10 @@ public enum Material {
     }
 
     public float getGrip() {
+        float grip = 1f;
         if (this == ICE) {
-            return 0.1f;
+            grip /= 10;
         }
-        return 1f;
+        return grip;
     }
 }

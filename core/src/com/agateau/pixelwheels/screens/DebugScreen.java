@@ -93,6 +93,7 @@ public class DebugScreen extends PwStageScreen {
         addRange("Steer: low speed", "lowSpeedMaxSteer", 2, 50, 2);
         addRange("Steer: high speed", "highSpeedMaxSteer", 2, 50, 1);
         addRange("Vehicle density", "vehicleDensity", 1, 50);
+        addRange("Tire density", "tireBaseDensity", 1, 50);
         addRange("Restitution", "vehicleRestitution", 1, 50);
 
         mCurrentIntrospector = mGame.getSoundSettingsIntrospector();
