@@ -22,37 +22,49 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class FileUtils {
-    public static String appName = "unnamed";
+    public static String appName;
     private static FileHandle sExtraAssetsHandle;
+
+    // Do not use sCachedDesktopDirs directly, use getDesktopDirs() instead: getDesktopDirs()
+    // creates a DesktopDirs instance the first time it's called and cache it there.
+    private static DesktopDirs sCachedDesktopDirs;
 
     public static FileHandle getUserWritableFile(String name) {
         FileHandle handle;
         if (PlatformUtils.isDesktop()) {
-            handle = Gdx.files.external(".local/share/" + appName + "/" + name);
+            String path = getDesktopDataDir() + File.separator + name;
+            handle = Gdx.files.absolute(path);
         } else {
             handle = Gdx.files.local(name);
         }
         return handle;
     }
 
-    public static FileHandle getCacheDir() {
-        FileHandle handle;
-        if (PlatformUtils.isDesktop()) {
-            handle = Gdx.files.external(".cache/" + appName);
-        } else {
-            if (!Gdx.files.isExternalStorageAvailable()) {
-                return null;
-            }
-            handle = Gdx.files.absolute(Gdx.files.getExternalStoragePath() + "/" + appName);
-        }
-        handle.mkdirs();
-        return handle;
+    public static String getDesktopConfigDir() {
+        return getDesktopDirs().getConfigDir();
+    }
+
+    public static String getDesktopLegacyConfigDir() {
+        return System.getProperty("user.home")
+                + File.separator
+                + ".config"
+                + File.separator
+                + "agateau.com";
+    }
+
+    public static String getDesktopCacheDir() {
+        return getDesktopDirs().getCacheDir();
+    }
+
+    public static String getDesktopDataDir() {
+        return getDesktopDirs().getDataDir();
     }
 
     public static void setExtraAssetsDir(String dir) {
@@ -97,5 +109,13 @@ public class FileUtils {
             sb.append(buffer, 0, length);
         }
         return sb.toString();
+    }
+
+    private static DesktopDirs getDesktopDirs() {
+        if (sCachedDesktopDirs == null) {
+            Assert.check(appName != null, "appName has not been set");
+            sCachedDesktopDirs = new DesktopDirs(appName, System.getenv());
+        }
+        return sCachedDesktopDirs;
     }
 }

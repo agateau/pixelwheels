@@ -1,0 +1,5 @@
+kind: Added
+body: On Desktop, Pixel Wheels now honors the XDG Base Directory environment variables (XDG_CONFIG_HOME,
+  XDG_DATA_HOME, XDG_CACHE_HOME). The configuration file has moved from .config/agateau.com/pixelwheels.conf
+  to $XDG_CONFIG_HOME/pixelwheels/pixelwheels.conf. It should be automatically migrated.
+time: 2022-09-30T23:26:45.533783624+02:00

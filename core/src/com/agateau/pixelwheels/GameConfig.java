@@ -54,7 +54,7 @@ public class GameConfig {
     private final DelayedRemovalArray<ChangeListener> mListeners = new DelayedRemovalArray<>();
 
     GameConfig() {
-        mPreferences = Gdx.app.getPreferences("pixelwheels.conf");
+        mPreferences = Gdx.app.getPreferences(Constants.CONFIG_FILENAME);
 
         load();
     }

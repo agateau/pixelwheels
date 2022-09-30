@@ -38,6 +38,8 @@ public class Constants {
     // 1 mega-byte max size
     public static final long LOG_MAX_SIZE = 1024 * 1024;
 
+    public static final String CONFIG_FILENAME = "pixelwheels.conf";
+
     public enum Store {
         ITCHIO,
         GPLAY

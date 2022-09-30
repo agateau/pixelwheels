@@ -28,17 +28,20 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.files.FileHandle;
 import java.io.File;
+import java.util.Locale;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {
+        FileUtils.appName = "pixelwheels";
+        migrateLegacyConfigFile();
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(PwStageScreen.WIDTH, PwStageScreen.HEIGHT);
         config.setWindowIcon("desktop-icon/desktop-icon.png");
         config.setTitle("Pixel Wheels");
-        config.setPreferencesConfig(".config/agateau.com", Files.FileType.External);
+        config.setPreferencesConfig(FileUtils.getDesktopConfigDir(), Files.FileType.Absolute);
         config.useVsync(true);
-        FileUtils.appName = "pixelwheels";
 
         PwGame game = new PwGame();
         setupLogging(game);
@@ -46,11 +49,7 @@ public class DesktopLauncher {
     }
 
     private static void setupLogging(PwGame game) {
-        String cacheDir = getCacheDir();
-        if (cacheDir == null) {
-            System.err.println("Can't find cache dir, won't be able to log to a file");
-            return;
-        }
+        String cacheDir = FileUtils.getDesktopCacheDir();
         File file = new File(cacheDir);
         if (!file.isDirectory() && !file.mkdirs()) {
             System.err.println(
@@ -65,15 +64,37 @@ public class DesktopLauncher {
         game.setLogExporter(new DesktopLogExporter(printer));
     }
 
-    private static String getCacheDir() {
-        String cacheDir = System.getenv("XDG_CONFIG_CACHE");
-        if (cacheDir == null) {
-            String homeDir = System.getProperty("user.home");
-            if (homeDir == null) {
-                return null;
-            }
-            cacheDir = homeDir + File.separator + ".cache";
+    private static void migrateLegacyConfigFile() {
+        FileHandle configFile =
+                new FileHandle(
+                        FileUtils.getDesktopConfigDir()
+                                + File.separator
+                                + Constants.CONFIG_FILENAME);
+        if (configFile.exists()) {
+            // Do nothing if the new config file exists
+            return;
         }
-        return cacheDir + File.separator + FileUtils.appName;
+
+        FileHandle legacyConfigFile =
+                new FileHandle(
+                        FileUtils.getDesktopLegacyConfigDir()
+                                + File.separator
+                                + Constants.CONFIG_FILENAME);
+        if (!legacyConfigFile.exists()) {
+            // Nothing to migrate
+            return;
+        }
+        FileHandle configDir = configFile.parent();
+        if (!configDir.exists() && !configDir.file().mkdirs()) {
+            System.err.printf(
+                    Locale.US,
+                    "Failed to migrate %s: could not create %s",
+                    legacyConfigFile,
+                    configDir);
+            return;
+        }
+
+        System.err.printf(Locale.US, "Migrating %s to %s", legacyConfigFile, configFile);
+        legacyConfigFile.copyTo(configFile);
     }
 }
