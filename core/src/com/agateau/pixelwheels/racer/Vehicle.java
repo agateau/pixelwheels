@@ -80,6 +80,8 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
+    private final Array<Long> mTurboCellsUnderWheels = new Array<>();
+
     public Vehicle(
             TextureRegionProvider textureRegionProvider,
             GameWorld gameWorld,
@@ -154,6 +156,8 @@ public class Vehicle implements Racer.Component, Disposable {
         jointDef.enableLimit = true;
         info.joint = (RevoluteJoint) mGameWorld.getBox2DWorld().createJoint(jointDef);
 
+        mTurboCellsUnderWheels.ensureCapacity(mWheels.size);
+
         return info;
     }
 
@@ -211,7 +215,7 @@ public class Vehicle implements Racer.Component, Disposable {
         for (WheelInfo wheelInfo : mWheels) {
             if (wheelInfo.wheel.getMaterial() == Material.ICE) {
                 float delta =
-                        AgcMathUtils.angleDelta(mBody.getLinearVelocity().angle(), getAngle());
+                        AgcMathUtils.angleDelta(mBody.getLinearVelocity().angleDeg(), getAngle());
                 return Math.abs(delta % 180) > MIN_ICE_DRIFT_ANGLE;
             }
         }
@@ -314,19 +318,23 @@ public class Vehicle implements Racer.Component, Disposable {
     private void applyGroundEffects(float dt) {
         final GamePlay GP = GamePlay.instance;
         float groundSpeed = 0;
+        mTurboCellsUnderWheels.clear();
         for (WheelInfo info : mWheels) {
             float wheelGroundSpeed = info.wheel.getGroundSpeed();
             groundSpeed += wheelGroundSpeed;
             long cellId = info.wheel.getCellId();
             boolean isTurboCell = wheelGroundSpeed > 1;
-            if (isTurboCell && !alreadyTriggeredTurboCell(cellId)) {
-                triggerTurbo();
-                addTriggeredTurboCell(cellId);
+            if (isTurboCell) {
+                mTurboCellsUnderWheels.add(cellId);
+                if (!alreadyTriggeredTurboCell(cellId)) {
+                    triggerTurbo();
+                    addTriggeredTurboCell(cellId);
+                }
             }
         }
         groundSpeed /= mWheels.size;
 
-        updateTriggeredTurboTiles(dt);
+        updateTriggeredTurboCells(dt);
 
         boolean turboOn = mTurboTime > 0;
         if (groundSpeed < 1f && !turboOn) {
@@ -379,7 +387,7 @@ public class Vehicle implements Racer.Component, Disposable {
 
         if (mTurboTime == 0) {
             mBody.applyLinearImpulse(
-                    computeDirectionVector(GP.turboStrength / 6), mBody.getWorldCenter(), true);
+                    computeDirectionVector(GP.turboStrength / 6f), mBody.getWorldCenter(), true);
         }
         if (mTurboTime >= 0) {
             mTurboTime += dt;
@@ -435,11 +443,18 @@ public class Vehicle implements Racer.Component, Disposable {
         mTurboCellMap.put(cellId, GamePlay.instance.turboDuration);
     }
 
-    private void updateTriggeredTurboTiles(float delta) {
+    private void updateTriggeredTurboCells(float delta) {
         for (int idx = mTurboCellMap.size - 1; idx >= 0; --idx) {
             float duration = mTurboCellMap.getValueAt(idx) - delta;
             if (duration <= 0) {
-                mTurboCellMap.removeIndex(idx);
+                long cellId = mTurboCellMap.getKeyAt(idx);
+                if (mTurboCellsUnderWheels.contains(cellId, false /* identity */)) {
+                    // Keep the cell in mTurboCellMap until the vehicle has left it to ensure turbo
+                    // is not triggered more than once
+                    mTurboCellMap.setValue(idx, 0f);
+                } else {
+                    mTurboCellMap.removeIndex(idx);
+                }
             } else {
                 mTurboCellMap.setValue(idx, duration);
             }
