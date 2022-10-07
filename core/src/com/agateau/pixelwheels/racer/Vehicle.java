@@ -215,7 +215,7 @@ public class Vehicle implements Racer.Component, Disposable {
         for (WheelInfo wheelInfo : mWheels) {
             if (wheelInfo.wheel.getMaterial() == Material.ICE) {
                 float delta =
-                        AgcMathUtils.angleDelta(mBody.getLinearVelocity().angle(), getAngle());
+                        AgcMathUtils.angleDelta(mBody.getLinearVelocity().angleDeg(), getAngle());
                 return Math.abs(delta % 180) > MIN_ICE_DRIFT_ANGLE;
             }
         }
@@ -387,7 +387,7 @@ public class Vehicle implements Racer.Component, Disposable {
 
         if (mTurboTime == 0) {
             mBody.applyLinearImpulse(
-                    computeDirectionVector(GP.turboStrength / 6), mBody.getWorldCenter(), true);
+                    computeDirectionVector(GP.turboStrength / 6f), mBody.getWorldCenter(), true);
         }
         if (mTurboTime >= 0) {
             mTurboTime += dt;
