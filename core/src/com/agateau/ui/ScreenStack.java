@@ -77,7 +77,7 @@ public class ScreenStack {
 
     private void setScreen(Screen screen) {
         if (mBlockingScreen == null) {
-            NLog.i("screen=%s", screen);
+            NLog.i("screen=%s", screen.getClass().getSimpleName());
             mGame.setScreen(screen);
         }
     }
