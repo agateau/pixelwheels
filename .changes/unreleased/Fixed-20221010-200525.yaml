@@ -1,0 +1,3 @@
+kind: Fixed
+body: Text no longer overflows its button in the gamepad configuration screen (#224).
+time: 2022-10-10T20:05:25.854414401+02:00
