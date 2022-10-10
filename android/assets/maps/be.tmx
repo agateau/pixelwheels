@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="78">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="78">
  <tileset firstgid="1" source="city.tsx"/>
  <layer id="1" name="bg1" width="40" height="80">
   <data encoding="base64" compression="zlib">
@@ -32,27 +32,27 @@
   <object id="8" x="960" y="704" width="64" height="128"/>
   <object id="9" x="1216" y="704" width="64" height="128"/>
   <object id="10" x="0" y="2496" width="128" height="2112"/>
-  <object id="63" type="tire" x="240.475" y="533.102">
+  <object id="63" class="tire" x="240.475" y="533.102">
    <polyline points="15.5248,-21.1016 15.5248,-85.1016 143.525,-213.102 399.525,-277.102"/>
   </object>
-  <object id="66" type="block" x="1536" y="2753.33">
+  <object id="66" class="block" x="1536" y="2753.33">
    <polyline points="0,0 -320,317.333"/>
   </object>
-  <object id="67" type="block" x="962.667" y="3393.33">
+  <object id="67" class="block" x="962.667" y="3393.33">
    <polyline points="0,0 316,318.667"/>
   </object>
   <object id="68" x="1536" y="2432" width="256" height="960"/>
   <object id="71" x="1536" y="3584" width="256" height="960"/>
-  <object id="72" type="block" x="1556" y="3394.67">
+  <object id="72" class="block" x="1556" y="3394.67">
    <polyline points="0,-7.33333 -2.27374e-13,195.333"/>
   </object>
-  <object id="73" type="block" x="1554" y="2305.33">
+  <object id="73" class="block" x="1554" y="2305.33">
    <polyline points="0,-3 0.416667,129.5"/>
   </object>
-  <object id="74" type="tire" x="1534" y="2716">
+  <object id="74" class="tire" x="1534" y="2716">
    <polyline points="0,0 -320,317.333"/>
   </object>
-  <object id="75" type="tire" x="968" y="3354">
+  <object id="75" class="tire" x="968" y="3354">
    <polyline points="0,0 316,318.667"/>
   </object>
  </objectgroup>
@@ -79,9 +79,9 @@
    <polyline points="0,0 -788,784"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints" visible="0">
+ <objectgroup id="7" name="Waypoints">
   <object id="78" x="342" y="3340">
-   <polyline points="-22,-12 25.6667,-679.667 160.5,-1899 115.333,-2719 1633.5,-2820.5 1548.33,-1668 793,-1134 761.667,-143.333 1119,454 515,892.667 -13,384"/>
+   <polyline points="-22,-12 25.6667,-679.667 160.5,-1899 127.777,-2590.41 338.708,-2791.6 1631.48,-2791.27 1548.33,-1668 793,-1134 761.667,-143.333 1119,454 515,892.667 -13,384"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="BonusSpots" visible="0">

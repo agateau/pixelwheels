@@ -69,9 +69,9 @@
    <polyline points="0,0 -544.665,678.624"/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Waypoints" visible="0">
+ <objectgroup id="6" name="Waypoints">
   <object id="59" x="546" y="1196">
-   <polyline points="30,-44 91,-304 742.182,-536.848 1948.24,-412.606 1881.58,411.636 1628,484 1377,88 802,98 95,351"/>
+   <polyline points="30,-44 91,-304 304.75,-471.058 742.182,-536.848 1667.06,-531.031 1948.24,-412.606 1881.58,411.636 1628,484 1377,88 802,98 258.129,369.998 30,340"/>
   </object>
  </objectgroup>
  <objectgroup id="7" name="BonusSpots" visible="0">

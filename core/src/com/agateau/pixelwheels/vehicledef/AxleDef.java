@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.vehicledef;
 
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -28,14 +29,18 @@ public class AxleDef {
     private static final float SPLASH_FRAME_DURATION = 0.04f;
 
     public enum TireSize {
-        NORMAL(2f),
-        LARGE(2f),
-        HUGE(0.5f);
+        NORMAL(0.2f),
+        LARGE(0.2f),
+        HUGE(0.05f);
 
-        public final float density;
+        private final float mDensityFactor;
 
-        TireSize(float density) {
-            this.density = density;
+        TireSize(float densityFactor) {
+            this.mDensityFactor = densityFactor;
+        }
+
+        public float getDensity() {
+            return this.mDensityFactor * GamePlay.instance.tireBaseDensity;
         }
     }
 

@@ -18,18 +18,42 @@
  */
 package com.agateau.libgdx;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.utils.XmlReader;
 
-/**
- * This class is here to fix a crash when loading recent Tiled maps with TmxMapLoader: it does not
- * know how to handle properties of type file and empty.
- */
+/** This class is here to fix issues with loading recent Tiled maps with TmxMapLoader */
 public class AgcTmxMapLoader extends TmxMapLoader {
+
+    /*
+     * Fix a crash when loading properties of type file and empty.
+     */
     @Override
     protected Object castProperty(String name, String value, String type) {
         if (type == null || type.equals("file") || type.equals("string")) {
             return value;
         }
         return super.castProperty(name, value, type);
+    }
+
+    /*
+     * Tiled 1.9.0 replaced the `type` attribute of `<object>` with `class`. Convert it back to
+     * `type`.
+     */
+    @Override
+    protected void loadObject(
+            TiledMap map, MapObjects objects, XmlReader.Element element, float heightInPixels) {
+        super.loadObject(map, objects, element, heightInPixels);
+        if (element.getName().equals("object")) {
+            String type = element.getAttribute("class", null);
+            if (type != null) {
+                // The last element in objects is the one which was just inserted by
+                // super.loadObject()
+                MapObject object = objects.get(objects.getCount() - 1);
+                object.getProperties().put("type", type);
+            }
+        }
     }
 }

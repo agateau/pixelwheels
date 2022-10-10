@@ -35,7 +35,8 @@ public class GamePlay {
     public int highSpeedMaxSteer = 4;
     public float steeringStep = 0.1f;
 
-    public int vehicleDensity = 14;
+    public int vehicleDensity = 3;
+    public int tireBaseDensity = 15;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
     public int borderRestitution = 1;
