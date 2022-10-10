@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="60" height="44" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="90">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="44" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="90">
  <tileset firstgid="1" source="country.tsx"/>
  <layer id="1" name="bg1" width="60" height="44">
   <data encoding="base64" compression="zlib">
@@ -22,10 +22,10 @@
   </data>
  </layer>
  <objectgroup id="5" name="Obstacles" visible="0">
-  <object id="32" type="block" x="2304" y="960">
+  <object id="32" class="block" x="2304" y="960">
    <polyline points="192,88 0,64 -192,128 -768,704"/>
   </object>
-  <object id="33" type="block" x="2248.91" y="975.829">
+  <object id="33" class="block" x="2248.91" y="975.829">
    <polyline points="55.0884,752.171 -904.912,1712.17"/>
   </object>
   <object id="37" x="2653" y="2077.5" width="261.53" height="4.66667"/>
@@ -58,19 +58,19 @@
   <object id="81" x="449.333" y="2561.33" width="572" height="61.3333"/>
   <object id="82" x="509.333" y="2624" width="832" height="61.3333"/>
   <object id="84" x="0" y="4" width="16" height="2804"/>
-  <object id="87" type="tire" x="465.333" y="257.333">
+  <object id="87" class="tire" x="465.333" y="257.333">
    <polyline points="0,0 0,413.333 109.334,724"/>
   </object>
-  <object id="88" type="block" x="519" y="722">
+  <object id="88" class="block" x="519" y="722">
    <polyline points="55.0884,752.171 -353.912,1298.17"/>
   </object>
-  <object id="89" type="block" x="385" y="1608">
+  <object id="89" class="block" x="385" y="1608">
    <polyline points="183.088,-522.738 42.088,-902.072"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints" visible="0">
+ <objectgroup id="7" name="Waypoints">
   <object id="90" x="3234.67" y="1533.33">
-   <polyline points="0,0 -120,-253.333 -1320,-1048 -1684,-1104 -2369.33,-1013.33 -2481.33,-524 -2444,308 -2200,628 -1937.33,725.333 -1088,-76 -854.667,-96 -641.333,161.333 -673.333,349.333 -949.333,593.333 -933.333,768 -678.667,860 -125.333,750.667 -1.33333,538.667"/>
+   <polyline points="0,0 -120,-253.333 -1320,-1048 -2107.78,-1073.73 -2416.11,-1013.33 -2457.27,-810.709 -2467.57,-400.17 -2444,308 -2200,628 -1937.33,725.333 -1088,-76 -854.667,-96 -641.333,161.333 -673.333,349.333 -949.333,593.333 -933.333,768 -678.667,860 -125.333,750.667 -1.33333,538.667"/>
   </object>
  </objectgroup>
  <objectgroup id="6" name="Sections" visible="0">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="60" height="35" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="64">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="35" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="64">
  <tileset firstgid="1" source="country.tsx"/>
  <layer id="1" name="bg1" width="60" height="35">
   <data encoding="base64" compression="zlib">
@@ -63,12 +63,12 @@
    <polyline points="-1513.09,491.215 -2189.82,1087.54"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints" visible="0">
+ <objectgroup id="7" name="Waypoints">
   <properties>
    <property name="direction" value="90"/>
   </properties>
   <object id="73" x="477" y="1179">
-   <polyline points="81.8182,-30.303 280.969,-387.879 449.7,-431.259 2087.88,32 2419.15,70.4243 2537.37,187.382 2499.46,415.607 2367.64,508 141.109,513.044 86.7879,459.515"/>
+   <polyline points="81.8182,-30.303 280.969,-387.879 449.7,-431.259 2087.88,32 2419.15,70.4243 2537.37,187.382 2499.46,415.607 2261.59,508 141.109,513.044 86.7879,459.515"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="BonusSpots" visible="0">
