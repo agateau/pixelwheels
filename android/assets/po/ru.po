@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-06-01 11:11+0200\n"
+"PO-Revision-Date: 2022-10-14 21:45+0200\n"
 "Last-Translator: Nickoriginal\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -55,7 +55,7 @@ msgstr "Не поскользнись!"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Вверх, вверх, вверх... и вниз!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -249,13 +249,12 @@ msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
-msgstr "Испанский:"
+msgstr "Шведский:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Санчез"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
@@ -457,7 +456,7 @@ msgstr "Ант Он-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Трак Бростера"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
