@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-07-03 17:56+0200\n"
+"PO-Revision-Date: 2022-10-14 20:08+0200\n"
 "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -51,7 +51,7 @@ msgstr "Blitzeis!"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Zick-Zack-Rallye"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -245,13 +245,12 @@ msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
-msgstr "Spanisch:"
+msgstr "Schwedisch:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
@@ -453,7 +452,7 @@ msgstr "Ant On-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Monstertruck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
