@@ -18,11 +18,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check changelog
-        if: ${{ github.event_name == 'pull_request' }}
-        run: ci/check-changelog "origin/$GITHUB_BASE_REF" "origin/$GITHUB_HEAD_REF"
-        shell: bash
-
       - name: Build Docker image
         run: ci/build-docker-image
         shell: bash
