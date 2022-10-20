@@ -7,7 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-05-15 12:22+0800\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-10-18 23:43+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -15,63 +16,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: android/assets/championships/0.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Country Life"
-msgstr "乡村生活锦标赛："
+msgstr "乡村生活"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr ""
+msgstr "欢迎！"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr ""
+msgstr "河流"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr ""
+msgstr "洪水"
 
 #: android/assets/championships/1.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr "方正山脉锦标赛："
+msgstr "方正山脉"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr ""
+msgstr "白雪皑皑"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr ""
+msgstr "小心地滑！"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "起起起落！"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr ""
+msgstr "像素城市"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "砖块小镇"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "滨海小城"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -214,11 +214,11 @@ msgstr "翻译"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "德语："
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
-msgstr ""
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
@@ -231,11 +231,11 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "巴斯克语："
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "French:"
@@ -250,21 +250,20 @@ msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
-msgstr "西班牙语："
+msgstr "瑞典语："
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr ""
+msgstr "俄语："
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Bengali:"
@@ -391,9 +390,8 @@ msgid "QUIT"
 msgstr "退出"
 
 #: android/assets/screens/multiplayer.gdxui:10
-#, fuzzy
 msgid "Select Your Vehicles"
-msgstr "选择赛车"
+msgstr "选择你的赛车"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
@@ -425,9 +423,8 @@ msgid "Select Game Mode"
 msgstr "选择游戏模式"
 
 #: android/assets/screens/selectlanguage.gdxui:5
-#, fuzzy
 msgid "Select Language"
-msgstr "语言："
+msgstr "选择语言"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -458,7 +455,7 @@ msgstr ""
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "面包车"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -468,12 +465,12 @@ msgstr ""
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr ""
+msgstr "收割机"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr ""
+msgstr "吉普"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
@@ -483,32 +480,32 @@ msgstr ""
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr ""
+msgstr "皮卡"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid "Highway Patrol"
-msgstr ""
+msgstr "巡警车"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr ""
+msgstr "红色闪电"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr ""
+msgstr "跑车"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr ""
+msgstr "火箭"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr ""
+msgstr "圣诞老人卡车"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
@@ -516,7 +513,7 @@ msgstr "分享"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr "遇到错误？使用这个按钮报告。"
+msgstr "遇到错误？点击按钮报告。"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
@@ -619,19 +616,19 @@ msgid "Race time"
 msgstr "比赛时间"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "在 %s 锦标赛取得至少第三名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "在 %s 锦标赛取得至少第三名"
+msgstr "在 %s 锦标赛取得至少第二名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "在 %s 锦标赛取得至少第三名"
+msgstr "在 %s 锦标赛取得第一名"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -808,18 +805,15 @@ msgstr "[已锁定]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
-msgstr ""
+msgstr "电脑"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr ""
+msgstr "解锁新赛车！"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
-#, fuzzy
 msgid "New championship unlocked!"
-msgstr ""
-"锦标赛\n"
-"结束！"
+msgstr "解锁新锦标赛！"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
