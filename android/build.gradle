@@ -31,12 +31,13 @@ android {
     Properties versionProps = new Properties()
     versionProps.load(new FileInputStream(file('../version.properties')))
 
-    buildToolsVersion "30.0.3"
-    compileSdkVersion 30
+    // Must match ci/install-android-sdk
+    buildToolsVersion "31.0.0"
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
