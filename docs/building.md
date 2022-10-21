@@ -29,7 +29,7 @@ java -jar ../../desktop/build/libs/desktop-1.0.jar
 
 Building Pixel Wheels requires the following components:
 
-- A JDK
+- A JDK, version 11
 - libgdx: <https://libgdx.badlogicgames.com>
 - ImageMagick: <http://imagemagick.org>
 - GNU Make: <http://www.gnu.org/software/make/>

@@ -17,9 +17,24 @@ project.ext.mainClassName = "EngineLab"
 project.ext.assetsDir = new File("../android/assets")
 
 task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     ignoreExitValue = true
 }
+
+task dist(type: Jar) {
+    from files(sourceSets.main.output.classesDirs)
+    from files(sourceSets.main.output.resourcesDir)
+    from {configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
+    from files(project.assetsDir)
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+    // Required to fix this error after updating to Gradle 7.3.3:
+    // Entry META-INF/INDEX.LIST is a duplicate but no duplicate handling strategy has been set.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+dist.dependsOn classes
