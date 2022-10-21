@@ -376,4 +376,29 @@ public class Racer extends GameObjectAdapter
     public GameStats getGameStats() {
         return mPilot.getGameStats();
     }
+
+    public static int compareRaceDistances(Racer racer1, Racer racer2) {
+        LapPositionComponent c1 = racer1.getLapPositionComponent();
+        LapPositionComponent c2 = racer2.getLapPositionComponent();
+        if (c1.hasFinishedRace() && c2.hasFinishedRace()) {
+            // If both racers have finished, consider the racer with the shortest total time to be
+            // in front of the other
+            return Float.compare(c2.getTotalTime(), c1.getTotalTime());
+        }
+        if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
+            return -1;
+        }
+        if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
+            return 1;
+        }
+        if (c1.getLapCount() < c2.getLapCount()) {
+            return -1;
+        }
+        if (c1.getLapCount() > c2.getLapCount()) {
+            return 1;
+        }
+        float d1 = c1.getLapDistance();
+        float d2 = c2.getLapDistance();
+        return Float.compare(d1, d2);
+    }
 }
