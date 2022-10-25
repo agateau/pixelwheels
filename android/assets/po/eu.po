@@ -56,7 +56,7 @@ msgstr "Ez irristatu!"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Gora, gora, gora... eta behera!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -134,7 +134,7 @@ msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr "Country Life txapelketa:"
+msgstr "Landa Bizitza txapelketa:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
@@ -142,7 +142,7 @@ msgstr "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr "Square Mountains txapelketa:"
+msgstr "Mendi Karratuak txapelketa:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
@@ -150,7 +150,7 @@ msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr "Pix Cities txapelketa:"
+msgstr "Pix Hiriak txapelketa:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -252,11 +252,11 @@ msgstr "PandaCoderPL"
 #: android/assets/screens/credits.gdxui:80
 #, fuzzy
 msgid "Swedish:"
-msgstr "Espainiera:"
+msgstr "Suediera:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
@@ -300,11 +300,11 @@ msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "All bug reporters"
-msgstr "Bug jakinarazle???? guztiak"
+msgstr "Bug-en berriemaile guztiak"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Patreon, Ko-fi eta Paypal bidezko xxxxxx guztiak"
+msgstr "Patreon, Ko-fi eta Paypal bidezko jarraitzaile guztiak"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Made with"
@@ -358,7 +358,7 @@ msgstr "Aktibatu:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr "Itzuli / atzera martxa:"
+msgstr "Itzuli/atzera martxa:"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -449,7 +449,7 @@ msgstr "Aukeratu zure ibiligailua"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr "2-Deuch"
+msgstr "2-Zaldi"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
@@ -459,7 +459,7 @@ msgstr "Ant On-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Broster Truck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -534,14 +534,14 @@ msgstr[1] "%# ibilgailu misilarekin jo"
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] "Bidetik behin irten"
+msgstr[0] "Bidetik behin atera"
 msgstr[1] "Bidetik %# aldiz atera"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Bonus bat hartu"
-msgstr[1] "Hartu %# bonus"
+msgstr[1] "%# bonus hartu"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
@@ -592,7 +592,7 @@ msgstr "Izugarria!"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -643,8 +643,8 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
-"Txapelketa\n"
-"Bukatu da!"
+"Bukatu da\n"
+"Txapelketa!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
