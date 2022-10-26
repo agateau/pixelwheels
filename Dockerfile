@@ -1,5 +1,4 @@
-# Stick to Debian 9 to match F-Droid build infrastructure
-FROM debian:9
+FROM debian:11
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
