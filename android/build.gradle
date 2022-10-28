@@ -1,4 +1,4 @@
-apply plugin: "android"
+apply plugin: "com.android.application"
 
 configurations { natives }
 
@@ -31,12 +31,13 @@ android {
     Properties versionProps = new Properties()
     versionProps.load(new FileInputStream(file('../version.properties')))
 
-    buildToolsVersion "30.0.3"
-    compileSdkVersion 30
+    // Must match ci/install-android-sdk
+    buildToolsVersion "31.0.0"
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
@@ -90,7 +91,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     packagingOptions {
-        exclude "LICENSE.txt"
+        resources {
+            excludes += ['LICENSE.txt']
+        }
     }
 }
 
@@ -120,6 +123,7 @@ task copyAndroidNatives() {
         }
     }
 }
+
 task run(type: Exec) {
     def path
     def localProperties = project.file("../local.properties")
@@ -141,31 +145,9 @@ task run(type: Exec) {
     def adb = path + "/platform-tools/adb"
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.agateau.pixelwheels.android/AndroidLauncher'
 }
-// sets up the Android Idea project, using the old Ant based build.
-idea {
-    module {
-        sourceDirs += file("src")
-        scopes = [COMPILE: [plus: [project.configurations.compile]]]
-
-        iml {
-            withXml {
-                def node = it.asNode()
-                def builder = NodeBuilder.newInstance()
-                builder.current = node
-                builder.component(name: "FacetManager") {
-                    facet(type: "android", name: "Android") {
-                        configuration {
-                            option(name: "UPDATE_PROPERTY_FILES", value: "true")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 // Thanks to https://gist.github.com/mariotaku/7a0c51955d14def2fa0e#file-signing-gradle-L82
-def decodeKeyStoreFileFromBase64Env(String name) {
+static def decodeKeyStoreFileFromBase64Env(String name) {
     String keyStoreBase64 = System.getenv(name)
     if (keyStoreBase64 == null) {
         return null

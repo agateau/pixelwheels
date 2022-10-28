@@ -57,7 +57,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
-import com.badlogic.gdx.utils.Sort;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -146,13 +145,18 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     @Override
-    public int getRacerRank(Racer racer) {
-        for (int idx = mRacers.size - 1; idx >= 0; --idx) {
-            if (mRacers.get(idx) == racer) {
-                return idx + 1;
+    public int getRacerRank(Racer wantedRacer) {
+        int rank = 1;
+        for (Racer racer : mRacers) {
+            if (racer == wantedRacer) {
+                return rank;
+            }
+            if (sRacerComparator.compare(racer, wantedRacer) < 0) {
+                // racer is in front of wantedRacer
+                rank += 1;
             }
         }
-        return -1;
+        throw new RuntimeException("Racer " + wantedRacer + " not found");
     }
 
     /**
@@ -177,25 +181,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
      * has driven less than racer2
      */
     private static final Comparator<Racer> sRacerComparator =
-            (racer1, racer2) -> {
-                LapPositionComponent c1 = racer1.getLapPositionComponent();
-                LapPositionComponent c2 = racer2.getLapPositionComponent();
-                if (!c1.hasFinishedRace() && c2.hasFinishedRace()) {
-                    return 1;
-                }
-                if (c1.hasFinishedRace() && !c2.hasFinishedRace()) {
-                    return -1;
-                }
-                if (c1.getLapCount() < c2.getLapCount()) {
-                    return 1;
-                }
-                if (c1.getLapCount() > c2.getLapCount()) {
-                    return -1;
-                }
-                float d1 = c1.getLapDistance();
-                float d2 = c2.getLapDistance();
-                return Float.compare(d2, d1);
-            };
+            (racer1, racer2) -> -Racer.compareRaceDistances(racer1, racer2);
 
     @Override
     public void act(float delta) {
@@ -235,9 +221,9 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
                 break;
             }
         }
-        Sort.instance().sort(mRacers.items, sRacerComparator, fromIndex, mRacers.size);
 
         if (haveAllRacersFinished()) {
+            mRacers.sort(sRacerComparator);
             setState(GameWorld.State.FINISHED);
         }
     }

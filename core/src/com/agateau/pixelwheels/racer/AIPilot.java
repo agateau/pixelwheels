@@ -184,10 +184,9 @@ public class AIPilot implements Pilot {
         vehicle.setBraking(false);
 
         // If we are better ranked than a player, slow down a bit
-        float rank = mGameWorld.getRacerRank(mRacer);
         boolean needLimit = false;
-        for (Racer racer : mGameWorld.getPlayerRacers()) {
-            if (mGameWorld.getRacerRank(racer) > rank) {
+        for (Racer playerRacer : mGameWorld.getPlayerRacers()) {
+            if (Racer.compareRaceDistances(mRacer, playerRacer) > 0) {
                 needLimit = true;
                 break;
             }
