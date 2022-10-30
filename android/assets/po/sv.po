@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-07-09 16:34+0200\n"
+"PO-Revision-Date: 2022-10-30 20:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -56,7 +56,7 @@ msgstr "Halka inte!"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Upp, upp, upp... och ner!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -457,7 +457,7 @@ msgstr "Ant On-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Broster Truck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
