@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-07-03 17:57+0200\n"
+"PO-Revision-Date: 2022-11-09 08:14+0100\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -52,7 +52,7 @@ msgstr "Attention, sol glissant !"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Ça monte, ça monte, ça monte... et ça descend !"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -246,13 +246,12 @@ msgid "PandaCoderPL"
 msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
-msgstr "Espagnol :"
+msgstr "Suédois :"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
@@ -454,7 +453,7 @@ msgstr "Ant On-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Broster Truck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
