@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-09-11 17:06+0200\n"
+"PO-Revision-Date: 2022-11-17 09:35+0100\n"
 "Last-Translator: victorhck <victorhck@mailbox.org>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -57,7 +57,7 @@ msgstr "¡No te resbales!"
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "¡Sube, sube, sube... y baja!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -399,7 +399,7 @@ msgstr "Selecciona tus vehículos"
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
-msgstr "¡Listo!\t"
+msgstr "¡Listo!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
@@ -458,7 +458,7 @@ msgstr "Ant On-1"
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Broster Truck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
