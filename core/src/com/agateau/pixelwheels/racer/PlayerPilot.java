@@ -23,7 +23,7 @@ import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.gameinput.GameInput;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
-import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.pixelwheels.gameinput.InputMapperInputHandler;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.ui.InputMapper;
@@ -84,10 +84,10 @@ public class PlayerPilot implements Pilot {
     }
 
     public boolean isPauseKeyPressed() {
-        if (!(mInputHandler instanceof KeyboardInputHandler)) {
+        if (!(mInputHandler instanceof InputMapperInputHandler)) {
             return false;
         }
-        InputMapper inputMapper = ((KeyboardInputHandler) mInputHandler).getInputMapper();
+        InputMapper inputMapper = ((InputMapperInputHandler) mInputHandler).getInputMapper();
         return inputMapper.isKeyJustPressed(VirtualKey.BACK);
     }
 
