@@ -1,6 +1,6 @@
 {
     "properties": {
-        "attackTime": 0,
+        "attackTime": 0.052857142857142776,
         "baseFrequency": 0.3099999999999999,
         "changeAmount": 0,
         "changeSpeed": 0,
@@ -22,7 +22,7 @@
         "sustainTime": 0.2799999999999999,
         "vibratoDepth": 0,
         "vibratoSpeed": 0,
-        "volume": 0.5,
+        "volume": 0.322857142857143,
         "waveForm": "Sawtooth"
     },
     "version": 1
