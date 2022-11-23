@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.24.0 - 2022-11-22
+
+### Added
+
+- There is a new track in the Square Mountains championship. In this new track you race in the snowy forest. Be careful not to hit a tree! (#182).
+
+- Pixel Wheels is now translated in Swedish, thanks to Sanchez.
+
+- On Desktop, Pixel Wheels now honors the XDG Base Directory environment variables (`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`). The configuration file has moved from `.config/agateau.com/pixelwheels.conf` to `$XDG_CONFIG_HOME/pixelwheels/pixelwheels.conf`. It should be automatically migrated.
+
+### Changed
+
+- The way vehicles are drawn have been improved: vehicle shadows now include shadow for the tires, and when a vehicle goes underwater, its wheels are still drawn.
+
+- Spanish translation received some improvements (Victorhck, #262).
+
+- Driving behavior has been tweaked to be more pleasant.
+
+- It is now possible to pause the game using the 2nd gamepad button.
+
+### Fixed
+
+- On Android TV, Pixel Wheels is now listed in games, not in apps (#276).
+
+- Text no longer overflows its button in the gamepad configuration screen (#224).
+
+### Developers
+
+- Enabling some gameplay-affecting debug settings no longer prevents using locked tracks or vehicles.
+
+- Updated Android SDK to 31, Android Gradle Plugin to 7.2.2, Gradle to 7.3.3 and JDK to 11 (#275).
+
 ## 0.23.0 - 2022-07-03
 
 ### Added
@@ -330,7 +362,7 @@
 
 #### Added
 
-- Added moving and still obstacles to the tracks. For now the only obstacles are tires (movable) and concrete blocks (still, replace the existing blocks).
+- Added moving and still obstacles to the tracks. For now the only obstacles are tyres (movable) and concrete blocks (still, replace the existing blocks).
 
 #### Changed
 

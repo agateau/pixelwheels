@@ -1,0 +1,9 @@
+There is a new track in the Square Mountains championship. In this new track you race in the snowy forest. Be careful not to hit a tree!
+
+Pixel Wheels is now translated in Swedish, thanks to Sanchez.
+
+The way vehicles are drawn have been improved: vehicle shadows now include shadow for the tires, and when a vehicle goes underwater, its wheels are still drawn.
+
+Driving behavior has been tweaked to be more pleasant.
+
+On Android TV, Pixel Wheels is now listed in games, not in apps.

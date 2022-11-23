@@ -17,7 +17,7 @@
 
 - [ ] Update changelog
 
-    changie batch
+    changie batch $version
     vi .changes/$version.md
     changie merge
     vi CHANGELOG.md
