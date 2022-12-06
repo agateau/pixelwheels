@@ -6,6 +6,8 @@
 
 - There is a new track in the Square Mountains championship. In this new track you race in the snowy forest. Be careful not to hit a tree! (#182).
 
+- A new vehicle has been added: the Broster Truck!
+
 - Pixel Wheels is now translated in Swedish, thanks to Sanchez.
 
 - On Desktop, Pixel Wheels now honors the XDG Base Directory environment variables (`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`). The configuration file has moved from `.config/agateau.com/pixelwheels.conf` to `$XDG_CONFIG_HOME/pixelwheels/pixelwheels.conf`. It should be automatically migrated.
