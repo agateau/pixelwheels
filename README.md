@@ -2,23 +2,23 @@
 
 ![Build Status](https://github.com/agateau/pixelwheels/workflows/main/badge.svg)
 
-Pixel Wheels is a retro top-down race game for Linux, macOS, Windows and Android.
+Pixel Wheels is a retro top-down racing game for Linux, macOS, Windows and Android.
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/4-gun.png)
 
-It features multiple tracks and vehicles. And various bonus and weapons to help you get to the finish line first!
+It features multiple tracks and vehicles as well as various bonuses and weapons to help you get to the finish line first!
 
 On PC, you can play Pixel Wheels alone or with a friend.
 
 ## I want to try it!
 
-Great! For Linux, macOS and Windows you can get binaries from [Pixel Wheels page on itch.io][itch].
+Great! For Linux, macOS and Windows, you can get binaries from [Pixel Wheels page on itch.io][itch].
 
 _ARM-based Mac users: Note that Pixel Wheels does not run on ARM-based Macs for now. This will be added when the game is updated to use [libGDX 1.11.0][libgdx-arm-mac]._
 
 [libgdx-arm-mac]: https://github.com/libgdx/libgdx/releases/tag/1.11.0
 
-For Android you can install Pixel Wheels from [F-Droid][fd], [Google Play][gplay] or from [itch.io][itch] too.
+For Android, you can install Pixel Wheels from [F-Droid][fd], [Google Play][gplay] or from [itch.io][itch] too.
 
 [itch]: https://agateau.itch.io/pixelwheels
 [fd]: https://f-droid.org/packages/com.agateau.tinywheels.android/
@@ -63,7 +63,7 @@ On the other hand, if your plan is to take the game, slap some ads on it, and re
 
 ## Why is the Java package called "tinywheels"?
 
-The game used to be called Tiny Wheels, but I found out there is already a Tiny Wheels game on Steam, so I add to rename it. I did not change the Java package name however because Google Play does not allow changing the package name of an existing app or game.
+The game used to be called Tiny Wheels, but I found out there is already a Tiny Wheels game on Steam, so I had to rename it. I did not change the Java package name however because Google Play does not allow changing the package name of an existing app or game.
 
 ## Support development of the game
 
