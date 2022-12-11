@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.pixelwheels.vehicledef.AxleDef;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
+import com.agateau.ui.GLViewportSaver;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -43,6 +44,7 @@ public class VehicleDrawer {
     private final Vector2 mFrameBufferCenter = new Vector2(FB_WIDTH / 2f, FB_HEIGHT / 2f);
     private final Matrix4 mFrameBufferProjectionMatrix = new Matrix4();
     private final Matrix4 mFrameBufferTransformMatrix = new Matrix4();
+    private final GLViewportSaver mViewportSaver = new GLViewportSaver();
 
     private VehicleDef mVehicleDef;
     private final Vector2 mCenter = new Vector2(0, 0);
@@ -114,6 +116,9 @@ public class VehicleDrawer {
         sOldTransformMatrix.set(batch.getTransformMatrix());
         batch.setProjectionMatrix(mFrameBufferProjectionMatrix);
         batch.setTransformMatrix(mFrameBufferTransformMatrix);
+
+        mViewportSaver.save();
+
         mFrameBuffer.begin();
         batch.begin();
         Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -122,7 +127,10 @@ public class VehicleDrawer {
         drawInternal(batch, region, mFrameBufferCenter);
 
         batch.end();
-        mFrameBuffer.end();
+        // Do not use FrameBuffer.end() here because it resets the viewport and causes
+        // https://github.com/agateau/pixelwheels/issues/296
+        FrameBuffer.unbind();
+        mViewportSaver.restore();
 
         // Draw mFrameBuffer on screen
         batch.setProjectionMatrix(sOldMatrix);

@@ -1,0 +1,4 @@
+kind: Fixed
+body: On devices with a screen ratio different from 16:9 the vehicle selection screen
+  was stretched and made the buttons non responsive (#296).
+time: 2022-12-11T10:49:37.160736281+01:00
