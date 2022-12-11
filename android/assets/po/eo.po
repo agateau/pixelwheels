@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-12-08 21:19+0100\n"
+"PO-Revision-Date: 2022-12-11 16:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: eo\n"
@@ -61,45 +61,45 @@ msgstr "Supren, supren, supren... kaj malsupren!"
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr "¡¡"
+msgstr "Bilderaj Urboj"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "Blokema Vilaĝo"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "Eta apud Maro"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr ""
+msgstr "Bilderaj Radoj"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr ""
+msgstr "Malfermitkoda vetkura ludo"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr ""
+msgstr "Kodo"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
 #: android/assets/screens/credits.gdxui:75
 msgid "Aurélien Gâteau"
-msgstr ""
+msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr ""
+msgstr "Bilderoj"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:98
 msgid "Antonin Gâteau"
-msgstr ""
+msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
@@ -107,23 +107,23 @@ msgstr "Musiko"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr ""
+msgstr "Menuo:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr ""
+msgstr "\"Lumrapideco\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
-msgstr ""
+msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr ""
+msgstr "Venko:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
-msgstr ""
+msgstr "\"Core Descent (16-bit) v0.9\""
 
 #: android/assets/screens/credits.gdxui:27
 #: android/assets/screens/credits.gdxui:31
@@ -206,128 +206,128 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
-msgstr ""
+msgstr "Tradukoj"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "Germana"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
-msgstr ""
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
-msgstr ""
+msgstr "Hispana:"
 
 #: android/assets/screens/credits.gdxui:69
 #: android/assets/screens/credits.gdxui:94
 msgid "Clara Gâteau"
-msgstr ""
+msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "Eŭska:"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "French:"
-msgstr ""
+msgstr "Franca:"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Polish:"
-msgstr ""
+msgstr "Pola:"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "PandaCoderPL"
-msgstr ""
+msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
-msgstr ""
+msgstr "Sveda:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr ""
+msgstr "Rusa"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Bengali:"
-msgstr ""
+msgstr "Bengala:"
 
 #: android/assets/screens/credits.gdxui:87
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Chinese:"
-msgstr ""
+msgstr "Ĉina:"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "Lu Xu"
-msgstr ""
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Video Editing"
-msgstr ""
+msgstr "Videoredaktado"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Special Thanks"
-msgstr ""
+msgstr "Specialaj dankoj"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "Guillaume Roche"
-msgstr ""
+msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:100
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "All bug reporters"
-msgstr ""
+msgstr "Ĉiuj cimraportintoj"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "Ĉiuj subtenantoj en Patreon, Ko-fi kaj Paypal"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Made with"
-msgstr ""
+msgstr "Farita per"
 
 #: android/assets/screens/credits.gdxui:106
 msgid "LibGDX"
-msgstr ""
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Tiled"
-msgstr ""
+msgstr "Tiled"
 
 #: android/assets/screens/credits.gdxui:108
 msgid "Aseprite"
-msgstr ""
+msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:109
 msgid "SFXR Qt"
-msgstr ""
+msgstr "SFXR Qt"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Android Studio"
-msgstr ""
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
@@ -364,30 +364,30 @@ msgstr ""
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr ""
+msgstr "UNU LUDANTO"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr ""
+msgstr "PLURAJ LUDANTOJ"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr ""
+msgstr "TUJA VETKURO"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr ""
+msgstr "ĈAMPIONADO"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr ""
+msgstr "AGORDOJ"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr ""
+msgstr "ELIRI"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -816,27 +816,27 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr ""
+msgstr "1-a"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr ""
+msgstr "2-a"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr ""
+msgstr "3-a"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr ""
+msgstr "4-a"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr ""
+msgstr "5-a"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr ""
+msgstr "6-a"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
