@@ -45,7 +45,7 @@
     make desktop-run-from-dist
     ```
 
-- [ ] Test on device
+- [ ] Test on a non 16:9 device
 
     ```
     make android-run-from-dist
