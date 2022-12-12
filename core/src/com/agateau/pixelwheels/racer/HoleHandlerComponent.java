@@ -130,6 +130,7 @@ public class HoleHandlerComponent implements Racer.Component {
             mState = State.LIFTING;
             mTime = 0;
             mVehicle.setStopped(true);
+            mVehicle.setFlying(true);
             mRacer.looseBonus();
         }
     }
@@ -193,6 +194,9 @@ public class HoleHandlerComponent implements Racer.Component {
         if (posOK) {
             mVehicle.getBody().setLinearVelocity(0, 0);
             mVehicle.getBody().setAngularVelocity(0);
+            // Disable flying as soon as we start dropping to avoid
+            // https://github.com/agateau/pixelwheels/issues/302
+            mVehicle.setFlying(false);
             mState = State.DROPPING;
             mTime = 0;
         } else {
