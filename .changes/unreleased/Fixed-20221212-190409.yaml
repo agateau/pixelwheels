@@ -1,0 +1,3 @@
+kind: Fixed
+body: Fixed a bug in the rescue copter mechanism: on the River track, after being dropped by the rescue copter on the bridge, the rescued vehicle would sometimes go through the bridge wall and fall on the other side (#302).
+time: 2022-12-12T19:04:09.278392894+01:00

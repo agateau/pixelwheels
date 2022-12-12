@@ -29,7 +29,10 @@ import com.badlogic.gdx.math.Vector2;
 
 /** Handles falling in holes */
 public class HoleHandlerComponent implements Racer.Component {
-    private static final float LIFTING_DELAY = 0.5f;
+    // During [0..MAX_FALL_DURATION] vehicle is falling (Z is decreasing)
+    private static final float MAX_FALL_DURATION = 0.5f;
+    // Time for the helicopter to lift and drop the vehicle
+    private static final float LIFT_DROP_DURATION = 0.5f;
     private static final float MAX_RECOVERING_SPEED = 20;
     private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
 
@@ -115,8 +118,8 @@ public class HoleHandlerComponent implements Racer.Component {
     }
 
     private void actFalling(float delta) {
-        mTime = Math.min(mTime + delta, LIFTING_DELAY);
-        mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
+        mTime = Math.min(mTime + delta, MAX_FALL_DURATION);
+        mVehicle.setZ(-mTime / MAX_FALL_DURATION / 10);
 
         if (!isInHole()) {
             switchToClimbingState();
@@ -127,6 +130,7 @@ public class HoleHandlerComponent implements Racer.Component {
             mState = State.LIFTING;
             mTime = 0;
             mVehicle.setStopped(true);
+            mVehicle.setFlying(true);
             mRacer.looseBonus();
         }
     }
@@ -137,7 +141,7 @@ public class HoleHandlerComponent implements Racer.Component {
 
     private void actClimbing(float delta) {
         mTime = Math.max(mTime - delta, 0);
-        mVehicle.setZ(-mTime / LIFTING_DELAY / 10);
+        mVehicle.setZ(-mTime / MAX_FALL_DURATION / 10);
 
         if (mTime == 0) {
             switchToNormalState();
@@ -151,11 +155,11 @@ public class HoleHandlerComponent implements Racer.Component {
 
     private void actLifting(float delta) {
         mTime += delta;
-        if (mTime >= LIFTING_DELAY) {
-            mTime = LIFTING_DELAY;
+        if (mTime >= LIFT_DROP_DURATION) {
+            mTime = LIFT_DROP_DURATION;
             switchToRecoveringState();
         }
-        mVehicle.setZ(Interpolation.pow2.apply(mTime / LIFTING_DELAY));
+        mVehicle.setZ(Interpolation.pow2.apply(mTime / LIFT_DROP_DURATION));
     }
 
     private void switchToRecoveringState() {
@@ -190,6 +194,9 @@ public class HoleHandlerComponent implements Racer.Component {
         if (posOK) {
             mVehicle.getBody().setLinearVelocity(0, 0);
             mVehicle.getBody().setAngularVelocity(0);
+            // Disable flying as soon as we start dropping to avoid
+            // https://github.com/agateau/pixelwheels/issues/302
+            mVehicle.setFlying(false);
             mState = State.DROPPING;
             mTime = 0;
         } else {
@@ -202,9 +209,9 @@ public class HoleHandlerComponent implements Racer.Component {
 
     private void actDropping(float delta) {
         mTime += delta;
-        mVehicle.setZ(Interpolation.bounceOut.apply(1, 0, mTime / LIFTING_DELAY));
-        if (mTime >= LIFTING_DELAY) {
-            mTime = LIFTING_DELAY;
+        mVehicle.setZ(Interpolation.bounceOut.apply(1, 0, mTime / LIFT_DROP_DURATION));
+        if (mTime >= LIFT_DROP_DURATION) {
+            mTime = LIFT_DROP_DURATION;
             switchToNormalState();
         }
     }
