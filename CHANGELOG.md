@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.24.1 - 2022-12-13
+
+### Fixed
+
+- Fix Chinese translation looking wrong because of missing glyphs in the font (#297).
+
+- On devices with a screen ratio different from 16:9 the vehicle selection screen was stretched and made the buttons non responsive (#296).
+
+- Fixed a bug in the rescue copter mechanism: on the River track, after being dropped by the rescue copter on the bridge, the rescued vehicle would sometimes go through the bridge wall and fall on the other side (#302).
+
+- On the River track, fixed wrong river edge tiles on the right side of the map.
+
 ## 0.24.0 - 2022-11-22
 
 ### Added
@@ -14,7 +26,7 @@
 
 ### Changed
 
-- The way vehicles are drawn have been improved: vehicle shadows now include shadow for the tires, and when a vehicle goes underwater, its wheels are still drawn.
+- The way vehicles are drawn has been improved: vehicle shadows now include shadow for the tires, and when a vehicle goes underwater, its wheels are still drawn.
 
 - Spanish translation received some improvements (Victorhck, #262).
 

@@ -1,4 +1,0 @@
-kind: Fixed
-body: Fix Chinese translation looking wrong because of missing glyphs in the font
-  (#297).
-time: 2022-12-07T09:19:27.190211512+01:00

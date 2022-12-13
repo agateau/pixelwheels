@@ -1,0 +1,5 @@
+Fixed Chinese translation looking wrong because of missing glyphs in the font.
+
+On devices with a screen ratio different from 16:9 the vehicle selection screen was stretched and made the buttons non responsive.
+
+Fixed a bug in the rescue copter mechanism: on the River track, after being dropped by the rescue copter on the bridge, the rescued vehicle would sometimes go through the bridge wall and fall on the other side.
