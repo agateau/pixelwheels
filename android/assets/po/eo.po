@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-12-11 16:51+0100\n"
+"PO-Revision-Date: 2022-12-14 12:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: eo\n"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr ""
+msgstr "Tiparo"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
@@ -396,7 +396,7 @@ msgstr ""
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
-msgstr ""
+msgstr "Preta!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
@@ -412,7 +412,7 @@ msgstr ""
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr ""
+msgstr "ELIRI AL MENUO"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
@@ -424,7 +424,7 @@ msgstr ""
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
-msgstr ""
+msgstr "Elektu Lingvon"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -432,11 +432,11 @@ msgstr ""
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr ""
+msgstr "Plej Bona Rondiro"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr ""
+msgstr "Plej Bona Tuto"
 
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
@@ -460,7 +460,7 @@ msgstr ""
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr ""
+msgstr "Malhela M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
@@ -470,7 +470,7 @@ msgstr ""
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr ""
+msgstr "Ĵipo"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
@@ -490,26 +490,26 @@ msgstr ""
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr ""
+msgstr "Ruĝa Fulmo"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr ""
+msgstr "Konvertebla"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr ""
+msgstr "Raketo"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr ""
+msgstr "Kristnaska Kamiono"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr ""
+msgstr "Diskonigu per"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
@@ -588,7 +588,7 @@ msgstr ""
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -642,7 +642,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
-msgstr ""
+msgstr "Pri"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 #, java-printf-format
@@ -704,7 +704,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Language:"
-msgstr ""
+msgstr "Lingvo:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
 msgid "Audio"
@@ -716,7 +716,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid "Music:"
-msgstr ""
+msgstr "Muziko:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
 msgid "Video"
@@ -728,7 +728,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
 msgid "CONFIGURE"
-msgstr ""
+msgstr "AGORDI"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
@@ -784,7 +784,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
-msgstr ""
+msgstr "Bone"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 #, java-printf-format
@@ -793,13 +793,13 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
 msgid "MAIN MENU"
-msgstr ""
+msgstr "ĈEFA MENUO"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
-msgstr ""
+msgstr "[Ŝlosita]"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
