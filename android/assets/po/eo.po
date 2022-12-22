@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-12-16 23:33+0100\n"
+"PO-Revision-Date: 2022-12-22 18:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: eo\n"
@@ -36,7 +36,7 @@ msgstr "Rivero"
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr "Fluso"
+msgstr "Inundo"
 
 #: android/assets/championships/1.xml:2
 msgctxt "championship"
@@ -182,7 +182,7 @@ msgstr "Aliaj sonefektoj"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr "Tiparo"
+msgstr "Tiparoj"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
@@ -295,7 +295,7 @@ msgstr "Videoredaktado"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "Special Thanks"
-msgstr "Specialaj dankoj"
+msgstr "Specialaj Dankoj"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Guillaume Roche"
@@ -475,7 +475,7 @@ msgstr "Malhela M"
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr "Rikoltilo"
+msgstr "Kombajno"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
