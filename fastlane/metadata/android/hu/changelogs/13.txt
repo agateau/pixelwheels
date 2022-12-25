@@ -1,0 +1,7 @@
+Új beviteli mód: „oldalsó gombok”. A képernyő alsó sarkaiban bal és jobb oldali kormánygombokat, valamint a képernyő jobb középső részén egy bónuszaktiváló gombot jelenít meg. Tartsd nyomva egyszerre a bal és a jobb gombot a hátramenethez.
+
+Apró tengerpart: több lyuk betömése és hiányzó kerítések hozzáadása.
+
+A bónuszok valószínűsége be lett állítva, így minden bónusznak esélye van a megszerzésére. Továbbra is nagyobb az esélyed arra, hogy aknát kapsz, mint fegyvert vagy rakétát, ha magas a rangod.
+
+Egyéb hibajavítások (lásd a változásnaplót).

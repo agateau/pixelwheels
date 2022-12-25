@@ -1,0 +1,7 @@
+Új bajnokság került hozzáadásra „Vidéki élet” néven. Egyelőre csak egy futamot tartalmaz: „Üdvözlet!”.
+
+A gyors verseny módban hozzáadásra került egy „Újraindítás” gomb egy verseny befejezése után.
+
+Új autó lett hozzáadva: a Sötét M.
+
+Most már lehetséges a játék áthelyezése az SD-kártyára.

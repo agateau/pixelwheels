@@ -1,0 +1,13 @@
+A Vidéki élet bajnokságnak új pályája van: Árvíz.
+
+A játék mostantól baszk és német nyelvre is le van fordítva.
+
+Új jármű lett hozzáadva: a Miramar.
+
+A bajnokságoknak mostantól saját ikonjuk van, ahelyett hogy az első pálya ikonját használnák.
+
+A járműválasztó képernyő mostantól szebben néz ki.
+
+A csúszásnyomok többé nincsenek a víz tetejére rajzolva.
+
+A lengyel fordítás be nem töltődésének javítása.

@@ -1,0 +1,3 @@
+- A kormányzás folyamatosabb, ami megkönnyíti a kisebb irányváltoztatásokat.
+- A csúszásnyomok mostantól fokozatosabban tűnnek el.
+- A képernyő túlságosan nagy rázkódásának javítása, amikor a kamera forgatásával történő pörgés le van tiltva.

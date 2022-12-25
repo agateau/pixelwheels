@@ -1,0 +1,9 @@
+Új pálya hozzáadva: „Folyó”.
+
+Hozzáadva a megfelelő Android TV támogatás.
+
+Javított bajnoksági ranglistatáblázat.
+
+A zárolt járművek kiválaszthatósága javítva.
+
+Vissza lettek hozva a körrekordok a pályaválasztó képernyőn.
