@@ -1,0 +1,9 @@
+Mozgó és mozdulatlan akadályok hozzáadása a pályákhoz. Egyelőre az akadályok a gumiabroncsok (mozgatható) és a betontömbök (mozdulatlanok, a meglévő tömbök helyettesítése).
+
+A mesterséges intelligencia okosabbá vált: a számítógép által irányított járművek mostantól ritkábban akadnak el, és megpróbálják elkerülni az aknákat.
+
+A Rakéta tengelyének beállítása továbbfejlesztésre került, hogy egyszerűbben eltávolodhasson a faltól, miután nekiment annak.
+
+A rakéták okosabbá váltak: figyelembe veszik az akadályokat, amikor eldöntik, hogy a célpont elérhető-e.
+
+Egyéb hibajavítások (lásd a változásnaplót).

@@ -1,0 +1,13 @@
+A Pixel Wheels már francia és angol nyelven is elérhető.
+
+Mostantól van egy gomb, amely segít a hibabejelentésben.
+
+A „bajnokság befejeződött” képernyőn a „→” gomb ismét működik.
+
+A CPU-időket figyelmen kívül hagyó, befejezési rátét javítása az érmek megjelenítésekor.
+
+Android 10: az Android hangkönyvtárakban lévő hiba által okozott általános lassulás javítása.
+
+A rakétanyerészkedés megakadályozása: nincsenek beleszámolva a rakétatalálatok olyan járműveken, amelyek már befejezték a futamot.
+
+Egyéb kisebb hibajavítások.

@@ -1,644 +1,646 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hungarian translation for Pixel Wheels.
+# Copyright (C) 2022 Free Software Foundation, Inc.
+# This file is distributed under the same license as the pixelwheels package.
 #
-#, fuzzy
+# Balázs Úr <ur.balazs at fsf dot hu>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pixelwheels\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-12-21 12:26+0100\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
 msgid "Country Life"
-msgstr ""
+msgstr "Vidéki élet"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr ""
+msgstr "Üdvözlet!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr ""
+msgstr "Folyó"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr ""
+msgstr "Árvíz"
 
 #: android/assets/championships/1.xml:2
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr ""
+msgstr "Négyzetes hegység"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr ""
+msgstr "Hadd havazzon"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr ""
+msgstr "Ne csússz ki!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "Fel, fel, fel… és le!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr ""
+msgstr "Pixeles városok"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "Akadályváros"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "Apró tengerpart"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr ""
+msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr ""
+msgstr "Egy nyílt forráskódú autóversenyzős játék"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
 #: android/assets/screens/credits.gdxui:75
 msgid "Aurélien Gâteau"
-msgstr ""
+msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr ""
+msgstr "Képpontok"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:101
 msgid "Antonin Gâteau"
-msgstr ""
+msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr ""
+msgstr "Zene"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr ""
+msgstr "Menü:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr ""
+msgstr "„Lightspeed”"
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
-msgstr ""
+msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr ""
+msgstr "Győzelem:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
-msgstr ""
+msgstr "„Core Descent (16 bites), 0.9-es verzió”"
 
 #: android/assets/screens/credits.gdxui:27
 #: android/assets/screens/credits.gdxui:31
 #: android/assets/screens/credits.gdxui:35
 #: android/assets/screens/credits.gdxui:39
 msgid "FoxSynergy"
-msgstr ""
+msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr ""
+msgstr "Vidéki élet bajnokság:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
-msgstr ""
+msgstr "„Cosmo Blast, 1.0-s verzió”"
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr ""
+msgstr "Négyzetes hegység bajnokság:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
-msgstr ""
+msgstr "„Lunar Harvest, 1.0-s verzió”"
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr ""
+msgstr "Pixeles városok bajnokság:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
-msgstr ""
+msgstr "„Bouncing Baal, 0.95-ös verzió”"
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr ""
+msgstr "Hanghatások"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr ""
+msgstr "„Autógumi csikorgó csúszási hangjának ismétlései”"
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
-msgstr ""
+msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr ""
+msgstr "„Versenyautó-motor hangjának ismétlései”"
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
-msgstr ""
+msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr ""
+msgstr "Egyéb hanghatások"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr ""
+msgstr "Betűkészletek"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
-msgstr ""
+msgstr "Xolonium"
 
 #: android/assets/screens/credits.gdxui:55
 msgid "Severin Meyer"
-msgstr ""
+msgstr "Severin Meyer"
 
 #: android/assets/screens/credits.gdxui:57
 msgid "Kwajong"
-msgstr ""
+msgstr "Kwajong"
 
 #: android/assets/screens/credits.gdxui:58
 msgid "Tup Wanders"
-msgstr ""
+msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "Noto"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
-msgstr ""
+msgstr "Fordítások"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "Német:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
-msgstr ""
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
-msgstr ""
+msgstr "Spanyol:"
 
 #: android/assets/screens/credits.gdxui:69
 #: android/assets/screens/credits.gdxui:97
 msgid "Clara Gâteau"
-msgstr ""
+msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "Baszk:"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "French:"
-msgstr ""
+msgstr "Francia:"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Polish:"
-msgstr ""
+msgstr "Lengyel:"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "PandaCoderPL"
-msgstr ""
+msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
-msgstr ""
+msgstr "Svéd:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr ""
+msgstr "Orosz:"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Bengali:"
-msgstr ""
+msgstr "Bengáli:"
 
 #: android/assets/screens/credits.gdxui:87
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Chinese:"
-msgstr ""
+msgstr "Kínai:"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "Lu Xu"
-msgstr ""
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Hungarian:"
-msgstr ""
+msgstr "Magyar:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Úr Balázs"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Video Editing"
-msgstr ""
+msgstr "Videoszerkesztés"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "Special Thanks"
-msgstr ""
+msgstr "Különleges köszönet"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Guillaume Roche"
-msgstr ""
+msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:103
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "All bug reporters"
-msgstr ""
+msgstr "Minden hibajelentő"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "Minden támogató a Patreon, Ko-fi és PayPal platformokon"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Made with"
-msgstr ""
+msgstr "Ezekkel készült"
 
 #: android/assets/screens/credits.gdxui:109
 msgid "LibGDX"
-msgstr ""
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Tiled"
-msgstr ""
+msgstr "Tiled"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Aseprite"
-msgstr ""
+msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:112
 msgid "SFXR Qt"
-msgstr ""
+msgstr "SFXR Qt"
 
 #: android/assets/screens/credits.gdxui:113
 msgid "Android Studio"
-msgstr ""
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
+"A játékmenetet befolyásoló beállítások módosultak, a pontszámok nem kerülnek "
+"mentésre"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr ""
+msgstr "ÚJRAINDÍTÁS"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr ""
+msgstr "VISSZA A MENÜBE"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
-msgstr ""
+msgstr "FOLYTATÁS"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr ""
+msgstr "Játékvezérlő beállítása"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 msgid "Trigger:"
-msgstr ""
+msgstr "Aktiváló:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr ""
+msgstr "Vissza/fordítás:"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr ""
+msgstr "Billentyűzet beállítása"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr ""
+msgstr "EGYJÁTÉKOS"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr ""
+msgstr "TÖBBJÁTÉKOS"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr ""
+msgstr "GYORS VERSENY"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr ""
+msgstr "BAJNOKSÁG"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr ""
+msgstr "BEÁLLÍTÁSOK"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr ""
+msgstr "KILÉPÉS"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
-msgstr ""
+msgstr "Járművek kiválasztása"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
-msgstr ""
+msgstr "Kész!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
-msgstr ""
+msgstr "Néhány játékvezérlő hiányzik"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr ""
+msgstr "Szüneteltetve"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr ""
+msgstr "FOLYTATÁS"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr ""
+msgstr "KILÉPÉS A MENÜBE"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr ""
+msgstr "Bajnokság kiválasztása"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr ""
+msgstr "Játékmód kiválasztása"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
-msgstr ""
+msgstr "Nyelv kiválasztása"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr ""
+msgstr "Pálya kiválasztása"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr ""
+msgstr "Legjobb kör"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr ""
+msgstr "Legjobb versenyidő"
 
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
-msgstr ""
+msgstr "Jármű kiválasztása"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr ""
+msgstr "2-Deuch"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr ""
+msgstr "Ant On-1"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Teherautószörny"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr ""
+msgstr "Sötét M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr ""
+msgstr "Kombájn"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr ""
+msgstr "Terepjáró"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid "Miramar"
-msgstr ""
+msgstr "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr ""
+msgstr "Kisteherautó"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid "Highway Patrol"
-msgstr ""
+msgstr "Autópálya-rendőrség"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr ""
+msgstr "Vörös Villám"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr ""
+msgstr "Roadster"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr ""
+msgstr "Rakéta"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr ""
+msgstr "Mikuláskamion"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr ""
+msgstr "Megosztás ezzel"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr ""
+msgstr "Hibát találtál? Használd ezt a gombot a jelentéshez."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
-msgstr ""
+msgstr "HIBA JELENTÉSE"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Találj el egy járművet rakétával"
+msgstr[1] "Találj el %# járművet rakétával"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Térj le az útról egy alkalommal"
+msgstr[1] "Térj le az útról %# alkalommal"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vegyél fel egy bónuszt"
+msgstr[1] "Vegyél fel %# bónuszt"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
-msgstr ""
+msgstr "Játékvezérlő"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 msgid "Keyboard"
-msgstr ""
+msgstr "Billentyűzet"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr ""
+msgstr "Tortagombok"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr ""
+msgstr "Oldalsó gombok"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
-msgstr ""
+msgstr "Bajnoksági ranglista"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
-msgstr ""
+msgstr "Verseny eredménye"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "Congratulations, great race!"
-msgstr ""
+msgstr "Gratulálunk, nagyszerű verseny!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "Komoly vezetési képességeid vannak!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
-msgstr ""
+msgstr "Te egy bajnok vagy!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
-msgstr ""
+msgstr "Gratulálunk ehhez a teljesítményhez!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
-msgstr ""
+msgstr "Lenyűgöző!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 msgid "Best lap"
-msgstr ""
+msgstr "Legjobb kör"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
-msgstr ""
+msgstr "Versenyző"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
-msgstr ""
+msgstr "Teljes idő"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Points"
-msgstr ""
+msgstr "Pont"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 msgid "Race time"
-msgstr ""
+msgstr "Versenyidő"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 #, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr ""
+msgstr "Fejezd be harmadik vagy jobb helyen a %s bajnokságot"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
 #, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr ""
+msgstr "Fejezd be második vagy jobb helyen a %s bajnokságot"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
 #, java-printf-format
 msgid "Finish first at %s championship"
-msgstr ""
+msgstr "Fejezd be első helyen a %s bajnokságot"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -646,210 +648,216 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
+"A bajnokság\n"
+"befejeződött!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
-msgstr ""
+msgstr "Névjegy"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 #, java-printf-format
 msgid "Pixel Wheels %s"
-msgstr ""
+msgstr "Pixel Wheels %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
 msgid "CREDITS"
-msgstr ""
+msgstr "KÉSZÍTŐK"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
-msgstr ""
+msgstr "A Pixel Wheels ingyenes, de számos módon támogathatod a fejlesztését."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "VISIT SUPPORT PAGE"
-msgstr ""
+msgstr "TÁMOGATÁSI OLDAL MEGNYITÁSA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "Learn more about Pixel Wheels"
-msgstr ""
+msgstr "Tudj meg többet a Pixel Wheelsről"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "VISIT WEB SITE"
-msgstr ""
+msgstr "WEBHELY MEGLÁTOGATÁSA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Under the hood"
-msgstr ""
+msgstr "Motorháztető alatt"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
+"Ezek a beállítások leginkább a Pixel Wheels fejlesztéséhez érdekesek, de "
+"bátran próbáld ki mindet!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEV. OPTIONS"
-msgstr ""
+msgstr "FEJLESZTŐI BEÁLLÍTÁSOK"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Controls"
-msgstr ""
+msgstr "Vezérlők"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 #, java-printf-format
 msgid "Player #%d:"
-msgstr ""
+msgstr "%d. játékos:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Controls:"
-msgstr ""
+msgstr "Vezérlők:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Language:"
-msgstr ""
+msgstr "Nyelv:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
 msgid "Audio"
-msgstr ""
+msgstr "Hang"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid "Sound FX:"
-msgstr ""
+msgstr "Hanghatások:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid "Music:"
-msgstr ""
+msgstr "Zene:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
 msgid "Video"
-msgstr ""
+msgstr "Videó"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
 msgid "Fullscreen:"
-msgstr ""
+msgstr "Teljes képernyő:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
 msgid "CONFIGURE"
-msgstr ""
+msgstr "BEÁLLÍTÁS"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr ""
+msgstr "Köszönjük, hogy játszottál!"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
-msgstr ""
+msgstr "Fékezés"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Steer left"
-msgstr ""
+msgstr "Kanyarodás balra"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Steer right"
-msgstr ""
+msgstr "Kanyarodás jobbra"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
-msgstr ""
+msgstr "Aktiváló"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
-msgstr ""
+msgstr "Fel"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
-msgstr ""
+msgstr "Le"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
-msgstr ""
+msgstr "Balra"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
-msgstr ""
+msgstr "Jobbra"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
-msgstr ""
+msgstr "Aktiválás"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
-msgstr ""
+msgstr "Hiányzik"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
-msgstr ""
+msgstr "Rendben"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
-msgstr ""
+msgstr "%d. játékos: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
 msgid "MAIN MENU"
-msgstr ""
+msgstr "FŐMENÜ"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
-msgstr ""
+msgstr "[Zárolva]"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
-msgstr ""
+msgstr "CPU"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr ""
+msgstr "Új jármű feloldva!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 msgid "New championship unlocked!"
-msgstr ""
+msgstr "Új bajnokság feloldva!"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr ""
+msgstr "1."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr ""
+msgstr "2."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr ""
+msgstr "3."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr ""
+msgstr "4."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr ""
+msgstr "5."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr ""
+msgstr "6."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
+"Hibajelentést szeretnél küldeni? Használd ezt a gombot a csatolandó "
+"naplófájl megkereséséhez."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr ""
+msgstr "NAPLÓFÁJLMAPPA MEGNYITÁSA"

@@ -1,0 +1,5 @@
+3 jármű és egy lezárási rendszer hozzáadva: néhány járművet és a második bajnokságot (Pixeles városok) mostantól fel kell oldani.
+
+A pályáknak és a bajnokságoknak mostantól szebb nevük van.
+
+Sok apró javítás a hangzáson, a térképek elrendezésén és a felhasználói felület animációin.

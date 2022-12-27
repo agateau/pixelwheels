@@ -1,0 +1,5 @@
+Javítva lett a kínai fordításnak a betűkészletben hiányzó betűjelek miatti rossz megjelenése.
+
+A 16:9-től eltérő képarányú készülékeken a járműválasztó képernyő nyújtásra került, és a gombok nem alkalmazkodóvá lettek téve.
+
+Javítva lett egy hiba a mentőhelikopter mechanizmusában: miután a Folyó pályán a mentőhelikopter ledobta a járművet a hídon, a megmentett jármű néha áthaladhatott a híd falán, és a másik oldalon lezuhant.

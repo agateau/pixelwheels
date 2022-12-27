@@ -1,0 +1,9 @@
+Egy szép animáció került hozzáadásra, ha a bajnokságban az első 3 helyen végzel.
+
+A Kombájn finomhangolásra került, hogy könnyebb legyen vezetni.
+
+A feloldott jutalom animációja javítva lett.
+
+Többé már nem lehetséges lehetetlenül rövid legjobb köridőt elérni a célvonal átlépése utáni visszalépéssel (21-es hiba).
+
+Ha egy jármű mély vízen halad át, de van elég lendülete ahhoz, hogy elérje a túlpartot, akkor már nem süllyed el.

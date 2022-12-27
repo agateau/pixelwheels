@@ -1,0 +1,9 @@
+Sok munka történt a grafikán: sötétebb utak, új fák, új városi tetők, textúrázott járdák, szebb hídszegélyek, kerekebb homokcsempék.
+
+A következetesség érdekében minden menügomb CSUPA NAGYBETŰVEL van írva.
+
+Az „Újraindítás” gomb van megjelenítve először a gyors verseny módban.
+
+Hozzáadásra került egy „Névjegy” lap a beállítási képernyőhöz.
+
+Javítva lett a zaj a térképcsempéken.

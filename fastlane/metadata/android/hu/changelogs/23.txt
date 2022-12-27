@@ -1,0 +1,5 @@
+A Pixel Wheels a francia mellett már bengáli, kínai, lengyel, orosz és spanyol nyelvre is le van fordítva.
+
+Az állapotsor már nem marad látható Android 11 rendszeren.
+
+Továbbfejlesztett játékikon.
