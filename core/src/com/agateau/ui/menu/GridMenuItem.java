@@ -50,6 +50,12 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemWidth = 0;
     private float mItemHeight = 0;
     private TouchUiConfirmMode mTouchUiConfirmMode = TouchUiConfirmMode.DOUBLE_TOUCH;
+    private ItemDirection mItemDirection = ItemDirection.LeftToRight;
+
+    public enum ItemDirection {
+        LeftToRight,
+        TopToBottom
+    }
 
     public enum TouchUiConfirmMode {
         SINGLE_TOUCH,
@@ -113,6 +119,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setTouchUiConfirmMode(TouchUiConfirmMode touchUiConfirmMode) {
         mTouchUiConfirmMode = touchUiConfirmMode;
+    }
+
+    public void setItemDirection(ItemDirection itemDirection) {
+        mItemDirection = itemDirection;
     }
 
     public void setSelectionListener(SelectionListener<T> selectionListener) {
@@ -305,12 +315,22 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
 
-            if ((idx + 1) % mColumnCount == 0) {
-                // New row
-                x = 0;
-                y -= mItemHeight;
+            if (mItemDirection == ItemDirection.LeftToRight) {
+                if ((idx + 1) % mColumnCount == 0) {
+                    // New row
+                    x = 0;
+                    y -= mItemHeight;
+                } else {
+                    x += mItemWidth + itemSpacing;
+                }
             } else {
-                x += mItemWidth + itemSpacing;
+                if (y - mItemHeight < 0) {
+                    // New column
+                    x += mItemWidth + itemSpacing;
+                    y = getHeight() - mItemHeight;
+                } else {
+                    y -= mItemHeight;
+                }
             }
         }
     }
@@ -334,35 +354,67 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public boolean goUp() {
-        if (mCurrentIndex - mColumnCount >= 0) {
-            setCurrentIndex(mCurrentIndex - mColumnCount);
-            return true;
+        if (mItemDirection == ItemDirection.LeftToRight) {
+            if (mCurrentIndex - mColumnCount >= 0) {
+                setCurrentIndex(mCurrentIndex - mColumnCount);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            if (mCurrentIndex > 0) {
+                setCurrentIndex(mCurrentIndex - 1);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     @Override
     public boolean goDown() {
-        if (mCurrentIndex + mColumnCount < mItems.size) {
-            setCurrentIndex(mCurrentIndex + mColumnCount);
-            return true;
+        if (mItemDirection == ItemDirection.LeftToRight) {
+            if (mCurrentIndex + mColumnCount < mItems.size) {
+                setCurrentIndex(mCurrentIndex + mColumnCount);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            if (mCurrentIndex < mItems.size - 1) {
+                setCurrentIndex(mCurrentIndex + 1);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     @Override
     public void goLeft() {
-        if (mCurrentIndex > 0) {
-            setCurrentIndex(mCurrentIndex - 1);
+        if (mItemDirection == ItemDirection.LeftToRight) {
+            if (mCurrentIndex > 0) {
+                setCurrentIndex(mCurrentIndex - 1);
+            }
+        } else {
+            int rowCount = getRowCount();
+            if (mCurrentIndex - rowCount >= 0) {
+                setCurrentIndex(mCurrentIndex - rowCount);
+            }
         }
     }
 
     @Override
     public void goRight() {
-        if (mCurrentIndex < mItems.size - 1) {
-            setCurrentIndex(mCurrentIndex + 1);
+        if (mItemDirection == ItemDirection.LeftToRight) {
+            if (mCurrentIndex < mItems.size - 1) {
+                setCurrentIndex(mCurrentIndex + 1);
+            }
+        } else {
+            int rowCount = getRowCount();
+            if (mCurrentIndex + rowCount < mItems.size) {
+                setCurrentIndex(mCurrentIndex + rowCount);
+            }
         }
     }
 
@@ -422,5 +474,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         } else {
             return INVALID_INDEX;
         }
+    }
+
+    private int getRowCount() {
+        return (int) (getHeight() / mItemHeight);
     }
 }
