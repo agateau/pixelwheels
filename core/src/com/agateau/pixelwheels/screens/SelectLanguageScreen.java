@@ -115,8 +115,8 @@ public class SelectLanguageScreen extends PwStageScreen {
         Array<Language> languages = mGame.getAssets().languages.getAll();
         languages.sort((l1, l2) -> l1.name.compareToIgnoreCase(l2.name));
         languageSelector.setItems(languages);
-        languageSelector.setItemSize(menu.getWidth(), ITEM_HEIGHT);
-        languageSelector.setColumnCount(1);
+        languageSelector.setItemSize(menu.getWidth() / 2 - 10, ITEM_HEIGHT);
+        languageSelector.setColumnCount(2);
         languageSelector.setTouchUiConfirmMode(GridMenuItem.TouchUiConfirmMode.SINGLE_TOUCH);
 
         HashMap<String, BitmapFont> fontForLanguage = getFontForLanguage(languages);
