@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-12-22 18:00+0100\n"
+"PO-Revision-Date: 2023-01-01 17:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: eo\n"
@@ -61,7 +61,7 @@ msgstr "Supren, supren, supren... kaj malsupren!"
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr "Bilderaj Urboj"
+msgstr "Rastrumaj Urboj"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
@@ -75,7 +75,7 @@ msgstr "Eta apud Maro"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr "Bilderaj Radoj"
+msgstr "Rastrumaj Radoj"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
@@ -150,7 +150,7 @@ msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr "Ĉampionado de bilderaj urboj:"
+msgstr "Ĉampionado de rastrumaj urboj:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -291,11 +291,11 @@ msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
-msgstr ""
+msgstr "Hungara:"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Video Editing"
@@ -871,4 +871,6 @@ msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "MALFERMI DOSIERUJON DE PROTOKOLA DOSIERO"
+msgstr ""
+"MALFERMI DOSIERUJON\n"
+"DE PROTOKOLA DOSIERO"
