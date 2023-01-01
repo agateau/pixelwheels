@@ -79,6 +79,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private boolean mStopped = false;
     private Material mMaterial = Material.ROAD;
     private float mSpeedLimiter = 1f;
+    private boolean mFlying = false;
 
     private Probe mProbe = null;
 
@@ -267,8 +268,26 @@ public class Vehicle implements Racer.Component, Disposable {
         return Constants.UNIT_FOR_PIXEL * getRegion(0).getRegionHeight();
     }
 
+    public void setFlying(boolean flying) {
+        if (flying == mFlying) {
+            // No changes
+            return;
+        }
+        if (flying) {
+            // Taking off
+            Box2DUtils.setCollisionInfo(mBody, 0, 0);
+            for (WheelInfo info : mWheels) {
+                Box2DUtils.setCollisionInfo(info.wheel.getBody(), 0, 0);
+            }
+        } else {
+            // Landing
+            applyCollisionInfo();
+        }
+        mFlying = flying;
+    }
+
     public boolean isFlying() {
-        return mZ > 0;
+        return mFlying;
     }
 
     public boolean isFalling() {
@@ -280,16 +299,6 @@ public class Vehicle implements Racer.Component, Disposable {
     }
 
     public void setZ(float z) {
-        boolean wasFlying = mZ > 0;
-        boolean flying = z > 0;
-        if (!wasFlying && flying) {
-            Box2DUtils.setCollisionInfo(mBody, 0, 0);
-            for (WheelInfo info : mWheels) {
-                Box2DUtils.setCollisionInfo(info.wheel.getBody(), 0, 0);
-            }
-        } else if (wasFlying && !flying) {
-            applyCollisionInfo();
-        }
         mZ = z;
     }
 

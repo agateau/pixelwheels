@@ -1,0 +1,9 @@
+Mostantól minden pálya rendelkezik előre meghatározott legjobb köridő és legjobb versenyidő bejegyzésekkel.
+
+Átdolgozásra került annak módja, ahogy a játék közli a játékossal, hogy megdöntötte a személyes rekordját.
+
+Az Antonin kocsi dizájnja átdolgozásra került.
+
+Javítva lett a játékvezérlő-támogatás.
+
+Nem kerülnek rögzítésre a pontszámok, ha a játékmenetet befolyásoló fejlesztői beállítások megváltoztatásra kerülnek.

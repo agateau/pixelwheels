@@ -1,0 +1,4 @@
+- Bajnokságok! A bajnokságok első durva változata hozzáadva: mivel jelenleg 4 pálya van a Pixel Wheelsben, ezek 2, egyenként 2 pályából álló bajnokságba lettek csoportosítva.
+- A hanghatások hangereje egymáshoz lett igazítva a hangzavar elkerülése érdekében.
+- Mostantól minden futam elején 3 másodperces visszaszámlálás van.
+- A ponttáblázatokban a játékosok sorai mostantól különböző színeket használnak.

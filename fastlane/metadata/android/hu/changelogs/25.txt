@@ -1,0 +1,9 @@
+Új pálya található a Négyzetes hegység bajnokságban. Ezen az új pályán a havas erdőben versenyzel. Vigyázz, nehogy nekimenj egy fának!
+
+A Pixel Wheels mostantól svédre is le van fordítva Sanchez jóvoltából.
+
+A járművek rajzolásának módja továbbfejlesztésre került: a járművek árnyékai most már tartalmazzák a gumiabroncsok árnyékát, és amikor egy jármű víz alá kerül, a kerekei továbbra is kirajzolódnak.
+
+A vezetési viselkedés finomhangolásra került, hogy kellemesebb legyen.
+
+Az Android TV-n a Pixel Wheels mostantól a játékok között szerepel, nem az alkalmazások között.

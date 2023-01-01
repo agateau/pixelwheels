@@ -1,0 +1,95 @@
+#!/bin/bash
+set -euo pipefail
+
+PROGNAME=$(basename $0)
+
+cd $(dirname $0)/../..
+
+CHECK_MODE=false
+
+PO_DIR=android/assets/po
+NOTO_CJK_SRC=core/assets-src/fonts/NotoSansCJK-Regular.ttc
+NOTO_CJK_DST=android/assets/fonts/NotoSansCJK-subset.otf
+
+TEMP_DIR="$(mktemp -d --tmpdir "font-update-XXXXXX")"
+
+delete_temp_dir() {
+    rm -rf $TEMP_DIR
+}
+
+trap delete_temp_dir INT TERM EXIT
+
+die() {
+    echo "$PROGNAME: $*" >&2
+    exit 1
+}
+
+usage() {
+    if [ "$*" != "" ] ; then
+        echo "Error: $*"
+        echo
+    fi
+
+    cat << EOF
+Usage: $PROGNAME [OPTION ...]
+Updates fonts to ensure they contain all the required glyphs.
+
+Options:
+  -h, --help          display this usage message and exit
+  -c, --check         check if fonts are up-to-date, do not update them
+EOF
+
+    exit 1
+}
+
+parse_args() {
+    while [ $# -gt 0 ] ; do
+        case "$1" in
+        -h|--help)
+            usage
+            ;;
+        -c|--check)
+            CHECK_MODE=true
+            ;;
+        -*)
+            usage "Unknown option '$1'"
+            ;;
+        *)
+            usage "Too many arguments"
+            ;;
+        esac
+        shift
+    done
+}
+
+update_fonts() {
+    local dst="$1"
+    # Generate a subset of NotoSansCJK containing only the glyphs we need. This
+    # drastically reduces the size of the files to ship.
+
+    # ATTENTION: pyftsubset requires `=` between an option and its value!
+    pyftsubset \
+        --text-file=$PO_DIR/zh_CN.po \
+        $NOTO_CJK_SRC \
+        --font-number=2 \
+        --output-file=$dst
+}
+
+main() {
+    parse_args $@
+
+    if $CHECK_MODE ; then
+        local dst=$TEMP_DIR/out.otf
+        update_fonts "$dst"
+        if cmp --quiet "$NOTO_CJK_DST" "$dst" ; then
+            echo "$NOTO_CJK_DST is up-to-date"
+        else
+            echo "$NOTO_CJK_DST is not up-to-date, run \`make font-update\` to update it"
+            exit 1
+        fi
+    else
+        update_fonts $NOTO_CJK_DST
+    fi
+}
+
+main $@

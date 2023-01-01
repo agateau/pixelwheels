@@ -1,0 +1,3 @@
+Ne engedélyezze a Következő gomb lenyomását, ha az aktuális jármű, pálya vagy bajnokság zárolva van.
+
+Az Android TV indítóikonja olvashatóbbá lett téve.

@@ -220,7 +220,7 @@ clean-android-conf:
 	adb shell "pm clear $(ANDROID_PACKAGE_NAME)"
 
 # tests
-check: codingstyle-check po-check
+check: codingstyle-check po-check font-check
 	@$(GRADLEW) check
 	@$(GRADLEW) test
 
@@ -244,5 +244,11 @@ po-update:
 
 po-check:
 	tools/po-update --check
+
+font-update:
+	tools/fonts/font-update
+
+font-check:
+	tools/fonts/font-update --check
 
 .PHONY: desktop-dist apk-dist dist clean-dist tag tagpush fastlane-beta check tools build release-archives

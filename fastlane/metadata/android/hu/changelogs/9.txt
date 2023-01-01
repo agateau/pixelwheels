@@ -1,0 +1,7 @@
+- Új bónusz: a célkövető rakéta!
+- Játékvezérlő-támogatás engedélyezése Androidon.
+- A kamera többé már nem forog a játékos járművét követve.
+- Továbbfejlesztett érintésvezérlés.
+- A bónuszládák nagyobbak lettek, így könnyebb őket megszerezni.
+- A turbó és a legnagyobb sebesség egy kicsit csökkentve.
+- Mostantól az aknákat (és a rakétákat!) fegyverrel is elpusztíthatod. Ez azt is jelenti, hogy ha aknabónuszt szedtél fel, de még nem dobtad le, akkor az megvédhet téged egy lövedéktől vagy rakétától.

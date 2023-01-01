@@ -1,0 +1,4 @@
+- A Pixel Wheels mostantól minden pályán megjegyzi a legjobb kört és a legjobb versenyidőt, és gratulációs üzenetet jelenít meg, ha bármelyik kategóriában a legjobb 3 közé kerülsz.
+- Hangok lettek hozzáadva az indítási visszaszámláláshoz.
+- Minél gyorsabban halad a jármű, annál jobban lesz kinagyítva a nézet, így több időd marad az előtted lévő pálya áttekintésére.
+- A járművek, pályák és bajnokságok kiválasztására szolgáló képernyőkön mostantól megjelenik a kiválasztott elem neve. Továbbá a pályaválasztó képernyőn megjelennek a pályarekordok.
