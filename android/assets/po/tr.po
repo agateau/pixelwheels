@@ -89,7 +89,7 @@ msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr "Piksel"
+msgstr "Tasarım"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:103
@@ -114,7 +114,7 @@ msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr "Victory:"
+msgstr "Zafer:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
@@ -286,11 +286,11 @@ msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:94
 msgid "Turkish:"
-msgstr ""
+msgstr "Türkçe:"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:97
 msgid "Video Editing"
