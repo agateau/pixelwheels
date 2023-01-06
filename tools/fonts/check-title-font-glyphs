@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""
+Check the title font contains all the required glyphs for translations using it.
+
+The implementation is not very precise: it's going to report missing glyphs for
+*all* texts, not only those using the title font.
+"""
+import argparse
+import xml.etree.ElementTree as ET
+import re
+import subprocess
+import sys
+
+from pathlib import Path
+from tempfile import NamedTemporaryFile
+from typing import Iterable
+
+
+ROOT_DIR = Path(__file__).parent.parent.parent
+ASSETS_DIR = ROOT_DIR / "android" / "assets"
+PO_DIR = ASSETS_DIR / "po"
+TITLE_FONT = ASSETS_DIR / "fonts" / "Kwajong-Italic.otf"
+LANGUAGES_XML = ASSETS_DIR / "ui" / "languages.xml"
+
+
+TOKEN_PATTERN = re.compile(r"'U\+([0-9A-F]{4})'")
+
+
+def parse_token(token: str) -> int:
+    # input looks like this:
+    # "'U+0410' "
+    match = TOKEN_PATTERN.search(token)
+    assert match, f"`{token}` does not match the token pattern"
+    return int(match.group(1), 16)
+
+
+def parse_pyftsubset_log(out: str) -> Iterable[int]:
+    # We are looking for a line like this:
+    # fontTools.subset.Subsetter.MissingUnicodesSubsettingError: ['U+0410', 'U+0411']
+    pattern = re.compile(r"fontTools\.subset\..*\[(.*)\]$")
+    match = pattern.search(out, re.MULTILINE)
+    assert match, f"Output does not match:\n{out}"
+
+    tokens = match.group(1).split(",")
+    return sorted(parse_token(x) for x in tokens)
+
+
+def check_title_font(text_file: str) -> Iterable[int]:
+    cmd = ["pyftsubset", f"--text-file={text_file}",
+           "--no-ignore-missing-unicodes", "--output-file=/dev/null",
+           TITLE_FONT]
+
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    if proc.returncode == 0:
+        return
+    return parse_pyftsubset_log(proc.stderr)
+
+
+def read_po_file_glyphs(po_file: str) -> str:
+    """
+    Crude way to get all glyphs from a po file: create a string containing all
+    glyphs used in the .po file. The only "smartness" is skipping comment
+    lines.
+
+    A better implementation would only read the msgstr parts, but I doubt it
+    would remove a lot of glyphs, and the glyphs it would remove are in the
+    title font already, so we would not gain much.
+    """
+    text = set()
+    for line in Path(po_file).read_text().splitlines():
+        if line.startswith("#"):
+            continue
+        text |= set(line)
+    return "".join(text)
+
+
+def list_po_files_using_title_font() -> Iterable[Path]:
+    tree = ET.parse(LANGUAGES_XML)
+    root = tree.getroot()
+    for elt in root.findall("Language"):
+        lang_id = elt.get("id")
+        if lang_id == "en":
+            continue
+        if elt.get("fontSet") == "xolonium-kwajong":
+            po_path = PO_DIR / f"{lang_id}.po"
+            assert po_path.exists()
+            yield po_path
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=__doc__)
+
+    args = parser.parse_args()
+
+    assert TITLE_FONT.exists()
+    assert LANGUAGES_XML.exists()
+
+    po_files = list_po_files_using_title_font()
+
+    fails = 0
+    for po_file in po_files:
+        text = read_po_file_glyphs(po_file)
+
+        with NamedTemporaryFile() as text_file:
+            text_file.write(text.encode("utf-8"))
+            text_file.flush()
+            missing_glyphs = check_title_font(text_file.name)
+
+        if missing_glyphs:
+            print(f"Missing glyphs in {po_file}:")
+            for glyph in missing_glyphs:
+                print(f"U+{glyph:04x}: {chr(glyph)}")
+            fails += 1
+
+    return fails
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+# vi: ts=4 sw=4 et
