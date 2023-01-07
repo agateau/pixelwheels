@@ -281,10 +281,18 @@ msgid "Lu Xu"
 msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
+msgid "Esperanto:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:93
+msgid "Jorge Maldonado Ventura"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
 msgstr "Magyar:"
 
-#: android/assets/screens/credits.gdxui:93
+#: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
 msgstr "Úr Balázs"
 

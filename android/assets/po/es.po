@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-11-17 09:35+0100\n"
+"PO-Revision-Date: 2022-12-16 14:36+0100\n"
 "Last-Translator: victorhck <victorhck@mailbox.org>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -283,10 +283,18 @@ msgid "Lu Xu"
 msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
+msgid "Esperanto:"
+msgstr "Esperanto:"
+
+#: android/assets/screens/credits.gdxui:93
+msgid "Jorge Maldonado Ventura"
+msgstr "Jorge Maldonado Ventura"
+
+#: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:93
+#: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
 msgstr ""
 
@@ -298,7 +306,6 @@ msgstr ""
 msgid "nxjoseph"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:98
 msgid "Video Editing"
 msgstr "Edición de vídeo"
 
