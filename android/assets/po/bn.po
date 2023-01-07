@@ -97,7 +97,7 @@ msgid "Pixels"
 msgstr "পিক্সেল"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:104
+#: android/assets/screens/credits.gdxui:107
 msgid "Antonin Gâteau"
 msgstr "অ্যান্টনিও গাটেও"
 
@@ -225,7 +225,7 @@ msgid "Spanish:"
 msgstr "স্পেনীয়:"
 
 #: android/assets/screens/credits.gdxui:69
-#: android/assets/screens/credits.gdxui:100
+#: android/assets/screens/credits.gdxui:103
 msgid "Clara Gâteau"
 msgstr "ক্লারা গাটেই"
 
@@ -299,51 +299,59 @@ msgid "Balázs Úr"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:98
+msgid "Turkish:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:99
+msgid "nxjoseph"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:101
 msgid "Video Editing"
 msgstr "ভিডিও সম্পাদনা"
 
-#: android/assets/screens/credits.gdxui:102
+#: android/assets/screens/credits.gdxui:105
 msgid "Special Thanks"
 msgstr "বিশেষ ধন্যবাদ"
 
-#: android/assets/screens/credits.gdxui:105
+#: android/assets/screens/credits.gdxui:108
 msgid "Guillaume Roche"
 msgstr "গিলম রচে"
 
-#: android/assets/screens/credits.gdxui:106
+#: android/assets/screens/credits.gdxui:109
 msgid "Ethan Chapman"
 msgstr "এথান চ্যাপম্যান"
 
-#: android/assets/screens/credits.gdxui:107
+#: android/assets/screens/credits.gdxui:110
 #, fuzzy
 msgid "All bug reporters"
 msgstr "এবং সব গিটহাব সমস্যা প্রতিবেদক"
 
-#: android/assets/screens/credits.gdxui:108
+#: android/assets/screens/credits.gdxui:111
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "প্যাট্রন, কো-ফি এবং পেপালের সব সাহায্যকারীরা"
 
-#: android/assets/screens/credits.gdxui:110
+#: android/assets/screens/credits.gdxui:113
 msgid "Made with"
 msgstr "তৈরির জন্য ব্যবহৃত"
 
-#: android/assets/screens/credits.gdxui:112
+#: android/assets/screens/credits.gdxui:115
 msgid "LibGDX"
 msgstr "লিবজিডিএক্স"
 
-#: android/assets/screens/credits.gdxui:113
+#: android/assets/screens/credits.gdxui:116
 msgid "Tiled"
 msgstr "টাইলড"
 
-#: android/assets/screens/credits.gdxui:114
+#: android/assets/screens/credits.gdxui:117
 msgid "Aseprite"
 msgstr "অ্যাশপ্রিট"
 
-#: android/assets/screens/credits.gdxui:115
+#: android/assets/screens/credits.gdxui:118
 msgid "SFXR Qt"
 msgstr "এসএফএক্সআর কিউটি"
 
-#: android/assets/screens/credits.gdxui:116
+#: android/assets/screens/credits.gdxui:119
 msgid "Android Studio"
 msgstr "অ্যান্ড্রয়েড স্টুডিও"
 

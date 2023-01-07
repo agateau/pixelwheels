@@ -1,88 +1,84 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2022
-# This file is distributed under the same license as the PACKAGE package.
-# Nickoriginal, 2022.
+# nxjoseph <nxjoseph@protonmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-14 21:45+0200\n"
-"Last-Translator: Nickoriginal\n"
-"Language-Team: Russian\n"
-"Language: ru\n"
+"PO-Revision-Date: 2023-01-04 00:33+0300\n"
+"Last-Translator: nxjoseph <nxjoseph@protonmail.com>\n"
+"Language-Team: Turkish\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
 msgid "Country Life"
-msgstr "Сельская жизнь"
+msgstr "Bölge"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr "Добро пожаловать!"
+msgstr "Hoş geldin!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr "Река"
+msgstr "Nehir"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr "Потоп"
+msgstr "Sel Baskını"
 
 #: android/assets/championships/1.xml:2
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr "Квадратные горы"
+msgstr "Kare dağlar"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr "Пусть идёт снег"
+msgstr "Karlı pist"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr "Не поскользнись!"
+msgstr "Buzlu pist"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr "Вверх, вверх, вверх... и вниз!"
+msgstr "Yukarı, yukarı, yukarı... ve aşağı!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr "Пиксельные города"
+msgstr "Piksel şehir"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr "Блочный городок"
+msgstr "Bloklu Kasaba"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr "Колёса у моря"
+msgstr "Tiny sur Mer"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr "Pixel Wheels"
+msgstr "Piksel Tekerlekler"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr "Гоночная игра с открытым исходным кодом"
+msgstr "Açık kaynak bir yarış oyunu"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr "Код"
+msgstr "Kod"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
@@ -93,7 +89,7 @@ msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr "Пиксели"
+msgstr "Tasarım"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:107
@@ -102,11 +98,11 @@ msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr "Музыка"
+msgstr "Müzik"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr "Меню:"
+msgstr "Menü:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
@@ -114,11 +110,11 @@ msgstr "\"Lightspeed\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
-msgstr "Томас Трипон"
+msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr "Победа:"
+msgstr "Zafer:"
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
@@ -133,7 +129,7 @@ msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr "Чемпионат Сельская жизнь:"
+msgstr "Bölge şampiyonu:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
@@ -141,7 +137,7 @@ msgstr "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr "Чемпионат Квадратные горы:"
+msgstr "Kare dağlar şampiyonu:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
@@ -149,7 +145,7 @@ msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr "Чемпионат Пиксельные города:"
+msgstr "Piksel şehir şampiyonu:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -157,7 +153,7 @@ msgstr "\"Bouncing Baal v0.95\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr "Звуковые эффекты"
+msgstr "Ses efektleri"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
@@ -177,11 +173,11 @@ msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr "Другие звуковые эффекты"
+msgstr "Diğer ses efektleri"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr "Шрифты"
+msgstr "Yazı tipleri"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
@@ -209,19 +205,19 @@ msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
-msgstr "Переводы"
+msgstr "Çeviriler"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr "Немецкий:"
+msgstr "Almanca:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
-msgstr "Кристиан Шрёттер"
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
-msgstr "Испанский:"
+msgstr "İspanyolca:"
 
 #: android/assets/screens/credits.gdxui:69
 #: android/assets/screens/credits.gdxui:103
@@ -230,7 +226,7 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr "Баскский:"
+msgstr "Baskça:"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
@@ -238,11 +234,11 @@ msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "French:"
-msgstr "Французский:"
+msgstr "Fransızca:"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "Polish:"
-msgstr "Польский:"
+msgstr "Lehçe:"
 
 #: android/assets/screens/credits.gdxui:78
 msgid "PandaCoderPL"
@@ -250,15 +246,15 @@ msgstr "PandaCoderPL"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
-msgstr "Шведский:"
+msgstr "İsveççe:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr "Санчез"
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr "Русский:"
+msgstr "Rusça:"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
@@ -266,7 +262,7 @@ msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Bengali:"
-msgstr "Бенгальский:"
+msgstr "Bengalce:"
 
 #: android/assets/screens/credits.gdxui:87
 msgid "Oymate"
@@ -274,7 +270,7 @@ msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Chinese:"
-msgstr "Китайский:"
+msgstr "Çince:"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "Lu Xu"
@@ -290,27 +286,27 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
-msgstr ""
+msgstr "Macarca:"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
-msgstr ""
+msgstr "Türkçe:"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Video Editing"
-msgstr "Монтаж видео"
+msgstr "Video düzenleme"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Special Thanks"
-msgstr "Особая благодарность"
+msgstr "Özel Teşekkür"
 
 #: android/assets/screens/credits.gdxui:108
 msgid "Guillaume Roche"
@@ -318,23 +314,23 @@ msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:109
 msgid "Ethan Chapman"
-msgstr "Итан Чапман"
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "All bug reporters"
-msgstr "Тем, кто сообщает об ошибках"
+msgstr "Hata raporlayıcılar"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Тем, кто поддерживает на Patreon, Ko-fi и Paypal"
+msgstr "Patreon, Ko-fi ve Paypal destekçileri"
 
 #: android/assets/screens/credits.gdxui:113
 msgid "Made with"
-msgstr "Создано с"
+msgstr "ile yapıldı"
 
 #: android/assets/screens/credits.gdxui:115
 msgid "LibGDX"
-msgstr "Библиотека GDX"
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:116
 msgid "Tiled"
@@ -346,320 +342,315 @@ msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:118
 msgid "SFXR Qt"
-msgstr "Порт SFXR на Qt"
+msgstr "SFXR Qt"
 
 #: android/assets/screens/credits.gdxui:119
 msgid "Android Studio"
-msgstr "Студия Android"
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr ""
-"Настройки, влияющие на игровой процесс были изменены, прогресс не будет "
-"сохранён"
+msgstr "Oynanışı etkileyen ayarlar değiştirildi, skor kaydedilmeyecek."
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr "НАЧАТЬ ЗАНОВО"
+msgstr "YENİDEN BAŞLAT"
 
 #: android/assets/screens/finishedoverlay.gdxui:35
 msgid "BACK TO MENU"
-msgstr "НАЗАД В МЕНЮ"
+msgstr "MENÜYE DÖN"
 
 #: android/assets/screens/finishedoverlay.gdxui:38
 msgid "CONTINUE"
-msgstr "ПРОДОЛЖИТЬ"
+msgstr "DEVAM ET"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr "Конфигурация геймпада"
+msgstr "Kontrolör ayarları"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 msgid "Trigger:"
-msgstr "Триггер:"
+msgstr "Tetik:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr "Назад/разворот:"
+msgstr "Geri sürüş"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr "Конфигурация клавиатуры"
+msgstr "Klavye ayarları"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr "ОДИН ИГРОК"
+msgstr "TEK OYUNCULU"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr "НЕСКОЛЬКО ИГРОКОВ"
+msgstr "ÇOK OYUNCULU"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr "ОБЫЧНАЯ ГОНКА"
+msgstr "HIZLI YARIŞ"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr "ЧЕМПИОНАТ"
+msgstr "ŞAMPİYONLUK"
 
 #: android/assets/screens/mainmenu.gdxui:33
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr "НАСТРОЙКИ"
+msgstr "AYARLAR"
 
 #: android/assets/screens/mainmenu.gdxui:35
 msgid "QUIT"
-msgstr "ВЫЙТИ"
+msgstr "ÇIK"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
-msgstr "Выберите ваши автомобили"
+msgstr "Aracı seçin"
 
 #: android/assets/screens/multiplayer.gdxui:16
 #: android/assets/screens/multiplayer.gdxui:18
 msgid "Ready!"
-msgstr "Приготовиться!"
+msgstr "Hazır!"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
-msgstr "Не все геймпады подключены"
+msgstr "Kontrolör kayıp"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr "Пауза"
+msgstr "Durduruldu"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr "ПРОДОЛЖИТЬ"
+msgstr "DEVAM ET"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr "ВЫЙТИ В МЕНЮ"
+msgstr "MENÜYE DÖN"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr "Выберите чемпионат"
+msgstr "Şampiyonluk seç"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Выберите режим игры"
+msgstr "Oyun modunu seç"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
-msgstr "Выберите язык"
+msgstr "Dil seç"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Выберите гоночную трассу"
+msgstr "Pist seç"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr "Лучший круг"
+msgstr "En iyi tur"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr "Лучшее общее время"
+msgstr "En iyi toplam"
 
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
-msgstr "Выберите ваш транспорт"
+msgstr "Aracını seç"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr "2-лошади"
+msgstr "2-Deuch"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr "Ант Он-1"
+msgstr "Karınca-1"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr "Трак Бростера"
+msgstr "Kardeş Kamyon"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr "Тёмный М"
+msgstr "Kara M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr "Комбайн"
+msgstr "Biçerdöver"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr "Джип"
+msgstr "Jip"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid "Miramar"
-msgstr "Мирамар"
+msgstr "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr "Пикап"
+msgstr "Kamyonet"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid "Highway Patrol"
-msgstr "Дорожный патруль"
+msgstr "Polis aracı"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr "Красная молния"
+msgstr "Kırmızı şimşek"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr "Родстер"
+msgstr "Yolcu arabası"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr "Ракета"
+msgstr "Roket"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr "Трак Санты"
+msgstr "Noel Baba kamyonu"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
-msgstr "Поделиться через"
+msgstr "Aracılığıyla paylaş"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr "Нашли ошибку? Нажмите на эту кнопку, чтобы сообщить о ней."
+msgstr "Hatayla mı karşılaştın? Raporlamak için bu butonu kullanın."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
-msgstr "СООБЩИТЬ ОБ ОШИБКЕ"
+msgstr "HATA RAPORLA"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] "Взорви %# машину ракетой"
-msgstr[1] "Взорви %# машины ракетой"
-msgstr[2] "Взорви %# машин ракетой"
+msgstr[0] "Bir araca füze ile vur"
+msgstr[1] "%# aracı füze ile vur"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] "Покинь дорогу %# раз"
-msgstr[1] "Покинь дорогу %# раза"
-msgstr[2] "Покинь дорогу %# раз"
+msgstr[0] "Yoldan bir kez ayrıl"
+msgstr[1] "Yoldan %# kez ayrıl"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] "Подбери %# бонус"
-msgstr[1] "Подбери %# бонуса"
-msgstr[2] "Подбери %# бонусов"
+msgstr[0] "Bir bonus al"
+msgstr[1] "%# bonus al"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
 msgid "Gamepad"
-msgstr "Геймпад"
+msgstr "Kontrolör"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 msgid "Keyboard"
-msgstr "Клавиатура"
+msgstr "Klavye"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr "Кнопки-пирожные"
+msgstr "Pasta düğmeleri"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr "Боковые кнопки"
+msgstr "Köşe düğmeleri"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
-msgstr "Рейтинг чемпионата"
+msgstr "Şampiyonluk Sıralaması"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
-msgstr "Результаты гонки"
+msgstr "Yarış sonuçları"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "Congratulations, great race!"
-msgstr "Поздравляю, отличная гонка!"
+msgstr "Tebrikler, iyi yarıştı!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
-msgstr "У тебя есть серьёзные навыки вождения!"
+msgstr "Bazı ciddi sürüş becerileriniz var!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
-msgstr "Ты - чемпион!"
+msgstr "Sen bir şampiyonsun!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
-msgstr "Мне нравится такое исполнение!"
+msgstr "Bu performans için tebrikler!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
-msgstr "Восхитительно!"
+msgstr "Etkileyici!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr "N°"
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 msgid "Best lap"
-msgstr "Лучший круг"
+msgstr "En iyi tur"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
-msgstr "Гонщик"
+msgstr "Yarışçı"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
-msgstr "Общее время"
+msgstr "Toplam süre"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Points"
-msgstr "Очки"
+msgstr "Puanlar"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 msgid "Race time"
-msgstr "Время гонки"
+msgstr "Yarış süresi"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 #, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Приди к финишу третьим или ещё быстрее на чемпионате %s"
+msgstr "%s şampiyonluğunda üçüncü olarak veya daha iyi bitir"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
 #, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Приди к финишу вторым или ещё быстрее на чемпионате %s"
+msgstr "%s şampiyonluğunda ikinci olarak veya daha iyi bitir"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
 #, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "Приди к финишу первым на чемпионате %s"
+msgstr "%s şampiyonluğunu birinci olarak bitir"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -667,221 +658,218 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
-"Чемпионат\n"
-"окончен!"
+"Şampiyonluk\n"
+"tamamlandı!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
-msgstr "Об игре"
+msgstr "Hakkında"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 #, java-printf-format
 msgid "Pixel Wheels %s"
-msgstr "Pixel Wheels %s"
+msgstr "Piksel Tekerlekler %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
 msgid "CREDITS"
-msgstr "ТИТРЫ"
+msgstr "KATKIDA BULUNANLAR"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
-"Pixel Wheels бесплатна, но вы можете поддержать её\n"
-"разработку любым удобным способом."
+"Piksel Tekerlekler ücretsizdir, ama çeşitli yollardan\n"
+"gelişimini destekleyebilirsin."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "VISIT SUPPORT PAGE"
-msgstr "ПОДДЕРЖАТЬ ИГРУ"
+msgstr "DESTEK SAYFASINI ZİYARET ET"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "Learn more about Pixel Wheels"
-msgstr "Узнать больше о Pixel Wheels"
+msgstr "Piksel Tekerlekler hakkında daha fazla öğren"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "VISIT WEB SITE"
-msgstr "ПОСЕТИТЬ САЙТ ИГРЫ"
+msgstr "WEB SİTESİNİ ZİYARET ET"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
 msgid "Under the hood"
-msgstr "Под капотом"
+msgstr "Sorun giderme"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
-"Эти опции нужны для разработки Pixel Wheels, но и вы можете свободно менять "
-"их!"
+"Bu seçenekler Piksel Tekerlekler için ilgi çekicidir, amabakınmakta "
+"serbestsin!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEV. OPTIONS"
-msgstr "ДЛЯ РАЗРАБОТЧИКОВ"
+msgstr "GELİŞTİRİCİ SEÇENEKLERİ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Controls"
-msgstr "Управление"
+msgstr "Kontroller"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 #, java-printf-format
 msgid "Player #%d:"
-msgstr "Игрок #%d:"
+msgstr "Oyuncu #%d:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Controls:"
-msgstr "Управление:"
+msgstr "Kontroller:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
 msgid "General"
-msgstr "Основное"
+msgstr "Genel"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Language:"
-msgstr "Язык:"
+msgstr "Dil:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
 msgid "Audio"
-msgstr "Звуки"
+msgstr "Ses"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid "Sound FX:"
-msgstr "Звуки:"
+msgstr "Ses Efektleri"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
 msgid "Music:"
-msgstr "Музыка:"
+msgstr "Müzik:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
 msgid "Video"
-msgstr "Видео"
+msgstr "Video"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
 msgid "Fullscreen:"
-msgstr "На весь экран:"
+msgstr "Tam ekran:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
 msgid "CONFIGURE"
-msgstr "НАСТРОИТЬ"
+msgstr "DÜZENLE"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr "Спасибо за игру!"
+msgstr "Oynadığınız için teşekkürler!"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Brake"
-msgstr "Тормоз"
+msgstr "Fren"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Steer left"
-msgstr "Руль влево"
+msgstr "Sola dön"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Steer right"
-msgstr "Руль вправо"
+msgstr "Sağa dön"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Trigger"
-msgstr "Триггер"
+msgstr "Tetik"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
-msgstr "Вверх"
+msgstr "Yukarı"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
-msgstr "Вниз"
+msgstr "Aşağı"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
-msgstr "Влево"
+msgstr "Sol"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
-msgstr "Вправо"
+msgstr "Sağ"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
-msgstr "Активировать"
+msgstr "Aktif et"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
-msgstr "Назад"
+msgstr "Geri"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
-msgstr "Отсутствует"
+msgstr "Kayıp"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
-msgstr "ОК"
+msgstr "OK"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
-msgstr "Игрок #%d: %s"
+msgstr "Oyuncu #%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
 msgid "MAIN MENU"
-msgstr "ГЛАВНОЕ МЕНЮ"
+msgstr "ANA MENÜ"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
 msgid "[Locked]"
-msgstr "[Заблокировано]"
+msgstr "[Kilitli]"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
-msgstr "Компьютер"
+msgstr "Bilgisayar"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr "Разблокирован новый транспорт!"
+msgstr "Yeni araç açıldı!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 msgid "New championship unlocked!"
-msgstr "Разблокирован новый чемпионат!"
+msgstr "Yeni şampiyonluk açıldı!"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr "1ый"
+msgstr "1."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr "2ой"
+msgstr "2."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr "3ий"
+msgstr "3."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr "4ый"
+msgstr "4."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr "5ый"
+msgstr "5."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr "6ой"
+msgstr "6."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
-"Хотите заполнить сообщение об ошибке? Нажмите на эту кнопку, чтобы найти и "
-"прикрепить файл лога."
+"Hata raporunuzu dosyalamaya ihtiyacınız mı var? Hata raporu günlüğünü "
+"yüklemek için bu butonu kullanın."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "НАЙТИ ФАЙЛ ЛОГА"
-
-#~ msgid "Press the gamepad key..."
-#~ msgstr "Зажмите нужную кнопку геймпада..."
+msgstr "GÜNLÜK KLASÖRÜ"
