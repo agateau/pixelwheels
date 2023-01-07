@@ -96,7 +96,7 @@ msgid "Pixels"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:104
+#: android/assets/screens/credits.gdxui:107
 msgid "Antonin Gâteau"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgid "Spanish:"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:69
-#: android/assets/screens/credits.gdxui:100
+#: android/assets/screens/credits.gdxui:103
 msgid "Clara Gâteau"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Jorge Maldonado Ventura"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
 msgstr ""
 
@@ -296,59 +296,59 @@ msgstr ""
 msgid "Balázs Úr"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 msgid "Video Editing"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:102
+#: android/assets/screens/credits.gdxui:105
 msgid "Special Thanks"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:105
+#: android/assets/screens/credits.gdxui:108
 msgid "Guillaume Roche"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:106
+#: android/assets/screens/credits.gdxui:109
 msgid "Ethan Chapman"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:107
+#: android/assets/screens/credits.gdxui:110
 msgid "All bug reporters"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:108
+#: android/assets/screens/credits.gdxui:111
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:110
+#: android/assets/screens/credits.gdxui:113
 msgid "Made with"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:112
+#: android/assets/screens/credits.gdxui:115
 msgid "LibGDX"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:113
+#: android/assets/screens/credits.gdxui:116
 msgid "Tiled"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:114
+#: android/assets/screens/credits.gdxui:117
 msgid "Aseprite"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:115
+#: android/assets/screens/credits.gdxui:118
 msgid "SFXR Qt"
 msgstr ""
 
-#: android/assets/screens/credits.gdxui:116
+#: android/assets/screens/credits.gdxui:119
 msgid "Android Studio"
 msgstr ""
 
