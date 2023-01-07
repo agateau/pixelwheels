@@ -75,6 +75,7 @@ public class AndroidLauncher extends AndroidApplication {
         LogFilePrinter printer =
                 new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener);
         NLog.addPrinter(printer);
+        NLog.addPrinter(new AndroidNLogPrinter());
 
         AndroidLogExporter exporter = new AndroidLogExporter(this, printer);
         game.setLogExporter(exporter);

@@ -40,29 +40,6 @@ public class NLog {
         void print(int level, String tag, String message);
     }
 
-    /** Implementation of Printer which logs to System.err */
-    public static class DefaultPrinter implements Printer {
-        final long mStartTime;
-
-        DefaultPrinter() {
-            mStartTime = System.currentTimeMillis();
-        }
-
-        @Override
-        public void print(int level, String tag, String message) {
-            String levelString;
-            if (level == Application.LOG_DEBUG) {
-                levelString = "D";
-            } else if (level == Application.LOG_INFO) {
-                levelString = "I";
-            } else { // LOG_ERROR
-                levelString = "E";
-            }
-            long timeSpent = System.currentTimeMillis() - mStartTime;
-            System.err.printf("%08d %s %s %s\n", timeSpent, levelString, tag, message);
-        }
-    }
-
     public static void d(Object obj, Object... args) {
         print(Application.LOG_DEBUG, obj, args);
     }
@@ -86,11 +63,14 @@ public class NLog {
         sPrinters.add(printer);
     }
 
-    private static synchronized void print(int level, Object obj, Object... args) {
+    static synchronized void print(int level, Object obj, Object... args) {
         if (sStackDepth < 0) {
             initStackDepth();
         }
-        final String tag = getCallerMethod();
+        print(level, getCallerMethod(), obj, args);
+    }
+
+    static synchronized void print(int level, String tag, Object obj, Object... args) {
         String message;
         if (obj == null) {
             message = "(null)";
@@ -99,7 +79,7 @@ public class NLog {
             message = args.length > 0 ? String.format(format, args) : format;
         }
         if (sPrinters.isEmpty()) {
-            sPrinters.add(new DefaultPrinter());
+            sPrinters.add(new SystemErrPrinter());
         }
         for (Printer printer : sPrinters) {
             printer.print(level, tag, message);

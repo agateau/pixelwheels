@@ -41,8 +41,8 @@ import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
 import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.ScreenshotCreator;
-import com.agateau.utils.log.GdxPrinter;
 import com.agateau.utils.log.NLog;
+import com.agateau.utils.log.NLogGdxApplicationLogger;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
@@ -112,9 +112,9 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void create() {
-        // Adding the printer must be done only now because it requires
+        // Installing the GdxApplicationLogger must be done only now because it requires
         // Gdx.app to be initialized
-        NLog.addPrinter(new GdxPrinter());
+        NLogGdxApplicationLogger.install();
 
         logStartup();
 
