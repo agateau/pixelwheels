@@ -20,21 +20,20 @@ package com.agateau.pixelwheels.android;
 
 import android.util.Log;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.Application;
 
 /** Implementation of NLog.Printer using Android logging facilities */
 public class AndroidNLogPrinter implements NLog.Printer {
     @Override
-    public void print(int level, String tag, String message) {
-        int priority;
+    public void print(NLog.Level level, String tag, String message) {
+        int priority = Log.ERROR;
         switch (level) {
-            case Application.LOG_DEBUG:
+            case DEBUG:
                 priority = Log.DEBUG;
                 break;
-            case Application.LOG_INFO:
+            case INFO:
                 priority = Log.INFO;
                 break;
-            default: // Application.LOG_ERROR:
+            case ERROR:
                 priority = Log.ERROR;
                 break;
         }

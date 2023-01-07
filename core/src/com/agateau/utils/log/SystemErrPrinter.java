@@ -18,21 +18,23 @@
  */
 package com.agateau.utils.log;
 
-import com.badlogic.gdx.Application;
-
 /** Implementation of Printer which logs to System.err */
 public class SystemErrPrinter implements NLog.Printer {
     private final StringBuilder mStringBuilder = new StringBuilder();
 
     @Override
-    public void print(int level, String tag, String message) {
-        String levelString;
-        if (level == Application.LOG_DEBUG) {
-            levelString = "D";
-        } else if (level == Application.LOG_INFO) {
-            levelString = "I";
-        } else { // LOG_ERROR
-            levelString = "E";
+    public void print(NLog.Level level, String tag, String message) {
+        String levelString = "?";
+        switch (level) {
+            case DEBUG:
+                levelString = "D";
+                break;
+            case INFO:
+                levelString = "I";
+                break;
+            case ERROR:
+                levelString = "E";
+                break;
         }
         mStringBuilder.setLength(0);
 

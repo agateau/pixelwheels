@@ -18,7 +18,6 @@
  */
 package com.agateau.utils.log;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationLogger;
 import com.badlogic.gdx.Gdx;
 
@@ -30,42 +29,31 @@ public class NLogGdxApplicationLogger implements ApplicationLogger {
 
     @Override
     public void log(String tag, String message) {
-        NLog.print(Application.LOG_INFO, tag, message);
+        NLog.print(NLog.Level.INFO, tag, message);
     }
 
     @Override
     public void log(String tag, String message, Throwable exception) {
-        NLog.print(
-                Application.LOG_INFO, tag, "%s. Exception: %s", message, exception.getStackTrace());
+        NLog.print(NLog.Level.INFO, tag, "%s. Exception: %s", message, exception.getStackTrace());
     }
 
     @Override
     public void error(String tag, String message) {
-        NLog.print(Application.LOG_ERROR, tag, message);
+        NLog.print(NLog.Level.ERROR, tag, message);
     }
 
     @Override
     public void error(String tag, String message, Throwable exception) {
-        NLog.print(
-                Application.LOG_ERROR,
-                tag,
-                "%s. Exception: %s",
-                message,
-                exception.getStackTrace());
+        NLog.print(NLog.Level.ERROR, tag, "%s. Exception: %s", message, exception.getStackTrace());
     }
 
     @Override
     public void debug(String tag, String message) {
-        NLog.print(Application.LOG_DEBUG, tag, message);
+        NLog.print(NLog.Level.DEBUG, tag, message);
     }
 
     @Override
     public void debug(String tag, String message, Throwable exception) {
-        NLog.print(
-                Application.LOG_DEBUG,
-                tag,
-                "%s. Exception: %s",
-                message,
-                exception.getStackTrace());
+        NLog.print(NLog.Level.DEBUG, tag, "%s. Exception: %s", message, exception.getStackTrace());
     }
 }

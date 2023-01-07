@@ -18,7 +18,6 @@
  */
 package com.agateau.utils.log;
 
-import com.badlogic.gdx.Application;
 import java.util.Vector;
 
 /**
@@ -36,20 +35,26 @@ public class NLog {
     private static final Vector<Printer> sPrinters = new Vector<>();
     private static int sStackDepth = -1;
 
+    public enum Level {
+        DEBUG,
+        INFO,
+        ERROR,
+    }
+
     public interface Printer {
-        void print(int level, String tag, String message);
+        void print(Level level, String tag, String message);
     }
 
     public static void d(Object obj, Object... args) {
-        print(Application.LOG_DEBUG, obj, args);
+        print(Level.DEBUG, obj, args);
     }
 
     public static void i(Object obj, Object... args) {
-        print(Application.LOG_INFO, obj, args);
+        print(Level.INFO, obj, args);
     }
 
     public static void e(Object obj, Object... args) {
-        print(Application.LOG_ERROR, obj, args);
+        print(Level.ERROR, obj, args);
     }
 
     public static void backtrace() {
@@ -63,14 +68,14 @@ public class NLog {
         sPrinters.add(printer);
     }
 
-    static synchronized void print(int level, Object obj, Object... args) {
+    static synchronized void print(Level level, Object obj, Object... args) {
         if (sStackDepth < 0) {
             initStackDepth();
         }
         print(level, getCallerMethod(), obj, args);
     }
 
-    static synchronized void print(int level, String tag, Object obj, Object... args) {
+    static synchronized void print(Level level, String tag, Object obj, Object... args) {
         String message;
         if (obj == null) {
             message = "(null)";

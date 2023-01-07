@@ -18,7 +18,6 @@
  */
 package com.agateau.utils.log;
 
-import com.badlogic.gdx.Application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,7 +43,7 @@ public class LogFilePrinter implements NLog.Printer {
     }
 
     public interface MessageFormatter {
-        String formatMessage(int level, String tag, String message);
+        String formatMessage(NLog.Level level, String tag, String message);
     }
 
     public String getPath() {
@@ -64,13 +63,13 @@ public class LogFilePrinter implements NLog.Printer {
                 private final StringBuilder mStringBuilder = new StringBuilder();
 
                 @Override
-                public String formatMessage(int level, String tag, String message) {
+                public String formatMessage(NLog.Level level, String tag, String message) {
                     String levelString;
-                    if (level == Application.LOG_DEBUG) {
+                    if (level == NLog.Level.DEBUG) {
                         levelString = "D";
-                    } else if (level == Application.LOG_INFO) {
+                    } else if (level == NLog.Level.INFO) {
                         levelString = "I";
-                    } else { // LOG_ERROR
+                    } else { // ERROR
                         levelString = "E";
                     }
                     mStringBuilder.setLength(0);
@@ -114,7 +113,7 @@ public class LogFilePrinter implements NLog.Printer {
     }
 
     @Override
-    public void print(int level, String tag, String message) {
+    public void print(NLog.Level level, String tag, String message) {
         if (mStream == null) {
             return;
         }
