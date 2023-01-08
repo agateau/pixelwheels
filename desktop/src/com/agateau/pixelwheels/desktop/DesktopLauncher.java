@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.LogFilePrinter;
 import com.agateau.utils.log.NLog;
+import com.agateau.utils.log.SystemErrPrinter;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
@@ -60,6 +61,7 @@ public class DesktopLauncher {
         String logFilePath = cacheDir + File.separator + Constants.LOG_FILENAME;
         LogFilePrinter printer = new LogFilePrinter(logFilePath, Constants.LOG_MAX_SIZE);
         NLog.addPrinter(printer);
+        NLog.addPrinter(new SystemErrPrinter());
 
         game.setLogExporter(new DesktopLogExporter(printer));
     }

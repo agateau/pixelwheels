@@ -44,10 +44,10 @@ public class LogFilePrinterTests {
 
         LogFilePrinter printer = new LogFilePrinter(path, 200);
         printer.setMessageFormatter(
-                (level, tag, message) -> String.format(Locale.US, "%d %s %s", level, tag, message));
-        printer.print(12, "tag", "hello");
+                (level, tag, message) -> String.format(Locale.US, "%s %s %s", level, tag, message));
+        printer.print(NLog.Level.INFO, "tag", "hello");
 
-        assertThat(readFile(path), is("12 tag hello\n"));
+        assertThat(readFile(path), is("INFO tag hello\n"));
     }
 
     @Test
@@ -59,19 +59,19 @@ public class LogFilePrinterTests {
         printer.setMessageFormatter((level, tag, message) -> message);
 
         // WHEN I log a short message
-        printer.print(0, "", "aaaaa");
+        printer.print(NLog.Level.INFO, "", "aaaaa");
 
         // THEN it is in the main log
         assertThat(readFile(path), is("aaaaa\n"));
 
         // WHEN I log another short message
-        printer.print(0, "", "bbbbb");
+        printer.print(NLog.Level.INFO, "", "bbbbb");
 
         // THEN it iis also in the main log
         assertThat(readFile(path), is("aaaaa\nbbbbb\n"));
 
         // WHEN I log a message which forces the rotation
-        printer.print(0, "", "0123456789abcde");
+        printer.print(NLog.Level.INFO, "", "0123456789abcde");
 
         // THEN the backup log contains the previous content
         assertThat(readFile(path + LogFilePrinter.BACKUP_SUFFIX), is("aaaaa\nbbbbb\n"));
@@ -80,7 +80,7 @@ public class LogFilePrinterTests {
         assertThat(readFile(path), is("0123456789abcde\n"));
 
         // WHEN I log another long message
-        printer.print(0, "", "edcba0123456789");
+        printer.print(NLog.Level.INFO, "", "edcba0123456789");
 
         // THEN the backup log contains the previous main log content
         assertThat(readFile(path + LogFilePrinter.BACKUP_SUFFIX), is("0123456789abcde\n"));
