@@ -242,7 +242,14 @@ public class RaceScreen extends ScreenAdapter {
 
         mOverallPerformanceCounter.stop();
         if (!paused) {
-            mPerformanceCounters.tick(delta);
+            // This for loop replaces `mPerformanceCounters.tick(delta);` except it does not log an
+            // error if the counter has not been used for the frame. This can happen in
+            // GameWorldImpl.act(delta) if delta is shorter than Box2D timestep.
+            for (PerformanceCounter counter : mPerformanceCounters.counters) {
+                if (counter.valid) {
+                    counter.tick(delta);
+                }
+            }
         }
     }
 

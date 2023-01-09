@@ -185,33 +185,35 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     @Override
     public void act(float delta) {
-        mCountDown.act(delta);
-        mBox2DPerformanceCounter.start();
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
         float frameTime = Math.min(delta, 0.25f);
         mTimeAccumulator += frameTime;
         while (mTimeAccumulator >= GameWorld.BOX2D_TIME_STEP) {
+            mCountDown.act(GameWorld.BOX2D_TIME_STEP);
+
+            mBox2DPerformanceCounter.start();
             mBox2DWorld.step(
                     GameWorld.BOX2D_TIME_STEP,
                     GameWorld.VELOCITY_ITERATIONS,
                     GameWorld.POSITION_ITERATIONS);
-            mTimeAccumulator -= GameWorld.BOX2D_TIME_STEP;
-        }
-        mBox2DPerformanceCounter.stop();
+            mBox2DPerformanceCounter.stop();
 
-        mGameObjectPerformanceCounter.start();
-        for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
-            GameObject obj = mActiveGameObjects.get(idx);
-            obj.act(delta);
-            if (obj.isFinished()) {
-                mActiveGameObjects.removeIndex(idx);
-                if (obj instanceof Disposable) {
-                    ((Disposable) obj).dispose();
+            mGameObjectPerformanceCounter.start();
+            for (int idx = mActiveGameObjects.size - 1; idx >= 0; --idx) {
+                GameObject obj = mActiveGameObjects.get(idx);
+                obj.act(GameWorld.BOX2D_TIME_STEP);
+                if (obj.isFinished()) {
+                    mActiveGameObjects.removeIndex(idx);
+                    if (obj instanceof Disposable) {
+                        ((Disposable) obj).dispose();
+                    }
                 }
             }
+            mGameObjectPerformanceCounter.stop();
+
+            mTimeAccumulator -= GameWorld.BOX2D_TIME_STEP;
         }
-        mGameObjectPerformanceCounter.stop();
 
         // Skip finished racers so that they keep the position they had when they crossed the finish
         // line, even if they continue a bit after it
