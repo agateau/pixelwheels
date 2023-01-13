@@ -215,15 +215,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
             mTimeAccumulator -= GameWorld.BOX2D_TIME_STEP;
         }
 
-        // Skip finished racers so that they keep the position they had when they crossed the finish
-        // line, even if they continue a bit after it
-        int fromIndex;
-        for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
-            if (!mRacers.get(fromIndex).getLapPositionComponent().hasFinishedRace()) {
-                break;
-            }
-        }
-
         if (haveAllRacersFinished()) {
             mRacers.sort(sRacerComparator);
             setState(GameWorld.State.FINISHED);
