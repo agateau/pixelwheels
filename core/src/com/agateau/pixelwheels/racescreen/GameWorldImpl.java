@@ -148,15 +148,12 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     public int getRacerRank(Racer wantedRacer) {
         int rank = 1;
         for (Racer racer : mRacers) {
-            if (racer == wantedRacer) {
-                return rank;
-            }
-            if (sRacerComparator.compare(racer, wantedRacer) < 0) {
+            if (racer != wantedRacer && sRacerComparator.compare(racer, wantedRacer) < 0) {
                 // racer is in front of wantedRacer
                 rank += 1;
             }
         }
-        throw new RuntimeException("Racer " + wantedRacer + " not found");
+        return rank;
     }
 
     /**
@@ -213,15 +210,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
             mGameObjectPerformanceCounter.stop();
 
             mTimeAccumulator -= GameWorld.BOX2D_TIME_STEP;
-        }
-
-        // Skip finished racers so that they keep the position they had when they crossed the finish
-        // line, even if they continue a bit after it
-        int fromIndex;
-        for (fromIndex = 0; fromIndex < mRacers.size; ++fromIndex) {
-            if (!mRacers.get(fromIndex).getLapPositionComponent().hasFinishedRace()) {
-                break;
-            }
         }
 
         if (haveAllRacersFinished()) {
