@@ -148,15 +148,12 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     public int getRacerRank(Racer wantedRacer) {
         int rank = 1;
         for (Racer racer : mRacers) {
-            if (racer == wantedRacer) {
-                return rank;
-            }
-            if (sRacerComparator.compare(racer, wantedRacer) < 0) {
+            if (racer != wantedRacer && sRacerComparator.compare(racer, wantedRacer) < 0) {
                 // racer is in front of wantedRacer
                 rank += 1;
             }
         }
-        throw new RuntimeException("Racer " + wantedRacer + " not found");
+        return rank;
     }
 
     /**
