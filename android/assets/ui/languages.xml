@@ -4,7 +4,7 @@
     <Language id="de" name="Deutsch" fontSet="xolonium-kwajong"/>
     <Language id="pl" name="Polski" fontSet="xolonium-kwajong"/>
     <Language id="es" name="Español" fontSet="xolonium-kwajong"/>
-    <Language id="eo" name="Esperanto" fontSet="xolonium-kwajong"/>
+    <Language id="eo" name="Esperanto" fontSet="xolonium"/>
     <Language id="eu" name="Euskara" fontSet="xolonium-kwajong"/>
     <Language id="sv" name="Svenska" fontSet="xolonium-kwajong"/>
     <Language id="ru" name="Русский" fontSet="xolonium"/>
