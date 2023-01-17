@@ -468,7 +468,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             // Clicked between columns
             return INVALID_INDEX;
         }
-        int idx = row * mColumnCount + column;
+
+        int idx;
+        if (mItemDirection == ItemDirection.LeftToRight) {
+            idx = row * mColumnCount + column;
+        } else {
+            idx = row + column * getRowCount();
+        }
+
         if (idx >= 0 && idx < mItems.size) {
             return idx;
         } else {
