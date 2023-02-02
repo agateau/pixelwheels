@@ -32,6 +32,6 @@ Xolonium by Severin Meyer, <https://www.dafont.com/fr/xolonium.font>
 
 Kwajong by Tup Wanders, <https://www.dafont.com/fr/kwajong.font>
 
-Noto by Google, <https://www.google.com/get/noto>
+Noto by Google, <https://fonts.google.com/noto>
 
 (This file must be kept in sync with ../android/assets/screens/credits.gdxui, for in-game credits)
