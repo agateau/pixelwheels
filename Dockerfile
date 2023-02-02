@@ -29,5 +29,7 @@ RUN /src/install-android-sdk
 # Must match the value in ci/install-android-sdk
 ENV ANDROID_SDK_ROOT /opt/android-sdk
 
+RUN git config --global --add safe.directory /src/pixelwheels
+
 WORKDIR /root
 ENTRYPOINT ["/bin/bash"]
