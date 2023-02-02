@@ -1,0 +1,3 @@
+Pixel Wheels is now available in Hungarian, Esperanto and Turkish.
+Fixed a bug which could cause the player rank to be wrong in the 2nd or 3rd race of a championship.
+Fixed a bug which could cause stuttering during races.

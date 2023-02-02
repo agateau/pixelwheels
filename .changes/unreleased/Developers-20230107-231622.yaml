@@ -1,4 +1,0 @@
-kind: Developers
-body: 'Logging system has been reworked: it no longer goes through Gdx logging system.
-  This fixes log messages arriving out of order.'
-time: 2023-01-07T23:16:22.189668515+01:00
