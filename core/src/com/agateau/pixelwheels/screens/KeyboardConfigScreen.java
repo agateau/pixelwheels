@@ -208,6 +208,14 @@ public class KeyboardConfigScreen extends PwStageScreen {
 
     private void updateButtonText(VirtualKey key) {
         ButtonMenuItem button = mKeyButtonMap.get(key);
+        if (button == null) {
+            // When editing the first player keys, there is no VirtualKey.UP button, but the
+            // KeyMapper contains an entry for it, assigned to the "up" keyboard key. If a player
+            // sets, say the key for VirtualKey.DOWN to "up", this causes a conflict, but since
+            // there is no UI for VirtualKey.UP, `button` is null.
+            // See https://github.com/agateau/pixelwheels/issues/326
+            return;
+        }
         button.setText(getButtonText(key));
     }
 
