@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2022
+# Copyright (C) 2023
 # This file is distributed under the same license as the PACKAGE package.
-# Nickoriginal, 2022.
+# Nickoriginal, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-14 21:45+0200\n"
+"PO-Revision-Date: 2023-03-04 20:50+0200\n"
 "Last-Translator: Nickoriginal\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -282,35 +282,35 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Esperanto:"
-msgstr ""
+msgstr "Эсперанто:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Хорхе Малдонадо Вентура"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
-msgstr ""
+msgstr "Венгерский:"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
-msgstr ""
+msgstr "Турецкий:"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "Итальянский:"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Дарио Каносси"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Video Editing"
@@ -585,7 +585,7 @@ msgstr "Клавиатура"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 msgid "Pie buttons"
-msgstr "Кнопки-пирожные"
+msgstr "Компактные кнопки"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
@@ -605,7 +605,7 @@ msgstr "Поздравляю, отличная гонка!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
-msgstr "У тебя есть серьёзные навыки вождения!"
+msgstr "У тебя появляются внушительные навыки вождения!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
@@ -846,7 +846,7 @@ msgstr "[Заблокировано]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
-msgstr "Компьютер"
+msgstr "Бот"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
