@@ -32,16 +32,17 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
     private static final float MAX_ZOOM = 2.1f;
 
     private final Vector2 sDelta = new Vector2();
+    private final Racer mRacer;
 
-    SinglePlayerCameraUpdater(GameWorld world) {
+    SinglePlayerCameraUpdater(GameWorld world, Racer racer) {
         super(world);
+        mRacer = racer;
     }
 
     @Override
     public void update(float delta) {
         boolean immediate = delta < 0;
-        Racer racer = mWorld.getPlayerRacers().first();
-        Vehicle vehicle = racer.getVehicle();
+        Vehicle vehicle = mRacer.getVehicle();
 
         // Compute viewport size
         mNextCameraInfo.zoom =
@@ -55,7 +56,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         sDelta.set(advance, 0)
-                .rotate(racer.getCameraAngle())
+                .rotate(mRacer.getCameraAngle())
                 .add(vehicle.getPosition())
                 .sub(mCameraInfo.position);
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);

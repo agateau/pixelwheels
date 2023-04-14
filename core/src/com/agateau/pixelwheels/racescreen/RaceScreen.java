@@ -36,6 +36,7 @@ import com.agateau.pixelwheels.racescreen.debug.DropLocationDebugObject;
 import com.agateau.pixelwheels.racescreen.debug.MineDropper;
 import com.agateau.pixelwheels.screens.ConfigScreen;
 import com.agateau.pixelwheels.screens.PwStageScreen;
+import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -66,7 +68,7 @@ public class RaceScreen extends ScreenAdapter {
     private final GameWorldImpl mGameWorld;
     private final Color mBackgroundColor;
 
-    private final GameRenderer mGameRenderer;
+    private final Array<GameRenderer> mGameRenderers = new Array<>();
     private final AudioClipper mAudioClipper;
 
     private Hud mHud;
@@ -102,7 +104,11 @@ public class RaceScreen extends ScreenAdapter {
         mHudStage = new Stage(mHudViewport, batch);
         mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
-        mGameRenderer = new GameRenderer(mGameWorld, batch, mPerformanceCounters);
+        for (Racer racer : mGameWorld.getPlayerRacers()) {
+            GameRenderer renderer =
+                    new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
+            mGameRenderers.add(renderer);
+        }
         setupHud(mGameWorld.getTrack());
         mHudPerformanceCounter = mPerformanceCounters.add("Hud");
 
@@ -118,13 +124,14 @@ public class RaceScreen extends ScreenAdapter {
 
     private void setupDebugTools() {
         if (Debug.instance.showDebugHud) {
-            MineDropper dropper = new MineDropper(mGame, mGameWorld, mGameRenderer);
+            GameRenderer gameRenderer = mGameRenderers.first();
+            MineDropper dropper = new MineDropper(mGame, mGameWorld, gameRenderer);
             mGameWorld.addGameObject(dropper);
             mHudContent.addDebugActor(dropper.createDebugButton());
 
             DropLocationDebugObject dropLocationDebugObject =
                     new DropLocationDebugObject(
-                            mGame.getAssets(), mGameRenderer, mGameWorld.getTrack());
+                            mGame.getAssets(), gameRenderer, mGameWorld.getTrack());
             mGameWorld.addGameObject(dropLocationDebugObject);
             mHudContent.addDebugActor(
                     dropLocationDebugObject.createDebugButton(mGame.getAssets().ui.skin));
@@ -185,7 +192,9 @@ public class RaceScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if (mFirstRender) {
-            mGameRenderer.onAboutToStart();
+            for (GameRenderer gameRenderer : mGameRenderers) {
+                gameRenderer.onAboutToStart();
+            }
             // Fadeout main music, we start the track music after the count down
             mGame.getAudioManager().fadeOutMusic();
             mFirstRender = false;
@@ -213,7 +222,9 @@ public class RaceScreen extends ScreenAdapter {
         mRendererPerformanceCounter.start();
         Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mGameRenderer.render(delta);
+        for (GameRenderer gameRenderer : mGameRenderers) {
+            gameRenderer.render(delta);
+        }
 
         for (GameObject gameObject : mGameWorld.getActiveGameObjects()) {
             gameObject.audioRender(mAudioClipper);
@@ -265,13 +276,23 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
+    public void resize(int screenW, int screenH) {
+        super.resize(screenW, screenH);
         float upp = PwStageScreen.getUnitsPerPixel();
         mHudViewport.setUnitsPerPixel(upp);
-        mGameRenderer.setScreenRect(0, 0, width, height);
-        mHud.setScreenRect(0, 0, (int) (width * upp), (int) (height * upp));
-        mHudViewport.update(width, height, true);
+        Assert.check(mGameRenderers.size <= 4, "Unsupported number of renderers");
+
+        int width = mGameRenderers.size == 1 ? screenW : (screenW / 2);
+        int height = mGameRenderers.size < 3 ? screenH : (screenH / 2);
+
+        for (int idx = 0; idx < mGameRenderers.size; ++idx) {
+            int x = (idx % 2) * width;
+            int y = idx < 2 ? (screenH - height) : 0;
+            mGameRenderers.get(idx).setScreenRect(x, y, width, height);
+        }
+
+        mHud.setScreenRect(0, 0, (int) (screenW * upp), (int) (screenH * upp));
+        mHudViewport.update(screenW, screenH, true);
     }
 
     private void onFinished() {

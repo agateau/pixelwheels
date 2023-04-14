@@ -106,9 +106,9 @@ public class CellFrameBufferManager {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    public void end() {
+    public void end(int x, int y, int width, int height) {
         mBatch.end();
-        mFrameBuffer.end();
+        mFrameBuffer.end(x, y, width, height);
 
         mBatch.setProjectionMatrix(mOldProjectionMatrix);
     }

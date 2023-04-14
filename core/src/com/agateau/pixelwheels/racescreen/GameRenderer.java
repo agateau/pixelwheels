@@ -29,6 +29,8 @@ import com.agateau.pixelwheels.gameobjet.CellFrameBufferUser;
 import com.agateau.pixelwheels.gameobjet.GameObject;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
+import com.agateau.pixelwheels.racer.Racer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
@@ -65,7 +67,7 @@ public class GameRenderer {
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -76,13 +78,11 @@ public class GameRenderer {
 
         mBatch = batch;
         mCamera = new OrthographicCamera();
-        boolean singlePlayer = mWorld.getPlayerRacers().size == 1;
-        mCameraUpdater =
-                GamePlay.instance.freeCamera
-                        ? new FreeCameraUpdater(mWorld)
-                        : singlePlayer
-                                ? new SinglePlayerCameraUpdater(mWorld)
-                                : new MultiPlayerCameraUpdater(mWorld);
+        if (GamePlay.instance.freeCamera) {
+            mCameraUpdater = new FreeCameraUpdater(mWorld);
+        } else {
+            mCameraUpdater = new SinglePlayerCameraUpdater(mWorld, racer);
+        }
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
@@ -159,7 +159,7 @@ public class GameRenderer {
                 user.drawToCell(mBatch, viewBounds);
             }
         }
-        mCellFrameBufferManager.end();
+        mCellFrameBufferManager.end(mScreenX, mScreenY, mScreenWidth, mScreenHeight);
 
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
@@ -227,7 +227,12 @@ public class GameRenderer {
 
     public void mapFromScreen(Vector2 coord) {
         sTmp3.set(coord, 0);
+        sTmp3.x -= mScreenX;
+        sTmp3.y -= mScreenY;
+        sTmp3.x *= (float) Gdx.graphics.getWidth() / mScreenWidth;
+        sTmp3.y *= (float) Gdx.graphics.getHeight() / mScreenHeight;
         mCamera.unproject(sTmp3);
+
         coord.set(sTmp3.x, sTmp3.y);
     }
 }
