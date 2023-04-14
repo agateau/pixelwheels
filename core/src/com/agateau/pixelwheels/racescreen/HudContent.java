@@ -79,6 +79,10 @@ public class HudContent {
         root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
     }
 
+    public Hud getHud() {
+        return mHud;
+    }
+
     private void createPlayerLabels(AnchorGroup root) {
         Skin skin = mAssets.ui.skin;
         int playerCount = mGameWorld.getPlayerRacers().size;

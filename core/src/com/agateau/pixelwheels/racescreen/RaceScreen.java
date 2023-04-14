@@ -71,7 +71,6 @@ public class RaceScreen extends ScreenAdapter {
     private final Array<GameRenderer> mGameRenderers = new Array<>();
     private final AudioClipper mAudioClipper;
 
-    private Hud mHud;
     private HudContent mHudContent;
     private final ScreenViewport mHudViewport = new ScreenViewport();
     private final Stage mHudStage;
@@ -139,8 +138,8 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void setupHud(Track track) {
-        mHud = new Hud(mGame.getAssets(), mHudStage);
-        mHudContent = new HudContent(mGame.getAssets(), mGameWorld, mHud);
+        Hud hud = new Hud(mGame.getAssets(), mHudStage);
+        mHudContent = new HudContent(mGame.getAssets(), mGameWorld, hud);
 
         if (Debug.instance.showDebugLayer) {
             int idx = 0;
@@ -171,7 +170,7 @@ public class RaceScreen extends ScreenAdapter {
         Racer racer = mGameWorld.getPlayerRacer(0);
         Pilot pilot = racer.getPilot();
         if (pilot instanceof PlayerPilot) {
-            ((PlayerPilot) pilot).createHudButtons(mHud);
+            ((PlayerPilot) pilot).createHudButtons(mHudContent.getHud());
         }
     }
 
@@ -291,7 +290,7 @@ public class RaceScreen extends ScreenAdapter {
             mGameRenderers.get(idx).setScreenRect(x, y, width, height);
         }
 
-        mHud.setScreenRect(0, 0, (int) (screenW * upp), (int) (screenH * upp));
+        mHudContent.getHud().setScreenRect(0, 0, (int) (screenW * upp), (int) (screenH * upp));
         mHudViewport.update(screenW, screenH, true);
     }
 
