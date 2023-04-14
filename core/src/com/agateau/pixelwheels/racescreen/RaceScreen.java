@@ -71,7 +71,7 @@ public class RaceScreen extends ScreenAdapter {
     private final Array<GameRenderer> mGameRenderers = new Array<>();
     private final AudioClipper mAudioClipper;
 
-    private HudContent mHudContent;
+    private final Array<HudContent> mHudContents = new Array<>();
     private final ScreenViewport mHudViewport = new ScreenViewport();
     private final Stage mHudStage;
 
@@ -107,8 +107,9 @@ public class RaceScreen extends ScreenAdapter {
             GameRenderer renderer =
                     new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
             mGameRenderers.add(renderer);
+            mHudContents.add(createHudContent(mGameWorld.getTrack(), racer));
         }
-        setupHud(mGameWorld.getTrack());
+        createInputUi();
         mHudPerformanceCounter = mPerformanceCounters.add("Hud");
 
         mAudioClipper = createAudioClipper();
@@ -124,22 +125,25 @@ public class RaceScreen extends ScreenAdapter {
     private void setupDebugTools() {
         if (Debug.instance.showDebugHud) {
             GameRenderer gameRenderer = mGameRenderers.first();
+            HudContent hudContent = mHudContents.first();
+            hudContent.initDebugHud(mPerformanceCounters);
+
             MineDropper dropper = new MineDropper(mGame, mGameWorld, gameRenderer);
             mGameWorld.addGameObject(dropper);
-            mHudContent.addDebugActor(dropper.createDebugButton());
+            hudContent.addDebugActor(dropper.createDebugButton());
 
             DropLocationDebugObject dropLocationDebugObject =
                     new DropLocationDebugObject(
                             mGame.getAssets(), gameRenderer, mGameWorld.getTrack());
             mGameWorld.addGameObject(dropLocationDebugObject);
-            mHudContent.addDebugActor(
+            hudContent.addDebugActor(
                     dropLocationDebugObject.createDebugButton(mGame.getAssets().ui.skin));
         }
     }
 
-    private void setupHud(Track track) {
+    private HudContent createHudContent(Track track, Racer playerRacer) {
         Hud hud = new Hud(mGame.getAssets(), mHudStage);
-        mHudContent = new HudContent(mGame.getAssets(), mGameWorld, hud);
+        HudContent hudContent = new HudContent(mGame.getAssets(), mGameWorld, hud, playerRacer);
 
         if (Debug.instance.showDebugLayer) {
             int idx = 0;
@@ -149,28 +153,27 @@ public class RaceScreen extends ScreenAdapter {
             }
         }
 
-        if (Debug.instance.showDebugHud) {
-            mHudContent.initDebugHud(mPerformanceCounters);
-        }
-
-        if (GameInputHandlerFactories.hasMultitouch()) {
-            mHudContent.createPauseButton(
-                    new ClickListener() {
-                        public void clicked(InputEvent event, float x, float y) {
-                            pauseRace();
-                        }
-                    });
-        }
-
-        createInputUi();
+        return hudContent;
     }
 
     private void createInputUi() {
+        if (!GameInputHandlerFactories.hasMultitouch()) {
+            return;
+        }
+
         // Touch screen is single player only, so it's fine to only do this for the first player
-        Racer racer = mGameWorld.getPlayerRacer(0);
-        Pilot pilot = racer.getPilot();
+        HudContent hudContent = mHudContents.first();
+
+        hudContent.createPauseButton(
+                new ClickListener() {
+                    public void clicked(InputEvent event, float x, float y) {
+                        pauseRace();
+                    }
+                });
+
+        Pilot pilot = mGameWorld.getPlayerRacer(0).getPilot();
         if (pilot instanceof PlayerPilot) {
-            ((PlayerPilot) pilot).createHudButtons(mHudContent.getHud());
+            ((PlayerPilot) pilot).createHudButtons(hudContent.getHud());
         }
     }
 
@@ -244,7 +247,9 @@ public class RaceScreen extends ScreenAdapter {
         // mHudStage.act()) causes us to leave this screen (back to menu from pause, or leaving
         // the FinishedOverlay) then the game renderer does not alter the OpenGL viewport *after*
         // we have changed screens.
-        mHudContent.act(delta);
+        for (HudContent hudContent : mHudContents) {
+            hudContent.act(delta);
+        }
         mHudViewport.apply(true);
         mHudStage.draw();
         mHudStage.act(delta);
@@ -288,9 +293,11 @@ public class RaceScreen extends ScreenAdapter {
             int x = (idx % 2) * width;
             int y = idx < 2 ? (screenH - height) : 0;
             mGameRenderers.get(idx).setScreenRect(x, y, width, height);
+            Hud hud = mHudContents.get(idx).getHud();
+            hud.setScreenRect(
+                    (int) (x * upp), (int) (y * upp), (int) (width * upp), (int) (height * upp));
         }
 
-        mHudContent.getHud().setScreenRect(0, 0, (int) (screenW * upp), (int) (screenH * upp));
         mHudViewport.update(screenW, screenH, true);
     }
 
