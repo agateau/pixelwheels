@@ -105,6 +105,9 @@ public class RaceScreen extends ScreenAdapter {
         mHudStage = new Stage(mHudViewport, batch);
         mHudStage.setDebugAll(Debug.instance.showHudDebugLines);
 
+        // Create the count-down controller *before* the racer controller, otherwise the touch UI
+        // won't receive input because the racer hud stage would be below the count-down hud stage
+        createCountDownHudController();
         for (Racer racer : mGameWorld.getPlayerRacers()) {
             GameRenderer renderer =
                     new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
@@ -112,7 +115,6 @@ public class RaceScreen extends ScreenAdapter {
             mRacerHudControllers.add(createRacerHudController(mGameWorld.getTrack(), racer));
         }
         createInputUi();
-        createCountDownHudController();
         mHudPerformanceCounter = mPerformanceCounters.add("Hud");
 
         mAudioClipper = createAudioClipper();
