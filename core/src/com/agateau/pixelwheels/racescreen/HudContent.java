@@ -50,7 +50,6 @@ public class HudContent {
 
     private Label mRankLabel;
     private Label mLapLabel;
-    private final Label mCountDownLabel;
     private VerticalGroup mDebugGroup = null;
     private Label mDebugLabel = null;
 
@@ -63,7 +62,6 @@ public class HudContent {
         mGameWorld = gameWorld;
         mHud = hud;
         mRacer = racer;
-        Skin skin = assets.ui.skin;
 
         AnchorGroup root = hud.getRoot();
 
@@ -73,11 +71,6 @@ public class HudContent {
         }
 
         createPlayerLabels(root);
-
-        mCountDownLabel = new Label("", skin, "hudCountDown");
-        mCountDownLabel.setAlignment(Align.bottom);
-
-        root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
     }
 
     public Hud getHud() {
@@ -134,7 +127,6 @@ public class HudContent {
     @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateLabels();
-        updateCountDownLabel();
         if (mDebugLabel != null) {
             updateDebugLabel();
         }
@@ -152,21 +144,6 @@ public class HudContent {
         mStringBuilder.append(lapCount).append('/').append(totalLapCount);
         mLapLabel.setText(mStringBuilder);
         mLapLabel.pack();
-    }
-
-    private void updateCountDownLabel() {
-        CountDown countDown = mGameWorld.getCountDown();
-        if (countDown.isFinished()) {
-            mCountDownLabel.setVisible(false);
-            return;
-        }
-        float alpha = countDown.getPercent();
-        int count = countDown.getValue();
-
-        mCountDownLabel.setColor(1, 1, 1, alpha);
-
-        String text = count > 0 ? String.valueOf(count) : "GO!";
-        mCountDownLabel.setText(text);
     }
 
     private static final StringBuilder sDebugSB = new StringBuilder();

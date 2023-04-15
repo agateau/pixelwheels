@@ -73,6 +73,8 @@ public class RaceScreen extends ScreenAdapter {
 
     private final Array<HudContent> mHudContents = new Array<>();
     private final ScreenViewport mHudViewport = new ScreenViewport();
+    private CountDownHudController mCountDownHudController;
+
     private final Stage mHudStage;
 
     private final PerformanceCounters mPerformanceCounters = new PerformanceCounters();
@@ -110,6 +112,7 @@ public class RaceScreen extends ScreenAdapter {
             mHudContents.add(createHudContent(mGameWorld.getTrack(), racer));
         }
         createInputUi();
+        createCountDownHudController();
         mHudPerformanceCounter = mPerformanceCounters.add("Hud");
 
         mAudioClipper = createAudioClipper();
@@ -154,6 +157,11 @@ public class RaceScreen extends ScreenAdapter {
         }
 
         return hudContent;
+    }
+
+    private void createCountDownHudController() {
+        Hud hud = new Hud(mGame.getAssets(), mHudStage);
+        mCountDownHudController = new CountDownHudController(mGame.getAssets(), mGameWorld, hud);
     }
 
     private void createInputUi() {
@@ -250,6 +258,7 @@ public class RaceScreen extends ScreenAdapter {
         for (HudContent hudContent : mHudContents) {
             hudContent.act(delta);
         }
+        mCountDownHudController.act(delta);
         mHudViewport.apply(true);
         mHudStage.draw();
         mHudStage.act(delta);
@@ -297,6 +306,9 @@ public class RaceScreen extends ScreenAdapter {
             hud.setScreenRect(
                     (int) (x * upp), (int) (y * upp), (int) (width * upp), (int) (height * upp));
         }
+        mCountDownHudController
+                .getHud()
+                .setScreenRect(0, 0, (int) (screenW * upp), (int) (screenH * upp));
 
         mHudViewport.update(screenW, screenH, true);
     }
