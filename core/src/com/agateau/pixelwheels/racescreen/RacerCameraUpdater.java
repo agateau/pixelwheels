@@ -26,7 +26,8 @@ import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-class SinglePlayerCameraUpdater extends CameraUpdater {
+/** A CameraUpdater tracking a racer */
+class RacerCameraUpdater extends CameraUpdater {
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float MIN_ZOOM = 0.6f;
     private static final float MAX_ZOOM = 2.1f;
@@ -34,7 +35,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
     private final Vector2 sDelta = new Vector2();
     private final Racer mRacer;
 
-    SinglePlayerCameraUpdater(GameWorld world, Racer racer) {
+    RacerCameraUpdater(GameWorld world, Racer racer) {
         super(world);
         mRacer = racer;
     }

@@ -81,7 +81,7 @@ public class GameRenderer {
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
         } else {
-            mCameraUpdater = new SinglePlayerCameraUpdater(mWorld, racer);
+            mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
