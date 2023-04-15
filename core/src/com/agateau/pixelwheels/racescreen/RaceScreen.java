@@ -41,7 +41,6 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -66,7 +65,6 @@ public class RaceScreen extends ScreenAdapter {
     private final GameInfo mGameInfo;
 
     private final GameWorldImpl mGameWorld;
-    private final Color mBackgroundColor;
 
     private final Array<GameRenderer> mGameRenderers = new Array<>();
     private final AudioClipper mAudioClipper;
@@ -98,7 +96,6 @@ public class RaceScreen extends ScreenAdapter {
         mOverallPerformanceCounter = mPerformanceCounters.add("All");
         mGameWorldPerformanceCounter = mPerformanceCounters.add("GameWorld.act");
         mGameWorld = new GameWorldImpl(game, gameInfo, mPerformanceCounters);
-        mBackgroundColor = gameInfo.getTrack().getBackgroundColor();
         mRendererPerformanceCounter = mPerformanceCounters.add("Renderer");
 
         SpriteBatch batch = new SpriteBatch();
@@ -233,7 +230,7 @@ public class RaceScreen extends ScreenAdapter {
         mGameWorldPerformanceCounter.stop();
 
         mRendererPerformanceCounter.start();
-        Gdx.gl.glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         for (GameRenderer gameRenderer : mGameRenderers) {
             gameRenderer.render(delta);
@@ -301,10 +298,22 @@ public class RaceScreen extends ScreenAdapter {
         int width = mGameRenderers.size == 1 ? screenW : (screenW / 2);
         int height = mGameRenderers.size < 3 ? screenH : (screenH / 2);
 
+        boolean singlePlayer = mGameRenderers.size == 1;
+
         for (int idx = 0; idx < mGameRenderers.size; ++idx) {
             int x = (idx % 2) * width;
             int y = idx < 2 ? (screenH - height) : 0;
-            mGameRenderers.get(idx).setScreenRect(x, y, width, height);
+
+            // In multiplayer, we want 2 pixels between renderers. To do this we pad each renderer
+            // 1 pixel on sides close to the center of the screen.
+            int padL = x > 0 ? 1 : 0;
+            int padR = singlePlayer ? 0 : (x == 0 ? 1 : 0);
+            int padB = y > 0 ? 1 : 0;
+            int padT = singlePlayer ? 0 : (y == 0 ? 1 : 0);
+            mGameRenderers
+                    .get(idx)
+                    .setScreenRect(x + padL, y + padB, width - padL - padR, height - padT - padB);
+
             Hud hud = mRacerHudControllers.get(idx).getHud();
             hud.setScreenRect(
                     (int) (x * upp), (int) (y * upp), (int) (width * upp), (int) (height * upp));
