@@ -41,7 +41,7 @@ import com.badlogic.gdx.utils.StringBuilder;
 import java.util.Map;
 
 /** Various labels and actors shown on the hud */
-public class HudContent {
+public class RacerHudController {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Hud mHud;
@@ -57,7 +57,7 @@ public class HudContent {
 
     private final String[] mRankStrings = new String[GamePlay.instance.racerCount];
 
-    public HudContent(Assets assets, GameWorld gameWorld, Hud hud, Racer racer) {
+    public RacerHudController(Assets assets, GameWorld gameWorld, Hud hud, Racer racer) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mHud = hud;
