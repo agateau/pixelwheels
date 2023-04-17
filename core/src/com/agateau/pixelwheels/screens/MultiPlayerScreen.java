@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.screens;
 import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
@@ -53,7 +52,7 @@ public class MultiPlayerScreen extends PwStageScreen {
     }
 
     private final PwGame mGame;
-    private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
+    private final int mPlayerCount = 2; // Hardcoded for now
     private final Listener mListener;
     private final InputMapper[] mInputMappers;
     private VehicleSelector mVehicleSelector;

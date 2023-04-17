@@ -20,7 +20,7 @@ package com.agateau.pixelwheels.gameinput;
 
 import static com.agateau.translations.Translator.tr;
 
-import com.agateau.pixelwheels.Constants;
+import com.agateau.ui.DefaultKeys;
 import com.agateau.ui.KeyMapper;
 import com.badlogic.gdx.utils.Array;
 
@@ -30,7 +30,7 @@ public class KeyboardInputHandler extends InputMapperInputHandler {
         final Array<GameInputHandler> mHandlers = new Array<>();
 
         Factory() {
-            for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
+            for (int idx = 0; idx < DefaultKeys.getDefaultKeysCount(); ++idx) {
                 KeyMapper keyMapper = KeyMapper.createGameInstance(idx);
                 mHandlers.add(new KeyboardInputHandler(keyMapper));
             }
