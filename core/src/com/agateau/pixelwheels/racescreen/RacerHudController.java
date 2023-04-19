@@ -35,22 +35,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.PerformanceCounter;
 import com.badlogic.gdx.utils.PerformanceCounters;
 import com.badlogic.gdx.utils.StringBuilder;
 import java.util.Map;
 
 /** Various labels and actors shown on the hud */
-public class HudContent {
+public class RacerHudController {
     private final Assets mAssets;
     private final GameWorld mGameWorld;
     private final Hud mHud;
+    private final Racer mRacer;
     private PerformanceCounters mPerformanceCounters = null;
 
-    private final Array<Label> mRankLabels = new Array<>();
-    private final Array<Label> mLapLabels = new Array<>();
-    private final Label mCountDownLabel;
+    private Label mRankLabel;
+    private Label mLapLabel;
     private VerticalGroup mDebugGroup = null;
     private Label mDebugLabel = null;
 
@@ -58,11 +57,11 @@ public class HudContent {
 
     private final String[] mRankStrings = new String[GamePlay.instance.racerCount];
 
-    public HudContent(Assets assets, GameWorld gameWorld, Hud hud) {
+    public RacerHudController(Assets assets, GameWorld gameWorld, Hud hud, Racer racer) {
         mAssets = assets;
         mGameWorld = gameWorld;
         mHud = hud;
-        Skin skin = assets.ui.skin;
+        mRacer = racer;
 
         AnchorGroup root = hud.getRoot();
 
@@ -72,46 +71,32 @@ public class HudContent {
         }
 
         createPlayerLabels(root);
+    }
 
-        mCountDownLabel = new Label("", skin, "hudCountDown");
-        mCountDownLabel.setAlignment(Align.bottom);
-
-        root.addPositionRule(mCountDownLabel, Anchor.BOTTOM_CENTER, root, Anchor.CENTER);
+    public Hud getHud() {
+        return mHud;
     }
 
     private void createPlayerLabels(AnchorGroup root) {
         Skin skin = mAssets.ui.skin;
-        int playerCount = mGameWorld.getPlayerRacers().size;
-
-        Actor topEdge = root;
-        Anchor topAnchor = Anchor.TOP_RIGHT;
-        float hMargin = -5;
 
         TextureRegion lapIconRegion = mAssets.findRegion("lap-icon");
 
         boolean singlePlayer = mGameWorld.getPlayerRacers().size == 1;
-        for (int idx = 0; idx < playerCount; ++idx) {
-            Label rankLabel = new Label("", skin, singlePlayer ? "hudRank" : "smallHudRank");
-            rankLabel.setAlignment(Align.right);
 
-            Label lapLabel = new Label("", skin, singlePlayer ? "hud" : "smallHud");
-            lapLabel.setAlignment(Align.right);
+        mRankLabel = new Label("", skin, singlePlayer ? "hudRank" : "smallHudRank");
+        mRankLabel.setAlignment(Align.right);
 
-            Image lapIconImage = new Image(lapIconRegion);
-            lapIconImage.pack();
+        mLapLabel = new Label("", skin, singlePlayer ? "hud" : "smallHud");
+        mLapLabel.setAlignment(Align.right);
 
-            root.addPositionRule(rankLabel, Anchor.TOP_RIGHT, topEdge, topAnchor, hMargin, 0);
-            root.addPositionRule(lapLabel, Anchor.TOP_RIGHT, rankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
-            root.addPositionRule(
-                    lapIconImage, Anchor.CENTER_RIGHT, lapLabel, Anchor.CENTER_LEFT, -8, 0);
+        Image lapIconImage = new Image(lapIconRegion);
+        lapIconImage.pack();
 
-            mRankLabels.add(rankLabel);
-            mLapLabels.add(lapLabel);
-
-            topAnchor = Anchor.BOTTOM_RIGHT;
-            topEdge = lapLabel;
-            hMargin = 0;
-        }
+        root.addPositionRule(mRankLabel, Anchor.TOP_RIGHT, root, Anchor.TOP_RIGHT, -5, 0);
+        root.addPositionRule(mLapLabel, Anchor.TOP_RIGHT, mRankLabel, Anchor.BOTTOM_RIGHT, 0, 10);
+        root.addPositionRule(
+                lapIconImage, Anchor.CENTER_RIGHT, mLapLabel, Anchor.CENTER_LEFT, -8, 0);
     }
 
     public void initDebugHud(PerformanceCounters performanceCounters) {
@@ -142,54 +127,23 @@ public class HudContent {
     @SuppressWarnings("UnusedParameters")
     public void act(float delta) {
         updateLabels();
-        updateCountDownLabel();
         if (mDebugLabel != null) {
             updateDebugLabel();
         }
     }
 
     private void updateLabels() {
-        int idx = 0;
-        boolean singlePlayer = mGameWorld.getPlayerRacers().size == 1;
-        for (Racer racer : mGameWorld.getPlayerRacers()) {
-            Label lapLabel = mLapLabels.get(idx);
-            Label rankLabel = mRankLabels.get(idx);
+        int lapCount = Math.max(mRacer.getLapPositionComponent().getLapCount(), 1);
+        int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
+        int rank = mGameWorld.getRacerRank(mRacer);
 
-            int lapCount = Math.max(racer.getLapPositionComponent().getLapCount(), 1);
-            int totalLapCount = mGameWorld.getTrack().getTotalLapCount();
-            int rank = mGameWorld.getRacerRank(racer);
+        mRankLabel.setText(mRankStrings[rank - 1]);
+        mRankLabel.pack();
 
-            mStringBuilder.setLength(0);
-            if (!singlePlayer) {
-                mStringBuilder.append("P").append(idx + 1).append(": ");
-            }
-            mStringBuilder.append(mRankStrings[rank - 1]);
-
-            rankLabel.setText(mStringBuilder);
-            rankLabel.pack();
-
-            mStringBuilder.setLength(0);
-            mStringBuilder.append(lapCount).append('/').append(totalLapCount);
-            lapLabel.setText(mStringBuilder);
-            lapLabel.pack();
-
-            ++idx;
-        }
-    }
-
-    private void updateCountDownLabel() {
-        CountDown countDown = mGameWorld.getCountDown();
-        if (countDown.isFinished()) {
-            mCountDownLabel.setVisible(false);
-            return;
-        }
-        float alpha = countDown.getPercent();
-        int count = countDown.getValue();
-
-        mCountDownLabel.setColor(1, 1, 1, alpha);
-
-        String text = count > 0 ? String.valueOf(count) : "GO!";
-        mCountDownLabel.setText(text);
+        mStringBuilder.setLength(0);
+        mStringBuilder.append(lapCount).append('/').append(totalLapCount);
+        mLapLabel.setText(mStringBuilder);
+        mLapLabel.pack();
     }
 
     private static final StringBuilder sDebugSB = new StringBuilder();

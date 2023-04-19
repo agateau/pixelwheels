@@ -106,9 +106,9 @@ public class CellFrameBufferManager {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    public void end() {
+    public void end(int x, int y, int width, int height) {
         mBatch.end();
-        mFrameBuffer.end();
+        mFrameBuffer.end(x, y, width, height);
 
         mBatch.setProjectionMatrix(mOldProjectionMatrix);
     }
@@ -121,6 +121,7 @@ public class CellFrameBufferManager {
         drawScaledCell(batch, dstX, dstY, cellId, 1f);
     }
 
+    /** Draw a cell to the screen */
     public void drawScaledCell(Batch batch, Vector2 dst, int cellId, float scale) {
         drawScaledCell(batch, dst.x, dst.y, cellId, scale);
     }

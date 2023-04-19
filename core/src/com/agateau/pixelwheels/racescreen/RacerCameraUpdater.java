@@ -26,22 +26,24 @@ import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-class SinglePlayerCameraUpdater extends CameraUpdater {
+/** A CameraUpdater tracking a racer */
+class RacerCameraUpdater extends CameraUpdater {
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float MIN_ZOOM = 0.6f;
     private static final float MAX_ZOOM = 2.1f;
 
     private final Vector2 sDelta = new Vector2();
+    private final Racer mRacer;
 
-    SinglePlayerCameraUpdater(GameWorld world) {
+    RacerCameraUpdater(GameWorld world, Racer racer) {
         super(world);
+        mRacer = racer;
     }
 
     @Override
     public void update(float delta) {
         boolean immediate = delta < 0;
-        Racer racer = mWorld.getPlayerRacers().first();
-        Vehicle vehicle = racer.getVehicle();
+        Vehicle vehicle = mRacer.getVehicle();
 
         // Compute viewport size
         mNextCameraInfo.zoom =
@@ -55,7 +57,7 @@ class SinglePlayerCameraUpdater extends CameraUpdater {
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         sDelta.set(advance, 0)
-                .rotate(racer.getCameraAngle())
+                .rotate(mRacer.getCameraAngle())
                 .add(vehicle.getPosition())
                 .sub(mCameraInfo.position);
         mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
