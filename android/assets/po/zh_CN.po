@@ -425,11 +425,6 @@ msgstr "退出"
 msgid "Select Your Vehicles"
 msgstr "选择你的赛车"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "准备！"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "无游戏手柄"
@@ -811,6 +806,12 @@ msgstr "激活"
 msgid "Back"
 msgstr "后退"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "玩家 #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "缺失"
@@ -879,6 +880,9 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#~ msgid "Ready!"
+#~ msgstr "准备！"
 
 #, fuzzy
 #~ msgctxt "vehicle"

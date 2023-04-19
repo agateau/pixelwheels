@@ -12,10 +12,8 @@
         <Image tiled="true" atlas="ui" name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5"
             width="960px" height="360px"/>
 
-        <Menu id="menu1" topRight="titleLabel.bottomCenter -0.5 -1.5" width="480" height="200" style="large"/>
-        <Label id="ready1" center="menu1.center" visible="false">Ready!</Label>
-        <Menu id="menu2" topLeft="titleLabel.bottomCenter 0.5 -1.5" width="480" height="200" style="large"/>
-        <Label id="ready2" center="menu2.center" visible="false">Ready!</Label>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="700px" style="large"/>
+        <HorizontalGroup id="readyGroup" topCenter="menu.bottomCenter 0 -1" spacing="1g"/>
 
         <ImageButton id="backButton"
                     bottomLeft="root.bottomLeft 1 1"

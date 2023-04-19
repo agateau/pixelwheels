@@ -428,11 +428,6 @@ msgstr "প্রস্থান"
 msgid "Select Your Vehicles"
 msgstr "বাহন নাও"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "প্রস্তুত!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "কিছু গেমপ্যাড নেই"
@@ -826,6 +821,12 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "খেলোয়াড় #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "নেই/ হারিয়ে গেছে"
@@ -897,6 +898,9 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#~ msgid "Ready!"
+#~ msgstr "প্রস্তুত!"
 
 #, fuzzy
 #~ msgctxt "vehicle"

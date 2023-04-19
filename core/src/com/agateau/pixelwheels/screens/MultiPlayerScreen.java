@@ -18,14 +18,16 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.trc;
+
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.InputMapperInputHandler;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.InputMapper;
@@ -35,7 +37,10 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
@@ -47,18 +52,20 @@ public class MultiPlayerScreen extends PwStageScreen {
         void onPlayersSelected(Array<GameInfo.Player> players);
     }
 
+    private static final float NOT_READY_ALPHA = 0.3f;
+
     private final PwGame mGame;
     private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
     private final Listener mListener;
-    private final VehicleSelector[] mVehicleSelectors;
     private final InputMapper[] mInputMappers;
+    private VehicleSelector mVehicleSelector;
+    private final Array<Label> mReadyLabels = new Array<>();
 
     public MultiPlayerScreen(PwGame game, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
         mListener = listener;
 
-        mVehicleSelectors = new VehicleSelector[mPlayerCount];
         mInputMappers = new InputMapper[mPlayerCount];
 
         for (int idx = 0; idx < mPlayerCount; ++idx) {
@@ -85,8 +92,12 @@ public class MultiPlayerScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        createVehicleSelector(builder, assets, 0);
-        createVehicleSelector(builder, assets, 1);
+        mVehicleSelector = createVehicleSelector(builder, assets);
+        createReadyLabels(builder, assets);
+
+        for (int idx = 0; idx < mPlayerCount; ++idx) {
+            setupCursor(assets, idx);
+        }
 
         builder.getActor("backButton")
                 .addListener(
@@ -98,42 +109,70 @@ public class MultiPlayerScreen extends PwStageScreen {
                         });
     }
 
+    private void createReadyLabels(UiBuilder builder, Assets assets) {
+        Skin skin = assets.ui.skin;
+        HorizontalGroup group = builder.getActor("readyGroup");
+
+        mReadyLabels.clear();
+        for (int idx = 0; idx < mPlayerCount; ++idx) {
+            Label label = new Label("", skin);
+            group.addActor(label);
+            mReadyLabels.add(label);
+            setReadyLabelText(idx, null);
+        }
+    }
+
+    private void setReadyLabelText(int idx, String name) {
+        Label label = mReadyLabels.get(idx);
+        String textTemplate = trc("P%d: %s", "The 'P' is for 'Player'");
+        String text = StringUtils.format(textTemplate, idx + 1, name == null ? "..." : name);
+        label.setText(text);
+        label.setColor(1, 1, 1, name == null ? NOT_READY_ALPHA : 1);
+        WidgetGroup group = (WidgetGroup) label.getParent();
+        group.pack();
+    }
+
     @Override
     public void onBackPressed() {
         mListener.onBackPressed();
     }
 
-    private void createVehicleSelector(UiBuilder builder, Assets assets, int idx) {
-        GameConfig gameConfig = mGame.getConfig();
-        String vehicleId = gameConfig.vehicles[idx];
-
-        Menu menu = builder.getActor("menu" + (idx + 1));
-
-        final Label readyLabel = builder.getActor("ready" + (idx + 1));
+    private VehicleSelector createVehicleSelector(UiBuilder builder, Assets assets) {
+        Menu menu = builder.getActor("menu");
 
         VehicleSelector selector = new VehicleSelector(menu);
         selector.init(assets, mGame.getRewardManager());
         selector.setColumnCount(builder.getIntConfigValue("columnCount"));
         selector.setItemSize(
                 builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
-        mVehicleSelectors[idx] = selector;
-        selector.setCurrent(assets.findVehicleDefById(vehicleId));
-        selector.addListener(
+        menu.addItem(selector);
+
+        return selector;
+    }
+
+    private void setupCursor(Assets assets, int idx) {
+        if (idx > 0) {
+            mVehicleSelector.addCursor(mInputMappers[idx]);
+        }
+
+        String vehicleId = mGame.getConfig().vehicles[idx];
+        VehicleDef vehicleDef = assets.findVehicleDefById(vehicleId);
+        mVehicleSelector.setCurrent(idx, vehicleDef);
+
+        mVehicleSelector.addListener(
+                idx,
                 new MenuItemListener() {
                     @Override
                     public void triggered() {
-                        readyLabel.setVisible(true);
+                        setReadyLabelText(idx, vehicleDef.getName());
                         nextIfPossible();
                     }
                 });
-
-        menu.setInputMapper(mInputMappers[idx]);
-        menu.addItem(selector);
     }
 
     private void nextIfPossible() {
-        for (VehicleSelector selector : mVehicleSelectors) {
-            if (selector.getSelected() == null) {
+        for (int idx = 0; idx < mPlayerCount; ++idx) {
+            if (mVehicleSelector.getSelected(idx) == null) {
                 return;
             }
         }
@@ -143,13 +182,12 @@ public class MultiPlayerScreen extends PwStageScreen {
     private void next() {
         Array<GameInfo.Player> players = new Array<>();
         for (int idx = 0; idx < mPlayerCount; ++idx) {
-            VehicleDef vehicleDef = mVehicleSelectors[idx].getSelected();
+            VehicleDef vehicleDef = mVehicleSelector.getSelected(idx);
             if (vehicleDef == null) {
                 return;
             }
             players.add(new GameInfo.Player(idx, vehicleDef.id));
         }
-
         mListener.onPlayersSelected(players);
     }
 }

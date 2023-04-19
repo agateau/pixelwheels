@@ -428,11 +428,6 @@ msgstr "SALIR"
 msgid "Select Your Vehicles"
 msgstr "Selecciona tus vehículos"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "¡Listo!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "Faltan algunos mandos"
@@ -821,6 +816,12 @@ msgstr "Activar"
 msgid "Back"
 msgstr "Regreso"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "Jugador #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "Falta"
@@ -893,6 +894,9 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "ABRIR CARPETA DE\n"
 "ARCHIVO DE REGISTRO"
+
+#~ msgid "Ready!"
+#~ msgstr "¡Listo!"
 
 #~ msgid "Press the gamepad key..."
 #~ msgstr "Pulsa un botón del mando..."
