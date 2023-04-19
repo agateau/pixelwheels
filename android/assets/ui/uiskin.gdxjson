@@ -18,10 +18,10 @@
         highlight: {
             r: 0.965, g: 0.459, b: 0.478, a: 1
         },
-        player0Color: {
+        player1Color: {
             r: 0.478, g: 0.459, b: 0.965, a: 1
         },
-        player1Color: {
+        player2Color: {
             r: 0.459, g: 0.965, b: 0.478, a: 1
         },
     },
@@ -72,13 +72,13 @@
             font: default-font,
             fontColor: white
         },
-        player0RankingRow: {
-            font: default-font,
-            fontColor: player0Color
-        },
         player1RankingRow: {
             font: default-font,
             fontColor: player1Color
+        },
+        player2RankingRow: {
+            font: default-font,
+            fontColor: player2Color
         },
         speechBubble: {
             background: "speech-bubble",
