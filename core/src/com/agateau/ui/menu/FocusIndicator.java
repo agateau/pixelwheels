@@ -31,7 +31,11 @@ class FocusIndicator {
     private float mAlpha = 0;
 
     FocusIndicator(Menu menu) {
-        mMenuStyle = menu.getMenuStyle();
+        this(menu.getMenuStyle());
+    }
+
+    FocusIndicator(Menu.MenuStyle menuStyle) {
+        mMenuStyle = menuStyle;
     }
 
     public void act(float delta) {

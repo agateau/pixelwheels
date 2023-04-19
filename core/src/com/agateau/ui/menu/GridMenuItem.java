@@ -58,13 +58,18 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private class Cursor {
         public final Rectangle mFocusRectangle = new Rectangle();
         public final Array<FocusIndicator> mFocusIndicators = new Array<>();
+        private Menu.MenuStyle mMenuStyle;
         public int mSelectedIndex = INVALID_INDEX;
         public int mCurrentIndex = 0;
         public SelectionListener<T> mSelectionListener;
-        public final MenuInputHandler mInputHandler;
         public MenuItemListener mMenuItemListener;
+        private MenuInputHandler mInputHandler;
 
-        private Cursor(InputMapper inputMapper) {
+        public Cursor() {
+            mMenuStyle = GridMenuItem.this.mMenu.getMenuStyle();
+        }
+
+        public void setInputMapper(InputMapper inputMapper) {
             if (inputMapper == null) {
                 mInputHandler = null;
             } else {
@@ -72,10 +77,18 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 mInputHandler.setInputMapper(inputMapper);
             }
         }
+        public void setMenuStyle(Menu.MenuStyle menuStyle) {
+            mMenuStyle = menuStyle;
+            mFocusIndicators.clear();
+            createFocusIndicators();
+        }
 
-        public void createFocusIndicators() {
+        private void createFocusIndicators() {
+            if (mItems == null) {
+                return;
+            }
             while (mFocusIndicators.size < mItems.size) {
-                FocusIndicator indicator = new FocusIndicator(mMenu);
+                FocusIndicator indicator = new FocusIndicator(mMenuStyle);
                 mFocusIndicators.add(indicator);
             }
         }
@@ -258,9 +271,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public GridMenuItem(Menu menu) {
-        mCursors.add(new Cursor(null));
         mMenu = menu;
         mStyle = mMenu.getSkin().get(GridMenuItemStyle.class);
+        mCursors.add(new Cursor());
         addListener(
                 new InputListener() {
                     public boolean touchDown(
@@ -290,14 +303,20 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 });
     }
 
-    public void addCursor(InputMapper inputMapper) {
-        Cursor cursor = new Cursor(inputMapper);
-        cursor.createFocusIndicators();
-        mCursors.add(cursor);
+    public void addCursor() {
+        mCursors.add(new Cursor());
     }
 
-    public void addListener(int idx, MenuItemListener listener) {
+    public void setListener(int idx, MenuItemListener listener) {
         mCursors.get(idx).mMenuItemListener = listener;
+    }
+
+    public void setInputMapper(int idx, InputMapper inputMapper) {
+        mCursors.get(idx).setInputMapper(inputMapper);
+    }
+
+    public void setMenuStyle(int idx, Menu.MenuStyle menuStyle) {
+        mCursors.get(idx).setMenuStyle(menuStyle);
     }
 
     public TouchUiConfirmMode getTouchUiConfirmMode() {

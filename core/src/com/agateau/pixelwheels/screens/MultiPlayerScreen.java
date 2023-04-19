@@ -52,8 +52,6 @@ public class MultiPlayerScreen extends PwStageScreen {
         void onPlayersSelected(Array<GameInfo.Player> players);
     }
 
-    private static final float NOT_READY_ALPHA = 0.3f;
-
     private final PwGame mGame;
     private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
     private final Listener mListener;
@@ -115,7 +113,8 @@ public class MultiPlayerScreen extends PwStageScreen {
 
         mReadyLabels.clear();
         for (int idx = 0; idx < mPlayerCount; ++idx) {
-            Label label = new Label("", skin);
+            String style = StringUtils.format("player%d", idx + 1);
+            Label label = new Label("", skin, style);
             group.addActor(label);
             mReadyLabels.add(label);
             setReadyLabelText(idx, null);
@@ -127,7 +126,6 @@ public class MultiPlayerScreen extends PwStageScreen {
         String textTemplate = trc("P%d: %s", "The 'P' is for 'Player'");
         String text = StringUtils.format(textTemplate, idx + 1, name == null ? "..." : name);
         label.setText(text);
-        label.setColor(1, 1, 1, name == null ? NOT_READY_ALPHA : 1);
         WidgetGroup group = (WidgetGroup) label.getParent();
         group.pack();
     }
@@ -152,18 +150,24 @@ public class MultiPlayerScreen extends PwStageScreen {
 
     private void setupCursor(Assets assets, int idx) {
         if (idx > 0) {
-            mVehicleSelector.addCursor(mInputMappers[idx]);
+            // For idx 0, we use the existing cursor
+            mVehicleSelector.addCursor();
+            mVehicleSelector.setInputMapper(idx, mInputMappers[idx]);
         }
+
+        Menu.MenuStyle menuStyle = assets.ui.skin.get("player" + (idx + 1), Menu.MenuStyle.class);
+        mVehicleSelector.setMenuStyle(idx, menuStyle);
 
         String vehicleId = mGame.getConfig().vehicles[idx];
         VehicleDef vehicleDef = assets.findVehicleDefById(vehicleId);
         mVehicleSelector.setCurrent(idx, vehicleDef);
 
-        mVehicleSelector.addListener(
+        mVehicleSelector.setListener(
                 idx,
                 new MenuItemListener() {
                     @Override
                     public void triggered() {
+                        VehicleDef vehicleDef = mVehicleSelector.getSelected(idx);
                         setReadyLabelText(idx, vehicleDef.getName());
                         nextIfPossible();
                     }

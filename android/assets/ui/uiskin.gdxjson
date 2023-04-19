@@ -115,6 +115,14 @@
         creditsSection: {
             font: default-font,
             fontColor: highlight
+        },
+        player1: {
+            font: default-font,
+            fontColor: player1Color
+        },
+        player2: {
+            font: default-font,
+            fontColor: player2Color
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -133,6 +141,16 @@
         },
         large: {
             focus: focus,
+            focusPadding: 8,
+            spacing: 16
+        },
+        player1: {
+            focus: focus-1,
+            focusPadding: 8,
+            spacing: 16
+        },
+        player2: {
+            focus: focus-2,
             focusPadding: 8,
             spacing: 16
         }
