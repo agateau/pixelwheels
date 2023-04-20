@@ -470,13 +470,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
                 if (idx == cursor.mSelectedIndex) {
                     Menu.MenuStyle style = cursor.mMenuStyle;
-                    int padding = style.focusPadding;
-                    style.selected.draw(
+                    DrawUtils.drawPixelAligned(
                             batch,
-                            getX() + x + rect.x - padding,
-                            getY() + y + rect.y - padding,
-                            rect.width + 2 * padding,
-                            rect.height + 2 * padding);
+                            style.selected,
+                            getX() + x + rect.x,
+                            getY() + y + rect.y,
+                            rect.width,
+                            rect.height,
+                            style.focusPadding);
                 }
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
