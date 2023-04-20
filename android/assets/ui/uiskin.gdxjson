@@ -136,28 +136,27 @@
     com.agateau.ui.menu.Menu$MenuStyle: {
         default: {
             focus: focus,
+            selected: selected,
             focusPadding: 2,
             spacing: 16
         },
         large: {
             focus: focus,
+            selected: selected,
             focusPadding: 8,
             spacing: 16
         },
         player1: {
             focus: focus-1,
+            selected: selected-1,
             focusPadding: 8,
             spacing: 16
         },
         player2: {
             focus: focus-2,
+            selected: selected-2,
             focusPadding: 8,
             spacing: 16
-        }
-    },
-    com.agateau.ui.menu.GridMenuItem$GridMenuItemStyle: {
-        default: {
-            selected: selected
         }
     },
     com.agateau.ui.menu.SwitchMenuItem$SwitchMenuItemStyle: {

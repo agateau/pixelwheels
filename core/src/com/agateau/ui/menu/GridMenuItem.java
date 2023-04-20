@@ -32,14 +32,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 
 /** A MenuItem to display a grid of custom elements */
 public class GridMenuItem<T> extends Widget implements MenuItem {
     public static final int INVALID_INDEX = -1;
     private final Menu mMenu;
-    private final GridMenuItemStyle mStyle;
     private Array<T> mItems;
     private ItemRenderer<T> mRenderer;
 
@@ -77,6 +75,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 mInputHandler.setInputMapper(inputMapper);
             }
         }
+
         public void setMenuStyle(Menu.MenuStyle menuStyle) {
             mMenuStyle = menuStyle;
             mFocusIndicators.clear();
@@ -266,13 +265,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         void selectionConfirmed();
     }
 
-    public static class GridMenuItemStyle {
-        public Drawable selected;
-    }
-
     public GridMenuItem(Menu menu) {
         mMenu = menu;
-        mStyle = mMenu.getSkin().get(GridMenuItemStyle.class);
         mCursors.add(new Cursor());
         addListener(
                 new InputListener() {
@@ -475,8 +469,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                         batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
 
                 if (idx == cursor.mSelectedIndex) {
-                    int padding = mMenu.getMenuStyle().focusPadding;
-                    mStyle.selected.draw(
+                    Menu.MenuStyle style = cursor.mMenuStyle;
+                    int padding = style.focusPadding;
+                    style.selected.draw(
                             batch,
                             getX() + x + rect.x - padding,
                             getY() + y + rect.y - padding,
