@@ -18,10 +18,13 @@
  */
 package com.agateau.utils;
 
+import java.util.Locale;
+
 /** Assert implementation */
 public class Assert {
-    public static void check(boolean condition, String message) {
+    public static void check(boolean condition, String fmt, Object... args) {
         if (!condition) {
+            String message = String.format(Locale.getDefault(), fmt, args);
             throw new AssertionError(message);
         }
     }

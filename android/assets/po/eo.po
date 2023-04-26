@@ -427,11 +427,6 @@ msgstr "ELIRI"
 msgid "Select Your Vehicles"
 msgstr "Elektu Viajn Veturilojn"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "Preta!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "Mankas kelkaj ludregiloj"
@@ -818,6 +813,12 @@ msgstr "Aktivigi"
 msgid "Back"
 msgstr "Reen"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "Ludanto #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "Mankas"
@@ -890,3 +891,6 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "MALFERMI DOSIERUJON\n"
 "DE PROTOKOLA DOSIERO"
+
+#~ msgid "Ready!"
+#~ msgstr "Preta!"

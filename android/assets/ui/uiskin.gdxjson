@@ -18,11 +18,11 @@
         highlight: {
             r: 0.965, g: 0.459, b: 0.478, a: 1
         },
-        player0Color: {
-            r: 0.478, g: 0.459, b: 0.965, a: 1
-        },
         player1Color: {
-            r: 0.459, g: 0.965, b: 0.478, a: 1
+            r: 0, g: 0.584, b: 0.914, a: 1
+        },
+        player2Color: {
+            r: 0.388, g: 0.78, b: 0.302, a: 1
         },
     },
     com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
@@ -72,13 +72,13 @@
             font: default-font,
             fontColor: white
         },
-        player0RankingRow: {
-            font: default-font,
-            fontColor: player0Color
-        },
         player1RankingRow: {
             font: default-font,
             fontColor: player1Color
+        },
+        player2RankingRow: {
+            font: default-font,
+            fontColor: player2Color
         },
         speechBubble: {
             background: "speech-bubble",
@@ -115,6 +115,14 @@
         creditsSection: {
             font: default-font,
             fontColor: highlight
+        },
+        player1: {
+            font: default-font,
+            fontColor: player1Color
+        },
+        player2: {
+            font: default-font,
+            fontColor: player2Color
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -128,18 +136,27 @@
     com.agateau.ui.menu.Menu$MenuStyle: {
         default: {
             focus: focus,
+            selected: selected,
             focusPadding: 2,
             spacing: 16
         },
         large: {
             focus: focus,
+            selected: selected,
             focusPadding: 8,
             spacing: 16
-        }
-    },
-    com.agateau.ui.menu.GridMenuItem$GridMenuItemStyle: {
-        default: {
-            selected: selected
+        },
+        player1: {
+            focus: focus-1,
+            selected: selected-1,
+            focusPadding: 8,
+            spacing: 16
+        },
+        player2: {
+            focus: focus-2,
+            selected: selected-2,
+            focusPadding: 8,
+            spacing: 16
         }
     },
     com.agateau.ui.menu.SwitchMenuItem$SwitchMenuItemStyle: {

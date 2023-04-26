@@ -427,11 +427,6 @@ msgstr "AVSLUTA"
 msgid "Select Your Vehicles"
 msgstr "Markera dina fordon"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "Klara!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "Några spelkontroller saknas"
@@ -816,6 +811,12 @@ msgstr "Aktivera"
 msgid "Back"
 msgstr "Tillbaka"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "Spelare #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "Saknas"
@@ -886,6 +887,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "ÖPPNA MAPP FÖR LOGGFIL"
+
+#~ msgid "Ready!"
+#~ msgstr "Klara!"
 
 #~ msgid "Press the gamepad key..."
 #~ msgstr "Tryck på spelkontrollsknappen..."

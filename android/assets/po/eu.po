@@ -428,11 +428,6 @@ msgstr "IRTEN"
 msgid "Select Your Vehicles"
 msgstr "Aukeratu zure ibiligailuak"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "Prest!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "Aginte batzuk falta dira"
@@ -820,6 +815,12 @@ msgstr "Aktibatu"
 msgid "Back"
 msgstr "Atzera"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "#%d Jokalaria: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "Faltan"
@@ -890,6 +891,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOG-EN KARPETA IREKI"
+
+#~ msgid "Ready!"
+#~ msgstr "Prest!"
 
 #~ msgid "Press the gamepad key..."
 #~ msgstr "Aginteko botoi bat sakatu..."

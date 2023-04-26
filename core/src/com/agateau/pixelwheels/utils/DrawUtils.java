@@ -22,7 +22,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /** Utilities to draw shapes */
 public class DrawUtils {
@@ -72,5 +74,21 @@ public class DrawUtils {
 
     public static float getTextureRegionRadius(TextureRegion region) {
         return Vector2.len(region.getRegionWidth() / 2f, region.getRegionHeight() / 2f);
+    }
+
+    public static void drawPixelAligned(
+            Batch batch,
+            Drawable drawable,
+            float x,
+            float y,
+            float width,
+            float height,
+            int padding) {
+        drawable.draw(
+                batch,
+                MathUtils.floor(x - padding),
+                MathUtils.floor(y - padding),
+                MathUtils.ceil(width + 2 * padding),
+                MathUtils.ceil(height + 2 * padding));
     }
 }

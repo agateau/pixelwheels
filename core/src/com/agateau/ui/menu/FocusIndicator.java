@@ -31,7 +31,11 @@ class FocusIndicator {
     private float mAlpha = 0;
 
     FocusIndicator(Menu menu) {
-        mMenuStyle = menu.getMenuStyle();
+        this(menu.getMenuStyle());
+    }
+
+    FocusIndicator(Menu.MenuStyle menuStyle) {
+        mMenuStyle = menuStyle;
     }
 
     public void act(float delta) {
@@ -49,12 +53,7 @@ class FocusIndicator {
         }
         int padding = mMenuStyle.focusPadding;
         float oldA = DrawUtils.setBatchAlpha(batch, batch.getColor().a * mAlpha);
-        x = MathUtils.floor(x);
-        y = MathUtils.floor(y);
-        width = MathUtils.ceil(width);
-        height = MathUtils.ceil(height);
-        mMenuStyle.focus.draw(
-                batch, x - padding, y - padding, width + 2 * padding, height + 2 * padding);
+        DrawUtils.drawPixelAligned(batch, mMenuStyle.focus, x, y, width, height, padding);
         DrawUtils.setBatchAlpha(batch, oldA);
     }
 

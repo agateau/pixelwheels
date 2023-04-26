@@ -69,7 +69,14 @@ public class Menu extends WidgetGroup implements Disableable {
     }
 
     public static class MenuStyle {
+        /** Drawable used to draw around the current MenuItem */
         public Drawable focus;
+        /**
+         * Drawable used to draw behind a selected part of a MenuItem. Only used by certain MenuItem
+         * such as GridMenuItem.
+         */
+        public Drawable selected;
+
         public int spacing;
         public int focusPadding;
 

@@ -420,11 +420,6 @@ msgstr "ÇIK"
 msgid "Select Your Vehicles"
 msgstr "Aracı seçin"
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr "Hazır!"
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr "Kontrolör kayıp"
@@ -811,6 +806,12 @@ msgstr "Aktif et"
 msgid "Back"
 msgstr "Geri"
 
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, fuzzy, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
+msgstr "Oyuncu #%d: %s"
+
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
 msgstr "Kayıp"
@@ -881,3 +882,6 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "GÜNLÜK KLASÖRÜ"
+
+#~ msgid "Ready!"
+#~ msgstr "Hazır!"

@@ -249,7 +249,8 @@ public class UiBuilder {
                 "VerticalGroup",
                 (uiBuilder, element) -> {
                     VerticalGroup group = new VerticalGroup();
-                    group.space(element.getFloatAttribute("spacing", 0));
+                    float spacing = mDimParser.parse(element.getAttribute("spacing", "0"));
+                    group.space(spacing);
                     int align = parseAlign(element);
                     if (align != -1) {
                         group.align(align);
@@ -260,7 +261,8 @@ public class UiBuilder {
                 "HorizontalGroup",
                 (uiBuilder, element) -> {
                     HorizontalGroup group = new HorizontalGroup();
-                    group.space(element.getFloatAttribute("spacing", 0));
+                    float spacing = mDimParser.parse(element.getAttribute("spacing", "0"));
+                    group.space(spacing);
                     return group;
                 });
         mActorFactories.put(

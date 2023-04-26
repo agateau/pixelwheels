@@ -424,11 +424,6 @@ msgstr ""
 msgid "Select Your Vehicles"
 msgstr ""
 
-#: android/assets/screens/multiplayer.gdxui:16
-#: android/assets/screens/multiplayer.gdxui:18
-msgid "Ready!"
-msgstr ""
-
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
 msgstr ""
@@ -807,6 +802,12 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#, java-printf-format
+msgctxt "The 'P' is for 'Player'"
+msgid "P%d: %s"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
