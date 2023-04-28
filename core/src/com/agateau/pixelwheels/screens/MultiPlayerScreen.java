@@ -89,7 +89,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector = createVehicleSelector(builder, assets);
+        createVehicleSelector(builder, assets);
         createReadyLabels(builder, assets);
 
         for (int idx = 0; idx < mPlayerCount; ++idx) {
@@ -134,17 +134,15 @@ public class MultiPlayerScreen extends PwStageScreen {
         mListener.onBackPressed();
     }
 
-    private VehicleSelector createVehicleSelector(UiBuilder builder, Assets assets) {
+    private void createVehicleSelector(UiBuilder builder, Assets assets) {
         Menu menu = builder.getActor("menu");
 
-        VehicleSelector selector = new VehicleSelector(menu);
-        selector.init(assets, mGame.getRewardManager());
-        selector.setColumnCount(builder.getIntConfigValue("columnCount"));
-        selector.setItemSize(
+        mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.init(assets, mGame.getRewardManager());
+        mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
+        mVehicleSelector.setItemSize(
                 builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
-        menu.addItem(selector);
-
-        return selector;
+        menu.addItem(mVehicleSelector);
     }
 
     private void setupCursor(Assets assets, int idx) {
