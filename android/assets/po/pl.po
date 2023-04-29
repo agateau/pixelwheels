@@ -1,10 +1,11 @@
 # PandaCoderPL <translator@pandacoderpl.anonaddy.me>, 2022.
+# Marek Szumny <lukmarcus@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2022-05-15 10:30+0000\n"
-"Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>\n"
+"Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>, Marek Szumny <lukmarcus@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
@@ -17,58 +18,58 @@ msgstr ""
 #, fuzzy
 msgctxt "championship"
 msgid "Country Life"
-msgstr "Mistrzostwa Country Life:"
+msgstr "Wiejskie Życie:"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr ""
+msgstr "Witamy!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr ""
+msgstr "Rzeka"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr ""
+msgstr "Powódź"
 
 #: android/assets/championships/1.xml:2
 #, fuzzy
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr "Mistrzostwa Square Mountains:"
+msgstr "Kwadratowe Wzgórza:"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr ""
+msgstr "Pada śnieg"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr ""
+msgstr "Ślisko!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "W górę, w górę, w górę... i w dół!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr ""
+msgstr "Pikselowe Miasta"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "Blokowe miasto"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "Nadmorska wioska"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -76,7 +77,7 @@ msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr "Otwartoźródłowa gra wyścigowa"
+msgstr "Gra wyścigowa typu open source"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
@@ -131,7 +132,7 @@ msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr "Mistrzostwa Country Life:"
+msgstr "Mistrzostwa Wiejskie Życie:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
@@ -139,7 +140,7 @@ msgstr "\"Cosmo Blast v1.0\""
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr "Mistrzostwa Square Mountains:"
+msgstr "Mistrzostwa Kwadratowe Wzgórza:"
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
@@ -147,7 +148,7 @@ msgstr "\"Lunar Harvest v1.0\""
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr "Mistrzostwa Pix Cities:"
+msgstr "Mistrzostwa Pikselowe Miasta:"
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
@@ -155,7 +156,7 @@ msgstr "\"Bouncing Baal v0.95\""
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr "Efekty Dźwiękowe"
+msgstr "Efekty dźwiękowe"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
@@ -175,7 +176,7 @@ msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr "Inne efekty dźwiękowe"
+msgstr "Pozostałe efekty dźwiękowe"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
@@ -211,11 +212,11 @@ msgstr "Tłumaczenia"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "Niemiecki"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
-msgstr ""
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
@@ -228,11 +229,11 @@ msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "Baskijski:"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "French:"
@@ -243,25 +244,25 @@ msgid "Polish:"
 msgstr "Polski:"
 
 #: android/assets/screens/credits.gdxui:78
-msgid "PandaCoderPL"
-msgstr "PandaCoderPL"
+msgid "PandaCoderPL, Marek Szumny"
+msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
 #, fuzzy
 msgid "Swedish:"
-msgstr "Hiszpański:"
+msgstr "Szwedzki:"
 
 #: android/assets/screens/credits.gdxui:81
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr ""
+msgstr "Rosyjski"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Bengali:"
@@ -281,43 +282,43 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Esperanto:"
-msgstr ""
+msgstr "Esperanto:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
-msgstr ""
+msgstr "Węgierski"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
-msgstr ""
+msgstr "Turecki"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "Włoski:"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Video Editing"
-msgstr "Edycja Wideo"
+msgstr "Edycja wideo"
 
 #: android/assets/screens/credits.gdxui:108
 msgid "Special Thanks"
-msgstr "Specjalne Podziękowania"
+msgstr "Specjalne podziękowania"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Guillaume Roche"
@@ -337,7 +338,7 @@ msgstr "Wszyscy wspierający na Patreonie, Ko-fi i Paypalu"
 
 #: android/assets/screens/credits.gdxui:116
 msgid "Made with"
-msgstr "Zrobione używając"
+msgstr "Stworzone za pomocą"
 
 #: android/assets/screens/credits.gdxui:118
 msgid "LibGDX"
@@ -361,9 +362,7 @@ msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr ""
-"Ustawienia wpływające na rozgrywkę zostały zmienione, wyniki nie będą "
-"zapisywane"
+msgstr "Zmieniono ustawienia wpływające na rozgrywkę, wyniki nie będą zapisywane"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -388,7 +387,7 @@ msgstr "Spust:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 msgid "Back/reverse:"
-msgstr "Wstecz/w tył:"
+msgstr "Wstecz/do tyłu:"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -424,7 +423,7 @@ msgstr "WYJDŹ"
 #: android/assets/screens/multiplayer.gdxui:10
 #, fuzzy
 msgid "Select Your Vehicles"
-msgstr "Wybierz Swój Pojazd"
+msgstr "Wybierz swój pojazd"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some gamepads are missing"
@@ -432,7 +431,7 @@ msgstr "Brakuje niektórych kontrolerów"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr "Zapauzowano"
+msgstr "Gra zapauzowana"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
@@ -444,97 +443,97 @@ msgstr "WYJDŹ DO MENU"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr "Wybierz Mistrzostwa"
+msgstr "Wybierz mistrzostwa"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Wybierz Tryb Gry"
+msgstr "Wybierz tryb gry"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 #, fuzzy
 msgid "Select Language"
-msgstr "Język:"
+msgstr "Wybierz język:"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Wybierz Tor"
+msgstr "Wybierz tor"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
-msgstr "Najlepsze Okrążenie"
+msgstr "Najlepsze okrążenie"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Total"
-msgstr "Najlepszy Czas"
+msgstr "Najlepszy czas"
 
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
-msgstr "Wybierz Swój Pojazd"
+msgstr "Wybierz swój pojazd"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr ""
+msgstr "2-Deuch"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr ""
+msgstr "Ant On-1"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "Broster Truck"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr ""
+msgstr "Mroczny M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr ""
+msgstr "Kombajn"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr ""
+msgstr "Jeep"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid "Miramar"
-msgstr ""
+msgstr "Miramar"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr ""
+msgstr "Pickup"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid "Highway Patrol"
-msgstr ""
+msgstr "Radiowóz"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr ""
+msgstr "Czerwona Błyskawica"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr ""
+msgstr "Roadster"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr ""
+msgstr "Rakieta"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr ""
+msgstr "Ciężarówka Mikołaja"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
 msgid "Share via"
@@ -542,7 +541,7 @@ msgstr "Udostępnij przez"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
 msgid "Hit a bug? Use this button to report it."
-msgstr "Natrafiłeś na błąd? Użyj tego przycisku, żeby go zgłosić."
+msgstr "Natrafiłeś na błąd? Tym przyciskiem możesz go zgłosić."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
 msgid "REPORT BUG"
@@ -552,9 +551,9 @@ msgstr "ZGŁOŚ BŁĄD"
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] "Traf jeden pojazd używając pocisku"
-msgstr[1] "Traf %# pojazdy używając pocisku"
-msgstr[2] "Traf %# pojazdów używając pocisku"
+msgstr[0] "Traf pociskiem jeden pojazd"
+msgstr[1] "Traf pociskiem %# pojazdy"
+msgstr[2] "Traf pociskiem %# pojazdów"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
@@ -585,7 +584,7 @@ msgstr "Przyciski kołowe"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 msgid "Side buttons"
-msgstr "Boczne przyciski"
+msgstr "Przyciski boczne"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
@@ -593,30 +592,28 @@ msgstr "Rankingi Mistrzostw"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
-msgstr "Wyniki Wyścigów"
+msgstr "Wyniki wyścigów"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 #, fuzzy
 msgid "Congratulations, great race!"
-msgstr ""
-"Gratulacje!\n"
-"Pobiłeś rekord!"
+msgstr "Gratulacje, świetny wyścig!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "Naprawdę nieźle prowadzisz!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
-msgstr ""
+msgstr "Jestes mistrzem!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
-msgstr ""
+msgstr "Gratulacje za ten występ!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
-msgstr ""
+msgstr "Imponujące!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -656,17 +653,17 @@ msgstr "Czas wyścigu"
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 #, fuzzy, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Pozycja 3 lub lepsza na mistrzostwach %s"
+msgstr "Ukończ mistrzostwa %s na przynajmniej 3. miejscu"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
 #, fuzzy, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Pozycja 3 lub lepsza na mistrzostwach %s"
+msgstr "Ukończ mistrzostwa %s na przynajmniej 2. miejscu"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
 #, fuzzy, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "Pozycja 3 lub lepsza na mistrzostwach %s"
+msgstr "Ukończ mistrzostwa %s na 1. miejscu"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -675,11 +672,11 @@ msgid ""
 "Finished!"
 msgstr ""
 "Mistrzostwa\n"
-"Zakończone!"
+"zakończone!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "About"
-msgstr "O"
+msgstr "O grze"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 #, java-printf-format
@@ -688,7 +685,7 @@ msgstr "Pixel Wheels %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
 msgid "CREDITS"
-msgstr "CREDITS"
+msgstr "AUTORZY"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid ""
@@ -704,7 +701,7 @@ msgstr "ODWIEDŹ STRONĘ WSPARCIA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "Learn more about Pixel Wheels"
-msgstr "Naucz się więcej o Pixel Wheels"
+msgstr "Dowiedz się więcej o Pixel Wheels"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "VISIT WEB SITE"
@@ -773,7 +770,7 @@ msgstr "KONFIGURUJ"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
-msgstr "Dziękuję z granie!"
+msgstr "Dziękuję za granie!"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
@@ -801,27 +798,27 @@ msgstr "Spust:"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
 msgid "Up"
-msgstr ""
+msgstr "Góra"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
 msgid "Down"
-msgstr ""
+msgstr "Dół"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
 msgid "Left"
-msgstr ""
+msgstr "Lewo"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
 msgid "Right"
-msgstr ""
+msgstr "Prawo"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
 msgid "Activate"
-msgstr ""
+msgstr "Aktywuj"
 
 #: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
 msgid "Back"
-msgstr ""
+msgstr "Wróć"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, fuzzy, java-printf-format
@@ -831,7 +828,7 @@ msgstr "Gracz #%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "Missing"
-msgstr "Brakujące"
+msgstr "Brak"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
 msgid "OK"
@@ -855,42 +852,40 @@ msgstr "[Zablokowane]"
 #: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
-msgstr ""
+msgstr "Komputer"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr ""
+msgstr "Nowy pojazd odblokowany!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 #, fuzzy
 msgid "New championship unlocked!"
-msgstr ""
-"Mistrzostwa\n"
-"Zakończone!"
+msgstr "Nowe mistrzostwa odblokowane!"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
-msgstr "1st"
+msgstr "1."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:48
 msgid "2nd"
-msgstr "2nd"
+msgstr "2."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:50
 msgid "3rd"
-msgstr "3rd"
+msgstr "3."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:52
 msgid "4th"
-msgstr "4th"
+msgstr "4."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:54
 msgid "5th"
-msgstr "5th"
+msgstr "5."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
-msgstr "6th"
+msgstr "6."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
