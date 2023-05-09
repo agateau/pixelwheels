@@ -241,8 +241,8 @@ msgid "Polish:"
 msgstr "Polacco:"
 
 #: android/assets/screens/credits.gdxui:78
-msgid "PandaCoderPL"
-msgstr "PandaCoderPL"
+msgid "PandaCoderPL, Marek Szumny"
+msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
