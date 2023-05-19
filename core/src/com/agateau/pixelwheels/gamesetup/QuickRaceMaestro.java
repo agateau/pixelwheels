@@ -84,7 +84,7 @@ public class QuickRaceMaestro extends Maestro {
                         getGame().replaceScreen(createRaceScreen());
                     }
                 };
-        return new MultiPlayerScreen(getGame(), listener);
+        return new MultiPlayerScreen(getGame(), getPlayerCount(), listener);
     }
 
     private Screen createSelectTrackScreen() {

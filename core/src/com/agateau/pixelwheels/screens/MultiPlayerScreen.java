@@ -52,15 +52,16 @@ public class MultiPlayerScreen extends PwStageScreen {
     }
 
     private final PwGame mGame;
-    private final int mPlayerCount = 2; // Hardcoded for now
+    private final int mPlayerCount;
     private final Listener mListener;
     private final InputMapper[] mInputMappers;
     private VehicleSelector mVehicleSelector;
     private final Array<Label> mReadyLabels = new Array<>();
 
-    public MultiPlayerScreen(PwGame game, Listener listener) {
+    public MultiPlayerScreen(PwGame game, int playerCount, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
+        mPlayerCount = playerCount;
         mListener = listener;
 
         mInputMappers = new InputMapper[mPlayerCount];
@@ -75,7 +76,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new MultiPlayerScreen(mGame, mListener));
+                mGame.replaceScreen(new MultiPlayerScreen(mGame, mPlayerCount, mListener));
             }
         };
     }

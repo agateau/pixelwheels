@@ -93,7 +93,7 @@ public class ChampionshipMaestro extends Maestro {
                         startChampionship();
                     }
                 };
-        return new MultiPlayerScreen(getGame(), listener);
+        return new MultiPlayerScreen(getGame(), getPlayerCount(), listener);
     }
 
     private Screen createChampionshipScreen() {
