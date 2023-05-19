@@ -70,7 +70,7 @@ public class MainMenuScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.pushScreen(new SelectGameModeScreen(mGame, 2));
+                                    mGame.pushScreen(new SelectPlayerCountScreen(mGame));
                                 }
                             });
         } else {
