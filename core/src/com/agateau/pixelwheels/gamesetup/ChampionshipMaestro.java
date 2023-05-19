@@ -36,7 +36,7 @@ public class ChampionshipMaestro extends Maestro {
     private final ChampionshipGameInfo.Builder mGameInfoBuilder;
     private ChampionshipGameInfo mGameInfo;
 
-    public ChampionshipMaestro(PwGame game, PlayerCount playerCount) {
+    public ChampionshipMaestro(PwGame game, int playerCount) {
         super(game, playerCount);
         mGameInfoBuilder =
                 new ChampionshipGameInfo.Builder(
@@ -53,7 +53,7 @@ public class ChampionshipMaestro extends Maestro {
     }
 
     private Screen createSelectVehicleScreen() {
-        if (getPlayerCount() == PlayerCount.ONE) {
+        if (getPlayerCount() == 1) {
             return createOnePlayerVehicleScreen();
         } else {
             return createMultiPlayerVehicleScreen();

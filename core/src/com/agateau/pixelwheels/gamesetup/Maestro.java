@@ -31,16 +31,16 @@ import java.util.Set;
 /** Orchestrate changes between screens for a game */
 public abstract class Maestro implements EnoughGamepadsChecker.Listener {
     private final PwGame mGame;
-    private final PlayerCount mPlayerCount;
+    private final int mPlayerCount;
     private final EnoughGamepadsChecker mEnoughGamepadsChecker;
 
     private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
 
-    public Maestro(PwGame game, PlayerCount playerCount) {
+    public Maestro(PwGame game, int playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
         mEnoughGamepadsChecker = new EnoughGamepadsChecker(mGame.getConfig(), this);
-        mEnoughGamepadsChecker.setInputCount(playerCount.toInt());
+        mEnoughGamepadsChecker.setInputCount(playerCount);
     }
 
     public abstract void start();
@@ -52,7 +52,7 @@ public abstract class Maestro implements EnoughGamepadsChecker.Listener {
         mEnoughGamepadsChecker.setInputCount(0);
     }
 
-    public PlayerCount getPlayerCount() {
+    public int getPlayerCount() {
         return mPlayerCount;
     }
 

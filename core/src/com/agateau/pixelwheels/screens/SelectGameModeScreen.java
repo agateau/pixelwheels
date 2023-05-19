@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameMode;
-import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
@@ -34,9 +33,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /** Select between quick race, championship... */
 public class SelectGameModeScreen extends PwStageScreen {
     private final PwGame mGame;
-    private final PlayerCount mPlayerCount;
+    private final int mPlayerCount;
 
-    public SelectGameModeScreen(PwGame game, PlayerCount playerCount) {
+    public SelectGameModeScreen(PwGame game, int playerCount) {
         super(game.getAssets().ui);
         mGame = game;
         mPlayerCount = playerCount;
