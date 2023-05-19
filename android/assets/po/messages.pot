@@ -460,6 +460,22 @@ msgstr ""
 msgid "Select Language"
 msgstr ""
 
+#: android/assets/screens/selectplayercount.gdxui:5
+msgid "Select Players"
+msgstr ""
+
+#: android/assets/screens/selectplayercount.gdxui:9
+msgid "2 PLAYERS"
+msgstr ""
+
+#: android/assets/screens/selectplayercount.gdxui:10
+msgid "3 PLAYERS"
+msgstr ""
+
+#: android/assets/screens/selectplayercount.gdxui:11
+msgid "4 PLAYERS"
+msgstr ""
+
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
 msgstr ""
@@ -812,7 +828,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
 #, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
