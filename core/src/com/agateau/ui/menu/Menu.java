@@ -105,6 +105,10 @@ public class Menu extends WidgetGroup implements Disableable {
         return mStyle;
     }
 
+    public MenuItemGroup findItemParentGroup(MenuItem item) {
+        return mGroup.findItemParentGroup(item);
+    }
+
     @Override
     public void setDisabled(boolean disabled) {
         mDisabled = disabled;

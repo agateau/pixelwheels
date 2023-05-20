@@ -19,6 +19,7 @@
 package com.agateau.ui.menu;
 
 import com.agateau.utils.AgcMathUtils;
+import com.agateau.utils.Assert;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -96,15 +97,19 @@ public class TabMenuItem extends Actor implements MenuItem {
     }
 
     public MenuItemGroup addPage(String name) {
+        MenuItemGroup parentGroup = mMenu.findItemParentGroup(this);
+        Assert.check(
+                parentGroup != null,
+                "TabMenuItem must have be added to a group before calling addPage()");
         mGlyphLayout.setText(mFont, name);
         float tabWidth = mGlyphLayout.width + mStyle.tabPadding * 2;
 
         MenuItemGroup group = new MenuItemGroup(mMenu);
-        mMenu.addItem(group);
+        parentGroup.addItem(group);
 
         mPages.add(new Page(name, group, tabWidth));
         if (mPages.size > 1) {
-            mMenu.setItemVisible(group, false);
+            parentGroup.setItemVisible(group, false);
         }
 
         float width = 0;
@@ -272,10 +277,11 @@ public class TabMenuItem extends Actor implements MenuItem {
     }
 
     private void setCurrentTab(int currentTab) {
+        MenuItemGroup parentGroup = mMenu.findItemParentGroup(this);
         mCurrentTab = MathUtils.clamp(currentTab, 0, mPages.size - 1);
         for (int idx = 0; idx < mPages.size; ++idx) {
             MenuItemGroup page = mPages.get(idx).group;
-            mMenu.setItemVisible(page, idx == mCurrentTab);
+            parentGroup.setItemVisible(page, idx == mCurrentTab);
         }
     }
 }
