@@ -208,9 +208,13 @@ public class ConfigScreen extends PwStageScreen {
         MenuItemGroup group = mTabMenuItem.addPage(tr("Controls"));
 
         if (PlatformUtils.isDesktop()) {
+            TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
+            group.addItem(tabMenuItem);
             for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
-                setupInputSelector(
-                        mMenu, group, StringUtils.format(tr("Player #%d:"), idx + 1), idx);
+                String tabText = StringUtils.format(tr("P%d"), idx + 1);
+                MenuItemGroup playerGroup = tabMenuItem.addPage(tabText);
+                String selectorText = StringUtils.format(tr("Player #%d:"), idx + 1);
+                setupInputSelector(mMenu, playerGroup, selectorText, idx);
             }
         } else {
             setupInputSelector(mMenu, group, tr("Controls:"), 0);
