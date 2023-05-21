@@ -748,44 +748,49 @@ msgstr "ENTWICKLEROPTIONEN"
 msgid "Controls"
 msgstr "Steuerung"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#, java-printf-format
+msgid "P%d"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Spieler #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
 msgid "Controls:"
 msgstr "Steuerung:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "General"
 msgstr "Allgemeines"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:235
 msgid "Language:"
 msgstr "Sprache:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
 msgid "Audio"
 msgstr "Töne"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:250
 msgid "Sound FX:"
 msgstr "Effekte:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:264
 msgid "Music:"
 msgstr "Musik:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
 msgid "Video"
 msgstr "Anzeige"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:281
 msgid "Fullscreen:"
 msgstr "Vollbildmodus:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:370
 msgid "CONFIGURE"
 msgstr "KONFIGURIEREN"
 

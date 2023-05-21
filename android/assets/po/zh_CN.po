@@ -745,44 +745,49 @@ msgstr "开发选项"
 msgid "Controls"
 msgstr "控制"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#, java-printf-format
+msgid "P%d"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "玩家 #%d："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
 msgid "Controls:"
 msgstr "控制："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
 msgid "General"
 msgstr "常规"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:235
 msgid "Language:"
 msgstr "语言："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:232
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
 msgid "Audio"
 msgstr "声音"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:250
 msgid "Sound FX:"
 msgstr "音效："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:264
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:262
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
 msgid "Video"
 msgstr "画面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:281
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:365
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:370
 msgid "CONFIGURE"
 msgstr "配置"
 
