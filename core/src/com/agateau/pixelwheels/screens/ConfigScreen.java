@@ -206,6 +206,7 @@ public class ConfigScreen extends PwStageScreen {
 
     private void addControlsTab() {
         MenuItemGroup group = mTabMenuItem.addPage(tr("Controls"));
+        group.setWidth(750);
 
         if (PlatformUtils.isDesktop()) {
             TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
