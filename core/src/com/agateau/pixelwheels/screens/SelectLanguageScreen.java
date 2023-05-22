@@ -201,8 +201,7 @@ public class SelectLanguageScreen extends PwStageScreen {
         // Flushing the config causes the new language to be loaded
         mGame.getConfig().flush();
 
-        ConfigScreen screen = new ConfigScreen(mGame);
-        screen.selectLanguageButton();
+        ConfigScreen screen = ConfigScreen.createAfterLanguageChange(mGame);
         mGame.popScreen();
         mGame.replaceScreen(screen);
     }
