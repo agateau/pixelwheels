@@ -34,18 +34,27 @@ class PolylineMapObjectWalker implements MapObjectWalker {
 
     @Override
     public void walk(float stepWidth, float stepHeight, WalkFunction function) {
+        Vector2 origin = new Vector2();
         Vector2 v1 = new Vector2();
         Vector2 v2 = new Vector2();
         Polyline polyline = ((PolylineMapObject) mMapObject).getPolyline();
+        float angle = MapUtils.getObjectRotation(mMapObject);
 
         float[] vertices = polyline.getTransformedVertices();
         int count = vertices.length / 2;
-        v1.set(vertices[0], vertices[1]);
+
+        readVector(origin, vertices, 0);
+        v1.set(origin);
         for (int idx = 1; idx < count; ++idx) {
-            v2.set(vertices[2 * idx], vertices[2 * idx + 1]);
+            readVector(v2, vertices, idx);
+            v2.sub(origin).rotateDeg(angle).add(origin);
             walkVector(v1, v2, stepWidth, function);
             v1.set(v2);
         }
+    }
+
+    private static void readVector(Vector2 vector, float[] vertices, int index) {
+        vector.set(vertices[2 * index], vertices[2 * index + 1]);
     }
 
     private static final Vector2 sTmp = new Vector2();
