@@ -698,44 +698,44 @@ msgstr ""
 "A bajnokság\n"
 "befejeződött!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:105
 msgid "About"
 msgstr "Névjegy"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:107
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
 msgid "CREDITS"
 msgstr "KÉSZÍTŐK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr "A Pixel Wheels ingyenes, de számos módon támogathatod a fejlesztését."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
 msgid "VISIT SUPPORT PAGE"
 msgstr ""
 "TÁMOGATÁSI OLDAL\n"
 "MEGNYITÁSA"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:150
 msgid "Learn more about Pixel Wheels"
 msgstr "Tudj meg többet a Pixel Wheelsről"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:151
 msgid "VISIT WEB SITE"
 msgstr "WEBHELY MEGLÁTOGATÁSA"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "Under the hood"
 msgstr "Motorháztető alatt"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -743,107 +743,63 @@ msgstr ""
 "Ezek a beállítások leginkább a Pixel Wheels fejlesztéséhez érdekesek, de "
 "bátran próbáld ki mindet!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
 msgid "DEV. OPTIONS"
 msgstr "FEJLESZTŐI BEÁLLÍTÁSOK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "Controls"
 msgstr "Vezérlők"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:200
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:202
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "%d. játékos:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Controls:"
 msgstr "Vezérlők:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "General"
 msgstr "Általános"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:235
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
 msgid "Language:"
 msgstr "Nyelv:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
 msgid "Audio"
 msgstr "Hang"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:250
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:238
 msgid "Sound FX:"
 msgstr "Hanghatások:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:264
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:252
 msgid "Music:"
 msgstr "Zene:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Video"
 msgstr "Videó"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:281
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
 msgid "Fullscreen:"
 msgstr "Teljes képernyő:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:370
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:289
 msgid "CONFIGURE"
 msgstr "BEÁLLÍTÁS"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
 msgstr "Köszönjük, hogy játszottál!"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Brake"
-msgstr "Fékezés"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Steer left"
-msgstr "Kanyarodás balra"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-msgid "Steer right"
-msgstr "Kanyarodás jobbra"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
-msgid "Trigger"
-msgstr "Aktiváló"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-msgid "Up"
-msgstr "Fel"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Down"
-msgstr "Le"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Left"
-msgstr "Balra"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-msgid "Right"
-msgstr "Jobbra"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
-msgid "Activate"
-msgstr "Aktiválás"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
-msgid "Back"
-msgstr "Vissza"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
 #, fuzzy, java-printf-format
@@ -886,6 +842,50 @@ msgstr "Új jármű feloldva!"
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 msgid "New championship unlocked!"
 msgstr "Új bajnokság feloldva!"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+msgid "Brake"
+msgstr "Fékezés"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:102
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+msgid "Steer left"
+msgstr "Kanyarodás balra"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+msgid "Steer right"
+msgstr "Kanyarodás jobbra"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Aktiváló"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+msgid "Up"
+msgstr "Fel"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+msgid "Down"
+msgstr "Le"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+msgid "Left"
+msgstr "Balra"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+msgid "Right"
+msgstr "Jobbra"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Aktiválás"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Vissza"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"

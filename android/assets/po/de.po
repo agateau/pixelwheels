@@ -694,20 +694,20 @@ msgstr ""
 "Meisterschaft\n"
 "geschafft!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:105
 msgid "About"
 msgstr "Informationen"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:107
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
 msgid "CREDITS"
 msgstr "DANKSAGUNG"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -715,23 +715,23 @@ msgstr ""
 "Pixel Wheels ist freie Software, du kannst die weitere Entwicklung aber auf "
 "verschiedene Arten unterstützen."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
 msgid "VISIT SUPPORT PAGE"
 msgstr "UNTERSTÜTZEN"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:150
 msgid "Learn more about Pixel Wheels"
 msgstr "Mehr über Pixel Wheels erfahren"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:151
 msgid "VISIT WEB SITE"
 msgstr "WEBSITE"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "Under the hood"
 msgstr "Fehlersuche"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -740,107 +740,63 @@ msgstr ""
 "Wheels relevant! Du kannst aber natürlich trotzdem herumstöbern und sie "
 "ausprobieren."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
 msgid "DEV. OPTIONS"
 msgstr "ENTWICKLEROPTIONEN"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "Controls"
 msgstr "Steuerung"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:200
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:202
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Spieler #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Controls:"
 msgstr "Steuerung:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "General"
 msgstr "Allgemeines"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:235
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
 msgid "Language:"
 msgstr "Sprache:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
 msgid "Audio"
 msgstr "Töne"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:250
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:238
 msgid "Sound FX:"
 msgstr "Effekte:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:264
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:252
 msgid "Music:"
 msgstr "Musik:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Video"
 msgstr "Anzeige"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:281
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
 msgid "Fullscreen:"
 msgstr "Vollbildmodus:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:370
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:289
 msgid "CONFIGURE"
 msgstr "KONFIGURIEREN"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
 msgid "Thank you for playing!"
 msgstr "Danke fürs Spielen!"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:100
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Brake"
-msgstr "Bremsen"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:101
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Steer left"
-msgstr "Links lenken"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:102
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-msgid "Steer right"
-msgstr "Rechts lenken"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:103
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
-msgid "Trigger"
-msgstr "Auslöser"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:105
-msgid "Up"
-msgstr "Rauf"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:106
-msgid "Down"
-msgstr "Runter"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:107
-msgid "Left"
-msgstr "Links"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:108
-msgid "Right"
-msgstr "Rechts"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:109
-msgid "Activate"
-msgstr "Auslösen"
-
-#: core/src/com/agateau/pixelwheels/screens/KeyboardConfigScreen.java:110
-msgid "Back"
-msgstr "Zurück"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
 #, fuzzy, java-printf-format
@@ -883,6 +839,50 @@ msgstr "Neues Fahrzeug freigeschaltet!"
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 msgid "New championship unlocked!"
 msgstr "Neue Meisterschaft freigeschaltet!"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:101
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+msgid "Brake"
+msgstr "Bremsen"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:102
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+msgid "Steer left"
+msgstr "Links lenken"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:103
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+msgid "Steer right"
+msgstr "Rechts lenken"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Auslöser"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+msgid "Up"
+msgstr "Rauf"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+msgid "Down"
+msgstr "Runter"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+msgid "Left"
+msgstr "Links"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+msgid "Right"
+msgstr "Rechts"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Auslösen"
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Zurück"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
