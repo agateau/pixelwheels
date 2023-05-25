@@ -18,6 +18,7 @@
  */
 package com.agateau.ui;
 
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.Controllers;
@@ -64,6 +65,9 @@ public class GamepadInputMappers {
         Array<Controller> controllers = Controllers.getControllers();
         for (int idx = 0; idx < mMappers.length; ++idx) {
             Controller controller = idx < controllers.size ? controllers.get(idx) : null;
+            if (controller != null) {
+                NLog.i("Found controller %s (%s)", controller.getUniqueId(), controller.getName());
+            }
             mMappers[idx] = new GamepadInputMapper(controller);
         }
 
@@ -71,6 +75,9 @@ public class GamepadInputMappers {
                 new ControllerAdapter() {
                     @Override
                     public void connected(Controller controller) {
+                        NLog.i(
+                                "Controller %s connected (%s)",
+                                controller.getUniqueId(), controller.getName());
                         for (GamepadInputMapper mapper : mMappers) {
                             if (mapper.getController() == null) {
                                 mapper.setController(controller);
@@ -86,6 +93,7 @@ public class GamepadInputMappers {
 
                     @Override
                     public void disconnected(Controller controller) {
+                        NLog.i("Controller %s disconnected", controller.getUniqueId());
                         for (GamepadInputMapper mapper : mMappers) {
                             if (mapper.getController() == controller) {
                                 mapper.setController(null);
