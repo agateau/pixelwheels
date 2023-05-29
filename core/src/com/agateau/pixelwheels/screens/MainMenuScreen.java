@@ -27,20 +27,16 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
-import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Timer;
 
 /** Main menu, shown at startup */
 public class MainMenuScreen extends PwStageScreen {
     private final PwGame mGame;
-    private final String mLanguageId;
 
     public MainMenuScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
-        mLanguageId = game.getConfig().languageId;
         setupUi();
         new PwRefreshHelper(game, getStage()) {
             @Override
@@ -129,20 +125,5 @@ public class MainMenuScreen extends PwStageScreen {
     @Override
     public void onBackPressed() {
         Gdx.app.exit();
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        if (!mLanguageId.equals(mGame.getConfig().languageId)) {
-            NLog.i("Language changed, recreating screen");
-            Timer.post(
-                    new Timer.Task() {
-                        @Override
-                        public void run() {
-                            mGame.showMainMenu();
-                        }
-                    });
-        }
     }
 }

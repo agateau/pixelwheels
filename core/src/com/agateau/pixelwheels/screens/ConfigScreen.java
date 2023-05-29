@@ -46,6 +46,7 @@ import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -68,6 +69,8 @@ public class ConfigScreen extends PwStageScreen {
     Menu mMenu;
     TabMenuItem mTabMenuItem;
     MenuItemGroup mLanguageGroup;
+
+    private boolean mLanguageChanged = false;
 
     interface GameInputHandlerConfigScreenFactory {
         Screen createScreen(PwGame game, int playerIdx);
@@ -283,10 +286,16 @@ public class ConfigScreen extends PwStageScreen {
         return language.name;
     }
 
-    /** Used by SelectLanguageScreen when it recreates the screen */
-    void selectLanguageButton() {
+    private void selectLanguageButton() {
         mTabMenuItem.setCurrentPage(mLanguageGroup);
         mMenu.setCurrentItem(mLanguageGroup);
+    }
+
+    public static ConfigScreen createAfterLanguageChange(PwGame game) {
+        ConfigScreen screen = new ConfigScreen(game);
+        screen.selectLanguageButton();
+        screen.mLanguageChanged = true;
+        return screen;
     }
 
     class InputSelectorController {
@@ -384,5 +393,9 @@ public class ConfigScreen extends PwStageScreen {
     @Override
     public void onBackPressed() {
         mGame.popScreen();
+        if (mLanguageChanged) {
+            NLog.i("Language changed, recreating MainMenuScreen");
+            mGame.showMainMenu();
+        }
     }
 }
