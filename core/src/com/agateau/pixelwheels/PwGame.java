@@ -162,7 +162,11 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
+        boolean firstCall = mCurrentLanguageId.equals("");
         mAssets.setLanguage(mGameConfig.languageId);
+        if (!firstCall) {
+            setupRewardManager();
+        }
     }
 
     @Override
