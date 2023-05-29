@@ -596,7 +596,7 @@ msgid_plural "Pick %# bonuses"
 msgstr[0] "Välj en bonus"
 msgstr[1] "Välj %# bonusar"
 
-#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
 msgid "Gamepad"
 msgstr "Spelkontroll"
 
@@ -697,20 +697,20 @@ msgid ""
 "Finished!"
 msgstr "[Måste separeras med två meningar med en ny rad] Mäskerskap avslutat!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:105
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
 msgid "About"
 msgstr "Om"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:110
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:111
 msgid "CREDITS"
 msgstr "Tack till"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:148
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -718,23 +718,23 @@ msgstr ""
 "Pixel Wheels är gratis, men du kan stötta dess\n"
 "utveckling på olika sätt."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
 msgid "VISIT SUPPORT PAGE"
 msgstr "BESÖK STÖDWEBBSIDA"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:150
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:153
 msgid "Learn more about Pixel Wheels"
 msgstr "Lär dig mer om Pixel Wheels"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:151
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:154
 msgid "VISIT WEB SITE"
 msgstr "Besök webbplats"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid "Under the hood"
 msgstr "Under huven"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -742,57 +742,57 @@ msgstr ""
 "Dessa alternativ är mest intressanta för att utveckla Pixel Wheels, men ta "
 "gärna en titt på dem!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
 msgid "DEV. OPTIONS"
 msgstr "UTV.ALTERNATIV"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
 msgid "Controls"
 msgstr "Kontroller"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:200
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Spelare #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgid "Controls:"
 msgstr "Kontroller:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "General"
 msgstr "Allmänt"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Language:"
 msgstr "Språk:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:228
 msgid "Audio"
 msgstr "Ljud"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:238
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
 msgid "Sound FX:"
 msgstr "Ljudeffekter:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:252
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Music:"
 msgstr "Musik:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
 msgid "Video"
 msgstr "Video"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Fullscreen:"
 msgstr "Helskärm:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:289
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
 msgid "CONFIGURE"
 msgstr "KONFIGURERA"
 
@@ -807,6 +807,7 @@ msgid "P%d: %s"
 msgstr "Spelare #%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
+#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:138
 msgid "Missing"
 msgstr "Saknas"
 

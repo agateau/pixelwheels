@@ -84,6 +84,11 @@ public class PieTouchInputHandler implements GameInputHandler {
     }
 
     @Override
+    public String getName() {
+        return "";
+    }
+
+    @Override
     public void createHudButtons(Assets assets, Hud hud) {
         final float radius = 132;
         mLeftButton = new PieButton(assets, hud, "pie-left");

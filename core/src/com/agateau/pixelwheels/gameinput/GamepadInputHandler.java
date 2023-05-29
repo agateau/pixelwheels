@@ -22,6 +22,7 @@ import static com.agateau.translations.Translator.tr;
 
 import com.agateau.ui.GamepadInputMapper;
 import com.agateau.ui.GamepadInputMappers;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.utils.Array;
 
 /** Handle gamepad input, for desktop mode */
@@ -50,6 +51,13 @@ public class GamepadInputHandler extends InputMapperInputHandler {
         public Array<GameInputHandler> getAllHandlers() {
             return mHandlers;
         }
+    }
+
+    @Override
+    public String getName() {
+        GamepadInputMapper mapper = (GamepadInputMapper) getInputMapper();
+        Controller controller = mapper.getController();
+        return controller == null ? "" : controller.getName();
     }
 
     private GamepadInputHandler(GamepadInputMapper inputMapper) {

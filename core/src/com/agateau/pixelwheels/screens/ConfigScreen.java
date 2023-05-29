@@ -298,8 +298,11 @@ public class ConfigScreen extends PwStageScreen {
         ButtonMenuItem configureButton = new ButtonMenuItem(menu, tr("CONFIGURE"));
         group.addItemWithLabel("", configureButton);
 
+        LabelMenuItem nameLabel = new LabelMenuItem("", menu.getSkin());
+        group.addItemWithLabel("", nameLabel);
+
         InputSelectorController controller =
-                new InputSelectorController(mGame, selector, configureButton, idx);
+                new InputSelectorController(mGame, selector, configureButton, nameLabel, idx);
         controller.setStartupState();
     }
 

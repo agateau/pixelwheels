@@ -59,4 +59,9 @@ public class KeyboardInputHandler extends InputMapperInputHandler {
     public KeyMapper getKeyMapper() {
         return (KeyMapper) getInputMapper();
     }
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }

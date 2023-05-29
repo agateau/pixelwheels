@@ -18,13 +18,18 @@
  */
 package com.agateau.pixelwheels.screens.config;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.PwGame;
+import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.ui.GamepadInputMappers;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.SelectorMenuItem;
 import com.agateau.utils.Assert;
@@ -43,15 +48,18 @@ public class InputSelectorController {
     private final SelectorMenuItem<GameInputHandlerFactory> mSelector;
     private final ButtonMenuItem mConfigureButton;
     private final int mPlayerIdx;
+    private final LabelMenuItem mNameLabel;
 
     public InputSelectorController(
             PwGame game,
             SelectorMenuItem<GameInputHandlerFactory> selector,
             ButtonMenuItem configureButton,
+            LabelMenuItem nameLabel,
             int idx) {
         mGame = game;
         mSelector = selector;
         mConfigureButton = configureButton;
+        mNameLabel = nameLabel;
         mPlayerIdx = idx;
 
         UiAssets uiAssets = mGame.getAssets().ui;
@@ -79,13 +87,25 @@ public class InputSelectorController {
                         onConfigureClicked();
                     }
                 });
+
+        GamepadInputMappers.getInstance().addListener(new GamepadInputMappers.Listener() {
+            @Override
+            public void onGamepadConnected() {
+                updateUi();
+            }
+
+            @Override
+            public void onGamepadDisconnected() {
+                updateUi();
+            }
+        });
     }
 
     private void onInputChanged() {
         GameInputHandlerFactory factory = mSelector.getCurrentData();
         mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
         mGame.getConfig().flush();
-        updateConfigureButton();
+        updateUi();
     }
 
     private void onConfigureClicked() {
@@ -100,13 +120,24 @@ public class InputSelectorController {
         GameInputHandlerFactory factory =
                 mGame.getConfig().getPlayerInputHandlerFactory(mPlayerIdx);
         mSelector.setCurrentData(factory);
-        updateConfigureButton();
+        updateUi();
     }
 
-    private void updateConfigureButton() {
+    private void updateUi() {
         GameInputHandlerFactory factory = mSelector.getCurrentData();
         boolean canBeConfigured = getInputConfigScreenFactory(factory) != null;
-        mConfigureButton.setDisabled(!canBeConfigured);
+        GameInputHandler handler = mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
+
+        boolean available = handler.isAvailable();
+        mConfigureButton.setDisabled(!available || !canBeConfigured);
+
+        String details;
+        if (available) {
+            details = handler.getName();
+        } else {
+            details = tr("Missing");
+        }
+        mNameLabel.setText(details);
     }
 
     private static GameInputHandlerConfigScreenFactory getInputConfigScreenFactory(

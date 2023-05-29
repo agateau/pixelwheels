@@ -155,7 +155,13 @@ public class GameConfig {
         return PrefConstants.INPUT_PREFIX + idx + "." + mPlayerInputFactoryIds[idx] + ".";
     }
 
+    private static String simpleString(Object object) {
+        String address = Integer.toHexString(object.hashCode());
+        return object.getClass().getSimpleName() + '@' + address;
+    }
+
     private void setupInputHandlers() {
+        NLog.i("");
         Map<String, Array<GameInputHandler>> inputHandlersByIds =
                 GameInputHandlerFactories.getInputHandlersByIds();
 
@@ -166,10 +172,12 @@ public class GameConfig {
             if (!"".equals(id)) {
                 inputHandler = popInputHandler(inputHandlersByIds.get(id));
                 if (inputHandler != null) {
-                    NLog.i("Player %d: loading config for input handler %s", idx + 1, id);
+                    NLog.i(
+                            "P%d: loading config for %s (%s)",
+                            idx + 1, id, simpleString(inputHandler));
                     inputHandler.loadConfig(mPreferences, getInputPrefix(idx), idx);
                 } else {
-                    NLog.e("Player %d: not enough input handlers for id '%s'", idx + 1, id);
+                    NLog.e("P%d: not enough input handlers for id '%s'", idx + 1, id);
                 }
             }
             if (inputHandler == null) {
@@ -178,7 +186,7 @@ public class GameConfig {
                     inputHandler = popInputHandler(entry.getValue());
                     if (inputHandler != null) {
                         id = entry.getKey();
-                        NLog.i("Player %d: using handler %s", idx + 1, id);
+                        NLog.i("P%d: using %s (%s)", idx + 1, id, simpleString(inputHandler));
                         break;
                     }
                 }

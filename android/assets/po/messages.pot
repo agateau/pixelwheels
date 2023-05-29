@@ -589,7 +589,7 @@ msgid_plural "Pick %# bonuses"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:46
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
 msgid "Gamepad"
 msgstr ""
 
@@ -690,98 +690,98 @@ msgid ""
 "Finished!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:105
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
 msgid "About"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:110
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:111
 msgid "CREDITS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:145
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:148
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:146
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
 msgid "VISIT SUPPORT PAGE"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:150
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:153
 msgid "Learn more about Pixel Wheels"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:151
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:154
 msgid "VISIT WEB SITE"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid "Under the hood"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:178
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
 msgid "DEV. OPTIONS"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
 msgid "Controls"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:200
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:202
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 #, java-printf-format
 msgid "Player #%d:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgid "Controls:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 msgid "General"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Language:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:228
 msgid "Audio"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:238
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
 msgid "Sound FX:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:252
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Music:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
 msgid "Video"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Fullscreen:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:289
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
 msgid "CONFIGURE"
 msgstr ""
 
@@ -796,6 +796,7 @@ msgid "P%d: %s"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
+#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:138
 msgid "Missing"
 msgstr ""
 

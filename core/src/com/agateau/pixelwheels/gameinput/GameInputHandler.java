@@ -37,4 +37,8 @@ public interface GameInputHandler {
     void setBonus(Bonus bonus);
 
     boolean isAvailable();
+
+    /** Return the name of the input handler, if it has a distinctive name. For a gamepad handler,
+     * that would be the name of the gamepad. */
+    String getName();
 }
