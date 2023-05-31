@@ -19,37 +19,37 @@
 package com.agateau.pixelwheels.gamesetup;
 
 import com.agateau.pixelwheels.PwGame;
-import com.agateau.pixelwheels.gameinput.EnoughGamepadsChecker;
+import com.agateau.pixelwheels.gameinput.EnoughInputsChecker;
 import com.agateau.pixelwheels.rewards.Reward;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.NavStageScreen;
-import com.agateau.pixelwheels.screens.NotEnoughGamepadsScreen;
+import com.agateau.pixelwheels.screens.NotEnoughInputsScreen;
 import com.agateau.pixelwheels.screens.UnlockedRewardScreen;
 import com.agateau.utils.log.NLog;
 import java.util.Set;
 
 /** Orchestrate changes between screens for a game */
-public abstract class Maestro implements EnoughGamepadsChecker.Listener {
+public abstract class Maestro implements EnoughInputsChecker.Listener {
     private final PwGame mGame;
     private final int mPlayerCount;
-    private final EnoughGamepadsChecker mEnoughGamepadsChecker;
+    private final EnoughInputsChecker mEnoughInputsChecker;
 
-    private NotEnoughGamepadsScreen mNotEnoughGamepadsScreen;
+    private NotEnoughInputsScreen mNotEnoughInputsScreen;
 
     public Maestro(PwGame game, int playerCount) {
         mGame = game;
         mPlayerCount = playerCount;
-        mEnoughGamepadsChecker = new EnoughGamepadsChecker(mGame.getConfig(), this);
-        mEnoughGamepadsChecker.setInputCount(playerCount);
+        mEnoughInputsChecker = new EnoughInputsChecker(mGame.getConfig(), this);
+        mEnoughInputsChecker.setInputCount(playerCount);
     }
 
     public abstract void start();
 
-    public void stopEnoughGamepadChecker() {
-        if (mNotEnoughGamepadsScreen != null) {
-            hideNotEnoughGamepadsScreen();
+    public void stopEnoughInputChecker() {
+        if (mNotEnoughInputsScreen != null) {
+            hideNotEnoughInputsScreen();
         }
-        mEnoughGamepadsChecker.setInputCount(0);
+        mEnoughInputsChecker.setInputCount(0);
     }
 
     public int getPlayerCount() {
@@ -62,25 +62,24 @@ public abstract class Maestro implements EnoughGamepadsChecker.Listener {
 
     @Override
     public void onNotEnoughInputs() {
-        NLog.e("There aren't enough connected gamepads");
-        if (mNotEnoughGamepadsScreen == null) {
-            mNotEnoughGamepadsScreen =
-                    new NotEnoughGamepadsScreen(mGame, this, mEnoughGamepadsChecker);
-            mGame.getScreenStack().showBlockingScreen(mNotEnoughGamepadsScreen);
+        NLog.e("There aren't enough connected inputs");
+        if (mNotEnoughInputsScreen == null) {
+            mNotEnoughInputsScreen = new NotEnoughInputsScreen(mGame, this, mEnoughInputsChecker);
+            mGame.getScreenStack().showBlockingScreen(mNotEnoughInputsScreen);
         } else {
-            mNotEnoughGamepadsScreen.updateMissingGamepads();
+            mNotEnoughInputsScreen.updateMissingInputs();
         }
     }
 
     @Override
     public void onEnoughInputs() {
-        NLog.i("There are enough connected gamepads");
-        hideNotEnoughGamepadsScreen();
+        NLog.i("There are enough connected inputs");
+        hideNotEnoughInputsScreen();
     }
 
-    private void hideNotEnoughGamepadsScreen() {
+    private void hideNotEnoughInputsScreen() {
         mGame.getScreenStack().hideBlockingScreen();
-        mNotEnoughGamepadsScreen = null;
+        mNotEnoughInputsScreen = null;
     }
 
     void showUnlockedRewardScreen(final Runnable doAfterLastReward) {

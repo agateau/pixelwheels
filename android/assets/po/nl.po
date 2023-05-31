@@ -597,18 +597,22 @@ msgstr[0] "Verzamel één bonus"
 msgstr[1] "Verzamel %# bonussen"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
 msgid "Gamepad"
 msgstr "Gamepad"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:70
 msgid "Keyboard"
 msgstr "Toetsenbord"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "Taartknoppen"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:106
 msgid "Side buttons"
 msgstr "Zijknoppen"
 
@@ -812,21 +816,17 @@ msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Speler #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:138
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:57
+#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:140
 msgid "Missing"
 msgstr "Ontbreekt"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "OK"
-msgstr "Oké"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
 msgstr "Speler #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:76
 msgid "MAIN MENU"
 msgstr "HOOFDMENU"
 
@@ -925,6 +925,9 @@ msgstr "Heb je een bug gevonden? Met deze knop kun je het logboek opsporen."
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOGBOEKMAP OPENEN"
+
+#~ msgid "OK"
+#~ msgstr "Oké"
 
 #~ msgid "Ready!"
 #~ msgstr "Klaar!"

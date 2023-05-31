@@ -599,18 +599,22 @@ msgstr[1] "Подбери %# бонуса"
 msgstr[2] "Подбери %# бонусов"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
 msgid "Gamepad"
 msgstr "Геймпад"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:70
 msgid "Keyboard"
 msgstr "Клавиатура"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "Компактные кнопки"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:106
 msgid "Side buttons"
 msgstr "Боковые кнопки"
 
@@ -810,21 +814,17 @@ msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Игрок #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:138
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:57
+#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:140
 msgid "Missing"
 msgstr "Отсутствует"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "OK"
-msgstr "ОК"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
 msgstr "Игрок #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:76
 msgid "MAIN MENU"
 msgstr "ГЛАВНОЕ МЕНЮ"
 
@@ -925,6 +925,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "НАЙТИ ФАЙЛ ЛОГА"
+
+#~ msgid "OK"
+#~ msgstr "ОК"
 
 #~ msgid "Ready!"
 #~ msgstr "Приготовиться!"

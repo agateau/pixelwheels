@@ -601,18 +601,22 @@ msgstr[1] "Zbierz %# premie"
 msgstr[2] "Zbierz %# premii"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
+#: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
 msgid "Gamepad"
 msgstr "Kontroler"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
+#: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:70
 msgid "Keyboard"
 msgstr "Klawiatura"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "Przyciski kołowe"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:106
 msgid "Side buttons"
 msgstr "Przyciski boczne"
 
@@ -813,21 +817,17 @@ msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Gracz #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:138
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:57
+#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:140
 msgid "Missing"
 msgstr "Brak"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:57
-msgid "OK"
-msgstr "OK"
-
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:58
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
 msgstr "Gracz #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughGamepadsScreen.java:76
+#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:76
 msgid "MAIN MENU"
 msgstr "MENU GŁÓWNE"
 
@@ -933,6 +933,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "OTWÓRZ FOLDER Z LOGAMI"
+
+#~ msgid "OK"
+#~ msgstr "OK"
 
 #~ msgid "Ready!"
 #~ msgstr "Gotowy!"
