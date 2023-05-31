@@ -61,7 +61,7 @@ public abstract class Maestro implements EnoughGamepadsChecker.Listener {
     }
 
     @Override
-    public void onNotEnoughGamepads() {
+    public void onNotEnoughInputs() {
         NLog.e("There aren't enough connected gamepads");
         if (mNotEnoughGamepadsScreen == null) {
             mNotEnoughGamepadsScreen =
@@ -73,7 +73,7 @@ public abstract class Maestro implements EnoughGamepadsChecker.Listener {
     }
 
     @Override
-    public void onEnoughGamepads() {
+    public void onEnoughInputs() {
         NLog.i("There are enough connected gamepads");
         hideNotEnoughGamepadsScreen();
     }

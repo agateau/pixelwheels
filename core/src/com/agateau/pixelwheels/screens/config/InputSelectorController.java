@@ -88,17 +88,19 @@ public class InputSelectorController {
                     }
                 });
 
-        GamepadInputMappers.getInstance().addListener(new GamepadInputMappers.Listener() {
-            @Override
-            public void onGamepadConnected() {
-                updateUi();
-            }
+        GamepadInputMappers.getInstance()
+                .addListener(
+                        new GamepadInputMappers.Listener() {
+                            @Override
+                            public void onGamepadConnected() {
+                                updateUi();
+                            }
 
-            @Override
-            public void onGamepadDisconnected() {
-                updateUi();
-            }
-        });
+                            @Override
+                            public void onGamepadDisconnected() {
+                                updateUi();
+                            }
+                        });
     }
 
     private void onInputChanged() {

@@ -64,4 +64,9 @@ public class KeyboardInputHandler extends InputMapperInputHandler {
     public String getName() {
         return "";
     }
+
+    @Override
+    public String getTypeName() {
+        return tr("Keyboard");
+    }
 }

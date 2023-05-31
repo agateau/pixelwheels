@@ -15,7 +15,7 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.Array;
 
 public class NotEnoughGamepadsScreen extends PwStageScreen {
     private final PwGame mGame;
@@ -48,13 +48,13 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
 
     public void updateMissingGamepads() {
         sStringBuilder.setLength(0);
-        IntArray missingGamepads = mEnoughGamepadsChecker.getMissingGamepads();
+        Array<String> inputNames = mEnoughGamepadsChecker.getInputNames();
         for (int playerId = 0; playerId < mEnoughGamepadsChecker.getInputCount(); ++playerId) {
-            boolean ok = !missingGamepads.contains(playerId);
             if (playerId > 0) {
                 sStringBuilder.append("\n");
             }
-            String status = ok ? tr("OK") : tr("Missing");
+            String name = inputNames.get(playerId);
+            String status = name == null ? tr("Missing") : name;
             sStringBuilder.append(StringUtils.format(tr("Player #%d: %s"), playerId + 1, status));
         }
         mLabel.setText(sStringBuilder.toString());

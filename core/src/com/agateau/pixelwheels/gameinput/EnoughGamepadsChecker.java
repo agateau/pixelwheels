@@ -21,18 +21,20 @@ package com.agateau.pixelwheels.gameinput;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.ui.GamepadInputMappers;
 import com.agateau.utils.log.NLog;
-import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.Array;
 
 public class EnoughGamepadsChecker {
-    public interface Listener {
-        void onNotEnoughGamepads();
 
-        void onEnoughGamepads();
+    public interface Listener {
+        void onNotEnoughInputs();
+
+        void onEnoughInputs();
     }
 
     private final GameConfig mGameConfig;
     private final Listener mListener;
-    private final IntArray mMissingGamepads = new IntArray(GamepadInputMappers.MAX_GAMEPAD_COUNT);
+    private final Array<String> mInputNames = new Array<>();
+    private int mMissingInputCount = 0;
     private int mInputCount = 0;
 
     public EnoughGamepadsChecker(GameConfig gameConfig, Listener listener) {
@@ -57,8 +59,9 @@ public class EnoughGamepadsChecker {
         return mInputCount;
     }
 
-    public IntArray getMissingGamepads() {
-        return mMissingGamepads;
+    /** Returns a list of inputs for each player. Entry is null (not empty) if it's missing */
+    public Array<String> getInputNames() {
+        return mInputNames;
     }
 
     public void setInputCount(int inputCount) {
@@ -66,32 +69,40 @@ public class EnoughGamepadsChecker {
         if (mInputCount == 0) {
             return;
         }
-        updateMissingGamepads();
-        if (!hasEnoughGamepads()) {
-            mListener.onNotEnoughGamepads();
+        update();
+        if (!hasEnoughInputs()) {
+            mListener.onNotEnoughInputs();
         }
     }
 
-    private void updateMissingGamepads() {
-        mMissingGamepads.clear();
+    private void update() {
+        mInputNames.clear();
+        mMissingInputCount = 0;
         for (int idx = 0; idx < mInputCount; ++idx) {
             GameInputHandler handler = mGameConfig.getPlayerInputHandler(idx);
             if (handler == null || !handler.isAvailable()) {
                 NLog.e("Controller for player %d is not available (handler=%s)", idx + 1, handler);
-                mMissingGamepads.add(idx);
+                mMissingInputCount++;
+                mInputNames.add(null);
+            } else {
+                String name = handler.getName();
+                if (name.equals("")) {
+                    name = handler.getTypeName();
+                }
+                mInputNames.add(name);
             }
         }
     }
 
     private void onGamepadConnected() {
-        if (mInputCount == 0 | hasEnoughGamepads()) {
+        if (mInputCount == 0 | hasEnoughInputs()) {
             return;
         }
-        updateMissingGamepads();
-        if (hasEnoughGamepads()) {
-            mListener.onEnoughGamepads();
+        update();
+        if (hasEnoughInputs()) {
+            mListener.onEnoughInputs();
         } else {
-            mListener.onNotEnoughGamepads();
+            mListener.onNotEnoughInputs();
         }
     }
 
@@ -99,13 +110,13 @@ public class EnoughGamepadsChecker {
         if (mInputCount == 0) {
             return;
         }
-        updateMissingGamepads();
-        if (!hasEnoughGamepads()) {
-            mListener.onNotEnoughGamepads();
+        update();
+        if (!hasEnoughInputs()) {
+            mListener.onNotEnoughInputs();
         }
     }
 
-    private boolean hasEnoughGamepads() {
-        return mMissingGamepads.size == 0;
+    private boolean hasEnoughInputs() {
+        return mMissingInputCount == 0;
     }
 }

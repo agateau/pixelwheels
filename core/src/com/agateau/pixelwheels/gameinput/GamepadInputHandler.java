@@ -60,6 +60,11 @@ public class GamepadInputHandler extends InputMapperInputHandler {
         return controller == null ? "" : controller.getName();
     }
 
+    @Override
+    public String getTypeName() {
+        return tr("Gamepad");
+    }
+
     private GamepadInputHandler(GamepadInputMapper inputMapper) {
         super(inputMapper);
     }
