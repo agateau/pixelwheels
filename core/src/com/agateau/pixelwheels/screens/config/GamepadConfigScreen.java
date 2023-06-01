@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.screens;
+package com.agateau.pixelwheels.screens.config;
 
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
+import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.GamepadInputMapper;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;

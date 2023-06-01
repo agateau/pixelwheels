@@ -37,4 +37,17 @@ public interface GameInputHandler {
     void setBonus(Bonus bonus);
 
     boolean isAvailable();
+
+    /**
+     * Return the name of the input handler, if it has a distinctive name. For a gamepad handler,
+     * that would be the name of the gamepad.
+     */
+    String getName();
+
+    /**
+     * Return the name for the type of device.
+     *
+     * <p>Should be the same as the matching GameInputHandlerFactory.getName()
+     */
+    String getTypeName();
 }

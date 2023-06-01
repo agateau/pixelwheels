@@ -90,4 +90,9 @@ public class LabelMenuItem implements MenuItem {
     public void setWrap(boolean wrap) {
         mLabel.setWrap(wrap);
     }
+
+    public void setText(CharSequence text) {
+        mLabel.setText(text);
+        mLabel.pack();
+    }
 }

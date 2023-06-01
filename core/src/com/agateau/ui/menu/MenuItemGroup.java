@@ -98,6 +98,20 @@ public class MenuItemGroup implements MenuItem {
         getCurrentItem().setFocused(true);
     }
 
+    public MenuItemGroup findItemParentGroup(MenuItem wanted) {
+        for (MenuItem item : mItems) {
+            if (item == wanted) {
+                return this;
+            } else if (item instanceof MenuItemGroup) {
+                MenuItemGroup group = ((MenuItemGroup) item).findItemParentGroup(wanted);
+                if (group != null) {
+                    return group;
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public Actor getActor() {
         return mGroup;

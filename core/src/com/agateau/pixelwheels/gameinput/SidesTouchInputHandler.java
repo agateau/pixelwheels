@@ -101,6 +101,16 @@ public class SidesTouchInputHandler implements GameInputHandler {
         return true;
     }
 
+    @Override
+    public String getName() {
+        return "";
+    }
+
+    @Override
+    public String getTypeName() {
+        return tr("Side buttons");
+    }
+
     private boolean isBraking() {
         return mLeftButton.isPressed() && mRightButton.isPressed();
     }

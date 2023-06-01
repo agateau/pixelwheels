@@ -22,7 +22,6 @@ import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.gamesetup.ChampionshipGameInfo;
 import com.agateau.pixelwheels.gamesetup.ChampionshipMaestro;
 import com.agateau.pixelwheels.gamesetup.Maestro;
-import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.pixelwheels.gamesetup.QuickRaceMaestro;
 import com.agateau.pixelwheels.rewards.RewardManager;
 import com.agateau.pixelwheels.screens.MainMenuScreen;
@@ -236,12 +235,12 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
         mScreenStack.push(screen);
     }
 
-    public void showQuickRace(PlayerCount playerCount) {
+    public void showQuickRace(int playerCount) {
         mMaestro = new QuickRaceMaestro(this, playerCount);
         mMaestro.start();
     }
 
-    public void showChampionship(PlayerCount playerCount) {
+    public void showChampionship(int playerCount) {
         mMaestro = new ChampionshipMaestro(this, playerCount);
         mMaestro.start();
     }

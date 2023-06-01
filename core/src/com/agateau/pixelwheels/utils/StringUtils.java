@@ -59,4 +59,9 @@ public class StringUtils {
                 return String.valueOf(rank);
         }
     }
+
+    /** Used by the UI to indicate an input handler is not available */
+    public static String missingInputHandlerMessage() {
+        return tr("Disconnected");
+    }
 }

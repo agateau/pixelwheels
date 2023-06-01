@@ -18,8 +18,6 @@
  */
 package com.agateau.ui;
 
-import static com.agateau.utils.CollectionUtils.addToIntegerArray;
-
 import com.agateau.utils.Assert;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
@@ -27,14 +25,20 @@ import java.util.HashMap;
 
 /** Default mapping between Gdx.Input keys and VirtualKey */
 public class DefaultKeys {
-    private static Array<HashMap<VirtualKey, Integer[]>> sDefaultKeysForPlayer;
+    private static Array<HashMap<VirtualKey, Integer>> sDefaultKeysForPlayer;
 
-    static Integer[] getDefaultKeys(int playerIdx, VirtualKey vkey) {
+    static int getDefaultKey(int playerIdx, VirtualKey vkey) {
         initDefaultKeys();
         Assert.check(
                 playerIdx < sDefaultKeysForPlayer.size,
                 "No default keys for playerId " + playerIdx);
-        return sDefaultKeysForPlayer.get(playerIdx).get(vkey);
+        Integer key = sDefaultKeysForPlayer.get(playerIdx).get(vkey);
+        return key == null ? Input.Keys.UNKNOWN : key;
+    }
+
+    public static int getDefaultKeysCount() {
+        initDefaultKeys();
+        return sDefaultKeysForPlayer.size;
     }
 
     private static void initDefaultKeys() {
@@ -42,37 +46,32 @@ public class DefaultKeys {
             return;
         }
         sDefaultKeysForPlayer = new Array<>();
-        HashMap<VirtualKey, Integer[]> keyMap;
+        HashMap<VirtualKey, Integer> keyMap;
 
         // Player 1
         keyMap = new HashMap<>();
         sDefaultKeysForPlayer.add(keyMap);
-        addDefaultKey(keyMap, VirtualKey.LEFT, Input.Keys.LEFT);
-        addDefaultKey(keyMap, VirtualKey.RIGHT, Input.Keys.RIGHT);
-        addDefaultKey(keyMap, VirtualKey.UP, Input.Keys.UP);
-        addDefaultKey(keyMap, VirtualKey.DOWN, Input.Keys.DOWN);
-        addDefaultKey(keyMap, VirtualKey.TRIGGER, Input.Keys.SPACE);
-        addDefaultKey(keyMap, VirtualKey.BACK, Input.Keys.ESCAPE);
+        keyMap.put(VirtualKey.LEFT, Input.Keys.LEFT);
+        keyMap.put(VirtualKey.RIGHT, Input.Keys.RIGHT);
+        keyMap.put(VirtualKey.UP, Input.Keys.UP);
+        keyMap.put(VirtualKey.DOWN, Input.Keys.DOWN);
+        keyMap.put(VirtualKey.TRIGGER, Input.Keys.SPACE);
+        keyMap.put(VirtualKey.BACK, Input.Keys.ESCAPE);
 
         // Player 2
         keyMap = new HashMap<>();
         sDefaultKeysForPlayer.add(keyMap);
-        addDefaultKey(keyMap, VirtualKey.LEFT, Input.Keys.X);
-        addDefaultKey(keyMap, VirtualKey.RIGHT, Input.Keys.V);
-        addDefaultKey(keyMap, VirtualKey.UP, Input.Keys.D);
-        addDefaultKey(keyMap, VirtualKey.DOWN, Input.Keys.C);
-        addDefaultKey(keyMap, VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
-        addDefaultKey(keyMap, VirtualKey.BACK, Input.Keys.Q);
-    }
+        keyMap.put(VirtualKey.LEFT, Input.Keys.X);
+        keyMap.put(VirtualKey.RIGHT, Input.Keys.V);
+        keyMap.put(VirtualKey.UP, Input.Keys.D);
+        keyMap.put(VirtualKey.DOWN, Input.Keys.C);
+        keyMap.put(VirtualKey.TRIGGER, Input.Keys.CONTROL_LEFT);
+        keyMap.put(VirtualKey.BACK, Input.Keys.Q);
 
-    private static void addDefaultKey(
-            HashMap<VirtualKey, Integer[]> keyMap, VirtualKey vkey, int key) {
-        Integer[] keys = keyMap.get(vkey);
-        if (keys == null) {
-            keys = new Integer[] {key};
-        } else {
-            keys = addToIntegerArray(keys, key);
-        }
-        keyMap.put(vkey, keys);
+        // Player 3
+        sDefaultKeysForPlayer.add(new HashMap<>());
+
+        // Player 4
+        sDefaultKeysForPlayer.add(new HashMap<>());
     }
 }

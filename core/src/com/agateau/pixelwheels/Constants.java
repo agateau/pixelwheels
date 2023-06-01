@@ -27,7 +27,7 @@ public class Constants {
     public static final float UNIT_FOR_PIXEL = 1f / 20f;
     public static final float CAMERA_ADVANCE_PERCENT = 0.25f;
 
-    public static final int MAX_PLAYERS = 2;
+    public static final int MAX_PLAYERS = 4;
 
     public static final String DEBUG_SCREEN;
 

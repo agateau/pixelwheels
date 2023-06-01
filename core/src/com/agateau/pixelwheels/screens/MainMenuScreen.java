@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
-import com.agateau.pixelwheels.gamesetup.PlayerCount;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
@@ -63,8 +62,7 @@ public class MainMenuScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.pushScreen(
-                                            new SelectGameModeScreen(mGame, PlayerCount.ONE));
+                                    mGame.pushScreen(new SelectGameModeScreen(mGame, 1));
                                 }
                             });
             builder.getActor("multiPlayerButton")
@@ -72,8 +70,7 @@ public class MainMenuScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.pushScreen(
-                                            new SelectGameModeScreen(mGame, PlayerCount.MULTI));
+                                    mGame.pushScreen(new SelectPlayerCountScreen(mGame));
                                 }
                             });
         } else {
@@ -82,7 +79,7 @@ public class MainMenuScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.showQuickRace(PlayerCount.ONE);
+                                    mGame.showQuickRace(1);
                                 }
                             });
             builder.getActor("championshipButton")
@@ -90,7 +87,7 @@ public class MainMenuScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.showChampionship(PlayerCount.ONE);
+                                    mGame.showChampionship(1);
                                 }
                             });
         }

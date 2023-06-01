@@ -54,8 +54,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
      * grid, each controlled by a separate input
      */
     private class Cursor {
+        private static final int CURSOR_EXTRA_PADDING = 4;
         public final Rectangle mFocusRectangle = new Rectangle();
         public final Array<FocusIndicator> mFocusIndicators = new Array<>();
+        private final int mRank;
         private Menu.MenuStyle mMenuStyle;
         public int mSelectedIndex = INVALID_INDEX;
         public int mCurrentIndex = 0;
@@ -63,8 +65,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         public MenuItemListener mMenuItemListener;
         private MenuInputHandler mInputHandler;
 
-        public Cursor() {
+        public Cursor(int rank) {
             mMenuStyle = GridMenuItem.this.mMenu.getMenuStyle();
+            mRank = rank;
         }
 
         public void setInputMapper(InputMapper inputMapper) {
@@ -87,7 +90,8 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                 return;
             }
             while (mFocusIndicators.size < mItems.size) {
-                FocusIndicator indicator = new FocusIndicator(mMenuStyle);
+                FocusIndicator indicator =
+                        new FocusIndicator(mMenuStyle, mRank * CURSOR_EXTRA_PADDING);
                 mFocusIndicators.add(indicator);
             }
         }
@@ -267,7 +271,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public GridMenuItem(Menu menu) {
         mMenu = menu;
-        mCursors.add(new Cursor());
+        mCursors.add(new Cursor(0));
         addListener(
                 new InputListener() {
                     public boolean touchDown(
@@ -298,7 +302,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public void addCursor() {
-        mCursors.add(new Cursor());
+        mCursors.add(new Cursor(mCursors.size));
     }
 
     public void setListener(int idx, MenuItemListener listener) {

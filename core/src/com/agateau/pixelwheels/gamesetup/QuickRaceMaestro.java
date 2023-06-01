@@ -32,7 +32,7 @@ import com.badlogic.gdx.utils.Array;
 public class QuickRaceMaestro extends Maestro {
     private final QuickRaceGameInfo.Builder mGameInfoBuilder;
 
-    public QuickRaceMaestro(PwGame game, PlayerCount playerCount) {
+    public QuickRaceMaestro(PwGame game, int playerCount) {
         super(game, playerCount);
         mGameInfoBuilder =
                 new QuickRaceGameInfo.Builder(game.getAssets().vehicleDefs, game.getConfig());
@@ -44,7 +44,7 @@ public class QuickRaceMaestro extends Maestro {
     }
 
     private Screen createSelectVehicleScreen() {
-        if (getPlayerCount() == PlayerCount.ONE) {
+        if (getPlayerCount() == 1) {
             return createOnePlayerVehicleScreen();
         } else {
             return createMultiPlayerVehicleScreen();
@@ -84,7 +84,7 @@ public class QuickRaceMaestro extends Maestro {
                         getGame().replaceScreen(createRaceScreen());
                     }
                 };
-        return new MultiPlayerScreen(getGame(), listener);
+        return new MultiPlayerScreen(getGame(), getPlayerCount(), listener);
     }
 
     private Screen createSelectTrackScreen() {
@@ -92,7 +92,7 @@ public class QuickRaceMaestro extends Maestro {
                 new SelectTrackScreen.Listener() {
                     @Override
                     public void onBackPressed() {
-                        stopEnoughGamepadChecker();
+                        stopEnoughInputChecker();
                         getGame().popScreen();
                     }
 
@@ -127,13 +127,13 @@ public class QuickRaceMaestro extends Maestro {
 
                     @Override
                     public void onQuitPressed() {
-                        stopEnoughGamepadChecker();
+                        stopEnoughInputChecker();
                         getGame().showMainMenu();
                     }
 
                     @Override
                     public void onNextTrackPressed() {
-                        stopEnoughGamepadChecker();
+                        stopEnoughInputChecker();
                         showUnlockedRewardScreen(() -> getGame().showMainMenu());
                     }
                 };

@@ -26,6 +26,7 @@ class FocusIndicator {
     private static final float IN_ANIMATION_DURATION = 0.1f;
     private static final float OUT_ANIMATION_DURATION = 0.4f;
     private final Menu.MenuStyle mMenuStyle;
+    private final int mExtraPadding;
 
     private boolean mFocused = false;
     private float mAlpha = 0;
@@ -35,7 +36,12 @@ class FocusIndicator {
     }
 
     FocusIndicator(Menu.MenuStyle menuStyle) {
+        this(menuStyle, 0);
+    }
+
+    FocusIndicator(Menu.MenuStyle menuStyle, int extraPadding) {
         mMenuStyle = menuStyle;
+        mExtraPadding = extraPadding;
     }
 
     public void act(float delta) {
@@ -51,7 +57,7 @@ class FocusIndicator {
         if (mAlpha == 0) {
             return;
         }
-        int padding = mMenuStyle.focusPadding;
+        int padding = mMenuStyle.focusPadding + mExtraPadding;
         float oldA = DrawUtils.setBatchAlpha(batch, batch.getColor().a * mAlpha);
         DrawUtils.drawPixelAligned(batch, mMenuStyle.focus, x, y, width, height, padding);
         DrawUtils.setBatchAlpha(batch, oldA);

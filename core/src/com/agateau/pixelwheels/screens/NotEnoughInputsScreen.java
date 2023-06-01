@@ -5,7 +5,7 @@ import static com.agateau.translations.Translator.tr;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.pixelwheels.gameinput.EnoughGamepadsChecker;
+import com.agateau.pixelwheels.gameinput.EnoughInputsChecker;
 import com.agateau.pixelwheels.gamesetup.Maestro;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.ScreenStack;
@@ -15,19 +15,19 @@ import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.Array;
 
-public class NotEnoughGamepadsScreen extends PwStageScreen {
+public class NotEnoughInputsScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Maestro mMaestro;
-    private final EnoughGamepadsChecker mEnoughGamepadsChecker;
+    private final EnoughInputsChecker mEnoughInputsChecker;
     private Label mLabel;
 
-    public NotEnoughGamepadsScreen(PwGame game, Maestro maestro, EnoughGamepadsChecker checker) {
+    public NotEnoughInputsScreen(PwGame game, Maestro maestro, EnoughInputsChecker checker) {
         super(game.getAssets().ui);
         mGame = game;
         mMaestro = maestro;
-        mEnoughGamepadsChecker = checker;
+        mEnoughInputsChecker = checker;
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override
@@ -35,10 +35,10 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
                 ScreenStack stack = mGame.getScreenStack();
                 stack.hideBlockingScreen();
                 stack.showBlockingScreen(
-                        new NotEnoughGamepadsScreen(mGame, mMaestro, mEnoughGamepadsChecker));
+                        new NotEnoughInputsScreen(mGame, mMaestro, mEnoughInputsChecker));
             }
         };
-        updateMissingGamepads();
+        updateMissingInputs();
     }
 
     @Override
@@ -46,15 +46,15 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
 
     private static final StringBuilder sStringBuilder = new StringBuilder();
 
-    public void updateMissingGamepads() {
+    public void updateMissingInputs() {
         sStringBuilder.setLength(0);
-        IntArray missingGamepads = mEnoughGamepadsChecker.getMissingGamepads();
-        for (int playerId = 0; playerId < mEnoughGamepadsChecker.getInputCount(); ++playerId) {
-            boolean ok = !missingGamepads.contains(playerId);
+        Array<String> inputNames = mEnoughInputsChecker.getInputNames();
+        for (int playerId = 0; playerId < mEnoughInputsChecker.getInputCount(); ++playerId) {
             if (playerId > 0) {
                 sStringBuilder.append("\n");
             }
-            String status = ok ? tr("OK") : tr("Missing");
+            String name = inputNames.get(playerId);
+            String status = name == null ? StringUtils.missingInputHandlerMessage() : name;
             sStringBuilder.append(StringUtils.format(tr("Player #%d: %s"), playerId + 1, status));
         }
         mLabel.setText(sStringBuilder.toString());
@@ -78,7 +78,7 @@ public class NotEnoughGamepadsScreen extends PwStageScreen {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                mMaestro.stopEnoughGamepadChecker();
+                                mMaestro.stopEnoughInputChecker();
                                 mGame.showMainMenu();
                             }
                         });

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2023 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -20,30 +20,25 @@ package com.agateau.pixelwheels.screens;
 
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
-import com.agateau.pixelwheels.gamesetup.GameMode;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-/** Select between quick race, championship... */
-public class SelectGameModeScreen extends PwStageScreen {
+/** Select number of players in a multiplayer game */
+public class SelectPlayerCountScreen extends PwStageScreen {
     private final PwGame mGame;
-    private final int mPlayerCount;
 
-    public SelectGameModeScreen(PwGame game, int playerCount) {
+    public SelectPlayerCountScreen(PwGame game) {
         super(game.getAssets().ui);
         mGame = game;
-        mPlayerCount = playerCount;
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new SelectGameModeScreen(mGame, mPlayerCount));
+                mGame.replaceScreen(new SelectPlayerCountScreen(mGame));
             }
         };
     }
@@ -52,33 +47,20 @@ public class SelectGameModeScreen extends PwStageScreen {
         UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
 
         AnchorGroup root =
-                (AnchorGroup) builder.build(FileUtils.assets("screens/selectgamemode.gdxui"));
+                (AnchorGroup) builder.build(FileUtils.assets("screens/selectplayercount.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        Menu menu = builder.getActor("menu");
-        builder.getActor("quickRaceButton")
-                .addListener(
-                        new MenuItemListener() {
-                            @Override
-                            public void triggered() {
-                                mGame.getConfig().gameMode = GameMode.QUICK_RACE;
-                                mGame.getConfig().flush();
-                                mGame.showQuickRace(mPlayerCount);
-                            }
-                        });
-        MenuItem championshipItem = builder.getMenuItem("championshipButton");
-        championshipItem.addListener(
-                new MenuItemListener() {
-                    @Override
-                    public void triggered() {
-                        mGame.getConfig().gameMode = GameMode.CHAMPIONSHIP;
-                        mGame.getConfig().flush();
-                        mGame.showChampionship(mPlayerCount);
-                    }
-                });
-        if (mGame.getConfig().gameMode == GameMode.CHAMPIONSHIP) {
-            menu.setCurrentItem(championshipItem);
+        for (int idx = 2; idx <= 4; ++idx) {
+            final int playerCount = idx;
+            builder.getActor(idx + "PlayersButton")
+                    .addListener(
+                            new MenuItemListener() {
+                                @Override
+                                public void triggered() {
+                                    mGame.pushScreen(new SelectGameModeScreen(mGame, playerCount));
+                                }
+                            });
         }
 
         builder.getActor("backButton")

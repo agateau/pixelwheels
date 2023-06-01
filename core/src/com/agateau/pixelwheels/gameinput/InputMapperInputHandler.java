@@ -28,7 +28,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 
 /** Base class for InputMapper-based GameInputHandlers */
-public class InputMapperInputHandler implements GameInputHandler {
+public abstract class InputMapperInputHandler implements GameInputHandler {
     private final InputMapper mInputMapper;
     private final GameInput mInput = new GameInput();
 

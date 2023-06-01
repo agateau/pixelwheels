@@ -24,6 +24,12 @@
         player2Color: {
             r: 0.388, g: 0.78, b: 0.302, a: 1
         },
+        player3Color: {
+            r: 0.996, g: 0.906, b: 0.38, a: 1
+        },
+        player4Color: {
+            r: 0.969, g: 0.463, b: 0.133, a: 1
+        }
     },
     com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
         default: {
@@ -80,6 +86,14 @@
             font: default-font,
             fontColor: player2Color
         },
+        player3RankingRow: {
+            font: default-font,
+            fontColor: player3Color
+        },
+        player4RankingRow: {
+            font: default-font,
+            fontColor: player4Color
+        },
         speechBubble: {
             background: "speech-bubble",
             font: small-font,
@@ -123,6 +137,14 @@
         player2: {
             font: default-font,
             fontColor: player2Color
+        },
+        player3: {
+            font: default-font,
+            fontColor: player3Color
+        },
+        player4: {
+            font: default-font,
+            fontColor: player4Color
         }
     },
     com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -155,6 +177,18 @@
         player2: {
             focus: focus-2,
             selected: selected-2,
+            focusPadding: 8,
+            spacing: 16
+        },
+        player3: {
+            focus: focus-3,
+            selected: selected-3,
+            focusPadding: 8,
+            spacing: 16
+        },
+        player4: {
+            focus: focus-4,
+            selected: selected-4,
             focusPadding: 8,
             spacing: 16
         }

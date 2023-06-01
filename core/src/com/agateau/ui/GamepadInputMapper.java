@@ -64,7 +64,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         setController(controller);
     }
 
-    Controller getController() {
+    public Controller getController() {
         return mController;
     }
 

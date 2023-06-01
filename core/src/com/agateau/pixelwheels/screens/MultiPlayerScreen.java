@@ -21,7 +21,6 @@ package com.agateau.pixelwheels.screens;
 import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
@@ -53,15 +52,16 @@ public class MultiPlayerScreen extends PwStageScreen {
     }
 
     private final PwGame mGame;
-    private final int mPlayerCount = Constants.MAX_PLAYERS; // Hardcoded for now
+    private final int mPlayerCount;
     private final Listener mListener;
     private final InputMapper[] mInputMappers;
     private VehicleSelector mVehicleSelector;
     private final Array<Label> mReadyLabels = new Array<>();
 
-    public MultiPlayerScreen(PwGame game, Listener listener) {
+    public MultiPlayerScreen(PwGame game, int playerCount, Listener listener) {
         super(game.getAssets().ui);
         mGame = game;
+        mPlayerCount = playerCount;
         mListener = listener;
 
         mInputMappers = new InputMapper[mPlayerCount];
@@ -76,7 +76,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new MultiPlayerScreen(mGame, mListener));
+                mGame.replaceScreen(new MultiPlayerScreen(mGame, mPlayerCount, mListener));
             }
         };
     }
@@ -90,7 +90,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        mVehicleSelector = createVehicleSelector(builder, assets);
+        createVehicleSelector(builder, assets);
         createReadyLabels(builder, assets);
 
         for (int idx = 0; idx < mPlayerCount; ++idx) {
@@ -135,17 +135,15 @@ public class MultiPlayerScreen extends PwStageScreen {
         mListener.onBackPressed();
     }
 
-    private VehicleSelector createVehicleSelector(UiBuilder builder, Assets assets) {
+    private void createVehicleSelector(UiBuilder builder, Assets assets) {
         Menu menu = builder.getActor("menu");
 
-        VehicleSelector selector = new VehicleSelector(menu);
-        selector.init(assets, mGame.getRewardManager());
-        selector.setColumnCount(builder.getIntConfigValue("columnCount"));
-        selector.setItemSize(
+        mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.init(assets, mGame.getRewardManager());
+        mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
+        mVehicleSelector.setItemSize(
                 builder.getIntConfigValue("itemWidth"), builder.getIntConfigValue("itemHeight"));
-        menu.addItem(selector);
-
-        return selector;
+        menu.addItem(mVehicleSelector);
     }
 
     private void setupCursor(Assets assets, int idx) {

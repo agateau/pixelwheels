@@ -155,27 +155,55 @@ public class GameConfig {
         return PrefConstants.INPUT_PREFIX + idx + "." + mPlayerInputFactoryIds[idx] + ".";
     }
 
+    private static String simpleString(Object object) {
+        String address = Integer.toHexString(object.hashCode());
+        return object.getClass().getSimpleName() + '@' + address;
+    }
+
     private void setupInputHandlers() {
+        NLog.i("");
         Map<String, Array<GameInputHandler>> inputHandlersByIds =
                 GameInputHandlerFactories.getInputHandlersByIds();
+
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
             mPlayerInputHandlers[idx] = null;
             String id = mPlayerInputFactoryIds[idx];
-            if ("".equals(id)) {
-                id = GameInputHandlerFactories.getAvailableFactories().first().getId();
+            GameInputHandler inputHandler = null;
+            if (!"".equals(id)) {
+                inputHandler = popInputHandler(inputHandlersByIds.get(id));
+                if (inputHandler != null) {
+                    NLog.i(
+                            "P%d: loading config for %s (%s)",
+                            idx + 1, id, simpleString(inputHandler));
+                    inputHandler.loadConfig(mPreferences, getInputPrefix(idx), idx);
+                } else {
+                    NLog.e("P%d: not enough input handlers for id '%s'", idx + 1, id);
+                }
             }
-            Array<GameInputHandler> inputHandlers = inputHandlersByIds.get(id);
-            if (inputHandlers == null) {
-                NLog.e("Player %d: no input handlers for id '%s'", idx + 1, id);
-                continue;
+            if (inputHandler == null) {
+                for (Map.Entry<String, Array<GameInputHandler>> entry :
+                        inputHandlersByIds.entrySet()) {
+                    inputHandler = popInputHandler(entry.getValue());
+                    if (inputHandler != null) {
+                        id = entry.getKey();
+                        NLog.i("P%d: using %s (%s)", idx + 1, id, simpleString(inputHandler));
+                        break;
+                    }
+                }
             }
-            if (inputHandlers.size == 0) {
-                NLog.i("Player %d: not enough input handlers for id '%s'", idx + 1, id);
-                continue;
-            }
-            GameInputHandler inputHandler = inputHandlers.removeIndex(0);
-            inputHandler.loadConfig(mPreferences, getInputPrefix(idx), idx);
+            Assert.check(
+                    inputHandler != null,
+                    "Player %d: No input handler available for id '%s'",
+                    idx + 1,
+                    id);
             mPlayerInputHandlers[idx] = inputHandler;
         }
+    }
+
+    private static GameInputHandler popInputHandler(Array<GameInputHandler> inputHandlers) {
+        if (inputHandlers != null && !inputHandlers.isEmpty()) {
+            return inputHandlers.removeIndex(0);
+        }
+        return null;
     }
 }

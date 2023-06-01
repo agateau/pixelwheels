@@ -30,7 +30,7 @@ import java.util.HashMap;
 public class KeyMapper implements InputMapper {
     // The UI instance can map multiple keycodes to the same VirtualKey, so the value type of this
     // map is an array of int.
-    private final HashMap<VirtualKey, Integer[]> mKeyForVirtualKey = new HashMap<>();
+    private final HashMap<VirtualKey, Integer[]> mKeysForVirtualKey = new HashMap<>();
 
     /** Create a KeyMapper to use when navigating UIs */
     public static KeyMapper createUiInstance() {
@@ -58,7 +58,8 @@ public class KeyMapper implements InputMapper {
     public static KeyMapper createGameInstance(int playerIdx) {
         KeyMapper mapper = new KeyMapper();
         for (VirtualKey vkey : VirtualKey.values()) {
-            mapper.mKeyForVirtualKey.put(vkey, DefaultKeys.getDefaultKeys(playerIdx, vkey));
+            int key = DefaultKeys.getDefaultKey(playerIdx, vkey);
+            mapper.mKeysForVirtualKey.put(vkey, new Integer[] {key});
         }
         return mapper;
     }
@@ -66,26 +67,26 @@ public class KeyMapper implements InputMapper {
     private KeyMapper() {}
 
     public void setKey(VirtualKey vkey, int key) {
-        mKeyForVirtualKey.put(vkey, new Integer[] {key});
+        mKeysForVirtualKey.put(vkey, new Integer[] {key});
     }
 
     public void addKey(VirtualKey vkey, int key) {
-        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        Integer[] keys = mKeysForVirtualKey.get(vkey);
         if (keys == null) {
             keys = new Integer[] {key};
         } else {
             keys = addToIntegerArray(keys, key);
         }
-        mKeyForVirtualKey.put(vkey, keys);
+        mKeysForVirtualKey.put(vkey, keys);
     }
 
     public int getKey(VirtualKey virtualKey) {
-        return mKeyForVirtualKey.get(virtualKey)[0];
+        return mKeysForVirtualKey.get(virtualKey)[0];
     }
 
     @Override
     public boolean isKeyPressed(VirtualKey vkey) {
-        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        Integer[] keys = mKeysForVirtualKey.get(vkey);
         for (Integer key : keys) {
             if (Gdx.input.isKeyPressed(key)) {
                 return true;
@@ -96,7 +97,7 @@ public class KeyMapper implements InputMapper {
 
     @Override
     public boolean isKeyJustPressed(VirtualKey vkey) {
-        Integer[] keys = mKeyForVirtualKey.get(vkey);
+        Integer[] keys = mKeysForVirtualKey.get(vkey);
         for (Integer key : keys) {
             if (Gdx.input.isKeyJustPressed(key)) {
                 return true;
@@ -109,9 +110,9 @@ public class KeyMapper implements InputMapper {
     public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
         for (VirtualKey vkey : VirtualKey.values()) {
             String preferenceKey = prefix + vkey.toString().toLowerCase();
-            int defaultValue = DefaultKeys.getDefaultKeys(playerIdx, vkey)[0];
+            int defaultValue = DefaultKeys.getDefaultKey(playerIdx, vkey);
             int key = preferences.getInteger(preferenceKey, defaultValue);
-            mKeyForVirtualKey.put(vkey, new Integer[] {key});
+            mKeysForVirtualKey.put(vkey, new Integer[] {key});
         }
     }
 
@@ -126,6 +127,6 @@ public class KeyMapper implements InputMapper {
 
     @Override
     public boolean isAvailable() {
-        return true;
+        return Gdx.input.isPeripheralAvailable(Input.Peripheral.HardwareKeyboard);
     }
 }
