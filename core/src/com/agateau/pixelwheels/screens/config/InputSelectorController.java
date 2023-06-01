@@ -131,7 +131,12 @@ public class InputSelectorController {
         GameInputHandler handler = mGame.getConfig().getPlayerInputHandler(mPlayerIdx);
 
         boolean available = handler.isAvailable();
-        mConfigureButton.setDisabled(!available || !canBeConfigured);
+        if (canBeConfigured) {
+            mConfigureButton.setDisabled(!available);
+            mConfigureButton.setVisible(true);
+        } else {
+            mConfigureButton.setVisible(false);
+        }
 
         String details;
         if (available) {
