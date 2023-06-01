@@ -605,7 +605,7 @@ msgid "Pie buttons"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:106
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
 msgid "Side buttons"
 msgstr ""
 
@@ -799,11 +799,6 @@ msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:57
-#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:140
-msgid "Missing"
-msgstr ""
-
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
@@ -898,6 +893,10 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:56
 msgid "6th"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
+msgid "Disconnected"
 msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44

@@ -54,7 +54,7 @@ public class NotEnoughInputsScreen extends PwStageScreen {
                 sStringBuilder.append("\n");
             }
             String name = inputNames.get(playerId);
-            String status = name == null ? tr("Missing") : name;
+            String status = name == null ? StringUtils.missingInputHandlerMessage() : name;
             sStringBuilder.append(StringUtils.format(tr("Player #%d: %s"), playerId + 1, status));
         }
         mLabel.setText(sStringBuilder.toString());

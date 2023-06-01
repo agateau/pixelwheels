@@ -18,14 +18,13 @@
  */
 package com.agateau.pixelwheels.screens.config;
 
-import static com.agateau.translations.Translator.tr;
-
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
+import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.ui.GamepadInputMappers;
 import com.agateau.ui.UiAssets;
 import com.agateau.ui.menu.ButtonMenuItem;
@@ -142,7 +141,7 @@ public class InputSelectorController {
         if (available) {
             details = handler.getName();
         } else {
-            details = tr("Missing");
+            details = StringUtils.missingInputHandlerMessage();
         }
         mNameLabel.setText(details);
     }

@@ -612,7 +612,7 @@ msgid "Pie buttons"
 msgstr "Pajknappar"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:106
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
 msgid "Side buttons"
 msgstr "Sidoknappar"
 
@@ -810,11 +810,6 @@ msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Spelare #%d: %s"
 
-#: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:57
-#: core/src/com/agateau/pixelwheels/screens/config/InputSelectorController.java:140
-msgid "Missing"
-msgstr "Saknas"
-
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
 msgid "Player #%d: %s"
@@ -911,6 +906,10 @@ msgstr "5e"
 msgid "6th"
 msgstr "6e"
 
+#: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
+msgid "Disconnected"
+msgstr ""
+
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
@@ -921,6 +920,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "ÖPPNA MAPP FÖR LOGGFIL"
+
+#~ msgid "Missing"
+#~ msgstr "Saknas"
 
 #~ msgid "OK"
 #~ msgstr "Ok"
