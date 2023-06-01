@@ -127,6 +127,6 @@ public class KeyMapper implements InputMapper {
 
     @Override
     public boolean isAvailable() {
-        return true;
+        return Gdx.input.isPeripheralAvailable(Input.Peripheral.HardwareKeyboard);
     }
 }
