@@ -333,34 +333,39 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
+#, fuzzy
+msgid "Marek Szumny"
+msgstr "PandaCoderPL, Marek Szumny"
+
+#: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
 msgstr "Hata raporlayıcılar"
 
-#: android/assets/screens/credits.gdxui:117
+#: android/assets/screens/credits.gdxui:118
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Patreon, Ko-fi ve Paypal destekçileri"
 
-#: android/assets/screens/credits.gdxui:119
+#: android/assets/screens/credits.gdxui:120
 msgid "Made with"
 msgstr "ile yapıldı"
 
-#: android/assets/screens/credits.gdxui:121
+#: android/assets/screens/credits.gdxui:122
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:122
+#: android/assets/screens/credits.gdxui:123
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:123
+#: android/assets/screens/credits.gdxui:124
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:124
+#: android/assets/screens/credits.gdxui:125
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:125
+#: android/assets/screens/credits.gdxui:126
 msgid "Android Studio"
 msgstr "Android Studio"
 

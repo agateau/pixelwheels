@@ -340,34 +340,39 @@ msgstr "এথান চ্যাপম্যান"
 
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
+msgid "Marek Szumny"
+msgstr "পান্ডাকোডারপিএল, মারেক জুমনি"
+
+#: android/assets/screens/credits.gdxui:117
+#, fuzzy
 msgid "All bug reporters"
 msgstr "এবং সব গিটহাব সমস্যা প্রতিবেদক"
 
-#: android/assets/screens/credits.gdxui:117
+#: android/assets/screens/credits.gdxui:118
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "প্যাট্রন, কো-ফি এবং পেপালের সব সাহায্যকারীরা"
 
-#: android/assets/screens/credits.gdxui:119
+#: android/assets/screens/credits.gdxui:120
 msgid "Made with"
 msgstr "তৈরির জন্য ব্যবহৃত"
 
-#: android/assets/screens/credits.gdxui:121
+#: android/assets/screens/credits.gdxui:122
 msgid "LibGDX"
 msgstr "লিবজিডিএক্স"
 
-#: android/assets/screens/credits.gdxui:122
+#: android/assets/screens/credits.gdxui:123
 msgid "Tiled"
 msgstr "টাইলড"
 
-#: android/assets/screens/credits.gdxui:123
+#: android/assets/screens/credits.gdxui:124
 msgid "Aseprite"
 msgstr "অ্যাশপ্রিট"
 
-#: android/assets/screens/credits.gdxui:124
+#: android/assets/screens/credits.gdxui:125
 msgid "SFXR Qt"
 msgstr "এসএফএক্সআর কিউটি"
 
-#: android/assets/screens/credits.gdxui:125
+#: android/assets/screens/credits.gdxui:126
 msgid "Android Studio"
 msgstr "অ্যান্ড্রয়েড স্টুডিও"
 
