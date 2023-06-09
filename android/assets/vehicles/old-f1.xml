@@ -1,8 +1,8 @@
 <vehicle speed="1" name="Old F1" width="23" height="55">
     <main image="old-f1"/>
     <shapes>
-        <octogon corner="6" width="17" height="55"/>
+        <octogon corner="6" width="16" height="55"/>
     </shapes>
-    <axle y="47" width="30" steer="1"/>
-    <axle y="11" width="31"/>
+    <axle y="47" width="27" steer="1" tireSize="THIN"/>
+    <axle y="11" width="29" tireSize="THIN"/>
 </vehicle>
