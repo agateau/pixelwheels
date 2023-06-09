@@ -1,0 +1,8 @@
+<vehicle speed="1" name="Old F1" width="23" height="55">
+    <main image="old-f1"/>
+    <shapes>
+        <octogon corner="6" width="17" height="55"/>
+    </shapes>
+    <axle y="47" width="30" steer="1"/>
+    <axle y="11" width="31"/>
+</vehicle>
