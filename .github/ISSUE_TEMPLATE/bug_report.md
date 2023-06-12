@@ -13,9 +13,9 @@ Explain what went wrong
 
 ### How to reproduce
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ### Expected behavior
 
@@ -26,14 +26,16 @@ What should have happened instead?
 Pixel Wheels version:
 
 Binary origin:
+
 - [ ] itch.io
 - [ ] Google Play
 - [ ] F-Droid
-- [ ] https://builds.agateau.com/pixelwheels/
+- [ ] <https://builds.agateau.com/pixelwheels/>
 - [ ] Self-built
 - [ ] Other:
 
 OS:
+
 - [ ] Android
 - [ ] Windows
 - [ ] macOS

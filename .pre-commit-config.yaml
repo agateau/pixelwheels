@@ -1,0 +1,43 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  # Markdown
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.32.2
+    hooks:
+      - id: markdownlint-fix
+        args: [--ignore, "fastlane"]
+
+  # Python
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile, black]
+
+  # Java
+  - repo: local
+    hooks:
+      - id: codingstyle
+        name: codingstyle
+        entry: tools/apply-codingstyle
+        language: script
+        files: \.java$
+
+  # Check GitHub workflows
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.23.1
+    hooks:
+      - id: check-github-workflows

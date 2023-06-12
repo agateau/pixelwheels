@@ -31,7 +31,7 @@ task dist(type: Jar) {
     from files(sourceSets.main.output.resourcesDir)
     from {configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
     from files(project.assetsDir)
- 
+
     manifest {
         attributes 'Main-Class': project.mainClassName
     }

@@ -30,16 +30,15 @@ Sample Usage:
     $ merge_fonts.py -d noto-fonts/unhinted -o NotoSansMerged-Regular.ttf
 
 """
-import sys
-import os.path
 import logging
+import os.path
+import sys
 from argparse import ArgumentParser
 
-from fontTools import ttLib
-from fontTools import merge
+from fontTools import merge, ttLib
+from fontTools.misc.loggingTools import Timer
 from merge_noto import add_gsub_to_font, has_gsub_table
 from substitute_linemetrics import read_line_metrics, set_line_metrics
-from fontTools.misc.loggingTools import Timer
 
 log = logging.getLogger("nototools.merge_fonts")
 

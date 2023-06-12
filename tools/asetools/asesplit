@@ -4,13 +4,11 @@ Turn an Aseprite file into one or several png files.
 """
 import argparse
 import sys
-
 from pathlib import Path
-
-from PIL import Image
 
 from aseprite import AsepriteImage
 from imageops import pil_image_for_cel, render_frame
+from PIL import Image
 
 
 def trim(image: Image) -> Image:
@@ -38,14 +36,20 @@ def main():
 
     parser.add_argument("ase_file")
     parser.add_argument(
-        "format", default="{title}.png",
+        "format",
+        default="{title}.png",
         help="Define the name of the generated files. Supported keywords:"
-        " {title}, {layer}, {frame}, {slice}")
+        " {title}, {layer}, {frame}, {slice}",
+    )
     parser.add_argument("--split-layers", action="store_true")
     parser.add_argument("--split-slices", action="store_true")
     parser.add_argument("--trim", action="store_true")
-    parser.add_argument("--rotate", type=int, metavar="ANGLE",
-                        help="Rotate image by ANGLE degrees counter-clockwise")
+    parser.add_argument(
+        "--rotate",
+        type=int,
+        metavar="ANGLE",
+        help="Rotate image by ANGLE degrees counter-clockwise",
+    )
     parser.add_argument("--dry-run", action="store_true")
 
     args = parser.parse_args()

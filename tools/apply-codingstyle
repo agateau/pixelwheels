@@ -25,7 +25,7 @@ usage() {
     fi
 
     cat << EOF
-Usage: $PROGNAME [OPTION ...]
+Usage: $PROGNAME [OPTION ...] [FILES]
 Apply coding style.
 
 Options:
@@ -37,6 +37,7 @@ EOF
 }
 
 check=0
+files=""
 while [ $# -gt 0 ] ; do
     case "$1" in
     -h|--help)
@@ -49,7 +50,7 @@ while [ $# -gt 0 ] ; do
         usage "Unknown option '$1'"
         ;;
     *)
-        usage "Too many arguments"
+        files="$files $1"
         ;;
     esac
     shift
@@ -59,7 +60,10 @@ download_formatter
 
 cd $(dirname $0)/..
 
-create_file_list /tmp/files.lst
+if [ -z "$files" ] ; then
+    create_file_list /tmp/files.lst
+    files=@/tmp/files.lst
+fi
 
 if [ $check -eq 1 ] ; then
     args="--dry-run --set-exit-if-changed"
@@ -69,6 +73,6 @@ else
     echo "Applying coding style..."
 fi
 
-java -jar "$FORMATTER_JAR" $DEFAULT_ARGS $args @/tmp/files.lst
+java -jar "$FORMATTER_JAR" $DEFAULT_ARGS $args $files
 
 # vim:set ts=4 sw=4 et:

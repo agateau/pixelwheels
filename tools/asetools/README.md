@@ -21,5 +21,3 @@ You can run tests using `pytest`. Just run `pytest` in this directory.
 ## Warning
 
 You are welcome to use these tools in your project, but note that support for ase files is not complete: it only support the subset used for Pixel Wheels assets.
-
-[Aseprite]: https://aseprite.org

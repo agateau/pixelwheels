@@ -42,32 +42,44 @@ Building Pixel Wheels requires the following components:
 
 You can install the required Python packages with:
 
-    pip3 install -r requirements.txt
+```
+pip3 install -r requirements.txt
+```
 
 ### Assets
 
 Some assets must be generated from work files with:
 
-    make assets
+```
+make assets
+```
 
 ### Pack images
 
 Once assets have been generated, you can pack them into atlases with:
 
-    make packer
+```
+make packer
+```
 
 ### Build translations
 
 Translations files (.po) must be turned into Java files with:
 
-    make po-compile
+```
+make po-compile
+```
 
 ### Build the game
 
 Run:
 
-    make
+```
+make
+```
 
 You can also build and run it with:
 
-    make run
+```
+make run
+```

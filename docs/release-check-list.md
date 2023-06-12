@@ -1,4 +1,6 @@
-# Create archives
+# Release check list
+
+## Create archives
 
 - [ ] Check source tree is clean
 
@@ -87,7 +89,7 @@
     make tagpush
     ```
 
-# Upload archives
+## Upload archives
 
 - [ ] Upload archives to itch.io
 
@@ -95,7 +97,7 @@
     make butler-upload
     ```
 
-# Game page
+## Game page
 
 - [ ] Update game page
     - [ ] Screenshots
@@ -103,14 +105,14 @@
 - [ ] Write blog post
 - [ ] Publish
 
-# Itch.io
+## Itch.io
 
 - [ ] Update game page
     - [ ] Screenshots
 - [ ] Write blog post
 - [ ] Publish
 
-# Flathub
+## Flathub
 
 - [ ] Upload on GitHub
 
@@ -120,11 +122,11 @@
 
 - [ ] Update the Flathub repository <https://github.com/flathub/com.agateau.PixelWheels>
 
-# F-Droid
+## F-Droid
 
 - [ ] Get the F-Droid version updated
 
-# Spread
+## Spread
 
 - [ ] Select relevant screenshot
 - [ ] Post on:

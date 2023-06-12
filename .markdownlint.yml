@@ -1,0 +1,14 @@
+default: true
+ul-indent:
+    indent: 4
+
+fenced-code-language: false
+
+line_length: false
+first-line-h1: false
+no-trailing-punctuation: false
+no-inline-html: false
+commands-show-output: false
+
+# Changelog files are full of duplicate headers
+no-duplicate-header: false
