@@ -28,7 +28,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 /** Helper class to draw a TextureRegion for a Box2D Body */
 public class BodyRegionDrawer {
     public static final float SHADOW_ALPHA = 0.35f;
-    public static final float SHADOW_OFFSET_PX = 6;
+    public static final float SHADOW_OFFSET_PX = 3;
     private static final int Z_MAX_SHADOW_OFFSET_PX = 30;
     private static final int SCALE_MAX_SHADOW_OFFSET_PX = 30;
     private Batch mBatch;
