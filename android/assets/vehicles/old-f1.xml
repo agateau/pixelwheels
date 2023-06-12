@@ -3,6 +3,6 @@
     <shapes>
         <octogon corner="6" width="16" height="55"/>
     </shapes>
-    <axle y="47" width="27" steer="1" tireSize="THIN"/>
-    <axle y="11" width="29" tireSize="THIN"/>
+    <axle y="47" width="28" steer="1" tireSize="THIN"/>
+    <axle y="11" width="30" tireSize="THIN"/>
 </vehicle>
