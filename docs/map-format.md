@@ -131,7 +131,6 @@ The JSON format looks like this:
 - `width`, `height`: dimensions of the rectangle.
 - `angle`: angle of the rectangle, in degrees (optional, defaults to 0).
 
-
 #### `multi` type
 
 - `obstacles`: an array of obstacles.

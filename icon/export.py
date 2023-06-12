@@ -7,7 +7,6 @@ import shlex
 import shutil
 import subprocess
 import sys
-
 from pathlib import Path
 
 ICON_DIR = Path(__file__).resolve().parent
@@ -60,14 +59,18 @@ def work_icon(size):
 def _generate_work_icons():
     print("Generating work icons")
     for size in SLICE_ICON_SIZES:
-        aseprite("--slice", f"icon-{size}",
-                 "--save-as", work_icon(size))
+        aseprite("--slice", f"icon-{size}", "--save-as", work_icon(size))
 
     for size in SCALED_ICON_SIZES:
         scale = int(size / SCALED_REFERENCE_SIZE)
-        aseprite("--slice", f"icon-{SCALED_REFERENCE_SIZE}",
-                 "--scale", scale,
-                 "--save-as", work_icon(size))
+        aseprite(
+            "--slice",
+            f"icon-{SCALED_REFERENCE_SIZE}",
+            "--scale",
+            scale,
+            "--save-as",
+            work_icon(size),
+        )
 
 
 def generate_macos_icons():
@@ -96,9 +99,14 @@ def generate_android_icons():
 
 
 def generate_android_tv_banner():
-    aseprite("--slice", "tv-banner",
-             "--scale", 2,
-             "--save-as", RES_DIR / "drawable-xhdpi/tv_banner.png")
+    aseprite(
+        "--slice",
+        "tv-banner",
+        "--scale",
+        2,
+        "--save-as",
+        RES_DIR / "drawable-xhdpi/tv_banner.png",
+    )
 
 
 def generate_linux_icons():
@@ -114,17 +122,15 @@ def generate_appwindow_icon():
 
 def generate_gplay_icon():
     # Google Play: 512 x 512 RVB, flat
-    run("convert", work_icon(512),
-        "-background", BGCOLOR, "-flatten", GPLAY_ICON)
+    run("convert", work_icon(512), "-background", BGCOLOR, "-flatten", GPLAY_ICON)
 
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=__doc__)
+        formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__
+    )
 
-    parser.add_argument("-k", "--keep", action="store_true",
-                        help="Keep work dir")
+    parser.add_argument("-k", "--keep", action="store_true", help="Keep work dir")
 
     parser.add_argument("targets", nargs="*")
 
@@ -139,7 +145,7 @@ def main():
             targets = args.targets
         else:
             prefix = "generate_"
-            targets = [k[len(prefix):] for k in globals() if k.startswith(prefix)]
+            targets = [k[len(prefix) :] for k in globals() if k.startswith(prefix)]
 
         _generate_work_icons()
 

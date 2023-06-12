@@ -34,7 +34,6 @@ def main():
     for slice_ in image.slices:
         print(f"{slice_.name:40} pos={slice_.position} size={slice_.size}")
 
-
     return 0
 
 

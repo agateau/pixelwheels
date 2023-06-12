@@ -6,4 +6,3 @@
   <its:translateRule selector="//@text" translate="yes"/>
   <its:translateRule selector="//@label" translate="yes"/>
 </its:rules>
-

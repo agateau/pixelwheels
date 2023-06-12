@@ -6,15 +6,13 @@ The implementation is not very precise: it's going to report missing glyphs for
 *all* texts, not only those using the title font.
 """
 import argparse
-import xml.etree.ElementTree as ET
 import re
 import subprocess
 import sys
-
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Iterable
-
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 ASSETS_DIR = ROOT_DIR / "android" / "assets"
@@ -46,9 +44,13 @@ def parse_pyftsubset_log(out: str) -> Iterable[int]:
 
 
 def check_title_font(text_file: str) -> Iterable[int]:
-    cmd = ["pyftsubset", f"--text-file={text_file}",
-           "--no-ignore-missing-unicodes", "--output-file=/dev/null",
-           TITLE_FONT]
+    cmd = [
+        "pyftsubset",
+        f"--text-file={text_file}",
+        "--no-ignore-missing-unicodes",
+        "--output-file=/dev/null",
+        TITLE_FONT,
+    ]
 
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode == 0:
@@ -89,8 +91,8 @@ def list_po_files_using_title_font() -> Iterable[Path]:
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=__doc__)
+        formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__
+    )
 
     args = parser.parse_args()
 

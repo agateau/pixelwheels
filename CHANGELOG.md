@@ -633,7 +633,6 @@
 
 - Make Google Play happy: bump `targetSdkVersion` to 26.
 
-
 ## 0.10.0 - 2018-09-09
 
 ### For players
@@ -784,10 +783,12 @@
 ## 0.6.0 - 2018-02-03
 
 ### Added
+
 - Added sounds for vehicle engines, collision, drifting, picking bonuses, and
   bonuses themselves.
 
 ### Changed
+
 - Renamed the game to Pixel Wheels, to avoid confusion with the already
   existing Tiny Wheels game.
 
@@ -795,14 +796,17 @@
   entirely controllable from the keyboard.
 
 #### Internals
+
 - Updated to libgdx 1.6.5.
 
 ### Fixed
+
 - Make Android Back button toggle pause while playing.
 
 ## 0.5.0 - 2018-01-06
 
 ### Added
+
 - On Android devices without physical navigation buttons, hide the on-screen
   buttons. They can be revealed by swiping from the edge to the center, like in
   most games.
@@ -811,6 +815,7 @@
   sectors in the bottom-left and bottom-right corners of the screen.
 
 ### Changed
+
 - The rank now uses a larger font in the HUD, making it easier to read.
 
 - The game UI has been reworked to look nicer and to be usable from the
@@ -821,6 +826,7 @@
   it's more fun to pass others than to try to prevent others from passing you.
 
 #### Internals
+
 - Updated to libgdx 1.5.6.
 
 ### Fixed
@@ -831,10 +837,13 @@
 - Made sure AI racers do not pick a vehicle used by a player.
 
 ## 0.4.0 - 2017-12-03
+
 ### Added
+
 - Added a new vehicle: Santa Truck! This is the first 6-wheeled vehicle of the game.
 
 ### Changed
+
 - Added road indicators to all tracks so that you can anticipate turns.
 - Redrew snow tiles in "real" pixel-art, spread snow on top of pine-trees.
 - Reduced viewport a bit so that vehicles look bigger.
@@ -845,19 +854,24 @@
 - Made steering more progressive.
 
 #### Internals
+
 - Updated to Gradle 3.3 and Gradle Android plugin 2.3.3.
 
 ### Fixed
+
 - Fixed vehicles being stuck spinning infinitely.
 - Hopefully fixed camera turning more than one round.
 - Made collisions with walls less forgiving.
 - Fixed one player mode sometimes starting with more than one game view.
 
 #### Internals
+
 - Lots of linting fixes
 - Improved map documentation
 - Documented map properties
 
 ## 0.3.0 - 2017-11-05
+
 ### Changed
+
 - Resurrected project. History needs to be filled.

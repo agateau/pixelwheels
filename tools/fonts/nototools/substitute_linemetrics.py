@@ -14,8 +14,9 @@
 
 """Substitutes the line metrics in a font by using the one in another font.
 """
-from fontTools.ttLib import TTFont
 from argparse import ArgumentParser
+
+from fontTools.ttLib import TTFont
 
 
 def main(arg=None):

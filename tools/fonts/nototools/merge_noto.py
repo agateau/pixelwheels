@@ -18,8 +18,7 @@
 import os.path
 import tempfile
 
-from fontTools import merge
-from fontTools import ttLib
+from fontTools import merge, ttLib
 from fontTools.ttLib.tables import otTables
 
 

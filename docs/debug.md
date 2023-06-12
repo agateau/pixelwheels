@@ -20,5 +20,6 @@ When set to an existing directory, Pixel Wheels looks into this directory first 
 ## AGC_UI_TYPE environment variable
 
 Overrides the UI type. Can be one of:
+
 - BUTTONS: Desktop
 - TOUCH: Default for smart phones

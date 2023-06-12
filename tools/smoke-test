@@ -10,18 +10,17 @@ import argparse
 import subprocess
 import sys
 
-
 DEFAULT_TIMEOUT = 4
 
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=__doc__)
+        formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__
+    )
 
-    parser.add_argument("-t", "--timeout",
-                        type=int, default=DEFAULT_TIMEOUT,
-                        help="Timeout in seconds")
+    parser.add_argument(
+        "-t", "--timeout", type=int, default=DEFAULT_TIMEOUT, help="Timeout in seconds"
+    )
 
     parser.add_argument("command", help="Command to run")
 

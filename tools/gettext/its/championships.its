@@ -8,4 +8,3 @@
   <its:translateRule selector="/championship/track/@name" translate="yes"/>
   <gt:contextRule selector="/championship/track/@name" contextPointer="&quot;track&quot;"/>
 </its:rules>
-

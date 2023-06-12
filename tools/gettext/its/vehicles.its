@@ -7,4 +7,3 @@
   <!-- Add "vehicle" as a fixed string context -->
   <gt:contextRule selector="/vehicle/@name" contextPointer="&quot;vehicle&quot;"/>
 </its:rules>
-

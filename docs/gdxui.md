@@ -78,31 +78,37 @@ Extra `TextureAtlas` instances can be registered using `addAtlas(atlasName, atla
 ## Available actors
 
 ### Image
+
 - name (string, optional): Name of the image in the atlas.
 - tiled (boolean, optional): Set to `true` to make the image repeat itself. Defaults to `false`.
 - atlas (string, optional): In which atlas to look for the image. Must have been registered with `UiBuilder.addAtlas`.
 
 ### AnimatedImage
+
 - name (string, required): Name of the animation in the atlas.
 - frameDuration (float, optional): Duration of the frame, in seconds. Defaults to 0.1.
 - startTime (float, optional): Start time in the animation, useful to offset different instances. Defaults to 0.
 - atlas (string, optional): In which atlas to look for the image. Must have been registered with `UiBuilder.addAtlas`.
 
 ### ImageButton
+
 - style (string, optional)
 - imageName (string, optional)
 - imageColor (string, optional)
 
 ### TextButton
+
 - style (string, optional)
 Text is defined by the element text.
 
 ### Group
 
 ### AnchorGroup
+
 - gridSize (dimension, optional)
 
 ### Label
+
 - style (string, optional)
 - align (alignment, optional)
 - wrap (boolean, optional): If set to true and width is defined, the Label height is adjusted to fit the Label text in the defined width
@@ -110,24 +116,30 @@ Text is defined by the element text.
 Text is defined by the element text. You can insert multiple lines using `\n`.
 
 ### ScrollPane
+
 - style (string, optional)
 Must contains one child actor.
 
 ### VerticalGroup
+
 - spacing (float, optional)
 
 ### HorizontalGroup
+
 - spacing (float, optional)
 
 ### CheckBox
+
 - style (string, optional)
 Text is defined by the element text.
 
 ### Menu
+
 - style (string, optional)
 - labelColumnWidth (float, optional)
 
 Must contains a child element called Items. Items must contain one of:
+
 - ButtonMenuItem
     - label (string, optional)
     - text (string, optional)
@@ -135,6 +147,7 @@ Must contains a child element called Items. Items must contain one of:
     - text (string, optional)
 
 ### MenuScrollPane
+
 Must contains a Menu element.
 
 ### Table
@@ -144,6 +157,7 @@ Must contains a Menu element.
 ### align
 
 One of:
+
 - center
 - centerLeft
 - centerRight

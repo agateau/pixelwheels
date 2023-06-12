@@ -3,7 +3,6 @@
 Load an Aseprite file
 """
 import zlib
-
 from io import BytesIO
 from struct import unpack
 from typing import List
@@ -106,11 +105,26 @@ class AsepriteImage:
 
     def read_header(self, fp):
         data = fp.read(44)
-        file_size, magic, self.frame_count, self.size[0], self.size[1], \
-            self.depth, flags, speed, zero1, zero2, \
-            self.transparent_color, self.color_count, \
-            px_width, px_height, grid_x, grid_y, grid_width, grid_height \
-            = unpack("<LHHHHHLHLLBxxxHBBhhHH", data)
+        (
+            file_size,
+            magic,
+            self.frame_count,
+            self.size[0],
+            self.size[1],
+            self.depth,
+            flags,
+            speed,
+            zero1,
+            zero2,
+            self.transparent_color,
+            self.color_count,
+            px_width,
+            px_height,
+            grid_x,
+            grid_y,
+            grid_width,
+            grid_height,
+        ) = unpack("<LHHHHHLHLLBxxxHBBhhHH", data)
         if magic != MAGIC:
             raise NotAsepriteFile()
         if zero1 != 0 or zero2 != 0:
@@ -120,11 +134,10 @@ class AsepriteImage:
 
     def read_frame(self, fp):
         data = fp.read(16)
-        frame_size, magic, old_chunks, duration, new_chunks \
-            = unpack("<LHHHxxL", data)
+        frame_size, magic, old_chunks, duration, new_chunks = unpack("<LHHHxxL", data)
         if magic != FRAME_MAGIC:
             raise NotAsepriteFile("Invalid frame magic ({})".format(magic))
-        chunk_count = old_chunks if old_chunks < 0xffff else new_chunks
+        chunk_count = old_chunks if old_chunks < 0xFFFF else new_chunks
 
         frame = Frame(self)
         self.frames.append(frame)
@@ -158,8 +171,9 @@ class AsepriteImage:
         raise ChildLayerWithoutParent(child_layer.name)
 
     def read_layer_chunk(self, fp):
-        flags, layer_type, child_level, blend_mode, opacity, layer_name_length \
-            = unpack("<HHHxxxxHbxxxH", fp.read(18))
+        flags, layer_type, child_level, blend_mode, opacity, layer_name_length = unpack(
+            "<HHHxxxxHbxxxH", fp.read(18)
+        )
         name = str(fp.read(), "utf-8")
         layer = Layer(self, name, child_level)
         layer.visible = bool(flags & 1)
@@ -209,4 +223,6 @@ class AsepriteImage:
 
         frame_number, x, y, width, height = unpack("<LllLL", fp.read(20))
         self.slices.append(Slice(name, (x, y), (width, height)))
+
+
 # vi: ts=4 sw=4 et
