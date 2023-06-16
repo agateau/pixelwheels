@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.screens;
 
 import static com.agateau.translations.Translator.tr;
+import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
@@ -57,6 +58,13 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     private final PwGame mGame;
+    private final Origin mOrigin;
+
+    /// Indicates from where has this config screen been called from
+    public enum Origin {
+        MENU,
+        PAUSE_OVERLAY
+    }
 
     Menu mMenu;
     TabMenuItem mTabMenuItem;
@@ -64,14 +72,15 @@ public class ConfigScreen extends PwStageScreen {
 
     private boolean mLanguageChanged = false;
 
-    public ConfigScreen(PwGame game) {
+    public ConfigScreen(PwGame game, Origin origin) {
         super(game.getAssets().ui);
         mGame = game;
+        mOrigin = origin;
         setupUi();
         new PwRefreshHelper(mGame, getStage()) {
             @Override
             protected void refresh() {
-                mGame.replaceScreen(new ConfigScreen(mGame));
+                mGame.replaceScreen(new ConfigScreen(mGame, mOrigin));
             }
         };
     }
@@ -224,6 +233,11 @@ public class ConfigScreen extends PwStageScreen {
                     }
                 });
         group.addItemWithLabel(tr("Language:"), languageButton);
+        if (mOrigin == Origin.PAUSE_OVERLAY) {
+            languageButton.setDisabled(true);
+            languageButton.setText(
+                    trc("Can't change while racing", "'change' refer to changing languages"));
+        }
 
         group.addTitleLabel(tr("Audio"));
         final SwitchMenuItem soundFxSwitch = new SwitchMenuItem(mMenu);
@@ -285,7 +299,7 @@ public class ConfigScreen extends PwStageScreen {
     }
 
     public static ConfigScreen createAfterLanguageChange(PwGame game) {
-        ConfigScreen screen = new ConfigScreen(game);
+        ConfigScreen screen = new ConfigScreen(game, Origin.MENU);
         screen.selectLanguageButton();
         screen.mLanguageChanged = true;
         return screen;

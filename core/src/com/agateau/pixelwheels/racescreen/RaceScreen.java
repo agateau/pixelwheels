@@ -356,7 +356,7 @@ public class RaceScreen extends ScreenAdapter {
 
     void onSettingsPressed() {
         mConfigVisible = true;
-        mGame.pushScreen(new ConfigScreen(mGame));
+        mGame.pushScreen(new ConfigScreen(mGame, ConfigScreen.Origin.PAUSE_OVERLAY));
     }
 
     private void unmuteIfNecessary() {

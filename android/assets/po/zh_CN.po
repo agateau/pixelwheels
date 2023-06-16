@@ -698,20 +698,20 @@ msgstr ""
 "锦标赛\n"
 "结束！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 msgid "About"
 msgstr "关于"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:111
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "CREDITS"
 msgstr "致谢"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:148
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:156
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -719,79 +719,84 @@ msgstr ""
 "Pixel Wheels 是免费的，但有用很多方式\n"
 "可以支持其开发。"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid "VISIT SUPPORT PAGE"
 msgstr "访问支持页面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:153
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid "Learn more about Pixel Wheels"
 msgstr "了解更多关于 Pixel Wheels"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:154
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "VISIT WEB SITE"
 msgstr "访问网页"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:169
 msgid "Under the hood"
 msgstr "底层"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "这些选项通常对 Pixel Wheels 的开发有帮助，但也可随意尝试！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid "DEV. OPTIONS"
 msgstr "开发选项"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
 msgid "Controls"
 msgstr "控制"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "玩家 #%d："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:217
 msgid "Controls:"
 msgstr "控制："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
 msgid "General"
 msgstr "常规"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:234
 msgid "Language:"
 msgstr "语言："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:228
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+msgctxt "'change' refer to changing languages"
+msgid "Can't change while racing"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgid "Audio"
 msgstr "声音"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Sound FX:"
 msgstr "音效："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Video"
 msgstr "画面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:284
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:310
 msgid "CONFIGURE"
 msgstr "配置"
 
