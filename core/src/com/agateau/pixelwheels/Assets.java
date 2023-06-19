@@ -18,7 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
-import com.agateau.pixelwheels.gameobjet.AnimationObject;
+import com.agateau.pixelwheels.gameobject.AnimationObject;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.ChampionshipIO;
 import com.agateau.pixelwheels.map.Track;

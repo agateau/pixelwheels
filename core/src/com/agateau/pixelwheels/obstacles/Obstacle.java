@@ -21,7 +21,7 @@ package com.agateau.pixelwheels.obstacles;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.ZLevel;
-import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.gameobject.GameObjectAdapter;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
 import com.agateau.pixelwheels.utils.Box2DUtils;

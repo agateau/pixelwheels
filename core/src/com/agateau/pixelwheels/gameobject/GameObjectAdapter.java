@@ -16,30 +16,30 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.gameobjet;
+package com.agateau.pixelwheels.gameobject;
 
-import com.agateau.pixelwheels.ZLevel;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/** A generic game object */
-public interface GameObject {
-    void act(float delta);
+/** An adapter for the GameObject interface */
+public abstract class GameObjectAdapter implements GameObject {
+    private boolean mIsFinished = false;
+    private final Vector2 mPosition = new Vector2();
 
-    /**
-     * Returns true if the object is done and should be removed from the game. If the object
-     * implements Disposable, GameWorld will take care of calling dispose() on it.
-     */
-    boolean isFinished();
+    @Override
+    public boolean isFinished() {
+        return mIsFinished;
+    }
 
-    void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds);
+    @Override
+    public void audioRender(AudioClipper audioClipper) {}
 
-    float getX();
+    @Override
+    public Vector2 getPosition() {
+        mPosition.set(getX(), getY());
+        return mPosition;
+    }
 
-    float getY();
-
-    Vector2 getPosition();
-
-    void audioRender(AudioClipper audioClipper);
+    protected void setFinished(boolean value) {
+        mIsFinished = value;
+    }
 }

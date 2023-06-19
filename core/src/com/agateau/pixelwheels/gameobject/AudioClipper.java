@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.agateau.pixelwheels.gameobjet;
+package com.agateau.pixelwheels.gameobject;
 
 /** Filter a GameObject to "clip" it if it is too far */
 public interface AudioClipper {

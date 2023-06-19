@@ -21,7 +21,7 @@ package com.agateau.pixelwheels.racescreen.debug;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.ZLevel;
-import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.gameobject.GameObjectAdapter;
 import com.agateau.pixelwheels.map.LapPosition;
 import com.agateau.pixelwheels.map.LapPositionTable;
 import com.agateau.pixelwheels.map.Track;

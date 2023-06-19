@@ -19,7 +19,7 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.bonus.BonusPool;
-import com.agateau.pixelwheels.gameobjet.GameObject;
+import com.agateau.pixelwheels.gameobject.GameObject;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racescreen.CountDown;
