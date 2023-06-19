@@ -11,6 +11,9 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+# Give the user the opportunity to customize environment variables
+-include ./env.mk
+
 DESKTOP_JAR=$(CURDIR)/desktop/build/libs/desktop-1.0.jar
 TOOLS_JAR=$(CURDIR)/tools/build/libs/tools-1.0.jar
 GRADLEW=./gradlew
@@ -21,7 +24,7 @@ endif
 GAME_CP=com.agateau.pixelwheels
 EXECUTABLE=pixelwheels
 
-include version.properties
+include ./version.properties
 
 DIST_OUT_BASE_DIR=dist-out
 DIST_NAME=$(EXECUTABLE)-$(VERSION)

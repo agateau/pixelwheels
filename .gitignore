@@ -87,3 +87,4 @@ fastlane/google-play-api.json
 ## Python
 __pycache__/
 .conf-backup
+env.mk

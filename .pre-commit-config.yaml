@@ -27,7 +27,13 @@ repos:
       - id: isort
         args: [--profile, black]
 
-  # Java
+  # Check GitHub workflows
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.23.1
+    hooks:
+      - id: check-github-workflows
+
+  # Local checks
   - repo: local
     hooks:
       - id: codingstyle
@@ -36,8 +42,20 @@ repos:
         language: script
         files: \.java$
 
-  # Check GitHub workflows
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.23.1
+  - repo: local
     hooks:
-      - id: check-github-workflows
+      - id: po-update
+        name: po-update
+        language: system
+        files: \.(java|gdxui)$
+        entry: make po-update
+        pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: font-update
+        name: font-update
+        language: system
+        files: \.(po|ttc)$
+        entry: make font-update
+        pass_filenames: false
