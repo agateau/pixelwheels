@@ -666,6 +666,10 @@ public class UiBuilder {
         mActorFactories.put(name, factory);
     }
 
+    public void registerMenuItemFactory(String name, MenuItemFactory factory) {
+        mMenuItemFactories.put(name, factory);
+    }
+
     private static String processText(String text) {
         if (text == null) {
             return "";
