@@ -404,11 +404,16 @@ msgid "Trigger"
 msgstr "Attiva"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
+#: android/assets/screens/gamepadconfig.gdxui:13
+msgid "-"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
 msgid "Back"
 msgstr "Torna"
 
-#: android/assets/screens/gamepadconfig.gdxui:12
+#: android/assets/screens/gamepadconfig.gdxui:13
 #, fuzzy
 msgid "Pause"
 msgstr "Pausa"

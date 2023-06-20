@@ -88,7 +88,7 @@ public class PlayerPilot implements Pilot {
             return false;
         }
         InputMapper inputMapper = ((InputMapperInputHandler) mInputHandler).getInputMapper();
-        return inputMapper.isKeyJustPressed(VirtualKey.BACK);
+        return inputMapper.isKeyJustPressed(VirtualKey.PAUSE);
     }
 
     private void updateInputHandler() {
