@@ -399,12 +399,25 @@ msgid "Gamepad config"
 msgstr "Configuración del mando"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Activar:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Activar"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Activar"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Atrás/volver atrás:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Regreso"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Pausa"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -868,11 +881,6 @@ msgstr "Girar a la izquierda"
 msgid "Steer right"
 msgstr "Girar a la derecha"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "Activar"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Alto"
@@ -888,14 +896,6 @@ msgstr "Izquierda"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Derecha"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Activar"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Regreso"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -937,6 +937,12 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "ABRIR CARPETA DE\n"
 "ARCHIVO DE REGISTRO"
+
+#~ msgid "Trigger:"
+#~ msgstr "Activar:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Atrás/volver atrás:"
 
 #~ msgid "Missing"
 #~ msgstr "Falta"

@@ -8,8 +8,8 @@
             labelColumnWidth="400"
             width="600">
             <Items>
-                <ButtonMenuItem id="triggerPadButton" label="Trigger:" text=""/>
-                <ButtonMenuItem id="backPadButton" label="Back/reverse:" text=""/>
+                <KeyMenuItem label1="Activate" label2="Trigger" key="TRIGGER"/>
+                <KeyMenuItem label1="Back" label2="Pause" key="BACK"/>
             </Items>
         </Menu>
 

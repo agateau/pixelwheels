@@ -398,12 +398,25 @@ msgid "Gamepad config"
 msgstr "Spelkontrollkonfiguration"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Utlösare:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Aktivera"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Utlösare"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Bakåt/backa:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Tillbaka"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Pausat"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -863,11 +876,6 @@ msgstr "Sväng vänster"
 msgid "Steer right"
 msgstr "Sväng höger"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "Utlösare"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Upp"
@@ -883,14 +891,6 @@ msgstr "Vänster"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Höger"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Aktivera"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Tillbaka"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -930,6 +930,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "ÖPPNA MAPP FÖR LOGGFIL"
+
+#~ msgid "Trigger:"
+#~ msgstr "Utlösare:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Bakåt/backa:"
 
 #~ msgid "Missing"
 #~ msgstr "Saknas"

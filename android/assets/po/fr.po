@@ -394,12 +394,25 @@ msgid "Gamepad config"
 msgstr "Configuration manette"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Activer :"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Activer"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Activer"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Retour / marche arrière :"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Retour"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Pause"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -861,11 +874,6 @@ msgstr "Tourner à gauche"
 msgid "Steer right"
 msgstr "Tourner à droite"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "Activer"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Haut"
@@ -881,14 +889,6 @@ msgstr "Gauche"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Droite"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Activer"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Retour"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -928,6 +928,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "DOSSIER DES LOGS"
+
+#~ msgid "Trigger:"
+#~ msgstr "Activer :"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Retour / marche arrière :"
 
 #~ msgid "Missing"
 #~ msgstr "Manquant"

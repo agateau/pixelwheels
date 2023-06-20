@@ -391,12 +391,25 @@ msgid "Gamepad config"
 msgstr "Kontrolör ayarları"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Tetik:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Aktif et"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Tetik"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Geri sürüş"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Geri"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Durduruldu"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -858,11 +871,6 @@ msgstr "Sola dön"
 msgid "Steer right"
 msgstr "Sağa dön"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "Tetik"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Yukarı"
@@ -878,14 +886,6 @@ msgstr "Sol"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Sağ"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Aktif et"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Geri"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -925,6 +925,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "GÜNLÜK KLASÖRÜ"
+
+#~ msgid "Trigger:"
+#~ msgstr "Tetik:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Geri sürüş"
 
 #~ msgid "Missing"
 #~ msgstr "Kayıp"

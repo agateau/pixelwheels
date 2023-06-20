@@ -398,12 +398,25 @@ msgid "Gamepad config"
 msgstr "Aginte konfig"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "Aktibatu:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Aktibatu"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
+msgstr "Aktibatu"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Itzuli/atzera martxa:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Atzera"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Geldirik"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -867,11 +880,6 @@ msgstr "Ezkerrera biratu"
 msgid "Steer right"
 msgstr "Eskuinera biratu"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "Aktibatu"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Gora"
@@ -887,14 +895,6 @@ msgstr "Ezker"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Eskuin"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Aktibatu"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Atzera"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -934,6 +934,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOG-EN KARPETA IREKI"
+
+#~ msgid "Trigger:"
+#~ msgstr "Aktibatu:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Itzuli/atzera martxa:"
 
 #~ msgid "Missing"
 #~ msgstr "Faltan"

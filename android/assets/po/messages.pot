@@ -394,11 +394,23 @@ msgid "Gamepad config"
 msgstr ""
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Trigger"
 msgstr ""
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+msgid "Pause"
 msgstr ""
 
 #: android/assets/screens/keyboardconfig.gdxui:5
@@ -851,11 +863,6 @@ msgstr ""
 msgid "Steer right"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr ""
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr ""
@@ -870,14 +877,6 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46

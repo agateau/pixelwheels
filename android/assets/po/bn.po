@@ -398,12 +398,26 @@ msgid "Gamepad config"
 msgstr "গেমপ্যাড পছন্দসমূহ"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#, fuzzy
+msgid "Trigger"
 msgstr "ঘোড়া:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "পিছনে"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "থামানো"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -875,12 +889,6 @@ msgstr "বামে যাও:"
 msgid "Steer right"
 msgstr "ডানে যাও:"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-#, fuzzy
-msgid "Trigger"
-msgstr "ঘোড়া:"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr ""
@@ -895,14 +903,6 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr ""
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
@@ -941,6 +941,12 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#~ msgid "Trigger:"
+#~ msgstr "ঘোড়া:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "পিছনে"
 
 #~ msgid "Missing"
 #~ msgstr "নেই/ হারিয়ে গেছে"

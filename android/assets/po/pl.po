@@ -397,12 +397,26 @@ msgid "Gamepad config"
 msgstr "Konfiguracja kontrolera"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Activate"
+msgstr "Aktywuj"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#, fuzzy
+msgid "Trigger"
 msgstr "Spust:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "Wstecz/do tyłu:"
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+msgid "Back"
+msgstr "Wróć"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#, fuzzy
+msgid "Pause"
+msgstr "Gra zapauzowana"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -874,12 +888,6 @@ msgstr "Skręć w lewo:"
 msgid "Steer right"
 msgstr "Skręć w prawo:"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-#, fuzzy
-msgid "Trigger"
-msgstr "Spust:"
-
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 msgid "Up"
 msgstr "Góra"
@@ -895,14 +903,6 @@ msgstr "Lewo"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
 msgstr "Prawo"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "Aktywuj"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "Wróć"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -942,6 +942,12 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "OTWÓRZ FOLDER Z LOGAMI"
+
+#~ msgid "Trigger:"
+#~ msgstr "Spust:"
+
+#~ msgid "Back/reverse:"
+#~ msgstr "Wstecz/do tyłu:"
 
 #~ msgid "Missing"
 #~ msgstr "Brak"
