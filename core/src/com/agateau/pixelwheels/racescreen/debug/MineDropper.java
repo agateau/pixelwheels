@@ -22,7 +22,7 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.bonus.Mine;
-import com.agateau.pixelwheels.gameobjet.GameObjectAdapter;
+import com.agateau.pixelwheels.gameobject.GameObjectAdapter;
 import com.agateau.pixelwheels.racescreen.GameRenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;

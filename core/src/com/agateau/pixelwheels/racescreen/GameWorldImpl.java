@@ -29,7 +29,7 @@ import com.agateau.pixelwheels.bonus.GunBonus;
 import com.agateau.pixelwheels.bonus.MineBonus;
 import com.agateau.pixelwheels.bonus.MissileBonus;
 import com.agateau.pixelwheels.bonus.TurboBonus;
-import com.agateau.pixelwheels.gameobjet.GameObject;
+import com.agateau.pixelwheels.gameobject.GameObject;
 import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleCreator;

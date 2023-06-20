@@ -19,7 +19,7 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.BodyIdentifier;
-import com.agateau.pixelwheels.gameobjet.AudioClipper;
+import com.agateau.pixelwheels.gameobject.AudioClipper;
 import com.agateau.pixelwheels.racescreen.Collidable;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.EngineSoundPlayer;

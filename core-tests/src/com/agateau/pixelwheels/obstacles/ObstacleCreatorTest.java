@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.TextureRegionProvider;
-import com.agateau.pixelwheels.gameobjet.GameObject;
+import com.agateau.pixelwheels.gameobject.GameObject;
 import com.agateau.pixelwheels.map.MapUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
