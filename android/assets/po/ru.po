@@ -710,20 +710,20 @@ msgstr ""
 "Чемпионат\n"
 "окончен!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 msgid "About"
 msgstr "Об игре"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:111
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
 msgid "CREDITS"
 msgstr "ТИТРЫ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:148
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:156
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -731,23 +731,23 @@ msgstr ""
 "Pixel Wheels бесплатна, но вы можете поддержать её\n"
 "разработку любым удобным способом."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
 msgid "VISIT SUPPORT PAGE"
 msgstr "ПОДДЕРЖАТЬ ИГРУ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:153
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid "Learn more about Pixel Wheels"
 msgstr "Узнать больше о Pixel Wheels"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:154
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "VISIT WEB SITE"
 msgstr "ПОСЕТИТЬ САЙТ ИГРЫ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:169
 msgid "Under the hood"
 msgstr "Под капотом"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:181
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -755,57 +755,62 @@ msgstr ""
 "Эти опции нужны для разработки Pixel Wheels, но и вы можете свободно менять "
 "их!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
 msgid "DEV. OPTIONS"
 msgstr "ДЛЯ РАЗРАБОТЧИКОВ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
 msgid "Controls"
 msgstr "Управление"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Игрок #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:217
 msgid "Controls:"
 msgstr "Управление:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
 msgid "General"
 msgstr "Основное"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:234
 msgid "Language:"
 msgstr "Язык:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:228
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+msgctxt "'change' refer to changing languages"
+msgid "Can't change while racing"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgid "Audio"
 msgstr "Звуки"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
 msgid "Sound FX:"
 msgstr "Звуки:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
 msgid "Music:"
 msgstr "Музыка:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Video"
 msgstr "Видео"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:284
 msgid "Fullscreen:"
 msgstr "На весь экран:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:310
 msgid "CONFIGURE"
 msgstr "НАСТРОИТЬ"
 

@@ -61,7 +61,7 @@ public class Menu extends WidgetGroup implements Disableable {
 
         @Override
         public boolean mouseMoved(InputEvent event, float x, float y) {
-            if (MouseCursorManager.getInstance().isVisible()) {
+            if (MouseCursorManager.getInstance().isVisible() && mMenuItem.isFocusable()) {
                 mMenu.setCurrentItem(mMenuItem);
             }
             return true;
