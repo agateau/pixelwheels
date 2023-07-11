@@ -62,7 +62,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     @Override
     public boolean isFocusable() {
-        return true;
+        return !isDisabled();
     }
 
     @Override

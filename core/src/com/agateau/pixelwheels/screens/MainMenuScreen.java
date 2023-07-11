@@ -96,7 +96,7 @@ public class MainMenuScreen extends PwStageScreen {
                         new MenuItemListener() {
                             @Override
                             public void triggered() {
-                                mGame.pushScreen(new ConfigScreen(mGame));
+                                mGame.pushScreen(new ConfigScreen(mGame, ConfigScreen.Origin.MENU));
                             }
                         });
         if (desktop) {

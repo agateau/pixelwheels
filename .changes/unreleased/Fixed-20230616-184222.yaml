@@ -1,0 +1,4 @@
+kind: Fixed
+body: Disabled the language selector while playing to avoid returning to
+  a menu filled with black rectangles (#348).
+time: 2023-06-16T18:42:22.737852569+02:00
