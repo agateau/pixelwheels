@@ -163,7 +163,11 @@ public class Menu extends WidgetGroup implements Disableable {
 
     /** Add a [label - item] row */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
-        return mGroup.addItemWithLabel(labelText, item);
+        return addItemWithLabel(labelText, item, "default");
+    }
+
+    public MenuItem addItemWithLabel(String labelText, MenuItem item, String labelStyle) {
+        return mGroup.addItemWithLabel(labelText, item, labelStyle);
     }
 
     private boolean mFirstLayout = true;

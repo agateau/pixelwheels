@@ -264,7 +264,11 @@ public class MenuItemGroup implements MenuItem {
     }
 
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
-        Label label = new Label(labelText, mMenu.getSkin());
+        return addItemWithLabel(labelText, item, "default");
+    }
+
+    public MenuItem addItemWithLabel(String labelText, MenuItem item, String labelStyle) {
+        Label label = new Label(labelText, mMenu.getSkin(), labelStyle);
         return addItemWithLabelActor(label, item);
     }
 
