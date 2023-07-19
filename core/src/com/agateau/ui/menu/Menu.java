@@ -45,8 +45,8 @@ public class Menu extends WidgetGroup implements Disableable {
     private float mLabelColumnWidth;
     private boolean mDisabled = false;
 
-    public void addItemWithLabelActor(Actor labelActor, MenuItem menuItem) {
-        mGroup.addItemWithLabelActor(labelActor, menuItem);
+    public MenuItem addItemWithLabelActor(Actor labelActor, MenuItem menuItem) {
+        return mGroup.addItemWithLabelActor(labelActor, menuItem);
     }
 
     /** A listener to set the item current if the mouse cursor is visible and over it */
