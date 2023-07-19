@@ -27,17 +27,14 @@ import com.agateau.pixelwheels.gameinput.GamepadInputHandler;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.GamepadInputMapper;
 import com.agateau.ui.VirtualKey;
-import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
-import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import java.util.Locale;
@@ -119,8 +116,10 @@ public class GamepadConfigScreen extends PwStageScreen {
                 (menu, element) -> {
                     String label1 = tr(element.getAttribute("label1", ""));
                     String label2 = tr(element.getAttribute("label2", ""));
-                    String keyStr = element.getAttribute("key");
-                    Assert.check(keyStr != null, "key must be set");
+                    String keyStr = element.getAttribute("key", "");
+                    if (keyStr.equals("")) {
+                        return ConfigUiUtils.createTwoColumnTitle(menu, label1, label2);
+                    }
                     VirtualKey key = VirtualKey.valueOf(keyStr);
                     return createButton(menu, label1, label2, key);
                 });
@@ -142,20 +141,7 @@ public class GamepadConfigScreen extends PwStageScreen {
 
     private MenuItem createButton(Menu menu, String text1, String text2, VirtualKey virtualKey) {
         ButtonMenuItem buttonItem = new ButtonMenuItem(menu, "");
-
-        if (text2 == null) {
-            menu.addItemWithLabel(text1, buttonItem);
-        } else {
-            AnchorGroup group = new AnchorGroup();
-            group.addPositionRule(
-                    new Label(text1, menu.getSkin()),
-                    Anchor.CENTER_LEFT,
-                    group,
-                    Anchor.CENTER_LEFT);
-            group.addPositionRule(
-                    new Label(text2, menu.getSkin()), Anchor.CENTER_LEFT, group, Anchor.CENTER);
-            menu.addItemWithLabelActor(group, buttonItem);
-        }
+        ConfigUiUtils.createTwoColumnRow(menu, text1, text2, buttonItem);
 
         GamepadButtonItemController controller =
                 new GamepadButtonItemController(buttonItem, virtualKey);

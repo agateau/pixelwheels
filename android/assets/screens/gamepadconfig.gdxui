@@ -4,10 +4,11 @@
         <Label id="mainLabel" style="title"
             topCenter="root.topCenter 0 -2">Gamepad config</Label>
 
-        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -4"
+        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -3"
             labelColumnWidth="400"
             width="600">
             <Items>
+                <KeyMenuItem label1="Menu" label2="Game"/>
                 <KeyMenuItem label1="Activate" label2="Trigger" key="TRIGGER"/>
                 <KeyMenuItem label1="Back" label2="Brake" key="BACK"/>
                 <KeyMenuItem label1="-" label2="Pause" key="PAUSE"/>
