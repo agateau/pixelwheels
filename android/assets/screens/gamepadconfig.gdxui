@@ -9,7 +9,7 @@
             width="600">
             <Items>
                 <KeyMenuItem label1="Activate" label2="Trigger" key="TRIGGER"/>
-                <KeyMenuItem label1="Back" label2="-" key="BACK"/>
+                <KeyMenuItem label1="Back" label2="Brake" key="BACK"/>
                 <KeyMenuItem label1="-" label2="Pause" key="PAUSE"/>
             </Items>
         </Menu>
