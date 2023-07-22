@@ -61,6 +61,7 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     GamepadInputMapper(Controller controller) {
         mButtonCodes.put(VirtualKey.TRIGGER, 1);
         mButtonCodes.put(VirtualKey.BACK, 2);
+        mButtonCodes.put(VirtualKey.PAUSE, 3);
         setController(controller);
     }
 
@@ -122,12 +123,14 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
     public void loadConfig(Preferences preferences, String prefix, int playerIdx) {
         loadButtonFromPreferences(preferences, prefix, VirtualKey.TRIGGER, 1);
         loadButtonFromPreferences(preferences, prefix, VirtualKey.BACK, 2);
+        loadButtonFromPreferences(preferences, prefix, VirtualKey.PAUSE, 3);
     }
 
     @Override
     public void saveConfig(Preferences preferences, String prefix) {
         saveButtonToPreferences(preferences, prefix, VirtualKey.TRIGGER);
         saveButtonToPreferences(preferences, prefix, VirtualKey.BACK);
+        saveButtonToPreferences(preferences, prefix, VirtualKey.PAUSE);
     }
 
     @Override
@@ -184,6 +187,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
             setKeyJustPressed(VirtualKey.TRIGGER, pressed);
         } else if (buttonCode == mButtonCodes.get(VirtualKey.BACK)) {
             setKeyJustPressed(VirtualKey.BACK, pressed);
+        } else if (buttonCode == mButtonCodes.get(VirtualKey.PAUSE)) {
+            setKeyJustPressed(VirtualKey.PAUSE, pressed);
         } else {
             VirtualKey key = mVirtualKeyForButton.get(buttonCode);
             if (key != null) {
@@ -200,8 +205,8 @@ public class GamepadInputMapper extends ControllerAdapter implements InputMapper
         mVirtualKeyForButton.put(mapping.buttonDpadLeft, VirtualKey.LEFT);
         mVirtualKeyForButton.put(mapping.buttonDpadRight, VirtualKey.RIGHT);
         mVirtualKeyForButton.put(mapping.buttonA, VirtualKey.TRIGGER);
-        mVirtualKeyForButton.put(mapping.buttonStart, VirtualKey.TRIGGER);
         mVirtualKeyForButton.put(mapping.buttonB, VirtualKey.BACK);
         mVirtualKeyForButton.put(mapping.buttonBack, VirtualKey.BACK);
+        mVirtualKeyForButton.put(mapping.buttonStart, VirtualKey.PAUSE);
     }
 }

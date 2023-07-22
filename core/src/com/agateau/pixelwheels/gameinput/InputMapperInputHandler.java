@@ -38,7 +38,9 @@ public abstract class InputMapperInputHandler implements GameInputHandler {
 
     @Override
     public GameInput getGameInput() {
-        mInput.braking = mInputMapper.isKeyPressed(VirtualKey.DOWN);
+        mInput.braking =
+                mInputMapper.isKeyPressed(VirtualKey.DOWN)
+                        || mInputMapper.isKeyPressed(VirtualKey.BACK);
         mInput.accelerating = !mInput.braking;
         if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
             mInput.direction += GamePlay.instance.steeringStep;

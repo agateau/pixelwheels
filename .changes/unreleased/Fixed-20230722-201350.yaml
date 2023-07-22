@@ -1,0 +1,4 @@
+kind: Fixed
+body: 'Gamepad now has a dedicated "Pause" button: the "Back" button can now be used
+  to brake. This matches what players expect.'
+time: 2023-07-22T20:13:50.822976405+02:00
