@@ -180,7 +180,7 @@ The syntax looks like this:
         <ConfigItem id="aKey">theValue</ConfigItem>
         <ConfigItem id="fooSpeed">0.2</ConfigItem>
         ...
-    <Config>
+    </Config>
 ```
 
 The configuration values can be accessed from the code using one of these methods:
