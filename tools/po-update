@@ -35,12 +35,14 @@ Updates $MESSAGES_POT from strings in the source code.
 Options:
   -h, --help          display this usage message and exit
   -c, --check         check if $MESSAGES_POT is up-to-date, do not update it
+  --force             update $MESSAGES_POT even if it looks up-to-date
 EOF
 
     exit 1
 }
 
 CHECK_MODE=false
+FORCE=false
 
 parse_args() {
     while [ $# -gt 0 ] ; do
@@ -50,6 +52,9 @@ parse_args() {
             ;;
         -c|--check)
             CHECK_MODE=true
+            ;;
+        --force)
+            FORCE=true
             ;;
         -*)
             usage "Unknown option '$1'"
@@ -115,18 +120,18 @@ main() {
     lst_file=$TEMP_DIR/files
     list_files $lst_file
 
-    if $CHECK_MODE ; then
-        tmp_new_pot=$TEMP_DIR/new-pot
-        extract_messages $lst_file $tmp_new_pot
+    tmp_new_pot=$TEMP_DIR/new-pot
+    extract_messages $lst_file $tmp_new_pot
+    if ! $FORCE && cmp --quiet <(filter_pot $MESSAGES_POT) <(filter_pot $tmp_new_pot) ; then
+        echo "$MESSAGES_POT is up-to-date"
+        exit 0
+    fi
 
-        if cmp --quiet <(filter_pot $MESSAGES_POT) <(filter_pot $tmp_new_pot) ; then
-            echo "$MESSAGES_POT is up-to-date"
-        else
-            echo "$MESSAGES_POT is not up-to-date, run \`make po-update\` to update it"
-            exit 1
-        fi
+    if $CHECK_MODE ; then
+        echo "$MESSAGES_POT is not up-to-date, run \`make po-update\` to update it"
+        exit 1
     else
-        extract_messages $lst_file $MESSAGES_POT
+        mv $tmp_new_pot $MESSAGES_POT
         update_messages
     fi
 }
