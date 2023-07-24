@@ -31,8 +31,8 @@ import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -160,11 +160,14 @@ public class MultiPlayerScreen extends PwStageScreen {
         VehicleDef vehicleDef = assets.findVehicleDefById(vehicleId);
         mVehicleSelector.setCurrent(idx, vehicleDef);
 
-        mVehicleSelector.setListener(
+        mVehicleSelector.setSelectionListener(
                 idx,
-                new MenuItemListener() {
+                new GridMenuItem.SelectionListener<VehicleDef>() {
                     @Override
-                    public void triggered() {
+                    public void currentChanged(VehicleDef item, int index) {}
+
+                    @Override
+                    public void selectionConfirmed() {
                         VehicleDef vehicleDef = mVehicleSelector.getSelected(idx);
                         setReadyLabelText(idx, vehicleDef.getName());
                         nextIfPossible();
