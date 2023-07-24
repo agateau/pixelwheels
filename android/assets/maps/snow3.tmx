@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="62" height="93" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="140">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="62" height="93" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="141">
  <tileset firstgid="1" source="snow.tsx"/>
  <layer id="1" name="bg1" width="62" height="93">
   <data encoding="base64" compression="zlib">
@@ -22,7 +22,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="Obstacles"/>
- <objectgroup id="6" name="Sections" visible="0">
+ <objectgroup id="6" name="Sections">
   <object id="115" name="0" x="3811" y="4672">
    <polyline points="0,0 -769,0"/>
   </object>
@@ -72,10 +72,13 @@
    <polyline points="0,0 894,-668.002"/>
   </object>
   <object id="131" name="16" x="3825" y="5741">
-   <polyline points="0,0 -786,-654.002"/>
+   <polyline points="-50.9214,206.111 -873.294,-651.577"/>
+  </object>
+  <object id="140" name="17" x="3825" y="5741">
+   <polyline points="133.366,-417.071 -824.797,-707.348"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints">
+ <objectgroup id="7" name="Waypoints" visible="0">
   <object id="99" x="640" y="3648">
    <polyline points="2816,1024 2752,832 2452.1,667.816 1523.9,151.296 1371.77,-67.1929 1528.46,-250.395 1728,-392 2372,-780 2502.15,-1003.25 2208,-1251.04 1765.16,-1544.98 1637.62,-1705.7 1759.29,-1878.12 2109.89,-2171.14 2162.38,-2334.64 1988.4,-2521.86 1468.12,-2791.59 1095.06,-3152 700.177,-3167.42 352.29,-3136 192,-2993.44 33.697,-2661.82 33.1219,-1860.12 31.8392,-71.9987 31.0975,962.002 64,1472 256,1664 660,1808 2452,1808 2688,1720 2816,1344"/>
   </object>
