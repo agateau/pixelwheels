@@ -2,7 +2,7 @@
 
 This document describes how to create championships and tracks (aka maps) for Pixel Wheels.
 
-## Tools
+## Main Tool
 
 Track files are created using [Tiled](http://mapeditor.org).
 
@@ -89,6 +89,8 @@ All areas where vehicles can go must be covered by section quadrilaterals.
 
 The first segment must be aligned with the *beginning* of the finish line.
 
+Segments can be edited using Pixel Wheels Track Editor (see "Internal tools" below).
+
 ### Waypoints
 
 A "Waypoints" object layer containing a polyline indicating where AI pilots should go.
@@ -138,6 +140,18 @@ The JSON format looks like this:
 ### `start`
 
 String. Defaults to `false`. Set to `true` for the tile representing the start position.
+
+## Internal tools
+
+### Track editor
+
+The Track editor can help you editing sections. See its [README][track-editor-README] for more details.
+
+[track-editor-README]: ../tools/src/com/agateau/pixelwheels/tools/trackeditor/README.md
+
+### Lap position table generator
+
+This command-line tool creates a PNG from the sections. The PNG can help analyzing errors. Start it with `tools/lappositiontablegenerator <tmxfile> <tablefile>`, where `<tablefile>` is the name of the PNG file to create.
 
 ## Map icon
 

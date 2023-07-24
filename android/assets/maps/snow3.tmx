@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="62" height="93" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="140">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="62" height="93" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="141">
  <tileset firstgid="1" source="snow.tsx"/>
  <layer id="1" name="bg1" width="62" height="93">
   <data encoding="base64" compression="zlib">
@@ -13,7 +13,7 @@
  </layer>
  <layer id="4" name="fg1" width="62" height="93">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer id="3" name="fg2" width="62" height="93">
@@ -22,7 +22,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="Obstacles"/>
- <objectgroup id="6" name="Sections" visible="0">
+ <objectgroup id="6" name="Sections">
   <object id="115" name="0" x="3811" y="4672">
    <polyline points="0,0 -769,0"/>
   </object>
@@ -72,10 +72,13 @@
    <polyline points="0,0 894,-668.002"/>
   </object>
   <object id="131" name="16" x="3825" y="5741">
-   <polyline points="0,0 -786,-654.002"/>
+   <polyline points="-50.9214,206.111 -873.294,-651.577"/>
+  </object>
+  <object id="140" name="17" x="3825" y="5741">
+   <polyline points="133.366,-417.071 -824.797,-707.348"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Waypoints">
+ <objectgroup id="7" name="Waypoints" visible="0">
   <object id="99" x="640" y="3648">
    <polyline points="2816,1024 2752,832 2452.1,667.816 1523.9,151.296 1371.77,-67.1929 1528.46,-250.395 1728,-392 2372,-780 2502.15,-1003.25 2208,-1251.04 1765.16,-1544.98 1637.62,-1705.7 1759.29,-1878.12 2109.89,-2171.14 2162.38,-2334.64 1988.4,-2521.86 1468.12,-2791.59 1095.06,-3152 700.177,-3167.42 352.29,-3136 192,-2993.44 33.697,-2661.82 33.1219,-1860.12 31.8392,-71.9987 31.0975,962.002 64,1472 256,1664 660,1808 2452,1808 2688,1720 2816,1344"/>
   </object>
