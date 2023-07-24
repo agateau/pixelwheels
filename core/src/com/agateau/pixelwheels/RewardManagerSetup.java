@@ -144,6 +144,10 @@ class RewardManagerSetup {
                 Reward.get(assets.findVehicleDefById("miramar")),
                 new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 1));
 
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("old-f1")),
+                new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 0));
+
         // Unlock all remaining vehicles
         for (VehicleDef vehicleDef : assets.vehicleDefs) {
             Reward reward = Reward.get(vehicleDef);
