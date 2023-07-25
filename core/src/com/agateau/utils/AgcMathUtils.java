@@ -222,4 +222,13 @@ public class AgcMathUtils {
         }
         return true;
     }
+
+    public static float snapAngle(float value) {
+        value = normalizeAngle(value);
+        float snappedValue = MathUtils.round(value / 90f) * 90f;
+        if (Math.abs(snappedValue - value) < 2) {
+            return snappedValue;
+        }
+        return value;
+    }
 }
