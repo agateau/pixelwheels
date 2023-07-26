@@ -20,9 +20,11 @@ package com.agateau.pixelwheels;
 
 /** The drawing layers, ordered from bottom to top */
 public enum ZLevel {
-    GROUND,
+    GROUND, // bgX layers, skidmarks, vehicle shadows, mines, bullets...
     VEHICLES,
-    SHADOWS,
-    OBSTACLES,
-    FLYING
+    SHADOWS, // obstacle and helicopter shadows
+    OBSTACLES, // obstacles
+    FLYING_LOW, // missiles
+    FG_LAYERS, // fgX layers
+    FLYING_HIGH, // helicopter, vehicles being carried by helicopter
 }

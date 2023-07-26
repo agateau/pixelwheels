@@ -1,0 +1,3 @@
+kind: Fixed
+body: "Missiles are no longer drawn over walls or bridges (#58, #362)."
+time: 2023-07-26T11:07:33.016807364+02:00

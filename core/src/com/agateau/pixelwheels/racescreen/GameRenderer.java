@@ -167,7 +167,7 @@ public class GameRenderer {
                 object.draw(mBatch, z, viewBounds);
             }
 
-            if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
+            if (z == ZLevel.FG_LAYERS && mForegroundLayerIndexes.length > 0) {
                 mGameObjectPerformanceCounter.stop();
                 mTilePerformanceCounter.start();
 

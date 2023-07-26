@@ -88,7 +88,7 @@ public class DropLocationDebugObject extends GameObjectAdapter {
 
     @Override
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
-        if (!mActive || zLevel != ZLevel.FLYING) {
+        if (!mActive || zLevel != ZLevel.FLYING_HIGH) {
             return;
         }
         TextureRegion region = mAssets.target;
