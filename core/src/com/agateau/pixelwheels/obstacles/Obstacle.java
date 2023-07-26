@@ -86,7 +86,6 @@ class Obstacle extends GameObjectAdapter implements Disposable {
             mBodyRegionDrawer.draw(mBody, mRegion);
         } else {
             mBodyRegionDrawer.setBatch(batch);
-            mBodyRegionDrawer.setZ(-0.1f);
             mBodyRegionDrawer.drawShadow(mBody, mRegion);
         }
     }
