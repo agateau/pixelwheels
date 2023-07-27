@@ -162,7 +162,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
         }
 
         // Vehicle level: wheels and body
-        ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING_HIGH : ZLevel.VEHICLES;
+        ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING_HIGH : ZLevel.ON_GROUND;
         if (zLevel != wantedZIndex) {
             return;
         }
