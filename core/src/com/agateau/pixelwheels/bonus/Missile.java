@@ -255,7 +255,7 @@ public class Missile extends GameObjectAdapter
 
     @Override
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
-        if (zLevel == ZLevel.FLYING) {
+        if (zLevel == ZLevel.FLYING_LOW) {
             // Draw the shadow at Z_FLYING so that the shadow is drawn *over* its vehicle
             drawShadow(batch);
             drawMissile(batch);

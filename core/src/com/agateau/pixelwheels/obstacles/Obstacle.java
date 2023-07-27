@@ -75,13 +75,13 @@ class Obstacle extends GameObjectAdapter implements Disposable {
 
     @Override
     public void draw(Batch batch, ZLevel zLevel, Rectangle viewBounds) {
-        if (zLevel != ZLevel.OBSTACLES && zLevel != ZLevel.SHADOWS) {
+        if (zLevel != ZLevel.ON_GROUND && zLevel != ZLevel.GROUND) {
             return;
         }
         if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), mRegionRadius)) {
             return;
         }
-        if (zLevel == ZLevel.OBSTACLES) {
+        if (zLevel == ZLevel.ON_GROUND) {
             mBodyRegionDrawer.setBatch(batch);
             mBodyRegionDrawer.draw(mBody, mRegion);
         } else {

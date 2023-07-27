@@ -242,13 +242,13 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         if (!AgcMathUtils.rectangleContains(viewBounds, getPosition(), mFrameBufferRadiusU)) {
             return;
         }
-        if (zLevel == ZLevel.SHADOWS) {
+        if (zLevel == ZLevel.FG_LAYERS) {
             float old = batch.getPackedColor();
             batch.setColor(0, 0, 0, SHADOW_ALPHA);
             float offset = SHADOW_OFFSET * Constants.UNIT_FOR_PIXEL;
             drawFrameBuffer(batch, offset);
             batch.setPackedColor(old);
-        } else if (zLevel == ZLevel.FLYING) {
+        } else if (zLevel == ZLevel.FLYING_HIGH) {
             drawFrameBuffer(batch, 0);
         }
     }

@@ -163,11 +163,7 @@ public class GameRenderer {
 
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
-            for (GameObject object : mWorld.getActiveGameObjects()) {
-                object.draw(mBatch, z, viewBounds);
-            }
-
-            if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
+            if (z == ZLevel.FG_LAYERS && mForegroundLayerIndexes.length > 0) {
                 mGameObjectPerformanceCounter.stop();
                 mTilePerformanceCounter.start();
 
@@ -177,6 +173,10 @@ public class GameRenderer {
 
                 mTilePerformanceCounter.stop();
                 mGameObjectPerformanceCounter.start();
+            }
+
+            for (GameObject object : mWorld.getActiveGameObjects()) {
+                object.draw(mBatch, z, viewBounds);
             }
         }
         mBatch.end();
