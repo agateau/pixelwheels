@@ -79,7 +79,7 @@ public class DebugScreen extends PwStageScreen {
         addRange("Racer count", "racerCount", 1, 6);
         addRange("Border restitution", "borderRestitution", 1, 50);
         addCheckBox("One lap only", "oneLapOnly");
-        addCheckBox("Free camera", "freeCamera");
+        addCheckBox("Free camera\n(move with HJKL keys)", "freeCamera");
 
         mCurrentGroup = tabMenuItem.addPage("Speed");
         addTitle("Speed");
