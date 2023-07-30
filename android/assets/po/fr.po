@@ -472,7 +472,8 @@ msgid "Select Your Vehicles"
 msgstr "Choisissez vos véhicules"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-msgid "Some gamepads are missing"
+#, fuzzy
+msgid "Some controllers are missing"
 msgstr "Certaines manettes sont manquantes"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
