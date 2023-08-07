@@ -397,37 +397,37 @@ msgid "Gamepad config"
 msgstr "Konfiguracja kontrolera"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 #, fuzzy
 msgid "Game"
 msgstr "Kontroler"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 #, fuzzy
 msgid "Menu"
 msgstr "Menu:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Activate"
 msgstr "Aktywuj"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 #, fuzzy
 msgid "Trigger"
 msgstr "Spust:"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
 msgid "Back"
 msgstr "Wróć"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:105
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 #, fuzzy
 msgid "Brake"
 msgstr "Hamulec:"
@@ -899,31 +899,35 @@ msgstr "Nowy pojazd odblokowany!"
 msgid "New championship unlocked!"
 msgstr "Nowe mistrzostwa odblokowane!"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 #, fuzzy
 msgid "Steer left"
 msgstr "Skręć w lewo:"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 #, fuzzy
 msgid "Steer right"
 msgstr "Skręć w prawo:"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Screenshot"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
 msgstr "Góra"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 msgid "Down"
 msgstr "Dół"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 msgid "Left"
 msgstr "Lewo"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 msgid "Right"
 msgstr "Prawo"
 

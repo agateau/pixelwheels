@@ -397,36 +397,36 @@ msgid "Gamepad config"
 msgstr "Játékvezérlő beállítása"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 #, fuzzy
 msgid "Game"
 msgstr "Játékvezérlő"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 #, fuzzy
 msgid "Menu"
 msgstr "Menü:"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Activate"
 msgstr "Aktiválás"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Trigger"
 msgstr "Aktiváló"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
 msgid "Back"
 msgstr "Vissza"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:105
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 msgid "Brake"
 msgstr "Fékezés"
 
@@ -890,29 +890,33 @@ msgstr "Új jármű feloldva!"
 msgid "New championship unlocked!"
 msgstr "Új bajnokság feloldva!"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 msgid "Steer left"
 msgstr "Kanyarodás balra"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 msgid "Steer right"
 msgstr "Kanyarodás jobbra"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
+msgid "Screenshot"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
 msgstr "Fel"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 msgid "Down"
 msgstr "Le"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 msgid "Left"
 msgstr "Balra"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 msgid "Right"
 msgstr "Jobbra"
 

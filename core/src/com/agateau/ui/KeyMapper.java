@@ -42,6 +42,7 @@ public class KeyMapper implements InputMapper {
         mapper.setKey(VirtualKey.TRIGGER, Input.Keys.SPACE);
         mapper.setKey(VirtualKey.BACK, Input.Keys.ESCAPE);
         mapper.setKey(VirtualKey.PAUSE, Input.Keys.ESCAPE);
+        mapper.setKey(VirtualKey.SCREENSHOT, Input.Keys.F9);
 
         mapper.addKey(VirtualKey.TRIGGER, Input.Keys.ENTER);
         if (!PlatformUtils.isDesktop()) {

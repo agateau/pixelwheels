@@ -26,5 +26,6 @@ public enum VirtualKey {
     RIGHT,
     TRIGGER,
     BACK,
-    PAUSE
+    PAUSE,
+    SCREENSHOT,
 }

@@ -28,6 +28,7 @@ import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.KeyMapper;
+import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
@@ -106,6 +107,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
             createKeyItem(mMenu, tr("Steer left"), VirtualKey.LEFT);
             createKeyItem(mMenu, tr("Steer right"), VirtualKey.RIGHT);
             createKeyItem(mMenu, tr("Trigger"), VirtualKey.TRIGGER);
+            createKeyItem(mMenu, tr("Screenshot"), VirtualKey.SCREENSHOT);
         } else {
             ConfigUiUtils.createTwoColumnTitle(mMenu, tr("Menu"), tr("Game"));
             createKeyItem(mMenu, tr("Up"), "-", VirtualKey.UP);
@@ -160,9 +162,17 @@ public class KeyboardConfigScreen extends PwStageScreen {
             };
 
     private void updateKey(int newKey) {
-        int oldKey = mKeyMapper.getKey(mEditedVirtualKey);
-        mKeyMapper.setKey(mEditedVirtualKey, newKey);
+        KeyMapper keyMapper = getKeyMapper(mEditedVirtualKey);
+        int oldKey = keyMapper.getKey(mEditedVirtualKey);
+        keyMapper.setKey(mEditedVirtualKey, newKey);
         checkConflicts(oldKey, newKey);
+    }
+
+    private KeyMapper getKeyMapper(VirtualKey virtualKey) {
+        // For almost all keys we use mKeyMapper, but not for SCREENSHOT, because the game access it
+        // via UiInputMapper.getInstance()
+        KeyMapper uiKeyMapper = UiInputMapper.getInstance().getKeyMapper();
+        return virtualKey == VirtualKey.SCREENSHOT ? uiKeyMapper : mKeyMapper;
     }
 
     private void checkConflicts(int oldKey, int newKey) {
@@ -214,7 +224,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
     }
 
     private String getButtonText(VirtualKey virtualKey) {
-        int key = mKeyMapper.getKey(virtualKey);
+        int key = getKeyMapper(virtualKey).getKey(virtualKey);
         return Input.Keys.toString(key);
     }
 
