@@ -118,35 +118,9 @@ public class FinishedOverlay extends Overlay {
         RACER,
         BEST_LAP_TIME,
         TOTAL_TIME,
-        POINTS // Championship race only
     }
 
-    private final TableRowCreator mQuickRaceRowCreator =
-            // - 1 because we don't show the Points column in quick race mode
-            new TableRowCreator(RaceColumn.values().length - 1) {
-                @Override
-                protected Cell<Label> createCell(
-                        Table table, int columnIdx, String value, String style) {
-                    Cell<Label> cell = table.add(value, style);
-                    RaceColumn column = RaceColumn.values()[columnIdx];
-                    switch (column) {
-                        case RACER:
-                            cell.left().expandX();
-                            break;
-                        case BEST_LAP_TIME:
-                        case TOTAL_TIME:
-                            cell.padLeft(mBestIndicatorWidth + mBestIndicatorMargin);
-                            cell.right();
-                            break;
-                        default:
-                            cell.right();
-                            break;
-                    }
-                    return cell;
-                }
-            };
-
-    private final TableRowCreator mChampionshipRaceRowCreator =
+    private final TableRowCreator mRaceRowCreator =
             new TableRowCreator(RaceColumn.values().length) {
                 @Override
                 protected Cell<Label> createCell(
@@ -390,9 +364,8 @@ public class FinishedOverlay extends Overlay {
     private TableRowCreator getRowCreatorForTable(TableType tableType) {
         switch (tableType) {
             case QUICK_RACE:
-                return mQuickRaceRowCreator;
             case CHAMPIONSHIP_RACE:
-                return mChampionshipRaceRowCreator;
+                return mRaceRowCreator;
             case CHAMPIONSHIP_TOTAL:
                 return mChampionshipTotalRowCreator;
         }
@@ -412,11 +385,8 @@ public class FinishedOverlay extends Overlay {
         // Create header row
         switch (tableType) {
             case QUICK_RACE:
-                rowCreator.addHeaderRow(tr("#"), tr("Racer"), tr("Best lap"), tr("Total time"));
-                break;
             case CHAMPIONSHIP_RACE:
-                rowCreator.addHeaderRow(
-                        tr("#"), tr("Racer"), tr("Best lap"), tr("Total time"), tr("Points"));
+                rowCreator.addHeaderRow(tr("#"), tr("Racer"), tr("Best lap"), tr("Total time"));
                 break;
             case CHAMPIONSHIP_TOTAL:
                 rowCreator.addHeaderRow(tr("#"), tr("Racer"), "", tr("Race time"), tr("Points"));
@@ -439,18 +409,14 @@ public class FinishedOverlay extends Overlay {
                     break;
             }
 
-            if (tableType != TableType.QUICK_RACE) {
+            if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
                 // add PointsAnimInfo for row
                 // -1 is the last column: the Points column
                 Cell<Label> pointsCell = rowCreator.getCreatedRowCell(-1);
                 PointsAnimInfo info = new PointsAnimInfo();
                 info.label = pointsCell.getActor();
-                if (tableType == TableType.CHAMPIONSHIP_RACE) {
-                    info.delta = entrant.getLastRacePoints();
-                    info.points = entrant.getPoints() - info.delta;
-                } else {
-                    info.points = entrant.getPoints();
-                }
+                info.delta = entrant.getLastRacePoints();
+                info.points = entrant.getPoints() - info.delta;
                 mPointsAnimInfos.add(info);
             }
 
@@ -473,11 +439,9 @@ public class FinishedOverlay extends Overlay {
         }
 
         // Animate points if needed
-        if (tableType != TableType.QUICK_RACE) {
+        if (tableType == TableType.CHAMPIONSHIP_TOTAL) {
             updatePointsLabels();
-            if (tableType == TableType.CHAMPIONSHIP_RACE) {
-                schedulePointsIncrease(mFirstPointsIncreaseInterval);
-            }
+            schedulePointsIncrease(mFirstPointsIncreaseInterval);
         }
     }
 
@@ -497,11 +461,7 @@ public class FinishedOverlay extends Overlay {
             totalTime = StringUtils.formatRaceTime(lapPositionComponent.getTotalTime());
         }
 
-        if (tableType == TableType.QUICK_RACE) {
-            rowCreator.addRow(rank, name, bestLapTime, totalTime);
-        } else {
-            rowCreator.addRow(rank, name, bestLapTime, totalTime, "" /* points */);
-        }
+        rowCreator.addRow(rank, name, bestLapTime, totalTime);
     }
 
     private void createChampionshipTotalRow(
