@@ -37,6 +37,10 @@ public class UiInputMapper implements InputMapper {
         return sInstance;
     }
 
+    public KeyMapper getKeyMapper() {
+        return mKeyMapper;
+    }
+
     @Override
     public boolean isKeyPressed(VirtualKey key) {
         return mKeyMapper.isKeyPressed(key) || mGamepadInputMapper.isKeyPressed(key);
