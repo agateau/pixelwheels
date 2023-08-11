@@ -1,4 +1,0 @@
-kind: Fixed
-body: The text explaining how to unlock vehicles is now correctly updated when the
-  language changes (#344).
-time: 2023-05-29T19:19:31.492574838+02:00

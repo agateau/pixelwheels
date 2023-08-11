@@ -1,4 +1,0 @@
-kind: Fixed
-body: Obstacle shadows are now drawn on the bottom right of the obstacle, like the
-  rest of the game objects.
-time: 2023-07-26T23:12:54.912928564+02:00

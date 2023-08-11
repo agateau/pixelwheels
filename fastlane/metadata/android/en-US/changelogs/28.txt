@@ -1,0 +1,11 @@
+Pixel Wheels now speaks Italian and Dutch.
+
+A new vehicle has been added: the BRGP42.
+
+Support for hardware keyboards on Android has been improved.
+
+Many fixes for holes in the "Flood" and "Up, up, up and down" tracks which could be used to cut large parts of the tracks.
+
+Missiles are no longer drawn over walls or bridges.
+
+Many other smaller fixes.
