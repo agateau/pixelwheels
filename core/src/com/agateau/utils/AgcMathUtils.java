@@ -28,6 +28,8 @@ public class AgcMathUtils {
     public static final float msToKmh = 3600 / 1000f;
     public static final float kmhToMs = 1 / msToKmh;
 
+    private static final float SNAP_ANGLE_THRESHOLD = 2;
+
     /** Wrap angles if they are less than 0 or greater than 360 */
     public static float normalizeAngle(float angle) {
         return modulo(angle, 360);
@@ -221,5 +223,17 @@ public class AgcMathUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Snap angle when its value is close to a multiple of 90°. "Close" means a difference of less
+     * than SNAP_ANGLE_THRESHOLD.
+     */
+    public static float snapAngle(float value) {
+        float snappedValue = MathUtils.round(value / 90f) * 90f;
+        if (Math.abs(snappedValue - value) <= SNAP_ANGLE_THRESHOLD) {
+            return snappedValue;
+        }
+        return value;
     }
 }
