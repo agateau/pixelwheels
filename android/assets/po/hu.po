@@ -761,7 +761,9 @@ msgstr "A Pixel Wheels ingyenes, de számos módon támogathatod a fejlesztésé
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid "VISIT SUPPORT PAGE"
-msgstr "TÁMOGATÁSI OLDAL MEGNYITÁSA"
+msgstr ""
+"TÁMOGATÁSI OLDAL\n"
+"MEGNYITÁSA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid "Learn more about Pixel Wheels"
@@ -947,4 +949,6 @@ msgstr ""
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
-msgstr "NAPLÓFÁJLMAPPA MEGNYITÁSA"
+msgstr ""
+"NAPLÓFÁJLMAPPA\n"
+"MEGNYITÁSA"
