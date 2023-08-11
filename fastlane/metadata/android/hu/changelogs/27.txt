@@ -1,0 +1,3 @@
+A Pixel Wheels mostantól elérhető magyarul, eszperantóul és törökül.
+Javítva egy hiba, amely miatt a játékos rangja téves lehetett a bajnokság 2. vagy 3. futamában.
+Javítva egy hiba, amely a versenyek során dadogást okozhatott.
