@@ -86,8 +86,8 @@ public class VehicleRenderer implements CellFrameBufferUser {
 
     private void drawBodyToCell(Batch batch, Body body, TextureRegion region) {
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
-        // Snap angles so that the vehicles do not slightly rotated when facing north, south, east
-        // or west. This is especially useful at startup.
+        // Snap angles so that the vehicle body textures are not drawn slightly rotated when facing
+        // north, south, east or west. This is especially useful at startup.
         angle = AgcMathUtils.snapAngle(angle);
         float xOffset =
                 (body.getPosition().x - mVehicle.getPosition().x) / Constants.UNIT_FOR_PIXEL;
