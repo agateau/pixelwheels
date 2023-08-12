@@ -341,7 +341,7 @@ msgstr "এথান চ্যাপম্যান"
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
 msgid "Marek Szumny"
-msgstr "পান্ডাকোডারপিএল, মারেক জুমনি"
+msgstr "মারেক জুমনি"
 
 #: android/assets/screens/credits.gdxui:117
 #, fuzzy

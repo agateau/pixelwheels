@@ -19,7 +19,7 @@ msgstr ""
 #, fuzzy
 msgctxt "championship"
 msgid "Country Life"
-msgstr "Wiejskie Życie:"
+msgstr "Wiejskie Życie"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
@@ -40,7 +40,7 @@ msgstr "Powódź"
 #, fuzzy
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr "Kwadratowe Wzgórza:"
+msgstr "Kwadratowe Wzgórza"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
@@ -213,7 +213,7 @@ msgstr "Tłumaczenia"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr "Niemiecki"
+msgstr "Niemiecki:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
@@ -259,7 +259,7 @@ msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Russian:"
-msgstr "Rosyjski"
+msgstr "Rosyjski:"
 
 #: android/assets/screens/credits.gdxui:84
 msgid "Nickoriginal"
@@ -315,11 +315,11 @@ msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Niderlandzki:"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -340,7 +340,7 @@ msgstr "Ethan Chapman"
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL, Marek Szumny"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
@@ -406,7 +406,7 @@ msgstr "Kontroler"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 #, fuzzy
 msgid "Menu"
-msgstr "Menu:"
+msgstr "Menu"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -418,7 +418,7 @@ msgstr "Aktywuj"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 #, fuzzy
 msgid "Trigger"
-msgstr "Spust:"
+msgstr "Spust"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
@@ -430,11 +430,11 @@ msgstr "Wróć"
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 #, fuzzy
 msgid "Brake"
-msgstr "Hamulec:"
+msgstr "Hamulec"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 #, fuzzy
@@ -505,27 +505,27 @@ msgstr "Wybierz tryb gry"
 #: android/assets/screens/selectlanguage.gdxui:5
 #, fuzzy
 msgid "Select Language"
-msgstr "Wybierz język:"
+msgstr "Wybierz język"
 
 #: android/assets/screens/selectplayercount.gdxui:5
 #, fuzzy
 msgid "Select Players"
-msgstr "Język:"
+msgstr "Wybierz graczy"
 
 #: android/assets/screens/selectplayercount.gdxui:9
 #, fuzzy
 msgid "2 PLAYERS"
-msgstr "JEDEN GRACZ"
+msgstr "2 GRACZY"
 
 #: android/assets/screens/selectplayercount.gdxui:10
 #, fuzzy
 msgid "3 PLAYERS"
-msgstr "JEDEN GRACZ"
+msgstr "3 GRACZY"
 
 #: android/assets/screens/selectplayercount.gdxui:11
 #, fuzzy
 msgid "4 PLAYERS"
-msgstr "JEDEN GRACZ"
+msgstr "4 GRACZY"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -546,7 +546,7 @@ msgstr "Wybierz swój pojazd"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr "2-Deuch"
+msgstr "Kaczka"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
@@ -566,12 +566,12 @@ msgstr "Mroczny M"
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr "Kombajn"
+msgstr "Żniwiarz"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr "Jeep"
+msgstr "Terenówka"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
@@ -581,7 +581,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -803,7 +803,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "DEV. OPTIONS"
-msgstr "OPCJE DEW."
+msgstr "OPCJE DEV."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Controls"
@@ -834,7 +834,7 @@ msgstr "Język:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Nie można zmienić w trakcie wyścigu"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -913,7 +913,7 @@ msgstr "Skręć w prawo:"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Zrzut ekranu"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -957,7 +957,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Rozłączono"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
@@ -988,12 +988,12 @@ msgstr "OTWÓRZ FOLDER Z LOGAMI"
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Police"
-#~ msgstr "Polski:"
+#~ msgstr "Policja"
 
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Red"
-#~ msgstr "Gotowy!"
+#~ msgstr "Czerwony"
 
 #, fuzzy
 #~ msgid "Down | Brake:"
