@@ -11,8 +11,8 @@
         </Ifdef>
         <Else>
             <Menu id="menu" topCenter="mainLabel.bottomCenter 0 0"
-                labelColumnWidth="400"
-                width="700"/>
+                labelColumnWidth="550"
+                width="750"/>
         </Else>
 
         <ImageButton id="backButton"
