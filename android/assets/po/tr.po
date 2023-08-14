@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Pixel Wheels\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-08-12 23:32+0300\n"
+"PO-Revision-Date: 2023-08-14 21:07+0300\n"
 "Last-Translator: nxjoseph <nxjoseph@protonmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -429,7 +429,7 @@ msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "Pause"
-msgstr "Durdur"
+msgstr "Durduruldu"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -933,7 +933,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr "Bağlantı kesildi"
+msgstr "Bağlı değil"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
