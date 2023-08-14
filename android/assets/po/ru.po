@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-19 18:45+0200\n"
+"PO-Revision-Date: 2023-08-13 11:30+0200\n"
 "Last-Translator: Nickoriginal\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -337,9 +337,8 @@ msgid "Ethan Chapman"
 msgstr "Итан Чапман"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL, Marek Szumny"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
@@ -398,15 +397,13 @@ msgstr "Конфигурация геймпада"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Геймпад"
+msgstr "Игра"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Меню:"
+msgstr "Меню"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -432,10 +429,9 @@ msgstr "Тормоз"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
 msgstr "Пауза"
 
@@ -475,9 +471,8 @@ msgid "Select Your Vehicles"
 msgstr "Выберите ваши автомобили"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
-msgstr "Не все геймпады подключены"
+msgstr "Не все контроллеры подключены"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -504,24 +499,20 @@ msgid "Select Language"
 msgstr "Выберите язык"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Выберите язык"
+msgstr "Выберите число игроков"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "ОДИН ИГРОК"
+msgstr "ДВА ИГРОКА"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "ОДИН ИГРОК"
+msgstr "ТРИ ИГРОКА"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "ОДИН ИГРОК"
+msgstr "ЧЕТЫРЕ ИГРОКА"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -577,7 +568,7 @@ msgstr "Мирамар"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -807,7 +798,7 @@ msgstr "Управление"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "P%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
@@ -829,7 +820,7 @@ msgstr "Язык:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Нельзя изменить во время гонки"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -837,7 +828,7 @@ msgstr "Звуки"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Sound FX:"
-msgstr "Звуки:"
+msgstr "Эффекты:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
 msgid "Music:"
@@ -860,10 +851,10 @@ msgid "Thank you for playing!"
 msgstr "Спасибо за игру!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "Игрок #%d: %s"
+msgstr "Игр. %d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -905,7 +896,7 @@ msgstr "Руль вправо"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Снимок экрана"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -949,7 +940,7 @@ msgstr "6ой"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Отключено"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-04-23 20:37+0200\n"
+"PO-Revision-Date: 2023-08-12 21:24+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -50,7 +50,7 @@ msgstr "De eerste sneeuw"
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr "Geen glijpartijen!"
+msgstr "Geen glĳpartĳen!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
@@ -245,9 +245,8 @@ msgid "Polish:"
 msgstr "Pools:"
 
 #: android/assets/screens/credits.gdxui:78
-#, fuzzy
 msgid "PandaCoderPL, Marek Szumny"
-msgstr "PandaCoderPL"
+msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
@@ -315,11 +314,11 @@ msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Nederlands:"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -338,9 +337,8 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
@@ -377,7 +375,7 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"De instellingen omtrent het spelverloop zijn gewijzigd, dus scores worden "
+"De instellingen omtrent het spelverloop zĳn gewĳzigd, dus scores worden "
 "niet genoteerd"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
@@ -399,15 +397,13 @@ msgstr "Gamepad-instellingen"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Gamepad"
+msgstr "Spel"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Menu:"
+msgstr "Menu"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -433,12 +429,11 @@ msgstr "Rem"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
-msgstr "Onderbroken"
+msgstr "Onderbreken"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -476,9 +471,8 @@ msgid "Select Your Vehicles"
 msgstr "Kies je voertuigen"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
-msgstr "Er ontbreken gamepads"
+msgstr "Er ontbreken controllers"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -505,24 +499,20 @@ msgid "Select Language"
 msgstr "Kies een taal"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Kies een taal"
+msgstr "Kies het aantal spelers"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "ÉÉN SPELER"
+msgstr "2 SPELERS"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "ÉÉN SPELER"
+msgstr "3 SPELERS"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "ÉÉN SPELER"
+msgstr "4 SPELERS"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -578,7 +568,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -660,7 +650,7 @@ msgstr "Taartknoppen"
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
 msgid "Side buttons"
-msgstr "Zijknoppen"
+msgstr "Zĳknoppen"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
@@ -688,7 +678,7 @@ msgstr "Gefeliciteerd met deze overwinning!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
-msgstr "Ongelooflijk!"
+msgstr "Ongelooflĳk!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -713,7 +703,7 @@ msgstr "Bestuurder"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
-msgstr "Totaaltijd"
+msgstr "Totaaltĳd"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
@@ -723,7 +713,7 @@ msgstr "Aantal punten"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 msgid "Race time"
-msgstr "Racetijd"
+msgstr "Racetĳd"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
 #, java-printf-format
@@ -793,7 +783,7 @@ msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr ""
-"Deze opties zijn vooral bedoeld voor Pixel Wheels-ontwikkelaars, maar kijk "
+"Deze opties zĳn vooral bedoeld voor Pixel Wheels-ontwikkelaars, maar kĳk "
 "gerust rond!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
@@ -807,7 +797,7 @@ msgstr "Besturing"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "Sp. %d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
@@ -829,7 +819,7 @@ msgstr "Taal:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Wĳzigen tĳdens de wedstrĳd is onmogelĳk"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -862,10 +852,10 @@ msgid "Thank you for playing!"
 msgstr "Bedankt voor het spelen!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "Speler #%d: %s"
+msgstr "Sp. %d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -907,7 +897,7 @@ msgstr "Naar rechts sturen"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Schermfoto"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -951,7 +941,7 @@ msgstr "6e"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Verbinding verbroken"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""

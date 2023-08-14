@@ -341,7 +341,7 @@ msgstr "Ethan Chapman"
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL, Marek Szumny"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
