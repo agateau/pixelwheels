@@ -2,9 +2,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Pixel Wheels\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-04 00:33+0300\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-08-12 23:32+0300\n"
 "Last-Translator: nxjoseph <nxjoseph@protonmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -12,6 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -46,7 +48,7 @@ msgstr "Karlı pist"
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr "Buzlu pist"
+msgstr "Kaymayın!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
@@ -106,7 +108,7 @@ msgstr "Menü:"
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr "\"Lightspeed\""
+msgstr "\"Işık hızı\""
 
 #: android/assets/screens/credits.gdxui:23
 msgid "Thomas Tripon"
@@ -157,7 +159,7 @@ msgstr "Ses efektleri"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr "\"Car tire squeal skid loop\""
+msgstr "\"Araba tekerleği sesleri\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
@@ -165,7 +167,7 @@ msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr "\"Racing car engine sound loops\""
+msgstr "\"Yarış arabası motoru sesleri\""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
@@ -278,11 +280,11 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Esperanto:"
-msgstr ""
+msgstr "Esperanto:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
@@ -302,19 +304,19 @@ msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "İtalyanca:"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Felemenkçe:"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -333,7 +335,6 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -371,7 +372,7 @@ msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr "Oynanışı etkileyen ayarlar değiştirildi, skor kaydedilmeyecek."
+msgstr "Oynanışı etkileyen ayarlar değiştirildi, skor kaydedilmeyecek"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -392,15 +393,13 @@ msgstr "Kontrolör ayarları"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Kontrolör"
+msgstr "Oyun"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Menü:"
+msgstr "Menü"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -426,12 +425,11 @@ msgstr "Fren"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
-msgstr "Durduruldu"
+msgstr "Durdur"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -469,9 +467,8 @@ msgid "Select Your Vehicles"
 msgstr "Aracı seçin"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
-msgstr "Kontrolör kayıp"
+msgstr "Kontrolör bulunamadı"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -498,24 +495,20 @@ msgid "Select Language"
 msgstr "Dil seç"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Dil seç"
+msgstr "Oyuncuları seç"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "TEK OYUNCULU"
+msgstr "2 OYUNCULU"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "TEK OYUNCULU"
+msgstr "3 OYUNCULU"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "TEK OYUNCULU"
+msgstr "4 OYUNCULU"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -571,7 +564,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -798,7 +791,7 @@ msgstr "Kontroller"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "Oyuncu %d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
@@ -820,7 +813,7 @@ msgstr "Dil:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Yarış devam ederken dil değiştirilemez"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -828,7 +821,7 @@ msgstr "Ses"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
 msgid "Sound FX:"
-msgstr "Ses Efektleri"
+msgstr "Ses Efektleri:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
 msgid "Music:"
@@ -851,7 +844,7 @@ msgid "Thank you for playing!"
 msgstr "Oynadığınız için teşekkürler!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Oyuncu #%d: %s"
@@ -896,7 +889,7 @@ msgstr "Sağa dön"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Ekran Görüntüsü"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -940,7 +933,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Bağlantı kesildi"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
