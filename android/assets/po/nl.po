@@ -247,7 +247,7 @@ msgstr "Pools:"
 #: android/assets/screens/credits.gdxui:78
 #, fuzzy
 msgid "PandaCoderPL, Marek Szumny"
-msgstr "PandaCoderPL"
+msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Swedish:"
@@ -340,7 +340,7 @@ msgstr "Ethan Chapman"
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
