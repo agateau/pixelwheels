@@ -4,7 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-13 21:13+0000\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-08-14 19:33+0200\n"
 "Last-Translator: PandaCoderPL <translator@pandacoderpl.anonaddy.me>, Marek "
 "Szumny <lukmarcus@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -14,9 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: android/assets/championships/0.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Country Life"
 msgstr "Wiejskie Życie"
@@ -37,7 +38,6 @@ msgid "Flood"
 msgstr "Powódź"
 
 #: android/assets/championships/1.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Square Mountains"
 msgstr "Kwadratowe Wzgórza"
@@ -249,7 +249,6 @@ msgid "PandaCoderPL, Marek Szumny"
 msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
 msgstr "Szwedzki:"
 
@@ -338,7 +337,6 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -404,7 +402,6 @@ msgstr "Kontroler"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
 msgstr "Menu"
 
@@ -416,7 +413,6 @@ msgstr "Aktywuj"
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
-#, fuzzy
 msgid "Trigger"
 msgstr "Spust"
 
@@ -428,7 +424,6 @@ msgstr "Wróć"
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
-#, fuzzy
 msgid "Brake"
 msgstr "Hamulec"
 
@@ -437,7 +432,6 @@ msgid "-"
 msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
 msgstr "Gra zapauzowana"
 
@@ -473,12 +467,10 @@ msgid "QUIT"
 msgstr "WYJDŹ"
 
 #: android/assets/screens/multiplayer.gdxui:10
-#, fuzzy
 msgid "Select Your Vehicles"
 msgstr "Wybierz swój pojazd"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
 msgstr "Brakuje niektórych kontrolerów"
 
@@ -503,27 +495,22 @@ msgid "Select Game Mode"
 msgstr "Wybierz tryb gry"
 
 #: android/assets/screens/selectlanguage.gdxui:5
-#, fuzzy
 msgid "Select Language"
 msgstr "Wybierz język"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
 msgstr "Wybierz graczy"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
 msgstr "2 GRACZY"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
 msgstr "3 GRACZY"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
 msgstr "4 GRACZY"
 
@@ -677,7 +664,6 @@ msgid "Race Results"
 msgstr "Wyniki wyścigów"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
-#, fuzzy
 msgid "Congratulations, great race!"
 msgstr "Gratulacje, świetny wyścig!"
 
@@ -733,17 +719,17 @@ msgid "Race time"
 msgstr "Czas wyścigu"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Ukończ mistrzostwa %s na przynajmniej 3. miejscu"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Ukończ mistrzostwa %s na przynajmniej 2. miejscu"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "Ukończ mistrzostwa %s na 1. miejscu"
 
@@ -865,7 +851,7 @@ msgid "Thank you for playing!"
 msgstr "Dziękuję za granie!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "Gracz #%d: %s"
@@ -895,21 +881,18 @@ msgid "New vehicle unlocked!"
 msgstr "Nowy pojazd odblokowany!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
-#, fuzzy
 msgid "New championship unlocked!"
 msgstr "Nowe mistrzostwa odblokowane!"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
-#, fuzzy
 msgid "Steer left"
-msgstr "Skręć w lewo:"
+msgstr "Skręć w lewo"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
-#, fuzzy
 msgid "Steer right"
-msgstr "Skręć w prawo:"
+msgstr "Skręć w prawo"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
