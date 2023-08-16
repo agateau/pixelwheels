@@ -1,10 +1,10 @@
-# Christian Schrötter <cs@fnx.li>, 2022.
+# Christian Schrötter <cs@fnx.li>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-14 20:08+0200\n"
+"PO-Revision-Date: 2023-08-15 03:13+0200\n"
 "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -278,43 +278,43 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Esperanto:"
-msgstr ""
+msgstr "Esperanto:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
-msgstr ""
+msgstr "Ungarisch:"
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
-msgstr ""
+msgstr "Türkisch"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "Italienisch"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Niederländisch"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -333,7 +333,6 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -394,20 +393,18 @@ msgstr "Gamepad Konfiguration"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Gamepad"
+msgstr "Spiel"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Menü:"
+msgstr "Menü"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Activate"
-msgstr "Auslösen"
+msgstr "Auswählen"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
@@ -428,10 +425,9 @@ msgstr "Bremsen"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
 msgstr "Pausiert"
 
@@ -471,7 +467,6 @@ msgid "Select Your Vehicles"
 msgstr "Wähle dein Fahrzeug"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
 msgstr "Einige Gamepads fehlen"
 
@@ -500,24 +495,20 @@ msgid "Select Language"
 msgstr "Sprache auswählen"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Sprache auswählen"
+msgstr "Wie viele Personen spielen?"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "EINZELSPIELER"
+msgstr "2 Spieler"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "EINZELSPIELER"
+msgstr "3 Spieler"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "EINZELSPIELER"
+msgstr "4 Spieler"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -573,7 +564,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -702,7 +693,7 @@ msgstr "Schnellste Runde"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
-msgstr "Rennfahrer"
+msgstr "Teilnehmer"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -801,7 +792,7 @@ msgstr "Steuerung"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "P%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
@@ -823,7 +814,7 @@ msgstr "Sprache:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Änderung nicht möglich"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -854,10 +845,9 @@ msgid "Thank you for playing!"
 msgstr "Danke fürs Spielen!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "Spieler #%d: %s"
+msgstr "P%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -899,7 +889,7 @@ msgstr "Rechts lenken"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Bildschirmfoto"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -943,7 +933,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Nicht angeschlossen"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
@@ -955,21 +945,3 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "PROTOKOLLORDNER"
-
-#~ msgid "Trigger:"
-#~ msgstr "Auslöser"
-
-#~ msgid "Back/reverse:"
-#~ msgstr "Zurückfahren"
-
-#~ msgid "Missing"
-#~ msgstr "Fehlt"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Ready!"
-#~ msgstr "Fertig!"
-
-#~ msgid "Press the gamepad key..."
-#~ msgstr "Drücke die Taste am Gamepad..."
