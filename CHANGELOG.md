@@ -4,11 +4,13 @@
 
 ### Added
 
+- A new vehicle has been added: the BRGP42, an old F1 inspired from the Lola Mk4.
+
 - Pixel Wheels now speaks:
     - Italian, thanks to Dario Canossi!
     - Dutch, thanks to Heimen Stoffels!
 
-- A new vehicle has been added: the BRGP42, an old F1 inspired from the Lola Mk4.
+- Thanks to Marek Szumny, the polish translation is up-to-date again!
 
 ### Changed
 
