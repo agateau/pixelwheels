@@ -1,0 +1,11 @@
+A Pixel Wheels mostantól beszél olaszul és hollandul.
+
+Új jármű lett hozzáadva: a BRGP42.
+
+Az androidos hardveres billentyűzetek támogatása továbbfejlesztésre került.
+
+Sok javítás az „Árvíz” és a „Fel, fel, fel… és le” pályákon lévő lyukaknál, amelyek a pályák nagy részének levágásához voltak használhatók.
+
+A rakéták már nem húzódnak át falakon vagy hidakon.
+
+Számos egyéb apróbb javítás.

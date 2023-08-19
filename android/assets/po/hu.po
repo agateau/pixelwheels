@@ -1,13 +1,14 @@
 # Hungarian translation for Pixel Wheels.
-# Copyright (C) 2022 Free Software Foundation, Inc.
+# Copyright (C) 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the pixelwheels package.
 #
-# Balázs Úr <ur.balazs at fsf dot hu>, 2022.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: pixelwheels\n"
-"Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-21 12:26+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/agateau/pixelwheels/issues\n"
+"POT-Creation-Date: 2023-08-07 09:05+0200\n"
+"PO-Revision-Date: 2023-08-12 00:12+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian\n"
 "Language: hu\n"
@@ -282,11 +283,11 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Esperanto:"
-msgstr ""
+msgstr "Eszperantó:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Hungarian:"
@@ -298,27 +299,27 @@ msgstr "Úr Balázs"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Turkish:"
-msgstr ""
+msgstr "Török:"
 
 #: android/assets/screens/credits.gdxui:99
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "Olasz:"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Holland:"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -337,7 +338,6 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -398,15 +398,13 @@ msgstr "Játékvezérlő beállítása"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Játékvezérlő"
+msgstr "Játék"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Menü:"
+msgstr "Menü"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -432,12 +430,11 @@ msgstr "Fékezés"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "–"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
-msgstr "Szüneteltetve"
+msgstr "Szünet"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -475,9 +472,8 @@ msgid "Select Your Vehicles"
 msgstr "Járművek kiválasztása"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
-msgstr "Néhány játékvezérlő hiányzik"
+msgstr "Néhány vezérlő hiányzik"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -504,24 +500,20 @@ msgid "Select Language"
 msgstr "Nyelv kiválasztása"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Nyelv kiválasztása"
+msgstr "Játékosok kiválasztása"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "EGYJÁTÉKOS"
+msgstr "2 JÁTÉKOS"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "EGYJÁTÉKOS"
+msgstr "3 JÁTÉKOS"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "EGYJÁTÉKOS"
+msgstr "4 JÁTÉKOS"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -577,7 +569,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -804,7 +796,7 @@ msgstr "Vezérlők"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "J%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 #, java-printf-format
@@ -826,7 +818,7 @@ msgstr "Nyelv:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "Nem lehet megváltoztatni verseny közben"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Audio"
@@ -857,10 +849,10 @@ msgid "Thank you for playing!"
 msgstr "Köszönjük, hogy játszottál!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "%d. játékos: %s"
+msgstr "J%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -902,7 +894,7 @@ msgstr "Kanyarodás jobbra"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "Képernyőkép"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -946,7 +938,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Leválasztva"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
@@ -960,18 +952,3 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "NAPLÓFÁJLMAPPA\n"
 "MEGNYITÁSA"
-
-#~ msgid "Trigger:"
-#~ msgstr "Aktiváló:"
-
-#~ msgid "Back/reverse:"
-#~ msgstr "Vissza/fordítás:"
-
-#~ msgid "Missing"
-#~ msgstr "Hiányzik"
-
-#~ msgid "OK"
-#~ msgstr "Rendben"
-
-#~ msgid "Ready!"
-#~ msgstr "Kész!"

@@ -91,7 +91,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
         if (mPlayerIdx == 0) {
             // When configuring player 1, we show less entries, so add a margin between the title
             // and the entries
-            builder.defineVariable("withMargin");
+            builder.defineVariable("player1");
         }
 
         AnchorGroup root =

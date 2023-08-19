@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.25.0 - 2023-08-11
+
+### Added
+
+- A new vehicle has been added: the BRGP42, an old F1 inspired from the Lola Mk4.
+
+- Pixel Wheels now speaks:
+    - Italian, thanks to Dario Canossi!
+    - Dutch, thanks to Heimen Stoffels!
+
+- Thanks to Marek Szumny, the polish translation is up-to-date again!
+
+### Changed
+
+- Multi-player has been changed to use a split-screen again and supports up to 4 players (#308).
+
+- Support for hardware keyboards on Android has been improved (#343).
+
+- The screenshot key is now `F9`, not `S`, and is configurable. Not using `S` makes it possible to configure the game to use `WASD` keys.
+
+### Fixed
+
+- Fixed a crash which would happen when configuring one of Player 1 keys to Up (#326).
+
+- Fixed a hole in the tire barrier in the "Flood" track which could be used to cut a large part of the track (#336).
+
+- After changing from language A to language B and then back to language A, when returning to the main menu the screen would be empty (#339).
+
+- In the "Up, up, up and down" track, there were holes between trees and rocks which made it possible to cut large parts of the track. New trees have grown there, blocking the holes (#337, #345, #346).
+
+- The text explaining how to unlock vehicles is now correctly updated when the language changes (#344).
+
+- Disabled the language selector while playing to avoid returning to a menu filled with black rectangles (#348).
+
+- Gamepad now has a dedicated "Pause" button. This allows player to use the "Back" button to brake.
+
+- Fixed two areas in "Up, up, up and down!" which would hide vehicles (#363).
+
+- Missiles are no longer drawn over walls or bridges (#58, #362).
+
+- Obstacle shadows are now drawn on the bottom-right of the obstacle, like the rest of the game objects.
+
+- Vehicles are no longer drawn slightly rotated on the start line, making them look better.
+
 ## 0.24.2 - 2023-02-02
 
 ### Added

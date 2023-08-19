@@ -33,11 +33,11 @@ android {
 
     // Must match ci/install-android-sdk
     buildToolsVersion "31.0.0"
-    compileSdkVersion 31
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
         minSdkVersion 19
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
