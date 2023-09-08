@@ -17,7 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: android/assets/championships/0.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Country Life"
 msgstr "Landa Bizitza"
@@ -38,7 +37,6 @@ msgid "Flood"
 msgstr "Uholdea"
 
 #: android/assets/championships/1.xml:2
-#, fuzzy
 msgctxt "championship"
 msgid "Square Mountains"
 msgstr "Mendi Karratuak"
@@ -250,7 +248,6 @@ msgid "PandaCoderPL, Marek Szumny"
 msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:80
-#, fuzzy
 msgid "Swedish:"
 msgstr "Suediera:"
 
@@ -339,7 +336,6 @@ msgid "Ethan Chapman"
 msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -399,15 +395,13 @@ msgstr "Aginte konfig"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "Agintea"
+msgstr "Jokoa"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "Menua:"
+msgstr "Menua"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -436,9 +430,8 @@ msgid "-"
 msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
-msgstr "Geldirik"
+msgstr "Eten"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -472,12 +465,10 @@ msgid "QUIT"
 msgstr "IRTEN"
 
 #: android/assets/screens/multiplayer.gdxui:10
-#, fuzzy
 msgid "Select Your Vehicles"
 msgstr "Aukeratu zure ibiligailuak"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
 msgstr "Aginte batzuk falta dira"
 
@@ -502,29 +493,24 @@ msgid "Select Game Mode"
 msgstr "Joku modua aukeratu"
 
 #: android/assets/screens/selectlanguage.gdxui:5
-#, fuzzy
 msgid "Select Language"
-msgstr "Hizkuntza"
+msgstr "Aukeratu Hizkuntza"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Hizkuntza"
+msgstr "Aukertu Jokalariak"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "JOKALARI BAKARRA"
+msgstr "2 JOKALARI"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "JOKALARI BAKARRA"
+msgstr "3 JOKALARI"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "JOKALARI BAKARRA"
+msgstr "4 JOKALARI"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -670,7 +656,7 @@ msgstr "Txapelketako Sailkapenak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
 msgid "Race Results"
-msgstr "Lasterketako Emaitzak"
+msgstr "Lasterketaren Emaitzak"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "Congratulations, great race!"
@@ -728,17 +714,17 @@ msgid "Race time"
 msgstr "Lasterketa denbora"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Hirugarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Bigarren edo postu hobean buka ezazu %s txapelketa"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "Lehenengo postuan buka ezazu %s txapelketa"
 
@@ -860,10 +846,10 @@ msgid "Thank you for playing!"
 msgstr "Eskerrik asko jostatzeagatik!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "#%d Jokalaria: %s"
+msgstr "%dJ: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -980,12 +966,10 @@ msgstr "LOG-EN KARPETA IREKI"
 #~ msgid "Press the gamepad key..."
 #~ msgstr "Aginteko botoi bat sakatu..."
 
-#, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Police"
 #~ msgstr "Polizia"
 
-#, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Red"
 #~ msgstr "Gorria"
