@@ -26,7 +26,6 @@ import com.agateau.ui.TextureRegionItemRendererAdapter;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
 /** A menu item to select a track */
 public class TrackSelector extends GridMenuItem<Track> {
@@ -51,15 +50,15 @@ public class TrackSelector extends GridMenuItem<Track> {
         super(menu);
     }
 
-    public void init(Assets assets, RewardManager rewardManager) {
+    public void init(Assets assets, RewardManager rewardManager, Championship championship) {
         mAssets = assets;
         mRewardManager = rewardManager;
         setItemSize(160, 160);
         setItemRenderer(new Renderer());
-        Array<Track> tracks = new Array<>();
-        for (Championship championship : mAssets.championships) {
-            tracks.addAll(championship.getTracks());
-        }
-        setItems(tracks);
+        setCurrentChampionship(championship);
+    }
+
+    public void setCurrentChampionship(Championship championship) {
+        setItems(championship.getTracks());
     }
 }
