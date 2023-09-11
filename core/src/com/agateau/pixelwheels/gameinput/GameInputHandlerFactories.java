@@ -23,8 +23,6 @@ import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Provides input handlers */
 public class GameInputHandlerFactories {
@@ -33,15 +31,6 @@ public class GameInputHandlerFactories {
     public static Array<GameInputHandlerFactory> getAvailableFactories() {
         init();
         return sFactories;
-    }
-
-    public static Map<String, Array<GameInputHandler>> getInputHandlersByIds() {
-        init();
-        Map<String, Array<GameInputHandler>> map = new HashMap<>();
-        for (GameInputHandlerFactory factory : sFactories) {
-            map.put(factory.getId(), new Array<>(factory.getAllHandlers()));
-        }
-        return map;
     }
 
     public static GameInputHandlerFactory getFactoryById(String id) {
