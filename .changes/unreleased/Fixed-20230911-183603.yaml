@@ -1,0 +1,4 @@
+kind: Fixed
+body: Fixed an issue where the game would complain about a missing controller when started
+  on Android (#398).
+time: 2023-09-11T18:36:03.494819314+02:00
