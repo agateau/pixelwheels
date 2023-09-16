@@ -21,8 +21,8 @@ package com.agateau.pixelwheels.android;
 import static com.agateau.translations.Translator.tr;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
 import com.agateau.pixelwheels.LogExporter;
 import com.agateau.utils.log.LogFilePrinter;
@@ -48,14 +48,13 @@ public class AndroidLogExporter implements LogExporter {
                 FileProvider.getUriForFile(
                         mContext, "com.agateau.tinywheels.android.fileprovider", file);
 
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {EMAIL_RECIPIENT});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Pixel Wheels bug report");
-        intent.putExtra(Intent.EXTRA_STREAM, contentUri);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        mContext.startActivity(Intent.createChooser(intent, tr("Share via")));
+        new ShareCompat.IntentBuilder(mContext)
+                .setType("message/rfc822")
+                .addEmailTo(EMAIL_RECIPIENT)
+                .setSubject("Pixel Wheels bug report")
+                .addStream(contentUri)
+                .setChooserTitle(tr("Share via"))
+                .startChooser();
     }
 
     @Override

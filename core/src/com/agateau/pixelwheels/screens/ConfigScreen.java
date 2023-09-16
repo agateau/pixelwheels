@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.Language;
 import com.agateau.pixelwheels.LogExporter;
+import com.agateau.pixelwheels.LogExporterUtils;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
@@ -179,7 +180,7 @@ public class ConfigScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.getLogExporter().exportLogs();
+                                    LogExporterUtils.exportLogs(logExporter);
                                 }
                             });
             group.addSpacer();
