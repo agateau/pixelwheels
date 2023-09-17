@@ -1,16 +1,22 @@
 # Changelog
 
+## 0.25.1 - 2023-09-17
+
+### Fixed
+
+- Fixed an issue where the game would complain about a missing controller when started on Android (#398).
+
+- In Esperanto (and potentially other languages), the score table no longer overflows to the right of the screen (#397).
+
 ## 0.25.0 - 2023-08-11
 
 ### Added
-
-- A new vehicle has been added: the BRGP42, an old F1 inspired from the Lola Mk4.
 
 - Pixel Wheels now speaks:
     - Italian, thanks to Dario Canossi!
     - Dutch, thanks to Heimen Stoffels!
 
-- Thanks to Marek Szumny, the polish translation is up-to-date again!
+- A new vehicle has been added: the BRGP42, an old F1 inspired from the Lola Mk4.
 
 ### Changed
 
