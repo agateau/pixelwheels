@@ -1,0 +1,4 @@
+kind: Fixed
+body: The score table of the finished overlay no longer overflows to the right of the
+  screen in Esperanto (#397).
+time: 2023-09-15T07:59:56.706584395+02:00
