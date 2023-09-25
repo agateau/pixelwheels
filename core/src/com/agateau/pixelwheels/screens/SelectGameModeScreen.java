@@ -81,7 +81,7 @@ public class SelectGameModeScreen extends PwStageScreen {
             menu.setCurrentItem(championshipItem);
         }
 
-        builder.getActor("backButton")
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

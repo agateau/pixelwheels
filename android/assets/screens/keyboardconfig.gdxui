@@ -14,9 +14,5 @@
                 labelColumnWidth="550"
                 width="750"/>
         </Else>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1 1"
-            imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>

@@ -3,9 +3,5 @@
     <AnchorGroup id="root" gridSize="20">
         <Menu id="menu" topCenter="root.topCenter 0 0"
             width="700"/>
-
-        <ImageButton id="backButton"
-                     bottomLeft="root.bottomLeft 1 1"
-                     imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>

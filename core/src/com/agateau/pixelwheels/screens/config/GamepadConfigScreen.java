@@ -129,7 +129,8 @@ public class GamepadConfigScreen extends PwStageScreen {
         root.setFillParent(true);
         getStage().addActor(root);
 
-        builder.getActor("backButton")
+        Menu menu = builder.getActor("menu");
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

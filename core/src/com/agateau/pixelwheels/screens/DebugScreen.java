@@ -116,7 +116,7 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("Hud debug lines", "showHudDebugLines");
         addCheckBox("Log UI activities", "logUiActivities");
 
-        builder.getActor("backButton")
+        mMenu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

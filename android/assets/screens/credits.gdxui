@@ -127,8 +127,6 @@
             </VerticalGroup>
         </CreditsScrollPane>
 
-        <ImageButton id="backButton"
-                     bottomLeft="root.bottomLeft 1g 1g"
-                     imageName="icon-back"/>
+        <Menu id="menu"/>
     </AnchorGroup>
 </gdxui>

@@ -14,9 +14,5 @@
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="700px" style="large"/>
         <HorizontalGroup id="readyGroup" topCenter="menu.bottomCenter 0 -1" spacing="1g"/>
-
-        <ImageButton id="backButton"
-                    bottomLeft="root.bottomLeft 1 1"
-                    imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>

@@ -167,7 +167,11 @@ public class MenuItemGroup implements MenuItem {
     public void goLeft() {
         MenuItem item = getCurrentItem();
         if (item != null) {
-            item.goLeft();
+            if (item instanceof CornerMenuItem) {
+                goUp();
+            } else {
+                item.goLeft();
+            }
         }
     }
 
@@ -175,7 +179,11 @@ public class MenuItemGroup implements MenuItem {
     public void goRight() {
         MenuItem item = getCurrentItem();
         if (item != null) {
-            item.goRight();
+            if (item instanceof CornerMenuItem) {
+                goDown();
+            } else {
+                item.goRight();
+            }
         }
     }
 
@@ -298,6 +306,18 @@ public class MenuItemGroup implements MenuItem {
         return false;
     }
 
+    private void layoutCornerMenuItem(CornerMenuItem item, float spacing) {
+        Actor actor = item.getActor();
+        float screenW = actor.getStage().getWidth();
+
+        float x =
+                item.getCorner() == CornerMenuItem.Corner.BOTTOM_LEFT
+                        ? spacing
+                        : (screenW - actor.getWidth() - spacing);
+
+        actor.setPosition(x, spacing);
+    }
+
     private void layoutItems() {
         // Keep in sync with updateHeight()
         float y = 0;
@@ -306,6 +326,10 @@ public class MenuItemGroup implements MenuItem {
 
         for (int idx = mItems.size - 1; idx >= 0; --idx) {
             MenuItem item = mItems.get(idx);
+            if (item instanceof CornerMenuItem) {
+                layoutCornerMenuItem((CornerMenuItem) item, spacing);
+                continue;
+            }
             ItemInfo info = mInfoForItem.get(item);
             if (!info.visible) {
                 continue;
@@ -342,8 +366,12 @@ public class MenuItemGroup implements MenuItem {
         if (labelActor != null) {
             mGroup.addActor(labelActor);
         }
-        mGroup.addActor(item.getActor());
-        updateHeight();
+        if (item instanceof CornerMenuItem) {
+            mGroup.getStage().getRoot().addActor(item.getActor());
+        } else {
+            mGroup.addActor(item.getActor());
+            updateHeight();
+        }
     }
 
     private void updateHeight() {
@@ -353,6 +381,9 @@ public class MenuItemGroup implements MenuItem {
         final float spacing = style.focusPadding * 2 + style.spacing;
         for (int idx = mItems.size - 1; idx >= 0; --idx) {
             MenuItem item = mItems.get(idx);
+            if (item instanceof CornerMenuItem) {
+                continue;
+            }
             ItemInfo info = mInfoForItem.get(item);
             if (!info.visible) {
                 continue;
