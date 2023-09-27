@@ -72,7 +72,6 @@ public class Missile extends GameObjectAdapter
     private static final float SHOT_DENSITY = 0.0001f;
     private static final Color TARGETED_COLOR = new Color(1, 1, 1, 0.7f);
     private static final Color LOCKED_COLOR = new Color(1, 0.3f, 0.3f, 0.9f);
-    private SoundPlayer mSoundPlayer;
 
     enum Status {
         WAITING,
@@ -88,6 +87,7 @@ public class Missile extends GameObjectAdapter
     private final ClosestRacerFinder mRacerFinder = new ClosestRacerFinder(LOCK_DISTANCE, LOCK_ARC);
     private final MissileGuidingSystem mGuidingSystem = new MissileGuidingSystem();
     private Assets mAssets;
+    private SoundPlayer mSoundPlayer;
 
     private final DebugShapeMap.Shape mDebugShape =
             new DebugShapeMap.Shape() {
@@ -148,6 +148,9 @@ public class Missile extends GameObjectAdapter
                         | CollisionCategories.EXPLOSABLE);
 
         object.mStatus = Status.WAITING;
+        if (object.mSoundPlayer == null) {
+            object.mSoundPlayer = audioManager.createSoundPlayer(assets.soundAtlas.get("missile"));
+        }
         object.mNeedShootSound = false;
         object.mTarget = null;
         object.initJoint();
@@ -313,7 +316,6 @@ public class Missile extends GameObjectAdapter
     @Override
     public void audioRender(AudioClipper clipper) {
         if (mNeedShootSound) {
-            mSoundPlayer = mAudioManager.createSoundPlayer(mAssets.soundAtlas.get("missile"));
             mSoundPlayer.setVolume(clipper.clip(this));
             mSoundPlayer.play();
 
