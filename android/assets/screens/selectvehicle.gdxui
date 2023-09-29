@@ -12,17 +12,9 @@
         <Image tiled="true" atlas="ui" name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5"
             width="960px" height="360px"/>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="700px" style="large"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -2" width="700px"/>
 
         <Label id="vehicleNameLabel" bottomCenter="root.bottomCenter 0 2" align="center"/>
         <Label id="unlockHintLabel" topCenter="$prev.bottomCenter 0 -1" align="center" style="small"/>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1 1"
-            imageName="icon-back"/>
-
-        <ImageButton id="nextButton"
-            bottomRight="root.bottomRight -1 1"
-            imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

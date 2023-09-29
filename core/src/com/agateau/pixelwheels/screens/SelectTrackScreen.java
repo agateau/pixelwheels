@@ -32,13 +32,13 @@ import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.CornerMenuButton;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -98,7 +98,7 @@ public class SelectTrackScreen extends PwStageScreen {
                     return image;
                 }
             };
-    private Button mNextButton;
+    private CornerMenuButton mNextButton;
 
     public interface Listener {
         void onBackPressed();
@@ -140,7 +140,7 @@ public class SelectTrackScreen extends PwStageScreen {
         createTrackSelector(menu);
         updateTrackDetails(mTrackSelector.getCurrent());
 
-        builder.getActor("backButton")
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -149,7 +149,7 @@ public class SelectTrackScreen extends PwStageScreen {
                             }
                         });
 
-        mNextButton = builder.getActor("nextButton");
+        mNextButton = menu.addNextButton();
         mNextButton.addListener(
                 new ClickListener() {
                     @Override
@@ -169,6 +169,7 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
+        mTrackSelector.setMenuStyle(assets.ui.skin.get("large", Menu.MenuStyle.class));
         mTrackSelector.setColumnCount(4);
         mTrackSelector.init(assets, mGame.getRewardManager());
         mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));

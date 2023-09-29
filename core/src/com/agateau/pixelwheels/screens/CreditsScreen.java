@@ -24,6 +24,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.CreditsScrollPane;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.files.FileHandle;
@@ -79,7 +80,8 @@ class CreditsScreen extends PwStageScreen {
         group.addActor(new Label(tr("Thank you for playing!"), mGame.getAssets().ui.skin));
         addSpacer(group, stageHeight / 2);
 
-        builder.getActor("backButton")
+        Menu menu = builder.getActor("menu");
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

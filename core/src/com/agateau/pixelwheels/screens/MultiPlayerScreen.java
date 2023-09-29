@@ -97,7 +97,8 @@ public class MultiPlayerScreen extends PwStageScreen {
             setupCursor(assets, idx);
         }
 
-        builder.getActor("backButton")
+        Menu menu = builder.getActor("menu");
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

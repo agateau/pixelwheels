@@ -104,7 +104,7 @@ public class ConfigScreen extends PwStageScreen {
         addAboutTab();
         addInternalTab();
 
-        builder.getActor("backButton")
+        mMenu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

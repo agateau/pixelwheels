@@ -118,7 +118,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
             createKeyItem(mMenu, tr("Back"), "-", VirtualKey.BACK);
         }
 
-        builder.getActor("backButton")
+        mMenu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

@@ -100,7 +100,7 @@ public class SelectLanguageScreen extends PwStageScreen {
         GridMenuItem<Language> languageSelector = createLanguageSelector(menu);
         menu.addItem(languageSelector);
 
-        builder.getActor("backButton")
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

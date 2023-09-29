@@ -313,6 +313,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mCursors.get(idx).setInputMapper(inputMapper);
     }
 
+    public void setMenuStyle(Menu.MenuStyle menuStyle) {
+        setMenuStyle(0, menuStyle);
+    }
+
     public void setMenuStyle(int idx, Menu.MenuStyle menuStyle) {
         mCursors.get(idx).setMenuStyle(menuStyle);
     }
