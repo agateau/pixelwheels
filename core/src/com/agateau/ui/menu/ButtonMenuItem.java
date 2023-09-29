@@ -42,7 +42,6 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
         super(text, skin);
         mFocusIndicator = new FocusIndicator(menu);
 
-        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override

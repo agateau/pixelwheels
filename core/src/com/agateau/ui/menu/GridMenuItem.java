@@ -20,7 +20,6 @@ package com.agateau.ui.menu;
 
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.VirtualKey;
 import com.agateau.utils.Assert;
 import com.agateau.utils.PlatformUtils;
@@ -283,18 +282,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                         if (idx >= 0) {
                             mCursors.first().setCurrentIndex(idx);
                             trigger();
-                        }
-                        return true;
-                    }
-
-                    @Override
-                    public boolean mouseMoved(InputEvent event, float x, float y) {
-                        if (!MouseCursorManager.getInstance().isVisible()) {
-                            return true;
-                        }
-                        int idx = getIndexAt(x, y);
-                        if (idx >= 0) {
-                            mCursors.first().setCurrentIndex(idx);
                         }
                         return true;
                     }
