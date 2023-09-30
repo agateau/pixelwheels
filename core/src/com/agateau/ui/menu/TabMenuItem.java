@@ -79,7 +79,6 @@ public class TabMenuItem extends Actor implements MenuItem {
 
         setTouchable(Touchable.enabled);
 
-        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override

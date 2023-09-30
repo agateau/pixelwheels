@@ -24,6 +24,7 @@ import static com.agateau.translations.Translator.trc;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
@@ -50,6 +51,7 @@ import java.util.ArrayList;
 public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
+    private ChampionshipSelector mChampionshipSelector;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
     private Label mUnlockHintLabel;
@@ -137,8 +139,11 @@ public class SelectTrackScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
-        createTrackSelector(menu);
-        updateTrackDetails(mTrackSelector.getCurrent());
+        Track track = getCurrentTrack();
+
+        createChampionshipSelector(menu, track);
+        createTrackSelector(menu, track);
+        updateTrackDetails(track);
 
         menu.addBackButton()
                 .addListener(
@@ -165,15 +170,48 @@ public class SelectTrackScreen extends PwStageScreen {
         mNextButton.setDisabled(!mTrackSelector.isCurrentItemEnabled());
     }
 
-    private void createTrackSelector(Menu menu) {
+    private Track getCurrentTrack() {
+        Assets assets = mGame.getAssets();
+        Track track = assets.findTrackById(mGame.getConfig().track);
+        if (track == null) {
+            track = assets.championships.get(0).getTracks().get(0);
+        }
+        return track;
+    }
+
+    private void createChampionshipSelector(Menu menu, Track currentTrack) {
+        Assets assets = mGame.getAssets();
+
+        mChampionshipSelector = new ChampionshipSelector(menu);
+        mChampionshipSelector.setMenuStyle(assets.ui.skin.get("large", Menu.MenuStyle.class));
+        mChampionshipSelector.setColumnCount(3);
+        mChampionshipSelector.init(assets, mGame.getRewardManager());
+        mChampionshipSelector.setSelected(currentTrack.getChampionship());
+        menu.addItem(mChampionshipSelector);
+
+        mChampionshipSelector.setSelectionListener(
+                new GridMenuItem.SelectionListener<Championship>() {
+                    @Override
+                    public void currentChanged(Championship item, int index) {}
+
+                    @Override
+                    public void selectionConfirmed() {
+                        mTrackSelector.setCurrentChampionship(mChampionshipSelector.getSelected());
+                        menu.setCurrentItem(mTrackSelector);
+                    }
+                });
+    }
+
+    private void createTrackSelector(Menu menu, Track currentTrack) {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
         mTrackSelector.setMenuStyle(assets.ui.skin.get("large", Menu.MenuStyle.class));
-        mTrackSelector.setColumnCount(4);
-        mTrackSelector.init(assets, mGame.getRewardManager());
-        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
+        mTrackSelector.setColumnCount(3);
+        mTrackSelector.init(assets, mGame.getRewardManager(), currentTrack.getChampionship());
+        mTrackSelector.setCurrent(currentTrack);
         menu.addItem(mTrackSelector);
+        menu.setCurrentItem(mTrackSelector);
 
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {
