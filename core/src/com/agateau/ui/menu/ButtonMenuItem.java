@@ -123,7 +123,7 @@ public class ButtonMenuItem extends TextButton implements MenuItem {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
         mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
+        super.draw(batch, parentAlpha);
     }
 }

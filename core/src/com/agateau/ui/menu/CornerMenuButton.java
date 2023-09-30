@@ -98,7 +98,7 @@ public class CornerMenuButton extends ImageButton implements CornerMenuItem {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
         mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
+        super.draw(batch, parentAlpha);
     }
 }

@@ -114,9 +114,9 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
         mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
         super.draw(batch, parentAlpha);
-        mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
     }
 
     /** Must create the actor to show between the left and right buttons */

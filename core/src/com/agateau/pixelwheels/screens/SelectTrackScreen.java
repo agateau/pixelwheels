@@ -183,9 +183,10 @@ public class SelectTrackScreen extends PwStageScreen {
         Assets assets = mGame.getAssets();
 
         mChampionshipSelector = new ChampionshipSelector(menu);
+        mChampionshipSelector.setMenuStyle(assets.ui.skin.get("large", Menu.MenuStyle.class));
         mChampionshipSelector.setColumnCount(3);
         mChampionshipSelector.init(assets, mGame.getRewardManager());
-        mChampionshipSelector.setCurrent(currentTrack.getChampionship());
+        mChampionshipSelector.setSelected(currentTrack.getChampionship());
         menu.addItem(mChampionshipSelector);
 
         mChampionshipSelector.setSelectionListener(
@@ -210,6 +211,7 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.init(assets, mGame.getRewardManager(), currentTrack.getChampionship());
         mTrackSelector.setCurrent(currentTrack);
         menu.addItem(mTrackSelector);
+        menu.setCurrentItem(mTrackSelector);
 
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {
