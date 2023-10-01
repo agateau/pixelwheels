@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -52,7 +53,7 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
     private OrthogonalTiledMapRenderer mRenderer;
     private Array<LapPositionTableIO.Line> mLines;
-    private float mZoom = 1f;
+    private float mZoom = 0.25f;
 
     private final EditorActionStack mActionStack = new EditorActionStack();
 
@@ -259,7 +260,18 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             mRenderer.dispose();
         }
         mRenderer = new OrthogonalTiledMapRenderer(map, mBatch);
+
+        scrollToCenter(map);
+
         mLines = LapPositionTableIO.loadSectionLines(map);
+    }
+
+    private void scrollToCenter(TiledMap map) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        float centerX = layer.getWidth() * layer.getTileWidth() / 2f;
+        float centerY = layer.getHeight() * layer.getTileHeight() / 2f;
+        mViewCenter.x = centerX;
+        mViewCenter.y = centerY;
     }
 
     @Override
