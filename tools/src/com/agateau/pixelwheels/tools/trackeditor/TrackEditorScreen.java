@@ -103,9 +103,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
         // Zoom
         if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)
-                || Gdx.input.isKeyJustPressed(Input.Keys.PLUS)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.PLUS)
+                || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_ADD)) {
             mZoom *= 2;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)
+                || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_SUBTRACT)) {
             mZoom /= 2;
         }
         // Previous / Next
