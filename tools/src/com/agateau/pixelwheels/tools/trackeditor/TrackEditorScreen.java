@@ -264,6 +264,9 @@ public class TrackEditorScreen extends StageScreen implements Editor {
         scrollToCenter(map);
 
         mLines = LapPositionTableIO.loadSectionLines(map);
+        if (mLines.isEmpty()) {
+            addFirstLine();
+        }
     }
 
     private void scrollToCenter(TiledMap map) {
@@ -272,6 +275,15 @@ public class TrackEditorScreen extends StageScreen implements Editor {
         float centerY = layer.getHeight() * layer.getTileHeight() / 2f;
         mViewCenter.x = centerX;
         mViewCenter.y = centerY;
+    }
+
+    private void addFirstLine() {
+        float centerX = mViewCenter.x;
+        float centerY = mViewCenter.y;
+        LapPositionTableIO.Line line = new LapPositionTableIO.Line();
+        line.p1.set(centerX - 24, centerY);
+        line.p2.set(centerX + 24, centerY);
+        mLines.add(line);
     }
 
     @Override
