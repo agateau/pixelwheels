@@ -70,12 +70,16 @@ public class Menu extends WidgetGroup implements Disableable {
     public Menu(Skin skin, String styleName) {
         mSkin = skin;
         mStyleName = styleName;
-        mStyle = skin.get(styleName, MenuStyle.class);
+        mStyle = getMenuStyleByName(styleName);
 
         mGroup = new MenuItemGroup(this);
         setLabelColumnWidth(LABEL_COLUMN_WIDTH);
 
         addActor(mGroup.getActor());
+    }
+
+    public MenuStyle getMenuStyleByName(String styleName) {
+        return mSkin.get(styleName, MenuStyle.class);
     }
 
     private CornerMenuButton addCornerButton(CornerMenuButton.Corner corner, String iconName) {

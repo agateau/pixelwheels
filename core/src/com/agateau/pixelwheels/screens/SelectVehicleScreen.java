@@ -105,7 +105,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void createVehicleSelector(UiBuilder builder, Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
-        mVehicleSelector.setMenuStyle(assets.ui.skin.get("large", Menu.MenuStyle.class));
+        mVehicleSelector.setMenuStyle(menu.getMenuStyleByName("large"));
         mVehicleSelector.init(assets, mGame.getRewardManager());
 
         mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
