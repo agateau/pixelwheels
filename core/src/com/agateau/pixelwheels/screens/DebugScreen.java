@@ -82,9 +82,9 @@ public class DebugScreen extends PwStageScreen {
         addCheckBox("Free camera\n(move with HJKL keys)", "freeCamera");
 
         mCurrentGroup = tabMenuItem.addPage("Speed");
-        addTitle("Speed");
         addRange("Max driving force", "maxDrivingForce", 10, 200, 10);
         addRange("Max speed", "maxSpeed", 10, 400, 10);
+        addRange("AI speed limiter", "aiSpeedLimiter", 0.1f, 1f, 0.1f);
         addTitle("Turbo");
         addRange("Strength", "turboStrength", 10, 800, 10);
         addRange("Duration", "turboDuration", 0.1f, 2f);
