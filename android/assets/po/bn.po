@@ -73,6 +73,11 @@ msgctxt "track"
 msgid "Tiny sur Mer"
 msgstr ""
 
+#: android/assets/championships/2.xml:27
+msgctxt "track"
+msgid "City 3"
+msgstr ""
+
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
 msgstr "পিক্সেল হুইল"
@@ -376,20 +381,20 @@ msgstr "এসএফএক্সআর কিউটি"
 msgid "Android Studio"
 msgstr "অ্যান্ড্রয়েড স্টুডিও"
 
-#: android/assets/screens/debug.gdxui:12
+#: android/assets/screens/debug.gdxui:8
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr "এই খেলা প্রভাবকারী পছন্দ পরিবর্তিত হয়েছে, খেলার সংখ্যা সংরক্ষণ হবে না"
 
-#: android/assets/screens/finishedoverlay.gdxui:34
+#: android/assets/screens/finishedoverlay.gdxui:36
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
 msgstr "পুনঃশুরু"
 
-#: android/assets/screens/finishedoverlay.gdxui:35
+#: android/assets/screens/finishedoverlay.gdxui:37
 msgid "BACK TO MENU"
 msgstr "তালিকসয় ফেরত যাও"
 
-#: android/assets/screens/finishedoverlay.gdxui:38
+#: android/assets/screens/finishedoverlay.gdxui:40
 msgid "CONTINUE"
 msgstr "এগিয়ে যাও"
 
@@ -614,15 +619,15 @@ msgctxt "vehicle"
 msgid "Santa Truck"
 msgstr ""
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:56
 msgid "Share via"
 msgstr "ভাগের মাধ্যম"
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:62
 msgid "Hit a bug? Use this button to report it."
 msgstr "সমস্যা পেয়েছো? এই বোতাম দিয়ে প্রতিবেদন পাঠাও।"
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:67
 msgid "REPORT BUG"
 msgstr "সমস্যা প্রতিবেদন পাঠাও"
 
@@ -666,69 +671,69 @@ msgstr "চাকা বোতাম"
 msgid "Side buttons"
 msgstr "পাশের বোতাম"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
 msgstr "ক্রম"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:306
 msgid "Race Results"
 msgstr "প্রতিযোগিতার ফল"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:336
 #, fuzzy
 msgid "Congratulations, great race!"
 msgstr ""
 "অভিনন্দন!\n"
 "তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:337
 msgid "You've got some serious driving skills!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:338
 msgid "You're a champ!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:339
 msgid "Congrats for this performance!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:340
 msgid "Impressive!"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
 msgstr "#"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 msgid "Best lap"
 msgstr "সর্বোত্তম দৌড়"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
 msgstr "দৌড়বিদ"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
 msgstr "মোট সময়"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Points"
 msgstr "পয়েন্ট"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 msgid "Race time"
 msgstr "দৌড়ের সময়"
 
@@ -757,20 +762,20 @@ msgstr ""
 "প্রতিযোগিতা\n"
 "সমাপ্ত!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
 msgid "About"
 msgstr "সম্পর্কে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "পিকগসেল হুইল %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
 msgid "CREDITS"
 msgstr "কৃতজ্ঞতা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
 msgid ""
 "Pixel Wheels is free, but you can support its\n"
 "development in various ways."
@@ -778,92 +783,92 @@ msgstr ""
 "পিক্সেল হুইল খেলতে টাকা লাগে না,\n"
 "কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্য করতে পারো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
 msgid "VISIT SUPPORT PAGE"
 msgstr "সহায়তা পৃষ্ঠা দেখো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "Learn more about Pixel Wheels"
 msgstr "পিক্সেল হুইল নিয়ে আরো জানো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "VISIT WEB SITE"
 msgstr "ওয়েবসাইট দেখো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:170
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 msgid "Under the hood"
 msgstr "ঢাকনার নিচে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে, কিন্তু এগুলো ব্যবহারে ভয় পেও না"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "DEV. OPTIONS"
 msgstr "প্রকৌশলী পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Controls"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "খেলোয়াড় #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:218
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
 msgid "Controls:"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:224
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
 msgid "General"
 msgstr "সাধারণ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:235
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:236
 msgid "Language:"
 msgstr "ভাষা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
 msgid "Audio"
 msgstr "শব্দ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:255
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Sound FX:"
 msgstr "সংগীত প্রভাব:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:269
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
 msgid "Music:"
 msgstr "সংগীত"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:273
 msgid "Video"
 msgstr "ভিডিও"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:286
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:287
 msgid "Fullscreen:"
 msgstr "বড়পর্দা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:312
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:313
 msgid "CONFIGURE"
 msgstr "পাল্টাও"
 
-#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
+#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
 msgstr "খেলার জন্য ধন্যবাদ!"
 
-#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, fuzzy, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
@@ -878,13 +883,13 @@ msgstr "খেলোয়াড় #%d: %s"
 msgid "MAIN MENU"
 msgstr "মূল পৃষ্ঠা"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
+#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[তালাবদ্ধ]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:300
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr ""

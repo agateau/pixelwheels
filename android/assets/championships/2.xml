@@ -24,4 +24,16 @@
             <record value="56"/>
         </totalRecords>
     </track>
+    <track id="city3" name="City 3">
+        <lapRecords>
+            <record value="15"/>
+            <record value="17"/>
+            <record value="19"/>
+        </lapRecords>
+        <totalRecords>
+            <record value="50"/>
+            <record value="53"/>
+            <record value="56"/>
+        </totalRecords>
+    </track>
 </championship>

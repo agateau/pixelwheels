@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="city" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="204" columns="10">
- <image source="city.png" width="680" height="1156"/>
+<tileset version="1.10" tiledversion="1.10.2" name="city" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="190" columns="10">
+ <image source="city.png" width="680" height="1292"/>
  <tile id="5">
   <properties>
    <property name="start" value="true"/>
@@ -62,6 +62,16 @@
   <properties>
    <property name="obstacle">{
 &quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="48">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 1,
+  &quot;y&quot;: 0,
+  &quot;radius&quot;: 0.7
 }</property>
   </properties>
  </tile>
