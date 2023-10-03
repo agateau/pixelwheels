@@ -43,7 +43,7 @@ public class AIPilot implements Pilot {
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private static final int MAX_FORWARD_WAYPOINTS = 2;
     // How much of the vehicle width to move the target to avoid a mine
-    private static final float MINE_AVOIDANCE_FACTOR = 2;
+    private static final float AVOIDANCE_FACTOR = 2;
 
     private enum State {
         NORMAL,
@@ -75,9 +75,7 @@ public class AIPilot implements Pilot {
     private final Track mTrack;
     private final Racer mRacer;
 
-    private final ClosestBodyFinder mClosestBodyFinder =
-            new ClosestBodyFinder(BodyIdentifier::isStaticObstacle);
-
+    private final ClosestBodyFinder mClosestBodyFinder;
     private final MaterialChecker mMaterialChecker;
 
     private State mState = State.NORMAL;
@@ -91,6 +89,15 @@ public class AIPilot implements Pilot {
         mGameWorld = gameWorld;
         mTrack = track;
         mRacer = racer;
+        mClosestBodyFinder =
+                new ClosestBodyFinder(
+                        body -> {
+                            if (BodyIdentifier.isStaticObstacle(body)) {
+                                return true;
+                            }
+                            return BodyIdentifier.isOtherVehicle(body, mRacer);
+                        });
+
         mMaterialChecker = new MaterialChecker(track);
     }
 
@@ -255,14 +262,14 @@ public class AIPilot implements Pilot {
         // similarly-offset right side of the target
         position.set(mRacer.getPosition()).add(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(mHalfWidth);
-        if (!checkClearLine(position, adjustedTargetPos, -MINE_AVOIDANCE_FACTOR)) {
+        if (!checkClearLine(position, adjustedTargetPos, -AVOIDANCE_FACTOR)) {
             return;
         }
 
         // Same thing on the left
         position.set(mRacer.getPosition()).sub(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).sub(mHalfWidth);
-        if (!checkClearLine(position, adjustedTargetPos, MINE_AVOIDANCE_FACTOR)) {
+        if (!checkClearLine(position, adjustedTargetPos, AVOIDANCE_FACTOR)) {
             return;
         }
 
@@ -279,19 +286,21 @@ public class AIPilot implements Pilot {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean checkClearLine(
-            Vector2 position, Vector2 adjustedTargetPos, float mineAvoidanceFactor) {
+            Vector2 position, Vector2 adjustedTargetPos, float avoidanceFactor) {
         World world = mGameWorld.getBox2DWorld();
         Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
         if (body == null) {
             return true;
         }
-        if (BodyIdentifier.isMine(body)) {
-            float dx = 2 * mHalfWidth.x * mineAvoidanceFactor;
-            float dy = 2 * mHalfWidth.y * mineAvoidanceFactor;
-            mNextTarget.position.set(body.getPosition()).add(dx, dy);
-            mNextTarget.score += Target.MINE_BETWEEN;
-        } else {
+        if (BodyIdentifier.isStaticObstacle(body)) {
             mNextTarget.reset();
+        } else {
+            float dx = 2 * mHalfWidth.x * avoidanceFactor;
+            float dy = 2 * mHalfWidth.y * avoidanceFactor;
+            mNextTarget.position.set(body.getPosition()).add(dx, dy);
+            if (BodyIdentifier.isMine(body)) {
+                mNextTarget.score -= Target.MINE_BETWEEN;
+            }
         }
         return false;
     }

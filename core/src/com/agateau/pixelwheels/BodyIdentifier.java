@@ -41,4 +41,11 @@ public class BodyIdentifier {
     public static boolean isMine(Body body) {
         return body.getUserData() instanceof Mine;
     }
+
+    public static boolean isOtherVehicle(Body body, Racer racer) {
+        if (body.getUserData() == racer) {
+            return false;
+        }
+        return isVehicle(body);
+    }
 }
