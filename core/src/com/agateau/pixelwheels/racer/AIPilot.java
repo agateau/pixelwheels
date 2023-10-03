@@ -23,6 +23,8 @@ import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Material;
+import com.agateau.pixelwheels.map.MaterialChecker;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
@@ -41,7 +43,7 @@ public class AIPilot implements Pilot {
     private static final float MAX_REVERSE_DURATION = 0.5f;
     private static final int MAX_FORWARD_WAYPOINTS = 2;
     // How much of the vehicle width to move the target to avoid a mine
-    private static final float MINE_AVOIDANCE_FACTOR = 2;
+    private static final float AVOIDANCE_FACTOR = 2;
 
     private enum State {
         NORMAL,
@@ -65,16 +67,16 @@ public class AIPilot implements Pilot {
         }
     }
 
+    private final Vector2 mHalfWidth = new Vector2();
     private final Vector2 mTmpVector1 = new Vector2();
     private final Vector2 mTmpVector2 = new Vector2();
-    private final Vector2 mTmpVector3 = new Vector2();
 
     private final GameWorld mGameWorld;
     private final Track mTrack;
     private final Racer mRacer;
 
-    private final ClosestBodyFinder mClosestBodyFinder =
-            new ClosestBodyFinder(BodyIdentifier::isStaticObstacle);
+    private final ClosestBodyFinder mClosestBodyFinder;
+    private final MaterialChecker mMaterialChecker;
 
     private State mState = State.NORMAL;
     private float mBlockedDuration = 0;
@@ -87,6 +89,16 @@ public class AIPilot implements Pilot {
         mGameWorld = gameWorld;
         mTrack = track;
         mRacer = racer;
+        mClosestBodyFinder =
+                new ClosestBodyFinder(
+                        body -> {
+                            if (BodyIdentifier.isStaticObstacle(body)) {
+                                return true;
+                            }
+                            return BodyIdentifier.isOtherVehicle(body, mRacer);
+                        });
+
+        mMaterialChecker = new MaterialChecker(track);
     }
 
     Vector2 getTargetPosition() {
@@ -145,6 +157,10 @@ public class AIPilot implements Pilot {
     }
 
     private void actNormal(float dt) {
+        // update mHalfWidth
+        Vehicle vehicle = mRacer.getVehicle();
+        mHalfWidth.set(0, vehicle.getHeight() / 2).rotateDeg(vehicle.getAngle());
+
         updateAcceleration();
         updateDirection();
         if (mState == State.BLOCKED) {
@@ -239,48 +255,54 @@ public class AIPilot implements Pilot {
     }
 
     private void updateNextTarget() {
-        World world = mGameWorld.getBox2DWorld();
-        Vector2 halfWidth = mTmpVector1;
-        Vector2 position = mTmpVector2;
-        Vector2 adjustedTargetPos = mTmpVector3;
-
-        Vehicle vehicle = mRacer.getVehicle();
-        halfWidth.set(0, vehicle.getHeight() / 2).rotateDeg(vehicle.getAngle());
+        Vector2 position = mTmpVector1;
+        Vector2 adjustedTargetPos = mTmpVector2;
 
         // Check there is nothing on a line from the right side of the vehicle to the
-        // similarly-offset
-        // right side of the target
-        position.set(mRacer.getPosition()).add(halfWidth);
-        adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
-        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
-        if (body != null) {
-            if (BodyIdentifier.isMine(body)) {
-                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-                mNextTarget.position.set(body.getPosition()).add(halfWidth);
-                mNextTarget.score += Target.MINE_BETWEEN;
-            } else {
-                mNextTarget.reset();
-            }
+        // similarly-offset right side of the target
+        position.set(mRacer.getPosition()).add(mHalfWidth);
+        adjustedTargetPos.set(mNextTarget.position).add(mHalfWidth);
+        if (!checkClearLine(position, adjustedTargetPos, -AVOIDANCE_FACTOR)) {
             return;
         }
 
         // Same thing on the left
-        position.set(mRacer.getPosition()).sub(halfWidth);
-        adjustedTargetPos.set(mNextTarget.position).sub(halfWidth);
-        body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
-        if (body != null) {
-            if (BodyIdentifier.isMine(body)) {
-                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-                mNextTarget.position.set(body.getPosition()).sub(halfWidth);
-                mNextTarget.score += Target.MINE_BETWEEN;
-            } else {
-                mNextTarget.reset();
-            }
+        position.set(mRacer.getPosition()).sub(mHalfWidth);
+        adjustedTargetPos.set(mNextTarget.position).sub(mHalfWidth);
+        if (!checkClearLine(position, adjustedTargetPos, AVOIDANCE_FACTOR)) {
             return;
         }
 
         // Nothing between vehicle and target
         mNextTarget.score += Target.NO_OBSTACLES;
+
+        // Weight score with the type of material between vehicle and target
+        Material material =
+                mMaterialChecker.getSlowestMaterialAhead(
+                        mRacer.getPosition(), mNextTarget.position);
+        float obstacleSpeed = material.getSpeed();
+        mNextTarget.score *= obstacleSpeed * obstacleSpeed;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean checkClearLine(
+            Vector2 position, Vector2 adjustedTargetPos, float avoidanceFactor) {
+        World world = mGameWorld.getBox2DWorld();
+        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body == null) {
+            return true;
+        }
+        if (BodyIdentifier.isStaticObstacle(body)) {
+            mNextTarget.reset();
+        } else {
+            float dx = 2 * mHalfWidth.x * avoidanceFactor;
+            float dy = 2 * mHalfWidth.y * avoidanceFactor;
+            mNextTarget.position.set(body.getPosition()).add(dx, dy);
+            if (BodyIdentifier.isMine(body)) {
+                mNextTarget.score -= Target.MINE_BETWEEN;
+            }
+        }
+        return false;
     }
 
     private void handleBonus(float dt) {
