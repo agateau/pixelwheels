@@ -23,6 +23,8 @@ import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
 import com.agateau.pixelwheels.map.Championship;
+import com.agateau.pixelwheels.map.Material;
+import com.agateau.pixelwheels.map.MaterialChecker;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.map.WaypointStore;
 import com.agateau.pixelwheels.stats.GameStats;
@@ -76,6 +78,8 @@ public class AIPilot implements Pilot {
     private final ClosestBodyFinder mClosestBodyFinder =
             new ClosestBodyFinder(BodyIdentifier::isStaticObstacle);
 
+    private final MaterialChecker mMaterialChecker;
+
     private State mState = State.NORMAL;
     private float mBlockedDuration = 0;
     private float mReverseDuration = 0;
@@ -87,6 +91,7 @@ public class AIPilot implements Pilot {
         mGameWorld = gameWorld;
         mTrack = track;
         mRacer = racer;
+        mMaterialChecker = new MaterialChecker(track);
     }
 
     Vector2 getTargetPosition() {
@@ -281,6 +286,13 @@ public class AIPilot implements Pilot {
 
         // Nothing between vehicle and target
         mNextTarget.score += Target.NO_OBSTACLES;
+
+        // Weight score with the type of material between vehicle and target
+        Material material =
+                mMaterialChecker.getSlowestMaterialAhead(
+                        mRacer.getPosition(), mNextTarget.position);
+        float obstacleSpeed = material.getSpeed();
+        mNextTarget.score *= obstacleSpeed * obstacleSpeed;
     }
 
     private void handleBonus(float dt) {
