@@ -19,12 +19,14 @@
 package com.agateau.ui.menu;
 
 import com.agateau.pixelwheels.utils.DrawUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 
 class FocusIndicator {
     private static final float IN_ANIMATION_DURATION = 0.1f;
     private static final float OUT_ANIMATION_DURATION = 0.4f;
+    private final Color mOldBatchColor = new Color();
     private final Menu.MenuStyle mMenuStyle;
     private final int mExtraPadding;
 
@@ -57,10 +59,13 @@ class FocusIndicator {
         if (mAlpha == 0) {
             return;
         }
+        mOldBatchColor.set(batch.getColor());
+        batch.setColor(mAlpha, mAlpha, mAlpha, mAlpha);
+
         int padding = mMenuStyle.focusPadding + mExtraPadding;
-        float oldA = DrawUtils.setBatchAlpha(batch, batch.getColor().a * mAlpha);
         DrawUtils.drawPixelAligned(batch, mMenuStyle.focus, x, y, width, height, padding);
-        DrawUtils.setBatchAlpha(batch, oldA);
+
+        batch.setColor(mOldBatchColor);
     }
 
     public void setFocused(boolean focused) {
