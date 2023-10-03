@@ -67,9 +67,9 @@ public class AIPilot implements Pilot {
         }
     }
 
+    private final Vector2 mHalfWidth = new Vector2();
     private final Vector2 mTmpVector1 = new Vector2();
     private final Vector2 mTmpVector2 = new Vector2();
-    private final Vector2 mTmpVector3 = new Vector2();
 
     private final GameWorld mGameWorld;
     private final Track mTrack;
@@ -150,6 +150,10 @@ public class AIPilot implements Pilot {
     }
 
     private void actNormal(float dt) {
+        // update mHalfWidth
+        Vehicle vehicle = mRacer.getVehicle();
+        mHalfWidth.set(0, vehicle.getHeight() / 2).rotateDeg(vehicle.getAngle());
+
         updateAcceleration();
         updateDirection();
         if (mState == State.BLOCKED) {
@@ -244,43 +248,21 @@ public class AIPilot implements Pilot {
     }
 
     private void updateNextTarget() {
-        World world = mGameWorld.getBox2DWorld();
-        Vector2 halfWidth = mTmpVector1;
-        Vector2 position = mTmpVector2;
-        Vector2 adjustedTargetPos = mTmpVector3;
-
-        Vehicle vehicle = mRacer.getVehicle();
-        halfWidth.set(0, vehicle.getHeight() / 2).rotateDeg(vehicle.getAngle());
+        Vector2 position = mTmpVector1;
+        Vector2 adjustedTargetPos = mTmpVector2;
 
         // Check there is nothing on a line from the right side of the vehicle to the
-        // similarly-offset
-        // right side of the target
-        position.set(mRacer.getPosition()).add(halfWidth);
-        adjustedTargetPos.set(mNextTarget.position).add(halfWidth);
-        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
-        if (body != null) {
-            if (BodyIdentifier.isMine(body)) {
-                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-                mNextTarget.position.set(body.getPosition()).add(halfWidth);
-                mNextTarget.score += Target.MINE_BETWEEN;
-            } else {
-                mNextTarget.reset();
-            }
+        // similarly-offset right side of the target
+        position.set(mRacer.getPosition()).add(mHalfWidth);
+        adjustedTargetPos.set(mNextTarget.position).add(mHalfWidth);
+        if (!checkClearLine(position, adjustedTargetPos, -MINE_AVOIDANCE_FACTOR)) {
             return;
         }
 
         // Same thing on the left
-        position.set(mRacer.getPosition()).sub(halfWidth);
-        adjustedTargetPos.set(mNextTarget.position).sub(halfWidth);
-        body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
-        if (body != null) {
-            if (BodyIdentifier.isMine(body)) {
-                halfWidth.scl(-2 * MINE_AVOIDANCE_FACTOR);
-                mNextTarget.position.set(body.getPosition()).sub(halfWidth);
-                mNextTarget.score += Target.MINE_BETWEEN;
-            } else {
-                mNextTarget.reset();
-            }
+        position.set(mRacer.getPosition()).sub(mHalfWidth);
+        adjustedTargetPos.set(mNextTarget.position).sub(mHalfWidth);
+        if (!checkClearLine(position, adjustedTargetPos, MINE_AVOIDANCE_FACTOR)) {
             return;
         }
 
@@ -293,6 +275,25 @@ public class AIPilot implements Pilot {
                         mRacer.getPosition(), mNextTarget.position);
         float obstacleSpeed = material.getSpeed();
         mNextTarget.score *= obstacleSpeed * obstacleSpeed;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean checkClearLine(
+            Vector2 position, Vector2 adjustedTargetPos, float mineAvoidanceFactor) {
+        World world = mGameWorld.getBox2DWorld();
+        Body body = mClosestBodyFinder.find(world, position, adjustedTargetPos);
+        if (body == null) {
+            return true;
+        }
+        if (BodyIdentifier.isMine(body)) {
+            float dx = 2 * mHalfWidth.x * mineAvoidanceFactor;
+            float dy = 2 * mHalfWidth.y * mineAvoidanceFactor;
+            mNextTarget.position.set(body.getPosition()).add(dx, dy);
+            mNextTarget.score += Target.MINE_BETWEEN;
+        } else {
+            mNextTarget.reset();
+        }
+        return false;
     }
 
     private void handleBonus(float dt) {
