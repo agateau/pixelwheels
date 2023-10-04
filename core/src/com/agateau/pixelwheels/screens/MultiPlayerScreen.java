@@ -140,6 +140,7 @@ public class MultiPlayerScreen extends PwStageScreen {
         Menu menu = builder.getActor("menu");
 
         mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.setMenuStyle(menu.getMenuStyleByName("large"));
         mVehicleSelector.init(assets, mGame.getRewardManager());
         mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));
         mVehicleSelector.setItemSize(
