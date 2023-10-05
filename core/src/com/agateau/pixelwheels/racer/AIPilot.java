@@ -52,7 +52,6 @@ public class AIPilot implements Pilot {
 
     private static class Target {
         static final float MIN_SCORE = -Float.MIN_VALUE;
-        static final float MINE_BETWEEN = 0.5f;
         static final float NO_OBSTACLES = 1f;
         final Vector2 position = new Vector2();
         float score = MIN_SCORE;
@@ -263,6 +262,7 @@ public class AIPilot implements Pilot {
         position.set(mRacer.getPosition()).add(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(mHalfWidth);
         if (!checkClearLine(position, adjustedTargetPos, -AVOIDANCE_FACTOR)) {
+            mNextTarget.reset();
             return;
         }
 
@@ -270,18 +270,21 @@ public class AIPilot implements Pilot {
         position.set(mRacer.getPosition()).sub(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).sub(mHalfWidth);
         if (!checkClearLine(position, adjustedTargetPos, AVOIDANCE_FACTOR)) {
+            mNextTarget.reset();
             return;
         }
-
-        // Nothing between vehicle and target
-        mNextTarget.score += Target.NO_OBSTACLES;
 
         // Weight score with the type of material between vehicle and target
         Material material =
                 mMaterialChecker.getSlowestMaterialAhead(
                         mRacer.getPosition(), mNextTarget.position);
-        float obstacleSpeed = material.getSpeed();
-        mNextTarget.score *= obstacleSpeed * obstacleSpeed;
+        if (material.isHole()) {
+            mNextTarget.reset();
+            return;
+        }
+
+        // Nothing between vehicle and target
+        mNextTarget.score += Target.NO_OBSTACLES * material.getSpeed();
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -292,17 +295,15 @@ public class AIPilot implements Pilot {
         if (body == null) {
             return true;
         }
-        if (BodyIdentifier.isStaticObstacle(body)) {
-            mNextTarget.reset();
-        } else {
-            float dx = 2 * mHalfWidth.x * avoidanceFactor;
-            float dy = 2 * mHalfWidth.y * avoidanceFactor;
-            mNextTarget.position.set(body.getPosition()).add(dx, dy);
-            if (BodyIdentifier.isMine(body)) {
-                mNextTarget.score -= Target.MINE_BETWEEN;
-            }
+        if (BodyIdentifier.isWall(body)) {
+            return false;
         }
-        return false;
+
+        // An obstacle we can avoid
+        float dx = 2 * mHalfWidth.x * avoidanceFactor;
+        float dy = 2 * mHalfWidth.y * avoidanceFactor;
+        mNextTarget.position.set(body.getPosition()).add(dx, dy);
+        return true;
     }
 
     private void handleBonus(float dt) {
