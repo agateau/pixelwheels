@@ -274,9 +274,6 @@ public class AIPilot implements Pilot {
             return;
         }
 
-        // Nothing between vehicle and target
-        mNextTarget.score += Target.NO_OBSTACLES;
-
         // Weight score with the type of material between vehicle and target
         Material material =
                 mMaterialChecker.getSlowestMaterialAhead(
@@ -285,8 +282,9 @@ public class AIPilot implements Pilot {
             mNextTarget.reset();
             return;
         }
-        float obstacleSpeed = material.getSpeed();
-        mNextTarget.score *= obstacleSpeed * obstacleSpeed;
+
+        // Nothing between vehicle and target
+        mNextTarget.score += Target.NO_OBSTACLES * material.getSpeed();
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
