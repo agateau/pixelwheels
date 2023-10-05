@@ -281,6 +281,10 @@ public class AIPilot implements Pilot {
         Material material =
                 mMaterialChecker.getSlowestMaterialAhead(
                         mRacer.getPosition(), mNextTarget.position);
+        if (material.isHole()) {
+            mNextTarget.reset();
+            return;
+        }
         float obstacleSpeed = material.getSpeed();
         mNextTarget.score *= obstacleSpeed * obstacleSpeed;
     }
