@@ -52,7 +52,6 @@ public class AIPilot implements Pilot {
 
     private static class Target {
         static final float MIN_SCORE = -Float.MIN_VALUE;
-        static final float MINE_BETWEEN = 0.5f;
         static final float NO_OBSTACLES = 1f;
         final Vector2 position = new Vector2();
         float score = MIN_SCORE;
@@ -296,15 +295,13 @@ public class AIPilot implements Pilot {
         }
         if (BodyIdentifier.isWall(body)) {
             return false;
-        } else {
-            float dx = 2 * mHalfWidth.x * avoidanceFactor;
-            float dy = 2 * mHalfWidth.y * avoidanceFactor;
-            mNextTarget.position.set(body.getPosition()).add(dx, dy);
-            if (BodyIdentifier.isMine(body)) {
-                mNextTarget.score -= Target.MINE_BETWEEN;
-            }
         }
-        return false;
+
+        // An obstacle we can avoid
+        float dx = 2 * mHalfWidth.x * avoidanceFactor;
+        float dy = 2 * mHalfWidth.y * avoidanceFactor;
+        mNextTarget.position.set(body.getPosition()).add(dx, dy);
+        return true;
     }
 
     private void handleBonus(float dt) {
