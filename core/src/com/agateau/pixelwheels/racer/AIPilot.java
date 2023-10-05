@@ -263,6 +263,7 @@ public class AIPilot implements Pilot {
         position.set(mRacer.getPosition()).add(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).add(mHalfWidth);
         if (!checkClearLine(position, adjustedTargetPos, -AVOIDANCE_FACTOR)) {
+            mNextTarget.reset();
             return;
         }
 
@@ -270,6 +271,7 @@ public class AIPilot implements Pilot {
         position.set(mRacer.getPosition()).sub(mHalfWidth);
         adjustedTargetPos.set(mNextTarget.position).sub(mHalfWidth);
         if (!checkClearLine(position, adjustedTargetPos, AVOIDANCE_FACTOR)) {
+            mNextTarget.reset();
             return;
         }
 
@@ -292,8 +294,8 @@ public class AIPilot implements Pilot {
         if (body == null) {
             return true;
         }
-        if (BodyIdentifier.isStaticObstacle(body)) {
-            mNextTarget.reset();
+        if (BodyIdentifier.isWall(body)) {
+            return false;
         } else {
             float dx = 2 * mHalfWidth.x * avoidanceFactor;
             float dy = 2 * mHalfWidth.y * avoidanceFactor;
