@@ -26,12 +26,17 @@ import com.badlogic.gdx.math.MathUtils;
 class FocusIndicator {
     private static final float IN_ANIMATION_DURATION = 0.1f;
     private static final float OUT_ANIMATION_DURATION = 0.4f;
+
+    private static final float BLINK_DEPTH = 0.3f;
+    private static final float BLINK_DURATION = 1.5f;
+
     private final Color mOldBatchColor = new Color();
     private final Menu.MenuStyle mMenuStyle;
     private final int mExtraPadding;
 
     private boolean mFocused = false;
     private float mAlpha = 0;
+    private float mBlinkT = 0;
 
     FocusIndicator(Menu menu) {
         this(menu.getMenuStyle());
@@ -47,6 +52,12 @@ class FocusIndicator {
     }
 
     public void act(float delta) {
+        if (mFocused) {
+            mBlinkT += delta;
+            if (mBlinkT > BLINK_DURATION) {
+                mBlinkT -= BLINK_DURATION;
+            }
+        }
         if (mFocused && mAlpha < 1) {
             mAlpha += delta / IN_ANIMATION_DURATION;
         } else if (!mFocused && mAlpha > 0) {
@@ -59,8 +70,14 @@ class FocusIndicator {
         if (mAlpha == 0) {
             return;
         }
+
+        // `k` varies from -1 to 1 in BLINK_DURATION seconds
+        float k = MathUtils.sin(mBlinkT * MathUtils.PI2 / BLINK_DURATION);
+
+        float alpha = mAlpha * (1 - BLINK_DEPTH / 2 + BLINK_DEPTH / 2 * k);
+
         mOldBatchColor.set(batch.getColor());
-        batch.setColor(mAlpha, mAlpha, mAlpha, mAlpha);
+        batch.setColor(alpha, alpha, alpha, alpha);
 
         int padding = mMenuStyle.focusPadding + mExtraPadding;
         DrawUtils.drawPixelAligned(batch, mMenuStyle.focus, x, y, width, height, padding);
@@ -70,5 +87,8 @@ class FocusIndicator {
 
     public void setFocused(boolean focused) {
         mFocused = focused;
+        if (mFocused) {
+            mBlinkT = 0;
+        }
     }
 }

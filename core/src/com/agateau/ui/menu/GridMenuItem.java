@@ -488,6 +488,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
                 if (idx == cursor.mSelectedIndex) {
                     Menu.MenuStyle style = cursor.mMenuStyle;
+                    float oldAlpha = DrawUtils.multiplyBatchAlphaBy(batch, 0.5f);
                     DrawUtils.drawPixelAligned(
                             batch,
                             style.selected,
@@ -496,6 +497,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                             rect.width,
                             rect.height,
                             style.focusPadding);
+                    DrawUtils.setBatchAlpha(batch, oldAlpha);
                 }
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
