@@ -59,3 +59,11 @@ repos:
         files: \.(po|ttc)$
         entry: make font-update
         pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: xml
+        name: xml
+        language: system
+        entry: xmllint --noout
+        files: \.(gdxui|tsx|tmx|xml|loc|its)$
