@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="78">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="78">
  <tileset firstgid="1" source="city.tsx"/>
  <layer id="1" name="bg1" width="40" height="80">
   <data encoding="base64" compression="zlib">
@@ -21,17 +21,7 @@
    eAHtWFty2zAQ01F8jf51pv1tb9Oez0fpUboYGwmyIbkPWYonLWfkpZbAAlwpsuJt+zzj57b9+W5HtCPgIsxoPVt/xEXux/2YrTMPXGdE9bn+0XG2tyN8fdu2a7Xumf5mWp287rPDP5rz39++Dj9T/+w5e7Hn4UV39Ez+1BfnVX/27NhwHD2sj++eURlN7ieDVUx1T3atH+IPz2L1MZtjXxWPXwzvezirrXn2L9LiOmOWp1raQ837uWlcrD6OTQ9qezzOgcPQSO6Kd2O9fpLzmhnPZh492nBXrTnyx5znjs611mgdOdUknnHGYZ5eiGfkehS7+CwPOAziGW/Z+JP47D1BPGOkABwG8Yy37NvPR3x/rOq/VbudVfzN+BVNYmf9tvzFMDheegZdPcc8Gv7Zl+GgpupEGrquvKxWR091VH/UN8X6uXJXc+WtcFxb4SseWS+K0JvdSyPuyh/wWY+j2qMc9bIeiUecjYzHGdfnM3rKqeKV25lX9ar4jiflRHp8piuOc61z1JxaiKvRfV6uavo19kLzGX94l9V3RXK0zlFzakX9g772cI8f22s4VIseQ5IBKthZPdNOD+pl+oeixKcFBsCsluplOR/hL/vdofuJOPfvkJd+c1+ZqC0nPtIjh3jEiNP1SC1E1dP8bK74jMdZHc37fWBt79+v+lSt0TzqMzjqEefd56364hz1VqPbZ9ZnXGlw7a51JQcxGsRm+qi1yNNcNM/48TWoU+WS5+utzqsaqEWdKpe8lR+/Bk73Op3lr6vT5VX6AY2uzhk8+uvs6Ux/FS3uqcLBfd/hncXJ+uP/BOqLc9TIDOIRK6PDO4uDfZyl1dHZ6y+6Tvb3fVVfnEc8XScHMTvIqTxfsrU9jlodfxWO182eP7M///585J6698KR/cNvIhzQyfxmQDzjkf6ogQidym8G5IJX7f2ePVE3G6lV8UgOYnaQk8UTR16kZf53PWupQ91sJC/yh3ojj1WdynVC7Yo/4L1H5DKjqsOaXR752djV6fKyvojr6oBXvSeoWYl7/J3hca8/8I8cn9nfEX17xP9U8JW5rtX3DuD57jLyWelHxt/vSkHDAv/Lcfbcf67Uu9PMHpQEvPeIXOX9Svdz1tz8fdV9rOYjT/67tYsZ8ZCzezHtb+QF+xnlVS+D8XhwOsN76dT4Vzl/AddoFM4=
   </data>
  </layer>
- <objectgroup id="5" name="Obstacles" visible="0">
-  <object id="1" x="-64" y="0" width="256" height="2496"/>
-  <object id="2" x="192" y="1.33333" width="2359.34" height="190.667"/>
-  <object id="3" x="1280" y="704" width="576" height="768"/>
-  <object id="4" x="2369" y="52" width="118" height="1990"/>
-  <object id="5" x="128" y="4544" width="2326" height="106"/>
-  <object id="6" x="1536" y="2048" width="1009.21" height="256"/>
-  <object id="7" x="704" y="704" width="256" height="3264"/>
-  <object id="8" x="960" y="704" width="64" height="128"/>
-  <object id="9" x="1216" y="704" width="64" height="128"/>
-  <object id="10" x="0" y="2496" width="128" height="2112"/>
+ <objectgroup id="5" name="Obstacles">
   <object id="63" type="tire" x="240.475" y="533.102">
    <polyline points="15.5248,-21.1016 15.5248,-85.1016 143.525,-213.102 399.525,-277.102"/>
   </object>
@@ -41,8 +31,6 @@
   <object id="67" type="block" x="962.667" y="3393.33">
    <polyline points="0,0 316,318.667"/>
   </object>
-  <object id="68" x="1536" y="2432" width="256" height="960"/>
-  <object id="71" x="1536" y="3584" width="256" height="960"/>
   <object id="72" type="block" x="1556" y="3394.67">
    <polyline points="0,-7.33333 -2.27374e-13,195.333"/>
   </object>

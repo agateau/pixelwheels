@@ -34,7 +34,7 @@ import com.agateau.pixelwheels.gamesetup.GameInfo;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.obstacles.ObstacleCreator;
 import com.agateau.pixelwheels.obstacles.ObstacleDef;
-import com.agateau.pixelwheels.obstacles.TiledObstacleCreator;
+import com.agateau.pixelwheels.obstacles.tiled.TiledObstacleCreator;
 import com.agateau.pixelwheels.racer.AIPilot;
 import com.agateau.pixelwheels.racer.LapPositionComponent;
 import com.agateau.pixelwheels.racer.PlayerPilot;

@@ -120,7 +120,11 @@ Positions are relative to the bottom-left corner of the tile, and relative to th
 
 The JSON format looks like this:
 
-- `type`: one of `circle`, `rectangle` or `multi`.
+- `type`: one of `full`, `circle`, `rectangle` or `multi`.
+
+#### `full` type
+
+No attributes, the whole tile is filled.
 
 #### `circle` type
 
