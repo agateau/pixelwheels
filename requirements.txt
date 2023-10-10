@@ -1,4 +1,4 @@
-Pillow==9.3.0
+Pillow==10.0.1
 git+https://github.com/agateau/pafx@9c364ca9098d70ee23b6c4caccbcdf0cc44f2fb4#egg=pafx
 pypng==0.0.20
 fonttools==4.27.1
