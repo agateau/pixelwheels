@@ -6,7 +6,6 @@ RUN apt-get update \
         gettext \
         git \
         imagemagick \
-        libxml2-utils \
         make \
         openjdk-11-jdk \
         python3-pip \
