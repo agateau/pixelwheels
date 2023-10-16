@@ -65,6 +65,16 @@
 }</property>
   </properties>
  </tile>
+ <tile id="68">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
+}</property>
+  </properties>
+ </tile>
  <tile id="72">
   <properties>
    <property name="obstacle">{
@@ -114,6 +124,26 @@
   <properties>
    <property name="obstacle">{
 &quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="100">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
+}</property>
+  </properties>
+ </tile>
+ <tile id="117">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
 }</property>
   </properties>
  </tile>
