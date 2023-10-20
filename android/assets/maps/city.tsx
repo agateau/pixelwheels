@@ -209,6 +209,13 @@
 }</property>
   </properties>
  </tile>
+ <tile id="152">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
  <tile id="161">
   <properties>
    <property name="material" value="WATER"/>
