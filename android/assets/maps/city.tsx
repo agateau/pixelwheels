@@ -187,6 +187,17 @@
    <property name="material" value="WATER"/>
   </properties>
  </tile>
+ <tile id="148">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;rectangle&quot;,
+  &quot;x&quot;: 0.475,
+  &quot;y&quot;: 0,
+  &quot;width&quot;: 0.05,
+  &quot;height&quot;: 1
+}</property>
+  </properties>
+ </tile>
  <tile id="150">
   <properties>
    <property name="obstacle">{
@@ -216,6 +227,34 @@
 }</property>
   </properties>
  </tile>
+ <tile id="154">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="155">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="156">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="157">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
  <tile id="161">
   <properties>
    <property name="material" value="WATER"/>
@@ -229,6 +268,54 @@
  <tile id="163">
   <properties>
    <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="164">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.475,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.05,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0.475,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.05
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="165">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.475,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.05,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.475,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.05
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="166">
@@ -253,6 +340,20 @@
 }</property>
   </properties>
  </tile>
+ <tile id="170">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="171">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
  <tile id="176">
   <properties>
    <property name="material" value="WATER"/>
@@ -271,6 +372,54 @@
  <tile id="179">
   <properties>
    <property name="material" value="WATER"/>
+  </properties>
+ </tile>
+ <tile id="180">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.475,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 0.05,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.5,
+      &quot;y&quot;: 0.475,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.05
+    }
+  ]
+}
+</property>
+  </properties>
+ </tile>
+ <tile id="181">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.475,
+      &quot;y&quot;: 0.5,
+      &quot;width&quot;: 0.05,
+      &quot;height&quot;: 0.5
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.475,
+      &quot;width&quot;: 0.5,
+      &quot;height&quot;: 0.05
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="199">
