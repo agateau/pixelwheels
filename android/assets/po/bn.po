@@ -225,9 +225,9 @@ msgid "Spanish:"
 msgstr "স্পেনীয়:"
 
 #: android/assets/screens/credits.gdxui:69
-#: android/assets/screens/credits.gdxui:109
-msgid "Clara Gâteau"
-msgstr "ক্লারা গাটেই"
+#, fuzzy
+msgid "Victor Hck"
+msgstr "বিজয়:"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -325,6 +325,10 @@ msgstr ""
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
 msgstr "ভিডিও সম্পাদনা"
+
+#: android/assets/screens/credits.gdxui:109
+msgid "Clara Gâteau"
+msgstr "ক্লারা গাটেই"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Special Thanks"
