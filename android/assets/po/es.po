@@ -226,9 +226,9 @@ msgid "Spanish:"
 msgstr "Español:"
 
 #: android/assets/screens/credits.gdxui:69
-#: android/assets/screens/credits.gdxui:109
-msgid "Clara Gâteau"
-msgstr "Clara Gâteau, Victorhck"
+#, fuzzy
+msgid "Victor Hck"
+msgstr "Victoria:"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -325,6 +325,10 @@ msgstr "Heimen Stoffels"
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
 msgstr "Edición de vídeo"
+
+#: android/assets/screens/credits.gdxui:109
+msgid "Clara Gâteau"
+msgstr "Clara Gâteau, Victorhck"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Special Thanks"
