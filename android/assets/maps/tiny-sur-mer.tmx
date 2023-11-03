@@ -234,7 +234,6 @@
 </data>
  </layer>
  <objectgroup id="5" name="Obstacles">
-  <object id="9" x="1024" y="1693.91" width="1343.82" height="12.8616"/>
   <object id="16" x="4096" y="190.12" width="192" height="320"/>
   <object id="21" x="4268.48" y="512" width="19.52" height="2944"/>
   <object id="87" type="block" x="3415.22" y="1090.38" width="15" height="637.621"/>

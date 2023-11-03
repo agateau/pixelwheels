@@ -198,6 +198,18 @@
 }</property>
   </properties>
  </tile>
+ <tile id="149">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;rectangle&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0.475,
+  &quot;width&quot;: 0.525,
+  &quot;height&quot;: 0.05
+}
+</property>
+  </properties>
+ </tile>
  <tile id="150">
   <properties>
    <property name="obstacle">{
