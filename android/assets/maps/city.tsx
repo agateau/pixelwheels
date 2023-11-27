@@ -242,15 +242,61 @@
  <tile id="154">
   <properties>
    <property name="obstacle">{
-&quot;type&quot;: &quot;full&quot;
-}</property>
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.15
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.85,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.15,
+      &quot;height&quot;: 1
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.85,
+      &quot;y&quot;: 0.15,
+      &quot;radius&quot;: 0.85
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="155">
   <properties>
    <property name="obstacle">{
-&quot;type&quot;: &quot;full&quot;
-}</property>
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.15
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.15,
+      &quot;height&quot;: 1
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.15,
+      &quot;y&quot;: 0.15,
+      &quot;radius&quot;: 0.85
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="156">
@@ -355,15 +401,61 @@
  <tile id="170">
   <properties>
    <property name="obstacle">{
-&quot;type&quot;: &quot;full&quot;
-}</property>
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.85,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.15
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0.85,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.15,
+      &quot;height&quot;: 1
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.85,
+      &quot;y&quot;: 0.85,
+      &quot;radius&quot;: 0.85
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="171">
   <properties>
    <property name="obstacle">{
-&quot;type&quot;: &quot;full&quot;
-}</property>
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0.85,
+      &quot;width&quot;: 1,
+      &quot;height&quot;: 0.15
+    },
+    {
+      &quot;type&quot;: &quot;rectangle&quot;,
+      &quot;x&quot;: 0,
+      &quot;y&quot;: 0,
+      &quot;width&quot;: 0.15,
+      &quot;height&quot;: 1
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.15,
+      &quot;y&quot;: 0.85,
+      &quot;radius&quot;: 0.85
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="176">
