@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.racescreen.Helicopter;
 import com.agateau.pixelwheels.utils.OrientedPoint;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -33,8 +34,7 @@ public class HoleHandlerComponent implements Racer.Component {
     private static final float MAX_FALL_DURATION = 0.5f;
     // Time for the helicopter to lift and drop the vehicle
     private static final float LIFT_DROP_DURATION = 0.5f;
-    private static final float MAX_RECOVERING_SPEED = 20;
-    private static final float MAX_RECOVERING_ROTATION_SPEED = 720;
+    private static final float MAX_RECOVERING_ROTATION_SPEED = 360;
 
     private final Assets mAssets;
     private final GameWorld mGameWorld;
@@ -42,7 +42,6 @@ public class HoleHandlerComponent implements Racer.Component {
     private final LapPositionComponent mLapPositionComponent;
     private final Track mTrack;
     private final Racer mRacer;
-    private OrientedPoint mDropPoint;
     private final Vector2 mVelocity = new Vector2();
     private Helicopter mHelicopter = null;
 
@@ -126,17 +125,21 @@ public class HoleHandlerComponent implements Racer.Component {
             return;
         }
 
-        if (mHelicopter.isReadyToRecover()) {
+        mHelicopter.setDestination(mVehicle.getPosition(), mVehicle.getAngle());
+
+        if (mHelicopter.isAtDestination()) {
             mState = State.LIFTING;
             mTime = 0;
             mVehicle.setStopped(true);
             mVehicle.setFlying(true);
             mRacer.looseBonus();
+            mHelicopter.switchToRecoveringState();
         }
     }
 
     private void switchToClimbingState() {
         mState = State.CLIMBING;
+        mHelicopter.leave();
     }
 
     private void actClimbing(float delta) {
@@ -165,45 +168,36 @@ public class HoleHandlerComponent implements Racer.Component {
     private void switchToRecoveringState() {
         mState = State.RECOVERING;
         float distance = mLapPositionComponent.getLapDistance();
-        mDropPoint = mTrack.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
+        OrientedPoint dropPoint =
+                mTrack.getValidPosition(mVehicle.getBody().getWorldCenter(), distance);
+        mHelicopter.setDestination(dropPoint);
     }
 
     private void actRecovering(float delta) {
-        final float POSITION_TOLERANCE = 0.1f;
-        final float ANGLE_TOLERANCE = MathUtils.degreesToRadians;
-
         mVelocity
-                .set(mDropPoint.x, mDropPoint.y)
+                .set(mHelicopter.getPosition())
                 .sub(mVehicle.getBody().getPosition())
                 .scl(1 / delta);
-        float speed = mVelocity.len();
-        if (speed > MAX_RECOVERING_SPEED) {
-            mVelocity.scl(MAX_RECOVERING_SPEED / speed);
-        }
 
+        float angleDelta =
+                AgcMathUtils.shortestAngleDelta(mVehicle.getAngle(), mHelicopter.getAngle());
         float angularVelocity =
                 MathUtils.clamp(
-                                (mDropPoint.angle - mVehicle.getAngle()) / delta,
+                                angleDelta / delta,
                                 -MAX_RECOVERING_ROTATION_SPEED,
                                 MAX_RECOVERING_ROTATION_SPEED)
                         * MathUtils.degreesToRadians;
 
-        boolean posOK = MathUtils.isZero(speed * delta, POSITION_TOLERANCE);
-        boolean angleOK = MathUtils.isZero(angularVelocity * delta, ANGLE_TOLERANCE);
+        mVehicle.getBody().setLinearVelocity(mVelocity);
+        mVehicle.getBody().setAngularVelocity(angularVelocity);
 
-        if (posOK) {
-            mVehicle.getBody().setLinearVelocity(0, 0);
-            mVehicle.getBody().setAngularVelocity(0);
+        if (mHelicopter.isAtDestination()) {
             // Disable flying as soon as we start dropping to avoid
             // https://github.com/agateau/pixelwheels/issues/302
             mVehicle.setFlying(false);
             mState = State.DROPPING;
             mTime = 0;
-        } else {
-            mVehicle.getBody().setLinearVelocity(mVelocity);
-            mVehicle.getBody().setAngularVelocity(angleOK ? 0 : angularVelocity);
-            mHelicopter.setPosition(mVehicle.getPosition());
-            mHelicopter.setAngle(mVehicle.getAngle());
+            mHelicopter.leave();
         }
     }
 
