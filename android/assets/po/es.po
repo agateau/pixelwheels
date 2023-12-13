@@ -76,7 +76,7 @@ msgstr "Tiny en el mar"
 
 #: android/assets/championships/2.xml:27
 msgctxt "track"
-msgid "City 3"
+msgid "The Island"
 msgstr ""
 
 #: android/assets/screens/credits.gdxui:6
