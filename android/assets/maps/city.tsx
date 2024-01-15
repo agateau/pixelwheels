@@ -160,11 +160,61 @@
  <tile id="130">
   <properties>
    <property name="material" value="DEEP_WATER"/>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.55,
+  &quot;y&quot;: 0.52,
+  &quot;radius&quot;: 0.12
+}</property>
   </properties>
  </tile>
  <tile id="131">
   <properties>
    <property name="material" value="DEEP_WATER"/>
+  </properties>
+ </tile>
+ <tile id="132">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.53,
+  &quot;y&quot;: 0.45,
+  &quot;radius&quot;: 0.3
+}</property>
+  </properties>
+ </tile>
+ <tile id="133">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;multi&quot;,
+  &quot;obstacles&quot;: [
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.26,
+      &quot;y&quot;: 0.22,
+      &quot;radius&quot;: 0.07
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.69,
+      &quot;y&quot;: 0.4,
+      &quot;radius&quot;: 0.11
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.33,
+      &quot;y&quot;: 0.61,
+      &quot;radius&quot;: 0.08
+    },
+    {
+      &quot;type&quot;: &quot;circle&quot;,
+      &quot;x&quot;: 0.74,
+      &quot;y&quot;: 0.76,
+      &quot;radius&quot;: 0.13
+    }
+  ]
+}
+</property>
   </properties>
  </tile>
  <tile id="144">

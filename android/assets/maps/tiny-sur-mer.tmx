@@ -267,9 +267,6 @@
   <object id="146" type="tire" x="3690" y="292.667">
    <polyline points="0,0 66.6667,16 104.667,51.3333 129.333,140.667"/>
   </object>
-  <object id="147" x="3205.98" y="2047.79" width="54.2748" height="58.2121">
-   <ellipse/>
-  </object>
   <object id="148" x="3072" y="3436" width="1200" height="20"/>
  </objectgroup>
  <objectgroup id="6" name="Sections" visible="0">
