@@ -149,6 +149,21 @@ public class AgcMathUtils {
         return normalizeAngle(angle2) - normalizeAngle(angle1);
     }
 
+    /** Returns the shortest angle delta to go from angle1 to angle2 */
+    public static float shortestAngleDelta(float angle1, float angle2) {
+        if (angle2 - angle1 > 180) {
+            angle2 -= 360;
+        }
+        if (angle1 - angle2 > 180) {
+            angle1 -= 360;
+        }
+        return angle2 - angle1;
+    }
+
+    public static boolean anglesAreEqual(float angle1, float angle2, float tolerance) {
+        return MathUtils.isZero(shortestAngleDelta(angle1, angle2), tolerance);
+    }
+
     /**
      * A modulo which works with negative values.
      *

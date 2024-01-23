@@ -30,6 +30,7 @@ import com.agateau.pixelwheels.racer.HoleHandlerComponent;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.sound.SoundPlayer;
+import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -52,11 +53,13 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private static final float SHADOW_OFFSET = 80;
     private static final Vector2 BODY_CENTER = new Vector2(30, (111 - 35));
     private static final float PROPELLER_SPEED = -720;
-    private static final float MAX_SPEED = 200 * 3.6f;
-    private static final float MIN_SPEED = 100 * 3.6f;
-    private static final float SLOW_DOWN_DISTANCE = 200 * Constants.UNIT_FOR_PIXEL;
+    private static final float MAX_SPEED = 400 * Constants.UNIT_FOR_PIXEL;
+    private static final float SLOW_DOWN_DISTANCE = 100 * Constants.UNIT_FOR_PIXEL;
     private static final float MIN_PITCH = 0.7f;
     private static final float MAX_PITCH = 1.3f;
+
+    private static final float ANGLE_TOLERANCE = 4f;
+    private static final float POSITION_TOLERANCE = 4 * Constants.UNIT_FOR_PIXEL;
 
     private enum State {
         ARRIVING,
@@ -72,17 +75,33 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     private TextureRegion mBodyRegion;
     private TextureRegion mPropellerRegion;
     private TextureRegion mPropellerTopRegion;
-    private HoleHandlerComponent mHoleHandlerComponent;
     private final Vector2 mPosition = new Vector2();
     private float mAngle;
-    private final Vector2 mStartPosition = new Vector2();
-    private float mStartAngle;
+    private final Vector2 mSpawnPosition = new Vector2();
     private final Vector2 mEndPosition = new Vector2();
     private float mEndAngle;
-    private final Vector2 mLeavePosition = new Vector2();
     private float mTime;
     private State mState;
     private float mFrameBufferRadiusU;
+
+    private final Vector2 mTmpVec = new Vector2();
+
+    private static void decideSpawnPosition(
+            Assets assets, Track track, Helicopter helicopter, Vector2 vehiclePos) {
+        float width = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionWidth();
+        float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
+        float mapWidth = track.getMapWidth();
+        float mapHeight = track.getMapHeight();
+
+        float startX = (vehiclePos.x > mapWidth / 2) ? mapWidth : 0;
+        float startY = (vehiclePos.y > mapHeight / 2) ? mapHeight : 0;
+
+        helicopter.mSpawnPosition.set(startX, startY);
+
+        helicopter.mAngle =
+                helicopter.mTmpVec.set(vehiclePos).sub(helicopter.mSpawnPosition).angleDeg();
+        helicopter.mPosition.set(helicopter.mSpawnPosition);
+    }
 
     public static Helicopter create(
             Assets assets,
@@ -93,9 +112,6 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         Helicopter object = sPool.obtain();
         object.setFinished(false);
 
-        float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
-        float mapHeight = track.getMapHeight() * track.getTileHeight();
-
         if (object.mSoundPlayer == null) {
             object.mSoundPlayer =
                     audioManager.createSoundPlayer(assets.soundAtlas.get("helicopter"));
@@ -103,14 +119,11 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         object.mBodyRegion = assets.helicopterBody;
         object.mPropellerRegion = assets.helicopterPropeller;
         object.mPropellerTopRegion = assets.helicopterPropellerTop;
-        object.mHoleHandlerComponent = holeHandlerComponent;
-        object.mPosition.set(vehicle.getPosition().x, -height);
-        object.mAngle = 0;
-        object.mStartPosition.set(object.mPosition);
-        object.mStartAngle = 90;
+        decideSpawnPosition(assets, track, object, vehicle.getPosition());
+
         object.mEndPosition.set(vehicle.getPosition());
-        object.mEndAngle = holeHandlerComponent.getVehicle().getAngle();
-        object.mLeavePosition.set(vehicle.getPosition().x, mapHeight);
+        object.mEndAngle = vehicle.getAngle();
+
         object.mTime = 0;
         object.mState = State.ARRIVING;
 
@@ -143,16 +156,23 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
         sPool.free(this);
     }
 
-    public boolean isReadyToRecover() {
-        return mState == State.RECOVERING;
+    public void setDestination(OrientedPoint point) {
+        mEndPosition.set(point.x, point.y);
+        mEndAngle = AgcMathUtils.normalizeAngle(point.angle);
     }
 
-    public void setPosition(Vector2 position) {
-        mPosition.set(position);
+    public void setDestination(Vector2 position, float angle) {
+        mEndPosition.set(position);
+        mEndAngle = AgcMathUtils.normalizeAngle(angle);
     }
 
-    public void setAngle(float angle) {
-        mAngle = angle;
+    public float getAngle() {
+        return mAngle;
+    }
+
+    public boolean isAtDestination() {
+        return mPosition.epsilonEquals(mEndPosition, POSITION_TOLERANCE)
+                && AgcMathUtils.anglesAreEqual(mAngle, mEndAngle, ANGLE_TOLERANCE);
     }
 
     @Override
@@ -164,7 +184,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
                 actArriving(delta);
                 break;
             case RECOVERING:
-                actRecovering();
+                actRecovering(delta);
                 break;
             case LEAVING:
                 actLeaving(delta);
@@ -183,31 +203,24 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     private void actArriving(float delta) {
-        if (!mHoleHandlerComponent.isInHole()) {
-            // Vehicle got out of the hole on its own
-            leave();
-            return;
-        }
-        mEndPosition.set(mHoleHandlerComponent.getVehicle().getPosition());
-        if (mPosition.epsilonEquals(mEndPosition, 2 * Constants.UNIT_FOR_PIXEL)) {
-            mState = State.RECOVERING;
-            return;
-        }
-        moveTowardEndPosition(delta);
+        moveTowardDestination(delta);
     }
 
-    private void actRecovering() {
-        if (mHoleHandlerComponent.getState() == HoleHandlerComponent.State.NORMAL) {
-            leave();
-        }
+    public void switchToRecoveringState() {
+        mState = State.RECOVERING;
     }
 
-    private void leave() {
+    private void actRecovering(float delta) {
+        moveTowardDestination(delta);
+    }
+
+    public void leave() {
         mTime = 0;
         mState = State.LEAVING;
-        mStartPosition.set(mPosition);
-        mEndPosition.set(mLeavePosition);
-        mEndAngle = 90;
+
+        mTmpVec.set(mSpawnPosition).sub(mPosition);
+        float angle = mTmpVec.angleDeg();
+        setDestination(mSpawnPosition, angle);
     }
 
     private void actLeaving(float delta) {
@@ -216,25 +229,34 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
             mSoundPlayer.stop();
             return;
         }
-        moveTowardEndPosition(delta);
+        moveTowardDestination(delta);
     }
 
-    private final Vector2 mDelta = new Vector2();
+    private float mSpeed = MAX_SPEED;
 
-    private void moveTowardEndPosition(float delta) {
-        mDelta.set(mEndPosition).sub(mPosition);
-        float speed;
-        float distance = mDelta.len();
-        float progress = 0;
+    private void moveTowardDestination(float delta) {
+        // Update position
+        mTmpVec.set(mEndPosition).sub(mPosition);
+        float distance = mTmpVec.len();
+        float k = MathUtils.clamp(distance / SLOW_DOWN_DISTANCE, 0.01f, 1);
+        float speed = mSpeed;
         if (distance > SLOW_DOWN_DISTANCE) {
-            speed = MAX_SPEED;
+            if (speed < MAX_SPEED) {
+                speed += Math.min(MAX_SPEED, speed + MAX_SPEED / 10);
+            }
         } else {
-            progress = 1 - distance / SLOW_DOWN_DISTANCE;
-            speed = MathUtils.lerp(MAX_SPEED, MIN_SPEED, progress);
+            speed = MAX_SPEED * k;
         }
-        mDelta.limit(delta * speed * Constants.UNIT_FOR_PIXEL);
-        mPosition.add(mDelta);
-        mAngle = MathUtils.lerp(mStartAngle, mEndAngle, progress);
+        mSpeed = speed;
+
+        mTmpVec.nor().scl(mSpeed * delta);
+        mPosition.add(mTmpVec);
+
+        // Update angle
+        float targetAngle = distance > 2 * SLOW_DOWN_DISTANCE ? mTmpVec.angleDeg() : mEndAngle;
+        float angleDistance = AgcMathUtils.shortestAngleDelta(mAngle, targetAngle);
+        float angularSpeed = angleDistance / delta / 10f;
+        mAngle = AgcMathUtils.normalizeAngle(mAngle + angularSpeed * delta);
     }
 
     @Override

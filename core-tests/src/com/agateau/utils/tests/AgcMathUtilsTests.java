@@ -149,4 +149,12 @@ public class AgcMathUtilsTests {
         assertThat(AgcMathUtils.snapAngle(87f), is(87f));
         assertThat(AgcMathUtils.snapAngle(183f), is(183f));
     }
+
+    @Test
+    public void testShortestAngleDelta() {
+        assertThat(AgcMathUtils.shortestAngleDelta(30f, 80f), is(50f));
+        assertThat(AgcMathUtils.shortestAngleDelta(80f, 30f), is(-50f));
+        assertThat(AgcMathUtils.shortestAngleDelta(10f, 350f), is(-20f));
+        assertThat(AgcMathUtils.shortestAngleDelta(350f, 10f), is(20f));
+    }
 }
