@@ -250,7 +250,7 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
     }
 
     private void actLeaving(float delta) {
-        if (mSoundPlayer.getVolume() == 0) {
+        if (isAtDestination()) {
             setFinished(true);
             mSoundPlayer.stop();
             return;
