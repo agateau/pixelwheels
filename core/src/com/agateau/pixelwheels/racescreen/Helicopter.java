@@ -88,13 +88,39 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
 
     private static void decideSpawnPosition(
             Assets assets, Track track, Helicopter helicopter, Vector2 vehiclePos) {
-        float width = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionWidth();
-        float height = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight();
+        float halfWidth = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionWidth() / 2;
+        float halfHeight = Constants.UNIT_FOR_PIXEL * assets.helicopterBody.getRegionHeight() / 2;
         float mapWidth = track.getMapWidth();
         float mapHeight = track.getMapHeight();
 
-        float startX = (vehiclePos.x > mapWidth / 2) ? mapWidth : 0;
-        float startY = (vehiclePos.y > mapHeight / 2) ? mapHeight : 0;
+        float left = vehiclePos.x;
+        float bottom = vehiclePos.y;
+        float right = mapWidth - vehiclePos.x;
+        float top = mapHeight - vehiclePos.y;
+
+        // Start from left edge
+        float startX = -halfWidth;
+        float startY = vehiclePos.y;
+        float distance = left;
+
+        // Is right edge closer?
+        if (distance > right) {
+            startX = mapWidth + halfWidth;
+            distance = right;
+        }
+
+        // Is bottom edge closer?
+        if (distance > bottom) {
+            startX = vehiclePos.x;
+            startY = -halfHeight;
+            distance = bottom;
+        }
+
+        // Is top edge closer?
+        if (distance > top) {
+            startX = vehiclePos.x;
+            startY = mapHeight + halfHeight;
+        }
 
         helicopter.mSpawnPosition.set(startX, startY);
 
