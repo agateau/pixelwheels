@@ -1,0 +1,4 @@
+kind: Fixed
+body: 'Helicopter behavior has been improved: there should no longer be stuck helicopters,
+  or continuously playing helicopter sounds.'
+time: 2024-01-24T22:38:14.903171376+01:00
