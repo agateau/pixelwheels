@@ -46,6 +46,7 @@ import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.vehicledef.VehicleCreator;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.utils.Assert;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -323,13 +324,36 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
     }
 
+    private static <T extends Bonus> boolean isBonusClassAllowed(Class<T> bonusClass) {
+        if (Constants.DEBUG_BONUSES == null) {
+            return true;
+        }
+        String className = bonusClass.getSimpleName();
+        for (String name : Constants.DEBUG_BONUSES) {
+            if (className.equals(name)) {
+                NLog.d("%s: true", className);
+                return true;
+            }
+        }
+        NLog.d("%s: false", className);
+        return false;
+    }
+
     private void setupBonusPools() {
         // Important: do not allow acceleration bonuses like the Turbo when ranked first, otherwise
         // getting a best score becomes too random.
-        addPool(GunBonus.class, new float[] {0.2f, 1.0f, 1.0f});
-        addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f, 0f});
-        addPool(TurboBonus.class, new float[] {0f, 1.0f, 2.0f});
-        addPool(MissileBonus.class, new float[] {0.2f, 1.0f, 1.0f});
+        if (isBonusClassAllowed(GunBonus.class)) {
+            addPool(GunBonus.class, new float[] {0.2f, 1.0f, 1.0f});
+        }
+        if (isBonusClassAllowed(MineBonus.class)) {
+            addPool(MineBonus.class, new float[] {2.0f, 1.0f, 0.5f, 0f});
+        }
+        if (isBonusClassAllowed(TurboBonus.class)) {
+            addPool(TurboBonus.class, new float[] {0f, 1.0f, 2.0f});
+        }
+        if (isBonusClassAllowed(MissileBonus.class)) {
+            addPool(MissileBonus.class, new float[] {0.2f, 1.0f, 1.0f});
+        }
     }
 
     private <T extends Bonus> void addPool(Class<T> bonusClass, float[] counts) {
