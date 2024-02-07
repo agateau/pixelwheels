@@ -300,8 +300,11 @@
   <object id="213" type="block" x="2375.83" y="1923.72">
    <polyline points="-905.83,183.28 -905.83,503.28"/>
   </object>
-  <object id="216" type="tire" x="3231.12" y="1955.79">
-   <polyline points="-45.4738,-25.738 -46.5749,-225.48"/>
+  <object id="216" type="tire" x="3197.12" y="1955.79">
+   <polyline points="-28.758,-30.5139 -29.8591,-230.256"/>
+  </object>
+  <object id="248" type="block" x="3298.82" y="1725.32">
+   <polyline points="-111.591,0.0927913 -111.502,200.355"/>
   </object>
  </objectgroup>
  <objectgroup id="6" name="Sections" visible="0">
