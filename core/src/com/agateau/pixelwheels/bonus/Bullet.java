@@ -189,7 +189,8 @@ public class Bullet extends GameObjectAdapter implements Collidable, Pool.Poolab
 
         explode();
         if (other instanceof Racer) {
-            ((Racer) other).spin();
+            Racer racer = (Racer) other;
+            racer.disrupt();
         } else if (other instanceof Explosable) {
             ((Explosable) other).explode();
         }

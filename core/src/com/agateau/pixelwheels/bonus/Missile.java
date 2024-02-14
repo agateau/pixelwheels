@@ -373,7 +373,7 @@ public class Missile extends GameObjectAdapter
             if (!racer.isFinished() && !racer.getLapPositionComponent().hasFinishedRace()) {
                 mShooter.getGameStats().recordEvent(GameStats.Event.MISSILE_HIT);
             }
-            racer.spin();
+            racer.disrupt();
         } else if (other instanceof Explosable) {
             ((Explosable) other).explode();
         }

@@ -53,7 +53,7 @@ public class Racer extends GameObjectAdapter
     private final Vehicle mVehicle;
     private final VehicleRenderer mVehicleRenderer;
     private final HoleHandlerComponent mHoleHandlerComponent;
-    private final SpinningComponent mSpinningComponent;
+    private final DisruptedComponent mDisruptedComponent;
     private final LapPositionComponent mLapPositionComponent;
     private final AudioComponent mAudioComponent;
     private final Array<Component> mComponents = new Array<>();
@@ -73,7 +73,17 @@ public class Racer extends GameObjectAdapter
 
     @Override
     public void drawToCell(Batch batch, Rectangle viewBounds) {
+        float old = batch.getPackedColor();
+        if (isDisrupted()) {
+            float k = MathUtils.lerp(1f, 0.1f, mDisruptedComponent.getNormalizedDuration());
+            batch.setColor(k, k, k, 1);
+        }
         mVehicleRenderer.drawToCell(batch, viewBounds);
+        batch.setPackedColor(old);
+    }
+
+    public boolean isDisrupted() {
+        return mDisruptedComponent.isActive();
     }
 
     public static class RecordRanks {
@@ -93,10 +103,13 @@ public class Racer extends GameObjectAdapter
         @Override
         public void act(float delta) {
             if (mLapPositionComponent.hasFinishedRace()
-                    || mSpinningComponent.isActive()
                     || mHoleHandlerComponent.getState() != HoleHandlerComponent.State.NORMAL) {
                 mVehicle.setAccelerating(false);
                 mVehicle.setBraking(false);
+            } else if (mDisruptedComponent.isActive()) {
+                // Let pilot control direction, but kill the engine
+                mPilot.act(delta);
+                mVehicle.setAccelerating(false);
             } else {
                 mPilot.act(delta);
             }
@@ -111,7 +124,7 @@ public class Racer extends GameObjectAdapter
             GameInfo.Entrant entrant) {
         mGameWorld = gameWorld;
         mLapPositionComponent = new LapPositionComponent(gameWorld.getTrack(), vehicle);
-        mSpinningComponent = new SpinningComponent(vehicle);
+        mDisruptedComponent = new DisruptedComponent(assets, this);
 
         mVehicle = vehicle;
         mVehicle.setRacer(this);
@@ -135,7 +148,7 @@ public class Racer extends GameObjectAdapter
         addComponent(mLapPositionComponent);
         addComponent(mVehicle);
         addComponent(mHoleHandlerComponent);
-        addComponent(mSpinningComponent);
+        addComponent(mDisruptedComponent);
         addComponent(supervisorComponent);
         addComponent(new BonusSpotHitComponent(this));
         addComponent(mAudioComponent);
@@ -190,11 +203,8 @@ public class Racer extends GameObjectAdapter
         return mAudioComponent.getAudioManager();
     }
 
-    public void spin() {
-        if (mSpinningComponent.isActive()) {
-            return;
-        }
-        mSpinningComponent.start();
+    public void disrupt() {
+        mDisruptedComponent.start();
         looseBonus();
     }
 
@@ -206,11 +216,7 @@ public class Racer extends GameObjectAdapter
      * off.
      */
     public float getCameraAngle() {
-        if (mSpinningComponent.isActive()) {
-            return mSpinningComponent.getOriginalAngle();
-        } else {
-            return mVehicle.getAngle();
-        }
+        return mVehicle.getAngle();
     }
 
     @Override
