@@ -130,7 +130,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
         float centerX = mCellFrameBufferManager.getCellCenterX(mCellId);
         float centerY = mCellFrameBufferManager.getCellCenterY(mCellId);
         for (Renderer renderer : mRenderers) {
-            renderer.draw(batch, centerX, centerY);
+            renderer.drawToCell(batch, centerX, centerY);
         }
     }
 
@@ -166,22 +166,24 @@ public class VehicleRenderer implements CellFrameBufferUser {
         }
 
         // Vehicle level: wheels and body
-        ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING_HIGH : ZLevel.ON_GROUND;
-        if (zLevel != wantedZIndex) {
-            return;
+        ZLevel vehicleZLevel = mVehicle.isFlying() ? ZLevel.FLYING_HIGH : ZLevel.ON_GROUND;
+        if (zLevel == vehicleZLevel) {
+            if (mVehicle.isFalling()) {
+                batch.setColor(getBatchColor());
+            }
+            mCellFrameBufferManager.drawScaledCell(batch, mVehicle.getPosition(), mCellId, scale);
+            if (mVehicle.isFalling()) {
+                batch.setColor(Color.WHITE);
+            }
+
+            // Turbo (not in cell because it makes no sense for it to have a shadow)
+            if (mVehicle.getTurboTime() >= 0) {
+                drawTurbo(batch);
+            }
         }
 
-        if (mVehicle.isFalling()) {
-            batch.setColor(getBatchColor());
-        }
-        mCellFrameBufferManager.drawScaledCell(batch, mVehicle.getPosition(), mCellId, scale);
-        if (mVehicle.isFalling()) {
-            batch.setColor(Color.WHITE);
-        }
-
-        // Turbo (not in cell because it makes no sense for it to have a shadow)
-        if (mVehicle.getTurboTime() >= 0) {
-            drawTurbo(batch);
+        for (Renderer renderer : mRenderers) {
+            renderer.draw(batch, zLevel);
         }
     }
 
