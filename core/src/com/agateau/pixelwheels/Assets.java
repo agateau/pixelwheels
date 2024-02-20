@@ -41,6 +41,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -97,6 +99,9 @@ public class Assets implements TextureRegionProvider {
     public final TextureRegion helicopterPropeller;
     public final TextureRegion helicopterPropellerTop;
     public final TextureRegion lockedVehicle;
+
+    public ParticleEffectPool smokeEffectPool;
+
     public final SoundAtlas soundAtlas = new SoundAtlas(FileUtils.assets("sounds"));
     public final Languages languages;
 
@@ -135,6 +140,7 @@ public class Assets implements TextureRegionProvider {
 
         loadVehicleDefinitions();
         loadObstacleDefinitions();
+        loadParticleEffects();
         initSoundAtlas();
         initChampionships();
     }
@@ -281,5 +287,11 @@ public class Assets implements TextureRegionProvider {
     private void loadObstacleDefinitions() {
         obstacleDefs.clear();
         obstacleDefs.addAll(ObstacleIO.getAll(this));
+    }
+
+    private void loadParticleEffects() {
+        ParticleEffect smokeEffect = new ParticleEffect();
+        smokeEffect.load(FileUtils.assets("particles/smoke.p"), atlas);
+        smokeEffectPool = new ParticleEffectPool(smokeEffect, 5, 10);
     }
 }

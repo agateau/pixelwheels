@@ -19,14 +19,19 @@
 package com.agateau.pixelwheels.racer;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.Renderer;
+import com.agateau.pixelwheels.ZLevel;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 
 /** Make a vehicle slow down for a short duration */
-public class DisruptedComponent implements Racer.Component {
+public class DisruptedComponent implements Racer.Component, Renderer {
     private static final float DURATION = 1f;
     private final Assets mAssets;
     private final Racer mRacer;
     private boolean mActive = false;
     private float mRemainingDuration = 0;
+    private ParticleEffectPool.PooledEffect mSmokeEffect;
 
     public DisruptedComponent(Assets assets, Racer racer) {
         mAssets = assets;
@@ -47,21 +52,50 @@ public class DisruptedComponent implements Racer.Component {
             return;
         }
         mActive = true;
+        mSmokeEffect = mAssets.smokeEffectPool.obtain();
+        mRacer.getVehicleRenderer().addRenderer(this);
     }
 
     @Override
     public void act(float delta) {
-        if (!mActive) {
-            return;
+        if (mSmokeEffect != null) {
+            mSmokeEffect.update(delta);
+            if (mActive) {
+                if (mSmokeEffect.isComplete()) {
+                    mSmokeEffect.start();
+                }
+            } else {
+                if (mSmokeEffect.isComplete()) {
+                    mSmokeEffect.free();
+                    mRacer.getVehicleRenderer().removeRenderer(this);
+                    mSmokeEffect = null;
+                }
+            }
         }
-        mRemainingDuration -= delta;
-        if (mRemainingDuration <= 0) {
-            stop();
+
+        if (mActive) {
+            mRemainingDuration -= delta;
+            if (mRemainingDuration <= 0) {
+                mRemainingDuration = 0;
+                mActive = false;
+            }
         }
     }
 
-    private void stop() {
-        mRemainingDuration = 0;
-        mActive = false;
+    @Override
+    public void drawToCell(Batch batch, float centerX, float centerY) {}
+
+    @Override
+    public void draw(Batch batch, ZLevel zLevel) {
+        if (zLevel != ZLevel.FLYING_HIGH) {
+            return;
+        }
+        if (mSmokeEffect == null) {
+            return;
+        }
+
+        Vehicle vehicle = mRacer.getVehicle();
+        mSmokeEffect.setPosition(vehicle.getX(), vehicle.getY());
+        mSmokeEffect.draw(batch);
     }
 }
