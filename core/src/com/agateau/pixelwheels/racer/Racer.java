@@ -35,6 +35,7 @@ import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.sound.AudioManager;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -76,6 +77,7 @@ public class Racer extends GameObjectAdapter
         float old = batch.getPackedColor();
         if (isDisrupted()) {
             float k = MathUtils.lerp(1f, 0.1f, mDisruptedComponent.getNormalizedDuration());
+            k = Interpolation.pow2.apply(k);
             batch.setColor(k, k, k, 1);
         }
         mVehicleRenderer.drawToCell(batch, viewBounds);

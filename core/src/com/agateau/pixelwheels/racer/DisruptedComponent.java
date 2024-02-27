@@ -26,7 +26,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 
 /** Make a vehicle slow down for a short duration */
 public class DisruptedComponent implements Racer.Component, Renderer {
-    private static final float DURATION = 1f;
+    private static final float DURATION = 1.5f;
     private final Assets mAssets;
     private final Racer mRacer;
     private boolean mActive = false;
