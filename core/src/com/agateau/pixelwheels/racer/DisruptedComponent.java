@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.Renderer;
 import com.agateau.pixelwheels.ZLevel;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.math.Vector2;
 
 /** Make a vehicle slow down for a short duration */
 public class DisruptedComponent implements Racer.Component, Renderer {
@@ -85,6 +86,8 @@ public class DisruptedComponent implements Racer.Component, Renderer {
     @Override
     public void drawToCell(Batch batch, float centerX, float centerY) {}
 
+    private final Vector2 mTmp = new Vector2();
+
     @Override
     public void draw(Batch batch, ZLevel zLevel) {
         if (zLevel != ZLevel.FLYING_HIGH) {
@@ -95,7 +98,12 @@ public class DisruptedComponent implements Racer.Component, Renderer {
         }
 
         Vehicle vehicle = mRacer.getVehicle();
-        mSmokeEffect.setPosition(vehicle.getX(), vehicle.getY());
+        // By default vehicle points to the right, so getWidth() / 4 roughly points to the middle of
+        // the hood
+        mTmp.set(vehicle.getWidth() / 4, 0)
+                .rotateDeg(vehicle.getAngle())
+                .add(vehicle.getX(), vehicle.getY());
+        mSmokeEffect.setPosition(mTmp.x, mTmp.y);
         mSmokeEffect.draw(batch);
     }
 }
