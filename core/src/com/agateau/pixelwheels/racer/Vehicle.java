@@ -348,7 +348,7 @@ public class Vehicle implements Racer.Component, Disposable {
             groundSpeed += wheelGroundSpeed;
             long cellId = info.wheel.getCellId();
             boolean isTurboCell = wheelGroundSpeed > 1;
-            if (isTurboCell) {
+            if (isTurboCell && !mRacer.isDisrupted()) {
                 mTurboCellsUnderWheels.add(cellId);
                 if (!alreadyTriggeredTurboCell(cellId)) {
                     triggerTurbo();
