@@ -30,6 +30,7 @@ public class Constants {
     public static final int MAX_PLAYERS = 4;
 
     public static final String DEBUG_SCREEN;
+    public static final String[] DEBUG_BONUSES;
 
     public static final Color HALF_IMMERSED_COLOR = new Color(0.5f, 0.75f, 1, 0.4f);
     public static final Color FULLY_IMMERSED_COLOR = new Color(0, 0.5f, 1, 0.2f);
@@ -51,5 +52,7 @@ public class Constants {
     static {
         String value = getenv("PW_DEBUG_SCREEN");
         DEBUG_SCREEN = value == null ? "" : value;
+        value = getenv("PW_DEBUG_BONUS");
+        DEBUG_BONUSES = value == null ? null : value.split(" ");
     }
 }

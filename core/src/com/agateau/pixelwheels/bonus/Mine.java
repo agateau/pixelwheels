@@ -226,7 +226,7 @@ public class Mine extends GameObjectAdapter
             return;
         }
         explode();
-        ((Racer) other).spin();
+        ((Racer) other).disrupt();
     }
 
     @Override

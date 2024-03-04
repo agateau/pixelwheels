@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.bonus;
 
 import com.agateau.pixelwheels.Renderer;
+import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.debug.DebugShapeMap;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
@@ -49,7 +50,7 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
     private final Renderer mBonusRenderer =
             new Renderer() {
                 @Override
-                public void draw(Batch batch, float centerX, float centerY) {
+                public void drawToCell(Batch batch, float centerX, float centerY) {
                     TextureRegion region = mAssets.gunAnimation.getKeyFrame(mAnimationTime, true);
                     Vehicle vehicle = mRacer.getVehicle();
                     Body body = vehicle.getBody();
@@ -68,6 +69,9 @@ public class GunBonus extends BonusAdapter implements Pool.Poolable {
                             1, // scale
                             angle - 90);
                 }
+
+                @Override
+                public void draw(Batch batch, ZLevel zLevel) {}
             };
 
     private final Vector2 mRayCastOrigin = new Vector2();

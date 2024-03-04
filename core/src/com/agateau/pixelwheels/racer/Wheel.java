@@ -112,7 +112,6 @@ public class Wheel implements Disposable {
     private final Vehicle mVehicle;
     private boolean mCanDrift = false;
     private float mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
-    private boolean mGripEnabled = true;
     private Material mMaterial = Material.ROAD;
     private boolean mDrifting = false;
 
@@ -166,9 +165,7 @@ public class Wheel implements Disposable {
     public void act(float delta) {
         updateGroundInfo();
         if (!mVehicle.isFlying()) {
-            if (mGripEnabled) {
-                updateFriction();
-            }
+            updateFriction();
             Box2DUtils.applyDrag(mBody, DRAG_FACTOR);
         }
         for (int idx = mSkidmarks.getBeginIndex(), end = mSkidmarks.getEndIndex();
@@ -184,10 +181,6 @@ public class Wheel implements Disposable {
 
     public float getGroundSpeed() {
         return mMaterial.getSpeed();
-    }
-
-    public void setGripEnabled(boolean enabled) {
-        mGripEnabled = enabled;
     }
 
     public void adjustSpeed(float amount) {
