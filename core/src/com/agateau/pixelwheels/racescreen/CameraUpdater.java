@@ -38,6 +38,8 @@ abstract class CameraUpdater {
         float viewportWidth;
         float viewportHeight;
         Vector2 position = new Vector2();
+        float cameraUp = 0;
+        float cameraAhead = 0;
         float zoom = 1;
 
         void clampPositionToTrack(Track track) {
@@ -74,12 +76,15 @@ abstract class CameraUpdater {
     public abstract void update(float delta);
 
     void applyChanges() {
-        mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
-
         // Apply changes
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
         mCamera.position.set(mNextCameraInfo.position, 0);
+        mCamera.up.set(
+            (float) Math.cos(mNextCameraInfo.cameraUp), 
+            (float) Math.sin(mNextCameraInfo.cameraUp),
+            0
+        );
         mCamera.update();
 
         // Swap instances
