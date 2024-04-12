@@ -37,6 +37,14 @@
             </Items>
         </Menu>
 
+        <Image bottomLeft="root.bottomLeft 1 0" name="support-truck">
+            <!--
+            <Action>
+                moveBy -20g 0
+                moveBy 20g 0 0.5 pow2In
+            </Action>
+            -->
+        </Image>
         <Image id="road-sign" bottomRight="root.bottomRight -1 0" name="version-number-road-sign"/>
 
         <Label id="version" topCenter="road-sign.topCenter 0 -10px" style="version" align="center"/>
