@@ -19,18 +19,18 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.Assets;
-import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.debug.DebugStringMap;
 import com.agateau.pixelwheels.racescreen.Hud;
 import com.agateau.ui.InputMapper;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.math.MathUtils;
 
 /** Base class for InputMapper-based GameInputHandlers */
 public abstract class InputMapperInputHandler implements GameInputHandler {
     private final InputMapper mInputMapper;
     private final GameInput mInput = new GameInput();
+    private final DigitalSteering mSteer = new DigitalSteering();
 
     InputMapperInputHandler(InputMapper inputMapper) {
         mInputMapper = inputMapper;
@@ -42,14 +42,11 @@ public abstract class InputMapperInputHandler implements GameInputHandler {
                 mInputMapper.isKeyPressed(VirtualKey.DOWN)
                         || mInputMapper.isKeyPressed(VirtualKey.BACK);
         mInput.accelerating = !mInput.braking;
-        if (mInputMapper.isKeyPressed(VirtualKey.LEFT)) {
-            mInput.direction += GamePlay.instance.steeringStep;
-        } else if (mInputMapper.isKeyPressed(VirtualKey.RIGHT)) {
-            mInput.direction -= GamePlay.instance.steeringStep;
-        } else {
-            mInput.direction *= 0.4;
-        }
-        mInput.direction = MathUtils.clamp(mInput.direction, -1, 1);
+        mInput.direction =
+                mSteer.steer(
+                        mInputMapper.isKeyPressed(VirtualKey.LEFT),
+                        mInputMapper.isKeyPressed(VirtualKey.RIGHT));
+        DebugStringMap.putPercent("direction", (float) (Math.abs(mInput.direction)));
         mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;
