@@ -24,7 +24,6 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 
 /** A CameraUpdater tracking a racer */
 class RacerCameraUpdater extends CameraUpdater {
@@ -52,19 +51,21 @@ class RacerCameraUpdater extends CameraUpdater {
         mNextCameraInfo.viewportWidth = viewportWidth;
         mNextCameraInfo.viewportHeight = viewportHeight;
 
-        if(vehicle.isFlying() || vehicle.isFalling()) {
+        if (vehicle.isFlying() || vehicle.isFalling()) {
             // keep camera from rotating
             mNextCameraInfo.cameraUp = mCameraInfo.cameraUp;
         } else {
             // reflect how the vehicle is turning
             final float steerMag = vehicle.isDrifting() ? 0.65f : 0.32f;
             final float bodyAngle = vehicle.getBody().getAngle();
-            for(Vehicle.WheelInfo wi : vehicle.getWheelInfos()) {
+            for (Vehicle.WheelInfo wi : vehicle.getWheelInfos()) {
                 final float wheelAngle = wi.joint.getLowerLimit();
                 final float targetUp = bodyAngle - steerMag * wheelAngle;
-                mNextCameraInfo.cameraUp = mCameraInfo.cameraUp + 
-                    // smooth the camera turning
-                    0.12f * (targetUp - mCameraInfo.cameraUp);
+                mNextCameraInfo.cameraUp =
+                        mCameraInfo.cameraUp
+                                +
+                                // smooth the camera turning
+                                0.12f * (targetUp - mCameraInfo.cameraUp);
                 break; // use only the 1st wheel,
                 // assuming all wheels have the same angle
             }
@@ -72,13 +73,18 @@ class RacerCameraUpdater extends CameraUpdater {
 
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        if(vehicle.isBraking()) {
+        if (vehicle.isBraking()) {
             advance *= 0.8; // make feel the breaking
         }
         // smooth the camera moving
-        mNextCameraInfo.cameraAhead = mCameraInfo.cameraAhead + 0.12f * (advance - mCameraInfo.cameraAhead);
+        mNextCameraInfo.cameraAhead =
+                mCameraInfo.cameraAhead + 0.12f * (advance - mCameraInfo.cameraAhead);
         // calculate & set next camera position
-        mNextCameraInfo.position.set(mNextCameraInfo.cameraAhead, 0).rotateRad(mNextCameraInfo.cameraUp).add(vehicle.getPosition());
+        mNextCameraInfo
+                .position
+                .set(mNextCameraInfo.cameraAhead, 0)
+                .rotateRad(mNextCameraInfo.cameraUp)
+                .add(vehicle.getPosition());
         limitZoomChange(delta);
         applyChanges();
     }

@@ -81,10 +81,9 @@ abstract class CameraUpdater {
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
         mCamera.position.set(mNextCameraInfo.position, 0);
         mCamera.up.set(
-            (float) Math.cos(mNextCameraInfo.cameraUp), 
-            (float) Math.sin(mNextCameraInfo.cameraUp),
-            0
-        );
+                (float) Math.cos(mNextCameraInfo.cameraUp),
+                (float) Math.sin(mNextCameraInfo.cameraUp),
+                0);
         mCamera.update();
 
         // Swap instances
