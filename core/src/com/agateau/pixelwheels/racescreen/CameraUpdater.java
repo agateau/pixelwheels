@@ -78,15 +78,13 @@ abstract class CameraUpdater {
 
     void applyChanges() {
         // Apply changes
-        switch (GamePlay.instance.cameraMode) {
-            case HeadingUpCamera:
-                mCamera.up.set(
-                        (float) Math.cos(mNextCameraInfo.cameraUp),
-                        (float) Math.sin(mNextCameraInfo.cameraUp),
-                        0);
-                break;
-            default:
-                mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
+        if (GamePlay.instance.headingUpCamera) {
+            mCamera.up.set(
+                    (float) Math.cos(mNextCameraInfo.cameraUp),
+                    (float) Math.sin(mNextCameraInfo.cameraUp),
+                    0);
+        } else {
+            mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
         }
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;

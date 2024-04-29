@@ -54,13 +54,7 @@ public class GamePlay {
 
     public boolean oneLapOnly = false;
     public boolean freeCamera = false;
-
-    public static enum CameraMode {
-        ClassicCamera,
-        HeadingUpCamera,
-    }
-
-    public CameraMode cameraMode = CameraMode.HeadingUpCamera;
+    public boolean headingUpCamera = true;
 
     public static final GamePlay instance = new GamePlay();
 }

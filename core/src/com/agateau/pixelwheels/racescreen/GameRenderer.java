@@ -80,14 +80,10 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
+        } else if (GamePlay.instance.headingUpCamera) {
+            mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
         } else {
-            switch (GamePlay.instance.cameraMode) {
-                case HeadingUpCamera:
-                    mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
-                    break;
-                default:
-                    mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
-            }
+            mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
