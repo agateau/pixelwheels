@@ -74,7 +74,10 @@ class RacerCameraUpdater extends CameraUpdater {
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
         if (vehicle.isBraking()) {
-            advance *= 0.8; // make feel the breaking
+            advance *= 0.8; // make feel the braking
+            // TODO maybe more experiments about this
+            // * shorten the distance gives the feel the camera dragged the car
+            // * lengthen the distance gives the feel that the car dragged the camera
         }
         // smooth the camera moving
         mNextCameraInfo.cameraAhead =
