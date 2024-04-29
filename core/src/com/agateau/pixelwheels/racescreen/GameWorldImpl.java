@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.bonus.Bonus;
@@ -183,6 +184,34 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     @Override
     public void act(float delta) {
+        // lower maxSpeed of racers ahead of another, propotional to the distance between them
+        final int distancePerLap = mTrack.getLapPositionTable().getSectionCount();
+        final float catchupRatio = GamePlay.instance.catchupFactor / distancePerLap;
+        mRacers.sort(sRacerComparator);
+        Racer racerBehind = null;
+        for (int i = mRacers.size - 1; i >= 0; i--) {
+            final Racer racer = mRacers.get(i);
+            if (racer.getLapPositionComponent().hasFinishedRace()) {
+                break;
+            }
+            if (racerBehind == null) {
+                racer.getVehicle().setMaxSpeed(GamePlay.instance.maxSpeed);
+            } else {
+                final LapPositionComponent p1 = racer.getLapPositionComponent();
+                final LapPositionComponent p2 = racerBehind.getLapPositionComponent();
+                final float ddiff =
+                        (p1.getLapCount() - p2.getLapCount()) * distancePerLap
+                                + p1.getLapDistance()
+                                - p2.getLapDistance();
+                assert ddiff >= 0;
+                racer.getVehicle()
+                        .setMaxSpeed(
+                                racerBehind.getVehicle().getMaxSpeed()
+                                        / (1 + ddiff * catchupRatio));
+            }
+            racerBehind = racer;
+        }
+
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
         float frameTime = Math.min(delta, 0.25f);
@@ -214,7 +243,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
 
         if (haveAllRacersFinished()) {
-            mRacers.sort(sRacerComparator);
             setState(GameWorld.State.FINISHED);
         }
     }

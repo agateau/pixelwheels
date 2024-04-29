@@ -183,14 +183,13 @@ public class Wheel implements Disposable {
         return mMaterial.getSpeed();
     }
 
-    public void adjustSpeed(float amount) {
+    public void adjustSpeed(float amount, float maxSpeed) {
         if (amount == 0) {
             return;
         }
         final float currentSpeed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
 
-        final float limit =
-                1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / GamePlay.instance.maxSpeed);
+        final float limit = 1 - 0.2f * Interpolation.sineOut.apply(currentSpeed / maxSpeed);
         amount *= limit;
 
         float force = mMaxDrivingForce * amount;

@@ -79,6 +79,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private boolean mStopped = false;
     private Material mMaterial = Material.ROAD;
     private float mSpeedLimiter = 1f;
+    private float mMaxSpeed = GamePlay.instance.maxSpeed;
     private boolean mFlying = false;
 
     private Probe mProbe = null;
@@ -255,6 +256,14 @@ public class Vehicle implements Racer.Component, Disposable {
         mSpeedLimiter = speedLimiter;
     }
 
+    public float getMaxSpeed() {
+        return mMaxSpeed;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        mMaxSpeed = maxSpeed;
+    }
+
     /** Returns the angle the car is facing */
     public float getAngle() {
         return AgcMathUtils.normalizeAngle(mBody.getAngle() * MathUtils.radiansToDegrees);
@@ -381,7 +390,7 @@ public class Vehicle implements Racer.Component, Disposable {
         float steerAngle = computeSteerAngle() * MathUtils.degRad;
         for (WheelInfo info : mWheels) {
             float angle = info.steeringFactor * steerAngle;
-            info.wheel.adjustSpeed(speedDelta);
+            info.wheel.adjustSpeed(speedDelta, mMaxSpeed);
             info.joint.setLimits(angle, angle);
         }
     }
