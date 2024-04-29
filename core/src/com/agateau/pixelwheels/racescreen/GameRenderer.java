@@ -219,20 +219,7 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        switch (GamePlay.instance.cameraMode) {
-            case HeadingUpCamera:
-                mRenderer.setView(mCamera);
-                break;
-            default:
-                float width = mCamera.viewportWidth * mCamera.zoom;
-                float height = mCamera.viewportHeight * mCamera.zoom;
-                mRenderer.setView(
-                        mCamera.combined,
-                        mCamera.position.x - width / 2,
-                        mCamera.position.y - height / 2,
-                        width,
-                        height);
-        }
+        mRenderer.setView(mCamera);
     }
 
     private final Vector3 sTmp3 = new Vector3();
