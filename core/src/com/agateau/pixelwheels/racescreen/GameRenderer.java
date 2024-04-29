@@ -81,7 +81,13 @@ public class GameRenderer {
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
         } else {
-            mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
+            switch (GamePlay.instance.cameraMode) {
+                case HeadingUpCamera:
+                    mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
+                    break;
+                default:
+                    mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
+            }
         }
         mRenderer =
                 new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
@@ -213,7 +219,20 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        mRenderer.setView(mCamera);
+        switch (GamePlay.instance.cameraMode) {
+            case HeadingUpCamera:
+                mRenderer.setView(mCamera);
+                break;
+            default:
+                float width = mCamera.viewportWidth * mCamera.zoom;
+                float height = mCamera.viewportHeight * mCamera.zoom;
+                mRenderer.setView(
+                        mCamera.combined,
+                        mCamera.position.x - width / 2,
+                        mCamera.position.y - height / 2,
+                        width,
+                        height);
+        }
     }
 
     private final Vector3 sTmp3 = new Vector3();

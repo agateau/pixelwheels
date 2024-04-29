@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -77,13 +78,19 @@ abstract class CameraUpdater {
 
     void applyChanges() {
         // Apply changes
+        switch (GamePlay.instance.cameraMode) {
+            case HeadingUpCamera:
+                mCamera.up.set(
+                        (float) Math.cos(mNextCameraInfo.cameraUp),
+                        (float) Math.sin(mNextCameraInfo.cameraUp),
+                        0);
+                break;
+            default:
+                mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
+        }
         mCamera.viewportWidth = mNextCameraInfo.viewportWidth;
         mCamera.viewportHeight = mNextCameraInfo.viewportHeight;
         mCamera.position.set(mNextCameraInfo.position, 0);
-        mCamera.up.set(
-                (float) Math.cos(mNextCameraInfo.cameraUp),
-                (float) Math.sin(mNextCameraInfo.cameraUp),
-                0);
         mCamera.update();
 
         // Swap instances

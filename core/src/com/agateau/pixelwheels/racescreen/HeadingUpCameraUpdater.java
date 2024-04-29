@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2024 Compl Yue
  *
  * This file is part of Pixel Wheels.
  *
@@ -24,25 +24,22 @@ import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Racer;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 
 /** A CameraUpdater tracking a racer */
-class RacerCameraUpdater extends CameraUpdater {
+class HeadingUpCameraUpdater extends CameraUpdater {
     private static final float MAX_ZOOM_SPEED = 75f;
     private static final float MIN_ZOOM = 0.6f;
     private static final float MAX_ZOOM = 2.1f;
 
-    private final Vector2 sDelta = new Vector2();
     private final Racer mRacer;
 
-    RacerCameraUpdater(GameWorld world, Racer racer) {
+    HeadingUpCameraUpdater(GameWorld world, Racer racer) {
         super(world);
         mRacer = racer;
     }
 
     @Override
     public void update(float delta) {
-        boolean immediate = delta < 0;
         Vehicle vehicle = mRacer.getVehicle();
 
         // Compute viewport size
@@ -54,16 +51,43 @@ class RacerCameraUpdater extends CameraUpdater {
         mNextCameraInfo.viewportWidth = viewportWidth;
         mNextCameraInfo.viewportHeight = viewportHeight;
 
+        if (vehicle.isFlying() || vehicle.isFalling()) {
+            // keep camera from rotating
+            mNextCameraInfo.cameraUp = mCameraInfo.cameraUp;
+        } else {
+            // reflect how the vehicle is turning
+            final float steerMag = vehicle.isDrifting() ? 0.65f : 0.32f;
+            final float bodyAngle = vehicle.getBody().getAngle();
+            for (Vehicle.WheelInfo wi : vehicle.getWheelInfos()) {
+                final float wheelAngle = wi.joint.getLowerLimit();
+                final float targetUp = bodyAngle - steerMag * wheelAngle;
+                mNextCameraInfo.cameraUp =
+                        mCameraInfo.cameraUp
+                                +
+                                // smooth the camera turning
+                                0.12f * (targetUp - mCameraInfo.cameraUp);
+                break; // use only the 1st wheel,
+                // assuming all wheels have the same angle
+            }
+        }
+
         // Compute pos
         float advance = Math.min(viewportWidth, viewportHeight) * Constants.CAMERA_ADVANCE_PERCENT;
-        sDelta.set(advance, 0)
-                .rotate(mRacer.getCameraAngle())
-                .add(vehicle.getPosition())
-                .sub(mCameraInfo.position);
-        mNextCameraInfo.position.set(mCameraInfo.position).add(sDelta);
-        if (!immediate) {
-            sDelta.limit(MAX_CAMERA_DELTA * delta);
+        if (vehicle.isBraking()) {
+            advance *= 0.8; // make feel the braking
+            // TODO maybe more experiments about this
+            // * shorten the distance gives the feel the camera dragged the car
+            // * lengthen the distance gives the feel that the car dragged the camera
         }
+        // smooth the camera moving
+        mNextCameraInfo.cameraAhead =
+                mCameraInfo.cameraAhead + 0.12f * (advance - mCameraInfo.cameraAhead);
+        // calculate & set next camera position
+        mNextCameraInfo
+                .position
+                .set(mNextCameraInfo.cameraAhead, 0)
+                .rotateRad(mNextCameraInfo.cameraUp)
+                .add(vehicle.getPosition());
         limitZoomChange(delta);
         applyChanges();
     }
