@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.bonus.Bonus;
@@ -202,10 +203,17 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
                                 + p1.getLapDistance()
                                 - p2.getLapDistance();
                 assert ddiff >= 0;
-                racer.getVehicle()
-                        .setSpeedLimiter(
-                                racerBehind.getVehicle().getSpeedLimiter()
-                                        * Math.max(0.1f, 1.0f - ddiff / distancePerLap));
+                if (ddiff > distancePerLap) {
+                    // more than one lap, spare the aheader for speed limit
+                    racer.getVehicle().setSpeedLimiter(1);
+                } else {
+                    racer.getVehicle()
+                            .setSpeedLimiter(
+                                    racerBehind.getVehicle().getSpeedLimiter()
+                                            * Math.max(
+                                                    GamePlay.instance.extremeSpeedLimiter,
+                                                    1.0f - ddiff / distancePerLap));
+                }
             }
             racerBehind = racer;
         }

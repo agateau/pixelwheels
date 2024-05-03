@@ -52,6 +52,8 @@ public class GamePlay {
     // speed
     public float aiSpeedLimiter = 0.8f;
 
+    public float extremeSpeedLimiter = 0.5f;
+
     public boolean oneLapOnly = false;
     public boolean freeCamera = false;
 
