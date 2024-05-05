@@ -843,7 +843,7 @@ msgstr "音效："
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:273
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Video"
 msgstr "画面"
 
@@ -851,7 +851,13 @@ msgstr "画面"
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:313
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
+msgid ""
+"Rotate camera\n"
+"(experimental):"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
 msgid "CONFIGURE"
 msgstr "配置"
 

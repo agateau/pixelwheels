@@ -67,7 +67,12 @@ public class GameRenderer {
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(
+            GameWorld world,
+            Racer racer,
+            Batch batch,
+            boolean headingUp,
+            PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -80,6 +85,8 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
+        } else if (headingUp) {
+            mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
         } else {
             mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }
@@ -213,14 +220,7 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        float width = mCamera.viewportWidth * mCamera.zoom;
-        float height = mCamera.viewportHeight * mCamera.zoom;
-        mRenderer.setView(
-                mCamera.combined,
-                mCamera.position.x - width / 2,
-                mCamera.position.y - height / 2,
-                width,
-                height);
+        mRenderer.setView(mCamera);
     }
 
     private final Vector3 sTmp3 = new Vector3();

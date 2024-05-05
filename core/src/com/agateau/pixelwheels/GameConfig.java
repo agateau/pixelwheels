@@ -38,6 +38,8 @@ public class GameConfig {
     }
 
     public boolean fullscreen = false;
+    public boolean headingUpCamera = false;
+
     public boolean playSoundFx = true;
     public boolean playMusic = true;
     public String languageId = "";
@@ -65,6 +67,7 @@ public class GameConfig {
 
     private void load() {
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
+        headingUpCamera = mPreferences.getBoolean(PrefConstants.HEADING_UP_CAMERA, false);
         playSoundFx = mPreferences.getBoolean(PrefConstants.SOUND_FX, true);
         playMusic = mPreferences.getBoolean(PrefConstants.MUSIC, true);
 
@@ -95,6 +98,7 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
+        mPreferences.putBoolean(PrefConstants.HEADING_UP_CAMERA, headingUpCamera);
         mPreferences.putBoolean(PrefConstants.SOUND_FX, playSoundFx);
         mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
 

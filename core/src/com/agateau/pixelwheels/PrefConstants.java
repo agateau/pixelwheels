@@ -30,4 +30,5 @@ public class PrefConstants {
     public static final String FULLSCREEN = "fullscreen";
     public static final String GAME_MODE = "gameMode";
     public static final String LANGUAGE_ID = "languageId";
+    public static final String HEADING_UP_CAMERA = "headingUpCamera";
 }
