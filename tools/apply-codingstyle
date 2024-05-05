@@ -31,12 +31,14 @@ Apply coding style.
 Options:
   -h, --help          display this usage message and exit
   -c, --check         check if coding style is OK, do not apply it
+  -d, --download-only download the formatter and stop
 EOF
 
     exit 1
 }
 
 check=0
+download_only=0
 files=""
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -45,6 +47,9 @@ while [ $# -gt 0 ] ; do
         ;;
     -c|--check)
         check=1
+        ;;
+    -d|--download-only)
+        download_only=1
         ;;
     -*)
         usage "Unknown option '$1'"
@@ -58,7 +63,13 @@ done
 
 download_formatter
 
+if [ $download_only -eq 1 ] ; then
+    exit 0
+fi
+
 cd $(dirname $0)/..
+
+echo "pid=$$ files=$files"
 
 if [ -z "$files" ] ; then
     create_file_list /tmp/files.lst
