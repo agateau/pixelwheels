@@ -67,7 +67,12 @@ public class GameRenderer {
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(
+            GameWorld world,
+            Racer racer,
+            Batch batch,
+            boolean headingUp,
+            PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -80,7 +85,7 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
-        } else if (GamePlay.instance.headingUpCamera) {
+        } else if (headingUp) {
             mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
         } else {
             mCameraUpdater = new RacerCameraUpdater(mWorld, racer);

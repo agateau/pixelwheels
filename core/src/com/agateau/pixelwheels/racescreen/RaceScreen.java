@@ -107,7 +107,12 @@ public class RaceScreen extends ScreenAdapter {
         createCountDownHudController();
         for (Racer racer : mGameWorld.getPlayerRacers()) {
             GameRenderer renderer =
-                    new GameRenderer(mGameWorld, racer, batch, mPerformanceCounters);
+                    new GameRenderer(
+                            mGameWorld,
+                            racer,
+                            batch,
+                            mGame.getConfig().headingUpCamera,
+                            mPerformanceCounters);
             mGameRenderers.add(renderer);
             mRacerHudControllers.add(createRacerHudController(mGameWorld.getTrack(), racer));
         }
