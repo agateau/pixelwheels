@@ -24,6 +24,7 @@ jobs:
           pip install -r requirements.txt
           sudo apt-get update
           sudo apt-get install -y gettext libxml2-utils
+          tools/apply-codingstyle --download-only
 
       - name: Run pre-commit
         run: pre-commit run --all
