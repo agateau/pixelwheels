@@ -39,7 +39,7 @@ abstract class CameraUpdater {
         float viewportWidth;
         float viewportHeight;
         Vector2 position = new Vector2();
-        float cameraUp = 0;
+        float cameraUp = MathUtils.HALF_PI;
         float cameraAhead = 0;
         float zoom = 1;
 
