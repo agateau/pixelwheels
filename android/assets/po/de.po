@@ -837,7 +837,7 @@ msgstr "Effekte:"
 msgid "Music:"
 msgstr "Musik:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:273
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Video"
 msgstr "Anzeige"
 
@@ -845,7 +845,13 @@ msgstr "Anzeige"
 msgid "Fullscreen:"
 msgstr "Vollbildmodus:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:313
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
+msgid ""
+"Rotate camera\n"
+"(experimental):"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
 msgid "CONFIGURE"
 msgstr "KONFIGURIEREN"
 

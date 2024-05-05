@@ -269,8 +269,8 @@ public class ConfigScreen extends PwStageScreen {
                         });
         group.addItemWithLabel(tr("Music:"), musicSwitch);
 
+        group.addTitleLabel(tr("Video"));
         if (PlatformUtils.isDesktop()) {
-            group.addTitleLabel(tr("Video"));
             final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(mMenu);
             fullscreenSwitch.setChecked(gameConfig.fullscreen);
             fullscreenSwitch
@@ -286,6 +286,20 @@ public class ConfigScreen extends PwStageScreen {
                             });
             group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
         }
+
+        final SwitchMenuItem headingUpCameraSwitch = new SwitchMenuItem(mMenu);
+        headingUpCameraSwitch.setChecked(gameConfig.headingUpCamera);
+        headingUpCameraSwitch
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.headingUpCamera = headingUpCameraSwitch.isChecked();
+                                gameConfig.flush();
+                            }
+                        });
+        group.addItemWithLabel(tr("Rotate camera\n(experimental):"), headingUpCameraSwitch);
     }
 
     private String getLanguageText() {
