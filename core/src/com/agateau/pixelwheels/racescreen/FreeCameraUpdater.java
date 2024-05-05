@@ -73,6 +73,8 @@ class FreeCameraUpdater extends CameraUpdater {
         // Compute pos
         mNextCameraInfo.position.x = mCameraInfo.position.x + dx;
         mNextCameraInfo.position.y = mCameraInfo.position.y + dy;
+
+        mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
         applyChanges();
     }
 
