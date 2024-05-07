@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.Array;
 /** Handle input using buttons on the sides */
 public class SidesTouchInputHandler implements GameInputHandler {
     private final GameInput mInput = new GameInput();
+    private final DigitalSteering mSteer = new DigitalSteering();
     private HudButton mLeftButton, mRightButton, mBonusButton;
 
     public static class Factory implements GameInputHandlerFactory {
@@ -61,11 +62,7 @@ public class SidesTouchInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = isBraking();
         mInput.accelerating = !mInput.braking;
-        if (!mInput.braking) {
-            mInput.direction =
-                    TouchInputUtils.applyDirectionInput(
-                            mLeftButton, mRightButton, mInput.direction);
-        }
+        mInput.direction = mSteer.steer(mLeftButton.isPressed(), mRightButton.isPressed());
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }
