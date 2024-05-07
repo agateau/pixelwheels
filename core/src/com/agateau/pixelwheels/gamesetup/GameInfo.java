@@ -70,6 +70,7 @@ public abstract class GameInfo {
                 gameInfo.mEntrants.add(entrant);
             }
             gameInfo.mEntrants.addAll(mPlayers);
+            gameInfo.mEntrants.shuffle();
         }
 
         private void storePlayersInConfig() {
