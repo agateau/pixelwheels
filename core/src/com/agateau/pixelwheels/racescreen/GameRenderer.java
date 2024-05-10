@@ -45,6 +45,7 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 
 /** Responsible for rendering the game world */
 public class GameRenderer {
+    private StarField mStarField;
     private final Track mTrack;
     private final OrthogonalTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
@@ -77,6 +78,7 @@ public class GameRenderer {
         mWorld = world;
 
         mTrack = mWorld.getTrack();
+        mStarField = new StarField(mTrack.getMapWidth(), mTrack.getMapHeight(), 0.05f);
 
         mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
         mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
@@ -145,6 +147,8 @@ public class GameRenderer {
         updateMapRendererCamera();
         Rectangle viewBounds = mRenderer.getViewBounds();
         mSetupPerformanceCounter.stop();
+
+        mStarField.updateAndRender(mShapeRenderer, mCamera, delta);
 
         mTilePerformanceCounter.start();
         // Reset the color in case it was modified by the previous frame
