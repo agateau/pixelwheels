@@ -8,15 +8,15 @@ import com.badlogic.gdx.math.Vector3;
 public class StarField {
     private Star[] mStars;
 
-    public StarField(float mapWidth, float mapHeight, float midSize) {
-        mStars = new Star[5000];
+    public StarField(float mapWidth, float mapHeight, float midSize, int n) {
+        mStars = new Star[n];
         for (int i = 0; i < mStars.length; i++) {
             mStars[i] =
                     new Star(
                             MathUtils.random(-mapWidth, mapWidth),
                             MathUtils.random(-mapHeight, mapHeight),
                             MathUtils.random(midSize * 0.5f, midSize * 2),
-                            MathUtils.random());
+                            MathUtils.random(0, 1.5f));
         }
     }
 
@@ -47,23 +47,25 @@ public class StarField {
         }
 
         public void draw(ShapeRenderer renderer, Vector3 c) {
-            final float brightness = 0.5f + 0.5f * MathUtils.sin(phase * MathUtils.PI);
+            final float brightness = 0.55f + 0.45f * MathUtils.sin(phase * MathUtils.PI);
             renderer.setColor(brightness, brightness, brightness, 1);
 
             final float x = this.x + c.x;
             final float y = this.y + c.y;
 
+            final float halfb = size / 2;
+
             // Top point
-            renderer.triangle(x, y + size, x - size / 3, y, x + size / 3, y);
+            renderer.triangle(x, y + size, x - halfb, y, x + halfb, y);
 
             // Right point
-            renderer.triangle(x + size, y, x, y + size / 3, x, y - size / 3);
+            renderer.triangle(x + size, y, x, y + halfb, x, y - halfb);
 
             // Bottom point
-            renderer.triangle(x, y - size, x - size / 3, y, x + size / 3, y);
+            renderer.triangle(x, y - size, x - halfb, y, x + halfb, y);
 
             // Left point
-            renderer.triangle(x - size, y, x, y + size / 3, x, y - size / 3);
+            renderer.triangle(x - size, y, x, y + halfb, x, y - halfb);
         }
     }
 }

@@ -78,7 +78,7 @@ public class GameRenderer {
         mWorld = world;
 
         mTrack = mWorld.getTrack();
-        mStarField = new StarField(mTrack.getMapWidth(), mTrack.getMapHeight(), 0.05f);
+        mStarField = new StarField(mTrack.getMapWidth(), mTrack.getMapHeight(), 0.05f, 5000);
 
         mExtraBackgroundLayerIndexes = mTrack.getExtraBackgroundLayerIndexes();
         mForegroundLayerIndexes = mTrack.getForegroundLayerIndexes();
