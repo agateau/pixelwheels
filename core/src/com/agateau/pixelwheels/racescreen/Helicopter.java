@@ -179,6 +179,9 @@ public class Helicopter extends GameObjectAdapter implements Pool.Poolable, Disp
 
     @Override
     public void dispose() {
+        if (mSoundPlayer != null) {
+            mSoundPlayer.stop();
+        }
         sPool.free(this);
     }
 
