@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-08-24 19:55+0200\n"
+"PO-Revision-Date: 2024-05-21 19:55+0200\n"
 "Last-Translator: victorhck <victorhck@mailbox.org>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -77,7 +77,7 @@ msgstr "Tiny en el mar"
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "La isla"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -140,7 +140,7 @@ msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr "Campeonato Vida en el Campo:"
+msgstr "Campeonato Vida en el campo:"
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
@@ -233,7 +233,7 @@ msgstr "Español:"
 #: android/assets/screens/credits.gdxui:69
 #, fuzzy
 msgid "Victor Hck"
-msgstr "Victoria:"
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -333,7 +333,7 @@ msgstr "Edición de vídeo"
 
 #: android/assets/screens/credits.gdxui:109
 msgid "Clara Gâteau"
-msgstr "Clara Gâteau, Victorhck"
+msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Special Thanks"
@@ -857,6 +857,8 @@ msgid ""
 "Rotate camera\n"
 "(experimental):"
 msgstr ""
+"Rotar la cámara\n"
+"(experimental):"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
 msgid "CONFIGURE"
@@ -992,27 +994,27 @@ msgstr ""
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Police"
-#~ msgstr "Polaco :"
+#~ msgstr "Policía"
 
 #, fuzzy
 #~ msgctxt "vehicle"
 #~ msgid "Red"
-#~ msgstr "Listo !"
+#~ msgstr "Rojo"
 
 #, fuzzy
 #~ msgid "Down | Brake:"
-#~ msgstr "Frenar :"
+#~ msgstr "Abajo | Frenar:"
 
 #, fuzzy
 #~ msgid "Left | Steer left:"
-#~ msgstr "Girar a la izquierda :"
+#~ msgstr "Izquierda | Girar a la izquierda:"
 
 #, fuzzy
 #~ msgid "Right | Steer right:"
-#~ msgstr "Girar a la derecha :"
+#~ msgstr "Derecha | Girar a la derecha:"
 
 #~ msgid "OFF"
-#~ msgstr "No"
+#~ msgstr "OFF"
 
 #~ msgid "ON"
-#~ msgstr "Sí"
+#~ msgstr "ON"
