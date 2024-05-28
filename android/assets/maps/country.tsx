@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.1" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="184" columns="8">
+<tileset version="1.10" tiledversion="1.10.2" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="184" columns="8">
  <image source="country.png" width="544" height="1564"/>
- <terraintypes>
-  <terrain name="Tree" tile="0"/>
-  <terrain name="Field1" tile="0"/>
-  <terrain name="Field2" tile="0"/>
- </terraintypes>
  <tile id="5">
   <properties>
    <property name="start" value="true"/>
@@ -165,10 +160,10 @@
  <tile id="35">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="36" terrain=",,,0">
+ <tile id="36">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="37" terrain=",,0,">
+ <tile id="37">
   <objectgroup draworder="index">
    <object id="0" x="24.1818" y="0" width="15.2727" height="25.2727"/>
    <object id="0" x="63.8182" y="37.4545">
@@ -184,20 +179,16 @@
    <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
   </objectgroup>
  </tile>
- <tile id="44" terrain=",0,,"/>
- <tile id="45" terrain="0,,,"/>
- <tile id="52" terrain="0,0,0,0"/>
- <tile id="53" terrain="0,0,0,0"/>
  <tile id="54">
   <objectgroup draworder="index"/>
  </tile>
  <tile id="55">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="60" terrain="0,0,0,0">
+ <tile id="60">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="61" terrain="0,0,0,0">
+ <tile id="61">
   <objectgroup draworder="index"/>
  </tile>
  <tile id="66">
@@ -206,24 +197,6 @@
  <tile id="67">
   <objectgroup draworder="index"/>
  </tile>
- <tile id="104" terrain=",,,1"/>
- <tile id="105" terrain=",,1,1"/>
- <tile id="106" terrain=",,1,"/>
- <tile id="107" terrain=",,,2"/>
- <tile id="108" terrain=",,2,2"/>
- <tile id="109" terrain=",,2,"/>
- <tile id="112" terrain=",1,,1"/>
- <tile id="113" terrain="1,1,1,1"/>
- <tile id="114" terrain="1,,1,"/>
- <tile id="115" terrain=",2,,2"/>
- <tile id="116" terrain="2,2,2,2"/>
- <tile id="117" terrain="2,,2,"/>
- <tile id="120" terrain=",1,,"/>
- <tile id="121" terrain="1,1,,"/>
- <tile id="122" terrain="1,,,"/>
- <tile id="123" terrain=",2,,"/>
- <tile id="124" terrain="2,2,,"/>
- <tile id="125" terrain="2,,,"/>
  <tile id="128">
   <properties>
    <property name="material" value="WATER"/>
@@ -237,6 +210,12 @@
  <tile id="130">
   <properties>
    <property name="material" value="WATER"/>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.55,
+  &quot;y&quot;: 0.52,
+  &quot;radius&quot;: 0.12
+}</property>
   </properties>
  </tile>
  <tile id="131">
@@ -256,7 +235,7 @@
  </tile>
  <tile id="138">
   <properties>
-   <property name="material" value="DEEP_WATER"/>
+   <property name="material" value="WATER"/>
   </properties>
  </tile>
  <tile id="139">
@@ -291,12 +270,12 @@
  </tile>
  <tile id="153">
   <properties>
-   <property name="material" value="DEEP_WATER"/>
+   <property name="material" value="WATER"/>
   </properties>
  </tile>
  <tile id="154">
   <properties>
-   <property name="material" value="DEEP_WATER"/>
+   <property name="material" value="WATER"/>
   </properties>
  </tile>
  <tile id="155">
@@ -304,4 +283,37 @@
    <property name="material" value="WATER"/>
   </properties>
  </tile>
+ <wangsets>
+  <wangset name="Terrains" type="corner" tile="-1">
+   <wangcolor name="Tree" color="#ff0000" tile="0" probability="1"/>
+   <wangcolor name="Field1" color="#00ff00" tile="0" probability="1"/>
+   <wangcolor name="Field2" color="#0000ff" tile="0" probability="1"/>
+   <wangtile tileid="36" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="37" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="44" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="45" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="52" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="53" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="60" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="61" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="104" wangid="0,0,0,2,0,0,0,0"/>
+   <wangtile tileid="105" wangid="0,0,0,2,0,2,0,0"/>
+   <wangtile tileid="106" wangid="0,0,0,0,0,2,0,0"/>
+   <wangtile tileid="107" wangid="0,0,0,3,0,0,0,0"/>
+   <wangtile tileid="108" wangid="0,0,0,3,0,3,0,0"/>
+   <wangtile tileid="109" wangid="0,0,0,0,0,3,0,0"/>
+   <wangtile tileid="112" wangid="0,2,0,2,0,0,0,0"/>
+   <wangtile tileid="113" wangid="0,2,0,2,0,2,0,2"/>
+   <wangtile tileid="114" wangid="0,0,0,0,0,2,0,2"/>
+   <wangtile tileid="115" wangid="0,3,0,3,0,0,0,0"/>
+   <wangtile tileid="116" wangid="0,3,0,3,0,3,0,3"/>
+   <wangtile tileid="117" wangid="0,0,0,0,0,3,0,3"/>
+   <wangtile tileid="120" wangid="0,2,0,0,0,0,0,0"/>
+   <wangtile tileid="121" wangid="0,2,0,0,0,0,0,2"/>
+   <wangtile tileid="122" wangid="0,0,0,0,0,0,0,2"/>
+   <wangtile tileid="123" wangid="0,3,0,0,0,0,0,0"/>
+   <wangtile tileid="124" wangid="0,3,0,0,0,0,0,3"/>
+   <wangtile tileid="125" wangid="0,0,0,0,0,0,0,3"/>
+  </wangset>
+ </wangsets>
 </tileset>
