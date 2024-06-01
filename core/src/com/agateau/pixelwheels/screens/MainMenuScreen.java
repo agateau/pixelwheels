@@ -102,6 +102,14 @@ public class MainMenuScreen extends PwStageScreen {
                                 mGame.pushScreen(new ConfigScreen(mGame, ConfigScreen.Origin.MENU));
                             }
                         });
+        builder.getActor("supportButton")
+                .addListener(
+                        new MenuItemListener() {
+                            @Override
+                            public void triggered() {
+                                mGame.pushScreen(new SupportScreen(mGame));
+                            }
+                        });
         if (desktop) {
             Menu menu = builder.getActor("menu");
             menu.addBackButton()

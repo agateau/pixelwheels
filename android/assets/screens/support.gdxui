@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gdxui>
+    <AnchorGroup id="root" gridSize="20">
+        <Label id="titleLabel" style="title"
+            topCenter="root.topCenter 0 -2">Support Pixel Wheels</Label>
+
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3g"
+            width="600px"/>
+    </AnchorGroup>
+</gdxui>
