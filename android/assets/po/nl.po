@@ -471,10 +471,6 @@ msgstr "KAMPIOENSCHAP"
 msgid "SETTINGS"
 msgstr "INSTELLINGEN"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "AFSLUITEN"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Kies je voertuigen"
@@ -964,6 +960,9 @@ msgstr "Heb je een bug gevonden? Met deze knop kun je het logboek opsporen."
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOGBOEKMAP OPENEN"
+
+#~ msgid "QUIT"
+#~ msgstr "AFSLUITEN"
 
 #~ msgid "Trigger:"
 #~ msgstr "Trigger:"

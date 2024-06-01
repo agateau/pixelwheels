@@ -472,10 +472,6 @@ msgstr "ĈAMPIONADO"
 msgid "SETTINGS"
 msgstr "AGORDOJ"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "ELIRI"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Elektu Viajn Veturilojn"
@@ -965,6 +961,9 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "MALFERMI DOSIERUJON\n"
 "DE PROTOKOLA DOSIERO"
+
+#~ msgid "QUIT"
+#~ msgstr "ELIRI"
 
 #~ msgid "Trigger:"
 #~ msgstr "Ekagilo:"

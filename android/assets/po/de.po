@@ -467,10 +467,6 @@ msgstr "MEISTERSCHAFT"
 msgid "SETTINGS"
 msgstr "EINSTELLUNGEN"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "BEENDEN"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Wähle dein Fahrzeug"
@@ -959,3 +955,6 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "PROTOKOLLORDNER"
+
+#~ msgid "QUIT"
+#~ msgstr "BEENDEN"

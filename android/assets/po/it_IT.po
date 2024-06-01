@@ -471,10 +471,6 @@ msgstr "CAMPIONATO"
 msgid "SETTINGS"
 msgstr "IMPOSTAZIONI"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "ESCI"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Scegli un veicolo"
@@ -969,6 +965,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "CARTELLA DEI LOG"
+
+#~ msgid "QUIT"
+#~ msgstr "ESCI"
 
 #~ msgid "Trigger:"
 #~ msgstr "Attiva:"

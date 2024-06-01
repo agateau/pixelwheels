@@ -474,10 +474,6 @@ msgstr "锦标赛"
 msgid "SETTINGS"
 msgstr "设置"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "退出"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "选择你的赛车"
@@ -963,6 +959,9 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#~ msgid "QUIT"
+#~ msgstr "退出"
 
 #~ msgid "Trigger:"
 #~ msgstr "触发："

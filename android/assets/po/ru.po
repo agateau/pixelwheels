@@ -471,10 +471,6 @@ msgstr "ЧЕМПИОНАТ"
 msgid "SETTINGS"
 msgstr "НАСТРОЙКИ"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "ВЫЙТИ"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Выберите ваши автомобили"
@@ -965,6 +961,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "НАЙТИ ФАЙЛ ЛОГА"
+
+#~ msgid "QUIT"
+#~ msgstr "ВЫЙТИ"
 
 #~ msgid "Trigger:"
 #~ msgstr "Триггер:"

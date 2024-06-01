@@ -469,10 +469,6 @@ msgstr "TXAPELKETA"
 msgid "SETTINGS"
 msgstr "EZARPENAK"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "IRTEN"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Aukeratu zure ibiligailuak"
@@ -960,6 +956,9 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOG-EN KARPETA IREKI"
+
+#~ msgid "QUIT"
+#~ msgstr "IRTEN"
 
 #~ msgid "Trigger:"
 #~ msgstr "Aktibatu:"

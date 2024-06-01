@@ -472,10 +472,6 @@ msgstr "BAJNOKSÁG"
 msgid "SETTINGS"
 msgstr "BEÁLLÍTÁSOK"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "KILÉPÉS"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Járművek kiválasztása"
@@ -965,3 +961,6 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "NAPLÓFÁJLMAPPA\n"
 "MEGNYITÁSA"
+
+#~ msgid "QUIT"
+#~ msgstr "KILÉPÉS"
