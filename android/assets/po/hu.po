@@ -472,6 +472,10 @@ msgstr "BAJNOKSÁG"
 msgid "SETTINGS"
 msgstr "BEÁLLÍTÁSOK"
 
+#: android/assets/screens/mainmenu.gdxui:34
+msgid "SUPPORT"
+msgstr ""
+
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Járművek kiválasztása"
@@ -535,6 +539,11 @@ msgstr "Legjobb versenyidő"
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
 msgstr "Jármű kiválasztása"
+
+#: android/assets/screens/support.gdxui:5
+#, fuzzy
+msgid "Support Pixel Wheels"
+msgstr "Pixel Wheels"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -745,44 +754,24 @@ msgstr ""
 "A bajnokság\n"
 "befejeződött!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:112
 msgid "About"
 msgstr "Névjegy"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:115
 msgid "CREDITS"
 msgstr "KÉSZÍTŐK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr "A Pixel Wheels ingyenes, de számos módon támogathatod a fejlesztését."
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
-msgid "VISIT SUPPORT PAGE"
-msgstr ""
-"TÁMOGATÁSI OLDAL\n"
-"MEGNYITÁSA"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
-msgid "Learn more about Pixel Wheels"
-msgstr "Tudj meg többet a Pixel Wheelsről"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
-msgid "VISIT WEB SITE"
-msgstr "WEBHELY MEGLÁTOGATÁSA"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:129
 msgid "Under the hood"
 msgstr "Motorháztető alatt"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -790,66 +779,66 @@ msgstr ""
 "Ezek a beállítások leginkább a Pixel Wheels fejlesztéséhez érdekesek, de "
 "bátran próbáld ki mindet!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:152
 msgid "DEV. OPTIONS"
 msgstr "FEJLESZTŐI BEÁLLÍTÁSOK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "Controls"
 msgstr "Vezérlők"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
 #, java-printf-format
 msgid "P%d"
 msgstr "J%d"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:173
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "%d. játékos:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:177
 msgid "Controls:"
 msgstr "Vezérlők:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 msgid "General"
 msgstr "Általános"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:236
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "Language:"
 msgstr "Nyelv:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:198
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "Nem lehet megváltoztatni verseny közben"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:201
 msgid "Audio"
 msgstr "Hang"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 msgid "Sound FX:"
 msgstr "Hanghatások:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:228
 msgid "Music:"
 msgstr "Zene:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Video"
 msgstr "Videó"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:287
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:245
 msgid "Fullscreen:"
 msgstr "Teljes képernyő:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:260
 msgid "Rotate camera:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:285
 msgid "CONFIGURE"
 msgstr "BEÁLLÍTÁS"
 
@@ -882,6 +871,26 @@ msgstr "[Zárolva]"
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "CPU"
+
+#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
+msgid ""
+"Pixel Wheels is free, but you can support its\n"
+"development in various ways."
+msgstr "A Pixel Wheels ingyenes, de számos módon támogathatod a fejlesztését."
+
+#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
+msgid "VISIT SUPPORT PAGE"
+msgstr ""
+"TÁMOGATÁSI OLDAL\n"
+"MEGNYITÁSA"
+
+#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
+msgid "Learn more about Pixel Wheels"
+msgstr "Tudj meg többet a Pixel Wheelsről"
+
+#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
+msgid "VISIT WEB SITE"
+msgstr "WEBHELY MEGLÁTOGATÁSA"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
