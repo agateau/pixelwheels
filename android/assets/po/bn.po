@@ -478,10 +478,6 @@ msgstr "প্রতিযোগিতা"
 msgid "SETTINGS"
 msgstr "পছন্দসমূহ"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "প্রস্থান"
-
 #: android/assets/screens/multiplayer.gdxui:10
 #, fuzzy
 msgid "Select Your Vehicles"
@@ -983,6 +979,9 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#~ msgid "QUIT"
+#~ msgstr "প্রস্থান"
 
 #~ msgid "Trigger:"
 #~ msgstr "ঘোড়া:"

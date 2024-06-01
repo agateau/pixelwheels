@@ -22,12 +22,15 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /** Main menu, shown at startup */
 public class MainMenuScreen extends PwStageScreen {
@@ -100,11 +103,12 @@ public class MainMenuScreen extends PwStageScreen {
                             }
                         });
         if (desktop) {
-            builder.getActor("quitButton")
+            Menu menu = builder.getActor("menu");
+            menu.addBackButton()
                     .addListener(
-                            new MenuItemListener() {
+                            new ClickListener() {
                                 @Override
-                                public void triggered() {
+                                public void clicked(InputEvent event, float x, float y) {
                                     Gdx.app.exit();
                                 }
                             });

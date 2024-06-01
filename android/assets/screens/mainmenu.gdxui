@@ -31,9 +31,6 @@
                     <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
                 </Else>
                 <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
-                <Ifdef var="desktop">
-                    <ButtonMenuItem id="quitButton" text="QUIT"/>
-                </Ifdef>
             </Items>
         </Menu>
 

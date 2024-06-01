@@ -468,10 +468,6 @@ msgstr ""
 msgid "SETTINGS"
 msgstr ""
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr ""
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr ""

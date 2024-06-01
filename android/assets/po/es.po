@@ -473,10 +473,6 @@ msgstr "CAMPEONATO"
 msgid "SETTINGS"
 msgstr "AJUSTES"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "ABANDONAR"
-
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "Selecciona tus vehículos"
@@ -970,6 +966,9 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "ABRIR CARPETA DEL\n"
 "ARCHIVO DE REGISTRO"
+
+#~ msgid "QUIT"
+#~ msgstr "ABANDONAR"
 
 #~ msgid "Trigger:"
 #~ msgstr "Activar:"
