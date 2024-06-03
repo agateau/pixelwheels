@@ -299,7 +299,7 @@ public class ConfigScreen extends PwStageScreen {
                                 gameConfig.flush();
                             }
                         });
-        group.addItemWithLabel(tr("Rotate camera\n(experimental):"), headingUpCameraSwitch);
+        group.addItemWithLabel(tr("Rotate camera:"), headingUpCameraSwitch);
     }
 
     private String getLanguageText() {
