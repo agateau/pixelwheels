@@ -865,9 +865,7 @@ msgid "Fullscreen:"
 msgstr "বড়পর্দা"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
-msgid ""
-"Rotate camera\n"
-"(experimental):"
+msgid "Rotate camera:"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327

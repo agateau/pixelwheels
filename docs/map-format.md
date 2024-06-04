@@ -145,6 +145,12 @@ No attributes, the whole tile is filled.
 
 String. Defaults to `false`. Set to `true` for the tile representing the start position.
 
+## Map properties
+
+### `paddingLeft`, `paddingTop`, `paddingRight`, `paddingBottomn`
+
+Int. Defaults to 1. Indicate how many row or columns to repeat to fill empty areas around the map.
+
 ## Internal tools
 
 ### Track editor

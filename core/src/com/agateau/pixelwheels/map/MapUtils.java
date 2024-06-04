@@ -31,7 +31,15 @@ public class MapUtils {
         if (value == null) {
             return defaultValue;
         }
-        return Float.valueOf(value.toString());
+        return Float.parseFloat(value.toString());
+    }
+
+    public static int getIntProperty(MapProperties properties, String key, int defaultValue) {
+        Object value = properties.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        return Integer.parseInt(value.toString());
     }
 
     public static boolean getBooleanProperty(

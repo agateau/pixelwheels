@@ -35,7 +35,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -46,7 +45,7 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 /** Responsible for rendering the game world */
 public class GameRenderer {
     private final Track mTrack;
-    private final OrthogonalTiledMapRenderer mRenderer;
+    private final PwTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
     private final Batch mBatch;
     private final OrthographicCamera mCamera;
@@ -90,8 +89,7 @@ public class GameRenderer {
         } else {
             mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }
-        mRenderer =
-                new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
+        mRenderer = new PwTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mSetupPerformanceCounter = counters.add("- setup");
         mTilePerformanceCounter = counters.add("- tiles");
