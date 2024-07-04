@@ -143,7 +143,7 @@ public class Menu extends WidgetGroup implements Disableable {
         mLabelColumnWidth = labelColumnWidth;
     }
 
-    public MenuItem addButton(String text) {
+    public ButtonMenuItem addButton(String text) {
         return mGroup.addButton(text);
     }
 
