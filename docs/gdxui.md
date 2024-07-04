@@ -146,6 +146,8 @@ Must contains a child element called Items. Items must contain one of:
     - parentWidthRatio (float, optional): Ratio of the button vs the menu. Default to 1.0.
 - LabelMenuItem
     - text (string, required): Text of the button.
+- ImageMenuItem
+    - name (string, required): Name of the image in the atlas.
 - SpacerMenuItem
     - height (dimension, optional)
 

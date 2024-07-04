@@ -29,6 +29,7 @@ import com.agateau.ui.anchor.PositionRule;
 import com.agateau.ui.animscript.AnimScript;
 import com.agateau.ui.animscript.AnimScriptLoader;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.ImageMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuScrollPane;
@@ -56,6 +57,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -305,6 +307,14 @@ public class UiBuilder {
                 (menu, element) -> {
                     String text = tr(element.getAttribute("text"));
                     return menu.addLabel(text);
+                });
+        mMenuItemFactories.put(
+                "ImageMenuItem",
+                (menu, element) -> {
+                    String name = element.getAttribute("name");
+                    Drawable drawable = mSkin.getDrawable(name);
+                    ImageMenuItem item = new ImageMenuItem(drawable);
+                    return menu.addItem(item);
                 });
         mMenuItemFactories.put(
                 "SpacerMenuItem",
