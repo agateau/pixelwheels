@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-07-09 18:00\n"
+"PO-Revision-Date: 2024-07-05 00:21+0200\n"
 "Last-Translator: Un Galego Mais\n"
 "Language-Team: Galician <>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -26,7 +26,7 @@ msgstr "Vida no campo"
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr "¡Benvido!"
+msgstr "Benvido!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
@@ -307,7 +307,7 @@ msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr "Italiano"
+msgstr "Italiano:"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
@@ -315,7 +315,7 @@ msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr "Neerlandés"
+msgstr "Neerlandés:"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
@@ -338,13 +338,12 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:116
-#, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL, Marek Szumny"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
-msgstr "todolos informes de erros"
+msgstr "Todolos informes de erros"
 
 #: android/assets/screens/credits.gdxui:118
 msgid "All supporters on Patreon, Ko-fi and Paypal"
@@ -377,8 +376,8 @@ msgstr "Android Studio"
 #: android/assets/screens/debug.gdxui:12
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr ""
-"Modificáronse a configuración que afecta o xogo, as puntuacións non "
-"se gardarán"
+"Modificáronse a configuración que afecta o xogo, as puntuacións non se "
+"gardarán"
 
 #: android/assets/screens/finishedoverlay.gdxui:34
 #: android/assets/screens/pauseoverlay.gdxui:9
@@ -466,17 +465,15 @@ msgstr "Escoller modo de xogo"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
-msgstr "EScoller lingua"
+msgstr "Escoller lingua"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "Escoller xogadores"
+msgstr "Escoller Xogadores"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "UN XOGADOR"
+msgstr "2 XOGADORES"
 
 #: android/assets/screens/selectplayercount.gdxui:10
 #, fuzzy
@@ -614,7 +611,7 @@ msgstr "Teclado"
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
-msgstr "botóns en forma de pastel"
+msgstr "Botóns en forma de pastel"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
@@ -631,23 +628,23 @@ msgstr "Resultado da carreira"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
 msgid "Congratulations, great race!"
-msgstr "¡Parabens, magnífica carreira!"
+msgstr "Parabens, magnífica carreira!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
 msgid "You've got some serious driving skills!"
-msgstr "¡Es un piloto abraiante!"
+msgstr "Es un piloto abraiante!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
 msgid "You're a champ!"
-msgstr "¡Es un campión!"
+msgstr "Es un campión!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
 msgid "Congrats for this performance!"
-msgstr "¡Bravo por ista actuación!"
+msgstr "Bravo por ista actuación!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
 msgid "Impressive!"
-msgstr "¡Impresionante!"
+msgstr "Impresionante!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
@@ -705,7 +702,7 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
-"¡Campionato\n"
+"Campionato\n"
 "rematado!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:108
@@ -766,7 +763,7 @@ msgstr "Controis"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:203
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "P%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 #, java-printf-format
@@ -814,10 +811,10 @@ msgid "Thank you for playing!"
 msgstr "¡Grazas por xogar!"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "Xogador #%d: %s"
+msgstr "P%d: %s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
@@ -841,11 +838,11 @@ msgstr "CPU"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
-msgstr "¡Novo vehículo desbloqueado!"
+msgstr "Novo vehículo desbloqueado!"
 
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:120
 msgid "New championship unlocked!"
-msgstr "¡Novo campionato desbloqueado!"
+msgstr "Novo campionato desbloqueado!"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
@@ -923,13 +920,13 @@ msgstr "Desconectado"
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
 msgstr ""
-"Precisas crear un informe de erro? Emprega este botón para atopalo "
-"ficheiro de rexistro a achegar."
+"Precisas crear un informe de erro? Emprega este botón para atopalo ficheiro "
+"de rexistro a achegar."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr ""
-"ABRIR CARPETA DE\n"
+"ABRIR CARTAFOL DE\n"
 "ARQUIVO DE REXISTRO"
 
 #~ msgid "Missing"
