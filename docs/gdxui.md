@@ -145,6 +145,8 @@ Must contains a child element called Items. Items must contain one of:
     - text (string, optional): Text of the button.
 - LabelMenuItem
     - text (string, required): Text of the button.
+- SpacerMenuItem
+    - height (dimension, optional)
 
 Example:
 

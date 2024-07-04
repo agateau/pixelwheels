@@ -32,6 +32,7 @@ import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuScrollPane;
+import com.agateau.ui.menu.SpacerMenuItem;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
@@ -301,6 +302,19 @@ public class UiBuilder {
                 (menu, element) -> {
                     String text = tr(element.getAttribute("text"));
                     return menu.addLabel(text);
+                });
+        mMenuItemFactories.put(
+                "SpacerMenuItem",
+                (menu, element) -> {
+                    String heightStr = element.getAttribute("height", null);
+                    float height;
+                    if (heightStr == null) {
+                        height = menu.getMenuStyle().spacing;
+                    } else {
+                        height = mDimParser.parse(heightStr);
+                    }
+                    SpacerMenuItem item = new SpacerMenuItem(height);
+                    return menu.addItem(item);
                 });
     }
 

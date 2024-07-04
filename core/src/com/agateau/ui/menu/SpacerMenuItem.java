@@ -25,7 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 public class SpacerMenuItem implements MenuItem {
     private final Actor mActor;
 
-    public SpacerMenuItem(int height) {
+    public SpacerMenuItem(float height) {
         mActor = new Actor();
         mActor.setHeight(height);
     }
