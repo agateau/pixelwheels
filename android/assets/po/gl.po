@@ -319,7 +319,7 @@ msgstr "Neerlandés"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Video Editing"
@@ -327,7 +327,7 @@ msgstr "Edición de vídeo"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Special Thanks"
-msgstr "Un agradecimiento especial a"
+msgstr "Un agradecemento especial a"
 
 #: android/assets/screens/credits.gdxui:114
 msgid "Guillaume Roche"
