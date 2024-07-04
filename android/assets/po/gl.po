@@ -307,15 +307,15 @@ msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Italian:"
-msgstr ""
+msgstr "Italiano"
 
 #: android/assets/screens/credits.gdxui:102
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Dutch:"
-msgstr ""
+msgstr "Neerlandés"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Heimen Stoffels"
@@ -522,7 +522,7 @@ msgstr "Camión Broster"
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr "Dark M"
+msgstr "Escuridade M"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
@@ -532,7 +532,7 @@ msgstr "Colleitadora"
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr "Jeep"
+msgstr "Todoterreo"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
@@ -542,7 +542,7 @@ msgstr "Miramar"
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr "Pickup"
+msgstr "Camioneta"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
@@ -557,7 +557,7 @@ msgstr "Raio Vermello"
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr "Roadster"
+msgstr "Descapotable"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
@@ -614,12 +614,12 @@ msgstr "Teclado"
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
-msgstr "Botons en arco"
+msgstr "botóns en forma de pastel"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
 msgid "Side buttons"
-msgstr "Botones no lado"
+msgstr "Botóns laterais"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
 msgid "Championship Rankings"
@@ -727,7 +727,7 @@ msgid ""
 "development in various ways."
 msgstr ""
 "Pixel Wheels e de balde, pero podes apoiar o seu\n"
-"desenrrolo de varias maneiras."
+"desenrolo de varias maneiras."
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:149
 msgid "VISIT SUPPORT PAGE"
@@ -757,7 +757,7 @@ msgstr ""
 msgid "DEV. OPTIONS"
 msgstr ""
 "SECCIÓN DE LOS\n"
-"DESARROLLADORES"
+"DESENROLADORES"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
 msgid "Controls"
@@ -881,7 +881,7 @@ msgstr "Esquerda"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 msgid "Right"
-msgstr "Dereicha"
+msgstr "Dereita"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Activate"
@@ -917,7 +917,7 @@ msgstr "6º"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr "Dxconectado"
+msgstr "Desconectado"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
@@ -936,7 +936,7 @@ msgstr ""
 #~ msgstr "Falta"
 
 #~ msgid "OK"
-#~ msgstr "OK"
+#~ msgstr "Aceptar"
 
 #~ msgid "Ready!"
 #~ msgstr "¡Listo!"
