@@ -55,6 +55,8 @@ public class ConfigScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Origin mOrigin;
 
+    private static final String WEBSITE_URL = "https://agateau.com/projects/pixelwheels";
+
     /// Indicates from where has this config screen been called from
     public enum Origin {
         MENU,
@@ -119,6 +121,16 @@ public class ConfigScreen extends PwStageScreen {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
                                 mGame.pushScreen(new CreditsScreen(mGame));
+                            }
+                        });
+
+        group.addButton(tr("WEB SITE"))
+                .setParentWidthRatio(0.5f)
+                .addListener(
+                        new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                PlatformUtils.openURI(WEBSITE_URL);
                             }
                         });
 
