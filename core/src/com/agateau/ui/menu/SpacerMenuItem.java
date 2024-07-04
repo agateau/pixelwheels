@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 
-class SpacerMenuItem implements MenuItem {
+public class SpacerMenuItem implements MenuItem {
     private final Actor mActor;
 
     public SpacerMenuItem(int height) {

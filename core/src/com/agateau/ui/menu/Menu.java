@@ -173,6 +173,10 @@ public class Menu extends WidgetGroup implements Disableable {
         return mGroup.addItem(item);
     }
 
+    public SpacerMenuItem addSpacer() {
+        return mGroup.addSpacer();
+    }
+
     /** Add a [label - item] row */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
         return addItemWithLabel(labelText, item, "default");
