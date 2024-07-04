@@ -536,9 +536,26 @@ msgid "Select Your Vehicle"
 msgstr "Wähle dein Fahrzeug"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "UNTERSTÜTZEN"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -868,26 +885,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Computer"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels ist freie Software, du kannst die weitere Entwicklung aber auf "
-"verschiedene Arten unterstützen."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "UNTERSTÜTZEN"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Mehr über Pixel Wheels erfahren"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "WEBSITE"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Neues Fahrzeug freigeschaltet!"
@@ -964,6 +961,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "PROTOKOLLORDNER"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels ist freie Software, du kannst die weitere Entwicklung aber "
+#~ "auf verschiedene Arten unterstützen."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Mehr über Pixel Wheels erfahren"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "WEBSITE"
 
 #~ msgid "QUIT"
 #~ msgstr "BEENDEN"

@@ -541,9 +541,26 @@ msgid "Select Your Vehicle"
 msgstr "Elektu Vian Veturilon"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Rastrumaj Radoj"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "VIZITU SUBTENAN PAĜON"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -872,26 +889,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Ĉefprocesoro"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels senkostas, sed vi povas subteni\n"
-"ĝian disvolvadon diversmaniere."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "VIZITU SUBTENAN PAĜON"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Lernu pli pri Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "VIZITU RETEJON"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Nova veturilo malŝlosita!"
@@ -970,6 +967,19 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "MALFERMI DOSIERUJON\n"
 "DE PROTOKOLA DOSIERO"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels senkostas, sed vi povas subteni\n"
+#~ "ĝian disvolvadon diversmaniere."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Lernu pli pri Pixel Wheels"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "VIZITU RETEJON"
 
 #~ msgid "QUIT"
 #~ msgstr "ELIRI"

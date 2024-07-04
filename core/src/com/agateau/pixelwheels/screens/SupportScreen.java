@@ -18,13 +18,10 @@
  */
 package com.agateau.pixelwheels.screens;
 
-import static com.agateau.translations.Translator.tr;
-
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.anchor.AnchorGroup;
-import com.agateau.ui.menu.LabelMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
@@ -33,11 +30,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SupportScreen extends PwStageScreen {
-    private static class SupportInfo {
-        public String url;
-        public String label;
-        public String buttonText;
-    }
+    private static final String SUPPORT_URL = "https://agateau.com/support";
+    private static final String SHOP_URL = "https://agateau.com/redirect/pw-goodies";
 
     private final PwGame mGame;
 
@@ -55,25 +49,35 @@ public class SupportScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        if (Constants.STORE != Constants.Store.GPLAY) {
+            // Google Play does not allow linking to a support page
+            builder.defineVariable("showSupportSection");
+        }
 
         AnchorGroup root = (AnchorGroup) builder.build(FileUtils.assets("screens/support.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
         Menu menu = builder.getActor("menu");
-        menu.setLabelColumnWidth(250);
-
-        SupportScreen.SupportInfo supportInfo = getSupportInfo();
-        LabelMenuItem labelMenuItem = menu.addLabel(supportInfo.label);
-        labelMenuItem.setWrap(true);
-        menu.addButton(supportInfo.buttonText)
+        builder.getActor("shopButton")
                 .addListener(
                         new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
-                                PlatformUtils.openURI(supportInfo.url);
+                                PlatformUtils.openURI(SHOP_URL);
                             }
                         });
+
+        if (Constants.STORE != Constants.Store.GPLAY) {
+            builder.getActor("supportButton")
+                    .addListener(
+                            new ClickListener() {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    PlatformUtils.openURI(SUPPORT_URL);
+                                }
+                            });
+        }
 
         menu.addBackButton()
                 .addListener(
@@ -88,28 +92,5 @@ public class SupportScreen extends PwStageScreen {
     @Override
     public void onBackPressed() {
         mGame.popScreen();
-    }
-
-    /**
-     * GPlay does not allow linking to a support page, so use more generic information for the GPlay
-     * build.
-     */
-    private SupportScreen.SupportInfo getSupportInfo() {
-        SupportScreen.SupportInfo info = new SupportScreen.SupportInfo();
-        switch (Constants.STORE) {
-            case ITCHIO:
-                info.url = "https://agateau.com/support/";
-                info.label =
-                        tr(
-                                "Pixel Wheels is free, but you can support its\ndevelopment in various ways.");
-                info.buttonText = tr("VISIT SUPPORT PAGE");
-                break;
-            case GPLAY:
-                info.url = "https://agateau.com/projects/pixelwheels";
-                info.label = tr("Learn more about Pixel Wheels");
-                info.buttonText = tr("VISIT WEB SITE");
-                break;
-        }
-        return info;
     }
 }

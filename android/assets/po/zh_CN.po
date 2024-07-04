@@ -548,9 +548,26 @@ msgid "Select Your Vehicle"
 msgstr "选择赛车"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "访问支持页面"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -874,26 +891,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "电脑"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels 是免费的，但有用很多方式\n"
-"可以支持其开发。"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "访问支持页面"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "了解更多关于 Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "访问网页"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "解锁新赛车！"
@@ -968,6 +965,19 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels 是免费的，但有用很多方式\n"
+#~ "可以支持其开发。"
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "了解更多关于 Pixel Wheels"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "访问网页"
 
 #~ msgid "QUIT"
 #~ msgstr "退出"

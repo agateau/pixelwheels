@@ -554,9 +554,26 @@ msgid "Select Your Vehicle"
 msgstr "বাহন নাও"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "পিক্সেল হুইল"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "সহায়তা পৃষ্ঠা দেখো"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -887,26 +904,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"পিক্সেল হুইল খেলতে টাকা লাগে না,\n"
-"কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্য করতে পারো"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "সহায়তা পৃষ্ঠা দেখো"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "পিক্সেল হুইল নিয়ে আরো জানো"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "ওয়েবসাইট দেখো"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr ""
@@ -986,6 +983,19 @@ msgstr "সমস্যা প্রতিবেদন করতে চাও? �
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "লগ বা সূচী ফাইলের ফোল্ডার খুঁজে বের করো"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "পিক্সেল হুইল খেলতে টাকা লাগে না,\n"
+#~ "কিন্তু এর বিকাশে বিভিন্নভাবে সাহায্য করতে পারো"
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "পিক্সেল হুইল নিয়ে আরো জানো"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "ওয়েবসাইট দেখো"
 
 #~ msgid "QUIT"
 #~ msgstr "প্রস্থান"

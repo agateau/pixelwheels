@@ -537,9 +537,26 @@ msgid "Select Your Vehicle"
 msgstr "Wybierz swój pojazd"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "ODWIEDŹ STRONĘ WSPARCIA"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -871,26 +888,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Komputer"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels jest darmowe, ale możesz wesprzeć jego\n"
-"rozwój na różne sposoby."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "ODWIEDŹ STRONĘ WSPARCIA"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Dowiedz się więcej o Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "ODWIEDŹ STRONĘ"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Nowy pojazd odblokowany!"
@@ -967,6 +964,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "OTWÓRZ FOLDER Z LOGAMI"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels jest darmowe, ale możesz wesprzeć jego\n"
+#~ "rozwój na różne sposoby."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Dowiedz się więcej o Pixel Wheels"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "ODWIEDŹ STRONĘ"
 
 #~ msgid "QUIT"
 #~ msgstr "WYJDŹ"

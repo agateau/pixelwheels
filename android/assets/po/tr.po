@@ -536,9 +536,26 @@ msgid "Select Your Vehicle"
 msgstr "Aracını seç"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Piksel Tekerlekler"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "DESTEK SAYFASINI ZİYARET ET"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -867,26 +884,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Bilgisayar"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Piksel Tekerlekler ücretsizdir, ama çeşitli yollardan\n"
-"gelişimini destekleyebilirsin."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "DESTEK SAYFASINI ZİYARET ET"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Piksel Tekerlekler hakkında daha fazla öğren"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "WEB SİTESİNİ ZİYARET ET"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Yeni araç açıldı!"
@@ -963,6 +960,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "GÜNLÜK KLASÖRÜ"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Piksel Tekerlekler ücretsizdir, ama çeşitli yollardan\n"
+#~ "gelişimini destekleyebilirsin."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Piksel Tekerlekler hakkında daha fazla öğren"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "WEB SİTESİNİ ZİYARET ET"
 
 #~ msgid "QUIT"
 #~ msgstr "ÇIK"

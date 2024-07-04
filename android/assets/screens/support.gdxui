@@ -2,9 +2,25 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
-            topCenter="root.topCenter 0 -2">Support Pixel Wheels</Label>
+            topCenter="root.topCenter 0 -2g">Support</Label>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3g"
-            width="600px"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1.5g"
+            width="600px">
+            <Items>
+                <ImageMenuItem name="shop"/>
+                <LabelMenuItem text="Buy nice Pixel Wheels themed goodies!"/>
+                <ButtonMenuItem id="shopButton" text="SHOP"
+                    parentWidthAspectRatio="0.6"/>
+
+                <Ifdef var="showSupportSection">
+
+                    <SpacerMenuItem height="0.2g"/>
+                    <ImageMenuItem name="support"/>
+                    <LabelMenuItem text="Support Pixel Wheels development."/>
+                    <ButtonMenuItem id="supportButton" text="SUPPORT PAGE"
+                        parentWidthAspectRatio="0.6"/>
+                </Ifdef>
+            </Items>
+        </Menu>
     </AnchorGroup>
 </gdxui>

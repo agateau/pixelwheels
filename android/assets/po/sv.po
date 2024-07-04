@@ -550,9 +550,26 @@ msgid "Select Your Vehicle"
 msgstr "Markera ditt fordon"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "BESÖK STÖDWEBBSIDA"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -879,26 +896,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "CPU"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels är gratis, men du kan stötta dess\n"
-"utveckling på olika sätt."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "BESÖK STÖDWEBBSIDA"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Lär dig mer om Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "Besök webbplats"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Nytt fordon upplåst!"
@@ -975,6 +972,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "ÖPPNA MAPP FÖR LOGGFIL"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels är gratis, men du kan stötta dess\n"
+#~ "utveckling på olika sätt."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Lär dig mer om Pixel Wheels"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "Besök webbplats"
 
 #~ msgid "QUIT"
 #~ msgstr "AVSLUTA"

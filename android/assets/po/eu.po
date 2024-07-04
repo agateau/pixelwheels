@@ -538,9 +538,26 @@ msgid "Select Your Vehicle"
 msgstr "Aukeratu zure ibiligailua"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "LAGUNTZA ORRIRA JOAN"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -869,26 +886,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "PUZ"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels doakoa da, baina bere garapenean\n"
-"modu desberdinetan lagundu dezakezu."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "LAGUNTZA ORRIRA JOAN"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Ezagutu gehiago Pixel Wheels-i buruz"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "WEBGUNERA JOAN"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "Ibilgailu berria desblokeatua!"
@@ -965,6 +962,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOG-EN KARPETA IREKI"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels doakoa da, baina bere garapenean\n"
+#~ "modu desberdinetan lagundu dezakezu."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Ezagutu gehiago Pixel Wheels-i buruz"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "WEBGUNERA JOAN"
 
 #~ msgid "QUIT"
 #~ msgstr "IRTEN"

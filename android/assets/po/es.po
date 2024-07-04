@@ -542,9 +542,26 @@ msgid "Select Your Vehicle"
 msgstr "Seleccionar tu vehículo"
 
 #: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
 #, fuzzy
-msgid "Support Pixel Wheels"
+msgid "Support Pixel Wheels development."
 msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "VISITA LA PÁGINA DE APOYO"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -877,26 +894,6 @@ msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "CPU"
 
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:104
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels es gratuito, pero puedes apoyar su\n"
-"desarrollo de varias maneras."
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:105
-msgid "VISIT SUPPORT PAGE"
-msgstr "VISITA LA PÁGINA DE APOYO"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:109
-msgid "Learn more about Pixel Wheels"
-msgstr "Más información sobre Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/SupportScreen.java:110
-msgid "VISIT WEB SITE"
-msgstr "VISITAR EL SITIO WEB"
-
 #: core/src/com/agateau/pixelwheels/screens/UnlockedRewardScreen.java:111
 msgid "New vehicle unlocked!"
 msgstr "¡Nuevo vehículo desbloqueado!"
@@ -975,6 +972,19 @@ msgid "OPEN LOG FILE FOLDER"
 msgstr ""
 "ABRIR CARPETA DEL\n"
 "ARCHIVO DE REGISTRO"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels es gratuito, pero puedes apoyar su\n"
+#~ "desarrollo de varias maneras."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Más información sobre Pixel Wheels"
+
+#~ msgid "VISIT WEB SITE"
+#~ msgstr "VISITAR EL SITIO WEB"
 
 #~ msgid "QUIT"
 #~ msgstr "ABANDONAR"
