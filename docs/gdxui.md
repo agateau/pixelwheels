@@ -143,6 +143,7 @@ Must contains a child element called Items. Items must contain one of:
 - ButtonMenuItem
     - label (string, optional): Label to show to the left of the button. No label if not set.
     - text (string, optional): Text of the button.
+    - parentWidthRatio (float, optional): Ratio of the button vs the menu. Default to 1.0.
 - LabelMenuItem
     - text (string, required): Text of the button.
 - SpacerMenuItem

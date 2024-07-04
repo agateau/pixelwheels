@@ -289,12 +289,15 @@ public class UiBuilder {
                 (menu, element) -> {
                     String label = element.getAttribute("label", null);
                     String text = tr(element.getAttribute("text", ""));
+                    float ratio = element.getFloatAttribute("parentWidthAspectRatio", 1f);
+
                     ButtonMenuItem item = new ButtonMenuItem(menu, text);
                     if (label == null) {
                         menu.addItem(item);
                     } else {
                         menu.addItemWithLabel(tr(label), item);
                     }
+                    item.setParentWidthRatio(ratio);
                     return item;
                 });
         mMenuItemFactories.put(
