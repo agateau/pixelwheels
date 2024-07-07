@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2024 Aurélien Gâteau <mail@agateau.com>
  *
  * This file is part of Pixel Wheels.
  *
@@ -21,18 +21,20 @@ package com.agateau.ui.menu;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-public class SpacerMenuItem implements MenuItem {
-    private final Actor mActor;
+/** A MenuItem to show a static image */
+public class ImageMenuItem implements MenuItem {
+    private final Image mImage;
 
-    public SpacerMenuItem(float height) {
-        mActor = new Actor();
-        mActor.setHeight(height);
+    public ImageMenuItem(Drawable drawable) {
+        mImage = new Image(drawable);
     }
 
     @Override
     public Actor getActor() {
-        return mActor;
+        return mImage;
     }
 
     @Override
@@ -44,6 +46,9 @@ public class SpacerMenuItem implements MenuItem {
     public boolean isFocusable() {
         return false;
     }
+
+    @Override
+    public void setFocused(boolean focused) {}
 
     @Override
     public void trigger() {}
@@ -73,7 +78,4 @@ public class SpacerMenuItem implements MenuItem {
     public float getParentWidthRatio() {
         return 0;
     }
-
-    @Override
-    public void setFocused(boolean focused) {}
 }

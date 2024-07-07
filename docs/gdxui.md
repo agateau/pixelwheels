@@ -141,10 +141,26 @@ Text is defined by the element text.
 Must contains a child element called Items. Items must contain one of:
 
 - ButtonMenuItem
-    - label (string, optional)
-    - text (string, optional)
+    - label (string, optional): Label to show to the left of the button. No label if not set.
+    - text (string, optional): Text of the button.
+    - parentWidthRatio (float, optional): Ratio of the button vs the menu. Default to 1.0.
 - LabelMenuItem
-    - text (string, optional)
+    - text (string, required): Text of the button.
+- ImageMenuItem
+    - name (string, required): Name of the image in the atlas.
+- SpacerMenuItem
+    - height (dimension, optional)
+
+Example:
+
+```
+<Menu>
+    <Items>
+        <ButtonMenuItem id="helloButton" text="HELLO!"/>
+        <ButtonMenuItem id="goButton" text="GO"/>
+    </Items>
+</Menu>
+```
 
 ### MenuScrollPane
 
@@ -203,9 +219,9 @@ This is useful when the actor element contains text, for example for Labels, bec
 You can create conditional blocks with `Ifdef` and `Else` blocks, like this:
 
 ```xml
-<IfDef var="foo">
+<Ifdef var="foo">
     <Label>foo is defined</Label>
-</IfDef>
+</Ifdef>
 <Else>
     <Label>foo is not defined</Label>
 </Else>

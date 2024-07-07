@@ -469,9 +469,9 @@ msgstr "TXAPELKETA"
 msgid "SETTINGS"
 msgstr "EZARPENAK"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "IRTEN"
+#: android/assets/screens/mainmenu.gdxui:34
+msgid "SUPPORT"
+msgstr ""
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -536,6 +536,28 @@ msgstr "Onena denera"
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
 msgstr "Aukeratu zure ibiligailua"
+
+#: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
+#, fuzzy
+msgid "Support Pixel Wheels development."
+msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "LAGUNTZA ORRIRA JOAN"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -746,44 +768,29 @@ msgstr ""
 "Bukatu da\n"
 "Txapelketa!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 msgid "About"
 msgstr "Honi buruz"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "CREDITS"
 msgstr "KREDITUAK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels doakoa da, baina bere garapenean\n"
-"modu desberdinetan lagundu dezakezu."
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
-msgid "VISIT SUPPORT PAGE"
-msgstr "LAGUNTZA ORRIRA JOAN"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
-msgid "Learn more about Pixel Wheels"
-msgstr "Ezagutu gehiago Pixel Wheels-i buruz"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
-msgid "VISIT WEB SITE"
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#, fuzzy
+msgid "WEB SITE"
 msgstr "WEBGUNERA JOAN"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
 msgstr "Kapot azpian"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -791,66 +798,66 @@ msgstr ""
 "Ezarpen hauek batez ere Pixel Wheels-en garapenerako dira interesgarriak, "
 "baina aldatu nahi adina!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "DEV. OPTIONS"
 msgstr "GARAPEN AUKERAK"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "Controls"
 msgstr "Kontrolak"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "#%d Jokalaria:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 msgid "Controls:"
 msgstr "Kontrolak:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "General"
 msgstr "Orokorra"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:236
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Language:"
 msgstr "Hizkuntza:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "Lasterketan ezin da aldatu"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Audio"
 msgstr "Audioa"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Sound FX:"
 msgstr "Soinu efektuak:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgid "Music:"
 msgstr "Musika:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Video"
 msgstr "Bideoa"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:287
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:257
 msgid "Fullscreen:"
 msgstr "Pantaila osoa:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
 msgstr "KONFIGURATU"
 
@@ -960,6 +967,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "LOG-EN KARPETA IREKI"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels doakoa da, baina bere garapenean\n"
+#~ "modu desberdinetan lagundu dezakezu."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Ezagutu gehiago Pixel Wheels-i buruz"
+
+#~ msgid "QUIT"
+#~ msgstr "IRTEN"
 
 #~ msgid "Trigger:"
 #~ msgstr "Aktibatu:"

@@ -267,8 +267,10 @@ public class MenuItemGroup implements MenuItem {
         return item;
     }
 
-    public void addSpacer() {
-        addItem(new SpacerMenuItem(mMenu.getMenuStyle().spacing));
+    public SpacerMenuItem addSpacer() {
+        SpacerMenuItem item = new SpacerMenuItem(mMenu.getMenuStyle().spacing);
+        addItem(item);
+        return item;
     }
 
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {

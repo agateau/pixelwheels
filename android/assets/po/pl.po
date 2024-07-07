@@ -468,9 +468,9 @@ msgstr "MISTRZOSTWA"
 msgid "SETTINGS"
 msgstr "USTAWIENIA"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "WYJDŹ"
+#: android/assets/screens/mainmenu.gdxui:34
+msgid "SUPPORT"
+msgstr ""
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -535,6 +535,28 @@ msgstr "Najlepszy czas"
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
 msgstr "Wybierz swój pojazd"
+
+#: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
+#, fuzzy
+msgid "Support Pixel Wheels development."
+msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "ODWIEDŹ STRONĘ WSPARCIA"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -748,44 +770,29 @@ msgstr ""
 "Mistrzostwa\n"
 "zakończone!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 msgid "About"
 msgstr "O grze"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:120
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:121
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "CREDITS"
 msgstr "AUTORZY"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:158
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels jest darmowe, ale możesz wesprzeć jego\n"
-"rozwój na różne sposoby."
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:159
-msgid "VISIT SUPPORT PAGE"
-msgstr "ODWIEDŹ STRONĘ WSPARCIA"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
-msgid "Learn more about Pixel Wheels"
-msgstr "Dowiedz się więcej o Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
-msgid "VISIT WEB SITE"
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#, fuzzy
+msgid "WEB SITE"
 msgstr "ODWIEDŹ STRONĘ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:171
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
 msgstr "Pod maską"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:191
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -793,66 +800,66 @@ msgstr ""
 "Te opcje są głównie interesujące dla rozwoju Pixel Wheels, ale nie bój się "
 "ich wypróbować!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "DEV. OPTIONS"
 msgstr "OPCJE DEV."
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "Controls"
 msgstr "Sterowanie"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
 msgstr "G%d"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:215
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Gracz #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:219
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 msgid "Controls:"
 msgstr "Sterowanie:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "General"
 msgstr "Ogólne"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:236
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Language:"
 msgstr "Język:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "Nie można zmienić w trakcie wyścigu"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Audio"
 msgstr "Dźwięk"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Sound FX:"
 msgstr "Efekty dźwiękowe:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgid "Music:"
 msgstr "Muzyka:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Video"
 msgstr "Wideo"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:287
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:257
 msgid "Fullscreen:"
 msgstr "Pełny ekran:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:302
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
 msgstr "KONFIGURUJ"
 
@@ -962,6 +969,19 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "OTWÓRZ FOLDER Z LOGAMI"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels jest darmowe, ale możesz wesprzeć jego\n"
+#~ "rozwój na różne sposoby."
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "Dowiedz się więcej o Pixel Wheels"
+
+#~ msgid "QUIT"
+#~ msgstr "WYJDŹ"
 
 #~ msgid "Trigger:"
 #~ msgstr "Spust:"

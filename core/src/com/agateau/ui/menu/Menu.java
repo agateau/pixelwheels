@@ -143,7 +143,7 @@ public class Menu extends WidgetGroup implements Disableable {
         mLabelColumnWidth = labelColumnWidth;
     }
 
-    public MenuItem addButton(String text) {
+    public ButtonMenuItem addButton(String text) {
         return mGroup.addButton(text);
     }
 
@@ -171,6 +171,10 @@ public class Menu extends WidgetGroup implements Disableable {
     @SuppressWarnings("UnusedReturnValue")
     public MenuItem addItem(MenuItem item) {
         return mGroup.addItem(item);
+    }
+
+    public SpacerMenuItem addSpacer() {
+        return mGroup.addSpacer();
     }
 
     /** Add a [label - item] row */
