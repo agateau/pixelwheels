@@ -14,7 +14,7 @@
 
                 <Ifdef var="showSupportSection">
 
-                    <SpacerMenuItem height="0.2g"/>
+                    <SpacerMenuItem height="14px"/>
                     <ImageMenuItem name="support"/>
                     <LabelMenuItem text="Support Pixel Wheels development."/>
                     <ButtonMenuItem id="supportButton" text="SUPPORT PAGE"
