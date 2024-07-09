@@ -20,7 +20,6 @@ package com.agateau.ui.menu;
 
 import com.agateau.pixelwheels.utils.DrawUtils;
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.VirtualKey;
 import com.agateau.utils.Assert;
 import com.agateau.utils.PlatformUtils;
@@ -46,6 +45,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     private float mItemHeight = 0;
     private TouchUiConfirmMode mTouchUiConfirmMode = TouchUiConfirmMode.DOUBLE_TOUCH;
     private ItemDirection mItemDirection = ItemDirection.LeftToRight;
+    private boolean mFocused = false;
 
     /**
      * Represents a cursor: the selection in the grid.
@@ -286,18 +286,6 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                         }
                         return true;
                     }
-
-                    @Override
-                    public boolean mouseMoved(InputEvent event, float x, float y) {
-                        if (!MouseCursorManager.getInstance().isVisible()) {
-                            return true;
-                        }
-                        int idx = getIndexAt(x, y);
-                        if (idx >= 0) {
-                            mCursors.first().setCurrentIndex(idx);
-                        }
-                        return true;
-                    }
                 });
     }
 
@@ -311,6 +299,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     public void setInputMapper(int idx, InputMapper inputMapper) {
         mCursors.get(idx).setInputMapper(inputMapper);
+    }
+
+    public void setMenuStyle(Menu.MenuStyle menuStyle) {
+        setMenuStyle(0, menuStyle);
     }
 
     public void setMenuStyle(int idx, Menu.MenuStyle menuStyle) {
@@ -330,10 +322,14 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
     }
 
     public void setSelectionListener(SelectionListener<T> selectionListener) {
-        mCursors.first().mSelectionListener = selectionListener;
+        setSelectionListener(0, selectionListener);
     }
 
-    public void setCurrent(int cursorIdx, T item) {
+    public void setSelectionListener(int idx, SelectionListener<T> selectionListener) {
+        mCursors.get(idx).mSelectionListener = selectionListener;
+    }
+
+    public void setCurrentAndSelect(int cursorIdx, T item, boolean select) {
         Cursor cursor = mCursors.get(cursorIdx);
         if (item == null) {
             cursor.setCurrentIndex(0);
@@ -345,13 +341,25 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         cursor.setCurrentIndex(index);
-        if (PlatformUtils.isTouchUi()) {
+        if (PlatformUtils.isTouchUi() || select) {
             cursor.setSelectedIndex(index);
         }
     }
 
+    public void setCurrent(int cursorIdx, T item) {
+        setCurrentAndSelect(cursorIdx, item, false);
+    }
+
     public void setCurrent(T item) {
         setCurrent(0, item);
+    }
+
+    public void setSelected(int cursorIdx, T item) {
+        setCurrentAndSelect(cursorIdx, item, true);
+    }
+
+    public void setSelected(T item) {
+        setSelected(0, item);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -468,12 +476,19 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             Rectangle rect = mRenderer.getItemRectangle(mItemWidth, mItemHeight, item);
 
             for (Cursor cursor : mCursors) {
-                FocusIndicator focusIndicator = cursor.mFocusIndicators.get(idx);
-                focusIndicator.draw(
-                        batch, getX() + x + rect.x, getY() + y + rect.y, rect.width, rect.height);
+                if (mFocused) {
+                    FocusIndicator focusIndicator = cursor.mFocusIndicators.get(idx);
+                    focusIndicator.draw(
+                            batch,
+                            getX() + x + rect.x,
+                            getY() + y + rect.y,
+                            rect.width,
+                            rect.height);
+                }
 
                 if (idx == cursor.mSelectedIndex) {
                     Menu.MenuStyle style = cursor.mMenuStyle;
+                    float oldAlpha = DrawUtils.multiplyBatchAlphaBy(batch, 0.5f);
                     DrawUtils.drawPixelAligned(
                             batch,
                             style.selected,
@@ -482,6 +497,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                             rect.width,
                             rect.height,
                             style.focusPadding);
+                    DrawUtils.setBatchAlpha(batch, oldAlpha);
                 }
             }
             mRenderer.render(batch, getX() + x, getY() + y, mItemWidth, mItemHeight, item);
@@ -569,6 +585,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
 
     @Override
     public void setFocused(boolean focused) {
+        mFocused = focused;
         Cursor cursor = mCursors.first();
         if (cursor.mCurrentIndex == INVALID_INDEX) {
             return;

@@ -73,6 +73,11 @@ msgctxt "track"
 msgid "Tiny sur Mer"
 msgstr "滨海小城"
 
+#: android/assets/championships/2.xml:27
+msgctxt "track"
+msgid "The Island"
+msgstr ""
+
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
 msgstr "Pixel Wheels"
@@ -225,9 +230,9 @@ msgid "Spanish:"
 msgstr "西班牙语："
 
 #: android/assets/screens/credits.gdxui:69
-#: android/assets/screens/credits.gdxui:109
-msgid "Clara Gâteau"
-msgstr "Clara Gâteau"
+#, fuzzy
+msgid "Victor Hck"
+msgstr "获胜："
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -325,6 +330,10 @@ msgstr ""
 msgid "Video Editing"
 msgstr "视频编辑"
 
+#: android/assets/screens/credits.gdxui:109
+msgid "Clara Gâteau"
+msgstr "Clara Gâteau"
+
 #: android/assets/screens/credits.gdxui:111
 msgid "Special Thanks"
 msgstr "特别感谢"
@@ -340,7 +349,7 @@ msgstr "Ethan Chapman"
 #: android/assets/screens/credits.gdxui:116
 #, fuzzy
 msgid "Marek Szumny"
-msgstr "PandaCoderPL, Marek Szumny"
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "All bug reporters"
@@ -374,20 +383,20 @@ msgstr "SFXR Qt"
 msgid "Android Studio"
 msgstr "Android Studio"
 
-#: android/assets/screens/debug.gdxui:12
+#: android/assets/screens/debug.gdxui:8
 msgid "Settings affecting game play have been modified, scores won't be saved"
 msgstr "影响游戏的设置被修改，分数将不会被保存"
 
-#: android/assets/screens/finishedoverlay.gdxui:34
+#: android/assets/screens/finishedoverlay.gdxui:36
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
 msgstr "重新开始"
 
-#: android/assets/screens/finishedoverlay.gdxui:35
+#: android/assets/screens/finishedoverlay.gdxui:37
 msgid "BACK TO MENU"
 msgstr "返回菜单"
 
-#: android/assets/screens/finishedoverlay.gdxui:38
+#: android/assets/screens/finishedoverlay.gdxui:40
 msgid "CONTINUE"
 msgstr "继续"
 
@@ -396,12 +405,47 @@ msgid "Gamepad config"
 msgstr "游戏手柄配置"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
-msgid "Trigger:"
-msgstr "触发："
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#, fuzzy
+msgid "Game"
+msgstr "手柄"
+
+#: android/assets/screens/gamepadconfig.gdxui:11
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
+#, fuzzy
+msgid "Menu"
+msgstr "菜单："
 
 #: android/assets/screens/gamepadconfig.gdxui:12
-msgid "Back/reverse:"
-msgstr "后退/反转："
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
+msgid "Activate"
+msgstr "激活"
+
+#: android/assets/screens/gamepadconfig.gdxui:12
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
+msgid "Trigger"
+msgstr "触发"
+
+#: android/assets/screens/gamepadconfig.gdxui:13
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
+msgid "Back"
+msgstr "后退"
+
+#: android/assets/screens/gamepadconfig.gdxui:13
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
+msgid "Brake"
+msgstr "刹车"
+
+#: android/assets/screens/gamepadconfig.gdxui:14
+msgid "-"
+msgstr ""
+
+#: android/assets/screens/gamepadconfig.gdxui:14
+#, fuzzy
+msgid "Pause"
+msgstr "暂停"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
@@ -430,16 +474,17 @@ msgstr "锦标赛"
 msgid "SETTINGS"
 msgstr "设置"
 
-#: android/assets/screens/mainmenu.gdxui:35
-msgid "QUIT"
-msgstr "退出"
+#: android/assets/screens/mainmenu.gdxui:34
+msgid "SUPPORT"
+msgstr ""
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "选择你的赛车"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-msgid "Some gamepads are missing"
+#, fuzzy
+msgid "Some controllers are missing"
 msgstr "无游戏手柄"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
@@ -502,6 +547,28 @@ msgstr "最佳总用时"
 msgid "Select Your Vehicle"
 msgstr "选择赛车"
 
+#: android/assets/screens/support.gdxui:5
+msgid "Support"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:11
+msgid "Buy nice Pixel Wheels themed goodies!"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:13
+msgid "SHOP"
+msgstr ""
+
+#: android/assets/screens/support.gdxui:19
+#, fuzzy
+msgid "Support Pixel Wheels development."
+msgstr "Pixel Wheels"
+
+#: android/assets/screens/support.gdxui:21
+#, fuzzy
+msgid "SUPPORT PAGE"
+msgstr "访问支持页面"
+
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
@@ -537,6 +604,11 @@ msgctxt "vehicle"
 msgid "Miramar"
 msgstr ""
 
+#: android/assets/vehicles/old-f1.xml:1
+msgctxt "vehicle"
+msgid "BRGP42"
+msgstr ""
+
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
@@ -567,15 +639,15 @@ msgctxt "vehicle"
 msgid "Santa Truck"
 msgstr "圣诞老人卡车"
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:58
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:56
 msgid "Share via"
 msgstr "分享"
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:63
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:62
 msgid "Hit a bug? Use this button to report it."
 msgstr "遇到错误？点击按钮报告。"
 
-#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:68
+#: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:67
 msgid "REPORT BUG"
 msgstr "报告错误"
 
@@ -616,66 +688,66 @@ msgstr "扇形按钮"
 msgid "Side buttons"
 msgstr "两侧按钮"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:296
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
 msgstr "锦标赛排名"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:297
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:306
 msgid "Race Results"
 msgstr "竞赛结果"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:327
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:336
 msgid "Congratulations, great race!"
 msgstr "祝贺，比赛很棒！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:328
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:337
 msgid "You've got some serious driving skills!"
 msgstr "你的车技超群！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:329
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:338
 msgid "You're a champ!"
 msgstr "你太棒了！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:330
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:339
 msgid "Congrats for this performance!"
 msgstr "恭喜，表现很好！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:331
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:340
 msgid "Impressive!"
 msgstr "惊艳！"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
 msgstr "#"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 msgid "Best lap"
 msgstr "最佳单圈"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
 msgstr "赛车手"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:415
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
 msgstr "总用时"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:419
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Points"
 msgstr "分数"
 
-#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:422
+#: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 msgid "Race time"
 msgstr "比赛时间"
 
@@ -703,113 +775,102 @@ msgstr ""
 "锦标赛\n"
 "结束！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 msgid "About"
 msgstr "关于"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:119
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "CREDITS"
 msgstr "致谢"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:156
-msgid ""
-"Pixel Wheels is free, but you can support its\n"
-"development in various ways."
-msgstr ""
-"Pixel Wheels 是免费的，但有用很多方式\n"
-"可以支持其开发。"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:157
-msgid "VISIT SUPPORT PAGE"
-msgstr "访问支持页面"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
-msgid "Learn more about Pixel Wheels"
-msgstr "了解更多关于 Pixel Wheels"
-
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
-msgid "VISIT WEB SITE"
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#, fuzzy
+msgid "WEB SITE"
 msgstr "访问网页"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:169
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
 msgstr "底层"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "这些选项通常对 Pixel Wheels 的开发有帮助，但也可随意尝试！"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:192
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "DEV. OPTIONS"
 msgstr "开发选项"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:204
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "Controls"
 msgstr "控制"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "玩家 #%d："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:217
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 msgid "Controls:"
 msgstr "控制："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:223
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
 msgid "General"
 msgstr "常规"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:234
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
 msgid "Language:"
 msgstr "语言："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:237
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Audio"
 msgstr "声音"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:253
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Sound FX:"
 msgstr "音效："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:267
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
 msgid "Music:"
 msgstr "音乐："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:270
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
 msgid "Video"
 msgstr "画面"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:284
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:257
 msgid "Fullscreen:"
 msgstr "全屏："
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:310
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+msgid "Rotate camera:"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
 msgstr "配置"
 
-#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:79
+#: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
 msgstr "感谢使用！"
 
-#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:126
+#: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, fuzzy, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
@@ -824,13 +885,13 @@ msgstr "玩家 #%d: %s"
 msgid "MAIN MENU"
 msgstr "主菜单"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:157
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:220
-#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:143
+#: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[已锁定]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:261
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:300
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "电脑"
@@ -843,49 +904,35 @@ msgstr "解锁新赛车！"
 msgid "New championship unlocked!"
 msgstr "解锁新锦标赛！"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:101
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
-msgid "Brake"
-msgstr "刹车"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:102
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 msgid "Steer left"
 msgstr "左转"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:103
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 msgid "Steer right"
 msgstr "右转"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:104
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Trigger"
-msgstr "触发"
+msgid "Screenshot"
+msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
 msgstr "上"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:107
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 msgid "Down"
 msgstr "下"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:108
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:115
 msgid "Left"
 msgstr "左"
 
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
+#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:116
 msgid "Right"
 msgstr "右"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
-msgid "Activate"
-msgstr "激活"
-
-#: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:111
-msgid "Back"
-msgstr "后退"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:46
 msgid "1st"
@@ -923,6 +970,25 @@ msgstr "需要提交错误报告？点击下方按钮找到日志文件。"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr "打开日志文件夹"
+
+#~ msgid ""
+#~ "Pixel Wheels is free, but you can support its\n"
+#~ "development in various ways."
+#~ msgstr ""
+#~ "Pixel Wheels 是免费的，但有用很多方式\n"
+#~ "可以支持其开发。"
+
+#~ msgid "Learn more about Pixel Wheels"
+#~ msgstr "了解更多关于 Pixel Wheels"
+
+#~ msgid "QUIT"
+#~ msgstr "退出"
+
+#~ msgid "Trigger:"
+#~ msgstr "触发："
+
+#~ msgid "Back/reverse:"
+#~ msgstr "后退/反转："
 
 #~ msgid "Missing"
 #~ msgstr "缺失"

@@ -35,7 +35,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.HdpiUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -46,7 +45,7 @@ import com.badlogic.gdx.utils.PerformanceCounters;
 /** Responsible for rendering the game world */
 public class GameRenderer {
     private final Track mTrack;
-    private final OrthogonalTiledMapRenderer mRenderer;
+    private final PwTiledMapRenderer mRenderer;
     private final Box2DDebugRenderer mDebugRenderer;
     private final Batch mBatch;
     private final OrthographicCamera mCamera;
@@ -67,7 +66,12 @@ public class GameRenderer {
     private final PerformanceCounter mGameObjectPerformanceCounter;
     private final PerformanceCounter mSetupPerformanceCounter;
 
-    public GameRenderer(GameWorld world, Racer racer, Batch batch, PerformanceCounters counters) {
+    public GameRenderer(
+            GameWorld world,
+            Racer racer,
+            Batch batch,
+            boolean headingUp,
+            PerformanceCounters counters) {
         mDebugRenderer = new Box2DDebugRenderer();
         mWorld = world;
 
@@ -80,11 +84,12 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
+        } else if (headingUp) {
+            mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
         } else {
             mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }
-        mRenderer =
-                new OrthogonalTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
+        mRenderer = new PwTiledMapRenderer(mTrack.getMap(), Constants.UNIT_FOR_PIXEL, mBatch);
 
         mSetupPerformanceCounter = counters.add("- setup");
         mTilePerformanceCounter = counters.add("- tiles");
@@ -163,11 +168,7 @@ public class GameRenderer {
 
         mBatch.begin();
         for (ZLevel z : ZLevel.values()) {
-            for (GameObject object : mWorld.getActiveGameObjects()) {
-                object.draw(mBatch, z, viewBounds);
-            }
-
-            if (z == ZLevel.OBSTACLES && mForegroundLayerIndexes.length > 0) {
+            if (z == ZLevel.FG_LAYERS && mForegroundLayerIndexes.length > 0) {
                 mGameObjectPerformanceCounter.stop();
                 mTilePerformanceCounter.start();
 
@@ -177,6 +178,10 @@ public class GameRenderer {
 
                 mTilePerformanceCounter.stop();
                 mGameObjectPerformanceCounter.start();
+            }
+
+            for (GameObject object : mWorld.getActiveGameObjects()) {
+                object.draw(mBatch, z, viewBounds);
             }
         }
         mBatch.end();
@@ -213,14 +218,7 @@ public class GameRenderer {
     }
 
     private void updateMapRendererCamera() {
-        float width = mCamera.viewportWidth * mCamera.zoom;
-        float height = mCamera.viewportHeight * mCamera.zoom;
-        mRenderer.setView(
-                mCamera.combined,
-                mCamera.position.x - width / 2,
-                mCamera.position.y - height / 2,
-                width,
-                height);
+        mRenderer.setView(mCamera);
     }
 
     private final Vector3 sTmp3 = new Vector3();

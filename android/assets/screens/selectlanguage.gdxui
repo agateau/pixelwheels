@@ -6,9 +6,5 @@
 
         <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -2g" width="500px">
         </Menu>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1g 1g"
-            imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>

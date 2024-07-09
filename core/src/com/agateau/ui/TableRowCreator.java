@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
  * <p>addHeaderRow and addContentRow should always be called with the same number of values.
  */
 public abstract class TableRowCreator {
-    private static final String HEADER_STYLE = "tableHeaderRow";
+    public static final String HEADER_STYLE = "tableHeaderRow";
     private final int mColumns;
     private Table mTable;
 
@@ -48,6 +48,7 @@ public abstract class TableRowCreator {
         mTable = table;
     }
 
+    /** spacing between columns */
     public void setSpacing(int padding) {
         mPadding = padding;
     }

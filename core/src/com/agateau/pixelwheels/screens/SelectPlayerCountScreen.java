@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.screens;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
@@ -63,7 +64,8 @@ public class SelectPlayerCountScreen extends PwStageScreen {
                             });
         }
 
-        builder.getActor("backButton")
+        Menu menu = builder.getActor("menu");
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override

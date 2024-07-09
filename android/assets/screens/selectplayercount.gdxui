@@ -11,9 +11,5 @@
                 <ButtonMenuItem id="4PlayersButton" text="4 PLAYERS"/>
             </Items>
         </Menu>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1 1"
-            imageName="icon-back"/>
     </AnchorGroup>
 </gdxui>

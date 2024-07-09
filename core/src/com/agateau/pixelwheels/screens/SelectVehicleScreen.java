@@ -81,7 +81,7 @@ public class SelectVehicleScreen extends PwStageScreen {
         createVehicleSelector(builder, menu);
         updateVehicleDetails(mVehicleSelector.getCurrent());
 
-        builder.getActor("backButton")
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -90,7 +90,7 @@ public class SelectVehicleScreen extends PwStageScreen {
                             }
                         });
 
-        mNextButton = builder.getActor("nextButton");
+        mNextButton = menu.addNextButton();
         mNextButton.addListener(
                 new ClickListener() {
                     @Override
@@ -105,6 +105,7 @@ public class SelectVehicleScreen extends PwStageScreen {
     private void createVehicleSelector(UiBuilder builder, Menu menu) {
         Assets assets = mGame.getAssets();
         mVehicleSelector = new VehicleSelector(menu);
+        mVehicleSelector.setMenuStyle(menu.getMenuStyleByName("large"));
         mVehicleSelector.init(assets, mGame.getRewardManager());
 
         mVehicleSelector.setColumnCount(builder.getIntConfigValue("columnCount"));

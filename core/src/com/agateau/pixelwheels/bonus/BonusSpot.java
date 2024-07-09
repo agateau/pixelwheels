@@ -106,7 +106,7 @@ public class BonusSpot extends GameObjectAdapter {
         if (zLevel == ZLevel.GROUND) {
             mDrawer.setBatch(batch);
             mDrawer.drawShadow(mBody, mRegion);
-        } else if (zLevel == ZLevel.OBSTACLES) {
+        } else if (zLevel == ZLevel.ON_GROUND) {
             mDrawer.setBatch(batch);
             mDrawer.draw(mBody, mRegion);
         }

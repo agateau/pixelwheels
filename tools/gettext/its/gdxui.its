@@ -5,4 +5,6 @@
   <its:translateRule selector="//Action" translate="no"/>
   <its:translateRule selector="//@text" translate="yes"/>
   <its:translateRule selector="//@label" translate="yes"/>
+  <its:translateRule selector="//@label1" translate="yes"/>
+  <its:translateRule selector="//@label2" translate="yes"/>
 </its:rules>

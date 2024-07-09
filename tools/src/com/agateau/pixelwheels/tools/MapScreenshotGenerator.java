@@ -38,46 +38,45 @@ public class MapScreenshotGenerator {
         new CommandLineApplication(
                 "MapScreenshotGenerator",
                 () -> {
-                    if (arguments.length == 2) {
-                        String shotFileName = arguments[0];
-                        String tmxFileName = arguments[1];
-                        processFile(shotFileName, tmxFileName);
-                    } else {
-                        FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
-                        FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-screenshots");
-                        for (FileHandle tmxFile : tmxDir.list(".tmx")) {
-                            String shotFileName =
-                                    shotDir.path()
-                                            + "/"
-                                            + tmxFile.nameWithoutExtension()
-                                            + "-generated.png";
-                            processFile(shotFileName, tmxFile.path());
+                    if (arguments.length < 1) {
+                        NLog.e("Usage: mapscreenshotgenerator  [map_name...]");
+                        System.exit(1);
+                    }
+                    FileHandle tmxDir = Gdx.files.absolute("android/assets/maps");
+                    FileHandle shotDir = Gdx.files.absolute("core/assets/ui/map-icons");
+                    ;
+                    if (!tmxDir.isDirectory()) {
+                        NLog.e(
+                                "%s is not a directory, start tool from repository root",
+                                tmxDir.path());
+                        System.exit(1);
+                    }
+                    if (!shotDir.isDirectory()) {
+                        NLog.e(
+                                "%s is not a directory, start tool from repository root",
+                                shotDir.path());
+                        System.exit(1);
+                    }
+                    for (String argument : arguments) {
+                        FileHandle tmxFile = tmxDir.child(argument + ".tmx");
+                        if (!tmxFile.exists()) {
+                            NLog.e("%s is not a file", tmxFile);
+                            System.exit(1);
                         }
+                        FileHandle shotFile =
+                                shotDir.child(tmxFile.nameWithoutExtension() + ".png");
+                        NLog.i("%s: processing", shotFile);
+                        processFile(shotFile, tmxFile);
                     }
                 });
     }
 
-    private static void processFile(String shotFileName, String tmxFileName) {
-        FileHandle tmxFile = Gdx.files.absolute(tmxFileName);
-        FileHandle shotFile = Gdx.files.absolute(shotFileName);
-        if (!tmxFile.file().isFile()) {
-            NLog.e("%s is not a file", tmxFile);
-            System.exit(1);
-        }
-        if (isOutdated(shotFile, tmxFile)) {
-            NLog.i("%s: updating", shotFile.path());
-            Pixmap pix1 = generateScreenshot(tmxFile);
-            Pixmap pix2 = scaleScreenshot(pix1);
-            pix1.dispose();
-            PixmapIO.writePNG(shotFile, pix2);
-            pix2.dispose();
-        } else {
-            NLog.i("%s: up to date", shotFile.path());
-        }
-    }
-
-    private static boolean isOutdated(FileHandle dst, FileHandle src) {
-        return dst.lastModified() < src.lastModified();
+    private static void processFile(FileHandle shotFile, FileHandle tmxFile) {
+        Pixmap pix1 = generateScreenshot(tmxFile);
+        Pixmap pix2 = scaleScreenshot(pix1);
+        pix1.dispose();
+        PixmapIO.writePNG(shotFile, pix2);
+        pix2.dispose();
     }
 
     private static Pixmap generateScreenshot(FileHandle tmxFile) {

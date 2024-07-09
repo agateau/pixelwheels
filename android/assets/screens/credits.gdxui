@@ -66,7 +66,7 @@
                 <Label>Christian Schrötter</Label>
                 <Label/>
                 <Label>Spanish:</Label>
-                <Label>Clara Gâteau</Label>
+                <Label>Victor Hck</Label>
                 <Label/>
                 <Label>Basque:</Label>
                 <Label>Josu Igoa</Label>
@@ -130,8 +130,6 @@
             </VerticalGroup>
         </CreditsScrollPane>
 
-        <ImageButton id="backButton"
-                     bottomLeft="root.bottomLeft 1g 1g"
-                     imageName="icon-back"/>
+        <Menu id="menu"/>
     </AnchorGroup>
 </gdxui>

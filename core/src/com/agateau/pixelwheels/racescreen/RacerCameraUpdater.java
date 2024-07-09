@@ -65,6 +65,7 @@ class RacerCameraUpdater extends CameraUpdater {
             sDelta.limit(MAX_CAMERA_DELTA * delta);
         }
         limitZoomChange(delta);
+        mNextCameraInfo.clampPositionToTrack(mWorld.getTrack());
         applyChanges();
     }
 }

@@ -57,6 +57,7 @@ public class DefaultKeys {
         keyMap.put(VirtualKey.DOWN, Input.Keys.DOWN);
         keyMap.put(VirtualKey.TRIGGER, Input.Keys.SPACE);
         keyMap.put(VirtualKey.BACK, Input.Keys.ESCAPE);
+        keyMap.put(VirtualKey.PAUSE, Input.Keys.ESCAPE);
 
         // Player 2
         keyMap = new HashMap<>();

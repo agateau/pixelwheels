@@ -24,6 +24,7 @@ import static com.agateau.translations.Translator.trc;
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
+import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.TrackResult;
 import com.agateau.pixelwheels.stats.TrackStats;
@@ -32,13 +33,13 @@ import com.agateau.pixelwheels.utils.UiUtils;
 import com.agateau.pixelwheels.vehicledef.VehicleDef;
 import com.agateau.ui.TableRowCreator;
 import com.agateau.ui.anchor.AnchorGroup;
+import com.agateau.ui.menu.CornerMenuButton;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -50,6 +51,7 @@ import java.util.ArrayList;
 public class SelectTrackScreen extends PwStageScreen {
     private final PwGame mGame;
     private final Listener mListener;
+    private ChampionshipSelector mChampionshipSelector;
     private TrackSelector mTrackSelector;
     private Label mTrackNameLabel;
     private Label mUnlockHintLabel;
@@ -98,7 +100,7 @@ public class SelectTrackScreen extends PwStageScreen {
                     return image;
                 }
             };
-    private Button mNextButton;
+    private CornerMenuButton mNextButton;
 
     public interface Listener {
         void onBackPressed();
@@ -137,10 +139,13 @@ public class SelectTrackScreen extends PwStageScreen {
 
         Menu menu = builder.getActor("menu");
 
-        createTrackSelector(menu);
-        updateTrackDetails(mTrackSelector.getCurrent());
+        Track track = getCurrentTrack();
 
-        builder.getActor("backButton")
+        createChampionshipSelector(menu, track);
+        createTrackSelector(menu, track);
+        updateTrackDetails(track);
+
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -149,7 +154,7 @@ public class SelectTrackScreen extends PwStageScreen {
                             }
                         });
 
-        mNextButton = builder.getActor("nextButton");
+        mNextButton = menu.addNextButton();
         mNextButton.addListener(
                 new ClickListener() {
                     @Override
@@ -165,14 +170,48 @@ public class SelectTrackScreen extends PwStageScreen {
         mNextButton.setDisabled(!mTrackSelector.isCurrentItemEnabled());
     }
 
-    private void createTrackSelector(Menu menu) {
+    private Track getCurrentTrack() {
+        Assets assets = mGame.getAssets();
+        Track track = assets.findTrackById(mGame.getConfig().track);
+        if (track == null) {
+            track = assets.championships.get(0).getTracks().get(0);
+        }
+        return track;
+    }
+
+    private void createChampionshipSelector(Menu menu, Track currentTrack) {
+        Assets assets = mGame.getAssets();
+
+        mChampionshipSelector = new ChampionshipSelector(menu);
+        mChampionshipSelector.setMenuStyle(menu.getMenuStyleByName("large"));
+        mChampionshipSelector.setColumnCount(3);
+        mChampionshipSelector.init(assets, mGame.getRewardManager());
+        mChampionshipSelector.setSelected(currentTrack.getChampionship());
+        menu.addItem(mChampionshipSelector);
+
+        mChampionshipSelector.setSelectionListener(
+                new GridMenuItem.SelectionListener<Championship>() {
+                    @Override
+                    public void currentChanged(Championship item, int index) {}
+
+                    @Override
+                    public void selectionConfirmed() {
+                        mTrackSelector.setCurrentChampionship(mChampionshipSelector.getSelected());
+                        menu.setCurrentItem(mTrackSelector);
+                    }
+                });
+    }
+
+    private void createTrackSelector(Menu menu, Track currentTrack) {
         Assets assets = mGame.getAssets();
 
         mTrackSelector = new TrackSelector(menu);
-        mTrackSelector.setColumnCount(4);
-        mTrackSelector.init(assets, mGame.getRewardManager());
-        mTrackSelector.setCurrent(assets.findTrackById(mGame.getConfig().track));
+        mTrackSelector.setMenuStyle(menu.getMenuStyleByName("large"));
+        mTrackSelector.setColumnCount(3);
+        mTrackSelector.init(assets, mGame.getRewardManager(), currentTrack.getChampionship());
+        mTrackSelector.setCurrent(currentTrack);
         menu.addItem(mTrackSelector);
+        menu.setCurrentItem(mTrackSelector);
 
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {

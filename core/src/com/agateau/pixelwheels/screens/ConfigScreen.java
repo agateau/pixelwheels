@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.Language;
 import com.agateau.pixelwheels.LogExporter;
+import com.agateau.pixelwheels.LogExporterUtils;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
@@ -51,14 +52,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /** The config screen */
 public class ConfigScreen extends PwStageScreen {
-    private static class SupportInfo {
-        public String url;
-        public String label;
-        public String buttonText;
-    }
-
     private final PwGame mGame;
     private final Origin mOrigin;
+
+    private static final String WEBSITE_URL = "https://agateau.com/projects/pixelwheels";
 
     /// Indicates from where has this config screen been called from
     public enum Origin {
@@ -103,7 +100,7 @@ public class ConfigScreen extends PwStageScreen {
         addAboutTab();
         addInternalTab();
 
-        builder.getActor("backButton")
+        mMenu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -127,43 +124,17 @@ public class ConfigScreen extends PwStageScreen {
                             }
                         });
 
-        group.addSpacer();
-
-        SupportInfo supportInfo = getSupportInfo();
-        LabelMenuItem labelMenuItem = group.addLabel(supportInfo.label);
-        labelMenuItem.setWrap(true);
-        group.addButton(supportInfo.buttonText)
+        group.addButton(tr("WEB SITE"))
                 .setParentWidthRatio(0.5f)
                 .addListener(
                         new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
-                                PlatformUtils.openURI(supportInfo.url);
+                                PlatformUtils.openURI(WEBSITE_URL);
                             }
                         });
-    }
 
-    /**
-     * GPlay does not allow linking to a support page, so use more generic information for the GPlay
-     * build.
-     */
-    private SupportInfo getSupportInfo() {
-        SupportInfo info = new SupportInfo();
-        switch (Constants.STORE) {
-            case ITCHIO:
-                info.url = "https://agateau.com/support/";
-                info.label =
-                        tr(
-                                "Pixel Wheels is free, but you can support its\ndevelopment in various ways.");
-                info.buttonText = tr("VISIT SUPPORT PAGE");
-                break;
-            case GPLAY:
-                info.url = "https://agateau.com/projects/pixelwheels";
-                info.label = tr("Learn more about Pixel Wheels");
-                info.buttonText = tr("VISIT WEB SITE");
-                break;
-        }
-        return info;
+        group.addSpacer();
     }
 
     private void addInternalTab() {
@@ -179,7 +150,7 @@ public class ConfigScreen extends PwStageScreen {
                             new MenuItemListener() {
                                 @Override
                                 public void triggered() {
-                                    mGame.getLogExporter().exportLogs();
+                                    LogExporterUtils.exportLogs(logExporter);
                                 }
                             });
             group.addSpacer();
@@ -268,8 +239,8 @@ public class ConfigScreen extends PwStageScreen {
                         });
         group.addItemWithLabel(tr("Music:"), musicSwitch);
 
+        group.addTitleLabel(tr("Video"));
         if (PlatformUtils.isDesktop()) {
-            group.addTitleLabel(tr("Video"));
             final SwitchMenuItem fullscreenSwitch = new SwitchMenuItem(mMenu);
             fullscreenSwitch.setChecked(gameConfig.fullscreen);
             fullscreenSwitch
@@ -285,6 +256,20 @@ public class ConfigScreen extends PwStageScreen {
                             });
             group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
         }
+
+        final SwitchMenuItem headingUpCameraSwitch = new SwitchMenuItem(mMenu);
+        headingUpCameraSwitch.setChecked(gameConfig.headingUpCamera);
+        headingUpCameraSwitch
+                .getActor()
+                .addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                                gameConfig.headingUpCamera = headingUpCameraSwitch.isChecked();
+                                gameConfig.flush();
+                            }
+                        });
+        group.addItemWithLabel(tr("Rotate camera:"), headingUpCameraSwitch);
     }
 
     private String getLanguageText() {

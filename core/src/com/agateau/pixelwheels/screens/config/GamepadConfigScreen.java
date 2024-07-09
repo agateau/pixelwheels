@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens.config;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -27,6 +29,8 @@ import com.agateau.ui.GamepadInputMapper;
 import com.agateau.ui.VirtualKey;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
+import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItem;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
@@ -107,16 +111,26 @@ public class GamepadConfigScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
+        builder.registerMenuItemFactory(
+                "KeyMenuItem",
+                (menu, element) -> {
+                    String label1 = tr(element.getAttribute("label1", ""));
+                    String label2 = tr(element.getAttribute("label2", ""));
+                    String keyStr = element.getAttribute("key", "");
+                    if (keyStr.equals("")) {
+                        return ConfigUiUtils.createTwoColumnTitle(menu, label1, label2);
+                    }
+                    VirtualKey key = VirtualKey.valueOf(keyStr);
+                    return createButton(menu, label1, label2, key);
+                });
 
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/gamepadconfig.gdxui"));
         root.setFillParent(true);
         getStage().addActor(root);
 
-        createButton(builder.getMenuItem("triggerPadButton"), VirtualKey.TRIGGER);
-        createButton(builder.getMenuItem("backPadButton"), VirtualKey.BACK);
-
-        builder.getActor("backButton")
+        Menu menu = builder.getActor("menu");
+        menu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -126,10 +140,15 @@ public class GamepadConfigScreen extends PwStageScreen {
                         });
     }
 
-    private void createButton(ButtonMenuItem buttonItem, VirtualKey virtualKey) {
+    private MenuItem createButton(Menu menu, String text1, String text2, VirtualKey virtualKey) {
+        ButtonMenuItem buttonItem = new ButtonMenuItem(menu, "");
+        ConfigUiUtils.createTwoColumnRow(menu, text1, text2, buttonItem);
+
         GamepadButtonItemController controller =
                 new GamepadButtonItemController(buttonItem, virtualKey);
         mButtonControllers.add(controller);
+
+        return buttonItem;
     }
 
     private void startEditing(GamepadButtonItemController controller) {

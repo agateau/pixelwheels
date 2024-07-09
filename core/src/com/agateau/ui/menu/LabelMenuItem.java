@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Align;
 
 /**
  * A MenuItem to show a static text
@@ -38,6 +39,7 @@ public class LabelMenuItem implements MenuItem {
 
     public LabelMenuItem(String text, Skin skin, String style) {
         mLabel = new Label(text, skin, style);
+        mLabel.setAlignment(Align.center);
     }
 
     @Override

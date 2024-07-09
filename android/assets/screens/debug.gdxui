@@ -5,10 +5,6 @@
               width="700" height="480" topCenter="root.topCenter 0 0"
               labelColumnWidth="350"/>
 
-        <ImageButton id="backButton"
-                     bottomLeft="root.bottomLeft 1 1"
-                     imageName="icon-back"/>
-
-        <Label id="gamePlayModifiedLabel" bottomLeft="backButton.bottomRight 1 0" style="small" width="800px" wrap="true">Settings affecting game play have been modified, scores won't be saved</Label>
+        <Label id="gamePlayModifiedLabel" bottomRight="root.bottomRight -1g 1g" wrap="true" width="800px" align="centerRight" style="small">Settings affecting game play have been modified, scores won't be saved</Label>
     </AnchorGroup>
 </gdxui>

@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -52,7 +53,7 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
     private OrthogonalTiledMapRenderer mRenderer;
     private Array<LapPositionTableIO.Line> mLines;
-    private float mZoom = 1f;
+    private float mZoom = 0.25f;
 
     private final EditorActionStack mActionStack = new EditorActionStack();
 
@@ -103,9 +104,11 @@ public class TrackEditorScreen extends StageScreen implements Editor {
 
         // Zoom
         if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)
-                || Gdx.input.isKeyJustPressed(Input.Keys.PLUS)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.PLUS)
+                || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_ADD)) {
             mZoom *= 2;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.MINUS)
+                || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_SUBTRACT)) {
             mZoom /= 2;
         }
         // Previous / Next
@@ -257,7 +260,30 @@ public class TrackEditorScreen extends StageScreen implements Editor {
             mRenderer.dispose();
         }
         mRenderer = new OrthogonalTiledMapRenderer(map, mBatch);
+
+        scrollToCenter(map);
+
         mLines = LapPositionTableIO.loadSectionLines(map);
+        if (mLines.isEmpty()) {
+            addFirstLine();
+        }
+    }
+
+    private void scrollToCenter(TiledMap map) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        float centerX = layer.getWidth() * layer.getTileWidth() / 2f;
+        float centerY = layer.getHeight() * layer.getTileHeight() / 2f;
+        mViewCenter.x = centerX;
+        mViewCenter.y = centerY;
+    }
+
+    private void addFirstLine() {
+        float centerX = mViewCenter.x;
+        float centerY = mViewCenter.y;
+        LapPositionTableIO.Line line = new LapPositionTableIO.Line();
+        line.p1.set(centerX - 24, centerY);
+        line.p2.set(centerX + 24, centerY);
+        mLines.add(line);
     }
 
     @Override

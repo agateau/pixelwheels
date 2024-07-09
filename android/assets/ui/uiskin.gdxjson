@@ -70,6 +70,10 @@
             font: title-font,
             fontColor: white
         },
+        gamepadHeaderRow: {
+            font: default-font,
+            fontColor: highlight
+        },
         tableHeaderRow: {
             font: default-font,
             fontColor: highlight

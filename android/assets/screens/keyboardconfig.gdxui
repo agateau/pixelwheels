@@ -4,12 +4,15 @@
         <Label id="mainLabel" style="title"
             topCenter="root.topCenter 0 -1">Keyboard config</Label>
 
-        <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -2"
-            labelColumnWidth="400"
-            width="700"/>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1 1"
-            imageName="icon-back"/>
+        <Ifdef var="player1">
+            <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -5g"
+                labelColumnWidth="400"
+                width="700"/>
+        </Ifdef>
+        <Else>
+            <Menu id="menu" topCenter="mainLabel.bottomCenter 0 0"
+                labelColumnWidth="550"
+                width="750"/>
+        </Else>
     </AnchorGroup>
 </gdxui>

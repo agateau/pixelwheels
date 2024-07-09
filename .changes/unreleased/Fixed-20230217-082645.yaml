@@ -1,4 +1,0 @@
-kind: Fixed
-body: Fixed a crash which would happen when configuring one of Player 1 keys to Up
-  (#326).
-time: 2023-02-17T08:26:45.168710998+01:00

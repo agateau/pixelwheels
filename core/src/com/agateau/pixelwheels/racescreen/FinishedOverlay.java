@@ -112,6 +112,7 @@ public class FinishedOverlay extends Overlay {
     private float mPointsIncreaseInterval = 0.3f;
     private int mBestIndicatorWidth = 0;
     private float mBestIndicatorMargin = 0;
+    private int mColumnSpacing = 0;
 
     enum RaceColumn {
         RANK,
@@ -135,7 +136,12 @@ public class FinishedOverlay extends Overlay {
                             break;
                         case BEST_LAP_TIME:
                         case TOTAL_TIME:
-                            cell.padLeft(mBestIndicatorWidth + mBestIndicatorMargin);
+                            // Reserve space for the best-indicator, but do not waste space in the
+                            // header row: it's usually wider than the content row and cannot get a
+                            // best-indicator
+                            if (!style.equals(HEADER_STYLE)) {
+                                cell.padLeft(mBestIndicatorWidth + mBestIndicatorMargin);
+                            }
                             cell.right();
                             break;
                         default:
@@ -159,7 +165,9 @@ public class FinishedOverlay extends Overlay {
                             break;
                         case BEST_LAP_TIME:
                         case TOTAL_TIME:
-                            cell.padLeft(mBestIndicatorWidth + mBestIndicatorMargin);
+                            if (!style.equals(HEADER_STYLE)) {
+                                cell.padLeft(mBestIndicatorWidth + mBestIndicatorMargin);
+                            }
                             cell.right();
                             break;
                         default:
@@ -286,6 +294,7 @@ public class FinishedOverlay extends Overlay {
         mFirstPointsIncreaseInterval = builder.getFloatConfigValue("firstPointsIncreaseInterval");
         mPointsIncreaseInterval = builder.getFloatConfigValue("pointsIncreaseInterval");
         mBestIndicatorMargin = builder.getFloatConfigValue("bestIndicatorMargin");
+        mColumnSpacing = builder.getIntConfigValue("columnSpacing");
 
         loadRankChangeAnimations(builder);
         Table table = builder.getActor("scrollableTable");
@@ -407,7 +416,7 @@ public class FinishedOverlay extends Overlay {
         // Init our table
         TableRowCreator rowCreator = getRowCreatorForTable(tableType);
         rowCreator.setTable(table);
-        rowCreator.setSpacing(24);
+        rowCreator.setSpacing(mColumnSpacing);
 
         // Create header row
         switch (tableType) {

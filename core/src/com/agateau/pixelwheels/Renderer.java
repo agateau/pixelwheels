@@ -22,5 +22,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 /** Things which can be rendered */
 public interface Renderer {
-    void draw(Batch batch, float centerX, float centerY);
+    /** Draw inside a cell from the CellFrameBufferManager */
+    void drawToCell(Batch batch, float centerX, float centerY);
+
+    /** Draw on screen */
+    void draw(Batch batch, ZLevel zLevel);
 }

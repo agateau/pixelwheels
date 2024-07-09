@@ -57,7 +57,6 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
         setSize(mStyle.frame.getMinWidth() * 2, mStyle.frame.getMinHeight());
 
-        addListener(new Menu.MouseMovedListener(menu, this));
         addListener(
                 new ClickListener() {
                     @Override
@@ -148,9 +147,8 @@ public class SwitchMenuItem extends Actor implements MenuItem {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
-
         mFocusIndicator.draw(batch, getX(), getY(), getWidth(), getHeight());
+        mStyle.frame.draw(batch, getX(), getY(), getWidth(), getHeight());
 
         // Draw handle
         Drawable handle = mStyle.handle;

@@ -17,6 +17,10 @@ specific screen:
 
 When set to an existing directory, Pixel Wheels looks into this directory first when loading assets. If an asset is not found, the game falls back to the default directory.
 
+## PW_DEBUG_BONUS environment variables
+
+Set to the names of the Bonus classes to debug. Names should be separated by spaces.
+
 ## AGC_UI_TYPE environment variable
 
 Overrides the UI type. Can be one of:

@@ -58,9 +58,16 @@ public class WaypointStore {
             WaypointInfo info = new WaypointInfo();
             info.waypoint.set(x, y).scl(U);
             info.lapDistance = pos.getLapDistance();
+            if (idx > 0) {
+                Assert.check(
+                        info.lapDistance > mWaypointInfos.get(idx - 1).lapDistance,
+                        "Lap distance for point "
+                                + idx
+                                + " is shorter than for point "
+                                + (idx - 1));
+            }
             mWaypointInfos.add(info);
         }
-        mWaypointInfos.sort((w1, w2) -> Float.compare(w1.lapDistance, w2.lapDistance));
     }
 
     public Vector2 getWaypoint(int index) {

@@ -29,6 +29,7 @@ public class AxleDef {
     private static final float SPLASH_FRAME_DURATION = 0.04f;
 
     public enum TireSize {
+        THIN(0.2f),
         NORMAL(0.2f),
         LARGE(0.2f),
         HUGE(0.05f);

@@ -28,8 +28,8 @@ import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.KeyboardInputHandler;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.KeyMapper;
+import com.agateau.ui.UiInputMapper;
 import com.agateau.ui.VirtualKey;
-import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.ButtonMenuItem;
 import com.agateau.ui.menu.Menu;
@@ -40,7 +40,6 @@ import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
@@ -89,6 +88,12 @@ public class KeyboardConfigScreen extends PwStageScreen {
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().atlas, mGame.getAssets().ui.skin);
 
+        if (mPlayerIdx == 0) {
+            // When configuring player 1, we show less entries, so add a margin between the title
+            // and the entries
+            builder.defineVariable("player1");
+        }
+
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/keyboardconfig.gdxui"));
         root.setFillParent(true);
@@ -97,12 +102,14 @@ public class KeyboardConfigScreen extends PwStageScreen {
         mMenu = builder.getActor("menu");
 
         if (mPlayerIdx == 0) {
-            // First player only configure in-game keys, others also configure UI keys
+            // Player 1 only configures in-game keys, others also configure UI keys
             createKeyItem(mMenu, tr("Brake"), VirtualKey.DOWN);
             createKeyItem(mMenu, tr("Steer left"), VirtualKey.LEFT);
             createKeyItem(mMenu, tr("Steer right"), VirtualKey.RIGHT);
             createKeyItem(mMenu, tr("Trigger"), VirtualKey.TRIGGER);
+            createKeyItem(mMenu, tr("Screenshot"), VirtualKey.SCREENSHOT);
         } else {
+            ConfigUiUtils.createTwoColumnTitle(mMenu, tr("Menu"), tr("Game"));
             createKeyItem(mMenu, tr("Up"), "-", VirtualKey.UP);
             createKeyItem(mMenu, tr("Down"), tr("Brake"), VirtualKey.DOWN);
             createKeyItem(mMenu, tr("Left"), tr("Steer left"), VirtualKey.LEFT);
@@ -111,7 +118,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
             createKeyItem(mMenu, tr("Back"), "-", VirtualKey.BACK);
         }
 
-        builder.getActor("backButton")
+        mMenu.addBackButton()
                 .addListener(
                         new ClickListener() {
                             @Override
@@ -123,6 +130,8 @@ public class KeyboardConfigScreen extends PwStageScreen {
 
     private void createKeyItem(Menu menu, String text1, String text2, VirtualKey virtualKey) {
         ButtonMenuItem button = new ButtonMenuItem(menu, getButtonText(virtualKey));
+        ConfigUiUtils.createTwoColumnRow(menu, text1, text2, button);
+
         button.addListener(
                 new MenuItemListener() {
                     @Override
@@ -130,20 +139,6 @@ public class KeyboardConfigScreen extends PwStageScreen {
                         startEditing(button, virtualKey);
                     }
                 });
-
-        if (text2 == null) {
-            menu.addItemWithLabel(text1, button);
-        } else {
-            AnchorGroup group = new AnchorGroup();
-            group.addPositionRule(
-                    new Label(text1, menu.getSkin()),
-                    Anchor.CENTER_LEFT,
-                    group,
-                    Anchor.CENTER_LEFT);
-            group.addPositionRule(
-                    new Label(text2, menu.getSkin()), Anchor.CENTER_LEFT, group, Anchor.CENTER);
-            menu.addItemWithLabelActor(group, button);
-        }
         mKeyButtonMap.put(virtualKey, button);
     }
 
@@ -167,9 +162,17 @@ public class KeyboardConfigScreen extends PwStageScreen {
             };
 
     private void updateKey(int newKey) {
-        int oldKey = mKeyMapper.getKey(mEditedVirtualKey);
-        mKeyMapper.setKey(mEditedVirtualKey, newKey);
+        KeyMapper keyMapper = getKeyMapper(mEditedVirtualKey);
+        int oldKey = keyMapper.getKey(mEditedVirtualKey);
+        keyMapper.setKey(mEditedVirtualKey, newKey);
         checkConflicts(oldKey, newKey);
+    }
+
+    private KeyMapper getKeyMapper(VirtualKey virtualKey) {
+        // For almost all keys we use mKeyMapper, but not for SCREENSHOT, because the game access it
+        // via UiInputMapper.getInstance()
+        KeyMapper uiKeyMapper = UiInputMapper.getInstance().getKeyMapper();
+        return virtualKey == VirtualKey.SCREENSHOT ? uiKeyMapper : mKeyMapper;
     }
 
     private void checkConflicts(int oldKey, int newKey) {
@@ -221,7 +224,7 @@ public class KeyboardConfigScreen extends PwStageScreen {
     }
 
     private String getButtonText(VirtualKey virtualKey) {
-        int key = mKeyMapper.getKey(virtualKey);
+        int key = getKeyMapper(virtualKey).getKey(virtualKey);
         return Input.Keys.toString(key);
     }
 

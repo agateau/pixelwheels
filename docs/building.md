@@ -62,14 +62,6 @@ Once assets have been generated, you can pack them into atlases with:
 make packer
 ```
 
-### Build translations
-
-Translations files (.po) must be turned into Java files with:
-
-```
-make po-compile
-```
-
 ### Build the game
 
 Run:

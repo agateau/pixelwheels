@@ -28,6 +28,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /** The game configuration */
@@ -37,6 +38,8 @@ public class GameConfig {
     }
 
     public boolean fullscreen = false;
+    public boolean headingUpCamera = false;
+
     public boolean playSoundFx = true;
     public boolean playMusic = true;
     public String languageId = "";
@@ -54,13 +57,17 @@ public class GameConfig {
     private final DelayedRemovalArray<ChangeListener> mListeners = new DelayedRemovalArray<>();
 
     GameConfig() {
-        mPreferences = Gdx.app.getPreferences(Constants.CONFIG_FILENAME);
+        this(Gdx.app.getPreferences(Constants.CONFIG_FILENAME));
+    }
 
+    GameConfig(Preferences preferences) {
+        mPreferences = preferences;
         load();
     }
 
     private void load() {
         fullscreen = mPreferences.getBoolean(PrefConstants.FULLSCREEN, false);
+        headingUpCamera = mPreferences.getBoolean(PrefConstants.HEADING_UP_CAMERA, false);
         playSoundFx = mPreferences.getBoolean(PrefConstants.SOUND_FX, true);
         playMusic = mPreferences.getBoolean(PrefConstants.MUSIC, true);
 
@@ -91,6 +98,7 @@ public class GameConfig {
 
     public void flush() {
         mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
+        mPreferences.putBoolean(PrefConstants.HEADING_UP_CAMERA, headingUpCamera);
         mPreferences.putBoolean(PrefConstants.SOUND_FX, playSoundFx);
         mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
 
@@ -114,10 +122,6 @@ public class GameConfig {
             listener.onGameConfigChanged();
         }
         mListeners.end();
-    }
-
-    public GameInputHandler[] getPlayerInputHandlers() {
-        return mPlayerInputHandlers;
     }
 
     public GameInputHandler getPlayerInputHandler(int index) {
@@ -160,10 +164,24 @@ public class GameConfig {
         return object.getClass().getSimpleName() + '@' + address;
     }
 
+    /**
+     * Initialize mPlayerInputHandlers. It does so by getting a *copy* of the input handler pointers
+     * and dispatching them to mPlayerInputHandlers.
+     */
     private void setupInputHandlers() {
         NLog.i("");
-        Map<String, Array<GameInputHandler>> inputHandlersByIds =
-                GameInputHandlerFactories.getInputHandlersByIds();
+
+        // Create a map mapping an input handler factory ID to a *copy* of its handler array.
+        //
+        // It's a copy so that code can take handlers from the array without affecting the original.
+        //
+        // The map is a LinkedHashMap so that iterating on the entries follows the order factories
+        // are listed inside GameInputHandlerFactories, ensuring factories listed early are picked
+        // first when selecting a default handler.
+        LinkedHashMap<String, Array<GameInputHandler>> inputHandlersByIds = new LinkedHashMap<>();
+        for (GameInputHandlerFactory factory : GameInputHandlerFactories.getAvailableFactories()) {
+            inputHandlersByIds.put(factory.getId(), new Array<>(factory.getAllHandlers()));
+        }
 
         for (int idx = 0; idx < Constants.MAX_PLAYERS; ++idx) {
             mPlayerInputHandlers[idx] = null;
@@ -181,6 +199,11 @@ public class GameConfig {
                 }
             }
             if (inputHandler == null) {
+                // We haven't found an input handler for this player, fall back to the first
+                // available handler.
+                NLog.i(
+                        "P%d: no predefined config, or predefined config not available. Looking for a fallback.",
+                        idx + 1);
                 for (Map.Entry<String, Array<GameInputHandler>> entry :
                         inputHandlersByIds.entrySet()) {
                     inputHandler = popInputHandler(entry.getValue());

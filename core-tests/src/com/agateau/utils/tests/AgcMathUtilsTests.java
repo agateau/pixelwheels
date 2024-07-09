@@ -137,4 +137,24 @@ public class AgcMathUtilsTests {
         assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s1, s2), is(false));
         assertThat(AgcMathUtils.lineCrossesSegment(l1, l2, s2, s1), is(false));
     }
+
+    @Test
+    public void testSnapAngle() {
+        assertThat(AgcMathUtils.snapAngle(92f), is(90f));
+        assertThat(AgcMathUtils.snapAngle(182f), is(180f));
+        assertThat(AgcMathUtils.snapAngle(-89f), is(-90f));
+        assertThat(AgcMathUtils.snapAngle(-92f), is(-90f));
+
+        // Untouched values
+        assertThat(AgcMathUtils.snapAngle(87f), is(87f));
+        assertThat(AgcMathUtils.snapAngle(183f), is(183f));
+    }
+
+    @Test
+    public void testShortestAngleDelta() {
+        assertThat(AgcMathUtils.shortestAngleDelta(30f, 80f), is(50f));
+        assertThat(AgcMathUtils.shortestAngleDelta(80f, 30f), is(-50f));
+        assertThat(AgcMathUtils.shortestAngleDelta(10f, 350f), is(-20f));
+        assertThat(AgcMathUtils.shortestAngleDelta(350f, 10f), is(20f));
+    }
 }

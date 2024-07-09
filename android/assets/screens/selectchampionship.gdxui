@@ -4,18 +4,10 @@
         <Label id="titleLabel" style="title"
                topCenter="root.topCenter 0 -2">Select Championship</Label>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3" style="large" width="600px"/>
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3" width="600px"/>
 
         <Label id="championshipNameLabel" topCenter="root.bottomCenter 0 8"/>
 
         <Label id="championshipDetailsLabel" topCenter="$prev.bottomCenter 0 -1" style="small"/>
-
-        <ImageButton id="backButton"
-            bottomLeft="root.bottomLeft 1 1"
-            imageName="icon-back"/>
-
-        <ImageButton id="nextButton"
-            bottomRight="root.bottomRight -1 1"
-            imageName="icon-next"/>
     </AnchorGroup>
 </gdxui>

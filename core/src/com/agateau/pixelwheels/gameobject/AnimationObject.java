@@ -69,7 +69,7 @@ public class AnimationObject extends GameObjectAdapter implements Pool.Poolable,
         if (mTime < 0) {
             return;
         }
-        if (zLevel != ZLevel.OBSTACLES) {
+        if (zLevel != ZLevel.FLYING_LOW) {
             return;
         }
         TextureRegion region = mAnimation.getKeyFrame(mTime);

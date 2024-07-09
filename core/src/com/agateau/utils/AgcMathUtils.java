@@ -28,6 +28,8 @@ public class AgcMathUtils {
     public static final float msToKmh = 3600 / 1000f;
     public static final float kmhToMs = 1 / msToKmh;
 
+    private static final float SNAP_ANGLE_THRESHOLD = 2;
+
     /** Wrap angles if they are less than 0 or greater than 360 */
     public static float normalizeAngle(float angle) {
         return modulo(angle, 360);
@@ -147,6 +149,21 @@ public class AgcMathUtils {
         return normalizeAngle(angle2) - normalizeAngle(angle1);
     }
 
+    /** Returns the shortest angle delta to go from angle1 to angle2 */
+    public static float shortestAngleDelta(float angle1, float angle2) {
+        if (angle2 - angle1 > 180) {
+            angle2 -= 360;
+        }
+        if (angle1 - angle2 > 180) {
+            angle1 -= 360;
+        }
+        return angle2 - angle1;
+    }
+
+    public static boolean anglesAreEqual(float angle1, float angle2, float tolerance) {
+        return MathUtils.isZero(shortestAngleDelta(angle1, angle2), tolerance);
+    }
+
     /**
      * A modulo which works with negative values.
      *
@@ -221,5 +238,17 @@ public class AgcMathUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Snap angle when its value is close to a multiple of 90°. "Close" means a difference of less
+     * than SNAP_ANGLE_THRESHOLD.
+     */
+    public static float snapAngle(float value) {
+        float snappedValue = MathUtils.round(value / 90f) * 90f;
+        if (Math.abs(snappedValue - value) <= SNAP_ANGLE_THRESHOLD) {
+            return snappedValue;
+        }
+        return value;
     }
 }

@@ -19,13 +19,11 @@
 package com.agateau.ui.menu;
 
 import com.agateau.ui.InputMapper;
-import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.VirtualKey;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Disableable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
@@ -41,31 +39,13 @@ public class Menu extends WidgetGroup implements Disableable {
     private final MenuItemGroup mGroup;
     private final Skin mSkin;
     private final MenuStyle mStyle;
+    private final String mStyleName;
 
     private float mLabelColumnWidth;
     private boolean mDisabled = false;
 
-    public void addItemWithLabelActor(Actor labelActor, MenuItem menuItem) {
-        mGroup.addItemWithLabelActor(labelActor, menuItem);
-    }
-
-    /** A listener to set the item current if the mouse cursor is visible and over it */
-    static class MouseMovedListener extends ClickListener {
-        private final Menu mMenu;
-        private final MenuItem mMenuItem;
-
-        public MouseMovedListener(Menu menu, MenuItem menuItem) {
-            mMenu = menu;
-            mMenuItem = menuItem;
-        }
-
-        @Override
-        public boolean mouseMoved(InputEvent event, float x, float y) {
-            if (MouseCursorManager.getInstance().isVisible() && mMenuItem.isFocusable()) {
-                mMenu.setCurrentItem(mMenuItem);
-            }
-            return true;
-        }
+    public MenuItem addItemWithLabelActor(Actor labelActor, MenuItem menuItem) {
+        return mGroup.addItemWithLabelActor(labelActor, menuItem);
     }
 
     public static class MenuStyle {
@@ -89,12 +69,44 @@ public class Menu extends WidgetGroup implements Disableable {
 
     public Menu(Skin skin, String styleName) {
         mSkin = skin;
-        mStyle = skin.get(styleName, MenuStyle.class);
+        mStyleName = styleName;
+        mStyle = getMenuStyleByName(styleName);
 
         mGroup = new MenuItemGroup(this);
         setLabelColumnWidth(LABEL_COLUMN_WIDTH);
 
         addActor(mGroup.getActor());
+    }
+
+    public MenuStyle getMenuStyleByName(String styleName) {
+        return mSkin.get(styleName, MenuStyle.class);
+    }
+
+    private CornerMenuButton addCornerButton(CornerMenuButton.Corner corner, String iconName) {
+        ImageButton.ImageButtonStyle style =
+                new ImageButton.ImageButtonStyle(
+                        mSkin.get(mStyleName, ImageButton.ImageButtonStyle.class));
+        style.imageUp = mSkin.getDrawable(iconName);
+
+        CornerMenuButton button = new CornerMenuButton(this, corner, style);
+        addItem(button);
+        return button;
+    }
+
+    /**
+     * Adds a button in the bottom-left corner, with a back icon. The skin atlas must contain an
+     * "icon-back" image.
+     */
+    public CornerMenuButton addBackButton() {
+        return addCornerButton(CornerMenuItem.Corner.BOTTOM_LEFT, "icon-back");
+    }
+
+    /**
+     * Adds a button in the bottom-right corner, with a next icon. The skin atlas must contain an
+     * "icon-next" image.
+     */
+    public CornerMenuButton addNextButton() {
+        return addCornerButton(CornerMenuItem.Corner.BOTTOM_RIGHT, "icon-next");
     }
 
     public Skin getSkin() {
@@ -131,7 +143,7 @@ public class Menu extends WidgetGroup implements Disableable {
         mLabelColumnWidth = labelColumnWidth;
     }
 
-    public MenuItem addButton(String text) {
+    public ButtonMenuItem addButton(String text) {
         return mGroup.addButton(text);
     }
 
@@ -161,9 +173,17 @@ public class Menu extends WidgetGroup implements Disableable {
         return mGroup.addItem(item);
     }
 
+    public SpacerMenuItem addSpacer() {
+        return mGroup.addSpacer();
+    }
+
     /** Add a [label - item] row */
     public MenuItem addItemWithLabel(String labelText, MenuItem item) {
-        return mGroup.addItemWithLabel(labelText, item);
+        return addItemWithLabel(labelText, item, "default");
+    }
+
+    public MenuItem addItemWithLabel(String labelText, MenuItem item, String labelStyle) {
+        return mGroup.addItemWithLabel(labelText, item, labelStyle);
     }
 
     private boolean mFirstLayout = true;
@@ -208,15 +228,9 @@ public class Menu extends WidgetGroup implements Disableable {
         } else if (mMenuInputHandler.isPressed(VirtualKey.UP)) {
             mGroup.goUp();
         } else if (mMenuInputHandler.isPressed(VirtualKey.LEFT)) {
-            MenuItem item = getCurrentItem();
-            if (item != null) {
-                item.goLeft();
-            }
+            mGroup.goLeft();
         } else if (mMenuInputHandler.isPressed(VirtualKey.RIGHT)) {
-            MenuItem item = getCurrentItem();
-            if (item != null) {
-                item.goRight();
-            }
+            mGroup.goRight();
         } else if (mMenuInputHandler.isJustPressed(VirtualKey.TRIGGER)) {
             mGroup.trigger();
         }

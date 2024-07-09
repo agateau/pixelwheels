@@ -25,6 +25,7 @@ import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobject.CellFrameBufferManager;
 import com.agateau.pixelwheels.gameobject.CellFrameBufferUser;
 import com.agateau.pixelwheels.utils.BodyRegionDrawer;
+import com.agateau.utils.AgcMathUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -85,6 +86,9 @@ public class VehicleRenderer implements CellFrameBufferUser {
 
     private void drawBodyToCell(Batch batch, Body body, TextureRegion region) {
         float angle = body.getAngle() * MathUtils.radiansToDegrees;
+        // Snap angles so that the vehicle body textures are not drawn slightly rotated when facing
+        // north, south, east or west. This is especially useful at startup.
+        angle = AgcMathUtils.snapAngle(angle);
         float xOffset =
                 (body.getPosition().x - mVehicle.getPosition().x) / Constants.UNIT_FOR_PIXEL;
         float yOffset =
@@ -126,7 +130,7 @@ public class VehicleRenderer implements CellFrameBufferUser {
         float centerX = mCellFrameBufferManager.getCellCenterX(mCellId);
         float centerY = mCellFrameBufferManager.getCellCenterY(mCellId);
         for (Renderer renderer : mRenderers) {
-            renderer.draw(batch, centerX, centerY);
+            renderer.drawToCell(batch, centerX, centerY);
         }
     }
 
@@ -162,22 +166,24 @@ public class VehicleRenderer implements CellFrameBufferUser {
         }
 
         // Vehicle level: wheels and body
-        ZLevel wantedZIndex = mVehicle.isFlying() ? ZLevel.FLYING : ZLevel.VEHICLES;
-        if (zLevel != wantedZIndex) {
-            return;
+        ZLevel vehicleZLevel = mVehicle.isFlying() ? ZLevel.FLYING_HIGH : ZLevel.ON_GROUND;
+        if (zLevel == vehicleZLevel) {
+            if (mVehicle.isFalling()) {
+                batch.setColor(getBatchColor());
+            }
+            mCellFrameBufferManager.drawScaledCell(batch, mVehicle.getPosition(), mCellId, scale);
+            if (mVehicle.isFalling()) {
+                batch.setColor(Color.WHITE);
+            }
+
+            // Turbo (not in cell because it makes no sense for it to have a shadow)
+            if (mVehicle.getTurboTime() >= 0) {
+                drawTurbo(batch);
+            }
         }
 
-        if (mVehicle.isFalling()) {
-            batch.setColor(getBatchColor());
-        }
-        mCellFrameBufferManager.drawScaledCell(batch, mVehicle.getPosition(), mCellId, scale);
-        if (mVehicle.isFalling()) {
-            batch.setColor(Color.WHITE);
-        }
-
-        // Turbo (not in cell because it makes no sense for it to have a shadow)
-        if (mVehicle.getTurboTime() >= 0) {
-            drawTurbo(batch);
+        for (Renderer renderer : mRenderers) {
+            renderer.draw(batch, zLevel);
         }
     }
 

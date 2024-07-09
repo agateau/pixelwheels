@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
-        <Label topCenter="root.topCenter 0 -2">Some gamepads are missing</Label>
+        <Label topCenter="root.topCenter 0 -2">Some controllers are missing</Label>
 
         <Label id="gamepadsLabel" center="root.center 0 2" align="centerLeft"/>
 

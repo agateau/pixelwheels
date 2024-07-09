@@ -7,6 +7,8 @@
 
         <!-- Space between the "best" indicator and its label -->
         <ConfigItem id="bestIndicatorMargin">10</ConfigItem>
+
+        <ConfigItem id="columnSpacing">24</ConfigItem>
         <ConfigItem id="bestIndicatorAnimation">
             alpha 0.0
             moveBy -5g 15g

@@ -188,7 +188,7 @@ public class Mine extends GameObjectAdapter
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.drawShadow(mBody, region);
         }
-        if (zLevel == ZLevel.VEHICLES) {
+        if (zLevel == ZLevel.ON_GROUND) {
             TextureRegion region = mAssets.mine.getKeyFrame(mTime);
             mBodyRegionDrawer.draw(mBody, region);
         }
@@ -226,7 +226,7 @@ public class Mine extends GameObjectAdapter
             return;
         }
         explode();
-        ((Racer) other).spin();
+        ((Racer) other).disrupt();
     }
 
     @Override

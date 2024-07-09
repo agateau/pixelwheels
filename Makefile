@@ -141,8 +141,14 @@ apk-archives:
 		mv android/build/outputs/apk/$$store/release/android-$$store-release.apk $(ARCHIVE_DIR)/$(EXECUTABLE)-$$store-$(VERSION).apk ; \
 	done
 
+aab-archives:
+	@echo Creating aab
+	@$(GRADLEW) bundleGPlayRelease
+	@echo Moving aab file
+	mv android/build/outputs/bundle/gplayRelease/android-gplay-release.aab $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).aab
 
-dist: assets packer check build desktop-archives apk-archives
+
+dist: assets packer check build desktop-archives apk-archives aab-archives
 
 desktop-dist: assets packer check build desktop-archives
 
@@ -180,7 +186,7 @@ tagpush: tag
 
 # Uploading
 fastlane-beta:
-	fastlane supply --track beta --apk $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).apk
+	fastlane supply --track beta --aab $(ARCHIVE_DIR)/$(ANDROID_GPLAY_RUN_DIST_NAME).aab
 
 upload:
 	ci/upload-build pixelwheels \

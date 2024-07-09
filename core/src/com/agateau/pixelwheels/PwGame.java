@@ -35,6 +35,8 @@ import com.agateau.pixelwheels.stats.GameStatsImpl;
 import com.agateau.pixelwheels.stats.JsonGameStatsImplIO;
 import com.agateau.ui.MouseCursorManager;
 import com.agateau.ui.ScreenStack;
+import com.agateau.ui.UiInputMapper;
+import com.agateau.ui.VirtualKey;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.Introspector;
@@ -45,7 +47,6 @@ import com.agateau.utils.log.NLogGdxApplicationLogger;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -170,7 +171,7 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     @Override
     public void render() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        if (UiInputMapper.getInstance().isKeyJustPressed(VirtualKey.SCREENSHOT)) {
             String path = ScreenshotCreator.saveScreenshot();
             NLog.i("Screenshot saved in %s", path);
         }
