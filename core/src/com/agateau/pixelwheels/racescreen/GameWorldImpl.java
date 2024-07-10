@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.bonus.Bonus;
@@ -183,6 +184,40 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
 
     @Override
     public void act(float delta) {
+        // limit speed one before another, propotional to the distance between them
+        final int distancePerLap = mTrack.getLapPositionTable().getSectionCount();
+        mRacers.sort(sRacerComparator);
+        Racer racerBehind = null;
+        for (int i = mRacers.size - 1; i >= 0; i--) {
+            final Racer racer = mRacers.get(i);
+            if (racer.getLapPositionComponent().hasFinishedRace()) {
+                break; // this racer has finished, all racers ahead of it must have finished too
+            }
+            if (racerBehind == null) {
+                racer.getVehicle().setSpeedLimiter(1);
+            } else {
+                final LapPositionComponent p1 = racer.getLapPositionComponent();
+                final LapPositionComponent p2 = racerBehind.getLapPositionComponent();
+                final float ddiff =
+                        (p1.getLapCount() - p2.getLapCount()) * distancePerLap
+                                + p1.getLapDistance()
+                                - p2.getLapDistance();
+                assert ddiff >= 0;
+                if (ddiff > distancePerLap) {
+                    // more than one lap, spare the aheader for speed limit
+                    racer.getVehicle().setSpeedLimiter(1);
+                } else {
+                    racer.getVehicle()
+                            .setSpeedLimiter(
+                                    racerBehind.getVehicle().getSpeedLimiter()
+                                            * Math.max(
+                                                    GamePlay.instance.extremeSpeedLimiter,
+                                                    1.0f - ddiff / distancePerLap));
+                }
+            }
+            racerBehind = racer;
+        }
+
         // fixed time step
         // max frame time to avoid spiral of death (on slow devices)
         float frameTime = Math.min(delta, 0.25f);
@@ -214,7 +249,6 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         }
 
         if (haveAllRacersFinished()) {
-            mRacers.sort(sRacerComparator);
             setState(GameWorld.State.FINISHED);
         }
     }
