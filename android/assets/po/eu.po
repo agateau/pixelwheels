@@ -91,7 +91,7 @@ msgstr "Kodea"
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
-#: android/assets/screens/credits.gdxui:75
+#: android/assets/screens/credits.gdxui:78
 msgid "Aurélien Gâteau"
 msgstr "Aurélien Gâteau"
 
@@ -100,7 +100,7 @@ msgid "Pixels"
 msgstr "Pixelak"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:113
+#: android/assets/screens/credits.gdxui:116
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -241,142 +241,151 @@ msgid "Josu Igoa"
 msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
+#, fuzzy
+msgid "Galician:"
+msgstr "Italiera"
+
+#: android/assets/screens/credits.gdxui:75
+msgid "Un Galego Mais"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:77
 msgid "French:"
 msgstr "Frantsesa:"
 
-#: android/assets/screens/credits.gdxui:77
+#: android/assets/screens/credits.gdxui:80
 msgid "Polish:"
 msgstr "Poloniera:"
 
-#: android/assets/screens/credits.gdxui:78
+#: android/assets/screens/credits.gdxui:81
 msgid "PandaCoderPL, Marek Szumny"
 msgstr "PandaCoderPL, Marek Szumny"
 
-#: android/assets/screens/credits.gdxui:80
+#: android/assets/screens/credits.gdxui:83
 msgid "Swedish:"
 msgstr "Suediera:"
 
-#: android/assets/screens/credits.gdxui:81
+#: android/assets/screens/credits.gdxui:84
 msgid "Sanchez"
 msgstr "Sanchez"
 
-#: android/assets/screens/credits.gdxui:83
+#: android/assets/screens/credits.gdxui:86
 msgid "Russian:"
 msgstr "Errusiera:"
 
-#: android/assets/screens/credits.gdxui:84
+#: android/assets/screens/credits.gdxui:87
 msgid "Nickoriginal"
 msgstr "Nickoriginal"
 
-#: android/assets/screens/credits.gdxui:86
+#: android/assets/screens/credits.gdxui:89
 msgid "Bengali:"
 msgstr "Bengalera:"
 
-#: android/assets/screens/credits.gdxui:87
+#: android/assets/screens/credits.gdxui:90
 msgid "Oymate"
 msgstr "Oymate"
 
-#: android/assets/screens/credits.gdxui:89
+#: android/assets/screens/credits.gdxui:92
 msgid "Chinese:"
 msgstr "Txinera:"
 
-#: android/assets/screens/credits.gdxui:90
+#: android/assets/screens/credits.gdxui:93
 msgid "Lu Xu"
 msgstr "Lu Xu"
 
-#: android/assets/screens/credits.gdxui:92
+#: android/assets/screens/credits.gdxui:95
 msgid "Esperanto:"
 msgstr "Esperanto:"
 
-#: android/assets/screens/credits.gdxui:93
+#: android/assets/screens/credits.gdxui:96
 msgid "Jorge Maldonado Ventura"
 msgstr "Jorge Maldonado Ventura"
 
-#: android/assets/screens/credits.gdxui:95
+#: android/assets/screens/credits.gdxui:98
 msgid "Hungarian:"
 msgstr "Hungariera:"
 
-#: android/assets/screens/credits.gdxui:96
+#: android/assets/screens/credits.gdxui:99
 msgid "Balázs Úr"
 msgstr "Balázs Úr"
 
-#: android/assets/screens/credits.gdxui:98
+#: android/assets/screens/credits.gdxui:101
 msgid "Turkish:"
 msgstr "Turikera:"
 
-#: android/assets/screens/credits.gdxui:99
+#: android/assets/screens/credits.gdxui:102
 msgid "nxjoseph"
 msgstr "nxjoseph"
 
-#: android/assets/screens/credits.gdxui:101
+#: android/assets/screens/credits.gdxui:104
 msgid "Italian:"
 msgstr "Italiera"
 
-#: android/assets/screens/credits.gdxui:102
+#: android/assets/screens/credits.gdxui:105
 msgid "Dario Canossi"
 msgstr "Italian:"
 
-#: android/assets/screens/credits.gdxui:104
+#: android/assets/screens/credits.gdxui:107
 msgid "Dutch:"
 msgstr "Nederlandera"
 
-#: android/assets/screens/credits.gdxui:105
+#: android/assets/screens/credits.gdxui:108
 msgid "Heimen Stoffels"
 msgstr "Heimen Stoffels"
 
-#: android/assets/screens/credits.gdxui:107
+#: android/assets/screens/credits.gdxui:110
 msgid "Video Editing"
 msgstr "Bideo edizioa"
 
-#: android/assets/screens/credits.gdxui:109
+#: android/assets/screens/credits.gdxui:112
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:111
+#: android/assets/screens/credits.gdxui:114
 msgid "Special Thanks"
 msgstr "Esker bereziak"
 
-#: android/assets/screens/credits.gdxui:114
+#: android/assets/screens/credits.gdxui:117
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:115
+#: android/assets/screens/credits.gdxui:118
 msgid "Ethan Chapman"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:116
+#: android/assets/screens/credits.gdxui:119
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
-#: android/assets/screens/credits.gdxui:117
+#: android/assets/screens/credits.gdxui:120
 msgid "All bug reporters"
 msgstr "Bug-en berriemaile guztiak"
 
-#: android/assets/screens/credits.gdxui:118
+#: android/assets/screens/credits.gdxui:121
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Patreon, Ko-fi eta Paypal bidezko jarraitzaile guztiak"
 
-#: android/assets/screens/credits.gdxui:120
+#: android/assets/screens/credits.gdxui:123
 msgid "Made with"
 msgstr "Honekin egina"
 
-#: android/assets/screens/credits.gdxui:122
+#: android/assets/screens/credits.gdxui:125
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:123
+#: android/assets/screens/credits.gdxui:126
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:124
+#: android/assets/screens/credits.gdxui:127
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:125
+#: android/assets/screens/credits.gdxui:128
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:126
+#: android/assets/screens/credits.gdxui:129
 msgid "Android Studio"
 msgstr "Android Studio"
 
