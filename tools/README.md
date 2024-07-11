@@ -2,12 +2,6 @@
 
 This directory contains tools used to build or work on Pixel Wheels.
 
-## asetools/
-
-Command-line tools to turn Aseprite images into PNG usable by the game.
-
-More details in [asetools/README.md](asetools/README.md).
-
 ## fonts/
 
 Scripts to process fonts shipped with the game, to reduce their size.

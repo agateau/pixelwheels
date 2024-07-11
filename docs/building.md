@@ -33,10 +33,7 @@ Building Pixel Wheels requires the following components:
 - libgdx: <https://libgdx.badlogicgames.com>
 - ImageMagick: <http://imagemagick.org>
 - GNU Make: <http://www.gnu.org/software/make/>
-- Some Python packages:
-    - PAFX: <https://github.com/agateau/pafx>
-    - Pillow: <https://python-pillow.github.io>
-    - pypng: <https://github.com/drj11/pypng>
+- Some Python packages (see `requirements.txt` file)
 
 #### Python packages
 
