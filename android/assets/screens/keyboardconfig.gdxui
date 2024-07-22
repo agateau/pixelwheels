@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="mainLabel" style="title"
-            topCenter="root.topCenter 0 -1">Keyboard config</Label>
+            topCenter="root.topCenter 0 -1g">Keyboard config</Label>
 
         <Ifdef var="player1">
             <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -5g"
