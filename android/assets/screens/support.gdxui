@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
-            topCenter="root.topCenter 0 -2g">Support</Label>
+            topCenter="root.topCenter 0 -1g">Support</Label>
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -1.5g"
             width="600px">

@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
-               topCenter="root.topCenter 0 -2">Select Championship</Label>
+               topCenter="root.topCenter 0 -1g">Select Championship</Label>
 
         <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -3" width="600px"/>
 

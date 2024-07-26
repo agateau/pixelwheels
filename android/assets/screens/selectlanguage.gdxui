@@ -2,7 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Label id="mainLabel" style="title"
-            topCenter="root.topCenter 0 -2">Select Language</Label>
+            topCenter="root.topCenter 0 -1g">Select Language</Label>
 
         <Menu id="menu" topCenter="mainLabel.bottomCenter 0 -2g" width="500px">
         </Menu>

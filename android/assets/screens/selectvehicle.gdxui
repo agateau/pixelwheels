@@ -7,7 +7,7 @@
     </Config>
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title"
-               topCenter="root.topCenter 0 -1">Select Your Vehicle</Label>
+               topCenter="root.topCenter 0 -1g">Select Your Vehicle</Label>
 
         <Image tiled="true" atlas="ui" name="garage-ground" topCenter="titleLabel.bottomCenter 0 -1.5"
             width="960px" height="360px"/>
