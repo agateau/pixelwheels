@@ -29,10 +29,18 @@ public class DebugStringMap {
 
     static {
         StringBuilder builder = new StringBuilder();
-        builder.setLength(10);
+        /*
+        To show percentage for N steps, we only need N-1 characters. See this example for 4 steps:
+
+        0 ___
+        1 *__
+        2 **_
+        3 ***
+        */
+        builder.setLength(PERCENT_VALUES.length - 1);
         for (int row = 0; row < PERCENT_VALUES.length; ++row) {
             for (int idx = 0; idx < builder.length; ++idx) {
-                builder.setCharAt(idx, idx < row ? '=' : '_');
+                builder.setCharAt(idx, idx < row ? '*' : '_');
             }
             PERCENT_VALUES[row] = builder.toString();
         }
