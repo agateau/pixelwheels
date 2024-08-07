@@ -185,6 +185,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
 
         public void setCurrentIndex(int currentIndex) {
+            if (mCurrentIndex == currentIndex) {
+                return;
+            }
             if (mCurrentIndex != INVALID_INDEX) {
                 mFocusIndicators.get(mCurrentIndex).setFocused(false);
             }
