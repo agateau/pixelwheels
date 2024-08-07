@@ -330,7 +330,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mCursors.get(idx).mSelectionListener = selectionListener;
     }
 
-    public void setCurrentAndSelect(int cursorIdx, T item, boolean select) {
+    private void setCurrentAndSelect(int cursorIdx, T item, boolean select) {
         Cursor cursor = mCursors.get(cursorIdx);
         if (item == null) {
             cursor.setCurrentIndex(0);
