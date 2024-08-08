@@ -337,6 +337,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         Cursor cursor = mCursors.get(cursorIdx);
         if (item == null) {
             cursor.setCurrentIndex(0);
+            if (PlatformUtils.isTouchUi() || select) {
+                cursor.setSelectedIndex(INVALID_INDEX);
+            }
             return;
         }
         int index = mItems.indexOf(item, true);
