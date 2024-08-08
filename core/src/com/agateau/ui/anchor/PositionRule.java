@@ -38,13 +38,14 @@ public class PositionRule implements AnchorRule {
 
     @Override
     public void apply() {
-        // Compute reference position
-        Vector2 referencePos =
+        // Compute reference position.
+        // referenceOffset is the offset relative to the bottom-left corner of reference.
+        Vector2 referenceOffset =
                 new Vector2(
                         reference.getWidth() * referenceAnchor.hPercent,
                         reference.getHeight() * referenceAnchor.vPercent);
 
-        Vector2 stagePos = reference.localToStageCoordinates(referencePos);
+        Vector2 stagePos = reference.localToStageCoordinates(referenceOffset);
 
         // Apply space
         stagePos.add(hSpace, vSpace);

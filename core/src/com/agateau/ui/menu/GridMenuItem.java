@@ -36,6 +36,7 @@ import com.badlogic.gdx.utils.Array;
 /** A MenuItem to display a grid of custom elements */
 public class GridMenuItem<T> extends Widget implements MenuItem {
     public static final int INVALID_INDEX = -1;
+    private static final float UNFOCUSED_CURRENT_INDICATOR_ALPHA = 0.7f;
     private final Menu mMenu;
     private Array<T> mItems;
     private ItemRenderer<T> mRenderer;
@@ -184,6 +185,9 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         }
 
         public void setCurrentIndex(int currentIndex) {
+            if (mCurrentIndex == currentIndex) {
+                return;
+            }
             if (mCurrentIndex != INVALID_INDEX) {
                 mFocusIndicators.get(mCurrentIndex).setFocused(false);
             }
@@ -293,6 +297,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mCursors.add(new Cursor(mCursors.size));
     }
 
+    public void setListener(MenuItemListener listener) {
+        setListener(0, listener);
+    }
+
     public void setListener(int idx, MenuItemListener listener) {
         mCursors.get(idx).mMenuItemListener = listener;
     }
@@ -329,10 +337,13 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mCursors.get(idx).mSelectionListener = selectionListener;
     }
 
-    public void setCurrentAndSelect(int cursorIdx, T item, boolean select) {
+    private void setCurrentAndSelect(int cursorIdx, T item, boolean select) {
         Cursor cursor = mCursors.get(cursorIdx);
         if (item == null) {
             cursor.setCurrentIndex(0);
+            if (select) {
+                cursor.setSelectedIndex(INVALID_INDEX);
+            }
             return;
         }
         int index = mItems.indexOf(item, true);
@@ -341,7 +352,7 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
             return;
         }
         cursor.setCurrentIndex(index);
-        if (PlatformUtils.isTouchUi() || select) {
+        if (select) {
             cursor.setSelectedIndex(index);
         }
     }
@@ -484,6 +495,15 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
                             getY() + y + rect.y,
                             rect.width,
                             rect.height);
+                } else if (idx == cursor.mCurrentIndex) {
+                    FocusIndicator focusIndicator = cursor.mFocusIndicators.get(idx);
+                    focusIndicator.drawIndicator(
+                            batch,
+                            getX() + x + rect.x,
+                            getY() + y + rect.y,
+                            rect.width,
+                            rect.height,
+                            UNFOCUSED_CURRENT_INDICATOR_ALPHA);
                 }
 
                 if (idx == cursor.mSelectedIndex) {

@@ -3,15 +3,18 @@
     <AnchorGroup id="root" gridSize="20">
         <Label id="titleLabel" style="title" topCenter="root.topCenter 0 -1g">Select Track</Label>
 
-        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 0" width="700" height="400"/>
+        <Image tiled="true" atlas="ui" name="garage-ground" topCenter="titleLabel.bottomCenter 0 -0.2"
+            width="960px" height="178px"/>
+
+        <Menu id="menu" topCenter="titleLabel.bottomCenter 0 -0.5" width="700" height="400"/>
 
         <Label id="trackNameLabel" topCenter="menu.bottomCenter 0 0" align="center"/>
         <Label id="unlockHintLabel" topCenter="$prev.bottomCenter 0 -1" align="center" style="small"/>
 
-        <Label id="lapRecordsLabel" bottomRight="root.bottomCenter -1.5g 4.5g" width="300" align="topCenter" style="small">Best Lap</Label>
+        <Label id="lapRecordsLabel" bottomRight="root.bottomCenter -1.5g 3.9g" width="300" align="topCenter" style="small">Best Lap</Label>
         <Table id="lapRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
 
-        <Label id="totalRecordsLabel" bottomLeft="root.bottomCenter 1.5g 4.5g" width="300" align="topCenter" style="small">Best Total</Label>
+        <Label id="totalRecordsLabel" bottomLeft="root.bottomCenter 1.5g 3.9g" width="300" align="topCenter" style="small">Best Total</Label>
         <Table id="totalRecordsTable" topLeft="$prev.bottomLeft 0 0" width="300"/>
     </AnchorGroup>
 </gdxui>

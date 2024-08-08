@@ -76,6 +76,15 @@ class FocusIndicator {
 
         float alpha = mAlpha * (1 - BLINK_DEPTH / 2 + BLINK_DEPTH / 2 * k);
 
+        drawIndicator(batch, x, y, width, height, alpha);
+    }
+
+    /**
+     * Helper method to draw the indicator independently of the current value of mAlpha Used by
+     * other UI components
+     */
+    public void drawIndicator(
+            Batch batch, float x, float y, float width, float height, float alpha) {
         mOldBatchColor.set(batch.getColor());
         batch.setColor(alpha, alpha, alpha, alpha);
 
