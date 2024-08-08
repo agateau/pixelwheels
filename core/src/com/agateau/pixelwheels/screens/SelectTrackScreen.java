@@ -36,6 +36,7 @@ import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.ui.menu.CornerMenuButton;
 import com.agateau.ui.menu.GridMenuItem;
 import com.agateau.ui.menu.Menu;
+import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.agateau.utils.FileUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -192,11 +193,33 @@ public class SelectTrackScreen extends PwStageScreen {
         mChampionshipSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Championship>() {
                     @Override
-                    public void currentChanged(Championship item, int index) {}
+                    public void currentChanged(Championship item, int index) {
+                        mChampionshipSelector.setSelected(item);
+                        mTrackSelector.setCurrentChampionship(item);
+
+                        // Unselect the current track, forcing GridMenuItem to set the first item as
+                        // the current one.
+                        mTrackSelector.setSelected(null);
+
+                        // Force update of track: because if mTrackSelector current index has not
+                        // changed then currentChanged() has not been called
+                        updateTrackDetails(mTrackSelector.getCurrent());
+
+                        updateNextButton();
+                    }
 
                     @Override
-                    public void selectionConfirmed() {
-                        mTrackSelector.setCurrentChampionship(mChampionshipSelector.getSelected());
+                    public void selectionConfirmed() {}
+                });
+
+        // Move the focus to the track selector when championship selector is triggered. Do not do
+        // this with SelectionListener.selectionConfirmed() because the championship selector
+        // selects its current item every time the current changes, so it would move the focus when
+        // changing the current championship with the keyboard.
+        mChampionshipSelector.setListener(
+                new MenuItemListener() {
+                    @Override
+                    public void triggered() {
                         menu.setCurrentItem(mTrackSelector);
                     }
                 });
@@ -211,7 +234,6 @@ public class SelectTrackScreen extends PwStageScreen {
         mTrackSelector.init(assets, mGame.getRewardManager(), currentTrack.getChampionship());
         mTrackSelector.setCurrent(currentTrack);
         menu.addItem(mTrackSelector);
-        menu.setCurrentItem(mTrackSelector);
 
         mTrackSelector.setSelectionListener(
                 new GridMenuItem.SelectionListener<Track>() {

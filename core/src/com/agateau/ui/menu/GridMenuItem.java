@@ -297,6 +297,10 @@ public class GridMenuItem<T> extends Widget implements MenuItem {
         mCursors.add(new Cursor(mCursors.size));
     }
 
+    public void setListener(MenuItemListener listener) {
+        setListener(0, listener);
+    }
+
     public void setListener(int idx, MenuItemListener listener) {
         mCursors.get(idx).mMenuItemListener = listener;
     }
