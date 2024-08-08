@@ -36,7 +36,6 @@
             up: rectbutton,
             down: rectbutton-down,
             disabled: rectbutton-disabled,
-            unpressedOffsetY: 2,
             pressedOffsetY: -2
         }
     },
