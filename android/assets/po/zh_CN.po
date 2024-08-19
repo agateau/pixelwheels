@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-10-18 23:43+0800\n"
+"PO-Revision-Date: 2024-08-19 23:03+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -26,17 +26,17 @@ msgstr "乡村生活"
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr "欢迎！"
+msgstr "欢迎到来！"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr "河流"
+msgstr "溪水之滨"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr "洪水"
+msgstr "洪水漫漫"
 
 #: android/assets/championships/1.xml:2
 msgctxt "championship"
@@ -76,7 +76,7 @@ msgstr "滨海小城"
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "岛屿迷踪"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -99,7 +99,7 @@ msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr "图像"
+msgstr "设计"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:116
@@ -230,9 +230,8 @@ msgid "Spanish:"
 msgstr "西班牙语："
 
 #: android/assets/screens/credits.gdxui:69
-#, fuzzy
 msgid "Victor Hck"
-msgstr "获胜："
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -244,11 +243,11 @@ msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Galician:"
-msgstr ""
+msgstr "加利西亚语："
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -296,43 +295,43 @@ msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Esperanto:"
-msgstr ""
+msgstr "世界语："
 
 #: android/assets/screens/credits.gdxui:96
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Hungarian:"
-msgstr ""
+msgstr "匈牙利语："
 
 #: android/assets/screens/credits.gdxui:99
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Turkish:"
-msgstr ""
+msgstr "土耳其语："
 
 #: android/assets/screens/credits.gdxui:102
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Italian:"
-msgstr ""
+msgstr "意大利语："
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Dutch:"
-msgstr ""
+msgstr "荷兰语："
 
 #: android/assets/screens/credits.gdxui:108
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Video Editing"
@@ -355,7 +354,6 @@ msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:119
-#, fuzzy
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
@@ -414,15 +412,13 @@ msgstr "游戏手柄配置"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Game"
-msgstr "手柄"
+msgstr "游戏"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
-#, fuzzy
 msgid "Menu"
-msgstr "菜单："
+msgstr "菜单"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
@@ -448,10 +444,9 @@ msgstr "刹车"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
-#, fuzzy
 msgid "Pause"
 msgstr "暂停"
 
@@ -484,16 +479,15 @@ msgstr "设置"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "支持"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
 msgstr "选择你的赛车"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
-#, fuzzy
 msgid "Some controllers are missing"
-msgstr "无游戏手柄"
+msgstr "缺失一些控制器"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -520,24 +514,20 @@ msgid "Select Language"
 msgstr "选择语言"
 
 #: android/assets/screens/selectplayercount.gdxui:5
-#, fuzzy
 msgid "Select Players"
-msgstr "选择语言"
+msgstr "选择玩家"
 
 #: android/assets/screens/selectplayercount.gdxui:9
-#, fuzzy
 msgid "2 PLAYERS"
-msgstr "单人模式"
+msgstr "双人模式"
 
 #: android/assets/screens/selectplayercount.gdxui:10
-#, fuzzy
 msgid "3 PLAYERS"
-msgstr "单人模式"
+msgstr "三人模式"
 
 #: android/assets/screens/selectplayercount.gdxui:11
-#, fuzzy
 msgid "4 PLAYERS"
-msgstr "单人模式"
+msgstr "四人模式"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
@@ -557,30 +547,28 @@ msgstr "选择赛车"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "购买Pixel Wheels主题商品！"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "商店"
 
 #: android/assets/screens/support.gdxui:19
-#, fuzzy
 msgid "Support Pixel Wheels development."
-msgstr "Pixel Wheels"
+msgstr "支持 Pixel Wheels 开发。"
 
 #: android/assets/screens/support.gdxui:21
-#, fuzzy
 msgid "SUPPORT PAGE"
-msgstr "访问支持页面"
+msgstr "支持页面"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr ""
+msgstr "2CV"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
@@ -590,7 +578,7 @@ msgstr ""
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr "面包车"
+msgstr "大脚车"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -645,7 +633,7 @@ msgstr "火箭"
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr "圣诞老人卡车"
+msgstr "圣诞卡车"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:56
 msgid "Share via"
@@ -674,7 +662,7 @@ msgstr[0] "离开道路 %# 次"
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] "捡到 %# 个奖励"
+msgstr[0] "捡到 %# 个道具"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
@@ -797,9 +785,8 @@ msgid "CREDITS"
 msgstr "致谢"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
-#, fuzzy
 msgid "WEB SITE"
-msgstr "访问网页"
+msgstr "网站"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
@@ -822,7 +809,7 @@ msgstr "控制"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "玩家 #%d："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
@@ -844,7 +831,7 @@ msgstr "语言："
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "无法在比赛中切换"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Audio"
@@ -868,7 +855,7 @@ msgstr "全屏："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
-msgstr ""
+msgstr "旋转镜头："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
@@ -876,10 +863,10 @@ msgstr "配置"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
-msgstr "感谢使用！"
+msgstr "感谢游玩！"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
 msgstr "玩家 #%d: %s"
@@ -924,7 +911,7 @@ msgstr "右转"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr ""
+msgstr "截图"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
@@ -968,7 +955,7 @@ msgstr "第6名"
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "未连接"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
