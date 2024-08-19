@@ -1,4 +1,4 @@
-<vehicle speed="0.8" name="Rocket" width="40" height="77">
+<vehicle speed="1.2" name="Rocket" width="40" height="77">
     <main image="rocket"/>
     <shapes>
         <octogon y="6" width="16" height="60"/>
