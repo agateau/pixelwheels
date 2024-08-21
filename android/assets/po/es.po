@@ -3,21 +3,21 @@
 #
 # Clara Gâteau, 2022.
 # Jorge Maldonado Ventura, 2022.
-# victorhck <victorhck@mailbox.org>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 victorhck <victorhck@mailbox.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-05-21 19:55+0200\n"
+"PO-Revision-Date: 2024-08-20 18:57+0200\n"
 "Last-Translator: victorhck <victorhck@mailbox.org>\n"
-"Language-Team: Spanish <>\n"
+"Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -244,13 +244,12 @@ msgid "Josu Igoa"
 msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
-#, fuzzy
 msgid "Galician:"
-msgstr "Italiano:"
+msgstr "Gallego:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -484,7 +483,7 @@ msgstr "AJUSTES"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "APOYO"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -552,25 +551,23 @@ msgstr "Seleccionar tu vehículo"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "Apoyar"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "¡Compra bonitos artículos temáticos de Pixel Wheels!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "TIENDA"
 
 #: android/assets/screens/support.gdxui:19
-#, fuzzy
 msgid "Support Pixel Wheels development."
-msgstr "Pixel Wheels"
+msgstr "Apoya el desarrollo de Pixel Wheels."
 
 #: android/assets/screens/support.gdxui:21
-#, fuzzy
 msgid "SUPPORT PAGE"
-msgstr "VISITA LA PÁGINA DE APOYO"
+msgstr "PÁGINA DE APOYO"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -779,7 +776,7 @@ msgid ""
 "Finished!"
 msgstr ""
 "¡Campeonato\n"
-"Terminado!"
+"terminado!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 msgid "About"
@@ -795,9 +792,8 @@ msgid "CREDITS"
 msgstr "CRÉDITOS"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
-#, fuzzy
 msgid "WEB SITE"
-msgstr "VISITAR EL SITIO WEB"
+msgstr "SITIO WEB"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
@@ -870,9 +866,7 @@ msgstr "Pantalla completa:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
-msgstr ""
-"Rotar la cámara\n"
-"(experimental):"
+msgstr "Rotar la cámara:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
