@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.Array;
 /** Handle input using pie buttons in the bottom left and right corners */
 public class PieTouchInputHandler implements GameInputHandler {
     private final GameInput mInput = new GameInput();
+    private final DigitalSteering mSteer = new DigitalSteering();
     private PieButton mLeftButton, mRightButton, mBrakeButton, mBonusButton;
 
     public static class Factory implements GameInputHandlerFactory {
@@ -61,8 +62,7 @@ public class PieTouchInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = mBrakeButton.isPressed();
         mInput.accelerating = !mInput.braking;
-        mInput.direction =
-                TouchInputUtils.applyDirectionInput(mLeftButton, mRightButton, mInput.direction);
+        mInput.direction = mSteer.steer(mLeftButton.isPressed(), mRightButton.isPressed());
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }

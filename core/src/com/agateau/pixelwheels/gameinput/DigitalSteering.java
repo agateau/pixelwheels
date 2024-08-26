@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2024 Compl Yue
  *
  * This file is part of Pixel Wheels.
  *
@@ -19,18 +19,21 @@
 package com.agateau.pixelwheels.gameinput;
 
 import com.agateau.pixelwheels.GamePlay;
-import com.agateau.pixelwheels.racescreen.HudButton;
 import com.badlogic.gdx.math.MathUtils;
 
-class TouchInputUtils {
-    static float applyDirectionInput(HudButton leftButton, HudButton rightButton, float direction) {
-        if (leftButton.isPressed()) {
-            direction += GamePlay.instance.steeringStep;
-        } else if (rightButton.isPressed()) {
-            direction -= GamePlay.instance.steeringStep;
+public class DigitalSteering {
+    private float mRawDirection = 0;
+
+    public float steer(boolean left, boolean right) {
+        if (left == right) {
+            // Either both left & right are pressed or none of them are
+            mRawDirection *= 0.4;
+        } else if (left) {
+            mRawDirection += GamePlay.instance.steeringStep;
         } else {
-            direction = 0;
+            mRawDirection -= GamePlay.instance.steeringStep;
         }
-        return MathUtils.clamp(direction, -1, 1);
+        mRawDirection = MathUtils.clamp(mRawDirection, -1, 1);
+        return mRawDirection * mRawDirection * Math.signum(mRawDirection);
     }
 }
