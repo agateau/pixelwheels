@@ -2,6 +2,7 @@
 <gdxui>
     <AnchorGroup id="root" gridSize="20">
         <Menu id="menu" topCenter="root.topCenter 0 0"
-            width="700"/>
+            labelColumnWidth="280px"
+            width="700px"/>
     </AnchorGroup>
 </gdxui>
