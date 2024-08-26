@@ -545,8 +545,9 @@ public class UiBuilder {
     private Menu createMenu(XmlReader.Element element) throws SyntaxException {
         String styleName = element.getAttribute("style", "default");
         Menu menu = new Menu(mSkin, styleName);
-        float width = element.getIntAttribute("labelColumnWidth", 0);
-        if (width > 0) {
+        String attr = element.getAttribute("labelColumnWidth", "");
+        if (!attr.isEmpty()) {
+            float width = mDimParser.parse(attr, DimensionParser.Unit.PIXEL);
             menu.setLabelColumnWidth(width);
         }
         XmlReader.Element items = element.getChildByName("Items");
