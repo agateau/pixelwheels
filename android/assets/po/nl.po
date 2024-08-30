@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-08-12 21:24+0200\n"
+"PO-Revision-Date: 2024-08-25 21:48+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -75,7 +75,7 @@ msgstr "Klein-aan-de-Mer"
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "Het eiland"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -229,9 +229,8 @@ msgid "Spanish:"
 msgstr "Spaans:"
 
 #: android/assets/screens/credits.gdxui:69
-#, fuzzy
 msgid "Victor Hck"
-msgstr "Overwinning:"
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -242,13 +241,12 @@ msgid "Josu Igoa"
 msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
-#, fuzzy
 msgid "Galician:"
-msgstr "Italiaans:"
+msgstr "Galicisch:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -482,7 +480,7 @@ msgstr "INSTELLINGEN"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "ONDERSTEUNING"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -550,27 +548,23 @@ msgstr "Kies een voertuig"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "Ondersteuning"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "Koop wat mooie Pixel Wheels-merchandise!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "WINKEL"
 
 #: android/assets/screens/support.gdxui:19
-#, fuzzy
 msgid "Support Pixel Wheels development."
-msgstr "Pixel Wheels"
+msgstr "Ondersteun de ontwikkeling van Pixel Wheels."
 
 #: android/assets/screens/support.gdxui:21
-#, fuzzy
 msgid "SUPPORT PAGE"
-msgstr ""
-"ONDERSTEUNINGSPAGINA\n"
-"OPENEN"
+msgstr "ONDERSTEUNINGSPAGINA"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -795,9 +789,8 @@ msgid "CREDITS"
 msgstr "MET DANK AAN"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
-#, fuzzy
 msgid "WEB SITE"
-msgstr "WEBSITE OPENEN"
+msgstr "WEBSITE"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
@@ -870,7 +863,7 @@ msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
-msgstr ""
+msgstr "Camera draaien:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
@@ -975,7 +968,8 @@ msgstr "Verbinding verbroken"
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
 "Need to file a bug report? Use this button to find the log file to attach."
-msgstr "Heb je een bug gevonden? Met deze knop kun je het logboek opsporen."
+msgstr ""
+"Heb je een bug gevonden? Met deze knop kun je het juiste logboek opsporen."
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
