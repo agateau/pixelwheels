@@ -163,7 +163,7 @@
             focus: focus,
             selected: selected,
             focusPadding: 3,
-            spacing: 16
+            spacing: 14
         },
         large: {
             focus: focus,
