@@ -74,7 +74,7 @@ msgstr "Tinyondo"
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "Uhartea"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -228,9 +228,8 @@ msgid "Spanish:"
 msgstr "Espainiera:"
 
 #: android/assets/screens/credits.gdxui:69
-#, fuzzy
 msgid "Victor Hck"
-msgstr "Garaipena:"
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -241,13 +240,12 @@ msgid "Josu Igoa"
 msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
-#, fuzzy
 msgid "Galician:"
-msgstr "Italiera"
+msgstr "Galiziera:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Galego bat gehiago"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -323,7 +321,7 @@ msgstr "Italiera"
 
 #: android/assets/screens/credits.gdxui:105
 msgid "Dario Canossi"
-msgstr "Italian:"
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Dutch:"
@@ -351,7 +349,7 @@ msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:118
 msgid "Ethan Chapman"
-msgstr "Guillaume Roche"
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:119
 msgid "Marek Szumny"
@@ -363,7 +361,7 @@ msgstr "Bug-en berriemaile guztiak"
 
 #: android/assets/screens/credits.gdxui:121
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Patreon, Ko-fi eta Paypal bidezko jarraitzaile guztiak"
+msgstr "Patreon, Ko-fi eta Paypal bidezko babesle guztiak"
 
 #: android/assets/screens/credits.gdxui:123
 msgid "Made with"
@@ -480,7 +478,7 @@ msgstr "EZARPENAK"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "BABESTU"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -492,7 +490,7 @@ msgstr "Aginte batzuk falta dira"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr "Geldirik"
+msgstr "Etenda"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
@@ -508,7 +506,7 @@ msgstr "Aukeratu txapelketa"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr "Joku modua aukeratu"
+msgstr "Aukeratu Joko Modua"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
@@ -532,7 +530,7 @@ msgstr "4 JOKALARI"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "Pista aukeratu"
+msgstr "Aukeratu Pista"
 
 #: android/assets/screens/selecttrack.gdxui:11
 msgid "Best Lap"
@@ -548,25 +546,23 @@ msgstr "Aukeratu zure ibiligailua"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "Babestu"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "Erosi Pixel Wheels-en artikulu ederrak!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "DENDA"
 
 #: android/assets/screens/support.gdxui:19
-#, fuzzy
 msgid "Support Pixel Wheels development."
-msgstr "Pixel Wheels"
+msgstr "Babestu Pixel Wheels-en garapena."
 
 #: android/assets/screens/support.gdxui:21
-#, fuzzy
 msgid "SUPPORT PAGE"
-msgstr "LAGUNTZA ORRIRA JOAN"
+msgstr "BABES ORRIA"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
@@ -791,9 +787,8 @@ msgid "CREDITS"
 msgstr "KREDITUAK"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
-#, fuzzy
 msgid "WEB SITE"
-msgstr "WEBGUNERA JOAN"
+msgstr "WEBGUNEA"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
@@ -818,7 +813,7 @@ msgstr "Kontrolak"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "%dJ"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
@@ -864,7 +859,7 @@ msgstr "Pantaila osoa:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
-msgstr ""
+msgstr "Biratu kamera:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
@@ -964,7 +959,7 @@ msgstr "6."
 
 #: core/src/com/agateau/pixelwheels/utils/StringUtils.java:65
 msgid "Disconnected"
-msgstr ""
+msgstr "Deskonektatuta"
 
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:44
 msgid ""
