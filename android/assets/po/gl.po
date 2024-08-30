@@ -167,7 +167,7 @@ msgstr "Efectos de son"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr "\"Car tire squeal skid loop\""
+msgstr "\"Chirrido de pneumático en escorregamento en bucle\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
@@ -175,7 +175,7 @@ msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr "\"Racing car engine sound loops\""
+msgstr "\"Bucles de son do motor de coche de carreiras\""
 
 #: android/assets/screens/credits.gdxui:47
 msgid "domasx2"
@@ -681,7 +681,7 @@ msgstr "Teclado"
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
-msgstr "Botóns en forma de pastel"
+msgstr "Botóns circulares"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
@@ -721,7 +721,7 @@ msgstr "Impresionante!"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr "N°"
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
@@ -817,7 +817,7 @@ msgstr "Controis"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
-msgstr "P%d"
+msgstr "X%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
@@ -843,7 +843,7 @@ msgstr "Non se pode mudar durante a carreira"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
 msgid "Audio"
-msgstr "Audio"
+msgstr "Son"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
 msgid "Sound FX:"
@@ -975,7 +975,7 @@ msgstr ""
 #: desktop/src/com/agateau/pixelwheels/desktop/DesktopLogExporter.java:49
 msgid "OPEN LOG FILE FOLDER"
 msgstr ""
-"ABRIR CARTAFOL DE\n"
+"ABRIR CARTAFOL DO\n"
 "ARQUIVO DE REXISTRO"
 
 #~ msgid "Trigger:"
