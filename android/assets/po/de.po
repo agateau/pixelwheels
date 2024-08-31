@@ -1,10 +1,10 @@
-# Christian Schrötter <cs@fnx.li>, 2022-2023.
+# Christian Schrötter <cs@fnx.li>, 2022-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-15 03:13+0200\n"
+"PO-Revision-Date: 2024-08-31 12:33+0200\n"
 "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -71,7 +71,7 @@ msgstr "Pix am See"
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "Die Insel"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -225,9 +225,8 @@ msgid "Spanish:"
 msgstr "Spanisch:"
 
 #: android/assets/screens/credits.gdxui:69
-#, fuzzy
 msgid "Victor Hck"
-msgstr "Erfolg:"
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
@@ -238,13 +237,12 @@ msgid "Josu Igoa"
 msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
-#, fuzzy
 msgid "Galician:"
-msgstr "Italienisch"
+msgstr "Galicisch:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -478,7 +476,7 @@ msgstr "EINSTELLUNGEN"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "UNTERSTÜTZEN"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
@@ -546,23 +544,21 @@ msgstr "Wähle dein Fahrzeug"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "Unterstützen"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "Kaufe coole Pixel Wheels Fanartikel!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "SHOP"
 
 #: android/assets/screens/support.gdxui:19
-#, fuzzy
 msgid "Support Pixel Wheels development."
-msgstr "Pixel Wheels"
+msgstr "Unterstütze die Entwicklung von Pixel Wheels."
 
 #: android/assets/screens/support.gdxui:21
-#, fuzzy
 msgid "SUPPORT PAGE"
 msgstr "UNTERSTÜTZEN"
 
@@ -789,7 +785,6 @@ msgid "CREDITS"
 msgstr "DANKSAGUNG"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
-#, fuzzy
 msgid "WEB SITE"
 msgstr "WEBSITE"
 
@@ -863,7 +858,7 @@ msgstr "Vollbildmodus:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
 msgid "Rotate camera:"
-msgstr ""
+msgstr "Kamera drehen:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
 msgid "CONFIGURE"
