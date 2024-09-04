@@ -1,3 +1,0 @@
-kind: Changed
-body: The behavior when hit by a bullet, missile or when triggering a mine is now less punishing. Instead of doing a 360 and getting pushed away, the vehicle motor temporarily shuts down and emits smoke (#418).
-time: 2024-03-04T17:06:03.2911814+01:00

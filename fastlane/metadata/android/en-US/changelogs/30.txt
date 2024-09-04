@@ -1,0 +1,13 @@
+Pixel City championship got its 3rd track: The Island.
+
+Getting hit by a bullet, missile or driving on a mine is less punishing: now the vehicle motor temporarily shuts down and emits smoke.
+
+Steering is now smoother.
+
+The AI pilot got smarter: it knows about the different ground materials and tries to overtake vehicles instead of bumping into them.
+
+The BRGP42 and Rocket vehicles are a bit faster.
+
+The "rotate camera" option is back.
+
+Pixel Wheels now speaks Galician.
