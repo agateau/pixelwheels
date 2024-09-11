@@ -6,8 +6,13 @@
 
   <name>Pixel Wheels</name>
 
+  <developer_name>Aurélien Gâteau</developer_name>
+  <developer id="com.agateau">
+    <name>Aurélien Gâteau</name>
+  </developer>
+
   <summary>
-    Pixel Wheels is a retro top-down race game.
+    Pixel Wheels is a retro top-down race game
   </summary>
 
   <description>
@@ -83,18 +88,23 @@
   <screenshots>
     <screenshot type="default">
       <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.17.0/go.png</image>
+      <caption>GO!</caption>
     </screenshot>
     <screenshot>
       <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.18.0/a-rocket-for-rocket.png</image>
+      <caption>Firing a missile</caption>
     </screenshot>
     <screenshot>
       <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.17.0/turbo.png</image>
+      <caption>Trying to catch up with the police car</caption>
     </screenshot>
     <screenshot>
-      <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.17.0/gun.png</image>
+      <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.26.0/gun.png</image>
+      <caption>BRGP42 shooting two cars with the gun</caption>
     </screenshot>
     <screenshot>
       <image type="source" width="1920" height="1080">https://agateau.com/projects/pixelwheels/0.17.0/rescued.png</image>
+      <caption>The rescue copter will bring you back if you dive too deep</caption>
     </screenshot>
   </screenshots>
 
