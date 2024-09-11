@@ -121,6 +121,9 @@
     ```
 
 - [ ] Update the Flathub repository <https://github.com/flathub/com.agateau.PixelWheels>
+- [ ] File PR
+- [ ] Wait for CI to be happy
+- [ ] Merge PR
 
 ## F-Droid
 
@@ -133,5 +136,4 @@
     - [ ] Patreon
     - [ ] Ko-fi
     - [ ] Mastodon
-    - [ ] Twitter
     - [ ] Relevant reddits
