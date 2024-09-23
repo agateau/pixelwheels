@@ -21,6 +21,7 @@ package com.agateau.pixelwheels;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.gamesetup.GameMode;
 import com.agateau.utils.Assert;
 import com.agateau.utils.log.NLog;
@@ -48,6 +49,7 @@ public class GameConfig {
     public final String[] vehicles = new String[Constants.MAX_PLAYERS];
     public String track;
     public String championship;
+    public Difficulty difficulty = Difficulty.EASY;
 
     private final String[] mPlayerInputFactoryIds = new String[Constants.MAX_PLAYERS];
     private final GameInputHandler[] mPlayerInputHandlers =
@@ -73,6 +75,11 @@ public class GameConfig {
 
         try {
             this.gameMode = GameMode.valueOf(mPreferences.getString(PrefConstants.GAME_MODE));
+        } catch (IllegalArgumentException e) {
+            // Nothing to do, fallback to default value
+        }
+        try {
+            this.difficulty = Difficulty.valueOf(mPreferences.getString(PrefConstants.DIFFICULTY));
         } catch (IllegalArgumentException e) {
             // Nothing to do, fallback to default value
         }
@@ -103,6 +110,7 @@ public class GameConfig {
         mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
 
         mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
+        mPreferences.putString(PrefConstants.DIFFICULTY, this.difficulty.toString());
         for (int idx = 0; idx < this.vehicles.length; ++idx) {
             mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + idx, this.vehicles[idx]);
             mPreferences.putString(PrefConstants.INPUT_PREFIX + idx, mPlayerInputFactoryIds[idx]);
