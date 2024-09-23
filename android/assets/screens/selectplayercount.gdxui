@@ -9,6 +9,7 @@
                 <ButtonMenuItem id="2PlayersButton" text="2 PLAYERS"/>
                 <ButtonMenuItem id="3PlayersButton" text="3 PLAYERS"/>
                 <ButtonMenuItem id="4PlayersButton" text="4 PLAYERS"/>
+                <DifficultySelector/>
             </Items>
         </Menu>
     </AnchorGroup>

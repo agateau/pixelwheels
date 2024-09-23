@@ -46,6 +46,7 @@ public class SelectPlayerCountScreen extends PwStageScreen {
 
     private void setupUi() {
         UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
+        DifficultySelectorController.registerFactory(builder, mGame.getConfig());
 
         AnchorGroup root =
                 (AnchorGroup) builder.build(FileUtils.assets("screens/selectplayercount.gdxui"));
