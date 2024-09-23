@@ -18,8 +18,22 @@
  */
 package com.agateau.pixelwheels.gamesetup;
 
+import static com.agateau.translations.Translator.tr;
+
 public enum Difficulty {
     EASY,
     MEDIUM,
-    HARD
+    HARD;
+
+    public String toTranslatedString() {
+        switch (this) {
+            case EASY:
+                return tr("Casual");
+            case MEDIUM:
+                return tr("Pro");
+            case HARD:
+                return tr("Legendary");
+        }
+        throw new RuntimeException("Unexpected value " + this);
+    }
 }
