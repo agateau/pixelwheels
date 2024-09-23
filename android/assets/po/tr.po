@@ -532,11 +532,11 @@ msgstr "4 OYUNCULU"
 msgid "Select Track"
 msgstr "Pist seç"
 
-#: android/assets/screens/selecttrack.gdxui:11
+#: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Lap"
 msgstr "En iyi tur"
 
-#: android/assets/screens/selecttrack.gdxui:14
+#: android/assets/screens/selecttrack.gdxui:17
 msgid "Best Total"
 msgstr "En iyi toplam"
 
@@ -678,15 +678,27 @@ msgstr "Kontrolör"
 msgid "Keyboard"
 msgstr "Klavye"
 
-#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:52
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "Pasta düğmeleri"
 
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:52
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:108
 msgid "Side buttons"
 msgstr "Köşe düğmeleri"
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
+msgid "Casual"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
+msgid "Pro"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
+msgid "Legendary"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -775,29 +787,29 @@ msgstr ""
 "Şampiyonluk\n"
 "tamamlandı!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:113
 msgid "About"
 msgstr "Hakkında"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:115
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Piksel Tekerlekler %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 msgid "CREDITS"
 msgstr "KATKIDA BULUNANLAR"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:126
 #, fuzzy
 msgid "WEB SITE"
 msgstr "WEB SİTESİNİ ZİYARET ET"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:140
 msgid "Under the hood"
 msgstr "Sorun giderme"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -805,72 +817,76 @@ msgstr ""
 "Bu seçenekler Piksel Tekerlekler için ilgi çekicidir, amabakınmakta "
 "serbestsin!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "DEV. OPTIONS"
 msgstr "GELİŞTİRİCİ SEÇENEKLERİ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
 msgid "Controls"
 msgstr "Kontroller"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:182
 #, java-printf-format
 msgid "P%d"
 msgstr "Oyuncu %d"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Oyuncu #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:188
 msgid "Controls:"
 msgstr "Kontroller:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "General"
 msgstr "Genel"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Language:"
 msgstr "Dil:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "Yarış devam ederken dil değiştirilemez"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Audio"
 msgstr "Ses"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
 msgid "Sound FX:"
 msgstr "Ses Efektleri:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Music:"
 msgstr "Müzik:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
 msgid "Video"
 msgstr "Video"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:257
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Fullscreen:"
 msgstr "Tam ekran:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:271
 msgid "Rotate camera:"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:296
 msgid "CONFIGURE"
 msgstr "DÜZENLE"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
 msgstr "Oynadığınız için teşekkürler!"
+
+#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
+msgid "League"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
@@ -888,12 +904,12 @@ msgid "MAIN MENU"
 msgstr "ANA MENÜ"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:281
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[Kilitli]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:300
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:322
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Bilgisayar"
