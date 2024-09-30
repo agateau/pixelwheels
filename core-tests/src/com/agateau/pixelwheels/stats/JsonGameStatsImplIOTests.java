@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.stats;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -49,15 +50,21 @@ public class JsonGameStatsImplIOTests {
 
     @Test
     public void testIO() {
+        // GIVEN 2 championships
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
         ch1.addTrack("t", "track");
         Track track = ch1.getTracks().first();
-        FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
-        assertTrue(!testFile.exists());
 
+        // AND a JsonGameStatsImplIO instance working on a new json file
+        FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
+        assertFalse(testFile.exists());
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
+
+        // AND an associated GameStats instance
         GameStats gameStats = new GameStatsImpl(io);
+
+        // WHEN events are reported to the GameStatsImpl instance
         TrackStats stats = gameStats.getTrackStats(track);
         addResult(stats, 12);
         addResult(stats, 14);
@@ -66,9 +73,14 @@ public class JsonGameStatsImplIOTests {
         gameStats.onChampionshipFinished(ch2, 2);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
+
+        // THEN the json file has been created
         assertTrue(testFile.exists());
 
+        // WHEN loading gamestats from the json file
         GameStatsImpl gameStats2 = new GameStatsImpl(io);
+
+        // THEN it contains the reported events
         assertTrue(gameStats2.mTrackStats.containsKey("t"));
         assertThat(gameStats2.mTrackStats.size(), is(1));
         TrackStats stats2 = gameStats2.getTrackStats(track);
@@ -90,7 +102,7 @@ public class JsonGameStatsImplIOTests {
 
         // AND a JsonGameStatsImplIO instance working on a new json file
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
-        assertTrue(!testFile.exists());
+        assertFalse(testFile.exists());
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
 
         // AND an associated GameStats instance
@@ -106,7 +118,7 @@ public class JsonGameStatsImplIOTests {
         addResult(stats, 18);
 
         // THEN there are two lap stats
-        assertEquals(2, stats.get(TrackStats.ResultType.LAP).size());
+        assertEquals(stats.get(TrackStats.ResultType.LAP).size(), 2);
 
         // AND only the player stat is present in the json file
         assertTrue(testFile.exists());
@@ -118,7 +130,7 @@ public class JsonGameStatsImplIOTests {
                 root.getAsJsonObject("trackStats")
                         .getAsJsonObject(track.getId())
                         .getAsJsonArray("lap");
-        assertEquals(1, lapArray.size());
+        assertEquals(lapArray.size(), 1);
     }
 
     private void checkRecords(TrackStats stats, int rank, float expectedLap) {
