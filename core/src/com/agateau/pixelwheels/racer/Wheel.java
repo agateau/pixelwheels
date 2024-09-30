@@ -111,7 +111,7 @@ public class Wheel implements Disposable {
     private final Animation<TextureRegion> mSplashAnimation;
     private final Vehicle mVehicle;
     private boolean mCanDrift = false;
-    private float mMaxDrivingForce = GamePlay.instance.maxDrivingForce;
+    private float mMaxDrivingForce;
     private Material mMaterial = Material.ROAD;
     private boolean mDrifting = false;
 

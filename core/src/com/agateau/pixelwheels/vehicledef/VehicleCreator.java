@@ -39,9 +39,13 @@ public class VehicleCreator {
 
     private final Vector2 sWheelPos = new Vector2();
 
-    public Vehicle create(VehicleDef vehicleDef, Vector2 position, float angle) {
+    public Vehicle create(
+            VehicleDef vehicleDef,
+            Vector2 position,
+            float angle,
+            GamePlay.DifficultySettings difficultySettings) {
         final float U = Constants.UNIT_FOR_PIXEL;
-        float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
+        float maxDrivingForce = difficultySettings.maxDrivingForce * vehicleDef.speed;
 
         TextureRegion mainRegion = vehicleDef.getImage(mAssets);
 

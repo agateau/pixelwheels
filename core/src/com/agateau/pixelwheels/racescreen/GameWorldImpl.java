@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.bonus.Bonus;
@@ -281,13 +282,17 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
         Array<Vector2> positions = mTrack.findStartTilePositions();
         positions.reverse();
 
+        GamePlay.DifficultySettings difficultySettings =
+                GamePlay.instance.difficultySettings.get(mGame.getConfig().difficulty);
+
         AudioManager audioManager = mGame.getAudioManager();
         for (int idx = 0; idx < entrants.size; ++idx) {
             Assert.check(
                     idx < positions.size, "Too many entrants (" + idx + "/" + positions.size + ")");
             GameInfo.Entrant entrant = entrants.get(idx);
             VehicleDef vehicleDef = assets.findVehicleDefById(entrant.getVehicleId());
-            Vehicle vehicle = creator.create(vehicleDef, positions.get(idx), startAngle);
+            Vehicle vehicle =
+                    creator.create(vehicleDef, positions.get(idx), startAngle, difficultySettings);
             Racer racer = new Racer(assets, audioManager, this, vehicle, entrant);
             if (entrant.isPlayer()) {
                 GameInfo.Player player = (GameInfo.Player) entrant;

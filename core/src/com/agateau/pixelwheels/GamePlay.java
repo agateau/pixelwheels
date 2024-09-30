@@ -18,14 +18,33 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
+import java.util.HashMap;
+
 /**
  * Customization of the gameplay
  *
  * <p>Any change made to the values of this class at runtime will cause the stats to not be saved.
  */
 public class GamePlay {
+    public static class DifficultySettings {
+        public int maxDrivingForce = 50;
+    }
+
+    public final HashMap<Difficulty, DifficultySettings> difficultySettings = new HashMap<>();
+
+    public GamePlay() {
+        for (Difficulty difficulty : Difficulty.values()) {
+            difficultySettings.put(difficulty, new DifficultySettings());
+        }
+        DifficultySettings casual = difficultySettings.get(Difficulty.CASUAL);
+        casual.maxDrivingForce = 20;
+
+        DifficultySettings pro = difficultySettings.get(Difficulty.PRO);
+        pro.maxDrivingForce = 40;
+    }
+
     public int racerCount = 6;
-    public int maxDrivingForce = 50;
     public int lowSpeed = 20;
     public int maxSpeed = 270;
     public int maxLateralImpulse = 2;
