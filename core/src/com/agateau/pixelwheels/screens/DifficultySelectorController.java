@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import static com.agateau.translations.Translator.tr;
+
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.ui.menu.Menu;
@@ -33,13 +35,14 @@ class DifficultySelectorController {
     }
 
     private static SelectorMenuItem<Difficulty> create(Menu menu, GameConfig config) {
-        menu.addLabel("League");
+        menu.addLabel(tr("League"));
         SelectorMenuItem<Difficulty> selector = new SelectorMenuItem<>(menu);
         menu.addItem(selector);
 
         for (Difficulty difficulty : Difficulty.values()) {
-            selector.addEntry(difficulty.toString(), difficulty);
+            selector.addEntry(difficulty.toTranslatedString(), difficulty);
         }
+
         selector.setCurrentData(config.difficulty);
 
         selector.addListener(
