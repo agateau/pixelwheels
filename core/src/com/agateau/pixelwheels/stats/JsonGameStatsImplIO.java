@@ -28,6 +28,43 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Loads player game statistics from a JSON file.
+ *
+ * <p>Format:
+ *
+ * <pre>
+ * {
+ *     "trackStats": {
+ *         "$trackId": {
+ *             "lap": [
+ *                  {
+ *                      "vehicle": "$vehicleId",
+ *                      "value": $floatValue
+ *                  },
+ *                  ...
+ *             ],
+ *             "total": [
+ *                  {
+ *                      "vehicle": "$vehicleId",
+ *                      "value": ""
+ *                  },
+ *                  ...
+ *             ]
+ *         },
+ *         ...
+ *     },
+ *     "bestChampionshipRank": {
+ *         "$trackId": $intRank,
+ *         ...
+ *     },
+ *     "events": {
+ *         "$eventId": $intCount,
+ *         ...
+ *     }
+ * }
+ * </pre>
+ */
 public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
     private final Gson mGson = new GsonBuilder().setPrettyPrinting().create();
