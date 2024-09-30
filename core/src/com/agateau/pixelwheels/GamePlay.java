@@ -18,14 +18,34 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
+
 /**
  * Customization of the gameplay
  *
  * <p>Any change made to the values of this class at runtime will cause the stats to not be saved.
  */
 public class GamePlay {
+
+    // These are represented as plain int instead of a HashMap because Introspector does not support
+    // HashMaps.
+    public int casualMaxDrivingForce = 20;
+    public int proMaxDrivingForce = 40;
+    public int legendaryMaxDrivingForce = 50;
+
+    public int getMaxDrivingForce(Difficulty difficulty) {
+        switch (difficulty) {
+            case CASUAL:
+                return casualMaxDrivingForce;
+            case PRO:
+                return proMaxDrivingForce;
+            case LEGENDARY:
+                return legendaryMaxDrivingForce;
+        }
+        throw new RuntimeException("Unknown difficulty " + difficulty);
+    }
+
     public int racerCount = 6;
-    public int maxDrivingForce = 50;
     public int lowSpeed = 20;
     public int maxSpeed = 270;
     public int maxLateralImpulse = 2;
