@@ -20,6 +20,7 @@ package com.agateau.pixelwheels;
 
 import static com.agateau.translations.Translator.trn;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.rewards.ChampionshipRankRewardRule;
 import com.agateau.pixelwheels.rewards.CounterRewardRule;
@@ -45,53 +46,57 @@ class RewardManagerSetup {
         for (int idx = 1; idx < championships.size; ++idx) {
             final Championship previous = championships.get(idx - 1);
             final Championship current = championships.get(idx);
-            final int currentIdx = idx;
 
             rewardManager.addRule(
                     Reward.get(championships.get(idx)),
-                    new ChampionshipRankRewardRule(previous, 2) {
-                        @Override
-                        public boolean hasBeenUnlocked(GameStats gameStats) {
-                            if (super.hasBeenUnlocked(gameStats)) {
-                                return true;
-                            }
-                            if (hasAlreadyRacedChampionshipOrAfter(
-                                    championships, currentIdx, gameStats)) {
-                                // Hack to handle case where a new championship has been added at
-                                // the beginning of the game:
-                                //
-                                // Say we have championships C1 and C2, and player has already
-                                // unlocked C2 by finishing C1. If in a new version of the game we
-                                // insert championship C0 before C1, then C2 is unlocked because we
-                                // recorded the performance on C1, but C1 is not because unlocking
-                                // it now requires a good performance on C0. This would be
-                                // surprising for the player.
-                                //
-                                // To avoid that, unlock a championship if we raced it or one after
-                                // it once. In our example C1 would be unlocked because we raced it
-                                // once.
-                                NLog.i(
-                                        "Unlock '%s' even if the rank on previous ('%s') is not enough, because we already raced '%s' or a championship after it in the past",
-                                        current, previous, current);
-                                return true;
-                            }
-                            return false;
-                        }
-
-                        private boolean hasAlreadyRacedChampionshipOrAfter(
-                                Array<Championship> championships,
-                                int currentIdx,
-                                GameStats gameStats) {
-                            for (int idx = currentIdx; idx < championships.size; ++idx) {
-                                if (gameStats.getBestChampionshipRank(championships.get(idx))
-                                        < Integer.MAX_VALUE) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
-                    });
+                    createChampionshipRule(championships, previous, current, idx));
         }
+    }
+
+    private static ChampionshipRankRewardRule createChampionshipRule(
+            Array<Championship> championships,
+            Championship previous,
+            Championship current,
+            int currentIdx) {
+        return new ChampionshipRankRewardRule(previous, 2) {
+            @Override
+            public boolean hasBeenUnlocked(GameStats gameStats) {
+                if (super.hasBeenUnlocked(gameStats)) {
+                    return true;
+                }
+                if (hasAlreadyRacedChampionshipOrAfter(championships, currentIdx, gameStats)) {
+                    // Hack to handle case where a new championship has been added at
+                    // the beginning of the game:
+                    //
+                    // Say we have championships C1 and C2, and player has already
+                    // unlocked C2 by finishing C1. If in a new version of the game we
+                    // insert championship C0 before C1, then C2 is unlocked because we
+                    // recorded the performance on C1, but C1 is not because unlocking
+                    // it now requires a good performance on C0. This would be
+                    // surprising for the player.
+                    //
+                    // To avoid that, unlock a championship if we raced it or one after
+                    // it once. In our example C1 would be unlocked because we raced it
+                    // once.
+                    NLog.i(
+                            "Unlock '%s' even if the rank on previous ('%s') is not enough, because we already raced '%s' or a championship after it in the past",
+                            current, previous, current);
+                    return true;
+                }
+                return false;
+            }
+
+            private boolean hasAlreadyRacedChampionshipOrAfter(
+                    Array<Championship> championships, int currentIdx, GameStats gameStats) {
+                for (int idx = currentIdx; idx < championships.size; ++idx) {
+                    if (getBestBestChampionshipRank(gameStats, championships.get(idx))
+                            < Integer.MAX_VALUE) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
     }
 
     static void createVehicleRules(RewardManager rewardManager, Assets assets) {
@@ -138,15 +143,18 @@ class RewardManagerSetup {
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("bigfoot")),
-                new ChampionshipRankRewardRule(assets.findChampionshipById("country"), 0));
+                new ChampionshipRankRewardRule(
+                        Difficulty.EASY, assets.findChampionshipById("country"), 0));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("miramar")),
-                new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 1));
+                new ChampionshipRankRewardRule(
+                        Difficulty.MEDIUM, assets.findChampionshipById("city"), 1));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("old-f1")),
-                new ChampionshipRankRewardRule(assets.findChampionshipById("city"), 0));
+                new ChampionshipRankRewardRule(
+                        Difficulty.HARD, assets.findChampionshipById("city"), 0));
 
         // Unlock all remaining vehicles
         for (VehicleDef vehicleDef : assets.vehicleDefs) {

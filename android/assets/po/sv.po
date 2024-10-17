@@ -661,21 +661,21 @@ msgstr "Hittat ett fel? Använd denna knapp för att rapportera det."
 msgid "REPORT BUG"
 msgstr "RAPPORTERA FEL"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Träffa ett fordon med en missil"
 msgstr[1] "Träffa fordon med en missil"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Lämna väg en gång"
 msgstr[1] "Lämna väg %# gånger"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Välj en bonus"
@@ -776,19 +776,34 @@ msgstr "Poäng"
 msgid "Race time"
 msgstr "Tävlingstid"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
+#, fuzzy, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Avsluta på tredje plats eller bättre i %s mästerskap"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
+#, fuzzy, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Avsluta på andra plats eller bättre i %s mästerskap"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
+#, fuzzy, java-printf-format
 msgid "Finish first at %s championship"
+msgstr "Avsluta på första plats i %s mästerskap"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
+#, fuzzy, java-printf-format
+msgid "Finish third or better at %s championship in %s league"
+msgstr "Avsluta på tredje plats eller bättre i %s mästerskap"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
+#, fuzzy, java-printf-format
+msgid "Finish second or better at %s championship in %s league"
+msgstr "Avsluta på andra plats eller bättre i %s mästerskap"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
+#, fuzzy, java-printf-format
+msgid "Finish first at %s championship in %s league"
 msgstr "Avsluta på första plats i %s mästerskap"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196

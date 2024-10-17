@@ -21,6 +21,7 @@ package com.agateau.pixelwheels.rewards;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.stats.GameStats;
 import com.agateau.pixelwheels.stats.GameStatsImpl;
@@ -93,6 +94,7 @@ public class RewardManagerTests {
 
     @Test
     public void testGetUnlockedRewards() {
+        Difficulty difficulty = Difficulty.EASY;
         // GIVEN a RewardManager with 2 championships, ch2 is locked
         GameStats gameStats = new GameStatsImpl(mStatsIO);
         Array<Championship> championships = createChampionships();
@@ -105,7 +107,7 @@ public class RewardManagerTests {
                 new RewardRule() {
                     @Override
                     public boolean hasBeenUnlocked(GameStats gameStats) {
-                        return gameStats.getBestChampionshipRank(ch1) <= 2;
+                        return gameStats.getBestChampionshipRank(difficulty, ch1) <= 2;
                     }
 
                     @Override
@@ -125,7 +127,7 @@ public class RewardManagerTests {
         assertThat(manager.getUnseenUnlockedRewards().isEmpty(), is(true));
 
         // WHEN I unlock ch2
-        gameStats.onChampionshipFinished(ch1, 2);
+        gameStats.onChampionshipFinished(difficulty, ch1, 2);
 
         // THEN unlocked rewards contains ch1 and ch2
         assertThat(manager.getUnlockedRewards(), is(CollectionUtils.newSet(ch1Reward, ch2Reward)));
