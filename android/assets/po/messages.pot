@@ -646,21 +646,21 @@ msgstr ""
 msgid "REPORT BUG"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] ""
@@ -761,19 +761,34 @@ msgstr ""
 msgid "Race time"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
 #, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
 #, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
 #, java-printf-format
 msgid "Finish first at %s championship"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
+#, java-printf-format
+msgid "Finish third or better at %s championship in %s league"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
+#, java-printf-format
+msgid "Finish second or better at %s championship in %s league"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
+#, java-printf-format
+msgid "Finish first at %s championship in %s league"
 msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196

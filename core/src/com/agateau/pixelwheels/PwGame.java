@@ -303,7 +303,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     public void onChampionshipFinished(ChampionshipGameInfo gameInfo) {
-        mGameStats.onChampionshipFinished(gameInfo.getChampionship(), gameInfo.getBestRank());
+        mGameStats.onChampionshipFinished(
+                mGameConfig.difficulty, gameInfo.getChampionship(), gameInfo.getBestRank());
     }
 
     @Override

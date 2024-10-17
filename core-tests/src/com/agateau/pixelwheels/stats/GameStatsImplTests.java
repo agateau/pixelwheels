@@ -24,6 +24,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import org.junit.Rule;
@@ -55,18 +56,19 @@ public class GameStatsImplTests {
 
     @Test
     public void testOnChampionshipFinished() {
+        Difficulty difficulty = Difficulty.EASY;
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
         GameStatsImpl stats = new GameStatsImpl(mStatsIO);
-        stats.onChampionshipFinished(ch1, 4);
+        stats.onChampionshipFinished(difficulty, ch1, 4);
         verify(mStatsIO).save(stats);
 
-        stats.onChampionshipFinished(ch1, 3);
-        stats.onChampionshipFinished(ch2, 2);
-        stats.onChampionshipFinished(ch2, 4);
+        stats.onChampionshipFinished(difficulty, ch1, 3);
+        stats.onChampionshipFinished(difficulty, ch2, 2);
+        stats.onChampionshipFinished(difficulty, ch2, 4);
 
-        assertThat(stats.getBestChampionshipRank(ch1), is(3));
-        assertThat(stats.getBestChampionshipRank(ch2), is(2));
+        assertThat(stats.getBestChampionshipRank(difficulty, ch1), is(3));
+        assertThat(stats.getBestChampionshipRank(difficulty, ch2), is(2));
     }
 
     @Test

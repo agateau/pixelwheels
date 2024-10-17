@@ -24,6 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.files.FileHandle;
@@ -69,8 +70,8 @@ public class JsonGameStatsImplIOTests {
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
-        gameStats.onChampionshipFinished(ch1, 1);
-        gameStats.onChampionshipFinished(ch2, 2);
+        gameStats.onChampionshipFinished(Difficulty.MEDIUM, ch1, 1);
+        gameStats.onChampionshipFinished(Difficulty.EASY, ch2, 2);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
 
@@ -87,8 +88,8 @@ public class JsonGameStatsImplIOTests {
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
-        assertThat(gameStats2.getBestChampionshipRank(ch1), is(1));
-        assertThat(gameStats2.getBestChampionshipRank(ch2), is(2));
+        assertThat(gameStats2.getBestChampionshipRank(Difficulty.MEDIUM, ch1), is(1));
+        assertThat(gameStats2.getBestChampionshipRank(Difficulty.EASY, ch2), is(2));
         assertThat(gameStats2.getEventCount(GameStats.Event.MISSILE_HIT), is(2));
     }
 

@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,7 +32,7 @@ import java.util.Map;
 /**
  * Loads player game statistics from a JSON file.
  *
- * <p>Format:
+ * <p>Format v1:
  *
  * <pre>
  * {
@@ -64,6 +65,45 @@ import java.util.Map;
  *     }
  * }
  * </pre>
+ *
+ * <p>Format v2:
+ *
+ * <pre>
+ * {
+ *     "trackStats": {
+ *         "$difficultyId": {
+ *             "$trackId": {
+ *                 "lap": [
+ *                      {
+ *                          "vehicle": "$vehicleId",
+ *                          "value": $floatValue
+ *                      },
+ *                      ...
+ *                 ],
+ *                 "total": [
+ *                      {
+ *                          "vehicle": "$vehicleId",
+ *                          "value": ""
+ *                      },
+ *                      ...
+ *                 ]
+ *             },
+ *             ...
+ *         }
+ *     },
+ *     "bestChampionshipRank": {
+ *         "$difficultyId": {
+ *             "$trackId": $intRank,
+ *             ...
+ *          },
+ *          ...
+ *     },
+ *     "events": {
+ *         "$eventId": $intCount,
+ *         ...
+ *     }
+ * }
+ * </pre>
  */
 public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     private final FileHandle mHandle;
@@ -89,8 +129,13 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
             gameStats.mTrackStats.put(trackId, trackStats);
             loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
         }
-        loadStringIntMap(
-                gameStats.mBestChampionshipRank, root.getAsJsonObject("bestChampionshipRank"));
+
+        JsonObject ranksByDifficultyObject = root.getAsJsonObject("bestChampionshipRank");
+        for (Difficulty difficulty : Difficulty.values()) {
+            loadStringIntMap(
+                    gameStats.mBestChampionshipRankByDifficulty.get(difficulty),
+                    ranksByDifficultyObject.getAsJsonObject(difficulty.name()));
+        }
         loadStringIntMap(gameStats.mEvents, root.getAsJsonObject("events"));
     }
 
@@ -128,7 +173,9 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
             trackStatsObject.add(kv.getKey(), createJsonForTrack(kv.getValue()));
         }
 
-        root.add("bestChampionshipRank", mGson.toJsonTree(gameStats.mBestChampionshipRank));
+        root.add(
+                "bestChampionshipRank",
+                mGson.toJsonTree(gameStats.mBestChampionshipRankByDifficulty));
         root.add("events", mGson.toJsonTree(gameStats.mEvents));
         String json = mGson.toJson(root);
         mHandle.writeString(json, false /* append */);
