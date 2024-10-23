@@ -23,6 +23,7 @@ import static com.agateau.translations.Translator.trc;
 import com.agateau.libgdx.AgcTmxMapLoader;
 import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.GamePlay;
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.pixelwheels.utils.OrientedPoint;
 import com.agateau.utils.Assert;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /** The map of the current game */
 public class Track implements Disposable {
@@ -54,8 +56,8 @@ public class Track implements Disposable {
     private final WeakReference<Championship> mChampionship;
     private final String mId;
     private final String mMapName;
-    private final ArrayList<Float> mDefaultLapRecords = new ArrayList<>();
-    private final ArrayList<Float> mDefaultTotalRecords = new ArrayList<>();
+    private final HashMap<Difficulty, HashMap<TrackStats.ResultType, ArrayList<Float>>>
+            mDefaultRecords = new HashMap<>();
 
     private TiledMap mMap;
     private Material[] mMaterialForTileId;
@@ -82,6 +84,15 @@ public class Track implements Disposable {
         mChampionship = new WeakReference<>(championship);
         mId = id;
         mMapName = name;
+
+        // Fill mDefaultRecords
+        for (Difficulty difficulty : Difficulty.values()) {
+            HashMap<TrackStats.ResultType, ArrayList<Float>> map = new HashMap<>();
+            mDefaultRecords.put(difficulty, map);
+            for (TrackStats.ResultType type : TrackStats.ResultType.values()) {
+                map.put(type, new ArrayList<>());
+            }
+        }
     }
 
     public void init() {
@@ -196,8 +207,9 @@ public class Track implements Disposable {
         return indexes;
     }
 
-    public ArrayList<Float> getDefaultTrackRecords(TrackStats.ResultType resultType) {
-        return resultType == TrackStats.ResultType.LAP ? mDefaultLapRecords : mDefaultTotalRecords;
+    public ArrayList<Float> getDefaultTrackRecords(
+            Difficulty difficulty, TrackStats.ResultType resultType) {
+        return mDefaultRecords.get(difficulty).get(resultType);
     }
 
     private Material[] computeMaterialForTileId() {

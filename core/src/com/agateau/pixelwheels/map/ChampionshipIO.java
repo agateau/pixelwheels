@@ -18,14 +18,17 @@
  */
 package com.agateau.pixelwheels.map;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.stats.TrackStats;
 import com.agateau.utils.Assert;
 import com.agateau.utils.FileUtils;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Loads a championship and its tracks from an XML file
@@ -33,6 +36,12 @@ import java.util.ArrayList;
  * <p>See docs/map-format.md for details
  */
 public class ChampionshipIO {
+    private final HashMap<Difficulty, Integer> mMaxDrivingForceByDifficulty;
+
+    public ChampionshipIO(HashMap<Difficulty, Integer> maxDrivingForceByDifficulty) {
+        mMaxDrivingForceByDifficulty = maxDrivingForceByDifficulty;
+    }
+
     public Championship load(FileHandle handle) {
         XmlReader.Element root = FileUtils.parseXml(handle);
         if (root == null) {
@@ -61,25 +70,57 @@ public class ChampionshipIO {
         return championship;
     }
 
-    private void loadTrack(Championship championship, XmlReader.Element root) {
-        String id = root.getAttribute("id");
-        String name = root.getAttribute("name");
+    private void loadTrack(Championship championship, XmlReader.Element trackElement) {
+        String id = trackElement.getAttribute("id");
+        String name = trackElement.getAttribute("name");
         Track track = championship.addTrack(id, name);
-        loadTrackRecords(
-                track.getDefaultTrackRecords(TrackStats.ResultType.LAP), root, "lapRecords");
-        loadTrackRecords(
-                track.getDefaultTrackRecords(TrackStats.ResultType.TOTAL), root, "totalRecords");
+
+        HashMap<TrackStats.ResultType, ArrayList<Float>> recordsByType = new HashMap<>();
+
+        recordsByType.put(TrackStats.ResultType.LAP, loadTrackRecords(trackElement, "lapRecords"));
+        recordsByType.put(
+                TrackStats.ResultType.TOTAL, loadTrackRecords(trackElement, "totalRecords"));
+
+        for (Difficulty difficulty : Difficulty.values()) {
+            float scale = computeScaleForDifficulty(difficulty);
+            for (TrackStats.ResultType resultType : TrackStats.ResultType.values()) {
+                for (float record : recordsByType.get(resultType)) {
+                    record = MathUtils.ceil(record * scale);
+                    track.getDefaultTrackRecords(difficulty, resultType).add(record);
+                }
+            }
+        }
     }
 
-    private void loadTrackRecords(
-            ArrayList<Float> records, XmlReader.Element root, String elementName) {
+    private float computeScaleForDifficulty(Difficulty difficulty) {
+        if (difficulty == Difficulty.HARD) {
+            return 1f;
+        }
+        float ref = mMaxDrivingForceByDifficulty.get(Difficulty.HARD);
+        float current = mMaxDrivingForceByDifficulty.get(difficulty);
+
+        /*
+        The smaller `current` is the bigger the scale must be.
+        scale must be 1 when `current == ref` (but we shortcut this).
+                    1         ref
+        scale = --------- = -------
+                 current    current
+                 -------
+                   ref
+         */
+        return ref / current;
+    }
+
+    private ArrayList<Float> loadTrackRecords(XmlReader.Element root, String elementName) {
+        ArrayList<Float> records = new ArrayList<>();
         XmlReader.Element element = root.getChildByName(elementName);
         if (element == null) {
-            return;
+            return records;
         }
         for (XmlReader.Element recordElement : element.getChildrenByName("record")) {
             float value = recordElement.getFloatAttribute("value");
             records.add(value);
         }
+        return records;
     }
 }
