@@ -157,4 +157,87 @@ public class JsonGameStatsImplIOTests {
         stats.addResult(TrackStats.ResultType.LAP, "bob", value);
         stats.addResult(TrackStats.ResultType.TOTAL, "bob", value * 3);
     }
+
+    @Test
+    public void testCanLoadV1Stats() {
+        // GIVEN championships
+        Championship ch1 = new Championship("ch1", "Championship #1");
+        Track track = ch1.addTrack("t", "track");
+
+        Championship ch2 = new Championship("ch2", "Championship #2");
+
+        // AND a V1 stat file
+        FileHandle v1File = new FileHandle(mTemporaryFolder.getRoot() + "/v1.json");
+        v1File.writeString(
+                "{"
+                        + "  \"trackStats\": {"
+                        + "    \"t\": {"
+                        + "      \"lap\": ["
+                        + "        {"
+                        + "          \"vehicle\": \"red\","
+                        + "          \"value\": 5.6"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"green\","
+                        + "          \"value\": 5.8"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"blue\","
+                        + "          \"value\": 6.0"
+                        + "        }"
+                        + "      ],"
+                        + "      \"total\": ["
+                        + "        {"
+                        + "          \"vehicle\": \"orange\","
+                        + "          \"value\": 22.1"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"yellow\","
+                        + "          \"value\": 22.6"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"purple\","
+                        + "          \"value\": 22.7"
+                        + "        }"
+                        + "      ]"
+                        + "    }"
+                        + "  },"
+                        + "  \"bestChampionshipRank\": {"
+                        + "    \"ch1\": 0,"
+                        + "    \"ch2\": 1"
+                        + "  },"
+                        + "  \"events\": {"
+                        + "    \"LEAVING_ROAD\": 3190,"
+                        + "    \"MISSILE_HIT\": 40,"
+                        + "    \"PICKED_BONUS\": 994"
+                        + "  }"
+                        + "}",
+                false /* append */);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(v1File);
+
+        // AND an associated GameStats instance
+        // WHEN loading it
+        GameStats gameStats = new GameStatsImpl(io);
+
+        // THEN track stats have been loaded as Difficulty.HARD stats
+        TrackStats trackStats = gameStats.getTrackStats(Difficulty.HARD, track);
+        ArrayList<TrackResult> trackResults = trackStats.get(TrackStats.ResultType.LAP);
+        assertThat(trackResults.get(0).vehicle, is("red"));
+        assertThat(trackResults.get(0).value, is(5.6f));
+        assertThat(trackResults.get(1).vehicle, is("green"));
+        assertThat(trackResults.get(1).value, is(5.8f));
+        assertThat(trackResults.get(2).vehicle, is("blue"));
+        assertThat(trackResults.get(2).value, is(6.0f));
+        trackResults = trackStats.get(TrackStats.ResultType.TOTAL);
+        assertThat(trackResults.get(0).vehicle, is("orange"));
+        assertThat(trackResults.get(0).value, is(22.1f));
+        assertThat(trackResults.get(1).vehicle, is("yellow"));
+        assertThat(trackResults.get(1).value, is(22.6f));
+        assertThat(trackResults.get(2).vehicle, is("purple"));
+        assertThat(trackResults.get(2).value, is(22.7f));
+
+        // AND best championship ranks have been loaded as Difficulty.HARD ranks
+        assertThat(gameStats.getBestChampionshipRank(Difficulty.HARD, ch1), is(0));
+        assertThat(gameStats.getBestChampionshipRank(Difficulty.HARD, ch2), is(1));
+    }
 }
