@@ -28,11 +28,11 @@ dependencies {
 }
 
 android {
+    namespace "com.agateau.tinywheels.android"
     Properties versionProps = new Properties()
     versionProps.load(new FileInputStream(file('../version.properties')))
 
     // Must match ci/install-android-sdk
-    buildToolsVersion "31.0.0"
     compileSdkVersion 34
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
@@ -94,6 +94,10 @@ android {
         resources {
             excludes += ['LICENSE.txt']
         }
+    }
+    buildFeatures {
+        renderScript true
+        aidl true
     }
 }
 
