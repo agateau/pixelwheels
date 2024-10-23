@@ -10,7 +10,9 @@ dependencies {
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.agateau.pixelwheels.desktop.DesktopLauncher"
