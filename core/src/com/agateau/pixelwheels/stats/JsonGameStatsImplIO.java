@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.stats;
 
 import com.agateau.pixelwheels.gamesetup.Difficulty;
+import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -71,6 +72,7 @@ import java.util.Map;
  *
  * <pre>
  * {
+ *     "version": 2,
  *     "trackStats": {
  *         "$difficultyId": {
  *             "$trackId": {
@@ -107,6 +109,8 @@ import java.util.Map;
  * </pre>
  */
 public class JsonGameStatsImplIO implements GameStatsImpl.IO {
+    private static final int CURRENT_VERSION = 2;
+
     private final FileHandle mHandle;
     private final Gson mGson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -123,6 +127,47 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
         JsonParser parser = new JsonParser();
         JsonObject root = parser.parse(json).getAsJsonObject();
 
+        int version = root.has("version") ? root.get("version").getAsInt() : 1;
+        switch (version) {
+            case 2:
+                loadV2(gameStats, root);
+                return;
+            case 1:
+                loadV1(gameStats, root);
+                return;
+            default:
+                NLog.e(
+                        "Don't know how to load stats from version %d, not loading anything",
+                        version);
+        }
+    }
+
+    /** Load v1 stats as stats for Difficulty.HARD */
+    private void loadV1(GameStatsImpl gameStats, JsonObject root) {
+        Difficulty difficulty = Difficulty.HARD;
+
+        // trackStats / $trackId
+        JsonObject trackStatsObject = root.getAsJsonObject("trackStats");
+        if (trackStatsObject != null) {
+            HashMap<String, TrackStats> trackStatsByTrack =
+                    gameStats.mTrackStatsByDifficulty.get(difficulty);
+            trackStatsByTrack.clear();
+            for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
+                String trackId = kv.getKey();
+                TrackStats trackStats = new TrackStats(gameStats);
+                trackStatsByTrack.put(trackId, trackStats);
+                loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
+            }
+        }
+
+        // bestChampionshipRank
+        JsonObject ranksObject = root.getAsJsonObject("bestChampionshipRank");
+        loadStringIntMap(gameStats.mBestChampionshipRankByDifficulty.get(difficulty), ranksObject);
+
+        loadStringIntMap(gameStats.mEvents, root.getAsJsonObject("events"));
+    }
+
+    private void loadV2(GameStatsImpl gameStats, JsonObject root) {
         // trackStats / $difficultyId / $trackId
         JsonObject trackStatsByDifficultyObject = root.getAsJsonObject("trackStats");
         for (Difficulty difficulty : Difficulty.values()) {
@@ -180,6 +225,8 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     @Override
     public void save(GameStatsImpl gameStats) {
         JsonObject root = new JsonObject();
+
+        root.addProperty("version", CURRENT_VERSION);
 
         // Add track stats
         JsonObject trackStatsByDifficultyObject = new JsonObject();
