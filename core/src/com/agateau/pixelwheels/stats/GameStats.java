@@ -35,7 +35,7 @@ public interface GameStats {
 
     void setListener(Listener listener);
 
-    TrackStats getTrackStats(Track track);
+    TrackStats getTrackStats(Difficulty difficulty, Track track);
 
     /** Returns the best rank obtained, or Integer.MAX_VALUE if never raced */
     int getBestChampionshipRank(Difficulty difficulty, Championship championship);
