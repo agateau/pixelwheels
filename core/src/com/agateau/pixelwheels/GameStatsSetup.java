@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
@@ -30,8 +31,11 @@ class GameStatsSetup {
     static void loadDefaultRecords(GameStats gameStats, Array<Championship> championships) {
         for (Championship championship : championships) {
             for (Track track : championship.getTracks()) {
-                TrackStats trackStats = gameStats.getTrackStats(track);
-                loadDefaultRecordsForTrack(trackStats, track);
+                for (Difficulty difficulty : Difficulty.values()) {
+                    TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+                    // FIXME: get default records per difficulty
+                    loadDefaultRecordsForTrack(trackStats, track);
+                }
             }
         }
     }

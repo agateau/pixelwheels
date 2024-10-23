@@ -234,7 +234,7 @@ public class GameWorldImpl implements ContactListener, Disposable, GameWorld {
     }
 
     private void onFinished() {
-        TrackStats stats = mGame.getGameStats().getTrackStats(mTrack);
+        TrackStats stats = mGame.getGameStats().getTrackStats(mGame.getConfig().difficulty, mTrack);
         for (int idx = 0; idx < mRacers.size; ++idx) {
             Racer racer = mRacers.get(idx);
             racer.markRaceFinished();

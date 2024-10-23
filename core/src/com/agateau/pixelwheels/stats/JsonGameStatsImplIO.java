@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -118,18 +119,30 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
         if (!mHandle.exists()) {
             return;
         }
-        gameStats.mTrackStats.clear();
         String json = mHandle.readString("UTF-8");
         JsonParser parser = new JsonParser();
         JsonObject root = parser.parse(json).getAsJsonObject();
-        JsonObject trackStatsObject = root.getAsJsonObject("trackStats");
-        for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
-            String trackId = kv.getKey();
-            TrackStats trackStats = new TrackStats(gameStats);
-            gameStats.mTrackStats.put(trackId, trackStats);
-            loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
+
+        // trackStats / $difficultyId / $trackId
+        JsonObject trackStatsByDifficultyObject = root.getAsJsonObject("trackStats");
+        for (Difficulty difficulty : Difficulty.values()) {
+            JsonObject trackStatsObject =
+                    trackStatsByDifficultyObject.getAsJsonObject(difficulty.name());
+            if (trackStatsObject == null) {
+                continue;
+            }
+            HashMap<String, TrackStats> trackStatsByTrack =
+                    gameStats.mTrackStatsByDifficulty.get(difficulty);
+            trackStatsByTrack.clear();
+            for (Map.Entry<String, JsonElement> kv : trackStatsObject.entrySet()) {
+                String trackId = kv.getKey();
+                TrackStats trackStats = new TrackStats(gameStats);
+                trackStatsByTrack.put(trackId, trackStats);
+                loadTrackStats(trackStats, kv.getValue().getAsJsonObject());
+            }
         }
 
+        // bestChampionshipRank / $difficultyId
         JsonObject ranksByDifficultyObject = root.getAsJsonObject("bestChampionshipRank");
         for (Difficulty difficulty : Difficulty.values()) {
             loadStringIntMap(
@@ -167,16 +180,28 @@ public class JsonGameStatsImplIO implements GameStatsImpl.IO {
     @Override
     public void save(GameStatsImpl gameStats) {
         JsonObject root = new JsonObject();
-        JsonObject trackStatsObject = new JsonObject();
-        root.add("trackStats", trackStatsObject);
-        for (Map.Entry<String, TrackStats> kv : gameStats.mTrackStats.entrySet()) {
-            trackStatsObject.add(kv.getKey(), createJsonForTrack(kv.getValue()));
+
+        // Add track stats
+        JsonObject trackStatsByDifficultyObject = new JsonObject();
+        root.add("trackStats", trackStatsByDifficultyObject);
+        for (Difficulty difficulty : Difficulty.values()) {
+            JsonObject trackStatsObject = new JsonObject();
+            trackStatsByDifficultyObject.add(difficulty.name(), trackStatsObject);
+
+            for (Map.Entry<String, TrackStats> kv :
+                    gameStats.mTrackStatsByDifficulty.get(difficulty).entrySet()) {
+                trackStatsObject.add(kv.getKey(), createJsonForTrack(kv.getValue()));
+            }
         }
 
+        // Add championship ranks
         root.add(
                 "bestChampionshipRank",
                 mGson.toJsonTree(gameStats.mBestChampionshipRankByDifficulty));
+
+        // Add events
         root.add("events", mGson.toJsonTree(gameStats.mEvents));
+
         String json = mGson.toJson(root);
         mHandle.writeString(json, false /* append */);
     }

@@ -27,7 +27,8 @@ import java.util.HashMap;
 public class GameStatsImpl implements GameStats {
     private transient IO mIO;
     private transient Listener mListener;
-    final HashMap<String, TrackStats> mTrackStats = new HashMap<>();
+    final HashMap<Difficulty, HashMap<String, TrackStats>> mTrackStatsByDifficulty =
+            new HashMap<>();
     final HashMap<Difficulty, HashMap<String, Integer>> mBestChampionshipRankByDifficulty =
             new HashMap<>();
     final HashMap<String, Integer> mEvents = new HashMap<>();
@@ -41,6 +42,7 @@ public class GameStatsImpl implements GameStats {
     public GameStatsImpl(IO io) {
         for (Difficulty difficulty : Difficulty.values()) {
             mBestChampionshipRankByDifficulty.put(difficulty, new HashMap<>());
+            mTrackStatsByDifficulty.put(difficulty, new HashMap<>());
         }
         setIO(io);
         mIO.load(this);
@@ -56,11 +58,12 @@ public class GameStatsImpl implements GameStats {
     }
 
     @Override
-    public TrackStats getTrackStats(Track track) {
-        TrackStats stats = mTrackStats.get(track.getId());
+    public TrackStats getTrackStats(Difficulty difficulty, Track track) {
+        TrackStats stats = mTrackStatsByDifficulty.get(difficulty).get(track.getId());
         if (stats == null) {
+            // No stats yet for this track, create one
             stats = new TrackStats(this);
-            mTrackStats.put(track.getId(), stats);
+            mTrackStatsByDifficulty.get(difficulty).put(track.getId(), stats);
         }
         return stats;
     }

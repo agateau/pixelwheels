@@ -43,15 +43,50 @@ public class GameStatsImplTests {
 
     @Test
     public void testInit() {
+        Difficulty difficulty = Difficulty.EASY;
+
         Championship ch = new Championship("ch1", "champ1");
         ch.addTrack("t", "Track");
         final Track track = ch.getTracks().first();
         GameStats stats = new GameStatsImpl(mStatsIO);
-        TrackStats trackStats = stats.getTrackStats(track);
+        TrackStats trackStats = stats.getTrackStats(difficulty, track);
         assertThat(trackStats, is(not(nullValue())));
 
-        TrackStats trackStats2 = stats.getTrackStats(track);
+        TrackStats trackStats2 = stats.getTrackStats(difficulty, track);
         assertThat(trackStats, is(trackStats2));
+    }
+
+    @Test
+    public void testInitPerDifficulty() {
+        // GIVEN a championship
+        Championship ch = new Championship("ch1", "champ1");
+
+        // AND a track
+        ch.addTrack("t", "Track");
+        final Track track = ch.getTracks().first();
+
+        // AND a GameStatsImpl instance
+        GameStatsImpl gameStats = new GameStatsImpl(mStatsIO);
+
+        // WHEN track stats are added for EASY and HARD
+        addTrackStat(gameStats, Difficulty.EASY, track, 12);
+        addTrackStat(gameStats, Difficulty.HARD, track, 24);
+
+        // THEN we can retrieve them
+        assertThat(getFirstTrackStat(gameStats, Difficulty.EASY, track), is(12f));
+        assertThat(getFirstTrackStat(gameStats, Difficulty.HARD, track), is(24f));
+    }
+
+    private static void addTrackStat(
+            GameStats gameStats, Difficulty difficulty, Track track, float value) {
+        TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+        trackStats.addResult(TrackStats.ResultType.TOTAL, "k2000", value);
+    }
+
+    private static float getFirstTrackStat(
+            GameStats gameStats, Difficulty difficulty, Track track) {
+        TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+        return trackStats.get(TrackStats.ResultType.TOTAL).get(0).value;
     }
 
     @Test

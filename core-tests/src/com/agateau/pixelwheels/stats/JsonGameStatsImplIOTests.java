@@ -32,6 +32,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -46,11 +47,15 @@ public class JsonGameStatsImplIOTests {
     public void testNoRecords() {
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(new FileHandle("/doesnotexist"));
         GameStatsImpl stats = new GameStatsImpl(io);
-        assertTrue(stats.mTrackStats.isEmpty());
+        for (HashMap<String, TrackStats> trackStats : stats.mTrackStatsByDifficulty.values()) {
+            assertTrue(trackStats.isEmpty());
+        }
     }
 
     @Test
     public void testIO() {
+        Difficulty difficulty = Difficulty.EASY;
+
         // GIVEN 2 championships
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
@@ -66,7 +71,7 @@ public class JsonGameStatsImplIOTests {
         GameStats gameStats = new GameStatsImpl(io);
 
         // WHEN events are reported to the GameStatsImpl instance
-        TrackStats stats = gameStats.getTrackStats(track);
+        TrackStats stats = gameStats.getTrackStats(difficulty, track);
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
@@ -82,9 +87,9 @@ public class JsonGameStatsImplIOTests {
         GameStatsImpl gameStats2 = new GameStatsImpl(io);
 
         // THEN it contains the reported events
-        assertTrue(gameStats2.mTrackStats.containsKey("t"));
-        assertThat(gameStats2.mTrackStats.size(), is(1));
-        TrackStats stats2 = gameStats2.getTrackStats(track);
+        assertTrue(gameStats2.mTrackStatsByDifficulty.get(difficulty).containsKey("t"));
+        assertThat(gameStats2.mTrackStatsByDifficulty.get(difficulty).size(), is(1));
+        TrackStats stats2 = gameStats2.getTrackStats(difficulty, track);
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
@@ -95,6 +100,8 @@ public class JsonGameStatsImplIOTests {
 
     @Test
     public void testDefaultRecordsAreNotSaved() {
+        Difficulty difficulty = Difficulty.EASY;
+
         // GIVEN a championship
         Championship ch1 = new Championship("ch1", "champ1");
         // AND an associated track
@@ -111,11 +118,11 @@ public class JsonGameStatsImplIOTests {
 
         // AND a default track record
         gameStats
-                .getTrackStats(track)
+                .getTrackStats(difficulty, track)
                 .addResult(TrackStats.ResultType.LAP, TrackStats.DEFAULT_RECORD_VEHICLE, 12f);
 
         // WHEN a player stat is recorded
-        TrackStats stats = gameStats.getTrackStats(track);
+        TrackStats stats = gameStats.getTrackStats(difficulty, track);
         addResult(stats, 18);
 
         // THEN there are two lap stats
@@ -125,10 +132,11 @@ public class JsonGameStatsImplIOTests {
         assertTrue(testFile.exists());
         JsonParser parser = new JsonParser();
 
-        // JSON structure: root / trackStats / $trackName / lap / [results]
+        // JSON structure: root / trackStats / $difficultyId / $trackName / lap / [results]
         JsonObject root = parser.parse(testFile.readString("UTF-8")).getAsJsonObject();
         JsonArray lapArray =
                 root.getAsJsonObject("trackStats")
+                        .getAsJsonObject(difficulty.name())
                         .getAsJsonObject(track.getId())
                         .getAsJsonArray("lap");
         assertEquals(lapArray.size(), 1);

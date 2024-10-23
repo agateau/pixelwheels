@@ -124,7 +124,7 @@ public class AIPilot implements Pilot {
                 public void setListener(Listener listener) {}
 
                 @Override
-                public TrackStats getTrackStats(Track track) {
+                public TrackStats getTrackStats(Difficulty difficulty, Track track) {
                     return null;
                 }
 
