@@ -29,7 +29,9 @@ task generateVersionInfoClass {
     }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 compileJava.dependsOn(generateVersionInfoClass)
