@@ -35,6 +35,7 @@
   <url type="homepage">https://agateau.com/projects/pixelwheels</url>
   <url type="bugtracker">https://github.com/agateau/pixelwheels/issues</url>
   <url type="donation">https://agateau.com/support</url>
+  <url type="vcs-browser">https://github.com/agateau/pixelwheels</url>
 
   <launchable type="desktop-id">com.agateau.PixelWheels.desktop</launchable>
 
