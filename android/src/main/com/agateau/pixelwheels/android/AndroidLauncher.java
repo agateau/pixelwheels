@@ -71,10 +71,15 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
     private void setupLogging(PwGame game) {
+        // Some log files end up with duplicated messages: looks like onCreate() can be called more
+        // than once. To avoid this, remove any existing printers.
+        NLog.clearPrinters();
+
         AndroidLogFileOpener opener = new AndroidLogFileOpener(this);
         LogFilePrinter printer =
                 new LogFilePrinter(Constants.LOG_FILENAME, Constants.LOG_MAX_SIZE, opener);
         NLog.addPrinter(printer);
+
         NLog.addPrinter(new AndroidNLogPrinter());
 
         AndroidLogExporter exporter = new AndroidLogExporter(this, printer);
