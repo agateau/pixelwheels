@@ -8,6 +8,7 @@
             <Items>
                 <ButtonMenuItem id="quickRaceButton" text="QUICK RACE"/>
                 <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
+                <DifficultySelector />
             </Items>
         </Menu>
     </AnchorGroup>

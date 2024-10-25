@@ -20,7 +20,6 @@ package com.agateau.pixelwheels.vehicledef;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.racer.Vehicle;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -39,9 +38,10 @@ public class VehicleCreator {
 
     private final Vector2 sWheelPos = new Vector2();
 
-    public Vehicle create(VehicleDef vehicleDef, Vector2 position, float angle) {
+    public Vehicle create(
+            VehicleDef vehicleDef, Vector2 position, float angle, int maxDrivingForce) {
         final float U = Constants.UNIT_FOR_PIXEL;
-        float maxDrivingForce = GamePlay.instance.maxDrivingForce * vehicleDef.speed;
+        float drivingForce = maxDrivingForce * vehicleDef.speed;
 
         TextureRegion mainRegion = vehicleDef.getImage(mAssets);
 
@@ -68,7 +68,7 @@ public class VehicleCreator {
             */
             float wheelY = axle.width * U / 2;
             float wheelX = (axle.y - mainRegion.getRegionWidth() / 2f) * U;
-            float drive = maxDrivingForce * axle.drive;
+            float drive = drivingForce * axle.drive;
 
             TextureRegion wheelRegion = axle.getTexture(mAssets);
             Animation<TextureRegion> splashAnimation = axle.getSplashAnimation(mAssets);

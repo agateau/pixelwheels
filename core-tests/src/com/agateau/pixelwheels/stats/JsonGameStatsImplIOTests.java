@@ -20,9 +20,11 @@ package com.agateau.pixelwheels.stats;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.badlogic.gdx.files.FileHandle;
@@ -30,6 +32,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -44,44 +47,61 @@ public class JsonGameStatsImplIOTests {
     public void testNoRecords() {
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(new FileHandle("/doesnotexist"));
         GameStatsImpl stats = new GameStatsImpl(io);
-        assertTrue(stats.mTrackStats.isEmpty());
+        for (HashMap<String, TrackStats> trackStats : stats.mTrackStatsByDifficulty.values()) {
+            assertTrue(trackStats.isEmpty());
+        }
     }
 
     @Test
     public void testIO() {
+        Difficulty difficulty = Difficulty.EASY;
+
+        // GIVEN 2 championships
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
         ch1.addTrack("t", "track");
         Track track = ch1.getTracks().first();
-        FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
-        assertTrue(!testFile.exists());
 
+        // AND a JsonGameStatsImplIO instance working on a new json file
+        FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
+        assertFalse(testFile.exists());
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
+
+        // AND an associated GameStats instance
         GameStats gameStats = new GameStatsImpl(io);
-        TrackStats stats = gameStats.getTrackStats(track);
+
+        // WHEN events are reported to the GameStatsImpl instance
+        TrackStats stats = gameStats.getTrackStats(difficulty, track);
         addResult(stats, 12);
         addResult(stats, 14);
         addResult(stats, 10);
-        gameStats.onChampionshipFinished(ch1, 1);
-        gameStats.onChampionshipFinished(ch2, 2);
+        gameStats.onChampionshipFinished(Difficulty.MEDIUM, ch1, 1);
+        gameStats.onChampionshipFinished(Difficulty.EASY, ch2, 2);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
         gameStats.recordEvent(GameStats.Event.MISSILE_HIT);
+
+        // THEN the json file has been created
         assertTrue(testFile.exists());
 
+        // WHEN loading gamestats from the json file
         GameStatsImpl gameStats2 = new GameStatsImpl(io);
-        assertTrue(gameStats2.mTrackStats.containsKey("t"));
-        assertThat(gameStats2.mTrackStats.size(), is(1));
-        TrackStats stats2 = gameStats2.getTrackStats(track);
+
+        // THEN it contains the reported events
+        assertTrue(gameStats2.mTrackStatsByDifficulty.get(difficulty).containsKey("t"));
+        assertThat(gameStats2.mTrackStatsByDifficulty.get(difficulty).size(), is(1));
+        TrackStats stats2 = gameStats2.getTrackStats(difficulty, track);
         checkRecords(stats2, 0, 10);
         checkRecords(stats2, 1, 12);
         checkRecords(stats2, 2, 14);
-        assertThat(gameStats2.getBestChampionshipRank(ch1), is(1));
-        assertThat(gameStats2.getBestChampionshipRank(ch2), is(2));
+        assertThat(gameStats2.getBestChampionshipRank(Difficulty.MEDIUM, ch1), is(1));
+        assertThat(gameStats2.getBestChampionshipRank(Difficulty.EASY, ch2), is(2));
         assertThat(gameStats2.getEventCount(GameStats.Event.MISSILE_HIT), is(2));
     }
 
     @Test
     public void testDefaultRecordsAreNotSaved() {
+        Difficulty difficulty = Difficulty.EASY;
+
         // GIVEN a championship
         Championship ch1 = new Championship("ch1", "champ1");
         // AND an associated track
@@ -90,7 +110,7 @@ public class JsonGameStatsImplIOTests {
 
         // AND a JsonGameStatsImplIO instance working on a new json file
         FileHandle testFile = new FileHandle(mTemporaryFolder.getRoot() + "/io.json");
-        assertTrue(!testFile.exists());
+        assertFalse(testFile.exists());
         JsonGameStatsImplIO io = new JsonGameStatsImplIO(testFile);
 
         // AND an associated GameStats instance
@@ -98,27 +118,28 @@ public class JsonGameStatsImplIOTests {
 
         // AND a default track record
         gameStats
-                .getTrackStats(track)
+                .getTrackStats(difficulty, track)
                 .addResult(TrackStats.ResultType.LAP, TrackStats.DEFAULT_RECORD_VEHICLE, 12f);
 
         // WHEN a player stat is recorded
-        TrackStats stats = gameStats.getTrackStats(track);
+        TrackStats stats = gameStats.getTrackStats(difficulty, track);
         addResult(stats, 18);
 
         // THEN there are two lap stats
-        assertEquals(2, stats.get(TrackStats.ResultType.LAP).size());
+        assertEquals(stats.get(TrackStats.ResultType.LAP).size(), 2);
 
         // AND only the player stat is present in the json file
         assertTrue(testFile.exists());
         JsonParser parser = new JsonParser();
 
-        // JSON structure: root / trackStats / $trackName / lap / [results]
+        // JSON structure: root / trackStats / $difficultyId / $trackName / lap / [results]
         JsonObject root = parser.parse(testFile.readString("UTF-8")).getAsJsonObject();
         JsonArray lapArray =
                 root.getAsJsonObject("trackStats")
+                        .getAsJsonObject(difficulty.name())
                         .getAsJsonObject(track.getId())
                         .getAsJsonArray("lap");
-        assertEquals(1, lapArray.size());
+        assertEquals(lapArray.size(), 1);
     }
 
     private void checkRecords(TrackStats stats, int rank, float expectedLap) {
@@ -135,5 +156,88 @@ public class JsonGameStatsImplIOTests {
     private void addResult(TrackStats stats, float value) {
         stats.addResult(TrackStats.ResultType.LAP, "bob", value);
         stats.addResult(TrackStats.ResultType.TOTAL, "bob", value * 3);
+    }
+
+    @Test
+    public void testCanLoadV1Stats() {
+        // GIVEN championships
+        Championship ch1 = new Championship("ch1", "Championship #1");
+        Track track = ch1.addTrack("t", "track");
+
+        Championship ch2 = new Championship("ch2", "Championship #2");
+
+        // AND a V1 stat file
+        FileHandle v1File = new FileHandle(mTemporaryFolder.getRoot() + "/v1.json");
+        v1File.writeString(
+                "{"
+                        + "  \"trackStats\": {"
+                        + "    \"t\": {"
+                        + "      \"lap\": ["
+                        + "        {"
+                        + "          \"vehicle\": \"red\","
+                        + "          \"value\": 5.6"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"green\","
+                        + "          \"value\": 5.8"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"blue\","
+                        + "          \"value\": 6.0"
+                        + "        }"
+                        + "      ],"
+                        + "      \"total\": ["
+                        + "        {"
+                        + "          \"vehicle\": \"orange\","
+                        + "          \"value\": 22.1"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"yellow\","
+                        + "          \"value\": 22.6"
+                        + "        },"
+                        + "        {"
+                        + "          \"vehicle\": \"purple\","
+                        + "          \"value\": 22.7"
+                        + "        }"
+                        + "      ]"
+                        + "    }"
+                        + "  },"
+                        + "  \"bestChampionshipRank\": {"
+                        + "    \"ch1\": 0,"
+                        + "    \"ch2\": 1"
+                        + "  },"
+                        + "  \"events\": {"
+                        + "    \"LEAVING_ROAD\": 3190,"
+                        + "    \"MISSILE_HIT\": 40,"
+                        + "    \"PICKED_BONUS\": 994"
+                        + "  }"
+                        + "}",
+                false /* append */);
+        JsonGameStatsImplIO io = new JsonGameStatsImplIO(v1File);
+
+        // AND an associated GameStats instance
+        // WHEN loading it
+        GameStats gameStats = new GameStatsImpl(io);
+
+        // THEN track stats have been loaded as Difficulty.HARD stats
+        TrackStats trackStats = gameStats.getTrackStats(Difficulty.HARD, track);
+        ArrayList<TrackResult> trackResults = trackStats.get(TrackStats.ResultType.LAP);
+        assertThat(trackResults.get(0).vehicle, is("red"));
+        assertThat(trackResults.get(0).value, is(5.6f));
+        assertThat(trackResults.get(1).vehicle, is("green"));
+        assertThat(trackResults.get(1).value, is(5.8f));
+        assertThat(trackResults.get(2).vehicle, is("blue"));
+        assertThat(trackResults.get(2).value, is(6.0f));
+        trackResults = trackStats.get(TrackStats.ResultType.TOTAL);
+        assertThat(trackResults.get(0).vehicle, is("orange"));
+        assertThat(trackResults.get(0).value, is(22.1f));
+        assertThat(trackResults.get(1).vehicle, is("yellow"));
+        assertThat(trackResults.get(1).value, is(22.6f));
+        assertThat(trackResults.get(2).vehicle, is("purple"));
+        assertThat(trackResults.get(2).value, is(22.7f));
+
+        // AND best championship ranks have been loaded as Difficulty.HARD ranks
+        assertThat(gameStats.getBestChampionshipRank(Difficulty.HARD, ch1), is(0));
+        assertThat(gameStats.getBestChampionshipRank(Difficulty.HARD, ch2), is(1));
     }
 }

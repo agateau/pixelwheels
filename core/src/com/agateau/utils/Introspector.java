@@ -110,6 +110,9 @@ public class Introspector {
                 case "float":
                     set(name, Float.valueOf(value));
                     break;
+                default:
+                    throw new RuntimeException(
+                            "Unsupported type '" + type + "' for field '" + name + "'");
             }
         }
     }

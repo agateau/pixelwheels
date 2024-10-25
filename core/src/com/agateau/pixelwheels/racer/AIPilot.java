@@ -22,6 +22,7 @@ import com.agateau.pixelwheels.BodyIdentifier;
 import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.bonus.Bonus;
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Material;
 import com.agateau.pixelwheels.map.MaterialChecker;
@@ -123,17 +124,19 @@ public class AIPilot implements Pilot {
                 public void setListener(Listener listener) {}
 
                 @Override
-                public TrackStats getTrackStats(Track track) {
+                public TrackStats getTrackStats(Difficulty difficulty, Track track) {
                     return null;
                 }
 
                 @Override
-                public int getBestChampionshipRank(Championship championship) {
+                public int getBestChampionshipRank(
+                        Difficulty difficulty, Championship championship) {
                     return 0;
                 }
 
                 @Override
-                public void onChampionshipFinished(Championship championship, int rank) {}
+                public void onChampionshipFinished(
+                        Difficulty difficulty, Championship championship, int rank) {}
 
                 @Override
                 public void recordEvent(Event event) {}

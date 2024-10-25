@@ -138,7 +138,7 @@ Text is defined by the element text.
 - style (string, optional)
 - labelColumnWidth (float, optional)
 
-Must contains a child element called Items. Items must contain one of:
+Must contain a child element called Items. Items must contain one of:
 
 - ButtonMenuItem
     - label (string, optional): Label to show to the left of the button. No label if not set.

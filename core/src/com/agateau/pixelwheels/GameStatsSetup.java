@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.pixelwheels.stats.GameStats;
@@ -30,15 +31,18 @@ class GameStatsSetup {
     static void loadDefaultRecords(GameStats gameStats, Array<Championship> championships) {
         for (Championship championship : championships) {
             for (Track track : championship.getTracks()) {
-                TrackStats trackStats = gameStats.getTrackStats(track);
-                loadDefaultRecordsForTrack(trackStats, track);
+                for (Difficulty difficulty : Difficulty.values()) {
+                    TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+                    loadDefaultRecordsForTrack(trackStats, difficulty, track);
+                }
             }
         }
     }
 
-    private static void loadDefaultRecordsForTrack(TrackStats trackStats, Track track) {
+    private static void loadDefaultRecordsForTrack(
+            TrackStats trackStats, Difficulty difficulty, Track track) {
         for (TrackStats.ResultType resultType : TrackStats.ResultType.values()) {
-            ArrayList<Float> defaultRecords = track.getDefaultTrackRecords(resultType);
+            ArrayList<Float> defaultRecords = track.getDefaultTrackRecords(difficulty, resultType);
             for (float record : defaultRecords) {
                 trackStats.addResult(resultType, TrackStats.DEFAULT_RECORD_VEHICLE, record);
             }

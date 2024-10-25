@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels;
 
 import com.agateau.pixelwheels.gameobject.AnimationObject;
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.ChampionshipIO;
 import com.agateau.pixelwheels.map.Track;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import java.util.HashMap;
 
 /** Stores all assets */
 public class Assets implements TextureRegionProvider {
@@ -202,7 +204,12 @@ public class Assets implements TextureRegionProvider {
     }
 
     private void initChampionships() {
-        ChampionshipIO io = new ChampionshipIO();
+        HashMap<Difficulty, Integer> maxDrivingForceByDifficulty = new HashMap<>();
+        for (Difficulty difficulty : Difficulty.values()) {
+            maxDrivingForceByDifficulty.put(
+                    difficulty, GamePlay.instance.getMaxDrivingForce(difficulty));
+        }
+        ChampionshipIO io = new ChampionshipIO(maxDrivingForceByDifficulty);
         for (int idx = 0; ; ++idx) {
             String fileName = "championships/" + idx + ".xml";
             FileHandle handle = FileUtils.assets(fileName);

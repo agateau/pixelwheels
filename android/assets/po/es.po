@@ -537,11 +537,11 @@ msgstr "4 JUGADORES"
 msgid "Select Track"
 msgstr "Seleccionar circuito"
 
-#: android/assets/screens/selecttrack.gdxui:11
+#: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Lap"
 msgstr "Mejor vuelta"
 
-#: android/assets/screens/selecttrack.gdxui:14
+#: android/assets/screens/selecttrack.gdxui:17
 msgid "Best Total"
 msgstr "Mejor tiempo total"
 
@@ -651,21 +651,21 @@ msgstr "¿Has encontrado un error? Utiliza este botón para notificarlo."
 msgid "REPORT BUG"
 msgstr "NOTIFICAR UN ERROR"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:104
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:128
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Golpea un vehículo con un misil"
 msgstr[1] "Golpea %# vehículos con un misil"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:113
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:137
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Salir del camino una vez"
 msgstr[1] "Salir del camino %# veces"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:120
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Coge una bonificación"
@@ -681,15 +681,27 @@ msgstr "Mando"
 msgid "Keyboard"
 msgstr "Teclado"
 
-#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:51
+#: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:52
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "Botones en arco"
 
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:51
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:111
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:52
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:108
 msgid "Side buttons"
 msgstr "Botones en el lado"
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
+msgid "Casual"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
+msgid "Pro"
+msgstr ""
+
+#: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
+msgid "Legendary"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -754,19 +766,34 @@ msgstr "Puntos"
 msgid "Race time"
 msgstr "Tiempo de carrera"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:48
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
+#, fuzzy, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Acaba tercero o mejor en el campeonato %s"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:50
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
+#, fuzzy, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Acaba segundo o mejor en el campeonato %s"
 
-#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:53
-#, java-printf-format
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
+#, fuzzy, java-printf-format
 msgid "Finish first at %s championship"
+msgstr "Acaba primero en el campeonato %s"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
+#, fuzzy, java-printf-format
+msgid "Finish third or better at %s championship in %s league"
+msgstr "Acaba tercero o mejor en el campeonato %s"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
+#, fuzzy, java-printf-format
+msgid "Finish second or better at %s championship in %s league"
+msgstr "Acaba segundo o mejor en el campeonato %s"
+
+#: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
+#, fuzzy, java-printf-format
+msgid "Finish first at %s championship in %s league"
 msgstr "Acaba primero en el campeonato %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
@@ -778,28 +805,28 @@ msgstr ""
 "¡Campeonato\n"
 "terminado!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:113
 msgid "About"
 msgstr "Acerca de"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:115
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "Pixel Wheels %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 msgid "CREDITS"
 msgstr "CRÉDITOS"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:126
 msgid "WEB SITE"
 msgstr "SITIO WEB"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:140
 msgid "Under the hood"
 msgstr "Bajo el capó"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:160
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
@@ -807,74 +834,78 @@ msgstr ""
 "Estas opciones son principalmente interesantes para el desarrollo de Pixel "
 "Wheels, ¡pero puedes echarles un vistazo!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "DEV. OPTIONS"
 msgstr ""
 "SECCIÓN DE LOS\n"
 "DESARROLLADORES"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
 msgid "Controls"
 msgstr "Controles"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:182
 #, java-printf-format
 msgid "P%d"
 msgstr "P%d"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "Jugador #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:188
 msgid "Controls:"
 msgstr "Controles:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:195
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "General"
 msgstr "General"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:206
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Language:"
 msgstr "Idioma:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "No se puede cambiar mientras se corre"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:213
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Audio"
 msgstr "Audio"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:226
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:225
 msgid "Sound FX:"
 msgstr "Efectos de sonido:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:240
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:239
 msgid "Music:"
 msgstr "Música:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:242
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
 msgid "Video"
 msgstr "Vídeo"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:257
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:256
 msgid "Fullscreen:"
 msgstr "Pantalla completa:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:272
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:271
 msgid "Rotate camera:"
 msgstr "Rotar la cámara:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:297
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:296
 msgid "CONFIGURE"
 msgstr "CONFIGURAR"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
 msgstr "¡Gracias por jugar!"
+
+#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
+msgid "League"
+msgstr ""
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
@@ -892,12 +923,12 @@ msgid "MAIN MENU"
 msgstr "MENÚ PRINCIPAL"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:259
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:281
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[Bloqueado]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:300
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:322
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "CPU"

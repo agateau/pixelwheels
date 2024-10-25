@@ -24,6 +24,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import org.junit.Rule;
@@ -42,31 +43,67 @@ public class GameStatsImplTests {
 
     @Test
     public void testInit() {
+        Difficulty difficulty = Difficulty.EASY;
+
         Championship ch = new Championship("ch1", "champ1");
         ch.addTrack("t", "Track");
         final Track track = ch.getTracks().first();
         GameStats stats = new GameStatsImpl(mStatsIO);
-        TrackStats trackStats = stats.getTrackStats(track);
+        TrackStats trackStats = stats.getTrackStats(difficulty, track);
         assertThat(trackStats, is(not(nullValue())));
 
-        TrackStats trackStats2 = stats.getTrackStats(track);
+        TrackStats trackStats2 = stats.getTrackStats(difficulty, track);
         assertThat(trackStats, is(trackStats2));
     }
 
     @Test
+    public void testInitPerDifficulty() {
+        // GIVEN a championship
+        Championship ch = new Championship("ch1", "champ1");
+
+        // AND a track
+        ch.addTrack("t", "Track");
+        final Track track = ch.getTracks().first();
+
+        // AND a GameStatsImpl instance
+        GameStatsImpl gameStats = new GameStatsImpl(mStatsIO);
+
+        // WHEN track stats are added for EASY and HARD
+        addTrackStat(gameStats, Difficulty.EASY, track, 12);
+        addTrackStat(gameStats, Difficulty.HARD, track, 24);
+
+        // THEN we can retrieve them
+        assertThat(getFirstTrackStat(gameStats, Difficulty.EASY, track), is(12f));
+        assertThat(getFirstTrackStat(gameStats, Difficulty.HARD, track), is(24f));
+    }
+
+    private static void addTrackStat(
+            GameStats gameStats, Difficulty difficulty, Track track, float value) {
+        TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+        trackStats.addResult(TrackStats.ResultType.TOTAL, "k2000", value);
+    }
+
+    private static float getFirstTrackStat(
+            GameStats gameStats, Difficulty difficulty, Track track) {
+        TrackStats trackStats = gameStats.getTrackStats(difficulty, track);
+        return trackStats.get(TrackStats.ResultType.TOTAL).get(0).value;
+    }
+
+    @Test
     public void testOnChampionshipFinished() {
+        Difficulty difficulty = Difficulty.EASY;
         Championship ch1 = new Championship("ch1", "champ1");
         Championship ch2 = new Championship("ch2", "champ2");
         GameStatsImpl stats = new GameStatsImpl(mStatsIO);
-        stats.onChampionshipFinished(ch1, 4);
+        stats.onChampionshipFinished(difficulty, ch1, 4);
         verify(mStatsIO).save(stats);
 
-        stats.onChampionshipFinished(ch1, 3);
-        stats.onChampionshipFinished(ch2, 2);
-        stats.onChampionshipFinished(ch2, 4);
+        stats.onChampionshipFinished(difficulty, ch1, 3);
+        stats.onChampionshipFinished(difficulty, ch2, 2);
+        stats.onChampionshipFinished(difficulty, ch2, 4);
 
-        assertThat(stats.getBestChampionshipRank(ch1), is(3));
-        assertThat(stats.getBestChampionshipRank(ch2), is(2));
+        assertThat(stats.getBestChampionshipRank(difficulty, ch1), is(3));
+        assertThat(stats.getBestChampionshipRank(difficulty, ch2), is(2));
     }
 
     @Test

@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 import com.agateau.utils.CollectionUtils;
@@ -26,8 +27,10 @@ import java.util.HashMap;
 public class GameStatsImpl implements GameStats {
     private transient IO mIO;
     private transient Listener mListener;
-    final HashMap<String, TrackStats> mTrackStats = new HashMap<>();
-    final HashMap<String, Integer> mBestChampionshipRank = new HashMap<>();
+    final HashMap<Difficulty, HashMap<String, TrackStats>> mTrackStatsByDifficulty =
+            new HashMap<>();
+    final HashMap<Difficulty, HashMap<String, Integer>> mBestChampionshipRankByDifficulty =
+            new HashMap<>();
     final HashMap<String, Integer> mEvents = new HashMap<>();
 
     public interface IO {
@@ -37,6 +40,10 @@ public class GameStatsImpl implements GameStats {
     }
 
     public GameStatsImpl(IO io) {
+        for (Difficulty difficulty : Difficulty.values()) {
+            mBestChampionshipRankByDifficulty.put(difficulty, new HashMap<>());
+            mTrackStatsByDifficulty.put(difficulty, new HashMap<>());
+        }
         setIO(io);
         mIO.load(this);
     }
@@ -51,27 +58,32 @@ public class GameStatsImpl implements GameStats {
     }
 
     @Override
-    public TrackStats getTrackStats(Track track) {
-        TrackStats stats = mTrackStats.get(track.getId());
+    public TrackStats getTrackStats(Difficulty difficulty, Track track) {
+        TrackStats stats = mTrackStatsByDifficulty.get(difficulty).get(track.getId());
         if (stats == null) {
+            // No stats yet for this track, create one
             stats = new TrackStats(this);
-            mTrackStats.put(track.getId(), stats);
+            mTrackStatsByDifficulty.get(difficulty).put(track.getId(), stats);
         }
         return stats;
     }
 
     @Override
-    public int getBestChampionshipRank(Championship championship) {
+    public int getBestChampionshipRank(Difficulty difficulty, Championship championship) {
+        HashMap<String, Integer> bestChampionshipRank =
+                mBestChampionshipRankByDifficulty.get(difficulty);
         //noinspection ConstantConditions
         return CollectionUtils.getOrDefault(
-                mBestChampionshipRank, championship.getId(), Integer.MAX_VALUE);
+                bestChampionshipRank, championship.getId(), Integer.MAX_VALUE);
     }
 
     @Override
-    public void onChampionshipFinished(Championship championship, int rank) {
-        Integer currentBest = mBestChampionshipRank.get(championship.getId());
+    public void onChampionshipFinished(Difficulty difficulty, Championship championship, int rank) {
+        HashMap<String, Integer> bestChampionshipRank =
+                mBestChampionshipRankByDifficulty.get(difficulty);
+        Integer currentBest = bestChampionshipRank.get(championship.getId());
         if (currentBest == null || currentBest > rank) {
-            mBestChampionshipRank.put(championship.getId(), rank);
+            bestChampionshipRank.put(championship.getId(), rank);
             save();
         }
     }

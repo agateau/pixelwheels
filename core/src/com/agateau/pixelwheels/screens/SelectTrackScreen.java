@@ -302,7 +302,7 @@ public class SelectTrackScreen extends PwStageScreen {
     }
 
     private void updateRecordLabel(Table table, Track track, TrackStats.ResultType resultType) {
-        TrackStats stats = mGame.getGameStats().getTrackStats(track);
+        TrackStats stats = mGame.getGameStats().getTrackStats(mGame.getConfig().difficulty, track);
         ArrayList<TrackResult> records = stats.get(resultType);
 
         table.clearChildren();

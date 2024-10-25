@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.stats;
 
+import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.pixelwheels.map.Championship;
 import com.agateau.pixelwheels.map.Track;
 
@@ -34,12 +35,12 @@ public interface GameStats {
 
     void setListener(Listener listener);
 
-    TrackStats getTrackStats(Track track);
+    TrackStats getTrackStats(Difficulty difficulty, Track track);
 
     /** Returns the best rank obtained, or Integer.MAX_VALUE if never raced */
-    int getBestChampionshipRank(Championship championship);
+    int getBestChampionshipRank(Difficulty difficulty, Championship championship);
 
-    void onChampionshipFinished(Championship championship, int rank);
+    void onChampionshipFinished(Difficulty difficulty, Championship championship, int rank);
 
     void recordEvent(Event event);
 
