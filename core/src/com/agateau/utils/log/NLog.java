@@ -64,6 +64,10 @@ public class NLog {
         }
     }
 
+    public static void clearPrinters() {
+        sPrinters.clear();
+    }
+
     public static void addPrinter(Printer printer) {
         sPrinters.add(printer);
     }
