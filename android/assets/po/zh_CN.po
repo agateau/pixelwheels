@@ -647,19 +647,25 @@ msgstr "遇到错误？点击按钮报告。"
 msgid "REPORT BUG"
 msgstr "报告错误"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:110
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:144
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "使用飞弹命中 %# 辆赛车"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:119
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:153
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "离开道路 %# 次"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
+#, fuzzy
+msgid "Drive in the sand one time"
+msgid_plural "Drive in the sand %# times"
+msgstr[0] "离开道路 %# 次"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "捡到 %# 个道具"

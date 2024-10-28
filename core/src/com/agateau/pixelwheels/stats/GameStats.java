@@ -26,7 +26,8 @@ public interface GameStats {
     enum Event {
         MISSILE_HIT,
         LEAVING_ROAD,
-        PICKED_BONUS
+        PICKED_BONUS,
+        ENTERING_SAND,
     }
 
     interface Listener {

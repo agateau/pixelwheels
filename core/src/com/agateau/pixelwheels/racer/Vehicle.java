@@ -390,7 +390,11 @@ public class Vehicle implements Racer.Component, Disposable {
         Material oldMaterial = mMaterial;
         mMaterial = mGameWorld.getTrack().getMaterialAt(mBody.getWorldCenter());
         if (!mMaterial.isRoad() && oldMaterial.isRoad()) {
-            mRacer.getGameStats().recordEvent(GameStats.Event.LEAVING_ROAD);
+            if (mMaterial == Material.SAND) {
+                mRacer.getGameStats().recordEvent(GameStats.Event.ENTERING_SAND);
+            } else {
+                mRacer.getGameStats().recordEvent(GameStats.Event.LEAVING_ROAD);
+            }
         }
     }
 
