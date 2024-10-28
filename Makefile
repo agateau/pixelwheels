@@ -38,6 +38,8 @@ ARCHIVE_DIR=$(CURDIR)/archives
 
 ANDROID_PACKAGE_NAME=com.agateau.tinywheels.android
 
+ANDROID_FLAVOR=itchio
+
 CONF_BACKUP_DIR=$(CURDIR)/.conf-backup
 
 # Install variables
@@ -66,6 +68,7 @@ endif
 
 all: build
 
+# Clean
 clean: clean-assets clean-desktop clean-tools
 
 clean-desktop:
@@ -74,16 +77,28 @@ clean-desktop:
 clean-tools:
 	rm -f $(TOOLS_JAR)
 
+# Build
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build:
-	${GRADLEW} desktop:dist
-
 tools: $(TOOLS_JAR)
 
+desktop-build:
+	${GRADLEW} desktop:dist
+
+android-build:
+	$(GRADLEW) android:build
+
+# Run
 run: build
 	cd android/assets && java -jar $(DESKTOP_JAR)
+
+desktop-run: desktop-run
+
+android-run: android-build
+	adb uninstall $(ANDROID_PACKAGE_NAME) || true
+	adb install -f android/build/outputs/apk/$(ANDROID_FLAVOR)/debug/android-$(ANDROID_FLAVOR)-debug.apk
+	adb shell am start -n $(ANDROID_PACKAGE_NAME)/com.agateau.pixelwheels.android.AndroidLauncher
 
 # Classic Unix `make install` target
 install:
