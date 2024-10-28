@@ -24,25 +24,25 @@ dependencies {
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-android:$gdxControllersVersion"
-    implementation "androidx.core:core:1.6.0"
+    implementation "androidx.core:core:1.13.1"
 }
 
 android {
+    namespace "com.agateau.tinywheels.android"
     Properties versionProps = new Properties()
     versionProps.load(new FileInputStream(file('../version.properties')))
 
-    // Must match ci/install-android-sdk
-    buildToolsVersion "31.0.0"
-    compileSdkVersion 34
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
-        minSdkVersion 19
-        targetSdkVersion 34
+        minSdk 19
+        targetSdk 34
+        // Must match ci/install-android-sdk
+        compileSdk 34
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
 
-    flavorDimensions 'store'
+    flavorDimensions = ['store']
     productFlavors {
         itchio {
             dimension 'store'
@@ -94,6 +94,10 @@ android {
         resources {
             excludes += ['LICENSE.txt']
         }
+    }
+    buildFeatures {
+        renderScript true
+        aidl true
     }
 }
 
