@@ -84,7 +84,7 @@ public class DebugScreen extends PwStageScreen {
         mCurrentGroup = tabMenuItem.addPage("Speed");
         addRange("Max driving force (Casual)", "easyMaxDrivingForce", 10, 200, 10);
         addRange("Max driving force (Pro)", "mediumMaxDrivingForce", 10, 200, 10);
-        addRange("Max driving force (Legen.)", "proMaxDrivingForce", 10, 200, 10);
+        addRange("Max driving force (Legen.)", "hardMaxDrivingForce", 10, 200, 10);
         addRange("Max speed", "maxSpeed", 10, 400, 10);
         addRange("AI speed limiter", "aiSpeedLimiter", 0.1f, 1f, 0.1f);
         mCurrentGroup = tabMenuItem.addPage("Turbo");
