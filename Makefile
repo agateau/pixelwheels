@@ -64,7 +64,7 @@ ifdef SNAPSHOT
 	VERSION:=$(VERSION)+$(BRANCH)-$(shell git show --no-patch --format="%cd-%h" --date=format:%Y%m%dT%H%M%S)
 endif
 
-all: build
+all: desktop-build
 
 clean: clean-assets clean-desktop clean-tools
 
@@ -77,12 +77,12 @@ clean-tools:
 $(TOOLS_JAR):
 	${GRADLEW} tools:dist
 
-build:
+desktop-build:
 	${GRADLEW} desktop:dist
 
 tools: $(TOOLS_JAR)
 
-run: build
+run: desktop-build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
 # Classic Unix `make install` target
