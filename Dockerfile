@@ -29,6 +29,9 @@ RUN /src/install-android-sdk
 # Must match the value in ci/install-android-sdk
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 
+# Define LANG to avoid javac warnings about UTF-8 characters in the source code
+ENV LANG=C.UTF-8
+
 RUN git config --global --add safe.directory /src/pixelwheels
 
 WORKDIR /root
