@@ -665,21 +665,28 @@ msgstr "সমস্যা পেয়েছো? এই বোতাম দিয়�
 msgid "REPORT BUG"
 msgstr "সমস্যা প্রতিবেদন পাঠাও"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:110
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:144
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "একটি বাহনে মিসাইল ছোড়ো"
 msgstr[1] "%#টি বাহনে মিসাইল ছোড়ো"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:119
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:153
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "রাস্তা একবার ছাড়ো"
 msgstr[1] "রাস্তা %# বার ছাড়ো"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
+#, fuzzy
+msgid "Drive in the sand one time"
+msgid_plural "Drive in the sand %# times"
+msgstr[0] "রাস্তা একবার ছাড়ো"
+msgstr[1] "রাস্তা %# বার ছাড়ো"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "একটি অতিরিক্ত নাও"

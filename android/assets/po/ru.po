@@ -648,23 +648,31 @@ msgstr "Нашли ошибку? Нажмите на эту кнопку, что
 msgid "REPORT BUG"
 msgstr "СООБЩИТЬ ОБ ОШИБКЕ"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:110
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:144
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Взорви %# машину ракетой"
 msgstr[1] "Взорви %# машины ракетой"
 msgstr[2] "Взорви %# машин ракетой"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:119
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:153
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Покинь дорогу %# раз"
 msgstr[1] "Покинь дорогу %# раза"
 msgstr[2] "Покинь дорогу %# раз"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
+#, fuzzy
+msgid "Drive in the sand one time"
+msgid_plural "Drive in the sand %# times"
+msgstr[0] "Покинь дорогу %# раз"
+msgstr[1] "Покинь дорогу %# раза"
+msgstr[2] "Покинь дорогу %# раз"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Подбери %# бонус"

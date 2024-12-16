@@ -35,9 +35,10 @@ import com.badlogic.gdx.utils.Array;
 class RewardManagerSetup {
     private static final int UNLOCK_ROCKET_COUNT = 10;
     private static final int UNLOCK_HARVESTER_COUNT = 50;
-    private static final int UNLOCK_SANTA_COUNT = 20;
+    private static final int UNLOCK_PICKUP_COUNT = 30;
     private static final int UNLOCK_DARK_M_COUNT = 40;
     private static final int UNLOCK_JEEP_COUNT = 100;
+    private static final int UNLOCK_ANTONIN_COUNT = 40;
 
     static void createChampionshipRules(
             RewardManager rewardManager, Array<Championship> championships) {
@@ -118,11 +119,21 @@ class RewardManagerSetup {
                         trn("Leave road one time", "Leave road %# times", UNLOCK_HARVESTER_COUNT)));
 
         rewardManager.addRule(
-                Reward.get(assets.findVehicleDefById("santa")),
+                Reward.get(assets.findVehicleDefById("antonin")),
+                new CounterRewardRule(
+                        GameStats.Event.ENTERING_SAND,
+                        UNLOCK_ANTONIN_COUNT,
+                        trn(
+                                "Drive in the sand one time",
+                                "Drive in the sand %# times",
+                                UNLOCK_ANTONIN_COUNT)));
+
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("pickup")),
                 new CounterRewardRule(
                         GameStats.Event.PICKED_BONUS,
-                        UNLOCK_SANTA_COUNT,
-                        trn("Pick one bonus", "Pick %# bonuses", UNLOCK_SANTA_COUNT)));
+                        UNLOCK_PICKUP_COUNT,
+                        trn("Pick one bonus", "Pick %# bonuses", UNLOCK_PICKUP_COUNT)));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("dark-m")),
@@ -141,15 +152,33 @@ class RewardManagerSetup {
                         UNLOCK_JEEP_COUNT,
                         trn("Leave road one time", "Leave road %# times", UNLOCK_JEEP_COUNT)));
 
+        // Country championship rewards
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("2cv")),
+                new ChampionshipRankRewardRule(
+                        Difficulty.MEDIUM, assets.findChampionshipById("country"), 0));
+
+        // Snow championship rewards
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("bigfoot")),
                 new ChampionshipRankRewardRule(
-                        Difficulty.EASY, assets.findChampionshipById("country"), 0));
+                        Difficulty.EASY, assets.findChampionshipById("snow"), 0));
+
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("santa")),
+                new ChampionshipRankRewardRule(
+                        Difficulty.HARD, assets.findChampionshipById("snow"), 0));
+
+        // City championship rewards
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("roadster")),
+                new ChampionshipRankRewardRule(
+                        Difficulty.EASY, assets.findChampionshipById("city"), 0));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("miramar")),
                 new ChampionshipRankRewardRule(
-                        Difficulty.MEDIUM, assets.findChampionshipById("city"), 1));
+                        Difficulty.MEDIUM, assets.findChampionshipById("city"), 0));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("old-f1")),
