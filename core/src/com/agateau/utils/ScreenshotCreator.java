@@ -24,6 +24,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
@@ -70,7 +71,10 @@ public class ScreenshotCreator {
 
     private static FileHandle generateFileHandle() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        String filename = String.format(Locale.US, FILENAME_FORMAT, calendar);
-        return FileUtils.getUserWritableFile(filename);
+        String path =
+                "screenshots"
+                        + File.separator
+                        + String.format(Locale.US, FILENAME_FORMAT, calendar);
+        return FileUtils.getUserWritableFile(path);
     }
 }
