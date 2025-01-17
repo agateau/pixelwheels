@@ -581,6 +581,11 @@ msgctxt "vehicle"
 msgid "Broster Truck"
 msgstr "Camión Broster"
 
+#: android/assets/vehicles/c15.xml:1
+msgctxt "vehicle"
+msgid "C15 Vindieu"
+msgstr ""
+
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
