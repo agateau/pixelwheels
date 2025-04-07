@@ -23,6 +23,7 @@ import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.LogFilePrinter;
 import com.agateau.utils.log.NLog;
 import com.agateau.utils.log.SystemErrPrinter;
@@ -46,6 +47,8 @@ public class DesktopLauncher {
 
         PwGame game = new PwGame();
         setupLogging(game);
+        PlatformUtils.setup(new DesktopPlatformUtilsImpl());
+
         new Lwjgl3Application(game, config);
     }
 

@@ -18,6 +18,8 @@
  */
 package com.agateau.pixelwheels.android;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.agateau.pixelwheels.Constants;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.utils.StringUtils;
 import com.agateau.utils.FileUtils;
+import com.agateau.utils.PlatformUtils;
 import com.agateau.utils.log.LogFilePrinter;
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
@@ -47,6 +50,22 @@ public class AndroidLauncher extends AndroidApplication {
         setupLogging(game);
         initialize(game, config);
         Gdx.input.setCatchBackKey(true);
+
+        PlatformUtils.setup(
+                new PlatformUtils.Impl() {
+                    @Override
+                    public void openURI(String uri) {
+                        Uri webpage = Uri.parse(uri);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+                        // Check if there's an app that can handle this intent
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        } else {
+                            NLog.e("Could not find an app to open %s", uri);
+                        }
+                    }
+                });
     }
 
     @Override

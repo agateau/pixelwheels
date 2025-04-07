@@ -20,19 +20,31 @@ package com.agateau.utils;
 
 import com.agateau.utils.log.NLog;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.SharedLibraryLoader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /** Utility methods to deal with the platform */
 public class PlatformUtils {
+    public interface Impl {
+        void openURI(String uri);
+    }
+
+    private static class DefaultImpl implements Impl {
+        @Override
+        public void openURI(String uri) {
+            Gdx.net.openURI(uri);
+        }
+    }
+
     private enum UiType {
         BUTTONS,
         TOUCH
     }
 
     private static UiType sUiType;
+    private static Impl sImpl = new DefaultImpl();
+
+    public static void setup(Impl impl) {
+        sImpl = impl;
+    }
 
     public static boolean isTouchUi() {
         init();
@@ -53,32 +65,7 @@ public class PlatformUtils {
 
     /** An implementation of Gdx.net.openURI which works on Linux */
     public static void openURI(String uri) {
-        if (Gdx.net.openURI(uri)) {
-            return;
-        }
-        NLog.i("Gdx.net.openURI() failed");
-        List<String> command = new ArrayList<>();
-        if (SharedLibraryLoader.isLinux) {
-            command.add("xdg-open");
-        } else if (SharedLibraryLoader.isWindows) {
-            command.add("cmd.exe");
-            command.add("/c");
-            command.add("start");
-            command.add(""); // This is the window title
-        } else if (SharedLibraryLoader.isMac) {
-            command.add("open");
-        }
-        if (command.isEmpty()) {
-            NLog.e("Don't know how to open url %s on this OS", uri);
-            return;
-        }
-        command.add(uri);
-        try {
-            NLog.i("Trying with '%s'", command);
-            new ProcessBuilder(command).start();
-        } catch (IOException e) {
-            NLog.e("Command failed: %s", e);
-        }
+        sImpl.openURI(uri);
     }
 
     private static void init() {
