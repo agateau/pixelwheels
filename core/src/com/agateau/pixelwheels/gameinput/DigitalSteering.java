@@ -27,7 +27,7 @@ public class DigitalSteering {
     public float steer(boolean left, boolean right) {
         if (left == right) {
             // Either both left & right are pressed or none of them are
-            mRawDirection *= 0.4;
+            mRawDirection *= 0.4f;
         } else if (left) {
             mRawDirection += GamePlay.instance.steeringStep;
         } else {
