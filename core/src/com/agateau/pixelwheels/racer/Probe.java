@@ -30,7 +30,6 @@ public class Probe implements Racer.Component {
 
     Probe(String fileName) {
         mWriter = new KeyValueWriter(FileUtils.getUserWritableFile(fileName));
-        mWriter.setFieldSeparator(' ');
     }
 
     @Override

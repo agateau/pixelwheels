@@ -24,36 +24,42 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;
 
-/** A class to write data as key=value */
+/** A class to write data as JSONL rows */
 public class KeyValueWriter {
     private final Writer mWriter;
-    private char mFieldSeparator = ';';
     private boolean mFirstValue = true;
 
     public KeyValueWriter(FileHandle handle) {
         mWriter = handle.writer(false /* append */);
     }
 
-    public void setFieldSeparator(char separator) {
-        mFieldSeparator = separator;
-    }
-
     public void put(String key, Object value) {
         try {
             if (mFirstValue) {
+                mWriter.append('{');
                 mFirstValue = false;
             } else {
-                mWriter.append(mFieldSeparator);
+                mWriter.append(',');
             }
-            String text;
-            if (value instanceof Float) {
-                text = String.format(Locale.US, "%f", (Float) value);
-            } else {
-                text = value.toString();
-            }
+            mWriter.append('"');
             mWriter.append(key);
-            mWriter.append('=');
-            mWriter.append(text);
+            mWriter.append("\":");
+
+            if (value instanceof Float) {
+                String text = String.format(Locale.US, "%f", (Float) value);
+                mWriter.append(text);
+            } else if (value instanceof Integer) {
+                String text = String.format(Locale.US, "%d", (Integer) value);
+                mWriter.append(text);
+            } else if (value instanceof Boolean) {
+                String text = (Boolean) value ? "true" : "false";
+                mWriter.append(text);
+            } else {
+                String text = value.toString().replace("\"", "\\\"");
+                mWriter.append('"');
+                mWriter.append(text);
+                mWriter.append('"');
+            }
         } catch (IOException e) {
             NLog.e("Failed to write KV file");
             e.printStackTrace();
@@ -62,7 +68,7 @@ public class KeyValueWriter {
 
     public void endRow() {
         try {
-            mWriter.append('\n');
+            mWriter.append("}\n");
             mWriter.flush();
         } catch (IOException e) {
             NLog.e("Failed to write KV file");

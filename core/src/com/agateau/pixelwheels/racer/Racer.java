@@ -156,7 +156,7 @@ public class Racer extends GameObjectAdapter
         addComponent(mAudioComponent);
 
         if (Debug.instance.createSpeedReport) {
-            Probe probe = new Probe("speed.dat");
+            Probe probe = new Probe("speed.jsonl");
             mVehicle.setProbe(probe);
             addComponent(probe);
         }
