@@ -81,7 +81,7 @@ public class Vehicle implements Racer.Component, Disposable {
     private float mSpeedLimiter = 1f;
     private boolean mFlying = false;
 
-    private Probe mProbe = null;
+    private Probe mSpeedReportProbe = null;
 
     private final ArrayMap<Long, Float> mTurboCellMap = new ArrayMap<>(8);
 
@@ -185,8 +185,8 @@ public class Vehicle implements Racer.Component, Disposable {
         }
     }
 
-    public void setProbe(Probe probe) {
-        mProbe = probe;
+    public void setSpeedReportProbe(Probe probe) {
+        mSpeedReportProbe = probe;
     }
 
     public void setCollisionInfo(int categoryBits, int maskBits) {
@@ -429,12 +429,15 @@ public class Vehicle implements Racer.Component, Disposable {
 
     private float computeSteerAngle() {
         final GamePlay GP = GamePlay.instance;
-        if (mDirection == 0) {
-            if (mProbe != null) {
+        if (MathUtils.isZero(mDirection)) {
+            if (mSpeedReportProbe != null) {
                 float speed = mBody.getLinearVelocity().len() * Box2DUtils.MS_TO_KMH;
-                mProbe.addValue("steer", 0);
-                mProbe.addValue("speed", speed);
-                mProbe.addValue("category", 0);
+                mSpeedReportProbe.addValue("x", getX());
+                mSpeedReportProbe.addValue("y", getY());
+                mSpeedReportProbe.addValue("steer", 0.0);
+                mSpeedReportProbe.addValue("speed", speed);
+                mSpeedReportProbe.addValue("category", -1);
+                mSpeedReportProbe.addValue("direction", mDirection);
             }
             return 0;
         }
@@ -443,7 +446,7 @@ public class Vehicle implements Racer.Component, Disposable {
         float steer;
         // Category is 0 if speed is < GP.lowSpeed, 1 if < GP.maxSpeed, 2 if > GP.maxSpeed
         // For a better driving experience, it should not reach 2 except when triggering turbos
-        float category;
+        int category;
         if (speed < GP.lowSpeed) {
             steer = MathUtils.lerp(GP.stoppedMaxSteer, GP.lowSpeedMaxSteer, speed / GP.lowSpeed);
             category = 0;
@@ -455,10 +458,13 @@ public class Vehicle implements Racer.Component, Disposable {
             steer = GP.highSpeedMaxSteer;
             category = 2;
         }
-        if (mProbe != null) {
-            mProbe.addValue("steer", steer);
-            mProbe.addValue("speed", speed);
-            mProbe.addValue("category", category);
+        if (mSpeedReportProbe != null) {
+            mSpeedReportProbe.addValue("x", getX());
+            mSpeedReportProbe.addValue("y", getY());
+            mSpeedReportProbe.addValue("steer", steer);
+            mSpeedReportProbe.addValue("speed", speed);
+            mSpeedReportProbe.addValue("category", category);
+            mSpeedReportProbe.addValue("direction", mDirection);
         }
         return mDirection * steer;
     }

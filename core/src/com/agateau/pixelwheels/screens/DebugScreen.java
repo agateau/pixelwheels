@@ -109,6 +109,7 @@ public class DebugScreen extends PwStageScreen {
         addRange("Max skidmarks", "maxSkidmarks", 10, 200, 10);
         addCheckBox("Force touch input", "alwaysShowTouchInput");
         addCheckBox("Refresh assets on restart", "refreshAssetsOnRestart");
+        addCheckBox("Create speed report", "createSpeedReport");
 
         mCurrentGroup = tabMenuItem.addPage("Debug");
         addCheckBox("Show debug hud", "showDebugHud");
