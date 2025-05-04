@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.obstacles;
 
 import com.agateau.pixelwheels.Constants;
+import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.ZLevel;
 import com.agateau.pixelwheels.gameobject.GameObjectAdapter;
@@ -32,10 +33,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
-class Obstacle extends GameObjectAdapter implements Disposable {
+public class Obstacle extends GameObjectAdapter implements Disposable {
     private static final float LINEAR_DRAG = 90f;
     private static final float ANGULAR_DRAG = 2f;
     private final World mWorld;
@@ -65,6 +67,9 @@ class Obstacle extends GameObjectAdapter implements Disposable {
                         | CollisionCategories.RACER
                         | CollisionCategories.RACER_BULLET
                         | CollisionCategories.EXPLOSABLE);
+        if (!obstacleDef.dynamic) {
+            setStaticObstacleRestitution(mBody);
+        }
     }
 
     @Override
@@ -103,5 +108,12 @@ class Obstacle extends GameObjectAdapter implements Disposable {
     @Override
     public void dispose() {
         mWorld.destroyBody(mBody);
+    }
+
+    public static void setStaticObstacleRestitution(Body body) {
+        float restitution = GamePlay.instance.borderRestitution / 10f;
+        for (Fixture fixture : body.getFixtureList()) {
+            fixture.setRestitution(restitution);
+        }
     }
 }

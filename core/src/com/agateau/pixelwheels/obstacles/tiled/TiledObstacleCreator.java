@@ -19,6 +19,7 @@
 package com.agateau.pixelwheels.obstacles.tiled;
 
 import com.agateau.pixelwheels.GameWorld;
+import com.agateau.pixelwheels.obstacles.Obstacle;
 import com.agateau.pixelwheels.racescreen.CollisionCategories;
 import com.agateau.pixelwheels.utils.Box2DUtils;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -128,5 +129,6 @@ public class TiledObstacleCreator {
                 CollisionCategories.RACER
                         | CollisionCategories.EXPLOSABLE
                         | CollisionCategories.RACER_BULLET);
+        Obstacle.setStaticObstacleRestitution(body);
     }
 }
