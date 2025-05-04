@@ -19,7 +19,6 @@
 package com.agateau.pixelwheels.obstacles;
 
 import com.agateau.pixelwheels.Constants;
-import com.agateau.pixelwheels.GamePlay;
 import com.agateau.pixelwheels.GameWorld;
 import com.agateau.pixelwheels.TextureRegionProvider;
 import com.agateau.pixelwheels.map.MapObjectWalker;
@@ -85,6 +84,6 @@ public class ObstacleCreator {
                 CollisionCategories.RACER
                         | CollisionCategories.EXPLOSABLE
                         | CollisionCategories.RACER_BULLET);
-        Box2DUtils.setBodyRestitution(body, GamePlay.instance.borderRestitution / 10.0f);
+        Obstacle.setStaticObstacleRestitution(body);
     }
 }
