@@ -65,8 +65,8 @@ public class GamePlay {
 
     public int viewportWidth = 60;
 
-    public int turboStrength = 200;
-    public float turboDuration = 0.5f;
+    public int turboStrength = 100;
+    public float turboDuration = 1f;
 
     // When an AI is better ranked than a player, set its max speed to this percent of the best max
     // speed
