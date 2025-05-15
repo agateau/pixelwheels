@@ -52,8 +52,8 @@ public class GamePlay {
 
     public int stoppedMaxSteer = 80;
     public int lowSpeedMaxSteer = 14;
-    public int highSpeedMaxSteer = 4;
-    public float steeringStep = 0.1f;
+    public int highSpeedMaxSteer = 3;
+    public float steeringStep = 0.05f;
 
     public int vehicleDensity = 3;
     public int tireBaseDensity = 15;
