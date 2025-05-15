@@ -29,7 +29,7 @@ public class GamePlay {
 
     // These are represented as plain int instead of a HashMap because Introspector does not support
     // HashMaps.
-    public int easyMaxDrivingForce = 20;
+    public int easyMaxDrivingForce = 30;
     public int mediumMaxDrivingForce = 40;
     public int hardMaxDrivingForce = 50;
 
