@@ -29,7 +29,7 @@ public class GamePlay {
 
     // These are represented as plain int instead of a HashMap because Introspector does not support
     // HashMaps.
-    public int easyMaxDrivingForce = 20;
+    public int easyMaxDrivingForce = 30;
     public int mediumMaxDrivingForce = 40;
     public int hardMaxDrivingForce = 50;
 
@@ -52,21 +52,21 @@ public class GamePlay {
 
     public int stoppedMaxSteer = 80;
     public int lowSpeedMaxSteer = 14;
-    public int highSpeedMaxSteer = 4;
-    public float steeringStep = 0.1f;
+    public int highSpeedMaxSteer = 3;
+    public float steeringStep = 0.05f;
 
     public int vehicleDensity = 3;
     public int tireBaseDensity = 15;
     public int vehicleRestitution = 1;
     public int groundDragFactor = 8;
-    public int borderRestitution = 1;
+    public int borderRestitution = 2;
     public float simplifiedCollisionMaxDeltaV = 0.4f;
     public float simplifiedCollisionKFactor = 4;
 
     public int viewportWidth = 60;
 
-    public int turboStrength = 200;
-    public float turboDuration = 0.5f;
+    public int turboStrength = 100;
+    public float turboDuration = 1f;
 
     // When an AI is better ranked than a player, set its max speed to this percent of the best max
     // speed

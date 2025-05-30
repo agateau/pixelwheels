@@ -39,6 +39,7 @@ public class PlayerPilot implements Pilot {
 
     private GameInputHandler mInputHandler;
     private boolean mLastTriggering = false;
+    private Probe mSpeedReportProbe;
 
     public PlayerPilot(
             Assets assets,
@@ -75,6 +76,11 @@ public class PlayerPilot implements Pilot {
                 mRacer.triggerBonus();
             }
             mLastTriggering = input.triggeringBonus;
+
+            if (mSpeedReportProbe != null) {
+                mSpeedReportProbe.addValue("left", input.leftPressed);
+                mSpeedReportProbe.addValue("right", input.rightPressed);
+            }
         }
     }
 
@@ -93,5 +99,9 @@ public class PlayerPilot implements Pilot {
 
     private void updateInputHandler() {
         mInputHandler = mGameConfig.getPlayerInputHandler(mPlayerIndex);
+    }
+
+    public void setSpeedReportProbe(Probe probe) {
+        mSpeedReportProbe = probe;
     }
 }

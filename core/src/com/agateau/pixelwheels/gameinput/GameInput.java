@@ -24,4 +24,8 @@ public class GameInput {
     public boolean accelerating = false;
     public boolean triggeringBonus = false;
     public float direction = 0;
+
+    // Only used for the speed report
+    public boolean leftPressed = false;
+    public boolean rightPressed = false;
 }

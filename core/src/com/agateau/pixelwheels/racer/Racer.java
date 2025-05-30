@@ -61,6 +61,7 @@ public class Racer extends GameObjectAdapter
     private final Array<Collidable> mCollidableComponents = new Array<>();
     private final GameInfo.Entrant mEntrant;
 
+    private Probe mSpeedReportProbe;
     private Pilot mPilot;
 
     // State
@@ -156,9 +157,9 @@ public class Racer extends GameObjectAdapter
         addComponent(mAudioComponent);
 
         if (Debug.instance.createSpeedReport) {
-            Probe probe = new Probe("speed.dat");
-            mVehicle.setProbe(probe);
-            addComponent(probe);
+            mSpeedReportProbe = new Probe("speed.jsonl");
+            mVehicle.setSpeedReportProbe(mSpeedReportProbe);
+            addComponent(mSpeedReportProbe);
         }
     }
 
@@ -183,6 +184,10 @@ public class Racer extends GameObjectAdapter
 
     public void setPilot(Pilot pilot) {
         mPilot = pilot;
+        if (mSpeedReportProbe != null && pilot instanceof PlayerPilot) {
+            PlayerPilot playerPilot = (PlayerPilot) pilot;
+            playerPilot.setSpeedReportProbe(mSpeedReportProbe);
+        }
     }
 
     public Vehicle getVehicle() {
