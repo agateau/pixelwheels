@@ -77,7 +77,7 @@ public abstract class GameInfo {
                 String vehicleId = idx < mPlayers.size ? mPlayers.get(idx).mVehicleId : "";
                 mGameConfig.vehicles[idx] = vehicleId;
             }
-            mGameConfig.flush();
+            mGameConfig.flush(GameConfig.ConfigGroup.OTHER);
         }
     }
 

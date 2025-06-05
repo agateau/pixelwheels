@@ -219,7 +219,7 @@ public class ConfigScreen extends PwStageScreen {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
                                 gameConfig.playSoundFx = soundFxSwitch.isChecked();
-                                gameConfig.flush();
+                                gameConfig.flush(GameConfig.ConfigGroup.OTHER);
                             }
                         });
         group.addItemWithLabel(tr("Sound FX:"), soundFxSwitch);
@@ -233,7 +233,7 @@ public class ConfigScreen extends PwStageScreen {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
                                 gameConfig.playMusic = musicSwitch.isChecked();
-                                gameConfig.flush();
+                                gameConfig.flush(GameConfig.ConfigGroup.OTHER);
                             }
                         });
         group.addItemWithLabel(tr("Music:"), musicSwitch);
@@ -250,7 +250,7 @@ public class ConfigScreen extends PwStageScreen {
                                 public void changed(ChangeEvent event, Actor actor) {
                                     gameConfig.fullscreen = fullscreenSwitch.isChecked();
                                     mGame.setFullscreen(gameConfig.fullscreen);
-                                    gameConfig.flush();
+                                    gameConfig.flush(GameConfig.ConfigGroup.OTHER);
                                 }
                             });
             group.addItemWithLabel(tr("Fullscreen:"), fullscreenSwitch);
@@ -265,7 +265,7 @@ public class ConfigScreen extends PwStageScreen {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
                                 gameConfig.headingUpCamera = headingUpCameraSwitch.isChecked();
-                                gameConfig.flush();
+                                gameConfig.flush(GameConfig.ConfigGroup.OTHER);
                             }
                         });
         group.addItemWithLabel(tr("Rotate camera:"), headingUpCameraSwitch);

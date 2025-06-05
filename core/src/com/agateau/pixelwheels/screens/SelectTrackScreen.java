@@ -22,6 +22,7 @@ import static com.agateau.translations.Translator.tr;
 import static com.agateau.translations.Translator.trc;
 
 import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.map.Championship;
@@ -257,7 +258,7 @@ public class SelectTrackScreen extends PwStageScreen {
 
     private void saveSelectedMap() {
         mGame.getConfig().track = mTrackSelector.getCurrent().getId();
-        mGame.getConfig().flush();
+        mGame.getConfig().flush(GameConfig.ConfigGroup.OTHER);
     }
 
     private void next() {

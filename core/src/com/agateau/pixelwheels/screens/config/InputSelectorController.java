@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.screens.config;
 
+import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.gameinput.GameInputHandler;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactories;
@@ -105,7 +106,7 @@ public class InputSelectorController {
     private void onInputChanged() {
         GameInputHandlerFactory factory = mSelector.getCurrentData();
         mGame.getConfig().setPlayerInputHandlerFactory(mPlayerIdx, factory);
-        mGame.getConfig().flush();
+        mGame.getConfig().flush(GameConfig.ConfigGroup.INPUT);
         updateUi();
     }
 

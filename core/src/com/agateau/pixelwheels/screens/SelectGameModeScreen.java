@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.gamesetup.GameMode;
@@ -64,7 +65,7 @@ public class SelectGameModeScreen extends PwStageScreen {
                             @Override
                             public void triggered() {
                                 mGame.getConfig().gameMode = GameMode.QUICK_RACE;
-                                mGame.getConfig().flush();
+                                mGame.getConfig().flush(GameConfig.ConfigGroup.OTHER);
                                 mGame.showQuickRace(mPlayerCount);
                             }
                         });
@@ -74,7 +75,7 @@ public class SelectGameModeScreen extends PwStageScreen {
                     @Override
                     public void triggered() {
                         mGame.getConfig().gameMode = GameMode.CHAMPIONSHIP;
-                        mGame.getConfig().flush();
+                        mGame.getConfig().flush(GameConfig.ConfigGroup.OTHER);
                         mGame.showChampionship(mPlayerCount);
                     }
                 });

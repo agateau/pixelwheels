@@ -25,7 +25,7 @@ public class ChampionshipGameInfo extends GameInfo {
         public void setChampionship(Championship championship) {
             mChampionship = championship;
             mGameConfig.championship = mChampionship.getId();
-            mGameConfig.flush();
+            mGameConfig.flush(GameConfig.ConfigGroup.OTHER);
         }
 
         @Override

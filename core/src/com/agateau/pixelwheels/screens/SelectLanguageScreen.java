@@ -18,6 +18,7 @@
  */
 package com.agateau.pixelwheels.screens;
 
+import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.Language;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
@@ -199,7 +200,7 @@ public class SelectLanguageScreen extends PwStageScreen {
         mGame.getConfig().languageId = languageId;
 
         // Flushing the config causes the new language to be loaded
-        mGame.getConfig().flush();
+        mGame.getConfig().flush(GameConfig.ConfigGroup.LANGUAGE);
 
         ConfigScreen screen = ConfigScreen.createAfterLanguageChange(mGame);
         mGame.popScreen();

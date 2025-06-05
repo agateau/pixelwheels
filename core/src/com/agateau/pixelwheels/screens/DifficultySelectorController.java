@@ -50,7 +50,7 @@ class DifficultySelectorController {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         config.difficulty = selector.getCurrentData();
-                        config.flush();
+                        config.flush(GameConfig.ConfigGroup.OTHER);
                     }
                 });
 

@@ -22,7 +22,7 @@ public class QuickRaceGameInfo extends GameInfo {
         public void setTrack(Track track) {
             mTrack = track;
             mGameConfig.track = mTrack.getId();
-            mGameConfig.flush();
+            mGameConfig.flush(GameConfig.ConfigGroup.OTHER);
         }
 
         @Override
