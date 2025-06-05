@@ -79,7 +79,6 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             };
 
     private LogExporter mLogExporter;
-    private String mCurrentLanguageId = "";
     private String mExtraOsInformation = "";
 
     public Assets getAssets() {
@@ -162,9 +161,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
 
     private void loadTranslations() {
         NLog.i("Loading translations for language '%s'", mGameConfig.languageId);
-        boolean firstCall = mCurrentLanguageId.equals("");
         mAssets.setLanguage(mGameConfig.languageId);
-        if (!firstCall) {
+        if (mRewardManager != null) {
             setupRewardManager();
         }
     }
@@ -197,7 +195,8 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
             mGameConfig.languageId = mAssets.languages.findBestLanguageId();
         }
         mGameConfig.addListener(this);
-        onGameConfigChanged();
+        onGameConfigChanged(GameConfig.ConfigGroup.OTHER);
+        onGameConfigChanged(GameConfig.ConfigGroup.LANGUAGE);
     }
 
     private void setupTrackStats() {
@@ -308,12 +307,17 @@ public class PwGame extends Game implements GameConfig.ChangeListener {
     }
 
     @Override
-    public void onGameConfigChanged() {
-        mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
-        mAudioManager.setMusicMuted(!mGameConfig.playMusic);
-        if (!mGameConfig.languageId.equals(mCurrentLanguageId)) {
-            loadTranslations();
-            mCurrentLanguageId = mGameConfig.languageId;
+    public void onGameConfigChanged(GameConfig.ConfigGroup group) {
+        switch (group) {
+            case INPUT:
+                break;
+            case LANGUAGE:
+                loadTranslations();
+                break;
+            case OTHER:
+                mAudioManager.setSoundFxMuted(!mGameConfig.playSoundFx);
+                mAudioManager.setMusicMuted(!mGameConfig.playMusic);
+                break;
         }
     }
 

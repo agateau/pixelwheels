@@ -34,8 +34,20 @@ import java.util.Map;
 
 /** The game configuration */
 public class GameConfig {
+
+    /**
+     * Config keys are packed in groups. After modifying keys, one must call @ref GameConfig.flush()
+     * with the appropriate group for the keys. This is used by ChangeListener to know whether they
+     * should act or if they can ignore the change.
+     */
+    public enum ConfigGroup {
+        INPUT,
+        LANGUAGE,
+        OTHER,
+    }
+
     public interface ChangeListener {
-        void onGameConfigChanged();
+        void onGameConfigChanged(ConfigGroup group);
     }
 
     public boolean fullscreen = false;
@@ -65,6 +77,12 @@ public class GameConfig {
     GameConfig(Preferences preferences) {
         mPreferences = preferences;
         load();
+        addListener(
+                group -> {
+                    if (group == ConfigGroup.INPUT) {
+                        setupInputHandlers();
+                    }
+                });
     }
 
     private void load() {
@@ -103,31 +121,40 @@ public class GameConfig {
         mListeners.add(listener);
     }
 
-    public void flush() {
-        mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
-        mPreferences.putBoolean(PrefConstants.HEADING_UP_CAMERA, headingUpCamera);
-        mPreferences.putBoolean(PrefConstants.SOUND_FX, playSoundFx);
-        mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
+    public void flush(ConfigGroup group) {
+        switch (group) {
+            case INPUT:
+                for (int idx = 0; idx < this.vehicles.length; ++idx) {
+                    mPreferences.putString(
+                            PrefConstants.INPUT_PREFIX + idx, mPlayerInputFactoryIds[idx]);
+                }
+                break;
+            case LANGUAGE:
+                mPreferences.putString(PrefConstants.LANGUAGE_ID, this.languageId);
+                break;
+            case OTHER:
+                mPreferences.putBoolean(PrefConstants.FULLSCREEN, fullscreen);
+                mPreferences.putBoolean(PrefConstants.HEADING_UP_CAMERA, headingUpCamera);
+                mPreferences.putBoolean(PrefConstants.SOUND_FX, playSoundFx);
+                mPreferences.putBoolean(PrefConstants.MUSIC, playMusic);
 
-        mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
-        mPreferences.putString(PrefConstants.DIFFICULTY, this.difficulty.toString());
-        for (int idx = 0; idx < this.vehicles.length; ++idx) {
-            mPreferences.putString(PrefConstants.VEHICLE_ID_PREFIX + idx, this.vehicles[idx]);
-            mPreferences.putString(PrefConstants.INPUT_PREFIX + idx, mPlayerInputFactoryIds[idx]);
+                mPreferences.putString(PrefConstants.GAME_MODE, this.gameMode.toString());
+                mPreferences.putString(PrefConstants.DIFFICULTY, this.difficulty.toString());
+                for (int idx = 0; idx < this.vehicles.length; ++idx) {
+                    mPreferences.putString(
+                            PrefConstants.VEHICLE_ID_PREFIX + idx, this.vehicles[idx]);
+                }
+
+                mPreferences.putString(PrefConstants.TRACK_ID, this.track);
+                mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
+                break;
         }
-
-        mPreferences.putString(PrefConstants.TRACK_ID, this.track);
-        mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
-
-        mPreferences.putString(PrefConstants.LANGUAGE_ID, this.languageId);
 
         mPreferences.flush();
 
-        setupInputHandlers();
-
         mListeners.begin();
         for (ChangeListener listener : mListeners) {
-            listener.onGameConfigChanged();
+            listener.onGameConfigChanged(group);
         }
         mListeners.end();
     }
