@@ -23,7 +23,7 @@ import static com.agateau.translations.Translator.tr;
 import com.agateau.pixelwheels.GameConfig;
 import com.agateau.pixelwheels.gamesetup.Difficulty;
 import com.agateau.ui.menu.Menu;
-import com.agateau.ui.menu.SelectorMenuItem;
+import com.agateau.ui.menu.SliderMenuItem;
 import com.agateau.ui.uibuilder.UiBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -34,26 +34,35 @@ class DifficultySelectorController {
                 "DifficultySelector", (menu, element) -> create(menu, config));
     }
 
-    private static SelectorMenuItem<Difficulty> create(Menu menu, GameConfig config) {
+    private static SliderMenuItem create(Menu menu, GameConfig config) {
         menu.addLabel(tr("League"));
-        SelectorMenuItem<Difficulty> selector = new SelectorMenuItem<>(menu);
+        SliderMenuItem selector =
+                new SliderMenuItem(menu) {
+                    @Override
+                    protected String formatValue(int value) {
+                        Difficulty difficulty = difficultyForInt(value);
+                        return difficulty.toTranslatedString();
+                    }
+                };
         menu.addItem(selector);
 
-        for (Difficulty difficulty : Difficulty.values()) {
-            selector.addEntry(difficulty.toTranslatedString(), difficulty);
-        }
+        selector.setRange(0, Difficulty.values().length - 1);
 
-        selector.setCurrentData(config.difficulty);
+        selector.setIntValue(config.difficulty.ordinal());
 
         selector.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        config.difficulty = selector.getCurrentData();
+                        config.difficulty = difficultyForInt(selector.getIntValue());
                         config.flush(GameConfig.ConfigGroup.OTHER);
                     }
                 });
 
         return selector;
+    }
+
+    private static Difficulty difficultyForInt(int value) {
+        return Difficulty.values()[value];
     }
 }
