@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="184" columns="8">
+<tileset version="1.10" tiledversion="1.11.2" name="country" tilewidth="64" tileheight="64" spacing="4" margin="2" tilecount="184" columns="8">
  <image source="country.png" width="544" height="1564"/>
  <tile id="5">
   <properties>
@@ -161,6 +161,14 @@
   <objectgroup draworder="index"/>
  </tile>
  <tile id="36">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
+}</property>
+  </properties>
   <objectgroup draworder="index"/>
  </tile>
  <tile id="37">
@@ -179,6 +187,16 @@
    <object id="0" x="24.5455" y="0" width="13.2727" height="23.8182"/>
   </objectgroup>
  </tile>
+ <tile id="52">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
+}</property>
+  </properties>
+ </tile>
  <tile id="54">
   <objectgroup draworder="index"/>
  </tile>
@@ -189,6 +207,14 @@
   <objectgroup draworder="index"/>
  </tile>
  <tile id="61">
+  <properties>
+   <property name="obstacle">{
+  &quot;type&quot;: &quot;circle&quot;,
+  &quot;x&quot;: 0.75,
+  &quot;y&quot;: 0.25,
+  &quot;radius&quot;: 0.5
+}</property>
+  </properties>
   <objectgroup draworder="index"/>
  </tile>
  <tile id="66">
@@ -196,6 +222,76 @@
  </tile>
  <tile id="67">
   <objectgroup draworder="index"/>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="77">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="85">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="92">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="93">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="101">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
+ </tile>
+ <tile id="110">
+  <properties>
+   <property name="obstacle">{
+&quot;type&quot;: &quot;full&quot;
+}</property>
+  </properties>
  </tile>
  <tile id="128">
   <properties>
