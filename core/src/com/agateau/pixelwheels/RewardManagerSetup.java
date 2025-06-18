@@ -171,7 +171,7 @@ class RewardManagerSetup {
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("c15")),
                 new ChampionshipRankRewardRule(
-                        Difficulty.HARD, assets.findChampionshipById("snow"), 0));
+                        Difficulty.MEDIUM, assets.findChampionshipById("snow"), 0));
 
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("santa")),
