@@ -22,18 +22,33 @@ import com.agateau.pixelwheels.GamePlay;
 import com.badlogic.gdx.math.MathUtils;
 
 public class DigitalSteering {
-    private float mRawDirection = 0;
+    private int mSign = 0;
+    private float mSteering = 0;
 
     public float steer(boolean left, boolean right) {
+        int sign;
         if (left == right) {
-            // Either both left & right are pressed or none of them are
-            mRawDirection *= 0.4;
-        } else if (left) {
-            mRawDirection += GamePlay.instance.steeringStep;
+            sign = 0;
+        } else if (right) {
+            sign = -1;
         } else {
-            mRawDirection -= GamePlay.instance.steeringStep;
+            sign = 1;
         }
-        mRawDirection = MathUtils.clamp(mRawDirection, -1, 1);
-        return mRawDirection * mRawDirection * Math.signum(mRawDirection);
+        if (sign != mSign) {
+            mSteering = 0;
+        }
+        if (sign != 0) {
+            // Interesting effect
+            // mSteering += GamePlay.instance.steeringStep
+            mSteering = Math.min(mSteering + GamePlay.instance.steeringStep, 1f);
+        }
+        mSign = sign;
+        if (mSign == 0) {
+            return 0;
+        }
+        // mSteering: 0 -> 1
+        // k: -pi/2 -> pi/2
+        float k = mSteering * MathUtils.PI - MathUtils.HALF_PI;
+        return (0.5f + MathUtils.sin(k) * 0.5f) * mSign;
     }
 }

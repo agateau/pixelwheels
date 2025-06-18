@@ -166,12 +166,6 @@ public class Box2DUtils {
         throw new RuntimeException("Unsupported MapObject type: " + object);
     }
 
-    public static void setBodyRestitution(Body body, float restitution) {
-        for (Fixture fixture : body.getFixtureList()) {
-            fixture.setRestitution(restitution);
-        }
-    }
-
     /** Returns vertices for a rectangle of size width x height with truncated corners */
     public static float[] createOctogon(
             float width, float height, float cornerWidth, float cornerHeight) {
