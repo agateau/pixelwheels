@@ -93,13 +93,13 @@ public class DesktopLauncher {
         if (!configDir.exists() && !configDir.file().mkdirs()) {
             System.err.printf(
                     Locale.US,
-                    "Failed to migrate %s: could not create %s",
+                    "Failed to migrate %s: could not create %s\n",
                     legacyConfigFile,
                     configDir);
             return;
         }
 
-        System.err.printf(Locale.US, "Migrating %s to %s", legacyConfigFile, configFile);
+        System.err.printf(Locale.US, "Migrating %s to %s\n", legacyConfigFile, configFile);
         legacyConfigFile.copyTo(configFile);
     }
 }
