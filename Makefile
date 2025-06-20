@@ -103,6 +103,14 @@ run: desktop-run
 desktop-run: desktop-build
 	cd android/assets && java -jar $(DESKTOP_JAR)
 
+.PHONY: desktop-run-blank-state
+desktop-run-blank-state: desktop-build
+	FAKE_HOME_DIR=/tmp/pw-blank-home
+	rm -rf $$FAKE_HOME_DIR
+	export XDG_DATA_HOME=$$FAKE_HOME_DIR/data
+	export XDG_CONFIG_HOME=$$FAKE_HOME_DIR/config
+	cd android/assets && java -jar $(DESKTOP_JAR)
+
 .PHONY: android-run
 android-run: android-build
 	adb uninstall $(ANDROID_PACKAGE_NAME) || true
