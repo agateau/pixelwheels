@@ -100,6 +100,6 @@ public class DesktopLauncher {
         }
 
         System.err.printf(Locale.US, "Migrating %s to %s\n", legacyConfigFile, configFile);
-        legacyConfigFile.copyTo(configFile);
+        legacyConfigFile.moveTo(configFile);
     }
 }
