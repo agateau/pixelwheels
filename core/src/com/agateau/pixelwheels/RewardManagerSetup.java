@@ -157,6 +157,10 @@ class RewardManagerSetup {
                 Reward.get(assets.findVehicleDefById("2cv")),
                 new ChampionshipRankRewardRule(
                         Difficulty.MEDIUM, assets.findChampionshipById("country"), 0));
+        rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("roadster")),
+                new ChampionshipRankRewardRule(
+                        Difficulty.HARD, assets.findChampionshipById("country"), 0));
 
         // Snow championship rewards
         rewardManager.addRule(
@@ -165,16 +169,16 @@ class RewardManagerSetup {
                         Difficulty.EASY, assets.findChampionshipById("snow"), 0));
 
         rewardManager.addRule(
+                Reward.get(assets.findVehicleDefById("c15")),
+                new ChampionshipRankRewardRule(
+                        Difficulty.MEDIUM, assets.findChampionshipById("snow"), 0));
+
+        rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("santa")),
                 new ChampionshipRankRewardRule(
                         Difficulty.HARD, assets.findChampionshipById("snow"), 0));
 
         // City championship rewards
-        rewardManager.addRule(
-                Reward.get(assets.findVehicleDefById("roadster")),
-                new ChampionshipRankRewardRule(
-                        Difficulty.EASY, assets.findChampionshipById("city"), 0));
-
         rewardManager.addRule(
                 Reward.get(assets.findVehicleDefById("miramar")),
                 new ChampionshipRankRewardRule(

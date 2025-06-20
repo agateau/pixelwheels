@@ -1,0 +1,8 @@
+<vehicle speed="1" name="C15 Vindieu" width="27" height="58">
+    <main image="c15"/>
+    <shapes>
+        <octogon corner="3" width="25" height="58"/>
+    </shapes>
+    <axle y="47" width="19" steer="1"/>
+    <axle y="9" width="21"/>
+</vehicle>
