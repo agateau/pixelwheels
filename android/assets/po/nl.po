@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-25 21:48+0200\n"
+"PO-Revision-Date: 2025-06-25 10:43+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -70,7 +70,7 @@ msgstr "Blokstad"
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr "Klein-aan-de-Mer"
+msgstr "Klein aan Zee"
 
 #: android/assets/championships/2.xml:27
 msgctxt "track"
@@ -83,7 +83,7 @@ msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr "Een opensource-racespel"
+msgstr "Een opensource racespel"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
@@ -552,7 +552,7 @@ msgstr "Ondersteuning"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr "Koop wat mooie Pixel Wheels-merchandise!"
+msgstr "Koop wat toffe Pixel Wheels-merchandise!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
@@ -584,7 +584,7 @@ msgstr "Brostervrachtwagen"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "C15 Vindieu"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -668,11 +668,10 @@ msgstr[0] "Ga één keer van de weg af"
 msgstr[1] "Ga %# keer van de weg af"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Ga één keer van de weg af"
-msgstr[1] "Ga %# keer van de weg af"
+msgstr[0] "Rijd één keer door het zand"
+msgstr[1] "Rijd %# keer door het zand"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
@@ -702,15 +701,15 @@ msgstr "Zĳknoppen"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Recreatief"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Professioneel"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Legendarisch"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -776,34 +775,35 @@ msgid "Race time"
 msgstr "Racetĳd"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Eindig in de top 3 van het %s-kampioenschap"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Eindig in de top 2 van het %s-kampioenschap"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "Eindig op de eerste plaats van het %s-kampioenschap"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Eindig in de top 3 van het %s-kampioenschap"
+msgstr "Eindig in de top 3 van het %s-kampioenschap in de %s-competitie"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Eindig in de top 2 van het %s-kampioenschap"
+msgstr "Eindig in de top 2 van het %s-kampioenschap in de %s-competitie"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Eindig op de eerste plaats van het %s-kampioenschap"
+msgstr ""
+"Eindig op de eerste plaats van het %s-kampioenschap in de %s-competitie"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -812,7 +812,7 @@ msgid ""
 "Finished!"
 msgstr ""
 "Kampioenschap\n"
-"Afgerond!"
+"afgerond!"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:113
 msgid "About"
@@ -876,7 +876,7 @@ msgstr "Taal:"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:209
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr "Wĳzigen tĳdens de wedstrĳd is onmogelĳk"
+msgstr "De taal kan niet worden gewijzigd tijdens een wedstrijd"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:212
 msgid "Audio"
@@ -914,7 +914,7 @@ msgstr "Bedankt voor het spelen!"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Competitie"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
@@ -962,7 +962,7 @@ msgstr "Naar rechts sturen"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:110
 msgid "Screenshot"
-msgstr "Schermfoto"
+msgstr "Schermfoto maken"
 
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:113
 msgid "Up"
