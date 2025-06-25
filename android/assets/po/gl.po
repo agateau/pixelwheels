@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-19 23:29+0200\n"
+"PO-Revision-Date: 2025-06-24 12:32+0200\n"
 "Last-Translator: Un Galego Mais\n"
 "Language-Team: Galician <>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -51,12 +51,12 @@ msgstr "Neva"
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr "¡Non escorregues!"
+msgstr "Non escorregues!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr "¡Sobe, sobe, sobe... e baixa!"
+msgstr "Sobe, sobe, sobe... e baixa!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
@@ -167,7 +167,7 @@ msgstr "Efectos de son"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr "\"Chirrido de pneumático en escorregamento en bucle\""
+msgstr "\"Bucle de derrapaxes con chiar de pneumáticos\""
 
 #: android/assets/screens/credits.gdxui:44
 msgid "Tom Haigh"
@@ -363,7 +363,7 @@ msgstr "Todolos informes de erros"
 
 #: android/assets/screens/credits.gdxui:121
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr "Todos los xiareiros en Patreon, Ko-fi e Paypal"
+msgstr "Todos os colaboradores en Patreon, Ko-fi e PayPal"
 
 #: android/assets/screens/credits.gdxui:123
 msgid "Made with"
@@ -488,7 +488,7 @@ msgstr "Escolle os teus vehículos"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some controllers are missing"
-msgstr "Faltan alguns mandos"
+msgstr "Faltan algúns mandos"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -548,7 +548,7 @@ msgstr "Escolle o teu vehículo"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr "apoio"
+msgstr "Apoio"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
@@ -560,7 +560,7 @@ msgstr "TENDA"
 
 #: android/assets/screens/support.gdxui:19
 msgid "Support Pixel Wheels development."
-msgstr "Admite o desenvolvemento de Pixel Wheels."
+msgstr "Apoia o desenvolvemento de Pixel Wheels."
 
 #: android/assets/screens/support.gdxui:21
 msgid "SUPPORT PAGE"
@@ -584,7 +584,7 @@ msgstr "Camión Broster"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "C15 A mula"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -647,7 +647,7 @@ msgstr "Compartir con"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:62
 msgid "Hit a bug? Use this button to report it."
-msgstr "¿Atopaches un erro? Emprega este botón para notificalo."
+msgstr "Atopaches un erro? Emprega este botón para notificalo."
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:67
 msgid "REPORT BUG"
@@ -668,11 +668,10 @@ msgstr[0] "Sair da estrada unha vez"
 msgstr[1] "Sair da estrada %# veces"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Sair da estrada unha vez"
-msgstr[1] "Sair da estrada %# veces"
+msgstr[0] "Conduce pola area unha vez"
+msgstr[1] "Conduce pola area %# veces"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
@@ -702,15 +701,15 @@ msgstr "Botóns laterais"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Novato"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Profesional"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Lendario"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -722,7 +721,7 @@ msgstr "Resultado da carreira"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:336
 msgid "Congratulations, great race!"
-msgstr "Parabens, magnífica carreira!"
+msgstr "Parabéns, magnífica carreira!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:337
 msgid "You've got some serious driving skills!"
@@ -734,7 +733,7 @@ msgstr "Es un campión!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:339
 msgid "Congrats for this performance!"
-msgstr "Bravo por ista actuación!"
+msgstr "Parabéns por esta actuación!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:340
 msgid "Impressive!"
@@ -776,34 +775,34 @@ msgid "Race time"
 msgstr "Tempo de carreira"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Queda terceiro ou mellor no campionato %s"
+msgstr "Remata terceiro ou mellor no campionato %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Queda segundo ou mellor no campionato %s"
+msgstr "Remata segundo ou mellor no campionato %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "Queda primeiro no campionato %s"
+msgstr "Remata primeiro no campionato %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Queda terceiro ou mellor no campionato %s"
+msgstr "Remata terceiro ou mellor no campionato %s da liga %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Queda segundo ou mellor no campionato %s"
+msgstr "Remata segundo ou mellor no campionato %s da liga %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Queda primeiro no campionato %s"
+msgstr "Remata primeiro no campionato %s da liga %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -846,7 +845,7 @@ msgstr ""
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:163
 msgid "DEV. OPTIONS"
 msgstr ""
-"SECCIÓN DE LOS\n"
+"SECCIÓN DOS\n"
 "DESENVOLVEDORES"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:175
@@ -910,11 +909,11 @@ msgstr "CONFIGURAR"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
-msgstr "¡Grazas por xogar!"
+msgstr "Grazas por xogar!"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Liga"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
