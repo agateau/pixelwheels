@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-19 13:28+0200\n"
+"PO-Revision-Date: 2025-06-25 00:04+0200\n"
 "Last-Translator: Jorge Maldonado Ventura <jorgesumle@freakspot.net>\n"
 "Language-Team: \n"
 "Language: eo\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -585,7 +585,7 @@ msgstr "Broster-Kamiono"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "C15 Vindieu"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -669,11 +669,10 @@ msgstr[0] "Eliru ŝoseon unufoje"
 msgstr[1] "Eliru ŝoseon %#-foje"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Eliru ŝoseon unufoje"
-msgstr[1] "Eliru ŝoseon %#-foje"
+msgstr[0] "Veturu en la sablo unufoje"
+msgstr[1] "Veturu en la sablo %#-foje"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
@@ -703,15 +702,15 @@ msgstr "Flankaj butonoj"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Amatora"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Profesia"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Legenda"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -777,34 +776,34 @@ msgid "Race time"
 msgstr "Vetkura tempo"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Finiĝu trie aŭ pli bone en %s ĉampionado"
+msgstr "Finiĝu trie aŭ pli bone en la %s ĉampionado"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Finiĝu due aŭ pli bone en %s ĉampionado"
+msgstr "Finiĝu due aŭ pli bone en la %s ĉampionado"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "Finiĝu unue en %s ĉampionado"
+msgstr "Finiĝu unue en la %s ĉampionado"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Finiĝu trie aŭ pli bone en %s ĉampionado"
+msgstr "Finiĝu trie aŭ pli bone en la %s ĉampionado en la %s ligo"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Finiĝu due aŭ pli bone en %s ĉampionado"
+msgstr "Finiĝu due aŭ pli bone en la %s ĉampionado en la %s ligo"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Finiĝu unue en %s ĉampionado"
+msgstr "Finiĝu unue en la %s ĉampionado en la %s ligo"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -868,7 +867,7 @@ msgstr "Kontroloj:"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:194
 msgid "General"
-msgstr "Ĝeneralo"
+msgstr "Ĝeneralaj"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:205
 msgid "Language:"
@@ -913,7 +912,7 @@ msgstr "Dankon pro via ludado!"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Ligo"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
