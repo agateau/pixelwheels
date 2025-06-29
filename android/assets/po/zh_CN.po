@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2022
 # This file is distributed under the same license as the PACKAGE package.
-# Lu Xu <oliver_lew@outlook.com>, 2022.
+# Lu Xu <oliver_lew@outlook.com>, 2022-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-19 23:03+0800\n"
+"PO-Revision-Date: 2025-06-28 15:30+0800\n"
 "Last-Translator: Lu Xu <oliver_lew@outlook.com>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -568,12 +568,12 @@ msgstr "支持页面"
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr "2CV"
+msgstr "小丑车"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr ""
+msgstr "海滩车"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
@@ -583,12 +583,12 @@ msgstr "大脚车"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "货车"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr ""
+msgstr "蝙蝠战车"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
@@ -603,12 +603,12 @@ msgstr "吉普"
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid "Miramar"
-msgstr ""
+msgstr "古董车"
 
 #: android/assets/vehicles/old-f1.xml:1
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "F1赛车"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
@@ -665,10 +665,9 @@ msgid_plural "Leave road %# times"
 msgstr[0] "离开道路 %# 次"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "离开道路 %# 次"
+msgstr[0] "在沙子中驾驶 %# 次"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
@@ -697,15 +696,15 @@ msgstr "两侧按钮"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "休闲"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "专业"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "传奇"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -771,34 +770,34 @@ msgid "Race time"
 msgstr "比赛时间"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "在 %s 锦标赛取得至少第三名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "在 %s 锦标赛取得至少第二名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "在 %s 锦标赛取得第一名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "在 %s 锦标赛取得至少第三名"
+msgstr "在 %s 锦标赛 %s 难度取得至少第三名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "在 %s 锦标赛取得至少第二名"
+msgstr "在 %s 锦标赛 %s 难度取得至少第二名"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "在 %s 锦标赛取得第一名"
+msgstr "在 %s 锦标赛 %s 难度取得第一名"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -847,7 +846,7 @@ msgstr "控制"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:182
 #, java-printf-format
 msgid "P%d"
-msgstr "玩家 #%d："
+msgstr "玩家 #%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:184
 #, java-printf-format
@@ -905,7 +904,7 @@ msgstr "感谢游玩！"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "难度"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
