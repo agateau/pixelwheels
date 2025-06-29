@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-26 18:57+0200\n"
+"PO-Revision-Date: 2025-06-29 15:13+0200\n"
 "Last-Translator: Aurélien Gâteau <mail@agateau.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -581,7 +581,7 @@ msgstr "Broster Truck"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "C15 Vindieu"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -665,10 +665,9 @@ msgstr[0] "Quitter la route une fois"
 msgstr[1] "Quitter la route %# fois"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Quitter la route une fois"
+msgstr[0] "Rouler dans le sable une fois"
 msgstr[1] "Quitter la route %# fois"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
@@ -699,15 +698,15 @@ msgstr "Boutons sur les côtés"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Amateur"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Légendaire"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -773,34 +772,34 @@ msgid "Race time"
 msgstr "Temps de course"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
 msgstr "Arriver 3e ou mieux au championnat %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
 msgstr "Arriver 2e ou mieux au championnat %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "Arriver 1er au championnat %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Arriver 3e ou mieux au championnat %s"
+msgstr "Arriver 3e ou mieux au championnat %s en ligue %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Arriver 2e ou mieux au championnat %s"
+msgstr "Arriver 2e ou mieux au championnat %s en ligue %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Arriver 1er au championnat %s"
+msgstr "Arriver 1er au championnat %s en ligue %s"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -909,7 +908,7 @@ msgstr "Merci d'avoir joué !"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Ligue"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
