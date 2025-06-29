@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2024
+# Copyright (C) 2025
 # This file is distributed under the same license as the PACKAGE package.
-# Nickoriginal, 2024.
+# Nickoriginal, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-22 09:05+0300\n"
+"PO-Revision-Date: 2025-06-27 10:10+0300\n"
 "Last-Translator: Nickoriginal\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -370,7 +370,7 @@ msgstr "Создано с"
 
 #: android/assets/screens/credits.gdxui:125
 msgid "LibGDX"
-msgstr "Библиотека GDX"
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:126
 msgid "Tiled"
@@ -386,7 +386,7 @@ msgstr "Порт SFXR на Qt"
 
 #: android/assets/screens/credits.gdxui:129
 msgid "Android Studio"
-msgstr "Студия Android"
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:8
 msgid "Settings affecting game play have been modified, scores won't be saved"
@@ -584,7 +584,7 @@ msgstr "Трак Бростера"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "С15 Виндиё"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -670,12 +670,11 @@ msgstr[1] "Покинь дорогу %# раза"
 msgstr[2] "Покинь дорогу %# раз"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Покинь дорогу %# раз"
-msgstr[1] "Покинь дорогу %# раза"
-msgstr[2] "Покинь дорогу %# раз"
+msgstr[0] "Проедьте по песку %# раз"
+msgstr[1] "Проедьте по песку %# раза"
+msgstr[2] "Проедьте по песку %# раз"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
@@ -706,15 +705,15 @@ msgstr "Боковые кнопки"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Казуальной"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Профессиональной"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Легендарной"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -780,34 +779,34 @@ msgid "Race time"
 msgstr "Время гонки"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Приди к финишу третьим или ещё быстрее на чемпионате %s"
+msgstr "Приди к финишу как минимум третьим на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Приди к финишу вторым или ещё быстрее на чемпионате %s"
+msgstr "Приди к финишу как минимум вторым на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
 msgstr "Приди к финишу первым на чемпионате %s"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Приди к финишу третьим или ещё быстрее на чемпионате %s"
+msgstr "Приди к финишу как минимум третьим на чемпионате %s в %s лиге"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Приди к финишу вторым или ещё быстрее на чемпионате %s"
+msgstr "Приди к финишу как минимум вторым на чемпионате %s в %s лиге"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Приди к финишу первым на чемпионате %s"
+msgstr "Приди к финишу первым на чемпионате %s в %s лиге"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -916,7 +915,7 @@ msgstr "Спасибо за игру!"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Лига"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
