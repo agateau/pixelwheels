@@ -1,10 +1,10 @@
-# Christian Schrötter <cs@fnx.li>, 2022-2024.
+# Christian Schrötter <cs@fnx.li>, 2022-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-31 12:33+0200\n"
+"PO-Revision-Date: 2025-07-06 13:58+0200\n"
 "Last-Translator: Christian Schrötter <cs@fnx.li>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -580,7 +580,7 @@ msgstr "Monstertruck"
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "C15 Vindieu"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
@@ -664,17 +664,16 @@ msgstr[0] "Verlasse einmal die Straße"
 msgstr[1] "Verlasse %# mal die Straße"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
-#, fuzzy
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] "Verlasse einmal die Straße"
-msgstr[1] "Verlasse %# mal die Straße"
+msgstr[0] "Fahre einmal durch Sand"
+msgstr[1] "Fahre %# mal durch Sand"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] "Wähle einen Bonus aus"
-msgstr[1] "Wähle %# Boni aus"
+msgstr[0] "Sammle einen Bonus"
+msgstr[1] "Sammle %# Boni"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
@@ -698,15 +697,15 @@ msgstr "Seitliche Tasten"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "Amateur"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "Profi"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "Meister"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -772,34 +771,34 @@ msgid "Race time"
 msgstr "Rennzeit"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 3 oder besser bei der %s Meisterschaft"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 2 oder besser bei der %s Meisterschaft"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 1 bei der %s Meisterschaft"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 3 oder besser bei der %s Meisterschaft in der %s Liga"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 2 oder besser bei der %s Meisterschaft in der %s Liga"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
-#, fuzzy, java-printf-format
+#, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr "Rang 3 oder besser bei der %s Meisterschaft"
+msgstr "Erreiche Rang 1 bei der %s Meisterschaft in der %s Liga"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -909,7 +908,7 @@ msgstr "Danke fürs Spielen!"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
 msgid "League"
-msgstr ""
+msgstr "Liga"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
