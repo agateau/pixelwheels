@@ -2,6 +2,14 @@
 
 So you want to translate Pixel Wheels to a new language? Awesome! Read on.
 
+The simplest way is to the [Weblate](https://toolate.othing.xyz/projects/pixel-wheels/).
+
+<a href="https://toolate.othing.xyz/projects/pixel-wheels/">
+<img alt="Translation status" src="https://toolate.othing.xyz/widget/pixel-wheels/multi-auto.svg"/>
+</a>
+
+Alternatively you can translate manually.
+
 ## Requirements
 
 To translate Pixel Wheels you need:
