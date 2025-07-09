@@ -20,22 +20,22 @@ msgstr ""
 #, fuzzy
 msgctxt "championship"
 msgid "Country Life"
-msgstr "গ্রাম্য জীবন প্রতিযোগিতা"
+msgstr "গ্রামীণ জীবন"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr ""
+msgstr "স্বাগতম!"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr ""
+msgstr "নদী"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr ""
+msgstr "বন্যা"
 
 #: android/assets/championships/1.xml:2
 #, fuzzy
@@ -46,37 +46,37 @@ msgstr "বর্গাকার পাহাড় প্রতিযোগিত�
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr ""
+msgstr "তুষারপাত হোক"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr ""
+msgstr "পিছলে যেও না!"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "উপরে, উপরে, উপর... এবং নিচে!"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr ""
+msgstr "পিক্স শহর"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "ব্লক টাউন"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "ক্ষুদে সার মের"
 
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "দ্বীপ"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
@@ -207,11 +207,11 @@ msgstr "টাপ ওয়ান্ডার"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "নোটো"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "গুগল"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
@@ -219,7 +219,7 @@ msgstr "অনুবাদ"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "জার্মান:"
 
 #: android/assets/screens/credits.gdxui:66
 msgid "Christian Schrötter"
@@ -232,11 +232,11 @@ msgstr "স্পেনীয়:"
 #: android/assets/screens/credits.gdxui:69
 #, fuzzy
 msgid "Victor Hck"
-msgstr "বিজয়:"
+msgstr ""
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "বাস্ক"
 
 #: android/assets/screens/credits.gdxui:72
 msgid "Josu Igoa"
@@ -244,7 +244,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Galician:"
-msgstr ""
+msgstr "গ্যালিসীয়"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
@@ -273,7 +273,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Russian:"
-msgstr ""
+msgstr "রুশ:"
 
 #: android/assets/screens/credits.gdxui:87
 msgid "Nickoriginal"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Bengali:"
-msgstr ""
+msgstr "বাংলা:"
 
 #: android/assets/screens/credits.gdxui:90
 msgid "Oymate"
@@ -289,7 +289,7 @@ msgstr ""
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Chinese:"
-msgstr ""
+msgstr "চীনা:"
 
 #: android/assets/screens/credits.gdxui:93
 msgid "Lu Xu"
@@ -429,7 +429,7 @@ msgstr "তালিকা:"
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Activate"
-msgstr ""
+msgstr "সক্রিয়"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
@@ -441,7 +441,7 @@ msgstr "ঘোড়া:"
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
 msgid "Back"
-msgstr ""
+msgstr "ফিরত"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
@@ -452,7 +452,7 @@ msgstr "ব্রেক:"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 #, fuzzy
@@ -488,7 +488,7 @@ msgstr "পছন্দসমূহ"
 
 #: android/assets/screens/mainmenu.gdxui:34
 msgid "SUPPORT"
-msgstr ""
+msgstr "সমর্থন"
 
 #: android/assets/screens/multiplayer.gdxui:10
 #, fuzzy
@@ -563,15 +563,15 @@ msgstr "বাহন নাও"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "সমর্থন"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "পিক্সেল হুইল সম্পর্কিত পণ্য কিনো!"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "দোকান"
 
 #: android/assets/screens/support.gdxui:19
 #, fuzzy
@@ -719,15 +719,15 @@ msgstr "পাশের বোতাম"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "সহজ"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "অভিজ্ঞ"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "কিংবদন্তী"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
@@ -740,13 +740,13 @@ msgstr "প্রতিযোগিতার ফল"
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:336
 #, fuzzy
 msgid "Congratulations, great race!"
-msgstr ""
+msgstr "শুভেচ্ছা, ভালো চালিয়েছ!"
 "অভিনন্দন!\n"
 "তুমি একটি সীমা(রেকর্ড) ভেঙেছো!"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:337
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "তোমার বেশ ভালো চালানোর ক্ষমতা আছে"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:338
 msgid "You're a champ!"
