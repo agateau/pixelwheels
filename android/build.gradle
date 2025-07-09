@@ -35,9 +35,9 @@ android {
     defaultConfig {
         applicationId "com.agateau.tinywheels.android"
         minSdk 19
-        targetSdk 34
+        targetSdk 35
         // Must match ci/install-android-sdk
-        compileSdk 34
+        compileSdk 35
         versionCode versionProps['VERSION_CODE'].toInteger()
         versionName versionProps['VERSION']
     }
