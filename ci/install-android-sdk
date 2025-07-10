@@ -5,8 +5,8 @@ TOOLS_URL=https://dl.google.com/android/repository/commandlinetools-linux-685806
 
 # Must match android/build.gradle
 PACKAGES="
-build-tools;34.0.0
-platforms;android-34
+build-tools;35.0.0
+platforms;android-35
 "
 
 ANDROID_SDK=/opt/android-sdk
