@@ -51,6 +51,7 @@ public class MainMenuScreen extends PwStageScreen {
     private void setupUi() {
         boolean desktop = PlatformUtils.isDesktop();
         UiBuilder builder = new UiBuilder(mGame.getAssets().ui.atlas, mGame.getAssets().ui.skin);
+        DifficultySelectorController.registerFactory(builder, mGame.getConfig());
         if (desktop) {
             builder.defineVariable("desktop");
         }

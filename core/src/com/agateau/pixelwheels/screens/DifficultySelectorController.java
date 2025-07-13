@@ -31,11 +31,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 class DifficultySelectorController {
     public static void registerFactory(UiBuilder builder, GameConfig config) {
         builder.registerMenuItemFactory(
-                "DifficultySelector", (menu, element) -> create(menu, config));
+                "DifficultySelector",
+                (menu, element) -> {
+                    if (element.getBoolean("header", true)) {
+                        menu.addLabel(tr("League"));
+                    }
+                    return create(menu, config);
+                });
     }
 
     private static SliderMenuItem create(Menu menu, GameConfig config) {
-        menu.addLabel(tr("League"));
         SliderMenuItem selector =
                 new SliderMenuItem(menu) {
                     @Override
