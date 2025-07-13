@@ -12,7 +12,7 @@
             </Action>
         </Image>
 
-        <Menu id="menu" width="350" center="root.center 0 -3">
+        <Menu id="menu" width="400" center="root.center 0 -3">
             <Action>
                 alpha 0
                 moveBy -20g 0
@@ -29,7 +29,8 @@
                 <Else>
                     <ButtonMenuItem id="quickRaceButton" text="QUICK RACE"/>
                     <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
-                    <DifficultySelector />
+                    <DifficultySelector header="false"/>
+                    <SpacerMenuItem height="0"/>
                 </Else>
                 <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
                 <ButtonMenuItem id="supportButton" text="SUPPORT"/>
