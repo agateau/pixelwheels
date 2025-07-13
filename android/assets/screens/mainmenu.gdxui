@@ -29,6 +29,7 @@
                 <Else>
                     <ButtonMenuItem id="quickRaceButton" text="QUICK RACE"/>
                     <ButtonMenuItem id="championshipButton" text="CHAMPIONSHIP"/>
+                    <DifficultySelector />
                 </Else>
                 <ButtonMenuItem id="settingsButton" text="SETTINGS"/>
                 <ButtonMenuItem id="supportButton" text="SUPPORT"/>
