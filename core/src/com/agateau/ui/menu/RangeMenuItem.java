@@ -26,6 +26,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -75,35 +76,32 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
                 });
 
         setHeight(mLeftButton.getPrefHeight());
+        addAction(Actions.run(this::postConstructorSetup));
     }
 
     protected void fireChangeEvent() {
         Scene2dUtils.fireChangeEvent(RangeMenuItem.this);
     }
 
-    @Override
-    public void layout() {
-        if (mMainActor == null) {
-            mMainActor = createMainActor(mMenu);
-            float padding = mStyle.framePadding;
-            float buttonSize = getHeight() - 2 * padding;
-            addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT, padding, -padding);
-            addPositionRule(
-                    mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
-            mLeftButton.setSize(buttonSize, buttonSize);
-            mRightButton.setSize(buttonSize, buttonSize);
+    /**
+     * Called via an Actions.run() to finalize the construction of the widget. This architecture is
+     * required because it calls createMainActor() and updateMainActor(). These methods are
+     * overridden by inheriting classes so we must not call them from this class constructor.
+     */
+    private void postConstructorSetup() {
+        mMainActor = createMainActor(mMenu);
+        float padding = mStyle.framePadding;
+        float buttonSize = getHeight() - 2 * padding;
+        addPositionRule(mLeftButton, Anchor.TOP_LEFT, this, Anchor.TOP_LEFT, padding, -padding);
+        addPositionRule(mRightButton, Anchor.TOP_RIGHT, this, Anchor.TOP_RIGHT, -padding, -padding);
+        mLeftButton.setSize(buttonSize, buttonSize);
+        mRightButton.setSize(buttonSize, buttonSize);
 
-            addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
-            addRule(
-                    new EdgeRule(
-                            mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
-            addRule(
-                    new EdgeRule(
-                            mMainActor, EdgeRule.Edge.BOTTOM, mRightButton, EdgeRule.Edge.BOTTOM));
+        addPositionRule(mMainActor, Anchor.TOP_LEFT, mLeftButton, Anchor.TOP_RIGHT);
+        addRule(new EdgeRule(mMainActor, EdgeRule.Edge.RIGHT, mRightButton, EdgeRule.Edge.LEFT));
+        addRule(new EdgeRule(mMainActor, EdgeRule.Edge.BOTTOM, mRightButton, EdgeRule.Edge.BOTTOM));
 
-            updateMainActor();
-        }
-        super.layout();
+        updateMainActor();
     }
 
     @Override
@@ -119,10 +117,19 @@ abstract class RangeMenuItem extends AnchorGroup implements MenuItem {
         super.draw(batch, parentAlpha);
     }
 
-    /** Must create the actor to show between the left and right buttons */
+    /**
+     * Must create the actor to show between the left and right buttons.
+     *
+     * <p>Called the first time act() is called.
+     */
     protected abstract Actor createMainActor(Menu menu);
 
-    /** Called when main actor must be updated because value changed */
+    /**
+     * Must update the main actor to reflect changes in the item value.
+     *
+     * <p>Must be called each time the value changes. This method is automatically called after
+     * createMainActor() has been called and has been positioned in this item layout.
+     */
     public abstract void updateMainActor();
 
     /** Called when the user clicks on the decrease button */
