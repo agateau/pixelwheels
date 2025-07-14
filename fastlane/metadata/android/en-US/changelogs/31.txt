@@ -1,0 +1,8 @@
+There are now 3 difficulty levels: Casual, Pro and Legendary.
+
+Vehicles should be easier to control.
+Added a new vehicle: the C15.
+
+More vehicles now need to be unlocked.
+
+Fixed the button to open the shop or the support pages not working on recent Android versions.

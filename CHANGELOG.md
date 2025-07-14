@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.0-rc.1 - 2025-07-14
+
+### Added
+
+- There are now 3 difficulty levels: Casual, Pro and Legendary.
+
+- Added a new vehicle: the C15!
+
+### Changed
+
+- More vehicles now need to be unlocked: Ant On-1, Pickup, 2-deuch and Roadster.
+
+- Tweaked steering, acceleration and turbo settings to make vehicles easier to control.
+
+- Improved country tracks.
+
+- Screenshots are now stored in a "screenshots" subdirectory of the local config directory.
+
+### Fixed
+
+- Fixed the button to open the shop or the support pages not working on recent Android versions.
+
 ## 0.26.0 - 2024-09-03
 
 ### Added
