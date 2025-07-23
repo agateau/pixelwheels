@@ -97,21 +97,6 @@
     make butler-upload
     ```
 
-## Game page
-
-- [ ] Update game page
-    - [ ] Screenshots
-    - [ ] Archive links
-- [ ] Write blog post
-- [ ] Publish
-
-## Itch.io
-
-- [ ] Update game page
-    - [ ] Screenshots
-- [ ] Write blog post
-- [ ] Publish
-
 ## Flathub
 
 - [ ] Upload on GitHub
@@ -125,6 +110,20 @@
 - [ ] Wait for CI to be happy
 - [ ] Merge PR
 
+## Game page
+
+- [ ] Update game page
+    - [ ] Screenshots
+- [ ] Write blog post
+- [ ] Publish
+
+## Itch.io
+
+- [ ] Update game page
+    - [ ] Screenshots
+- [ ] Write blog post
+- [ ] Publish
+
 ## F-Droid
 
 - [ ] Get the F-Droid version updated
@@ -133,7 +132,6 @@
 
 - [ ] Select relevant screenshot
 - [ ] Post on:
-    - [ ] Patreon
     - [ ] Ko-fi
     - [ ] Mastodon
     - [ ] Relevant reddits
