@@ -101,7 +101,7 @@ msgid "Pixels"
 msgstr "Piksel"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:116
+#: android/assets/screens/credits.gdxui:119
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -333,58 +333,66 @@ msgid "Heimen Stoffels"
 msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
+msgid "Indonesian:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:111
+msgid "Neko Nekowazarashi"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:113
 msgid "Video Editing"
 msgstr "Penyunting Video"
 
-#: android/assets/screens/credits.gdxui:112
+#: android/assets/screens/credits.gdxui:115
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:114
+#: android/assets/screens/credits.gdxui:117
 msgid "Special Thanks"
 msgstr "Terima Kasih Spesial Pada"
 
-#: android/assets/screens/credits.gdxui:117
+#: android/assets/screens/credits.gdxui:120
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:118
+#: android/assets/screens/credits.gdxui:121
 msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:119
+#: android/assets/screens/credits.gdxui:122
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
-#: android/assets/screens/credits.gdxui:120
+#: android/assets/screens/credits.gdxui:123
 msgid "All bug reporters"
 msgstr "Semua pelapor kutu"
 
-#: android/assets/screens/credits.gdxui:121
+#: android/assets/screens/credits.gdxui:124
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Semua pendukung di Patreon, Ko-fi, dan Paypal"
 
-#: android/assets/screens/credits.gdxui:123
+#: android/assets/screens/credits.gdxui:126
 msgid "Made with"
 msgstr "Dibuat menggunakan"
 
-#: android/assets/screens/credits.gdxui:125
+#: android/assets/screens/credits.gdxui:128
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:126
+#: android/assets/screens/credits.gdxui:129
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:127
+#: android/assets/screens/credits.gdxui:130
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:128
+#: android/assets/screens/credits.gdxui:131
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:129
+#: android/assets/screens/credits.gdxui:132
 msgid "Android Studio"
 msgstr "Android Studio"
 
@@ -473,12 +481,12 @@ msgstr "BALAPAN CEPAT"
 msgid "CHAMPIONSHIP"
 msgstr "KEJUARAAN"
 
-#: android/assets/screens/mainmenu.gdxui:33
+#: android/assets/screens/mainmenu.gdxui:35
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
 msgstr "PENGATURAN"
 
-#: android/assets/screens/mainmenu.gdxui:34
+#: android/assets/screens/mainmenu.gdxui:36
 msgid "SUPPORT"
 msgstr "DUKUNG"
 
@@ -581,6 +589,11 @@ msgctxt "vehicle"
 msgid "Broster Truck"
 msgstr "Truk Gede"
 
+#: android/assets/vehicles/c15.xml:1
+msgctxt "vehicle"
+msgid "C15 Vindieu"
+msgstr ""
+
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
@@ -648,19 +661,25 @@ msgstr "Kena masalah? Gunakan tombol ini untuk melaporkannya."
 msgid "REPORT BUG"
 msgstr "LAPORKAN MASALAH"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:109
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:133
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:110
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:144
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
 msgstr[0] "Tembak satu kendaraan pakai roket"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:118
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:142
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:119
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:153
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
 msgstr[0] "Keluar jalan sekali"
 
-#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:125
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
+#, fuzzy
+msgid "Drive in the sand one time"
+msgid_plural "Drive in the sand %# times"
+msgstr[0] "Keluar jalan sekali"
+
+#: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
 msgstr[0] "Pilih satu bonus"
@@ -895,7 +914,7 @@ msgstr "PENGATURAN"
 msgid "Thank you for playing!"
 msgstr "Terima kasih telah bermain!"
 
-#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
+#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:37
 msgid "League"
 msgstr "Liga"
 
@@ -915,12 +934,12 @@ msgid "MAIN MENU"
 msgstr "MENU UTAMA"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:281
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:282
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[Terkunci]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:322
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:323
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Komputer"
