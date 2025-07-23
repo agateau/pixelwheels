@@ -101,7 +101,7 @@ msgid "Pixels"
 msgstr "Pixels"
 
 #: android/assets/screens/credits.gdxui:17
-#: android/assets/screens/credits.gdxui:116
+#: android/assets/screens/credits.gdxui:119
 msgid "Antonin Gâteau"
 msgstr "Antonin Gâteau"
 
@@ -333,58 +333,66 @@ msgid "Heimen Stoffels"
 msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
+msgid "Indonesian:"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:111
+msgid "Neko Nekowazarashi"
+msgstr ""
+
+#: android/assets/screens/credits.gdxui:113
 msgid "Video Editing"
 msgstr "Videobewerking"
 
-#: android/assets/screens/credits.gdxui:112
+#: android/assets/screens/credits.gdxui:115
 msgid "Clara Gâteau"
 msgstr "Clara Gâteau"
 
-#: android/assets/screens/credits.gdxui:114
+#: android/assets/screens/credits.gdxui:117
 msgid "Special Thanks"
 msgstr "Veel dank aan"
 
-#: android/assets/screens/credits.gdxui:117
+#: android/assets/screens/credits.gdxui:120
 msgid "Guillaume Roche"
 msgstr "Guillaume Roche"
 
-#: android/assets/screens/credits.gdxui:118
+#: android/assets/screens/credits.gdxui:121
 msgid "Ethan Chapman"
 msgstr "Ethan Chapman"
 
-#: android/assets/screens/credits.gdxui:119
+#: android/assets/screens/credits.gdxui:122
 msgid "Marek Szumny"
 msgstr "Marek Szumny"
 
-#: android/assets/screens/credits.gdxui:120
+#: android/assets/screens/credits.gdxui:123
 msgid "All bug reporters"
 msgstr "Alle bugmelders"
 
-#: android/assets/screens/credits.gdxui:121
+#: android/assets/screens/credits.gdxui:124
 msgid "All supporters on Patreon, Ko-fi and Paypal"
 msgstr "Alle sponsoren op Patreon, Ko-fi en Paypal"
 
-#: android/assets/screens/credits.gdxui:123
+#: android/assets/screens/credits.gdxui:126
 msgid "Made with"
 msgstr "Gemaakt met"
 
-#: android/assets/screens/credits.gdxui:125
+#: android/assets/screens/credits.gdxui:128
 msgid "LibGDX"
 msgstr "LibGDX"
 
-#: android/assets/screens/credits.gdxui:126
+#: android/assets/screens/credits.gdxui:129
 msgid "Tiled"
 msgstr "Tiled"
 
-#: android/assets/screens/credits.gdxui:127
+#: android/assets/screens/credits.gdxui:130
 msgid "Aseprite"
 msgstr "Aseprite"
 
-#: android/assets/screens/credits.gdxui:128
+#: android/assets/screens/credits.gdxui:131
 msgid "SFXR Qt"
 msgstr "SFXR Qt"
 
-#: android/assets/screens/credits.gdxui:129
+#: android/assets/screens/credits.gdxui:132
 msgid "Android Studio"
 msgstr "Android Studio"
 
@@ -473,12 +481,12 @@ msgstr "KORTE RACE"
 msgid "CHAMPIONSHIP"
 msgstr "KAMPIOENSCHAP"
 
-#: android/assets/screens/mainmenu.gdxui:33
+#: android/assets/screens/mainmenu.gdxui:35
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
 msgstr "INSTELLINGEN"
 
-#: android/assets/screens/mainmenu.gdxui:34
+#: android/assets/screens/mainmenu.gdxui:36
 msgid "SUPPORT"
 msgstr "ONDERSTEUNING"
 
@@ -912,7 +920,7 @@ msgstr "INSTELLEN"
 msgid "Thank you for playing!"
 msgstr "Bedankt voor het spelen!"
 
-#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:38
+#: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:37
 msgid "League"
 msgstr "Competitie"
 
@@ -932,12 +940,12 @@ msgid "MAIN MENU"
 msgstr "HOOFDMENU"
 
 #: core/src/com/agateau/pixelwheels/screens/SelectChampionshipScreen.java:158
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:281
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:282
 #: core/src/com/agateau/pixelwheels/screens/SelectVehicleScreen.java:144
 msgid "[Locked]"
 msgstr "[Vergrendeld]"
 
-#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:322
+#: core/src/com/agateau/pixelwheels/screens/SelectTrackScreen.java:323
 msgctxt "vehicle-record-placeholder"
 msgid "CPU"
 msgstr "Cpu"
