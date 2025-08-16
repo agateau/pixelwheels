@@ -20,6 +20,7 @@ package com.agateau.pixelwheels.racescreen;
 
 import com.agateau.pixelwheels.Assets;
 import com.agateau.pixelwheels.screens.PwStageScreen;
+import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
 import com.agateau.utils.PlatformUtils;
 import com.badlogic.gdx.Gdx;
@@ -37,6 +38,7 @@ public class Hud {
     private final AnchorGroup mRoot;
     private AnchorGroup mInputUiContainer;
     private float mZoom;
+    private HudButton mPauseButton;
 
     public Hud(Assets assets, Stage stage) {
         mRoot = new AnchorGroup();
@@ -81,6 +83,15 @@ public class Hud {
         updateZoom();
     }
 
+    public float getInputUiWidth() {
+        return mRoot.getWidth();
+    }
+
+    public float getInputUiHeight() {
+        float pauseButtonHeight = mPauseButton == null ? 0 : mPauseButton.getHeight();
+        return mRoot.getHeight() - pauseButtonHeight;
+    }
+
     public float getZoom() {
         return mZoom;
     }
@@ -98,5 +109,10 @@ public class Hud {
 
         // Multiply by upp to compensate for the viewport scaling set in RaceScreen.resize()
         mZoom = Math.max(pxSize / BUTTON_SIZE_PX * upp, 1);
+    }
+
+    public void addPauseButton(HudButton button) {
+        mPauseButton = button;
+        mRoot.addPositionRule(button, Anchor.TOP_LEFT, mRoot, Anchor.TOP_LEFT);
     }
 }
