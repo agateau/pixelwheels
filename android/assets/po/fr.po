@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-09 15:40+0000\n"
+"PO-Revision-Date: 2025-08-22 19:52+0000\n"
 "Last-Translator: Aurelien Gateau <mail@agateau.com>\n"
 "Language-Team: French <https://toolate.othing.xyz/projects/pixel-wheels/app/"
 "fr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -332,11 +332,11 @@ msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Indonesian:"
-msgstr ""
+msgstr "Indonésien :"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Neko Nekowazarashi"
-msgstr ""
+msgstr "Neko Nekowazarashi"
 
 #: android/assets/screens/credits.gdxui:113
 msgid "Video Editing"
