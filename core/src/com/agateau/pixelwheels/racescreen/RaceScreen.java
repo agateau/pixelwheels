@@ -149,7 +149,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private RacerHudController createRacerHudController(Track track, Racer playerRacer) {
-        Hud hud = new Hud(mGame.getAssets(), mHudStage);
+        Hud hud = new Hud(mGame, mHudStage);
         RacerHudController controller =
                 new RacerHudController(mGame.getAssets(), mGameWorld, hud, playerRacer);
 
@@ -165,7 +165,7 @@ public class RaceScreen extends ScreenAdapter {
     }
 
     private void createCountDownHudController() {
-        Hud hud = new Hud(mGame.getAssets(), mHudStage);
+        Hud hud = new Hud(mGame, mHudStage);
         mCountDownHudController = new CountDownHudController(mGame.getAssets(), mGameWorld, hud);
     }
 

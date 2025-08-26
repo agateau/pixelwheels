@@ -18,7 +18,8 @@
  */
 package com.agateau.pixelwheels.racescreen;
 
-import com.agateau.pixelwheels.Assets;
+import com.agateau.pixelwheels.GameConfig;
+import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.screens.PwStageScreen;
 import com.agateau.ui.anchor.Anchor;
 import com.agateau.ui.anchor.AnchorGroup;
@@ -36,14 +37,16 @@ public class Hud {
     private final float BUTTON_SIZE_PX;
 
     private final AnchorGroup mRoot;
+    private final PwGame mGame;
     private AnchorGroup mInputUiContainer;
     private float mZoom;
     private HudButton mPauseButton;
 
-    public Hud(Assets assets, Stage stage) {
+    public Hud(PwGame game, Stage stage) {
+        mGame = game;
         mRoot = new AnchorGroup();
 
-        BUTTON_SIZE_PX = assets.findRegion("hud-pie-right").getRegionWidth();
+        BUTTON_SIZE_PX = game.getAssets().findRegion("hud-pie-right").getRegionWidth();
         stage.addActor(mRoot);
     }
 
@@ -93,6 +96,10 @@ public class Hud {
     }
 
     public float getZoom() {
+        float zoom = mGame.getConfig().hudZoom;
+        if (zoom != GameConfig.HUD_ZOOM_AUTO) {
+            return zoom;
+        }
         return mZoom;
     }
 

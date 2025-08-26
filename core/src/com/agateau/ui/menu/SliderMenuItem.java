@@ -126,6 +126,14 @@ public class SliderMenuItem extends RangeMenuItem {
         setIntValue(getIntValue());
     }
 
+    public boolean isAtMinimumValue() {
+        return mValue == mMin;
+    }
+
+    public void setToMinimumValue() {
+        mValue = mMin;
+    }
+
     public int getIntValue() {
         return mValue;
     }
