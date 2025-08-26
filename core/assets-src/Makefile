@@ -44,13 +44,16 @@ $(OUT_DIR)/sprites/helicopter-body.png: sprites/helicopter.ase
 
 # hud-*
 # Just enough to trigger the target
-hud: $(OUT_DIR)/sprites/hud-pause.png $(OUT_DIR)/sprites/lap-icon.png
+hud: $(OUT_DIR)/sprites/hud-pause.png $(OUT_DIR)/sprites/lap-icon.png sprites/hud/hud.py
 
-$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie-buttons.ase sprites/hud/hud-sides-buttons.ase sprites/hud/hud.py
+$(OUT_DIR)/sprites/hud-pause.png: sprites/hud/hud-pie2-buttons.ase sprites/hud/hud-pie-buttons.ase sprites/hud/hud-sides-buttons.ase sprites/hud/hud.py
 	mkdir -p $(OUT_DIR)/sprites
 
 	asesplit --split-layers --trim sprites/hud/hud-pie-buttons.ase \
 		"sprites/hud/hud-{layer}.png"
+
+	asesplit --split-slices sprites/hud/hud-pie2-buttons.ase \
+		"sprites/hud/hud-pie2-{slice}.png"
 
 	asesplit --split-slices sprites/hud/hud-sides-buttons.ase \
 		"sprites/hud/{slice}.png"

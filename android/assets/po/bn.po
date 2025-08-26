@@ -713,13 +713,19 @@ msgstr "গেমপ্যাড"
 msgid "Keyboard"
 msgstr "কিবোর্ড"
 
+#: core/src/com/agateau/pixelwheels/gameinput/Pie2TouchInputHandler.java:52
+#, fuzzy
+msgid "Round buttons"
+msgstr "পাশের বোতাম"
+
+#: core/src/com/agateau/pixelwheels/gameinput/Pie2TouchInputHandler.java:93
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:52
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
 msgstr "চাকা বোতাম"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:52
-#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:108
+#: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:107
 msgid "Side buttons"
 msgstr "পাশের বোতাম"
 
@@ -839,103 +845,103 @@ msgstr ""
 "প্রতিযোগিতা\n"
 "সমাপ্ত!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:115
 msgid "About"
 msgstr "সম্পর্কে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 #, java-printf-format
 msgid "Pixel Wheels %s"
 msgstr "পিকগসেল হুইল %s"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:118
 msgid "CREDITS"
 msgstr "কৃতজ্ঞতা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:128
 #, fuzzy
 msgid "WEB SITE"
 msgstr "ওয়েবসাইট দেখো"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:142
 msgid "Under the hood"
 msgstr "ঢাকনার নিচে"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:162
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
 msgstr "এই পছন্দসমূহ মূলত প্রকৌশলগত কারণে এখানে, কিন্তু এগুলো ব্যবহার করতে ভয় করো না!"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:165
 msgid "DEV. OPTIONS"
 msgstr "প্রকৌশলী পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:177
 msgid "Controls"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:187
 #, java-printf-format
 msgid "P%d"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:189
 #, java-printf-format
 msgid "Player #%d:"
 msgstr "খেলোয়াড় #%d:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:193
 msgid "Controls:"
 msgstr "পছন্দসমূহ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:199
 msgid "General"
 msgstr "সাধারণ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:210
 msgid "Language:"
 msgstr "ভাষা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
 msgstr "রেসের মাঝে পরিবর্তনযোগ্য নয়"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:217
 msgid "Audio"
 msgstr "শব্দ"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:227
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:230
 msgid "Sound FX:"
 msgstr "সংগীত প্রভাব:"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:244
 msgid "Music:"
 msgstr "সংগীত"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:246
 msgid "Video"
 msgstr "ভিডিও"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:261
 msgid "Fullscreen:"
 msgstr "বড়পর্দা"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:273
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:276
 msgid "Rotate camera:"
 msgstr "ক্যামেরা ঘুরাও"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:301
 msgid "CONFIGURE"
 msgstr "পাল্টাও"
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:315
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:318
 msgctxt "Indicates the HUD zoom adjusts itself automatically"
 msgid "Automatic"
 msgstr ""
 
-#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:324
+#: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:327
 msgid "Zoom:"
 msgstr ""
 

@@ -62,6 +62,7 @@ public class GameInputHandlerFactories {
 
         if (hasMultitouch()) {
             sFactories.add(new PieTouchInputHandler.Factory());
+            sFactories.add(new Pie2TouchInputHandler.Factory());
             sFactories.add(new SidesTouchInputHandler.Factory());
         }
         // We used to only add the keyboard input handler if this returned true:

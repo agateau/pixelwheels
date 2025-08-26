@@ -19,6 +19,7 @@ DOWN_DEPTH = 1
 OUTLINE_SIZE = 1
 
 PIE_FINAL_SIZE = (132 + 2 * OUTLINE_SIZE, 132 + NORMAL_DEPTH)
+PIE2_FINAL_SIZE = (96 + 2 * OUTLINE_SIZE, 96 + 2 * OUTLINE_SIZE + NORMAL_DEPTH)
 
 SIDES_FINAL_SIZE = (140 + 2 * OUTLINE_SIZE, 80 + NORMAL_DEPTH)
 
@@ -29,6 +30,10 @@ BUTTONS = [
     Button("pie-brake", pafx.BOTTOM_LEFT, PIE_FINAL_SIZE),
     Button("pie-left", pafx.TOP_LEFT, PIE_FINAL_SIZE),
     Button("pie-right", pafx.BOTTOM_RIGHT, PIE_FINAL_SIZE),
+    Button("pie2-action", pafx.CENTER, PIE2_FINAL_SIZE),
+    Button("pie2-brake", pafx.CENTER, PIE2_FINAL_SIZE),
+    Button("pie2-left", pafx.CENTER, PIE2_FINAL_SIZE),
+    Button("pie2-right", pafx.CENTER, PIE2_FINAL_SIZE),
     Button("sides-left", pafx.BOTTOM_LEFT, SIDES_FINAL_SIZE),
     Button("sides-right", pafx.BOTTOM_RIGHT, SIDES_FINAL_SIZE),
     Button("sides-action", pafx.CENTER_RIGHT, SIDES_FINAL_SIZE),
@@ -55,16 +60,18 @@ def create_button(src, down=False):
 
     for x in range(depth):
         img = pafx.add_depth(img, color=DEPTH_COLOR)
-    return pafx.add_outline(img, color=OUTLINE_COLOR)
+    img = pafx.add_outline(img, color=OUTLINE_COLOR)
+    return img
 
 
 def create_buttons(src, name, anchor=pafx.CENTER, final_size=None):
-    imgs = ((create_button(src), ""), (create_button(src, down=True), "-down"))
-    for img, suffix in imgs:
+    for down in False, True:
+        img = create_button(src, down=down)
         if final_size:
             img2 = pafx.clone_format(img, final_size)
             pafx.paste(img2, img, dst_anchor=anchor, src_anchor=anchor)
             img = img2
+        suffix = "-down" if down else ""
         img.save(join(DST_DIR, name + suffix + ".png"))
 
 

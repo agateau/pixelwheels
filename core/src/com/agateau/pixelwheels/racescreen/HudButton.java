@@ -36,6 +36,8 @@ public class HudButton extends Widget {
     private final Hud mHud;
     private final ClickListener mClickListener;
     private boolean mEnabled = true;
+    private float mOffsetX = 0;
+    private float mOffsetY = 0;
 
     /** name is a string like "left" or "right" */
     public HudButton(Assets assets, Hud hud, String name) {
@@ -45,6 +47,11 @@ public class HudButton extends Widget {
         setTouchable(Touchable.enabled);
         mClickListener = new ClickListener();
         addListener(mClickListener);
+    }
+
+    public void setOffset(float x, float y) {
+        mOffsetX = x;
+        mOffsetY = y;
     }
 
     public boolean isPressed() {
@@ -68,8 +75,8 @@ public class HudButton extends Widget {
 
         batch.draw(
                 mRegions[isPressed() ? 1 : 0],
-                MathUtils.round(getX()),
-                MathUtils.round(getY()),
+                MathUtils.round(getX() + mOffsetX),
+                MathUtils.round(getY() + mOffsetY),
                 getWidth(),
                 getHeight());
 
