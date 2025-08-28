@@ -1,3 +1,3 @@
-git+https://github.com/agateau/pafx@9c364ca9098d70ee23b6c4caccbcdf0cc44f2fb4#egg=pafx
+git+https://github.com/agateau/pafx@a51a31b3e72399363d900c878649fb334242b8c7#egg=pafx
 fonttools==4.27.1
 asetools==0.1.1
