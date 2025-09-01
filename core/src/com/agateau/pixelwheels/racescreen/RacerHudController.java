@@ -120,8 +120,7 @@ public class RacerHudController {
     public void createPauseButton(ClickListener clickListener) {
         HudButton button = new HudButton(mAssets, mHud, "pause");
         button.addListener(clickListener);
-        AnchorGroup root = mHud.getRoot();
-        root.addPositionRule(button, Anchor.TOP_LEFT, root, Anchor.TOP_LEFT);
+        mHud.addPauseButton(button);
     }
 
     @SuppressWarnings("UnusedParameters")

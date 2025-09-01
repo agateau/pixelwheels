@@ -95,20 +95,15 @@ public class PieTouchInputHandler implements GameInputHandler {
 
     @Override
     public void createHudButtons(Assets assets, Hud hud) {
-        final float radius = 132;
         mLeftButton = new PieButton(assets, hud, "pie-left");
         mLeftButton.setSector(45, 90);
-        mLeftButton.setRadius(radius);
         mRightButton = new PieButton(assets, hud, "pie-right");
         mRightButton.setSector(0, 45);
-        mRightButton.setRadius(radius);
         mBonusButton = new PieButton(assets, hud, "pie-action");
         mBonusButton.setSector(90, 135);
-        mBonusButton.setRadius(radius);
         mBonusButton.setEnabled(false);
         mBrakeButton = new PieButton(assets, hud, "pie-brake");
         mBrakeButton.setSector(135, 180);
-        mBrakeButton.setRadius(radius);
 
         AnchorGroup root = hud.getInputUiContainer();
 

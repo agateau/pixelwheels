@@ -39,6 +39,7 @@ import com.agateau.ui.menu.Menu;
 import com.agateau.ui.menu.MenuItemGroup;
 import com.agateau.ui.menu.MenuItemListener;
 import com.agateau.ui.menu.SelectorMenuItem;
+import com.agateau.ui.menu.SliderMenuItem;
 import com.agateau.ui.menu.SwitchMenuItem;
 import com.agateau.ui.menu.TabMenuItem;
 import com.agateau.ui.uibuilder.UiBuilder;
@@ -185,6 +186,7 @@ public class ConfigScreen extends PwStageScreen {
                 setupInputSelector(mMenu, playerGroup, selectorText, idx);
             }
         } else {
+            setupHudZoomSlider(mMenu, group);
             setupInputSelector(mMenu, group, tr("Controls:"), 0);
         }
     }
@@ -302,6 +304,45 @@ public class ConfigScreen extends PwStageScreen {
         InputSelectorController controller =
                 new InputSelectorController(mGame, selector, configureButton, nameLabel, idx);
         controller.setStartupState();
+    }
+
+    private void setupHudZoomSlider(Menu menu, MenuItemGroup group) {
+        SliderMenuItem zoomSlider =
+                new SliderMenuItem(menu) {
+                    protected String formatValue(int value) {
+                        if (isAtMinimumValue()) {
+                            return trc(
+                                    "Automatic",
+                                    "Indicates the HUD zoom adjusts itself automatically");
+                        } else {
+                            return super.formatValue(value);
+                        }
+                    }
+                };
+        float step = 0.2f;
+        zoomSlider.setRange(1f - step, 3f, step);
+        group.addItemWithLabel(tr("Zoom:"), zoomSlider);
+
+        float value = mGame.getConfig().hudZoom;
+        if (value == GameConfig.HUD_ZOOM_AUTO) {
+            zoomSlider.setToMinimumValue();
+        } else {
+            zoomSlider.setFloatValue(value);
+        }
+
+        zoomSlider.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        GameConfig config = mGame.getConfig();
+                        if (zoomSlider.isAtMinimumValue()) {
+                            config.hudZoom = GameConfig.HUD_ZOOM_AUTO;
+                        } else {
+                            config.hudZoom = zoomSlider.getFloatValue();
+                        }
+                        config.flush(GameConfig.ConfigGroup.OTHER);
+                    }
+                });
     }
 
     @Override

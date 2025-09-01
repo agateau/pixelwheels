@@ -34,6 +34,7 @@ import java.util.Map;
 
 /** The game configuration */
 public class GameConfig {
+    public static final float HUD_ZOOM_AUTO = 0;
 
     /**
      * Config keys are packed in groups. After modifying keys, one must call @ref GameConfig.flush()
@@ -56,6 +57,7 @@ public class GameConfig {
     public boolean playSoundFx = true;
     public boolean playMusic = true;
     public String languageId = "";
+    public float hudZoom = HUD_ZOOM_AUTO;
 
     public GameMode gameMode = GameMode.QUICK_RACE;
     public final String[] vehicles = new String[Constants.MAX_PLAYERS];

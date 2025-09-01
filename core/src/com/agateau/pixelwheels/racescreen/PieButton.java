@@ -26,7 +26,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class PieButton extends HudButton {
     private float mFrom = 0f;
     private float mTo = 90f;
-    private float mRadius = 100;
 
     /** name is a string like "left" or "right" */
     public PieButton(Assets assets, Hud hud, String name) {
@@ -38,38 +37,28 @@ public class PieButton extends HudButton {
         mTo = to;
     }
 
-    public void setRadius(float radius) {
-        mRadius = radius;
-    }
-
-    @Override
-    public void act(float dt) {
-        super.act(dt);
-        updateOrigin();
-    }
-
-    private void updateOrigin() {
-        if (mFrom >= 90) {
-            setOrigin(getWidth(), 0);
-        } else {
-            setOrigin(0, 0);
-        }
+    private boolean isOnTheRight() {
+        return mFrom >= 90;
     }
 
     @Override
     public Actor hit(float x, float y, boolean touchable) {
-        // Let the base implementation perform AABB collision detection
-        Actor result = super.hit(x, y, touchable);
-        if (result == null) {
+        // Check hit is below the pause button
+        if (y >= getHud().getInputUiHeight()) {
             return null;
         }
 
-        // Check if we are outside the radius
-        x -= getOriginX();
-        y -= getOriginY();
-        float radius = mRadius * getHud().getZoom();
-        if (x * x + y * y > radius * radius) {
-            return null;
+        // Check hit is on the same side as the button
+        if (isOnTheRight()) {
+            // Adjust x to be relative to the right edge
+            x -= getWidth();
+            if (x <= -getHud().getInputUiWidth() / 2) {
+                return null;
+            }
+        } else {
+            if (x >= getHud().getInputUiWidth() / 2) {
+                return null;
+            }
         }
 
         // Now check if we hit the right sector
