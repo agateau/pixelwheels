@@ -68,13 +68,22 @@ public class PoParser {
                                         ? 1
                                         : 2);
         sPluralExpressionByString.put("0", n -> 0);
-        // Russian
+        // Russian variant 1
         sPluralExpressionByString.put(
                 "n%10==1&&n%100!=11?0:n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?1:2",
                 n ->
                         n % 10 == 1 && n % 100 != 11
                                 ? 0
                                 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)
+                                        ? 1
+                                        : 2);
+        // Russian variant 2
+        sPluralExpressionByString.put(
+                "n%10==1&&n%100!=11?0:n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?1:2",
+                n ->
+                        n % 10 == 1 && n % 100 != 11
+                                ? 0
+                                : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
                                         ? 1
                                         : 2);
     }
