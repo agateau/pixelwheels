@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="73" height="66" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="150">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="73" height="66" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="150">
  <properties>
   <property name="paddingBottom" type="int" value="6"/>
   <property name="paddingLeft" type="int" value="6"/>
@@ -300,10 +300,10 @@
    <polyline points="0,0 160,110"/>
   </object>
   <object id="140" type="block" x="1140" y="2577.33">
-   <polyline points="-1.33333,46 -115.333,-130"/>
+   <polyline points="32.5447,71.9067 -99.3904,-166.867"/>
   </object>
   <object id="141" type="block" x="830.667" y="2446.67">
-   <polyline points="0,0 -176,192"/>
+   <polyline points="-19.9162,-36.3449 -229.515,347.479"/>
   </object>
   <object id="142" type="block" x="2458.33" y="3405.33">
    <polyline points="0,0 160,110"/>
