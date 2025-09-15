@@ -40,8 +40,8 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
     private static final float FULL_VOLUME_DRIFT_DURATION = 0.6f;
     private static final float MIN_IMPACT_SPEED = 3;
 
-    private static final float MIN_COLLISION_PITCH = 0.5f;
-    private static final float MAX_COLLISION_PITCH = 2f;
+    private static final float MIN_COLLISION_PITCH = 0.1f;
+    private static final float MAX_COLLISION_PITCH = 4f;
 
     private static final float ICE_DRIFT_PITCH = 0.5f;
 
@@ -115,9 +115,9 @@ class AudioComponent implements Racer.Component, Disposable, Collidable {
 
         if (mJustCollided) {
             mCollisionSoundPlayer.setVolume(maxVolume);
+            float pitch = MathUtils.random(MIN_COLLISION_PITCH, MAX_COLLISION_PITCH);
+            mCollisionSoundPlayer.setPitch(pitch);
             if (!mCollisionSoundPlayer.isLooping()) {
-                float pitch = MathUtils.random(MIN_COLLISION_PITCH, MAX_COLLISION_PITCH);
-                mCollisionSoundPlayer.setPitch(pitch);
                 mCollisionSoundPlayer.loop();
             }
             mJustCollided = false;
