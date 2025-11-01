@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-26 20:36+0000\n"
+"PO-Revision-Date: 2025-10-02 10:35+0000\n"
 "Last-Translator: Yurt Page <yurtpage+translate@gmail.com>\n"
 "Language-Team: Russian <https://toolate.othing.xyz/projects/pixel-wheels/app/"
 "ru/>\n"
@@ -922,11 +922,11 @@ msgstr "НАСТРОИТЬ"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:315
 msgctxt "Indicates the HUD zoom adjusts itself automatically"
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматически"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:324
 msgid "Zoom:"
-msgstr ""
+msgstr "Увеличение:"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
