@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-06-24 12:32+0200\n"
+"PO-Revision-Date: 2025-11-13 13:36+0100\n"
 "Last-Translator: Un Galego Mais\n"
 "Language-Team: Galician <>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
@@ -247,7 +247,7 @@ msgstr "Galego:"
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
@@ -335,11 +335,11 @@ msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Indonesian:"
-msgstr ""
+msgstr "Indonesio:"
 
 #: android/assets/screens/credits.gdxui:111
 msgid "Neko Nekowazarashi"
-msgstr ""
+msgstr "Neko Nekowazarashi"
 
 #: android/assets/screens/credits.gdxui:113
 msgid "Video Editing"
@@ -918,11 +918,11 @@ msgstr "CONFIGURAR"
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:315
 msgctxt "Indicates the HUD zoom adjusts itself automatically"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatico"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:324
 msgid "Zoom:"
-msgstr ""
+msgstr "Zoom:"
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
