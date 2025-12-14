@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.0.0 - 2025-12-14
+
+### Added
+
+- Pixel Wheels now speaks Indonesian, thanks to Neko Nekowazarashi.
+
+- It is now possible to zoom the HUD buttons if they are too small.
+
+### Changed
+
+- Make it easier to drive using pie buttons: their hit zone now extend as far as possible (#24).
+
+- Collision sound effects are now more varied.
+
+### Fixed
+
+- HUD buttons no longer look totally flat.
+
+- Plugged a hole at the start of Tiny-sur-mer where small vehicles like the BGRP42 could sneak and get stuck (#511).
+
 ## 1.0.0-rc.1 - 2025-07-14
 
 ### Added

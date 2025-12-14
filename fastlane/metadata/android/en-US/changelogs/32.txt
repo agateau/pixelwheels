@@ -1,0 +1,7 @@
+Pixel Wheels now speaks Indonesian, thanks to Neko Nekowazarashi.
+
+It is now possible to zoom the HUD buttons if they are too small. They are also easier to use and no longer look totally flat.
+
+Collision sound effects are now more varied.
+
+Plugged a hole at the start of Tiny-sur-mer where small vehicles like the BGRP42 could sneak and get stuck.
