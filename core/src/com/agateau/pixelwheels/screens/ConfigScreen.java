@@ -29,6 +29,7 @@ import com.agateau.pixelwheels.LogExporterUtils;
 import com.agateau.pixelwheels.PwGame;
 import com.agateau.pixelwheels.PwRefreshHelper;
 import com.agateau.pixelwheels.VersionInfo;
+import com.agateau.pixelwheels.debug.Debug;
 import com.agateau.pixelwheels.gameinput.GameInputHandlerFactory;
 import com.agateau.pixelwheels.screens.config.InputSelectorController;
 import com.agateau.pixelwheels.utils.StringUtils;
@@ -176,6 +177,9 @@ public class ConfigScreen extends PwStageScreen {
         MenuItemGroup group = mTabMenuItem.addPage(tr("Controls"));
         group.setWidth(750);
 
+        if (!PlatformUtils.isDesktop() || Debug.instance.alwaysShowTouchInput) {
+            setupHudZoomSlider(mMenu, group);
+        }
         if (PlatformUtils.isDesktop()) {
             TabMenuItem tabMenuItem = new TabMenuItem(mMenu);
             group.addItem(tabMenuItem);
@@ -186,7 +190,6 @@ public class ConfigScreen extends PwStageScreen {
                 setupInputSelector(mMenu, playerGroup, selectorText, idx);
             }
         } else {
-            setupHudZoomSlider(mMenu, group);
             setupInputSelector(mMenu, group, tr("Controls:"), 0);
         }
     }
