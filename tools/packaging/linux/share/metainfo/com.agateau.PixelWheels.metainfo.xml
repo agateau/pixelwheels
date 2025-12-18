@@ -43,6 +43,7 @@
     <!--
     grep '^## ' CHANGELOG.md | sed 's,## \([0-9.]*\) - \([0-9-]*\),<release version="\1" date="\2"/>,'
     -->
+    <release version="1.0.1" date="2025-12-18"/>
     <release version="1.0.0" date="2025-12-14"/>
     <release version="1.0.0-rc.1" date="2025-07-14"/>
     <release version="0.26.0" date="2024-09-04"/>

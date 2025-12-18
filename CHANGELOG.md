@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 - 2025-12-18
+
+### Fixed
+
+- Make HUD zoom persistent.
+
+- Fixed HUD buttons overlapping when HUD zoom is too high.
+
 ## 1.0.0 - 2025-12-14
 
 ### Added
