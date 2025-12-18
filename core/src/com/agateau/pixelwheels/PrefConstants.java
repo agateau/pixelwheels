@@ -32,4 +32,5 @@ public class PrefConstants {
     public static final String LANGUAGE_ID = "languageId";
     public static final String HEADING_UP_CAMERA = "headingUpCamera";
     public static final String DIFFICULTY = "difficulty";
+    public static final String HUD_ZOOM = "hudZoom";
 }

@@ -115,6 +115,7 @@ public class GameConfig {
         this.championship = mPreferences.getString(PrefConstants.CHAMPIONSHIP_ID);
 
         this.languageId = mPreferences.getString(PrefConstants.LANGUAGE_ID);
+        this.hudZoom = mPreferences.getFloat(PrefConstants.HUD_ZOOM, HUD_ZOOM_AUTO);
 
         setupInputHandlers();
     }
@@ -149,6 +150,7 @@ public class GameConfig {
 
                 mPreferences.putString(PrefConstants.TRACK_ID, this.track);
                 mPreferences.putString(PrefConstants.CHAMPIONSHIP_ID, this.championship);
+                mPreferences.putFloat(PrefConstants.HUD_ZOOM, this.hudZoom);
                 break;
         }
 
