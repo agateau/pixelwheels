@@ -7,807 +7,835 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-02-18 13:20+0000\n"
+"Last-Translator: Yi-Chyun Yang <yichmyang@gmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://toolate.othing.xyz/"
+"projects/pixel-wheels/app/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: android/assets/championships/0.xml:2
 msgctxt "championship"
 msgid "Country Life"
-msgstr ""
+msgstr "鄉村悠活錦標賽"
 
 #: android/assets/championships/0.xml:3
 msgctxt "track"
 msgid "Welcome!"
-msgstr ""
+msgstr "歡迎！"
 
 #: android/assets/championships/0.xml:15
 msgctxt "track"
 msgid "River"
-msgstr ""
+msgstr "小河"
 
 #: android/assets/championships/0.xml:27
 msgctxt "track"
 msgid "Flood"
-msgstr ""
+msgstr "水災現場"
 
 #: android/assets/championships/1.xml:2
 msgctxt "championship"
 msgid "Square Mountains"
-msgstr ""
+msgstr "方棱山錦標賽"
 
 #: android/assets/championships/1.xml:3
 msgctxt "track"
 msgid "Let it snow"
-msgstr ""
+msgstr "雪景"
 
 #: android/assets/championships/1.xml:15
 msgctxt "track"
 msgid "Don't slip!"
-msgstr ""
+msgstr "小心打滑！"
 
 #: android/assets/championships/1.xml:27
 msgctxt "track"
 msgid "Up, up, up... and down!"
-msgstr ""
+msgstr "上山下山"
 
 #: android/assets/championships/2.xml:2
 msgctxt "championship"
 msgid "Pix Cities"
-msgstr ""
+msgstr "直角市錦標賽"
 
 #: android/assets/championships/2.xml:3
 msgctxt "track"
 msgid "Blocky Town"
-msgstr ""
+msgstr "方塊鎮"
 
 #: android/assets/championships/2.xml:15
 msgctxt "track"
 msgid "Tiny sur Mer"
-msgstr ""
+msgstr "濱海環道"
 
 #: android/assets/championships/2.xml:27
 msgctxt "track"
 msgid "The Island"
-msgstr ""
+msgstr "度假島"
 
 #: android/assets/screens/credits.gdxui:6
 msgid "Pixel Wheels"
-msgstr ""
+msgstr "Pixel Wheels"
 
 #: android/assets/screens/credits.gdxui:8
 msgid "An open-source racing game"
-msgstr ""
+msgstr "開源賽車遊戲"
 
 #: android/assets/screens/credits.gdxui:10
 msgid "Code"
-msgstr ""
+msgstr "程式"
 
 #: android/assets/screens/credits.gdxui:12
 #: android/assets/screens/credits.gdxui:16
 #: android/assets/screens/credits.gdxui:50
 #: android/assets/screens/credits.gdxui:78
 msgid "Aurélien Gâteau"
-msgstr ""
+msgstr "Aurélien Gâteau"
 
 #: android/assets/screens/credits.gdxui:14
 msgid "Pixels"
-msgstr ""
+msgstr "像素圖"
 
 #: android/assets/screens/credits.gdxui:17
 #: android/assets/screens/credits.gdxui:119
 msgid "Antonin Gâteau"
-msgstr ""
+msgstr "Antonin Gâteau"
 
 #: android/assets/screens/credits.gdxui:19
 msgid "Music"
-msgstr ""
+msgstr "配樂"
 
 #: android/assets/screens/credits.gdxui:21
 msgid "Menu:"
-msgstr ""
+msgstr "選單："
 
 #: android/assets/screens/credits.gdxui:22
 msgid "\"Lightspeed\""
-msgstr ""
+msgstr "《Lightspeed》"
 
 #: android/assets/screens/credits.gdxui:23
+#, fuzzy
 msgid "Thomas Tripon"
-msgstr ""
+msgstr "Thomas Tripon"
 
 #: android/assets/screens/credits.gdxui:25
 msgid "Victory:"
-msgstr ""
+msgstr "勝利："
 
 #: android/assets/screens/credits.gdxui:26
 msgid "\"Core Descent (16-bit) v0.9\""
-msgstr ""
+msgstr "《Core Descent》(16-bit) v0.9"
 
 #: android/assets/screens/credits.gdxui:27
 #: android/assets/screens/credits.gdxui:31
 #: android/assets/screens/credits.gdxui:35
 #: android/assets/screens/credits.gdxui:39
+#, fuzzy
 msgid "FoxSynergy"
-msgstr ""
+msgstr "FoxSynergy"
 
 #: android/assets/screens/credits.gdxui:29
 msgid "Country Life championship:"
-msgstr ""
+msgstr "鄉村悠活錦標賽："
 
 #: android/assets/screens/credits.gdxui:30
 msgid "\"Cosmo Blast v1.0\""
-msgstr ""
+msgstr "《Cosmo Blast》v1.0"
 
 #: android/assets/screens/credits.gdxui:33
 msgid "Square Mountains championship:"
-msgstr ""
+msgstr "方棱山錦標賽："
 
 #: android/assets/screens/credits.gdxui:34
 msgid "\"Lunar Harvest v1.0\""
-msgstr ""
+msgstr "《Lunar Harvest》v1.0"
 
 #: android/assets/screens/credits.gdxui:37
 msgid "Pix Cities championship:"
-msgstr ""
+msgstr "直角鎮錦標賽："
 
 #: android/assets/screens/credits.gdxui:38
 msgid "\"Bouncing Baal v0.95\""
-msgstr ""
+msgstr "《Bouncing Baal》v0.95"
 
 #: android/assets/screens/credits.gdxui:41
 msgid "Sound Effects"
-msgstr ""
+msgstr "音效"
 
 #: android/assets/screens/credits.gdxui:43
 msgid "\"Car tire squeal skid loop\""
-msgstr ""
+msgstr "《Car tire squeal skid loop》"
 
 #: android/assets/screens/credits.gdxui:44
+#, fuzzy
 msgid "Tom Haigh"
-msgstr ""
+msgstr "Tom Haigh"
 
 #: android/assets/screens/credits.gdxui:46
 msgid "\"Racing car engine sound loops\""
-msgstr ""
+msgstr "《Racing car engine sound loops》"
 
 #: android/assets/screens/credits.gdxui:47
+#, fuzzy
 msgid "domasx2"
-msgstr ""
+msgstr "domasx2"
 
 #: android/assets/screens/credits.gdxui:49
 msgid "Other sound effects"
-msgstr ""
+msgstr "其他音效"
 
 #: android/assets/screens/credits.gdxui:52
 msgid "Fonts"
-msgstr ""
+msgstr "字型"
 
 #: android/assets/screens/credits.gdxui:54
 msgid "Xolonium"
-msgstr ""
+msgstr "《Xolonium》"
 
 #: android/assets/screens/credits.gdxui:55
+#, fuzzy
 msgid "Severin Meyer"
-msgstr ""
+msgstr "Severin Meyer"
 
 #: android/assets/screens/credits.gdxui:57
 msgid "Kwajong"
-msgstr ""
+msgstr "《Kwajong》"
 
 #: android/assets/screens/credits.gdxui:58
+#, fuzzy
 msgid "Tup Wanders"
-msgstr ""
+msgstr "Tup Wanders"
 
 #: android/assets/screens/credits.gdxui:60
 msgid "Noto"
-msgstr ""
+msgstr "《Noto》"
 
 #: android/assets/screens/credits.gdxui:61
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #: android/assets/screens/credits.gdxui:63
 msgid "Translations"
-msgstr ""
+msgstr "翻譯"
 
 #: android/assets/screens/credits.gdxui:65
 msgid "German:"
-msgstr ""
+msgstr "德語："
 
 #: android/assets/screens/credits.gdxui:66
+#, fuzzy
 msgid "Christian Schrötter"
-msgstr ""
+msgstr "Christian Schrötter"
 
 #: android/assets/screens/credits.gdxui:68
 msgid "Spanish:"
-msgstr ""
+msgstr "西班牙語："
 
 #: android/assets/screens/credits.gdxui:69
+#, fuzzy
 msgid "Victor Hck"
-msgstr ""
+msgstr "Victor Hck"
 
 #: android/assets/screens/credits.gdxui:71
 msgid "Basque:"
-msgstr ""
+msgstr "巴斯克語："
 
 #: android/assets/screens/credits.gdxui:72
+#, fuzzy
 msgid "Josu Igoa"
-msgstr ""
+msgstr "Josu Igoa"
 
 #: android/assets/screens/credits.gdxui:74
 msgid "Galician:"
-msgstr ""
+msgstr "加利西亞語："
 
 #: android/assets/screens/credits.gdxui:75
 msgid "Un Galego Mais"
-msgstr ""
+msgstr "Un Galego Mais"
 
 #: android/assets/screens/credits.gdxui:77
 msgid "French:"
-msgstr ""
+msgstr "法語："
 
 #: android/assets/screens/credits.gdxui:80
 msgid "Polish:"
-msgstr ""
+msgstr "波蘭語："
 
 #: android/assets/screens/credits.gdxui:81
+#, fuzzy
 msgid "PandaCoderPL, Marek Szumny"
-msgstr ""
+msgstr "PandaCoderPL, Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:83
 msgid "Swedish:"
-msgstr ""
+msgstr "瑞典語："
 
 #: android/assets/screens/credits.gdxui:84
+#, fuzzy
 msgid "Sanchez"
-msgstr ""
+msgstr "Sanchez"
 
 #: android/assets/screens/credits.gdxui:86
 msgid "Russian:"
-msgstr ""
+msgstr "俄語："
 
 #: android/assets/screens/credits.gdxui:87
+#, fuzzy
 msgid "Nickoriginal"
-msgstr ""
+msgstr "Nickoriginal"
 
 #: android/assets/screens/credits.gdxui:89
 msgid "Bengali:"
-msgstr ""
+msgstr "孟加拉語："
 
 #: android/assets/screens/credits.gdxui:90
+#, fuzzy
 msgid "Oymate"
-msgstr ""
+msgstr "Oymate"
 
 #: android/assets/screens/credits.gdxui:92
 msgid "Chinese:"
-msgstr ""
+msgstr "中文："
 
 #: android/assets/screens/credits.gdxui:93
+#, fuzzy
 msgid "Lu Xu"
-msgstr ""
+msgstr "Lu Xu"
 
 #: android/assets/screens/credits.gdxui:95
 msgid "Esperanto:"
-msgstr ""
+msgstr "世界語："
 
 #: android/assets/screens/credits.gdxui:96
+#, fuzzy
 msgid "Jorge Maldonado Ventura"
-msgstr ""
+msgstr "Jorge Maldonado Ventura"
 
 #: android/assets/screens/credits.gdxui:98
 msgid "Hungarian:"
-msgstr ""
+msgstr "匈牙利語："
 
 #: android/assets/screens/credits.gdxui:99
+#, fuzzy
 msgid "Balázs Úr"
-msgstr ""
+msgstr "Balázs Úr"
 
 #: android/assets/screens/credits.gdxui:101
 msgid "Turkish:"
-msgstr ""
+msgstr "土耳其語："
 
 #: android/assets/screens/credits.gdxui:102
+#, fuzzy
 msgid "nxjoseph"
-msgstr ""
+msgstr "nxjoseph"
 
 #: android/assets/screens/credits.gdxui:104
 msgid "Italian:"
-msgstr ""
+msgstr "義大利語："
 
 #: android/assets/screens/credits.gdxui:105
+#, fuzzy
 msgid "Dario Canossi"
-msgstr ""
+msgstr "Dario Canossi"
 
 #: android/assets/screens/credits.gdxui:107
 msgid "Dutch:"
-msgstr ""
+msgstr "荷蘭語："
 
 #: android/assets/screens/credits.gdxui:108
+#, fuzzy
 msgid "Heimen Stoffels"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: android/assets/screens/credits.gdxui:110
 msgid "Indonesian:"
-msgstr ""
+msgstr "印尼語："
 
 #: android/assets/screens/credits.gdxui:111
+#, fuzzy
 msgid "Neko Nekowazarashi"
-msgstr ""
+msgstr "Neko Nekowazarashi"
 
 #: android/assets/screens/credits.gdxui:113
 msgid "Video Editing"
-msgstr ""
+msgstr "影片剪輯："
 
 #: android/assets/screens/credits.gdxui:115
+#, fuzzy
 msgid "Clara Gâteau"
-msgstr ""
+msgstr "Clara Gâteau"
 
 #: android/assets/screens/credits.gdxui:117
 msgid "Special Thanks"
-msgstr ""
+msgstr "特別感謝"
 
 #: android/assets/screens/credits.gdxui:120
+#, fuzzy
 msgid "Guillaume Roche"
-msgstr ""
+msgstr "Guillaume Roche"
 
 #: android/assets/screens/credits.gdxui:121
+#, fuzzy
 msgid "Ethan Chapman"
-msgstr ""
+msgstr "Ethan Chapman"
 
 #: android/assets/screens/credits.gdxui:122
+#, fuzzy
 msgid "Marek Szumny"
-msgstr ""
+msgstr "Marek Szumny"
 
 #: android/assets/screens/credits.gdxui:123
 msgid "All bug reporters"
-msgstr ""
+msgstr "回報錯誤的貢獻者"
 
 #: android/assets/screens/credits.gdxui:124
 msgid "All supporters on Patreon, Ko-fi and Paypal"
-msgstr ""
+msgstr "Patreon、Ko-fi、Paypal 上的支持者"
 
 #: android/assets/screens/credits.gdxui:126
 msgid "Made with"
-msgstr ""
+msgstr "工具與軟體庫"
 
 #: android/assets/screens/credits.gdxui:128
+#, fuzzy
 msgid "LibGDX"
-msgstr ""
+msgstr "LibGDX"
 
 #: android/assets/screens/credits.gdxui:129
+#, fuzzy
 msgid "Tiled"
-msgstr ""
+msgstr "Tiled"
 
 #: android/assets/screens/credits.gdxui:130
+#, fuzzy
 msgid "Aseprite"
-msgstr ""
+msgstr "Aseprite"
 
 #: android/assets/screens/credits.gdxui:131
+#, fuzzy
 msgid "SFXR Qt"
-msgstr ""
+msgstr "SFXR Qt"
 
 #: android/assets/screens/credits.gdxui:132
+#, fuzzy
 msgid "Android Studio"
-msgstr ""
+msgstr "Android Studio"
 
 #: android/assets/screens/debug.gdxui:8
 msgid "Settings affecting game play have been modified, scores won't be saved"
-msgstr ""
+msgstr "某些更改的設定會影響遊戲，改回之前不記分"
 
 #: android/assets/screens/finishedoverlay.gdxui:36
 #: android/assets/screens/pauseoverlay.gdxui:9
 msgid "RESTART"
-msgstr ""
+msgstr "重來"
 
 #: android/assets/screens/finishedoverlay.gdxui:37
 msgid "BACK TO MENU"
-msgstr ""
+msgstr "回選單"
 
 #: android/assets/screens/finishedoverlay.gdxui:40
 msgid "CONTINUE"
-msgstr ""
+msgstr "繼續遊戲"
 
 #: android/assets/screens/gamepadconfig.gdxui:5
 msgid "Gamepad config"
-msgstr ""
+msgstr "手把設定"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 msgid "Game"
-msgstr ""
+msgstr "遊戲"
 
 #: android/assets/screens/gamepadconfig.gdxui:11
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:112
 msgid "Menu"
-msgstr ""
+msgstr "選單"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Activate"
-msgstr ""
+msgstr "選定"
 
 #: android/assets/screens/gamepadconfig.gdxui:12
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:109
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:117
 msgid "Trigger"
-msgstr ""
+msgstr "使用道具"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:118
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 #: android/assets/screens/gamepadconfig.gdxui:13
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:106
 #: core/src/com/agateau/pixelwheels/screens/config/KeyboardConfigScreen.java:114
 msgid "Brake"
-msgstr ""
+msgstr "剎車"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: android/assets/screens/gamepadconfig.gdxui:14
 msgid "Pause"
-msgstr ""
+msgstr "暫停"
 
 #: android/assets/screens/keyboardconfig.gdxui:5
 msgid "Keyboard config"
-msgstr ""
+msgstr "鍵盤設定"
 
 #: android/assets/screens/mainmenu.gdxui:26
 msgid "ONE PLAYER"
-msgstr ""
+msgstr "單人遊戲"
 
 #: android/assets/screens/mainmenu.gdxui:27
 msgid "MULTI PLAYER"
-msgstr ""
+msgstr "多人遊戲"
 
 #: android/assets/screens/mainmenu.gdxui:30
 #: android/assets/screens/selectgamemode.gdxui:9
 msgid "QUICK RACE"
-msgstr ""
+msgstr "簡易賽"
 
 #: android/assets/screens/mainmenu.gdxui:31
 #: android/assets/screens/selectgamemode.gdxui:10
 msgid "CHAMPIONSHIP"
-msgstr ""
+msgstr "錦標賽"
 
 #: android/assets/screens/mainmenu.gdxui:35
 #: android/assets/screens/pauseoverlay.gdxui:11
 msgid "SETTINGS"
-msgstr ""
+msgstr "設定"
 
 #: android/assets/screens/mainmenu.gdxui:36
 msgid "SUPPORT"
-msgstr ""
+msgstr "支持開發"
 
 #: android/assets/screens/multiplayer.gdxui:10
 msgid "Select Your Vehicles"
-msgstr ""
+msgstr "選擇車輛"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some controllers are missing"
-msgstr ""
+msgstr "有些控制器斷線"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
-msgstr ""
+msgstr "暫停"
 
 #: android/assets/screens/pauseoverlay.gdxui:7
 msgid "RESUME"
-msgstr ""
+msgstr "繼續遊戲"
 
 #: android/assets/screens/pauseoverlay.gdxui:12
 msgid "QUIT TO MENU"
-msgstr ""
+msgstr "回選單"
 
 #: android/assets/screens/selectchampionship.gdxui:5
 msgid "Select Championship"
-msgstr ""
+msgstr "選擇比賽"
 
 #: android/assets/screens/selectgamemode.gdxui:5
 msgid "Select Game Mode"
-msgstr ""
+msgstr "選擇模式"
 
 #: android/assets/screens/selectlanguage.gdxui:5
 msgid "Select Language"
-msgstr ""
+msgstr "選擇語言"
 
 #: android/assets/screens/selectplayercount.gdxui:5
 msgid "Select Players"
-msgstr ""
+msgstr "選擇玩家人數"
 
 #: android/assets/screens/selectplayercount.gdxui:9
 msgid "2 PLAYERS"
-msgstr ""
+msgstr "兩位"
 
 #: android/assets/screens/selectplayercount.gdxui:10
 msgid "3 PLAYERS"
-msgstr ""
+msgstr "三位"
 
 #: android/assets/screens/selectplayercount.gdxui:11
 msgid "4 PLAYERS"
-msgstr ""
+msgstr "四位"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr ""
+msgstr "選擇跑道"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Lap"
-msgstr ""
+msgstr "最佳單圈"
 
 #: android/assets/screens/selecttrack.gdxui:17
 msgid "Best Total"
-msgstr ""
+msgstr "最佳總時"
 
 #: android/assets/screens/selectvehicle.gdxui:10
 msgid "Select Your Vehicle"
-msgstr ""
+msgstr "選擇車輛"
 
 #: android/assets/screens/support.gdxui:5
 msgid "Support"
-msgstr ""
+msgstr "支持開發"
 
 #: android/assets/screens/support.gdxui:11
 msgid "Buy nice Pixel Wheels themed goodies!"
-msgstr ""
+msgstr "買買 Pixel Wheels 的週邊！"
 
 #: android/assets/screens/support.gdxui:13
 msgid "SHOP"
-msgstr ""
+msgstr "商店"
 
 #: android/assets/screens/support.gdxui:19
 msgid "Support Pixel Wheels development."
-msgstr ""
+msgstr "支持 Pixel Wheels 的開發者。"
 
 #: android/assets/screens/support.gdxui:21
 msgid "SUPPORT PAGE"
-msgstr ""
+msgstr "詳情"
 
 #: android/assets/vehicles/2cv.xml:1
 msgctxt "vehicle"
 msgid "2-Deuch"
-msgstr ""
+msgstr "醜小鴨"
 
 #: android/assets/vehicles/antonin.xml:1
 msgctxt "vehicle"
 msgid "Ant On-1"
-msgstr ""
+msgstr "沙灘車"
 
 #: android/assets/vehicles/bigfoot.xml:1
 msgctxt "vehicle"
 msgid "Broster Truck"
-msgstr ""
+msgstr "越野車"
 
 #: android/assets/vehicles/c15.xml:1
 msgctxt "vehicle"
 msgid "C15 Vindieu"
-msgstr ""
+msgstr "來旺"
 
 #: android/assets/vehicles/dark-m.xml:1
 msgctxt "vehicle"
 msgid "Dark M"
-msgstr ""
+msgstr "蝙蝠戰車"
 
 #: android/assets/vehicles/harvester.xml:1
 msgctxt "vehicle"
 msgid "Harvester"
-msgstr ""
+msgstr "收割機"
 
 #: android/assets/vehicles/jeep.xml:1
 msgctxt "vehicle"
 msgid "Jeep"
-msgstr ""
+msgstr "吉普車"
 
 #: android/assets/vehicles/miramar.xml:1
 msgctxt "vehicle"
 msgid "Miramar"
-msgstr ""
+msgstr "古董華車"
 
 #: android/assets/vehicles/old-f1.xml:1
+#, fuzzy
 msgctxt "vehicle"
 msgid "BRGP42"
-msgstr ""
+msgstr "BRGP42"
 
 #: android/assets/vehicles/pickup.xml:1
 msgctxt "vehicle"
 msgid "Pickup"
-msgstr ""
+msgstr "皮卡車"
 
 #: android/assets/vehicles/police.xml:1
 msgctxt "vehicle"
 msgid "Highway Patrol"
-msgstr ""
+msgstr "警車"
 
 #: android/assets/vehicles/red.xml:1
 msgctxt "vehicle"
 msgid "Red Lightning"
-msgstr ""
+msgstr "鮮紅閃電"
 
 #: android/assets/vehicles/roadster.xml:1
 msgctxt "vehicle"
 msgid "Roadster"
-msgstr ""
+msgstr "弧頂跑車"
 
 #: android/assets/vehicles/rocket.xml:1
 msgctxt "vehicle"
 msgid "Rocket"
-msgstr ""
+msgstr "火箭"
 
 #: android/assets/vehicles/santa.xml:1
 msgctxt "vehicle"
 msgid "Santa Truck"
-msgstr ""
+msgstr "聖誕物流車"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:56
 msgid "Share via"
-msgstr ""
+msgstr "分享"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:62
 msgid "Hit a bug? Use this button to report it."
-msgstr ""
+msgstr "遇到錯誤？點按鈕回報。"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:67
 msgid "REPORT BUG"
-msgstr ""
+msgstr "回報錯誤"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:110
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:144
 msgid "Hit one vehicle with a missile"
 msgid_plural "Hit %# vehicles with a missile"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "以飛彈擊中對手 %# 次"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:119
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:153
 msgid "Leave road one time"
 msgid_plural "Leave road %# times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "駛離賽道 %# 次"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:127
 msgid "Drive in the sand one time"
 msgid_plural "Drive in the sand %# times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "駛入沙地 %# 次"
 
 #: core/src/com/agateau/pixelwheels/RewardManagerSetup.java:136
 msgid "Pick one bonus"
 msgid_plural "Pick %# bonuses"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "取得 $# 個道具"
 
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:47
 #: core/src/com/agateau/pixelwheels/gameinput/GamepadInputHandler.java:65
 msgid "Gamepad"
-msgstr ""
+msgstr "搖桿"
 
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:46
 #: core/src/com/agateau/pixelwheels/gameinput/KeyboardInputHandler.java:70
 msgid "Keyboard"
-msgstr ""
+msgstr "鍵盤"
 
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:52
 #: core/src/com/agateau/pixelwheels/gameinput/PieTouchInputHandler.java:93
 msgid "Pie buttons"
-msgstr ""
+msgstr "四按鍵"
 
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:52
 #: core/src/com/agateau/pixelwheels/gameinput/SidesTouchInputHandler.java:108
 msgid "Side buttons"
-msgstr ""
+msgstr "三邊鍵"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:31
 msgid "Casual"
-msgstr ""
+msgstr "低速"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:33
 msgid "Pro"
-msgstr ""
+msgstr "中速"
 
 #: core/src/com/agateau/pixelwheels/gamesetup/Difficulty.java:35
 msgid "Legendary"
-msgstr ""
+msgstr "高速"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:305
 msgid "Championship Rankings"
-msgstr ""
+msgstr "錦標賽排名"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:306
 msgid "Race Results"
-msgstr ""
+msgstr "比賽結果"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:336
 msgid "Congratulations, great race!"
-msgstr ""
+msgstr "恭喜，開得真好！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:337
 msgid "You've got some serious driving skills!"
-msgstr ""
+msgstr "技術不錯！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:338
 msgid "You're a champ!"
-msgstr ""
+msgstr "有拿冠軍的實力！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:339
 msgid "Congrats for this performance!"
-msgstr ""
+msgstr "真是威風凜凜！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:340
 msgid "Impressive!"
-msgstr ""
+msgstr "帥！"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 msgid "Best lap"
-msgstr ""
+msgstr "最佳單圈"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Racer"
-msgstr ""
+msgstr "賽車手"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:424
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Total time"
-msgstr ""
+msgstr "總用時"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:428
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:214
 msgid "Points"
-msgstr ""
+msgstr "得分"
 
 #: core/src/com/agateau/pixelwheels/racescreen/FinishedOverlay.java:431
 msgid "Race time"
-msgstr ""
+msgstr "比賽時間"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:61
 #, java-printf-format
 msgid "Finish third or better at %s championship"
-msgstr ""
+msgstr "在%s中排進前三"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:63
 #, java-printf-format
 msgid "Finish second or better at %s championship"
-msgstr ""
+msgstr "在%s中擠進前二"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:66
 #, java-printf-format
 msgid "Finish first at %s championship"
-msgstr ""
+msgstr "在%s中得到第一"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:73
 #, java-printf-format
 msgid "Finish third or better at %s championship in %s league"
-msgstr ""
+msgstr "在%s（%s）中排進前三"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:75
 #, java-printf-format
 msgid "Finish second or better at %s championship in %s league"
-msgstr ""
+msgstr "在%s（%s）中擠進前二"
 
 #: core/src/com/agateau/pixelwheels/rewards/ChampionshipRankRewardRule.java:78
 #, java-printf-format
 msgid "Finish first at %s championship in %s league"
-msgstr ""
+msgstr "在%s（%s）中得到第一"
 
 #: core/src/com/agateau/pixelwheels/screens/ChampionshipFinishedScreen.java:196
 msgctxt "Must be two sentences separated by a newline"
@@ -815,101 +843,103 @@ msgid ""
 "Championship\n"
 "Finished!"
 msgstr ""
+"錦標賽\n"
+"結束！"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:114
 msgid "About"
-msgstr ""
+msgstr "關於"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:116
 #, java-printf-format
 msgid "Pixel Wheels %s"
-msgstr ""
+msgstr "《Pixel Wheels》%s"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:117
 msgid "CREDITS"
-msgstr ""
+msgstr "鳴謝"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:127
 msgid "WEB SITE"
-msgstr ""
+msgstr "網站"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:141
 msgid "Under the hood"
-msgstr ""
+msgstr "進階設定"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:161
 msgid ""
 "These options are mostly interesting for Pixel Wheels development, but feel "
 "free to poke around!"
-msgstr ""
+msgstr "供開發使用，但歡迎改動！"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:164
 msgid "DEV. OPTIONS"
-msgstr ""
+msgstr "參數設定"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:176
 msgid "Controls"
-msgstr ""
+msgstr "控制"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:183
 #, java-printf-format
 msgid "P%d"
-msgstr ""
+msgstr "P%d"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:185
 #, java-printf-format
 msgid "Player #%d:"
-msgstr ""
+msgstr "玩家 %d："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:190
 msgid "Controls:"
-msgstr ""
+msgstr "控制："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:196
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:207
 msgid "Language:"
-msgstr ""
+msgstr "語言："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:211
 msgctxt "'change' refer to changing languages"
 msgid "Can't change while racing"
-msgstr ""
+msgstr "比賽時無法更動語言"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:214
 msgid "Audio"
-msgstr ""
+msgstr "聲音"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:227
 msgid "Sound FX:"
-msgstr ""
+msgstr "音效："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:241
 msgid "Music:"
-msgstr ""
+msgstr "配樂："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:243
 msgid "Video"
-msgstr ""
+msgstr "畫面"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:258
 msgid "Fullscreen:"
-msgstr ""
+msgstr "全影幕："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:273
 msgid "Rotate camera:"
-msgstr ""
+msgstr "視角隨車轉動："
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:298
 msgid "CONFIGURE"
-msgstr ""
+msgstr "設定"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:315
 msgctxt "Indicates the HUD zoom adjusts itself automatically"
 msgid "Automatic"
-msgstr ""
+msgstr "自動縮放"
 
 #: core/src/com/agateau/pixelwheels/screens/ConfigScreen.java:324
 msgid "Zoom:"
