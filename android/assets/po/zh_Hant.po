@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-18 21:42+0000\n"
+"PO-Revision-Date: 2026-02-19 06:34+0000\n"
 "Last-Translator: Yi-Chyun Yang <yichmyang@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://toolate.othing.xyz/"
 "projects/pixel-wheels/app/zh_Hant/>\n"
@@ -927,7 +927,7 @@ msgstr "速度"
 #, java-printf-format
 msgctxt "The 'P' is for 'Player'"
 msgid "P%d: %s"
-msgstr "%dP： %s"
+msgstr "%dP：%s"
 
 #: core/src/com/agateau/pixelwheels/screens/NotEnoughInputsScreen.java:58
 #, java-printf-format
