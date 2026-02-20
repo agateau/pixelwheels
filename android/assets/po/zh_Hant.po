@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-19 06:34+0000\n"
+"PO-Revision-Date: 2026-02-20 17:20+0000\n"
 "Last-Translator: Yi-Chyun Yang <yichmyang@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://toolate.othing.xyz/"
 "projects/pixel-wheels/app/zh_Hant/>\n"
@@ -495,7 +495,7 @@ msgstr "選擇車輛"
 
 #: android/assets/screens/notenoughgamepads.gdxui:4
 msgid "Some controllers are missing"
-msgstr "有些控制器斷線"
+msgstr "有控制器斷線"
 
 #: android/assets/screens/pauseoverlay.gdxui:4
 msgid "Paused"
@@ -539,7 +539,7 @@ msgstr "四位"
 
 #: android/assets/screens/selecttrack.gdxui:4
 msgid "Select Track"
-msgstr "選擇跑道"
+msgstr "選擇賽道"
 
 #: android/assets/screens/selecttrack.gdxui:14
 msgid "Best Lap"
@@ -567,7 +567,7 @@ msgstr "商店"
 
 #: android/assets/screens/support.gdxui:19
 msgid "Support Pixel Wheels development."
-msgstr "支持 Pixel Wheels 的開發者。"
+msgstr "支援開發 Pixel Wheels。"
 
 #: android/assets/screens/support.gdxui:21
 msgid "SUPPORT PAGE"
@@ -650,7 +650,7 @@ msgstr "聖誕物流車"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:56
 msgid "Share via"
-msgstr "分享"
+msgstr "分享紀錄檔"
 
 #: android/src/main/com/agateau/pixelwheels/android/AndroidLogExporter.java:62
 msgid "Hit a bug? Use this button to report it."
@@ -917,11 +917,11 @@ msgstr "縮放："
 
 #: core/src/com/agateau/pixelwheels/screens/CreditsScreen.java:80
 msgid "Thank you for playing!"
-msgstr "感謝您遊玩！"
+msgstr "感謝遊玩！"
 
 #: core/src/com/agateau/pixelwheels/screens/DifficultySelectorController.java:37
 msgid "League"
-msgstr "速度"
+msgstr "車速"
 
 #: core/src/com/agateau/pixelwheels/screens/MultiPlayerScreen.java:127
 #, java-printf-format
