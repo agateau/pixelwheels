@@ -95,7 +95,7 @@ public class EnoughInputsChecker {
     }
 
     private void onGamepadConnected() {
-        if (mInputCount == 0 | hasEnoughInputs()) {
+        if (mInputCount == 0 || hasEnoughInputs()) {
             return;
         }
         update();
