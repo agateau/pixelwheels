@@ -255,6 +255,10 @@ public class Vehicle implements Racer.Component, Disposable {
         mSpeedLimiter = speedLimiter;
     }
 
+    public float getSpeedLimiter() {
+        return mSpeedLimiter;
+    }
+
     /** Returns the angle the car is facing */
     public float getAngle() {
         return AgcMathUtils.normalizeAngle(mBody.getAngle() * MathUtils.radiansToDegrees);
