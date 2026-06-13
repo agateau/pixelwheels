@@ -19,10 +19,16 @@ project.ext.mainClassName = "com.agateau.pixelwheels.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets")
 
 task run(dependsOn: classes, type: JavaExec) {
+    mainClass = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     ignoreExitValue = true
+    // LWJGL3/GLFW must own the first thread on macOS, otherwise the window
+    // never opens and input is not processed.
+    if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+        jvmArgs "-XstartOnFirstThread"
+    }
 }
 
 task dist(type: Jar) {

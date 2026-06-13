@@ -1,0 +1,3 @@
+kind: Developers
+body: Updated libGDX to 1.13.0 and gdx-controllers to 2.2.4 (for arm64 macOS natives), and the macOS app is now built with jpackage on a macOS runner instead of packr.
+time: 2026-06-13T00:00:01-07:00

@@ -12,8 +12,10 @@ PROGNAME=$(basename $0)
 JRE_LINUX_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_linux_hotspot_8u282b08.tar.gz
 JRE_LINUX_SHA256=3b2e2c6ad3ee04a58ffb8d629e3e242b0ae87b38cfd06425e4446b1f9490f521
 
-JRE_MACOS_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_mac_hotspot_8u282b08.tar.gz
-JRE_MACOS_SHA256=9e7a40d570d5151aae23a2fb017359248f5fb82c547c3ecd860c992770228afb
+# NOTE: the macOS archive is no longer built here. packr only produces Intel
+# binaries (https://github.com/libgdx/packr/issues/198), which do not run
+# natively on Apple Silicon. The macOS .app is built with jpackage on a macOS
+# runner instead -- see tools/packaging/create-macos-archive.
 
 JRE_WINDOWS_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jre_x64_windows_hotspot_8u282b08.zip
 JRE_WINDOWS_SHA256=58f2bbf0e5abc6dee7ee65431fd2fc95cdb2c3d10126045c5882f739dda79c3b
@@ -28,7 +30,6 @@ DST_DESKTOP_JAR=$DIST_OUT_BASE_DIR/pixelwheels.jar
 # Files added to the archives
 PACKAGING_DIR=$PWD/tools/packaging
 PACKAGING_COMMON_DIR=$PACKAGING_DIR/common
-PACKAGING_MACOS_DIR=$PACKAGING_DIR/macos
 PACKAGING_LINUX_DIR=$PACKAGING_DIR/linux
 
 . tools/functions.sh
@@ -50,19 +51,6 @@ create_archive() {
     local dist_name=pixelwheels-$VERSION-$platform
     local out_dir=$DIST_OUT_BASE_DIR/$dist_name
     local extra_args=""
-
-    if [ "$platform" = "mac" ] ; then
-        # On macOS the directory passed to --output is the bundle itself, so
-        # create it as a subdirectory of $out_dir and add a .app extension
-        out_dir=$out_dir/$dist_name.app
-
-        # On macOS the jar must be called with -XstartOnFirstThread so that
-        # LWJGL3 can process input events.
-        # Game won't start if we don't do this.
-        extra_args="--vmargs XstartOnFirstThread
-            --icon $PACKAGING_MACOS_DIR/pixelwheels.icns
-            --bundle com.agateau.pixelwheels"
-    fi
 
     echo -e "${C_BLUE_FG}Creating archive for $platform${C_RESET}"
 
@@ -118,9 +106,6 @@ PACKR_PATH=$LOCAL_PATH
 download_to_cache $JRE_LINUX_URL $JRE_LINUX_SHA256
 JRE_LINUX_PATH=$LOCAL_PATH
 
-download_to_cache $JRE_MACOS_URL $JRE_MACOS_SHA256
-JRE_MACOS_PATH=$LOCAL_PATH
-
 download_to_cache $JRE_WINDOWS_URL $JRE_WINDOWS_SHA256
 JRE_WINDOWS_PATH=$LOCAL_PATH
 
@@ -128,6 +113,7 @@ copy_desktop_jar
 
 create_archive $JRE_LINUX_PATH linux64
 
-create_archive $JRE_MACOS_PATH mac
+# macOS is built separately with jpackage on a macOS runner
+# (tools/packaging/create-macos-archive).
 
 create_archive $JRE_WINDOWS_PATH windows64
