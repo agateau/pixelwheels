@@ -17,9 +17,17 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'Pixel Wheels'
-        // Do not update to 1.10.0, it causes random freeze on my test tablet
-        gdxVersion = '1.9.14'
-        gdxControllersVersion = '2.2.2'
+        // 1.13.0 is the first release bundling LWJGL 3.3.x, which ships the
+        // native macOS arm64 (Apple Silicon) libraries. Earlier releases only
+        // had x86_64 desktop natives, so the game could not run on an Apple
+        // Silicon JVM (it required Rosetta).
+        //
+        // History: the version was previously pinned to 1.9.14 with the note
+        // "Do not update to 1.10.0, it causes random freeze on my test tablet".
+        // That freeze must be re-verified on an Android device against 1.13.0
+        // before this change is released (see PR notes).
+        gdxVersion = '1.13.0'
+        gdxControllersVersion = '2.2.4'
     }
 
     repositories {

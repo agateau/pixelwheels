@@ -1,0 +1,125 @@
+#!/bin/bash
+# Build a *native* macOS .app bundle for Pixel Wheels using jpackage.
+#
+# Why this exists, separate from tools/packaging/create-archives:
+#
+# The Linux/Windows archives are cross-built on a Linux CI runner with packr.
+# packr cannot emit native Apple Silicon (arm64) executables -- it only ever
+# produces Intel binaries (see https://github.com/libgdx/packr/issues/198), so
+# a packr-built app runs under Rosetta 2 at best and not at all on a Mac
+# without Rosetta.
+#
+# jpackage (shipped with the JDK) builds a real native .app bundling a runtime
+# image of the *running* JDK. Run this on a macOS arm64 machine/runner and you
+# get a native arm64 app; run it on an Intel Mac and you get an x86_64 app.
+# jpackage must run on macOS -- it cannot cross-build from Linux -- which is
+# why the macOS build is its own CI job (.github/workflows/main.yml).
+#
+# Signing and notarization are OPTIONAL and gated on environment variables. If
+# the Developer ID credentials are not present the script still produces a
+# working (unsigned) .app; users then need to clear the quarantine attribute
+# (`xattr -cr Pixel\ Wheels.app`) the first time they launch it.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+
+C_BLUE_FG="\e[34m"
+C_RESET="\e[0m"
+
+PROGNAME=$(basename "$0")
+
+. tools/functions.sh
+
+APP_NAME="Pixel Wheels"
+BUNDLE_ID="com.agateau.pixelwheels"
+MAIN_CLASS="com.agateau.pixelwheels.desktop.DesktopLauncher"
+ICON="tools/packaging/macos/pixelwheels.icns"
+
+DIST_OUT_BASE_DIR="$PWD/dist-out"
+SRC_DESKTOP_JAR="desktop/build/libs/desktop-1.0.jar"
+
+if [ "$#" -ne 1 ] ; then
+    die "Usage: $PROGNAME <VERSION>"
+fi
+VERSION="$1"
+
+# jpackage rejects versions that are not strictly numeric. Snapshot builds look
+# like "1.0.1+master-20240101T000000-abcdef" and releases may be "1.0.1-beta",
+# so strip everything from the first '-' or '+' for the internal CFBundleVersion.
+# The archive file name still uses the full $VERSION.
+APP_VERSION="${VERSION%%[-+]*}"
+
+ARCH=$(uname -m)        # arm64 or x86_64
+DIST_NAME="pixelwheels-$VERSION-mac"
+INPUT_DIR="$DIST_OUT_BASE_DIR/macos-input"
+APP_DIR="$DIST_OUT_BASE_DIR/$DIST_NAME"
+APP_BUNDLE="$APP_DIR/$APP_NAME.app"
+
+command -v jpackage >/dev/null 2>&1 || die "jpackage not found. A JDK 17+ is required on PATH."
+
+echo -e "${C_BLUE_FG}Building native macOS .app ($ARCH) with jpackage${C_RESET}"
+
+rm -rf "$INPUT_DIR" "$APP_DIR"
+mkdir -p "$INPUT_DIR" "$APP_DIR"
+
+# jpackage's --input is a directory; only the main jar needs to be there.
+cp "$SRC_DESKTOP_JAR" "$INPUT_DIR/pixelwheels.jar"
+
+# Optional signing args -- only added when a Developer ID identity is provided.
+SIGN_ARGS=()
+if [ -n "${APPLE_SIGNING_IDENTITY:-}" ] ; then
+    echo "Signing identity provided -- jpackage will codesign the bundle"
+    # APPLE_SIGNING_IDENTITY should be the team/user portion of a
+    # "Developer ID Application: NAME (TEAMID)" certificate, e.g. "NAME (TEAMID)".
+    SIGN_ARGS=(--mac-sign --mac-signing-key-user-name "$APPLE_SIGNING_IDENTITY")
+    if [ -n "${APPLE_KEYCHAIN:-}" ] ; then
+        SIGN_ARGS+=(--mac-signing-keychain "$APPLE_KEYCHAIN")
+    fi
+else
+    echo "No APPLE_SIGNING_IDENTITY set -- producing an UNSIGNED .app"
+fi
+
+jpackage \
+    --type app-image \
+    --name "$APP_NAME" \
+    --app-version "$APP_VERSION" \
+    --input "$INPUT_DIR" \
+    --main-jar pixelwheels.jar \
+    --main-class "$MAIN_CLASS" \
+    --icon "$ICON" \
+    --mac-package-identifier "$BUNDLE_ID" \
+    --java-options "-XstartOnFirstThread" \
+    --java-options "-Xmx1G" \
+    --dest "$APP_DIR" \
+    ${SIGN_ARGS[@]+"${SIGN_ARGS[@]}"}
+
+echo "Created $APP_BUNDLE"
+
+# Notarize + staple, only when notarytool credentials are present and the app
+# was signed (notarization of an unsigned app is rejected by Apple).
+if [ ${#SIGN_ARGS[@]} -gt 0 ] && [ -n "${AC_NOTARY_KEYCHAIN_PROFILE:-}" ] ; then
+    echo -e "${C_BLUE_FG}Notarizing $APP_BUNDLE${C_RESET}"
+    NOTARIZE_ZIP="$DIST_OUT_BASE_DIR/notarize.zip"
+    rm -f "$NOTARIZE_ZIP"
+    ditto -c -k --keepParent "$APP_BUNDLE" "$NOTARIZE_ZIP"
+    xcrun notarytool submit "$NOTARIZE_ZIP" \
+        --keychain-profile "$AC_NOTARY_KEYCHAIN_PROFILE" \
+        --wait
+    xcrun stapler staple "$APP_BUNDLE"
+    rm -f "$NOTARIZE_ZIP"
+else
+    echo "Skipping notarization (needs a signed app + AC_NOTARY_KEYCHAIN_PROFILE)"
+fi
+
+echo "Copying install data"
+cp tools/packaging/common/README.html "$APP_DIR"
+
+echo "Creating zip"
+(
+    cd "$DIST_OUT_BASE_DIR"
+    rm -f "$DIST_NAME.zip"
+    # -y keeps the .app's internal symlinks (the bundled runtime uses them).
+    zip -qry "$DIST_NAME.zip" "$DIST_NAME"
+    rm -rf "$DIST_NAME"
+)
+
+echo -e "${C_BLUE_FG}Done: $DIST_OUT_BASE_DIR/$DIST_NAME.zip${C_RESET}"

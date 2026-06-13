@@ -24,6 +24,14 @@ endif
 GAME_CP=com.agateau.pixelwheels
 EXECUTABLE=pixelwheels
 
+# On macOS, LWJGL3/GLFW must run on the first thread or the game hangs at
+# startup and never processes input events. Add the required JVM flag only on
+# macOS; Linux and Windows must not receive it.
+DESKTOP_JVM_ARGS=
+ifeq ($(shell uname),Darwin)
+	DESKTOP_JVM_ARGS=-XstartOnFirstThread
+endif
+
 include ./version.properties
 
 DIST_OUT_BASE_DIR=dist-out
@@ -101,7 +109,7 @@ run: desktop-run
 
 .PHONY: desktop-run
 desktop-run: desktop-build
-	cd android/assets && java -jar $(DESKTOP_JAR)
+	cd android/assets && java $(DESKTOP_JVM_ARGS) -jar $(DESKTOP_JAR)
 
 .PHONY: desktop-run-blank-state
 desktop-run-blank-state: desktop-build
@@ -109,7 +117,7 @@ desktop-run-blank-state: desktop-build
 	rm -rf $$FAKE_HOME_DIR
 	export XDG_DATA_HOME=$$FAKE_HOME_DIR/data
 	export XDG_CONFIG_HOME=$$FAKE_HOME_DIR/config
-	cd android/assets && java -jar $(DESKTOP_JAR)
+	cd android/assets && java $(DESKTOP_JVM_ARGS) -jar $(DESKTOP_JAR)
 
 .PHONY: android-run
 android-run: android-build
@@ -127,7 +135,7 @@ install:
 	cp $(DESKTOP_JAR) $(INSTALL_JAR_PATH)
 	cp -a android/assets/* $(INSTALL_ASSETS_DIR)
 
-	echo -e "#!/bin/bash\ncd $(INSTALL_ASSETS_DIR)\nexec java -jar $(INSTALL_JAR_PATH)" > $(INSTALL_BIN_PATH)
+	echo -e "#!/bin/bash\ncd $(INSTALL_ASSETS_DIR)\nexec java $(DESKTOP_JVM_ARGS) -jar $(INSTALL_JAR_PATH)" > $(INSTALL_BIN_PATH)
 	chmod +x $(INSTALL_BIN_PATH)
 
 	cp -a tools/packaging/linux/share/* $(INSTALL_SHARE_DIR)
@@ -171,6 +179,29 @@ desktop-archives:
 	@echo Moving desktop archives
 	@mkdir -p $(ARCHIVE_DIR)
 	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
+
+# macOS is packaged separately from the Linux/Windows archives: jpackage builds
+# a native .app and must run on macOS (it cannot cross-build from Linux). In CI
+# this target consumes the desktop jar built by the Linux job, so it does not
+# depend on the asset pipeline; for a full local build use `macos-dist`.
+.PHONY: macos-archive
+macos-archive:
+	@rm -rf $(DIST_OUT_BASE_DIR)
+	@mkdir -p $(DIST_OUT_BASE_DIR)
+
+	@echo Creating macOS archive
+	@tools/packaging/create-macos-archive $(VERSION)
+
+	@echo Moving macOS archive
+	@mkdir -p $(ARCHIVE_DIR)
+	mv -v $(DIST_OUT_BASE_DIR)/*.zip $(ARCHIVE_DIR)
+
+.PHONY: macos-dist
+macos-dist: assets packer check desktop-build macos-archive
+
+.PHONY: smoke-tests-macos
+smoke-tests-macos:
+	tools/packaging/smoke-test-macos
 
 .PHONY: apk-archives
 apk-archives:

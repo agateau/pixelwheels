@@ -1,0 +1,3 @@
+kind: Fixed
+body: Pixel Wheels now runs natively on Apple Silicon (arm64) Macs instead of requiring Rosetta 2.
+time: 2026-06-13T00:00:00-07:00

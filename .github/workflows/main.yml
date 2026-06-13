@@ -54,6 +54,15 @@ jobs:
         with:
           run: make smoke-tests SNAPSHOT=1
 
+      # The macOS .app is packaged on a macOS runner (see the build-macos job),
+      # which reuses this jar instead of rebuilding the asset pipeline.
+      - name: Upload desktop jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-jar
+          path: desktop/build/libs/desktop-1.0.jar
+          if-no-files-found: error
+
       - name: Upload
         # Do not upload for pull requests: `make upload` does not work without the upload secrets
         if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
@@ -62,3 +71,46 @@ jobs:
           UPLOAD_USERNAME: ${{ secrets.UPLOAD_USERNAME }}
           UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
           UPLOAD_HOSTNAME: ${{ secrets.UPLOAD_HOSTNAME }}
+
+  # Native macOS build. packr (used for Linux/Windows) only emits Intel
+  # binaries, so the macOS app is built with jpackage, which must run on macOS.
+  # Runs on Apple Silicon (macos-14); reuses the desktop jar from the `build`
+  # job so the asset toolchain only has to run once, on Linux.
+  build-macos:
+    needs: build
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download desktop jar
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-jar
+          path: desktop/build/libs
+
+      - name: Build native macOS app
+        run: make macos-archive SNAPSHOT=1
+        env:
+          # Signing + notarization are optional. Leave these secrets unset to
+          # produce an unsigned .app; set them to ship a signed, notarized
+          # build. See tools/packaging/create-macos-archive.
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          AC_NOTARY_KEYCHAIN_PROFILE: ${{ secrets.AC_NOTARY_KEYCHAIN_PROFILE }}
+
+      - name: Smoke test
+        run: make smoke-tests-macos SNAPSHOT=1
+
+      - name: Upload macOS archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixelwheels-macos
+          path: archives/*-mac.zip
+          if-no-files-found: error

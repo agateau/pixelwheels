@@ -1,0 +1,48 @@
+#!/bin/bash
+# Smoke-test the packaged native macOS .app.
+#
+# Specifically validates the Apple Silicon fix: that the bundled native
+# libraries (LWJGL3/GLFW, libgdx, box2d, freetype) load on the host
+# architecture and the game reaches its startup path. It does NOT require the
+# generated texture atlases, so it passes whether or not the bundled jar was
+# built with assets -- a missing atlas is a game-data concern, not a
+# native-loading one.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+
+PROGNAME=$(basename "$0")
+ARCHIVE_DIR="${ARCHIVE_DIR:-$PWD/archives}"
+
+ZIP=$(ls "$ARCHIVE_DIR"/*-mac.zip 2>/dev/null | head -1 || true)
+[ -n "$ZIP" ] || { echo "$PROGNAME: no *-mac.zip found in $ARCHIVE_DIR" >&2; exit 1; }
+
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+unzip -q "$ZIP" -d "$WORK"
+
+APP=$(ls -d "$WORK"/*/*.app 2>/dev/null | head -1)
+[ -n "$APP" ] || { echo "$PROGNAME: no .app inside $ZIP" >&2; exit 1; }
+
+echo "Launcher architecture:"
+file "$APP/Contents/MacOS/"* || true
+
+LOG="$WORK/run.log"
+"$APP/Contents/MacOS/"* > "$LOG" 2>&1 &
+PID=$!
+sleep 8
+kill "$PID" 2>/dev/null || true
+wait "$PID" 2>/dev/null || true
+
+echo "--- app log ---"
+cat "$LOG" || true
+echo "---------------"
+
+grep -q "PwGame.logStartup" "$LOG" \
+    || { echo "$PROGNAME: FAIL -- app did not reach startup"; exit 1; }
+
+if grep -qiE "incompatible architecture|UnsatisfiedLinkError|no .* in java.library.path|Failed to load the .* native library" "$LOG" ; then
+    echo "$PROGNAME: FAIL -- a native library failed to load"
+    exit 1
+fi
+
+echo "$PROGNAME: PASS -- native macOS app started on $(uname -m)"
